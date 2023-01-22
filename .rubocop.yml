@@ -1,7 +1,12 @@
 # Relaxed.Ruby.Style
 
+inherit_from:
+  - node_modules/@prettier/plugin-ruby/rubocop.yml
+
 AllCops:
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 2.7
+  SuggestExtensions: false
+  NewCops: disable
   Exclude:
     - 'bin/rspec'
     - 'vendor/**/*'
@@ -10,6 +15,9 @@ AllCops:
     - 'alchemy_cms.gemspec'
     - 'Rakefile'
     - 'node_modules/**/*'
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
 
 # Really, rubocop?
 Bundler/OrderedGems:

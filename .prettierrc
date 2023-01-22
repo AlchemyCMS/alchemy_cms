@@ -1,6 +1,7 @@
 {
   "semi": false,
-  "trailingComma": "none",
+  "trailingComma": "es5",
   "vueIndentScriptAndStyle": true,
-  "arrowParens": "always"
+  "arrowParens": "always",
+  "rubyPlugins": "trailing_comma"
 }

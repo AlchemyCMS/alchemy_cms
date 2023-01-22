@@ -31,7 +31,6 @@ group :development, :test do
     gem "yard"
     gem "redcarpet"
     gem "pry-byebug"
-    gem "rubocop", "1.5.2", require: false
     gem "listen"
     gem "localeapp", "~> 3.0", require: false
     gem "dotenv", "~> 2.2"
@@ -53,4 +52,8 @@ if Gem.ruby_version >= Gem::Version.new("3.1.0")
     gem "net-imap", "~> 0.3.1", require: false
   end
   gem "net-smtp", "~> 0.3.0", require: false
+end
+
+group :tools do
+  gem "rubocop", "~> 1.43", require: false
 end
