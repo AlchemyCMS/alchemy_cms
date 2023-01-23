@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.1.1 (2023-01-23)
+
+- Re-introduce deleted methods [#2422](https://github.com/AlchemyCMS/alchemy_cms/pull/2422) ([tvdeyen](https://github.com/tvdeyen))
+- Add searchable field to page (Alchemy 6.1) [#2420](https://github.com/AlchemyCMS/alchemy_cms/pull/2420) ([kulturbande](https://github.com/kulturbande))
+
 ## 6.1.0 (2023-01-19)
 
 ### Features
