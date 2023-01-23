@@ -10,9 +10,7 @@ module Alchemy
 
       def index
         @clipboard_items = model_class.all_from_clipboard(@clipboard)
-        respond_to do |format|
-          format.html
-        end
+        respond_to(&:html)
       end
 
       def insert
@@ -23,17 +21,13 @@ module Alchemy
             "action" => params[:remove] ? "cut" : "copy",
           }
         end
-        respond_to do |format|
-          format.js
-        end
+        respond_to(&:js)
       end
 
       def remove
         @item = model_class.find(remarkable_params[:remarkable_id])
         @clipboard.delete_if { |item| item["id"] == remarkable_params[:remarkable_id] }
-        respond_to do |format|
-          format.js
-        end
+        respond_to(&:js)
       end
 
       def clear

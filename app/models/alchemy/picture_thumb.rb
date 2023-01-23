@@ -39,7 +39,7 @@ module Alchemy
       #
       # @see Picture::THUMBNAIL_SIZES
       def generate_thumbs!(picture)
-        Alchemy::Picture::THUMBNAIL_SIZES.values.each do |size|
+        Alchemy::Picture::THUMBNAIL_SIZES.each_value do |size|
           variant = Alchemy::PictureVariant.new(picture, {
             size: size,
             flatten: true,

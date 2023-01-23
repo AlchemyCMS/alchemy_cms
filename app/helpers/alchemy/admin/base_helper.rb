@@ -275,9 +275,10 @@ module Alchemy
       # (internal) Used by upload form
       def new_asset_path_with_session_information(asset_type)
         session_key = Rails.application.config.session_options[:key]
-        if asset_type == "picture"
+        case asset_type
+        when "picture"
           alchemy.admin_pictures_path(session_key => cookies[session_key], request_forgery_protection_token => form_authenticity_token, :format => :js)
-        elsif asset_type == "attachment"
+        when "attachment"
           alchemy.admin_attachments_path(session_key => cookies[session_key], request_forgery_protection_token => form_authenticity_token, :format => :js)
         end
       end
@@ -321,7 +322,7 @@ module Alchemy
         type = html_options.delete(:type) || "date"
         date = html_options.delete(:value) || object.send(method.to_sym).presence
         date = Time.zone.parse(date) if date.is_a?(String)
-        value = date ? date.iso8601 : nil
+        value = date&.iso8601
 
         text_field object.class.name.demodulize.underscore.to_sym,
           method.to_sym, {type: "text", class: type, "data-datepicker-type" => type, value: value}.merge(html_options)

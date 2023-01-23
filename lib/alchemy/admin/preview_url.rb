@@ -73,7 +73,7 @@ module Alchemy
       end
 
       def uri_class
-        if uri.class == URI::Generic
+        if uri.instance_of?(URI::Generic)
           raise MissingProtocolError, "Please provide the protocol with preview['host']"
         else
           uri.class

@@ -24,9 +24,10 @@ module Alchemy
       #
       def add(page_layout)
         all
-        if page_layout.is_a?(Array)
+        case page_layout
+        when Array
           @definitions += page_layout
-        elsif page_layout.is_a?(Hash)
+        when Hash
           @definitions << page_layout
         else
           raise TypeError

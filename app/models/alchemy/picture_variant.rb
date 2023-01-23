@@ -54,8 +54,7 @@ module Alchemy
       raise MissingImageFileError, "Missing image file for #{picture.inspect}" if image.nil?
 
       image = processed_image(image, @options)
-      image = encoded_image(image, @options)
-      image
+      encoded_image(image, @options)
     rescue MissingImageFileError, WrongImageFormatError => e
       log_warning(e.message)
       nil

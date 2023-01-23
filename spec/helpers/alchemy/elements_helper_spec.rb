@@ -93,11 +93,13 @@ module Alchemy
       end
 
       context "with a block" do
+        # rubocop:disable Style/SymbolProc
         subject do
           helper.render_elements(separator: ", ") do |element|
             element.name
           end
         end
+        # rubocop:enable Style/SymbolProc
 
         it "renders the block" do
           is_expected.to be_a(ActiveSupport::SafeBuffer)

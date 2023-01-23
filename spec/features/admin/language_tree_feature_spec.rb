@@ -56,8 +56,8 @@ RSpec.describe "Language tree feature", type: :system, js: true do
 
       within("form#create_language_tree") do
         expect(page).to \
-          have_selector('input[type="text"][value="' + klingon.frontpage_name + '"]')
-        expect(page).to have_selector('option[selected="selected"][value="' + klingon.page_layout + '"]')
+          have_selector("input[type=\"text\"][value=\"#{klingon.frontpage_name}\"]")
+        expect(page).to have_selector("option[selected=\"selected\"][value=\"#{klingon.page_layout}\"]")
       end
     end
   end

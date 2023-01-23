@@ -97,7 +97,7 @@ module Alchemy
     end
 
     def page_value
-      params[:page] ? params[:page].to_i : nil
+      params[:page]&.to_i
     end
 
     def page_includes

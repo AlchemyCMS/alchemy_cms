@@ -89,6 +89,7 @@ module Alchemy
     validates_format_of :name, on: :create, with: NAME_REGEXP
 
     attr_accessor :autogenerate_nested_elements
+
     after_create :generate_nested_elements, unless: -> { autogenerate_nested_elements == false }
 
     after_update :touch_touchable_pages

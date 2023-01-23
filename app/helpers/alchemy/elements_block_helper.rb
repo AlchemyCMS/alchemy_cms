@@ -8,8 +8,7 @@ module Alchemy
     # Base class for our block-level helpers.
     #
     class BlockHelper
-      attr_reader :helpers
-      attr_reader :opts
+      attr_reader :helpers, :opts
 
       def initialize(helpers, opts = {})
         @helpers = helpers

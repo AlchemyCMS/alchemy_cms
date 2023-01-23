@@ -216,7 +216,7 @@ module Alchemy
     # Joins all searchable attribute names into a Ransack compatible search query
     #
     def search_field_name
-      searchable_attribute_names.join("_or_") + "_cont"
+      "#{searchable_attribute_names.join("_or_")}_cont"
     end
 
     def in_engine?

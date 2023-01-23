@@ -79,13 +79,14 @@ module Alchemy
         record = resource.send(attribute[:relation][:name])
         value = record.present? ? record.send(attribute[:relation][:attr_method]) : Alchemy.t(:not_found)
       elsif attribute_value && attribute[:type].to_s =~ /(date|time)/
-        localization_format = if attribute[:type] == :datetime
-          options[:datetime_format] || :'alchemy.default'
-        elsif attribute[:type] == :date
-          options[:date_format] || :'alchemy.default'
-        else
-          options[:time_format] || :'alchemy.time'
-        end
+        localization_format = case attribute[:type]
+          when :datetime
+            options[:datetime_format] || :'alchemy.default'
+          when :date
+            options[:date_format] || :'alchemy.default'
+          else
+            options[:time_format] || :'alchemy.time'
+          end
         value = l(attribute_value, format: localization_format)
       else
         value = attribute_value
@@ -101,7 +102,7 @@ module Alchemy
 
     # Returns a options hash for simple_form input fields.
     def resource_attribute_field_options(attribute)
-      options = {hint: resource_handler.help_text_for(attribute)}
+      options = { hint: resource_handler.help_text_for(attribute) }
       input_type = attribute[:type].to_s
       case input_type
       when "boolean"
@@ -114,7 +115,7 @@ module Alchemy
           },
         )
       when "text"
-        options.merge(as: "text", input_html: {rows: 4})
+        options.merge(as: "text", input_html: { rows: 4 })
       else
         options.merge(as: "string")
       end

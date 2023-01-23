@@ -25,9 +25,10 @@ module Alchemy
       #
       def add(element)
         all
-        if element.is_a?(Array)
+        case element
+        when Array
           @definitions += element
-        elsif element.is_a?(Hash)
+        when Hash
           @definitions << element
         else
           raise TypeError

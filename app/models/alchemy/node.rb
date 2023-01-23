@@ -2,7 +2,7 @@
 
 module Alchemy
   class Node < BaseRecord
-    VALID_URL_REGEX = /\A(\/|\D[a-z\+\d\.\-]+:)/
+    VALID_URL_REGEX = /\A(\/|\D[a-z+\d.-]+:)/
 
     before_destroy :check_if_related_node_ingredients_present
 

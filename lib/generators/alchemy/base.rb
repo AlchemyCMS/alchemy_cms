@@ -11,7 +11,7 @@ module Alchemy
       def conditional_template(source, destination)
         files = Dir.glob(destination.gsub(/\.([a-z]+)$/, "*"))
         if files.any?
-          ext = File.extname(files.first)[1..-1]
+          ext = File.extname(files.first)[1..]
 
           # If view already exists using a different template engine, change
           # source and destination file names to use that engine.

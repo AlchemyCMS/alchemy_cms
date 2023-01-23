@@ -41,19 +41,19 @@ module Alchemy
 
     helper "alchemy/pages"
 
-    def index #:nodoc:
+    def index # :nodoc:
       redirect_to show_page_path(
         urlname: @page.urlname,
         locale: prefix_locale? ? @page.language_code : nil,
       )
     end
 
-    def new #:nodoc:
+    def new # :nodoc:
       @message = Message.new
       render template: "alchemy/pages/show"
     end
 
-    def create #:nodoc:
+    def create # :nodoc:
       @message = Message.new(message_params)
       @message.ip = request.remote_ip
       @element = Element.find_by(id: @message.contact_form_id)

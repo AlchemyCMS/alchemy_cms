@@ -20,7 +20,7 @@ module Alchemy
 
     # Returns a host string with the domain the app is running on.
     def current_server
-     "#{request.protocol}#{request.host_with_port}"
+      "#{request.protocol}#{request.host_with_port}"
     end
 
     # The current authorized user.
@@ -67,8 +67,8 @@ module Alchemy
       else
         # find the best language and remember it for later
         @language = load_alchemy_language_from_params ||
-          load_alchemy_language_from_session ||
-          Language.default
+                    load_alchemy_language_from_session ||
+                    Language.default
       end
       store_current_alchemy_language(@language)
     end

@@ -22,6 +22,7 @@ module Alchemy
   class ElementDefinitionError < StandardError
     # Raised if element definition can not be found.
     def initialize(attributes)
+      super
       @name = attributes[:name]
     end
 
@@ -36,6 +37,7 @@ module Alchemy
   # Raised if calling +image_file+ on a Picture object returns nil.
   class WrongImageFormatError < StandardError
     def initialize(image, requested_format)
+      super
       @image = image
       @requested_format = requested_format
     end
