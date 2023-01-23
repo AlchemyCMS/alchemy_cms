@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_22_210804) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_23_105660) do
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
     t.string "file_name"
@@ -172,6 +172,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_22_210804) do
     t.datetime "legacy_public_on", precision: nil
     t.datetime "legacy_public_until", precision: nil
     t.datetime "locked_at", precision: nil
+    t.boolean "searchable", default: true, null: false
     t.index ["creator_id"], name: "index_alchemy_pages_on_creator_id"
     t.index ["language_id"], name: "index_alchemy_pages_on_language_id"
     t.index ["locked_at", "locked_by"], name: "index_alchemy_pages_on_locked_at_and_locked_by"
