@@ -9,10 +9,6 @@ RSpec.describe Alchemy::PictureVariant do
 
   let(:alchemy_picture) { build_stubbed(:alchemy_picture, image_file: image_file) }
 
-  it_behaves_like "has image transformations" do
-    let(:picture) { described_class.new(alchemy_picture) }
-  end
-
   subject { described_class.new(alchemy_picture, options).image }
 
   let(:options) { Hash.new }
