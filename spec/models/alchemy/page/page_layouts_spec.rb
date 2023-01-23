@@ -3,24 +3,6 @@
 require "rails_helper"
 
 RSpec.describe Alchemy::Page::PageLayouts do
-  describe ".layouts_with_own_for_select" do
-    it "should not hold a layout twice" do
-      Alchemy::Deprecation.silence do
-        layouts = Alchemy::Page.layouts_with_own_for_select("standard", 1, layoutpages: false)
-        layouts = layouts.collect(&:last)
-        expect(layouts.count { |l| l == "standard" }).to eq(1)
-      end
-    end
-
-    it "should return layoutpages" do
-      Alchemy::Deprecation.silence do
-        layouts = Alchemy::Page.layouts_with_own_for_select("footer", 1, layoutpages: true)
-        layouts = layouts.collect(&:last)
-        expect(layouts.count { |l| l == "footer" }).to eq(1)
-      end
-    end
-  end
-
   describe ".selectable_layouts" do
     let(:site) { create(:alchemy_site) }
     let!(:language) { create(:alchemy_language, code: :de) }
