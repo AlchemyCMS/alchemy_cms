@@ -169,8 +169,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_23_105660) do
     t.integer "updater_id"
     t.integer "language_id", null: false
     t.datetime "published_at", precision: nil
-    t.datetime "legacy_public_on", precision: nil
-    t.datetime "legacy_public_until", precision: nil
     t.datetime "locked_at", precision: nil
     t.boolean "searchable", default: true, null: false
     t.index ["creator_id"], name: "index_alchemy_pages_on_creator_id"

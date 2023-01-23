@@ -1627,36 +1627,6 @@ module Alchemy
       end
     end
 
-    describe "#taggable?" do
-      around do |example|
-        Alchemy::Deprecation.silence { example.run }
-      end
-
-      context "definition has 'taggable' key with true value" do
-        it "should return true" do
-          page = build(:alchemy_page)
-          allow(page).to receive(:definition).and_return({ "name" => "standard", "taggable" => true })
-          expect(page.taggable?).to be_truthy
-        end
-      end
-
-      context "definition has 'taggable' key with foo value" do
-        it "should return false" do
-          page = build(:alchemy_page)
-          allow(page).to receive(:definition).and_return({ "name" => "standard", "taggable" => "foo" })
-          expect(page.taggable?).to be_falsey
-        end
-      end
-
-      context "definition has no 'taggable' key" do
-        it "should return false" do
-          page = build(:alchemy_page)
-          allow(page).to receive(:definition).and_return({ "name" => "standard" })
-          expect(page.taggable?).to be_falsey
-        end
-      end
-    end
-
     describe "#unlock!" do
       let(:page) { create(:alchemy_page, :locked) }
 

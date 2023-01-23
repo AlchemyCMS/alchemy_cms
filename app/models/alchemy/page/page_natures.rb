@@ -17,12 +17,6 @@ module Alchemy
         public_until ? public_until - Time.current : nil
       end
 
-      def taggable?
-        definition["taggable"] == true
-      end
-
-      deprecate :taggable?, deprecator: Alchemy::Deprecation
-
       def rootpage?
         !new_record? && parent_id.blank?
       end

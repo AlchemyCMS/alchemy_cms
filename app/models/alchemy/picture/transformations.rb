@@ -33,36 +33,6 @@ module Alchemy
       image_file.thumbnail(upsample ? size : "#{size}>")
     end
 
-    # Returns true if picture's width is greater than it's height
-    #
-    def landscape_format?
-      image_file.landscape?
-    end
-
-    alias_method :landscape?, :landscape_format?
-    deprecate landscape_format?: "Use image_file.landscape? instead", deprecator: Alchemy::Deprecation
-    deprecate landscape?: "Use image_file.landscape? instead", deprecator: Alchemy::Deprecation
-
-    # Returns true if picture's width is smaller than it's height
-    #
-    def portrait_format?
-      image_file.portrait?
-    end
-
-    alias_method :portrait?, :portrait_format?
-    deprecate portrait_format?: "Use image_file.portrait? instead", deprecator: Alchemy::Deprecation
-    deprecate portrait?: "Use image_file.portrait? instead", deprecator: Alchemy::Deprecation
-
-    # Returns true if picture's width and height is equal
-    #
-    def square_format?
-      image_file.aspect_ratio == 1.0
-    end
-
-    alias_method :square?, :square_format?
-    deprecate square_format?: "Use image_file.aspect_ratio instead", deprecator: Alchemy::Deprecation
-    deprecate square?: "Use image_file.aspect_ratio instead", deprecator: Alchemy::Deprecation
-
     # Returns true if the class we're included in has a meaningful render_size attribute
     #
     def render_size?

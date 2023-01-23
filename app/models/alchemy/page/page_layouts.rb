@@ -23,20 +23,6 @@ module Alchemy
           mapped_layouts_for_select(selectable_layouts(language_id, layoutpages: layoutpages))
         end
 
-        # Returns page layouts including given layout ready for Rails' select form helper.
-        #
-        def layouts_with_own_for_select(page_layout_name, language_id, layoutpages: false)
-          layouts = selectable_layouts(language_id, layoutpages: layoutpages)
-          if layouts.detect { |l| l["name"] == page_layout_name }.nil?
-            @map_array = [[human_layout_name(page_layout_name), page_layout_name]]
-          else
-            @map_array = []
-          end
-          mapped_layouts_for_select(layouts)
-        end
-
-        deprecate :layouts_with_own_for_select, deprecator: Alchemy::Deprecation
-
         # Returns all layouts that can be used for creating a new page.
         #
         # It removes all layouts from available layouts that are unique and already taken and that are marked as hide.

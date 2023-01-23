@@ -163,14 +163,6 @@ module Alchemy
     # site_name accessor
     delegate :name, to: :site, prefix: true, allow_nil: true
 
-    # Old public_on and public_until attributes for historical reasons
-    #
-    # These attributes now exist on the page versions
-    #
-    attr_readonly :legacy_public_on, :legacy_public_until
-    deprecate :legacy_public_on, deprecator: Alchemy::Deprecation
-    deprecate :legacy_public_until, deprecator: Alchemy::Deprecation
-
     # Class methods
     #
     class << self
