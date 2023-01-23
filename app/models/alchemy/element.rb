@@ -105,6 +105,7 @@ module Alchemy
     scope :published, -> { where(public: true) }
     scope :hidden, -> { where(public: false) }
     scope :not_restricted, -> { joins(:page).merge(Page.not_restricted) }
+    scope :available, -> { published }
     scope :named, ->(names) { where(name: names) }
     scope :excluded, ->(names) { where.not(name: names) }
     scope :fixed, -> { where(fixed: true) }
@@ -191,6 +192,8 @@ module Alchemy
 
         all_from_clipboard(clipboard).where(name: parent_element.definition["nestable_elements"])
       end
+
+      deprecate available: :published, deprecator: Alchemy::Deprecation
     end
 
     # Returns next public element from same page.
