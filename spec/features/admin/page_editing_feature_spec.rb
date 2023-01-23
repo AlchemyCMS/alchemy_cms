@@ -28,15 +28,16 @@ RSpec.describe "Page editing feature", type: :system do
     end
 
     describe "multiple preview sources", :js do
-      class FooPreviewSource < Alchemy::Admin::PreviewUrl; end
+      let(:foo_preview_source) { Class.new(Alchemy::Admin::PreviewUrl) }
 
       around do |example|
-        Alchemy.preview_sources << FooPreviewSource
+        Alchemy.preview_sources << foo_preview_source
         example.run
         Alchemy.instance_variable_set(:@_preview_sources, nil)
       end
 
       it "show as select" do
+        stub_const("FooPreviewSource", foo_preview_source)
         visit alchemy.edit_admin_page_path(a_page)
         expect(page).to have_select("preview_url", options: ["Internal", "Foo Preview"])
       end

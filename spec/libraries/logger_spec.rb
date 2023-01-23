@@ -19,14 +19,16 @@ RSpec.describe Alchemy::Logger do
   end
 
   describe "#log_warning" do
-    class Something
-      include Alchemy::Logger
+    let(:something) do
+      Class.new do
+        include Alchemy::Logger
+      end
     end
 
-    subject { Something.new.log_warning(message) }
+    subject { something.new.log_warning(message) }
 
     before do
-      expect_any_instance_of(Something).to receive(:caller).with(1..1) { ["second"] }
+      expect_any_instance_of(something).to receive(:caller).with(1..1) { ["second"] }
     end
 
     it "delegates to Alchemy::Logger.warn class method with second line of callstack" do

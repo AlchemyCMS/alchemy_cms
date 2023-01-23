@@ -74,7 +74,7 @@ module Alchemy
 
       context "when initialized with a custom model" do
         it "sets @model to custom model" do
-          CustomParty = Class.new
+          stub_const("CustomParty", Class.new)
           resource = Resource.new("admin/parties", nil, CustomParty)
           expect(resource.instance_variable_get(:@model)).to eq(CustomParty)
         end

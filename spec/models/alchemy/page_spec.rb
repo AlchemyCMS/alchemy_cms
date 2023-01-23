@@ -241,13 +241,11 @@ module Alchemy
       it { is_expected.to eq(Alchemy::Page::UrlPath) }
 
       context "if set to another url path class" do
-        class AnotherUrlPathClass; end
-
-        before do
+        it do
+          stub_const("AnotherUrlPathClass", Class.new)
           described_class.url_path_class = AnotherUrlPathClass
+          is_expected.to eq(AnotherUrlPathClass)
         end
-
-        it { is_expected.to eq(AnotherUrlPathClass) }
 
         after { described_class.instance_variable_set(:@_url_path_class, nil) }
       end

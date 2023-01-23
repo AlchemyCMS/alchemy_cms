@@ -4,11 +4,9 @@ require "rails_helper"
 
 describe Alchemy::ConfigurationMethods do
   let(:controller) do
-    class SomeController < ActionController::Base
+    Class.new(ActionController::Base) do
       include Alchemy::ConfigurationMethods
-    end
-
-    SomeController.new
+    end.new
   end
 
   describe "#prefix_locale?" do

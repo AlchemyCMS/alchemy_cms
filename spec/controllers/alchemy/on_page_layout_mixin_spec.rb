@@ -253,9 +253,7 @@ RSpec.describe Alchemy::PagesController, "OnPageLayout mixin", type: :controller
           get :show, params: {urlname: page.urlname}
           expect(assigns(:successful)).to eq(page_layout)
         end
-      end
 
-      %w(standard news).each do |page_layout|
         it "evaluates the given callback on both page_layouts for index action" do
           create(:alchemy_page, :language_root, page_layout: page_layout)
 

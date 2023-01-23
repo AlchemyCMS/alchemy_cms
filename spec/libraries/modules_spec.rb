@@ -152,11 +152,8 @@ module Alchemy
         }
       end
 
-      class ::RegisterModuleDummyController
-        ### mock the existence of the controller
-      end
-
       it "registers a module definition into global list of modules" do
+        stub_const("RegisterModuleDummyController", Class.new)
         Modules.register_module(alchemy_module)
         expect(Modules.alchemy_modules).to include(alchemy_module)
       end
@@ -170,6 +167,7 @@ module Alchemy
       end
 
       it "registers a module definition only once" do
+        stub_const("RegisterModuleDummyController", Class.new)
         2.times do
           Modules.register_module(alchemy_module)
         end

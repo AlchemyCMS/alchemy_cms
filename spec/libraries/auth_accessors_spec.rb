@@ -26,14 +26,16 @@ module Alchemy
 
     describe ".user_class" do
       context "with no custom user_class_name set" do
+        let(:user_class) { Class.new }
+
         before do
+          Alchemy.class_variable_set(:@@user_class, nil)
           Alchemy.user_class_name = "User"
         end
 
         context "and the default user class exists" do
-          class ::User; end
-
           it "returns the default user class" do
+            stub_const("User", user_class)
             expect(Alchemy.user_class).to be(::User)
           end
         end

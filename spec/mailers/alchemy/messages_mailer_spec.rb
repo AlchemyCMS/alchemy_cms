@@ -18,7 +18,7 @@ module Alchemy
 
     context "with ApplicationMailer defined" do
       before do
-        class ::ApplicationMailer; end
+        stub_const("ApplicationMailer", Class.new)
         reload_mailer_class("BaseMailer")
         reload_mailer_class("MessagesMailer")
       end
