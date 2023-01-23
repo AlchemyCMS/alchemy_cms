@@ -65,4 +65,17 @@ module Alchemy
   def self.publish_targets
     @_publish_targets ||= Set.new
   end
+
+  # Enable full text search configuration
+  #
+  # It enables a searchable checkbox in the page form to toggle
+  # the searchable field. These information can used in a search
+  # plugin (e.g. https://github.com/AlchemyCMS/alchemy-pg_search).
+  #
+  # == Example
+  #
+  #     # config/initializers/alchemy.rb
+  #     Alchemy.enable_searchable = true
+  #
+  mattr_accessor :enable_searchable, default: false
 end
