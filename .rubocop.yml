@@ -1,20 +1,21 @@
 # Relaxed.Ruby.Style
 
-inherit_from:
-  - node_modules/@prettier/plugin-ruby/rubocop.yml
-
 AllCops:
   TargetRubyVersion: 2.7
   SuggestExtensions: false
   NewCops: disable
   Exclude:
-    - 'bin/rspec'
-    - 'vendor/**/*'
-    - 'spec/dummy/db/**/*'
-    - 'spec/dummy/config/**/*'
-    - 'alchemy_cms.gemspec'
-    - 'Rakefile'
-    - 'node_modules/**/*'
+    - "bin/rspec"
+    - "vendor/**/*"
+    - "spec/dummy/db/**/*"
+    - "spec/dummy/config/**/*"
+    - "alchemy_cms.gemspec"
+    - "Rakefile"
+    - "node_modules/**/*"
+
+# Adopting to this style is breaking
+Style/OptionalBooleanParameter:
+  Enabled: false
 
 Style/FrozenStringLiteralComment:
   Enabled: false
@@ -49,7 +50,7 @@ Style/SymbolArray:
 
 Style/SymbolProc:
   Exclude:
-    - 'lib/alchemy/permissions.rb'
+    - "lib/alchemy/permissions.rb"
 
 Style/WordArray:
   Enabled: false
@@ -64,11 +65,17 @@ Style/MixinUsage:
 Layout/ArgumentAlignment:
   Enabled: false
 
+Layout/BeginEndAlignment:
+  Enabled: false
+
 Layout/HashAlignment:
   Enabled: false
 
 Layout/ParameterAlignment:
   Enabled: false
+
+Layout/CaseIndentation:
+  EnforcedStyle: end
 
 Layout/ClosingParenthesisIndentation:
   Enabled: false
@@ -127,7 +134,7 @@ Layout/RescueEnsureAlignment:
 
 Lint/SuppressedException:
   Exclude:
-    - 'config/initializers/mini_profiler.rb'
+    - "config/initializers/mini_profiler.rb"
 
 Style/CollectionMethods:
   Enabled: false
@@ -253,7 +260,7 @@ Style/WhileUntilModifier:
 # syntax in the specs files.
 Lint/AmbiguousBlockAssociation:
   Exclude:
-    - 'spec/**/*'
+    - "spec/**/*"
 
 Lint/AmbiguousRegexpLiteral:
   Enabled: false
@@ -302,7 +309,7 @@ Naming/AccessorMethodName:
   Enabled: false
 
 Naming/HeredocDelimiterNaming:
-    Enabled: false
+  Enabled: false
 
 # This cop is great but has no config option to support the style `@_method_name` we are using.
 Naming/MemoizedInstanceVariableName:
