@@ -111,8 +111,6 @@ class AlchemySixPointOne < ActiveRecord::Migration[ActiveRecord::Migration.curre
         t.integer "updater_id"
         t.references "language", null: false, foreign_key: { to_table: :alchemy_languages }
         t.datetime "published_at", precision: nil
-        t.datetime "legacy_public_on", precision: nil
-        t.datetime "legacy_public_until", precision: nil
         t.datetime "locked_at", precision: nil
         t.index ["creator_id"], name: "index_alchemy_pages_on_creator_id"
         t.index ["locked_at", "locked_by"], name: "index_alchemy_pages_on_locked_at_and_locked_by"
