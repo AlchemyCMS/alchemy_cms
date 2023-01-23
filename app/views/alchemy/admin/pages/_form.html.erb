@@ -19,6 +19,15 @@
   <%= f.input :title,
     input_html: {'data-alchemy-char-counter' => 60} %>
 
+  <% if Alchemy.enable_searchable %>
+    <div class="input check_boxes">
+      <label class="control-label"><%= Alchemy.t(:fulltext_search) %></label>
+      <div class="control_group">
+        <%= page_status_checkbox(@page, :searchable) %>
+      </div>
+    </div>
+  <% end %>
+
   <div class="input check_boxes">
     <label class="control-label"><%= Alchemy.t(:search_engines) %></label>
     <div class="control_group">
