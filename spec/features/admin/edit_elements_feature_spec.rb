@@ -122,7 +122,7 @@ RSpec.describe "The edit elements feature", type: :system do
   end
 
   describe "Copy element", :js do
-    let!(:element) { create(:alchemy_element, page: a_page) }
+    let!(:element) { create(:alchemy_element, page_version: a_page.draft_version) }
 
     scenario "is possible to copy element into clipboard" do
       visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
@@ -135,7 +135,13 @@ RSpec.describe "The edit elements feature", type: :system do
   end
 
   describe "With an element that has ingredient groups" do
-    let(:element) { create(:alchemy_element, page: a_page, name: "element_with_ingredient_groups") }
+    let(:element) do
+      create(
+        :alchemy_element,
+        :with_ingredients,
+        page_version: a_page.draft_version,
+        name: "element_with_ingredient_groups")
+    end
 
     # Need to be on page editor rather than just admin_elements in order to have JS interaction
     before { visit alchemy.edit_admin_page_path(element.page) }

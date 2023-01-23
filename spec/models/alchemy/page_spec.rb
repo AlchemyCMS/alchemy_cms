@@ -2099,8 +2099,8 @@ module Alchemy
 
     describe "#nodes" do
       let(:page) { create(:alchemy_page) }
-      let(:parent) { create(:alchemy_node, updated_at: 1.hour.ago) }
-      let(:node) { create(:alchemy_node, page: page, parent: parent, updated_at: 1.hour.ago) }
+      let(:parent) { create(:alchemy_node) }
+      let(:node) { create(:alchemy_node, page: page, parent: parent) }
 
       it "returns all nodes the page is attached to" do
         expect(page.nodes).to include(node)
@@ -2108,6 +2108,11 @@ module Alchemy
 
       describe "after page updates" do
         subject { page.update(name: "foo") }
+
+        before do
+          node.update_columns(updated_at: 1.hour.ago)
+          parent.update_columns(updated_at: 1.hour.ago)
+        end
 
         it "touches all nodes and all their ancestors" do
           expect { subject }.to change { node.reload.updated_at }.and change { parent.reload.updated_at }
