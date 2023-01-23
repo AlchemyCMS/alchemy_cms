@@ -79,6 +79,7 @@ module Alchemy
       :restricted,
       :robot_index,
       :robot_follow,
+      :searchable,
       :sitemap,
       :tag_list,
       :title,
