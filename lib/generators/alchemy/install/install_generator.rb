@@ -110,7 +110,13 @@ module Alchemy
 
       def copy_alchemy_entry_point
         if Dir.exist? app_root.join("app/javascript")
-          create_file app_root.join("app/javascript/alchemy_admin.js"), 'import "@alchemy_cms/admin"'
+          if File.exist? app_root.join("config/importmap.rb")
+            # We want the bundled package if using importmaps
+            create_file app_root.join("app/javascript/alchemy_admin.js"), 'import "@alchemy_cms/dist/admin"'
+          else
+            # We want the normal package if using a bundler locally
+            create_file app_root.join("app/javascript/alchemy_admin.js"), 'import "@alchemy_cms/admin"'
+          end
         else
           log("Could not add alchemy admin entry point! Make sure you have a JS bundler installed", :warning)
         end
