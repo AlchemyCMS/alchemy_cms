@@ -51,6 +51,7 @@ namespace :alchemy do
           bin/rake db:migrate:reset && \
           bin/rails javascript:install:esbuild && \
           bin/rails g alchemy:install --skip --skip-demo-files --auto-accept --skip-db-create && \
+          bin/rails javascript:build && \
           cd -
         BASH
       ) || fail
