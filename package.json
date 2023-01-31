@@ -2,7 +2,7 @@
   "name": "@alchemy_cms/admin",
   "version": "7.0.0-a",
   "description": "AlchemyCMS",
-  "browser": "package/admin.js",
+  "browser": "package/dist/admin.js",
   "files": [
     "package/**/*"
   ],
@@ -10,7 +10,8 @@
     "lib": "package"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "esbuild package/admin.js --bundle --sourcemap --minify --outdir=package/dist --public-path=assets"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
     "babel-jest": "^29.0.1",
+    "esbuild": "^0.17.5",
     "jest": "^25.2.7",
     "prettier": "^2.0.2",
     "xhr-mock": "^2.5.1"
