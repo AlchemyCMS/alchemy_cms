@@ -44,8 +44,14 @@ namespace :alchemy do
     end
 
     namespace "7.0" do
-      task "run" do
-        # no-op
+      task "run" => [
+        "alchemy:upgrade:7.0:update_admin_entrypoint",
+      ]
+
+      desc "Update alchemy admin entrypoint"
+      task update_admin_entrypoint: [:environment] do
+        puts "adding npm_package..."
+        Alchemy::Upgrader::SevenPointZero.update_admin_entrypoint
       end
     end
   end
