@@ -18,11 +18,6 @@ module Alchemy
         default: false,
         desc: "Skip creation of demo element, page and application layout."
 
-      class_option :skip_webpacker_installer,
-        type: :boolean,
-        default: false,
-        desc: "Skip running the webpacker installer."
-
       class_option :skip_db_create,
         type: :boolean,
         default: false,
@@ -103,27 +98,22 @@ module Alchemy
         rake "gutentag:install:migrations"
       end
 
-      def run_webpacker_installer
-        unless options[:skip_webpacker_installer]
-          # Webpacker does not create a package.json, but we need one
-          unless File.exist? app_root.join("package.json")
-            in_root { run "echo '{}' > package.json" }
-          end
-          rake("webpacker:install", abort_on_failure: true)
+      def add_npm_package
+        if File.exist? app_root.join("package.json")
+          run "yarn add @alchemy_cms/admin@~#{Alchemy.version}"
+        elsif File.exist? app_root.join("config/importmap.rb")
+          run "bin/importmap pin @alchemy_cms/admin@~#{Alchemy.version}"
+        else
+          log("Could not add alchemy admin package! Make sure you have a JS bundler installed", :warning)
         end
       end
 
-      def add_npm_package
-        run "yarn add @alchemy_cms/admin@~#{Alchemy.version}"
-      end
-
       def copy_alchemy_entry_point
-        webpack_config = YAML.safe_load(
-          File.read(app_root.join("config", "webpacker.yml")),
-          aliases: true
-        )[Rails.env]
-        copy_file "alchemy_admin.js",
-          app_root.join(webpack_config["source_path"], webpack_config["source_entry_path"], "alchemy/admin.js")
+        if Dir.exist? app_root.join("app/javascript")
+          create_file app_root.join("app/javascript/alchemy_admin.js"), 'import "@alchemy_cms/admin"'
+        else
+          log("Could not add alchemy admin entry point! Make sure you have a JS bundler installed", :warning)
+        end
       end
 
       def set_primary_language

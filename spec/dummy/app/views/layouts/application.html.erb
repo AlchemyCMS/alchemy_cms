@@ -5,6 +5,7 @@
   <%= stylesheet_link_tag 'application' %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
 </head>
 <body>
   <nav>

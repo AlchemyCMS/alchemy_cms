@@ -48,9 +48,9 @@ namespace :alchemy do
           bin/rake db:create && \
           bin/rake db:environment:set && \
           bin/rake db:migrate:reset && \
+          bin/rails javascript:install:esbuild && \
           bin/rails g alchemy:install --skip --skip-demo-files --auto-accept --skip-db-create && \
           yarn link @alchemy_cms/admin && \
-          RAILS_ENV=test bin/webpack && \
           cd -
         BASH
       ) || fail
