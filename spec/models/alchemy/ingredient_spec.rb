@@ -59,6 +59,15 @@ RSpec.describe Alchemy::Ingredient do
     end
   end
 
+  describe ".allow_settings" do
+    subject(:allow_settings) { described_class.allow_settings(:linkable) }
+
+    it "sets allowed_settings" do
+      allow_settings
+      expect(described_class.allowed_settings).to eq([:linkable])
+    end
+  end
+
   describe "#settings" do
     let(:ingredient) { Alchemy::Ingredients::Text.new(role: "headline", element: element) }
 

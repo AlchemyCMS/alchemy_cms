@@ -12,6 +12,13 @@ module Alchemy
         :link_text,
         :title
 
+      allow_settings %i[
+          css_classes
+          except
+          link_text
+          only
+        ]
+
       related_object_alias :attachment, class_name: "Alchemy::Attachment"
 
       delegate :name, to: :attachment, allow_nil: true

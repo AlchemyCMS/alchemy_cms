@@ -12,6 +12,12 @@ module Alchemy
         :level,
         :size
 
+      allow_settings %i[
+          anchor
+          levels
+          sizes
+        ]
+
       before_create :set_level_and_size
 
       def preview_text(maxlength = 30)

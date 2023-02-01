@@ -15,6 +15,14 @@ module Alchemy
         :link_target,
         :link_title,
         :link_class_name
+
+      allow_settings %i[
+          anchor
+          disable_link
+          display_inline
+          input_type
+          linkable
+        ]
     end
   end
 end

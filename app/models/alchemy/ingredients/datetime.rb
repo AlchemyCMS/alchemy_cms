@@ -5,6 +5,8 @@ module Alchemy
     # A datetime value
     #
     class Datetime < Alchemy::Ingredient
+      allow_settings %i[date_format]
+
       def value
         ActiveRecord::Type::DateTime.new.cast(self[:value])
       end

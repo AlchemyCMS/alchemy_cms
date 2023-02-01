@@ -34,7 +34,7 @@ RSpec.describe "alchemy/ingredients/_picture_editor" do
     rendered
   end
 
-  context "with settings[:deletable] being nil" do
+  context "with settings[:linkable] being nil" do
     it "should not render a button to link and unlink the picture" do
       is_expected.to have_selector("a .icon.fa-link")
       is_expected.to have_selector("a .icon.fa-unlink")

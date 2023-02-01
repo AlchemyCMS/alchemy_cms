@@ -16,6 +16,8 @@ module Alchemy
         :preload,
         :width
 
+      allow_settings %i[except only]
+
       related_object_alias :attachment, class_name: "Alchemy::Attachment"
 
       delegate :name, to: :attachment, allow_nil: true
