@@ -9,6 +9,8 @@ module Alchemy
     class Page < Alchemy::Ingredient
       related_object_alias :page, class_name: "Alchemy::Page"
 
+      allow_settings %i[query_params]
+
       # The first 30 characters of page name
       #
       # Used by the Element#preview_text method.

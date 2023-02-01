@@ -78,6 +78,16 @@ module Alchemy
           default: Alchemy.t("ingredient_roles.#{role}", default: role.humanize),
         )
       end
+
+      # Allow to define settings on the ingredient definition
+      def allow_settings(settings)
+        @allowed_settings = Array(settings)
+      end
+
+      # Allowed settings on the ingredient
+      def allowed_settings
+        @allowed_settings ||= []
+      end
     end
 
     # The value or the related object if present

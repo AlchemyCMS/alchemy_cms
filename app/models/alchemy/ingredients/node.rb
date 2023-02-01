@@ -9,6 +9,8 @@ module Alchemy
     class Node < Alchemy::Ingredient
       related_object_alias :node, class_name: "Alchemy::Node"
 
+      allow_settings %i[query_params]
+
       # The first 30 characters of node name
       #
       # Used by the Element#preview_text method.
