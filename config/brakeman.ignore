@@ -18,6 +18,9 @@
       },
       "user_input": "params[:id]",
       "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
       "note": ""
     },
     {
@@ -38,6 +41,9 @@
       },
       "user_input": null,
       "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
       "note": "Because we actually can't know all attributes each inheriting controller supports, we permit all resource model params. It is adviced that all inheriting controllers implement this method and provide its own set of permitted attributes. As this all happens inside the password protected /admin namespace this can be considered a false positive."
     },
     {
@@ -55,7 +61,7 @@
           "type": "controller",
           "class": "Alchemy::Admin::ElementsController",
           "method": "fold",
-          "line": 102,
+          "line": 98,
           "file": "app/controllers/alchemy/admin/elements_controller.rb",
           "rendered": {
             "name": "alchemy/admin/elements/fold",
@@ -69,6 +75,9 @@
       },
       "user_input": "params[:id]",
       "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
       "note": ""
     },
     {
@@ -78,7 +87,7 @@
       "check_name": "Execute",
       "message": "Possible command injection",
       "file": "lib/alchemy/upgrader.rb",
-      "line": 30,
+      "line": 33,
       "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
       "code": "`yarn add @alchemy_cms/admin@~#{Alchemy.version}`",
       "render_path": null,
@@ -89,6 +98,9 @@
       },
       "user_input": "Alchemy.version",
       "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
       "note": "The alchemy version is safe"
     },
     {
@@ -119,6 +131,9 @@
       },
       "user_input": "(Unresolved Model).new.url",
       "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
       "note": ""
     },
     {
@@ -139,6 +154,9 @@
       },
       "user_input": "params[:id]",
       "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
       "note": ""
     },
     {
@@ -156,7 +174,7 @@
           "type": "controller",
           "class": "Alchemy::Admin::ElementsController",
           "method": "index",
-          "line": 15,
+          "line": 16,
           "file": "app/controllers/alchemy/admin/elements_controller.rb",
           "rendered": {
             "name": "alchemy/admin/elements/index",
@@ -170,6 +188,9 @@
       },
       "user_input": "params[:page_version_id]",
       "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
       "note": ""
     },
     {
@@ -187,7 +208,7 @@
           "type": "controller",
           "class": "Alchemy::Admin::ElementsController",
           "method": "index",
-          "line": 15,
+          "line": 16,
           "file": "app/controllers/alchemy/admin/elements_controller.rb",
           "rendered": {
             "name": "alchemy/admin/elements/index",
@@ -201,6 +222,32 @@
       },
       "user_input": "params[:page_version_id]",
       "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "98ca8e77026312eaa7eec15ce26bfe45aa8dd0fcd38e4cff104cb9dffbde1733",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "lib/alchemy/upgrader.rb",
+      "line": 31,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "`bin/importmap pin @alchemy_cms/admin@~#{Alchemy.version}`",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Alchemy::Upgrader",
+        "method": "update_npm_package"
+      },
+      "user_input": "Alchemy.version",
+      "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
       "note": ""
     },
     {
@@ -221,9 +268,12 @@
       },
       "user_input": "params[:id]",
       "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
       "note": ""
     }
   ],
-  "updated": "2021-10-26 21:44:59 +0200",
-  "brakeman_version": "5.1.1"
+  "updated": "2023-01-31 19:16:48 +0100",
+  "brakeman_version": "5.4.0"
 }

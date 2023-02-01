@@ -23,7 +23,6 @@ require "sassc-rails"
 require "simple_form"
 require "turbolinks"
 require "userstamp"
-require "webpacker"
 
 # Require globally used Alchemy mixins
 require_relative "alchemy/ability_helper"

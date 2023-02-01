@@ -19,6 +19,7 @@ group :development, :test do
   # in our case the culprit is `handlebars-assets`. The changes between 2.7.0 and 2.8.0 are
   # minimal, but breaking.
   gem "execjs", "= 2.8.1"
+  gem "jsbundling-rails", "~> 1.1"
 
   if ENV["GITHUB_ACTIONS"]
     # Necessary because GH Actions gem cache does not have this "Bundled with Ruby" gem installed
