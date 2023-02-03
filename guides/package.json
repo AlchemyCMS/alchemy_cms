@@ -10,7 +10,7 @@
     "@vuepress/client": "2.0.0-beta.59",
     "@vuepress/plugin-docsearch": "^2.0.0-beta.59",
     "@vuepress/plugin-shiki": "^2.0.0-beta.59",
-    "vue": "^3.2.45",
+    "vue": "^3.2.47",
     "vuepress": "^2.0.0-beta.59"
   },
   "dependencies": {
