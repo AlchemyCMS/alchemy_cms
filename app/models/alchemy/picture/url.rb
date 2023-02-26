@@ -3,7 +3,7 @@
 module Alchemy
   class Picture < BaseRecord
     class Url
-      attr_reader :variant
+      attr_reader :variant, :thumb
 
       # @param [Alchemy::PictureVariant]
       #
@@ -31,14 +31,21 @@ module Alchemy
 
       def uid
         signature = PictureThumb::Signature.call(variant)
-        thumb = variant.picture.thumbs.detect { |t| t.signature == signature }
-        if thumb
-          uid = thumb.uid
+        if find_thumb_by(signature)
+          thumb.uid
         else
           uid = PictureThumb::Uid.call(signature, variant)
           PictureThumb.generator_class.call(variant, signature, uid)
+          uid
         end
-        uid
+      end
+
+      def find_thumb_by(signature)
+        @thumb = if variant.picture.thumbs.loaded?
+            variant.picture.thumbs.find { |t| t.signature == signature }
+          else
+            variant.picture.thumbs.find_by(signature: signature)
+          end
       end
     end
   end
