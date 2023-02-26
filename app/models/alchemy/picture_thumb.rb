@@ -7,7 +7,7 @@ module Alchemy
   # different thumbnail store (ie. a remote file storage).
   #
   #     config/initializers/alchemy.rb
-  #     Alchemy::PictureThumb.generator_class = My::ThumbnailGenerator
+  #     Alchemy::PictureThumb.storage_class = My::ThumbnailStore
   #
   class PictureThumb < BaseRecord
     belongs_to :picture, class_name: "Alchemy::Picture"
@@ -16,18 +16,18 @@ module Alchemy
     validates :uid, presence: true
 
     class << self
-      # Thumbnail generator class
+      # Thumbnail storage class
       #
-      # @see Alchemy::PictureThumb::Create
-      def generator_class
-        @_generator_class ||= Alchemy::PictureThumb::Create
+      # @see Alchemy::PictureThumb::FileStore
+      def storage_class
+        @_storage_class ||= Alchemy::PictureThumb::FileStore
       end
 
-      # Set a thumbnail generator class
+      # Set a thumbnail storage class
       #
-      # @see Alchemy::PictureThumb::Create
-      def generator_class=(klass)
-        @_generator_class = klass
+      # @see Alchemy::PictureThumb::FileStore
+      def storage_class=(klass)
+        @_storage_class = klass
       end
 
       # Upfront generation of picture thumbnails
@@ -49,7 +49,7 @@ module Alchemy
           next if thumb
 
           uid = Alchemy::PictureThumb::Uid.call(signature, variant)
-          generator_class.call(variant, signature, uid)
+          Alchemy::PictureThumb::Create.call(variant, signature, uid)
         end
       end
     end
