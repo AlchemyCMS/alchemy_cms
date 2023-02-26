@@ -15,6 +15,20 @@ RSpec.describe Alchemy::PictureThumb::Create do
     expect { create }.to change { variant.picture.thumbs.reload.length }.by(1)
   end
 
+  context "with a thumb already existing" do
+    let!(:thumb) do
+      Alchemy::PictureThumb.create!(
+        picture: picture,
+        signature: "1234",
+        uid: "/pictures/#{picture.id}/1234/image.png",
+      )
+    end
+
+    it "does not create a new thumb" do
+      expect { create }.to_not change { picture.thumbs.reload.length }
+    end
+  end
+
   context "with an invalid picture" do
     let(:picture) { FactoryBot.build(:alchemy_picture) }
 
