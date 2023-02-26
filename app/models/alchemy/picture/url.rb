@@ -35,7 +35,9 @@ module Alchemy
           thumb.uid
         else
           uid = PictureThumb::Uid.call(signature, variant)
-          PictureThumb.generator_class.call(variant, signature, uid)
+          ActiveRecord::Base.connected_to(role: ActiveRecord::Base.writing_role) do
+            PictureThumb.generator_class.call(variant, signature, uid)
+          end
           uid
         end
       end

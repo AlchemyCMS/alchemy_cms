@@ -34,5 +34,11 @@ RSpec.describe Alchemy::Picture::Url do
     it "returns the url to the thumbnail" do
       is_expected.to match(/\/pictures\/\d+\/.+\/image\.png/)
     end
+
+    it "connects to writing database" do
+      writing_role = ActiveRecord::Base.writing_role
+      expect(ActiveRecord::Base).to receive(:connected_to).with(role: writing_role)
+      subject
+    end
   end
 end
