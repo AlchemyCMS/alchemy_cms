@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.1.2 (2023-02-27)
+
+- [6.1] Fix thumbnail writing for multi-concurrent and multi-db setups [#2434](https://github.com/AlchemyCMS/alchemy_cms/pull/2434) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 6.1.1 (2023-01-23)
 
 - Re-introduce deleted methods [#2422](https://github.com/AlchemyCMS/alchemy_cms/pull/2422) ([tvdeyen](https://github.com/tvdeyen))
