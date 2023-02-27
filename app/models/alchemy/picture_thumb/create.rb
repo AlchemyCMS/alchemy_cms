@@ -19,11 +19,10 @@ module Alchemy
 
           # create the thumb before storing
           # to prevent db race conditions
-          thumb = Alchemy::PictureThumb.create!(
-            picture: variant.picture,
-            signature: signature,
-            uid: uid,
-          )
+          @thumb = Alchemy::PictureThumb.create_or_find_by!(signature: signature) do |thumb|
+            thumb.picture = variant.picture
+            thumb.uid = uid
+          end
           begin
             # process the image
             image = variant.image
@@ -32,7 +31,7 @@ module Alchemy
           rescue RuntimeError => e
             ErrorTracking.notification_handler.call(e)
             # destroy the thumb if processing or storing fails
-            thumb&.destroy
+            @thumb&.destroy
           end
         end
 
