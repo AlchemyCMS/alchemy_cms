@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "sprockets/manifest"
+require "active_support/core_ext/module/attribute_accessors"
 
 module NonStupidDigestAssets
   mattr_accessor :whitelist
@@ -18,7 +19,7 @@ module NonStupidDigestAssets
     def whitelisted_assets(assets)
       assets.select do |logical_path, _digest_path|
         whitelist.any? do |item|
-          item == logical_path
+          item =~ logical_path
         end
       end
     end
