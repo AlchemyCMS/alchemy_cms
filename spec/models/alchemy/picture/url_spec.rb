@@ -36,7 +36,7 @@ RSpec.describe Alchemy::Picture::Url do
     end
 
     it "connects to writing database" do
-      writing_role = ActiveRecord::Base.writing_role
+      writing_role = ActiveRecord.writing_role
       expect(ActiveRecord::Base).to receive(:connected_to).with(role: writing_role)
       subject
     end
