@@ -29,7 +29,7 @@ Gem::Specification.new do |gem|
     activesupport
     railties
   ].each do |rails_gem|
-    gem.add_runtime_dependency rails_gem, [">= 6.0", "< 7.1"]
+    gem.add_runtime_dependency rails_gem, [">= 7.0", "< 8"]
   end
 
   gem.add_runtime_dependency "active_model_serializers", ["~> 0.10.0"]
@@ -59,7 +59,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "puma", ["~> 6.0"]
   gem.add_development_dependency "rails-controller-testing", ["~> 1.0"]
   gem.add_development_dependency "rspec-activemodel-mocks", ["~> 1.0"]
-  gem.add_development_dependency "rspec-rails", [">= 4.0.0.beta2"]
+  gem.add_development_dependency "rspec-rails", [">= 6.0"]
   gem.add_development_dependency "simplecov", ["~> 0.20"]
   gem.add_development_dependency "webdrivers", ["~> 5.0"]
   gem.add_development_dependency "webmock", ["~> 3.3"]
