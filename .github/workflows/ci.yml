@@ -83,7 +83,7 @@ jobs:
           sudo chown -R runner /home/runner/apt/cache
       - name: Restore node modules cache
         id: yarn-cache
-        uses: actions/cache@v2.1.3
+        uses: actions/cache@v3
         with:
           path: spec/dummy/node_modules
           key: ${{ runner.os }}-yarn-dummy-${{ hashFiles('./package.json') }}
