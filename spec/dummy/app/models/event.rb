@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Event < ActiveRecord::Base
+  extend Alchemy::SearchableResource
   include Alchemy::Taggable
 
   validates_presence_of :name
