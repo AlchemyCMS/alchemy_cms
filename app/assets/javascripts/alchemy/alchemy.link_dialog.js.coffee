@@ -32,12 +32,13 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     @$file_link = $('#file_link', @dialog_body)
     @$overlay_tabs = $('#overlay_tabs', @dialog_body)
     @$page_container = $('#page_selector_container')
+    @initAnchorLinks()
     # if we edit an existing link
     if @link_object
       # we select the correct tab
       @selectTab()
     @initPageSelect()
-    @initAnchorLinks()
+    return
 
   # Attaches click events to several buttons in the link dialog.
   attachEvents: ->
