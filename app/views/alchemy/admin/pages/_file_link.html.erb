@@ -3,10 +3,10 @@
     <h3><%= Alchemy.t(:choose_file_to_link) %></h3>
   <% end %>
   <div class="input select">
-    <label for="public_filename" class="control-label">
+    <label for="file_link" class="control-label">
       <%= Alchemy.t(:file) %>
     </label>
-    <%= select_tag "public_filename",
+    <%= select_tag "file_link",
       options_for_select(@attachments),
       prompt: Alchemy.t('Please choose'),
       class: "alchemy_selectbox" %>

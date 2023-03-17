@@ -62,7 +62,7 @@ RSpec.describe "Link overlay", type: :system do
       end
 
       within "#overlay_tab_internal_link" do
-        expect(page).to have_selector("#s2id_page_urlname")
+        expect(page).to have_selector("#s2id_internal_link")
         select2_search(page2.name, from: "Page")
         click_button "apply"
       end
@@ -78,6 +78,71 @@ RSpec.describe "Link overlay", type: :system do
       expect(page).to have_css("iframe#alchemy_preview_window", wait: 5)
       within_frame "alchemy_preview_window" do
         expect(page).to have_link("Link me", href: "/#{page2.urlname}")
+      end
+    end
+
+    it "should be possible to link an external url" do
+      visit edit_admin_page_path(page1)
+
+      within "#element_#{article.id}" do
+        fill_in "Intro", with: "Link me"
+        click_link "Link text"
+      end
+
+      within "#overlay_tabs" do
+        click_link "External"
+      end
+
+      within "#overlay_tab_external_link" do
+        expect(page).to have_selector("#external_link")
+        fill_in("URL", with: "https://example.com")
+        click_button "apply"
+      end
+
+      within "#element_#{article.id}" do
+        click_button "Save"
+      end
+
+      within "#flash_notices" do
+        expect(page).to have_content "Saved element."
+      end
+
+      expect(page).to have_css("iframe#alchemy_preview_window", wait: 5)
+      within_frame "alchemy_preview_window" do
+        expect(page).to have_link("Link me", href: "https://example.com")
+      end
+    end
+
+    it "should be possible to link a file" do
+      file = create(:alchemy_attachment)
+      visit edit_admin_page_path(page1)
+
+      within "#element_#{article.id}" do
+        fill_in "Intro", with: "Link me"
+        click_link "Link text"
+      end
+
+      within "#overlay_tabs" do
+        click_link "File"
+      end
+
+      within "#overlay_tab_file_link" do
+        expect(page).to have_selector("#file_link")
+        select2(file.name, from: "File")
+        click_button "apply"
+      end
+
+      within "#element_#{article.id}" do
+        click_button "Save"
+      end
+
+      within "#flash_notices" do
+        expect(page).to have_content "Saved element."
+      end
+
+      expect(page).to have_css("iframe#alchemy_preview_window", wait: 5)
+      within_frame "alchemy_preview_window" do
+        expect(page).to have_link("Link me", href: "/attachment/#{file.id}/download/#{file.name}")
       end
     end
   end
