@@ -5,6 +5,7 @@
     onclick: 'new Alchemy.LinkDialog(this).open(); return false;',
     class: "icon_button#{ingredient_editor.linked? ? ' linked' : ''} link-ingredient",
     "data-parent-selector": "[data-ingredient-id='#{ingredient_editor.id}']",
+    "data-language-id": ingredient_editor.page&.language_id,
     title: Alchemy.t(:place_link),
     id: "edit_link_#{ingredient_editor.id}"
   ) %>

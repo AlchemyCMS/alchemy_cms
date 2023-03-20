@@ -59,12 +59,17 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
   initPageSelect: ->
     pageTemplate = HandlebarsTemplates.page
     element_anchor_placeholder = @$element_anchor.attr('placeholder')
+    if @link_object.dataset.languageId
+      api_url = "#{Alchemy.routes.api_pages_path}?language_id=#{@link_object.dataset.languageId}"
+    else
+      api_url = Alchemy.routes.api_pages_path
+
     @$internal_link.select2
       placeholder: Alchemy.t('Search page')
       allowClear: true
       minimumInputLength: 3
       ajax:
-        url: Alchemy.routes.api_pages_path
+        url: api_url
         datatype: 'json'
         quietMillis: 300
         data: (term, page) ->
