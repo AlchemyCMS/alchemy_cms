@@ -18,6 +18,7 @@ require "factory_bot"
 
 require "alchemy/seeder"
 require "alchemy/test_support"
+require "alchemy/test_support/capybara_helpers"
 require "alchemy/test_support/config_stubbing"
 require "alchemy/test_support/having_crop_action_examples"
 require "alchemy/test_support/having_picture_thumbnails_examples"
@@ -30,7 +31,6 @@ require "alchemy/test_support/shared_uploader_examples"
 
 require_relative "support/calculation_examples"
 require_relative "support/hint_examples"
-require_relative "support/capybara_helpers"
 require_relative "support/custom_news_elements_finder"
 
 ActionMailer::Base.delivery_method = :test
@@ -78,7 +78,7 @@ RSpec.configure do |config|
     config.include Alchemy::TestSupport::IntegrationHelpers, type: type
   end
   config.include FactoryBot::Syntax::Methods
-  config.include CapybaraSelect2, type: :system
+  config.include Alchemy::TestSupport::CapybaraHelpers, type: :system
 
   config.use_transactional_fixtures = true
 
