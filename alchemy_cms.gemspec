@@ -23,7 +23,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'awesome_nested_set',               ['~> 3.1']
   gem.add_runtime_dependency 'cancancan',                        ['>= 2.1', '< 4.0']
   gem.add_runtime_dependency 'coffee-rails',                     ['>= 4.0', '< 6.0']
-  gem.add_runtime_dependency 'dragonfly',                        ['~> 1.0', '>= 1.0.7', '< 1.4']
+  gem.add_runtime_dependency 'dragonfly',                        ['~> 1.4']
   gem.add_runtime_dependency 'dragonfly_svg',                    ['~> 0.0.4']
   gem.add_runtime_dependency 'gutentag',                         ['~> 2.2', '>= 2.2.1']
   gem.add_runtime_dependency 'handlebars_assets',                ['~> 0.23']
@@ -33,7 +33,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'originator',                       ['~> 3.1']
   gem.add_runtime_dependency 'non-stupid-digest-assets',         ['~> 1.0.8']
   gem.add_runtime_dependency 'rails',                            ['>= 5.2.0', '< 6.1']
-  gem.add_runtime_dependency 'ransack',                          ['>= 1.8', '< 2.4.2'] # 2.4.2 dropped Ruby 2.5 support in a patch level release
+  gem.add_runtime_dependency 'ransack',                          ['>= 1.8', '< 3.0']
   gem.add_runtime_dependency 'request_store',                    ['~> 1.2']
   gem.add_runtime_dependency 'responders',                       ['>= 2.0', '< 4.0']
   gem.add_runtime_dependency 'sassc-rails',                      ['~> 2.1']

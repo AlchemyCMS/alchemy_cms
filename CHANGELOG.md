@@ -1,3 +1,25 @@
+## 5.2.7 (2022-03-01)
+
+- Fix copying page with descendants to a different language ([dbwinger](https://github.com/dbwinger))
+- Handle copying/pasting global pages ([dbwinger](https://github.com/dbwinger))
+
+## 5.2.6 (2022-02-28)
+
+- Add crop_resize Dragonfly processor ([tvdeyen](https://github.com/tvdeyen))
+
+## 5.2.5 (2021-11-24)
+
+- Adjust tinymce skin assets urls again ([tvdeyen](https://github.com/tvdeyen))
+
+## 5.2.4 (2021-11-17)
+
+- Set stampable user_class_name without root identifier ([tvdeyen](https://github.com/tvdeyen))
+- Use relative path for tinymce font-face ([tvdeyen](https://github.com/tvdeyen))
+
+## 5.2.3 (2021-10-26)
+
+- Make sure to install correct npm package ([tvdeyen](https://github.com/tvdeyen))
+
 ## 5.2.2 (2021-09-15)
 
 - Return only pages from current site in api [#2169](https://github.com/AlchemyCMS/alchemy_cms/pull/2169) ([afdev82](https://github.com/afdev82))

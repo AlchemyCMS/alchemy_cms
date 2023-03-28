@@ -197,12 +197,12 @@ module Alchemy
     # Use imagemagick to custom crop an image. Uses -thumbnail for better performance when resizing.
     #
     def xy_crop_resize(dimensions, top_left, crop_dimensions, upsample)
-      crop_argument = "-crop #{dimensions_to_string(crop_dimensions)}"
+      crop_argument = dimensions_to_string(crop_dimensions)
       crop_argument += "+#{top_left[:x]}+#{top_left[:y]}"
 
-      resize_argument = "-resize #{dimensions_to_string(dimensions)}"
+      resize_argument = dimensions_to_string(dimensions)
       resize_argument += ">" unless upsample
-      image_file.convert "#{crop_argument} #{resize_argument}"
+      image_file.crop_resize(crop_argument, resize_argument)
     end
 
     # Used when centercropping.

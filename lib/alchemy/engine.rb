@@ -40,8 +40,15 @@ module Alchemy
       if Alchemy.user_class
         ActiveSupport.on_load(:active_record) do
           Alchemy.user_class.model_stamper
-          Alchemy.user_class.stampable(stamper_class_name: Alchemy.user_class_name)
+          Alchemy.user_class.stampable(stamper_class_name: Alchemy.user_class.name)
         end
+      end
+    end
+
+    initializer "alchemy.error_tracking" do
+      if defined?(Airbrake)
+        require_relative "error_tracking/airbrake_handler"
+        Alchemy::ErrorTracking.notification_handler = Alchemy::ErrorTracking::AirbrakeHandler
       end
     end
   end

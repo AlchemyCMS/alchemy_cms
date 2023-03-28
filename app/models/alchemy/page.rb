@@ -82,7 +82,7 @@ module Alchemy
 
     acts_as_nested_set(dependent: :destroy, scope: [:layoutpage, :language_id])
 
-    stampable stamper_class_name: Alchemy.user_class_name
+    stampable stamper_class_name: Alchemy.user_class.name
 
     belongs_to :language
 
@@ -217,8 +217,8 @@ module Alchemy
 
       def copy_and_paste(source, new_parent, new_name)
         page = copy(source, {
-          parent_id: new_parent.id,
-          language: new_parent.language,
+          parent: new_parent,
+          language: new_parent&.language,
           name: new_name,
           title: new_name,
         })
@@ -415,6 +415,7 @@ module Alchemy
         next if child == new_parent
 
         new_child = Page.copy(child, {
+          parent_id: new_parent.id,
           language_id: new_parent.language_id,
           language_code: new_parent.language_code,
         })

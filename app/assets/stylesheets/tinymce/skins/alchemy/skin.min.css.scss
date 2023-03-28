@@ -1561,23 +1561,23 @@ i.mce-i-resize {
   opacity: 0.6;
   filter: alpha(opacity=60);
   zoom: 1;
-  background: #fff url('img/loader.gif') no-repeat center center;
+  background: #fff url('tinymce/skins/alchemy/fonts/img/loader.gif') no-repeat center center;
 }
 
 @font-face {
   font-family: 'tinymce';
-  src: url('fonts/tinymce.woff') format('woff'),
-       url('fonts/tinymce.ttf') format('truetype'),
-       url('fonts/tinymce.svg#tinymce') format('svg');
+  src: url('tinymce/skins/alchemy/fonts/tinymce.woff') format('woff'),
+       url('tinymce/skins/alchemy/fonts/tinymce.ttf') format('truetype'),
+       url('tinymce/skins/alchemy/fonts/tinymce.svg#tinymce') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'tinymce-small';
-  src: url('fonts/tinymce-small.woff') format('woff'),
-       url('fonts/tinymce-small.ttf') format('truetype'),
-       url('fonts/tinymce-small.svg#tinymce') format('svg');
+  src: url('tinymce/skins/alchemy/fonts/tinymce-small.woff') format('woff'),
+       url('tinymce/skins/alchemy/fonts/tinymce-small.ttf') format('truetype'),
+       url('tinymce/skins/alchemy/fonts/tinymce-small.svg#tinymce') format('svg');
   font-weight: normal;
   font-style: normal;
 }
