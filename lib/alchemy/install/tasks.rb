@@ -31,7 +31,13 @@ module Alchemy
         end
 
         def inject_seeder
-          append_file "./db/seeds.rb", "Alchemy::Seeder.seed!\n"
+          seed_file = Rails.root.join("db", "seeds.rb")
+          args = [seed_file, "Alchemy::Seeder.seed!\n"]
+          if File.exist?(seed_file)
+            append_file(*args)
+          else
+            add_file(*args)
+          end
         end
       end
     end
