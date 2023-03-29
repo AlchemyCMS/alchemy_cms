@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.1.3 (2023-03-29)
+
+- Fix installer: Add seeds file if not exists [#2446](https://github.com/AlchemyCMS/alchemy_cms/pull/2446) ([tvdeyen](https://github.com/tvdeyen))
+- Integrate non_stupid_digest_assets gem [#2430](https://github.com/AlchemyCMS/alchemy_cms/pull/2430) ([afdev82](https://github.com/afdev82))
+
 ## 6.1.2 (2023-02-27)
 
 - [6.1] Fix thumbnail writing for multi-concurrent and multi-db setups [#2434](https://github.com/AlchemyCMS/alchemy_cms/pull/2434) ([tvdeyen](https://github.com/tvdeyen))
