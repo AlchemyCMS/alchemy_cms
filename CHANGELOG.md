@@ -1,3 +1,10 @@
+# Changelog
+
+## 6.0.13 (2023-03-29)
+
+- Fix installer: Add seeds file if not exists [#2446](https://github.com/AlchemyCMS/alchemy_cms/pull/2446) ([tvdeyen](https://github.com/tvdeyen))
+- Integrate non_stupid_digest_assets gem [#2430](https://github.com/AlchemyCMS/alchemy_cms/pull/2430) ([afdev82](https://github.com/afdev82))
+
 ## 6.0.12 (2022-11-19)
 
 - More installer options [#2385](https://github.com/AlchemyCMS/alchemy_cms/pull/2385) ([tvdeyen](https://github.com/tvdeyen))
