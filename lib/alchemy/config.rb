@@ -55,7 +55,13 @@ module Alchemy
       # If it does not exist, or its empty, it returns an empty Hash.
       #
       def read_file(file)
-        YAML.safe_load(ERB.new(File.read(file)).result, YAML_WHITELIST_CLASSES, [], true) || {}
+        file_result = File.read(file)).result
+
+        if Gem::Version.new(Psych::VERSION) >= Gem::Version.new('3.1.0.pre1')
+          ::YAML.safe_load(ERB.new(file_result, permitted_classes: YAML_WHITELIST_CLASSES, permitted_symbols: [], aliases: true)
+        else
+          ::YAML.safe_load(ERB.new(file_result, YAML_WHITELIST_CLASSES, [], true)
+        end
       rescue Errno::ENOENT
         {}
       end
