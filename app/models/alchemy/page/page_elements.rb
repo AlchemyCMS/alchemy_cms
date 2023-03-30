@@ -47,7 +47,7 @@ module Alchemy
     end
 
     module ClassMethods
-      # deprecate :trashed_elements, deprecator: Alchemy::Deprecation
+      deprecate :trashed_elements, deprecator: Alchemy::Deprecation
 
       # Copy page elements
       #
