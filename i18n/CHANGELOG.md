@@ -1,8 +1,8 @@
 # Changelog
 
-## [v3.0.2](https://github.com/AlchemyCMS/alchemy_i18n/tree/v3.0.2) (2023-03-30)
+## [v3.1.0](https://github.com/AlchemyCMS/alchemy_i18n/tree/v3.1.0) (2023-03-30)
 
-[Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v3.0.2...v3.0.2)
+[Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v3.0.2...v3.1.0)
 
 **Merged pull requests:**
 
