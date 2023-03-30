@@ -25,37 +25,29 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     # attach events we handle
     @attachEvents()
     # Store some jQuery objects for further reference
-    @$page_urlname = $('#page_urlname', @dialog_body)
+    @$internal_link = $('#internal_link', @dialog_body)
     @$element_anchor = $('#element_anchor', @dialog_body)
     @$anchor_link = $('#anchor_link', @dialog_body)
-    @$external_url = $('#external_url', @dialog_body)
-    @$public_filename = $('#public_filename', @dialog_body)
+    @$external_link = $('#external_link', @dialog_body)
+    @$file_link = $('#file_link', @dialog_body)
     @$overlay_tabs = $('#overlay_tabs', @dialog_body)
     @$page_container = $('#page_selector_container')
+    @initAnchorLinks()
     # if we edit an existing link
     if @link_object
       # we select the correct tab
       @selectTab()
     @initPageSelect()
-    @initAnchorLinks()
+    return
 
   # Attaches click events to several buttons in the link dialog.
   attachEvents: ->
     # The ok buttons
     $('.create-link.button', @dialog_body).click (e) =>
       @link_type = $(e.target).data('link-type')
-      switch @link_type
-        # get stored url for link type
-        when 'external'
-          url = @$external_url.val()
-        when 'file'
-          url = @$public_filename.val()
-        when 'anchor'
-          url = @$anchor_link.val()
-        else
-          url = @$page_urlname.val()
-          if @$element_anchor.val() != ''
-            url += "##{@$element_anchor.val()}"
+      url = $("##{@link_type}_link").val()
+      if @link_type == 'internal' && @$element_anchor.val() != ''
+        url += "##{@$element_anchor.val()}"
       # Create the link
       @createLink
         url: url
@@ -67,7 +59,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
   initPageSelect: ->
     pageTemplate = HandlebarsTemplates.page
     element_anchor_placeholder = @$element_anchor.attr('placeholder')
-    @$page_urlname.select2
+    @$internal_link.select2
       placeholder: Alchemy.t('Search page')
       allowClear: true
       minimumInputLength: 3
@@ -192,27 +184,33 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     if @$link.hasClass('external')
       # Handles an external link.
       tab = $('#overlay_tab_external_link')
-      @$external_url.val(@$link.attr('href'))
+      @$external_link.val(@$link.attr('href'))
     else if @$link.hasClass('file')
       # Handles a file link.
       tab = $('#overlay_tab_file_link')
-      @$public_filename.select2('val', @$link[0].pathname + @$link[0].search)
+      @$file_link.select2('val', @$link[0].pathname + @$link[0].search)
     else if @$link.attr('href').match(/^#/)
       # Handles an anchor link.
       tab = $('#overlay_tab_anchor_link')
       @$anchor_link.select2('val', @$link.attr('href'))
-    else
+    else if @$link.hasClass('internal')
       # Handles an internal link.
       tab = $('#overlay_tab_internal_link')
       @initInternalLinkTab()
-    # activate the tab jquery ui 1.10 style o.O
-    @$overlay_tabs.tabs('option', 'active', $('#overlay_tabs > div').index(tab))
+    else
+      # Emit an event to allow extensions hook into the link overlay.
+      @$overlay_tabs.trigger 'SelectLinkTab.Alchemy',
+        link: @$link
+    if tab
+      # activate the tab jquery ui 1.10 style o.O
+      @$overlay_tabs.tabs('option', 'active', $('#overlay_tabs > div').index(tab))
+    return
 
   # Handles actions for internal link tab.
   initInternalLinkTab: ->
     url = @$link.attr('href').split('#')
     # update the url field
-    @$page_urlname.val(url[0])
+    @$internal_link.val(url[0])
     # store the anchor
     @$element_anchor.val(url[1])
 
