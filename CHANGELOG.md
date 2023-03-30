@@ -2,6 +2,27 @@
 
 ## 7.0.0 (unreleased)
 
+- Remove deprecations [#2450](https://github.com/AlchemyCMS/alchemy_cms/pull/2450) ([tvdeyen](https://github.com/tvdeyen))
+- Fix respond_to? overwrite in ElementEditor [#2449](https://github.com/AlchemyCMS/alchemy_cms/pull/2449) ([tvdeyen](https://github.com/tvdeyen))
+- Fix installer: Add seeds file if not exists [#2446](https://github.com/AlchemyCMS/alchemy_cms/pull/2446) ([tvdeyen](https://github.com/tvdeyen))
+- Make CapybaraHelpers requireable [#2445](https://github.com/AlchemyCMS/alchemy_cms/pull/2445) ([tvdeyen](https://github.com/tvdeyen))
+- Do not install webpacker tag for fresh apps [#2444](https://github.com/AlchemyCMS/alchemy_cms/pull/2444) ([tvdeyen](https://github.com/tvdeyen))
+- Re-add Webpacker support. [#2443](https://github.com/AlchemyCMS/alchemy_cms/pull/2443) ([tvdeyen](https://github.com/tvdeyen))
+- Add support for more link tabs [#2442](https://github.com/AlchemyCMS/alchemy_cms/pull/2442) ([tvdeyen](https://github.com/tvdeyen))
+- Add support for Ransack 4 [#2438](https://github.com/AlchemyCMS/alchemy_cms/pull/2438) ([tvdeyen](https://github.com/tvdeyen))
+- Fix non_stupid_digest_assets [#2436](https://github.com/AlchemyCMS/alchemy_cms/pull/2436) ([tvdeyen](https://github.com/tvdeyen))
+- Add PictureThumb.storage_class [#2435](https://github.com/AlchemyCMS/alchemy_cms/pull/2435) ([tvdeyen](https://github.com/tvdeyen))
+- Fix thumbnail writing for multi-concurrent and multi-db setups [#2433](https://github.com/AlchemyCMS/alchemy_cms/pull/2433) ([tvdeyen](https://github.com/tvdeyen))
+- Integrate non_stupid_digest_assets gem [#2430](https://github.com/AlchemyCMS/alchemy_cms/pull/2430) ([afdev82](https://github.com/afdev82))
+- Define allowed settings in ingredients [#2425](https://github.com/AlchemyCMS/alchemy_cms/pull/2425) ([tvdeyen](https://github.com/tvdeyen))
+- Remove webpacker [#2424](https://github.com/AlchemyCMS/alchemy_cms/pull/2424) ([tvdeyen](https://github.com/tvdeyen))
+- Remove deprecated methods [#2421](https://github.com/AlchemyCMS/alchemy_cms/pull/2421) ([tvdeyen](https://github.com/tvdeyen))
+- Remove 6.0 upgrade tasks [#2418](https://github.com/AlchemyCMS/alchemy_cms/pull/2418) ([tvdeyen](https://github.com/tvdeyen))
+- Compress 6.1 migrations [#2417](https://github.com/AlchemyCMS/alchemy_cms/pull/2417) ([tvdeyen](https://github.com/tvdeyen))
+- Remove all content/essence related code [#2416](https://github.com/AlchemyCMS/alchemy_cms/pull/2416) ([tvdeyen](https://github.com/tvdeyen))
+- Remove RSS Feed feature [#2415](https://github.com/AlchemyCMS/alchemy_cms/pull/2415) ([tvdeyen](https://github.com/tvdeyen))
+- Add searchable field to page [#2414](https://github.com/AlchemyCMS/alchemy_cms/pull/2414) ([kulturbande](https://github.com/kulturbande))
+
 ## 6.1.0 (2023-01-19)
 
 ### Features
