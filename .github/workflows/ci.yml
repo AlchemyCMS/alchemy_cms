@@ -72,8 +72,7 @@ jobs:
           sudo apt install -qq --fix-missing libmysqlclient-dev -o dir::cache::archives="/home/runner/apt/cache"
           sudo chown -R runner /home/runner/apt/cache
       - name: Install bundler
-        run: |
-          gem install bundler
+        run: gem install bundler -v 2.3.26
       - name: Restore Ruby Gems cache
         id: cache
         uses: actions/cache@v2.1.3
