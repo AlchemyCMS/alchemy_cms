@@ -72,7 +72,8 @@ module Alchemy
 
     # Fixes Rails partial renderer calling to_model on the object
     # which reveals the delegated element instead of this decorator.
-    def respond_to?(method_name)
+    def respond_to?(*args, **kwargs)
+      method_name = args.first
       return false if method_name == :to_model
 
       super
