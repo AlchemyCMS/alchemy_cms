@@ -103,7 +103,7 @@ module Alchemy
       def resource_filters
         return unless resource_has_filters
 
-        @_resource_filters ||= deprecated_resource_filters || resource_model.alchemy_resource_filters
+        @_resource_filters ||= resource_model.alchemy_resource_filters
       end
 
       def resource_filters_for_select
@@ -113,23 +113,6 @@ module Alchemy
       end
 
       protected
-
-      def deprecated_resource_filters
-        if resource_has_deprecated_filters
-          Alchemy::Deprecation.warn(
-            "#{resource_model}.alchemy_resource_filters is using a legacy data structure. " \
-            "Please use an Array of Hashes instead. i.e. [{ name: 'foo', values: ['bar', 'baz'] }, ...] " \
-            "where values are scopes. With Alchemy 6.1 only the new structure will be supported."
-          )
-
-          @_resource_filters ||= [
-            {
-              name: :misc,
-              values: resource_model.alchemy_resource_filters,
-            },
-          ]
-        end
-      end
 
       def apply_filters(items)
         sanitize_filter_params!
