@@ -78,11 +78,11 @@ module Alchemy
         if deprecated_configs.key?(name.to_sym)
           config = deprecated_configs[name.to_sym]
           if config.nil?
-            Alchemy::Deprecation.warn("#{name} configuration is deprecated and will be removed from Alchemy 5.1")
+            Alchemy::Deprecation.warn("#{name} configuration is deprecated and will be removed from Alchemy #{Alchemy::Deprecation.deprecation_horizon}")
           else
             value = show[name.to_s]
             if value != config
-              Alchemy::Deprecation.warn("Setting #{name} configuration to #{value} is deprecated and will be always #{config} in Alchemy 5.1")
+              Alchemy::Deprecation.warn("Setting #{name} configuration to #{value} is deprecated and will be always #{config} in Alchemy #{Alchemy::Deprecation.deprecation_horizon}")
             end
           end
         end
