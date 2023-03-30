@@ -55,8 +55,9 @@ module Alchemy
       # If it does not exist, or its empty, it returns an empty Hash.
       #
       def read_file(file)
-        file_result = File.read(file)).result
+        file_result = File.read(file).result
 
+        # Handle the difference between Psych 3.1.0.pre1 and 3.1.0
         if Gem::Version.new(Psych::VERSION) >= Gem::Version.new('3.1.0.pre1')
           ::YAML.safe_load(ERB.new(file_result, permitted_classes: YAML_WHITELIST_CLASSES, permitted_symbols: [], aliases: true)
         else
