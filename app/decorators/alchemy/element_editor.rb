@@ -44,7 +44,7 @@ module Alchemy
       Alchemy.t(
         group,
         scope: "element_groups.#{element.name}",
-        default: Alchemy.t("element_groups.#{group}", default: group.humanize),
+        default: Alchemy.t("element_groups.#{group}", default: group.humanize)
       )
     end
 
@@ -59,7 +59,7 @@ module Alchemy
         compact? ? "compact" : nil,
         deprecated? ? "deprecated" : nil,
         fixed? ? "is-fixed" : "not-fixed",
-        public? ? "visible" : "hidden",
+        public? ? "visible" : "hidden"
       ].join(" ")
     end
 
@@ -117,7 +117,7 @@ module Alchemy
         Alchemy.t(
           name,
           scope: :element_deprecation_notices,
-          default: Alchemy.t(:element_deprecated),
+          default: Alchemy.t(:element_deprecated)
         )
       end
     end
@@ -128,7 +128,7 @@ module Alchemy
       element.ingredients.detect { |i| i.role == definition[:role] } ||
         element.ingredients.create!(
           role: definition[:role],
-          type: Alchemy::Ingredient.normalize_type(definition[:type]),
+          type: Alchemy::Ingredient.normalize_type(definition[:type])
         )
     end
   end

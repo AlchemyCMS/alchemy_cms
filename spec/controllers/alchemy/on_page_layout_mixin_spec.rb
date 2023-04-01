@@ -22,7 +22,7 @@ RSpec.describe Alchemy::PagesController, "OnPageLayout mixin", type: :controller
       end
 
       context "for show action" do
-        %w(standard news).each do |page_layout|
+        %w[standard news].each do |page_layout|
           it "runs callback on #{page_layout} layout" do
             page = create(:alchemy_page, :public, page_layout: page_layout)
             get :show, params: {urlname: page.urlname}
@@ -32,7 +32,7 @@ RSpec.describe Alchemy::PagesController, "OnPageLayout mixin", type: :controller
       end
 
       context "for index action" do
-        %w(standard news).each do |page_layout|
+        %w[standard news].each do |page_layout|
           it "runs callback on #{page_layout} layout" do
             create(:alchemy_page, :language_root, page_layout: page_layout)
 
@@ -107,7 +107,7 @@ RSpec.describe Alchemy::PagesController, "OnPageLayout mixin", type: :controller
           end
         end
 
-        %w(standard news).each do |page_layout|
+        %w[standard news].each do |page_layout|
           it "runs both callbacks for #{page_layout} layout" do
             page = create(:alchemy_page, :public, page_layout: page_layout)
 
@@ -130,7 +130,7 @@ RSpec.describe Alchemy::PagesController, "OnPageLayout mixin", type: :controller
           end
         end
 
-        %w(standard news).each do |page_layout|
+        %w[standard news].each do |page_layout|
           it "runs both callbacks on #{page_layout} layout" do
             create(:alchemy_page, :language_root, page_layout: page_layout)
 
@@ -246,7 +246,7 @@ RSpec.describe Alchemy::PagesController, "OnPageLayout mixin", type: :controller
         end
       end
 
-      %w(standard news).each do |page_layout|
+      %w[standard news].each do |page_layout|
         it "evaluates the given callback on both page_layouts for show action" do
           page = create(:alchemy_page, :public, page_layout: page_layout)
 
@@ -255,7 +255,7 @@ RSpec.describe Alchemy::PagesController, "OnPageLayout mixin", type: :controller
         end
       end
 
-      %w(standard news).each do |page_layout|
+      %w[standard news].each do |page_layout|
         it "evaluates the given callback on both page_layouts for index action" do
           create(:alchemy_page, :language_root, page_layout: page_layout)
 

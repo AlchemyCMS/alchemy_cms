@@ -32,7 +32,7 @@ describe Alchemy::Admin::BaseController do
       before do
         allow(I18n).to receive(:default_locale) { :es }
         allow(I18n).to receive(:available_locales) { [:es] }
-        allow(controller).to receive(:session) { { alchemy_locale: "kl" } }
+        allow(controller).to receive(:session) { {alchemy_locale: "kl"} }
       end
 
       it "sets I18n.locale to the default locale" do
@@ -101,7 +101,7 @@ describe Alchemy::Admin::BaseController do
       it "renders 500 template" do
         get :index, format: :json
         expect(response.media_type).to eq("application/json")
-        expect(JSON.parse(response.body)).to eq({ "message" => "Error!" })
+        expect(JSON.parse(response.body)).to eq({"message" => "Error!"})
       end
     end
 

@@ -54,8 +54,7 @@ module Alchemy
       raise MissingImageFileError, "Missing image file for #{picture.inspect}" if image.nil?
 
       image = processed_image(image, @options)
-      image = encoded_image(image, @options)
-      image
+      encoded_image(image, @options)
     rescue MissingImageFileError, WrongImageFormatError => e
       log_warning(e.message)
       nil
@@ -88,7 +87,7 @@ module Alchemy
       end
 
       options = {
-        flatten: !render_format.in?(ANIMATED_IMAGE_FORMATS) && picture.image_file_format == "gif",
+        flatten: !render_format.in?(ANIMATED_IMAGE_FORMATS) && picture.image_file_format == "gif"
       }.with_indifferent_access.merge(options)
 
       encoding_options = []

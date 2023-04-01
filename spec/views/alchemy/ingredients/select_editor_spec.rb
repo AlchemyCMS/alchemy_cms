@@ -24,7 +24,7 @@ RSpec.describe "alchemy/ingredients/_select_editor" do
     before do
       expect(ingredient).to receive(:settings).at_least(:once) do
         {
-          select_values: nil,
+          select_values: nil
         }
       end
     end

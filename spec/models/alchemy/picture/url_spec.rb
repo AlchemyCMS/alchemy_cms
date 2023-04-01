@@ -19,7 +19,7 @@ RSpec.describe Alchemy::Picture::Url do
     let(:params) do
       {
         page: 1,
-        per_page: 10,
+        per_page: 10
       }
     end
 
@@ -29,7 +29,7 @@ RSpec.describe Alchemy::Picture::Url do
   end
 
   context "with a processed variant" do
-    let(:variant) { Alchemy::PictureVariant.new(picture, { size: "10x10" }) }
+    let(:variant) { Alchemy::PictureVariant.new(picture, {size: "10x10"}) }
 
     it "returns the url to the thumbnail" do
       is_expected.to match(/\/pictures\/\d+\/.+\/image\.png/)

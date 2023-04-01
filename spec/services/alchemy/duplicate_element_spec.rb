@@ -15,7 +15,7 @@ RSpec.describe Alchemy::DuplicateElement do
 
   context "with differences" do
     let(:new_page_version) { create(:alchemy_page_version) }
-    let(:differences) { { page_version_id: new_page_version.id } }
+    let(:differences) { {page_version_id: new_page_version.id} }
 
     it "should create a new record with all attributes of source except given differences" do
       expect(subject.page_version_id).to eq(new_page_version.id)
@@ -35,7 +35,7 @@ RSpec.describe Alchemy::DuplicateElement do
     let(:element) do
       create(:alchemy_element, :with_ingredients, :with_nestable_elements, {
         tag_list: "red, yellow",
-        page: create(:alchemy_page),
+        page: create(:alchemy_page)
       })
     end
 
@@ -49,7 +49,7 @@ RSpec.describe Alchemy::DuplicateElement do
 
     context "copy to new page version" do
       let(:new_page_version) { create(:alchemy_page_version) }
-      let(:differences) { { page_version_id: new_page_version.id } }
+      let(:differences) { {page_version_id: new_page_version.id} }
 
       it "should set page_version id to new page_version's id" do
         subject.nested_elements.each do |nested_element|
@@ -62,7 +62,7 @@ RSpec.describe Alchemy::DuplicateElement do
       let(:public_version) do
         element.page.versions.create!(public_on: Time.current)
       end
-      let(:differences) { { page_version_id: public_version.id } }
+      let(:differences) { {page_version_id: public_version.id} }
 
       it "sets page_version id" do
         subject.nested_elements.each do |nested_element|

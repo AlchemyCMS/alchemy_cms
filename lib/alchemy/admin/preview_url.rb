@@ -48,7 +48,7 @@ module Alchemy
             port: uri.port,
             path: page.url_path,
             userinfo: userinfo,
-            query: { alchemy_preview_mode: true }.to_param,
+            query: {alchemy_preview_mode: true}.to_param
           ).to_s
         else
           routes.admin_page_path(page)
@@ -73,7 +73,7 @@ module Alchemy
       end
 
       def uri_class
-        if uri.class == URI::Generic
+        if uri.instance_of?(URI::Generic)
           raise MissingProtocolError, "Please provide the protocol with preview['host']"
         else
           uri.class

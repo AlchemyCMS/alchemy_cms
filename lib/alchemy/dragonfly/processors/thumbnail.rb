@@ -19,7 +19,7 @@ module Alchemy
           # resize all frames in a GIF
           # @link https://imagemagick.org/script/command-line-options.php#coalesce
           # @link https://imagemagick.org/script/command-line-options.php#deconstruct
-          @content&.mime_type == "image/gif" ? "-coalesce #{super} -deconstruct" : super
+          (@content&.mime_type == "image/gif") ? "-coalesce #{super} -deconstruct" : super
         end
       end
     end

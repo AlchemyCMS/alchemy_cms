@@ -11,7 +11,7 @@ module Alchemy
         it "renders a toolbar button" do
           expect(
             helper.toolbar_button(url: admin_dashboard_path)
-          ).to match /<div.+class="button_with_label/
+          ).to match(/<div.+class="button_with_label/)
         end
       end
 
@@ -29,7 +29,7 @@ module Alchemy
         it "returns the button" do
           expect(
             helper.toolbar_button(url: admin_dashboard_path, skip_permission_check: true)
-          ).to match /<div.+class="button_with_label/
+          ).to match(/<div.+class="button_with_label/)
         end
       end
 
@@ -52,8 +52,8 @@ module Alchemy
 
         it "renders a normal link" do
           button = helper.toolbar_button(url: admin_dashboard_path, overlay: false)
-          expect(button).to match /<a.+href="#{admin_dashboard_path}"/
-          expect(button).not_to match /data-alchemy-overlay/
+          expect(button).to match(/<a.+href="#{admin_dashboard_path}"/)
+          expect(button).not_to match(/data-alchemy-overlay/)
         end
       end
     end
@@ -68,7 +68,7 @@ module Alchemy
     describe "#clipboard_select_tag_options" do
       let(:page) { build_stubbed(:alchemy_page) }
 
-      before { helper.instance_variable_set("@page", page) }
+      before { helper.instance_variable_set(:@page, page) }
 
       context "with element items" do
         let(:element) { build_stubbed(:alchemy_element) }
@@ -119,7 +119,7 @@ module Alchemy
     end
 
     describe "#alchemy_datepicker" do
-      subject { alchemy_datepicker(ingredient, :value, { value: value, type: type }) }
+      subject { alchemy_datepicker(ingredient, :value, {value: value, type: type}) }
 
       let(:ingredient) { Ingredients::Datetime.new }
       let(:value) { nil }
@@ -192,7 +192,7 @@ module Alchemy
       end
 
       context "if the expression from config is nil" do
-        before { stub_alchemy_config(:format_matchers, { link_url: nil }) }
+        before { stub_alchemy_config(:format_matchers, {link_url: nil}) }
 
         it "returns the default expression" do
           expect(subject).to_not be_nil

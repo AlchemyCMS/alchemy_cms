@@ -97,7 +97,7 @@ RSpec.describe Alchemy::ElementsRepository do
     it_behaves_like "being chainable"
 
     context "with a single key hash" do
-      let(:attrs) { { name: "headline" } }
+      let(:attrs) { {name: "headline"} }
 
       it "returns only elements matching attribute and value" do
         is_expected.to match_array([visible_element])
@@ -105,7 +105,7 @@ RSpec.describe Alchemy::ElementsRepository do
     end
 
     context "with a multi key hash" do
-      let(:attrs) { { name: "headline", public: false } }
+      let(:attrs) { {name: "headline", public: false} }
 
       it "returns only elements matching all attributes and values" do
         is_expected.to match_array([])

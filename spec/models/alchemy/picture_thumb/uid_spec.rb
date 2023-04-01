@@ -14,7 +14,7 @@ RSpec.describe Alchemy::PictureThumb::Uid do
   }
 
   context "with format options" do
-    let(:variant) { Alchemy::PictureVariant.new(picture, { format: "jpg" }) }
+    let(:variant) { Alchemy::PictureVariant.new(picture, {format: "jpg"}) }
 
     it "uses this as extension" do
       is_expected.to eq "pictures/#{picture.id}/12345/image2.jpg"

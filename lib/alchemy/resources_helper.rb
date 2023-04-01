@@ -23,7 +23,7 @@ module Alchemy
 
     def resource_url_proxy
       if resource_handler.in_engine?
-        eval(resource_handler.engine_name)
+        eval(resource_handler.engine_name) # rubocop:disable Security/Eval
       else
         main_app
       end
@@ -80,11 +80,11 @@ module Alchemy
         value = record.present? ? record.send(attribute[:relation][:attr_method]) : Alchemy.t(:not_found)
       elsif attribute_value && attribute[:type].to_s =~ /(date|time)/
         localization_format = if attribute[:type] == :datetime
-          options[:datetime_format] || :'alchemy.default'
+          options[:datetime_format] || :"alchemy.default"
         elsif attribute[:type] == :date
-          options[:date_format] || :'alchemy.default'
+          options[:date_format] || :"alchemy.default"
         else
-          options[:time_format] || :'alchemy.time'
+          options[:time_format] || :"alchemy.time"
         end
         value = l(attribute_value, format: localization_format)
       else
@@ -110,8 +110,8 @@ module Alchemy
         options.merge(
           as: "string",
           input_html: {
-            data: { datepicker_type: input_type },
-          },
+            data: {datepicker_type: input_type}
+          }
         )
       when "text"
         options.merge(as: "text", input_html: {rows: 4})
@@ -135,7 +135,7 @@ module Alchemy
     # If the attribute contains a resource_relation, then the table and column for related model will be returned.
     #
     def sortable_resource_header_column(attribute)
-      if relation = attribute[:relation]
+      if (relation = attribute[:relation])
         "#{relation[:model_association].name}_#{relation[:attr_method]}"
       else
         attribute[:name]

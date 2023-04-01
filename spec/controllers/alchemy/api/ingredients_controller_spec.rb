@@ -12,7 +12,7 @@ RSpec.describe Alchemy::Api::IngredientsController do
 
     context "as guest user" do
       it "returns no ingredients" do
-        get :index, params: { format: :json }
+        get :index, params: {format: :json}
 
         expect(response.status).to eq(200)
         expect(response.media_type).to eq("application/json")
@@ -30,7 +30,7 @@ RSpec.describe Alchemy::Api::IngredientsController do
       end
 
       it "returns all ingredients" do
-        get :index, params: { format: :json }
+        get :index, params: {format: :json}
 
         expect(response.status).to eq(200)
         expect(response.media_type).to eq("application/json")
@@ -49,7 +49,7 @@ RSpec.describe Alchemy::Api::IngredientsController do
         let!(:other_public_ingredient) { create(:alchemy_ingredient_text, element: other_public_element) }
 
         it "returns only draft ingredients from this page" do
-          get :index, params: { page_id: public_page.id, format: :json }
+          get :index, params: {page_id: public_page.id, format: :json}
 
           expect(response.status).to eq(200)
           expect(response.media_type).to eq("application/json")

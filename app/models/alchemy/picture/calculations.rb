@@ -32,7 +32,7 @@ module Alchemy
 
         {
           width: width,
-          height: height,
+          height: height
         }
       end
 
@@ -41,7 +41,7 @@ module Alchemy
       def image_size
         {
           width: image_file_width,
-          height: image_file_height,
+          height: image_file_height
         }
       end
     end

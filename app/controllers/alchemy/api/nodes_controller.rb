@@ -43,7 +43,7 @@ module Alchemy
       {
         total_count: total_count_value,
         per_page: per_page_value,
-        page: page_value,
+        page: page_value
       }
     end
 

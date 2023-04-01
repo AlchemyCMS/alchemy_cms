@@ -49,7 +49,7 @@ RSpec.describe "Link overlay", type: :system do
         :alchemy_element,
         name: "article",
         page_version: page1.draft_version,
-        autogenerate_ingredients: true,
+        autogenerate_ingredients: true
       )
     end
 

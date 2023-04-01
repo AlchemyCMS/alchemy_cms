@@ -64,7 +64,7 @@ class AlchemySixPointOne < ActiveRecord::Migration[ActiveRecord::Migration.curre
         t.integer "updater_id"
         t.boolean "default", default: false, null: false
         t.string "country_code", default: "", null: false
-        t.references "site", null: false, foreign_key: { to_table: :alchemy_sites }
+        t.references "site", null: false, foreign_key: {to_table: :alchemy_sites}
         t.string "locale"
         t.index ["creator_id"], name: "index_alchemy_languages_on_creator_id"
         t.index ["language_code", "country_code"], name: "index_alchemy_languages_on_language_code_and_country_code"
@@ -108,7 +108,7 @@ class AlchemySixPointOne < ActiveRecord::Migration[ActiveRecord::Migration.curre
         t.datetime "updated_at", null: false
         t.integer "creator_id"
         t.integer "updater_id"
-        t.references "language", null: false, foreign_key: { to_table: :alchemy_languages }
+        t.references "language", null: false, foreign_key: {to_table: :alchemy_languages}
         t.datetime "published_at", precision: nil
         t.datetime "locked_at", precision: nil
         t.index ["creator_id"], name: "index_alchemy_pages_on_creator_id"
@@ -122,7 +122,7 @@ class AlchemySixPointOne < ActiveRecord::Migration[ActiveRecord::Migration.curre
 
     unless table_exists?("alchemy_page_versions")
       create_table "alchemy_page_versions" do |t|
-        t.references "page", null: false, foreign_key: { to_table: :alchemy_pages, on_delete: :cascade }
+        t.references "page", null: false, foreign_key: {to_table: :alchemy_pages, on_delete: :cascade}
         t.datetime "public_on", precision: nil
         t.datetime "public_until", precision: nil
         t.datetime "created_at", null: false
@@ -144,7 +144,7 @@ class AlchemySixPointOne < ActiveRecord::Migration[ActiveRecord::Migration.curre
         t.integer "updater_id"
         t.integer "parent_element_id"
         t.boolean "fixed", default: false, null: false
-        t.references "page_version", null: false, foreign_key: { to_table: :alchemy_page_versions, on_delete: :cascade }
+        t.references "page_version", null: false, foreign_key: {to_table: :alchemy_page_versions, on_delete: :cascade}
         t.index ["creator_id"], name: "index_alchemy_elements_on_creator_id"
         t.index ["fixed"], name: "index_alchemy_elements_on_fixed"
         t.index ["page_version_id", "parent_element_id"], name: "idx_alchemy_elements_on_page_version_id_and_parent_element_id"
@@ -155,7 +155,7 @@ class AlchemySixPointOne < ActiveRecord::Migration[ActiveRecord::Migration.curre
 
     unless table_exists?("alchemy_ingredients")
       create_table "alchemy_ingredients" do |t|
-        t.references "element", null: false, foreign_key: { to_table: :alchemy_elements, on_delete: :cascade }
+        t.references "element", null: false, foreign_key: {to_table: :alchemy_elements, on_delete: :cascade}
         t.string "type", null: false
         t.string "role", null: false
         t.text "value"
@@ -186,8 +186,8 @@ class AlchemySixPointOne < ActiveRecord::Migration[ActiveRecord::Migration.curre
         t.integer "lft", null: false
         t.integer "rgt", null: false
         t.integer "depth", default: 0, null: false
-        t.references "page", foreign_key: { to_table: :alchemy_pages, on_delete: :restrict }
-        t.references "language", null: false, foreign_key: { to_table: :alchemy_languages }
+        t.references "page", foreign_key: {to_table: :alchemy_pages, on_delete: :restrict}
+        t.references "language", null: false, foreign_key: {to_table: :alchemy_languages}
         t.integer "creator_id"
         t.integer "updater_id"
         t.datetime "created_at", null: false
@@ -222,7 +222,7 @@ class AlchemySixPointOne < ActiveRecord::Migration[ActiveRecord::Migration.curre
 
     unless table_exists?("alchemy_picture_thumbs")
       create_table "alchemy_picture_thumbs" do |t|
-        t.references "picture", null: false, foreign_key: { to_table: :alchemy_pictures }
+        t.references "picture", null: false, foreign_key: {to_table: :alchemy_pictures}
         t.string "signature", null: false
         t.text "uid", null: false
         t.index ["signature"], name: "index_alchemy_picture_thumbs_on_signature", unique: true

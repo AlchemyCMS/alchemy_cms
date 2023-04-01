@@ -28,15 +28,15 @@ module Alchemy
       related_object_alias :picture, class_name: "Alchemy::Picture"
 
       allow_settings %i[
-          crop
-          css_classes
-          fixed_ratio
-          linkable
-          size
-          sizes
-          srcset
-          upsample
-        ]
+        crop
+        css_classes
+        fixed_ratio
+        linkable
+        size
+        sizes
+        srcset
+        upsample
+      ]
 
       # The first 30 characters of the pictures name
       #

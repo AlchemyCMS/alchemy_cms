@@ -27,7 +27,7 @@ module Alchemy
           end
           begin
             Alchemy::PictureThumb.storage_class.call(variant, uid)
-          rescue StandardError => e
+          rescue => e
             ErrorTracking.notification_handler.call(e)
             # destroy the thumb if processing or storing fails
             @thumb&.destroy

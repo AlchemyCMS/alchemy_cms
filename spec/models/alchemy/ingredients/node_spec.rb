@@ -13,7 +13,7 @@ RSpec.describe Alchemy::Ingredients::Node do
       element: element,
       type: described_class.name,
       role: "menu",
-      related_object: node,
+      related_object: node
     )
   end
 

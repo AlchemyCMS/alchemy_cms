@@ -16,14 +16,14 @@ module Alchemy
     end
 
     context "when current page is set" do
-      before { view.instance_variable_set("@page", page) }
+      before { view.instance_variable_set(:@page, page) }
 
       describe "meta keywords" do
         context "are set" do
           before { allow(page).to receive_messages(meta_keywords: "cartoon, road runner") }
 
           it "renders the keywords in the correct meta tag" do
-            is_expected.to match /meta name="keywords" content="cartoon, road runner" lang="en"/
+            is_expected.to match(/meta name="keywords" content="cartoon, road runner" lang="en"/)
           end
         end
 
@@ -34,13 +34,13 @@ module Alchemy
             before { root_page.meta_keywords = "keywords, language, root" }
 
             it "renders its keywords in the correct meta tag" do
-              is_expected.to match /meta name="keywords" content="keywords, language, root" lang="en"/
+              is_expected.to match(/meta name="keywords" content="keywords, language, root" lang="en"/)
             end
           end
 
           context "and the language root page is also missing meta keywords" do
             it "does not render the meta keywords tag" do
-              is_expected.not_to match /meta name="keywords"/
+              is_expected.not_to match(/meta name="keywords"/)
             end
           end
         end
@@ -51,7 +51,7 @@ module Alchemy
           before { allow(page).to receive_messages(meta_description: "road runner goes meep meep") }
 
           it "renders the description in the correct meta tag" do
-            is_expected.to match /meta name="description" content="road runner goes meep meep"/
+            is_expected.to match(/meta name="description" content="road runner goes meep meep"/)
           end
         end
 
@@ -62,13 +62,13 @@ module Alchemy
             before { root_page.meta_description = "description from language root" }
 
             it "renders its description in the correct meta tag" do
-              is_expected.to match /meta name="description" content="description from language root"/
+              is_expected.to match(/meta name="description" content="description from language root"/)
             end
           end
 
           context "and the language root page is also missing a meta description" do
             it "does not render the meta description tag" do
-              is_expected.not_to match /meta name="description"/
+              is_expected.not_to match(/meta name="description"/)
             end
           end
         end
@@ -76,7 +76,7 @@ module Alchemy
 
       describe "title" do
         it "renders the title tag for the current page" do
-          is_expected.to match /<title>Road Runner<\/title>/
+          is_expected.to match(/<title>Road Runner<\/title>/)
         end
 
         context "with a given prefix and separator" do
@@ -84,7 +84,7 @@ module Alchemy
           let(:title_separator) { " - " }
 
           it "renders the prefixed title" do
-            is_expected.to match /<title>C64 - Road Runner<\/title>/
+            is_expected.to match(/<title>C64 - Road Runner<\/title>/)
           end
         end
 
@@ -93,7 +93,7 @@ module Alchemy
           let(:title_separator) { " - " }
 
           it "renders the suffixed title" do
-            is_expected.to match /<title>Road Runner - C64<\/title>/
+            is_expected.to match(/<title>Road Runner - C64<\/title>/)
           end
         end
 
@@ -103,7 +103,7 @@ module Alchemy
           let(:title_separator) { " - " }
 
           it "renders the suffixed title" do
-            is_expected.to match /<title>C64 - Road Runner - Platform game<\/title>/
+            is_expected.to match(/<title>C64 - Road Runner - Platform game<\/title>/)
           end
         end
       end
@@ -111,12 +111,12 @@ module Alchemy
       describe "meta robots" do
         context "when robots may index" do
           it "renders 'index'" do
-            is_expected.to match /meta name="robots" content="index/
+            is_expected.to match(/meta name="robots" content="index/)
           end
 
           context "and robots may follow the links" do
             it "renders 'follow'" do
-              is_expected.to match /meta name="robots" content="index, follow"/
+              is_expected.to match(/meta name="robots" content="index, follow"/)
             end
           end
 
@@ -124,7 +124,7 @@ module Alchemy
             before { allow(page).to receive_messages(robot_follow?: false) }
 
             it "renders 'nofollow'" do
-              is_expected.to match /meta name="robots" content="index, nofollow"/
+              is_expected.to match(/meta name="robots" content="index, nofollow"/)
             end
           end
         end
@@ -133,19 +133,19 @@ module Alchemy
           before { allow(page).to receive_messages(robot_index?: false) }
 
           it "renders 'noindex'" do
-            is_expected.to match /meta name="robots" content="noindex/
+            is_expected.to match(/meta name="robots" content="noindex/)
           end
 
           context "and robots may follow the links" do
             it "renders 'follow'" do
-              is_expected.to match /meta name="robots" content="noindex, follow"/
+              is_expected.to match(/meta name="robots" content="noindex, follow"/)
             end
           end
           context "and robots are not allowed to follow links" do
             before { allow(page).to receive_messages(robot_follow?: false) }
 
             it "renders 'nofollow'" do
-              is_expected.to match /meta name="robots" content="noindex, nofollow"/
+              is_expected.to match(/meta name="robots" content="noindex, nofollow"/)
             end
           end
         end

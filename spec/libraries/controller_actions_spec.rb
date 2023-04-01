@@ -133,7 +133,7 @@ describe "Alchemy::ControllerActions", type: "controller" do
 
         before do
           expect(controller).to receive(:session).at_least(:once) do
-            Hash[alchemy_language_id: french_language.id]
+            {alchemy_language_id: french_language.id}
           end
         end
 

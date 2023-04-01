@@ -11,7 +11,7 @@ module Alchemy
     let(:file) do
       fixture_file_upload(
         File.expand_path("../../../fixtures/500x500.png", __dir__),
-        "image/png",
+        "image/png"
       )
     end
 
@@ -28,14 +28,14 @@ module Alchemy
       context "when params[:tagged_with] is set" do
         it "should filter the records by tags" do
           expect(Attachment).to receive(:tagged_with).and_return(Attachment.all)
-          get :index, params: { tagged_with: "pdf" }
+          get :index, params: {tagged_with: "pdf"}
         end
       end
 
       context "when params[:form_field_id]" do
         context "is set" do
           it "it renders the archive_overlay partial" do
-            get :index, params: { form_field_id: "element_1_ingredient_1_attachment_id" }
+            get :index, params: {form_field_id: "element_1_ingredient_1_attachment_id"}
             expect(response).to render_template(partial: "_archive_overlay")
             expect(assigns(:form_field_id)).to eq("element_1_ingredient_1_attachment_id")
           end
@@ -58,7 +58,7 @@ module Alchemy
         end
 
         it "loads only attachments with matching content type" do
-          get :index, params: { filter: { by_file_type: "image/jpeg" } }
+          get :index, params: {filter: {by_file_type: "image/jpeg"}}
           expect(assigns(:attachments).to_a).to eq([jpg])
           expect(assigns(:attachments).to_a).to_not eq([png])
         end
@@ -71,7 +71,7 @@ module Alchemy
       end
 
       it "renders the show template" do
-        get :show, params: { id: attachment.id }
+        get :show, params: {id: attachment.id}
         expect(response).to render_template(:show)
       end
     end
@@ -80,7 +80,7 @@ module Alchemy
       subject { post :create, params: params }
 
       context "with passing validations" do
-        let(:params) { { attachment: { file: file } } }
+        let(:params) { {attachment: {file: file}} }
 
         it "renders json response with success message" do
           subject
@@ -95,7 +95,7 @@ module Alchemy
       context "with failing validations" do
         include_context "with invalid file"
 
-        let(:params) { { attachment: { file: invalid_file } } }
+        let(:params) { {attachment: {file: invalid_file}} }
 
         it_behaves_like "having a json uploader error message"
       end
@@ -104,7 +104,7 @@ module Alchemy
     describe "#update" do
       let(:params) do
         {
-          id: attachment.id, attachment: { name: "" },
+          id: attachment.id, attachment: {name: ""}
         }
       end
 
@@ -118,14 +118,14 @@ module Alchemy
         let(:file) do
           fixture_file_upload(
             File.expand_path("../../../fixtures/image2.PNG", __dir__),
-            "image/png",
+            "image/png"
           )
         end
 
         context "with passing validations" do
           let(:params) do
             {
-              id: attachment.id, attachment: { file: file },
+              id: attachment.id, attachment: {file: file}
             }
           end
 
@@ -152,17 +152,17 @@ module Alchemy
         context "with search params" do
           let(:search_filter_params) do
             {
-              q: { name_or_file_name_cont: "kitten" },
+              q: {name_or_file_name_cont: "kitten"},
               tagged_with: "cute",
-              filter: { by_file_type: "pdf" },
-              page: 2,
+              filter: {by_file_type: "pdf"},
+              page: 2
             }
           end
 
           subject do
             put :update, params: {
-                           id: attachment.id, attachment: { name: "" },
-                         }.merge(search_filter_params)
+              id: attachment.id, attachment: {name: ""}
+            }.merge(search_filter_params)
           end
 
           it "passes them along" do
@@ -187,7 +187,7 @@ module Alchemy
 
       it "destroys the attachment and sets a success message" do
         expect(attachment).to receive(:destroy)
-        delete :destroy, params: { id: 1 }, xhr: true
+        delete :destroy, params: {id: 1}, xhr: true
         expect(assigns(:attachment)).to eq(attachment)
         expect(assigns(:url)).not_to be_blank
         expect(flash[:notice]).not_to be_blank
@@ -196,16 +196,16 @@ module Alchemy
       context "with search params" do
         let(:search_filter_params) do
           {
-            q: { name_or_file_name_cont: "kitten" },
+            q: {name_or_file_name_cont: "kitten"},
             tagged_with: "cute",
-            filter: { by_file_type: "pdf" },
-            page: 2,
+            filter: {by_file_type: "pdf"},
+            page: 2
           }
         end
 
         it "passes them along" do
           expect(attachment).to receive(:destroy) { true }
-          delete :destroy, params: { id: 1 }.merge(search_filter_params), xhr: true
+          delete :destroy, params: {id: 1}.merge(search_filter_params), xhr: true
           expect(assigns(:url)).to eq admin_attachments_url(search_filter_params.merge(host: "test.host"))
         end
       end
@@ -217,7 +217,7 @@ module Alchemy
       end
 
       it "sends the file as download" do
-        get :download, params: { id: attachment.id }
+        get :download, params: {id: attachment.id}
         expect(response.headers["Content-Disposition"]).to match(/attachment/)
       end
     end
@@ -226,7 +226,7 @@ module Alchemy
       let(:attachment) { create(:alchemy_attachment) }
 
       it "assigns a assignable_id" do
-        put :assign, params: { form_field_id: "element_1_ingredient_1_attachment_id", id: attachment.id }, xhr: true
+        put :assign, params: {form_field_id: "element_1_ingredient_1_attachment_id", id: attachment.id}, xhr: true
         expect(assigns(:assignable_id)).to eq(attachment.id.to_s)
         expect(assigns(:form_field_id)).to eq("element_1_ingredient_1_attachment_id")
       end

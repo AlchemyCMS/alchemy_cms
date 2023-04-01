@@ -2,7 +2,7 @@
 
 module Alchemy
   class Node < BaseRecord
-    VALID_URL_REGEX = /\A(\/|\D[a-z\+\d\.\-]+:)/
+    VALID_URL_REGEX = /\A(\/|\D[a-z+\d.-]+:)/
 
     before_destroy :check_if_related_node_ingredients_present
 
@@ -24,7 +24,7 @@ module Alchemy
 
     validates :menu_type, presence: true
     validates :name, presence: true, if: -> { page.nil? }
-    validates :url, format: { with: VALID_URL_REGEX }, unless: -> { url.nil? }
+    validates :url, format: {with: VALID_URL_REGEX}, unless: -> { url.nil? }
 
     # Returns the name
     #

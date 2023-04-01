@@ -12,7 +12,7 @@ RSpec.describe Alchemy::Forms::Builder, type: :controller do
       controller: controller,
       label: "<label>",
       text_field: "<input>",
-      content_tag: "<div>",
+      content_tag: "<div>"
     )
   end
 
@@ -25,7 +25,7 @@ RSpec.describe Alchemy::Forms::Builder, type: :controller do
 
     context "with date value" do
       context "on the object" do
-        let(:options) { { as: :date } }
+        let(:options) { {as: :date} }
         let(:form_object) { double("FormObject", foo: "2021-07-14") }
 
         it "returns input field with date value set" do
@@ -34,9 +34,9 @@ RSpec.describe Alchemy::Forms::Builder, type: :controller do
             :foo,
             hash_including(
               type: :text,
-              data: { datepicker_type: :date },
+              data: {datepicker_type: :date},
               value: "2021-07-14T00:00:00Z",
-              class: [:string, :required, :date],
+              class: [:string, :required, :date]
             )
           )
           subject
@@ -44,7 +44,7 @@ RSpec.describe Alchemy::Forms::Builder, type: :controller do
       end
 
       context "in the html options" do
-        let(:options) { { as: :date, input_html: { value: "2021-08-01" } } }
+        let(:options) { {as: :date, input_html: {value: "2021-08-01"}} }
 
         it "returns input field with parsed date value set" do
           expect(template).to receive(:text_field).with(
@@ -52,9 +52,9 @@ RSpec.describe Alchemy::Forms::Builder, type: :controller do
             :foo,
             hash_including(
               type: :text,
-              data: { datepicker_type: :date },
+              data: {datepicker_type: :date},
               value: "2021-08-01T00:00:00Z",
-              class: [:string, :required, :date],
+              class: [:string, :required, :date]
             )
           )
           subject
@@ -63,7 +63,7 @@ RSpec.describe Alchemy::Forms::Builder, type: :controller do
     end
 
     context "as date" do
-      let(:options) { { as: :date } }
+      let(:options) { {as: :date} }
 
       it "returns input field with datepicker attributes" do
         expect(template).to receive(:text_field).with(
@@ -71,9 +71,9 @@ RSpec.describe Alchemy::Forms::Builder, type: :controller do
           :foo,
           hash_including(
             type: :text,
-            data: { datepicker_type: :date },
+            data: {datepicker_type: :date},
             value: nil,
-            class: [:string, :required, :date],
+            class: [:string, :required, :date]
           )
         )
         subject
@@ -81,7 +81,7 @@ RSpec.describe Alchemy::Forms::Builder, type: :controller do
     end
 
     context "as time" do
-      let(:options) { { as: :time } }
+      let(:options) { {as: :time} }
 
       it "returns input field with datepicker attributes" do
         expect(template).to receive(:text_field).with(
@@ -89,9 +89,9 @@ RSpec.describe Alchemy::Forms::Builder, type: :controller do
           :foo,
           hash_including(
             type: :text,
-            data: { datepicker_type: :time },
+            data: {datepicker_type: :time},
             value: nil,
-            class: [:string, :required, :time],
+            class: [:string, :required, :time]
           )
         )
         subject
@@ -99,7 +99,7 @@ RSpec.describe Alchemy::Forms::Builder, type: :controller do
     end
 
     context "as datetime" do
-      let(:options) { { as: :datetime } }
+      let(:options) { {as: :datetime} }
 
       it "returns input field with datepicker attributes" do
         expect(template).to receive(:text_field).with(
@@ -107,9 +107,9 @@ RSpec.describe Alchemy::Forms::Builder, type: :controller do
           :foo,
           hash_including(
             type: :text,
-            data: { datepicker_type: :datetime },
+            data: {datepicker_type: :datetime},
             value: nil,
-            class: [:string, :required, :datetime],
+            class: [:string, :required, :datetime]
           )
         )
         subject

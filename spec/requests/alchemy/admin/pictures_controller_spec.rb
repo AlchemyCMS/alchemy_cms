@@ -24,7 +24,7 @@ RSpec.describe "Alchemy::Admin::PicturesController" do
         expect(json).to match({
           "url" => /\/pictures\/.+\/image\.png/,
           "alt" => picture.name,
-          "title" => Alchemy.t(:image_name, name: picture.name),
+          "title" => Alchemy.t(:image_name, name: picture.name)
         })
       end
 
@@ -42,7 +42,7 @@ RSpec.describe "Alchemy::Admin::PicturesController" do
             format: "jpg",
             quality: "70",
             size: "100x100",
-            upsample: false,
+            upsample: false
           }
         end
 
@@ -54,7 +54,7 @@ RSpec.describe "Alchemy::Admin::PicturesController" do
         context "with forbidden rendering params" do
           let(:params) do
             {
-              hack: "me",
+              hack: "me"
             }
           end
 

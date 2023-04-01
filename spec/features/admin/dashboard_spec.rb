@@ -114,7 +114,6 @@ RSpec.describe "Dashboard feature", type: :system do
     end
 
     context "with non alchemy user class" do
-      class SomeUser; end
       before do
         Alchemy.user_class_name = "SomeUser"
       end

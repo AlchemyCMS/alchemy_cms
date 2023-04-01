@@ -12,7 +12,7 @@ RSpec.describe Alchemy::Ingredients::Boolean do
       element: element,
       type: described_class.name,
       role: "has_padding",
-      value: "1",
+      value: "1"
     )
   end
 
@@ -28,7 +28,7 @@ RSpec.describe Alchemy::Ingredients::Boolean do
         described_class.new(
           element: element,
           type: described_class.name,
-          role: "has_padding",
+          role: "has_padding"
         )
       end
 
@@ -48,7 +48,7 @@ RSpec.describe Alchemy::Ingredients::Boolean do
         described_class.new(
           element: element,
           type: described_class.name,
-          role: "has_padding",
+          role: "has_padding"
         )
       end
 

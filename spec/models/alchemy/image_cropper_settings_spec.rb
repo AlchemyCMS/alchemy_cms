@@ -10,7 +10,7 @@ RSpec.describe Alchemy::ImageCropperSettings do
       default_crop_size: crop_size,
       fixed_ratio: fixed_ratio,
       image_width: image_width,
-      image_height: image_height,
+      image_height: image_height
     )
   end
 

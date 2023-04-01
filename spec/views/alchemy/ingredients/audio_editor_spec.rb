@@ -12,7 +12,7 @@ RSpec.describe "alchemy/ingredients/_audio_editor" do
       Alchemy::Ingredients::Audio,
       element: element,
       attachment: attachment,
-      role: "file",
+      role: "file"
     )
   end
 
@@ -51,7 +51,7 @@ RSpec.describe "alchemy/ingredients/_audio_editor" do
     end
 
     context "with settings `only`" do
-      let(:settings) { { only: "mp3" } }
+      let(:settings) { {only: "mp3"} }
 
       it "renders a link to open the attachment library overlay with only mp3s" do
         within ".file_tools" do
@@ -61,7 +61,7 @@ RSpec.describe "alchemy/ingredients/_audio_editor" do
     end
 
     context "with settings `except`" do
-      let(:settings) { { except: "mp3" } }
+      let(:settings) { {except: "mp3"} }
 
       it "renders a link to open the attachment library overlay without mp3s" do
         within ".file_tools" do

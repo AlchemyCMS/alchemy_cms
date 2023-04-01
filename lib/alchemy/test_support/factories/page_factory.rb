@@ -36,7 +36,7 @@ FactoryBot.define do
       after(:build) do |page, evaluator|
         page.build_public_version(
           public_on: evaluator.public_on,
-          public_until: evaluator.public_until,
+          public_until: evaluator.public_until
         )
       end
       after(:create) do |page|
@@ -46,7 +46,7 @@ FactoryBot.define do
               :alchemy_element,
               name: name,
               page_version: page.public_version,
-              autogenerate_ingredients: true,
+              autogenerate_ingredients: true
             )
           end
         end

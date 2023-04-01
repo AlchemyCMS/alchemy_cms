@@ -16,7 +16,7 @@ module Alchemy
         elements.collect do |e|
           [
             Element.display_name_for(e["name"]),
-            e["name"],
+            e["name"]
           ]
         end
       end

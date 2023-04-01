@@ -10,7 +10,7 @@ module Alchemy
       describe "#dependencies" do
         context "with alchemy/pages/show given as template name" do
           let(:name) { "alchemy/pages/show" }
-          before { allow(PageLayout).to receive(:all).and_return([{ "name" => "intro" }, { "name" => "contact" }]) }
+          before { allow(PageLayout).to receive(:all).and_return([{"name" => "intro"}, {"name" => "contact"}]) }
 
           it "returns all page layout view partial names" do
             is_expected.to include("alchemy/page_layouts/_intro", "alchemy/page_layouts/_contact")
@@ -19,7 +19,7 @@ module Alchemy
 
         context "with a page layout given as template name" do
           let(:name) { "alchemy/page_layouts/_intro" }
-          let(:page_layout) { { "name" => "intro", "elements" => ["text"] } }
+          let(:page_layout) { {"name" => "intro", "elements" => ["text"]} }
           before { allow(PageLayout).to receive(:get).and_return(page_layout) }
 
           it "returns all element layout view partial names for that layout" do
@@ -37,10 +37,10 @@ module Alchemy
                 "ingredients" => [
                   {
                     "role" => "text",
-                    "type" => "Text",
-                  },
-                ],
-              },
+                    "type" => "Text"
+                  }
+                ]
+              }
             ]
           end
 
@@ -63,7 +63,7 @@ module Alchemy
 
         context "with an element editor given as name" do
           let(:name) { "alchemy/elements/_text_editor" }
-          let(:elements) { [{ "name" => "text", "ingredients" => [{ "type" => "Text" }] }] }
+          let(:elements) { [{"name" => "text", "ingredients" => [{"type" => "Text"}]}] }
 
           it do
             is_expected.to be_empty
@@ -72,7 +72,7 @@ module Alchemy
 
         context "with an element given as name" do
           let(:name) { "alchemy/elements/_text" }
-          let(:elements) { [{ "name" => "text", "ingredients" => [{ "type" => "Text" }] }] }
+          let(:elements) { [{"name" => "text", "ingredients" => [{"type" => "Text"}]}] }
 
           context "that is having a definition" do
             before { allow(Element).to receive(:definitions).and_return(elements) }

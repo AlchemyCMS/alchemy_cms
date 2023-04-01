@@ -24,7 +24,7 @@ module Alchemy
         linkname: "name",
         show_title: true,
         spacer: "",
-        reverse: false,
+        reverse: false
       }.merge(options)
       languages = Language.on_current_site.published.with_root_page.order("name #{options[:reverse] ? "DESC" : "ASC"}")
       return nil if languages.count < 2
@@ -33,7 +33,7 @@ module Alchemy
         partial: "alchemy/language_links/language",
         collection: languages,
         spacer_template: "alchemy/language_links/spacer",
-        locals: { languages: languages, options: options },
+        locals: {languages: languages, options: options}
       )
     end
 
@@ -79,7 +79,7 @@ module Alchemy
     def render_menu(menu_type, options = {})
       root_node = Alchemy::Node.roots.find_by(
         menu_type: menu_type,
-        language: Alchemy::Language.current,
+        language: Alchemy::Language.current
       )
       if root_node.nil?
         warning("Menu with type #{menu_type} not found!")
@@ -110,12 +110,12 @@ module Alchemy
         page: @page,
         restricted_only: false,
         reverse: false,
-        link_active_page: false,
+        link_active_page: false
       }.merge(options)
 
-      pages = options[:page].
-        self_and_ancestors.contentpages.
-        published
+      pages = options[:page]
+        .self_and_ancestors.contentpages
+        .published
 
       if options.delete(:restricted_only)
         pages = pages.restricted
@@ -146,13 +146,13 @@ module Alchemy
       options = {
         prefix: "",
         suffix: "",
-        separator: "",
+        separator: ""
       }.update(options)
       title_parts = [options[:prefix]]
-      if response.status == 200
-        title_parts << @page.title
+      title_parts << if response.status == 200
+        @page.title
       else
-        title_parts << response.status
+        response.status
       end
       title_parts << options[:suffix]
       title_parts.reject(&:blank?).join(options[:separator]).html_safe

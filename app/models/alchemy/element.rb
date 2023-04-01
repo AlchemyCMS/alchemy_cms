@@ -41,7 +41,7 @@ module Alchemy
       "taggable",
       "compact",
       "message",
-      "deprecated",
+      "deprecated"
     ].freeze
 
     # All Elements that share the same page version and parent element and are fixed or not are considered a list.
@@ -100,7 +100,7 @@ module Alchemy
     scope :excluded, ->(names) { where.not(name: names) }
     scope :fixed, -> { where(fixed: true) }
     scope :unfixed, -> { where(fixed: false) }
-    scope :from_current_site, -> { where(Language.table_name => { site_id: Site.current || Site.default }).joins(page: "language") }
+    scope :from_current_site, -> { where(Language.table_name => {site_id: Site.current || Site.default}).joins(page: "language") }
     scope :folded, -> { where(folded: true) }
     scope :expanded, -> { where(folded: false) }
     scope :not_nested, -> { where(parent_element_id: nil) }

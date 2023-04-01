@@ -44,10 +44,10 @@ module Alchemy
 
       def find_thumb_by(signature)
         @thumb = if variant.picture.thumbs.loaded?
-            variant.picture.thumbs.find { |t| t.signature == signature }
-          else
-            variant.picture.thumbs.find_by(signature: signature)
-          end
+          variant.picture.thumbs.find { |t| t.signature == signature }
+        else
+          variant.picture.thumbs.find_by(signature: signature)
+        end
       end
     end
   end

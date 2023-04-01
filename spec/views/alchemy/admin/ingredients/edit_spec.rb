@@ -20,7 +20,7 @@ RSpec.describe "alchemy/admin/ingredients/edit.html.erb" do
       create(:alchemy_picture, {
         image_file: image,
         name: "img",
-        image_file_name: "img.png",
+        image_file_name: "img.png"
       })
     end
 
@@ -30,8 +30,8 @@ RSpec.describe "alchemy/admin/ingredients/edit.html.erb" do
       allow(ingredient).to receive(:settings).and_return({
         sizes: [
           ["Medium, 400x400", "400x400"],
-          ["Small, 200x200", "200x200"],
-        ],
+          ["Small, 200x200", "200x200"]
+        ]
       })
 
       render
@@ -43,7 +43,7 @@ RSpec.describe "alchemy/admin/ingredients/edit.html.erb" do
       # As the same sizes setting is used in another way here
       allow(ingredient).to receive(:settings).and_return({
         sizes: ["(min-width: 600px) 600px", "100vw"],
-        srcset: ["200x100", "400x200", "600x300"],
+        srcset: ["200x100", "400x200", "600x300"]
       })
 
       render

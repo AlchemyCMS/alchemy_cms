@@ -23,7 +23,7 @@ RSpec.describe "alchemy/ingredients/_video_view" do
       muted: true,
       playsinline: true,
       preload: "auto",
-      width: 1280,
+      width: 1280
     )
   end
 

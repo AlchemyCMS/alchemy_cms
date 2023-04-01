@@ -8,7 +8,7 @@ module Alchemy
       "audio/mpeg",
       "audio/mp4",
       "audio/wav",
-      "audio/x-wav",
+      "audio/x-wav"
     ]
 
     IMAGE_FILE_TYPES = [
@@ -17,7 +17,7 @@ module Alchemy
       "image/png",
       "image/svg+xml",
       "image/tiff",
-      "image/x-psd",
+      "image/x-psd"
     ]
 
     VCARD_FILE_TYPES = ["text/x-vcard", "application/vcard"]
@@ -29,31 +29,31 @@ module Alchemy
       "video/mpeg",
       "video/quicktime",
       "video/x-msvideo",
-      "video/x-ms-wmv",
+      "video/x-ms-wmv"
     ]
 
     TEXT_FILE_TYPES = [
       "application/rtf",
-      "text/plain",
+      "text/plain"
     ]
 
     EXCEL_FILE_TYPES = [
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       "application/vnd.ms-excel",
       "application/msexcel",
-      "text/csv",
+      "text/csv"
     ]
 
     WORD_FILE_TYPES = [
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
       "application/vnd.ms-word",
-      "application/msword",
+      "application/msword"
     ]
 
     POWERPOINT_FILE_TYPES = [
       "application/vnd.openxmlformats-officedocument.presentationml.presentation",
       "application/vnd.ms-powerpoint",
-      "application/mspowerpoint",
+      "application/mspowerpoint"
     ]
   end
 end

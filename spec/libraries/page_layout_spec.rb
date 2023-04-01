@@ -6,7 +6,7 @@ module Alchemy
   describe PageLayout do
     describe ".all" do
       # skip memoization
-      before { PageLayout.instance_variable_set("@definitions", nil) }
+      before { PageLayout.instance_variable_set(:@definitions, nil) }
 
       subject { PageLayout.all }
 

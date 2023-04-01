@@ -6,7 +6,7 @@ module Alchemy
   describe ElementDefinition do
     describe ".all" do
       # skip memoization
-      before { ElementDefinition.instance_variable_set("@definitions", nil) }
+      before { ElementDefinition.instance_variable_set(:@definitions, nil) }
 
       subject { ElementDefinition.all }
 

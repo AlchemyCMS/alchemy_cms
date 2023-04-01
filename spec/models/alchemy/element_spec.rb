@@ -7,7 +7,7 @@ module Alchemy
     it { is_expected.to belong_to(:page_version) }
 
     # to prevent memoization
-    before { ElementDefinition.instance_variable_set("@definitions", nil) }
+    before { ElementDefinition.instance_variable_set(:@definitions, nil) }
 
     # ClassMethods
 
@@ -47,7 +47,7 @@ module Alchemy
           described_class.create(
             page_version: page_version,
             name: "article",
-            autogenerate_ingredients: false,
+            autogenerate_ingredients: false
           )
         end
 
@@ -63,13 +63,13 @@ module Alchemy
 
         it "creates nested elements" do
           expect(element.nested_elements).to match_array([
-            an_instance_of(Alchemy::Element),
+            an_instance_of(Alchemy::Element)
           ])
         end
 
         it "sets parent elements page_version" do
           expect(element.nested_elements.map(&:page_version_id)).to eq([
-            element.page_version_id,
+            element.page_version_id
           ])
         end
 
@@ -77,14 +77,14 @@ module Alchemy
           subject(:element) do
             described_class.create(
               page_version: page_version,
-              name: "slider",
+              name: "slider"
             )
           end
 
           before do
             expect(Alchemy::ElementDefinition).to receive(:all).at_least(:once) do
               [
-                { "name" => "slider", "nestable_elements" => ["foo"], "autogenerate" => ["bar"] },
+                {"name" => "slider", "nestable_elements" => ["foo"], "autogenerate" => ["bar"]}
               ]
             end
           end
@@ -105,7 +105,7 @@ module Alchemy
             described_class.create(
               page_version: page_version,
               name: "slider",
-              autogenerate_nested_elements: false,
+              autogenerate_nested_elements: false
             )
           end
 
@@ -150,7 +150,7 @@ module Alchemy
 
       context "with differences" do
         let(:new_page_version) { create(:alchemy_page_version) }
-        subject(:copy) { Element.copy(element, { page_version_id: new_page_version.id }) }
+        subject(:copy) { Element.copy(element, {page_version_id: new_page_version.id}) }
 
         it "should create a new record with all attributes of source except given differences" do
           expect(copy.page_version_id).to eq(new_page_version.id)
@@ -170,7 +170,7 @@ module Alchemy
         let(:element) do
           create(:alchemy_element, :with_ingredients, :with_nestable_elements, {
             tag_list: "red, yellow",
-            page: create(:alchemy_page),
+            page: create(:alchemy_page)
           })
         end
 
@@ -186,7 +186,7 @@ module Alchemy
           let(:new_page_version) { create(:alchemy_page_version) }
 
           subject(:new_element) do
-            Element.copy(element, { page_version_id: new_page_version.id })
+            Element.copy(element, {page_version_id: new_page_version.id})
           end
 
           it "should set page_version id to new page_version's id" do
@@ -202,7 +202,7 @@ module Alchemy
           end
 
           subject(:new_element) do
-            Element.copy(element, { page_version_id: public_version.id })
+            Element.copy(element, {page_version_id: public_version.id})
           end
 
           it "sets page_version id" do
@@ -246,7 +246,7 @@ module Alchemy
       end
 
       context "with a YAML file including a Regex" do
-        let(:yaml) { "- format: !ruby/regexp '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'" }
+        let(:yaml) { "- format: !ruby/regexp '/\A[^@\s]+@([^@\s]+.)+[^@\s]+\z/'" }
 
         before do
           expect(File).to receive(:exist?).and_return(true)
@@ -321,7 +321,7 @@ module Alchemy
 
       it "should return all elements that are fixed" do
         expect(Element.fixed).to match_array([
-          fixed_element,
+          fixed_element
         ])
       end
     end
@@ -332,7 +332,7 @@ module Alchemy
 
       it "should return all elements that are not fixed" do
         expect(Element.unfixed).to match_array([
-          element,
+          element
         ])
       end
     end
@@ -382,7 +382,7 @@ module Alchemy
       let(:element_1) { create(:alchemy_element, page_version: page.draft_version) }
       let(:element_2) { create(:alchemy_element, name: "news", page_version: page.draft_version) }
       let(:page) { create(:alchemy_page, :public) }
-      let(:clipboard) { [{ "id" => element_1.id.to_s }, { "id" => element_2.id.to_s }] }
+      let(:clipboard) { [{"id" => element_1.id.to_s}, {"id" => element_2.id.to_s}] }
 
       before do
         allow(Element).to receive(:all_from_clipboard).and_return(
@@ -414,7 +414,7 @@ module Alchemy
 
       let(:element_1) { create(:alchemy_element) }
       let(:element_2) { create(:alchemy_element, name: "slide") }
-      let(:clipboard) { [{ "id" => element_1.id.to_s }, { "id" => element_2.id.to_s }] }
+      let(:clipboard) { [{"id" => element_1.id.to_s}, {"id" => element_2.id.to_s}] }
       let(:parent_element) { create :alchemy_element, name: "slider" }
 
       before do
@@ -633,7 +633,7 @@ module Alchemy
         it "should return true" do
           expect(element).to receive(:definition).and_return({
             "name" => "article",
-            "taggable" => true,
+            "taggable" => true
           })
           expect(element.taggable?).to be_truthy
         end
@@ -643,7 +643,7 @@ module Alchemy
         it "should return false" do
           expect(element).to receive(:definition).and_return({
             "name" => "article",
-            "taggable" => "foo",
+            "taggable" => "foo"
           })
           expect(element.taggable?).to be_falsey
         end
@@ -652,7 +652,7 @@ module Alchemy
       context "definition has no 'taggable' key" do
         it "should return false" do
           expect(element).to receive(:definition).and_return({
-            "name" => "article",
+            "name" => "article"
           })
           expect(element.taggable?).to be_falsey
         end
@@ -669,17 +669,17 @@ module Alchemy
       end
 
       context "definition has 'compact' key with true value" do
-        let(:definition) { { "compact" => true } }
+        let(:definition) { {"compact" => true} }
         it { is_expected.to be(true) }
       end
 
       context "definition has 'compact' key with foo value" do
-        let(:definition) { { "compact" => "foo" } }
+        let(:definition) { {"compact" => "foo"} }
         it { is_expected.to be(false) }
       end
 
       context "definition has no 'compact' key" do
-        let(:definition) { { "name" => "article" } }
+        let(:definition) { {"name" => "article"} }
         it { is_expected.to be(false) }
       end
     end
@@ -694,17 +694,17 @@ module Alchemy
       end
 
       context "definition has 'deprecated' key with true value" do
-        let(:definition) { { "deprecated" => true } }
+        let(:definition) { {"deprecated" => true} }
         it { is_expected.to be(true) }
       end
 
       context "definition has 'deprecated' key with foo value" do
-        let(:definition) { { "deprecated" => "This is deprecated" } }
+        let(:definition) { {"deprecated" => "This is deprecated"} }
         it { is_expected.to be(true) }
       end
 
       context "definition has no 'deprecated' key" do
-        let(:definition) { { "name" => "article" } }
+        let(:definition) { {"name" => "article"} }
         it { is_expected.to be(false) }
       end
     end
@@ -728,13 +728,13 @@ module Alchemy
         before do
           allow(element).to receive(:definition) do
             {
-              "nestable_elements" => %w(news article),
+              "nestable_elements" => %w[news article]
             }
           end
         end
 
         it "returns an array containing all available nested element names" do
-          is_expected.to eq %w(news article)
+          is_expected.to eq %w[news article]
         end
       end
 

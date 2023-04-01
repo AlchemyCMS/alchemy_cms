@@ -12,7 +12,7 @@ RSpec.describe Alchemy::Ingredients::Select do
       element: element,
       type: described_class.name,
       role: "color",
-      value: "A very nice bright color for the button",
+      value: "A very nice bright color for the button"
     )
   end
 

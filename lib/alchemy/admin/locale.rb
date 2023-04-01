@@ -18,10 +18,10 @@ module Alchemy
       # It respects the default translation from your +config/application.rb+ +default_locale+ config option.
       #
       def set_translation
-        if locale_change_needed?
-          locale = available_locale || ::I18n.default_locale
+        locale = if locale_change_needed?
+          available_locale || ::I18n.default_locale
         else
-          locale = session[:alchemy_locale]
+          session[:alchemy_locale]
         end
         ::I18n.locale = session[:alchemy_locale] = locale
       end

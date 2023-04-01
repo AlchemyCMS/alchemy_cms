@@ -27,7 +27,7 @@ RSpec.describe "Site select", type: :system do
 
     context "on pages and languages module" do
       it "contains all sites in a selectbox" do
-        %w(admin_pages_path admin_layoutpages_path admin_languages_path).each do |module_path|
+        %w[admin_pages_path admin_layoutpages_path admin_languages_path].each do |module_path|
           visit send(module_path)
           expect(page).to have_select("change_site",
             options: [Alchemy::Site.default.name, a_site.name],

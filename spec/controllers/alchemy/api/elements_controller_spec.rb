@@ -27,7 +27,7 @@ module Alchemy
       end
 
       context "with page_id param" do
-        let!(:other_page)    { create(:alchemy_page, :public) }
+        let!(:other_page) { create(:alchemy_page, :public) }
         let!(:other_element) { create(:alchemy_element, page_version: other_page.public_version) }
 
         it "returns only elements from this pages public version" do
@@ -59,7 +59,7 @@ module Alchemy
       end
 
       context "with named param" do
-        let!(:other_page)    { create(:alchemy_page, :public) }
+        let!(:other_page) { create(:alchemy_page, :public) }
         let!(:other_element) { create(:alchemy_element, name: "news", page_version: other_page.public_version) }
 
         it "returns only elements named like this." do

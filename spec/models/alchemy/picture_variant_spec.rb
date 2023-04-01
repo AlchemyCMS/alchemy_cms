@@ -11,7 +11,7 @@ RSpec.describe Alchemy::PictureVariant do
 
   subject { described_class.new(alchemy_picture, options).image }
 
-  let(:options) { Hash.new }
+  let(:options) { {} }
 
   context "when no image is present" do
     let(:alchemy_picture) { nil }
@@ -23,7 +23,7 @@ RSpec.describe Alchemy::PictureVariant do
 
   context "when a size is passed in" do
     let(:options) do
-      { size: "120x160" }
+      {size: "120x160"}
     end
 
     it "resizes the image without upsampling it" do
@@ -34,7 +34,7 @@ RSpec.describe Alchemy::PictureVariant do
       let(:options) do
         {
           size: "1600x1200",
-          upsample: true,
+          upsample: true
         }
       end
 
@@ -47,7 +47,7 @@ RSpec.describe Alchemy::PictureVariant do
       let(:options) do
         {
           size: "160x120",
-          crop: true,
+          crop: true
         }
       end
 
@@ -61,7 +61,7 @@ RSpec.describe Alchemy::PictureVariant do
             crop_size: "123x44",
             crop_from: "0x0",
             size: "160x120",
-            crop: true,
+            crop: true
           }
         end
 
@@ -75,7 +75,7 @@ RSpec.describe Alchemy::PictureVariant do
       let(:options) do
         {
           size: "160x120",
-          crop: false,
+          crop: false
         }
       end
 
@@ -89,7 +89,7 @@ RSpec.describe Alchemy::PictureVariant do
             crop_size: "123x44",
             crop_from: "0x0",
             size: "160x120",
-            crop: false,
+            crop: false
           }
         end
 
@@ -101,7 +101,7 @@ RSpec.describe Alchemy::PictureVariant do
 
     context "with no height given" do
       let(:options) do
-        { size: "40" }
+        {size: "40"}
       end
 
       it "resizes the image inferring the height" do
@@ -113,7 +113,7 @@ RSpec.describe Alchemy::PictureVariant do
           File.new(File.expand_path("../../fixtures/80x60.png", __dir__))
         end
         let(:options) do
-          { size: "17x", crop: true }
+          {size: "17x", crop: true}
         end
 
         it "resizes the image inferring the height" do
@@ -124,7 +124,7 @@ RSpec.describe Alchemy::PictureVariant do
 
     context "with no width given" do
       let(:options) do
-        { size: "x30" }
+        {size: "x30"}
       end
 
       it "resizes the image inferring the width" do
@@ -141,7 +141,7 @@ RSpec.describe Alchemy::PictureVariant do
 
   context "when a different format is requested" do
     let(:options) do
-      { format: "gif" }
+      {format: "gif"}
     end
 
     it "converts the format" do
@@ -154,7 +154,7 @@ RSpec.describe Alchemy::PictureVariant do
       let(:image_file) do
         fixture_file_upload(
           File.expand_path("../../fixtures/icon.svg", __dir__),
-          "image/svg+xml",
+          "image/svg+xml"
         )
       end
 
@@ -165,13 +165,13 @@ RSpec.describe Alchemy::PictureVariant do
 
     context "for an animated gif" do
       let(:options) do
-        { format: "png" }
+        {format: "png"}
       end
 
       let(:image_file) do
         fixture_file_upload(
           File.expand_path("../../fixtures/animated.gif", __dir__),
-          "image/gif",
+          "image/gif"
         )
       end
 
@@ -183,13 +183,13 @@ RSpec.describe Alchemy::PictureVariant do
 
       context "converted to webp" do
         let(:options) do
-          { format: "webp" }
+          {format: "webp"}
         end
 
         let(:image_file) do
           fixture_file_upload(
             File.expand_path("../../fixtures/animated.gif", __dir__),
-            "image/gif",
+            "image/gif"
           )
         end
 
@@ -204,7 +204,7 @@ RSpec.describe Alchemy::PictureVariant do
 
   context "requesting a not allowed format" do
     let(:options) do
-      { format: "zip" }
+      {format: "zip"}
     end
 
     it "returns nil" do
@@ -220,7 +220,7 @@ RSpec.describe Alchemy::PictureVariant do
   %w[jpg jpeg].each do |format|
     context "when #{format} format is requested" do
       let(:options) do
-        { format: format }
+        {format: format}
       end
 
       context "and the image file format is not JPG" do
@@ -232,7 +232,7 @@ RSpec.describe Alchemy::PictureVariant do
 
         context "and quality is passed" do
           let(:options) do
-            { format: format, quality: "30" }
+            {format: format, quality: "30"}
           end
 
           it "sets the quality" do
@@ -254,7 +254,7 @@ RSpec.describe Alchemy::PictureVariant do
 
         context "and quality is passed in options" do
           let(:options) do
-            { format: format, quality: "30" }
+            {format: format, quality: "30"}
           end
 
           it "sets the quality" do
@@ -276,7 +276,7 @@ RSpec.describe Alchemy::PictureVariant do
 
         context "and quality is passed in options" do
           let(:options) do
-            { format: format, quality: "30" }
+            {format: format, quality: "30"}
           end
 
           it "sets the quality" do

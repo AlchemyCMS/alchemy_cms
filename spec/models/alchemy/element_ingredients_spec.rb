@@ -136,9 +136,9 @@ RSpec.describe Alchemy::Element do
         ingredients_attributes: {
           "0": {
             id: element.ingredients.first.id,
-            value: "",
-          },
-        },
+            value: ""
+          }
+        }
       )
     end
 
@@ -155,16 +155,16 @@ RSpec.describe Alchemy::Element do
         ingredients_attributes: {
           "0": {
             id: element.ingredients.first.id,
-            value: "",
-          },
-        },
+            value: ""
+          }
+        }
       )
     end
 
     it "returns translated ingredient error messages" do
       expect(element.ingredient_error_messages).to eq([
         "Please enter a headline for all you can eat",
-        "Text is invalid",
+        "Text is invalid"
       ])
     end
   end
@@ -185,7 +185,7 @@ RSpec.describe Alchemy::Element do
         create(:alchemy_element, :with_ingredients, {
           name: "text",
           parent_element: element,
-          folded: false,
+          folded: false
         })
       end
 
@@ -193,7 +193,7 @@ RSpec.describe Alchemy::Element do
         create(:alchemy_element, :with_ingredients, {
           name: "text",
           parent_element: nested_element_1,
-          folded: false,
+          folded: false
         })
       end
 
@@ -201,7 +201,7 @@ RSpec.describe Alchemy::Element do
         create(:alchemy_element, :with_ingredients, {
           name: "text",
           parent_element: nested_element_1,
-          folded: true,
+          folded: true
         })
       end
 
@@ -209,7 +209,7 @@ RSpec.describe Alchemy::Element do
         is_expected.to eq(
           element.ingredient_ids +
           nested_element_1.ingredient_ids +
-          nested_element_2.ingredient_ids,
+          nested_element_2.ingredient_ids
         )
       end
     end

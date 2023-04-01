@@ -5,7 +5,7 @@ namespace :alchemy do
     desc "Generates all thumbnails for Alchemy Pictures and Picture Ingredients."
     task thumbnails: [
       "alchemy:generate:picture_thumbnails",
-      "alchemy:generate:ingredient_picture_thumbnails",
+      "alchemy:generate:ingredient_picture_thumbnails"
     ]
 
     desc "Generates thumbnails for Alchemy Pictures."
@@ -24,10 +24,10 @@ namespace :alchemy do
 
     desc "Generates thumbnails for Alchemy Picture Ingredients (set ELEMENTS=element1,element2 to only generate thumbnails for a subset of elements)."
     task ingredient_picture_thumbnails: :environment do
-      ingredient_pictures = Alchemy::Ingredients::Picture.
-        joins(:element).
-        preload({ related_object: :thumbs }).
-        merge(Alchemy::Element.published)
+      ingredient_pictures = Alchemy::Ingredients::Picture
+        .joins(:element)
+        .preload({related_object: :thumbs})
+        .merge(Alchemy::Element.published)
 
       if ENV["ELEMENTS"].present?
         ingredient_pictures = ingredient_pictures.merge(

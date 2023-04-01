@@ -53,7 +53,7 @@ RSpec.describe Alchemy::ElementsFinder do
 
         context "with options[:fixed] set to true" do
           let(:options) do
-            { fixed: true }
+            {fixed: true}
           end
 
           it "includes only fixed elements" do
@@ -72,7 +72,7 @@ RSpec.describe Alchemy::ElementsFinder do
 
       context "with options[:only] given" do
         let(:options) do
-          { only: "article" }
+          {only: "article"}
         end
 
         it "returns only the elements with that name" do
@@ -82,7 +82,7 @@ RSpec.describe Alchemy::ElementsFinder do
 
       context "with options[:except] given" do
         let(:options) do
-          { except: "article" }
+          {except: "article"}
         end
 
         it "does not return the elements with that name" do
@@ -92,7 +92,7 @@ RSpec.describe Alchemy::ElementsFinder do
 
       context "with options[:offset] given" do
         let(:options) do
-          { offset: 2 }
+          {offset: 2}
         end
 
         let!(:visible_element_2) { create(:alchemy_element, page_version: page_version) }
@@ -105,7 +105,7 @@ RSpec.describe Alchemy::ElementsFinder do
 
       context "with options[:count] given" do
         let(:options) do
-          { count: 1 }
+          {count: 1}
         end
 
         let!(:visible_element_2) { create(:alchemy_element, page_version: page_version) }
@@ -117,7 +117,7 @@ RSpec.describe Alchemy::ElementsFinder do
 
       context "with options[:reverse] given" do
         let(:options) do
-          { reverse: true }
+          {reverse: true}
         end
 
         let!(:visible_element_2) { create(:alchemy_element, page_version: page_version) }
@@ -129,7 +129,7 @@ RSpec.describe Alchemy::ElementsFinder do
 
       context "with options[:random] given" do
         let(:options) do
-          { random: true }
+          {random: true}
         end
 
         it "returns elements in random order" do

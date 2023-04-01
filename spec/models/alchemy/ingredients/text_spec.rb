@@ -19,8 +19,8 @@ RSpec.describe Alchemy::Ingredients::Text do
         link: "https://example.com",
         link_target: "_blank",
         link_title: "Click here",
-        link_class_name: "button",
-      },
+        link_class_name: "button"
+      }
     )
   end
 

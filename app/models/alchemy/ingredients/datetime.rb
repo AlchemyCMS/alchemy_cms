@@ -15,7 +15,7 @@ module Alchemy
       def preview_text(_maxlength = nil)
         return "" unless value
 
-        ::I18n.l(value, format: :'alchemy.ingredient_date')
+        ::I18n.l(value, format: :"alchemy.ingredient_date")
       end
     end
   end

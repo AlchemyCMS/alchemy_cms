@@ -53,10 +53,10 @@ module Alchemy
       public_on: nil,
       public_until: nil,
       locked_at: nil,
-      locked_by: nil,
+      locked_by: nil
     }
 
-    SKIPPED_ATTRIBUTES_ON_COPY = %w(
+    SKIPPED_ATTRIBUTES_ON_COPY = %w[
       id
       updated_at
       created_at
@@ -67,7 +67,7 @@ module Alchemy
       depth
       urlname
       cached_tag_list
-    )
+    ]
 
     PERMITTED_ATTRIBUTES = [
       :meta_description,
@@ -85,7 +85,7 @@ module Alchemy
       :title,
       :urlname,
       :layoutpage,
-      :menu_id,
+      :menu_id
     ]
 
     acts_as_nested_set(dependent: :destroy, scope: [:layoutpage, :language_id])
@@ -185,12 +185,12 @@ module Alchemy
         [
           {
             name: :by_page_layout,
-            values: PageLayout.all.map { |p| [Alchemy.t(p["name"], scope: "page_layout_names"), p["name"]] },
+            values: PageLayout.all.map { |p| [Alchemy.t(p["name"], scope: "page_layout_names"), p["name"]] }
           },
           {
             name: :status,
-            values: %w[published not_public restricted],
-          },
+            values: %w[published not_public restricted]
+          }
         ]
       end
 
@@ -248,7 +248,7 @@ module Alchemy
           parent: new_parent,
           language: new_parent&.language,
           name: new_name,
-          title: new_name,
+          title: new_name
         })
         if source.children.any?
           source.copy_children_to(page)
@@ -276,7 +276,7 @@ module Alchemy
         link_target_options = Config.get(:link_target_options)
         link_target_options.each do |option|
           options << [Alchemy.t(option, scope: "link_target_options",
-                                        default: option.to_s.humanize), option]
+            default: option.to_s.humanize), option]
         end
         options
       end
@@ -450,7 +450,7 @@ module Alchemy
         new_child = Page.copy(child, {
           parent_id: new_parent.id,
           language_id: new_parent.language_id,
-          language_code: new_parent.language_code,
+          language_code: new_parent.language_code
         })
         new_child.move_to_child_of(new_parent)
         child.copy_children_to(new_child) unless child.children.blank?
@@ -491,7 +491,7 @@ module Alchemy
     #   A tree node with new lft, rgt, depth, url, parent_id and restricted indexes to be updated
     #
     def update_node!(node)
-      hash = { lft: node.left, rgt: node.right, parent_id: node.parent, depth: node.depth, restricted: node.restricted }
+      hash = {lft: node.left, rgt: node.right, parent_id: node.parent, depth: node.depth, restricted: node.restricted}
 
       if urlname != node.url
         LegacyPageUrl.create(page_id: id, urlname: urlname)

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Alchemy
   # ActsAsTaggableOn to Gutentag interface compatibility module
   # Include this module to add tagging support to your model.
@@ -28,11 +29,11 @@ module Alchemy
         end
 
         unless args[:match]
-          args.merge!(match: :all)
+          args[:match] = :all
         end
 
         if names.any?
-          args.merge!(names: names)
+          args[:names] = names
         end
 
         super(args)

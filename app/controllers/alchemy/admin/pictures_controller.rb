@@ -44,7 +44,7 @@ module Alchemy
         render json: {
           url: @picture.url(options),
           alt: @picture.name,
-          title: Alchemy.t(:image_name, name: @picture.name),
+          title: Alchemy.t(:image_name, name: @picture.name)
         }
       end
 
@@ -64,15 +64,15 @@ module Alchemy
       end
 
       def update
-        if @picture.update(picture_params)
-          @message = {
+        @message = if @picture.update(picture_params)
+          {
             body: Alchemy.t(:picture_updated_successfully, name: @picture.name),
-            type: "notice",
+            type: "notice"
           }
         else
-          @message = {
+          {
             body: Alchemy.t(:picture_update_failed),
-            type: "error",
+            type: "error"
           }
         end
         render :update
@@ -103,7 +103,7 @@ module Alchemy
           if not_deletable.any?
             flash[:warn] = Alchemy.t(
               "These pictures could not be deleted, because they were in use",
-              names: not_deletable.to_sentence,
+              names: not_deletable.to_sentence
             )
           else
             flash[:notice] = Alchemy.t("Pictures deleted successfully", names: names.to_sentence)
@@ -111,7 +111,7 @@ module Alchemy
         else
           flash[:warn] = Alchemy.t("Could not delete Pictures")
         end
-      rescue StandardError => e
+      rescue => e
         flash[:error] = e.message
       ensure
         redirect_to_index
@@ -121,7 +121,7 @@ module Alchemy
         name = @picture.name
         @picture.destroy
         flash[:notice] = Alchemy.t("Picture deleted successfully", name: name)
-      rescue StandardError => e
+      rescue => e
         flash[:error] = e.message
       ensure
         redirect_to_index
@@ -153,8 +153,8 @@ module Alchemy
           end
         else
           cookies[:alchemy_pictures_per_page] = params[:per_page] ||
-                                                cookies[:alchemy_pictures_per_page] ||
-                                                pictures_per_page_for_size
+            cookies[:alchemy_pictures_per_page] ||
+            pictures_per_page_for_size
         end
       end
 
@@ -186,9 +186,9 @@ module Alchemy
       def search_filter_params
         @_search_filter_params ||= params.except(*COMMON_SEARCH_FILTER_EXCLUDES + [:picture_ids]).permit(
           *common_search_filter_includes + [
-          :size,
-          :form_field_id,
-        ],
+            :size,
+            :form_field_id
+          ]
         )
       end
 

@@ -10,10 +10,10 @@ module Alchemy
         :sanitized_body
 
       allow_settings %i[
-          plain_text
-          sanitizer
-          tinymce
-        ]
+        plain_text
+        sanitizer
+        tinymce
+      ]
 
       before_save :strip_content
       before_save :sanitize_content

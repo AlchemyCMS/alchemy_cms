@@ -15,7 +15,7 @@ RSpec.describe Alchemy::PublishPageJob, type: :job do
 
     it "calls the page publisher" do
       expect_any_instance_of(Alchemy::Page::Publisher).to receive(:publish!).with(
-        public_on: public_on,
+        public_on: public_on
       )
       described_class.new.perform(page.id, public_on: public_on)
     end

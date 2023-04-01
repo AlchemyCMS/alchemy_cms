@@ -2,6 +2,10 @@
 
 require "rails_helper"
 
+class Something
+  include Alchemy::Logger
+end
+
 RSpec.describe Alchemy::Logger do
   let(:message) { "Something bad happened" }
 
@@ -19,10 +23,6 @@ RSpec.describe Alchemy::Logger do
   end
 
   describe "#log_warning" do
-    class Something
-      include Alchemy::Logger
-    end
-
     subject { Something.new.log_warning(message) }
 
     before do

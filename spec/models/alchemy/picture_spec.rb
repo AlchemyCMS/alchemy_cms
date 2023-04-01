@@ -107,14 +107,14 @@ module Alchemy
     describe "#suffix" do
       it "should return the suffix of original filename" do
         pic = stub_model(Picture, image_file_name: "kitten.JPG")
-        allow(pic).to receive(:image_file).and_return(OpenStruct.new({ ext: "jpg" }))
+        allow(pic).to receive(:image_file).and_return(OpenStruct.new({ext: "jpg"}))
         expect(pic.suffix).to eq("jpg")
       end
 
       context "image has no suffix" do
         it "should return empty string" do
           pic = stub_model(Picture, image_file_name: "kitten")
-          allow(pic).to receive(:image_file).and_return(OpenStruct.new({ ext: "" }))
+          allow(pic).to receive(:image_file).and_return(OpenStruct.new({ext: ""}))
           expect(pic.suffix).to eq("")
         end
       end
@@ -123,13 +123,13 @@ module Alchemy
     describe "#humanized_name" do
       it "should return a humanized version of original filename" do
         pic = stub_model(Picture, image_file_name: "cute_kitten.JPG")
-        allow(pic).to receive(:image_file).and_return(OpenStruct.new({ ext: "jpg" }))
+        allow(pic).to receive(:image_file).and_return(OpenStruct.new({ext: "jpg"}))
         expect(pic.humanized_name).to eq("cute kitten")
       end
 
       it "should not remove incidents of suffix from filename" do
         pic = stub_model(Picture, image_file_name: "cute_kitten_mo.jpgi.JPG")
-        allow(pic).to receive(:image_file).and_return(OpenStruct.new({ ext: "jpg" }))
+        allow(pic).to receive(:image_file).and_return(OpenStruct.new({ext: "jpg"}))
         expect(pic.humanized_name).to eq("cute kitten mo.jpgi")
         expect(pic.humanized_name).not_to eq("cute kitten moi")
       end
@@ -151,12 +151,12 @@ module Alchemy
           expect(Alchemy::Picture.alchemy_resource_filters).to eq([
             {
               name: :by_file_format,
-              values: ["png"],
+              values: ["png"]
             },
             {
               name: :misc,
-              values: %w[recent last_upload without_tag deletable],
-            },
+              values: %w[recent last_upload without_tag deletable]
+            }
           ])
         end
       end
@@ -219,20 +219,20 @@ module Alchemy
 
       it "updates tag_list" do
         expect(picture).to receive(:tag_list=).with("Foo")
-        picture.update_name_and_tag_list!({ pictures_tag_list: "Foo" })
+        picture.update_name_and_tag_list!({pictures_tag_list: "Foo"})
       end
 
       context "name is present" do
         it "updates name" do
           expect(picture).to receive(:name=).with("Foo")
-          picture.update_name_and_tag_list!({ pictures_name: "Foo" })
+          picture.update_name_and_tag_list!({pictures_name: "Foo"})
         end
       end
 
       context "name is not present" do
         it "does not update name" do
           expect(picture).not_to receive(:name=).with("Foo")
-          picture.update_name_and_tag_list!({ pictures_name: "" })
+          picture.update_name_and_tag_list!({pictures_name: ""})
         end
       end
     end
@@ -243,7 +243,7 @@ module Alchemy
       let(:image) do
         fixture_file_upload(
           File.expand_path("../../fixtures/500x500.png", __dir__),
-          "image/png",
+          "image/png"
         )
       end
 
@@ -251,10 +251,10 @@ module Alchemy
         create(:alchemy_picture, image_file: image)
       end
 
-      let(:options) { Hash.new }
+      let(:options) { {} }
 
       it "includes the name and render format" do
-        expect(url).to match /\/#{picture.name}\.#{picture.default_render_format}/
+        expect(url).to match(/\/#{picture.name}\.#{picture.default_render_format}/)
       end
 
       context "when no image is present" do
@@ -282,12 +282,12 @@ module Alchemy
           let(:options) do
             {
               crop: true,
-              size: "10x10",
+              size: "10x10"
             }
           end
 
           it "does not pass them to the URL" do
-            expect(url).to_not match /crop/
+            expect(url).to_not match(/crop/)
           end
 
           it "returns the url to the thumbnail" do
@@ -299,12 +299,12 @@ module Alchemy
           let(:options) do
             {
               page: 1,
-              per_page: 10,
+              per_page: 10
             }
           end
 
           it "passes them to the URL" do
-            expect(url).to match /page=1/
+            expect(url).to match(/page=1/)
           end
         end
       end
@@ -343,7 +343,7 @@ module Alchemy
         let(:picture) { build_stubbed(:alchemy_picture) }
 
         before do
-          expect(picture).to receive(:errors).and_return({ image_file: %w(stupid_cats) })
+          expect(picture).to receive(:errors).and_return({image_file: %w[stupid_cats]})
         end
 
         it "returns hash with error message" do
@@ -364,7 +364,7 @@ module Alchemy
             expect(picture).to receive(:pages).at_least(:once) do
               double(
                 not_restricted: double(blank?: true),
-                any?: true,
+                any?: true
               )
             end
           end
@@ -377,7 +377,7 @@ module Alchemy
             expect(picture).to receive(:pages).at_least(:once) do
               double(
                 not_restricted: double(blank?: false),
-                any?: true,
+                any?: true
               )
             end
           end

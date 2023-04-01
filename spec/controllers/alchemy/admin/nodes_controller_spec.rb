@@ -19,7 +19,7 @@ module Alchemy
       end
 
       context "if root nodes present" do
-        let!(:root_node)  { create(:alchemy_node) }
+        let!(:root_node) { create(:alchemy_node) }
         let!(:child_node) { create(:alchemy_node, parent_id: root_node.id) }
 
         it "loads only root nodes from current language" do
@@ -48,7 +48,7 @@ module Alchemy
 
         context "with parent id in params" do
           it "sets it to new node" do
-            get :new, params: { parent_id: 1 }
+            get :new, params: {parent_id: 1}
             expect(assigns("node").parent_id).to eq(1)
           end
         end
@@ -61,7 +61,7 @@ module Alchemy
 
         it "creates node and redirects to index" do
           expect {
-            post :create, params: { node: { menu_type: "main_menu", language_id: language.id } }
+            post :create, params: {node: {menu_type: "main_menu", language_id: language.id}}
           }.to change { Alchemy::Node.count }.by(1)
           expect(response).to redirect_to(admin_nodes_path)
         end
@@ -73,7 +73,7 @@ module Alchemy
 
       context "with valid params" do
         it "redirects to nodes path" do
-          put :update, params: { id: node.id, node: { name: "Node"} }
+          put :update, params: {id: node.id, node: {name: "Node"}}
           expect(response).to redirect_to(admin_nodes_path)
         end
       end

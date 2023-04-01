@@ -13,7 +13,7 @@ RSpec.describe Alchemy::Ingredients::Page do
       element: element,
       type: described_class.name,
       role: "follow_up",
-      related_object: page,
+      related_object: page
     )
   end
 

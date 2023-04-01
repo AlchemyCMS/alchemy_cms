@@ -14,7 +14,7 @@ RSpec.describe Alchemy::Admin::IngredientsController do
       type: "Alchemy::Ingredients::File",
       element: element,
       attachment: attachment,
-      role: "file",
+      role: "file"
     )
   end
 
@@ -25,14 +25,14 @@ RSpec.describe Alchemy::Admin::IngredientsController do
   context "without authorized user" do
     describe "get :edit" do
       it "redirects to login path" do
-        get :edit, params: { id: ingredient.id }
+        get :edit, params: {id: ingredient.id}
         expect(response).to redirect_to(Alchemy.login_path)
       end
     end
 
     describe "patch :update" do
       it "redirects to login path" do
-        patch :update, params: { id: ingredient.id }
+        patch :update, params: {id: ingredient.id}
         expect(response).to redirect_to(Alchemy.login_path)
       end
     end
@@ -44,7 +44,7 @@ RSpec.describe Alchemy::Admin::IngredientsController do
     end
 
     describe "get :edit" do
-      subject { get(:edit, params: { id: ingredient.id }) }
+      subject { get(:edit, params: {id: ingredient.id}) }
 
       it "assigns @ingredient with the Ingredient found by id" do
         subject
@@ -62,7 +62,7 @@ RSpec.describe Alchemy::Admin::IngredientsController do
           Alchemy::Ingredients::Headline,
           type: "Alchemy::Ingredients::Text",
           element: element,
-          role: "text",
+          role: "text"
         )
       end
 
@@ -73,8 +73,8 @@ RSpec.describe Alchemy::Admin::IngredientsController do
             ingredient: {
               level: "2",
               size: "3",
-              dom_id: "se-id",
-            },
+              dom_id: "se-id"
+            }
           }
         end
 
@@ -91,8 +91,8 @@ RSpec.describe Alchemy::Admin::IngredientsController do
           {
             id: ingredient.id,
             ingredient: {
-              foo: "Baz",
-            },
+              foo: "Baz"
+            }
           }
         end
 
@@ -105,7 +105,7 @@ RSpec.describe Alchemy::Admin::IngredientsController do
       context "without attributes" do
         let(:params) do
           {
-            id: ingredient.id,
+            id: ingredient.id
           }
         end
 
@@ -123,7 +123,7 @@ RSpec.describe Alchemy::Admin::IngredientsController do
         Alchemy::Ingredients::Picture.new(
           element: element,
           picture: picture,
-          role: "picture",
+          role: "picture"
         )
       end
     end

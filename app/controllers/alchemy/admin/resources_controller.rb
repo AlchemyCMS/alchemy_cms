@@ -8,7 +8,7 @@ require "alchemy/resource_filter"
 module Alchemy
   module Admin
     class ResourcesController < Alchemy::Admin::BaseController
-      COMMON_SEARCH_FILTER_EXCLUDES = [:id, :utf8, :_method, :_, :format].freeze
+      COMMON_SEARCH_FILTER_EXCLUDES = %i[id utf8 _method _ format].freeze
 
       include Alchemy::ResourcesHelper
 
@@ -18,7 +18,7 @@ module Alchemy
         :resource_filters_for_select
 
       before_action :load_resource,
-        only: [:show, :edit, :update, :destroy]
+        only: %i[show edit update destroy]
 
       before_action :authorize_resource
 
@@ -27,26 +27,18 @@ module Alchemy
         @query.sorts = default_sort_order if @query.sorts.empty?
         items = @query.result
 
-        if contains_relations?
-          items = items.includes(*resource_relations_names)
-        end
-
-        if search_filter_params[:tagged_with].present?
-          items = items.tagged_with(search_filter_params[:tagged_with])
-        end
-
-        if search_filter_params[:filter].present?
-          items = apply_filters(items)
-        end
+        items = items.includes(*resource_relations_names) if contains_relations?
+        items = items.tagged_with(search_filter_params[:tagged_with]) if search_filter_params[:tagged_with].present?
+        items = apply_filters(items) if search_filter_params[:filter].present?
 
         respond_to do |format|
-          format.html {
+          format.html do
             items = items.page(params[:page] || 1).per(items_per_page)
             instance_variable_set("@#{resource_handler.resources_name}", items)
-          }
-          format.csv {
+          end
+          format.csv do
             instance_variable_set("@#{resource_handler.resources_name}", items)
-          }
+          end
         end
       end
 
@@ -58,7 +50,8 @@ module Alchemy
         render action: "edit"
       end
 
-      def edit; end
+      def edit
+      end
 
       def create
         instance_variable_set("@#{resource_handler.resource_name}", resource_handler.model.new(resource_params))
@@ -66,7 +59,7 @@ module Alchemy
         render_errors_or_redirect(
           resource_instance_variable,
           resources_path(resource_instance_variable.class, search_filter_params),
-          flash_notice_for_resource_action,
+          flash_notice_for_resource_action
         )
       end
 
@@ -75,7 +68,7 @@ module Alchemy
         render_errors_or_redirect(
           resource_instance_variable,
           resources_path(resource_instance_variable.class, search_filter_params),
-          flash_notice_for_resource_action,
+          flash_notice_for_resource_action
         )
       end
 
@@ -161,7 +154,10 @@ module Alchemy
         when :destroy
           verb = "removed"
         end
-        flash[:notice] = Alchemy.t("#{resource_handler.resource_name.classify} successfully #{verb}", default: Alchemy.t("Successfully #{verb}"))
+        flash[:notice] = Alchemy.t(
+          "#{resource_handler.resource_name.classify} successfully #{verb}",
+          default: Alchemy.t("Successfully #{verb}")
+        )
       end
 
       def is_alchemy_module?
@@ -198,18 +194,20 @@ module Alchemy
 
       def common_search_filter_includes
         search_filters = [
-          { q: [
-            resource_handler.search_field_name,
-            :s,
-          ] },
+          {
+            q: [
+              resource_handler.search_field_name,
+              :s
+            ]
+          },
           :tagged_with,
           :page,
-          :per_page,
+          :per_page
         ]
 
         if resource_has_filters
           search_filters << {
-            filter: resource_filters.map { |f| f[:name] },
+            filter: resource_filters.map { |f| f[:name] }
           }
         end
 
@@ -217,7 +215,8 @@ module Alchemy
       end
 
       def items_per_page
-        cookies[:alchemy_items_per_page] = params[:per_page] || cookies[:alchemy_items_per_page] || Alchemy::Config.get(:items_per_page)
+        cookies[:alchemy_items_per_page] =
+          params[:per_page] || cookies[:alchemy_items_per_page] || Alchemy::Config.get(:items_per_page)
       end
 
       def items_per_page_options

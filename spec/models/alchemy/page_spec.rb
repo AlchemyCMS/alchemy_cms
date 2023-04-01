@@ -107,13 +107,15 @@ module Alchemy
       context "before_save" do
         it "should not set the title automatically if the name changed but title is not blank" do
           page.name = "My Renaming Test"
-          page.save; page.reload
+          page.save
+          page.reload
           expect(page.title).to eq("My Testpage")
         end
 
         it "should not automatically set the title if it changed its value" do
           page.title = "I like SEO"
-          page.save; page.reload
+          page.save
+          page.reload
           expect(page.title).to eq("I like SEO")
         end
       end
@@ -134,7 +136,7 @@ module Alchemy
             page.save!
             page.urlname = "another-urlname"
             page.save!
-            expect(page.legacy_urls.select { |u| u.urlname == "my-testpage" }.size).to eq(1)
+            expect(page.legacy_urls.count { |u| u.urlname == "my-testpage" }).to eq(1)
           end
         end
 
@@ -241,13 +243,13 @@ module Alchemy
       it { is_expected.to eq(Alchemy::Page::UrlPath) }
 
       context "if set to another url path class" do
-        class AnotherUrlPathClass; end
+        let(:url_path_class) { Class.new(Alchemy::Page::UrlPath) }
 
         before do
-          described_class.url_path_class = AnotherUrlPathClass
+          described_class.url_path_class = url_path_class
         end
 
-        it { is_expected.to eq(AnotherUrlPathClass) }
+        it { is_expected.to eq(url_path_class) }
 
         after { described_class.instance_variable_set(:@_url_path_class, nil) }
       end
@@ -259,8 +261,8 @@ module Alchemy
           page_1 = create(:alchemy_page, language: language)
           page_2 = create(:alchemy_page, language: language, name: "Another page")
           clipboard = [
-            { "id" => page_1.id.to_s, "action" => "copy" },
-            { "id" => page_2.id.to_s, "action" => "copy" },
+            {"id" => page_1.id.to_s, "action" => "copy"},
+            {"id" => page_2.id.to_s, "action" => "copy"}
           ]
           expect(Page.all_from_clipboard_for_select(clipboard, language.id)).to include(page_1, page_2)
         end
@@ -270,7 +272,7 @@ module Alchemy
         it "should not return any pages" do
           page_1 = create(:alchemy_page, language: language, page_layout: "contact")
           clipboard = [
-            { "id" => page_1.id.to_s, "action" => "copy" },
+            {"id" => page_1.id.to_s, "action" => "copy"}
           ]
           expect(Page.all_from_clipboard_for_select(clipboard, language.id)).to eq([])
         end
@@ -281,8 +283,8 @@ module Alchemy
           page_1 = create(:alchemy_page, language: language, page_layout: "standard")
           page_2 = create(:alchemy_page, name: "Another page", language: language, page_layout: "contact")
           clipboard = [
-            { "id" => page_1.id.to_s, "action" => "copy" },
-            { "id" => page_2.id.to_s, "action" => "copy" },
+            {"id" => page_1.id.to_s, "action" => "copy"},
+            {"id" => page_2.id.to_s, "action" => "copy"}
           ]
           expect(Page.all_from_clipboard_for_select(clipboard, language.id)).to eq([page_1])
         end
@@ -294,8 +296,8 @@ module Alchemy
 
         it "should only return layoutpages" do
           clipboard = [
-            { "id" => page_1.id.to_s, "action" => "copy" },
-            { "id" => page_2.id.to_s, "action" => "copy" },
+            {"id" => page_1.id.to_s, "action" => "copy"},
+            {"id" => page_2.id.to_s, "action" => "copy"}
           ]
           expect(Page.all_from_clipboard_for_select(clipboard, language.id, layoutpages: true)).to eq([page_1])
         end
@@ -318,7 +320,7 @@ module Alchemy
       before do
         create(:alchemy_page, :public, :locked, locked_by: 53) # This page must not be part of the collection
         allow(user.class).to receive(:primary_key)
-                               .and_return("id")
+          .and_return("id")
       end
 
       it "should return the correct page collection blocked by a certain user" do
@@ -331,7 +333,7 @@ module Alchemy
 
         before do
           allow(user.class).to receive(:primary_key)
-                                 .and_return("user_id")
+            .and_return("user_id")
         end
 
         it "should return the correct page collection blocked by a certain user" do
@@ -345,21 +347,21 @@ module Alchemy
       let!(:layoutpage) do
         create :alchemy_page, :layoutpage, {
           name: "layoutpage",
-          language: klingon,
+          language: klingon
         }
       end
 
       let!(:klingon_lang_root) do
         create :alchemy_page, :language_root, {
           name: "klingon_lang_root",
-          language: klingon,
+          language: klingon
         }
       end
 
       let!(:contentpage) do
         create :alchemy_page, {
           name: "contentpage",
-          parent: language_root,
+          parent: language_root
         }
       end
 
@@ -369,7 +371,7 @@ module Alchemy
         is_expected.to include(
           language_root,
           klingon_lang_root,
-          contentpage,
+          contentpage
         )
       end
 
@@ -448,7 +450,7 @@ module Alchemy
           allow(page).to receive(:definition).and_return({
             "name" => "standard",
             "elements" => ["headline"],
-            "autogenerate" => ["headline"],
+            "autogenerate" => ["headline"]
           })
         end
 
@@ -458,7 +460,7 @@ module Alchemy
       end
 
       context "with different page name given" do
-        subject { Page.copy(page, { name: "Different name" }) }
+        subject { Page.copy(page, {name: "Different name"}) }
 
         it "should take this name" do
           expect(subject.name).to eq("Different name")
@@ -473,7 +475,7 @@ module Alchemy
         it "rolls back all changes" do
           page
           expect {
-            expect { Page.copy(page, { name: "Different name" }) }.to raise_error("boom")
+            expect { Page.copy(page, {name: "Different name"}) }.to raise_error("boom")
           }.to_not change(Alchemy::Page, :count)
         end
       end
@@ -693,9 +695,9 @@ module Alchemy
                 "ingredients" => [
                   {
                     "role" => "headline",
-                    "type" => "Text",
-                  },
-                ],
+                    "type" => "Text"
+                  }
+                ]
               },
               {
                 "name" => "unique_headline",
@@ -704,17 +706,17 @@ module Alchemy
                 "ingredients" => [
                   {
                     "role" => "headline",
-                    "type" => "Text",
-                  },
-                ],
-              },
+                    "type" => "Text"
+                  }
+                ]
+              }
             ]
           end
           allow(PageLayout).to receive(:get) do
             {
               "name" => "columns",
               "elements" => ["column_headline", "unique_headline"],
-              "autogenerate" => ["unique_headline", "column_headline", "column_headline", "column_headline"],
+              "autogenerate" => ["unique_headline", "column_headline", "column_headline", "column_headline"]
             }
           end
         end
@@ -768,7 +770,7 @@ module Alchemy
       let(:page) { create(:alchemy_page) }
 
       it "returns all names of elements that could be placed on current page" do
-        page.available_element_names == %w(header article)
+        page.available_element_names == %w[header article]
       end
     end
 
@@ -954,11 +956,11 @@ module Alchemy
     describe "#element_definitions" do
       let(:page) { build_stubbed(:alchemy_page) }
       subject { page.element_definitions }
-      before { expect(Element).to receive(:definitions).and_return([{ "name" => "article" }, { "name" => "header" }]) }
+      before { expect(Element).to receive(:definitions).and_return([{"name" => "article"}, {"name" => "header"}]) }
 
       it "returns all element definitions that could be placed on current page" do
-        is_expected.to include({ "name" => "article" })
-        is_expected.to include({ "name" => "header" })
+        is_expected.to include({"name" => "article"})
+        is_expected.to include({"name" => "header"})
       end
     end
 
@@ -975,13 +977,13 @@ module Alchemy
       context "with nestable element being defined on multiple elements" do
         before do
           expect(page).to receive(:element_definition_names) do
-            %w(slider gallery)
+            %w[slider gallery]
           end
           expect(Element).to receive(:definitions).at_least(:once) do
             [
-              { "name" => "slider", "nestable_elements" => %w(slide) },
-              { "name" => "gallery", "nestable_elements" => %w(slide) },
-              { "name" => "slide" },
+              {"name" => "slider", "nestable_elements" => %w[slide]},
+              {"name" => "gallery", "nestable_elements" => %w[slide]},
+              {"name" => "slide"}
             ]
           end
         end
@@ -1028,11 +1030,11 @@ module Alchemy
 
       context "with elements assigned in page definition" do
         let(:page_definition) do
-          { "elements" => %w(article) }
+          {"elements" => %w[article]}
         end
 
         it "returns an array of the page's element names" do
-          is_expected.to eq %w(article)
+          is_expected.to eq %w[article]
         end
       end
 
@@ -1058,7 +1060,7 @@ module Alchemy
 
       context "with a custom finder given in options" do
         let(:options) do
-          { finder: CustomNewsElementsFinder.new }
+          {finder: CustomNewsElementsFinder.new}
         end
 
         it "uses that to load elements to render" do
@@ -1110,7 +1112,7 @@ module Alchemy
 
         context "with user is a active record model" do
           before do
-            allow(Alchemy.user_class).to receive(:'<').and_return(true)
+            allow(Alchemy.user_class).to receive(:<).and_return(true)
           end
 
           context "if page is folded" do
@@ -1150,8 +1152,8 @@ module Alchemy
           :public,
           children: [
             build(:alchemy_page),
-            build(:alchemy_page, name: "child with children", children: [build(:alchemy_page)]),
-          ],
+            build(:alchemy_page, name: "child with children", children: [build(:alchemy_page)])
+          ]
         )
       end
 
@@ -1198,7 +1200,7 @@ module Alchemy
 
         new_child = Page.copy(child, {
           language_id: new_parent.language_id,
-          language_code: new_parent.language_code,
+          language_code: new_parent.language_code
         })
         new_child.move_to_child_of(new_parent)
         child.copy_children_to(new_child) unless child.children.blank?
@@ -1261,7 +1263,7 @@ module Alchemy
           parent: new_parent,
           language: new_parent.language,
           name: page_name,
-          title: page_name,
+          title: page_name
         })
         subject
       end
@@ -1289,7 +1291,7 @@ module Alchemy
             parent: nil,
             language: nil,
             name: page_name,
-            title: page_name,
+            title: page_name
           })
           subject
         end
@@ -1372,7 +1374,7 @@ module Alchemy
 
       context "template defines one alchemy role" do
         before do
-          allow(page).to receive(:definition).and_return({ "editable_by" => ["freelancer"] })
+          allow(page).to receive(:definition).and_return({"editable_by" => ["freelancer"]})
         end
 
         context "user has matching alchemy role" do
@@ -1393,7 +1395,7 @@ module Alchemy
 
       context "template defines multiple alchemy roles" do
         before do
-          allow(page).to receive(:definition).and_return({ "editable_by" => ["freelancer", "admin"] })
+          allow(page).to receive(:definition).and_return({"editable_by" => ["freelancer", "admin"]})
         end
 
         context "user has matching alchemy role" do
@@ -1793,7 +1795,7 @@ module Alchemy
 
       describe "#status" do
         it "returns a combined status hash" do
-          expect(page.status).to eq({ public: true, restricted: false, locked: false })
+          expect(page.status).to eq({public: true, restricted: false, locked: false})
         end
       end
 

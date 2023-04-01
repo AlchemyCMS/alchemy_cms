@@ -34,7 +34,7 @@ module Alchemy
         it "passes it on to the render method" do
           expect(helper).to receive(:current_alchemy_site).and_return(default_site)
           expect(helper).to receive(:render)
-              .with(default_site) { |&block| expect(block).to be }
+            .with(default_site) { |&block| expect(block).to be }
 
           helper.render_site_layout { true }
         end
@@ -344,12 +344,12 @@ module Alchemy
 
         context "when robots may index" do
           it "contains 'index'" do
-            is_expected.to match /index/
+            is_expected.to match(/index/)
           end
 
           context "and robots may follow the links" do
             it "contains 'follow'" do
-              is_expected.to match /index, follow/
+              is_expected.to match(/index, follow/)
             end
           end
 
@@ -357,7 +357,7 @@ module Alchemy
             before { allow(public_page).to receive_messages(robot_follow?: false) }
 
             it "contains 'nofollow'" do
-              is_expected.to match /index, nofollow/
+              is_expected.to match(/index, nofollow/)
             end
           end
         end
@@ -366,19 +366,19 @@ module Alchemy
           before { allow(public_page).to receive_messages(robot_index?: false) }
 
           it "contains 'noindex'" do
-            is_expected.to match /noindex/
+            is_expected.to match(/noindex/)
           end
 
           context "and robots may follow the links" do
             it "contains 'follow'" do
-              is_expected.to match /noindex, follow/
+              is_expected.to match(/noindex, follow/)
             end
           end
           context "and robots are not allowed to follow links" do
             before { allow(public_page).to receive_messages(robot_follow?: false) }
 
             it "contains 'nofollow'" do
-              is_expected.to match /noindex, nofollow/
+              is_expected.to match(/noindex, nofollow/)
             end
           end
         end

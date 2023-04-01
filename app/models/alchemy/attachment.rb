@@ -40,7 +40,7 @@ module Alchemy
 
     scope :by_file_type, ->(file_type) { where(file_mime_type: file_type) }
     scope :recent, -> { where("#{table_name}.created_at > ?", Time.current - 24.hours).order(:created_at) }
-    scope :without_tag, -> { left_outer_joins(:taggings).where(gutentag_taggings: { id: nil }) }
+    scope :without_tag, -> { left_outer_joins(:taggings).where(gutentag_taggings: {id: nil}) }
 
     # We need to define this method here to have it available in the validations below.
     class << self
@@ -62,12 +62,12 @@ module Alchemy
         [
           {
             name: :by_file_type,
-            values: distinct.pluck(:file_mime_type).map { |type| [Alchemy.t(type, scope: "mime_types"), type] }.sort_by(&:first),
+            values: distinct.pluck(:file_mime_type).map { |type| [Alchemy.t(type, scope: "mime_types"), type] }.sort_by(&:first)
           },
           {
             name: :misc,
-            values: %w(recent last_upload without_tag),
-          },
+            values: %w[recent last_upload without_tag]
+          }
         ]
       end
 
@@ -79,7 +79,7 @@ module Alchemy
       end
 
       def searchable_alchemy_resource_attributes
-        %w(name file_name)
+        %w[name file_name]
       end
 
       def allowed_filetypes
@@ -106,7 +106,7 @@ module Alchemy
       {
         "name" => read_attribute(:file_name),
         "size" => read_attribute(:file_size),
-        "error" => errors[:file].join,
+        "error" => errors[:file].join
       }
     end
 

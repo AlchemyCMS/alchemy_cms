@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails/generators"
 require "alchemy/install/tasks"
 require "alchemy/version"
@@ -57,7 +58,7 @@ module Alchemy
       end
 
       def copy_yml_files
-        %w(elements page_layouts menus).each do |file|
+        %w[elements page_layouts menus].each do |file|
           template "#{__dir__}/templates/#{file}.yml.tt", app_config_path.join("alchemy", "#{file}.yml")
         end
       end

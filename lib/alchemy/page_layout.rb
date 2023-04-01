@@ -51,7 +51,7 @@ module Alchemy
             YAML.safe_load(
               ERB.new(File.read(layouts_file_path)).result,
               permitted_classes: YAML_PERMITTED_CLASSES,
-              aliases: true,
+              aliases: true
             ) || []
           )
         else

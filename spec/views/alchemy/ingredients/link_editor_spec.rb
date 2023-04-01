@@ -10,7 +10,7 @@ RSpec.describe "alchemy/ingredients/_link_editor" do
     stub_model(
       Alchemy::Ingredients::Link,
       element: element,
-      role: "link",
+      role: "link"
     )
   end
 

@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-include Alchemy::BaseHelper
 
 module Alchemy
   describe ElementsHelper do
+    include Alchemy::BaseHelper
+
     let(:element) { create(:alchemy_element, name: "headline") }
 
     before do
@@ -40,7 +41,7 @@ module Alchemy
       end
 
       context "with options given" do
-        subject { render_element(element, locals: { some: "thing" }) }
+        subject { render_element(element, locals: {some: "thing"}) }
 
         it "passes them into the view" do
           is_expected.to match(/thing/)
@@ -110,7 +111,7 @@ module Alchemy
           let(:another_page) { create(:alchemy_page, :public) }
 
           let(:options) do
-            { from_page: another_page }
+            {from_page: another_page}
           end
 
           let!(:element) { create(:alchemy_element, name: "headline", page: another_page, page_version: another_page.public_version) }
@@ -136,7 +137,7 @@ module Alchemy
 
         context "if from_page is nil" do
           let(:options) do
-            { from_page: nil }
+            {from_page: nil}
           end
 
           it { is_expected.to be_empty }
@@ -144,7 +145,7 @@ module Alchemy
       end
 
       context "with option separator given" do
-        let(:options) { { separator: "<hr>" } }
+        let(:options) { {separator: "<hr>"} }
 
         it "joins element partials with given string" do
           is_expected.to have_selector("hr")
@@ -153,7 +154,7 @@ module Alchemy
 
       context "with custom elements finder" do
         let(:options) do
-          { finder: CustomNewsElementsFinder.new }
+          {finder: CustomNewsElementsFinder.new}
         end
 
         it "uses that to load elements to render" do
@@ -163,19 +164,19 @@ module Alchemy
 
       context "with locals option" do
         let(:options) do
-          { locals: { foo: :bar } }
+          {locals: {foo: :bar}}
         end
 
         it "sends locals with every #render_element call" do
           expect(helper).to receive(:render).with(
             partial: element.to_partial_path,
             object: element,
-            locals: { element: element, counter: 1, options: { from_page: page, render_format: "html" }, foo: :bar },
+            locals: {element: element, counter: 1, options: {from_page: page, render_format: "html"}, foo: :bar}
           )
           expect(helper).to receive(:render).with(
             partial: another_element.to_partial_path,
             object: another_element,
-            locals: { element: another_element, counter: 2, options: { from_page: page, render_format: "html" }, foo: :bar },
+            locals: {element: another_element, counter: 2, options: {from_page: page, render_format: "html"}, foo: :bar}
           )
 
           subject
@@ -190,7 +191,7 @@ module Alchemy
         before { assign(:preview_mode, true) }
 
         it "should return the data-alchemy-element HTML attribute for element" do
-          is_expected.to eq({ "data-alchemy-element" => element.id })
+          is_expected.to eq({"data-alchemy-element" => element.id})
         end
       end
 
@@ -235,7 +236,7 @@ module Alchemy
         end
 
         context "with a formatter lambda given" do
-          let(:options) { { formatter: ->(tags) { tags.join ", " } } }
+          let(:options) { {formatter: ->(tags) { tags.join ", " }} }
 
           it "should return a properly formatted HTML data attribute" do
             is_expected.to eq(" data-element-tags=\"peter, lustig\"")

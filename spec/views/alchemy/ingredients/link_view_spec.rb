@@ -20,7 +20,7 @@ RSpec.describe "alchemy/ingredients/_link_view" do
   end
 
   context "with text option" do
-    let(:options) { { text: "Google" } }
+    let(:options) { {text: "Google"} }
 
     it "renders a link" do
       render ingredient, options: options
@@ -30,7 +30,7 @@ RSpec.describe "alchemy/ingredients/_link_view" do
 
   context "with text setting on ingredient definition" do
     before do
-      allow(ingredient).to receive(:settings).and_return({ text: "Yahoo" })
+      allow(ingredient).to receive(:settings).and_return({text: "Yahoo"})
     end
 
     it "renders a link" do

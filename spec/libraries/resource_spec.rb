@@ -6,6 +6,8 @@ class Party < ActiveRecord::Base
   belongs_to :location
 end
 
+CustomParty = Class.new
+
 module Namespace1
   module Namespace2
     class Party
@@ -36,8 +38,8 @@ module Alchemy
           "name" => "modules.party_list",
           "controller" => "/admin/parties",
           "action" => "index",
-          "image" => "/assets/party_list_module.png",
-        },
+          "image" => "/assets/party_list_module.png"
+        }
       }
     end
 
@@ -49,7 +51,7 @@ module Alchemy
         double(:column, {name: "id", type: :integer, array: false}),
         double(:column, {name: "starts_at", type: :datetime, array: false}),
         double(:column, {name: "location_id", type: :integer, array: false}),
-        double(:column, {name: "organizer_id", type: :integer, array: false}),
+        double(:column, {name: "organizer_id", type: :integer, array: false})
       ]
     end
 
@@ -74,7 +76,6 @@ module Alchemy
 
       context "when initialized with a custom model" do
         it "sets @model to custom model" do
-          CustomParty = Class.new
           resource = Resource.new("admin/parties", nil, CustomParty)
           expect(resource.instance_variable_get(:@model)).to eq(CustomParty)
         end
@@ -116,11 +117,11 @@ module Alchemy
     describe "#resource_array" do
       it "splits the controller_path and returns it as array." do
         resource = Resource.new("namespace1/namespace2/parties")
-        expect(resource.resource_array).to eql(%w(namespace1 namespace2 parties))
+        expect(resource.resource_array).to eql(%w[namespace1 namespace2 parties])
       end
 
       it "deletes 'admin' if found hence our model isn't in the admin-namespace by convention" do
-        expect(resource.resource_array).to eql(%w(parties))
+        expect(resource.resource_array).to eql(%w[parties])
       end
     end
 
@@ -168,7 +169,7 @@ module Alchemy
 
     describe "#namespace_for_scope" do
       it "returns a scope for use in url_for based path helpers" do
-        expect(resource.namespace_for_scope).to eq(%i(admin))
+        expect(resource.namespace_for_scope).to eq(%i[admin])
       end
     end
 
@@ -182,16 +183,16 @@ module Alchemy
           {name: "description", type: :text},
           {name: "starts_at", type: :datetime},
           {name: "location_id", type: :integer},
-          {name: "organizer_id", type: :integer},
+          {name: "organizer_id", type: :integer}
         ])
       end
 
       it "skips the standard database attributes (rails defaults)" do
-        expect(subject.map { |el| el[:name] }).not_to include(%w(id updated_at created_at creator_id updater_id))
+        expect(subject.map { |el| el[:name] }).not_to include(%w[id updated_at created_at creator_id updater_id])
       end
 
       it "skips attributes returned by skipped_alchemy_resource_attributes" do
-        allow(Party).to receive(:skipped_alchemy_resource_attributes) { %w(hidden_value) }
+        allow(Party).to receive(:skipped_alchemy_resource_attributes) { %w[hidden_value] }
         expect(subject).to include({name: "id", type: :integer})
         expect(subject).not_to include({name: "hidden_value", type: :string})
       end
@@ -216,7 +217,7 @@ module Alchemy
     end
 
     context "when `skipped_alchemy_resource_attributes` is defined as class method in the model" do
-      let(:custom_skipped_attributes) { %w(hidden_name) }
+      let(:custom_skipped_attributes) { %w[hidden_name] }
 
       before do
         allow(Party).to receive(:skipped_alchemy_resource_attributes) do
@@ -242,7 +243,7 @@ module Alchemy
       context "when model provides custom defined searchable attribute names" do
         before do
           allow(Party).to receive(:searchable_alchemy_resource_attributes) do
-            %w(date venue age)
+            %w[date venue age]
           end
         end
 
@@ -255,7 +256,7 @@ module Alchemy
         before do
           allow(Party).to receive(:alchemy_resource_relations) do
             {
-              location: {attr_method: "name", attr_type: :string},
+              location: {attr_method: "name", attr_type: :string}
             }
           end
         end
@@ -269,7 +270,7 @@ module Alchemy
         let(:columns) do
           [
             double(:column, {name: "name", type: :string, array: false}),
-            double(:column, {name: "languages", type: :string, array: true}),
+            double(:column, {name: "languages", type: :string, array: true})
           ]
         end
 
@@ -295,7 +296,7 @@ module Alchemy
           double(:column, {name: "name", type: :string}),
           double(:column, {name: "title", type: :string}),
           double(:column, {name: "synced_at", type: :datetime}),
-          double(:column, {name: "remote_record_id", type: :string}),
+          double(:column, {name: "remote_record_id", type: :string})
         ]
       end
 
@@ -318,7 +319,7 @@ module Alchemy
           double(:column, {name: "title", type: :string}),
           double(:column, {name: "name", type: :string}),
           double(:column, {name: "updated_at", type: :datetime}),
-          double(:column, {name: "public", type: :boolean}),
+          double(:column, {name: "public", type: :boolean})
         ]
       end
 
@@ -327,7 +328,7 @@ module Alchemy
           {name: "name", type: :string},
           {name: "title", type: :string},
           {name: "public", type: :boolean},
-          {name: "updated_at", type: :datetime},
+          {name: "updated_at", type: :datetime}
         ])
       end
     end
@@ -338,7 +339,7 @@ module Alchemy
       before do
         allow(Event).to receive(:alchemy_resource_relations) do
           {
-            location: {attr_method: "name", attr_type: :string},
+            location: {attr_method: "name", attr_type: :string}
           }
         end
       end
@@ -369,7 +370,7 @@ module Alchemy
           before do
             allow(Event).to receive(:alchemy_resource_relations) do
               {
-                location: {attr_method: "name", attr_type: :string, collection: Location.where(name: "foo")},
+                location: {attr_method: "name", attr_type: :string, collection: Location.where(name: "foo")}
               }
             end
           end

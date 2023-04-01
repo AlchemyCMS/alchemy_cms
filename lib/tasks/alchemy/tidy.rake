@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "alchemy/tasks/tidy"
 
 namespace :alchemy do

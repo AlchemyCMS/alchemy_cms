@@ -222,7 +222,7 @@ RSpec.describe "Resources", type: :system do
 
       it "lists the new item" do
         expect(page).to have_content "My second event"
-        expect(page).to have_content I18n.l(start_date, format: :'alchemy.default')
+        expect(page).to have_content I18n.l(start_date, format: :"alchemy.default")
       end
 
       it "shows a success message" do

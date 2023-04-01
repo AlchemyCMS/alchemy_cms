@@ -18,7 +18,7 @@ RSpec.describe "alchemy/ingredients/_audio_view" do
       autoplay: true,
       controls: true,
       loop: true,
-      muted: true,
+      muted: true
     )
   end
 

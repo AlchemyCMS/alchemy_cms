@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Alchemy
   describe Admin::TagsHelper do
-    let(:tag)  { mock_model(Gutentag::Tag, name: "foo", count: 1) }
+    let(:tag) { mock_model(Gutentag::Tag, name: "foo", count: 1) }
     let(:tag2) { mock_model(Gutentag::Tag, name: "abc", count: 1) }
 
     let(:params) do
@@ -55,7 +55,7 @@ module Alchemy
           let(:params) do
             ActionController::Parameters.new(
               filter: "foo",
-              q: {name_eq: "foo"},
+              q: {name_eq: "foo"}
             )
           end
 

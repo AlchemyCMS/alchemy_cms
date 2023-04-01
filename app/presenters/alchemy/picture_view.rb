@@ -13,7 +13,7 @@ module Alchemy
       show_caption: true,
       disable_link: false,
       srcset: [],
-      sizes: [],
+      sizes: []
     }.with_indifferent_access
 
     def initialize(ingredient, options = {}, html_options = {})
@@ -31,13 +31,13 @@ module Alchemy
       if is_linked?
         output = link_to(output, url_for(ingredient.link), {
           title: ingredient.link_title.presence,
-          target: ingredient.link_target == "blank" ? "_blank" : nil,
-          data: { link_target: ingredient.link_target.presence },
+          target: (ingredient.link_target == "blank") ? "_blank" : nil,
+          data: {link_target: ingredient.link_target.presence}
         })
       end
 
       if caption
-        content_tag(:figure, output, { class: ingredient.css_class.presence }.merge(html_options))
+        content_tag(:figure, output, {class: ingredient.css_class.presence}.merge(html_options))
       else
         output
       end
@@ -60,7 +60,7 @@ module Alchemy
           title: ingredient.title.presence,
           class: caption ? nil : ingredient.css_class.presence,
           srcset: srcset.join(", ").presence,
-          sizes: options[:sizes].join(", ").presence,
+          sizes: options[:sizes].join(", ").presence
         }.merge(caption ? {} : html_options)
       )
     end

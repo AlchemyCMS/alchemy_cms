@@ -6,7 +6,7 @@ module Alchemy
   describe Admin::ClipboardController do
     routes { Alchemy::Engine.routes }
 
-    let(:element)         { build_stubbed(:alchemy_element) }
+    let(:element) { build_stubbed(:alchemy_element) }
     let(:another_element) { build_stubbed(:alchemy_element) }
 
     before do

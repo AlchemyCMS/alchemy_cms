@@ -19,7 +19,7 @@ module Alchemy
       if: -> { definition.key?(:default) && value.nil? }
 
     validates :type, presence: true
-    validates :role, presence: true, uniqueness: { scope: :element_id, case_sensitive: false }
+    validates :role, presence: true, uniqueness: {scope: :element_id, case_sensitive: false}
 
     validates_with Alchemy::IngredientValidator, on: :update, if: :has_validations?
 
@@ -75,7 +75,7 @@ module Alchemy
         Alchemy.t(
           role,
           scope: "ingredient_roles.#{element_name}",
-          default: Alchemy.t("ingredient_roles.#{role}", default: role.humanize),
+          default: Alchemy.t("ingredient_roles.#{role}", default: role.humanize)
         )
       end
 

@@ -42,7 +42,7 @@ module Alchemy
 
           context "if no language exists for the current site" do
             it "redirects to the languages admin" do
-              get :index, session: { alchemy_site_id: site_2.id }
+              get :index, session: {alchemy_site_id: site_2.id}
               expect(response).to redirect_to(admin_languages_path)
             end
           end
@@ -54,7 +54,7 @@ module Alchemy
             end
 
             it "only shows languages from current site" do
-              get :index, session: { alchemy_site_id: site_2.id }
+              get :index, session: {alchemy_site_id: site_2.id}
               expect(assigns(:languages)).to_not include(language)
               expect(assigns(:languages)).to include(language_2)
             end

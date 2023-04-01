@@ -34,7 +34,7 @@ module Alchemy
 
         helpers.render(renderable, {
           options: options,
-          html_options: html_options,
+          html_options: html_options
         })
       end
 
@@ -102,7 +102,7 @@ module Alchemy
         tag: :div,
         id: element.dom_id,
         class: element.name,
-        tags_formatter: ->(tags) { tags.join(" ") },
+        tags_formatter: ->(tags) { tags.join(" ") }
       }.merge(options)
 
       # capture inner template block
@@ -111,12 +111,12 @@ module Alchemy
       end
 
       # wrap output in a useful DOM element
-      if tag = options.delete(:tag)
+      if (tag = options.delete(:tag))
         # add preview attributes
         options.merge!(element_preview_code_attributes(element))
 
         # add tags
-        if tags_formatter = options.delete(:tags_formatter)
+        if (tags_formatter = options.delete(:tags_formatter))
           options.merge!(element_tags_attributes(element, formatter: tags_formatter))
         end
 

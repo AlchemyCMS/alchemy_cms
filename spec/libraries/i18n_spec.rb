@@ -13,13 +13,13 @@ module Alchemy
   describe I18n do
     describe ".available_locales" do
       subject { I18n.available_locales }
-      it      { is_expected.to be_a Array }
-      it      { is_expected.to include(:en) }
+      it { is_expected.to be_a Array }
+      it { is_expected.to include(:en) }
 
       context "when locales are already set in @@available_locales" do
         before { I18n.class_variable_set(:@@available_locales, [:kl, :jp]) }
-        it     { is_expected.to match_array([:kl, :jp]) }
-        after  { I18n.class_variable_set(:@@available_locales, nil) }
+        it { is_expected.to match_array([:kl, :jp]) }
+        after { I18n.class_variable_set(:@@available_locales, nil) }
       end
 
       context "when locales are present in other gems" do
@@ -39,7 +39,7 @@ module Alchemy
           expect(::I18n).to receive(:load_path) do
             [
               "/Users/tvd/gems/alchemy-devise/config/locales/alchemy.de.yml",
-              "/Users/tvd/gems/alchemy_i18n/config/locales/alchemy.de.yml",
+              "/Users/tvd/gems/alchemy_i18n/config/locales/alchemy.de.yml"
             ]
           end
         end
@@ -57,7 +57,7 @@ module Alchemy
         end
 
         it "includes them in long format" do
-          is_expected.to eq([:'zh-CN'])
+          is_expected.to eq([:"zh-CN"])
         end
       end
 
@@ -66,13 +66,13 @@ module Alchemy
           expect(::I18n).to receive(:load_path) do
             [
               "/Users/tvd/gems/alchemy_i18n/config/locales/alchemy.zh-CN.yml",
-              "/Users/tvd/gems/alchemy_i18n/config/locales/alchemy.de.yml",
+              "/Users/tvd/gems/alchemy_i18n/config/locales/alchemy.de.yml"
             ]
           end
         end
 
         it "are sorted" do
-          is_expected.to eq([:de, :'zh-CN'])
+          is_expected.to eq([:de, :"zh-CN"])
         end
       end
     end

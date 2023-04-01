@@ -5,7 +5,7 @@ module Alchemy
     module PageNaming
       extend ActiveSupport::Concern
       include NameConversions
-      RESERVED_URLNAMES = %w(admin messages new)
+      RESERVED_URLNAMES = %w[admin messages new]
 
       included do
         before_validation :set_urlname,
@@ -15,9 +15,9 @@ module Alchemy
         validates :name,
           presence: true
         validates :urlname,
-          uniqueness: { scope: [:language_id, :layoutpage], if: -> { urlname.present? }, case_sensitive: false },
-          exclusion: { in: RESERVED_URLNAMES },
-          length: { minimum: 3, if: -> { urlname.present? } }
+          uniqueness: {scope: [:language_id, :layoutpage], if: -> { urlname.present? }, case_sensitive: false},
+          exclusion: {in: RESERVED_URLNAMES},
+          length: {minimum: 3, if: -> { urlname.present? }}
 
         before_save :set_title,
           if: -> { title.blank? }

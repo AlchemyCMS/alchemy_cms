@@ -20,7 +20,7 @@ RSpec.describe Alchemy::PictureView do
       role: "image",
       picture: picture,
       data: {
-        caption: "This is a cute cat",
+        caption: "This is a cute cat"
       }
   end
 
@@ -38,7 +38,7 @@ RSpec.describe Alchemy::PictureView do
         show_caption: true,
         disable_link: false,
         srcset: [],
-        sizes: [],
+        sizes: []
       }.with_indifferent_access)
     end
   end
@@ -72,7 +72,7 @@ RSpec.describe Alchemy::PictureView do
 
     context "but disabled in the options" do
       let(:options) do
-        { show_caption: false }
+        {show_caption: false}
       end
 
       it "should not enclose the image in a <figure> element" do
@@ -87,7 +87,7 @@ RSpec.describe Alchemy::PictureView do
 
     context "but disabled in the ingredient settings" do
       before do
-        allow(ingredient).to receive(:settings).and_return({ show_caption: false })
+        allow(ingredient).to receive(:settings).and_return({show_caption: false})
       end
 
       it "should not enclose the image in a <figure> element" do
@@ -100,7 +100,7 @@ RSpec.describe Alchemy::PictureView do
       end
 
       context "but enabled in the options hash" do
-        let(:options) { { show_caption: true } }
+        let(:options) { {show_caption: true} }
 
         it "should enclose the image in a <figure> element" do
           expect(view).to have_selector("figure img")
@@ -181,7 +181,7 @@ RSpec.describe Alchemy::PictureView do
     end
 
     it "does not overwrite DEFAULT_OPTIONS" do
-      described_class.new(ingredient, { my_custom_option: true })
+      described_class.new(ingredient, {my_custom_option: true})
       expect(picture_view.options).to_not have_key(:my_custom_option)
     end
   end
@@ -189,7 +189,7 @@ RSpec.describe Alchemy::PictureView do
   context "with srcset ingredient setting" do
     before do
       allow(ingredient).to receive(:settings) do
-        { srcset: srcset }
+        {srcset: srcset}
       end
     end
 
@@ -208,7 +208,7 @@ RSpec.describe Alchemy::PictureView do
 
     context "when only width or width and height are set" do
       let(:srcset) do
-        %w(1024x768 800x)
+        %w[1024x768 800x]
       end
 
       it "adds srcset attribute including image url and width for each size" do
@@ -221,7 +221,7 @@ RSpec.describe Alchemy::PictureView do
 
     context "when only height is set" do
       let(:srcset) do
-        %w(x768 x600)
+        %w[x768 x600]
       end
 
       it "adds srcset attribute including image url and height for each size" do
@@ -246,7 +246,7 @@ RSpec.describe Alchemy::PictureView do
   context "with sizes ingredient setting" do
     before do
       allow(ingredient).to receive(:settings) do
-        { sizes: sizes }
+        {sizes: sizes}
       end
     end
 
@@ -257,7 +257,7 @@ RSpec.describe Alchemy::PictureView do
     let(:sizes) do
       [
         "(max-width: 1023px) 100vh",
-        "(min-width: 1024px) 33.333vh",
+        "(min-width: 1024px) 33.333vh"
       ]
     end
 
@@ -302,7 +302,7 @@ RSpec.describe Alchemy::PictureView do
 
     context "ingredient not having alt text stored" do
       context "but passed as html option" do
-        let(:html_options) { { alt: "Cute kittens" } }
+        let(:html_options) { {alt: "Cute kittens"} }
 
         it "uses this as image alt text" do
           expect(view).to have_selector('img[alt="Cute kittens"]')

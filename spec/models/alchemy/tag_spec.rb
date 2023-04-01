@@ -7,7 +7,7 @@ module Alchemy
     describe ".replace" do
       let(:picture) { Picture.new }
       let(:element) { Element.new }
-      let(:tag)     { Tag.new(name: "red") }
+      let(:tag) { Tag.new(name: "red") }
       let(:new_tag) { Tag.new(name: "green") }
 
       before do
@@ -17,7 +17,7 @@ module Alchemy
         allow(element).to receive(:save).and_return(true)
         allow(tag).to receive(:taggings).and_return([
           mock_model(Gutentag::Tagging, taggable: picture),
-          mock_model(Gutentag::Tagging, taggable: element),
+          mock_model(Gutentag::Tagging, taggable: element)
         ])
       end
 

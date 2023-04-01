@@ -38,11 +38,11 @@ module Alchemy
 
     validates :language_code,
       presence: true,
-      uniqueness: { scope: [:site_id, :country_code], case_sensitive: false },
-      format: { with: /\A[a-z]{2}\z/, if: -> { language_code.present? } }
+      uniqueness: {scope: [:site_id, :country_code], case_sensitive: false},
+      format: {with: /\A[a-z]{2}\z/, if: -> { language_code.present? }}
 
     validates :country_code,
-      format: { with: /\A[a-zA-Z]{2}\z/, if: -> { country_code.present? } }
+      format: {with: /\A[a-zA-Z]{2}\z/, if: -> { country_code.present? }}
 
     validate :presence_of_default_language
     validate :publicity_of_default_language
@@ -60,7 +60,7 @@ module Alchemy
     end
 
     scope :published, -> { where(public: true) }
-    scope :with_root_page, -> { joins(:pages).where(Page.table_name => { language_root: true }) }
+    scope :with_root_page, -> { joins(:pages).where(Page.table_name => {language_root: true}) }
 
     class << self
       def on_site(site)

@@ -35,9 +35,9 @@ RSpec.describe Alchemy::ElementEditor do
             ingredients: [
               {
                 role: "headline",
-                type: "Headline",
-              },
-            ],
+                type: "Headline"
+              }
+            ]
           }.with_indifferent_access
         end
       end
@@ -209,7 +209,7 @@ RSpec.describe Alchemy::ElementEditor do
           allow(element).to receive(:definition) do
             {
               "name" => "old_too",
-              "deprecated" => true,
+              "deprecated" => true
             }
           end
         end
@@ -227,7 +227,7 @@ RSpec.describe Alchemy::ElementEditor do
           allow(element).to receive(:definition) do
             {
               "name" => "old",
-              "deprecated" => "Foo baz widget",
+              "deprecated" => "Foo baz widget"
             }
           end
         end

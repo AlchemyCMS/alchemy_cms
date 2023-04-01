@@ -14,7 +14,7 @@ module Alchemy
     # The attributes to be serialized. See ActiveModel::Serialization.
     # By default, serialize all columns from the AR object.
     def attributes
-      Hash[object.class.column_names.map { |c| [c, nil] }]
+      object.class.column_names.map { |c| [c, nil] }.to_h
     end
 
     private

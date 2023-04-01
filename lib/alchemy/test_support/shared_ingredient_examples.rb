@@ -8,7 +8,7 @@ RSpec.shared_examples_for "an alchemy ingredient" do
   subject(:ingredient) do
     described_class.new(
       element: element,
-      role: "headline",
+      role: "headline"
     )
   end
 
@@ -31,13 +31,13 @@ RSpec.shared_examples_for "an alchemy ingredient" do
         expect(element).to receive(:ingredient_definition_for).at_least(:once) do
           {
             settings: {
-              linkable: true,
-            },
+              linkable: true
+            }
           }.with_indifferent_access
         end
       end
 
-      it { is_expected.to eq({ linkable: true }.with_indifferent_access) }
+      it { is_expected.to eq({linkable: true}.with_indifferent_access) }
     end
   end
 
@@ -57,8 +57,8 @@ RSpec.shared_examples_for "an alchemy ingredient" do
           type: "Text",
           default: "Hello World",
           settings: {
-            linkable: true,
-          },
+            linkable: true
+          }
         }.with_indifferent_access
       end
 

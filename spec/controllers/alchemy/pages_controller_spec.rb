@@ -32,7 +32,7 @@ module Alchemy
         it "returns a 404" do
           expect { get(:index) }.to raise_exception(
             ActionController::RoutingError,
-            'Alchemy::Page not found "/"',
+            'Alchemy::Page not found "/"'
           )
         end
       end
@@ -96,7 +96,7 @@ module Alchemy
           end
 
           it "loads the root page of that language" do
-            get :index, params: { locale: "kl" }
+            get :index, params: {locale: "kl"}
             expect(assigns(:page)).to eq(start_page)
           end
         end
@@ -111,7 +111,7 @@ module Alchemy
 
         it "renders 404" do
           expect {
-            get :show, params: { urlname: not_yet_public.urlname }
+            get :show, params: {urlname: not_yet_public.urlname}
           }.to raise_error(ActionController::RoutingError)
         end
       end
@@ -126,7 +126,7 @@ module Alchemy
 
         it "renders 404" do
           expect {
-            get :show, params: { urlname: no_longer_public.urlname }
+            get :show, params: {urlname: no_longer_public.urlname}
           }.to raise_error(ActionController::RoutingError)
         end
       end
@@ -140,7 +140,7 @@ module Alchemy
         end
 
         it "renders page" do
-          get :show, params: { urlname: still_public_page.urlname }
+          get :show, params: {urlname: still_public_page.urlname}
           expect(response).to be_successful
         end
       end
@@ -154,7 +154,7 @@ module Alchemy
         end
 
         it "renders page" do
-          get :show, params: { urlname: still_public_page.urlname }
+          get :show, params: {urlname: still_public_page.urlname}
           expect(response).to be_successful
         end
       end
@@ -162,7 +162,7 @@ module Alchemy
       describe "Layout rendering" do
         context "with ajax request" do
           it "should not render a layout" do
-            get :show, params: { urlname: page.urlname }, xhr: true
+            get :show, params: {urlname: page.urlname}, xhr: true
             expect(response).to render_template(:show)
             expect(response).not_to render_template(layout: "application")
           end
@@ -183,7 +183,7 @@ module Alchemy
 
         context "with correct levelnames in params" do
           it "should show the requested page" do
-            get :show, params: { urlname: "catalog/products/screwdriver" }
+            get :show, params: {urlname: "catalog/products/screwdriver"}
             expect(response.status).to eq(200)
             expect(response.body).to have_content("screwdriver")
           end
@@ -192,7 +192,7 @@ module Alchemy
         context "with incorrect levelnames in params" do
           it "should render a 404 page" do
             expect {
-              get :show, params: { urlname: "catalog/faqs/screwdriver" }
+              get :show, params: {urlname: "catalog/faqs/screwdriver"}
             }.to raise_error(ActionController::RoutingError)
           end
         end
@@ -201,7 +201,7 @@ module Alchemy
       context "when a non-existent page is requested" do
         it "should rescue a RoutingError with rendering a 404 page." do
           expect {
-            get :show, params: { urlname: "doesntexist" }
+            get :show, params: {urlname: "doesntexist"}
           }.to raise_error(ActionController::RoutingError)
         end
       end
@@ -214,12 +214,12 @@ module Alchemy
 
           context "with no lang parameter present" do
             it "should store defaults language id in the session." do
-              get :show, params: { urlname: page.urlname }
+              get :show, params: {urlname: page.urlname}
               expect(controller.session[:alchemy_language_id]).to eq(Language.default.id)
             end
 
             it "should store default language as class var." do
-              get :show, params: { urlname: page.urlname }
+              get :show, params: {urlname: page.urlname}
               expect(Language.current).to eq(Language.default)
             end
           end
@@ -241,7 +241,7 @@ module Alchemy
           end
 
           it "renders the page related to its language" do
-            get :show, params: { urlname: "same-name", locale: klingon_page.language_code }
+            get :show, params: {urlname: "same-name", locale: klingon_page.language_code}
             expect(response.body).to have_content("klingon page")
           end
         end
@@ -251,7 +251,7 @@ module Alchemy
         subject { controller.send(:page_etag) }
 
         before do
-          controller.instance_variable_set("@page", page)
+          controller.instance_variable_set(:@page, page)
         end
 
         it "returns the etag for response headers" do

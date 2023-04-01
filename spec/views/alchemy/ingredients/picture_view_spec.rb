@@ -12,7 +12,7 @@ RSpec.describe "alchemy/ingredients/_picture_view" do
       caption: "This is a cute cat",
       element: element,
       picture: picture,
-      role: "image",
+      role: "image"
     )
   end
 

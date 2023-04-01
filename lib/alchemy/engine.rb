@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Alchemy
   class Engine < Rails::Engine
     isolate_namespace Alchemy
@@ -32,7 +33,7 @@ module Alchemy
       Ransack.configure do |config|
         config.custom_arrows = {
           up_arrow: '<i class="fa fas fa-xs fa-arrow-up"></i>',
-          down_arrow: '<i class="fa fas fa-xs fa-arrow-down"></i>',
+          down_arrow: '<i class="fa fas fa-xs fa-arrow-down"></i>'
         }
       end
     end

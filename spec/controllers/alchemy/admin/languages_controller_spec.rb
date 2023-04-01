@@ -52,22 +52,22 @@ describe Alchemy::Admin::LanguagesController do
   end
 
   describe "#new" do
-   context "without a site" do
+    context "without a site" do
       it "redirects to the sites admin" do
         get :new
         expect(response).to redirect_to(admin_sites_path)
       end
-   end
+    end
 
-   context "with a site" do
-     let!(:site) { create(:alchemy_site) }
+    context "with a site" do
+      let!(:site) { create(:alchemy_site) }
 
-     it "has default language's page_layout set" do
-       get :new
-       expect(assigns(:language).page_layout).
-         to eq(Alchemy::Config.get(:default_language)["page_layout"])
-     end
-   end
+      it "has default language's page_layout set" do
+        get :new
+        expect(assigns(:language).page_layout)
+          .to eq(Alchemy::Config.get(:default_language)["page_layout"])
+      end
+    end
   end
 
   describe "#create" do
@@ -81,8 +81,8 @@ describe Alchemy::Admin::LanguagesController do
             page_layout: "index",
             public: true,
             default: true,
-            site_id: create(:alchemy_site),
-          },
+            site_id: create(:alchemy_site)
+          }
         }
         language = Alchemy::Language.last
         expect(response).to redirect_to admin_pages_path(language_id: language)
@@ -92,7 +92,7 @@ describe Alchemy::Admin::LanguagesController do
 
     context "with invalid params" do
       it "shows the form again" do
-        post :create, params: { language: { name: "" } }
+        post :create, params: {language: {name: ""}}
         expect(response).to render_template(:new)
       end
     end
@@ -105,7 +105,7 @@ describe Alchemy::Admin::LanguagesController do
       let!(:page) { create(:alchemy_page, language: language) }
 
       it "returns with error message" do
-        delete :destroy, params: { id: language.id }
+        delete :destroy, params: {id: language.id}
         expect(response).to redirect_to admin_languages_path
         expect(flash[:warning]).to \
           eq("Pages are still attached to this language. Please remove them first.")
@@ -114,7 +114,7 @@ describe Alchemy::Admin::LanguagesController do
 
     context "without pages" do
       it "removes the language" do
-        delete :destroy, params: { id: language.id }
+        delete :destroy, params: {id: language.id}
         expect(response).to redirect_to admin_languages_path
         expect(flash[:notice]).to eq("Language successfully removed.")
       end
@@ -123,7 +123,7 @@ describe Alchemy::Admin::LanguagesController do
 
   describe "#switch" do
     subject(:switch) do
-      get :switch, params: { language_id: language.id }
+      get :switch, params: {language_id: language.id}
     end
 
     let(:language) { create(:alchemy_language, :klingon) }

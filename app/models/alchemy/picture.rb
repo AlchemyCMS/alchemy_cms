@@ -25,7 +25,7 @@ module Alchemy
     THUMBNAIL_SIZES = {
       small: "80x60",
       medium: "160x120",
-      large: "240x180",
+      large: "240x180"
     }.with_indifferent_access.freeze
 
     CONVERTIBLE_FILE_FORMATS = %w[gif jpg jpeg png webp].freeze
@@ -38,7 +38,7 @@ module Alchemy
       :format,
       :quality,
       :size,
-      :upsample,
+      :upsample
     ]
 
     include Alchemy::Logger
@@ -64,7 +64,7 @@ module Alchemy
     # to ensure this runs before Dragonfly's before_destroy callback.
     #
     before_destroy unless: :deletable? do
-      raise PictureInUseError, Alchemy.t(:cannot_delete_picture_notice) % { name: name }
+      raise PictureInUseError, Alchemy.t(:cannot_delete_picture_notice) % {name: name}
     end
 
     # Image preprocessing class
@@ -117,7 +117,7 @@ module Alchemy
       -> {
         where("#{table_name}.id NOT IN (SELECT related_object_id FROM alchemy_ingredients WHERE related_object_type = 'Alchemy::Picture')")
       }
-    scope :without_tag, -> { left_outer_joins(:taggings).where(gutentag_taggings: { id: nil }) }
+    scope :without_tag, -> { left_outer_joins(:taggings).where(gutentag_taggings: {id: nil}) }
     scope :by_file_format, ->(format) { where(image_file_format: format) }
 
     # Class methods
@@ -142,17 +142,17 @@ module Alchemy
         [
           {
             name: :by_file_format,
-            values: @_file_formats,
+            values: @_file_formats
           },
           {
             name: :misc,
-            values: %w(recent last_upload without_tag deletable),
-          },
+            values: %w[recent last_upload without_tag deletable]
+          }
         ]
       end
 
       def searchable_alchemy_resource_attributes
-        %w(name image_file_name)
+        %w[name image_file_name]
       end
 
       def last_upload
@@ -184,7 +184,7 @@ module Alchemy
         options.except(*TRANSFORMATION_OPTIONS).merge(
           basename: name,
           ext: variant.render_format,
-          name: name,
+          name: name
         )
       )
     rescue ::Dragonfly::Job::Fetch::NotFound => e
@@ -212,7 +212,7 @@ module Alchemy
       {
         name: image_file_name,
         size: image_file_size,
-        error: errors[:image_file].join,
+        error: errors[:image_file].join
       }
     end
 

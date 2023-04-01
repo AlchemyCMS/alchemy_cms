@@ -35,7 +35,7 @@ module Alchemy
         ability: current_ability,
         user: current_alchemy_user,
         elements: params[:elements],
-        full: true,
+        full: true
       )
     end
 
@@ -72,7 +72,7 @@ module Alchemy
 
       Language.current.pages.where(
         urlname: params[:urlname],
-        language_code: params[:locale] || Language.current.code,
+        language_code: params[:locale] || Language.current.code
       ).includes(page_includes).first
     end
 
@@ -80,7 +80,7 @@ module Alchemy
       {
         total_count: total_count_value,
         per_page: per_page_value,
-        page: page_value,
+        page: page_value
       }
     end
 
@@ -97,7 +97,7 @@ module Alchemy
     end
 
     def page_value
-      params[:page] ? params[:page].to_i : nil
+      params[:page]&.to_i
     end
 
     def page_includes
@@ -109,17 +109,17 @@ module Alchemy
             {
               nested_elements: [
                 {
-                  ingredients: :related_object,
+                  ingredients: :related_object
                 },
-                :tags,
-              ],
+                :tags
+              ]
             },
             {
-              ingredients: :related_object,
+              ingredients: :related_object
             },
-            :tags,
-          ],
-        },
+            :tags
+          ]
+        }
       ]
     end
   end

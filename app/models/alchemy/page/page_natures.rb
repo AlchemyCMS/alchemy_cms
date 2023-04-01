@@ -58,7 +58,7 @@ module Alchemy
         {
           public: public?,
           locked: locked?,
-          restricted: restricted?,
+          restricted: restricted?
         }
       end
 

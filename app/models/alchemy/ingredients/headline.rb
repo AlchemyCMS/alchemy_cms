@@ -13,10 +13,10 @@ module Alchemy
         :size
 
       allow_settings %i[
-          anchor
-          levels
-          sizes
-        ]
+        anchor
+        levels
+        sizes
+      ]
 
       before_create :set_level_and_size
 

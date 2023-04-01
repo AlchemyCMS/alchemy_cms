@@ -11,13 +11,13 @@ describe "alchemy/ingredients/_text_view" do
         Alchemy::Ingredients::Text.new(
           value: "Hello World",
           data: {
-            dom_id: "se-anchor",
-          },
+            dom_id: "se-anchor"
+          }
         )
       end
 
       it "renders the dom_id and the value" do
-        render ingredient, options: { disable_link: true }
+        render ingredient, options: {disable_link: true}
         expect(rendered).to have_content("Hello World")
         expect(rendered).to have_selector('a[id="se-anchor"]')
       end
@@ -39,8 +39,8 @@ describe "alchemy/ingredients/_text_view" do
         data: {
           link: "http://google.com",
           link_title: "Foo",
-          link_target: "blank",
-        },
+          link_target: "blank"
+        }
       )
     end
 
@@ -52,7 +52,7 @@ describe "alchemy/ingredients/_text_view" do
 
     context "with html_options given" do
       it "renders the linked with these options" do
-        render ingredient, html_options: { title: "Bar", class: "blue" }
+        render ingredient, html_options: {title: "Bar", class: "blue"}
         expect(rendered).to have_selector('a.blue[title="Bar"][target="_blank"][data-link-target="blank"]')
       end
     end
@@ -66,13 +66,13 @@ describe "alchemy/ingredients/_text_view" do
               dom_id: "se-anchor",
               link: "http://google.com",
               link_title: "Foo",
-              link_target: "blank",
-            },
+              link_target: "blank"
+            }
           )
         end
 
         it "renders the dom_id and the value" do
-          render ingredient, options: { disable_link: true }
+          render ingredient, options: {disable_link: true}
           expect(rendered).to have_content("Hello World")
           expect(rendered).to have_selector('a[id="se-anchor"]')
         end
@@ -80,7 +80,7 @@ describe "alchemy/ingredients/_text_view" do
 
       context "and no dom id set" do
         it "only renders the value" do
-          render ingredient, options: { disable_link: true }
+          render ingredient, options: {disable_link: true}
           expect(rendered).to have_content("Hello World")
           expect(rendered).to_not have_selector("a")
         end
@@ -89,7 +89,7 @@ describe "alchemy/ingredients/_text_view" do
 
     context "but with ingredient settings disable_link set to true" do
       before do
-        allow(ingredient).to receive(:settings).and_return({ disable_link: true })
+        allow(ingredient).to receive(:settings).and_return({disable_link: true})
       end
 
       it "only renders the value" do
@@ -107,8 +107,8 @@ describe "alchemy/ingredients/_text_view" do
             dom_id: "se-anchor",
             link: "http://google.com",
             link_title: "Foo",
-            link_target: "blank",
-          },
+            link_target: "blank"
+          }
         )
       end
 

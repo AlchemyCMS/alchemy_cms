@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "alchemy/shell"
 
 module Alchemy
@@ -46,7 +47,7 @@ module Alchemy
         contentpages.each do |page|
           create_page(page, {
             language: Alchemy::Language.default,
-            language_root: true,
+            language_root: true
           })
         end
       end
@@ -55,7 +56,7 @@ module Alchemy
         desc "Seeding Alchemy layout pages from #{page_seeds_file}"
         language = Alchemy::Language.default
         layoutpages.each do |page|
-          create_page(page, { language: language })
+          create_page(page, {language: language})
         end
       end
 
@@ -119,7 +120,7 @@ module Alchemy
             page_layout: default_language["page_layout"],
             public: true,
             default: true,
-            site: Alchemy::Site.default,
+            site: Alchemy::Site.default
           )
         else
           raise DefaultLanguageNotFoundError

@@ -84,7 +84,7 @@ module Alchemy
           end
           format.html do
             render partial: "alchemy/admin/partials/flash",
-              locals: { message: flash[:warning], flash_type: "warning" }
+              locals: {message: flash[:warning], flash_type: "warning"}
           end
         end
       else

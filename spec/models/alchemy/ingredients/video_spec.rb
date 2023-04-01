@@ -13,7 +13,7 @@ RSpec.describe Alchemy::Ingredients::Video do
       element: element,
       type: described_class.name,
       role: "podcast",
-      related_object: attachment,
+      related_object: attachment
     )
   end
 

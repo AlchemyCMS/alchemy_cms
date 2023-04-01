@@ -10,20 +10,20 @@ RSpec.shared_examples_for "having crop action" do |args|
 
     context "with no picture assigned" do
       it "renders error message" do
-        get :crop, params: { id: 1 }
+        get :crop, params: {id: 1}
         expect(assigns(:no_image_notice)).to eq(Alchemy.t(:no_image_for_cropper_found))
       end
     end
 
     context "with picture assigned" do
-      subject { get :crop, params: { id: 1, picture_id: picture.id } }
+      subject { get :crop, params: {id: 1, picture_id: picture.id} }
 
       let(:default_mask) do
         [
           0,
           0,
           300,
-          250,
+          250
         ]
       end
 
@@ -43,7 +43,7 @@ RSpec.shared_examples_for "having crop action" do |args|
 
         context "with sizes in settings" do
           let(:settings) do
-            { size: "300x250" }
+            {size: "300x250"}
           end
 
           it "sets sizes to given values" do
@@ -78,7 +78,7 @@ RSpec.shared_examples_for "having crop action" do |args|
 
           context "and aspect ratio set on the settings" do
             let(:settings) do
-              { fixed_ratio: "2" }
+              {fixed_ratio: "2"}
             end
 
             it "does not infer the height from the image file preserving the aspect ratio" do
@@ -93,7 +93,7 @@ RSpec.shared_examples_for "having crop action" do |args|
         context "when width or height is not fixed and an aspect ratio is given" do
           context "and aspect ratio set on the settings" do
             let(:settings) do
-              { fixed_ratio: "0.5" }
+              {fixed_ratio: "0.5"}
             end
 
             it "width is given, it infers the height from width and ratio" do
@@ -136,7 +136,7 @@ RSpec.shared_examples_for "having crop action" do |args|
 
       context "with fixed_ratio set to false" do
         let(:settings) do
-          { fixed_ratio: false }
+          {fixed_ratio: false}
         end
 
         it "sets ratio to false" do
@@ -147,7 +147,7 @@ RSpec.shared_examples_for "having crop action" do |args|
 
       context "with fixed_ratio set to a non float string" do
         let(:settings) do
-          { fixed_ratio: "123,45" }
+          {fixed_ratio: "123,45"}
         end
 
         it "raises error" do
@@ -157,7 +157,7 @@ RSpec.shared_examples_for "having crop action" do |args|
 
       context "with no fixed_ratio set" do
         let(:settings) do
-          { size: "80x60" }
+          {size: "80x60"}
         end
 
         it "sets a fixed ratio from sizes" do

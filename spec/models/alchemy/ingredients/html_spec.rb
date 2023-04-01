@@ -12,7 +12,7 @@ RSpec.describe Alchemy::Ingredients::Html do
       element: element,
       type: described_class.name,
       role: "tracking_code",
-      value: '<script type="text/javascript"> alert("Booh!") </script>',
+      value: '<script type="text/javascript"> alert("Booh!") </script>'
     )
   end
 
@@ -28,7 +28,7 @@ RSpec.describe Alchemy::Ingredients::Html do
         described_class.new(
           element: element,
           type: described_class.name,
-          role: "tracking_code",
+          role: "tracking_code"
         )
       end
 

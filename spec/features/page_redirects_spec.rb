@@ -19,7 +19,7 @@ RSpec.describe "Requesting a page" do
     let(:legacy_url) do
       Alchemy::LegacyPageUrl.create(
         urlname: "index.php?option=com_content&view=article&id=48&Itemid=69",
-        page: second_page,
+        page: second_page
       )
     end
 
@@ -150,7 +150,7 @@ RSpec.describe "Requesting a page" do
     let(:legacy_url) do
       Alchemy::LegacyPageUrl.create(
         urlname: "index.php?option=com_content&view=article&id=48&Itemid=69",
-        page: second_page,
+        page: second_page
       )
     end
 

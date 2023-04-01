@@ -12,7 +12,7 @@ module Alchemy
       def new
         @node = Node.new(
           parent_id: params[:parent_id],
-          language: @current_language,
+          language: @current_language
         )
       end
 
@@ -28,7 +28,7 @@ module Alchemy
           :url,
           :title,
           :nofollow,
-          :external,
+          :external
         )
       end
     end

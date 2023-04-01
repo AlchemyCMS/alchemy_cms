@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #
 # Uncomment this and change the path if necessary to include your own
 # components.
@@ -57,8 +58,8 @@ SimpleForm.setup do |config|
     ## Inputs
     # b.use :input, class: 'input', error_class: 'is-invalid'
     b.use :label_input
-    b.use :error, wrap_with: { tag: :small, class: :error }
-    b.use :hint,  wrap_with: { tag: :small, class: :hint }
+    b.use :error, wrap_with: {tag: :small, class: :error}
+    b.use :hint, wrap_with: {tag: :small, class: :hint}
 
     ## full_messages_for
     # If you want to display the full error message for the attribute, you can

@@ -52,7 +52,7 @@ module Alchemy
           render_errors_or_redirect(
             @attachment,
             admin_attachments_path(search_filter_params),
-            Alchemy.t("File successfully updated"),
+            Alchemy.t("File successfully updated")
           )
         end
       end
@@ -68,7 +68,7 @@ module Alchemy
         @attachment = Attachment.find(params[:id])
         send_file @attachment.file.path, {
           filename: @attachment.file_name,
-          type: @attachment.file_mime_type,
+          type: @attachment.file_mime_type
         }
       end
 
@@ -77,7 +77,7 @@ module Alchemy
       def search_filter_params
         @_search_filter_params ||= params.except(*COMMON_SEARCH_FILTER_EXCLUDES + [:attachment]).permit(
           *common_search_filter_includes + [
-            :form_field_id,
+            :form_field_id
           ]
         )
       end
