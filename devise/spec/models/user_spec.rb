@@ -12,8 +12,12 @@ module Alchemy
       expect(user.alchemy_roles).to include("member")
     end
 
-    describe ".search" do
-      subject { User.search(query) }
+    describe ".ransack" do
+      subject do
+        User.ransack(
+          "email_or_login_or_firstname_or_lastname_cont" => query,
+        ).result
+      end
 
       let!(:user1) do
         create :alchemy_user,
