@@ -81,6 +81,10 @@ jobs:
           key: ${{ runner.os }}-yarn-dummy-${{ hashFiles('./package.json') }}
           restore-keys: |
             ${{ runner.os }}-yarn-dummy-
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
       - name: Prepare database
         run: bundle exec rake alchemy:spec:prepare
       - name: Run tests & publish code coverage
