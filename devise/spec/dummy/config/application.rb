@@ -23,12 +23,7 @@ require "alchemy/devise"
 module Dummy
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    case ENV.fetch("ALCHEMY_BRANCH", "main")
-    when /5\.3/
-      config.load_defaults 6.0
-    else
-      config.load_defaults 6.1
-    end
+    config.load_defaults 6.1
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

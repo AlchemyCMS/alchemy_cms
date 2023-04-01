@@ -1,5 +1,7 @@
-require 'devise/orm/active_record'
-require 'userstamp'
+# frozen_string_literal: true
+
+require "devise/orm/active_record"
+require "userstamp"
 
 module Alchemy
   class User < ActiveRecord::Base
@@ -12,7 +14,7 @@ module Alchemy
       :password,
       :password_confirmation,
       :send_credentials,
-      :tag_list
+      :tag_list,
     ]
 
     devise *Alchemy.devise_modules
@@ -29,32 +31,37 @@ module Alchemy
     # Unlock all locked pages before destroy.
     before_destroy :unlock_pages!
 
-    scope :admins,     -> { where(arel_table[:alchemy_roles].matches('%admin%')) }
-    scope :logged_in,  -> { where('last_request_at > ?', logged_in_timeout.seconds.ago) }
-    scope :logged_out, -> { where('last_request_at is NULL or last_request_at <= ?', logged_in_timeout.seconds.ago) }
+    scope :admins, -> { where(arel_table[:alchemy_roles].matches("%admin%")) }
+    scope :logged_in, -> { where("last_request_at > ?", logged_in_timeout.seconds.ago) }
+    scope :logged_out, -> { where("last_request_at is NULL or last_request_at <= ?", logged_in_timeout.seconds.ago) }
 
     ROLES = Config.get(:user_roles)
 
     class << self
+      def ransackable_attributes(_auth_object = nil)
+        %w[
+          email
+          firstname
+          lastname
+          login
+        ]
+      end
+
+      alias_method :searchable_alchemy_resource_attributes, :ransackable_attributes
+
+      def ransackable_associations(_auth_object = nil)
+        %w[
+          taggings
+          tags
+        ]
+      end
+
       def human_rolename(role)
         Alchemy.t("user_roles.#{role}")
       end
 
       def logged_in_timeout
         Config.get(:auto_logout_time).minutes.to_i
-      end
-
-      # Search users that match query
-      #
-      # Attributes searched are: login, email, firstname, lastname
-      #
-      def search(query)
-        query = "%#{query.downcase}%"
-
-        where arel_table[:login].lower.matches(query)
-          .or arel_table[:email].lower.matches(query)
-          .or arel_table[:firstname].lower.matches(query)
-          .or arel_table[:lastname].lower.matches(query)
       end
     end
 
@@ -67,12 +74,12 @@ module Alchemy
     end
 
     def alchemy_roles
-      read_attribute(:alchemy_roles).split(' ')
+      read_attribute(:alchemy_roles).split(" ")
     end
 
     def alchemy_roles=(roles_string)
       if roles_string.is_a? Array
-        write_attribute(:alchemy_roles, roles_string.join(' '))
+        write_attribute(:alchemy_roles, roles_string.join(" "))
       elsif roles_string.is_a? String
         write_attribute(:alchemy_roles, roles_string)
       end
@@ -84,8 +91,9 @@ module Alchemy
 
     # Returns true if the user ahs admin role
     def is_admin?
-      has_role? 'admin'
+      has_role? "admin"
     end
+
     alias_method :admin?, :is_admin?
 
     # Returns true if the user has the given role.
@@ -105,6 +113,7 @@ module Alchemy
     def pages_locked_by_me
       Page.locked_by(self).order(:updated_at)
     end
+
     alias_method :locked_pages, :pages_locked_by_me
 
     # Returns the firstname and lastname as a string
@@ -118,11 +127,12 @@ module Alchemy
       if lastname.blank? && firstname.blank?
         login
       else
-        options = {:flipped => false}.merge(options)
+        options = { flipped: false }.merge(options)
         fullname = options[:flipped] ? "#{lastname}, #{firstname}" : "#{firstname} #{lastname}"
         fullname.squeeze(" ").strip
       end
     end
+
     alias_method :name, :fullname
     alias_method :alchemy_display_name, :fullname
 
@@ -150,7 +160,7 @@ module Alchemy
     # Delivers a welcome mail depending from user's role.
     #
     def deliver_welcome_mail
-      if has_role?('author') || has_role?('editor') || has_role?('admin')
+      if has_role?("author") || has_role?("editor") || has_role?("admin")
         Notifications.alchemy_user_created(self).deliver_later
       else
         Notifications.member_created(self).deliver_later
