@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.2.0 (2023-04-01)
+
+- Add Alchemy 7 support [#164](https://github.com/AlchemyCMS/alchemy-devise/pull/164) ([tvdeyen](https://github.com/tvdeyen))
+- Upgrade rspec-rails to version 6.0.1 [#153](https://github.com/AlchemyCMS/alchemy-devise/pull/153) ([depfu](https://github.com/apps/depfu))
+
 ## 6.1.0 (2023-01-20)
 
 - Remove Alchemy 5.3 support [#158](https://github.com/AlchemyCMS/alchemy-devise/pull/158) ([tvdeyen](https://github.com/tvdeyen))
