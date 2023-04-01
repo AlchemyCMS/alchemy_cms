@@ -1,13 +1,13 @@
 # AlchemyCMS
 
-[![Gem Version](https://badge.fury.io/rb/alchemy_cms.svg)](http://badge.fury.io/rb/alchemy_cms)
 [![Build Status](https://github.com/AlchemyCMS/alchemy_cms/workflows/CI/badge.svg?branch=main)](https://github.com/AlchemyCMS/alchemy_cms/actions)
+[![Brakeman Scan](https://github.com/AlchemyCMS/alchemy_cms/actions/workflows/brakeman-analysis.yml/badge.svg)](https://github.com/AlchemyCMS/alchemy_cms/actions/workflows/brakeman-analysis.yml)
+
+[![Gem Version](https://badge.fury.io/rb/alchemy_cms.svg)](http://badge.fury.io/rb/alchemy_cms)
 [![Maintainability](https://api.codeclimate.com/v1/badges/196c56c56568ed24a697/maintainability)](https://codeclimate.com/github/AlchemyCMS/alchemy_cms/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/196c56c56568ed24a697/test_coverage)](https://codeclimate.com/github/AlchemyCMS/alchemy_cms/test_coverage)
-[![Depfu](https://badges.depfu.com/badges/ebe56d2dd7b7044a8ae700cc81212a8e/overview.svg)](https://depfu.com/github/AlchemyCMS/alchemy_cms?project_id=4600)
-
-[![Slack Status](https://slackin.alchemy-cms.com/badge.svg)](https://slackin.alchemy-cms.com)
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
+[![Depfu](https://badges.depfu.com/badges/ebe56d2dd7b7044a8ae700cc81212a8e/overview.svg)](https://depfu.com/github/AlchemyCMS/alchemy_cms?project_id=4600)
 
 [![Backers on Open Collective](https://opencollective.com/alchemy_cms/backers/badge.svg?color=blue)](#backers)
 [![Sponsors on Open Collective](https://opencollective.com/alchemy_cms/sponsors/badge.svg?color=blue)](#sponsors)
