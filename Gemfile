@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 source "https://rubygems.org"
 
 gemspec
@@ -32,7 +33,7 @@ group :development, :test do
     gem "yard"
     gem "redcarpet"
     gem "pry-byebug"
-    gem "rubocop", "1.5.2", require: false
+    gem "standard", "~> 1.25", require: false
     gem "listen"
     gem "localeapp", "~> 3.0", require: false
     gem "dotenv", "~> 2.2"
