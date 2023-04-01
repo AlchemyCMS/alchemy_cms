@@ -45,7 +45,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: password
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
     steps:
-      - uses: actions/checkout@v2.3.4
+      - uses: actions/checkout@v3
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -53,7 +53,7 @@ jobs:
           bundler-cache: true
       - name: Restore apt cache
         id: apt-cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: /home/runner/apt/cache
           key: ${{ runner.os }}-apt-${{ matrix.database }}
@@ -75,7 +75,7 @@ jobs:
           sudo chown -R runner /home/runner/apt/cache
       - name: Restore node modules cache
         id: yarn-cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: spec/dummy/node_modules
           key: ${{ runner.os }}-yarn-dummy-${{ hashFiles('./package.json') }}
@@ -88,7 +88,7 @@ jobs:
       - name: Prepare database
         run: bundle exec rake alchemy:spec:prepare
       - name: Run tests & publish code coverage
-        uses: paambaati/codeclimate-action@v3.0.0
+        uses: paambaati/codeclimate-action@v3.2.0
         env:
           CC_TEST_REPORTER_ID: 8908e9226a16b7c4537ed07da25d09b086dfc7135b4f4c583603e043401288e8
         with:
