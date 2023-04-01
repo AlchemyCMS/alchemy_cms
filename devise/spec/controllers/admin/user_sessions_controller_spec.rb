@@ -15,21 +15,6 @@ describe Alchemy::Admin::UserSessionsController do
         get :new
         is_expected.to redirect_to(admin_signup_path)
       end
-
-      if Alchemy.gem_version <= Gem::Version.new("4.9")
-        context "with ssl enforced" do
-          before do
-            allow(controller).to receive(:ssl_required?).and_return(true)
-          end
-
-          it "redirects to https" do
-            get :new
-            is_expected.to redirect_to(
-              admin_login_url(protocol: "https", host: "test.host"),
-            )
-          end
-        end
-      end
     end
   end
 
