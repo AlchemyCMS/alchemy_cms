@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "devise/orm/active_record"
 require "userstamp"
 
@@ -140,7 +142,7 @@ module Alchemy
       if lastname.blank? && firstname.blank?
         login
       else
-        options = { :flipped => false }.merge(options)
+        options = { flipped: false }.merge(options)
         fullname = options[:flipped] ? "#{lastname}, #{firstname}" : "#{firstname} #{lastname}"
         fullname.squeeze(" ").strip
       end
