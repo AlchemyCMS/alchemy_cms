@@ -16,6 +16,7 @@ describe Alchemy::Permissions do
   let(:restricted_page) { build(:alchemy_page, :public, restricted: true) }
   let(:published_element) { mock_model(Alchemy::Element, restricted?: false, public?: true) }
   let(:restricted_element) { mock_model(Alchemy::Element, restricted?: true, public?: true) }
+  let(:language) { build(:alchemy_language) }
 
   context "A guest user" do
     let(:user) { nil }
@@ -144,6 +145,7 @@ describe Alchemy::Permissions do
       is_expected.to be_able_to(:flush, Alchemy::Page)
       is_expected.to be_able_to(:order, Alchemy::Page)
       is_expected.to be_able_to(:switch_language, Alchemy::Page)
+      is_expected.to be_able_to(:switch, Alchemy::Language)
     end
 
     context "if page language is public" do

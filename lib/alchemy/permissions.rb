@@ -160,6 +160,7 @@ module Alchemy
         can :manage, Alchemy::Attachment
         can :manage, Alchemy::Tag
         can :index, Alchemy::Language
+        can :switch, Alchemy::Language
       end
     end
 
