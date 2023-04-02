@@ -21,6 +21,7 @@ group :development, :test do
   # minimal, but breaking.
   gem "execjs", "= 2.8.1"
   gem "jsbundling-rails", "~> 1.1"
+  gem "standard", "~> 1.25", require: false
 
   if ENV["GITHUB_ACTIONS"]
     # Necessary because GH Actions gem cache does not have this "Bundled with Ruby" gem installed
@@ -33,7 +34,6 @@ group :development, :test do
     gem "yard"
     gem "redcarpet"
     gem "pry-byebug"
-    gem "standard", "~> 1.25", require: false
     gem "listen"
     gem "localeapp", "~> 3.0", require: false
     gem "dotenv", "~> 2.2"
