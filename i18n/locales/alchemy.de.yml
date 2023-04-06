@@ -153,7 +153,7 @@ de:
 
     # == Mime Types translations
     # These are human readable mime types used for the document-type row in archive files.
-    mime_types:
+    mime_types: &mime_types
       audio/mp4: "MP4-Audio"
       application/msword: "Word-Dokument"
       application/rtf: "RTF-Dokument"
@@ -180,6 +180,48 @@ de:
       image/tiff: "TIFF-Bild"
       "text/x-vcard": "vCard"
       application/vcard: "vCard"
+
+    # === Translations for filter names and values
+    # Used in the right filter column in case the model has `alchemy_resource_filters` defined.
+    #
+    filters:
+      page:
+        by_page_layout:
+          name: Seitentyp
+        status:
+          name: Status
+          values:
+            not_public: Unveröffentlicht
+            published: Veröffentlicht
+            restricted: Geschützt
+      picture:
+        by_file_format:
+          name: Dateityp
+          values:
+            gif: GIF
+            jpeg: JPG
+            png: PNG
+            tiff: TIFF
+            webp: WebP
+            svg: SVG
+        misc:
+          name: Sonstige
+          values:
+            last_upload: Zuletzt hochgeladen
+            recent: Küzlich hochgeladen
+            without_tag: Ohne Tag
+            deletable: Nicht auf Seiten benutzt
+      attachment:
+        by_file_type:
+          name: Dateityp
+          values:
+            <<: *mime_types
+        misc:
+          name: Sonstige
+          values:
+            last_upload: Zuletzt hochgeladen
+            recent: Küzlich hochgeladen
+            without_tag: Ohne Tag
 
     link_target_options:
       default: gleichem Fenster
