@@ -181,6 +181,7 @@ de:
       image/tiff: "TIFF-Bild"
       "text/x-vcard": "vCard"
       application/vcard: "vCard"
+      text/calendar: "iCal"
 
     # === Translations for filter names and values
     # Used in the right filter column in case the model has `alchemy_resource_filters` defined.
