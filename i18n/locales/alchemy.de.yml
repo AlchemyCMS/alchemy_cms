@@ -161,6 +161,7 @@ de:
       text/plain: "Text-Dokument"
       video/mp4: "MP4-Video"
       video/mpeg: "MPEG-Video"
+      application/octet-stream: "Unbekannte Datei"
       application/pdf: "PDF-Dokument"
       application/x-flash-video: "Flash-Video"
       video/x-flv: "Flash-Video"
