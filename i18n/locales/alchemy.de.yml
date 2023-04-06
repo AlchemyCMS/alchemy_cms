@@ -455,6 +455,7 @@ de:
     female: "Frau"
     file: "Datei"
     file_rename_error: "Datei konnte nicht umbenannt werden."
+    filtered_by: "gefiltert nach"
     from: "von"
     from_at: "von %{by} am %{at}"
     height: "Höhe"
