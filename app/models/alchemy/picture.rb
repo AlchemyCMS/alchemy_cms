@@ -138,14 +138,15 @@ module Alchemy
       end
 
       def alchemy_resource_filters
+        @_file_formats ||= distinct.pluck(:image_file_format).compact.presence || []
         [
           {
             name: :by_file_format,
-            values: distinct.pluck(:image_file_format),
+            values: @_file_formats,
           },
           {
             name: :misc,
-            values: %w(recent last_upload without_tag),
+            values: %w(recent last_upload without_tag deletable),
           },
         ]
       end
