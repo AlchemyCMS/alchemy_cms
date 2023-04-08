@@ -63,9 +63,13 @@ module Alchemy
         end
       end
 
+      def install_dartsass
+        generate "dartsass:install"
+      end
+
       def install_assets
         copy_file "all.js", app_vendor_assets_path.join("javascripts", "alchemy", "admin", "all.js")
-        copy_file "all.css", app_vendor_assets_path.join("stylesheets", "alchemy", "admin", "all.css")
+        copy_file "all.scss", app_vendor_assets_path.join("stylesheets", "alchemy", "admin", "all.scss")
       end
 
       def copy_demo_views

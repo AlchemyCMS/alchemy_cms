@@ -57,6 +57,18 @@ module Alchemy
       end
     end
 
+    initializer "alchemy.dart_sass" do
+      Rails.application.config.dartsass.tap do |dartsass|
+        dartsass.builds ||= {}
+        dartsass.builds[Rails.application.root.join("vendor/assets/stylesheets/alchemy/admin/all.scss")] = "alchemy/admin/all.css"
+        dartsass.builds[Alchemy::Engine.root.join("app/assets/stylesheets/alchemy/admin/print.scss")] = "alchemy/admin/print.css"
+        dartsass.builds[Alchemy::Engine.root.join("app/assets/stylesheets/alchemy/menubar.scss")] = "alchemy/menubar.scss"
+        dartsass.builds[Alchemy::Engine.root.join("app/assets/stylesheets/alchemy/welcome.scss")] = "alchemy/welcome.css"
+        dartsass.builds[Alchemy::Engine.root.join("app/assets/stylesheets/tinymce/skins/alchemy/content.scss")] = "tinymce/skins/alchemy/content.min.css"
+        dartsass.builds[Alchemy::Engine.root.join("app/assets/stylesheets/tinymce/skins/alchemy/skin.scss")] = "tinymce/skins/alchemy/skin.min.css"
+      end
+    end
+
     # Gutentag downcases all tags before save
     # and Gutentag validations are not case sensitive.
     # But we support having tags with uppercase characters.

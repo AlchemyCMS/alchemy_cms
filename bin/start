@@ -13,5 +13,5 @@ end
 
 FileUtils.chdir APP_ROOT do
   puts "\n== Starting dummy app =="
-  system! "bin/rails server"
+  system! "bin/dev"
 end
