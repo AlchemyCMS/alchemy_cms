@@ -4,7 +4,9 @@
     "test": "jest",
     "lint": "prettier --check 'app/javascript/**/*.js'",
     "eslint": "eslint app/javascript/**/*.js",
-    "build": "rollup -c"
+    "build:js": "rollup -c",
+    "build:css": "sass --style=compressed --source-map --load-path app/assets/stylesheets --load-path vendor/assets/stylesheets app/assets/stylesheets/alchemy/admin.scss:package/dist/admin.css app/assets/stylesheets/alchemy/admin/print.scss:package/dist/admin/print.css app/assets/stylesheets/alchemy/welcome.scss:package/dist/welcome.css",
+    "build": "yarn build:js && yarn build:css"
   },
   "keywords": [],
   "author": "Thomas von Deyen",
@@ -33,6 +35,7 @@
     "jsdom-testing-mocks": "^1.13.0",
     "prettier": "^3.3.1",
     "rollup": "^4.18.0",
+    "sass": "^1.77.2",
     "xhr-mock": "^2.5.1"
   },
   "jest": {
