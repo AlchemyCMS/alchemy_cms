@@ -21,6 +21,7 @@
 #
 
 require_dependency "alchemy/element/definitions"
+require_dependency "alchemy/element/dom_id"
 require_dependency "alchemy/element/element_contents"
 require_dependency "alchemy/element/element_ingredients"
 require_dependency "alchemy/element/element_essences"
