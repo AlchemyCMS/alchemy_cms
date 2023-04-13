@@ -34,7 +34,7 @@
                   <li class="<%= cycle('even', 'odd') %>">
                     <% page_link = link_to element.display_name_with_preview_text,
                                    edit_admin_page_path(page, anchor: "element_#{element.id}") %>
-                    <% ingredients = picture_ingredients.collect(&:translated_role).to_sentence %>
+                    <% ingredients = picture_ingredients.map { |p| Alchemy::IngredientEditor.new(p).translated_role }.to_sentence %>
                     <% if element.public? %>
                       <%= render_icon('window-maximize', style: 'regular') %>
                     <% else %>
