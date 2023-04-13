@@ -19,6 +19,7 @@ describe "alchemy/admin/pictures/show.html.erb" do
   end
 
   before do
+    allow(view).to receive(:can?).and_return(true)
     allow(view).to receive(:admin_picture_path).and_return("/path")
     allow(view).to receive(:edit_admin_page_path).and_return("/path")
     allow(view).to receive(:render_message)

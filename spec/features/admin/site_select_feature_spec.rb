@@ -16,7 +16,9 @@ RSpec.describe "Site select", type: :system do
 
   context "with multiple sites" do
     let!(:default_site) { create(:alchemy_site, :default) }
+    let!(:default_language) { create(:alchemy_language) }
     let!(:a_site) { create(:alchemy_site) }
+    let!(:a_language) { create(:alchemy_language, site: a_site) }
 
     context "not on pages or languages module" do
       it "does not display the site select" do

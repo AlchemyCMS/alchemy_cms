@@ -471,15 +471,19 @@ module Alchemy
       fixed_attributes.fixed?(name)
     end
 
-    # Checks the current page's list of editors, if defined.
+    # Checks the current page's list of editors, if defined, and the user's accessible languages, if they are restricted
     #
-    # This allows us to pass in a user and see if any of their roles are enable
-    # them to make edits
+    # This allows us to pass in a user and see if any of their roles/languages enable them to make edits
     #
     def editable_by?(user)
-      return true unless has_limited_editors?
+      user = UserWithLanguages.new(user)
 
-      (editor_roles & user.alchemy_roles).any?
+      if has_limited_editors? || user.languages_restricted?
+        (!has_limited_editors? || (editor_roles & user.alchemy_roles).any?) &&
+          user.accessible_languages.include?(language)
+      else
+        true
+      end
     end
 
     # Returns the value of +public_on+ attribute from public version

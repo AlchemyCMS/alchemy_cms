@@ -1,5 +1,5 @@
-<% languages = Alchemy::Language.on_current_site %>
-<% if can?(:switch_language, Alchemy::Page) && languages.many? %>
+<% languages = Alchemy::Language.accessible_by(Alchemy::Permissions.new(current_alchemy_user), :switch_language).on_current_site %>
+<% if can?(:switch_language, Alchemy::Page) && Alchemy::Language.current.site.languages.many? %>
 <div class="button_with_label">
   <%= form_tag switch_admin_languages_path, method: 'get' do %>
     <%= select_tag(

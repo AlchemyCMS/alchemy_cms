@@ -27,6 +27,7 @@ module Alchemy
     belongs_to :site
     has_many :pages, inverse_of: :language
     has_many :nodes, inverse_of: :language
+    has_and_belongs_to_many :users, class_name: Alchemy.user_class_name, join_table: :alchemy_users_languages
 
     before_validation :set_locale, if: -> { locale.blank? }
 

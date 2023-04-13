@@ -134,12 +134,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_13_104432) do
     t.index ["updater_id"], name: "index_alchemy_nodes_on_updater_id"
   end
 
-  create_table "alchemy_page_mutexes", force: :cascade do |t|
-    t.integer "page_id", null: false
-    t.datetime "created_at"
-    t.index ["page_id"], name: "index_alchemy_page_mutexes_on_page_id", unique: true
-  end
-
   create_table "alchemy_page_versions", force: :cascade do |t|
     t.integer "page_id", null: false
     t.datetime "public_on", precision: nil
@@ -208,8 +202,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_13_104432) do
     t.integer "image_file_size"
     t.string "image_file_format"
     t.index ["creator_id"], name: "index_alchemy_pictures_on_creator_id"
-    t.index ["image_file_name"], name: "index_alchemy_pictures_on_image_file_name"
-    t.index ["name"], name: "index_alchemy_pictures_on_name"
     t.index ["updater_id"], name: "index_alchemy_pictures_on_updater_id"
   end
 
@@ -289,7 +281,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_13_104432) do
   add_foreign_key "alchemy_languages", "alchemy_sites", column: "site_id"
   add_foreign_key "alchemy_nodes", "alchemy_languages", column: "language_id"
   add_foreign_key "alchemy_nodes", "alchemy_pages", column: "page_id", on_delete: :restrict
-  add_foreign_key "alchemy_page_mutexes", "alchemy_pages", column: "page_id"
   add_foreign_key "alchemy_page_versions", "alchemy_pages", column: "page_id", on_delete: :cascade
   add_foreign_key "alchemy_pages", "alchemy_languages", column: "language_id"
   add_foreign_key "alchemy_picture_thumbs", "alchemy_pictures", column: "picture_id"
