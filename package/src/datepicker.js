@@ -24,6 +24,7 @@ export default function Datepicker(scope = document) {
         altInput: true,
         altFormat: Alchemy.t(`formats.${type}`),
         altInputClass: "flatpickr-input",
+        dateFormat: "Z",
         enableTime: /time/.test(type),
         noCalendar: type === "time",
         time_24hr: Alchemy.t("formats.time_24hr"),
