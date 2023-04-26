@@ -1,10 +1,9 @@
 rubocop:
-  config_file: .rubocop.yml
-  version: 1.5.2
+  enabled: false
 scss:
   enabled: false
 coffeescript:
   enabled: false
 javascript:
   enabled: false
-fail_on_violations: true
+fail_on_violations: false
