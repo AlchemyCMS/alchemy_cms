@@ -159,9 +159,9 @@ module Alchemy
               scope: "ingredient_validations",
               default: [
                 "fields.#{role}.#{error}".to_sym,
-                "errors.#{error}".to_sym,
+                "errors.#{error}".to_sym
               ],
-              field: Alchemy::Ingredient.translated_label_for(role, name),
+              field: Alchemy::Ingredient.translated_label_for(role, name)
             )
           end
         end
@@ -175,7 +175,7 @@ module Alchemy
         ingredient_definitions.each do |attributes|
           ingredients.build(
             role: attributes[:role],
-            type: Alchemy::Ingredient.normalize_type(attributes[:type]),
+            type: Alchemy::Ingredient.normalize_type(attributes[:type])
           )
         end
       end

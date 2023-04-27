@@ -11,7 +11,7 @@ module Alchemy
     end
 
     def call
-      klass.validates :name, presence: true, uniqueness: { case_sensitive: true }
+      klass.validates :name, presence: true, uniqueness: {case_sensitive: true}
     end
 
     private

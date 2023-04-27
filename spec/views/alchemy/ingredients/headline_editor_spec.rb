@@ -10,7 +10,7 @@ RSpec.describe "alchemy/ingredients/_headline_editor" do
     stub_model(
       Alchemy::Ingredients::Headline,
       element: element,
-      role: "headline",
+      role: "headline"
     )
   end
 
@@ -40,7 +40,7 @@ RSpec.describe "alchemy/ingredients/_headline_editor" do
 
   context "when only one level is given" do
     let(:settings) do
-      { levels: [1] }
+      {levels: [1]}
     end
 
     it "does not render a level select" do
@@ -54,7 +54,7 @@ RSpec.describe "alchemy/ingredients/_headline_editor" do
 
   context "when sizes are given" do
     let(:settings) do
-      { sizes: [1, 2] }
+      {sizes: [1, 2]}
     end
 
     it "renders a size select" do
@@ -65,7 +65,7 @@ RSpec.describe "alchemy/ingredients/_headline_editor" do
   context "with settings anchor set to true" do
     let(:settings) do
       {
-        anchor: true,
+        anchor: true
       }
     end
 

@@ -24,7 +24,7 @@ class ResourcesControllerForEngine
   include Alchemy::ResourcesHelper
 
   def resource_handler
-    @resource_handler ||= Alchemy::Resource.new("admin/engine_resources", { "engine_name" => "my_engine" })
+    @resource_handler ||= Alchemy::Resource.new("admin/engine_resources", {"engine_name" => "my_engine"})
   end
 end
 
@@ -34,8 +34,8 @@ describe Alchemy::ResourcesHelper do
 
   before {
     allow(controller).to receive(:main_app).and_return :main_app_proxy
-    controller.instance_variable_set("@my_resource", resource_item)
-    controller.instance_variable_set("@my_resources", [resource_item])
+    controller.instance_variable_set(:@my_resource, resource_item)
+    controller.instance_variable_set(:@my_resources, [resource_item])
   }
 
   describe "path-helpers" do
@@ -119,7 +119,7 @@ describe Alchemy::ResourcesHelper do
     subject { controller.render_attribute(resource_item, attributes, options) }
 
     let(:options) { {} }
-    let(:attributes) { { name: "name" } }
+    let(:attributes) { {name: "name"} }
 
     it "should return the value from resource attribute" do
       allow(resource_item).to receive(:name).and_return("my-name")
@@ -131,13 +131,13 @@ describe Alchemy::ResourcesHelper do
       let(:relation) do
         {
           attr_method: "title",
-          name: "location",
+          name: "location"
         }
       end
       let(:attributes) do
         {
           name: "name",
-          relation: relation,
+          relation: relation
         }
       end
 
@@ -167,7 +167,7 @@ describe Alchemy::ResourcesHelper do
       end
 
       context "but with options[:truncate] set to 10" do
-        let(:options) { { truncate: 10 } }
+        let(:options) { {truncate: 10} }
 
         it "does not truncate the values" do
           expect(subject.length).to eq(10)
@@ -175,7 +175,7 @@ describe Alchemy::ResourcesHelper do
       end
 
       context "but with options[:truncate] set to false" do
-        let(:options) { { truncate: false } }
+        let(:options) { {truncate: false} }
 
         it "does not truncate the values" do
           expect(subject.length).to eq(51)
@@ -187,7 +187,7 @@ describe Alchemy::ResourcesHelper do
       let(:attributes) do
         {
           name: :created_at,
-          type: :datetime,
+          type: :datetime
         }
       end
 
@@ -198,12 +198,12 @@ describe Alchemy::ResourcesHelper do
       end
 
       it "formats the time with alchemy default format" do
-        expect(controller).to receive(:l).with(now, format: :'alchemy.default')
+        expect(controller).to receive(:l).with(now, format: :"alchemy.default")
         subject
       end
 
       context "with options[:datetime_format] set to other format" do
-        let(:options) { { datetime_format: "OTHR" } }
+        let(:options) { {datetime_format: "OTHR"} }
 
         it "uses this format" do
           expect(controller).to receive(:l).with(now, format: "OTHR")
@@ -216,7 +216,7 @@ describe Alchemy::ResourcesHelper do
       let(:attributes) do
         {
           name: :created_at,
-          type: :time,
+          type: :time
         }
       end
 
@@ -227,12 +227,12 @@ describe Alchemy::ResourcesHelper do
       end
 
       it "formats the time with alchemy datetime format" do
-        expect(controller).to receive(:l).with(now, format: :'alchemy.time')
+        expect(controller).to receive(:l).with(now, format: :"alchemy.time")
         subject
       end
 
       context "with options[:time_format] set to other format" do
-        let(:options) { { time_format: "OTHR" } }
+        let(:options) { {time_format: "OTHR"} }
 
         it "uses this format" do
           expect(controller).to receive(:l).with(now, format: "OTHR")
@@ -248,14 +248,14 @@ describe Alchemy::ResourcesHelper do
     context "a boolean" do
       let(:attribute) do
         {
-          type: :boolean,
+          type: :boolean
         }
       end
 
       it "just returns hint options" do
         is_expected.to match(
           hash_including(
-            hint: nil,
+            hint: nil
           )
         )
       end
@@ -264,7 +264,7 @@ describe Alchemy::ResourcesHelper do
     context "a date" do
       let(:attribute) do
         {
-          type: :date,
+          type: :date
         }
       end
 
@@ -274,8 +274,8 @@ describe Alchemy::ResourcesHelper do
             hint: nil,
             as: "string",
             input_html: {
-              data: { datepicker_type: "date" },
-            },
+              data: {datepicker_type: "date"}
+            }
           )
         )
       end
@@ -284,7 +284,7 @@ describe Alchemy::ResourcesHelper do
     context "a datetime" do
       let(:attribute) do
         {
-          type: :datetime,
+          type: :datetime
         }
       end
 
@@ -294,8 +294,8 @@ describe Alchemy::ResourcesHelper do
             hint: nil,
             as: "string",
             input_html: {
-              data: { datepicker_type: "datetime" },
-            },
+              data: {datepicker_type: "datetime"}
+            }
           )
         )
       end
@@ -304,7 +304,7 @@ describe Alchemy::ResourcesHelper do
     context "a time" do
       let(:attribute) do
         {
-          type: :time,
+          type: :time
         }
       end
 
@@ -314,8 +314,8 @@ describe Alchemy::ResourcesHelper do
             hint: nil,
             as: "string",
             input_html: {
-              data: { datepicker_type: "time" },
-            },
+              data: {datepicker_type: "time"}
+            }
           )
         )
       end
@@ -324,7 +324,7 @@ describe Alchemy::ResourcesHelper do
     context "a text" do
       let(:attribute) do
         {
-          type: :text,
+          type: :text
         }
       end
 
@@ -334,8 +334,8 @@ describe Alchemy::ResourcesHelper do
             hint: nil,
             as: "text",
             input_html: {
-              rows: 4,
-            },
+              rows: 4
+            }
           )
         )
       end
@@ -344,7 +344,7 @@ describe Alchemy::ResourcesHelper do
     context "everything else" do
       let(:attribute) do
         {
-          type: :foo,
+          type: :foo
         }
       end
 
@@ -352,7 +352,7 @@ describe Alchemy::ResourcesHelper do
         is_expected.to match(
           hash_including(
             hint: nil,
-            as: "string",
+            as: "string"
           )
         )
       end

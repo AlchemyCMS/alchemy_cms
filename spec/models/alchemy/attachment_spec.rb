@@ -129,7 +129,7 @@ module Alchemy
       context "having a png, but only pdf allowed" do
         before do
           allow(Config).to receive(:get) do
-            { "allowed_filetypes" => { "alchemy/attachments" => ["pdf"] } }
+            {"allowed_filetypes" => {"alchemy/attachments" => ["pdf"]}}
           end
         end
 
@@ -141,7 +141,7 @@ module Alchemy
       context "having a png and everything allowed" do
         before do
           allow(Config).to receive(:get) do
-            { "allowed_filetypes" => { "alchemy/attachments" => ["*"] } }
+            {"allowed_filetypes" => {"alchemy/attachments" => ["*"]}}
           end
         end
 

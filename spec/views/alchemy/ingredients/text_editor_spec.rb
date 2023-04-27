@@ -27,7 +27,7 @@ RSpec.describe "alchemy/ingredients/_text_editor" do
   context "with a different input type set" do
     let(:settings) do
       {
-        input_type: "number",
+        input_type: "number"
       }
     end
 
@@ -39,7 +39,7 @@ RSpec.describe "alchemy/ingredients/_text_editor" do
   context "with settings linkable set to true" do
     let(:settings) do
       {
-        linkable: true,
+        linkable: true
       }
     end
 
@@ -54,7 +54,7 @@ RSpec.describe "alchemy/ingredients/_text_editor" do
   context "with settings anchor set to true" do
     let(:settings) do
       {
-        anchor: true,
+        anchor: true
       }
     end
 

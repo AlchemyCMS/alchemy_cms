@@ -2,6 +2,10 @@
 
 require "rails_helper"
 
+class ::RegisterModuleDummyController
+  ### mock the existence of the controller
+end
+
 module Alchemy
   class ModulesTestController < ApplicationController
     include Modules
@@ -23,8 +27,8 @@ module Alchemy
           "name" => "dashboard",
           "navigation" => {
             "controller" => "alchemy/admin/dashboard",
-            "action" => "index",
-          },
+            "action" => "index"
+          }
         }
       end
 
@@ -40,7 +44,7 @@ module Alchemy
         let(:params_or_name) do
           {
             controller: "alchemy/admin/dashboard",
-            action: "index",
+            action: "index"
           }
         end
 
@@ -52,7 +56,7 @@ module Alchemy
           let(:params_or_name) do
             {
               controller: "/alchemy/admin/dashboard",
-              action: "index",
+              action: "index"
             }
           end
 
@@ -72,10 +76,10 @@ module Alchemy
                 "sub_navigation" => [
                   {
                     "controller" => "alchemy/admin/dashboard",
-                    "action" => "index",
-                  },
-                ],
-              },
+                    "action" => "index"
+                  }
+                ]
+              }
             }
           end
 
@@ -95,10 +99,10 @@ module Alchemy
                 "nested" => [
                   {
                     "controller" => "alchemy/admin/dashboard",
-                    "action" => "index",
-                  },
-                ],
-              },
+                    "action" => "index"
+                  }
+                ]
+              }
             }
           end
 
@@ -123,8 +127,8 @@ module Alchemy
           "name" => "module",
           "navigation" => {
             "controller" => "register_module_dummy",
-            "action" => "index",
-          },
+            "action" => "index"
+          }
         }
       end
 
@@ -133,8 +137,8 @@ module Alchemy
           "name" => "bad_module_a",
           "navigation" => {
             "controller" => "bad_module",
-            "action" => "index",
-          },
+            "action" => "index"
+          }
         }
       end
 
@@ -146,14 +150,10 @@ module Alchemy
             "action" => "index",
             "sub_navigation" => [{
               "controller" => "bad_module",
-              "action" => "index",
-            }],
-          },
+              "action" => "index"
+            }]
+          }
         }
-      end
-
-      class ::RegisterModuleDummyController
-        ### mock the existence of the controller
       end
 
       it "registers a module definition into global list of modules" do

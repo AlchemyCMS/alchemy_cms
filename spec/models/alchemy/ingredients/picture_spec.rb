@@ -13,7 +13,7 @@ RSpec.describe Alchemy::Ingredients::Picture do
       element: element,
       type: described_class.name,
       role: "image",
-      related_object: picture,
+      related_object: picture
     )
   end
 
@@ -121,7 +121,7 @@ RSpec.describe Alchemy::Ingredients::Picture do
         element: element,
         type: described_class.name,
         role: "picture",
-        picture: picture,
+        picture: picture
       )
     end
   end

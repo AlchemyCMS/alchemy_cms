@@ -56,7 +56,7 @@ module Alchemy
         crop: crop,
         crop_from: crop && crop_from.presence || nil,
         crop_size: crop && crop_size.presence || nil,
-        size: settings[:size],
+        size: settings[:size]
       }.with_indifferent_access
     end
 
@@ -84,7 +84,7 @@ module Alchemy
         crop_from: crop && crop_from.presence || default_crop_from&.join("x"),
         crop_size: crop && crop_size.presence || default_crop_size&.join("x"),
         flatten: true,
-        format: picture&.image_file_format || "jpg",
+        format: picture&.image_file_format || "jpg"
       }
     end
 
@@ -96,7 +96,7 @@ module Alchemy
         default_crop_size: default_crop_size,
         fixed_ratio: settings[:fixed_ratio],
         image_width: picture&.image_file_width,
-        image_height: picture&.image_file_height,
+        image_height: picture&.image_file_height
       ).to_h
     end
 
@@ -105,7 +105,7 @@ module Alchemy
       settings[:crop] && picture &&
         picture.can_be_cropped_to?(
           settings[:size],
-          settings[:upsample],
+          settings[:upsample]
         ) && !!picture.image_file
     end
 
@@ -124,7 +124,7 @@ module Alchemy
     def thumbnail_zoom_factor(mask)
       [
         mask[0].to_f / (image_file_width || 1),
-        mask[1].to_f / (image_file_height || 1),
+        mask[1].to_f / (image_file_height || 1)
       ].max
     end
 
@@ -134,7 +134,7 @@ module Alchemy
 
       [
         ((image_file_width || 0) - default_crop_size[0]) / 2,
-        ((image_file_height || 0) - default_crop_size[1]) / 2,
+        ((image_file_height || 0) - default_crop_size[1]) / 2
       ].map(&:round)
     end
 

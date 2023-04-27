@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "dragonfly_svg"
 require "alchemy/dragonfly/processors/crop_resize"
 require "alchemy/dragonfly/processors/auto_orient"

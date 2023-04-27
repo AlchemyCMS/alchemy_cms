@@ -18,11 +18,11 @@ RSpec.describe Alchemy::EagerLoading do
                 :touchable_pages,
                 :tags,
                 {
-                  ingredients: :related_object,
-                },
-              ],
-            },
-          },
+                  ingredients: :related_object
+                }
+              ]
+            }
+          }
         ])
       end
     end
@@ -41,11 +41,11 @@ RSpec.describe Alchemy::EagerLoading do
                 :touchable_pages,
                 :tags,
                 {
-                  ingredients: :related_object,
-                },
-              ],
-            },
-          },
+                  ingredients: :related_object
+                }
+              ]
+            }
+          }
         ])
       end
     end

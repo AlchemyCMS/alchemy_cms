@@ -49,9 +49,9 @@ module Alchemy
         #
         scope :published,
           -> {
-            joins(:language, :versions).
-              merge(Language.published).
-              merge(PageVersion.public_on(Time.current))
+            joins(:language, :versions)
+              .merge(Language.published)
+              .merge(PageVersion.public_on(Time.current))
           }
 
         # All pages that are a published language root
@@ -59,7 +59,7 @@ module Alchemy
         scope :public_language_roots,
           -> {
             published.language_roots.where(
-              language_code: Language.published.pluck(:language_code),
+              language_code: Language.published.pluck(:language_code)
             )
           }
 
@@ -98,7 +98,7 @@ module Alchemy
         #
         scope :from_current_site,
           -> {
-            where(Language.table_name => { site_id: Site.current || Site.default }).joins(:language)
+            where(Language.table_name => {site_id: Site.current || Site.default}).joins(:language)
           }
 
         # All pages for xml sitemap

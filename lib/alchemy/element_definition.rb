@@ -51,11 +51,11 @@ module Alchemy
           YAML.safe_load(
             ERB.new(File.read(definitions_file_path)).result,
             permitted_classes: YAML_PERMITTED_CLASSES,
-            aliases: true,
+            aliases: true
           ) || []
         else
           raise LoadError,
-                "Could not find elements.yml file! Please run `rails generate alchemy:install`"
+            "Could not find elements.yml file! Please run `rails generate alchemy:install`"
         end
       end
 

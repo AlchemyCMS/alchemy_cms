@@ -54,7 +54,7 @@ module Alchemy
         else
           respond_to do |format|
             format.html { render "500", status: 500 }
-            format.json { render json: { message: @notice }, status: 500 }
+            format.json { render json: {message: @notice}, status: 500 }
           end
         end
       end
@@ -101,7 +101,7 @@ module Alchemy
           flash[:notice] = Alchemy.t(flash_notice)
           do_redirect_to redirect_url
         else
-          render action: (params[:action] == "update" ? "edit" : "new")
+          render action: ((params[:action] == "update") ? "edit" : "new")
         end
       end
 
@@ -138,11 +138,11 @@ module Alchemy
       #
       def current_alchemy_site
         @current_alchemy_site ||= begin
-            site_id = params[:site_id] || session[:alchemy_site_id]
-            site = Site.find_by(id: site_id) || super
-            session[:alchemy_site_id] = site&.id
-            site
-          end
+          site_id = params[:site_id] || session[:alchemy_site_id]
+          site = Site.find_by(id: site_id) || super
+          session[:alchemy_site_id] = site&.id
+          site
+        end
       end
 
       def notify_error_tracker(exception)

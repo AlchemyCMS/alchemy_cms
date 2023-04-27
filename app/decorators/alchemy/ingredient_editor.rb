@@ -27,7 +27,7 @@ module Alchemy
       Alchemy.t(
         role,
         scope: "ingredient_roles.#{element.name}",
-        default: Alchemy.t("ingredient_roles.#{role}", default: role.humanize),
+        default: Alchemy.t("ingredient_roles.#{role}", default: role.humanize)
       )
     end
 
@@ -36,17 +36,17 @@ module Alchemy
         "ingredient-editor",
         partial_name,
         deprecated? ? "deprecated" : nil,
-        respond_to?(:level_options) && level_options.many? ? "with-level-select" : nil,
-        respond_to?(:size_options) && size_options.many? ? "with-size-select" : nil,
+        (respond_to?(:level_options) && level_options.many?) ? "with-level-select" : nil,
+        (respond_to?(:size_options) && size_options.many?) ? "with-size-select" : nil,
         settings[:linkable] ? "linkable" : nil,
-        settings[:anchor] ? "with-anchor" : nil,
+        settings[:anchor] ? "with-anchor" : nil
       ].compact
     end
 
     def data_attributes
       {
         ingredient_id: id,
-        ingredient_role: role,
+        ingredient_role: role
       }
     end
 
@@ -148,7 +148,7 @@ module Alchemy
         Alchemy.t(
           role,
           scope: [:ingredient_deprecation_notices, element.name],
-          default: Alchemy.t(:ingredient_deprecated),
+          default: Alchemy.t(:ingredient_deprecated)
         )
       end
     end

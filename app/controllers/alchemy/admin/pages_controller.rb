@@ -109,7 +109,7 @@ module Alchemy
         @preview_urls = Alchemy.preview_sources.map do |klass|
           [
             klass.model_name.human,
-            klass.new(routes: Alchemy::Engine.routes).url_for(@page),
+            klass.new(routes: Alchemy::Engine.routes).url_for(@page)
           ]
         end
         @layoutpage = @page.layoutpage?
@@ -152,10 +152,10 @@ module Alchemy
         respond_to do |format|
           format.js do
             @redirect_url = if @page.layoutpage?
-                alchemy.admin_layoutpages_path
-              else
-                alchemy.admin_pages_path
-              end
+              alchemy.admin_layoutpages_path
+            else
+              alchemy.admin_pages_path
+            end
 
             render :redirect
           end
@@ -185,7 +185,7 @@ module Alchemy
           format.html do
             redirect_to(
               params[:redirect_to].presence || admin_pages_path,
-              allow_other_host: true,
+              allow_other_host: true
             )
           end
         end
@@ -248,7 +248,7 @@ module Alchemy
         Page.copy(
           language_root_to_copy_from,
           language_id: params[:languages][:new_lang_id],
-          language_code: @current_language.code,
+          language_code: @current_language.code
         )
       end
 
@@ -322,7 +322,7 @@ module Alchemy
       #
       def process_url(ancestors_path, item)
         default_urlname = (ancestors_path.blank? ? "" : "#{ancestors_path}/") + item["slug"].to_s
-        { my_urlname: default_urlname, children_path: default_urlname }
+        {my_urlname: default_urlname, children_path: default_urlname}
       end
 
       def load_resource
@@ -333,7 +333,7 @@ module Alchemy
         request.raw_post.split("&").map do |i|
           parts = i.split("=")
           {
-            parts[0].gsub(/[^0-9]/, "") => parts[1],
+            parts[0].gsub(/[^0-9]/, "") => parts[1]
           }
         end
       end
@@ -391,7 +391,7 @@ module Alchemy
         PageTreeSerializer.new(
           @page,
           ability: current_ability,
-          user: current_alchemy_user,
+          user: current_alchemy_user
         )
       end
 

@@ -73,22 +73,22 @@ module Alchemy
     def render_elements(options = {}, &blk)
       options = {
         from_page: @page,
-        render_format: "html",
+        render_format: "html"
       }.update(options)
 
       finder = options[:finder] || Alchemy::ElementsFinder.new(options)
 
       page_version = if @preview_mode
-          options[:from_page]&.draft_version
-        else
-          options[:from_page]&.public_version
-        end
+        options[:from_page]&.draft_version
+      else
+        options[:from_page]&.public_version
+      end
 
       elements = finder.elements(page_version: page_version)
 
       default_rendering = ->(element, i) { render_element(element, options, i + 1) }
       capture do
-        if block_given?
+        if blk
           elements.map.with_index(&blk)
         else
           elements.map.with_index(&default_rendering)
@@ -143,7 +143,7 @@ module Alchemy
     def render_element(element, options = {}, counter = 1)
       if element.nil?
         warning("Element is nil")
-        render "alchemy/elements/view_not_found", { name: "nil" }
+        render "alchemy/elements/view_not_found", {name: "nil"}
         return
       end
 
@@ -155,8 +155,8 @@ module Alchemy
         locals: {
           element: element,
           counter: counter,
-          options: options.except(:locals, :partial),
-        }.merge(options[:locals] || {}),
+          options: options.except(:locals, :partial)
+        }.merge(options[:locals] || {})
       )
     rescue ActionView::MissingTemplate => e
       warning(%(
@@ -175,7 +175,7 @@ module Alchemy
     def element_preview_code_attributes(element)
       return {} unless element.present? && @preview_mode && element.page == @page
 
-      { "data-alchemy-element" => element.id }
+      {"data-alchemy-element" => element.id}
     end
 
     # Returns the element's tags information as a string. Parameters and options
@@ -203,12 +203,12 @@ module Alchemy
     #
     def element_tags_attributes(element, options = {})
       options = {
-        formatter: lambda { |tags| tags.join(" ") },
+        formatter: lambda { |tags| tags.join(" ") }
       }.merge(options)
 
       return {} if !element.taggable? || element.tag_list.blank?
 
-      { "data-element-tags" => options[:formatter].call(element.tag_list) }
+      {"data-element-tags" => options[:formatter].call(element.tag_list)}
     end
   end
 end

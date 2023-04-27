@@ -42,7 +42,7 @@ module Alchemy
         Alchemy::Picture::THUMBNAIL_SIZES.values.each do |size|
           variant = Alchemy::PictureVariant.new(picture, {
             size: size,
-            flatten: true,
+            flatten: true
           })
           signature = Alchemy::PictureThumb::Signature.call(variant)
           thumb = find_by(signature: signature)

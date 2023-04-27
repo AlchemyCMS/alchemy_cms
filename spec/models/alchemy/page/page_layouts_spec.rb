@@ -18,7 +18,7 @@ RSpec.describe Alchemy::Page::PageLayouts do
 
     context "with already taken layouts" do
       before do
-        allow(Alchemy::PageLayout).to receive(:all).and_return([{ "unique" => true }])
+        allow(Alchemy::PageLayout).to receive(:all).and_return([{"unique" => true}])
         allow(Alchemy::Page).to receive(:where).and_return double(pluck: [1])
       end
 
@@ -29,7 +29,7 @@ RSpec.describe Alchemy::Page::PageLayouts do
 
     context "with sites layouts present" do
       let(:definition) do
-        { "name" => "default_site", "page_layouts" => %w(index) }
+        {"name" => "default_site", "page_layouts" => %w[index]}
       end
 
       before do
@@ -52,7 +52,7 @@ RSpec.describe Alchemy::Page::PageLayouts do
   end
 
   describe ".human_layout_name" do
-    let(:layout) { { "name" => "contact" } }
+    let(:layout) { {"name" => "contact"} }
 
     subject { Alchemy::Page.human_layout_name(layout["name"]) }
 

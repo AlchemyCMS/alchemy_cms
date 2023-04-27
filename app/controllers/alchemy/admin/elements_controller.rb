@@ -29,10 +29,11 @@ module Alchemy
         @page_version = PageVersion.find(params[:element][:page_version_id])
         @page = @page_version.page
         Element.transaction do
-          if @paste_from_clipboard = params[:paste_from_clipboard].present?
-            @element = paste_element_from_clipboard
+          @paste_from_clipboard = params[:paste_from_clipboard].present?
+          @element = if @paste_from_clipboard
+            paste_element_from_clipboard
           else
-            @element = Element.new(create_element_params)
+            Element.new(create_element_params)
           end
           if @page.definition["insert_elements_at"] == "top"
             @insert_at_top = true
@@ -65,7 +66,7 @@ module Alchemy
       def destroy
         @richtext_ids = @element.richtext_ingredients_ids
         @element.destroy
-        @notice = Alchemy.t("Successfully deleted element") % { element: @element.display_name }
+        @notice = Alchemy.t("Successfully deleted element") % {element: @element.display_name}
       end
 
       def publish
@@ -80,7 +81,7 @@ module Alchemy
             # element over from another nestable element
             Element.find_by(id: element_id).update_columns(
               parent_element_id: params[:parent_element_id],
-              position: position,
+              position: position
             )
           end
           # Need to manually touch the parent because Rails does not do it
@@ -102,17 +103,17 @@ module Alchemy
       def element_includes
         [
           {
-            ingredients: :related_object,
+            ingredients: :related_object
           },
           :tags,
           {
             all_nested_elements: [
               {
-                ingredients: :related_object,
+                ingredients: :related_object
               },
-              :tags,
-            ],
-          },
+              :tags
+            ]
+          }
         ]
       end
 
@@ -138,7 +139,7 @@ module Alchemy
           @source_element,
           {
             parent_element_id: create_element_params[:parent_element_id],
-            page_version_id: @page_version.id,
+            page_version_id: @page_version.id
           }
         )
         if element_from_clipboard["action"] == "cut"

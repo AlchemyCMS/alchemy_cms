@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "alchemy/upgrader"
 require "alchemy/version"
 
@@ -6,7 +7,7 @@ namespace :alchemy do
   desc "Upgrades your app to AlchemyCMS v#{Alchemy::VERSION}."
   task upgrade: [
     "alchemy:upgrade:prepare",
-    "alchemy:upgrade:7.0:run",
+    "alchemy:upgrade:7.0:run"
   ] do
     Alchemy::Upgrader.display_todos
   end
@@ -16,13 +17,13 @@ namespace :alchemy do
     task prepare: [
       "alchemy:upgrade:database",
       "alchemy:upgrade:config",
-      "alchemy:upgrade:package",
+      "alchemy:upgrade:package"
     ]
 
     desc "Alchemy Upgrader: Prepares the database."
     task database: [
       "alchemy:install:migrations",
-      "db:migrate",
+      "db:migrate"
     ]
 
     desc "Alchemy Upgrader: Copy configuration file."
@@ -38,14 +39,14 @@ namespace :alchemy do
     desc "Upgrade Alchemy to v7.0"
     task "7.0" => [
       "alchemy:upgrade:prepare",
-      "alchemy:upgrade:7.0:run",
+      "alchemy:upgrade:7.0:run"
     ] do
       Alchemy::Upgrader.display_todos
     end
 
     namespace "7.0" do
       task "run" => [
-        "alchemy:upgrade:7.0:update_admin_entrypoint",
+        "alchemy:upgrade:7.0:update_admin_entrypoint"
       ]
 
       desc "Update alchemy admin entrypoint"

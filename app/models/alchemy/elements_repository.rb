@@ -102,7 +102,7 @@ module Alchemy
     # Elements off setted by
     # @return [Alchemy::ElementRepository]
     def offset(offset)
-      self.class.new elements[offset.to_i..-1]
+      self.class.new elements[offset.to_i..]
     end
 
     # Elements limitted by

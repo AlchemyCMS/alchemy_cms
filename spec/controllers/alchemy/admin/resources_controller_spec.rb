@@ -8,8 +8,8 @@ describe Admin::EventsController do
   end
 
   describe "#index" do
-    let(:params)  { Hash.new }
-    let!(:peter)  { create(:event, name: "Peter") }
+    let(:params) { {} }
+    let!(:peter) { create(:event, name: "Peter") }
     let!(:lustig) { create(:event, name: "Lustig") }
 
     before do
@@ -33,7 +33,7 @@ describe Admin::EventsController do
 
       context "but searching for record with certain association" do
         let(:bauwagen) { create(:location, name: "Bauwagen") }
-        let(:params)   { {q: {name_or_hidden_name_or_description_or_location_name_cont: "Bauwagen"}} }
+        let(:params) { {q: {name_or_hidden_name_or_description_or_location_name_cont: "Bauwagen"}} }
 
         before do
           peter.location = bauwagen
@@ -97,7 +97,7 @@ describe Admin::EventsController do
 
     context "with zero plural noun model name" do
       let!(:peter) { create(:series, name: "Peter") }
-      let(:params) { {q: { name_cont: "some_query"}, page: 6} }
+      let(:params) { {q: {name_cont: "some_query"}, page: 6} }
 
       it "redirects to index, keeping the current location parameters" do
         expect(controller).to receive(:controller_path) { "admin/series" }
@@ -131,7 +131,7 @@ describe Admin::EventsController do
 
   describe "#destroy" do
     let(:params) { {q: {name_or_hidden_name_or_description_or_location_name_cont: "some_query"}, page: 6} }
-    let!(:peter)  { create(:event, name: "Peter") }
+    let!(:peter) { create(:event, name: "Peter") }
 
     it "redirects to index, keeping the current location parameters" do
       delete :destroy, params: {id: peter.id}.merge(params)
@@ -152,7 +152,7 @@ describe Admin::EventsController do
 
   describe "#common_search_filter_includes" do
     before do
-      allow(controller).to receive(:alchemy_module) { { name: "events" } }
+      allow(controller).to receive(:alchemy_module) { {name: "events"} }
     end
 
     it "should not be frozen" do

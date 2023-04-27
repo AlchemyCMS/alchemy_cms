@@ -38,7 +38,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
     end
 
     context "with format in the options" do
-      let(:options) { { format: "gif" } }
+      let(:options) { {format: "gif"} }
 
       it "takes this as format." do
         expect(picture_url).to match(/\.gif/)
@@ -53,24 +53,24 @@ RSpec.shared_examples_for "having picture thumbnails" do
 
       context "if cropping is enabled" do
         before do
-          allow(record).to receive(:settings) { { crop: true } }
+          allow(record).to receive(:settings) { {crop: true} }
         end
 
         it "passes these crop values to the picture's url method." do
           expect(picture).to receive(:url).with(
-            hash_including(crop_from: "10x10", crop_size: "200x200"),
+            hash_including(crop_from: "10x10", crop_size: "200x200")
           )
           picture_url
         end
 
         context "but with crop values in the options" do
           let(:options) do
-            { crop_from: "30x30", crop_size: "75x75" }
+            {crop_from: "30x30", crop_size: "75x75"}
           end
 
           it "passes these crop values instead." do
             expect(picture).to receive(:url).with(
-              hash_including(crop_from: "30x30", crop_size: "75x75"),
+              hash_including(crop_from: "30x30", crop_size: "75x75")
             )
             picture_url
           end
@@ -79,7 +79,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
     end
 
     context "with other options" do
-      let(:options) { { foo: "baz" } }
+      let(:options) { {foo: "baz"} }
 
       context "and the image does not need to be processed" do
         before do
@@ -129,7 +129,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
 
       context "with cropping enabled" do
         before do
-          allow(record).to receive(:settings) { { crop: true } }
+          allow(record).to receive(:settings) { {crop: true} }
         end
 
         it "includes these crop values.", :aggregate_failures do
@@ -140,7 +140,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
 
       context "with cropping disabled" do
         before do
-          allow(record).to receive(:settings) { { crop: nil } }
+          allow(record).to receive(:settings) { {crop: nil} }
         end
 
         it "does not include these crop values.", :aggregate_failures do
@@ -165,7 +165,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
 
     context "having size setting" do
       before do
-        allow(record).to receive(:settings) { { size: "30x70" } }
+        allow(record).to receive(:settings) { {size: "30x70"} }
       end
 
       it "includes this size." do
@@ -175,7 +175,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
 
     context "having crop setting" do
       before do
-        allow(record).to receive(:settings) { { crop: true } }
+        allow(record).to receive(:settings) { {crop: true} }
       end
 
       it "includes this setting" do
@@ -214,7 +214,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
 
     context "when crop is enabled in the settings" do
       let(:settings) do
-        { crop: true }
+        {crop: true}
       end
 
       context "and crop sizes are present" do
@@ -228,8 +228,8 @@ RSpec.shared_examples_for "having picture thumbnails" do
             hash_including(
               crop_from: "10x10",
               crop_size: "200x200",
-              crop: true,
-            ),
+              crop: true
+            )
           )
           thumbnail_url
         end
@@ -241,8 +241,8 @@ RSpec.shared_examples_for "having picture thumbnails" do
             hash_including(
               crop_from: nil,
               crop_size: nil,
-              crop: true,
-            ),
+              crop: true
+            )
           )
           thumbnail_url
         end
@@ -251,7 +251,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
 
     context "when cropping is disabled in the settings" do
       let(:settings) do
-        { crop: false }
+        {crop: false}
       end
 
       context "but crop sizes are present" do
@@ -265,8 +265,8 @@ RSpec.shared_examples_for "having picture thumbnails" do
             hash_including(
               crop_size: nil,
               crop_from: nil,
-              crop: false,
-            ),
+              crop: false
+            )
           )
           thumbnail_url
         end
@@ -316,7 +316,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
 
     context "when cropping is enabled in settings" do
       let(:settings) do
-        { crop: true }
+        {crop: true}
       end
 
       context "and crop values are present" do
@@ -330,7 +330,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
             hash_including(
               crop_from: "10x10",
               crop_size: "200x200",
-              crop: true,
+              crop: true
             )
           )
         end
@@ -342,7 +342,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
             hash_including(
               crop_from: nil,
               crop_size: nil,
-              crop: true,
+              crop: true
             )
           )
         end
@@ -351,7 +351,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
 
     context "when cropping is disabled in settings" do
       let(:settings) do
-        { crop: false }
+        {crop: false}
       end
 
       context "but crop values are present" do
@@ -365,7 +365,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
             hash_including(
               crop_from: nil,
               crop_size: nil,
-              crop: false,
+              crop: false
             )
           )
         end
@@ -382,7 +382,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
           crop_size: nil,
           flatten: true,
           format: "jpg",
-          size: "160x120",
+          size: "160x120"
         )
       end
     end
@@ -405,7 +405,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
           0,
           0,
           300,
-          250,
+          250
         ]
       end
 
@@ -424,7 +424,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
 
         context "with sizes in  settings" do
           let(:settings) do
-            { size: "300x250" }
+            {size: "300x250"}
           end
 
           it "sets sizes to given values" do
@@ -453,7 +453,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
 
           context "and aspect ratio set" do
             let(:settings) do
-              { fixed_ratio: "2" }
+              {fixed_ratio: "2"}
             end
 
             it "does not infer the height from the image file preserving the aspect ratio" do
@@ -466,7 +466,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
         context "when width or height is not fixed and an aspect ratio is given" do
           context "and aspect ratio set" do
             let(:settings) do
-              { fixed_ratio: "0.5" }
+              {fixed_ratio: "0.5"}
             end
 
             it "width is given, it infers the height from width and ratio" do
@@ -503,7 +503,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
 
       context "with fixed_ratio set to false" do
         let(:settings) do
-          { fixed_ratio: false }
+          {fixed_ratio: false}
         end
 
         it "sets ratio to false" do
@@ -513,7 +513,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
 
       context "with fixed_ratio set to a non float string" do
         let(:settings) do
-          { fixed_ratio: "123,45" }
+          {fixed_ratio: "123,45"}
         end
 
         it "raises an error" do
@@ -523,7 +523,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
 
       context "with no fixed_ratio set" do
         let(:settings) do
-          { size: "80x60" }
+          {size: "80x60"}
         end
 
         it "sets a fixed ratio from sizes" do
@@ -532,7 +532,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
       end
 
       context "with size set to different values" do
-        let(:settings) { { crop: true, size: size } }
+        let(:settings) { {crop: true, size: size} }
 
         before do
           picture.image_file_width = 200
@@ -623,7 +623,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
 
         context "with crop set to true" do
           before do
-            allow(record).to receive(:settings) { { crop: true } }
+            allow(record).to receive(:settings) { {crop: true} }
           end
 
           context "if picture.image_file is nil" do

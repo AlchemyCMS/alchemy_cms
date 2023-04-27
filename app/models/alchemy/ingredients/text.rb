@@ -17,12 +17,12 @@ module Alchemy
         :link_class_name
 
       allow_settings %i[
-          anchor
-          disable_link
-          display_inline
-          input_type
-          linkable
-        ]
+        anchor
+        disable_link
+        display_inline
+        input_type
+        linkable
+      ]
     end
   end
 end

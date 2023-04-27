@@ -19,7 +19,7 @@ describe "alchemy/ingredients/_file_view" do
     render(
       ingredient,
       options: options,
-      html_options: html_options,
+      html_options: html_options
     )
     rendered
   end
@@ -47,7 +47,7 @@ describe "alchemy/ingredients/_file_view" do
 
     context "with link_text set in the local options" do
       let(:options) do
-        { link_text: "Download this file" }
+        {link_text: "Download this file"}
       end
 
       it "has this value as link text" do
@@ -57,7 +57,7 @@ describe "alchemy/ingredients/_file_view" do
 
     context "with link_text set in the ingredient settings" do
       before do
-        allow(ingredient).to receive(:settings) { { link_text: "Download this file" } }
+        allow(ingredient).to receive(:settings) { {link_text: "Download this file"} }
       end
 
       it "has this value as link text" do
@@ -77,7 +77,7 @@ describe "alchemy/ingredients/_file_view" do
 
     context "with html_options given" do
       let(:html_options) do
-        { title: "Bar", class: "blue" }
+        {title: "Bar", class: "blue"}
       end
 
       it "renders the linked ingredient with these options" do

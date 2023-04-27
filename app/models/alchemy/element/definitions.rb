@@ -41,7 +41,7 @@ module Alchemy
       # The definition of this element.
       #
       def definition
-        if definition = self.class.definition_by_name(name)
+        if (definition = self.class.definition_by_name(name))
           definition
         else
           log_warning "Could not find element definition for #{name}. " \

@@ -29,13 +29,13 @@ module Alchemy
         end
 
         it "assigns fixed elements" do
-          get :index, params: { page_version_id: page_version.id }
+          get :index, params: {page_version_id: page_version.id}
           expect(assigns(:fixed_elements)).to eq([fixed_element, fixed_hidden_element])
         end
       end
 
       it "assigns elements" do
-        get :index, params: { page_version_id: page_version.id }
+        get :index, params: {page_version_id: page_version.id}
         expect(assigns(:elements)).to eq([element, nested_element.parent_element, hidden_element])
       end
     end
@@ -48,11 +48,11 @@ module Alchemy
       let(:page_version) { element_1.page_version }
 
       it "sets new position for given element ids" do
-        post :order, params: { element_ids: element_ids }, xhr: true
+        post :order, params: {element_ids: element_ids}, xhr: true
         expect(Element.all.pluck(:id, :position)).to eq([
           [element_1.id, 1],
           [element_3.id, 2],
-          [element_2.id, 3],
+          [element_2.id, 3]
         ])
       end
 
@@ -69,17 +69,17 @@ module Alchemy
           parent.update_column(:updated_at, 3.days.ago)
           expect {
             post :order, params: {
-                           element_ids: element_ids,
-                           parent_element_id: parent.id,
-                         }, xhr: true
+              element_ids: element_ids,
+              parent_element_id: parent.id
+            }, xhr: true
           }.to change { parent.reload.updated_at }
         end
 
         it "assigns parent element id to each element" do
           post :order, params: {
-                         element_ids: element_ids,
-                         parent_element_id: parent.id,
-                       }, xhr: true
+            element_ids: element_ids,
+            parent_element_id: parent.id
+          }, xhr: true
           [element_1, element_2, element_3].each do |element|
             expect(element.reload.parent_element_id).to eq parent.id
           end
@@ -92,18 +92,18 @@ module Alchemy
 
       it "assign variable for all available element definitions" do
         expect_any_instance_of(Alchemy::Page).to receive(:available_element_definitions).twice { [] }
-        get :new, params: { page_version_id: page_version.id }
+        get :new, params: {page_version_id: page_version.id}
       end
 
       context "with elements in clipboard" do
         let(:element) { create(:alchemy_element, page_version: page_version) }
-        let(:clipboard_items) { [{ "id" => element.id.to_s, "action" => "copy" }] }
+        let(:clipboard_items) { [{"id" => element.id.to_s, "action" => "copy"}] }
 
         before { clipboard["elements"] = clipboard_items }
 
         it "should load all elements from clipboard" do
           expect(Element).to receive(:all_from_clipboard_for_page).and_return(clipboard_items)
-          get :new, params: { page_version_id: page_version.id }
+          get :new, params: {page_version_id: page_version.id}
           expect(assigns(:clipboard_items)).to eq(clipboard_items)
         end
       end
@@ -114,7 +114,7 @@ module Alchemy
         before { element }
 
         it "should insert the element at bottom of list" do
-          post :create, params: { element: { name: "news", page_version_id: page_version.id } }, xhr: true
+          post :create, params: {element: {name: "news", page_version_id: page_version.id}}, xhr: true
           expect(page_version.elements.count).to eq(2)
           expect(page_version.elements.order(:position).last.name).to eq("news")
         end
@@ -124,12 +124,12 @@ module Alchemy
             expect(PageLayout).to receive(:get).at_least(:once).and_return({
               "name" => "news",
               "elements" => ["news"],
-              "insert_elements_at" => "top",
+              "insert_elements_at" => "top"
             })
           end
 
           it "should insert the element at top of list" do
-            post :create, params: { element: { name: "news", page_version_id: page_version.id } }, xhr: true
+            post :create, params: {element: {name: "news", page_version_id: page_version.id}}, xhr: true
             expect(page_version.elements.count).to eq(2)
             expect(page_version.elements.order(:position).first.name).to eq("news")
           end
@@ -142,7 +142,7 @@ module Alchemy
         end
 
         it "creates the element in the parent element" do
-          post :create, params: { element: { name: "slide", page_version_id: page_version.id, parent_element_id: parent_element.id } }, xhr: true
+          post :create, params: {element: {name: "slide", page_version_id: page_version.id, parent_element_id: parent_element.id}}, xhr: true
           expect(Alchemy::Element.last.parent_element_id).to eq(parent_element.id)
         end
       end
@@ -151,18 +151,18 @@ module Alchemy
         render_views
 
         before do
-          clipboard["elements"] = [{ "id" => element_in_clipboard.id.to_s, "action" => "cut" }]
+          clipboard["elements"] = [{"id" => element_in_clipboard.id.to_s, "action" => "cut"}]
         end
 
         it "should create an element from clipboard" do
-          post :create, params: { paste_from_clipboard: element_in_clipboard.id, element: { page_version_id: page_version.id } }, xhr: true
+          post :create, params: {paste_from_clipboard: element_in_clipboard.id, element: {page_version_id: page_version.id}}, xhr: true
           expect(response.status).to eq(200)
           expect(response.body).to match(/Successfully added new element/)
         end
 
         context "and with cut as action parameter" do
           it "should also remove the element id from clipboard" do
-            post :create, params: { paste_from_clipboard: element_in_clipboard.id, element: { page_version_id: page_version.id } }, xhr: true
+            post :create, params: {paste_from_clipboard: element_in_clipboard.id, element: {page_version_id: page_version.id}}, xhr: true
             expect(session[:alchemy_clipboard]["elements"].detect { |item| item["id"] == element_in_clipboard.id.to_s }).to be_nil
           end
         end
@@ -172,14 +172,14 @@ module Alchemy
           let(:parent_element) { create(:alchemy_element, :with_nestable_elements) }
 
           it "moves the element to new parent" do
-            post :create, params: { paste_from_clipboard: element_in_clipboard.id, element: { page_version_id: page_version.id, parent_element_id: parent_element.id } }, xhr: true
+            post :create, params: {paste_from_clipboard: element_in_clipboard.id, element: {page_version_id: page_version.id, parent_element_id: parent_element.id}}, xhr: true
             expect(Alchemy::Element.last.parent_element_id).to eq(parent_element.id)
           end
         end
       end
 
       context "if element could not be saved" do
-        subject { post :create, params: { element: { page_version_id: page_version.id } } }
+        subject { post :create, params: {element: {page_version_id: page_version.id}} }
 
         before do
           expect_any_instance_of(Element).to receive(:save).and_return false
@@ -192,7 +192,7 @@ module Alchemy
 
       context "with ingredient validations" do
         subject do
-          post :create, params: { element: { page_version_id: page_version.id, name: "all_you_can_eat" } }, xhr: true
+          post :create, params: {element: {page_version_id: page_version.id, name: "all_you_can_eat"}}, xhr: true
         end
 
         it "creates element without error" do
@@ -208,13 +208,13 @@ module Alchemy
 
       context "with element having ingredients" do
         subject do
-          put :update, params: { id: element.id, element: element_params }, xhr: true
+          put :update, params: {id: element.id, element: element_params}, xhr: true
         end
 
         let(:element) { create(:alchemy_element, :with_ingredients) }
         let(:ingredient) { element.ingredient_by_role(:headline) }
-        let(:ingredients_attributes) { { 0 => { id: ingredient.id, value: "Title" } } }
-        let(:element_params) { { tag_list: "Tag 1", public: false, ingredients_attributes: ingredients_attributes } }
+        let(:ingredients_attributes) { {0 => {id: ingredient.id, value: "Title"}} }
+        let(:element_params) { {tag_list: "Tag 1", public: false, ingredients_attributes: ingredients_attributes} }
 
         it "updates all ingredients in element" do
           expect { subject }.to change { ingredient.value }.to("Title")
@@ -235,7 +235,7 @@ module Alchemy
     end
 
     describe "#destroy" do
-      subject { delete :destroy, params: { id: element.id }, xhr: true }
+      subject { delete :destroy, params: {id: element.id}, xhr: true }
 
       let!(:element) { create(:alchemy_element) }
 
@@ -245,7 +245,7 @@ module Alchemy
     end
 
     describe "#fold" do
-      subject { post :fold, params: { id: element.id }, xhr: true }
+      subject { post :fold, params: {id: element.id}, xhr: true }
 
       let(:page) { create(:alchemy_page) }
 

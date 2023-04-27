@@ -12,7 +12,7 @@ module Alchemy
           class_name: "Alchemy::Element",
           through: :public_version,
           inverse_of: :page,
-          source: :elements,
+          source: :elements
         ) do
           has_many :all_elements
           has_many :elements, -> { not_nested.unfixed.published }
@@ -42,7 +42,7 @@ module Alchemy
               repository.not_nested.each.with_index(1) do |element, position|
                 Alchemy::DuplicateElement.new(element, repository: repository).call(
                   page_version_id: target.draft_version.id,
-                  position: position,
+                  position: position
                 )
               end
             end
@@ -72,11 +72,11 @@ module Alchemy
       #
       def available_element_definitions(only_element_named = nil)
         @_element_definitions ||= if only_element_named
-            definition = Element.definition_by_name(only_element_named)
-            element_definitions_by_name(definition["nestable_elements"])
-          else
-            element_definitions
-          end
+          definition = Element.definition_by_name(only_element_named)
+          element_definitions_by_name(definition["nestable_elements"])
+        else
+          element_definitions
+        end
 
         return [] if @_element_definitions.blank?
 
@@ -98,13 +98,13 @@ module Alchemy
       #
       def available_elements_within_current_scope(parent)
         @_available_elements = if parent
-            parents_unique_nested_elements = parent.nested_elements.where(unique: true).pluck(:name)
-            available_element_definitions(parent.name).reject do |e|
-              parents_unique_nested_elements.include? e["name"]
-            end
-          else
-            available_element_definitions
+          parents_unique_nested_elements = parent.nested_elements.where(unique: true).pluck(:name)
+          available_element_definitions(parent.name).reject do |e|
+            parents_unique_nested_elements.include? e["name"]
           end
+        else
+          available_element_definitions
+        end
       end
 
       # All element definitions defined for page's page layout
@@ -160,7 +160,7 @@ module Alchemy
       #
       def richtext_ingredients_ids
         Alchemy::Ingredient.richtexts.joins(:element)
-          .where(Element.table_name => { page_version_id: draft_version.id, folded: false })
+          .where(Element.table_name => {page_version_id: draft_version.id, folded: false})
           .select(&:has_tinymce?)
           .collect(&:id)
       end

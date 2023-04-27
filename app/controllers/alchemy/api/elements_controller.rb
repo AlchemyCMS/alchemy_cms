@@ -10,18 +10,18 @@ module Alchemy
     #
     def index
       # Fix for cancancan not able to merge multiple AR scopes for logged in users
-      if cannot? :manage, Alchemy::Element
-        @elements = Alchemy::Element.accessible_by(current_ability, :index)
+      @elements = if cannot? :manage, Alchemy::Element
+        Alchemy::Element.accessible_by(current_ability, :index)
       else
-        @elements = Alchemy::Element.all
+        Alchemy::Element.all
       end
 
       @elements = @elements.not_nested.joins(:page_version).merge(PageVersion.published)
 
-      if params[:page_id].present?
-        @elements = @elements.includes(:page).where(alchemy_pages: { id: params[:page_id] })
+      @elements = if params[:page_id].present?
+        @elements.includes(:page).where(alchemy_pages: {id: params[:page_id]})
       else
-        @elements = @elements.includes(*element_includes)
+        @elements.includes(*element_includes)
       end
 
       if params[:named].present?
@@ -47,15 +47,15 @@ module Alchemy
         {
           nested_elements: [
             {
-              ingredients: :related_object,
+              ingredients: :related_object
             },
-            :tags,
-          ],
+            :tags
+          ]
         },
         {
-          ingredients: :related_object,
+          ingredients: :related_object
         },
-        :tags,
+        :tags
       ]
     end
   end

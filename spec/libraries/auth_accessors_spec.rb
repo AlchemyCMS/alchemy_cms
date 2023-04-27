@@ -2,6 +2,8 @@
 
 require "rails_helper"
 
+User = Class.new
+
 module Alchemy
   class MyCustomUser
   end
@@ -31,8 +33,6 @@ module Alchemy
         end
 
         context "and the default user class exists" do
-          class ::User; end
-
           it "returns the default user class" do
             expect(Alchemy.user_class).to be(::User)
           end
@@ -108,7 +108,7 @@ module Alchemy
 
     after do
       Alchemy.user_class_name = "DummyUser"
-      Alchemy.class_variable_set("@@user_class", nil)
+      Alchemy.class_variable_set(:@@user_class, nil)
     end
   end
 end

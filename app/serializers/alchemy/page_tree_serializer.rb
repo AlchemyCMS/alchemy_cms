@@ -3,13 +3,13 @@
 module Alchemy
   class PageTreeSerializer < BaseSerializer
     def attributes
-      { "pages" => nil }
+      {"pages" => nil}
     end
 
     def pages
       tree = []
-      path = [{ id: object.parent_id, children: tree }]
-      page_list = object.self_and_descendants.includes(:public_version, { language: :site })
+      path = [{id: object.parent_id, children: tree}]
+      page_list = object.self_and_descendants.includes(:public_version, {language: :site})
       base_level = object.level - 1
       # Load folded pages in advance
       folded_user_pages = FoldedPage.folded_for_user(opts[:user]).pluck(:page_id)
@@ -61,7 +61,7 @@ module Alchemy
         level: level,
         root: page.root?,
         root_or_leaf: page.root? || page.leaf?,
-        children: [],
+        children: []
       }
 
       if opts[:elements]
@@ -75,7 +75,7 @@ module Alchemy
           locked: page.locked?,
           locked_notice: page.locked? ? Alchemy.t("This page is locked", name: page.locker_name) : nil,
           permissions: page_permissions(page, opts[:ability]),
-          status_titles: page_status_titles(page),
+          status_titles: page_status_titles(page)
         })
       else
         p_hash
@@ -98,14 +98,14 @@ module Alchemy
         copy: ability.can?(:copy, page),
         destroy: ability.can?(:destroy, page),
         create: ability.can?(:create, Alchemy::Page),
-        edit_content: ability.can?(:edit_content, page),
+        edit_content: ability.can?(:edit_content, page)
       }
     end
 
     def page_status_titles(page)
       {
         public: page.status_title(:public),
-        restricted: page.status_title(:restricted),
+        restricted: page.status_title(:restricted)
       }
     end
   end

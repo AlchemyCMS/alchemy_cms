@@ -6,7 +6,7 @@ module Alchemy
       "action",
       "controller",
       "urlname",
-      "locale",
+      "locale"
     ]
 
     include OnPageLayout::CallbacksRunner
@@ -149,7 +149,7 @@ module Alchemy
     def page_locale_redirect_url(options = {})
       options = {
         locale: prefix_locale? ? @page.language_code : nil,
-        urlname: @page.urlname,
+        urlname: @page.urlname
       }.merge(options)
 
       alchemy.show_page_path additional_params.merge(options)
@@ -223,7 +223,7 @@ module Alchemy
         etag: page_etag,
         last_modified: @page.published_at,
         public: !@page.restricted,
-        template: "pages/show",
+        template: "pages/show"
       )
     end
 

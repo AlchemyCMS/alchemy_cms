@@ -12,7 +12,7 @@ describe Alchemy::Admin::SitesController do
   describe "#create" do
     context "with valid params" do
       it "redirects to the languages admin" do
-        post :create, params: { site: { host: "*" } }
+        post :create, params: {site: {host: "*"}}
         site = Alchemy::Site.last
         expect(response).to redirect_to admin_languages_path(site_id: site)
         expect(flash[:notice]).to eq("Please create a default language for this site.")
@@ -21,7 +21,7 @@ describe Alchemy::Admin::SitesController do
 
     context "with invalid params" do
       it "shows the form again" do
-        post :create, params: { site: { host: "" } }
+        post :create, params: {site: {host: ""}}
         expect(response).to render_template(:new)
       end
     end
@@ -34,7 +34,7 @@ describe Alchemy::Admin::SitesController do
       let!(:language) { create(:alchemy_language, site: site) }
 
       it "returns with error message" do
-        delete :destroy, params: { id: site.id }
+        delete :destroy, params: {id: site.id}
         expect(response).to redirect_to admin_sites_path
         expect(flash[:warning]).to \
           eq("Languages are still attached to this site. Please remove them first.")
@@ -43,7 +43,7 @@ describe Alchemy::Admin::SitesController do
 
     context "without languages" do
       it "removes the site" do
-        delete :destroy, params: { id: site.id }
+        delete :destroy, params: {id: site.id}
         expect(response).to redirect_to admin_sites_path
         expect(flash[:notice]).to eq("Website successfully removed.")
       end

@@ -20,7 +20,7 @@ module Alchemy
     def show_page_path_params(page, optional_params = {})
       raise ArgumentError, "Page is nil" if page.nil?
 
-      url_params = { urlname: page.urlname }.update(optional_params)
+      url_params = {urlname: page.urlname}.update(optional_params)
       prefix_locale?(page.language_code) ? url_params.update(locale: page.language_code) : url_params
     end
 

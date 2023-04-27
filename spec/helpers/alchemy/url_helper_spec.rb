@@ -2,10 +2,10 @@
 
 require "rails_helper"
 
-include Alchemy::ElementsHelper
-
 module Alchemy
   describe UrlHelper do
+    include Alchemy::ElementsHelper
+
     let(:page) { mock_model(Page, urlname: "testpage", language_code: "en") }
 
     context "page path helpers" do
@@ -24,7 +24,7 @@ module Alchemy
 
           context "with additional parameters" do
             subject(:show_page_path_params) do
-              helper.show_page_path_params(page, { query: "test" })
+              helper.show_page_path_params(page, {query: "test"})
             end
 
             it "returns a Hash with urlname, no locale and query parameter" do
@@ -48,7 +48,7 @@ module Alchemy
 
           context "with additional parameters" do
             subject(:show_page_path_params) do
-              helper.show_page_path_params(page, { query: "test" })
+              helper.show_page_path_params(page, {query: "test"})
             end
 
             it "returns a Hash with urlname, locale and query parameter" do
@@ -70,7 +70,7 @@ module Alchemy
           end
 
           it "should return the correct relative path string with additional parameters" do
-            expect(helper.show_alchemy_page_path(page, { query: "test" })).to \
+            expect(helper.show_alchemy_page_path(page, {query: "test"})).to \
               eq("/#{page.language_code}/testpage?query=test")
           end
         end
@@ -85,7 +85,7 @@ module Alchemy
           end
 
           it "should return the correct relative path string with additional parameter" do
-            expect(helper.show_alchemy_page_path(page, { query: "test" })).to \
+            expect(helper.show_alchemy_page_path(page, {query: "test"})).to \
               eq("/testpage?query=test")
           end
         end
@@ -103,7 +103,7 @@ module Alchemy
           end
 
           it "should return the correct url string with additional parameters" do
-            expect(helper.show_alchemy_page_url(page, { query: "test" })).to \
+            expect(helper.show_alchemy_page_url(page, {query: "test"})).to \
               eq("http://#{helper.request.host}/#{page.language_code}/testpage?query=test")
           end
         end
@@ -119,7 +119,7 @@ module Alchemy
           end
 
           it "should return the correct url string with additional parameter" do
-            expect(helper.show_alchemy_page_url(page, { query: "test" })).to \
+            expect(helper.show_alchemy_page_url(page, {query: "test"})).to \
               eq("http://#{helper.request.host}/testpage?query=test")
           end
         end

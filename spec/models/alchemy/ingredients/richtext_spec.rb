@@ -14,7 +14,7 @@ RSpec.describe Alchemy::Ingredients::Richtext do
       element: element,
       type: described_class.name,
       role: "text",
-      value: "<h1 style=\"color: red;\">Hello!</h1><p class=\"green\">Welcome to Peters Petshop.</p>",
+      value: "<h1 style=\"color: red;\">Hello!</h1><p class=\"green\">Welcome to Peters Petshop.</p>"
     )
   end
 
@@ -36,7 +36,7 @@ RSpec.describe Alchemy::Ingredients::Richtext do
     context "having custom tinymce config" do
       before do
         expect(richtext_ingredient).to receive(:settings) do
-          { tinymce: { toolbar: [] } }
+          {tinymce: {toolbar: []}}
         end
       end
 

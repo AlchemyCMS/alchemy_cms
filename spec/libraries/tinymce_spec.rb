@@ -8,12 +8,12 @@ module Alchemy
       subject { Tinymce.init }
 
       it "returns the default config" do
-        is_expected.to eq(Tinymce.class_variable_get("@@init"))
+        is_expected.to eq(Tinymce.class_variable_get(:@@init))
       end
     end
 
     describe ".init=" do
-      let(:another_config) { { theme_advanced_buttons3: "table" } }
+      let(:another_config) { {theme_advanced_buttons3: "table"} }
 
       it "merges the default config with given config" do
         Tinymce.init = another_config
@@ -27,16 +27,16 @@ module Alchemy
           "role" => "text",
           "settings" => {
             "tinymce" => {
-              "foo" => "bar",
-            },
-          },
+              "foo" => "bar"
+            }
+          }
         }
       end
 
       let(:element_definition) do
         {
           "name" => "article",
-          "ingredients" => [ingredient_definition],
+          "ingredients" => [ingredient_definition]
         }
       end
 
@@ -68,7 +68,7 @@ module Alchemy
         let(:element_definition) do
           {
             "name" => "article",
-            "ingredients" => [ingredient_definition],
+            "ingredients" => [ingredient_definition]
           }
         end
 
@@ -81,9 +81,9 @@ module Alchemy
             "role" => "text",
             "settings" => {
               "tinymce" => {
-                "foo" => "bar",
-              },
-            },
+                "foo" => "bar"
+              }
+            }
           }
         end
 
@@ -97,13 +97,13 @@ module Alchemy
         and element name" do
           is_expected.to be_an(Array)
           is_expected.to include({
-            "element" => element_definition["name"],
+            "element" => element_definition["name"]
           }.merge(ingredient_definition))
         end
 
         context "with no ingredients having custom tinymce config" do
           let(:ingredient_definition) do
-            { "role" => "text" }
+            {"role" => "text"}
           end
 
           it { is_expected.to eq([]) }
@@ -113,7 +113,7 @@ module Alchemy
           let(:element_definition) do
             {
               "name" => "element",
-              "ingredients" => nil,
+              "ingredients" => nil
             }
           end
 
@@ -129,9 +129,9 @@ module Alchemy
               "ingredients" => [
                 "role" => "headline",
                 "settings" => {
-                  "tinymce" => true,
-                },
-              ],
+                  "tinymce" => true
+                }
+              ]
             }
           end
 
@@ -146,14 +146,14 @@ module Alchemy
               element_definition,
               {
                 "name" => "nested_element",
-                "ingredients" => [ingredient_definition],
-              },
+                "ingredients" => [ingredient_definition]
+              }
             ]
           end
 
           it "includes these configs" do
             is_expected.to include({
-              "element" => element_definition["name"],
+              "element" => element_definition["name"]
             }.merge(ingredient_definition))
           end
         end

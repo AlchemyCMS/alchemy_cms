@@ -32,7 +32,7 @@ RSpec.describe "Alchemy::Message" do
       before do
         stub_alchemy_config(:mailer, {
           fields: %w[email_of_my_boss],
-          validate_fields: %w[email_of_my_boss],
+          validate_fields: %w[email_of_my_boss]
         }.with_indifferent_access)
         Alchemy.send(:remove_const, :Message)
         load Alchemy::Engine.root.join("app/models/alchemy/message.rb")

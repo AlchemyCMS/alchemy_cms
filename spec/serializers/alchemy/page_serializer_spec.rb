@@ -29,7 +29,7 @@ RSpec.describe Alchemy::PageSerializer do
         "status" => page.status.transform_keys(&:to_s),
         "url_path" => page.url_path,
         "parent_id" => page.parent_id,
-        "elements" => [],
+        "elements" => []
       )
     end
   end
@@ -63,7 +63,7 @@ RSpec.describe Alchemy::PageSerializer do
           "name" => "Default Site",
           "public" => true,
           "redirect_to_primary_host" => false,
-          "updated_at" => an_instance_of(String),
+          "updated_at" => an_instance_of(String)
         },
         "language" => {
           "country_code" => "",
@@ -79,8 +79,8 @@ RSpec.describe Alchemy::PageSerializer do
           "public" => true,
           "site_id" => page.site.id,
           "updated_at" => an_instance_of(String),
-          "updater_id" => nil,
-        },
+          "updater_id" => nil
+        }
       )
     end
   end

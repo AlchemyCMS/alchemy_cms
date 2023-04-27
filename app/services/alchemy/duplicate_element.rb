@@ -10,7 +10,7 @@ module Alchemy
       "id",
       "folded",
       "updated_at",
-      "updater_id",
+      "updater_id"
     ].freeze
 
     attr_reader :source_element, :repository
@@ -27,7 +27,7 @@ module Alchemy
         .merge(
           autogenerate_ingredients: false,
           autogenerate_nested_elements: false,
-          tags: source_element.tags,
+          tags: source_element.tags
         )
 
       new_element = Element.new(attributes)
@@ -40,7 +40,7 @@ module Alchemy
           self.class.new(nested_element, repository: repository).call(
             parent_element: new_element,
             page_version: new_element.page_version,
-            position: position,
+            position: position
           )
         end
       end

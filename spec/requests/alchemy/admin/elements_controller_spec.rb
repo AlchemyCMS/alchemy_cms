@@ -12,7 +12,7 @@ RSpec.describe Alchemy::Admin::ElementsController do
 
     context "element with ingredients" do
       it "inits Tinymce for richtext ingredients" do
-        post admin_elements_path(element: { page_version_id: page_version.id, name: "article" }, format: :js)
+        post admin_elements_path(element: {page_version_id: page_version.id, name: "article"}, format: :js)
         element = Alchemy::Element.last
         expect(response.body).to include("Alchemy.Tinymce.init([#{element.ingredient_by_role(:text).id}]);")
       end

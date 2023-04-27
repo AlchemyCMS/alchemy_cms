@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Alchemy
   module TestSupport
     # Helpers for integration specs
@@ -11,11 +12,11 @@ module Alchemy
       # Pass either a user object or a symbol in the format of ':as_admin'.
       #
       def authorize_user(user_or_role = nil)
-        case user_or_role
+        user = case user_or_role
         when Symbol, String
-          user = build(:alchemy_dummy_user, user_or_role)
+          build(:alchemy_dummy_user, user_or_role)
         else
-          user = user_or_role
+          user_or_role
         end
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       end

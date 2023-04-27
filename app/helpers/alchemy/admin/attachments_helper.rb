@@ -14,7 +14,7 @@ module Alchemy
         when "image" then "600x475"
         when "audio" then "600x190"
         when "video" then "600x485"
-        when "pdf"   then "600x500"
+        when "pdf" then "600x500"
         else
           "600x145"
         end

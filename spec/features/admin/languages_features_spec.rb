@@ -20,7 +20,7 @@ RSpec.describe "Admin Languages Features", type: :system do
         fill_in "language_language_code", with: "kl"
         click_button "Save"
 
-        expect(page).to have_select("language_locale", options: %w(de en))
+        expect(page).to have_select("language_locale", options: %w[de en])
         expect(page).to have_selector(".language_locale.field_with_errors .error")
       end
     end
@@ -55,7 +55,7 @@ RSpec.describe "Admin Languages Features", type: :system do
 
     context "when selected locale has multiple matching locale files" do
       before do
-        allow(::I18n).to receive(:available_locales) { [:de, :'de-at', :en, :'en-uk'] }
+        allow(::I18n).to receive(:available_locales) { [:de, :"de-at", :en, :"en-uk"] }
       end
 
       it "shows a locale select with matching locales only" do
@@ -67,13 +67,13 @@ RSpec.describe "Admin Languages Features", type: :system do
 
     context "when selected locale has one matching locale file" do
       before do
-        allow(::I18n).to receive(:available_locales) { [:de, :en, :'en-uk'] }
+        allow(::I18n).to receive(:available_locales) { [:de, :en, :"en-uk"] }
       end
 
       it "shows a locale select with matching locale only" do
         visit alchemy.edit_admin_language_path(language)
 
-        expect(page).to have_select("language_locale", options: %w(de))
+        expect(page).to have_select("language_locale", options: %w[de])
       end
     end
 
@@ -85,7 +85,7 @@ RSpec.describe "Admin Languages Features", type: :system do
       it "shows a locale select with all available locales" do
         visit alchemy.edit_admin_language_path(language)
 
-        expect(page).to have_select("language_locale", options: %w(jp es))
+        expect(page).to have_select("language_locale", options: %w[jp es])
       end
     end
   end

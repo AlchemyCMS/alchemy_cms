@@ -13,7 +13,7 @@ module Alchemy
         .gsub(/[äÄ]/, "ae")
         .gsub(/[üÜ]/, "ue")
         .gsub(/[öÖ]/, "oe")
-        .gsub(/[ß]/, "ss")
+        .gsub(/ß/, "ss")
         .parameterize
     end
 

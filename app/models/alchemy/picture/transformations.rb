@@ -59,7 +59,7 @@ module Alchemy
       y = 0 if y.nil?
       {
         x: x,
-        y: y,
+        y: y
       }
     end
 
@@ -108,7 +108,7 @@ module Alchemy
     def reduce_to_image(dimensions)
       {
         width: [dimensions[:width].to_i, image_file_width.to_i].min,
-        height: [dimensions[:height].to_i, image_file_height.to_i].min,
+        height: [dimensions[:height].to_i, image_file_height.to_i].min
       }
     end
   end

@@ -36,7 +36,7 @@ RSpec.describe "The edit elements feature", type: :system do
       before do
         expect_any_instance_of(Alchemy::Admin::ElementsController).to receive(:get_clipboard) do
           [
-            { "id" => element.id, "action" => "copy" },
+            {"id" => element.id, "action" => "copy"}
           ]
         end
       end
@@ -57,7 +57,7 @@ RSpec.describe "The edit elements feature", type: :system do
       before do
         allow_any_instance_of(Alchemy::Admin::ElementsController).to receive(:get_clipboard) do
           [
-            { "id" => create(:alchemy_element, name: element.definition["nestable_elements"].first).id, "action" => "copy" },
+            {"id" => create(:alchemy_element, name: element.definition["nestable_elements"].first).id, "action" => "copy"}
           ]
         end
       end
@@ -102,9 +102,9 @@ RSpec.describe "The edit elements feature", type: :system do
   context "With an element having multiple nestable elements defined" do
     let!(:element) do
       create(:alchemy_element,
-             :with_nestable_elements,
-             name: :right_column,
-             page_version: a_page.draft_version)
+        :with_nestable_elements,
+        name: :right_column,
+        page_version: a_page.draft_version)
     end
 
     scenario "the add element button opens add element form.", :js do
@@ -140,7 +140,8 @@ RSpec.describe "The edit elements feature", type: :system do
         :alchemy_element,
         :with_ingredients,
         page_version: a_page.draft_version,
-        name: "element_with_ingredient_groups")
+        name: "element_with_ingredient_groups"
+      )
     end
 
     # Need to be on page editor rather than just admin_elements in order to have JS interaction

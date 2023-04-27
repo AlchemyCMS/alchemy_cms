@@ -20,18 +20,18 @@ module Alchemy
         [
           :tags,
           {
-            language: :site,
+            :language => :site,
             version => {
               elements: [
                 :page,
                 :touchable_pages,
                 :tags,
                 {
-                  ingredients: :related_object,
-                },
-              ],
-            },
-          },
+                  ingredients: :related_object
+                }
+              ]
+            }
+          }
         ]
       end
     end

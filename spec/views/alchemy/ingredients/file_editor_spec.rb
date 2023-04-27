@@ -12,7 +12,7 @@ describe "alchemy/ingredients/_file_editor" do
       Alchemy::Ingredients::File,
       element: element,
       attachment: attachment,
-      role: "file",
+      role: "file"
     )
   end
 
@@ -51,7 +51,7 @@ describe "alchemy/ingredients/_file_editor" do
     end
 
     context "with settings `only`" do
-      let(:settings) { { only: "pdf" } }
+      let(:settings) { {only: "pdf"} }
 
       it "renders a link to open the attachment library overlay with only pdfs" do
         within ".file_tools" do
@@ -61,7 +61,7 @@ describe "alchemy/ingredients/_file_editor" do
     end
 
     context "with settings `except`" do
-      let(:settings) { { except: "pdf" } }
+      let(:settings) { {except: "pdf"} }
 
       it "renders a link to open the attachment library overlay without pdfs" do
         within ".file_tools" do

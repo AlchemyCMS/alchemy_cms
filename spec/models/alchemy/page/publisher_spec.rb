@@ -8,9 +8,9 @@ RSpec.describe Alchemy::Page::Publisher do
     let(:current_time) { Time.current.change(usec: 0) }
     let(:page) do
       create(:alchemy_page,
-             public_on: public_on,
-             public_until: public_until,
-             published_at: published_at)
+        public_on: public_on,
+        public_until: public_until,
+        published_at: published_at)
     end
     let(:published_at) { nil }
     let(:public_on) { nil }

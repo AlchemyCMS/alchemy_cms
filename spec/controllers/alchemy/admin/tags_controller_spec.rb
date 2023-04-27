@@ -33,7 +33,10 @@ module Alchemy
         let(:tag) { Gutentag::Tag.create(name: "Sputz") }
         let(:another_tag) { Gutentag::Tag.create(name: "Hutzl") }
 
-        before { another_tag; tag }
+        before do
+          another_tag
+          tag
+        end
 
         it "loads alls tags but not the one editing" do
           get :edit, params: {id: tag.id}

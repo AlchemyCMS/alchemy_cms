@@ -12,7 +12,7 @@ RSpec.describe "alchemy/ingredients/_video_editor" do
       Alchemy::Ingredients::Audio,
       element: element,
       attachment: attachment,
-      role: "file",
+      role: "file"
     )
   end
 
@@ -51,7 +51,7 @@ RSpec.describe "alchemy/ingredients/_video_editor" do
     end
 
     context "with settings `only`" do
-      let(:settings) { { only: "mov" } }
+      let(:settings) { {only: "mov"} }
 
       it "renders a link to open the attachment library overlay with only movs" do
         within ".file_tools" do
@@ -61,7 +61,7 @@ RSpec.describe "alchemy/ingredients/_video_editor" do
     end
 
     context "with settings `except`" do
-      let(:settings) { { except: "mov" } }
+      let(:settings) { {except: "mov"} }
 
       it "renders a link to open the attachment library overlay without movs" do
         within ".file_tools" do

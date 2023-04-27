@@ -14,7 +14,7 @@ RSpec.describe "Node select", type: :system, js: true do
   let(:klingon_element) { create(:alchemy_element, name: :menu, page: create(:alchemy_page, language: klingon)) }
   let!(:klingon_node) { create(:alchemy_node, name: "test", language: klingon) }
 
-  %w(english klingon).each do |language|
+  %w[english klingon].each do |language|
     context language do
       let(:element) { send "#{language}_element" }
       let(:node) { send "#{language}_node" }

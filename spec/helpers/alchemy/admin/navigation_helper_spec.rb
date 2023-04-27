@@ -11,8 +11,8 @@ describe Alchemy::Admin::NavigationHelper do
         "name" => "modules.dashboard",
         "controller" => "alchemy/admin/dashboard",
         "action" => "index",
-        "icon" => "dashboard",
-      },
+        "icon" => "dashboard"
+      }
     }
   end
 
@@ -27,13 +27,13 @@ describe Alchemy::Admin::NavigationHelper do
         "sub_navigation" => [{
           "name" => "modules.pictures",
           "controller" => "alchemy/admin/pictures",
-          "action" => "index",
+          "action" => "index"
         }, {
           "name" => "modules.files",
           "controller" => "alchemy/admin/attachments",
-          "action" => "index",
-        }],
-      },
+          "action" => "index"
+        }]
+      }
     }
   end
 
@@ -44,9 +44,9 @@ describe Alchemy::Admin::NavigationHelper do
         "action" => "index",
         "sub_navigation" => [{
           "controller" => "/admin/events",
-          "action" => "index",
-        }],
-      },
+          "action" => "index"
+        }]
+      }
     }
   end
 
@@ -56,17 +56,17 @@ describe Alchemy::Admin::NavigationHelper do
         "controller" => "/admin/events",
         "action" => "index",
         "params" => {
-          "key" => "value",
+          "key" => "value"
         },
         "sub_navigation" => [{
           "controller" => "/admin/events",
           "action" => "index",
           "params" => {
             "key" => "value",
-            "key2" => "value2",
-          },
-        }],
-      },
+            "key2" => "value2"
+          }
+        }]
+      }
     }
   end
 
@@ -84,8 +84,8 @@ describe Alchemy::Admin::NavigationHelper do
       end
 
       it "renders the main navigation entry partial" do
-        expect(helper.alchemy_main_navigation_entry(alchemy_module)).
-          to have_selector ".main_navi_entry"
+        expect(helper.alchemy_main_navigation_entry(alchemy_module))
+          .to have_selector ".main_navi_entry"
       end
 
       context "when module has sub navigation" do
@@ -100,8 +100,8 @@ describe Alchemy::Admin::NavigationHelper do
         end
 
         it "includes the sub navigation" do
-          expect(helper.alchemy_main_navigation_entry(alchemy_module)).
-            to have_selector ".main_navi_entry .sub_navigation"
+          expect(helper.alchemy_main_navigation_entry(alchemy_module))
+            .to have_selector ".main_navi_entry .sub_navigation"
         end
       end
     end
@@ -126,7 +126,7 @@ describe Alchemy::Admin::NavigationHelper do
       let(:navigation) do
         {
           "action" => "index",
-          "controller" => "/admin/pictures",
+          "controller" => "/admin/pictures"
         }
       end
 
@@ -138,19 +138,19 @@ describe Alchemy::Admin::NavigationHelper do
 
   describe "#main_navigation_css_classes" do
     it "returns string with css classes for main navigation entry" do
-      expect(helper.main_navigation_css_classes(navigation)).to eq(%w(main_navi_entry))
+      expect(helper.main_navigation_css_classes(navigation)).to eq(%w[main_navi_entry])
     end
 
     context "with active entry" do
       before do
         allow(helper).to receive(:params).and_return({
           controller: "alchemy/admin/dashboard",
-          action: "index",
+          action: "index"
         })
       end
 
       it "includes active class" do
-        expect(helper.main_navigation_css_classes(navigation)).to eq(%w(main_navi_entry active))
+        expect(helper.main_navigation_css_classes(navigation)).to eq(%w[main_navi_entry active])
       end
     end
   end
@@ -161,7 +161,7 @@ describe Alchemy::Admin::NavigationHelper do
     let(:entry) do
       {
         "controller" => "alchemy/admin/dashboard",
-        "action" => "index",
+        "action" => "index"
       }
     end
 
@@ -170,7 +170,7 @@ describe Alchemy::Admin::NavigationHelper do
         allow(helper).to receive(:params) do
           {
             controller: "alchemy/admin/dashboard",
-            action: "index",
+            action: "index"
           }
         end
       end
@@ -181,7 +181,7 @@ describe Alchemy::Admin::NavigationHelper do
         let(:entry) do
           {
             "controller" => "/alchemy/admin/dashboard",
-            "action" => "index",
+            "action" => "index"
           }
         end
 
@@ -192,7 +192,7 @@ describe Alchemy::Admin::NavigationHelper do
         let(:entry) do
           {
             "controller" => "alchemy/admin/dashboard",
-            "action" => "some",
+            "action" => "some"
           }
         end
 
@@ -203,7 +203,7 @@ describe Alchemy::Admin::NavigationHelper do
             {
               "controller" => "alchemy/admin/dashboard",
               "action" => "some",
-              "nested_actions" => %w(index),
+              "nested_actions" => %w[index]
             }
           end
 
@@ -215,7 +215,7 @@ describe Alchemy::Admin::NavigationHelper do
         let(:entry) do
           {
             "controller" => "some/one",
-            "action" => "index",
+            "action" => "index"
           }
         end
 
@@ -226,7 +226,7 @@ describe Alchemy::Admin::NavigationHelper do
             {
               "controller" => "some/one",
               "action" => "index",
-              "nested_controllers" => %w(alchemy/admin/dashboard),
+              "nested_controllers" => %w[alchemy/admin/dashboard]
             }
           end
 
@@ -240,7 +240,7 @@ describe Alchemy::Admin::NavigationHelper do
         expect(helper).to receive(:params).twice do
           {
             controller: "alchemy/admin/users",
-            action: "index",
+            action: "index"
           }
         end
       end

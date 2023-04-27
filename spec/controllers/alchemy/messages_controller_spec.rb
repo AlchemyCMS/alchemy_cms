@@ -33,7 +33,7 @@ module Alchemy
         post :create, params: {message: {email: ""}}
       end
 
-      let(:page)    { mock_model("Page", get_language_root: mock_model("Page")) }
+      let(:page) { mock_model("Page", get_language_root: mock_model("Page")) }
       let(:element) { mock_model("Element", page: page, ingredient: "") }
       let(:message) { Message.new }
 
@@ -162,7 +162,7 @@ module Alchemy
 
                 it "should redirect to the given urlname" do
                   expect(
-                    subject,
+                    subject
                   ).to redirect_to(show_page_path(urlname: "success-page"))
                 end
               end
@@ -176,7 +176,7 @@ module Alchemy
 
                 it "should redirect to the given urlname" do
                   expect(
-                    subject,
+                    subject
                   ).to redirect_to(show_page_path(urlname: "success-page"))
                 end
               end
@@ -191,9 +191,9 @@ module Alchemy
                 before do
                   allow(controller).to receive(:mailer_config) do
                     {
-                      "fields" => %w(email),
+                      "fields" => %w[email],
                       "forward_to_page" => true,
-                      "mail_success_page" => "mailer-config-success-page",
+                      "mail_success_page" => "mailer-config-success-page"
                     }
                   end
                   allow(Page).to receive(:find_by).and_return double(urlname: "mailer-config-success-page")
@@ -201,7 +201,7 @@ module Alchemy
 
                 it "redirect to the given success page" do
                   expect(
-                    subject,
+                    subject
                   ).to redirect_to(show_page_path(urlname: "mailer-config-success-page"))
                 end
               end
@@ -210,14 +210,14 @@ module Alchemy
                 let(:language) { mock_model("Language", code: "en", locale: "en", pages: double(find_by: build_stubbed(:alchemy_page))) }
 
                 before do
-                  allow(controller).to receive(:mailer_config).and_return({"fields" => %w(email)})
+                  allow(controller).to receive(:mailer_config).and_return({"fields" => %w[email]})
                   allow(Language).to receive(:current_root_page).and_return double(urlname: "lang-root")
                 end
 
                 it "should redirect to the language root page" do
                   allow(Language).to receive(:current).and_return(language)
                   expect(
-                    subject,
+                    subject
                   ).to redirect_to(show_page_path(urlname: "lang-root"))
                 end
               end
@@ -229,12 +229,12 @@ module Alchemy
 
     describe "#message_params" do
       before do
-        allow(controller).to receive(:params).and_return(ActionController::Parameters.new( message: { email: "email@addr.com", contact_form_id: "23" }).permit!)
+        allow(controller).to receive(:params).and_return(ActionController::Parameters.new(message: {email: "email@addr.com", contact_form_id: "23"}).permit!)
       end
 
       context "when mailer_config['fields'] includes :contact_field_id" do
         before do
-          allow(controller).to receive(:mailer_config).and_return({ page_layout_name: "contact", forward_to_page: false, mail_success_page: "thanks", mail_from: "your.mail@your-domain.com", mail_to: "your.mail@your-domain.com", subject: "A new contact form message", fields: ["salutation", "firstname", "lastname", "address", "zip", "city", "phone", "email", "message", "contact_field_id"], validate_fields: ["lastname", "email"] })
+          allow(controller).to receive(:mailer_config).and_return({page_layout_name: "contact", forward_to_page: false, mail_success_page: "thanks", mail_from: "your.mail@your-domain.com", mail_to: "your.mail@your-domain.com", subject: "A new contact form message", fields: ["salutation", "firstname", "lastname", "address", "zip", "city", "phone", "email", "message", "contact_field_id"], validate_fields: ["lastname", "email"]})
         end
 
         it "should permit :contact_form_id" do

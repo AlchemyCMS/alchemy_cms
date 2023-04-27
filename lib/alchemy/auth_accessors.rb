@@ -90,7 +90,7 @@ module Alchemy
     @@user_class ||= begin
       @@user_class_name.constantize
     rescue NameError => e
-      if e.message =~ /#{Regexp.escape(@@user_class_name)}/
+      if /#{Regexp.escape(@@user_class_name)}/.match?(e.message)
         Rails.logger.warn <<~MSG
           #{e.message}
           #{e.backtrace.join("\n")}

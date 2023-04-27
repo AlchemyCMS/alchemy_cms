@@ -20,7 +20,7 @@ module Alchemy
         within_entire_page do
           page.find(
             "div.select2-result-label",
-            text: /#{Regexp.escape(value)}/i, match: :prefer_exact,
+            text: /#{Regexp.escape(value)}/i, match: :prefer_exact
           ).click
         end
       end

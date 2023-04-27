@@ -8,8 +8,8 @@ module Alchemy
     it { is_expected.to have_one(:root_page) }
 
     let(:default_language) { create(:alchemy_language) }
-    let(:language)         { create(:alchemy_language, :klingon) }
-    let(:page)             { create(:alchemy_page, language: language) }
+    let(:language) { create(:alchemy_language, :klingon) }
+    let(:page) { create(:alchemy_page, language: language) }
 
     it "is valid with uppercase country code" do
       language = Alchemy::Language.new(
@@ -18,7 +18,7 @@ module Alchemy
         name: "Österreich",
         frontpage_name: "Start",
         page_layout: "index",
-        site: build(:alchemy_site),
+        site: build(:alchemy_site)
       )
       expect(language).to be_valid
     end
@@ -47,7 +47,8 @@ module Alchemy
           page = create(:alchemy_page, language: language)
           language.country_code = "cr"
           language.save
-          page.reload; expect(page.language_code).to eq("kl-cr")
+          page.reload
+          expect(page.language_code).to eq("kl-cr")
         end
       end
     end
@@ -58,7 +59,8 @@ module Alchemy
           language = create(:alchemy_language, country_code: "kl")
           language.country_code = ""
           language.save
-          page.reload; expect(page.language_code).to eq("kl")
+          page.reload
+          expect(page.language_code).to eq("kl")
         end
       end
     end
@@ -79,7 +81,9 @@ module Alchemy
         it "should update all its pages with the new code" do
           @other_page = create(:alchemy_page, language: language)
           language.update(code: "fo")
-          language.reload; page.reload; @other_page.reload
+          language.reload
+          page.reload
+          @other_page.reload
           expect([page.language_code, @other_page.language_code]).to eq([language.code, language.code])
         end
       end
@@ -186,7 +190,7 @@ module Alchemy
 
         before do
           allow(::I18n).to receive(:available_locales) do
-            [:de, :'de-at', :en, :'en-uk']
+            [:de, :"de-at", :en, :"en-uk"]
           end
         end
 
@@ -271,12 +275,12 @@ module Alchemy
 
       before do
         expect(::I18n).to receive(:available_locales).twice do
-          [:de, :'de-at', :'en-uk']
+          [:de, :"de-at", :"en-uk"]
         end
       end
 
       it "returns locales matching the language code" do
-        is_expected.to eq [:de, :'de-at']
+        is_expected.to eq [:de, :"de-at"]
       end
 
       context "when language code is not is an available locale" do

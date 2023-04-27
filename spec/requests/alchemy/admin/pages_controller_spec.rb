@@ -258,7 +258,7 @@ module Alchemy
 
             before do
               allow_any_instance_of(described_class).to receive(:get_clipboard).with("pages") do
-                [{ "id" => page.id.to_s, "action" => "copy" }]
+                [{"id" => page.id.to_s, "action" => "copy"}]
               end
             end
 
@@ -297,7 +297,7 @@ module Alchemy
         context "when layout is set to custom" do
           before do
             allow(Alchemy::Config).to receive(:get) do |arg|
-              arg == :admin_page_preview_layout ? "custom" : Alchemy::Config.parameter(arg)
+              (arg == :admin_page_preview_layout) ? "custom" : Alchemy::Config.parameter(arg)
             end
           end
 
@@ -312,9 +312,9 @@ module Alchemy
         let(:page_1) { create(:alchemy_page) }
         let(:page_2) { create(:alchemy_page) }
         let(:page_3) { create(:alchemy_page) }
-        let(:page_item_1) { { id: page_1.id, slug: page_1.slug, restricted: false, children: [page_item_2] } }
-        let(:page_item_2) { { id: page_2.id, slug: page_2.slug, restricted: false, children: [page_item_3] } }
-        let(:page_item_3) { { id: page_3.id, slug: page_3.slug, restricted: false } }
+        let(:page_item_1) { {id: page_1.id, slug: page_1.slug, restricted: false, children: [page_item_2]} }
+        let(:page_item_2) { {id: page_2.id, slug: page_2.slug, restricted: false, children: [page_item_3]} }
+        let(:page_item_3) { {id: page_3.id, slug: page_3.slug, restricted: false} }
         let(:set_of_pages) { [page_item_1] }
 
         it "stores the new order" do
@@ -338,7 +338,7 @@ module Alchemy
               id: page_2.id,
               slug: page_2.slug,
               children: [page_item_3],
-              restricted: true,
+              restricted: true
             }
           end
 
@@ -354,7 +354,7 @@ module Alchemy
             {
               id: page_2.id,
               slug: 42,
-              children: [page_item_3],
+              children: [page_item_3]
             }
           end
 
@@ -385,7 +385,7 @@ module Alchemy
 
           it "should always show the slug" do
             get configure_admin_page_path(page), xhr: true
-            expect(response.body).to match /value="foobar"/
+            expect(response.body).to match(/value="foobar"/)
           end
         end
       end
@@ -400,7 +400,7 @@ module Alchemy
             parent_id: parent.id,
             name: "new Page",
             page_layout: "standard",
-            language_id: parent.language_id,
+            language_id: parent.language_id
           }
         end
 
@@ -418,7 +418,7 @@ module Alchemy
             let(:page_params) do
               {
                 parent_id: parent.id,
-                name: "new Page",
+                name: "new Page"
               }
             end
 
@@ -440,7 +440,7 @@ module Alchemy
               let(:page_params) do
                 {
                   parent_id: parent.id,
-                  name: "new Page",
+                  name: "new Page"
                 }
               end
 
@@ -471,18 +471,18 @@ module Alchemy
             expect(Page).to receive(:copy_and_paste).with(
               page_in_clipboard,
               parent,
-              page_params[:name],
+              page_params[:name]
             )
             post admin_pages_path(
               page: page_params,
-              paste_from_clipboard: page_in_clipboard.id,
+              paste_from_clipboard: page_in_clipboard.id
             ), xhr: true
           end
         end
       end
 
       describe "#copy_language_tree" do
-        let(:params) { { languages: { new_lang_id: "2", old_lang_id: "1" } } }
+        let(:params) { {languages: {new_lang_id: "2", old_lang_id: "1"}} }
         let(:language_root_to_copy_from) { build_stubbed(:alchemy_page, :language_root) }
         let(:copy_of_language_root) { build_stubbed(:alchemy_page, :language_root) }
         let(:root_page) { mock_model("Page") }
@@ -496,15 +496,15 @@ module Alchemy
         end
 
         it "should copy the language root page over to the other language" do
-          expect(Page).to receive(:copy).with(language_root_to_copy_from, { language_id: "2", language_code: "de" })
+          expect(Page).to receive(:copy).with(language_root_to_copy_from, {language_id: "2", language_code: "de"})
           post copy_language_tree_admin_pages_path(params)
         end
 
         it "should copy all childs of the original page over to the new created one" do
-          expect_any_instance_of(described_class).
-            to receive(:language_root_to_copy_from) { language_root_to_copy_from }
-          expect_any_instance_of(described_class).
-            to receive(:copy_of_language_root) { copy_of_language_root }
+          expect_any_instance_of(described_class)
+            .to receive(:language_root_to_copy_from) { language_root_to_copy_from }
+          expect_any_instance_of(described_class)
+            .to receive(:copy_of_language_root) { copy_of_language_root }
           expect(language_root_to_copy_from).to receive(:copy_children_to).with(copy_of_language_root)
           post copy_language_tree_admin_pages_path(params)
         end
@@ -616,7 +616,7 @@ module Alchemy
       end
 
       describe "#destroy" do
-        let(:clipboard) { [{ "id" => page.id.to_s }] }
+        let(:clipboard) { [{"id" => page.id.to_s}] }
         let(:page) { create(:alchemy_page, :public) }
 
         before do

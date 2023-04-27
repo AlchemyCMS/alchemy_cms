@@ -61,7 +61,7 @@ RSpec.describe Alchemy::IngredientEditor do
     context "when linkable" do
       before do
         expect(ingredient).to receive(:settings).at_least(:once) do
-          { linkable: true }
+          {linkable: true}
         end
       end
 
@@ -71,7 +71,7 @@ RSpec.describe Alchemy::IngredientEditor do
     context "when with anchor" do
       before do
         expect(ingredient).to receive(:settings).at_least(:once) do
-          { anchor: true }
+          {anchor: true}
         end
       end
 
@@ -136,7 +136,7 @@ RSpec.describe Alchemy::IngredientEditor do
 
     context "when ingredient is deprecated" do
       let(:ingredient) do
-        mock_model("Alchemy::Ingredients::Text", definition: { deprecated: true }, deprecated?: true)
+        mock_model("Alchemy::Ingredients::Text", definition: {deprecated: true}, deprecated?: true)
       end
 
       it { is_expected.to be(true) }
@@ -177,8 +177,8 @@ RSpec.describe Alchemy::IngredientEditor do
           "Alchemy::Ingredients::Text",
           definition: {
             role: "foo",
-            deprecated: "Deprecated",
-          }, deprecated?: true,
+            deprecated: "Deprecated"
+          }, deprecated?: true
         )
       end
 
@@ -202,8 +202,8 @@ RSpec.describe Alchemy::IngredientEditor do
             "Alchemy::Ingredients::Text",
             definition: {
               role: "foo",
-              deprecated: "Ingredient is deprecated",
-            }, deprecated?: true,
+              deprecated: "Ingredient is deprecated"
+            }, deprecated?: true
           )
         end
 
@@ -216,9 +216,9 @@ RSpec.describe Alchemy::IngredientEditor do
             "Alchemy::Ingredients::Text",
             definition: {
               role: "foo",
-              deprecated: true,
+              deprecated: true
             }, deprecated?: true,
-            element: element,
+            element: element
           )
         end
 
@@ -236,7 +236,7 @@ RSpec.describe Alchemy::IngredientEditor do
         let(:ingredient) do
           Alchemy::Ingredients::Html.new(
             role: "html",
-            element: element,
+            element: element
           )
         end
 

@@ -2,6 +2,8 @@
 
 require "rails_helper"
 
+FooPreviewSource = Class.new(Alchemy::Admin::PreviewUrl)
+
 RSpec.describe "Page editing feature", type: :system do
   let(:a_page) { create(:alchemy_page) }
 
@@ -28,8 +30,6 @@ RSpec.describe "Page editing feature", type: :system do
     end
 
     describe "multiple preview sources", :js do
-      class FooPreviewSource < Alchemy::Admin::PreviewUrl; end
-
       around do |example|
         Alchemy.preview_sources << FooPreviewSource
         example.run
@@ -92,7 +92,7 @@ RSpec.describe "Page editing feature", type: :system do
 
         context "with sitemaps show_flag config option set to true" do
           before do
-            stub_alchemy_config(:sitemap, { "show_flag" => true })
+            stub_alchemy_config(:sitemap, {"show_flag" => true})
           end
 
           it "should show sitemap checkbox" do
@@ -103,7 +103,7 @@ RSpec.describe "Page editing feature", type: :system do
 
         context "with sitemaps show_flag config option set to false" do
           before do
-            stub_alchemy_config(:sitemap, { "show_flag" => false })
+            stub_alchemy_config(:sitemap, {"show_flag" => false})
           end
 
           it "should not show sitemap checkbox" do
@@ -225,11 +225,11 @@ RSpec.describe "Page editing feature", type: :system do
     context "when updating the name" do
       it "saves the name" do
         within(".alchemy-dialog.modal") do
-          find("input#page_name").set("name with some %!x^)'([@!{}]|/?\:# characters")
+          find("input#page_name").set("name with some %!x^)'([@!{}]|/?:# characters")
           find(".submit button").click
         end
         expect(page).to_not have_selector(".alchemy-dialog-overlay.open")
-        expect(page).to have_selector("#sitemap a.sitemap_pagename_link", text: "name with some %!x^)'([@!{}]|/?\:# characters")
+        expect(page).to have_selector("#sitemap a.sitemap_pagename_link", text: "name with some %!x^)'([@!{}]|/?:# characters")
       end
     end
 

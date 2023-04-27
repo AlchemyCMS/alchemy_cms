@@ -12,7 +12,7 @@ RSpec.describe Alchemy::Ingredients::Datetime do
       element: element,
       type: described_class.name,
       role: "date",
-      value: "01.04.2021",
+      value: "01.04.2021"
     )
   end
 
@@ -29,7 +29,7 @@ RSpec.describe Alchemy::Ingredients::Datetime do
         described_class.new(
           element: element,
           type: described_class.name,
-          role: "date",
+          role: "date"
         )
       end
 
@@ -49,7 +49,7 @@ RSpec.describe Alchemy::Ingredients::Datetime do
         described_class.new(
           element: element,
           type: described_class.name,
-          role: "date",
+          role: "date"
         )
       end
 

@@ -2,12 +2,12 @@
 
 require "rails_helper"
 
+class SomeController < ActionController::Base
+  include Alchemy::ConfigurationMethods
+end
+
 describe Alchemy::ConfigurationMethods do
   let(:controller) do
-    class SomeController < ActionController::Base
-      include Alchemy::ConfigurationMethods
-    end
-
     SomeController.new
   end
 

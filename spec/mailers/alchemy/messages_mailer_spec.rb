@@ -17,8 +17,10 @@ module Alchemy
     end
 
     context "with ApplicationMailer defined" do
+      let(:application_mailer) { Class.new(ActionMailer::Base) }
+
       before do
-        class ::ApplicationMailer; end
+        Object.const_set(:ApplicationMailer, application_mailer)
         reload_mailer_class("BaseMailer")
         reload_mailer_class("MessagesMailer")
       end
@@ -38,7 +40,7 @@ module Alchemy
     end
 
     it "mail body includes message" do
-      expect(mail.body).to match /#{message.message}/
+      expect(mail.body).to match(/#{message.message}/)
     end
   end
 end

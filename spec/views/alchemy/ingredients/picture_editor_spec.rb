@@ -14,7 +14,7 @@ RSpec.describe "alchemy/ingredients/_picture_editor" do
       caption: "This is a cute cat",
       element: element,
       picture: picture,
-      role: "image",
+      role: "image"
     )
   end
 
@@ -44,7 +44,7 @@ RSpec.describe "alchemy/ingredients/_picture_editor" do
   context "with settings[:linkable] being false" do
     let(:settings) do
       {
-        linkable: false,
+        linkable: false
       }
     end
 

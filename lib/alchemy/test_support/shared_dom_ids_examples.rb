@@ -6,7 +6,7 @@ RSpec.shared_examples_for "having dom ids" do
   let(:ingredient) do
     described_class.new(
       element: element,
-      role: "headline",
+      role: "headline"
     )
   end
 
@@ -31,7 +31,7 @@ RSpec.shared_examples_for "having dom ids" do
 
     context "with anchor setting set to true" do
       let(:settings) do
-        { anchor: true }
+        {anchor: true}
       end
 
       it "parameterizes dom_id" do
@@ -42,7 +42,7 @@ RSpec.shared_examples_for "having dom ids" do
 
     context "with anchor setting set to from_value" do
       let(:settings) do
-        { anchor: "from_value" }
+        {anchor: "from_value"}
       end
 
       context "with a value present" do
@@ -50,7 +50,7 @@ RSpec.shared_examples_for "having dom ids" do
           described_class.new(
             element: element,
             role: "headline",
-            value: "Hello World",
+            value: "Hello World"
           )
         end
 
@@ -64,7 +64,7 @@ RSpec.shared_examples_for "having dom ids" do
           described_class.new(
             element: element,
             role: "headline",
-            value: "",
+            value: ""
           )
         end
 
@@ -77,7 +77,7 @@ RSpec.shared_examples_for "having dom ids" do
     context "with anchor setting set to fixed value" do
       context "that is false" do
         let(:settings) do
-          { anchor: false }
+          {anchor: false}
         end
 
         it "sets no dom_id" do
@@ -87,7 +87,7 @@ RSpec.shared_examples_for "having dom ids" do
 
       context "that is true" do
         let(:settings) do
-          { anchor: true }
+          {anchor: true}
         end
 
         it "sets no dom_id" do
@@ -97,7 +97,7 @@ RSpec.shared_examples_for "having dom ids" do
 
       context "that is from_value" do
         let(:settings) do
-          { anchor: true }
+          {anchor: true}
         end
 
         it "sets no dom_id" do
@@ -107,7 +107,7 @@ RSpec.shared_examples_for "having dom ids" do
 
       context "that is a non reserved value" do
         let(:settings) do
-          { anchor: "FixED VALUE" }
+          {anchor: "FixED VALUE"}
         end
 
         it "sets the dom_id to fixed value" do

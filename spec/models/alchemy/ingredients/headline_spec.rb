@@ -8,7 +8,7 @@ RSpec.describe Alchemy::Ingredients::Headline do
       value: value,
       dom_id: "se-headline",
       level: 2,
-      size: 3,
+      size: 3
     )
   end
 
@@ -61,8 +61,8 @@ RSpec.describe Alchemy::Ingredients::Headline do
           type: "Headline",
           settings: {
             sizes: [3],
-            levels: [2, 3],
-          },
+            levels: [2, 3]
+          }
         }
       end
     end

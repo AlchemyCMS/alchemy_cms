@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "thor/shell/color"
 
 module Alchemy
@@ -10,7 +11,7 @@ module Alchemy
       clear: Thor::Shell::Color::CLEAR,
       green: Thor::Shell::Color::GREEN,
       red: Thor::Shell::Color::RED,
-      yellow: Thor::Shell::Color::YELLOW,
+      yellow: Thor::Shell::Color::YELLOW
     }.freeze
 
     def self.silence!

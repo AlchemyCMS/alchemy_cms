@@ -100,7 +100,7 @@ module Alchemy
       def js_filter_field(items, options = {})
         options = {
           class: "js_filter_field",
-          data: {"alchemy-list-filter" => items},
+          data: {"alchemy-list-filter" => items}
         }.merge(options)
         content_tag(:div, class: "js_filter_field_box") do
           concat text_field_tag(nil, nil, options)
@@ -140,10 +140,9 @@ module Alchemy
               title: Alchemy.t(:please_confirm),
               message: message,
               ok_label: Alchemy.t("Yes"),
-              cancel_label: Alchemy.t("No"),
-            }.to_json,
-          )
-        )
+              cancel_label: Alchemy.t("No")
+            }.to_json
+          ))
       end
 
       # Returns a form and a button that opens a modal confirm dialog.
@@ -170,7 +169,7 @@ module Alchemy
           message: Alchemy.t(:confirm_to_proceed),
           ok_label: Alchemy.t("Yes"),
           title: Alchemy.t(:please_confirm),
-          cancel_label: Alchemy.t("No"),
+          cancel_label: Alchemy.t("No")
         }.merge(options)
         form_tag url, {method: html_options.delete(:method), class: "button-with-confirm"} do
           button_tag value, html_options.merge("data-alchemy-confirm" => options.to_json)
@@ -190,26 +189,26 @@ module Alchemy
         options = {
           title: Alchemy.t("Delete"),
           message: Alchemy.t("Are you sure?"),
-          icon: :minus,
+          icon: :minus
         }.merge(options)
         button_with_confirm(
           render_icon(options[:icon]),
           url, {
-            message: options[:message],
+            message: options[:message]
           }, {
             method: "delete",
             title: options[:title],
-            class: "icon_button #{html_options.delete(:class)}".strip,
+            class: "icon_button #{html_options.delete(:class)}".strip
           }.merge(html_options)
         )
       end
 
       # (internal) Renders translated Module Names for html title element.
       def render_alchemy_title
-        if content_for?(:title)
-          title = content_for(:title)
+        title = if content_for?(:title)
+          content_for(:title)
         else
-          title = Alchemy.t(controller_name, scope: :modules)
+          Alchemy.t(controller_name, scope: :modules)
         end
         "Alchemy CMS - #{title}"
       end
@@ -259,11 +258,11 @@ module Alchemy
           active: false,
           link_options: {},
           dialog_options: {},
-          loading_indicator: false,
+          loading_indicator: false
         }.merge(options.symbolize_keys)
         button = render(
           "alchemy/admin/partials/toolbar_button",
-          options: options,
+          options: options
         )
         if options[:skip_permission_check] || can?(*permission_from_options(options))
           button
@@ -321,10 +320,10 @@ module Alchemy
         type = html_options.delete(:type) || "date"
         date = html_options.delete(:value) || object.send(method.to_sym).presence
         date = Time.zone.parse(date) if date.is_a?(String)
-        value = date ? date.iso8601 : nil
+        value = date&.iso8601
 
         text_field object.class.name.demodulize.underscore.to_sym,
-          method.to_sym, {type: "text", class: type, "data-datepicker-type" => type, value: value}.merge(html_options)
+          method.to_sym, {:type => "text", :class => type, "data-datepicker-type" => type, :value => value}.merge(html_options)
       end
 
       # Render a hint icon with tooltip for given object.
@@ -344,17 +343,17 @@ module Alchemy
           controller_name,
           action_name,
           content_for(:main_menu_style),
-          content_for(:alchemy_body_class),
+          content_for(:alchemy_body_class)
         ].compact
       end
 
       # (internal) Returns options for the clipboard select tag
       def clipboard_select_tag_options(items)
         options = items.map do |item|
-          if item.respond_to?(:display_name_with_preview_text)
-            name = item.display_name_with_preview_text
+          name = if item.respond_to?(:display_name_with_preview_text)
+            item.display_name_with_preview_text
           else
-            name = item.name
+            item.name
           end
           [name, item.id]
         end
@@ -386,7 +385,7 @@ module Alchemy
       # that explains the user that the page layout is missing
       def page_layout_missing_warning
         hint_with_tooltip(
-          Alchemy.t(:page_definition_missing),
+          Alchemy.t(:page_definition_missing)
         )
       end
 
@@ -404,7 +403,7 @@ module Alchemy
         action_controller = options[:url].gsub(/\A\//, "").split("/")
         [
           action_controller.last.to_sym,
-          action_controller[0..action_controller.length - 2].join("_").to_sym,
+          action_controller[0..action_controller.length - 2].join("_").to_sym
         ]
       end
     end

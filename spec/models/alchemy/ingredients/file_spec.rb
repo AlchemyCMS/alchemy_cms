@@ -13,7 +13,7 @@ RSpec.describe Alchemy::Ingredients::File do
       element: element,
       type: described_class.name,
       role: "download",
-      related_object: attachment,
+      related_object: attachment
     )
   end
 

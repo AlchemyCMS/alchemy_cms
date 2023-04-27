@@ -22,7 +22,7 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
       context "without protocol" do
         before do
           stub_alchemy_config(:preview, {
-            "host" => "www.example.com",
+            "host" => "www.example.com"
           })
         end
 
@@ -34,7 +34,7 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
       context "as http url" do
         before do
           stub_alchemy_config(:preview, {
-            "host" => "http://www.example.com",
+            "host" => "http://www.example.com"
           })
         end
 
@@ -46,7 +46,7 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
       context "as https url" do
         before do
           stub_alchemy_config(:preview, {
-            "host" => "https://www.example.com",
+            "host" => "https://www.example.com"
           })
         end
 
@@ -61,8 +61,8 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
             "host" => "https://www.example.com",
             "auth" => {
               "username" => "foo",
-              "password" => "baz",
-            },
+              "password" => "baz"
+            }
           })
         end
 
@@ -74,7 +74,7 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
       context "with a port configured" do
         before do
           stub_alchemy_config(:preview, {
-            "host" => "https://www.example.com:8080",
+            "host" => "https://www.example.com:8080"
           })
         end
 
@@ -92,8 +92,8 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
           let(:config) do
             {
               page.site.name => {
-                "host" => "http://new.example.com",
-              },
+                "host" => "http://new.example.com"
+              }
             }
           end
 
@@ -107,9 +107,9 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
             let(:config) do
               {
                 "Not matching site name" => {
-                  "host" => "http://new.example.com",
+                  "host" => "http://new.example.com"
                 },
-                "host" => "http://www.example.com",
+                "host" => "http://www.example.com"
               }
             end
 
@@ -122,8 +122,8 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
             let(:config) do
               {
                 "Not matching site name" => {
-                  "host" => "http://new.example.com",
-                },
+                  "host" => "http://new.example.com"
+                }
               }
             end
 
@@ -139,7 +139,7 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
 
         before do
           stub_alchemy_config(:preview, {
-            "host" => "https://www.example.com",
+            "host" => "https://www.example.com"
           })
         end
 

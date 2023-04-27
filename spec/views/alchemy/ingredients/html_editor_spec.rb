@@ -10,7 +10,7 @@ describe "alchemy/ingredients/_html_editor" do
     stub_model(
       Alchemy::Ingredients::Html,
       element: element,
-      role: "source",
+      role: "source"
     )
   end
 

@@ -19,7 +19,7 @@ describe "alchemy/ingredients/_datetime_view" do
     end
 
     context "with option date_format set to rfc822" do
-      let(:options) { { date_format: "rfc822" } }
+      let(:options) { {date_format: "rfc822"} }
 
       it "renders the date rfc822 conform" do
         render ingredient

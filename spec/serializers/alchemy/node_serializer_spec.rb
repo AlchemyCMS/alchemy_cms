@@ -16,7 +16,7 @@ RSpec.describe Alchemy::NodeSerializer do
       "parent_id" => node.parent_id,
       "name" => node.name,
       "url" => node.url,
-      "ancestors" => [],
+      "ancestors" => []
     )
   end
 end

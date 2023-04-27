@@ -92,8 +92,8 @@ describe Alchemy::PageVersion do
       context "and public_until is set to nil" do
         let(:page_version) do
           build(:alchemy_page_version,
-                public_on: Time.current - 2.days,
-                public_until: nil)
+            public_on: Time.current - 2.days,
+            public_until: nil)
         end
 
         it { is_expected.to be(true) }
@@ -102,8 +102,8 @@ describe Alchemy::PageVersion do
       context "and public_until is set to future date" do
         let(:page_version) do
           build(:alchemy_page_version,
-                public_on: Time.current - 2.days,
-                public_until: Time.current + 2.days)
+            public_on: Time.current - 2.days,
+            public_until: Time.current + 2.days)
         end
 
         it { is_expected.to be(true) }
@@ -112,8 +112,8 @@ describe Alchemy::PageVersion do
       context "and public_until is set to past date" do
         let(:page_version) do
           build(:alchemy_page_version,
-                public_on: Time.current - 2.days,
-                public_until: Time.current - 1.days)
+            public_on: Time.current - 2.days,
+            public_until: Time.current - 1.days)
         end
 
         it { is_expected.to be(false) }

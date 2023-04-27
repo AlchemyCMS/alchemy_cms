@@ -101,8 +101,8 @@ module Alchemy
     attr_accessor :resource_relations, :model_associations
     attr_reader :model
 
-    DEFAULT_SKIPPED_ATTRIBUTES = %w(id created_at creator_id)
-    DEFAULT_SKIPPED_ASSOCIATIONS = %w(creator)
+    DEFAULT_SKIPPED_ATTRIBUTES = %w[id created_at creator_id]
+    DEFAULT_SKIPPED_ASSOCIATIONS = %w[creator]
     SEARCHABLE_COLUMN_TYPES = [:string, :text]
 
     def initialize(controller_path, module_definition = nil, custom_model = nil)
@@ -169,7 +169,7 @@ module Alchemy
           name: col.name,
           type: resource_column_type(col),
           relation: resource_relation(col.name),
-          enum: enum_values_collection_for_select(col.name),
+          enum: enum_values_collection_for_select(col.name)
         }.delete_if { |_k, v| v.blank? }
       end.compact
     end
@@ -183,16 +183,16 @@ module Alchemy
           ::I18n.t(key, scope: [
             :activerecord, :attributes, model.model_name.i18n_key, "#{column_name}_values"
           ], default: key.humanize),
-          key,
+          key
         ]
       end
     end
 
     def sorted_attributes
-      @_sorted_attributes ||= attributes.
-        sort_by  { |attr| attr[:name] == "name" ? 0 : 1 }.
-        sort_by! { |attr| attr[:type] == :boolean ? 1 : 0 }.
-        sort_by! { |attr| attr[:name] == "updated_at" ? 1 : 0 }
+      @_sorted_attributes ||= attributes
+        .sort_by { |attr| (attr[:name] == "name") ? 0 : 1 }
+        .sort_by! { |attr| (attr[:type] == :boolean) ? 1 : 0 }
+        .sort_by! { |attr| (attr[:name] == "updated_at") ? 1 : 0 }
     end
 
     def editable_attributes
@@ -281,7 +281,7 @@ module Alchemy
     def searchable_relation_attribute(attribute)
       {
         name: "#{attribute[:relation][:model_association].name}_#{attribute[:relation][:attr_method]}",
-        type: attribute[:relation][:attr_type],
+        type: attribute[:relation][:attr_type]
       }
     end
 
@@ -325,7 +325,7 @@ module Alchemy
         resource_relations[foreign_key] = options.merge(
           model_association: association,
           name: relation_name,
-          collection: collection,
+          collection: collection
         )
       end
     end

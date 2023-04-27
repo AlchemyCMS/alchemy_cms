@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require_relative "../base"
 
 module Alchemy
@@ -26,7 +27,7 @@ module Alchemy
       end
 
       def element_name(element)
-        if element["name"] =~ Alchemy::Element::NAME_REGEXP
+        if Alchemy::Element::NAME_REGEXP.match?(element["name"])
           element["name"].underscore
         else
           raise "Element name '#{element["name"]}' has wrong format. Only lowercase and non whitespace characters allowed."

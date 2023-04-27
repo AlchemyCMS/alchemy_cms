@@ -21,8 +21,8 @@ module Alchemy
           it "should not create any additional languages" do
             expect(subject.languages).to eq([language])
 
-            expect { subject.save! }.
-              to_not change(subject, "languages")
+            expect { subject.save! }
+              .to_not change(subject, "languages")
           end
         end
       end
@@ -103,12 +103,12 @@ module Alchemy
 
     describe ".definitions" do
       # To prevent memoization across specs
-      before { Site.instance_variable_set("@definitions", nil) }
+      before { Site.instance_variable_set(:@definitions, nil) }
 
       subject { Site.definitions }
 
       context "with file present" do
-        let(:definitions) { [{ "name" => "lala" }] }
+        let(:definitions) { [{"name" => "lala"}] }
         before { expect(YAML).to receive(:load_file).and_return(definitions) }
         it { is_expected.to eq(definitions) }
       end
@@ -166,7 +166,7 @@ module Alchemy
 
     describe "#definition" do
       let(:site) { Site.new(name: "My custom site") }
-      let(:definitions) { [{ "name" => "my_custom_site", "page_layouts" => %w(standard) }] }
+      let(:definitions) { [{"name" => "my_custom_site", "page_layouts" => %w[standard]}] }
 
       it "returns layout definition from site_layouts.yml file" do
         allow(Site).to receive(:definitions).and_return(definitions)
@@ -181,7 +181,7 @@ module Alchemy
 
       context "if site has a layout definition file" do
         let(:site) { Site.new(name: "My custom site") }
-        let(:definitions) { [{ "name" => "my_custom_site", "page_layouts" => %w[standard footer] }] }
+        let(:definitions) { [{"name" => "my_custom_site", "page_layouts" => %w[standard footer]}] }
 
         before do
           allow(Site).to receive(:definitions).and_return(definitions)
@@ -222,7 +222,7 @@ module Alchemy
 
       context "if site has a layout definition file" do
         let(:site) { Site.new(name: "My custom site") }
-        let(:definitions) { [{ "name" => "my_custom_site", "page_layouts" => %w[standard] }] }
+        let(:definitions) { [{"name" => "my_custom_site", "page_layouts" => %w[standard]}] }
 
         it "returns page layouts defined" do
           allow(Site).to receive(:definitions).and_return(definitions)
@@ -233,15 +233,15 @@ module Alchemy
                 "autogenerate" => [
                   "header",
                   "article",
-                  "download",
+                  "download"
                 ],
                 "elements" => [
                   "article",
                   "header",
                   "slider",
-                  "download",
-                ],
-              },
+                  "download"
+                ]
+              }
             ]
           )
         end
@@ -258,11 +258,11 @@ module Alchemy
                 "name" => "index",
                 "unique" => true,
                 "elements" => [
-                  "all_you_can_eat",
+                  "all_you_can_eat"
                 ],
                 "autogenerate" => [
-                  "all_you_can_eat",
-                ],
+                  "all_you_can_eat"
+                ]
               },
               {
                 "name" => "readonly",
@@ -276,29 +276,29 @@ module Alchemy
                   "robot_follow" => false,
                   "robot_index" => false,
                   "title" => false,
-                  "urlname" => false,
-                },
+                  "urlname" => false
+                }
               },
               {
                 "name" => "standard",
                 "autogenerate" => [
                   "header",
                   "article",
-                  "download",
+                  "download"
                 ],
                 "elements" => [
                   "article",
                   "header",
                   "slider",
-                  "download",
-                ],
+                  "download"
+                ]
               },
               {
                 "name" => "everything",
                 "autogenerate" => [
                   "all_you_can_eat",
                   "right_column",
-                  "left_column",
+                  "left_column"
                 ],
                 "elements" => [
                   "text",
@@ -308,21 +308,21 @@ module Alchemy
                   "left_column",
                   "old",
                   "article",
-                  "element_with_ingredient_groups",
+                  "element_with_ingredient_groups"
                 ],
-                "hint" => true,
+                "hint" => true
               },
               {
                 "name" => "news",
                 "autogenerate" => [
-                  "news",
+                  "news"
                 ],
                 "elements" => [
                   "headline",
-                  "news",
+                  "news"
                 ],
                 "insert_elements_at" => "top",
-                "unique" => true,
+                "unique" => true
               },
               {
                 "name" => "contact",
@@ -330,26 +330,26 @@ module Alchemy
                 "autogenerate" => [
                   "headline",
                   "text",
-                  "contactform",
+                  "contactform"
                 ],
                 "cache" => false,
                 "elements" => [
                   "headline",
                   "text",
-                  "contactform",
-                ],
+                  "contactform"
+                ]
               },
               {
                 "name" => "footer",
                 "elements" => [
-                  "menu",
+                  "menu"
                 ],
-                "layoutpage" => true,
+                "layoutpage" => true
               },
               {
                 "name" => "erb_layout",
-                "unique" => true,
-              },
+                "unique" => true
+              }
             ]
           )
         end
