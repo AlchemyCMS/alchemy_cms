@@ -98,3 +98,16 @@ jobs:
         with:
           name: Screenshots
           path: spec/dummy/tmp/screenshots
+
+  Lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.0"
+          bundler-cache: true
+      - name: Lint Ruby files
+        run: bundle exec standardrb
