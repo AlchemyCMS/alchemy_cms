@@ -1,11 +1,11 @@
-require 'rails_helper'
+require "rails_helper"
 
 module Alchemy
   describe Admin::UsersController do
     routes { Alchemy::Engine.routes }
 
     let(:admin) { build_stubbed(:alchemy_admin_user) }
-    let(:user)  { build_stubbed(:alchemy_user) }
+    let(:user) { build_stubbed(:alchemy_user) }
 
     before do
       allow(controller).to receive_messages(store_user_request_time: true)
@@ -13,24 +13,24 @@ module Alchemy
       authorize_user(admin)
     end
 
-    describe '#index' do
-      let(:user) { create :alchemy_user}
+    describe "#index" do
+      let(:user) { create :alchemy_user }
 
-      context 'with matching search query' do
+      context "with matching search query" do
         it "lists all matching users" do
-          get :index, params: {q: { email_cont: user.email }}
+          get :index, params: {q: {email_cont: user.email}}
           expect(assigns(:users)).to include(user)
         end
       end
 
-      context 'with non-matching search query' do
+      context "with non-matching search query" do
         it "lists all matching users" do
-          get :index, params: {q: { email_cont: "Tarzan" }}
+          get :index, params: {q: {email_cont: "Tarzan"}}
           expect(assigns(:users)).not_to include(user)
         end
       end
 
-      context 'without search query' do
+      context "without search query" do
         it "lists all users" do
           get :index
           expect(assigns(:users)).to include(user)
@@ -38,7 +38,7 @@ module Alchemy
       end
     end
 
-    describe '#signup' do
+    describe "#signup" do
       context "with users present" do
         before { allow(User).to receive_messages(count: 1) }
 
@@ -49,7 +49,7 @@ module Alchemy
       end
     end
 
-    describe '#create' do
+    describe "#create" do
       before { ActionMailer::Base.deliveries.clear }
 
       around do |example|
@@ -61,7 +61,7 @@ module Alchemy
         expect(Alchemy::User.count).to eq(1)
       end
 
-      context 'while signup' do
+      context "while signup" do
         before { allow(User).to receive(:count).and_return(0) }
 
         it "sets the user role to admin." do
@@ -79,13 +79,13 @@ module Alchemy
 
       context "with send_credentials set to '1'" do
         it "should send an email notification" do
-          post :create, params: {user: attributes_for(:alchemy_user).merge(send_credentials: '1')}
+          post :create, params: {user: attributes_for(:alchemy_user).merge(send_credentials: "1")}
           expect(ActionMailer::Base.deliveries).not_to be_empty
         end
 
-        context 'with invalid user' do
+        context "with invalid user" do
           it "does not send an email notification" do
-            post :create, params: {user: {send_credentials: '1', email: ''}}
+            post :create, params: {user: {send_credentials: "1", email: ""}}
             expect(ActionMailer::Base.deliveries).to be_empty
           end
         end
@@ -106,7 +106,7 @@ module Alchemy
       end
     end
 
-    describe '#update' do
+    describe "#update" do
       before { ActionMailer::Base.deliveries.clear }
 
       around do |example|
@@ -116,9 +116,9 @@ module Alchemy
       context "with empty password passed" do
         it "should update the user" do
           params_hash = {
-            'firstname' => 'Johnny',
-            'password' => '',
-            'password_confirmation' => ''
+            "firstname" => "Johnny",
+            "password" => "",
+            "password_confirmation" => ""
           }
           expect(user)
             .to receive(:update_without_password)
@@ -131,9 +131,9 @@ module Alchemy
       context "with new password passed" do
         it "should update the user" do
           params_hash = {
-            'firstname' => 'Johnny',
-            'password' => 'newpassword',
-            'password_confirmation' => 'newpassword'
+            "firstname" => "Johnny",
+            "password" => "newpassword",
+            "password_confirmation" => "newpassword"
           }
           expect(user).to receive(:update).with(params_hash)
 
@@ -145,13 +145,13 @@ module Alchemy
         let(:user) { create(:alchemy_admin_user) }
 
         it "should send an email notification" do
-          post :update, params: {id: user.id, user: {send_credentials: '1'}}
+          post :update, params: {id: user.id, user: {send_credentials: "1"}}
           expect(ActionMailer::Base.deliveries).to_not be_empty
         end
 
-        context 'with invalid user' do
+        context "with invalid user" do
           it "does not send an email notification" do
-            post :update, params: {id: user.id, user: {send_credentials: '1', email: ''}}
+            post :update, params: {id: user.id, user: {send_credentials: "1", email: ""}}
             expect(ActionMailer::Base.deliveries).to be_empty
           end
         end
@@ -177,8 +177,8 @@ module Alchemy
         it "updates the user including role" do
           expect(user)
             .to receive(:update_without_password)
-            .with({'alchemy_roles' => ['Administrator']})
-          post :update, params: {id: user.id, user: {alchemy_roles: ['Administrator']}, format: :js}
+            .with({"alchemy_roles" => ["Administrator"]})
+          post :update, params: {id: user.id, user: {alchemy_roles: ["Administrator"]}, format: :js}
         end
       end
 
@@ -192,12 +192,12 @@ module Alchemy
 
         it "updates user without role" do
           expect(user).to receive(:update_without_password).with({})
-          post :update, params: {id: user.id, user: {alchemy_roles: ['Administrator']}, format: :js}
+          post :update, params: {id: user.id, user: {alchemy_roles: ["Administrator"]}, format: :js}
         end
       end
     end
 
-    describe '#destroy' do
+    describe "#destroy" do
       it "redirects to users list" do
         expect(user).to receive(:destroy).and_return(true)
         delete :destroy, params: {id: user.id}

@@ -14,10 +14,10 @@ module Alchemy
       :password,
       :password_confirmation,
       :send_credentials,
-      :tag_list,
+      :tag_list
     ]
 
-    devise *Alchemy.devise_modules
+    devise(*Alchemy.devise_modules)
 
     include Alchemy::Taggable
 
@@ -86,7 +86,7 @@ module Alchemy
     end
 
     def add_role(role)
-      self.alchemy_roles = self.alchemy_roles.push(role.to_s).uniq
+      self.alchemy_roles = alchemy_roles.push(role.to_s).uniq
     end
 
     # Returns true if the user ahs admin role
@@ -127,7 +127,7 @@ module Alchemy
       if lastname.blank? && firstname.blank?
         login
       else
-        options = { flipped: false }.merge(options)
+        options = {flipped: false}.merge(options)
         fullname = options[:flipped] ? "#{lastname}, #{firstname}" : "#{firstname} #{lastname}"
         fullname.squeeze(" ").strip
       end

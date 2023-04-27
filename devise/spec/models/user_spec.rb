@@ -15,7 +15,7 @@ module Alchemy
     describe ".ransack" do
       subject do
         User.ransack(
-          "email_or_login_or_firstname_or_lastname_cont" => query,
+          "email_or_login_or_firstname_or_lastname_cont" => query
         ).result
       end
 
@@ -97,28 +97,28 @@ module Alchemy
 
       it "delivers the admin welcome mail." do
         expect(Notifications).to receive(:alchemy_user_created)
-                                   .and_return(OpenStruct.new(deliver: true))
+          .and_return(OpenStruct.new(deliver: true))
 
         user.deliver_welcome_mail
       end
 
       context "of author user" do
-        before { user.alchemy_roles = %w(author) }
+        before { user.alchemy_roles = %w[author] }
 
         it "delivers the admin welcome mail." do
           expect(Notifications).to receive(:alchemy_user_created)
-                                     .and_return(OpenStruct.new(deliver: true))
+            .and_return(OpenStruct.new(deliver: true))
 
           user.deliver_welcome_mail
         end
       end
 
       context "of member user" do
-        before { user.alchemy_roles = %w(member) }
+        before { user.alchemy_roles = %w[member] }
 
         it "delivers the welcome mail." do
           expect(Notifications).to receive(:member_created)
-                                     .and_return(OpenStruct.new(deliver: true))
+            .and_return(OpenStruct.new(deliver: true))
 
           user.deliver_welcome_mail
         end

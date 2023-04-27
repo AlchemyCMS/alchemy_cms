@@ -1,5 +1,5 @@
-require 'rails_helper'
-require 'cancan/matchers'
+require "rails_helper"
+require "cancan/matchers"
 
 describe Alchemy::Permissions do
   subject { ability }
@@ -17,7 +17,7 @@ describe Alchemy::Permissions do
       is_expected.to be_able_to(:signup, Alchemy.user_class)
     end
 
-    context 'if no user is present' do
+    context "if no user is present" do
       before { expect(Alchemy::User).to receive(:count).and_return(0) }
 
       it "can create user" do
@@ -25,7 +25,7 @@ describe Alchemy::Permissions do
       end
     end
 
-    context 'if user is present' do
+    context "if user is present" do
       before { expect(Alchemy::User).to receive(:count).and_return(1) }
 
       it "cannot create user" do
@@ -35,7 +35,7 @@ describe Alchemy::Permissions do
   end
 
   context "A member" do
-    let(:user)         { build_stubbed(:alchemy_member_user) }
+    let(:user) { build_stubbed(:alchemy_member_user) }
     let(:another_user) { build_stubbed(:alchemy_member_user) }
 
     it "can only update its own user record" do
@@ -54,7 +54,7 @@ describe Alchemy::Permissions do
   end
 
   context "An author" do
-    let(:user)         { build_stubbed(:alchemy_author_user) }
+    let(:user) { build_stubbed(:alchemy_author_user) }
     let(:another_user) { build_stubbed(:alchemy_member_user) }
 
     it "can only update its own user record" do
@@ -69,7 +69,7 @@ describe Alchemy::Permissions do
   end
 
   context "An editor" do
-    let(:user)         { build_stubbed(:alchemy_editor_user) }
+    let(:user) { build_stubbed(:alchemy_editor_user) }
     let(:another_user) { build_stubbed(:alchemy_member_user) }
 
     it "can see all users" do

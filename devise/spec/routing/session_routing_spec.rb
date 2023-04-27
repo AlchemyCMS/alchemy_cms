@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe "Session Routing" do
   routes { Alchemy::Engine.routes }
