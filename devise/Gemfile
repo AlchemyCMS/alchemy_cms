@@ -20,3 +20,5 @@ group :test do
 end
 
 gem "github_fast_changelog", require: false
+
+gem "standardrb", "~> 1.0", require: false

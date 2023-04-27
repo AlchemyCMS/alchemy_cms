@@ -1,0 +1,3 @@
+parallel: true
+ignore:
+  - "spec/dummy/**/*"
