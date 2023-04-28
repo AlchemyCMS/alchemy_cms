@@ -1,26 +1,25 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe "Admin users feature." do
-
-  describe 'signup user' do
+  describe "signup user" do
     it "renders signup form" do
       visit admin_signup_path
 
-      expect(page).to have_content('Please signup to edit your Website.')
-      expect(page).to have_selector('.login_signup_box')
+      expect(page).to have_content("Please signup to edit your Website.")
+      expect(page).to have_selector(".login_signup_box")
     end
 
     it "does not render tag list input" do
       visit admin_signup_path
 
-      expect(page).not_to have_selector('.tag_list')
+      expect(page).not_to have_selector(".tag_list")
     end
   end
 
-  context 'logged in as admin' do
+  context "logged in as admin" do
     before { authorize_user(create(:alchemy_admin_user)) }
 
-    describe 'create new user' do
+    describe "create new user" do
       it "has send_credentials checkbox activated" do
         visit new_admin_user_path
 
@@ -52,7 +51,7 @@ describe "Admin users feature." do
       end
     end
 
-    describe 'edit existing user' do
+    describe "edit existing user" do
       let(:user) { create(:alchemy_author_user) }
 
       it "has send_credentials checkbox deactivated" do

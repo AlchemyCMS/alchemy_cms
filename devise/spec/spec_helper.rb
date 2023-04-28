@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-require 'simplecov'
-if ENV['TRAVIS']
+require "simplecov"
+if ENV["TRAVIS"]
   require "codeclimate-test-reporter"
 end
-SimpleCov.start 'rails' do
-  add_filter '/lib/alchemy/devise/version'
-  add_filter '/lib/generators'
+SimpleCov.start "rails" do
+  add_filter "/lib/alchemy/devise/version"
+  add_filter "/lib/generators"
 end
 
-require 'rspec/core'
+require "rspec/core"
 
 RSpec.configure do |config|
   config.raise_errors_for_deprecations!

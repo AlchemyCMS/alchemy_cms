@@ -1,7 +1,6 @@
 module Alchemy
   module Admin
     class UsersController < ResourcesController
-
       before_action :set_roles, except: [:index, :destroy]
 
       load_and_authorize_resource class: Alchemy::User,
@@ -14,7 +13,7 @@ module Alchemy
 
       def index
         @query = User.ransack(params[:q])
-        @query.sorts = 'login asc' if @query.sorts.empty?
+        @query.sorts = "login asc" if @query.sorts.empty?
         @users = @query.result
           .page(params[:page] || 1)
           .per(items_per_page)
@@ -53,7 +52,7 @@ module Alchemy
         deliver_welcome_mail
         render_errors_or_redirect @user,
           admin_users_path,
-          Alchemy.t("User updated", :name => @user.name)
+          Alchemy.t("User updated", name: @user.name)
       end
 
       def destroy
@@ -92,9 +91,9 @@ module Alchemy
       end
 
       def signup_admin_or_redirect
-        @user.alchemy_roles = %w(admin)
+        @user.alchemy_roles = %w[admin]
         if @user.save
-          flash[:notice] = Alchemy.t('Successfully signup admin user')
+          flash[:notice] = Alchemy.t("Successfully signup admin user")
           sign_in :user, @user
           deliver_welcome_mail
           redirect_to admin_pages_path
@@ -116,7 +115,7 @@ module Alchemy
       end
 
       def deliver_welcome_mail
-        if @user.valid? && @user.send_credentials == '1'
+        if @user.valid? && @user.send_credentials == "1"
           @user.deliver_welcome_mail
         end
       end

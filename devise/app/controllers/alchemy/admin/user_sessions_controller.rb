@@ -9,7 +9,7 @@ module Alchemy
 
       protect_from_forgery prepend: true
 
-      before_action :check_user_count, :only => :new
+      before_action :check_user_count, only: :new
 
       helper "Alchemy::Admin::Base"
 
@@ -19,11 +19,11 @@ module Alchemy
         authenticate_user!
 
         if user_signed_in?
-          if session[:redirect_path].blank?
-            redirect_path = admin_dashboard_path
+          redirect_path = if session[:redirect_path].blank?
+            admin_dashboard_path
           else
             # We have to strip double slashes from beginning of path, because of strange rails/rack bug.
-            redirect_path = session[:redirect_path].gsub(/\A\/{2,}/, "/")
+            session[:redirect_path].gsub(/\A\/{2,}/, "/")
           end
           redirect_to redirect_path,
             notice: t(:signed_in, scope: "devise.sessions")

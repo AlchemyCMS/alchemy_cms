@@ -13,8 +13,8 @@ Rails.application.config.to_prepare do
       name: "modules.users",
       controller: "/alchemy/admin/users",
       action: "index",
-      icon: "users",
-    },
+      icon: "users"
+    }
   })
 
   Alchemy.signup_path = "/admin/signup"

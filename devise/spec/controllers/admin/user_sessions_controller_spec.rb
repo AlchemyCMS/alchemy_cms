@@ -24,13 +24,13 @@ describe Alchemy::Admin::UserSessionsController do
     describe "#create" do
       context "with valid user" do
         let(:screen_size) { "1200x800" }
-        let(:user_params) { { login: user.login, password: "s3cr3t" } }
+        let(:user_params) { {login: user.login, password: "s3cr3t"} }
 
         before { user }
 
         context "without redirect path in session" do
           it "redirects to dashboard" do
-            post :create, params: { user: user_params }
+            post :create, params: {user: user_params}
             expect(response).to redirect_to(admin_dashboard_path)
           end
         end
@@ -38,14 +38,14 @@ describe Alchemy::Admin::UserSessionsController do
         context "with redirect path in session" do
           it "redirects to these params" do
             session[:redirect_path] = admin_users_path
-            post :create, params: { user: user_params }
+            post :create, params: {user: user_params}
             expect(response).to redirect_to(admin_users_path)
           end
         end
 
         context "without valid params" do
           it "renders login form" do
-            post :create, params: { user: { login: "" } }
+            post :create, params: {user: {login: ""}}
             is_expected.to render_template(:new)
           end
         end
@@ -56,7 +56,7 @@ describe Alchemy::Admin::UserSessionsController do
       before do
         allow(controller).to receive(:store_user_request_time)
         allow(controller).to receive(:all_signed_out?)
-                               .and_return(false)
+          .and_return(false)
         authorize_user(user)
       end
 

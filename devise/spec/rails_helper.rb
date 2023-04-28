@@ -32,7 +32,7 @@ ActiveSupport::Deprecation.silenced = true
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.use_transactional_fixtures = true
-  config.include Devise::TestHelpers, :type => :controller
+  config.include Devise::TestHelpers, type: :controller
   config.include Alchemy::Engine.routes.url_helpers
   config.include FactoryBot::Syntax::Methods
   config.include ActiveJob::TestHelper

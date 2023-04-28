@@ -6,12 +6,12 @@ module Alchemy
   # === Default modules
   #
   #     [
-  #.      :database_authenticatable,
+  # .      :database_authenticatable,
   #       :trackable,
   #       :validatable,
   #       :timeoutable,
   #       :recoverable
-  #.    ]
+  # .    ]
   #
   # If you want to add additional modules into the Alchemy user class append
   # them to this collection in an initializer in your app.

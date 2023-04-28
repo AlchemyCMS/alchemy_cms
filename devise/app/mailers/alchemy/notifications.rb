@@ -1,7 +1,6 @@
 module Alchemy
   class Notifications < ActionMailer::Base
-
-    default(from: Config.get(:mailer)['mail_from'])
+    default(from: Config.get(:mailer)["mail_from"])
 
     def member_created(user)
       @user = user
@@ -21,7 +20,7 @@ module Alchemy
       )
     end
 
-    def reset_password_instructions(user, token, opts={})
+    def reset_password_instructions(user, token, opts = {})
       @user = user
       @token = token
       mail(
