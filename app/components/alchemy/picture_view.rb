@@ -2,11 +2,7 @@
 
 module Alchemy
   # Renders a picture ingredient view
-  class PictureView
-    include ActionView::Helpers::AssetTagHelper
-    include ActionView::Helpers::UrlHelper
-    include Rails.application.routes.url_helpers
-
+  class PictureView < ViewComponent::Base
     attr_reader :ingredient, :html_options, :options, :picture
 
     DEFAULT_OPTIONS = {
@@ -16,14 +12,14 @@ module Alchemy
       sizes: []
     }.with_indifferent_access
 
-    def initialize(ingredient, options = {}, html_options = {})
+    def initialize(ingredient, options: {}, html_options: {})
       @ingredient = ingredient
       @options = DEFAULT_OPTIONS.merge(ingredient.settings).merge(options || {})
       @html_options = html_options || {}
       @picture = ingredient.picture
     end
 
-    def render
+    def call
       return if picture.blank?
 
       output = caption ? img_tag + caption : img_tag
@@ -42,6 +38,8 @@ module Alchemy
         output
       end
     end
+
+    private
 
     def caption
       return unless show_caption?

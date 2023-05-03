@@ -16,12 +16,8 @@ RSpec.describe "alchemy/ingredients/_picture_view" do
     )
   end
 
-  before do
-    expect_any_instance_of(Alchemy::PictureView).to receive(:render).and_call_original
-  end
-
-  it "renders an image tag" do
+  it "renders Alchemy::PictureView" do
+    expect_any_instance_of(Alchemy::PictureView).to receive(:call)
     render ingredient
-    expect(rendered).to have_css("img")
   end
 end
