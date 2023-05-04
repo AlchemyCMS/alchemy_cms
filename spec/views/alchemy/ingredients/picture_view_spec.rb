@@ -17,7 +17,7 @@ RSpec.describe "alchemy/ingredients/_picture_view" do
   end
 
   it "renders Alchemy::PictureView" do
-    expect_any_instance_of(Alchemy::PictureView).to receive(:call)
+    expect_any_instance_of(Alchemy::Ingredients::PictureView).to receive(:call)
     render ingredient
   end
 end

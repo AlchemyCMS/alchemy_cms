@@ -2,9 +2,9 @@
 
 require "rails_helper"
 
-RSpec.describe Alchemy::PictureView, type: :component do
+RSpec.describe Alchemy::Ingredients::PictureView, type: :component do
   let(:image) do
-    File.new(File.expand_path("../../fixtures/image.png", __dir__))
+    File.new(File.expand_path("../../../fixtures/image.png", __dir__))
   end
 
   let(:picture) do
@@ -29,7 +29,7 @@ RSpec.describe Alchemy::PictureView, type: :component do
   end
 
   describe "DEFAULT_OPTIONS" do
-    subject { Alchemy::PictureView::DEFAULT_OPTIONS }
+    subject { described_class::DEFAULT_OPTIONS }
 
     it do
       is_expected.to eq({
