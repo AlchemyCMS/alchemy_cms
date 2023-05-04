@@ -20,4 +20,13 @@ describe "alchemy/ingredients/_boolean_view" do
       expect(rendered).to have_content("False")
     end
   end
+
+  context "with nil as value" do
+    let(:ingredient) { Alchemy::Ingredients::Boolean.new(value: nil) }
+
+    it "renders nothing" do
+      render ingredient
+      expect(rendered).to eq("")
+    end
+  end
 end

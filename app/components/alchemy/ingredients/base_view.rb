@@ -4,6 +4,7 @@ module Alchemy
       attr_reader :ingredient, :html_options
 
       delegate :alchemy, to: :helpers
+      delegate :value, to: :ingredient
 
       # @param ingredient [Alchemy::Ingredient]
       # @param html_options [Hash] Options that will be passed to the wrapper tag.
