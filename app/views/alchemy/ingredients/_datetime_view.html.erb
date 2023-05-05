@@ -1,9 +1,4 @@
-<%- date_format = datetime_view.settings_value(:date_format,
-  local_assigns.fetch(:options, {})) -%>
-<%- if datetime_view.value.present? -%>
-<%- if date_format == 'rfc822' -%>
-<%= datetime_view.value.to_s(:rfc822) %>
-<%- else -%>
-<%= l(datetime_view.value, format: date_format) %>
-<%- end -%>
-<%- end -%>
+<%= render Alchemy::Ingredients::DatetimeView.new(
+  datetime_view,
+  **local_assigns.slice(:options)
+) -%>
