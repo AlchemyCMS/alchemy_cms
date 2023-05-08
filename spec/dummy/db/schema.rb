@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_23_105660) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_05_132743) do
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
     t.string "file_name"
@@ -202,6 +202,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_23_105660) do
     t.integer "image_file_size"
     t.string "image_file_format"
     t.index ["creator_id"], name: "index_alchemy_pictures_on_creator_id"
+    t.index ["image_file_name"], name: "index_alchemy_pictures_on_image_file_name"
+    t.index ["name"], name: "index_alchemy_pictures_on_name"
     t.index ["updater_id"], name: "index_alchemy_pictures_on_updater_id"
   end
 
