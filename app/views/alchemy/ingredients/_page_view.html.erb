@@ -1,4 +1,1 @@
-<% page = page_view.page %>
-<% if page %>
-<%= link_to page.name, alchemy.show_page_path(urlname: page.urlname) %>
-<% end %>
+<%= render Alchemy::Ingredients::PageView.new(page_view) -%>
