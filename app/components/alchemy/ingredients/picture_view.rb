@@ -4,18 +4,38 @@ module Alchemy
   module Ingredients
     # Renders a picture ingredient view
     class PictureView < BaseView
-      attr_reader :ingredient, :html_options, :options, :picture
+      attr_reader :ingredient,
+        :show_caption,
+        :disable_link,
+        :srcset,
+        :sizes,
+        :html_options,
+        :picture_options,
+        :picture
 
-      DEFAULT_OPTIONS = {
-        show_caption: true,
-        disable_link: false,
-        srcset: [],
-        sizes: []
-      }.with_indifferent_access
-
-      def initialize(ingredient, options: {}, html_options: {})
-        @ingredient = ingredient
-        @options = DEFAULT_OPTIONS.merge(ingredient.settings).merge(options || {})
+      # @param ingredient [Alchemy::Ingredient]
+      # @param show_caption [Boolean] (true) Whether to show a caption or not, even if present on the picture.
+      # @param disable_link [Boolean] (false) Whether to disable the link even if the picture has a link.
+      # @param srcset [Array<String>] An array of srcset sizes that will generate variants of the picture.
+      # @param sizes [Array<String>] An array of sizes that will be passed to the img tag.
+      # @param picture_options [Hash] Options that will be passed to the picture url. See {Alchemy::PictureVariant} for options.
+      # @param html_options [Hash] Options that will be passed to the img tag.
+      # @see Alchemy::PictureVariant
+      def initialize(
+        ingredient,
+        show_caption: nil,
+        disable_link: nil,
+        srcset: nil,
+        sizes: nil,
+        picture_options: {},
+        html_options: {}
+      )
+        super(ingredient)
+        @show_caption = show_caption.nil? ? ingredient.settings.fetch(:show_caption, true) : show_caption
+        @disable_link = disable_link.nil? ? ingredient.settings.fetch(:disable_link, false) : disable_link
+        @srcset = srcset.nil? ? ingredient.settings.fetch(:srcset, []) : srcset
+        @sizes = sizes.nil? ? ingredient.settings.fetch(:sizes, []) : sizes
+        @picture_options = picture_options || {}
         @html_options = html_options || {}
         @picture = ingredient.picture
       end
@@ -49,7 +69,7 @@ module Alchemy
       end
 
       def src
-        ingredient.picture_url(options.except(*DEFAULT_OPTIONS.keys))
+        ingredient.picture_url(picture_options)
       end
 
       def img_tag
@@ -58,22 +78,22 @@ module Alchemy
             alt: alt_text,
             title: ingredient.title.presence,
             class: caption ? nil : ingredient.css_class.presence,
-            srcset: srcset.join(", ").presence,
-            sizes: options[:sizes].join(", ").presence
+            srcset: srcset_options.join(", ").presence,
+            sizes: sizes.join(", ").presence
           }.merge(caption ? {} : html_options)
         )
       end
 
       def show_caption?
-        options[:show_caption] && ingredient.caption.present?
+        show_caption && ingredient.caption.present?
       end
 
       def is_linked?
-        !options[:disable_link] && ingredient.link.present?
+        !disable_link && ingredient.link.present?
       end
 
-      def srcset
-        options[:srcset].map do |size|
+      def srcset_options
+        srcset.map do |size|
           url = ingredient.picture_url(size: size)
           width, height = size.split("x")
           width.present? ? "#{url} #{width}w" : "#{url} #{height}h"

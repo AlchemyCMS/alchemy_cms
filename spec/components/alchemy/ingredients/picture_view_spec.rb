@@ -28,19 +28,6 @@ RSpec.describe Alchemy::Ingredients::PictureView, type: :component do
     allow(picture).to receive(:url) { picture_url }
   end
 
-  describe "DEFAULT_OPTIONS" do
-    subject { described_class::DEFAULT_OPTIONS }
-
-    it do
-      is_expected.to eq({
-        show_caption: true,
-        disable_link: false,
-        srcset: [],
-        sizes: []
-      }.with_indifferent_access)
-    end
-  end
-
   context "with caption" do
     let(:options) do
       {}
@@ -51,7 +38,7 @@ RSpec.describe Alchemy::Ingredients::PictureView, type: :component do
     end
 
     subject(:render_view) do
-      render_inline described_class.new(ingredient, options: options, html_options: html_options)
+      render_inline described_class.new(ingredient, **options, html_options: html_options)
     end
 
     it "should enclose the image in a <figure> element" do
@@ -158,7 +145,7 @@ RSpec.describe Alchemy::Ingredients::PictureView, type: :component do
 
     subject(:render_view) do
       ingredient.link = "/home"
-      render_inline described_class.new(ingredient, options: options)
+      render_inline described_class.new(ingredient, **options)
     end
 
     it "should enclose the image in a link tag" do
@@ -175,21 +162,6 @@ RSpec.describe Alchemy::Ingredients::PictureView, type: :component do
       it "should not enclose the image in a link tag" do
         expect(page).not_to have_selector("a img")
       end
-    end
-  end
-
-  context "with multiple instances" do
-    let(:options) do
-      {}
-    end
-
-    subject(:picture_view) do
-      described_class.new(ingredient, options: options)
-    end
-
-    it "does not overwrite DEFAULT_OPTIONS" do
-      described_class.new(ingredient, options: {my_custom_option: true})
-      expect(picture_view.options).to_not have_key(:my_custom_option)
     end
   end
 

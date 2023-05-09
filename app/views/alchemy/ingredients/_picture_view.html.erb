@@ -1,4 +1,10 @@
+<%- options = local_assigns.fetch(:options, {}) -%>
 <%= render Alchemy::Ingredients::PictureView.new(
   picture_view,
-  **local_assigns.slice(:options, :html_options)
+  show_caption: options.delete(:show_caption),
+  disable_link: options.delete(:disable_link),
+  srcset: options.delete(:srcset),
+  sizes: options.delete(:sizes),
+  picture_options: options,
+  html_options: local_assigns.fetch(:html_options, {})
 ) -%>
