@@ -15,10 +15,6 @@ module Alchemy
         link_to(link_text, value, {target: link_target}.merge(html_options))
       end
 
-      def render?
-        value.present?
-      end
-
       private
 
       def link_text

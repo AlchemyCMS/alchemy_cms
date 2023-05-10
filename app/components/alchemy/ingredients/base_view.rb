@@ -14,6 +14,14 @@ module Alchemy
         @ingredient = ingredient
         @html_options = html_options
       end
+
+      def call
+        value
+      end
+
+      def render?
+        value.present?
+      end
     end
   end
 end

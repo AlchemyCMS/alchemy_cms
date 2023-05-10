@@ -16,10 +16,6 @@ module Alchemy
         end
       end
 
-      def render?
-        value.present?
-      end
-
       private
 
       def date_format
