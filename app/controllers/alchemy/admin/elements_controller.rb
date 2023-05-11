@@ -96,9 +96,23 @@ module Alchemy
         @page = @element.page
         # We do not want to trigger the touch callback or any validations
         @element.update_columns(folded: !@element.folded)
+        # Fold all nested elements if folded
+        if @element.folded?
+          ids = collapse_nested_elements_ids(@element)
+          Alchemy::Element.where(id: ids).update_all(folded: true)
+        end
       end
 
       private
+
+      def collapse_nested_elements_ids(element)
+        ids = []
+        element.all_nested_elements.includes(:all_nested_elements).reject(&:compact?).each do |nested_element|
+          ids.push nested_element.id if nested_element.expanded?
+          ids.concat collapse_nested_elements_ids(nested_element) if nested_element.all_nested_elements.reject(&:compact?).any?
+        end
+        ids
+      end
 
       def element_includes
         [

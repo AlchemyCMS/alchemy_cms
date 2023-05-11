@@ -250,7 +250,6 @@ module Alchemy
       let(:page) { create(:alchemy_page) }
 
       before do
-        expect(Element).to receive(:find).and_return(element)
         element.touchable_pages << page
       end
 
@@ -259,7 +258,7 @@ module Alchemy
 
         it "sets folded to false." do
           expect(page).not_to receive(:touch)
-          expect { subject }.to change { element.folded }.to(false)
+          expect { subject }.to change { element.reload.folded }.to(false)
         end
       end
 
@@ -268,7 +267,28 @@ module Alchemy
 
         it "sets folded to true." do
           expect(page).not_to receive(:touch)
-          expect { subject }.to change { element.folded }.to(true)
+          expect { subject }.to change { element.reload.folded }.to(true)
+        end
+
+        context "if element has nested elements" do
+          let!(:nested_element) { create(:alchemy_element, parent_element: element) }
+          let!(:nested_nested_element) { create(:alchemy_element, parent_element: nested_element) }
+          let!(:nested_folded_element) { create(:alchemy_element, folded: true, parent_element: element) }
+          let!(:nested_nested_folded_element) { create(:alchemy_element, folded: true, parent_element: nested_folded_element) }
+          let!(:nested_compact_element) { create(:alchemy_element, :compact, parent_element: element) }
+          let!(:nested_nested_compact_element) { create(:alchemy_element, :compact, parent_element: nested_compact_element) }
+
+          it "collapses all nested not compact elements" do
+            subject
+            aggregate_failures do
+              expect(nested_element.reload).to be_folded
+              expect(nested_nested_element.reload).to be_folded
+              expect(nested_folded_element.reload).to be_folded
+              expect(nested_nested_folded_element.reload).to be_folded
+              expect(nested_compact_element.reload).to_not be_folded
+              expect(nested_nested_compact_element.reload).to_not be_folded
+            end
+          end
         end
       end
     end
