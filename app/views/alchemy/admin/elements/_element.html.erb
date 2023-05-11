@@ -54,20 +54,20 @@
 
       <%= render 'alchemy/admin/elements/footer', element: element %>
     <% end %>
-  <% end %>
 
-  <% if element.nestable_elements.any? %>
-    <div class="nestable-elements">
-      <%= content_tag :div,
-        class: "nested-elements", data: {
-          'droppable-elements' => element.nestable_elements.join(' ')
-        } do %>
-        <%= render element.all_nested_elements.map { |element|
-          Alchemy::ElementEditor.new(element)
-        } %>
-      <% end %>
+    <% if element.nestable_elements.any? %>
+      <div class="nestable-elements">
+        <%= content_tag :div,
+          class: "nested-elements", data: {
+            'droppable-elements' => element.nestable_elements.join(' ')
+          } do %>
+          <%= render element.all_nested_elements.map { |element|
+            Alchemy::ElementEditor.new(element)
+          } %>
+        <% end %>
 
-      <%= render "alchemy/admin/elements/add_nested_element_form", element: element %>
-    </div>
+        <%= render "alchemy/admin/elements/add_nested_element_form", element: element %>
+      </div>
+    <% end %>
   <% end %>
 <% end %>
