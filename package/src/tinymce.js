@@ -2,12 +2,13 @@
 //
 
 let tinymceCustomConfigs = {}
+let tinymceIntersectionObserver = null
 
 // Returns default config for a tinymce editor.
-function getDefaultConfig(id) {
+function getDefaultConfig(editorId) {
   const config = Alchemy.TinymceDefaults
   config.language = Alchemy.locale
-  config.selector = `#tinymce_${id}`
+  config.selector = `#${editorId}`
   config.init_instance_callback = initInstanceCallback
   return config
 }
@@ -15,33 +16,62 @@ function getDefaultConfig(id) {
 // Returns configuration for given custom tinymce editor selector.
 //
 // It uses the +.getDefaultConfig+ and merges the custom parts.
-//
 function getConfig(id, selector) {
   const editorConfig = tinymceCustomConfigs[selector] || {}
-  return {...getDefaultConfig(id), ...editorConfig};
+  return { ...getDefaultConfig(id), ...editorConfig }
+}
+
+// create intersection observer and register textareas to be initialized when
+// they are visible
+function initEditors(ids) {
+  initializeIntersectionObserver()
+
+  ids.forEach((id) => {
+    const editorId = `tinymce_${id}`
+    const textarea = document.getElementById(editorId)
+
+    if (textarea) {
+      tinymceIntersectionObserver.observe(textarea)
+    } else {
+      console.warn(`Could not initialize TinyMCE for textarea#${editorId}!`)
+    }
+  })
+}
+
+// initialize IntersectionObserver if it is not already initialized
+// the observer will initialize Tinymce if the textarea becomes visible
+function initializeIntersectionObserver() {
+  if (tinymceIntersectionObserver === null) {
+    const observerCallback = (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.intersectionRatio > 0) {
+          initTinymceEditor(entry.target)
+          // disable observer after the Tinymce was initialized
+          observer.unobserve(entry.target)
+        }
+      })
+    }
+    const options = {
+      root: Alchemy.ElementEditors.element_area.get(0),
+      rootMargin: "0px",
+      threshold: [0.05]
+    }
+
+    tinymceIntersectionObserver = new IntersectionObserver(
+      observerCallback,
+      options
+    )
+  }
 }
 
 // Initializes one specific TinyMCE editor
-//
-// @param id [Number]
-//   - Editor id that should be initialized.
-//
-function initEditor(id) {
-  const editorId = `tinymce_${id}`
-  const textarea = document.getElementById(editorId)
-  const editor = tinymce.get(editorId)
-
-  if (textarea === null) {
-    console.warn(`Could not initialize TinyMCE for textarea#tinymce_${id}!`)
-    return
-  }
+function initTinymceEditor(textarea) {
+  const editorId = textarea.id
+  const config = getConfig(editorId, textarea.classList[1])
 
   // remove editor instance, if already initialized
-  if (editor) {
-    editor.remove()
-  }
+  removeEditor(editorId)
 
-  const config = getConfig(id, textarea.classList[1])
   if (config) {
     const spinner = new Alchemy.Spinner("small")
     textarea.closest(".tinymce_container").prepend(spinner.spin().el.get(0))
@@ -52,7 +82,6 @@ function initEditor(id) {
 }
 
 // Gets called after an editor instance gets initialized
-//
 function initInstanceCallback(editor) {
   const element = document.getElementById(editor.id).closest(".element-editor")
   element.getElementsByClassName("spinner").item(0).remove()
@@ -65,47 +94,47 @@ function initInstanceCallback(editor) {
   })
 }
 
-export default {
+function removeEditor(editorId) {
+  const editorElement = document.getElementById(editorId)
+  if (tinymceIntersectionObserver && editorElement) {
+    tinymceIntersectionObserver.unobserve(editorElement)
+  }
 
+  const editor = tinymce.get(editorId)
+  if (editor) {
+    editor.remove()
+  }
+}
+
+export default {
   // Initializes all TinyMCE editors with given ids
   //
   // @param ids [Array]
   //   - Editor ids that should be initialized.
-  //
   init(ids) {
-    ids.forEach((id) => initEditor(id))
+    initEditors(ids)
   },
 
   // Initializes TinyMCE editor with given options
-  //
   initWith(options) {
-    tinymce.init({...Alchemy.TinymceDefaults, ...options})
+    tinymce.init({ ...Alchemy.TinymceDefaults, ...options })
   },
 
   // Removes the TinyMCE editor from given dom ids.
-  //
   remove(ids) {
-    ids.forEach((id) => {
-      const editor = tinymce.get(`tinymce_${id}`)
-      if (editor) {
-        editor.remove()
-      }
-    })
+    ids.forEach((id) => removeEditor(`tinymce_${id}`))
   },
 
   // Remove all tinymce instances for given selector
   removeFrom(selector) {
     // the selector is a jQuery selector - it has to be refactor if we taking care of the calling methods
-    $(selector).each(function () {
-      const elem = tinymce.get(this.id)
-      if (elem) {
-        elem.remove()
-      }
+    $(selector).each(function (element) {
+      removeEditor(element.id)
     })
   },
 
   // set tinymce configuration for a given selector key
   setCustomConfig(key, configuration) {
-    tinymceCustomConfigs[key] = configuration;
+    tinymceCustomConfigs[key] = configuration
   }
 }
