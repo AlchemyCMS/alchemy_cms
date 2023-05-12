@@ -25,6 +25,10 @@ FactoryBot.define do
       name { "slide" }
     end
 
+    trait :compact do
+      name { "slide" }
+    end
+
     trait :with_ingredients do
       autogenerate_ingredients { true }
     end
