@@ -1,12 +1,13 @@
 // Alchemy Tinymce wrapper
 //
-$.extend(Alchemy.Tinymce, {
+
+export default {
   customConfigs: {},
 
   // Returns default config for a tinymce editor.
   //
   getDefaultConfig(id) {
-    const config = this.defaults
+    const config = Alchemy.TinymceDefaults
     config.language = Alchemy.locale
     config.selector = `#tinymce_${id}`
     config.init_instance_callback = this.initInstanceCallback
@@ -38,7 +39,7 @@ $.extend(Alchemy.Tinymce, {
   // Initializes TinyMCE editor with given options
   //
   initWith(options) {
-    tinymce.init($.extend({}, this.defaults, options))
+    tinymce.init($.extend({}, Alchemy.TinymceDefaults, options))
   },
 
   // Initializes one specific TinyMCE editor
@@ -104,4 +105,4 @@ $.extend(Alchemy.Tinymce, {
       }
     })
   }
-})
+}
