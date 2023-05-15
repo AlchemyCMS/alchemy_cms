@@ -1,4 +1,5 @@
-<%= render Alchemy::Ingredients::HeadlineView.new(
-  headline_view,
+<%- ingredient_view_deprecation_notice(headline_view, __FILE__) -%>
+<%= render headline_view.as_view_component(
+  **local_assigns.slice(:options),
   **local_assigns.slice(:html_options)
 ) -%>

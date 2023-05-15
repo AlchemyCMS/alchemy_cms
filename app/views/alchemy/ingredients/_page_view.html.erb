@@ -1,1 +1,2 @@
-<%= render Alchemy::Ingredients::PageView.new(page_view) -%>
+<%- ingredient_view_deprecation_notice(page_view, __FILE__) -%>
+<%= render page_view.as_view_component -%>

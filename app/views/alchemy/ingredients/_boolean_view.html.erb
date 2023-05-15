@@ -1,1 +1,2 @@
-<%= render Alchemy::Ingredients::BooleanView.new(boolean_view) -%>
+<%- ingredient_view_deprecation_notice(boolean_view, __FILE__) -%>
+<%= render boolean_view.as_view_component -%>

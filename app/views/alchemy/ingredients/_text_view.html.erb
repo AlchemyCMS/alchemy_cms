@@ -1,5 +1,5 @@
-<%= render Alchemy::Ingredients::TextView.new(
-  text_view,
-  disable_link: local_assigns.dig(:options, :disable_link),
-  html_options: local_assigns.fetch(:html_options, {})
+<%- ingredient_view_deprecation_notice(text_view, __FILE__) -%>
+<%= render text_view.as_view_component(
+  **local_assigns.slice(:options),
+  **local_assigns.slice(:html_options)
 ) -%>

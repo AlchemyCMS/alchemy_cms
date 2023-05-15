@@ -1,1 +1,2 @@
-<%= render Alchemy::Ingredients::SelectView.new(select_view) -%>
+<%- ingredient_view_deprecation_notice(select_view, __FILE__) -%>
+<%= render select_view.as_view_component -%>

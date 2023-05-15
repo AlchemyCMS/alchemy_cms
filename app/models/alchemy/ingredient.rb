@@ -165,7 +165,19 @@ module Alchemy
       !!definition[:as_element_title]
     end
 
+    # The view component of the ingredient with mapped options.
+    #
+    # @param options [Hash] - Passed to the view component as keyword arguments
+    # @param html_options [Hash] - Passed to the view component
+    def as_view_component(options: {}, html_options: {})
+      view_component_class.new(self, **options, html_options: html_options)
+    end
+
     private
+
+    def view_component_class
+      @_view_component_class ||= "#{self.class.name}View".constantize
+    end
 
     def hint_translation_attribute
       role

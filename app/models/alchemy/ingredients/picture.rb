@@ -47,6 +47,24 @@ module Alchemy
       def preview_text(max_length = 30)
         picture&.name.to_s[0..max_length - 1]
       end
+
+      # The picture view component with mapped options.
+      #
+      # @param options [Hash] - Passed to the view component
+      # @param html_options [Hash] - Passed to the view component
+      #
+      # @return Alchemy::Ingredients::PictureView
+      def as_view_component(options: {}, html_options: {})
+        PictureView.new(
+          self,
+          show_caption: options.delete(:show_caption),
+          disable_link: options.delete(:disable_link),
+          srcset: options.delete(:srcset),
+          sizes: options.delete(:sizes),
+          picture_options: options,
+          html_options: html_options
+        )
+      end
     end
   end
 end

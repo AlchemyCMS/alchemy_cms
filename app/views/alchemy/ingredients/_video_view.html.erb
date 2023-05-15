@@ -1,1 +1,2 @@
-<%= render Alchemy::Ingredients::VideoView.new(video_view) -%>
+<%- ingredient_view_deprecation_notice(video_view, __FILE__) -%>
+<%= render video_view.as_view_component -%>

@@ -1,5 +1,5 @@
-<%= render Alchemy::Ingredients::LinkView.new(
-  link_view,
-  text: local_assigns.fetch(:options, {})[:text],
-  html_options: local_assigns.fetch(:html_options, {})
+<%- ingredient_view_deprecation_notice(link_view, __FILE__) -%>
+<%= render link_view.as_view_component(
+  **local_assigns.slice(:options),
+  **local_assigns.slice(:html_options)
 ) -%>

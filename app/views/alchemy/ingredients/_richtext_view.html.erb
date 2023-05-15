@@ -1,4 +1,4 @@
-<%= render Alchemy::Ingredients::RichtextView.new(
-  richtext_view,
-  plain_text: local_assigns.fetch(:options, {})[:plain_text],
+<%- ingredient_view_deprecation_notice(richtext_view, __FILE__) -%>
+<%= render richtext_view.as_view_component(
+  **local_assigns.slice(:options)
 ) -%>

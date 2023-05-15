@@ -1,1 +1,2 @@
-<%= render Alchemy::Ingredients::AudioView.new(audio_view) -%>
+<%- ingredient_view_deprecation_notice(audio_view, __FILE__) -%>
+<%= render audio_view.as_view_component -%>

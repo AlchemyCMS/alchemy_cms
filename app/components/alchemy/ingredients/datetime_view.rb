@@ -3,7 +3,7 @@ module Alchemy
     class DatetimeView < BaseView
       # @param ingredient [Alchemy::Ingredient]
       # @param date_format [String] The date format to use. Use either a strftime format string, a I18n format symbol or "rfc822".
-      def initialize(ingredient, date_format: nil)
+      def initialize(ingredient, date_format: nil, html_options: {})
         super(ingredient)
         @date_format = date_format
       end
