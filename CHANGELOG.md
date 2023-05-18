@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.0.14 (2023-05-18)
+
+- [6.0] Do not eager load elements in pages controller [#2474](https://github.com/AlchemyCMS/alchemy_cms/pull/2474) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 6.0.13 (2023-03-29)
 
 - Fix installer: Add seeds file if not exists [#2446](https://github.com/AlchemyCMS/alchemy_cms/pull/2446) ([tvdeyen](https://github.com/tvdeyen))
