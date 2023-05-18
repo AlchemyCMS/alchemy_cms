@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.1.4 (2023-05-18)
+
+- [6.1] Revert "Preload related objects in Alchemy::PagesController" [#2473](https://github.com/AlchemyCMS/alchemy_cms/pull/2473) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 6.1.3 (2023-03-29)
 
 - Fix installer: Add seeds file if not exists [#2446](https://github.com/AlchemyCMS/alchemy_cms/pull/2446) ([tvdeyen](https://github.com/tvdeyen))
