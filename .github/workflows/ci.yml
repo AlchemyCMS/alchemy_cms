@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   RSpec:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -82,6 +82,9 @@ jobs:
           sudo apt update -qq
           sudo apt install -qq --fix-missing libmysqlclient-dev -o dir::cache::archives="/home/runner/apt/cache"
           sudo chown -R runner /home/runner/apt/cache
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
       - name: Restore node modules cache
         id: yarn-cache
         uses: actions/cache@v2.1.3
