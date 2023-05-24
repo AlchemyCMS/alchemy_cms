@@ -29,6 +29,6 @@ Object.assign(Alchemy, {
   IngredientAnchorLink,
   Datepicker,
   Sitemap,
-  Tinymce: { ...Tinymce },
+  Tinymce,
   PagePublicationFields
 })

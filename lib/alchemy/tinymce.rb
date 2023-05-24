@@ -33,29 +33,6 @@ module Alchemy
       def init
         @@init
       end
-
-      def custom_configs_present?(page)
-        custom_config_ingredients(page).any?
-      end
-
-      def custom_config_ingredients(page)
-        ingredient_definitions_from_elements(page.descendent_element_definitions)
-      end
-
-      private
-
-      def ingredient_definitions_from_elements(definitions)
-        definitions.collect do |el|
-          next if el["ingredients"].blank?
-
-          ingredients = el["ingredients"].select do |c|
-            c["settings"] && c["settings"]["tinymce"].is_a?(Hash)
-          end
-          next if ingredients.blank?
-
-          ingredients.map { |c| c.merge("element" => el["name"]) }
-        end.flatten.compact
-      end
     end
   end
 end

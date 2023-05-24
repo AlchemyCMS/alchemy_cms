@@ -16,9 +16,9 @@ function getDefaultConfig(editorId) {
 // Returns configuration for given custom tinymce editor selector.
 //
 // It uses the +.getDefaultConfig+ and merges the custom parts.
-function getConfig(id, selector) {
-  const editorConfig = tinymceCustomConfigs[selector] || {}
-  return { ...getDefaultConfig(id), ...editorConfig }
+function getConfig(editorId) {
+  const editorConfig = tinymceCustomConfigs[editorId] || {}
+  return { ...getDefaultConfig(editorId), ...editorConfig }
 }
 
 // create intersection observer and register textareas to be initialized when
@@ -67,7 +67,7 @@ function initializeIntersectionObserver() {
 // Initializes one specific TinyMCE editor
 function initTinymceEditor(textarea) {
   const editorId = textarea.id
-  const config = getConfig(editorId, textarea.classList[1])
+  const config = getConfig(editorId)
 
   // remove editor instance, if already initialized
   removeEditor(editorId)
