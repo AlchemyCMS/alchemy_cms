@@ -1,1 +1,2 @@
-<%= render node_view.node if node_view.node %>
+<%- ingredient_view_deprecation_notice(node_view, __FILE__) -%>
+<%= render node_view.as_view_component -%>

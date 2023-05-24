@@ -35,5 +35,14 @@ RSpec.describe "alchemy/ingredients/_richtext_view" do
       is_expected.to have_content("Lorem ipsum dolor sit amet consectetur adipiscing elit.")
       is_expected.to_not have_selector("h1")
     end
+
+    context "but options[:plain_text] false" do
+      let(:options) { {plain_text: false} }
+
+      it "renders the plain text body" do
+        is_expected.to have_content("Lorem ipsum dolor sit amet consectetur adipiscing elit.")
+        is_expected.to have_selector("h1")
+      end
+    end
   end
 end

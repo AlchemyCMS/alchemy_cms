@@ -15,6 +15,7 @@ require "rspec/rails"
 require "webdrivers/chromedriver"
 require "shoulda-matchers"
 require "factory_bot"
+require "view_component/test_helpers"
 
 require "alchemy/seeder"
 require "alchemy/test_support"
@@ -79,6 +80,7 @@ RSpec.configure do |config|
   end
   config.include FactoryBot::Syntax::Methods
   config.include Alchemy::TestSupport::CapybaraHelpers, type: :system
+  config.include ViewComponent::TestHelpers, type: :component
 
   config.use_transactional_fixtures = true
 

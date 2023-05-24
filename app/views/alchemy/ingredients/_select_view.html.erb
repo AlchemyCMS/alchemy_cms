@@ -1,1 +1,2 @@
-<%= select_view.value %>
+<%- ingredient_view_deprecation_notice(select_view, __FILE__) -%>
+<%= render select_view.as_view_component -%>

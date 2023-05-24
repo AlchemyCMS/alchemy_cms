@@ -259,4 +259,16 @@ RSpec.describe Alchemy::Ingredient do
 
     it { is_expected.to be(false) }
   end
+
+  describe "#as_view_component" do
+    let(:ingredient) { Alchemy::Ingredients::Text.new(role: "intro", element: element) }
+
+    it "passes options as keyword arguments to view component class" do
+      expect(Alchemy::Ingredients::TextView).to receive(:new).with(ingredient, disable_link: true, html_options: {class: "foo"})
+      ingredient.as_view_component(
+        options: {disable_link: true},
+        html_options: {class: "foo"}
+      )
+    end
+  end
 end

@@ -178,7 +178,7 @@ module Alchemy
 
         before do
           allow(Alchemy.user_class).to receive(:admins).and_return(OpenStruct.new(count: 1))
-          product.elements.find_by_name("article").ingredients.texts.first.update_column(:value, "screwdriver")
+          product.elements.find_by(name: "article").ingredients.texts.first.update_column(:value, "screwdriver")
         end
 
         context "with correct levelnames in params" do

@@ -1,4 +1,2 @@
-<% page = page_view.page %>
-<% if page %>
-<%= link_to page.name, alchemy.show_page_path(urlname: page.urlname) %>
-<% end %>
+<%- ingredient_view_deprecation_notice(page_view, __FILE__) -%>
+<%= render page_view.as_view_component -%>

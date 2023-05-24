@@ -16,12 +16,28 @@ RSpec.describe "alchemy/ingredients/_picture_view" do
     )
   end
 
-  before do
-    expect_any_instance_of(Alchemy::PictureView).to receive(:render).and_call_original
+  let(:options) do
+    {
+      disable_link: true,
+      show_caption: false,
+      size: "100x100"
+    }
   end
 
-  it "renders an image tag" do
-    render ingredient
-    expect(rendered).to have_css("img")
+  it "renders Alchemy::PictureView" do
+    expect(Alchemy::Ingredients::PictureView).to receive(:new).with(
+      ingredient,
+      disable_link: true,
+      html_options: {
+        class: "my-picture"
+      },
+      picture_options: {
+        size: "100x100"
+      },
+      show_caption: false,
+      sizes: nil,
+      srcset: nil
+    ).and_call_original
+    render ingredient, options: options, html_options: {class: "my-picture"}
   end
 end

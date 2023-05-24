@@ -1,10 +1,5 @@
-<%- html_options = local_assigns.fetch(:html_options, {}) -%>
-
-<%= content_tag "h#{headline_view.level}",
-    headline_view.value,
-    id: headline_view.dom_id.presence,
-    class: [
-      headline_view.size ? "h#{headline_view.size}" : nil,
-      html_options[:class]
-    ]
-%>
+<%- ingredient_view_deprecation_notice(headline_view, __FILE__) -%>
+<%= render headline_view.as_view_component(
+  **local_assigns.slice(:options),
+  **local_assigns.slice(:html_options)
+) -%>

@@ -1,1 +1,2 @@
-<%= Alchemy.t(boolean_view.value, scope: "ingredient_values.boolean") unless boolean_view.value.nil? -%>
+<%- ingredient_view_deprecation_notice(boolean_view, __FILE__) -%>
+<%= render boolean_view.as_view_component -%>

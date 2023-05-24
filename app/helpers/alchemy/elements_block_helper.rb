@@ -32,10 +32,12 @@ module Alchemy
         renderable = element.ingredient_by_role(name)
         return if renderable.nil?
 
-        helpers.render(renderable, {
-          options: options,
-          html_options: html_options
-        })
+        helpers.render(
+          renderable.as_view_component(
+            options: options,
+            html_options: html_options
+          )
+        )
       end
 
       # Returns the value of one of the element's ingredients.

@@ -1,17 +1,5 @@
-<%- if attachment = file_view.attachment -%>
-<%- html_options = local_assigns.fetch(:html_options, {}) -%>
-<%= link_to(
-  file_view.link_text.presence ||
-    file_view.settings_value(:link_text, local_assigns.fetch(:options, {})) ||
-    attachment.name,
-  attachment.url(
-    download: true,
-    name: attachment.slug,
-    format: attachment.suffix
-  ),
-  {
-    class: file_view.css_class.presence,
-    title: file_view.title.presence
-  }.merge(html_options)
+<%- ingredient_view_deprecation_notice(file_view, __FILE__) -%>
+<%= render file_view.as_view_component(
+  **local_assigns.slice(:options),
+  **local_assigns.slice(:html_options)
 ) -%>
-<%- end -%>

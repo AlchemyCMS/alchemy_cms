@@ -73,4 +73,10 @@ RSpec.shared_examples_for "an alchemy ingredient" do
       end
     end
   end
+
+  describe "#as_view_component" do
+    subject { ingredient.as_view_component }
+
+    it { is_expected.to be_a("#{described_class}View".constantize) }
+  end
 end

@@ -1,9 +1,5 @@
-<%- if link_view.value.present? -%>
-<%- html_options = {
-  target: link_view.link_target == "blank" ? "_blank" : nil
-}.merge(local_assigns.fetch(:html_options, {})) -%>
-<%= link_to(link_view.value, html_options) do -%>
-<%= link_view.settings_value(:text, local_assigns.fetch(:options, {})) ||
-  link_view.value -%>
-<%- end -%>
-<%- end -%>
+<%- ingredient_view_deprecation_notice(link_view, __FILE__) -%>
+<%= render link_view.as_view_component(
+  **local_assigns.slice(:options),
+  **local_assigns.slice(:html_options)
+) -%>

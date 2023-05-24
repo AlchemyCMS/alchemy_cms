@@ -21,6 +21,7 @@ group :development, :test do
   # minimal, but breaking.
   gem "execjs", "= 2.8.1"
   gem "jsbundling-rails", "~> 1.1"
+  gem "rubocop", require: false
   gem "standard", "~> 1.25", require: false
   gem "selenium-webdriver", "< 4.9.1" # until https://github.com/teamcapybara/capybara/pull/2665 got merged
 

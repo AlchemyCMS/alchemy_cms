@@ -38,4 +38,11 @@ RSpec.describe "alchemy/ingredients/_link_view" do
       expect(rendered).to eq('<a href="http://google.com">Yahoo</a>')
     end
   end
+
+  context "with html options" do
+    it "renders them" do
+      render ingredient, html_options: {class: "foo"}
+      expect(rendered).to eq('<a class="foo" href="http://google.com">http://google.com</a>')
+    end
+  end
 end

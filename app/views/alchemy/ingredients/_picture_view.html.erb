@@ -1,5 +1,5 @@
-<%= Alchemy::PictureView.new(
-  picture_view,
-  local_assigns[:options],
-  local_assigns[:html_options]
-).render %>
+<%- ingredient_view_deprecation_notice(picture_view, __FILE__) -%>
+<%= render picture_view.as_view_component(
+  **local_assigns.slice(:options),
+  **local_assigns.slice(:html_options)
+) -%>

@@ -33,4 +33,11 @@ RSpec.describe "alchemy/ingredients/_headline_view" do
       expect(rendered).to have_selector("h2.h1")
     end
   end
+
+  context "with html_options[:class]" do
+    it "adds class" do
+      render ingredient, html_options: {class: "bold"}
+      expect(rendered).to have_selector("h2.bold")
+    end
+  end
 end

@@ -68,18 +68,25 @@ module Alchemy
       end
 
       describe "#render" do
+        let(:scope) { double(render: "<alchemy-ingredient>") }
+
         context "with element having ingredients" do
-          let(:element) { create(:alchemy_element, :with_ingredients) }
-          let(:ingredient) { element.ingredient_by_role(:headline) }
+          let(:element) { create(:alchemy_element, name: :header, autogenerate_ingredients: true) }
+          let(:ingredient) { element.ingredient_by_role(:image) }
+
+          it "passes options and html_options to view component class" do
+            expect(ingredient).to receive(:as_view_component).with(
+              options: {disable_link: true},
+              html_options: {class: "foo"}
+            )
+            subject.render(:image, {disable_link: true}, {class: "foo"})
+          end
 
           it "delegates to Rails' render helper" do
-            expect(scope).to receive(:render).with(ingredient, {
-              options: {
-                foo: "bar"
-              },
-              html_options: {}
-            })
-            subject.render(:headline, foo: "bar")
+            expect(scope).to receive(:render).with(
+              an_instance_of(Alchemy::Ingredients::PictureView)
+            )
+            subject.render(:image)
           end
         end
       end

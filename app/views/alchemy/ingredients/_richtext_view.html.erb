@@ -1,3 +1,4 @@
-<%- options = local_assigns.fetch(:options, {}) -%>
-<%- plain_text = !!richtext_view.settings_value(:plain_text, options) -%>
-<%= raw richtext_view.public_send(plain_text ? :stripped_body : :value) -%>
+<%- ingredient_view_deprecation_notice(richtext_view, __FILE__) -%>
+<%= render richtext_view.as_view_component(
+  **local_assigns.slice(:options)
+) -%>
