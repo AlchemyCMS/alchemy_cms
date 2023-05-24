@@ -28,13 +28,21 @@ module Alchemy
         stripped_body.to_s[0..max_length - 1]
       end
 
-      # Returns css class names for the editor textarea.
-      def tinymce_class_name
-        "has_tinymce#{has_custom_tinymce_config? ? " #{element.name}_#{role}" : ""}"
+      def element_id
+        "tinymce_#{id}"
       end
 
       def has_tinymce?
         true
+      end
+
+      # Returns true if there is a tinymce setting defined that contains settings.
+      def has_custom_tinymce_config?
+        custom_tinymce_config.is_a?(Hash)
+      end
+
+      def custom_tinymce_config
+        settings[:tinymce]
       end
 
       private
@@ -52,11 +60,6 @@ module Alchemy
 
       def sanitizer_settings
         settings[:sanitizer] || {}
-      end
-
-      # Returns true if there is a tinymce setting defined that contains settings.
-      def has_custom_tinymce_config?
-        settings[:tinymce].is_a?(Hash)
       end
     end
   end

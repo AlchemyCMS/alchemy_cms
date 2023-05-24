@@ -8,6 +8,7 @@ RSpec.describe Alchemy::Ingredients::Richtext do
   let(:element) do
     build(:alchemy_element, name: "article", autogenerate_ingredients: false)
   end
+  let(:richtext_settings) { {} }
 
   let(:richtext_ingredient) do
     described_class.new(
@@ -16,6 +17,10 @@ RSpec.describe Alchemy::Ingredients::Richtext do
       role: "text",
       value: "<h1 style=\"color: red;\">Hello!</h1><p class=\"green\">Welcome to Peters Petshop.</p>"
     )
+  end
+
+  before do
+    allow(richtext_ingredient).to receive(:settings) { richtext_settings }
   end
 
   it "has a HTML tag free version of body column" do
@@ -28,21 +33,31 @@ RSpec.describe Alchemy::Ingredients::Richtext do
     expect(richtext_ingredient.sanitized_body).to eq("<h1>Hello!</h1><p class=\"green\">Welcome to Peters Petshop.</p>")
   end
 
-  describe "#tinymce_class_name" do
-    subject { richtext_ingredient.tinymce_class_name }
+  describe "#element_id" do
+    subject { richtext_ingredient.element_id }
 
-    it { is_expected.to eq("has_tinymce") }
+    it { is_expected.to eq("tinymce_#{richtext_ingredient.id}") }
+  end
 
-    context "having custom tinymce config" do
-      before do
-        expect(richtext_ingredient).to receive(:settings) do
-          {tinymce: {toolbar: []}}
-        end
-      end
+  describe "#has_custom_tinymce_config?" do
+    subject { richtext_ingredient.has_custom_tinymce_config? }
 
-      it "returns role including element name" do
-        is_expected.to eq("has_tinymce article_text")
-      end
+    it { is_expected.to be_falsy }
+
+    context "with custom configuration" do
+      let(:richtext_settings) { {tinymce: {plugin: "link"}} }
+      it { is_expected.to be_truthy }
+    end
+  end
+
+  describe "#custom_tinymce_config" do
+    subject { richtext_ingredient.custom_tinymce_config }
+
+    it { is_expected.to be_nil }
+
+    context "with custom configuration" do
+      let(:richtext_settings) { {tinymce: {plugin: "link"}} }
+      it { is_expected.to eq({plugin: "link"}) }
     end
   end
 

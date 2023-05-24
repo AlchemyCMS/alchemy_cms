@@ -25,13 +25,11 @@
       // Store regular expression for external link url matching.
       Alchemy.link_url_regexp = <%= link_url_regexp.inspect %>;
       // Holds the default Alchemy TinyMCE configuration
-      Alchemy.Tinymce = {
-        defaults: {
-          plugins: '<%= Alchemy::Tinymce.plugins.join(',') %>',
-          <% Alchemy::Tinymce.init.each do |k, v| %>
-          <%= k %>: <%== v.to_json %>,
-          <% end %>
-        }
+      Alchemy.TinymceDefaults = {
+        plugins: '<%= Alchemy::Tinymce.plugins.join(',') %>',
+        <% Alchemy::Tinymce.init.each do |k, v| %>
+        <%= k %>: <%== v.to_json %>,
+        <% end %>
       };
     </script>
     <%= render 'alchemy/admin/partials/routes' %>

@@ -5,8 +5,17 @@
     <%= ingredient_label(richtext_editor) %>
     <div class="tinymce_container">
       <%= f.text_area :value,
-        class: richtext_editor.tinymce_class_name,
-        id: "tinymce_#{richtext_editor.id}" %>
+        class: "has_tinymce",
+        id: richtext_editor.element_id %>
     </div>
+  <% end %>
+  <% if richtext_editor.has_custom_tinymce_config? %>
+    <script type="text/javascript" charset="utf-8">
+      Alchemy.Tinymce.setCustomConfig("<%= richtext_editor.element_id %>", {
+        <% richtext_editor.custom_tinymce_config.each do |k, v| %>
+        <%= k %>: <%== v.to_json %>,
+        <% end %>
+      });
+    </script>
   <% end %>
 <% end %>

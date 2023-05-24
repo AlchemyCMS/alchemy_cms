@@ -578,14 +578,6 @@ module Alchemy
             expect_any_instance_of(Page).to receive(:lock_to!)
             get edit_admin_page_path(page)
           end
-
-          context "if custom tinymce configs are present" do
-            it "adds the custom config to the head" do
-              expect(Alchemy::Tinymce).to receive(:custom_configs_present?).with(page) { true }
-              get edit_admin_page_path(page)
-              expect(response.body).to match(/Populate custom tinymce configurations/)
-            end
-          end
         end
 
         context "if page is scoped" do

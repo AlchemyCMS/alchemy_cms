@@ -8,6 +8,7 @@ import ImageLoader from "./src/image_loader"
 import ImageCropper from "./src/image_cropper"
 import Datepicker from "./src/datepicker"
 import Sitemap from "./src/sitemap"
+import Tinymce from "./src/tinymce"
 import PagePublicationFields from "./src/page_publication_fields.js"
 
 // Global Alchemy object
@@ -28,5 +29,6 @@ Object.assign(Alchemy, {
   IngredientAnchorLink,
   Datepicker,
   Sitemap,
+  Tinymce,
   PagePublicationFields
 })
