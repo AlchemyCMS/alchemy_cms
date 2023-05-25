@@ -44,4 +44,13 @@ RSpec.describe "alchemy/ingredients/_video_view" do
       )
     end
   end
+
+  context "with html_options" do
+    it "adds them to the video tag" do
+      render ingredient, html_options: {preload: "metadata"}
+      expect(rendered).to have_selector(
+        "video[preload='metadata']"
+      )
+    end
+  end
 end
