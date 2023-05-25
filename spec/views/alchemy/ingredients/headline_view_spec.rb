@@ -11,6 +11,14 @@ RSpec.describe "alchemy/ingredients/_headline_view" do
     expect(rendered).to have_content("Hello")
   end
 
+  context "with level option passed" do
+    it "renders headline for given level" do
+      render(ingredient, options: {level: 1})
+      expect(rendered).to have_selector("h1")
+      expect(rendered).to have_content("Hello")
+    end
+  end
+
   context "with dom_id" do
     it "adds id" do
       render ingredient

@@ -1,8 +1,13 @@
 module Alchemy
   module Ingredients
     class HeadlineView < BaseView
+      def initialize(ingredient, level: nil, html_options: {})
+        super(ingredient, html_options: html_options)
+        @level = level
+      end
+
       def call
-        content_tag "h#{ingredient.level}",
+        content_tag "h#{@level || ingredient.level}",
           ingredient.value,
           id: ingredient.dom_id.presence,
           class: [
