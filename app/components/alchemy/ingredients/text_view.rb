@@ -11,7 +11,7 @@ module Alchemy
       # @param html_options [Hash] Options that will be passed to the a tag.
       def initialize(ingredient, disable_link: nil, html_options: {})
         super(ingredient, html_options: html_options)
-        @disable_link = disable_link.nil? ? ingredient.settings.fetch(:disable_link, false) : disable_link
+        @disable_link = settings_value(:disable_link, value: disable_link, default: false)
       end
 
       def call

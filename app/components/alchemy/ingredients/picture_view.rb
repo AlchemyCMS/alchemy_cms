@@ -31,10 +31,10 @@ module Alchemy
         html_options: {}
       )
         super(ingredient)
-        @show_caption = show_caption.nil? ? ingredient.settings.fetch(:show_caption, true) : show_caption
-        @disable_link = disable_link.nil? ? ingredient.settings.fetch(:disable_link, false) : disable_link
-        @srcset = srcset.nil? ? ingredient.settings.fetch(:srcset, []) : srcset
-        @sizes = sizes.nil? ? ingredient.settings.fetch(:sizes, []) : sizes
+        @show_caption = settings_value(:show_caption, value: show_caption, default: true)
+        @disable_link = settings_value(:disable_link, value: disable_link, default: false)
+        @srcset = settings_value(:srcset, value: srcset, default: [])
+        @sizes = settings_value(:sizes, value: sizes, default: [])
         @picture_options = picture_options || {}
         @html_options = html_options || {}
         @picture = ingredient.picture
