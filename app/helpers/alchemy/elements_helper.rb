@@ -210,20 +210,5 @@ module Alchemy
 
       {"data-element-tags" => options[:formatter].call(element.tag_list)}
     end
-
-    def ingredient_view_deprecation_notice(ingredient, file)
-      Alchemy::Deprecation.warn(<<~WARN)
-        rendering `alchemy/ingredients/#{file.split("/").last.sub(/^_/, "")}` partial is deprecated.
-
-        Please render the view component directly instead:
-
-          <%= render ingredient.as_view_component %>
-
-        or use the `el.render` helper inside a `element_view_for` helper:
-
-          <%= el.render(:#{ingredient.role}) %>
-
-      WARN
-    end
   end
 end
