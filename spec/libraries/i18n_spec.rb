@@ -16,6 +16,13 @@ module Alchemy
       it { is_expected.to be_a Array }
       it { is_expected.to include(:en) }
 
+      context "when locales are already set in application available_locales" do
+        it "returns them" do
+          expect(Rails.application.config.i18n).to receive(:available_locales) { [:de, :it] }
+          is_expected.to match_array([:de, :it])
+        end
+      end
+
       context "when locales are already set in @@available_locales" do
         before { I18n.class_variable_set(:@@available_locales, [:kl, :jp]) }
         it { is_expected.to match_array([:kl, :jp]) }

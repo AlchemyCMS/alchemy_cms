@@ -54,10 +54,12 @@ module Alchemy
       end
 
       def available_locales
-        @@available_locales ||= nil
-        @@available_locales || translation_files.collect { |f|
-          f.match(LOCALE_FILE_PATTERN)[1].to_sym
-        }.uniq.sort
+        Rails.application.config.i18n.available_locales || begin
+          @@available_locales ||= nil
+          @@available_locales || translation_files.collect { |f|
+            f.match(LOCALE_FILE_PATTERN)[1].to_sym
+          }.uniq.sort
+        end
       end
 
       def available_locales=(locales)
