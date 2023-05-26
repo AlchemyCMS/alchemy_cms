@@ -7,7 +7,7 @@ module Alchemy
       # @param plain_text [Boolean] (false) Whether to show as plain text or with markup
       def initialize(ingredient, plain_text: nil, html_options: {})
         super(ingredient)
-        @plain_text = plain_text.nil? ? ingredient.settings.fetch(:plain_text, false) : plain_text
+        @plain_text = settings_value(:plain_text, value: plain_text, default: false)
       end
 
       def call

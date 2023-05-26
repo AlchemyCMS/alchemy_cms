@@ -84,64 +84,6 @@ RSpec.describe Alchemy::Ingredient do
     end
   end
 
-  describe "#settings_value" do
-    let(:ingredient) { Alchemy::Ingredients::Text.new(role: "headline", element: element) }
-    let(:key) { :anchor }
-    let(:options) { {} }
-
-    subject { ingredient.settings_value(key, options) }
-
-    context "with ingredient having settings" do
-      context "and empty options" do
-        it "returns the value for key from ingredient settings" do
-          expect(subject).to eq("from_value")
-        end
-      end
-
-      context "and nil options" do
-        let(:options) { nil }
-
-        it "returns the value for key from ingredient settings" do
-          expect(subject).to eq("from_value")
-        end
-      end
-
-      context "but same key present in options" do
-        let(:options) { {anchor: "from_value"} }
-
-        it "returns the value for key from options" do
-          expect(subject).to eq("from_value")
-        end
-      end
-
-      context "and key passed as string" do
-        let(:key) { "anchor" }
-
-        it "returns the value" do
-          expect(subject).to eq("from_value")
-        end
-      end
-    end
-
-    context "with ingredient having no settings" do
-      let(:ingredient) { Alchemy::Ingredients::Richtext.new(role: "text", element: element) }
-
-      context "and empty options" do
-        let(:options) { {} }
-
-        it { expect(subject).to eq(nil) }
-      end
-
-      context "but key present in options" do
-        let(:options) { {anchor: "from_value"} }
-
-        it "returns the value for key from options" do
-          expect(subject).to eq("from_value")
-        end
-      end
-    end
-  end
-
   describe "#partial_name" do
     let(:ingredient) { Alchemy::Ingredients::Richtext.new(role: "text", element: element) }
 

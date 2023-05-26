@@ -8,7 +8,7 @@ module Alchemy
       # @param html_options [Hash] Options that will be passed to the a tag.
       def initialize(ingredient, link_text: nil, html_options: {})
         super(ingredient, html_options: html_options)
-        @link_text = link_text
+        @link_text = settings_value(:link_text, value: link_text, default: attachment&.name)
       end
 
       def call
@@ -33,10 +33,7 @@ module Alchemy
       private
 
       def link_text
-        ingredient.link_text.presence ||
-          ingredient.settings[:link_text].presence ||
-          @link_text.presence ||
-          attachment&.name
+        ingredient.link_text.presence || @link_text
       end
     end
   end

@@ -32,7 +32,7 @@ module Alchemy
           preload: ingredient.preload.presence,
           width: ingredient.width.presence,
           height: ingredient.height.presence
-        }
+        }.merge(@html_options)
       end
     end
   end
