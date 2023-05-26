@@ -1,9 +1,9 @@
 ---
-
 - name: Index
   page_layout: index
   children:
     - name: Home
+      public_on: 2015-01-01
       page_layout: standard
     - name: About
       page_layout: about
