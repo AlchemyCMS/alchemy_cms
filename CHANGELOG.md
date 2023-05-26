@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.1.5 (2023-05-26)
+
+- [6.1] Fix page seeder [#2482](https://github.com/AlchemyCMS/alchemy_cms/pull/2482) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 6.1.4 (2023-05-18)
 
 - [6.1] Revert "Preload related objects in Alchemy::PagesController" [#2473](https://github.com/AlchemyCMS/alchemy_cms/pull/2473) ([tvdeyen](https://github.com/tvdeyen))
