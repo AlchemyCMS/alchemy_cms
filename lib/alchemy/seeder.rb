@@ -83,7 +83,11 @@ module Alchemy
       end
 
       def page_yml
-        @_page_yml ||= YAML.load_file(page_seeds_file)
+        @_page_yml ||= YAML.safe_load(
+          page_seeds_file.read,
+          permitted_classes: [Date],
+          aliases: true
+        )
       end
 
       def contentpages
@@ -100,7 +104,9 @@ module Alchemy
 
       def create_page(draft, attributes = {})
         children = draft.delete("children") || []
-        page = Alchemy::Page.create!(draft.merge(attributes))
+        page = Alchemy::Page.new(draft.merge(attributes))
+        page.versions.build
+        page.save!
         log "Created page: #{page.name}"
         children.each do |child|
           create_page(child, parent: page, language: page.language)
