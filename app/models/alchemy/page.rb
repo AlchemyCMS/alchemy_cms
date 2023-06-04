@@ -198,17 +198,19 @@ module Alchemy
         %w[name urlname title]
       end
 
-      # Used to store the current page id previewed in the edit page template.
-      #
+      # Used to store the current page previewed in the edit page template.
+      # @deprecated Use {Alchemy::Current#preview_page=} instead.
       def current_preview=(page)
-        RequestStore.store[:alchemy_current_preview] = page&.id
+        Current.preview_page = page
       end
+      deprecate "current_preview=": :"Alchemy::Current.preview_page=", deprecator: Alchemy::Deprecation
 
-      # Returns the current page id previewed in the edit page template.
-      #
+      # Returns the current page previewed in the edit page template.
+      # @deprecated Use {Alchemy::Current#preview_page} instead.
       def current_preview
-        RequestStore.store[:alchemy_current_preview]
+        Current.preview_page
       end
+      deprecate current_preview: :"Alchemy::Current.preview_page", deprecator: Alchemy::Deprecation
 
       # @return the language root page for given language id.
       # @param language_id [Fixnum]
@@ -373,7 +375,7 @@ module Alchemy
     #
     def unlock!
       if update_columns(locked_at: nil, locked_by: nil)
-        Page.current_preview = nil
+        Current.preview_page = nil
       end
     end
 
@@ -553,7 +555,7 @@ module Alchemy
     end
 
     def set_language
-      self.language = parent&.language || Language.current
+      self.language = parent&.language || Current.language
       set_language_code
     end
 

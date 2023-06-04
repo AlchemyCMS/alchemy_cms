@@ -105,6 +105,7 @@ module Alchemy
     #
     def load_index_page
       @page ||= Language.current_root_page
+      Current.page = @page
       render template: "alchemy/welcome", layout: false if signup_required?
     end
 
@@ -118,16 +119,17 @@ module Alchemy
     # @return NilClass
     #
     def load_page
-      page_not_found! unless Language.current
+      page_not_found! unless Current.language
 
-      @page ||= Language.current.pages.contentpages.find_by(
+      @page ||= Current.language.pages.contentpages.find_by(
         urlname: params[:urlname],
-        language_code: params[:locale] || Language.current.code
+        language_code: params[:locale] || Current.language.code
       )
+      Current.page = @page
     end
 
     def enforce_locale
-      redirect_permanently_to page_locale_redirect_url(locale: Language.current.code)
+      redirect_permanently_to page_locale_redirect_url(locale: Current.language.code)
     end
 
     def locale_prefix_missing?
@@ -135,7 +137,7 @@ module Alchemy
     end
 
     def default_locale?
-      Language.current.code.to_sym == ::I18n.default_locale.to_sym
+      Current.language.code.to_sym == ::I18n.default_locale.to_sym
     end
 
     # Page url with or without locale while keeping all additional params

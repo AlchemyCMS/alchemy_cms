@@ -215,7 +215,7 @@ module Alchemy
           context "with no lang parameter present" do
             it "should store default language as class var." do
               get :show, params: {urlname: page.urlname}
-              expect(Language.current).to eq(Language.default)
+              expect(Current.language).to eq(Language.default)
             end
           end
         end

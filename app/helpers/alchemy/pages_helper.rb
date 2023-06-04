@@ -79,7 +79,7 @@ module Alchemy
     def render_menu(menu_type, options = {})
       root_node = Alchemy::Node.roots.find_by(
         menu_type: menu_type,
-        language: Alchemy::Language.current
+        language: Alchemy::Current.language
       )
       if root_node.nil?
         warning("Menu with type #{menu_type} not found!")

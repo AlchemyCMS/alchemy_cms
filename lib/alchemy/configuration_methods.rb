@@ -28,7 +28,7 @@ module Alchemy
     # matches the current I18n.locale then the prefix os omitted.
     # Also, if only one published language exists.
     #
-    def prefix_locale?(locale = Language.current&.code)
+    def prefix_locale?(locale = Current.language&.code)
       return false unless locale
 
       multi_language? && locale != ::I18n.default_locale.to_s

@@ -66,7 +66,7 @@ module Alchemy
       # Used by page preview iframe in Page#edit view.
       #
       def show
-        Page.current_preview = @page
+        Current.preview_page = @page
         # Setting the locale to pages language, so the page content has it's correct translations.
         ::I18n.locale = @page.language.locale
         render(layout: Alchemy::Config.get(:admin_page_preview_layout) || "application")

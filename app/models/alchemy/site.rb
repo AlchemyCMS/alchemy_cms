@@ -35,7 +35,7 @@ module Alchemy
 
     # Returns true if this site is the current site
     def current?
-      self.class.current == self
+      Current.site == self
     end
 
     # Returns the path to site's view partial.
@@ -57,13 +57,17 @@ module Alchemy
     end
 
     class << self
+      # @deprecated Use {Alchemy::Current#site=} instead.
       def current=(site)
-        RequestStore.store[:alchemy_current_site] = site
+        Current.site = site
       end
+      deprecate "current=": :"Alchemy::Current.site=", deprecator: Alchemy::Deprecation
 
+      # @deprecated Use {Alchemy::Current#site} instead.
       def current
-        RequestStore.store[:alchemy_current_site] || default
+        Current.site
       end
+      deprecate current: :"Alchemy::Current.site", deprecator: Alchemy::Deprecation
 
       def default
         Site.first

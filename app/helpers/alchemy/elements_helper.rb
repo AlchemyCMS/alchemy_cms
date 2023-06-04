@@ -72,7 +72,7 @@ module Alchemy
     #
     def render_elements(options = {}, &blk)
       options = {
-        from_page: @page,
+        from_page: Current.page,
         render_format: "html"
       }.update(options)
 

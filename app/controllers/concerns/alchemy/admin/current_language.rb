@@ -15,7 +15,7 @@ module Alchemy
         @current_language = if session[:alchemy_language_id].present?
           set_alchemy_language(session[:alchemy_language_id])
         else
-          Alchemy::Language.current
+          Current.language
         end
         if @current_language.nil?
           flash[:warning] = Alchemy.t("Please create a language first.")

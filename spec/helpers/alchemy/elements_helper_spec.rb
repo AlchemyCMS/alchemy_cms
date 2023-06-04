@@ -9,7 +9,7 @@ module Alchemy
     let(:element) { create(:alchemy_element, name: "headline") }
 
     before do
-      assign(:page, element&.page)
+      Current.page = element&.page
       allow_any_instance_of(Element).to receive(:store_page).and_return(true)
     end
 

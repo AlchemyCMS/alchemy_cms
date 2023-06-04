@@ -94,11 +94,11 @@ module Alchemy
         #
         scope :searchables, -> { not_restricted.published.contentpages }
 
-        # All pages from +Alchemy::Site.current+
+        # All pages from +Alchemy::Current.site+
         #
         scope :from_current_site,
           -> {
-            where(Language.table_name => {site_id: Site.current || Site.default}).joins(:language)
+            where(Language.table_name => {site_id: Current.site || Site.default}).joins(:language)
           }
 
         # All pages for xml sitemap

@@ -107,7 +107,7 @@ module Alchemy
       end
 
       it "returns the default language of current site" do
-        expect(Site).to receive(:current) { site_2 }
+        expect(Current).to receive(:site) { site_2 }
         is_expected.to eq(default_language)
       end
     end
@@ -147,7 +147,7 @@ module Alchemy
         end
 
         before do
-          expect(Site).to receive(:current) { current_site }
+          expect(Current).to receive(:site) { current_site }
         end
 
         it "loads the language from current site" do

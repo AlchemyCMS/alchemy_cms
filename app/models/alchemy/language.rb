@@ -68,24 +68,26 @@ module Alchemy
       end
 
       def on_current_site
-        on_site(Site.current)
+        on_site(Current.site)
       end
 
       # Store the current language in the current thread.
+      # @deprecated Use {Alchemy::Current#language=} instead.
       def current=(language)
-        RequestStore.store[:alchemy_current_language] = language
+        Current.language = language
       end
+      deprecate "current=": :"Alchemy::Current.language=", deprecator: Alchemy::Deprecation
 
       # Current language from current thread or default.
+      # @deprecated Use {Alchemy::Current#language} instead.
       def current
-        RequestStore.store[:alchemy_current_language] || default
+        Current.language
       end
+      deprecate current: :"Alchemy::Current.language", deprecator: Alchemy::Deprecation
 
       # The root page of the current language.
       def current_root_page
-        return unless current
-
-        current.pages.language_roots.first
+        Current.language&.pages&.language_roots&.first
       end
 
       # Default language for current site

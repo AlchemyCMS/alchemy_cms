@@ -76,7 +76,7 @@ module Alchemy
 
       context "with multiple sites" do
         let!(:site_2) { create(:alchemy_site, host: "another-site.com") }
-        let!(:menu) { create(:alchemy_node, menu_type: menu_type, language: Alchemy::Language.current) }
+        let!(:menu) { create(:alchemy_node, menu_type: menu_type, language: Alchemy::Current.language) }
         let!(:node) { create(:alchemy_node, parent: menu, url: "/default-site") }
         let!(:menu_2) { create(:alchemy_node, menu_type: menu_type, language: klingon) }
         let!(:node_2) { create(:alchemy_node, parent: menu_2, language: klingon, url: "/site-2") }

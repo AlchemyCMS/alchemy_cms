@@ -280,7 +280,7 @@ module Alchemy
         end
 
         it "should store page as current preview" do
-          expect(Page).to receive(:current_preview=).with(page)
+          expect(Current).to receive(:preview_page=).with(page)
           get admin_page_path(page)
         end
 
@@ -492,7 +492,7 @@ module Alchemy
           allow(Page).to receive(:language_root_for).and_return(language_root_to_copy_from)
           allow_any_instance_of(Page).to receive(:move_to_child_of)
           allow_any_instance_of(Page).to receive(:copy_children_to)
-          allow(Language).to receive(:current).and_return(mock_model("Language", locale: "de", code: "de"))
+          allow(Current).to receive(:language).and_return(mock_model("Language", locale: "de", code: "de"))
         end
 
         it "should copy the language root page over to the other language" do

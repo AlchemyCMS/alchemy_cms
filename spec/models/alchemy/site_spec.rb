@@ -86,21 +86,6 @@ module Alchemy
       end
     end
 
-    describe ".current" do
-      context "when set to nil" do
-        let!(:site) { create(:alchemy_site, host: "example.com") }
-
-        before do
-          Site.current = nil
-        end
-
-        it "should return default site" do
-          expect(Site.current).not_to be_nil
-          expect(Site.current).to eq(Site.default)
-        end
-      end
-    end
-
     describe ".definitions" do
       # To prevent memoization across specs
       before { Site.instance_variable_set(:@definitions, nil) }
@@ -132,18 +117,18 @@ module Alchemy
 
       subject { default_site.current? }
 
-      context "when Site.current is set to the same site" do
-        before { Site.current = default_site }
+      context "when Current.site is set to the same site" do
+        before { Current.site = default_site }
         it { is_expected.to be(true) }
       end
 
-      context "when Site.current is set to nil" do
-        before { Site.current = nil }
+      context "when Current.site is set to nil" do
+        before { Current.site = nil }
         it { is_expected.to be(true) }
       end
 
-      context "when Site.current is set to a different site" do
-        before { Site.current = another_site }
+      context "when Current.site is set to a different site" do
+        before { Current.site = another_site }
         it { is_expected.to be(false) }
       end
     end

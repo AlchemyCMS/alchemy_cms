@@ -99,7 +99,7 @@ module Alchemy
       end
       redirect_to show_page_path(
         urlname: urlname,
-        locale: prefix_locale? ? Language.current.code : nil
+        locale: prefix_locale? ? Current.language.code : nil
       )
     end
 
@@ -117,7 +117,7 @@ module Alchemy
     end
 
     def get_page
-      @page = Language.current.pages.find_by(page_layout: mailer_config["page_layout_name"])
+      @page = Current.language.pages.find_by(page_layout: mailer_config["page_layout_name"])
       if @page.blank?
         raise "Page for page_layout #{mailer_config["page_layout_name"]} not found"
       end

@@ -6,7 +6,7 @@
   ),
   class: [
     language.code,
-    Alchemy::Language.current.id == language.id ? 'active' : nil,
+    Alchemy::Current.language.id == language.id ? 'active' : nil,
     languages.first == language ? 'first' : nil,
     languages.last == language ? 'last' : nil
   ].compact,

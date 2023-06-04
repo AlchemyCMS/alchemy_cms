@@ -46,7 +46,7 @@ module Alchemy
       LegacyPageUrl.joins(:page).where(
         :urlname => urlname,
         Page.table_name => {
-          language_id: Language.current.id
+          language_id: Current.language.id
         }
       )
     end
