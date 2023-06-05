@@ -316,7 +316,7 @@ to set up the database for testing.
 ### Run your tests with:
 
 ```bash
-$ bundle exec rspec
+$ bin/rspec
 ```
 
 **Alternatively** you can just run*:
@@ -334,7 +334,7 @@ You can even start the dummy app and use it to manually test your changes with:
 ```bash
 $ cd spec/dummy
 $ bin/setup
-$ bin/rails s
+$ bin/dev
 ```
 
 
