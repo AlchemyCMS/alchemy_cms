@@ -34,6 +34,7 @@
   class: picture_editor.linked? ? "linked" : nil,
   title: Alchemy.t(:link_image),
   "data-parent-selector": "[data-ingredient-id='#{picture_editor.id}']",
+  "data-language-id": picture_editor.page&.language_id,
   id: "edit_link_#{picture_editor.id}"
 } do %>
   <span class="disabled" tabindex="-1"><%= render_icon(:link) %></span>
