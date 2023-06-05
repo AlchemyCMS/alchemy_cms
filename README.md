@@ -302,7 +302,7 @@ If you want to contribute to Alchemy ([and we encourage you to do so](CONTRIBUTI
 First of all you need to clone your fork to your local development machine. Then you need to install the dependencies with bundler.
 
 ```bash
-$ bundle install
+$ bin/setup
 ```
 
 To prepare the tests of your Alchemy fork please make sure to run the preparation task:
@@ -332,9 +332,7 @@ $ bundle exec rake
 You can even start the dummy app and use it to manually test your changes with:
 
 ```bash
-$ cd spec/dummy
-$ bin/setup
-$ bin/dev
+$ bin/start
 ```
 
 
