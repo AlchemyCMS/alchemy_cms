@@ -23,7 +23,6 @@ group :development, :test do
   gem "jsbundling-rails", "~> 1.1"
   gem "rubocop", require: false
   gem "standard", "~> 1.25", require: false
-  gem "selenium-webdriver", "< 4.9.1" # until https://github.com/teamcapybara/capybara/pull/2665 got merged
 
   if ENV["GITHUB_ACTIONS"]
     # Necessary because GH Actions gem cache does not have this "Bundled with Ruby" gem installed
