@@ -13,6 +13,14 @@
 # The original Tag model is Gutentag::Tag
 module Alchemy
   class Tag < Gutentag::Tag
+    def self.ransackable_attributes(_auth_object = nil)
+      %w[created_at id name taggings_count updated_at]
+    end
+
+    def self.ransackable_associations(_auth_object = nil)
+      %w[taggings]
+    end
+
     # Replaces tag with new tag on all models tagged with tag.
     def self.replace(tag, new_tag)
       tag.taggings.collect(&:taggable).each do |taggable|

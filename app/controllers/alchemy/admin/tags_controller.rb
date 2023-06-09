@@ -6,7 +6,7 @@ module Alchemy
       before_action :load_tag, only: [:edit, :update, :destroy]
 
       def index
-        @query = Gutentag::Tag.ransack(search_filter_params[:q])
+        @query = Tag.ransack(search_filter_params[:q])
         @query.sorts = default_sort_order if @query.sorts.empty?
         @tags = @query
           .result
@@ -16,21 +16,21 @@ module Alchemy
       end
 
       def new
-        @tag = Gutentag::Tag.new
+        @tag = Tag.new
       end
 
       def create
-        @tag = Gutentag::Tag.create(tag_params)
+        @tag = Tag.create(tag_params)
         render_errors_or_redirect @tag, admin_tags_path, Alchemy.t("New Tag Created")
       end
 
       def edit
-        @tags = Gutentag::Tag.order("name ASC").to_a - [@tag]
+        @tags = Tag.order("name ASC").to_a - [@tag]
       end
 
       def update
         if tag_params[:merge_to]
-          @new_tag = Gutentag::Tag.find(tag_params[:merge_to])
+          @new_tag = Tag.find(tag_params[:merge_to])
           Tag.replace(@tag, @new_tag)
           operation_text = Alchemy.t("Replaced Tag") % {old_tag: @tag.name, new_tag: @new_tag.name}
           @tag.destroy
@@ -57,7 +57,7 @@ module Alchemy
       private
 
       def load_tag
-        @tag = Gutentag::Tag.find(params[:id])
+        @tag = Tag.find(params[:id])
       end
 
       def tag_params
@@ -67,7 +67,7 @@ module Alchemy
       def tags_from_term(term)
         return [] if term.blank?
 
-        Gutentag::Tag.where(["LOWER(name) LIKE ?", "#{term.downcase}%"])
+        Tag.where(["LOWER(name) LIKE ?", "#{term.downcase}%"])
       end
 
       def json_for_autocomplete(items, attribute)
