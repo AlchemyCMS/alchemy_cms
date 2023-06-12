@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+require "fileutils"
+
+# path to dummy application root.
+APP_ROOT = File.expand_path("../spec/dummy", __dir__)
+
+# path to alchemy gem
+GEM_ROOT = File.expand_path("../", __dir__)
+
+def system!(*args)
+  system(*args) || abort("\n== Command #{args} failed ==")
+end
+
+FileUtils.chdir APP_ROOT do
+  puts "\n== Starting dummy app =="
+  system! "bin/dev"
+end
