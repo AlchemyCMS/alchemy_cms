@@ -110,6 +110,7 @@ html.dark .DocSearch--active .DocSearch-Modal {
     0 2px 2px 0 rgba(3, 4, 9, 0.3);
   --docsearch-key-gradient: linear-gradient(-225deg, #444950, #1c1e21);
   --docsearch-muted-color: var(--c-text-quote);
+  --docsearch-hit-color: var(--c-text);
 }
 
 .DocSearch--active .DocSearch-Modal {
