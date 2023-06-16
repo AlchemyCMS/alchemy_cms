@@ -33,7 +33,7 @@
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
     "babel-jest": "^29.0.1",
-    "esbuild": "^0.17.5",
+    "esbuild": "^0.18.3",
     "jest": "^25.2.7",
     "prettier": "^2.0.2",
     "xhr-mock": "^2.5.1"
