@@ -8,28 +8,27 @@ module Alchemy::Upgrader::Tasks
 
     no_tasks do
       def create_ingredients(verbose: !Rails.env.test?)
-        Alchemy::Deprecation.silence do
-          elements_with_ingredients = Alchemy::ElementDefinition.all.select { |d| d.key?(:ingredients) }
-          if ENV["ONLY"]
-            elements_with_ingredients = elements_with_ingredients.select { |d| d[:name].in? ENV["ONLY"].split(",") }
-          end
-          # eager load all elements that have ingredients defined but no ingredient records yet.
-          all_elements = Alchemy::Element
-            .named(elements_with_ingredients.map { |d| d[:name] })
-            .preload(contents: :essence)
-            .left_outer_joins(:ingredients).where(alchemy_ingredients: { id: nil })
-            .to_a
-          elements_with_ingredients.map do |element_definition|
-            elements = all_elements.select { |e| e.name == element_definition[:name] }
-            if elements.any?
-              puts "-- Creating ingredients for #{elements.count} #{element_definition[:name]}(s)" if verbose
-              elements.each do |element|
-                MigrateElementIngredients.call(element)
-                print "." if verbose
+        Rails.logger.silence do
+          Alchemy::Deprecation.silence do
+            elements_with_ingredients = Alchemy::ElementDefinition.all.select { |d| d.key?(:ingredients) }
+            if ENV["ONLY"]
+              elements_with_ingredients = elements_with_ingredients.select { |d| d[:name].in? ENV["ONLY"].split(",") }
+            end
+            elements_with_ingredients.each do |element_definition|
+              elements = Alchemy::Element
+                .named(element_definition[:name])
+                .left_outer_joins(:ingredients).where(alchemy_ingredients: { id: nil })
+              count = elements.count
+              if count.positive?
+                puts "-- Creating ingredients for #{elements.count} #{element_definition[:name]}(s)" if verbose
+                elements.preload(contents: :essence).find_each.with_index(1) do |element, index|
+                  MigrateElementIngredients.call(element)
+                  puts "\e[H\e[2J #{index}/#{count}" if verbose
+                end
+                puts "\n" if verbose
+              elsif verbose
+                puts "-- No #{element_definition[:name]} elements found for migration."
               end
-              puts "\n" if verbose
-            elsif verbose
-              puts "-- No #{element_definition[:name]} elements found for migration."
             end
           end
         end
