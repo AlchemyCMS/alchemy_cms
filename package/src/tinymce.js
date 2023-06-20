@@ -38,30 +38,32 @@ function initEditors(ids) {
   })
 }
 
-// initialize IntersectionObserver if it is not already initialized
+// initialize IntersectionObserver
 // the observer will initialize Tinymce if the textarea becomes visible
 function initializeIntersectionObserver() {
-  if (tinymceIntersectionObserver === null) {
-    const observerCallback = (entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.intersectionRatio > 0) {
-          initTinymceEditor(entry.target)
-          // disable observer after the Tinymce was initialized
-          observer.unobserve(entry.target)
-        }
-      })
-    }
-    const options = {
-      root: Alchemy.ElementEditors.element_area.get(0),
-      rootMargin: "0px",
-      threshold: [0.05]
-    }
-
-    tinymceIntersectionObserver = new IntersectionObserver(
-      observerCallback,
-      options
-    )
+  if (tinymceIntersectionObserver !== null) {
+    tinymceIntersectionObserver.disconnect()
   }
+
+  const observerCallback = (entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.intersectionRatio > 0) {
+        initTinymceEditor(entry.target)
+        // disable observer after the Tinymce was initialized
+        observer.unobserve(entry.target)
+      }
+    })
+  }
+  const options = {
+    root: Alchemy.ElementEditors.element_area.get(0),
+    rootMargin: "0px",
+    threshold: [0.05]
+  }
+
+  tinymceIntersectionObserver = new IntersectionObserver(
+    observerCallback,
+    options
+  )
 }
 
 // Initializes one specific TinyMCE editor
