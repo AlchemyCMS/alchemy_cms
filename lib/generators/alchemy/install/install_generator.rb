@@ -23,6 +23,11 @@ module Alchemy
         default: false,
         desc: "Skip running the webpacker installer."
 
+      class_option :force_babel_config,
+        type: :boolean,
+        default: false,
+        desc: "Force installing a patched babel config."
+
       class_option :skip_db_create,
         type: :boolean,
         default: false,
@@ -110,6 +115,13 @@ module Alchemy
             in_root { run "echo '{}' > package.json" }
           end
           rake("webpacker:install", abort_on_failure: true)
+        end
+      end
+
+      # We need to force the babel.config.js file, because webpacker has an invalid one
+      def copy_babel_config
+        if options[:force_babel_config]
+          copy_file "babel.config.js", app_root.join("babel.config.js"), force: true
         end
       end
 
