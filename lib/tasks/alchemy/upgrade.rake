@@ -16,8 +16,7 @@ namespace :alchemy do
     desc "Alchemy Upgrader: Prepares the database and updates Alchemys configuration file."
     task prepare: [
       "alchemy:upgrade:database",
-      "alchemy:upgrade:config",
-      "alchemy:upgrade:package"
+      "alchemy:upgrade:config"
     ]
 
     desc "Alchemy Upgrader: Prepares the database."
@@ -31,11 +30,6 @@ namespace :alchemy do
       Alchemy::Upgrader.copy_new_config_file
     end
 
-    desc "Alchemy Upgrader: Install new Node package."
-    task package: [:environment] do
-      Alchemy::Upgrader.update_npm_package
-    end
-
     desc "Upgrade Alchemy to v7.0"
     task "7.0" => [
       "alchemy:upgrade:prepare",
@@ -46,13 +40,13 @@ namespace :alchemy do
 
     namespace "7.0" do
       task "run" => [
-        "alchemy:upgrade:7.0:update_admin_entrypoint"
+        "alchemy:upgrade:7.0:remove_admin_entrypoint"
       ]
 
-      desc "Update alchemy admin entrypoint"
-      task update_admin_entrypoint: [:environment] do
-        puts "adding npm_package..."
-        Alchemy::Upgrader::SevenPointZero.update_admin_entrypoint
+      desc "Remove alchemy admin entrypoint"
+      task remove_admin_entrypoint: [:environment] do
+        puts "removing npm_package..."
+        Alchemy::Upgrader::SevenPointZero.remove_admin_entrypoint
       end
     end
   end

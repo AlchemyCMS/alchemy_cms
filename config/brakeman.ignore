@@ -81,29 +81,6 @@
       "note": ""
     },
     {
-      "warning_type": "Command Injection",
-      "warning_code": 14,
-      "fingerprint": "6addfcb9d23d2d6f699f2f3542169744ff749dc4d0a97f8ac783ab92593e1d84",
-      "check_name": "Execute",
-      "message": "Possible command injection",
-      "file": "lib/alchemy/upgrader.rb",
-      "line": 33,
-      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
-      "code": "`yarn add @alchemy_cms/admin@~#{Alchemy.version}`",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Alchemy::Upgrader",
-        "method": "update_npm_package"
-      },
-      "user_input": "Alchemy.version",
-      "confidence": "Medium",
-      "cwe_id": [
-        77
-      ],
-      "note": "The alchemy version is safe"
-    },
-    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
       "fingerprint": "6e6ed4f8b20c07868bc04a4dc419103ecce33bb514eff77790abd57246a4513f",
@@ -224,29 +201,6 @@
       "confidence": "Weak",
       "cwe_id": [
         22
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "Command Injection",
-      "warning_code": 14,
-      "fingerprint": "98ca8e77026312eaa7eec15ce26bfe45aa8dd0fcd38e4cff104cb9dffbde1733",
-      "check_name": "Execute",
-      "message": "Possible command injection",
-      "file": "lib/alchemy/upgrader.rb",
-      "line": 31,
-      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
-      "code": "`bin/importmap pin @alchemy_cms/admin@~#{Alchemy.version}`",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Alchemy::Upgrader",
-        "method": "update_npm_package"
-      },
-      "user_input": "Alchemy.version",
-      "confidence": "Medium",
-      "cwe_id": [
-        77
       ],
       "note": ""
     },

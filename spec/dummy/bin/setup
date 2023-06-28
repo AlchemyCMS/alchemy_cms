@@ -11,11 +11,6 @@ def system!(*args)
   system(*args) || abort("\n== Command #{args} failed ==")
 end
 
-FileUtils.chdir GEM_ROOT do
-  puts "\n== Linking Admin JS package =="
-  system! "yarn link"
-end
-
 FileUtils.chdir APP_ROOT do
   # This script is a way to set up or update your development environment automatically.
   # This script is idempotent, so that you can run it at any time and get an expectable outcome.
@@ -24,10 +19,6 @@ FileUtils.chdir APP_ROOT do
   puts "== Installing dependencies =="
   system! "gem install bundler --conservative"
   system("bundle check") || system!("bundle install")
-
-  puts "\n== Installing Node dependencies =="
-  system! "yarn link @alchemy_cms/admin"
-  system! "yarn install"
 
   puts "\n== Preparing database =="
   system! "bin/rails db:prepare"

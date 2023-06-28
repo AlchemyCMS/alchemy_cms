@@ -41,17 +41,12 @@ namespace :alchemy do
     task :prepare do
       system(
         <<~BASH
-          yarn install && \
-          yarn link && \
           cd spec/dummy && \
           export RAILS_ENV=test && \
           bin/rake db:create && \
           bin/rake db:environment:set && \
           bin/rake db:migrate:reset && \
-          bin/rails javascript:install:esbuild && \
           bin/rails g alchemy:install --skip --skip-demo-files --auto-accept --skip-db-create && \
-          yarn link @alchemy_cms/admin && \
-          bin/rails javascript:build && \
           cd -
         BASH
       ) || fail
@@ -80,19 +75,5 @@ namespace :alchemy do
       File.rename(new_file, original_file)
       File.delete(backup)
     end
-  end
-
-  desc "Release a new Ruby gem and npm package in one command"
-  task :release do
-    require "json"
-    require_relative "lib/alchemy/version"
-    package = File.read("package.json")
-    unless JSON.parse(package)["version"] == Alchemy.version
-      abort "Ruby gem and npm package versions are out of sync! Please fix."
-    end
-    # Release the Ruby gem with bundler
-    Rake::Task["release"].invoke
-    # Publish npm package via CLI
-    system "npm publish"
   end
 end

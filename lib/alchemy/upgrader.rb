@@ -25,17 +25,6 @@ module Alchemy
           todo "Check the default configuration file (./config/alchemy/config.yml.defaults) for new configuration options and insert them into your config file.", "Configuration has changed"
         end
       end
-
-      def update_npm_package
-        desc "Update npm package."
-        if File.exist? Rails.root.join("config/importmap.rb")
-          `bin/importmap pin @alchemy_cms/admin@~#{Alchemy.version}`
-        elsif File.exist? Rails.root.join("package.json")
-          `yarn add @alchemy_cms/admin@~#{Alchemy.version}`
-        else
-          log("Could not update alchemy admin package! Make sure you have a JS bundler installed", :warning)
-        end
-      end
     end
   end
 end
