@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "alchemy/admin/preview_url"
+require "importmap-rails"
 
 module Alchemy
   YAML_PERMITTED_CLASSES = %w[Symbol Date Regexp]
@@ -78,4 +79,8 @@ module Alchemy
   #     Alchemy.enable_searchable = true
   #
   mattr_accessor :enable_searchable, default: false
+
+  # JS Importmap instance
+  singleton_class.attr_accessor :importmap
+  self.importmap = Importmap::Map.new
 end

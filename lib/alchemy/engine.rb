@@ -20,6 +20,11 @@ module Alchemy
       NonStupidDigestAssets.whitelist += [/^tinymce\//]
     end
 
+    initializer "alchemy.importmap" do |app|
+      Alchemy.importmap.draw(Engine.root.join("config", "importmap.rb"))
+      app.config.assets.paths << Alchemy::Engine.root.join("package")
+    end
+
     # Gutentag downcases all tags before save
     # and Gutentag validations are not case sensitive.
     # But we support having tags with uppercase characters.
