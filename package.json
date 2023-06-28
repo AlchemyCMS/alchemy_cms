@@ -1,5 +1,5 @@
 {
-  "name": "@alchemy_cms/admin",
+  "name": "alchemy_admin",
   "scripts": {
     "test": "jest"
   },
@@ -22,7 +22,7 @@
       "Alchemy": {}
     },
     "roots": [
-      "package"
+      "app/javascript/alchemy_admin"
     ]
   }
 }

@@ -13,4 +13,4 @@
 //= link_tree ../images/alchemy/
 //= link_tree ../../../vendor/assets/fonts/
 //= link_tree ../../../vendor/assets/images/
-//= link admin.js
+//= link alchemy_admin.js

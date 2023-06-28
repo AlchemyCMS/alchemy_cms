@@ -34,7 +34,7 @@
     </script>
     <%= render 'alchemy/admin/partials/routes' %>
     <%= javascript_include_tag('alchemy/admin/all', 'data-turbolinks-track' => true) %>
-    <%= javascript_importmap_tags("@alchemy_cms/admin", importmap: Alchemy.importmap) %>
+    <%= javascript_importmap_tags("alchemy_admin", importmap: Alchemy.importmap) %>
     <%= yield :javascript_includes %>
   </head>
   <%= content_tag :body, id: 'alchemy', class: alchemy_body_class do %>

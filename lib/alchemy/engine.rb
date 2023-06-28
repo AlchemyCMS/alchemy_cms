@@ -23,7 +23,7 @@ module Alchemy
     initializer "alchemy.importmap" do |app|
       Alchemy.importmap.draw(Engine.root.join("config", "importmap.rb"))
 
-      package_path = Engine.root.join("package")
+      package_path = Engine.root.join("app/javascript")
       app.config.assets.paths << package_path
 
       if app.config.importmap.sweep_cache
