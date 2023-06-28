@@ -1,6 +1,5 @@
 import translate from "./alchemy_admin/i18n"
 import translationData from "./alchemy_admin/translations"
-import NodeTree from "./alchemy_admin/node_tree"
 import fileEditors from "./alchemy_admin/file_editors"
 import IngredientAnchorLink from "./alchemy_admin/ingredient_anchor_link"
 import pictureEditors from "./alchemy_admin/picture_editors"
@@ -21,7 +20,6 @@ Object.assign(Alchemy, {
   // Global utility method for translating a given string
   t: translate,
   translations: Object.assign(Alchemy.translations || {}, translationData),
-  NodeTree,
   fileEditors,
   pictureEditors,
   ImageLoader: ImageLoader.init,
