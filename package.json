@@ -22,7 +22,7 @@
       "Alchemy": {}
     },
     "roots": [
-      "app/javascript/alchemy_admin"
+      "spec/javascript/alchemy_admin"
     ]
   }
 }

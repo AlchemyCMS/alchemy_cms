@@ -1,5 +1,9 @@
 import xhrMock from "xhr-mock"
-import { get, patch, post } from "../ajax"
+import {
+  get,
+  patch,
+  post
+} from "../../../../app/javascript/alchemy_admin/utils/ajax"
 
 const token = "s3cr3t"
 
