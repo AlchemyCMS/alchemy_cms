@@ -31,11 +31,11 @@
     Alchemy.growl("<%= j @notice %>");
     Alchemy.closeCurrentDialog();
   } else {
-    document.addEventListener('turbolinks:load', function () {
+    document.addEventListener('turbo:load', function () {
       Alchemy.growl("<%= j @notice %>");
     }, { once: true })
     Alchemy.closeCurrentDialog(function() {
-      Turbolinks.visit(location.toString(), { action: "replace" });
+      Turbo.visit(location.toString(), { action: "replace" });
     });
   }
 

@@ -19,7 +19,7 @@
       if ($this.data('remote') === true) {
         $.get(path, params.toString(), null, 'script');
       } else {
-        Turbolinks.visit(path + '?' + params.toString());
+        Turbo.visit(path + '?' + params.toString());
       }
       return false;
     });
