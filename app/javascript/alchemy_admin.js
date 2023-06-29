@@ -1,3 +1,5 @@
+import "@hotwired/turbo-rails"
+
 import translate from "./alchemy_admin/i18n"
 import translationData from "./alchemy_admin/translations"
 import fileEditors from "./alchemy_admin/file_editors"

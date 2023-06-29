@@ -81,7 +81,7 @@
               host: @page.site.host == "*" ? request.host : @page.site.host,
             ),
             title: Alchemy.t("Visit page"),
-            data: { turbolinks: false },
+            data: { turbo: false },
             target: "_blank",
             class: 'icon_button' do %>
           <%= render_icon('external-link-alt') %>
@@ -140,12 +140,11 @@
 <% content_for :javascripts do %>
 
 <% content_for :javascript_includes do %>
-  <meta name="turbolinks-cache-control" content="no-cache">
+  <meta name="turbo-cache-control" content="no-cache">
 <% end %>
 
 <script type="text/javascript" charset="utf-8">
-
-  $(function() {
+  $(document).one('turbo:load', function() {
     $('#unlock_page_form, #publish_page_form').on('submit', function(event) {
       var not_dirty = Alchemy.checkPageDirtyness(this);
       if (!not_dirty) Alchemy.pleaseWaitOverlay(false);

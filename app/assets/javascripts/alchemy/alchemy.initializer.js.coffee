@@ -1,6 +1,6 @@
 # Initialize all onload scripts at once.
 #
-# Called at jQuery ready event and Turbolinks page change event.
+# Called at jQuery ready event and Turbo page change event.
 #
 Alchemy.Initializer = ->
 
@@ -26,13 +26,13 @@ Alchemy.Initializer = ->
   $('select#change_locale').on 'change', (e) ->
     url = window.location.pathname
     delimiter = if url.match(/\?/) then '&' else '?'
-    Turbolinks.visit "#{url}#{delimiter}admin_locale=#{$(this).val()}"
+    Turbo.visit "#{url}#{delimiter}admin_locale=#{$(this).val()}"
 
   # Site select handler
   $('select#change_site').on 'change', (e) ->
     url = window.location.pathname
     delimiter = if url.match(/\?/) then '&' else '?'
-    Turbolinks.visit "#{url}#{delimiter}site_id=#{$(this).val()}"
+    Turbo.visit "#{url}#{delimiter}site_id=#{$(this).val()}"
 
   # Submit forms of selects with `data-autosubmit="true"`
   $('select[data-auto-submit="true"]').on 'change', (e) ->
@@ -46,18 +46,11 @@ Alchemy.Initializer = ->
     tagName = (event.target || event.srcElement).tagName
     key.isPressed('esc') || !(tagName == 'INPUT' || tagName == 'SELECT' || tagName == 'TEXTAREA')
 
-# Enabling the Turbolinks Progress Bar for v2.5
-Turbolinks.enableProgressBar() if Turbolinks.enableProgressBar
-
-# Turbolinks DOM Ready.
-# Handle both v2.5(page:change), and v.5.0 (turbolinks:load)
-$(document).on 'page:change turbolinks:load', ->
+$(document).on 'turbo:load', ->
   Alchemy.Initializer()
   return
 
-# Turbolinks before parsing a new page
-# Handle both v2.5(page:receive), and v.5.0 (turbolinks:request-end)
-$(document).on 'page:receive turbolinks:request-end', ->
+$(document).on 'turbo:before-fetch-request', ->
   # Ensure that all tinymce editors get removed before parsing a new page
   Alchemy.Tinymce.removeFrom $('.has_tinymce')
   return

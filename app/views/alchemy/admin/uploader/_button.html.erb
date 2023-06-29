@@ -27,7 +27,7 @@
       <% if local_assigns[:in_dialog] %>
         $.get(url, null, null, 'script');
       <% else %>
-        Turbolinks.visit(url);
+        Turbo.visit(url);
       <% end %>
       }
     };

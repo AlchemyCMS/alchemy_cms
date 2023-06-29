@@ -22,7 +22,7 @@ require "request_store"
 require "responders"
 require "sassc-rails"
 require "simple_form"
-require "turbolinks"
+require "turbo-rails"
 require "userstamp"
 require "view_component"
 

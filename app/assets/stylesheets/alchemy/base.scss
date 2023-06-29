@@ -3,8 +3,8 @@ html {
   height: 100%;
   font-size: $base-font-size;
 
-  &.turbolinks-progress-bar::before,
-  .turbolinks-progress-bar {
+  &.turbo-progress-bar::before,
+  .turbo-progress-bar {
     background-color: $blue !important;
     z-index: 400001;
   }

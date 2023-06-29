@@ -1,7 +1,7 @@
 (function() {
   var dialog = Alchemy.currentDialog();
   var callback = function() {
-    Turbolinks.visit('<%= url_for(@redirect_url) %>');
+    Turbo.visit('<%= url_for(@redirect_url) %>');
   };
   if (dialog) {
     Alchemy.closeCurrentDialog(callback);
