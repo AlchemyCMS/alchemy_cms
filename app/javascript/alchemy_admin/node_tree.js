@@ -1,6 +1,6 @@
 import Sortable from "sortablejs"
-import { patch } from "./utils/ajax"
-import { on } from "./utils/events"
+import { patch } from "alchemy_admin/utils/ajax"
+import { on } from "alchemy_admin/utils/events"
 
 function displayNodeFolders() {
   document.querySelectorAll("li.menu-item").forEach((el) => {

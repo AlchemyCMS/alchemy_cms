@@ -1,5 +1,5 @@
 import Sortable from "sortablejs"
-import { patch } from "./utils/ajax"
+import { patch } from "alchemy_admin/utils/ajax"
 
 function onFinishDragging(evt) {
   const pageId = evt.item.dataset.pageId

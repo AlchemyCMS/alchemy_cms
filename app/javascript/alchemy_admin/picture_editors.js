@@ -1,7 +1,7 @@
 import debounce from "lodash-es/debounce"
 import max from "lodash-es/max"
-import { get } from "./utils/ajax"
-import ImageLoader from "./image_loader"
+import { get } from "alchemy_admin/utils/ajax"
+import ImageLoader from "alchemy_admin/image_loader"
 
 const UPDATE_DELAY = 125
 const IMAGE_PLACEHOLDER = '<i class="icon far fa-image fa-fw"></i>'

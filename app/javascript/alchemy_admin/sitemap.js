@@ -1,8 +1,8 @@
 // The admin sitemap Alchemy class
-import PageSorter from "./page_sorter"
-import { on } from "./utils/events"
-import { get, patch } from "./utils/ajax"
-import { createSortables, displayPageFolders } from "./page_sorter"
+import PageSorter from "alchemy_admin/page_sorter"
+import { on } from "alchemy_admin/utils/events"
+import { get, patch } from "alchemy_admin/utils/ajax"
+import { createSortables, displayPageFolders } from "alchemy_admin/page_sorter"
 
 export default class Sitemap {
   // Storing some objects.
