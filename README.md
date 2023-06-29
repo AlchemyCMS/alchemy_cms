@@ -340,7 +340,7 @@ $ bin/start
 
 ### Bump version
 
-Bump the version number in both `lib/alchemy/version.rb` and `./package.json`. Make sure both are exactly the same and follow [SemVer format](https://semver.org/#semantic-versioning-specification-semver).
+Bump the version number in `lib/alchemy/version.rb`.
 
 ### Update the changelog
 
@@ -357,11 +357,11 @@ $ git commit -am "Bump version to vX.Y.Z"
 
 ### Release a new version
 
-This task will publish both the ruby gem and the npm package.
+This task will publish the ruby gem.
 It also tags the latest commit.
 
 ```bash
-$ bundle exec rake alchemy:release
+$ bundle exec rake release
 ```
 
 ## ❓Getting Help

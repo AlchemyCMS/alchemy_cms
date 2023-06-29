@@ -99,30 +99,6 @@ module Alchemy
         rake "gutentag:install:migrations"
       end
 
-      def add_npm_package
-        if File.exist? app_root.join("package.json")
-          run "yarn add @alchemy_cms/admin@~#{Alchemy.version}"
-        elsif File.exist? app_root.join("config/importmap.rb")
-          run "bin/importmap pin @alchemy_cms/admin@~#{Alchemy.version}"
-        else
-          log("Could not add alchemy admin package! Make sure you have a JS bundler installed", :warning)
-        end
-      end
-
-      def copy_alchemy_entry_point
-        if Dir.exist? app_root.join("app/javascript")
-          if File.exist? app_root.join("config/importmap.rb")
-            # We want the bundled package if using importmaps
-            create_file app_root.join("app/javascript/alchemy_admin.js"), 'import "@alchemy_cms/dist/admin"'
-          else
-            # We want the normal package if using a bundler locally
-            create_file app_root.join("app/javascript/alchemy_admin.js"), 'import "@alchemy_cms/admin"'
-          end
-        else
-          log("Could not add alchemy admin entry point! Make sure you have a JS bundler installed", :warning)
-        end
-      end
-
       def set_primary_language
         header
         install_tasks.set_primary_language(

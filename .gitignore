@@ -9,15 +9,10 @@ pkg
 tmp
 log
 .sass-cache
-spec/dummy/app/assets/builds/*.js*
-spec/dummy/app/javascript/
 spec/dummy/config/alchemy/config.yml
 spec/dummy/db/*.sqlite3*
-spec/dummy/package.json
 spec/dummy/postcss.config.js
 spec/dummy/public/assets/
-spec/dummy/public/packs/
-spec/dummy/public/packs-test/
 spec/dummy/uploads/
 .rvmrc
 /coverage/

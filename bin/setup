@@ -12,22 +12,13 @@ def system!(*args)
 end
 
 FileUtils.chdir GEM_ROOT do
-  puts "\n== Linking Admin JS package =="
-  system! "yarn link"
-  puts "== Installing dependencies =="
-  system! "yarn install"
   system! "gem install bundler --conservative"
   system("bundle check") || system!("bundle install")
 end
 
 FileUtils.chdir APP_ROOT do
   puts "\n== Installing Alchemy into dummy app =="
-  system!("bin/rails javascript:install:esbuild")
   system!("bin/rails g alchemy:install --skip --skip-demo-files --auto-accept")
-
-  puts "\n== Link Alchemy admin package =="
-  system! "yarn link @alchemy_cms/admin"
-  system! "yarn install"
 
   puts "\n== Removing old logs and tempfiles =="
   system! "bin/rails log:clear tmp:clear"

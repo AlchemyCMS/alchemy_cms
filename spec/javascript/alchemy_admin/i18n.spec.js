@@ -1,4 +1,4 @@
-import translate from "../i18n"
+import translate from "../../../app/javascript/alchemy_admin/i18n"
 
 describe("translate", () => {
   describe("if Alchemy.locale is not set", () => {

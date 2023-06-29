@@ -1,41 +1,20 @@
 {
-  "name": "@alchemy_cms/admin",
-  "version": "7.0.0-b",
-  "description": "AlchemyCMS",
-  "browser": "package/dist/admin.js",
-  "files": [
-    "package/**/*"
-  ],
-  "directories": {
-    "lib": "package"
-  },
+  "name": "alchemy_admin",
   "scripts": {
-    "test": "jest",
-    "build": "esbuild package/admin.js --bundle --sourcemap --minify --outdir=package/dist --public-path=assets"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AlchemyCMS/alchemy_cms.git"
+    "test": "jest"
   },
   "keywords": [],
   "author": "Thomas von Deyen",
   "license": "BSD-3-Clause",
-  "bugs": {
-    "url": "https://github.com/AlchemyCMS/alchemy_cms/issues"
-  },
-  "homepage": "https://github.com/AlchemyCMS/alchemy_cms#readme",
-  "dependencies": {
-    "flatpickr": "^4.6.9",
-    "lodash-es": "^4.17.21",
-    "sortablejs": "^1.10.2"
-  },
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
     "babel-jest": "^29.0.1",
-    "esbuild": "^0.18.4",
+    "flatpickr": "^4.6.9",
     "jest": "^25.2.7",
+    "lodash-es": "^4.17.21",
     "prettier": "^2.0.2",
+    "sortablejs": "^1.10.2",
     "xhr-mock": "^2.5.1"
   },
   "jest": {
@@ -43,7 +22,7 @@
       "Alchemy": {}
     },
     "roots": [
-      "package"
+      "spec/javascript/alchemy_admin"
     ]
   }
 }
