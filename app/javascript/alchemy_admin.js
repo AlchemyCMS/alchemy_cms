@@ -8,6 +8,7 @@ import IngredientAnchorLink from "alchemy_admin/ingredient_anchor_link"
 import pictureEditors from "alchemy_admin/picture_editors"
 import ImageLoader from "alchemy_admin/image_loader"
 import ImageCropper from "alchemy_admin/image_cropper"
+import Initializer from "alchemy_admin/initializer"
 import Datepicker from "alchemy_admin/datepicker"
 import Sitemap from "alchemy_admin/sitemap"
 import Tinymce from "alchemy_admin/tinymce"
@@ -28,9 +29,16 @@ Object.assign(Alchemy, {
   pictureEditors,
   ImageLoader: ImageLoader.init,
   ImageCropper,
+  Initializer,
   IngredientAnchorLink,
   Datepicker,
   Sitemap,
   Tinymce,
   PagePublicationFields
+})
+
+$(document).on("turbo:load", Initializer)
+
+$(document).on("turbo:before-fetch-request", function () {
+  Alchemy.Tinymce.removeFrom($(".has_tinymce"))
 })
