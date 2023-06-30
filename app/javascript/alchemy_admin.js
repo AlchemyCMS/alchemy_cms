@@ -2,6 +2,7 @@ import "@hotwired/turbo-rails"
 
 import Base from "alchemy_admin/base"
 import Buttons from "alchemy_admin/buttons"
+import ConfirmDialog from "alchemy_admin/confirm_dialog"
 import Dialog from "alchemy_admin/dialog"
 import GUI from "alchemy_admin/gui"
 import Dirty from "alchemy_admin/dirty"
@@ -31,6 +32,7 @@ Object.assign(Alchemy, {
   ...Base,
   Buttons,
   ...Dialog,
+  ...ConfirmDialog,
   GUI,
   ...Dirty,
   t: translate, // Global utility method for translating a given string
