@@ -16,7 +16,6 @@
 //= require alchemy/templates
 //= require alchemy/alchemy.base
 //= require alchemy/alchemy.autocomplete
-//= require alchemy/alchemy.buttons
 //= require alchemy/alchemy.dialog
 //= require alchemy/alchemy.char_counter
 //= require alchemy/alchemy.confirm_dialog
