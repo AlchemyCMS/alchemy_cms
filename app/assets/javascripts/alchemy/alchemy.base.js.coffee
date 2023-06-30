@@ -50,25 +50,4 @@ $.extend Alchemy,
       dropdownAutoWidth: true
     return
 
-  getUrlParam: (name) ->
-    results = new RegExp("[\\?&]" + name + "=([^&#]*)").exec(window.location.href)
-    results[1] or 0  if results
-    return
 
-  isiPhone: navigator.userAgent.match(/iPhone/i) isnt null
-  isiPad: navigator.userAgent.match(/iPad/i) isnt null
-  isiPod: navigator.userAgent.match(/iPod/i) isnt null
-  isiOS: navigator.userAgent.match(/iPad|iPhone|iPod/i) isnt null
-  isFirefox: navigator.userAgent.match(/Firefox/i) isnt null
-  isChrome: navigator.userAgent.match(/Chrome/i) isnt null
-  isSafari: navigator.userAgent.match(/Safari/i) isnt null
-  isIE: navigator.userAgent.match(/MSIE/i) isnt null
-
-Alchemy.getBrowserVersion = (browser) ->
-  (if Alchemy["is" + browser] then parseInt(navigator.userAgent.match(new RegExp(browser + ".[0-9]+", "i"))[0].replace(new RegExp(browser + "."), ""), 10) else null)
-  return
-
-Alchemy.ChromeVersion = Alchemy.getBrowserVersion("Chrome")
-Alchemy.FirefoxVersion = Alchemy.getBrowserVersion("Firefox")
-Alchemy.SafariVersion = Alchemy.getBrowserVersion("Safari")
-Alchemy.IEVersion = Alchemy.getBrowserVersion("MSIE")
