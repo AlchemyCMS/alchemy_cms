@@ -45,8 +45,8 @@ module Alchemy
           e.public? && !e.restricted?
         end
 
-        can :read, Alchemy::Page, Alchemy::Page.published.not_restricted do |p|
-          p.public? && !p.restricted?
+        can :read, Alchemy::Page, Alchemy::Page.published.not_restricted.from_current_site do |p|
+          p.public? && !p.restricted? && p.site == Alchemy::Site.current
         end
       end
     end
@@ -72,8 +72,8 @@ module Alchemy
           e.public?
         end
 
-        can :read, Alchemy::Page, Alchemy::Page.published do |p|
-          p.public?
+        can :read, Alchemy::Page, Alchemy::Page.published.from_current_site do |p|
+          p.public? && p.site == Alchemy::Site.current
         end
       end
     end
