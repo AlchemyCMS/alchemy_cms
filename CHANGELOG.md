@@ -2,6 +2,10 @@
 
 ## 7.0.0 (unreleased)
 
+- Lint JS code with Prettier [#2503](https://github.com/AlchemyCMS/alchemy_cms/pull/2503) ([tvdeyen](https://github.com/tvdeyen))
+- Use absolute imports in modules [#2502](https://github.com/AlchemyCMS/alchemy_cms/pull/2502) ([tvdeyen](https://github.com/tvdeyen))
+- Replace turbolinks with turbo [#2499](https://github.com/AlchemyCMS/alchemy_cms/pull/2499) ([sascha-karnatz](https://github.com/sascha-karnatz))
+- Use Importmaps for admin JS [#2498](https://github.com/AlchemyCMS/alchemy_cms/pull/2498) ([tvdeyen](https://github.com/tvdeyen))
 - Fix TinyMCE loading behavior after page change [#2494](https://github.com/AlchemyCMS/alchemy_cms/pull/2494) ([sascha-karnatz](https://github.com/sascha-karnatz))
 - [js] Update esbuild → 0.18.4 (unknown) [#2492](https://github.com/AlchemyCMS/alchemy_cms/pull/2492) ([depfu](https://github.com/apps/depfu))
 - Add ransackable attributes to tags [#2487](https://github.com/AlchemyCMS/alchemy_cms/pull/2487) ([tvdeyen](https://github.com/tvdeyen))
