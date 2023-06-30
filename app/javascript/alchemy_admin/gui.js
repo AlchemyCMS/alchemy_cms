@@ -1,4 +1,5 @@
 import Tooltips from "alchemy_admin/tooltips"
+import CharCounter from "alchemy_admin/char_counter"
 
 function init(scope) {
   Alchemy.SelectBox(scope)
@@ -12,7 +13,7 @@ function init(scope) {
   Alchemy.ListFilter(scope)
   Alchemy.Autocomplete.tags(scope)
   $("[data-alchemy-char-counter]", scope).each(function () {
-    new Alchemy.CharCounter(this)
+    CharCounter(this)
   })
 }
 
