@@ -1,7 +1,8 @@
 {
   "name": "alchemy_admin",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "prettier --check 'app/javascript/**/*.js'"
   },
   "keywords": [],
   "author": "Thomas von Deyen",

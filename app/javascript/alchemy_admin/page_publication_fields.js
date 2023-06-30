@@ -9,7 +9,7 @@ export default function () {
     )
     const public_field = dialog.querySelector("#page_public")
 
-    if(!public_field) return
+    if (!public_field) return
 
     public_field.addEventListener("click", function (evt) {
       const checkbox = evt.target

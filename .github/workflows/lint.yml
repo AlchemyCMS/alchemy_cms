@@ -3,7 +3,7 @@ name: Lint
 on: [pull_request]
 
 jobs:
-  Lint:
+  Standard:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -15,3 +15,23 @@ jobs:
           bundler-cache: true
       - name: Lint Ruby files
         run: bundle exec standardrb
+  Prettier:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+      - name: Restore node_modules cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules
+      - name: Install dependencies
+        run: yarn install
+      - name: Lint code
+        run: yarn lint
