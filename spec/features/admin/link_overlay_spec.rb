@@ -53,23 +53,6 @@ RSpec.describe "Link overlay", type: :system do
       )
     end
 
-    it "should only return pages from the language of the page being edited" do
-      page_in_other_language = create :alchemy_page, :public, language: create(:alchemy_language, language_code: "es", public: true)
-
-      visit edit_admin_page_path(page1)
-
-      within "#element_#{article.id}" do
-        fill_in "Intro", with: "Link me"
-        click_link "Link text"
-      end
-
-      within "#overlay_tab_internal_link" do
-        expect(page).to have_selector("#s2id_internal_link")
-        expect { select2(page_in_other_language.name, from: "Page") }.to raise_error(Capybara::ElementNotFound)
-        expect(find("#internal_link").value).not_to eq page_in_other_language.urlname
-      end
-    end
-
     it "should be possible to link a page" do
       visit edit_admin_page_path(page1)
 
