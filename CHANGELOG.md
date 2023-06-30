@@ -2,6 +2,9 @@
 
 ## 7.0.0 (unreleased)
 
+- Allow to create element with warning in definition [#2507](https://github.com/AlchemyCMS/alchemy_cms/pull/2507) ([tvdeyen](https://github.com/tvdeyen))
+- Remove unused javascript [#2506](https://github.com/AlchemyCMS/alchemy_cms/pull/2506) ([sascha-karnatz](https://github.com/sascha-karnatz))
+- Allow authors to link to all pages again [#2504](https://github.com/AlchemyCMS/alchemy_cms/pull/2504) ([tvdeyen](https://github.com/tvdeyen))
 - Lint JS code with Prettier [#2503](https://github.com/AlchemyCMS/alchemy_cms/pull/2503) ([tvdeyen](https://github.com/tvdeyen))
 - Use absolute imports in modules [#2502](https://github.com/AlchemyCMS/alchemy_cms/pull/2502) ([tvdeyen](https://github.com/tvdeyen))
 - Replace turbolinks with turbo [#2499](https://github.com/AlchemyCMS/alchemy_cms/pull/2499) ([sascha-karnatz](https://github.com/sascha-karnatz))
