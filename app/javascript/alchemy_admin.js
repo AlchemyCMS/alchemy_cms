@@ -1,5 +1,6 @@
 import "@hotwired/turbo-rails"
 
+import Base from "alchemy_admin/base"
 import Buttons from "alchemy_admin/buttons"
 import GUI from "alchemy_admin/gui"
 import Dirty from "alchemy_admin/dirty"
@@ -16,6 +17,9 @@ import Sitemap from "alchemy_admin/sitemap"
 import Tinymce from "alchemy_admin/tinymce"
 import PagePublicationFields from "alchemy_admin/page_publication_fields"
 
+// Setting jQueryUIs global animation duration to something more snappy
+$.fx.speeds._default = 400
+
 // Global Alchemy object
 if (typeof window.Alchemy === "undefined") {
   window.Alchemy = {}
@@ -23,11 +27,11 @@ if (typeof window.Alchemy === "undefined") {
 
 // Enhance the global Alchemy object with imported features
 Object.assign(Alchemy, {
-  // Global utility method for translating a given string
+  ...Base,
   Buttons,
   GUI,
   ...Dirty,
-  t: translate,
+  t: translate, // Global utility method for translating a given string
   translations: Object.assign(Alchemy.translations || {}, translationData),
   fileEditors,
   pictureEditors,

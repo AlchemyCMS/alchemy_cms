@@ -14,7 +14,6 @@
 //= require requestAnimationFrame
 //= require handlebars
 //= require alchemy/templates
-//= require alchemy/alchemy.base
 //= require alchemy/alchemy.dialog
 //= require alchemy/alchemy.confirm_dialog
 //= require alchemy/alchemy.dragndrop
