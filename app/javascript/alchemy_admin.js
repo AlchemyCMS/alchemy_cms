@@ -2,6 +2,7 @@ import "@hotwired/turbo-rails"
 
 import Buttons from "alchemy_admin/buttons"
 import GUI from "alchemy_admin/gui"
+import Dirty from "alchemy_admin/dirty"
 import translate from "alchemy_admin/i18n"
 import translationData from "alchemy_admin/translations"
 import fileEditors from "alchemy_admin/file_editors"
@@ -25,6 +26,7 @@ Object.assign(Alchemy, {
   // Global utility method for translating a given string
   Buttons,
   GUI,
+  ...Dirty,
   t: translate,
   translations: Object.assign(Alchemy.translations || {}, translationData),
   fileEditors,

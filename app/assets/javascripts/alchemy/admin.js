@@ -17,7 +17,6 @@
 //= require alchemy/alchemy.base
 //= require alchemy/alchemy.dialog
 //= require alchemy/alchemy.confirm_dialog
-//= require alchemy/alchemy.dirty
 //= require alchemy/alchemy.dragndrop
 //= require alchemy/alchemy.element_editors
 //= require alchemy/alchemy.elements_window
