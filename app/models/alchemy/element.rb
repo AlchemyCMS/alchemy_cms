@@ -35,13 +35,14 @@ module Alchemy
     FORBIDDEN_DEFINITION_ATTRIBUTES = [
       "amount",
       "autogenerate",
-      "nestable_elements",
+      "compact",
+      "deprecated",
       "hint",
       "ingredients",
-      "taggable",
-      "compact",
       "message",
-      "deprecated"
+      "nestable_elements",
+      "taggable",
+      "warning"
     ].freeze
 
     # All Elements that share the same page version and parent element and are fixed or not are considered a list.

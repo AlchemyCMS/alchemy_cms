@@ -226,3 +226,6 @@
     - role: key_words
       type: Text
       group: details
+
+- name: element_with_warning
+  warning: "Do not use this element!"
