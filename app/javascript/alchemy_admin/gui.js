@@ -1,4 +1,5 @@
 import TagsAutocomplete from "alchemy_admin/tags_autocomplete"
+import Tooltips from "alchemy_admin/tooltips"
 
 function init(scope) {
   Alchemy.SelectBox(scope)
