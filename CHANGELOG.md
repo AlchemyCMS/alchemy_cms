@@ -1,5 +1,12 @@
 # Changelog
 
+## 6.1.6 (2023-06-30)
+
+- [6.1] Allow to create element with warning in definition [#2508](https://github.com/AlchemyCMS/alchemy_cms/pull/2508) ([tvdeyen](https://github.com/tvdeyen))
+- [6.1] Allow authors to link to all pages again [#2505](https://github.com/AlchemyCMS/alchemy_cms/pull/2505) ([tvdeyen](https://github.com/tvdeyen))
+- install generator: Add option to force patched babel config [#2495](https://github.com/AlchemyCMS/alchemy_cms/pull/2495) ([tvdeyen](https://github.com/tvdeyen))
+- Remove memory leak in ingredients migrator [#2493](https://github.com/AlchemyCMS/alchemy_cms/pull/2493) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 6.1.5 (2023-05-26)
 
 - [6.1] Fix page seeder [#2482](https://github.com/AlchemyCMS/alchemy_cms/pull/2482) ([tvdeyen](https://github.com/tvdeyen))
