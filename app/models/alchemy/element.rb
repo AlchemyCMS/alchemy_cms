@@ -46,6 +46,7 @@ module Alchemy
       "compact",
       "message",
       "deprecated",
+      "warning",
     ].freeze
 
     # All Elements that share the same page version and parent element and are fixed or not are considered a list.
