@@ -114,6 +114,16 @@ module Alchemy
           end
         end
       end
+
+      context "with warning in definition" do
+        let(:element) do
+          Alchemy::Element.new(name: "element_with_warning")
+        end
+
+        it "creates element" do
+          expect { element.save }.to_not raise_error
+        end
+      end
     end
 
     describe ".dom_id_class" do
