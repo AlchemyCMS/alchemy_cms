@@ -1,7 +1,9 @@
+import Tooltips from "alchemy_admin/tooltips"
+
 function init(scope) {
   Alchemy.SelectBox(scope)
   Alchemy.Datepicker(scope && scope.selector)
-  Alchemy.Tooltips(scope)
+  Tooltips(scope)
   Alchemy.Buttons.observe(scope)
   if (!scope) {
     Alchemy.watchForDialogs()
