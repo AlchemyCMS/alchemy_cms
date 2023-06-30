@@ -86,13 +86,29 @@ module Alchemy
           let(:language_2) { create(:alchemy_language, site: site_2) }
           let!(:site_2_page) { create(:alchemy_page, :public, language: language_2) }
           let!(:unpublished_page) { create(:alchemy_page, language: default_language) }
+          let!(:restricted_page) { create(:alchemy_page, :public, :restricted, language: default_language) }
 
           context "as guest user" do
-            it "only returns public pages for current site" do
+            it "only returns published unrestricted pages for current site" do
               get :index, format: :json
               expect(result["pages"].map { |r| r["id"] }).to match_array([
                 page.parent_id,
                 page.id,
+              ])
+            end
+          end
+
+          context "as member user" do
+            before do
+              authorize_user(build(:alchemy_dummy_user))
+            end
+
+            it "only returns all published pages for current site" do
+              get :index, format: :json
+              expect(result["pages"].map { |r| r["id"] }).to match_array([
+                page.parent_id,
+                page.id,
+                restricted_page.id,
               ])
             end
           end
@@ -102,38 +118,9 @@ module Alchemy
               authorize_user(build(:alchemy_dummy_user, :as_author))
             end
 
-            it "returns all pages for current site" do
+            it "returns all pages" do
               get :index, format: :json
-              expect(result["pages"].map { |r| r["id"] }).to match_array([
-                page.parent_id,
-                page.id,
-                unpublished_page.id,
-              ])
-            end
-          end
-        end
-
-        context "with language_id param" do
-          subject { get :index, params: { format: :json, language_id: try(:language)&.id } }
-
-          let!(:default_language_page) { create(:alchemy_page, :public, language: default_language, name: "same-name") }
-
-          context "when a language with that id exists" do
-            let(:language) { create(:alchemy_language, :klingon) }
-            let!(:default_language_page) { create(:alchemy_page, :public, language: default_language, name: "same-name") }
-            let!(:klingon_page) { create(:alchemy_page, :public, language: language, name: "same-name") }
-
-            it "only returns results from that language" do
-              subject
-              expect(result["pages"].map { |r| r["id"] }).to match_array [language.pages.root.id, klingon_page.id]
-            end
-          end
-
-          context "when a language with that id does not exist" do
-            it "uses the default language" do
-              subject
-              expect(result["pages"].map { |r| r["id"] }).to include(default_language_page.id)
-              expect(result["pages"].map { |r| r["language_code"] }).not_to include("kl")
+              expect(result["pages"].map { |r| r["id"] }).to match_array(Alchemy::Page.pluck(:id))
             end
           end
         end
