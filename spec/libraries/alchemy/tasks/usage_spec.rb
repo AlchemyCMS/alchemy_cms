@@ -16,26 +16,26 @@ RSpec.describe Alchemy::Tasks::Usage do
         {"name" => "headline", "count" => 3},
         {"name" => "image", "count" => 2},
         {"name" => "text", "count" => 1},
-        {"name" => "header", "count" => 0},
+        {"name" => "all_you_can_eat", "count" => 0},
         {"name" => "article", "count" => 0},
-        {"name" => "search", "count" => 0},
-        {"name" => "news", "count" => 0},
-        {"name" => "download", "count" => 0},
         {"name" => "bild", "count" => 0},
         {"name" => "contactform", "count" => 0},
-        {"name" => "all_you_can_eat", "count" => 0},
+        {"name" => "download", "count" => 0},
+        {"name" => "element_with_ingredient_groups", "count" => 0},
+        {"name" => "element_with_warning", "count" => 0},
+        {"name" => "erb_cell", "count" => 0},
         {"name" => "erb_element", "count" => 0},
-        {"name" => "slide", "count" => 0},
-        {"name" => "slider", "count" => 0},
         {"name" => "gallery", "count" => 0},
         {"name" => "gallery_picture", "count" => 0},
-        {"name" => "right_column", "count" => 0},
+        {"name" => "header", "count" => 0},
         {"name" => "left_column", "count" => 0},
-        {"name" => "erb_cell", "count" => 0},
         {"name" => "menu", "count" => 0},
+        {"name" => "news", "count" => 0},
         {"name" => "old", "count" => 0},
-        {"name" => "element_with_ingredient_groups", "count" => 0},
-        {"name" => "element_with_warning", "count" => 0}
+        {"name" => "right_column", "count" => 0},
+        {"name" => "search", "count" => 0},
+        {"name" => "slide", "count" => 0},
+        {"name" => "slider", "count" => 0}
       ]
     end
   end
@@ -53,12 +53,12 @@ RSpec.describe Alchemy::Tasks::Usage do
         {"page_layout" => "standard", "count" => 2},
         {"page_layout" => "home", "count" => 1},
         {"page_layout" => "index", "count" => 1},
-        {"page_layout" => "readonly", "count" => 0},
-        {"page_layout" => "everything", "count" => 0},
-        {"page_layout" => "news", "count" => 0},
         {"page_layout" => "contact", "count" => 0},
+        {"page_layout" => "erb_layout", "count" => 0},
+        {"page_layout" => "everything", "count" => 0},
         {"page_layout" => "footer", "count" => 0},
-        {"page_layout" => "erb_layout", "count" => 0}
+        {"page_layout" => "news", "count" => 0},
+        {"page_layout" => "readonly", "count" => 0}
       ]
     end
   end
