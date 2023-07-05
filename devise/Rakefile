@@ -40,7 +40,6 @@ namespace :alchemy do
           SETUP
         )
         exit($?.exitstatus) unless $?.success?
-        system("bin/rails webpacker:compile") || exit($?.exitstatus)
       end
     end
   end
