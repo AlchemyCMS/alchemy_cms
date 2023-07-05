@@ -31,9 +31,6 @@ namespace :alchemy do
     desc "Prepares database for testing Alchemy"
     task :prepare do
       Dir.chdir("spec/dummy") do
-        if ENV["ALCHEMY_BRANCH"] == "main"
-          system("bin/rails javascript:install:esbuild") || exit($?.exitstatus)
-        end
         system(
           <<~SETUP
             bin/rake railties:install:migrations
@@ -43,11 +40,7 @@ namespace :alchemy do
           SETUP
         )
         exit($?.exitstatus) unless $?.success?
-        if ENV["ALCHEMY_BRANCH"] == "main"
-          system("bin/rails javascript:build") || exit($?.exitstatus)
-        else
-          system("bin/rails webpacker:compile") || exit($?.exitstatus)
-        end
+        system("bin/rails webpacker:compile") || exit($?.exitstatus)
       end
     end
   end
