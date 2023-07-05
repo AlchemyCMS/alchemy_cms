@@ -9,6 +9,7 @@ module Alchemy
 
     class << self
       def remove_admin_entrypoint
+        FileUtils.rm_rf "app/assets/builds/alchemy_admin.*"
         FileUtils.rm_rf "app/javascript/packs/alchemy/admin.js"
         FileUtils.rm_rf "app/javascript/packs/alchemy_admin.js"
         FileUtils.rm_rf "app/javascript/packs/alchemy"
