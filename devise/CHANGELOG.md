@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.3.0 (2023-07-05)
+
+- Remove Alchemy 7.0 and 6.0 support [#174](https://github.com/AlchemyCMS/alchemy-devise/pull/174) ([tvdeyen](https://github.com/tvdeyen))
+- Use standard.rb to lint code [#166](https://github.com/AlchemyCMS/alchemy-devise/pull/166) ([tvdeyen](https://github.com/tvdeyen))
+- Update brakeman scan action [#165](https://github.com/AlchemyCMS/alchemy-devise/pull/165) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 6.2.0 (2023-04-01)
 
 - Add Alchemy 7 support [#164](https://github.com/AlchemyCMS/alchemy-devise/pull/164) ([tvdeyen](https://github.com/tvdeyen))
