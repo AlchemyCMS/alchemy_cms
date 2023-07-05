@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.0.0 (2023-07-05)
+
+- Update to Alchemy 7.0 [#173](https://github.com/AlchemyCMS/alchemy-devise/pull/173) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 6.3.0 (2023-07-05)
 
 - Remove Alchemy 7.0 and 6.0 support [#174](https://github.com/AlchemyCMS/alchemy-devise/pull/174) ([tvdeyen](https://github.com/tvdeyen))
