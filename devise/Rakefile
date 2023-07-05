@@ -35,7 +35,7 @@ namespace :alchemy do
           <<~SETUP
             bin/rake railties:install:migrations
             bin/rake db:drop db:create db:migrate
-            bin/rails g alchemy:install --force --auto-accept
+            bin/rails g alchemy:install --force --auto-accept --force-babel-config
             bin/rails g alchemy:devise:install --force
           SETUP
         )
