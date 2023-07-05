@@ -1,7 +1,12 @@
 # Changelog
 
-## 7.0.0 (unreleased)
+## 7.0.0 (2023-07-05)
 
+- Remove old alchemy_admin files from sprockets builds [#2517](https://github.com/AlchemyCMS/alchemy_cms/pull/2517) ([tvdeyen](https://github.com/tvdeyen))
+- Sort unused elements and page types by name [#2515](https://github.com/AlchemyCMS/alchemy_cms/pull/2515) ([tvdeyen](https://github.com/tvdeyen))
+- Remove flatpickr/flatpickr.min.js [#2512](https://github.com/AlchemyCMS/alchemy_cms/pull/2512) ([tvdeyen](https://github.com/tvdeyen))
+- Remove iOS switch for data pickers [#2511](https://github.com/AlchemyCMS/alchemy_cms/pull/2511) ([sascha-karnatz](https://github.com/sascha-karnatz))
+- Add task(s) to visualize element and page usage [#2496](https://github.com/AlchemyCMS/alchemy_cms/pull/2496) ([tvdeyen](https://github.com/tvdeyen))
 - Allow to create element with warning in definition [#2507](https://github.com/AlchemyCMS/alchemy_cms/pull/2507) ([tvdeyen](https://github.com/tvdeyen))
 - Remove unused javascript [#2506](https://github.com/AlchemyCMS/alchemy_cms/pull/2506) ([sascha-karnatz](https://github.com/sascha-karnatz))
 - Allow authors to link to all pages again [#2504](https://github.com/AlchemyCMS/alchemy_cms/pull/2504) ([tvdeyen](https://github.com/tvdeyen))
