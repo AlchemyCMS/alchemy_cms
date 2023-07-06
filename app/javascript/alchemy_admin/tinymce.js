@@ -41,10 +41,6 @@ function initEditors(ids) {
 // initialize IntersectionObserver
 // the observer will initialize Tinymce if the textarea becomes visible
 function initializeIntersectionObserver() {
-  if (tinymceIntersectionObserver !== null) {
-    tinymceIntersectionObserver.disconnect()
-  }
-
   const observerCallback = (entries, observer) => {
     entries.forEach((entry) => {
       if (entry.intersectionRatio > 0) {
@@ -108,6 +104,12 @@ function removeEditor(editorId) {
   }
 }
 
+function removeIntersectionObserver() {
+  if (tinymceIntersectionObserver !== null) {
+    tinymceIntersectionObserver.disconnect()
+  }
+}
+
 export default {
   // Initializes all TinyMCE editors with given ids
   //
@@ -134,6 +136,8 @@ export default {
       removeEditor(element.id)
     })
   },
+
+  removeIntersectionObserver,
 
   // set tinymce configuration for a given selector key
   setCustomConfig(key, configuration) {
