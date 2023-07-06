@@ -52,5 +52,6 @@ $(document).on 'turbo:load', ->
 
 $(document).on 'turbo:before-fetch-request', ->
   # Ensure that all tinymce editors get removed before parsing a new page
+  Alchemy.Tinymce.removeIntersectionObserver()
   Alchemy.Tinymce.removeFrom $('.has_tinymce')
   return
