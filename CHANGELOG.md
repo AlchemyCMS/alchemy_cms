@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.1.7 (2023-07-07)
+
+- [6.1] Add task(s) to visualize element and page usage [#2514](https://github.com/AlchemyCMS/alchemy_cms/pull/2514) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 6.1.6 (2023-06-30)
 
 - [6.1] Allow to create element with warning in definition [#2508](https://github.com/AlchemyCMS/alchemy_cms/pull/2508) ([tvdeyen](https://github.com/tvdeyen))
