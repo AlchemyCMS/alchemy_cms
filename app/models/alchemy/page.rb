@@ -295,7 +295,15 @@ module Alchemy
         differences.stringify_keys!
         attributes = source.attributes.merge(differences)
         attributes.merge!(DEFAULT_ATTRIBUTES_FOR_COPY)
-        attributes["name"] = new_name_for_copy(differences["name"], source.name)
+        attributes["name"] = begin
+          desired_name = differences["name"].presence || source.name
+          new_parent_id = differences["parent"]&.id || differences["parent_id"]
+          if new_parent_id && !Alchemy::Page.where(parent_id: new_parent_id, name: desired_name).exists?
+            desired_name
+          else
+            new_name_for_copy(differences["name"], source.name)
+          end
+        end
         attributes.except(*SKIPPED_ATTRIBUTES_ON_COPY)
       end
 

@@ -479,6 +479,18 @@ module Alchemy
           }.to_not change(Alchemy::Page, :count)
         end
       end
+
+      context "copying a different parent" do
+        let(:different_page) { create(:alchemy_page) }
+        let(:page) { create(:alchemy_page, parent: different_page) }
+        let(:destination) { create(:alchemy_page) }
+
+        subject { Page.copy(page, parent_id: destination.id) }
+
+        it "should not add (copy) to name" do
+          expect(subject.name).to eq(page.name)
+        end
+      end
     end
 
     describe ".create" do
