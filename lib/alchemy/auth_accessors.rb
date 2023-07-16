@@ -23,7 +23,7 @@
 #   5. The path to the login form - @see: Alchemy.login_path
 #   6. The path to the logout method - @see: Alchemy.logout_path
 #   7. The http verb for the logout method - @see: Alchemy.logout_method
-#   7. The path to the page showing the user he's unauthorized - @see: Alchemy.unauthorized_path
+#   8. The path to the page showing the user he's unauthorized - @see: Alchemy.unauthorized_path
 #
 # == Example
 #
