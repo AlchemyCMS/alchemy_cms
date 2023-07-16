@@ -11,6 +11,7 @@
 # +Alchemy.login_path defaults to +'/login'+
 # +Alchemy.logout_path defaults to +'/logout'+
 # +Alchemy.logout_method defaults to +'delete'+
+# +Alchemy.unauthorized_path defaults to +'/'+
 #
 # Anyway, you can tell Alchemy about your authentication model configuration:
 #
@@ -22,6 +23,7 @@
 #   5. The path to the login form - @see: Alchemy.login_path
 #   6. The path to the logout method - @see: Alchemy.logout_path
 #   7. The http verb for the logout method - @see: Alchemy.logout_method
+#   7. The path to the page showing the user he's unauthorized - @see: Alchemy.unauthorized_path
 #
 # == Example
 #
@@ -33,6 +35,7 @@
 #     Alchemy.login_path = '/auth/login'
 #     Alchemy.logout_path = '/auth/logout'
 #     Alchemy.logout_method = 'get'
+#     Alchemy.unauthorized_path = '/home'
 #
 # If you don't have your own user model or don't want to provide one,
 # add the `alchemy-devise` gem into your App's Gemfile.
@@ -49,7 +52,8 @@ module Alchemy
     :signup_path,
     :login_path,
     :logout_path,
-    :logout_method
+    :logout_method,
+    :unauthorized_path
 
   # Defaults
   #
@@ -60,6 +64,7 @@ module Alchemy
   @@login_path = "/login"
   @@logout_path = "/logout"
   @@logout_method = "delete"
+  @@unauthorized_path = "/"
 
   # Returns the user class
   #
