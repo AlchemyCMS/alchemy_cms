@@ -65,7 +65,7 @@ module Alchemy
       if can?(:index, :alchemy_admin_dashboard)
         redirect_or_render_notice
       else
-        redirect_to("/")
+        redirect_to Alchemy.unauthorized_path
       end
     end
 
