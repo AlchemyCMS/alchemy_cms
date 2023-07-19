@@ -90,6 +90,12 @@ module Alchemy
       end
     end
 
+    # This method can be overwritten in individual ingredients to fetch objects that belong to the related object in some form.
+    # This takes an Array of things that can be passed to the Rails preloader.
+    def preload_relations
+      []
+    end
+
     # The value or the related object if present
     def value
       related_object || self[:value]

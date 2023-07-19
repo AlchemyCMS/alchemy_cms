@@ -125,4 +125,12 @@ RSpec.describe Alchemy::Ingredients::Picture do
       )
     end
   end
+
+  describe "#preload_relations" do
+    let(:ingredient) { described_class.new }
+
+    subject { ingredient.preload_relations }
+
+    it { is_expected.to eq([:thumbs]) }
+  end
 end

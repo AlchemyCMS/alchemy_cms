@@ -38,6 +38,10 @@ module Alchemy
         upsample
       ]
 
+      def preload_relations
+        [:thumbs]
+      end
+
       # The first 30 characters of the pictures name
       #
       # Used by the Element#preview_text method.

@@ -213,4 +213,12 @@ RSpec.describe Alchemy::Ingredient do
       )
     end
   end
+
+  describe "#preload_relations" do
+    let(:ingredient) { Alchemy::Ingredients::Text.new(role: "intro", element: element) }
+
+    subject { ingredient.preload_relations }
+
+    it { is_expected.to eq([]) }
+  end
 end
