@@ -86,4 +86,9 @@ RSpec.describe "alchemy/ingredients/_picture_editor" do
       is_expected.to have_selector("a.disabled .icon.fa-crop")
     end
   end
+
+  it "does not add a for attribute to the label tag" do
+    is_expected.to have_selector("label", text: "Image")
+    is_expected.to_not have_selector("label[for]", text: "Image")
+  end
 end

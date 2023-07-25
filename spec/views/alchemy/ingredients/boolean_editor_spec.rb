@@ -38,4 +38,9 @@ RSpec.describe "alchemy/ingredients/_boolean_editor" do
       end
     end
   end
+
+  it "does not add a for attribute to the label tag" do
+    is_expected.to have_selector("label", text: "Boolean")
+    is_expected.to_not have_selector("label[for]", text: "Boolean")
+  end
 end
