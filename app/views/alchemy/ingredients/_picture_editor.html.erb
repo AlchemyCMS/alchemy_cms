@@ -4,7 +4,7 @@
   class: picture_editor.css_classes,
   data: picture_editor.data_attributes do %>
   <%= element_form.fields_for(:ingredients, picture_editor.ingredient) do |f| %>
-    <%= ingredient_label(picture_editor, :picture_id) %>
+    <%= ingredient_label(picture_editor, :picture_id, for: nil) %>
     <%= content_tag :div,
       data: {
         target_size: picture_editor.settings[:size] || [
