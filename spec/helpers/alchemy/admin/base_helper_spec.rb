@@ -219,5 +219,13 @@ module Alchemy
         end
       end
     end
+
+    describe "#render_icon" do
+      subject { helper.render_icon(:test_icon, style: false) }
+
+      it "renders the icon component" do
+        is_expected.to have_css('alchemy-icon[name="test_icon"]')
+      end
+    end
   end
 end

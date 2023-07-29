@@ -33,7 +33,9 @@
       <!-- Ingredients -->
       <% if element.has_ingredients_defined? %>
         <div class="element-ingredient-editors">
-          <%= render element.ingredients.select { !_1.definition.group }, element_form: f %>
+          <% element.ingredients.reject { _1.definition.group }.each do |ingredient| %>
+            <%= render ingredient.as_editor_component(element_form: f) %>
+          <% end %>
 
           <!-- Each ingredient group -->
           <% element.ingredients.select { _1.definition.group }.group_by { _1.definition.group }.each do |group, ingredients| %>
@@ -42,7 +44,9 @@
                 <%= element.translated_group group %>
                 <%= render_icon "arrow-left-s" %>
               </summary>
-              <%= render ingredients, element_form: f %>
+              <% ingredients.each do |ingredient| %>
+                <%= render ingredient.as_editor_component(element_form: f) %>
+              <% end %>
             <% end %>
           <% end %>
         </div>
