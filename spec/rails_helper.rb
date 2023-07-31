@@ -12,7 +12,6 @@ require "capybara-screenshot/rspec"
 require "rails-controller-testing"
 require "rspec-activemodel-mocks"
 require "rspec/rails"
-require "webdrivers/chromedriver"
 require "shoulda-matchers"
 require "factory_bot"
 
