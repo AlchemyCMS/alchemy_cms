@@ -33,6 +33,12 @@ describe Alchemy::Admin::IngredientsHelper do
         is_expected.to have_selector("label > .hint-with-icon", text: "This is a hint")
       end
     end
+
+    context "with html_options given" do
+      it "adds them to the label tag" do
+        expect(helper.ingredient_label(ingredient_editor, :value, for: "foo")).to have_selector('label[for="foo"]')
+      end
+    end
   end
 
   describe "#render_ingredient_role" do
