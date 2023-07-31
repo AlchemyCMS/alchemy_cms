@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.0.1 (2023-07-07)
+
+- Fix disconnecting Tinymce intersection observer [#2519](https://github.com/AlchemyCMS/alchemy_cms/pull/2519) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.0.0 (2023-07-05)
 
 - Remove old alchemy_admin files from sprockets builds [#2517](https://github.com/AlchemyCMS/alchemy_cms/pull/2517) ([tvdeyen](https://github.com/tvdeyen))
