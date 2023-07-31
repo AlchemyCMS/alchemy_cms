@@ -57,6 +57,25 @@ describe Alchemy::Admin::BaseController do
     end
   end
 
+  describe "#permission_denied" do
+    context "when called with an AccessDenied exception" do
+      before do
+        allow(controller).to receive(:redirect_to)
+      end
+
+      it "redirects to login_path if no user" do
+        controller.send(:permission_denied, CanCan::AccessDenied.new)
+        expect(controller).to have_received(:redirect_to).with(Alchemy.login_path)
+      end
+
+      it "redirects to unauthorized_path for a logged in user" do
+        authorize_user(build(:alchemy_dummy_user))
+        controller.send(:permission_denied, CanCan::AccessDenied.new)
+        expect(controller).to have_received(:redirect_to).with(Alchemy.unauthorized_path)
+      end
+    end
+  end
+
   context "when current_alchemy_user is present" do
     let!(:page_1) { create(:alchemy_page, name: "Page 1") }
     let!(:page_2) { create(:alchemy_page, name: "Page 2") }

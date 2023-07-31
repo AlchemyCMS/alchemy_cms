@@ -146,6 +146,7 @@ Alchemy.signup_path         = '/your/signup/path'      # Defaults to '/signup'
 Alchemy.login_path          = '/your/login/path'       # Defaults to '/login'
 Alchemy.logout_path         = '/your/logout/path'      # Defaults to '/logout'
 Alchemy.logout_method       = 'http_verb_for_logout'   # Defaults to 'delete'
+Alchemy.unauthorized_path   = '/some/public/page'      # Defaults to '/'
 ```
 
 The only thing Alchemy needs to know from your user class is the `alchemy_roles` method.
