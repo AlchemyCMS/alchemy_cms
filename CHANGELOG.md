@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.0.2 (2023-07-31)
+
+- [7.0] Fix DOM ids and labels of ingredient editors [#2538](https://github.com/AlchemyCMS/alchemy_cms/pull/2538) ([tvdeyen](https://github.com/tvdeyen))
+- [7.0] Bugfix: Initialize PagePublicationFields on Pages Table [#2537](https://github.com/AlchemyCMS/alchemy_cms/pull/2537) ([tvdeyen](https://github.com/tvdeyen))
+- [v7.0] Use selenium-webdriver instead of webdrivers gem [#2532](https://github.com/AlchemyCMS/alchemy_cms/pull/2532) ([mamhoff](https://github.com/mamhoff))
+
 ## 7.0.1 (2023-07-07)
 
 - Fix disconnecting Tinymce intersection observer [#2519](https://github.com/AlchemyCMS/alchemy_cms/pull/2519) ([tvdeyen](https://github.com/tvdeyen))
