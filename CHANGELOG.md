@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.1.8 (2023-07-31)
+
+- [v6.1]  Use selenium-webdriver instead of webdrivers gem  [#2531](https://github.com/AlchemyCMS/alchemy_cms/pull/2531) ([mamhoff](https://github.com/mamhoff))
+- [v6.1] Bugfix: Init PagePublicationFields on Pages Table [#2530](https://github.com/AlchemyCMS/alchemy_cms/pull/2530) ([mamhoff](https://github.com/mamhoff))
+
 ## 6.1.7 (2023-07-07)
 
 - [6.1] Add task(s) to visualize element and page usage [#2514](https://github.com/AlchemyCMS/alchemy_cms/pull/2514) ([tvdeyen](https://github.com/tvdeyen))
