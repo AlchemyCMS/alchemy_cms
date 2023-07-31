@@ -28,10 +28,6 @@ module Alchemy
         stripped_body.to_s[0..max_length - 1]
       end
 
-      def element_id
-        "tinymce_#{id}"
-      end
-
       def has_tinymce?
         true
       end
