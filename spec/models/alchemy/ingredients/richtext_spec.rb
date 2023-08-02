@@ -33,12 +33,6 @@ RSpec.describe Alchemy::Ingredients::Richtext do
     expect(richtext_ingredient.sanitized_body).to eq("<h1>Hello!</h1><p class=\"green\">Welcome to Peters Petshop.</p>")
   end
 
-  describe "#element_id" do
-    subject { richtext_ingredient.element_id }
-
-    it { is_expected.to eq("tinymce_#{richtext_ingredient.id}") }
-  end
-
   describe "#has_custom_tinymce_config?" do
     subject { richtext_ingredient.has_custom_tinymce_config? }
 
