@@ -206,7 +206,6 @@ div.mce-tinymce-inline {
   right: 2px;
   opacity: 0.4;
   filter: alpha(opacity=40);
-  zoom: 1;
 }
 
 .mce-scrollbar-h {
@@ -240,7 +239,6 @@ div.mce-tinymce-inline {
   background-color: #aaa;
   opacity: 0.6;
   filter: alpha(opacity=60);
-  zoom: 1;
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
   border-radius: 7px;
@@ -643,7 +641,6 @@ body .mce-abs-layout-item {
   text-shadow: $button-text-shadow;
   display: inline-block;
   *display: inline;
-  *zoom: 1;
   box-shadow: none;
   background-color: $light-gray;
 
@@ -704,7 +701,6 @@ body .mce-abs-layout-item {
     box-shadow: none;
     opacity: 0.4;
     filter: alpha(opacity=40);
-    zoom: 1;
   }
 
   &.mce-active,
@@ -757,7 +753,6 @@ body .mce-abs-layout-item {
 .mce-caret {
   display: inline-block;
   *display: inline;
-  *zoom: 1;
   width: 0;
   height: 0;
   vertical-align: top;
@@ -830,7 +825,6 @@ i.mce-i-checkbox {
   background-image: linear-gradient(to bottom, #fff, #d9d9d9);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr= '#ffffffff',endColorstr='#ffd9d9d9',GradientType=0);
-  zoom: 1;
   text-indent: -10em;
   *font-size: 0;
   *line-height: 0;
@@ -942,7 +936,6 @@ i.mce-i-checkbox {
 .mce-combobox {
   display: inline-block;
   *display: inline;
-  *zoom: 1;
   border-radius: $default-border-radius;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   *height: 32px;
@@ -979,13 +972,11 @@ i.mce-i-checkbox {
   box-shadow: none;
   opacity: 0.4;
   filter: alpha(opacity=40);
-  zoom: 1;
 }
 
 .mce-path {
   display: inline-block;
   *display: inline;
-  *zoom: 1;
   padding: 4px 6px;
   white-space: normal;
 }
@@ -1002,7 +993,6 @@ i.mce-i-checkbox {
 .mce-path-item {
   display: inline-block;
   *display: inline;
-  *zoom: 1;
   cursor: pointer;
   color: #333;
 }
@@ -1044,7 +1034,6 @@ i.mce-i-checkbox {
 .mce-fit-layout {
   display: inline-block;
   *display: inline;
-  *zoom: 1;
 }
 
 .mce-fit-layout-item {
@@ -1054,7 +1043,6 @@ i.mce-i-checkbox {
 .mce-flow-layout-item {
   display: inline-block;
   *display: inline;
-  *zoom: 1;
 }
 
 .mce-flow-layout-item {
@@ -1095,7 +1083,6 @@ i.mce-i-checkbox {
 .mce-label {
   display: inline-block;
   *display: inline;
-  *zoom: 1;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
   border: 0;
   overflow: hidden;
@@ -1256,7 +1243,6 @@ i.mce-i-checkbox {
 .mce-menu-shortcut {
   display: inline-block;
   *display: inline;
-  *zoom: 1;
   padding: 0 15px 0 20px;
 }
 
@@ -1486,7 +1472,6 @@ i.mce-i-resize {
 .mce-tab {
   display: inline-block;
   *display: inline;
-  *zoom: 1;
   border: 1px solid #c5c5c5;
   border-width: 0 1px 0 0;
   background: #e3e3e3;
@@ -1572,7 +1557,6 @@ i.mce-i-resize {
   height: 100%;
   opacity: 0.6;
   filter: alpha(opacity=60);
-  zoom: 1;
   background: #fff url("tinymce/skins/alchemy/fonts/img/loader.gif") no-repeat
     center center;
 }
