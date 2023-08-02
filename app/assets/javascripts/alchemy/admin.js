@@ -23,7 +23,6 @@
 //= require alchemy/alchemy.elements_window
 //= require alchemy/alchemy.fixed_elements
 //= require alchemy/alchemy.growler
-//= require alchemy/alchemy.gui
 //= require alchemy/alchemy.hotkeys
 //= require alchemy/alchemy.image_overlay
 //= require alchemy/alchemy.string_extension
