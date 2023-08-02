@@ -23,9 +23,7 @@ export default function Datepicker(scope = document) {
       noCalendar: type === "time",
       time_24hr: Alchemy.t("formats.time_24hr"),
       onValueUpdate(_selectedDates, _dateStr, instance) {
-        return Alchemy.setElementDirty(
-          instance.element.closest(".element-editor")
-        )
+        Alchemy.setElementDirty(instance.element.closest(".element-editor"))
       }
     }
     flatpickr(input, options)
