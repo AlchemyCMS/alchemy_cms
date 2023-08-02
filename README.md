@@ -41,11 +41,7 @@ Read more about Alchemy on the [website](https://alchemy-cms.com) and in the [gu
 
 ## 🎮 Demo
 
-Deploy your own free demo on Heroku
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/AlchemyCMS/alchemy-demo)
-
-or visit the existing demo at https://alchemy-demo.herokuapp.com
+Visit the existing demo at https://alchemy-demo.fly.dev/
 
 - Login: `demo`
 - Password: `demo123`
