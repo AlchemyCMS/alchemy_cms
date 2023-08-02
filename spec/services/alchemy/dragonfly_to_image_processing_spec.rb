@@ -20,7 +20,8 @@ RSpec.describe Alchemy::DragonflyToImageProcessing do
         {
           crop: [0, 0, 2000, 1000],
           resize_to_limit: [200, 100, {sharpen: false}],
-          saver: {quality: 85}
+          saver: {quality: 85},
+          loader: {n: -1}
         }
       )
     end
@@ -41,7 +42,8 @@ RSpec.describe Alchemy::DragonflyToImageProcessing do
           {
             crop: [0, 0, 2000, 1000],
             resize_to_limit: [200, 100, {}],
-            saver: {quality: 85}
+            saver: {quality: 85},
+            loader: {n: -1}
           }
         )
       end
@@ -56,7 +58,8 @@ RSpec.describe Alchemy::DragonflyToImageProcessing do
         is_expected.to eq(
           {
             resize_to_limit: [100, 100, {sharpen: false}],
-            saver: {quality: 85}
+            saver: {quality: 85},
+            loader: {n: -1}
           }
         )
       end
@@ -69,7 +72,8 @@ RSpec.describe Alchemy::DragonflyToImageProcessing do
         is_expected.to eq(
           {
             resize_to_fit: [100, 100, {sharpen: false}],
-            saver: {quality: 85}
+            saver: {quality: 85},
+            loader: {n: -1}
           }
         )
       end
@@ -82,7 +86,8 @@ RSpec.describe Alchemy::DragonflyToImageProcessing do
         is_expected.to eq(
           {
             resize_to_fill: [100, 100, {sharpen: false}],
-            saver: {quality: 85}
+            saver: {quality: 85},
+            loader: {n: -1}
           }
         )
       end
@@ -95,7 +100,8 @@ RSpec.describe Alchemy::DragonflyToImageProcessing do
         is_expected.to eq(
           {
             resize_to_limit: [100, 100, {sharpen: false}],
-            saver: {quality: 85}
+            saver: {quality: 85},
+            loader: {n: -1}
           }
         )
       end
@@ -107,7 +113,8 @@ RSpec.describe Alchemy::DragonflyToImageProcessing do
           is_expected.to eq(
             {
               resize_to_fill: [100, 100, {sharpen: false}],
-              saver: {quality: 85}
+              saver: {quality: 85},
+              loader: {n: -1}
             }
           )
         end
@@ -121,7 +128,8 @@ RSpec.describe Alchemy::DragonflyToImageProcessing do
         is_expected.to eq(
           {
             resize_to_limit: [100, 100, {}],
-            saver: {quality: 85}
+            saver: {quality: 85},
+            loader: {n: -1}
           }
         )
       end
@@ -131,14 +139,20 @@ RSpec.describe Alchemy::DragonflyToImageProcessing do
       let(:options) { {} }
 
       it "just contains default quality option" do
-        is_expected.to eq({saver: {quality: 85}})
+        is_expected.to eq({
+          saver: {quality: 85},
+          loader: {n: -1}
+        })
       end
 
       context "if quality is given" do
         let(:options) { {quality: 15} }
 
         it "contains given quality option" do
-          is_expected.to eq({saver: {quality: 15}})
+          is_expected.to eq({
+            saver: {quality: 15},
+            loader: {n: -1}
+          })
         end
       end
     end
@@ -150,7 +164,8 @@ RSpec.describe Alchemy::DragonflyToImageProcessing do
         is_expected.to eq(
           {
             format: "webp",
-            saver: {quality: 85}
+            saver: {quality: 85},
+            loader: {n: -1}
           }
         )
       end
@@ -167,7 +182,8 @@ RSpec.describe Alchemy::DragonflyToImageProcessing do
         it "does not contain the format option" do
           is_expected.to eq(
             {
-              saver: {quality: 85}
+              saver: {quality: 85},
+              loader: {n: -1}
             }
           )
         end
@@ -182,9 +198,110 @@ RSpec.describe Alchemy::DragonflyToImageProcessing do
           is_expected.to eq(
             {
               saver: {quality: 85},
-              format: "webp"
+              format: "webp",
+              loader: {n: -1}
             }
           )
+        end
+      end
+    end
+  end
+
+  describe "flatten option" do
+    shared_context "vips variant processor" do
+      before do
+        expect(Rails.application.config.active_storage).to receive(:variant_processor) do
+          :vips
+        end
+      end
+    end
+
+    shared_context "mini_magick variant processor" do
+      before do
+        expect(Rails.application.config.active_storage).to receive(:variant_processor) do
+          :mini_magick
+        end
+      end
+    end
+
+    context "with flatten not set" do
+      let(:options) { {format: "gif"} }
+
+      context "with vips variant processor" do
+        include_context "vips variant processor"
+
+        it "does not flatten image" do
+          is_expected.to include({
+            loader: {n: -1}
+          })
+        end
+      end
+
+      context "with mini_magick variant processor" do
+        include_context "mini_magick variant processor"
+
+        it "does not flatten image" do
+          is_expected.to include({
+            loader: {page: nil}
+          })
+        end
+      end
+    end
+
+    context "with flatten set to false" do
+      let(:options) do
+        {
+          format: "gif",
+          flatten: false
+        }
+      end
+
+      context "with vips variant processor" do
+        include_context "vips variant processor"
+
+        it "does not flatten image" do
+          is_expected.to include({
+            loader: {n: -1}
+          })
+        end
+      end
+
+      context "with mini_magick variant processor" do
+        include_context "mini_magick variant processor"
+
+        it "does not flatten image" do
+          is_expected.to include({
+            loader: {page: nil}
+          })
+        end
+      end
+    end
+
+    context "flatten set to true" do
+      let(:options) do
+        {
+          format: "gif",
+          flatten: true
+        }
+      end
+
+      context "with vips variant processor" do
+        include_context "vips variant processor"
+
+        it "flattens image" do
+          is_expected.to include({
+            loader: {n: 1}
+          })
+        end
+      end
+
+      context "with mini_magick variant processor" do
+        include_context "mini_magick variant processor"
+
+        it "flattens image" do
+          is_expected.to include({
+            loader: {page: 0}
+          })
         end
       end
     end

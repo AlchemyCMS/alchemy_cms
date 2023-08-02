@@ -11,6 +11,7 @@ module Alchemy
       def call(options = {})
         opts = crop_options(options).presence || resize_options(options)
         opts.merge!(format_options(options))
+        opts.merge!(flatten_options(options))
         opts.merge!(quality_options(options))
         opts
       end
@@ -56,6 +57,33 @@ module Alchemy
         {format: format}
       end
 
+      def flatten_options(options)
+        case options[:flatten]
+        when true
+          {loader: flattened_loader_options}
+        when false, nil
+          {loader: not_flattened_loader_options}
+        end
+      end
+
+      def flattened_loader_options
+        case variant_processor
+        when :vips
+          {n: 1}
+        when :mini_magick
+          {page: 0}
+        end
+      end
+
+      def not_flattened_loader_options
+        case variant_processor
+        when :vips
+          {n: -1}
+        when :mini_magick
+          {page: nil}
+        end
+      end
+
       def image_magick_string(options)
         if options[:crop] == true
           "#{options[:size]}#"
@@ -94,6 +122,10 @@ module Alchemy
         return nil if Alchemy::Config.get(:image_output_format) == "original"
 
         Alchemy::Config.get(:image_output_format)
+      end
+
+      def variant_processor
+        Rails.application.config.active_storage.variant_processor
       end
     end
   end
