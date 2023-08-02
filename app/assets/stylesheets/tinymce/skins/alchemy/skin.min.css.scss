@@ -297,7 +297,6 @@ div.mce-tinymce-inline {
 
   &.mce-popover.mce-bottom {
     margin-top: 10px;
-    *margin-top: 0;
   }
 
   &.mce-popover.mce-bottom > .mce-arrow {
@@ -640,7 +639,6 @@ body .mce-abs-layout-item {
   position: relative;
   text-shadow: $button-text-shadow;
   display: inline-block;
-  *display: inline;
   box-shadow: none;
   background-color: $light-gray;
 
@@ -665,7 +663,6 @@ body .mce-abs-layout-item {
     padding: 2px 4px;
     font-size: 12px;
     line-height: 20px;
-    *line-height: 16px;
     cursor: pointer;
     color: $text-color;
     text-align: center;
@@ -731,13 +728,11 @@ body .mce-abs-layout-item {
 .mce-btn-small button {
   padding: 1px 5px;
   font-size: 12px;
-  *padding-bottom: 2px;
 }
 
 .mce-btn-small i {
   line-height: 20px;
   vertical-align: top;
-  *line-height: 18px;
 }
 
 .mce-btn .mce-caret {
@@ -752,7 +747,6 @@ body .mce-abs-layout-item {
 
 .mce-caret {
   display: inline-block;
-  *display: inline;
   width: 0;
   height: 0;
   vertical-align: top;
@@ -826,9 +820,6 @@ i.mce-i-checkbox {
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr= '#ffffffff',endColorstr='#ffd9d9d9',GradientType=0);
   text-indent: -10em;
-  *font-size: 0;
-  *line-height: 0;
-  *text-indent: 0;
   overflow: hidden;
 }
 
@@ -935,10 +926,8 @@ i.mce-i-checkbox {
 
 .mce-combobox {
   display: inline-block;
-  *display: inline;
   border-radius: $default-border-radius;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  *height: 32px;
 }
 
 .mce-combobox input {
@@ -976,7 +965,6 @@ i.mce-i-checkbox {
 
 .mce-path {
   display: inline-block;
-  *display: inline;
   padding: 4px 6px;
   white-space: normal;
 }
@@ -992,7 +980,6 @@ i.mce-i-checkbox {
 
 .mce-path-item {
   display: inline-block;
-  *display: inline;
   cursor: pointer;
   color: #333;
 }
@@ -1033,7 +1020,6 @@ i.mce-i-checkbox {
 
 .mce-fit-layout {
   display: inline-block;
-  *display: inline;
 }
 
 .mce-fit-layout-item {
@@ -1042,7 +1028,6 @@ i.mce-i-checkbox {
 
 .mce-flow-layout-item {
   display: inline-block;
-  *display: inline;
 }
 
 .mce-flow-layout-item {
@@ -1082,7 +1067,6 @@ i.mce-i-checkbox {
 
 .mce-label {
   display: inline-block;
-  *display: inline;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
   border: 0;
   overflow: hidden;
@@ -1146,7 +1130,6 @@ i.mce-i-checkbox {
   color: #333;
   margin-right: 2px;
   line-height: 20px;
-  *line-height: 16px;
 }
 
 .mce-menubtn.mce-btn-small span {
@@ -1162,10 +1145,6 @@ i.mce-i-checkbox {
 
 .mce-menubtn.mce-fixed-width.mce-btn-small span {
   width: 70px;
-}
-
-.mce-menubtn .mce-caret {
-  *margin-top: 6px;
 }
 
 .mce-rtl .mce-menubtn button {
@@ -1242,7 +1221,6 @@ i.mce-i-checkbox {
 
 .mce-menu-shortcut {
   display: inline-block;
-  *display: inline;
   padding: 0 15px 0 20px;
 }
 
@@ -1254,7 +1232,6 @@ i.mce-i-checkbox {
 
 .mce-menu-item .mce-caret {
   margin-top: 4px;
-  *margin-top: 3px;
   margin-right: 6px;
   border-top: 4px solid transparent;
   border-bottom: 4px solid transparent;
@@ -1265,10 +1242,6 @@ i.mce-i-checkbox {
 .mce-menu-item:focus .mce-caret,
 .mce-menu-item:hover .mce-caret {
   border-left-color: #fff;
-}
-
-.mce-menu-align .mce-menu-shortcut {
-  *margin-top: -2px;
 }
 
 .mce-menu-align .mce-caret,
@@ -1372,7 +1345,6 @@ div.mce-menu .mce-menu-item-sep {
 
 .mce-menu-has-icons i {
   display: inline-block;
-  *display: inline;
 }
 
 .mce-menu-sub-tr-tl {
@@ -1471,7 +1443,6 @@ i.mce-i-resize {
 
 .mce-tab {
   display: inline-block;
-  *display: inline;
   border: 1px solid #c5c5c5;
   border-width: 0 1px 0 0;
   background: #e3e3e3;
