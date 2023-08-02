@@ -27,7 +27,8 @@ RSpec.describe Alchemy::Picture::Url do
       expect(picture.image_file).to receive(:variant).with(
         {
           resize_to_limit: [10, 10, {sharpen: false}],
-          saver: {quality: 85}
+          saver: {quality: 85},
+          loader: {n: -1}
         }
       )
       subject
