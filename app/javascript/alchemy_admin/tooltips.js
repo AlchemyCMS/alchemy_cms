@@ -1,8 +1,15 @@
-export default function Tooltips(scope) {
-  $("[data-alchemy-tooltip]", scope).each(function () {
-    const $el = $(this)
-    const text = $el.data("alchemy-tooltip")
-    $el.wrap('<span class="with-hint"/>')
-    $el.after('<span class="hint-bubble">' + text + "</span>")
+import { createHtmlElement, wrap } from "alchemy_admin/dom_helpers"
+
+/**
+ * show tooltips on fixed inputs
+ * @param {Element|Document} baseElement
+ * @constructor
+ */
+export default function Tooltips(baseElement) {
+  baseElement.querySelectorAll("[data-alchemy-tooltip]").forEach((element) => {
+    const text = element.dataset.alchemyTooltip
+
+    wrap(element, createHtmlElement('<div class="with-hint" />'))
+    element.after(createHtmlElement(`<span class="hint-bubble">${text}</span>`))
   })
 }
