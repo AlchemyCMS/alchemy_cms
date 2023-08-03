@@ -18,7 +18,7 @@ Alchemy is an open source CMS engine written in Ruby on Rails.
 
 Read more about Alchemy on the [website](https://alchemy-cms.com) and in the [guidelines](https://guides.alchemy-cms.com).
 
-**CAUTION: This main branch is a development branch that *can* contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms), or the [latest stable branch (6.0-stable)](https://github.com/AlchemyCMS/alchemy_cms/tree/6.0-stable).**
+**CAUTION: This main branch is a development branch that *can* contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms), or the [latest stable branch (7.0-stable)](https://github.com/AlchemyCMS/alchemy_cms/tree/7.0-stable).**
 
 
 ## ✅ Features
@@ -41,19 +41,17 @@ Read more about Alchemy on the [website](https://alchemy-cms.com) and in the [gu
 
 ## 🎮 Demo
 
-Deploy your own free demo on Heroku
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/AlchemyCMS/alchemy-demo)
-
-or visit the existing demo at https://alchemy-demo.herokuapp.com
+Visit the existing demo at https://alchemy-demo.fly.dev/
 
 - Login: `demo`
 - Password: `demo123`
 
 ## 🚂 Rails Version
 
-**This version of AlchemyCMS runs with Rails 7.0, 6.1 and 6.0**
+**This version of AlchemyCMS runs with Rails 7.0**
 
+* For a Rails 6.1 compatible version use the [`7.0-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/7.0-stable).
+* For a Rails 6.0 compatible version use the [`6.1-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/6.1-stable).
 * For a Rails 5.2 compatible version use the [`5.3-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/5.3-stable).
 * For a Rails 5.0 or 5.1 compatible version use the [`4.5-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/4.5-stable).
 * For a Rails 4.2 compatible version use the [`3.6-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/3.6-stable).
