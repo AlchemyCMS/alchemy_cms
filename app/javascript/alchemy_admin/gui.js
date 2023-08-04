@@ -1,5 +1,4 @@
 import TagsAutocomplete from "alchemy_admin/tags_autocomplete"
-import CharCounter from "alchemy_admin/char_counter"
 
 function init(scope) {
   Alchemy.SelectBox(scope)
@@ -12,9 +11,6 @@ function init(scope) {
   Alchemy.Hotkeys(scope)
   Alchemy.ListFilter(scope)
   TagsAutocomplete(scope)
-  $("[data-alchemy-char-counter]", scope).each(function () {
-    CharCounter(this)
-  })
 }
 
 function initElement($el) {

@@ -16,8 +16,9 @@
 
   <%= f.input :name, autofocus: true %>
   <%= f.input :urlname, as: 'string', input_html: {value: @page.slug}, label: Alchemy::Page.human_attribute_name(:slug) %>
-  <%= f.input :title,
-    input_html: {'data-alchemy-char-counter' => 60} %>
+  <alchemy-char-counter data-count="60">
+    <%= f.input :title %>
+  </alchemy-char-counter>
 
   <% if Alchemy.enable_searchable %>
     <div class="input check_boxes">
@@ -36,9 +37,10 @@
     </div>
   </div>
 
-  <%= f.input :meta_description,
-    as: 'text',
-    input_html: {'data-alchemy-char-counter' => 160} %>
+  <alchemy-char-counter data-count="160">
+    <%= f.input :meta_description, as: 'text' %>
+  </alchemy-char-counter>
+
   <%= f.input :meta_keywords,
     as: 'text',
     hint: Alchemy.t('pages.update.comma_seperated') %>

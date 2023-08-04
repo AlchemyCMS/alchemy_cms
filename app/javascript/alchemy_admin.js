@@ -16,6 +16,9 @@ import Sitemap from "alchemy_admin/sitemap"
 import Tinymce from "alchemy_admin/tinymce"
 import PagePublicationFields from "alchemy_admin/page_publication_fields"
 
+// Web Components
+import "alchemy_admin/components/char_counter"
+
 // Global Alchemy object
 if (typeof window.Alchemy === "undefined") {
   window.Alchemy = {}
