@@ -156,55 +156,6 @@ RSpec.describe Alchemy::DragonflyToImageProcessing do
         end
       end
     end
-
-    context "Format option is given" do
-      let(:options) { {format: "webp"} }
-
-      it "contains the format option" do
-        is_expected.to eq(
-          {
-            format: "webp",
-            saver: {quality: 85},
-            loader: {n: -1}
-          }
-        )
-      end
-    end
-
-    context "Format option is not given" do
-      let(:options) { {} }
-
-      context "and the image output format is configured to be original" do
-        before do
-          stub_alchemy_config(:image_output_format, "original")
-        end
-
-        it "does not contain the format option" do
-          is_expected.to eq(
-            {
-              saver: {quality: 85},
-              loader: {n: -1}
-            }
-          )
-        end
-      end
-
-      context "and the image output format is configured to webp" do
-        before do
-          stub_alchemy_config(:image_output_format, "webp")
-        end
-
-        it "does not contain the format option" do
-          is_expected.to eq(
-            {
-              saver: {quality: 85},
-              format: "webp",
-              loader: {n: -1}
-            }
-          )
-        end
-      end
-    end
   end
 
   describe "flatten option" do
@@ -225,7 +176,7 @@ RSpec.describe Alchemy::DragonflyToImageProcessing do
     end
 
     context "with flatten not set" do
-      let(:options) { {format: "gif"} }
+      let(:options) { {} }
 
       context "with vips variant processor" do
         include_context "vips variant processor"
@@ -251,7 +202,6 @@ RSpec.describe Alchemy::DragonflyToImageProcessing do
     context "with flatten set to false" do
       let(:options) do
         {
-          format: "gif",
           flatten: false
         }
       end
@@ -280,7 +230,6 @@ RSpec.describe Alchemy::DragonflyToImageProcessing do
     context "flatten set to true" do
       let(:options) do
         {
-          format: "gif",
           flatten: true
         }
       end
