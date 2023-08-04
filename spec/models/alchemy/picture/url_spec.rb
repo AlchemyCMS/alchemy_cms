@@ -28,6 +28,7 @@ RSpec.describe Alchemy::Picture::Url do
         {
           resize_to_limit: [10, 10, {sharpen: false}],
           saver: {quality: 85},
+          format: "png",
           loader: {n: -1}
         }
       )
