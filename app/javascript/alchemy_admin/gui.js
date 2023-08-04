@@ -11,9 +11,6 @@ function init(scope) {
   Alchemy.Hotkeys(scope)
   Alchemy.ListFilter(scope)
   TagsAutocomplete(scope)
-  $("[data-alchemy-char-counter]", scope).each(function () {
-    new Alchemy.CharCounter(this)
-  })
 }
 
 function initElement($el) {
