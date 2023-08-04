@@ -1,6 +1,5 @@
 import "@hotwired/turbo-rails"
 
-import Base from "alchemy_admin/base"
 import Buttons from "alchemy_admin/buttons"
 import GUI from "alchemy_admin/gui"
 import translate from "alchemy_admin/i18n"
@@ -12,7 +11,10 @@ import pictureEditors from "alchemy_admin/picture_editors"
 import ImageLoader from "alchemy_admin/image_loader"
 import ImageCropper from "alchemy_admin/image_cropper"
 import Initializer from "alchemy_admin/initializer"
+import pictureSelector from "alchemy_admin/picture_selector"
+import pleaseWaitOverlay from "alchemy_admin/please_wait_overlay"
 import Sitemap from "alchemy_admin/sitemap"
+import SelectBox from "alchemy_admin/select_box"
 import Spinner from "alchemy_admin/spinner"
 import PagePublicationFields from "alchemy_admin/page_publication_fields"
 
@@ -33,7 +35,6 @@ if (typeof window.Alchemy === "undefined") {
 
 // Enhance the global Alchemy object with imported features
 Object.assign(Alchemy, {
-  ...Base,
   Buttons,
   ...Dirty,
   GUI,
@@ -45,6 +46,9 @@ Object.assign(Alchemy, {
   ImageCropper,
   Initializer,
   IngredientAnchorLink,
+  pictureSelector,
+  pleaseWaitOverlay,
+  SelectBox,
   Sitemap,
   Spinner,
   PagePublicationFields
