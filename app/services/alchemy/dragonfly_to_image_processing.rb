@@ -10,7 +10,6 @@ module Alchemy
     class << self
       def call(options = {})
         opts = crop_options(options).presence || resize_options(options)
-        opts.merge!(format_options(options))
         opts.merge!(flatten_options(options))
         opts.merge!(quality_options(options))
         opts
@@ -48,13 +47,6 @@ module Alchemy
       def quality_options(options)
         quality = options[:quality] || Alchemy::Config.get(:output_image_jpg_quality)
         {saver: {quality: quality}}
-      end
-
-      def format_options(options)
-        format = options[:format] || default_output_format
-        return {} if format.nil?
-
-        {format: format}
       end
 
       def flatten_options(options)
@@ -116,12 +108,6 @@ module Alchemy
 
       def sharpen_value(options)
         options.key?(:sharpen) ? options[:sharpen] : Alchemy::Config.get(:sharpen_images)
-      end
-
-      def default_output_format
-        return nil if Alchemy::Config.get(:image_output_format) == "original"
-
-        Alchemy::Config.get(:image_output_format)
       end
 
       def variant_processor

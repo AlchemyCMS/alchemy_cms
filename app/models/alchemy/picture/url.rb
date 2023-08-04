@@ -18,6 +18,7 @@ module Alchemy
       #
       def call(options = {})
         variant_options = DragonflyToImageProcessing.call(options)
+        variant_options[:format] = options[:format] || default_output_format
         variant = image_file&.variant(variant_options)
         return unless variant
 
@@ -25,8 +26,7 @@ module Alchemy
           variant,
           {
             filename: filename(options),
-            only_path: true,
-            format: nil
+            only_path: true
           }
         )
       end
@@ -34,11 +34,18 @@ module Alchemy
       private
 
       def filename(options = {})
-        format = options[:format] || picture.image_file_extension
         if picture.name.presence
-          "#{picture.name.to_param}.#{format}"
+          picture.name.to_param
         else
           picture.image_file_name
+        end
+      end
+
+      def default_output_format
+        if Alchemy::Config.get(:image_output_format) == "original"
+          picture.image_file_extension
+        else
+          Alchemy::Config.get(:image_output_format)
         end
       end
     end
