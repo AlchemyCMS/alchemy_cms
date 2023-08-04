@@ -4,9 +4,9 @@
  * @returns {HTMLElement}
  */
 export function createHtmlElement(text) {
-  const element = document.createElement("div")
+  const element = document.createElement("template")
   element.innerHTML = text
-  return element.firstElementChild
+  return element.content.children[0]
 }
 
 /**

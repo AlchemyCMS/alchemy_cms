@@ -11,7 +11,8 @@ module Alchemy
         if object.respond_to?(:attribute_fixed?) && object.attribute_fixed?(attribute_name)
           options[:disabled] = true
           options[:input_html] = options.fetch(:input_html, {}).merge(
-            "data-alchemy-tooltip" => Alchemy.t(:attribute_fixed, attribute: attribute_name)
+            is: "alchemy-tooltip",
+            "data-tooltip": Alchemy.t(:attribute_fixed, attribute: attribute_name)
           )
         end
 
