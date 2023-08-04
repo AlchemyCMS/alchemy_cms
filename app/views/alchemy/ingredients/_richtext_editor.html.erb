@@ -4,19 +4,18 @@
   <%- richtext_dom_id = "tinymce_#{richtext_editor.id}" %>
   <%= element_form.fields_for(:ingredients, richtext_editor.ingredient) do |f| %>
     <%= ingredient_label(richtext_editor, :value, for: richtext_dom_id) %>
-    <div class="tinymce_container">
-      <%= f.text_area :value,
-        class: "has_tinymce",
-        id: richtext_dom_id %>
-    </div>
+
+    <alchemy-tinymce>
+      <%= f.text_area :value, id: richtext_dom_id %>
+    </alchemy-tinymce>
   <% end %>
   <% if richtext_editor.has_custom_tinymce_config? %>
     <script type="text/javascript" charset="utf-8">
-      Alchemy.Tinymce.setCustomConfig("<%= richtext_dom_id %>", {
+      document.getElementById("<%= richtext_dom_id %>").configuration = {
         <% richtext_editor.custom_tinymce_config.each do |k, v| %>
         <%= k %>: <%== v.to_json %>,
         <% end %>
-      });
+      };
     </script>
   <% end %>
 <% end %>

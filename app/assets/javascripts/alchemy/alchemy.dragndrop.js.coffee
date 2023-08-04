@@ -9,14 +9,6 @@ $.extend Alchemy,
     Alchemy.initializedSortableElements = false
     $sortable_area = $(selector)
 
-    getTinymceIDs = (ui) ->
-      ids = []
-      $textareas = ui.item.find('textarea.has_tinymce')
-      $($textareas).each ->
-        id = this.id.replace(/tinymce_/, '')
-        ids.push parseInt(id, 10)
-      return ids
-
     sortable_options =
       items: "> .element-editor"
       handle: "> .element-header .element-handle"
@@ -55,7 +47,6 @@ $.extend Alchemy,
         $this = $(this)
         name = ui.item.data('element-name')
         $dropzone = $("[data-droppable-elements~='#{name}']")
-        ids = getTinymceIDs(ui)
         $this.sortable('option', 'connectWith', $dropzone)
         $this.sortable('refresh')
         $dropzone.css('minHeight', 36)
@@ -63,15 +54,12 @@ $.extend Alchemy,
         if ui.item.hasClass('compact')
           ui.placeholder.addClass('compact').css
             height: ui.item.outerHeight()
-        Alchemy.Tinymce.remove(ids)
         return
       stop: (event, ui) ->
-        ids = getTinymceIDs(ui)
         name = ui.item.data('element-name')
         $dropzone = $("[data-droppable-elements~='#{name}']")
         $dropzone.css('minHeight', '')
         ui.item.removeClass('dragged')
-        Alchemy.Tinymce.init(ids)
         return
 
     $sortable_area.sortable(sortable_options)
