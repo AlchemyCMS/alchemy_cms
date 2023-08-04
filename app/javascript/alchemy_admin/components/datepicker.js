@@ -1,17 +1,10 @@
 import flatpickr from "flatpickr"
 
-export default function Datepicker(scope = document) {
-  if (scope === "") {
-    scope = document
-  } else if (scope instanceof String) {
-    scope = document.querySelectorAll(scope)
-  }
+class Datepicker extends HTMLInputElement {
+  constructor() {
+    super()
 
-  const datepickerInputs = scope.querySelectorAll("input[data-datepicker-type]")
-
-  // Initializes the datepickers
-  datepickerInputs.forEach((input) => {
-    const type = input.dataset.datepickerType
+    const type = this.dataset.datepickerType
     const options = {
       // alchemy_i18n supports `zh_CN` etc., but flatpickr only has two-letter codes (`zh`)
       locale: Alchemy.locale.slice(0, 2),
@@ -26,6 +19,9 @@ export default function Datepicker(scope = document) {
         Alchemy.setElementDirty(instance.element.closest(".element-editor"))
       }
     }
-    flatpickr(input, options)
-  })
+
+    flatpickr(this, options)
+  }
 }
+
+customElements.define("alchemy-datepicker", Datepicker, { extends: "input" })

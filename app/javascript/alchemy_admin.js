@@ -11,13 +11,13 @@ import pictureEditors from "alchemy_admin/picture_editors"
 import ImageLoader from "alchemy_admin/image_loader"
 import ImageCropper from "alchemy_admin/image_cropper"
 import Initializer from "alchemy_admin/initializer"
-import Datepicker from "alchemy_admin/datepicker"
 import Sitemap from "alchemy_admin/sitemap"
 import Tinymce from "alchemy_admin/tinymce"
 import PagePublicationFields from "alchemy_admin/page_publication_fields"
 
 // Web Components
 import "alchemy_admin/components/char_counter"
+import "alchemy_admin/components/datepicker"
 
 // Global Alchemy object
 if (typeof window.Alchemy === "undefined") {
@@ -37,7 +37,6 @@ Object.assign(Alchemy, {
   ImageCropper,
   Initializer,
   IngredientAnchorLink,
-  Datepicker,
   Sitemap,
   Tinymce,
   PagePublicationFields
