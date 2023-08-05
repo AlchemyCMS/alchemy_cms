@@ -385,6 +385,26 @@ RSpec.shared_examples_for "having picture thumbnails" do
           size: "160x120",
         )
       end
+
+      context "with settings indicating free height" do
+        let(:settings) do
+          {
+            crop: true,
+            size: "800x"
+          }
+        end
+
+        it "returns default thumbnail options" do
+          is_expected.to eq(
+            crop: true,
+            crop_from: nil,
+            crop_size: nil,
+            flatten: true,
+            format: "jpg",
+            size: "160x120"
+          )
+        end
+      end
     end
   end
 
