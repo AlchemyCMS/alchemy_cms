@@ -115,6 +115,8 @@ module Alchemy
       return nil unless settings[:crop] && settings[:size]
 
       mask = inferred_dimensions_from_string(settings[:size])
+      return if mask.nil?
+
       zoom = thumbnail_zoom_factor(mask)
       return nil if zoom.zero?
 
@@ -149,6 +151,8 @@ module Alchemy
 
       width, height = dimensions_from_string(string)
       ratio = image_file_width.to_f / image_file_height.to_i
+
+      return if ratio.nan?
 
       if width.zero? && ratio.is_a?(Float)
         width = height * ratio
