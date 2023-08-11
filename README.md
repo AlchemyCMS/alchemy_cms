@@ -20,6 +20,9 @@ Read more about Alchemy on the [website](https://alchemy-cms.com) and in the [gu
 
 **CAUTION: This main branch is a development branch that *can* contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms), or the [latest stable branch (7.0-stable)](https://github.com/AlchemyCMS/alchemy_cms/tree/7.0-stable).**
 
+## 🏆 Main sponsor
+
+[![BLISH Logo](https://blish.cloud/BLISH_Logo.svg)](https://blish.cloud)
 
 ## ✅ Features
 
