@@ -417,10 +417,6 @@ You can then access these elements using the `fixed_elements` scope:
 <% end %>
 ~~~
 
-::: tip INFO
-Fixed elements replace [Cells](cells) in Alchemy > 4.2.
-:::
-
 As `fixed_elements` is an a active record scope you can also filter by `where(name: 'your_element')` or use the `named('your_element')` scope. To gain some extra efficiency from Rails you could also use the collection rendering shortcut
 
 ~~~ erb
