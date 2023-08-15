@@ -22,7 +22,15 @@ jobs:
         )
       )
     steps:
-      - uses: AlchemyCMS/backport@fix-cherry-pick-of-merge-commits
+      - name: Backport pull request
+        uses: sqren/backport-github-action@v8.9.7
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          title_template: "[<%= base %>] <%= title %>"
+          auto_backport_label_prefix: backport-to-
+          add_original_reviewers: true
+      - name: Info log
+        if: ${{ success() }}
+        run: cat ~/.backport/backport.info.log
+      - name: Debug log
+        if: ${{ failure() }}
+        run: cat ~/.backport/backport.debug.log
