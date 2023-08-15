@@ -25,3 +25,5 @@ jobs:
       - uses: tibdex/backport@v2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          title_template: "[<%= base %>] <%= title %>"
+          labels_template: "<%= labels %>"
