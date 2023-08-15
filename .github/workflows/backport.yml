@@ -22,7 +22,7 @@ jobs:
         )
       )
     steps:
-      - uses: tibdex/backport@v2
+      - uses: AlchemyCMS/backport@fix-cherry-pick-of-merge-commits
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           title_template: "[<%= base %>] <%= title %>"
