@@ -14,7 +14,7 @@
 
 <img src="./app/assets/images/alchemy/alchemy-logo.svg" width=300>
 
-Alchemy is an open source CMS engine written in Ruby on Rails.
+Alchemy is an open source CMS engine written in Ruby On Rails.
 
 Read more about Alchemy on the [website](https://alchemy-cms.com) and in the [guidelines](https://guides.alchemy-cms.com).
 
