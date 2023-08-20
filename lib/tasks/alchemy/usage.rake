@@ -30,7 +30,11 @@ namespace :alchemy do
       puts "  ----------------------"
       puts "\n"
       results.each do |row|
-        puts "  #{number_with_delimiter(row["count"])} 𝗑 #{row["name"]}"
+        ingredients = row.key?("ingredients") ? "uses ingredients ✅" : nil
+        contents = row.key?("contents") ? "still uses contents ‼️" : nil
+        type = ingredients || contents
+        suffix = type ? " · #{type}" : nil
+        puts "  #{number_with_delimiter(row["count"])} 𝗑 #{row["name"]}#{suffix}"
       end
       puts "\n  = #{number_with_delimiter(Alchemy::Element.count)} elements in total."
     else
