@@ -7,38 +7,37 @@ RSpec.describe Alchemy::Tasks::Usage do
 
     before do
       create_list(:alchemy_element, 3, name: "headline")
-      create_list(:alchemy_element, 2, name: "image")
+      create_list(:alchemy_element, 2, name: "bild")
       create(:alchemy_element, name: "text")
     end
 
     it "returns the elements count by name" do
-      expect(subject).to eq [
-        {"name" => "headline", "count" => 3},
-        {"name" => "image", "count" => 2},
-        {"name" => "text", "count" => 1},
-        {"name" => "all_you_can_eat", "count" => 0},
-        {"name" => "all_you_can_eat_ingredients", "count" => 0},
-        {"name" => "article", "count" => 0},
-        {"name" => "bild", "count" => 0},
-        {"name" => "contactform", "count" => 0},
-        {"name" => "download", "count" => 0},
-        {"name" => "element_with_content_groups", "count" => 0},
-        {"name" => "element_with_ingredient_groups", "count" => 0},
-        {"name" => "element_with_ingredients", "count" => 0},
-        {"name" => "element_with_warning", "count" => 0},
-        {"name" => "erb_cell", "count" => 0},
-        {"name" => "erb_element", "count" => 0},
-        {"name" => "gallery", "count" => 0},
-        {"name" => "gallery_picture", "count" => 0},
-        {"name" => "header", "count" => 0},
-        {"name" => "left_column", "count" => 0},
-        {"name" => "menu", "count" => 0},
-        {"name" => "news", "count" => 0},
-        {"name" => "old", "count" => 0},
-        {"name" => "right_column", "count" => 0},
-        {"name" => "search", "count" => 0},
-        {"name" => "slide", "count" => 0},
-        {"name" => "slider", "count" => 0},
+      expect(subject).to match_array [
+        hash_including({"name" => "headline", "count" => 3}),
+        hash_including({"name" => "bild", "count" => 2}),
+        hash_including({"name" => "text", "count" => 1}),
+        hash_including({"name" => "all_you_can_eat", "count" => 0}),
+        hash_including({"name" => "all_you_can_eat_ingredients", "count" => 0}),
+        hash_including({"name" => "article", "count" => 0}),
+        hash_including({"name" => "contactform", "count" => 0}),
+        hash_including({"name" => "download", "count" => 0}),
+        hash_including({"name" => "element_with_content_groups", "count" => 0}),
+        hash_including({"name" => "element_with_ingredient_groups", "count" => 0}),
+        hash_including({"name" => "element_with_ingredients", "count" => 0}),
+        hash_including({"name" => "element_with_warning", "count" => 0}),
+        hash_including({"name" => "erb_cell", "count" => 0}),
+        hash_including({"name" => "erb_element", "count" => 0}),
+        hash_including({"name" => "gallery", "count" => 0}),
+        hash_including({"name" => "gallery_picture", "count" => 0}),
+        hash_including({"name" => "header", "count" => 0}),
+        hash_including({"name" => "left_column", "count" => 0}),
+        hash_including({"name" => "menu", "count" => 0}),
+        hash_including({"name" => "news", "count" => 0}),
+        hash_including({"name" => "old", "count" => 0}),
+        hash_including({"name" => "right_column", "count" => 0}),
+        hash_including({"name" => "search", "count" => 0}),
+        hash_including({"name" => "slide", "count" => 0}),
+        hash_including({"name" => "slider", "count" => 0}),
       ]
     end
   end

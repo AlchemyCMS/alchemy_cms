@@ -11,10 +11,11 @@ module Alchemy
           .group(:name)
           .order("count DESC, name ASC")
           .map { |e| {"name" => e.name, "count" => e.count} }
-        Alchemy::Element.definitions.reject { |definition| res.map { |e| e["name"] }.include? definition["name"] }.sort_by { |d| d["name"] }.each do |definition|
-          res << {"name" => definition["name"], "count" => 0}
-        end
-        res
+        Alchemy::Element.definitions.map do |definition|
+          count = res.find { |r| r["name"] == definition["name"] }&.fetch("count") || 0
+          definition["count"] = count
+          definition
+        end.sort_by { |r| -1 * r["count"] }
       end
 
       def pages_count_by_type
