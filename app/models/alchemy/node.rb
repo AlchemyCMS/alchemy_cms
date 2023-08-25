@@ -52,7 +52,7 @@ module Alchemy
       #
       def read_definitions_file
         if ::File.exist?(definitions_file_path)
-          ::YAML.safe_load(File.read(definitions_file_path)) || []
+          ::YAML.safe_load_file(definitions_file_path) || []
         else
           raise LoadError, "Could not find menus.yml file! Please run `rails generate alchemy:install`"
         end
