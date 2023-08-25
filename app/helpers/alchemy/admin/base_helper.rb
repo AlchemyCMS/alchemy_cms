@@ -323,7 +323,7 @@ module Alchemy
         value = date&.iso8601
 
         text_field object.class.name.demodulize.underscore.to_sym,
-          method.to_sym, {:type => "text", :class => type, "data-datepicker-type" => type, :value => value}.merge(html_options)
+          method.to_sym, {:type => "text", :class => type, :is => "alchemy-datepicker", "data-datepicker-type" => type, :value => value}.merge(html_options)
       end
 
       # Render a hint icon with tooltip for given object.
