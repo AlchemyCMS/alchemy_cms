@@ -5,17 +5,18 @@
   <%= element_form.fields_for(:ingredients, richtext_editor.ingredient) do |f| %>
     <%= ingredient_label(richtext_editor, :value, for: richtext_dom_id) %>
 
-    <alchemy-tinymce>
-      <%= f.text_area :value, id: richtext_dom_id %>
-    </alchemy-tinymce>
-  <% end %>
-  <% if richtext_editor.has_custom_tinymce_config? %>
-    <script type="text/javascript" charset="utf-8">
-      document.getElementById("<%= richtext_dom_id %>").configuration = {
+    <% if richtext_editor.has_custom_tinymce_config? %>
+      <alchemy-tinymce
         <% richtext_editor.custom_tinymce_config.each do |k, v| %>
-        <%= k %>: <%== v.to_json %>,
+        <%= k %>="<%= v.to_json %>"
         <% end %>
-      };
-    </script>
+      >
+        <%= f.text_area :value, id: richtext_dom_id %>
+      </alchemy-tinymce>
+    <% else %>
+      <alchemy-tinymce>
+        <%= f.text_area :value, id: richtext_dom_id %>
+      </alchemy-tinymce>
+    <%  end %>
   <% end %>
 <% end %>

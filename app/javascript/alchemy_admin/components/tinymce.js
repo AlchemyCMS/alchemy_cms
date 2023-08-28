@@ -1,8 +1,8 @@
 class Tinymce extends HTMLElement {
   constructor() {
     super()
-    this.externalConfig = {}
 
+    // add default css classes to support the current styles
     this.className = "tinymce_container"
     this.textarea.className = "has_tinymce"
   }
@@ -93,16 +93,27 @@ class Tinymce extends HTMLElement {
   }
 
   get configuration() {
+    const externalConfig = {}
+
+    // read the attributes on the component and add them as custom configuration
+    this.getAttributeNames().forEach((attributeName) => {
+      if (attributeName !== "class") {
+        const config = this.getAttribute(attributeName)
+        try {
+          externalConfig[attributeName] = JSON.parse(config)
+        } catch (e) {
+          // also string values as parameter
+          externalConfig[attributeName] = config
+        }
+      }
+    })
+
     return {
       ...Alchemy.TinymceDefaults,
-      ...this.externalConfig,
+      ...externalConfig,
       locale: Alchemy.locale,
       selector: `#${this.textareaId}`
     }
-  }
-
-  set configuration(config) {
-    this.externalConfig = config
   }
 }
 

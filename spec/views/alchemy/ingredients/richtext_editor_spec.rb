@@ -32,7 +32,7 @@ RSpec.describe "alchemy/ingredients/_richtext_editor" do
     let(:settings) { {tinymce: {plugin: "link"}} }
 
     it "renders a custom configuration" do
-      expect(rendered).to have_selector(".ingredient-editor.richtext script")
+      expect(rendered).to have_selector("alchemy-tinymce[plugin]")
     end
   end
 end
