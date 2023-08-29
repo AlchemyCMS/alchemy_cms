@@ -79,6 +79,49 @@
 - Remove RSS Feed feature [#2415](https://github.com/AlchemyCMS/alchemy_cms/pull/2415) ([tvdeyen](https://github.com/tvdeyen))
 - Add searchable field to page [#2414](https://github.com/AlchemyCMS/alchemy_cms/pull/2414) ([kulturbande](https://github.com/kulturbande))
 
+## 6.1.9 (2023-08-29)
+
+- [6.1-stable] Merge pull request #2571 from tvdeyen/fix-non-stupid-digest-assets [#2573](https://github.com/AlchemyCMS/alchemy_cms/pull/2573) ([github-actions](https://github.com/apps/github-actions))
+- [6.1] Show if element is using contents or ingredients [#2568](https://github.com/AlchemyCMS/alchemy_cms/pull/2568) ([tvdeyen](https://github.com/tvdeyen))
+
+## 6.1.8 (2023-07-31)
+
+- [v6.1]  Use selenium-webdriver instead of webdrivers gem  [#2531](https://github.com/AlchemyCMS/alchemy_cms/pull/2531) ([mamhoff](https://github.com/mamhoff))
+- [v6.1] Bugfix: Init PagePublicationFields on Pages Table [#2530](https://github.com/AlchemyCMS/alchemy_cms/pull/2530) ([mamhoff](https://github.com/mamhoff))
+
+## 6.1.7 (2023-07-07)
+
+- [6.1] Add task(s) to visualize element and page usage [#2514](https://github.com/AlchemyCMS/alchemy_cms/pull/2514) ([tvdeyen](https://github.com/tvdeyen))
+
+## 6.1.6 (2023-06-30)
+
+- [6.1] Allow to create element with warning in definition [#2508](https://github.com/AlchemyCMS/alchemy_cms/pull/2508) ([tvdeyen](https://github.com/tvdeyen))
+- [6.1] Allow authors to link to all pages again [#2505](https://github.com/AlchemyCMS/alchemy_cms/pull/2505) ([tvdeyen](https://github.com/tvdeyen))
+- install generator: Add option to force patched babel config [#2495](https://github.com/AlchemyCMS/alchemy_cms/pull/2495) ([tvdeyen](https://github.com/tvdeyen))
+- Remove memory leak in ingredients migrator [#2493](https://github.com/AlchemyCMS/alchemy_cms/pull/2493) ([tvdeyen](https://github.com/tvdeyen))
+
+## 6.1.5 (2023-05-26)
+
+- [6.1] Fix page seeder [#2482](https://github.com/AlchemyCMS/alchemy_cms/pull/2482) ([tvdeyen](https://github.com/tvdeyen))
+
+## 6.1.4 (2023-05-18)
+
+- [6.1] Revert "Preload related objects in Alchemy::PagesController" [#2473](https://github.com/AlchemyCMS/alchemy_cms/pull/2473) ([tvdeyen](https://github.com/tvdeyen))
+
+## 6.1.3 (2023-03-29)
+
+- Fix installer: Add seeds file if not exists [#2446](https://github.com/AlchemyCMS/alchemy_cms/pull/2446) ([tvdeyen](https://github.com/tvdeyen))
+- Integrate non_stupid_digest_assets gem [#2430](https://github.com/AlchemyCMS/alchemy_cms/pull/2430) ([afdev82](https://github.com/afdev82))
+
+## 6.1.2 (2023-02-27)
+
+- [6.1] Fix thumbnail writing for multi-concurrent and multi-db setups [#2434](https://github.com/AlchemyCMS/alchemy_cms/pull/2434) ([tvdeyen](https://github.com/tvdeyen))
+
+## 6.1.1 (2023-01-23)
+
+- Re-introduce deleted methods [#2422](https://github.com/AlchemyCMS/alchemy_cms/pull/2422) ([tvdeyen](https://github.com/tvdeyen))
+- Add searchable field to page (Alchemy 6.1) [#2420](https://github.com/AlchemyCMS/alchemy_cms/pull/2420) ([kulturbande](https://github.com/kulturbande))
+
 ## 6.1.0 (2023-01-19)
 
 ### Features
