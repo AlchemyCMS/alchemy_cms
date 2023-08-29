@@ -1,5 +1,20 @@
 # Changelog
 
+## 7.0.3 (2023-08-29)
+
+- [7.0-stable] Merge pull request #2571 from tvdeyen/fix-non-stupid-digest-assets [#2572](https://github.com/AlchemyCMS/alchemy_cms/pull/2572) ([github-actions](https://github.com/apps/github-actions))
+- Increase minimum Rails version to v6.1 [#2541](https://github.com/AlchemyCMS/alchemy_cms/pull/2541) ([sascha-karnatz](https://github.com/sascha-karnatz))
+
+## 7.0.2 (2023-07-31)
+
+- [7.0] Fix DOM ids and labels of ingredient editors [#2538](https://github.com/AlchemyCMS/alchemy_cms/pull/2538) ([tvdeyen](https://github.com/tvdeyen))
+- [7.0] Bugfix: Initialize PagePublicationFields on Pages Table [#2537](https://github.com/AlchemyCMS/alchemy_cms/pull/2537) ([tvdeyen](https://github.com/tvdeyen))
+- [v7.0] Use selenium-webdriver instead of webdrivers gem [#2532](https://github.com/AlchemyCMS/alchemy_cms/pull/2532) ([mamhoff](https://github.com/mamhoff))
+
+## 7.0.1 (2023-07-07)
+
+- Fix disconnecting Tinymce intersection observer [#2519](https://github.com/AlchemyCMS/alchemy_cms/pull/2519) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.0.0 (2023-07-05)
 
 - Remove old alchemy_admin files from sprockets builds [#2517](https://github.com/AlchemyCMS/alchemy_cms/pull/2517) ([tvdeyen](https://github.com/tvdeyen))
