@@ -47,7 +47,7 @@ RSpec.describe Alchemy::Ingredients::Richtext do
   describe "#custom_tinymce_config" do
     subject { richtext_ingredient.custom_tinymce_config }
 
-    it { is_expected.to be_nil }
+    it { is_expected.to eq([]) }
 
     context "with custom configuration" do
       let(:richtext_settings) { {tinymce: {plugin: "link"}} }

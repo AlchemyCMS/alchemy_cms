@@ -35,7 +35,8 @@ RSpec.describe Alchemy::Tasks::Usage do
         {"name" => "right_column", "count" => 0},
         {"name" => "search", "count" => 0},
         {"name" => "slide", "count" => 0},
-        {"name" => "slider", "count" => 0}
+        {"name" => "slider", "count" => 0},
+        {"name" => "tinymce_custom", "count" => 0}
       ]
     end
   end

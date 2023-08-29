@@ -99,11 +99,13 @@ class Tinymce extends HTMLElement {
     this.getAttributeNames().forEach((attributeName) => {
       if (attributeName !== "class") {
         const config = this.getAttribute(attributeName)
+        const key = attributeName.replaceAll("-", "_")
+
         try {
-          externalConfig[attributeName] = JSON.parse(config)
+          externalConfig[key] = JSON.parse(config)
         } catch (e) {
           // also string values as parameter
-          externalConfig[attributeName] = config
+          externalConfig[key] = config
         }
       }
     })

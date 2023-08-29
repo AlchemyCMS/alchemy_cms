@@ -3,19 +3,12 @@
   data: richtext_editor.data_attributes do %>
   <%= element_form.fields_for(:ingredients, richtext_editor.ingredient) do |f| %>
     <%= ingredient_label(richtext_editor, :value) %>
-
-    <% if richtext_editor.has_custom_tinymce_config? %>
-      <alchemy-tinymce
-        <% richtext_editor.custom_tinymce_config.each do |k, v| %>
-        <%= k %>="<%= v.to_json %>"
-        <% end %>
-      >
-        <%= f.text_area :value %>
-      </alchemy-tinymce>
-    <% else %>
-      <alchemy-tinymce>
-        <%= f.text_area :value %>
-      </alchemy-tinymce>
-    <%  end %>
+    <alchemy-tinymce
+      <% richtext_editor.custom_tinymce_config.each do |k, v| %>
+      <%= k.to_s.dasherize %>="<%= v.to_json %>"
+      <% end %>
+    >
+      <%= f.text_area :value %>
+    </alchemy-tinymce>
   <% end %>
 <% end %>

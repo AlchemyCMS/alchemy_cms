@@ -151,6 +151,31 @@
     - role: text
       type: Richtext
 
+- name: tinymce_custom
+  ingredients:
+    - role: text
+      type: Richtext
+      as_element_title: true
+      settings:
+        tinymce:
+          toolbar: bold italic | subscript superscript | numlist bullist |
+            styleselect removeformat | undo redo | pastetext | anchor alchemy_link unlink | fullscreen code
+          end_container_on_empty_block: true
+          style_formats:
+            - title: Text styles
+              items:
+                - title: Paragraph
+                  block: p
+                - title: Lead Paragraph
+                  block: p
+                  classes: [lead]
+            - title: Wrappers
+              items:
+                - title: Centered section
+                  block: section
+                  classes: [centered]
+                  wrapper: true
+
 - name: slide
   compact: true
   ingredients:

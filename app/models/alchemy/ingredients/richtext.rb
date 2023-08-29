@@ -38,7 +38,7 @@ module Alchemy
       end
 
       def custom_tinymce_config
-        settings[:tinymce]
+        settings[:tinymce] || []
       end
 
       private
