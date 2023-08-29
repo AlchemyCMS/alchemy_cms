@@ -32,13 +32,8 @@ module Alchemy
         true
       end
 
-      # Returns true if there is a tinymce setting defined that contains settings.
-      def has_custom_tinymce_config?
-        custom_tinymce_config.is_a?(Hash)
-      end
-
       def custom_tinymce_config
-        settings[:tinymce] || []
+        settings[:tinymce] || {}
       end
 
       private

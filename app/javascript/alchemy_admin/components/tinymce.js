@@ -1,10 +1,14 @@
-class Tinymce extends HTMLElement {
+import { createHtmlElement, wrap } from "alchemy_admin/utils/dom_helpers"
+import Spinner from "alchemy_admin/spinner"
+
+class Tinymce extends HTMLTextAreaElement {
   constructor() {
     super()
 
-    // add default css classes to support the current styles
-    this.className = "tinymce_container"
-    this.textarea.className = "has_tinymce"
+    // create a wrapper around the the textarea and place everything inside that container
+    this.container = createHtmlElement('<div class="tinymce_container" />')
+    wrap(this, this.container)
+    this.className = "has_tinymce"
   }
 
   /**
@@ -31,7 +35,7 @@ class Tinymce extends HTMLElement {
       observerCallback,
       options
     )
-    this.tinymceIntersectionObserver.observe(this)
+    this.tinymceIntersectionObserver.observe(this.container)
   }
 
   /**
@@ -42,81 +46,62 @@ class Tinymce extends HTMLElement {
       this.tinymceIntersectionObserver.disconnect()
     }
 
-    tinymce.get(this.textareaId)?.remove(this.textareaId)
+    tinymce.get(this.id)?.remove(this.id)
   }
 
   initTinymceEditor() {
-    this.appendSpinner("small")
-
-    const element = document
-      .getElementById(this.textareaId)
-      .closest(".element-editor")
+    const spinner = new Spinner("small")
+    spinner.spin(this)
 
     // initialize TinyMCE
     tinymce.init(this.configuration).then((editors) => {
-      editors.forEach((editor) => {
-        this.removeSpinner()
+      spinner.stop()
 
+      editors.forEach((editor) => {
         // mark the editor container as visible
         // without these correction the editor remains hidden
         // after a drag and drop action
-        editor.editorContainer.style.display = null
+        editor.show()
+
+        const elementEditor = document
+          .getElementById(this.id)
+          .closest(".element-editor")
 
         // event listener to mark the editor as dirty
-        editor.on("dirty", () => Alchemy.setElementDirty(element))
+        editor.on("dirty", () => Alchemy.setElementDirty(elementEditor))
         editor.on("click", (event) => {
-          event.target = element
+          event.target = elementEditor
           Alchemy.ElementEditors.onClickElement(event)
         })
       })
     })
   }
 
-  appendSpinner() {
-    const spinner = new Alchemy.Spinner("small")
-    this.prepend(spinner.spin().el.get(0))
-  }
-
-  removeSpinner() {
-    const spinners = this.getElementsByClassName("spinner")
-    while (spinners.length > 0) {
-      spinners[0].parentNode.removeChild(spinners[0])
-    }
-  }
-
-  get textarea() {
-    return this.getElementsByTagName("textarea")[0]
-  }
-
-  get textareaId() {
-    return this.textarea.id
-  }
-
   get configuration() {
-    const externalConfig = {}
+    const customConfig = {}
 
     // read the attributes on the component and add them as custom configuration
     this.getAttributeNames().forEach((attributeName) => {
-      if (attributeName !== "class") {
+      if (!["class", "id", "is", "name"].includes(attributeName)) {
         const config = this.getAttribute(attributeName)
         const key = attributeName.replaceAll("-", "_")
 
         try {
-          externalConfig[key] = JSON.parse(config)
+          customConfig[key] = JSON.parse(config)
         } catch (e) {
           // also string values as parameter
-          externalConfig[key] = config
+          customConfig[key] = config
         }
       }
     })
 
     return {
       ...Alchemy.TinymceDefaults,
-      ...externalConfig,
+      ...customConfig,
       locale: Alchemy.locale,
-      selector: `#${this.textareaId}`
+      selector: `#${this.id}`
     }
   }
 }
 
-customElements.define("alchemy-tinymce", Tinymce)
+customElements.define("alchemy-tinymce", Tinymce, { extends: "textarea" })
