@@ -19,7 +19,7 @@ module NonStupidDigestAssets
     def whitelisted_assets(assets)
       assets.select do |logical_path, _digest_path|
         whitelist.any? do |item|
-          item =~ logical_path
+          /#{item}/ =~ logical_path
         end
       end
     end
