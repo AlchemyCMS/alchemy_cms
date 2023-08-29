@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.0.3 (2023-08-29)
+
+- [7.0-stable] Merge pull request #2571 from tvdeyen/fix-non-stupid-digest-assets [#2572](https://github.com/AlchemyCMS/alchemy_cms/pull/2572) ([github-actions](https://github.com/apps/github-actions))
+- Increase minimum Rails version to v6.1 [#2541](https://github.com/AlchemyCMS/alchemy_cms/pull/2541) ([sascha-karnatz](https://github.com/sascha-karnatz))
+
 ## 7.0.2 (2023-07-31)
 
 - [7.0] Fix DOM ids and labels of ingredient editors [#2538](https://github.com/AlchemyCMS/alchemy_cms/pull/2538) ([tvdeyen](https://github.com/tvdeyen))
