@@ -25,7 +25,7 @@ jobs:
       - name: Backport pull request
         uses: sqren/backport-github-action@v8.9.7
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.ALCHEMY_CI_BOT_ACCESS_TOKEN }}
           auto_backport_label_prefix: backport-to-
           add_original_reviewers: true
       - name: Info log
