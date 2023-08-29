@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.1.9 (2023-08-29)
+
+- [6.1-stable] Merge pull request #2571 from tvdeyen/fix-non-stupid-digest-assets [#2573](https://github.com/AlchemyCMS/alchemy_cms/pull/2573) ([github-actions](https://github.com/apps/github-actions))
+- [6.1] Show if element is using contents or ingredients [#2568](https://github.com/AlchemyCMS/alchemy_cms/pull/2568) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 6.1.8 (2023-07-31)
 
 - [v6.1]  Use selenium-webdriver instead of webdrivers gem  [#2531](https://github.com/AlchemyCMS/alchemy_cms/pull/2531) ([mamhoff](https://github.com/mamhoff))
