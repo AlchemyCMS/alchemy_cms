@@ -72,7 +72,7 @@ function initTinymceEditor(textarea) {
 
   if (config) {
     const spinner = new Alchemy.Spinner("small")
-    textarea.closest(".tinymce_container").prepend(spinner.spin().el.get(0))
+    spinner.spin(textarea.closest(".tinymce_container"))
     tinymce.init(config)
   } else {
     console.warn("No tinymce configuration found for", id)
