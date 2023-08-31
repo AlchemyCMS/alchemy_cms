@@ -1,23 +1,21 @@
 // Shows spinner while loading images and
 // fades the image after its been loaded
 
-const DEFAULT_SPINNER_OPTIONS = { fill: "#fff" }
-
 export default class ImageLoader {
-  static init(scope = document, spinnerOptions = DEFAULT_SPINNER_OPTIONS) {
+  static init(scope = document) {
     if (typeof scope === "string") {
       scope = document.querySelector(scope)
     }
     scope.querySelectorAll("img").forEach((image) => {
-      const loader = new ImageLoader(image, spinnerOptions)
+      const loader = new ImageLoader(image)
       loader.load()
     })
   }
 
-  constructor(image, spinnerOptions = DEFAULT_SPINNER_OPTIONS) {
+  constructor(image) {
     this.image = image
     this.parent = image.parentNode
-    this.spinner = new Alchemy.Spinner("small", spinnerOptions)
+    this.spinner = new Alchemy.Spinner("small", "white")
     this.bind()
   }
 
@@ -34,14 +32,14 @@ export default class ImageLoader {
   }
 
   onLoaded() {
-    this.removeSpinner()
+    this.spinner.stop()
     this.image.classList.remove("loading")
     this.unbind()
   }
 
   onError(evt) {
     const message = `Could not load "${this.image.src}"`
-    this.removeSpinner()
+    this.spinner.stop()
     this.parent.innerHTML = `<span class="icon error fas fa-exclamation-triangle" title="${message}" />`
     console.error(message, evt)
     this.unbind()
@@ -50,11 +48,5 @@ export default class ImageLoader {
   unbind() {
     this.image.removeEventListener("load", this.onLoaded)
     this.image.removeEventListener("error", this.onError)
-  }
-
-  removeSpinner() {
-    this.parent.querySelectorAll(".spinner").forEach((spinner) => {
-      spinner.remove()
-    })
   }
 }

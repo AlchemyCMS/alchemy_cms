@@ -5,31 +5,21 @@
   transform: translate(-50%, -50%);
   text-align: center;
   line-height: 1;
-
-  path {
-    fill: currentColor;
-    opacity: 1;
-    animation: spinner 1s infinite ease-in-out both;
-  }
-
-  &.spinner--tiny {
-    width: 8px;
-    height: 8px;
-  }
+  width: var(--spinner-size, 32px);
+  height: var(--spinner-size, 32px);
 
   &.spinner--small {
-    width: 16px;
-    height: 16px;
-  }
-
-  &.spinner--medium {
-    width: 32px;
-    height: 32px;
+    --spinner-size: 16px;
   }
 
   &.spinner--large {
-    width: 48px;
-    height: 48px;
+    --spinner-size: 48px;
+  }
+
+  path {
+    fill: var(--spinner-color, currentColor);
+    opacity: 1;
+    animation: spinner 1s infinite ease-in-out both;
   }
 
   .hex2 {

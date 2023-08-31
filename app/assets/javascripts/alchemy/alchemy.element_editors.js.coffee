@@ -148,7 +148,7 @@ Alchemy.ElementEditors =
   #
   toggleFold: (id, callback) ->
     spinner = new Alchemy.Spinner('small')
-    spinner.spin("#element_#{id} > .element-header .ajax-folder")
+    spinner.spin($("#element_#{id} > .element-header .ajax-folder"))
     $("#element_#{id}_folder .icon").hide()
     $.post Alchemy.routes.fold_admin_element_path(id), =>
       callback.call() if callback?
