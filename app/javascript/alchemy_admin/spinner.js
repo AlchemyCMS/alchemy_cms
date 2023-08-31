@@ -1,9 +1,9 @@
 import { createHtmlElement } from "alchemy_admin/utils/dom_helpers"
 
 export default class Spinner {
-  constructor(size, styles) {
+  constructor(size, color = "currentColor") {
     this.size = size
-    this.styles = styles
+    this.color = color
     this.spinner = undefined
   }
 
@@ -21,7 +21,7 @@ export default class Spinner {
       parent = document.body
     }
     this.spinner = createHtmlElement(
-      `<alchemy-spinner size="${this.size}"></alchemy-spinner>`
+      `<alchemy-spinner size="${this.size}" color="${this.color}"></alchemy-spinner>`
     )
     parent.append(this.spinner)
     return this
