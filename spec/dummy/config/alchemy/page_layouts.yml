@@ -33,7 +33,8 @@
       left_column,
       old,
       article,
-      element_with_ingredient_groups
+      element_with_ingredient_groups,
+      tinymce_custom
     ]
   autogenerate: [all_you_can_eat, right_column, left_column]
 

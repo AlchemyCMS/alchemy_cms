@@ -19,7 +19,7 @@ RSpec.describe "alchemy/ingredients/_richtext_editor" do
   end
 
   it "renders a text area for tinymce" do
-    expect(rendered).to have_selector(".tinymce_container textarea#tinymce_#{ingredient.id}.has_tinymce")
+    expect(rendered).to have_selector("textarea[is=alchemy-tinymce]")
   end
 
   context "without custom configuration" do
@@ -29,10 +29,14 @@ RSpec.describe "alchemy/ingredients/_richtext_editor" do
   end
 
   context "with custom configuration" do
-    let(:settings) { {tinymce: {plugin: "link"}} }
+    let(:settings) { {tinymce: {plugin: "link", foo_bar: "foo-bar"}} }
 
     it "renders a custom configuration" do
-      expect(rendered).to have_selector(".ingredient-editor.richtext script")
+      expect(rendered).to have_selector("textarea[is=alchemy-tinymce][plugin]")
+    end
+
+    it "dasherize the attribute keys" do
+      expect(rendered).to have_selector("textarea[is=alchemy-tinymce][foo-bar]")
     end
   end
 end

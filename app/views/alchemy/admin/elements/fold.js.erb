@@ -12,21 +12,14 @@
   $el = $('#element_<%= @element.id %>');
   $('#element_area .sortable-elements').sortable('refresh');
 
-  <% if @element.folded? -%>
-
-  Alchemy.Tinymce.remove(<%= @element.richtext_ingredients_ids.to_json %>);
-
-  <% else -%>
-
-  $el.trigger('FocusElementEditor.Alchemy');
-  Alchemy.Tinymce.init(<%= @element.richtext_ingredients_ids.to_json %>);
-  Alchemy.GUI.initElement($el);
-  Alchemy.SortableElements(
-    <%= @page.id %>,
-    '<%= form_authenticity_token %>',
-    $('> .nestable-elements .nested-elements', $el)
-  );
-
+  <% unless @element.folded? -%>
+    $el.trigger('FocusElementEditor.Alchemy');
+    Alchemy.GUI.initElement($el);
+    Alchemy.SortableElements(
+      <%= @page.id %>,
+      '<%= form_authenticity_token %>',
+      $('> .nestable-elements .nested-elements', $el)
+    );
   <% end -%>
 
 <% end -%>

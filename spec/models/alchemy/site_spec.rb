@@ -308,7 +308,8 @@ module Alchemy
                   "left_column",
                   "old",
                   "article",
-                  "element_with_ingredient_groups"
+                  "element_with_ingredient_groups",
+                  "tinymce_custom"
                 ],
                 "hint" => true
               },

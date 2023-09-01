@@ -13,11 +13,11 @@ import ImageCropper from "alchemy_admin/image_cropper"
 import Initializer from "alchemy_admin/initializer"
 import Sitemap from "alchemy_admin/sitemap"
 import Spinner from "alchemy_admin/spinner"
-import Tinymce from "alchemy_admin/tinymce"
 import PagePublicationFields from "alchemy_admin/page_publication_fields"
 
 // Web Components
 import "alchemy_admin/components/char_counter"
+import "alchemy_admin/components/tinymce"
 import "alchemy_admin/components/tooltip"
 import "alchemy_admin/components/datepicker"
 import "alchemy_admin/components/spinner"
@@ -42,13 +42,7 @@ Object.assign(Alchemy, {
   IngredientAnchorLink,
   Sitemap,
   Spinner,
-  Tinymce,
   PagePublicationFields
 })
 
 $(document).on("turbo:load", Initializer)
-
-$(document).on("turbo:before-fetch-request", function () {
-  Alchemy.Tinymce.removeIntersectionObserver()
-  Alchemy.Tinymce.removeFrom($(".has_tinymce"))
-})
