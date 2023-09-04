@@ -42,11 +42,7 @@
       <h1><%= Alchemy.t(:javascript_disabled_headline) %></h1>
       <p><%= Alchemy.t(:javascript_disabled_text) %></p>
     </noscript>
-    <div id="overlay">
-      <div id="overlay_text_box">
-        <span id="overlay_text"><%= Alchemy.t(:please_wait) %></span>
-      </div>
-    </div>
+    <alchemy-overlay text="<%= Alchemy.t(:please_wait) %>"></alchemy-overlay>
     <div id="left_menu">
       <div id="main_navi">
         <% sorted_alchemy_modules.each do |alchemy_module| %>

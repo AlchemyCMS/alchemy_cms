@@ -23,10 +23,11 @@ $.fx.speeds._default = 400
 
 // Web Components
 import "alchemy_admin/components/char_counter"
+import "alchemy_admin/components/datepicker"
+import "alchemy_admin/components/overlay"
+import "alchemy_admin/components/spinner"
 import "alchemy_admin/components/tinymce"
 import "alchemy_admin/components/tooltip"
-import "alchemy_admin/components/datepicker"
-import "alchemy_admin/components/spinner"
 
 // Global Alchemy object
 if (typeof window.Alchemy === "undefined") {

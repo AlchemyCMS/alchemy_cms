@@ -11,7 +11,7 @@ RSpec.describe "Legacy page url management", type: :system, js: true do
 
   def open_page_properties
     visit admin_pages_path
-    expect(page).to have_no_css(".spinner")
+    expect(page.find("alchemy-overlay").style("display")["display"]).to have_content("none")
     page.find("a[href='#{configure_admin_page_path(a_page)}']", wait: 10).click
   end
 
