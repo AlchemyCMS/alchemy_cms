@@ -1,0 +1,68 @@
+$dialog-transition-duration: 150ms;
+
+dialog.alchemy-new-dialog {
+  &::backdrop {
+    background-color: rgba($dialog-overlay-color, $dialog-overlay-opacity);
+  }
+
+  @include border-top-radius($default-border-radius);
+  background-color: $dialog-background-color;
+  border: none;
+  box-shadow: $dialog-box-shadow;
+  height: var(--dialog-height, 300px);
+  max-width: calc(100vw - 16px);
+  padding: 0;
+  transition: min-height $dialog-transition-duration ease-in-out;
+  width: var(--dialog-width, 400px);
+
+  header {
+    align-items: center;
+    background: $dialog-header-color;
+    color: $dialog-header-text-color;
+    display: flex;
+    font-size: $dialog-header-font-size;
+    font-weight: normal;
+    gap: 22px;
+    justify-content: space-between;
+    height: $dialog-header-height;
+    line-height: $dialog-header-height;
+    padding: 0 2*$default-padding 0 3*$default-padding;
+
+    h3 {
+      @extend %text-overflow;
+      @include antialiased-font-smoothing;
+      margin: 0;
+    }
+
+    button {
+      @extend %transparent;
+      color: inherit;
+      padding: $default-padding 3*$default-padding;
+
+      .icon {
+        color: inherit;
+      }
+
+      &:focus {
+        outline: 1px solid white;
+      }
+    }
+  }
+
+  .body {
+    color: $text-color;
+    overflow: var(--dialog-body-overflow, auto);
+
+    .message {
+      margin: 8px;
+    }
+
+    &.padded {
+      padding: 4*$default-padding;
+
+      .message {
+        margin: 0 0 8px 0;
+      }
+    }
+  }
+}

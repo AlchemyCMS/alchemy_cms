@@ -63,6 +63,8 @@ $dialog-transition-duration: 150ms;
   display: inline-block;
   vertical-align: middle;
   text-align: left;
+  width: var(--dialog-width);
+  min-height: var(--dialog-height);
 }
 
 .alchemy-dialog {
@@ -72,6 +74,7 @@ $dialog-transition-duration: 150ms;
   box-shadow: $dialog-box-shadow;
   background-color: $dialog-background-color;
   transition: min-height $dialog-transition-duration ease-in-out;
+  overflow: var(--dialog-overflow);
 
   div#jscropper {
     padding: 2 * $default-padding;
@@ -168,6 +171,7 @@ $dialog-transition-duration: 150ms;
 .alchemy-dialog-body {
   position: relative;
   color: $text-color;
+  overflow: var(--dialog-body-overflow);
 
   .message {
     margin: 8px;

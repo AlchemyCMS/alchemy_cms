@@ -7,6 +7,8 @@ export class AlchemyHTMLElement extends HTMLElement {
 
   constructor() {
     super()
+    this.changeComponent = true
+    this.slotedContent = this.innerHTML
   }
 
   connectedCallback() {
@@ -14,8 +16,10 @@ export class AlchemyHTMLElement extends HTMLElement {
     Object.keys(this.constructor.properties).forEach((propertyName) => {
       this.updateProperty(propertyName, this.getAttribute(propertyName))
     })
+
     // render the component
     this.updateComponent()
+    this.connected()
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -32,18 +36,30 @@ export class AlchemyHTMLElement extends HTMLElement {
    */
   updateProperty(propertyName, value) {
     const property = this.constructor.properties[propertyName]
-    this[propertyName] = value
-    if (property.default && this[propertyName] === null) {
-      this[propertyName] = property.default
+    if (this[propertyName] !== value) {
+      this[propertyName] = value
+      if (property.default && this[propertyName] === null) {
+        this[propertyName] = property.default
+      }
+      this.changeComponent = true
     }
   }
 
   /**
    * (re)render the component content inside the component container
+   * @param {boolean} force
    */
-  updateComponent() {
-    this.innerHTML = this.render()
+  updateComponent(force = false) {
+    if (this.changeComponent || force) {
+      this.innerHTML = this.render()
+      this.changeComponent = false
+    }
   }
+
+  /**
+   * a connected method to make it easier to overwrite the connection callback
+   */
+  connected() {}
 
   /**
    * empty method container to allow the child component to put the rendered string into this method

@@ -18,6 +18,7 @@ import PagePublicationFields from "alchemy_admin/page_publication_fields"
 
 // Web Components
 import "alchemy_admin/components/char_counter"
+import "alchemy_admin/components/dialog"
 import "alchemy_admin/components/tinymce"
 import "alchemy_admin/components/tooltip"
 import "alchemy_admin/components/datepicker"
