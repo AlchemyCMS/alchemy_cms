@@ -2,53 +2,35 @@ import { AlchemyHTMLElement } from "./alchemy_html_element"
 
 class Dialog extends AlchemyHTMLElement {
   static properties = {
-    overflow: { default: "visible" },
     padding: { default: true },
-    open: { default: false },
     size: { default: "400x300" },
     title: { default: "" },
     url: { default: undefined }
   }
 
-  async connected() {
-    this.fetchedContent = await this.load()
+  open() {
+    this.dialog.showModal()
+  }
 
-    if (this.fetchedContent) {
+  async connected() {
+    if (this.url) {
+      this.fetchedContent = await this.load(this.url)
       this.updateComponent(true)
     }
-    this.initializeDialog()
 
-    setTimeout(() => this.dialog.showModal(), 500)
+    // close button
+    this.querySelector("header > button").addEventListener("click", () =>
+      this.dialog.close()
+    )
   }
 
-  initializeDialog() {
-    this.dialog = this.getElementsByTagName("dialog")[0]
-    this.closeButton = this.querySelector("header > button")
-
-    // close on backdrop
-    this.dialog.addEventListener("click", (event) => {
-      const rect = this.dialog.getBoundingClientRect()
-      const isInDialog =
-        rect.top <= event.clientY &&
-        event.clientY <= rect.top + rect.height &&
-        rect.left <= event.clientX &&
-        event.clientX <= rect.left + rect.width
-
-      if (!isInDialog) {
-        this.dialog.close()
-      }
-    })
-
-    // close on close button
-    this.closeButton.addEventListener("click", () => this.dialog.close())
-  }
-
-  async load() {
-    if (!this.url) {
-      return new Promise((resolve) => resolve(undefined))
-    }
-
-    const response = await fetch(this.url, {
+  /**
+   * load content templates from the server
+   * @param {string} url
+   * @returns {Promise<unknown>|Promise<string>}
+   */
+  async load(url) {
+    const response = await fetch(url, {
       headers: { "X-Requested-With": "XMLHttpRequest" }
     })
     return await response.text()
@@ -57,11 +39,6 @@ class Dialog extends AlchemyHTMLElement {
   render() {
     this.style.setProperty("--dialog-height", this.height + "px")
     this.style.setProperty("--dialog-width", this.width + "px")
-    this.style.setProperty("--dialog-overflow", this.overflow)
-    this.style.setProperty(
-      "--dialog-body-overflow",
-      this.overflow === "hidden" ? "auto" : "visible"
-    )
 
     return `
       <dialog class="alchemy-new-dialog">
@@ -72,10 +49,14 @@ class Dialog extends AlchemyHTMLElement {
               <i class="icon fas fa-times fa-fw fa-xs"></i>
             </button>
           </header>
-          <div class="body">${this.body}</div>
+          <div class="body ${this.padding ? "padded" : ""}">${this.body}</div>
         </section>
       </dialog>
     `
+  }
+
+  get dialog() {
+    return this.getElementsByTagName("dialog")[0]
   }
 
   get body() {

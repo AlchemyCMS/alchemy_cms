@@ -1,6 +1,12 @@
 export class AlchemyHTMLElement extends HTMLElement {
   static properties = {}
 
+  /**
+   * create the list of observed attributes
+   * this function is a requirement for the `attributeChangedCallback` - method
+   * @returns {string[]}
+   * @link https://developer.mozilla.org/en-US/docs/Web/API/Web_Components#reference
+   */
   static get observedAttributes() {
     return Object.keys(this.properties)
   }
@@ -8,13 +14,18 @@ export class AlchemyHTMLElement extends HTMLElement {
   constructor() {
     super()
     this.changeComponent = true
-    this.slotedContent = this.innerHTML
+    this.slotedContent = this.innerHTML // store the inner content of the component
   }
 
+  /**
+   * run when the component will be initialized by the Browser
+   * this is a default function
+   * @link https://developer.mozilla.org/en-US/docs/Web/API/Web_Components#reference
+   */
   connectedCallback() {
     // parse the properties object and register property variables
     Object.keys(this.constructor.properties).forEach((propertyName) => {
-      this.updateProperty(propertyName, this.getAttribute(propertyName))
+      this._updateProperty(propertyName, this.getAttribute(propertyName))
     })
 
     // render the component
@@ -22,27 +33,13 @@ export class AlchemyHTMLElement extends HTMLElement {
     this.connected()
   }
 
-  attributeChangedCallback(name, oldValue, newValue) {
-    this.updateProperty(name, newValue)
-    this.updateComponent()
-  }
-
   /**
-   * update the property value
-   * if the value is undefined the default value is used
-   *
-   * @param {string} propertyName
-   * @param {string} value
+   * triggered by the browser, if one of the observed attributes is changing
+   * @link https://developer.mozilla.org/en-US/docs/Web/API/Web_Components#reference
    */
-  updateProperty(propertyName, value) {
-    const property = this.constructor.properties[propertyName]
-    if (this[propertyName] !== value) {
-      this[propertyName] = value
-      if (property.default && this[propertyName] === null) {
-        this[propertyName] = property.default
-      }
-      this.changeComponent = true
-    }
+  attributeChangedCallback(name, oldValue, newValue) {
+    this._updateProperty(name, newValue)
+    this.updateComponent()
   }
 
   /**
@@ -67,5 +64,24 @@ export class AlchemyHTMLElement extends HTMLElement {
    */
   render() {
     return ""
+  }
+
+  /**
+   * update the property value
+   * if the value is undefined the default value is used
+   *
+   * @param {string} propertyName
+   * @param {string} value
+   * @private
+   */
+  _updateProperty(propertyName, value) {
+    const property = this.constructor.properties[propertyName]
+    if (this[propertyName] !== value) {
+      this[propertyName] = value
+      if (property.default && this[propertyName] === null) {
+        this[propertyName] = property.default
+      }
+      this.changeComponent = true
+    }
   }
 }

@@ -9,8 +9,9 @@ dialog.alchemy-new-dialog {
   background-color: $dialog-background-color;
   border: none;
   box-shadow: $dialog-box-shadow;
-  height: var(--dialog-height, 300px);
   max-width: calc(100vw - 16px);
+  min-height: var(--dialog-height, 300px);
+  overflow: hidden;
   padding: 0;
   transition: min-height $dialog-transition-duration ease-in-out;
   width: var(--dialog-width, 400px);
@@ -31,6 +32,7 @@ dialog.alchemy-new-dialog {
     h3 {
       @extend %text-overflow;
       @include antialiased-font-smoothing;
+      font-size: $default-font-size;
       margin: 0;
     }
 
@@ -51,6 +53,7 @@ dialog.alchemy-new-dialog {
 
   .body {
     color: $text-color;
+    min-height: calc(var(--dialog-height, 300px) - #{$dialog-header-height});
     overflow: var(--dialog-body-overflow, auto);
 
     .message {
