@@ -1,20 +1,14 @@
-<div id="overlay_tabs">
-  <ul>
-    <li><a href="#overlay_tab_internal_link"><%= Alchemy.t('link_overlay_tab_label.internal') %></a></li>
-    <li><a href="#overlay_tab_anchor_link"><%= Alchemy.t('link_overlay_tab_label.anchor') %></a></li>
-    <li><a href="#overlay_tab_external_link"><%= Alchemy.t('link_overlay_tab_label.external') %></a></li>
-    <li><a href="#overlay_tab_file_link"><%= Alchemy.t('link_overlay_tab_label.file') %></a></li>
-  </ul>
-  <div id="overlay_tab_internal_link">
+<alchemy-overlay-tabs>
+  <alchemy-overlay-tab id="overlay_tab_internal_link" title="<%= Alchemy.t('link_overlay_tab_label.internal') %>">
     <%= render partial: 'internal_link' %>
-  </div>
-  <div id="overlay_tab_anchor_link">
+  </alchemy-overlay-tab>
+  <alchemy-overlay-tab id="overlay_tab_anchor_link" title="<%= Alchemy.t('link_overlay_tab_label.anchor') %>">
     <%= render partial: 'anchor_link' %>
-  </div>
-  <div id="overlay_tab_external_link">
+  </alchemy-overlay-tab>
+  <alchemy-overlay-tab id="overlay_tab_external_link" title="<%= Alchemy.t('link_overlay_tab_label.external') %>">
     <%= render partial: 'external_link' %>
-  </div>
-  <div id="overlay_tab_file_link">
+  </alchemy-overlay-tab>
+  <alchemy-overlay-tab id="overlay_tab_file_link" title="<%= Alchemy.t('link_overlay_tab_label.file') %>">
     <%= render partial: 'file_link' %>
-  </div>
-</div>
+  </alchemy-overlay-tab>
+</alchemy-overlay-tabs>
