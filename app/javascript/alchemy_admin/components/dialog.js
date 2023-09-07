@@ -1,6 +1,6 @@
 import { AlchemyHTMLElement } from "./alchemy_html_element"
 
-class Dialog extends AlchemyHTMLElement {
+export class Dialog extends AlchemyHTMLElement {
   static properties = {
     padding: { default: true },
     size: { default: "400x300" },
@@ -8,26 +8,42 @@ class Dialog extends AlchemyHTMLElement {
     url: { default: undefined }
   }
 
+  /**
+   * Public method to open the dialog
+   */
   open() {
-    this.dialog.showModal()
+    this.dialogElement.showModal()
   }
 
-  async connected() {
-    if (this.url) {
-      this.fetchedContent = await this.load(this.url)
-      this.updateComponent(true)
-    }
+  /**
+   * public method to close (and destroy) the dialog
+   */
+  close() {
+    // close the dialog element
+    this.dialogElement.close()
+  }
 
+  connected() {
     // close button
     this.querySelector("header > button").addEventListener("click", () =>
-      this.dialog.close()
+      this.close()
     )
+
+    // remove the whole dialog component from DOM, if the dialog was closed (via close button or ESC - key)
+    this.dialogElement.addEventListener("close", () => this.remove())
+
+    // load body content if a url is available
+    if (this.url) {
+      this.load(this.url).then((fetchedContent) => {
+        this.bodyElement.innerHTML = fetchedContent
+      })
+    }
   }
 
   /**
    * load content templates from the server
    * @param {string} url
-   * @returns {Promise<unknown>|Promise<string>}
+   * @returns {Promise<string>}
    */
   async load(url) {
     const response = await fetch(url, {
@@ -49,21 +65,26 @@ class Dialog extends AlchemyHTMLElement {
               <i class="icon fas fa-times fa-fw fa-xs"></i>
             </button>
           </header>
-          <div class="body ${this.padding ? "padded" : ""}">${this.body}</div>
+          <div class="body ${this.padding ? "padded" : ""}">${
+            this.content
+          }</div>
         </section>
       </dialog>
     `
   }
 
-  get dialog() {
+  get dialogElement() {
     return this.getElementsByTagName("dialog")[0]
   }
 
-  get body() {
-    if (this.fetchedContent) {
-      return this.fetchedContent
-    }
-    return this.slotedContent
+  get bodyElement() {
+    return this.getElementsByClassName("body")[0]
+  }
+
+  get content() {
+    return this.url
+      ? `<alchemy-spinner></alchemy-spinner>`
+      : this.initialContent
   }
 
   get height() {

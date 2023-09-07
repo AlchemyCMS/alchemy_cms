@@ -2,6 +2,7 @@ import "@hotwired/turbo-rails"
 
 import Buttons from "alchemy_admin/buttons"
 import ConfirmDialog from "alchemy_admin/confirm_dialog"
+import { openDialog } from "alchemy_admin/dialog"
 import GUI from "alchemy_admin/gui"
 import translate from "alchemy_admin/i18n"
 import Dirty from "alchemy_admin/dirty"
@@ -45,6 +46,7 @@ Object.assign(Alchemy, {
   IngredientAnchorLink,
   Sitemap,
   Spinner,
+  openDialog,
   PagePublicationFields
 })
 

@@ -11,10 +11,12 @@ export class AlchemyHTMLElement extends HTMLElement {
     return Object.keys(this.properties)
   }
 
-  constructor() {
+  constructor(options = {}) {
     super()
+
+    this.options = options
     this.changeComponent = true
-    this.slotedContent = this.innerHTML // store the inner content of the component
+    this.initialContent = this.innerHTML // store the inner content of the component
   }
 
   /**
@@ -25,11 +27,16 @@ export class AlchemyHTMLElement extends HTMLElement {
   connectedCallback() {
     // parse the properties object and register property variables
     Object.keys(this.constructor.properties).forEach((propertyName) => {
-      this._updateProperty(propertyName, this.getAttribute(propertyName))
+      // if the options was given via the constructor, they should be prefer (e.g. new <WebComponentName>({title: "Foo"}))
+      if (this.options[propertyName]) {
+        this[propertyName] = this.options[propertyName]
+      } else {
+        this._updateProperty(propertyName, this.getAttribute(propertyName))
+      }
     })
 
     // render the component
-    this.updateComponent()
+    this._updateComponent()
     this.connected()
   }
 
@@ -39,18 +46,7 @@ export class AlchemyHTMLElement extends HTMLElement {
    */
   attributeChangedCallback(name, oldValue, newValue) {
     this._updateProperty(name, newValue)
-    this.updateComponent()
-  }
-
-  /**
-   * (re)render the component content inside the component container
-   * @param {boolean} force
-   */
-  updateComponent(force = false) {
-    if (this.changeComponent || force) {
-      this.innerHTML = this.render()
-      this.changeComponent = false
-    }
+    this._updateComponent()
   }
 
   /**
@@ -64,6 +60,17 @@ export class AlchemyHTMLElement extends HTMLElement {
    */
   render() {
     return ""
+  }
+
+  /**
+   * (re)render the component content inside the component container
+   * @private
+   */
+  _updateComponent() {
+    if (this.changeComponent) {
+      this.innerHTML = this.render()
+      this.changeComponent = false
+    }
   }
 
   /**

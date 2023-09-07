@@ -233,13 +233,6 @@ window.Alchemy.closeCurrentDialog = (callback) ->
     dialog.options.closed = callback
     dialog.close()
 
-# Utility function to open a new Dialog
-window.Alchemy.openDialog = (url, options) ->
-  if !url
-    throw('No url given! Please provide an url.')
-  dialog = new Alchemy.Dialog(url, options)
-  dialog.open()
-
 # Watches elements for Alchemy Dialogs
 #
 # Links having a data-alchemy-dialog or data-alchemy-confirm-delete
