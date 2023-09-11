@@ -16,11 +16,24 @@ import Spinner from "alchemy_admin/spinner"
 import PagePublicationFields from "alchemy_admin/page_publication_fields"
 
 // Web Components
-import "alchemy_admin/components/char_counter"
-import "alchemy_admin/components/tinymce"
-import "alchemy_admin/components/tooltip"
-import "alchemy_admin/components/datepicker"
-import "alchemy_admin/components/spinner"
+/**
+ * Polyfill to support web components that are customized build in elements. Safari is currently not supporting that
+ * web component specification. It is pretty unlikely that Apple will support that feature in the near future. They are
+ * against that topic for quite a while.
+ * @link https://lists.w3.org/Archives/Public/public-webapps/2013OctDec/0805.html
+ * @link https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/define#customized_built-in_element
+ */
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+if (isSafari) {
+  import("@ungap/custom-elements")
+}
+
+// use the import(...) instead of import "..." - syntax to wait for the Safari import promise to resolve
+import("alchemy_admin/components/char_counter")
+import("alchemy_admin/components/tinymce")
+import("alchemy_admin/components/tooltip")
+import("alchemy_admin/components/datepicker")
+import("alchemy_admin/components/spinner")
 
 // Global Alchemy object
 if (typeof window.Alchemy === "undefined") {

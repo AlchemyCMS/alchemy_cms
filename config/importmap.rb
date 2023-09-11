@@ -3,6 +3,7 @@ pin "lodash-es/debounce", to: "https://ga.jspm.io/npm:lodash-es@4.17.21/debounce
 pin "lodash-es/max", to: "https://ga.jspm.io/npm:lodash-es@4.17.21/max.js", preload: true
 pin "sortablejs", to: "https://ga.jspm.io/npm:sortablejs@1.15.0/modular/sortable.esm.js", preload: true
 pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true
+pin "@ungap/custom-elements", to: "https://ga.jspm.io/npm:@ungap/custom-elements@1.3.0/index.js"
 
 pin "alchemy_admin", to: "alchemy_admin.js", preload: true
 pin_all_from File.expand_path("../app/javascript/alchemy_admin", __dir__), under: "alchemy_admin"
