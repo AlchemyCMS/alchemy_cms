@@ -1,4 +1,4 @@
-import { AlchemyHTMLElement } from "../../../../app/javascript/alchemy_admin/components/alchemy_html_element"
+import { AlchemyHTMLElement } from "alchemy_admin/components/alchemy_html_element"
 import { renderComponent } from "./component.helper"
 
 describe("AlchemyHTMLElement", () => {

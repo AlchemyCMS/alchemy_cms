@@ -1,5 +1,5 @@
 import { renderComponent } from "./component.helper"
-import "../../../../app/javascript/alchemy_admin/components/tinymce"
+import "alchemy_admin/components/tinymce"
 import "../../../../vendor/assets/javascripts/tinymce/tinymce.min"
 import { mockIntersectionObserver } from "jsdom-testing-mocks"
 

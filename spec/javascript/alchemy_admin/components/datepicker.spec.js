@@ -1,4 +1,4 @@
-import "../../../../app/javascript/alchemy_admin/components/datepicker"
+import "alchemy_admin/components/datepicker"
 import { renderComponent } from "./component.helper"
 
 describe("alchemy-datepicker", () => {

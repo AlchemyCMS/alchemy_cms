@@ -1,4 +1,4 @@
-import "../../../../app/javascript/alchemy_admin/components/spinner"
+import "alchemy_admin/components/spinner"
 
 describe("alchemy-spinner", () => {
   /**

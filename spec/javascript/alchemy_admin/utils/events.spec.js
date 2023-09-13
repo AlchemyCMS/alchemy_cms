@@ -1,4 +1,4 @@
-import { on } from "../../../../app/javascript/alchemy_admin/utils/events"
+import { on } from "alchemy_admin/utils/events"
 
 describe("on", () => {
   const callback = jest.fn()

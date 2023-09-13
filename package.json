@@ -24,6 +24,9 @@
     "globals": {
       "Alchemy": {}
     },
+    "moduleNameMapper": {
+      "alchemy_admin/(.*)": "<rootDir>/app/javascript/alchemy_admin/$1"
+    },
     "testEnvironment": "jsdom",
     "roots": [
       "spec/javascript/alchemy_admin"
