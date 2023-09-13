@@ -41,6 +41,16 @@ export class AlchemyHTMLElement extends HTMLElement {
   }
 
   /**
+   * disconnected callback if the component is removed from the DOM
+   * this is currently only a Proxy to the disconnected - callback to use the same callback structure
+   * as for the connected - callback
+   * @link https://developer.mozilla.org/en-US/docs/Web/API/Web_Components#reference
+   */
+  disconnectedCallback() {
+    this.disconnected()
+  }
+
+  /**
    * triggered by the browser, if one of the observed attributes is changing
    * @link https://developer.mozilla.org/en-US/docs/Web/API/Web_Components#reference
    */
@@ -53,6 +63,11 @@ export class AlchemyHTMLElement extends HTMLElement {
    * a connected method to make it easier to overwrite the connection callback
    */
   connected() {}
+
+  /**
+   * a disconnected method to make it easier to overwrite the disconnection callback
+   */
+  disconnected() {}
 
   /**
    * empty method container to allow the child component to put the rendered string into this method

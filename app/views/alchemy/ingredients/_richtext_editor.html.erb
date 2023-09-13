@@ -5,6 +5,8 @@
     <%= ingredient_label(richtext_editor, :value) %>
 
     <%- custom_tinymce_config = richtext_editor.custom_tinymce_config.inject({}) { |obj, (k, v)| obj[k.to_s.dasherize] = v.to_json; obj} %>
-    <%= f.text_area :value, custom_tinymce_config.merge(is: "alchemy-tinymce", id: richtext_editor.form_field_id(:value)) %>
+    <%= content_tag("alchemy-tinymce", custom_tinymce_config) do %>
+      <%= f.text_area :value, id: richtext_editor.form_field_id(:value) %>
+    <% end %>
   <% end %>
 <% end %>
