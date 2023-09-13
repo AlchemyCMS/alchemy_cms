@@ -63,6 +63,12 @@ export class AlchemyHTMLElement extends HTMLElement {
   }
 
   /**
+   * after render callback
+   * the function will be triggered after the DOM was updated
+   */
+  afterRender() {}
+
+  /**
    * (re)render the component content inside the component container
    * @private
    */
@@ -70,6 +76,7 @@ export class AlchemyHTMLElement extends HTMLElement {
     if (this.changeComponent) {
       this.innerHTML = this.render()
       this.changeComponent = false
+      this.afterRender()
     }
   }
 
