@@ -223,16 +223,6 @@ window.Alchemy.currentDialog = ->
   return if length == 0
   Alchemy.currentDialogs[length - 1]
 
-# Utility function to close the current Dialog
-#
-# You can pass a callback function, that gets triggered after the Dialog gets closed.
-#
-window.Alchemy.closeCurrentDialog = (callback) ->
-  dialog = Alchemy.currentDialog()
-  if dialog?
-    dialog.options.closed = callback
-    dialog.close()
-
 # Watches elements for Alchemy Dialogs
 #
 # Links having a data-alchemy-dialog or data-alchemy-confirm-delete

@@ -55,6 +55,11 @@ export class AlchemyHTMLElement extends HTMLElement {
   connected() {}
 
   /**
+   * updated callback, if a the component was rendered
+   */
+  updated() {}
+
+  /**
    * empty method container to allow the child component to put the rendered string into this method
    * @returns {String}
    */
@@ -70,6 +75,7 @@ export class AlchemyHTMLElement extends HTMLElement {
     if (this.changeComponent) {
       this.innerHTML = this.render()
       this.changeComponent = false
+      this.updated()
     }
   }
 

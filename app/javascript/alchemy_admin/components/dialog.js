@@ -21,9 +21,19 @@ export class Dialog extends AlchemyHTMLElement {
   close() {
     // close the dialog element
     this.dialogElement.close()
+    document.dispatchEvent(new CustomEvent("DialogClose.Alchemy"))
   }
 
   connected() {
+    // load body content if a url is available
+    if (this.url) {
+      this.load(this.url).then((fetchedContent) => {
+        this.bodyElement.innerHTML = fetchedContent
+      })
+    }
+  }
+
+  updated() {
     // close button
     this.querySelector("header > button").addEventListener("click", () =>
       this.close()
@@ -32,12 +42,14 @@ export class Dialog extends AlchemyHTMLElement {
     // remove the whole dialog component from DOM, if the dialog was closed (via close button or ESC - key)
     this.dialogElement.addEventListener("close", () => this.remove())
 
-    // load body content if a url is available
-    if (this.url) {
-      this.load(this.url).then((fetchedContent) => {
-        this.bodyElement.innerHTML = fetchedContent
+    // trigger an event in page publication fields
+    document.dispatchEvent(
+      new CustomEvent("DialogReady.Alchemy", {
+        detail: { body: this.bodyElement }
       })
-    }
+    )
+
+    Alchemy.GUI.init(this.bodyElement)
   }
 
   /**
