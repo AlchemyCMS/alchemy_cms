@@ -22,8 +22,6 @@ module Alchemy
       # Renders a simple_form input that displays a datepicker
       #
       def datepicker(attribute_name, options = {})
-        options[:wrapper] = :alchemy
-
         type = options[:as] || :date
         value = options.fetch(:input_html, {}).delete(:value)
         date = value || object.send(attribute_name.to_sym).presence
@@ -32,11 +30,11 @@ module Alchemy
         input_options = {
           type: :text,
           class: type,
-          data: {datepicker_type: type},
           value: date&.iso8601
         }.merge(options[:input_html] || {})
 
-        input attribute_name, as: :string, input_html: input_options
+        date_field = input attribute_name, as: :string, input_html: input_options
+        template.content_tag("alchemy-datepicker", date_field, type: type)
       end
 
       # Renders a button tag wrapped in a div with 'submit' class.

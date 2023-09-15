@@ -322,8 +322,10 @@ module Alchemy
         date = Time.zone.parse(date) if date.is_a?(String)
         value = date&.iso8601
 
-        text_field object.class.name.demodulize.underscore.to_sym,
-          method.to_sym, {:type => "text", :class => type, :is => "alchemy-datepicker", "data-datepicker-type" => type, :value => value}.merge(html_options)
+        input_field = text_field object.class.name.demodulize.underscore.to_sym,
+          method.to_sym, {type: "text", class: type, value: value}.merge(html_options)
+
+        content_tag("alchemy-datepicker", input_field, type: type)
       end
 
       # Render a hint icon with tooltip for given object.

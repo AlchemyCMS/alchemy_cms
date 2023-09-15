@@ -1,26 +1,98 @@
 export class AlchemyHTMLElement extends HTMLElement {
   static properties = {}
 
+  /**
+   * create the list of observed attributes
+   * this function is a requirement for the `attributeChangedCallback` - method
+   * @returns {string[]}
+   * @link https://developer.mozilla.org/en-US/docs/Web/API/Web_Components#reference
+   */
   static get observedAttributes() {
     return Object.keys(this.properties)
   }
 
-  constructor() {
+  constructor(options = {}) {
     super()
+
+    this.options = options
+    this.changeComponent = true
+    this.initialContent = this.innerHTML // store the inner content of the component
   }
 
+  /**
+   * run when the component will be initialized by the Browser
+   * this is a default function
+   * @link https://developer.mozilla.org/en-US/docs/Web/API/Web_Components#reference
+   */
   connectedCallback() {
     // parse the properties object and register property variables
     Object.keys(this.constructor.properties).forEach((propertyName) => {
-      this.updateProperty(propertyName, this.getAttribute(propertyName))
+      // if the options was given via the constructor, they should be prefer (e.g. new <WebComponentName>({title: "Foo"}))
+      if (this.options[propertyName]) {
+        this[propertyName] = this.options[propertyName]
+      } else {
+        this._updateProperty(propertyName, this.getAttribute(propertyName))
+      }
     })
+
     // render the component
-    this.updateComponent()
+    this._updateComponent()
+    this.connected()
   }
 
+  /**
+   * disconnected callback if the component is removed from the DOM
+   * this is currently only a Proxy to the disconnected - callback to use the same callback structure
+   * as for the connected - callback
+   * @link https://developer.mozilla.org/en-US/docs/Web/API/Web_Components#reference
+   */
+  disconnectedCallback() {
+    this.disconnected()
+  }
+
+  /**
+   * triggered by the browser, if one of the observed attributes is changing
+   * @link https://developer.mozilla.org/en-US/docs/Web/API/Web_Components#reference
+   */
   attributeChangedCallback(name, oldValue, newValue) {
-    this.updateProperty(name, newValue)
-    this.updateComponent()
+    this._updateProperty(name, newValue)
+    this._updateComponent()
+  }
+
+  /**
+   * a connected method to make it easier to overwrite the connection callback
+   */
+  connected() {}
+
+  /**
+   * a disconnected method to make it easier to overwrite the disconnection callback
+   */
+  disconnected() {}
+
+  /**
+   * empty method container to allow the child component to put the rendered string into this method
+   * @returns {String}
+   */
+  render() {
+    return this.initialContent
+  }
+
+  /**
+   * after render callback
+   * the function will be triggered after the DOM was updated
+   */
+  afterRender() {}
+
+  /**
+   * (re)render the component content inside the component container
+   * @private
+   */
+  _updateComponent() {
+    if (this.changeComponent) {
+      this.innerHTML = this.render()
+      this.changeComponent = false
+      this.afterRender()
+    }
   }
 
   /**
@@ -29,27 +101,19 @@ export class AlchemyHTMLElement extends HTMLElement {
    *
    * @param {string} propertyName
    * @param {string} value
+   * @private
    */
-  updateProperty(propertyName, value) {
+  _updateProperty(propertyName, value) {
     const property = this.constructor.properties[propertyName]
-    this[propertyName] = value
-    if (property.default && this[propertyName] === null) {
-      this[propertyName] = property.default
+    if (this[propertyName] !== value) {
+      this[propertyName] = value
+      if (
+        typeof property.default !== "undefined" &&
+        this[propertyName] === null
+      ) {
+        this[propertyName] = property.default
+      }
+      this.changeComponent = true
     }
-  }
-
-  /**
-   * (re)render the component content inside the component container
-   */
-  updateComponent() {
-    this.innerHTML = this.render()
-  }
-
-  /**
-   * empty method container to allow the child component to put the rendered string into this method
-   * @returns {String}
-   */
-  render() {
-    return ""
   }
 }
