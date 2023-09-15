@@ -14,6 +14,11 @@
   box-shadow: inset 0px 0 1px rgba($error_border_color, 0.5);
 }
 
+%transparent {
+  background: none;
+  border: none;
+}
+
 %default-input-style {
   border-radius: $default-border-radius;
   box-shadow: $form-field-box-shadow;

@@ -1,6 +1,8 @@
 import "@hotwired/turbo-rails"
 
 import Buttons from "alchemy_admin/buttons"
+import ConfirmDialog from "alchemy_admin/confirm_dialog"
+import { closeCurrentDialog, openDialog } from "alchemy_admin/dialog"
 import GUI from "alchemy_admin/gui"
 import translate from "alchemy_admin/i18n"
 import Dirty from "alchemy_admin/dirty"
@@ -17,6 +19,10 @@ import PagePublicationFields from "alchemy_admin/page_publication_fields"
 
 // Web Components
 import "alchemy_admin/components/char_counter"
+import "alchemy_admin/components/dialog"
+import "alchemy_admin/components/overlay_tab"
+import "alchemy_admin/components/overlay_tabs"
+import "alchemy_admin/components/page_select"
 import "alchemy_admin/components/tinymce"
 import "alchemy_admin/components/tooltip"
 import "alchemy_admin/components/datepicker"
@@ -30,6 +36,7 @@ if (typeof window.Alchemy === "undefined") {
 // Enhance the global Alchemy object with imported features
 Object.assign(Alchemy, {
   Buttons,
+  ...ConfirmDialog,
   ...Dirty,
   GUI,
   t: translate, // Global utility method for translating a given string
@@ -42,6 +49,8 @@ Object.assign(Alchemy, {
   IngredientAnchorLink,
   Sitemap,
   Spinner,
+  closeCurrentDialog,
+  openDialog,
   PagePublicationFields
 })
 
