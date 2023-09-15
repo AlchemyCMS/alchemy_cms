@@ -11,16 +11,23 @@ import pictureEditors from "alchemy_admin/picture_editors"
 import ImageLoader from "alchemy_admin/image_loader"
 import ImageCropper from "alchemy_admin/image_cropper"
 import Initializer from "alchemy_admin/initializer"
+import pictureSelector from "alchemy_admin/picture_selector"
+import pleaseWaitOverlay from "alchemy_admin/please_wait_overlay"
 import Sitemap from "alchemy_admin/sitemap"
+import SelectBox from "alchemy_admin/select_box"
 import Spinner from "alchemy_admin/spinner"
 import PagePublicationFields from "alchemy_admin/page_publication_fields"
 
+// Setting jQueryUIs global animation duration to something more snappy
+$.fx.speeds._default = 400
+
 // Web Components
 import "alchemy_admin/components/char_counter"
+import "alchemy_admin/components/datepicker"
+import "alchemy_admin/components/overlay"
+import "alchemy_admin/components/spinner"
 import "alchemy_admin/components/tinymce"
 import "alchemy_admin/components/tooltip"
-import "alchemy_admin/components/datepicker"
-import "alchemy_admin/components/spinner"
 
 // Global Alchemy object
 if (typeof window.Alchemy === "undefined") {
@@ -40,6 +47,9 @@ Object.assign(Alchemy, {
   ImageCropper,
   Initializer,
   IngredientAnchorLink,
+  pictureSelector,
+  pleaseWaitOverlay,
+  SelectBox,
   Sitemap,
   Spinner,
   PagePublicationFields
