@@ -65,12 +65,12 @@ RSpec.describe "Page editing feature", type: :system do
       visit alchemy.edit_admin_page_path(a_page)
       expect(page).to have_link("New element")
       click_link("New element")
-      expect(page).to have_selector(".alchemy-dialog-body .simple_form")
-      within ".alchemy-dialog-body .simple_form" do
+      expect(page).to have_selector(".body .simple_form")
+      within ".body .simple_form" do
         select2("Article", from: "Element")
         click_button("Add")
       end
-      expect(page).to_not have_selector(".alchemy-dialog-body")
+      expect(page).to_not have_selector(".body")
       expect(page).to have_selector('.element-editor[data-element-name="article"]')
     end
   end
@@ -219,16 +219,16 @@ RSpec.describe "Page editing feature", type: :system do
     before do
       visit alchemy.admin_pages_path
       find(".sitemap_page[name='#{a_page.name}'] .icon.fa-cog").click
-      expect(page).to have_selector(".alchemy-dialog-overlay.open")
+      expect(page).to have_selector("alchemy-dialog dialog[open]")
     end
 
     context "when updating the name" do
       it "saves the name" do
-        within(".alchemy-dialog.modal") do
+        within("alchemy-dialog") do
           find("input#page_name").set("name with some %!x^)'([@!{}]|/?:# characters")
           find(".submit button").click
         end
-        expect(page).to_not have_selector(".alchemy-dialog-overlay.open")
+        expect(page).to_not have_selector("alchemy-dialog")
         expect(page).to have_selector("#sitemap a.sitemap_pagename_link", text: "name with some %!x^)'([@!{}]|/?:# characters")
       end
     end
@@ -237,12 +237,12 @@ RSpec.describe "Page editing feature", type: :system do
       let!(:new_parent) { create(:alchemy_page) }
 
       it "can change page parent" do
-        within(".alchemy-dialog.modal") do
+        within("alchemy-dialog") do
           expect(page).to have_css("#s2id_page_parent_id")
           select2_search(new_parent.name, from: "Parent")
           find(".submit button").click
         end
-        expect(page).to_not have_selector(".alchemy-dialog-overlay.open")
+        expect(page).to_not have_selector("alchemy-dialog")
         expect(page).to have_selector("#sitemap .sitemap_url", text: "/#{new_parent.urlname}/#{a_page.urlname}")
       end
     end
