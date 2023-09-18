@@ -16,10 +16,7 @@ end
 gem "pg", "~> 1.0" if ENV["DB"] == "postgresql"
 
 group :development, :test do
-  # execjs 2.8 removes deprecation warnings but also breaks a number of dependent projects.
-  # in our case the culprit is `handlebars-assets`. The changes between 2.7.0 and 2.8.0 are
-  # minimal, but breaking.
-  gem "execjs", "= 2.9.0"
+  gem "execjs", "~> 2.9.1"
   gem "rubocop", require: false
   gem "standard", "~> 1.25", require: false
 
