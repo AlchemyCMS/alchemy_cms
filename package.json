@@ -15,6 +15,7 @@
     "jest": "^29.6.4",
     "jest-environment-jsdom": "^29.6.4",
     "jsdom-testing-mocks": "^1.11.0",
+    "jquery": "^2.2.4",
     "lodash-es": "^4.17.21",
     "prettier": "^3.0.0",
     "sortablejs": "^1.10.2",
@@ -25,7 +26,8 @@
       "Alchemy": {}
     },
     "moduleNameMapper": {
-      "alchemy_admin/(.*)": "<rootDir>/app/javascript/alchemy_admin/$1"
+      "alchemy_admin/(.*)": "<rootDir>/app/javascript/alchemy_admin/$1",
+      "vendor/(.*)": "<rootDir>/vendor/assets/javascripts/$1"
     },
     "testEnvironment": "jsdom",
     "roots": [
