@@ -3,23 +3,11 @@
   data: page_editor.data_attributes do %>
   <%= element_form.fields_for(:ingredients, page_editor.ingredient) do |f| %>
     <%= ingredient_label(page_editor, :page_id) %>
-    <%= f.text_field :page_id,
-      value: page_editor.page&.id,
-      id: page_editor.form_field_id(:page_id),
-      class: 'alchemy_selectbox full_width' %>
-  <% end %>
-<% end %>
-
-<script>
-  $('#<%= page_editor.form_field_id(:page_id) %>').alchemyPageSelect({
-    placeholder: "<%= Alchemy.t(:search_page) %>",
-    url: "<%= alchemy.api_pages_path %>",
-    query_params: <%== page_editor.settings[:query_params].to_json %>,
-    <% if page_editor.page %>
-    initialSelection: {
-      id: <%= page_editor.page.id %>,
-      text: "<%= page_editor.page.name %>"
-    }
+    <%= render Alchemy::Admin::PageSelect.new(page_editor.page, allow_clear: true, query_params: page_editor.settings[:query_params]) do %>
+      <%= f.text_field :page_id,
+        value: page_editor.page&.id,
+        id: page_editor.form_field_id(:page_id),
+        class: 'full_width' %>
+      <% end %>
     <% end %>
-  })
-</script>
+<% end %>

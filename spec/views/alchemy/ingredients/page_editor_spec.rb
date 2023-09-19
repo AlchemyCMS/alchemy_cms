@@ -20,15 +20,15 @@ RSpec.describe "alchemy/ingredients/_page_editor" do
   it_behaves_like "an alchemy ingredient editor"
 
   it "renders a page input" do
-    is_expected.to have_css("input.alchemy_selectbox.full_width")
+    is_expected.to have_css("alchemy-page-select input")
   end
 
   context "with a page related to ingredient" do
-    let(:page) { Alchemy::Page.new(id: 1) }
+    let(:page) { build(:alchemy_page) }
     let(:ingredient) { Alchemy::Ingredients::Page.new(page: page, element: element, role: "role") }
 
     it "sets page id as value" do
-      is_expected.to have_css('input.alchemy_selectbox[value="1"]')
+      is_expected.to have_css("input[value=\"#{page.id}\"]")
     end
   end
 end
