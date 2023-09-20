@@ -388,109 +388,6 @@ module Alchemy
       it "the copy should have added (copy) to name" do
         expect(subject.name).to eq("#{page.name} (Copy)")
       end
-
-      it "the copy should have one draft version" do
-        expect(subject.versions.length).to eq(1)
-        expect(subject.draft_version).to be
-      end
-
-      context "a public page" do
-        let(:page) { create(:alchemy_page, :public, name: "Source", public_until: Time.current) }
-
-        it "the copy should not be public" do
-          expect(subject.public_on).to be(nil)
-          expect(subject.public_until).to be(nil)
-        end
-      end
-
-      context "a locked page" do
-        let(:page) do
-          create(:alchemy_page, :public, :locked, name: "Source")
-        end
-
-        it "the copy should not be locked" do
-          expect(subject.locked?).to be(false)
-          expect(subject.locked_by).to be(nil)
-        end
-      end
-
-      context "page with tags" do
-        before do
-          page.tag_list = "red, yellow"
-          page.save!
-        end
-
-        it "the copy should have source tag_list" do
-          expect(subject.tag_list).not_to be_empty
-          expect(subject.tag_list).to match_array(page.tag_list)
-        end
-      end
-
-      context "page with elements" do
-        before { create(:alchemy_element, page: page, page_version: page.draft_version) }
-
-        it "the copy should have source elements on its draft version" do
-          expect(subject.draft_version.elements).not_to be_empty
-          expect(subject.draft_version.elements.count).to eq(page.draft_version.elements.count)
-        end
-      end
-
-      context "page with fixed elements" do
-        before { create(:alchemy_element, :fixed, page: page, page_version: page.draft_version) }
-
-        it "the copy should have source fixed elements on its draft version" do
-          expect(subject.draft_version.elements.fixed).not_to be_empty
-          expect(subject.draft_version.elements.fixed.count).to eq(page.draft_version.elements.fixed.count)
-        end
-      end
-
-      context "page with autogenerate elements" do
-        before do
-          page = create(:alchemy_page)
-          allow(page).to receive(:definition).and_return({
-            "name" => "standard",
-            "elements" => ["headline"],
-            "autogenerate" => ["headline"]
-          })
-        end
-
-        it "the copy should not autogenerate elements" do
-          expect(subject.draft_version.elements).to be_empty
-        end
-      end
-
-      context "with different page name given" do
-        subject { Page.copy(page, {name: "Different name"}) }
-
-        it "should take this name" do
-          expect(subject.name).to eq("Different name")
-        end
-      end
-
-      context "with exceptions during copy" do
-        before do
-          expect(Page).to receive(:copy_elements) { raise "boom" }
-        end
-
-        it "rolls back all changes" do
-          page
-          expect {
-            expect { Page.copy(page, {name: "Different name"}) }.to raise_error("boom")
-          }.to_not change(Alchemy::Page, :count)
-        end
-      end
-
-      context "copying a different parent" do
-        let(:different_page) { create(:alchemy_page) }
-        let(:page) { create(:alchemy_page, parent: different_page) }
-        let(:destination) { create(:alchemy_page) }
-
-        subject { Page.copy(page, parent_id: destination.id) }
-
-        it "should not add (copy) to name" do
-          expect(subject.name).to eq(page.name)
-        end
-      end
     end
 
     describe ".create" do
@@ -1250,49 +1147,35 @@ module Alchemy
     end
 
     describe "#copy_and_paste" do
-      let(:source) { build_stubbed(:alchemy_page) }
-      let(:new_parent) { build_stubbed(:alchemy_page) }
+      let(:source) { create(:alchemy_page) }
+      let(:new_parent) { create(:alchemy_page) }
       let(:page_name) { "Pagename (pasted)" }
-      let(:copied_page) { mock_model("Page") }
 
       subject { Page.copy_and_paste(source, new_parent, page_name) }
 
       it "should copy the source page with the given name to the new parent" do
-        expect(Page).to receive(:copy).with(source, {
-          parent: new_parent,
-          language: new_parent.language,
-          name: page_name,
-          title: page_name
-        })
-        subject
+        expect(subject.name).to eq(page_name)
       end
 
       it "should return the copied page" do
-        allow(Page).to receive(:copy).and_return(copied_page)
-        expect(subject).to be_a(copied_page.class)
+        expect(subject).to be_a(Alchemy::Page)
       end
 
       context "if source page has children" do
+        let(:child_page) { create(:alchemy_page) }
+        let(:source) { create(:alchemy_page, children: [child_page]) }
+
         it "should also copy and paste the children" do
-          allow(Page).to receive(:copy).and_return(copied_page)
-          allow(source).to receive(:children).and_return([mock_model("Page")])
-          expect(source).to receive(:copy_children_to).with(copied_page)
-          subject
+          expect(subject.children.length).to eq(1)
         end
       end
 
       context "if the source page has no parent (global page)" do
-        let(:source) { build_stubbed(:alchemy_page, layoutpage: true, parent_id: nil) }
+        let(:source) { create(:alchemy_page, layoutpage: true, parent_id: nil) }
         let(:new_parent) { nil }
 
         it "copies the source page with the given name" do
-          expect(Page).to receive(:copy).with(source, {
-            parent: nil,
-            language: nil,
-            name: page_name,
-            title: page_name
-          })
-          subject
+          expect(subject.name).to eq(page_name)
         end
       end
     end

@@ -233,23 +233,17 @@ module Alchemy
       # @return [Alchemy::Page]
       #
       def copy(source, differences = {})
-        transaction do
-          page = Alchemy::Page.new(attributes_from_source_for_copy(source, differences))
-          page.tag_list = source.tag_list
-          if page.save!
-            copy_elements(source, page)
-            page
-          end
-        end
+        Alchemy::CopyPage.new(page: source).call(changed_attributes: differences)
       end
 
       def copy_and_paste(source, new_parent, new_name)
-        page = copy(source, {
-          parent: new_parent,
-          language: new_parent&.language,
-          name: new_name,
-          title: new_name
-        })
+        page = Alchemy::CopyPage.new(page: source)
+          .call(changed_attributes: {
+            parent: new_parent,
+            language: new_parent&.language,
+            name: new_name,
+            title: new_name
+          })
         if source.children.any?
           source.copy_children_to(page)
         end
@@ -279,48 +273,6 @@ module Alchemy
             default: option.to_s.humanize), option]
         end
         options
-      end
-
-      private
-
-      # Aggregates the attributes from given source for copy of page.
-      #
-      # @param [Alchemy::Page]
-      #   The source page
-      # @param [Hash]
-      #   A optional hash with attributes that take precedence over the source attributes
-      #
-      def attributes_from_source_for_copy(source, differences = {})
-        source.attributes.stringify_keys!
-        differences.stringify_keys!
-        attributes = source.attributes.merge(differences)
-        attributes.merge!(DEFAULT_ATTRIBUTES_FOR_COPY)
-        attributes["name"] = begin
-          desired_name = differences["name"].presence || source.name
-          new_parent_id = differences["parent"]&.id || differences["parent_id"]
-          if new_parent_id && !Alchemy::Page.where(parent_id: new_parent_id, name: desired_name).exists?
-            desired_name
-          else
-            new_name_for_copy(differences["name"], source.name)
-          end
-        end
-        attributes.except(*SKIPPED_ATTRIBUTES_ON_COPY)
-      end
-
-      # Returns a new name for copy of page.
-      #
-      # If the differences hash includes a new name this is taken.
-      # Otherwise +source.name+
-      #
-      # @param [String]
-      #   The differences hash that contains a new name
-      # @param [String]
-      #   The name of the source
-      #
-      def new_name_for_copy(custom_name, source_name)
-        return custom_name if custom_name.present?
-
-        "#{source_name} (#{Alchemy.t("Copy")})"
       end
     end
 
@@ -455,7 +407,7 @@ module Alchemy
       children.each do |child|
         next if child == new_parent
 
-        new_child = Page.copy(child, {
+        new_child = Alchemy::CopyPage.new(page: child).call(changed_attributes: {
           parent_id: new_parent.id,
           language_id: new_parent.language_id,
           language_code: new_parent.language_code
