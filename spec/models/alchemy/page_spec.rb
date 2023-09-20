@@ -1206,19 +1206,6 @@ module Alchemy
       end
     end
 
-    def copy_children_to(new_parent)
-      children.each do |child|
-        next if child == new_parent
-
-        new_child = Page.copy(child, {
-          language_id: new_parent.language_id,
-          language_code: new_parent.language_code
-        })
-        new_child.move_to_child_of(new_parent)
-        child.copy_children_to(new_child) unless child.children.blank?
-      end
-    end
-
     describe "#definition" do
       context "if the page layout could not be found in the definition file" do
         let(:page) { build_stubbed(:alchemy_page, page_layout: "notexisting") }
