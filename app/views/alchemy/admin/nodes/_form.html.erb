@@ -1,4 +1,4 @@
-<%= alchemy_form_for([:admin, node]) do |f| %>
+<%= alchemy_form_for([:admin, node], id: "node_form") do |f| %>
   <% if node.new_record? && node.root? %>
     <%= f.input :menu_type,
       collection: Alchemy::Language.current.available_menu_names.map { |n| [I18n.t(n, scope: [:alchemy, :menu_names]), n] },
@@ -13,7 +13,9 @@
         value: node.page && node.read_attribute(:name).blank? ? nil : node.name,
         placeholder: node.page ? node.page.name : nil
       } %>
-      <%= f.input :page_id, label: Alchemy::Page.model_name.human, input_html: { class: 'alchemy_selectbox' } %>
+      <%= render Alchemy::Admin::PageSelect.new(node.page, allow_clear: true) do %>
+        <%= f.input :page_id, label: Alchemy::Page.model_name.human %>
+      <% end %>
       <%= f.input :url, input_html: { disabled: node.page }, hint: Alchemy.t(:node_url_hint) %>
       <%= f.input :title %>
       <%= f.input :nofollow %>
@@ -26,23 +28,20 @@
 <% end %>
 
 <script>
-  $('#node_page_id').alchemyPageSelect({
-    placeholder: "<%= Alchemy.t(:search_page) %>",
-    url: "<%= alchemy.api_pages_path %>",
-    <% if node.page %>
-    initialSelection: {
-      id: <%= node.page_id %>,
-      text: "<%= node.page.name %>",
-      url_path: "<%= node.page.url_path %>"
-    }
-    <% end %>
-  }).on('change', function(e) {
-    if (e.val === '') {
-      $('#node_name').removeAttr('placeholder')
-      $('#node_url').val('').prop('disabled', false)
-    } else {
-      $('#node_name').attr('placeholder', e.added.name)
-      $('#node_url').val(e.added.url_path).prop('disabled', true)
-    }
+  const nodeName = document.getElementById("node_name")
+  const nodeUrl = document.getElementById("node_url")
+  const form = document.getElementById("node_form")
+
+  form.addEventListener("Alchemy.PageSelect.PageAdded", (event) => {
+    const page = event.detail
+    nodeName.setAttribute("placeholder", page.name)
+    nodeUrl.value = page.url_path
+    nodeUrl.setAttribute("disabled", "disabled")
+  })
+
+  form.addEventListener("Alchemy.PageSelect.PageRemoved", (event) => {
+    nodeName.removeAttribute("placeholder")
+    nodeUrl.value = ""
+    nodeUrl.removeAttribute("disabled")
   })
 </script>

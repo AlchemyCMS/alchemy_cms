@@ -1,3 +1,5 @@
+import { toCamelCase } from "alchemy_admin/utils/string_conversions"
+
 export class AlchemyHTMLElement extends HTMLElement {
   static properties = {}
 
@@ -25,15 +27,15 @@ export class AlchemyHTMLElement extends HTMLElement {
    * @link https://developer.mozilla.org/en-US/docs/Web/API/Web_Components#reference
    */
   connectedCallback() {
-    // parse the properties object and register property variables
-    Object.keys(this.constructor.properties).forEach((propertyName) => {
+    // parse the properties object and register property with the default values
+    Object.keys(this.constructor.properties).forEach((name) => {
       // if the options was given via the constructor, they should be prefer (e.g. new <WebComponentName>({title: "Foo"}))
-      if (this.options[propertyName]) {
-        this[propertyName] = this.options[propertyName]
-      } else {
-        this._updateProperty(propertyName, this.getAttribute(propertyName))
-      }
+      this[name] =
+        this.options[name] ?? this.constructor.properties[name].default
     })
+
+    // then process the attributes
+    this.getAttributeNames().forEach((name) => this._updateFromAttribute(name))
 
     // render the component
     this._updateComponent()
@@ -54,8 +56,8 @@ export class AlchemyHTMLElement extends HTMLElement {
    * triggered by the browser, if one of the observed attributes is changing
    * @link https://developer.mozilla.org/en-US/docs/Web/API/Web_Components#reference
    */
-  attributeChangedCallback(name, oldValue, newValue) {
-    this._updateProperty(name, newValue)
+  attributeChangedCallback(name) {
+    this._updateFromAttribute(name)
     this._updateComponent()
   }
 
@@ -96,23 +98,21 @@ export class AlchemyHTMLElement extends HTMLElement {
   }
 
   /**
-   * update the property value
-   * if the value is undefined the default value is used
+   * update the value from the given attribute
    *
-   * @param {string} propertyName
-   * @param {string} value
+   * @param {string} name
    * @private
    */
-  _updateProperty(propertyName, value) {
-    const property = this.constructor.properties[propertyName]
+  _updateFromAttribute(name) {
+    const attributeValue = this.getAttribute(name)
+    const propertyName = toCamelCase(name)
+    const isBooleanValue =
+      attributeValue.length === 0 || attributeValue === "true"
+
+    const value = isBooleanValue ? true : attributeValue
+
     if (this[propertyName] !== value) {
       this[propertyName] = value
-      if (
-        typeof property.default !== "undefined" &&
-        this[propertyName] === null
-      ) {
-        this[propertyName] = property.default
-      }
       this.changeComponent = true
     }
   }

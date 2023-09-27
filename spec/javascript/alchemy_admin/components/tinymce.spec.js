@@ -1,6 +1,6 @@
 import { renderComponent } from "./component.helper"
 import "alchemy_admin/components/tinymce"
-import "../../../../vendor/assets/javascripts/tinymce/tinymce.min"
+import "vendor/tinymce/tinymce.min"
 import { mockIntersectionObserver } from "jsdom-testing-mocks"
 
 describe("alchemy-tinymce", () => {

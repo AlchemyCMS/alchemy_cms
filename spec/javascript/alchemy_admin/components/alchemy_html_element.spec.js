@@ -67,7 +67,9 @@ describe("AlchemyHTMLElement", () => {
         class Test extends AlchemyHTMLElement {
           static properties = {
             size: { default: "medium" },
-            color: { default: "currentColor" }
+            color: { default: "currentColor" },
+            longLongAttribute: { default: "foo" },
+            booleanType: { default: false }
           }
         }
       )
@@ -87,6 +89,30 @@ describe("AlchemyHTMLElement", () => {
         `<test-size size="large"></test-size>`
       )
       expect(component.size).toEqual("large")
+    })
+
+    it("should cast dashes to camelcase", () => {
+      createComponent("test-camelcase")
+      component = renderComponent(
+        "test-camelcase",
+        `<test-camelcase long-long-attribute="bar"></test-camelcase>`
+      )
+      expect(component.longLongAttribute).toEqual("bar")
+    })
+
+    it("should support boolean types", () => {
+      createComponent("test-boolean")
+      component = renderComponent(
+        "test-boolean",
+        `<test-boolean boolean-type></test-boolean>`
+      )
+      expect(component.booleanType).toBeTruthy()
+
+      const second_component = renderComponent(
+        "test-boolean",
+        `<test-boolean></test-boolean>`
+      )
+      expect(second_component.booleanType).toBeFalsy()
     })
 
     it("should observe an attribute change", () => {
