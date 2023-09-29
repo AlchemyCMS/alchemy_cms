@@ -1,12 +1,15 @@
 /**
  * Show the character counter below input fields and textareas
  */
-class CharCounter extends HTMLElement {
-  constructor() {
-    super()
+import { AlchemyHTMLElement } from "./alchemy_html_element"
+import { translate } from "alchemy_admin/i18n"
 
-    this.maxChar = this.dataset.count
-    this.translation = Alchemy.t("allowed_chars", this.maxChar)
+class CharCounter extends AlchemyHTMLElement {
+  static properties = {
+    maxChars: { default: 60 }
+  }
+  connected() {
+    this.translation = translate("allowed_chars", this.maxChars)
     this.formField = this.getFormField()
 
     if (this.formField) {
@@ -30,7 +33,7 @@ class CharCounter extends HTMLElement {
   countCharacters() {
     const charLength = this.formField.value.length
     this.display.textContent = `${charLength} ${this.translation}`
-    this.display.classList.toggle("too-long", charLength > this.maxChar)
+    this.display.classList.toggle("too-long", charLength > this.maxChars)
   }
 }
 
