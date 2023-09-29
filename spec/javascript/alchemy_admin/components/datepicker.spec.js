@@ -1,5 +1,5 @@
 import "alchemy_admin/components/datepicker"
-import { renderComponent } from "./component.helper"
+import { renderComponent, setupLanguage } from "./component.helper"
 
 describe("alchemy-datepicker", () => {
   /**
@@ -8,12 +8,7 @@ describe("alchemy-datepicker", () => {
    */
   let component = undefined
 
-  beforeAll(() => {
-    window.Alchemy = {
-      locale: "en_US",
-      t: (key) => key
-    }
-  })
+  beforeAll(() => setupLanguage())
 
   beforeEach(() => {
     const html = `

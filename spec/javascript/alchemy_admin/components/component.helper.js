@@ -8,3 +8,7 @@ export const renderComponent = (name, html) => {
   document.body.innerHTML = html
   return document.querySelector(name)
 }
+
+export const setupLanguage = () => {
+  document.documentElement.lang = "en"
+}

@@ -1,4 +1,5 @@
 import { AlchemyHTMLElement } from "./alchemy_html_element"
+import { currentLocale } from "alchemy_admin/i18n"
 
 class Tinymce extends AlchemyHTMLElement {
   /**
@@ -101,7 +102,7 @@ class Tinymce extends AlchemyHTMLElement {
     return {
       ...Alchemy.TinymceDefaults,
       ...customConfig,
-      locale: Alchemy.locale,
+      locale: currentLocale(),
       selector: `#${this.editorId}`
     }
   }
