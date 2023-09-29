@@ -1,11 +1,8 @@
-const KEY_SEPARATOR = /\./
+import { en } from "alchemy_admin/locales/en"
 
-function currentLocale() {
-  if (Alchemy.locale == null) {
-    throw "Alchemy.locale is not set! Please set Alchemy.locale to a locale string in order to translate something."
-  }
-  return Alchemy.locale
-}
+Alchemy.translations = Object.assign(Alchemy.translations || {}, { en })
+
+const KEY_SEPARATOR = /\./
 
 function getTranslations() {
   const locale = currentLocale()
@@ -36,7 +33,14 @@ function getTranslation(key) {
   return translations[key] || key
 }
 
-export default function translate(key, replacement) {
+export function currentLocale() {
+  if (document.documentElement.lang) {
+    return document.documentElement.lang
+  }
+  return "en"
+}
+
+export function translate(key, replacement = undefined) {
   let translation = getTranslation(key)
 
   if (replacement) {
