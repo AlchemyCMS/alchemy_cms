@@ -1,5 +1,14 @@
 # Changelog
 
+## [v3.2.0](https://github.com/AlchemyCMS/alchemy_i18n/tree/v3.2.0) (2023-09-29)
+
+[Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v3.1.0...v3.2.0)
+
+**Merged pull requests:**
+
+- Check for webpack config in installer [\#49](https://github.com/AlchemyCMS/alchemy_i18n/pull/49) ([tvdeyen](https://github.com/tvdeyen))
+- Add German translations for picture and file filters [\#48](https://github.com/AlchemyCMS/alchemy_i18n/pull/48) ([tvdeyen](https://github.com/tvdeyen))
+
 ## [v3.1.0](https://github.com/AlchemyCMS/alchemy_i18n/tree/v3.1.0) (2023-03-30)
 
 [Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v3.0.2...v3.1.0)
