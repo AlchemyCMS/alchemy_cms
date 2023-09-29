@@ -1,3 +1,4 @@
 parallel: true
 ignore:
   - "spec/dummy/**/*"
+ruby_version: 3.0
