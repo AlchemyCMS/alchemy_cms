@@ -73,7 +73,9 @@
 
     <div class="input">
       <label class="control-label" for="datetime_picker">Date Time Picker</label>
-      <input type="text" data-datepicker-type="datetime" id="datetime_picker">
+      <alchemy-datepicker type="datetime">
+        <input type="text" id="datetime_picker">
+      </alchemy-datepicker>
     </div>
 
     <div class="input">
@@ -81,10 +83,14 @@
       <div class="control_group">
         <div class="input-row">
           <div class="input-column">
-            <input type="text" data-datepicker-type="date" id="date_picker">
+            <alchemy-datepicker type="date">
+              <input type="text" id="date_picker">
+            </alchemy-datepicker>
           </div>
           <div class="input-column">
-            <input type="text" data-datepicker-type="time" id="time_picker">
+            <alchemy-datepicker type="time">
+              <input type="text" id="time_picker">
+            </alchemy-datepicker>
           </div>
         </div>
       </div>
@@ -105,10 +111,12 @@
       <input type="text" id="string_with_error">
       <small class="error">Error message</small>
     </div>
-    <div class="input">
-      <label class="control-label" for="string_with_counter">String with char counter</label>
-      <input data-alchemy-char-counter="60" type="text" id="string_with_counter">
-    </div>
+    <alchemy-char-counter max-chars="60">
+      <div class="input">
+        <label class="control-label" for="string_with_counter">String with char counter</label>
+        <input type="text" id="string_with_counter">
+      </div>
+    </alchemy-char-counter>
 
     <div class="input check_boxes">
       <label class="control-label">Check Boxes</label>
@@ -123,12 +131,12 @@
         </label>
       </div>
     </div>
-
-    <div class="input text">
-      <label class="text control-label" for="textarea_with_counter">Textarea with char counter</label>
-      <textarea data-alchemy-char-counter="160" class="text" id="textarea_with_counter"></textarea>
-    </div>
-
+    <alchemy-char-counter max-chars="160">
+      <div class="input text">
+        <label class="text control-label" for="textarea_with_counter">Textarea with char counter</label>
+        <textarea class="text" id="textarea_with_counter"></textarea>
+      </div>
+    </alchemy-char-counter>
     <div class="input text">
       <label class="text control-label" for="textarea">Textarea</label>
       <textarea class="text" id="textarea"></textarea>
@@ -137,7 +145,9 @@
 
     <div class="input text tinymce_container">
       <label class="text control-label" for="tinymce_1">Richtext editor</label>
-      <textarea class="text" id="tinymce_1"></textarea>
+      <alchemy-tinymce>
+        <textarea class="text" id="tinymce_1"></textarea>
+      </alchemy-tinymce>
     </div>
 
     <div class="submit">
@@ -230,9 +240,3 @@
   <li>List item</li>
   <li>List item</li>
 </ol>
-
-<%= content_for :javascripts do %>
-  <script>
-    Alchemy.Tinymce.init([1])
-  </script>
-<% end %>
