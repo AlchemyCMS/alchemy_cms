@@ -15,6 +15,8 @@ if ENV["DB"] == "mysql" || ENV["DB"] == "mariadb"
 end
 gem "pg", "~> 1.0" if ENV["DB"] == "postgresql"
 
+gem "alchemy_i18n", git: "https://github.com/AlchemyCMS/alchemy_i18n.git", branch: "main"
+
 group :development, :test do
   gem "execjs", "~> 2.9.1"
   gem "rubocop", require: false
