@@ -43,6 +43,25 @@ module Alchemy
     @_preview_sources = Array(sources)
   end
 
+  # Additional JS modules to be imported in the Alchemy admin UI
+  #
+  # Be sure to also pin the modules with +Alchemy.importmap+.
+  #
+  # == Example
+  #
+  #    Alchemy.importmap.pin "flatpickr/de",
+  #      to: "https://ga.jspm.io/npm:flatpickr@4.6.13/dist/l10n/de.js"
+  #
+  #    Alchemy.admin_js_imports << "flatpickr/de"
+  #
+  def self.admin_js_imports
+    @_admin_js_imports ||= Set.new
+  end
+
+  def self.admin_js_imports=(sources)
+    @_admin_js_imports = Set[sources]
+  end
+
   # Define page publish targets
   #
   # A publish target is a ActiveJob that gets performed
