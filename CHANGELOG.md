@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.0.4 (2023-10-04)
+
+- [7.0-stable] Merge pull request #2588 from tvdeyen/admin-js-imports [#2589](https://github.com/AlchemyCMS/alchemy_cms/pull/2589) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.0-stable] Merge pull request #2586 from AlchemyCMS/fix-leave-dialog [#2587](https://github.com/AlchemyCMS/alchemy_cms/pull/2587) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.0-stable] Merge pull request #2556 from mamhoff/fix-nan-ratio-error [#2580](https://github.com/AlchemyCMS/alchemy_cms/pull/2580) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.0.3 (2023-08-29)
 
 - [7.0-stable] Merge pull request #2571 from tvdeyen/fix-non-stupid-digest-assets [#2572](https://github.com/AlchemyCMS/alchemy_cms/pull/2572) ([github-actions](https://github.com/apps/github-actions))
