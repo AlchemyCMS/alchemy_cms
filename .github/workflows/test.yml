@@ -26,6 +26,7 @@ jobs:
       DB_HOST: "127.0.0.1"
       RAILS_ENV: test
       RAILS_VERSION: ${{ matrix.rails }}
+      RUBY_YJIT_ENABLE: "1"
     services:
       postgres:
         image: postgres:11
