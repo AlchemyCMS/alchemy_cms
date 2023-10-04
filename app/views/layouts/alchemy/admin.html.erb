@@ -35,6 +35,13 @@
     <%= render 'alchemy/admin/partials/routes' %>
     <%= javascript_include_tag('alchemy/admin/all', 'data-turbo-track' => true) %>
     <%= javascript_importmap_tags("alchemy_admin", importmap: Alchemy.importmap) %>
+    <% if Alchemy.admin_js_imports.any? %>
+      <script type="module">
+        <% Alchemy.admin_js_imports.each do |path| %>
+          import "<%= path %>"
+        <% end %>
+      </script>
+    <% end %>
     <%= yield :javascript_includes %>
   </head>
   <%= content_tag :body, id: 'alchemy', class: alchemy_body_class do %>
