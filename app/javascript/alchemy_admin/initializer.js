@@ -2,12 +2,19 @@
  * add change listener to select to redirect the user after selecting another locale or site
  * @param {string} selectId
  * @param {string} parameterName
+ * @param {boolean} forcedReload
  */
-function selectHandler(selectId, parameterName) {
+function selectHandler(selectId, parameterName, forcedReload = false) {
   $(`select#${selectId}`).on("change", function (e) {
     let url = window.location.pathname
     let delimiter = url.match(/\?/) ? "&" : "?"
-    Turbo.visit(`${url}${delimiter}${parameterName}=${$(this).val()}`, {})
+    const location = `${url}${delimiter}${parameterName}=${$(this).val()}`
+
+    if (forcedReload) {
+      window.location.href = location
+    } else {
+      Turbo.visit(location, {})
+    }
   })
 }
 
@@ -32,7 +39,7 @@ function Initialize() {
   $("a.button").attr({ tabindex: 0 })
 
   // Locale select handler
-  selectHandler("change_locale", "admin_locale")
+  selectHandler("change_locale", "admin_locale", true)
 
   // Site select handler
   selectHandler("change_site", "site_id")
