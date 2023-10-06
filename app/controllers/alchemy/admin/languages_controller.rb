@@ -22,7 +22,7 @@ module Alchemy
         @language = Alchemy::Language.new(resource_params)
         if @language.save
           flash[:notice] = Alchemy.t("Language successfully created")
-          redirect_to alchemy.admin_pages_path(language_id: @language)
+          do_redirect_to alchemy.admin_pages_path(language_id: @language)
         else
           render :new
         end
@@ -48,7 +48,7 @@ module Alchemy
         @current_site = Alchemy::Site.current
         if @current_site.nil?
           flash[:warning] = Alchemy.t("Please create a site first.")
-          redirect_to admin_sites_path
+          do_redirect_to admin_sites_path
         end
       end
     end
