@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.0.5 (2023-10-06)
+
+- [7.0-stable] Merge pull request #2593 from tvdeyen/fix-turbo-redirect [#2594](https://github.com/AlchemyCMS/alchemy_cms/pull/2594) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.0.4 (2023-10-04)
 
 - [7.0-stable] Merge pull request #2588 from tvdeyen/admin-js-imports [#2589](https://github.com/AlchemyCMS/alchemy_cms/pull/2589) ([alchemycms-bot](https://github.com/alchemycms-bot))
