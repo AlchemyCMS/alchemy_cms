@@ -37,24 +37,6 @@ module AlchemyI18n
         end
       end
 
-      def append_pack
-        app_root = Rails.root
-        config_file = app_root.join("config", "webpacker.yml")
-        if config_file.exist?
-          webpack_config = YAML.load_file(config_file)[Rails.env]
-          pack = app_root.join(
-            webpack_config["source_path"],
-            webpack_config["source_entry_path"],
-            "alchemy/admin.js"
-          )
-        else
-          pack = app_root.join("app/javascript/alchemy_admin.js")
-        end
-        additional_locales.each { |locale| append_file pack, <<~PACK }
-          import "flatpickr/dist/l10n/#{locale}.js"
-        PACK
-      end
-
       def add_rails_i18n
         environment do
           "config.i18n.available_locales = #{locales.inspect}"
