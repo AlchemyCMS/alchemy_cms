@@ -1,5 +1,17 @@
 # Changelog
 
+## [v4.0.0](https://github.com/AlchemyCMS/alchemy_i18n/tree/v4.0.0) (2023-10-06)
+
+[Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v3.2.0...v4.0.0)
+
+**Fixed bugs:**
+
+- Import flatpickr translations into Alchemy admin [\#51](https://github.com/AlchemyCMS/alchemy_i18n/pull/51) ([tvdeyen](https://github.com/tvdeyen))
+
+**Closed issues:**
+
+- Generator relies on webpacker [\#50](https://github.com/AlchemyCMS/alchemy_i18n/issues/50)
+
 ## [v3.2.0](https://github.com/AlchemyCMS/alchemy_i18n/tree/v3.2.0) (2023-09-29)
 
 [Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v3.1.0...v3.2.0)
