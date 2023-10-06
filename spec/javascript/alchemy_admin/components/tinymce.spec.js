@@ -1,4 +1,4 @@
-import { renderComponent } from "./component.helper"
+import { renderComponent, setupLanguage } from "./component.helper"
 import "alchemy_admin/components/tinymce"
 import "vendor/tinymce/tinymce.min"
 import { mockIntersectionObserver } from "jsdom-testing-mocks"
@@ -13,11 +13,7 @@ describe("alchemy-tinymce", () => {
 
   const textareaId = "tinymce-textarea"
 
-  beforeAll(() => {
-    window.Alchemy = {
-      locale: "en_US"
-    }
-  })
+  beforeAll(() => setupLanguage())
 
   describe("render", () => {
     beforeEach(() => {
@@ -63,7 +59,7 @@ describe("alchemy-tinymce", () => {
     })
 
     it("should have the locale", () => {
-      expect(component.configuration.locale).toEqual("en_US")
+      expect(component.configuration.locale).toEqual("en")
     })
 
     it("should add the attributes to configuration and cast dashes with underscores", () => {
