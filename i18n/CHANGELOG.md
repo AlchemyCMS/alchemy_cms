@@ -1,5 +1,13 @@
 # Changelog
 
+## [v4.0.1](https://github.com/AlchemyCMS/alchemy_i18n/tree/v4.0.1) (2023-10-06)
+
+[Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v4.0.0...v4.0.1)
+
+**Fixed bugs:**
+
+- Do not attempt to load en flatpickr locale [\#52](https://github.com/AlchemyCMS/alchemy_i18n/pull/52) ([tvdeyen](https://github.com/tvdeyen))
+
 ## [v4.0.0](https://github.com/AlchemyCMS/alchemy_i18n/tree/v4.0.0) (2023-10-06)
 
 [Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v3.2.0...v4.0.0)
