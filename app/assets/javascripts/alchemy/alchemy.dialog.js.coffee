@@ -104,7 +104,6 @@ class window.Alchemy.Dialog
   # Initializes the Dialog body
   init: ->
     Alchemy.GUI.init(@dialog_body)
-    $('#overlay_tabs', @dialog_body).tabs()
     @watch_remote_forms()
 
   # Watches ajax requests inside of dialog body and replaces the content accordingly

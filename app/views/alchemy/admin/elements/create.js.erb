@@ -12,7 +12,7 @@
     Alchemy.FixedElements.buildTabs('<%= Alchemy.t(:main_content) %>');
   }
   Alchemy.FixedElements.createTab('<%= @element.id %>', '<%= @element.display_name %>');
-  $element_area = $('#fixed-element-<%= @element.id %>');
+  $element_area = $('[name="fixed-element-<%= @element.id %>"]');
 <% elsif @element.parent_element %>
   $element_area = $('#element_<%= @element.parent_element_id %> > .nestable-elements > .nested-elements');
   Alchemy.Buttons.enable('.nestable-elements');

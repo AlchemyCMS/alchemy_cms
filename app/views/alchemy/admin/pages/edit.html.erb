@@ -193,12 +193,6 @@
       Alchemy.SortableElements(<%= @page.id %>, '<%= form_authenticity_token %>');
       Alchemy.ElementEditors.init();
       Alchemy.SelectBox('.element-editor');
-      $('#fixed-elements').tabs().tabs('paging', {
-        follow: true,
-        followOnSelect: true,
-        prevButton: '<i class="fas fa-angle-double-left"></i>',
-        nextButton: '<i class="fas fa-angle-double-right"></i>'
-      });
       Alchemy.ElementDirtyObserver('#element_area');
       if (window.location.hash) {
         $(window.location.hash).trigger('FocusElementEditor.Alchemy');

@@ -80,10 +80,11 @@ Alchemy.ElementEditors =
 
   # Selects tab for given element
   selectTabForElement: ($element) ->
-    $tabs = $("#fixed-elements .sortable-elements")
-    if $tabs.size() > 0
-      $tab = $element.closest(".sortable-elements")
-      $("#fixed-elements").tabs("option", "active", $tabs.index($tab))
+    tabs = document.querySelector("#fixed-elements")
+    if tabs
+      panel = $element.closest("sl-tab-panel").attr("name")
+      tabs.show(panel)
+    return
 
   # Marks an element as selected in the element window and scrolls to it.
   #

@@ -1,31 +1,26 @@
 <% if @fixed_elements.any? %>
-  <div id="fixed-elements">
-    <ul>
-      <li>
-        <a href="#main-content-elements">
-          <%= Alchemy.t(:main_content) %>
-        </a>
-      </li>
-      <% @fixed_elements.each do |element| %>
-        <li>
-          <a href="#fixed-element-<%= element.id %>">
-            <%= element.display_name %>
-          </a>
-        </li>
-      <% end %>
-    </ul>
-    <div id="main-content-elements" class="sortable-elements" data-droppable-elements="<%= @page.element_definition_names.join(' ') %>">
-      <%= render @elements.map { |element| Alchemy::ElementEditor.new(element) } %>
-    </div>
+  <sl-tab-group id="fixed-elements">
+    <sl-tab slot="nav" panel="main-content-elements">
+      <%= Alchemy.t(:main_content) %>
+    </sl-tab>
     <% @fixed_elements.each do |element| %>
-      <div
-        id="fixed-element-<%= element.id %>"
+      <sl-tab slot="nav" panel="fixed-element-<%= element.id %>">
+        <%= element.display_name %>
+      </sl-tab>
+    <% end %>
+    <sl-tab-panel name="main-content-elements" class="sortable-elements" data-droppable-elements="<%= @page.element_definition_names.join(' ') %>" style="--padding: 8px">
+      <%= render @elements.map { |element| Alchemy::ElementEditor.new(element) } %>
+    </sl-tab-panel>
+    <% @fixed_elements.each do |element| %>
+      <sl-tab-panel
+        name="fixed-element-<%= element.id %>"
         class="sortable-elements"
+        style="--padding: 8px"
         data-droppable-elements="<%= element.nestable_elements.join(' ') %>">
         <%= render Alchemy::ElementEditor.new(element) %>
-      </div>
+      </sl-tab-panel>
     <% end %>
-  </div>
+  </sl-tab-group>
 <% else %>
   <div id="main-content-elements" class="sortable-elements" data-droppable-elements="<%= @page.element_definition_names.join(' ') %>">
     <%= render @elements.map { |element| Alchemy::ElementEditor.new(element) } %>

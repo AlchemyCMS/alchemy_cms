@@ -39,7 +39,7 @@ RSpec.describe "Page creation", type: :system do
 
       it "contains tabs for creating a new page and pasting from clipboard" do
         visit new_admin_page_path
-        within("#overlay_tabs") { expect(page).to have_selector "#create_page_tab, #paste_page_tab" }
+        within("#overlay_tabs") { expect(page).to have_selector "[panel='create_page_tab'], [panel='paste_page_tab']" }
       end
 
       context "", js: true do
@@ -52,17 +52,17 @@ RSpec.describe "Page creation", type: :system do
 
         it "the create page tab is visible by default" do
           within("#overlay_tabs") do
-            expect(page).to have_selector("#create_page_tab", visible: true)
-            expect(page).to have_selector("#paste_page_tab", visible: false)
+            expect(page).to have_selector("[panel='create_page_tab']", visible: true)
+            expect(page).to have_selector("[panel='paste_page_tab']", visible: false)
           end
         end
 
         context "when clicking on an inactive tab" do
           it "shows that clicked tab" do
             within("#overlay_tabs") do
-              click_link("Paste from clipboard")
-              expect(find("#create_page_tab")).to_not be_visible
-              expect(find("#paste_page_tab")).to be_visible
+              find("[panel='paste_page_tab']").click
+              expect(find("[name='create_page_tab']")).to_not be_visible
+              expect(find("[name='paste_page_tab']")).to be_visible
             end
           end
         end

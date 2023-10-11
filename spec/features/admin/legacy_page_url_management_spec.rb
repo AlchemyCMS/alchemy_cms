@@ -17,7 +17,7 @@ RSpec.describe "Legacy page url management", type: :system, js: true do
 
   it "lets a user add a page link" do
     open_page_properties
-    click_link "Links"
+    find("[panel='legacy_urls']").click
     fill_in "legacy_page_url_urlname", with: "new-urlname"
     click_button "Add"
     within "#legacy_page_urls" do
@@ -31,7 +31,7 @@ RSpec.describe "Legacy page url management", type: :system, js: true do
   context "with wrong url format" do
     it "displays error message" do
       open_page_properties
-      click_link "Links"
+      find("[panel='legacy_urls']").click
       fill_in "legacy_page_url_urlname", with: "invalid url name"
       click_button "Add"
       within "#new_legacy_page_url" do
@@ -44,7 +44,7 @@ RSpec.describe "Legacy page url management", type: :system, js: true do
     before do
       a_page.legacy_urls.create!(urlname: "a-page-link")
       open_page_properties
-      click_link "(1) Link"
+      find("[panel='legacy_urls']").click
     end
 
     it "lets a user remove a page link" do
