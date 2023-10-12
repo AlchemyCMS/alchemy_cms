@@ -5,7 +5,6 @@
 //= require jquery-ui/effects/effect-fade
 //= require jquery-ui/widgets/draggable
 //= require jquery-ui/widgets/sortable
-//= require jquery-ui/widgets/tabs
 //= require tinymce/tinymce.min
 //= require_tree ../../../../vendor/assets/javascripts/jquery_plugins/
 //= require clipboard.min
