@@ -7,7 +7,6 @@
 div#main_menu,
 div#top_menu,
 div#corner,
-div#flash_notices,
 div.pagination span,
 div.pagination a {
   display: none;
@@ -18,7 +17,7 @@ div#archive_all {
 }
 
 span.icon.true:before {
-  content: 'x';
+  content: "x";
 }
 
 div.pagination {
@@ -31,5 +30,5 @@ div.pagination em.current {
 }
 
 div.pagination em:before {
-  content: 'Page ';
+  content: "Page ";
 }

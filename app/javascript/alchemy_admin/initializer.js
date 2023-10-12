@@ -25,11 +25,6 @@ function Initialize() {
   // Initialize the GUI.
   Alchemy.GUI.init()
 
-  // Fade all growl notifications.
-  if ($("#flash_notices").length > 0) {
-    Alchemy.Growler.fade()
-  }
-
   // Add observer for please wait overlay.
   $(".please_wait")
     .not("*[data-alchemy-confirm]")

@@ -2,6 +2,7 @@ import "@ungap/custom-elements"
 import "@hotwired/turbo-rails"
 import Rails from "@rails/ujs"
 
+import growl from "alchemy_admin/growler"
 import GUI from "alchemy_admin/gui"
 import { translate } from "alchemy_admin/i18n"
 import Dirty from "alchemy_admin/dirty"
@@ -68,6 +69,7 @@ if (typeof window.Alchemy === "undefined") {
 // Enhance the global Alchemy object with imported features
 Object.assign(Alchemy, {
   ...Dirty,
+  growl,
   GUI,
   t: translate, // Global utility method for translating a given string
   ImageLoader: ImageLoader.init,

@@ -343,3 +343,37 @@ sl-tooltip {
     box-shadow: 0 0 var(--spacing-1) var(--color-grey_medium);
   }
 }
+
+sl-alert {
+  &::part(base) {
+    border-width: 1px;
+
+    &[variant="primary"] {
+      --sl-panel-background-color: #{$info_background_color};
+      --sl-color-neutral-700: #{$info_text_color};
+      border-color: #{$info_border_color};
+    }
+
+    &[variant="success"] {
+      --sl-panel-background-color: #{$success_background_color};
+      --sl-color-neutral-700: #{$success_text_color};
+      border-color: #{$success_border_color};
+    }
+
+    &[variant="danger"] {
+      --sl-panel-background-color: #{$error_background_color};
+      --sl-color-neutral-700: #{$error_text_color};
+      border-color: #{$error_border_color};
+    }
+
+    &[variant="warning"] {
+      --sl-panel-background-color: #{$warning_background_color};
+      --sl-color-neutral-700: #{$warning_text_color};
+      border-color: #{$warning_border_color};
+    }
+  }
+
+  &::part(close-button) {
+    --sl-spacing-medium: var(--spacing-2);
+  }
+}
