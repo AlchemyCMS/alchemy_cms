@@ -1,0 +1,22 @@
+:root,
+:host,
+.sl-theme-light {
+  --sl-font-size-small: #{$base-font-size};
+  --sl-color-primary-600: #{$dark-blue};
+  --sl-color-neutral-600: #{$text-color};
+  --sl-focus-ring-color: #{$focus-color};
+  --sl-focus-ring-width: 2px;
+}
+
+sl-tab-group {
+  --indicator-color: #{$dark-orange};
+  --track-color: #{$medium-gray};
+
+  &::part(base) {
+    background-color: #{$light-gray};
+  }
+}
+
+sl-tab-panel {
+  --padding: #{4 * $default-padding};
+}

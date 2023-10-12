@@ -28,6 +28,9 @@ import "alchemy_admin/components/page_select"
 import "alchemy_admin/components/spinner"
 import "alchemy_admin/components/tinymce"
 import "alchemy_admin/components/tooltip"
+import "@shoelace/tab"
+import "@shoelace/tab-group"
+import "@shoelace/tab-panel"
 
 // Global Alchemy object
 if (typeof window.Alchemy === "undefined") {

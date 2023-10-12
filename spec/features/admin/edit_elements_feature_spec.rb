@@ -68,7 +68,7 @@ RSpec.describe "The edit elements feature", type: :system do
         expect(button).to have_content "Add slide"
         button.click
         expect(page).to have_select("Element")
-        expect(page).to have_link("Paste from clipboard")
+        expect(page).to have_css("[panel='paste_element_tab']")
       end
     end
 
@@ -93,7 +93,7 @@ RSpec.describe "The edit elements feature", type: :system do
         scenario "the add button now opens add element form with the clipboard tab" do
           find("a.add-nestable-element-button").click
           expect(page).to have_select("Element")
-          expect(page).to have_link("Paste from clipboard")
+          expect(page).to have_css("[panel='paste_element_tab']")
         end
       end
     end

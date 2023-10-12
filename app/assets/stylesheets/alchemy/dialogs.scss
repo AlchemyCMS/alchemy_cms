@@ -201,13 +201,5 @@ $dialog-transition-duration: 150ms;
 }
 
 #overlay_tabs {
-  margin: -4*$default-padding;
-
-  .ui-tabs-panel {
-    padding: 4*$default-padding;
-  }
-
-  .ui-tabs.ui-corner-all {
-    border-radius: 0;
-  }
+  margin: -4 * $default-padding;
 }

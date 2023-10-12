@@ -1,15 +1,13 @@
 <%- if @clipboard_items.blank? -%>
   <%= render 'new_page_form' %>
 <%- else -%>
-<div id="overlay_tabs">
-  <ul>
-    <li><a href="#create_page_tab"><%= Alchemy.t('New page') %></a></li>
-    <li><a href="#paste_page_tab"><%= Alchemy.t('Paste from clipboard') %></a></li>
-  </ul>
-  <div id="create_page_tab">
+<sl-tab-group id="overlay_tabs">
+  <sl-tab slot="nav" panel="create_page_tab"><%= Alchemy.t('New page') %></sl-tab>
+  <sl-tab slot="nav" panel="paste_page_tab"><%= Alchemy.t('Paste from clipboard') %></sl-tab>
+  <sl-tab-panel name="create_page_tab">
     <%= render 'new_page_form' %>
-  </div>
-  <div id="paste_page_tab">
+  </sl-tab-panel>
+  <sl-tab-panel name="paste_page_tab">
     <%= alchemy_form_for [:admin, @page] do |f| %>
       <%= f.hidden_field(:parent_id) %>
       <div class="input select">
@@ -21,6 +19,6 @@
       <%= f.input :name %>
       <%= f.submit Alchemy.t(:paste) %>
     <% end %>
-  </div>
-</div>
+  </sl-tab-panel>
+</sl-tab-group>
 <%- end -%>

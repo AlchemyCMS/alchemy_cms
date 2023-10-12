@@ -61,7 +61,7 @@ RSpec.describe "Link overlay", type: :system do
         click_link "Link text"
       end
 
-      within "#overlay_tab_internal_link" do
+      within "[name='overlay_tab_internal_link']" do
         expect(page).to have_selector("#s2id_internal_link")
         select2_search(page2.name, from: "Page")
         click_button "apply"
@@ -90,10 +90,10 @@ RSpec.describe "Link overlay", type: :system do
       end
 
       within "#overlay_tabs" do
-        click_link "External"
+        find("[panel='overlay_tab_external_link']").click
       end
 
-      within "#overlay_tab_external_link" do
+      within "[name='overlay_tab_external_link']" do
         expect(page).to have_selector("#external_link")
         fill_in("URL", with: "https://example.com")
         click_button "apply"
@@ -123,10 +123,10 @@ RSpec.describe "Link overlay", type: :system do
       end
 
       within "#overlay_tabs" do
-        click_link "File"
+        find("[panel='overlay_tab_file_link']").click
       end
 
-      within "#overlay_tab_file_link" do
+      within "[name='overlay_tab_file_link']" do
         expect(page).to have_selector("#file_link")
         select2(file.name, from: "File")
         click_button "apply"
