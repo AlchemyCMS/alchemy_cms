@@ -8,7 +8,7 @@
         <%= element.display_name %>
       </sl-tab>
     <% end %>
-    <sl-tab-panel name="main-content-elements" class="sortable-elements" data-droppable-elements="<%= @page.element_definition_names.join(' ') %>" style="--padding: 8px">
+    <sl-tab-panel name="main-content-elements" class="sortable-elements" data-droppable-elements="<%= @page.element_definition_names.join(' ') %>" id="main-content-elements" style="--padding: 8px">
       <%= render @elements.map { |element| Alchemy::ElementEditor.new(element) } %>
     </sl-tab-panel>
     <% @fixed_elements.each do |element| %>
