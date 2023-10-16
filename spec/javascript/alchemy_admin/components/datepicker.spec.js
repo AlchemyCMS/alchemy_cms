@@ -19,19 +19,43 @@ describe("alchemy-datepicker", () => {
     component = renderComponent("alchemy-datepicker", html)
   })
 
-  it("should render the input field", () => {
-    expect(component.getElementsByTagName("input")[0]).toBeInstanceOf(
-      HTMLElement
-    )
+  describe("picker without type", () => {
+    it("should render the input field", () => {
+      expect(component.getElementsByTagName("input")[0]).toBeInstanceOf(
+        HTMLElement
+      )
+    })
+
+    it("should enhance the input field with a flat picker config", () => {
+      expect(component.getElementsByTagName("input")[0].className).toEqual(
+        "flatpickr-input"
+      )
+    })
+
+    it("should have a type attribute", () => {
+      expect(component.inputType).toEqual("date")
+    })
+
+    it("creates a flatpickr-calendar on opening", () => {
+      expect(document.querySelector(".flatpickr-calendar")).toBeInstanceOf(
+        HTMLElement
+      )
+    })
   })
 
-  it("should enhance the input field with a flat picker config", () => {
-    expect(component.getElementsByTagName("input")[0].className).toEqual(
-      "flatpickr-input"
-    )
+  describe("with type attribute", () => {
+    it("creates only one flatpickr-calendar on opening", () => {
+      component.setAttribute("inputType", "datetime")
+      expect(
+        document.getElementsByClassName("flatpickr-calendar").length
+      ).toEqual(1)
+    })
   })
 
-  it("should have a type attribute", () => {
-    expect(component.type).toEqual("date")
+  describe("remove datepicker", () => {
+    it("removes the flatpickr-calendar after removing", () => {
+      component.remove()
+      expect(document.querySelector(".flatpickr-calendar")).toBeNull()
+    })
   })
 })

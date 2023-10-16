@@ -325,7 +325,7 @@ module Alchemy
         input_field = text_field object.class.name.demodulize.underscore.to_sym,
           method.to_sym, {type: "text", class: type, value: value}.merge(html_options)
 
-        content_tag("alchemy-datepicker", input_field, type: type)
+        content_tag("alchemy-datepicker", input_field, "input-type" => type)
       end
 
       # Render a hint icon with tooltip for given object.

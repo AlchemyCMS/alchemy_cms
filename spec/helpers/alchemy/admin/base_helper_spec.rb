@@ -126,14 +126,14 @@ module Alchemy
       let(:type) { nil }
 
       it "renders a text field with data attribute for 'date'" do
-        is_expected.to have_selector("alchemy-datepicker[type='date'] input[type='text']")
+        is_expected.to have_selector("alchemy-datepicker[input-type='date'] input[type='text']")
       end
 
       context "when datetime given as type" do
         let(:type) { :datetime }
 
         it "renders a text field with data attribute for 'datetime'" do
-          is_expected.to have_selector("alchemy-datepicker[type='datetime'] input[type='text']")
+          is_expected.to have_selector("alchemy-datepicker[input-type='datetime'] input[type='text']")
         end
       end
 
@@ -141,7 +141,7 @@ module Alchemy
         let(:type) { :time }
 
         it "renders a text field with data attribute for 'time'" do
-          is_expected.to have_selector("alchemy-datepicker[type='time'] input[type='text']")
+          is_expected.to have_selector("alchemy-datepicker[input-type='time'] input[type='text']")
         end
       end
 
