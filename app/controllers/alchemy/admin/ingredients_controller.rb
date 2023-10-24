@@ -19,7 +19,8 @@ module Alchemy
       private
 
       def ingredient_params
-        params[:ingredient]&.permit(@ingredient.class.stored_attributes[:data]) || {}
+        params[:ingredient]&.permit(@ingredient.class.stored_attributes[:data]) ||
+          ActionController::Parameters.new
       end
 
       def load_croppable_resource

@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 gemspec
 
-rails_version = ENV.fetch("RAILS_VERSION", 7.0).to_f
+rails_version = ENV.fetch("RAILS_VERSION", "7.1")
 gem "rails", "~> #{rails_version}.0"
 
 if ENV["DB"].nil? || ENV["DB"] == "sqlite"
@@ -48,11 +48,6 @@ end
 # Necessary until https://github.com/mikel/mail/pull/1439
 # got merged and released.
 if Gem.ruby_version >= Gem::Version.new("3.1.0")
-  if rails_version.to_s.match?(/6.1/)
-    # Rails 6.1 needs this as well
-    gem "net-pop", "~> 0.1.0", require: false
-    gem "net-imap", "~> 0.4.0", require: false
-  end
   gem "net-smtp", "~> 0.4.0", require: false
 end
 
