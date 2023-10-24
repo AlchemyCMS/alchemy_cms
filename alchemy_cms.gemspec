@@ -45,7 +45,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency "jquery-rails", ["~> 4.0", ">= 4.0.4"]
   gem.add_runtime_dependency "kaminari", ["~> 1.1"]
   gem.add_runtime_dependency "originator", ["~> 3.1"]
-  gem.add_runtime_dependency "ransack", [">= 1.8", "< 5.0"]
+  gem.add_runtime_dependency "ransack", ["4.1.0"]
   gem.add_runtime_dependency "request_store", ["~> 1.2"]
   gem.add_runtime_dependency "responders", [">= 2.0", "< 4.0"]
   gem.add_runtime_dependency "sassc-rails", ["~> 2.1"]
