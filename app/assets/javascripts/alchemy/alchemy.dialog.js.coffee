@@ -90,7 +90,7 @@ class window.Alchemy.Dialog
     ))
     if @options.ready?
       @options.ready(@dialog_body)
-    @dialog_body.show('fade', 200)
+    @dialog_body.show()
     true
 
   # Adds a spinner into Dialog body
