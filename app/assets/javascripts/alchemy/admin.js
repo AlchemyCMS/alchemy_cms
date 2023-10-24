@@ -2,7 +2,6 @@
 // ------------------------------
 //= require jquery2
 //= require jquery_ujs
-//= require jquery-ui/effects/effect-fade
 //= require jquery-ui/widgets/draggable
 //= require jquery-ui/widgets/sortable
 //= require jquery-ui/widgets/tabs
