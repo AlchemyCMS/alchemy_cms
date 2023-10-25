@@ -827,39 +827,16 @@ select.long {
       margin-bottom: 2 * $default-margin;
     }
 
+    select,
     .select2-container {
       width: 100%;
     }
 
-    &.display_inline .select2-container {
-      width: 170px;
-    }
-  }
-
-  select.ingredient-editor-select {
-    border-radius: $default-border-radius;
-    background: white;
-    border: 1px solid $button-border-color;
-    font-size: $default-font-size;
-    height: 21px;
-    line-height: 21px;
-    padding: 2px;
-
-    optgroup {
-      color: gray;
-      font-style: normal;
-      font-weight: bold;
-      text-indent: 8px;
-
-      option {
-        text-indent: 24px;
+    &.display_inline {
+      select,
+      .select2-container {
+        width: 170px;
       }
-    }
-
-    option {
-      padding-top: 2px;
-      padding-bottom: 2px;
-      color: black;
     }
   }
 
