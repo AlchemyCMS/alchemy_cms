@@ -35,10 +35,22 @@ RSpec.describe Alchemy::Picture::Url do
       is_expected.to match(/\/pictures\/\d+\/.+\/image\.png/)
     end
 
-    it "connects to writing database" do
-      writing_role = ActiveRecord::Base.writing_role
-      expect(ActiveRecord::Base).to receive(:connected_to).with(role: writing_role)
-      subject
+    if Rails.version.to_f >= 7.1
+      context "in Rails >= 7.1" do
+        it "connects to writing database" do
+          writing_role = ActiveRecord.writing_role
+          expect(ActiveRecord::Base).to receive(:connected_to).with(role: writing_role)
+          subject
+        end
+      end
+    else
+      context "in Rails < 7.1" do
+        it "connects to writing database" do
+          writing_role = ActiveRecord::Base.writing_role
+          expect(ActiveRecord::Base).to receive(:connected_to).with(role: writing_role)
+          subject
+        end
+      end
     end
   end
 end
