@@ -23,7 +23,7 @@
     </label>
     <%= select_tag 'external_link_target',
       options_for_select(Alchemy::Page.link_target_options),
-      class: 'alchemy_selectbox link_target' %>
+      {class: 'link_target', is: 'alchemy-select'} %>
   </div>
   <div class="submit">
     <%= button_tag Alchemy.t(:apply), class: 'create-link button', data: { link_type: 'external' } %>

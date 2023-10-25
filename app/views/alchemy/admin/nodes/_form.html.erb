@@ -3,7 +3,7 @@
     <%= f.input :menu_type,
       collection: Alchemy::Language.current.available_menu_names.map { |n| [I18n.t(n, scope: [:alchemy, :menu_names]), n] },
       include_blank: false,
-      input_html: { class: 'alchemy_selectbox' } %>
+      input_html: { is: 'alchemy-select' } %>
   <% else %>
     <% if node.root? %>
       <%= f.input :name %>

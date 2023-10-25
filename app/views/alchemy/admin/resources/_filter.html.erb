@@ -7,6 +7,6 @@
     ),
     include_blank: Alchemy.t(:all, scope: ['resources', resource_name, 'filters']),
     data: { remote: !!request.xhr? },
-    class: 'alchemy_selectbox'
+    is: 'alchemy-select'
   ) %>
 </label>

@@ -9,14 +9,14 @@
     <%= f.input :locale,
       collection: language.matching_locales.presence || ::I18n.available_locales,
       selected: language.locale || language.language_code || ::I18n.default_locale.to_s,
-      input_html: {class: 'alchemy_selectbox'} %>
+      input_html: {is: 'alchemy-select'} %>
   <% end %>
   <%= f.input :frontpage_name %>
   <%= f.input :page_layout,
     collection: Alchemy::PageLayout.all,
     label_method: ->(p) { Alchemy::Page.human_layout_name(p['name']) },
     value_method: ->(p) { p['name'] },
-    input_html: {class: 'alchemy_selectbox'} %>
+    input_html: {is: 'alchemy-select'} %>
   <%= f.input :public %>
   <%= f.input :default %>
   <%= f.hidden_field :site_id %>

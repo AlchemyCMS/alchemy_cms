@@ -13,7 +13,6 @@ import Initializer from "alchemy_admin/initializer"
 import pictureSelector from "alchemy_admin/picture_selector"
 import pleaseWaitOverlay from "alchemy_admin/please_wait_overlay"
 import Sitemap from "alchemy_admin/sitemap"
-import SelectBox from "alchemy_admin/select_box"
 import Spinner from "alchemy_admin/spinner"
 import PagePublicationFields from "alchemy_admin/page_publication_fields"
 
@@ -25,6 +24,7 @@ import "alchemy_admin/components/char_counter"
 import "alchemy_admin/components/datepicker"
 import "alchemy_admin/components/overlay"
 import "alchemy_admin/components/page_select"
+import "alchemy_admin/components/select"
 import "alchemy_admin/components/spinner"
 import "alchemy_admin/components/tinymce"
 import "alchemy_admin/components/tooltip"
@@ -51,7 +51,6 @@ Object.assign(Alchemy, {
   IngredientAnchorLink,
   pictureSelector,
   pleaseWaitOverlay,
-  SelectBox,
   Sitemap,
   Spinner,
   PagePublicationFields
