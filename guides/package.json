@@ -1,6 +1,6 @@
 {
   "engines": {
-    "node": "16"
+    "node": "18"
   },
   "scripts": {
     "guides:preview": "vuepress dev guides",
@@ -15,5 +15,6 @@
   },
   "dependencies": {
     "@algolia/client-search": ">= 4.9.1 < 6"
-  }
+  },
+  "license": "MIT"
 }
