@@ -1594,36 +1594,36 @@ module Alchemy
     end
 
     describe "#set_language" do
-      let(:default_language) { mock_model("Language", code: "es") }
-      let(:page) { Page.new }
-
-      before { allow(page).to receive(:parent).and_return(parent) }
+      let(:default_language) { build(:alchemy_language, code: "es") }
+      let(:page) { build(:alchemy_page, parent: parent) }
 
       subject { page }
 
       context "parent has a language" do
-        let(:parent) { mock_model("Page", language: default_language, language_id: default_language.id, language_code: default_language.code) }
+        let(:parent) { create(:alchemy_page, language: default_language, language_id: default_language.id, language_code: default_language.code) }
 
         before do
           page.send(:set_language)
         end
 
         describe "#language_id" do
-          subject { super().language_id }
+          subject { page.language_id }
+
           it { is_expected.to eq(parent.language_id) }
         end
       end
 
       context "parent has no language" do
-        let(:parent) { mock_model("Page", language: nil, language_id: nil, language_code: nil) }
+        let(:parent) { build(:alchemy_page, language: nil, language_id: nil, language_code: nil) }
 
         before do
-          allow(Language).to receive(:default).and_return(default_language)
+          expect(Language).to receive(:current).twice { default_language }
           page.send(:set_language)
         end
 
         describe "#language_id" do
-          subject { super().language_id }
+          subject { page.language_id }
+
           it { is_expected.to eq(default_language.id) }
         end
       end

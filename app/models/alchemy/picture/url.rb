@@ -35,7 +35,7 @@ module Alchemy
           thumb.uid
         else
           uid = PictureThumb::Uid.call(signature, variant)
-          ActiveRecord::Base.connected_to(role: ActiveRecord::Base.writing_role) do
+          ActiveRecord::Base.connected_to(role: db_writing_role) do
             PictureThumb::Create.call(variant, signature, uid)
           end
           uid
@@ -47,6 +47,14 @@ module Alchemy
           variant.picture.thumbs.find { |t| t.signature == signature }
         else
           variant.picture.thumbs.find_by(signature: signature)
+        end
+      end
+
+      def db_writing_role
+        if ActiveRecord::Base.respond_to?(:writing_role)
+          ActiveRecord::Base.writing_role
+        else
+          ActiveRecord.writing_role
         end
       end
     end

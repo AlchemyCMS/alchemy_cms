@@ -97,7 +97,7 @@ RSpec.describe Alchemy::Admin::IngredientsController do
         end
 
         it "does not update the attributes of ingredient" do
-          expect(ingredient).to receive(:update).with({})
+          expect(ingredient).to receive(:update).with(ActionController::Parameters.new.permit)
           patch :update, params: params, xhr: true
         end
       end
@@ -110,7 +110,7 @@ RSpec.describe Alchemy::Admin::IngredientsController do
         end
 
         it "does not update the attributes of ingredient" do
-          expect(ingredient).to receive(:update).with({})
+          expect(ingredient).to receive(:update).with(ActionController::Parameters.new)
           patch :update, params: params, xhr: true
         end
       end
