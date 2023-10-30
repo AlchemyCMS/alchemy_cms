@@ -3,7 +3,7 @@ class Select extends HTMLSelectElement {
     this.classList.add("alchemy_selectbox")
 
     $(this).select2({
-      minimumResultsForSearch: 7,
+      minimumResultsForSearch: 5,
       dropdownAutoWidth: true
     })
   }
