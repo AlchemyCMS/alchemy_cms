@@ -99,29 +99,22 @@ div#overlay_text_box {
 #user_info {
   height: $header-height;
   font-size: $small-font-size;
-  padding-left: 2*$default-padding;
+  padding-left: 2 * $default-padding;
   margin-left: auto;
   border-bottom: $default-border;
   background-color: $header-background;
 
-  .select2-container, select {
+  select {
     height: $form-field-height;
     margin-top: -3px;
-  }
-
-  .select2-choice, select {
-    background: transparent;
+    background-color: transparent;
     border: none;
     border-radius: 0;
     border-left: $default-border;
     height: $header-height;
   }
 
- .select2-choice {
-    line-height: 2;
-  }
-
   .current-user-name {
-    padding-right: 2*$default-padding;
+    padding-right: 2 * $default-padding;
   }
 }
