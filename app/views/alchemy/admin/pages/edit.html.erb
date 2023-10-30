@@ -106,7 +106,7 @@
     <label><%= Alchemy.t(:preview_size) %></label>
     <%= select_tag 'preview_size',
       preview_sizes_for_select,
-      class: 'alchemy_selectbox medium' %>
+      class: 'medium', is: 'alchemy-select' %>
   </div>
   <div class="toolbar_spacer"></div>
   <% if @preview_urls.many? %>
@@ -114,7 +114,7 @@
       <label><%= Alchemy.t(:preview_url) %></label>
       <%= select_tag 'preview_url',
         options_for_select(@preview_urls),
-        class: 'alchemy_selectbox large' %>
+        class: 'large', is: 'alchemy-select' %>
     </div>
   <% end %>
   <div class="button_with_label">
@@ -192,7 +192,6 @@
       Alchemy.ImageLoader('#element_area');
       Alchemy.SortableElements(<%= @page.id %>, '<%= form_authenticity_token %>');
       Alchemy.ElementEditors.init();
-      Alchemy.SelectBox('.element-editor');
       Alchemy.ElementDirtyObserver('#element_area');
       if (window.location.hash) {
         $(window.location.hash).trigger('FocusElementEditor.Alchemy');

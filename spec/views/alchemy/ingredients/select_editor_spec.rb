@@ -36,7 +36,7 @@ RSpec.describe "alchemy/ingredients/_select_editor" do
 
   context "if select values are set" do
     it "renders a select box" do
-      is_expected.to have_css("select.alchemy_selectbox")
+      is_expected.to have_css("select[is=\"alchemy-select\"]")
     end
   end
 end

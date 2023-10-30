@@ -13,7 +13,8 @@
         search_filter_params[:page_layout]
       ),
       include_blank: Alchemy.t(:all, scope: ["resources", "page", "filters"]),
-      class: "alchemy_selectbox full_width"
+      class: "full_width",
+      is: "alchemy-select"
     ) %>
   </label>
 </div>

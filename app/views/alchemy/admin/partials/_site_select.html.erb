@@ -2,7 +2,7 @@
 <div class="button_with_label">
   <%= select_tag 'change_site',
     options_for_select(sites_for_select, Alchemy::Site.current.id),
-    class: 'alchemy_selectbox' %>
+    is: 'alchemy-select' %>
   <label><%= Alchemy.t("Current site") %></label>
 </div>
 <div class="toolbar_spacer"></div>

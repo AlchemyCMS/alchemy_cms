@@ -29,6 +29,7 @@ form {
     > input[type="email"],
     > input[type="password"],
     > textarea,
+    > select,
     > .select2-container,
     > .autocomplete_tag_list,
     > .tinymce_container,
@@ -38,6 +39,7 @@ form {
       float: right;
     }
 
+    .input > select,
     .input > .select2-container {
       width: 100%;
     }
@@ -53,6 +55,7 @@ form {
       line-height: 16px;
     }
 
+    select,
     .select2-container {
       margin: 4px 0;
     }
@@ -128,10 +131,11 @@ form {
     width: $form-field-addon-width;
     position: absolute;
     bottom: 2 * $default-padding;
+    --select-background-image: none;
 
     select {
       width: 100%;
-      padding: 0 2px;
+      padding: 0 6px;
       text-align: center;
     }
 
@@ -247,17 +251,6 @@ form {
         padding-right: 0;
       }
     }
-  }
-}
-
-// styles for link overlay selects
-.window_form {
-  td.checkbox {
-    text-align: left;
-  }
-
-  .select2-container {
-    width: 100%;
   }
 }
 

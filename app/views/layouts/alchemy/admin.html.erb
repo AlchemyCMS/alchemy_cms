@@ -85,8 +85,7 @@
           <%= current_alchemy_user_name %>
           <% if Alchemy::I18n.available_locales.length > 1 %>
             <%= select_tag 'change_locale',
-              options_for_select(translations_for_select, ::I18n.locale),
-              class: 'alchemy_selectbox tiny' %>
+              options_for_select(translations_for_select, ::I18n.locale) %>
           <% end %>
         </div>
       </div>

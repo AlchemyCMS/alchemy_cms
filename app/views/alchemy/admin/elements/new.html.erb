@@ -15,7 +15,7 @@
         <label for="paste_from_clipboard" class="control-label"><%= Alchemy.t("Element") %></label>
         <%= select_tag 'paste_from_clipboard',
           clipboard_select_tag_options(@clipboard_items),
-          class: 'alchemy_selectbox' %>
+          is: 'alchemy-select' %>
       </div>
       <%= f.submit Alchemy.t(:paste) %>
     <% end %>

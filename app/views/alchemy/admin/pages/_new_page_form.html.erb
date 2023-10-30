@@ -15,7 +15,7 @@
     include_blank: @page_layouts.length == 1 ? nil : Alchemy.t('Please choose'),
     required: true,
     selected: @page_layouts.length == 1 ? @page_layouts.first : nil,
-    input_html: {class: 'alchemy_selectbox'} %>
+    input_html: {is: 'alchemy-select'} %>
   <%= f.input :name %>
   <%= f.submit Alchemy.t(:create) %>
 <% end %>

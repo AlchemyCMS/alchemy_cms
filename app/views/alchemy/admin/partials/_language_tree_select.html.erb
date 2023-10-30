@@ -8,7 +8,8 @@
         languages.map { |l| [l.name, l.id] },
         Alchemy::Language.current.id
       ),
-      class: 'alchemy_selectbox short',
+      class: 'short',
+      is: 'alchemy-select',
       data: {'auto-submit' => true}
     ) %>
   <% end %>

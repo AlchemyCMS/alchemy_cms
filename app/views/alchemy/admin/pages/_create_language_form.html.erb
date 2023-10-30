@@ -9,7 +9,7 @@
       <p><%= Alchemy.t(:want_to_make_copy_of_existing_language) %></p>
       <div class="input select">
         <%= label_tag('languages[old_lang_id]', Alchemy.t('Language tree'), class: 'control-label') %>
-        <%= select_tag("languages[old_lang_id]", options_for_select(@languages_with_page_tree.map{ |l| [l.name, l.id] }), class: "alchemy_selectbox") %>
+        <%= select_tag("languages[old_lang_id]", options_for_select(@languages_with_page_tree.map{ |l| [l.name, l.id] }), is: "alchemy-select") %>
         <%= hidden_field_tag("languages[new_lang_id]", @language.id) %>
       </div>
       <div class="submit">
@@ -30,7 +30,7 @@
       label: Alchemy.t(:page_type),
       include_blank: Alchemy.t('Please choose'),
       required: true,
-      input_html: {class: 'alchemy_selectbox'} %>
+      input_html: {is: 'alchemy-select'} %>
     <%= form.hidden_field :language_id, value: @language.id %>
     <%= form.hidden_field :language_code, value: @language.code %>
     <%= form.hidden_field :language_root, value: true %>
