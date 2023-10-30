@@ -8,8 +8,7 @@
   <% if language.errors[:locale].present? || language.locale.present? %>
     <%= f.input :locale,
       collection: language.matching_locales.presence || ::I18n.available_locales,
-      selected: language.locale || language.language_code || ::I18n.default_locale.to_s,
-      input_html: {is: 'alchemy-select'} %>
+      selected: language.locale || language.language_code || ::I18n.default_locale.to_s %>
   <% end %>
   <%= f.input :frontpage_name %>
   <%= f.input :page_layout,
