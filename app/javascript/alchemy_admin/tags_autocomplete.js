@@ -15,7 +15,7 @@ function initSelection(element, callback) {
   const data = []
   $(element.val().split(",")).each(function () {
     data.push({
-      id: $.trim(this),
+      id: this.trim(),
       text: this
     })
   })

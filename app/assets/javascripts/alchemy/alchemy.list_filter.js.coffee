@@ -19,10 +19,10 @@ class Alchemy.ListFilterHandler
     @filter_field.on 'keyup', (e) =>
       @clear.show()
       @_filter @filter_field.val()
-    @clear.click (e) =>
+    @clear.on "click", (e) =>
       e.preventDefault()
       @_clear()
-    @filter_field.focus ->
+    @filter_field.on "focus", ->
       key.setScope('list_filter')
     key 'esc', 'list_filter', =>
       @_clear()

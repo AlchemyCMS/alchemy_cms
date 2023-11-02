@@ -36,7 +36,7 @@ function checkPageDirtyness(element) {
 }
 
 function PageLeaveObserver() {
-  $("#main_navi a").click(function (event) {
+  $("#main_navi a").on("click", function (event) {
     if (!checkPageDirtyness(event.currentTarget)) {
       event.preventDefault()
     }

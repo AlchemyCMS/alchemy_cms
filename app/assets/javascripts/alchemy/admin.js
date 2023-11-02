@@ -1,6 +1,6 @@
 // Alchemy CMS Sprockets Manifest
 // ------------------------------
-//= require jquery2
+//= require jquery3
 //= require tinymce/tinymce.min
 //= require_tree ../../../../vendor/assets/javascripts/jquery_plugins/
 //= require clipboard.min

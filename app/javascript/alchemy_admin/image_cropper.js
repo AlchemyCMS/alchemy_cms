@@ -90,7 +90,7 @@ export default class ImageCropper {
   }
 
   bind() {
-    this.dialog.dialog_body.find('button[type="submit"]').click(() => {
+    this.dialog.dialog_body.find('button[type="submit"]').on("click", () => {
       const elementEditor = document.querySelector(
         `[data-element-id='${this.elementId}']`
       )
@@ -98,7 +98,7 @@ export default class ImageCropper {
       this.dialog.close()
       return false
     })
-    this.dialog.dialog_body.find('button[type="reset"]').click(() => {
+    this.dialog.dialog_body.find('button[type="reset"]').on("click", () => {
       this.reset()
       return false
     })

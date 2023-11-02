@@ -29,10 +29,10 @@ class window.Alchemy.ConfirmDialog extends Alchemy.Dialog
 
   bind_buttons: ->
     @cancel_button.focus()
-    @cancel_button.click =>
+    @cancel_button.on "click", =>
       @close()
       false
-    @ok_button.click =>
+    @ok_button.on "click", =>
       @close()
       @options.on_ok()
       false

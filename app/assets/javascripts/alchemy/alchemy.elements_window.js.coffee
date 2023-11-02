@@ -10,7 +10,7 @@ Alchemy.ToolbarButton = (options) ->
   $lnk = $("<a class='icon_button' href='#' />")
   if options.hotkey
     $lnk.attr('data-alchemy-hotkey', options.hotkey)
-  $lnk.click (e) ->
+  $lnk.on "click", (e) ->
     e.preventDefault()
     options.onClick(e)
     return
@@ -31,7 +31,7 @@ Alchemy.ElementsWindow =
     @element_window.append @createToolbar(options.toolbarButtons)
     @element_window.append @element_area
     @button = $('#element_window_button')
-    @button.click =>
+    @button.on "click", =>
       @hide()
       false
 
@@ -95,13 +95,13 @@ Alchemy.ElementsWindow =
       @button.find('label').text(@options.texts.showElements)
       @button.find('.icon').removeClass("ri-menu-unfold-line").addClass("ri-menu-fold-line")
       @button.off('click')
-      @button.click =>
+      @button.on "click", =>
         @show()
         false
     else
       @button.find('label').text(@options.texts.hideElements)
       @button.find('.icon').removeClass("ri-menu-fold-line").addClass("ri-menu-unfold-line")
       @button.off('click')
-      @button.click =>
+      @button.on "click", =>
         @hide()
         false

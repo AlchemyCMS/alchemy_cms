@@ -30,7 +30,7 @@
 
 <script>
   $(function(){
-    $('.error_details--toggle').click(function(){
+    $('.error_details--toggle').on("click", function(){
       $('.error.message p').toggleClass('hidden');
       return false;
     });
