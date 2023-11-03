@@ -1,16 +1,20 @@
 <% if !@preview_mode && @page && can?(:edit_content, @page) %>
-  <div id="alchemy_menubar" style="display: none" data-turbo="false">
-    <ul>
-      <li><%= link_to Alchemy.t(:to_alchemy), alchemy.admin_dashboard_url %></li>
-      <li><%= link_to Alchemy.t(:edit_page), alchemy.edit_admin_page_url(@page) %></li>
-      <li>
-        <%= form_tag Alchemy.logout_path, method: Alchemy.logout_method do %>
-          <%= button_tag Alchemy.t(:logout) %>
-        <% end %>
-      </li>
-    </ul>
-  </div>
+  <alchemy-menubar>
+    <template>
+      <%= stylesheet_link_tag("alchemy/menubar") %>
+      <div id="alchemy_menubar" data-turbo="false">
+        <ul>
+          <li><%= link_to Alchemy.t(:to_alchemy), alchemy.admin_dashboard_url %></li>
+          <li><%= link_to Alchemy.t(:edit_page), alchemy.edit_admin_page_url(@page) %></li>
+          <li>
+            <%= form_tag Alchemy.logout_path, method: Alchemy.logout_method do %>
+              <%= button_tag Alchemy.t(:logout) %>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    </template>
+  </alchemy-menubar>
 
-  <%= stylesheet_link_tag("alchemy/menubar") %>
-  <%= javascript_include_tag('alchemy/menubar') %>
+  <%= javascript_include_tag('menubar', type: "module") %>
 <% end %>
