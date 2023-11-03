@@ -56,6 +56,7 @@ Gem::Specification.new do |gem|
 
   gem.add_development_dependency "capybara", ["~> 3.0"]
   gem.add_development_dependency "capybara-screenshot", ["~> 1.0"]
+  gem.add_development_dependency "capybara-shadowdom", ["~> 0.3"]
   gem.add_development_dependency "factory_bot_rails", ["~> 6.0"]
   gem.add_development_dependency "puma", ["~> 6.0"]
   gem.add_development_dependency "rails-controller-testing", ["~> 1.0"]

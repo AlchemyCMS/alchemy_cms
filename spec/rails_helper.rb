@@ -9,6 +9,7 @@ require_relative("dummy/config/environment")
 
 require "capybara/rails"
 require "capybara-screenshot/rspec"
+require "capybara/shadowdom"
 require "rails-controller-testing"
 require "rspec-activemodel-mocks"
 require "rspec/rails"
