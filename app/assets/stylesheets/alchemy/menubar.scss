@@ -32,13 +32,13 @@
   }
 
   &:after {
-    content: '';
+    content: "";
     width: 24px;
     height: 24px;
     position: absolute;
     right: 10px;
     top: 50%;
-    background: image-url('alchemy/icon-white.svg') 1px 1px no-repeat;
+    background: image-url("alchemy/icon-white.svg") 1px 1px no-repeat;
     background-size: 24px 24px;
     transform: translateY(-50%);
   }
@@ -57,7 +57,8 @@
       list-style-type: none;
       text-align: center;
 
-      a, button {
+      a,
+      button {
         @include button-defaults(
           $background-color: $main-menu-bg-color,
           $hover-color: $blue,
@@ -70,10 +71,10 @@
         );
         width: 100%;
         text-decoration: none !important;
-        text-transform: none;
-        font-family: $default-font-family;
 
-        &:after { display: none }
+        &:after {
+          display: none;
+        }
       }
     }
   }

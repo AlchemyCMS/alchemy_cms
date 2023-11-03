@@ -68,7 +68,7 @@ RSpec.describe "Show page feature:", type: :system do
     context "rendering for guest users" do
       it "is prohibited" do
         visit "/#{public_page.urlname}"
-        within("body") { expect(page).not_to have_selector("#alchemy_menubar") }
+        within("body") { expect(page).not_to have_selector("alchemy-menubar") }
       end
     end
 
@@ -76,7 +76,7 @@ RSpec.describe "Show page feature:", type: :system do
       it "is prohibited" do
         authorize_user(build(:alchemy_dummy_user))
         visit "/#{public_page.urlname}"
-        within("body") { expect(page).not_to have_selector("#alchemy_menubar") }
+        within("body") { expect(page).not_to have_selector("alchemy-menubar") }
       end
     end
 
@@ -84,7 +84,7 @@ RSpec.describe "Show page feature:", type: :system do
       it "is allowed" do
         authorize_user(:as_author)
         visit "/#{public_page.urlname}"
-        within("body") { expect(page).to have_selector("#alchemy_menubar") }
+        within("body") { expect(page).to have_selector("alchemy-menubar") }
       end
     end
 
@@ -92,7 +92,7 @@ RSpec.describe "Show page feature:", type: :system do
       it "is allowed" do
         authorize_user(:as_editor)
         visit "/#{public_page.urlname}"
-        within("body") { expect(page).to have_selector("#alchemy_menubar") }
+        within("body") { expect(page).to have_selector("alchemy-menubar") }
       end
     end
 
@@ -100,31 +100,33 @@ RSpec.describe "Show page feature:", type: :system do
       it "is allowed" do
         authorize_user(:as_admin)
         visit "/#{public_page.urlname}"
-        within("body") { expect(page).to have_selector("#alchemy_menubar") }
+        within("body") { expect(page).to have_selector("alchemy-menubar") }
       end
     end
 
-    context "contains" do
+    context "contains", js: true do
+      let(:host) { "#{page.server.host}:#{page.server.port}" }
+
       before do
         authorize_user(:as_admin)
         visit "/#{public_page.urlname}"
       end
 
       it "a link to the admin area" do
-        within("#alchemy_menubar") do
-          expect(page).to have_selector("li a[href='#{alchemy.admin_dashboard_url(host: Capybara.current_host)}']")
+        within find("alchemy-menubar").shadow_root do
+          expect(page).to have_selector("li a[href='#{alchemy.admin_dashboard_url(host: host)}']")
         end
       end
 
       it "a link to edit the current page" do
-        within("#alchemy_menubar") do
+        within find("alchemy-menubar").shadow_root do
           expect(page).to \
-            have_selector("li a[href='#{alchemy.edit_admin_page_url(public_page, host: Capybara.current_host)}']")
+            have_selector("li a[href='#{alchemy.edit_admin_page_url(public_page, host: host)}']")
         end
       end
 
       it "a form and button to logout of alchemy" do
-        within("#alchemy_menubar") do
+        within find("alchemy-menubar").shadow_root do
           expect(page).to \
             have_selector("li form[action='#{Alchemy.logout_path}'][method='post']")
           expect(page).to \
