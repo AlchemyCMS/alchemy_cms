@@ -106,7 +106,7 @@ bin/rake alchemy:install
 
 #### Authentication
 
-If you already have your own user class in your application, you have to tell Alchemy about it. Please follow [this guide](custom_authentication) to learn how to achieve that.
+If you already have your own user class in your application, you have to tell Alchemy about it. Please follow [this guide](how_to_add_custom_authentication) to learn how to achieve that.
 
 If you don't have a authentication solution, you can use the alchemy-devise gem.
 
