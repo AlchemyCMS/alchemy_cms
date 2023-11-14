@@ -53,13 +53,25 @@ module Alchemy
       # Updates the element and all ingredients in the element.
       #
       def update
-        @page = @element.page
-
         if @element.update(element_params)
-          @element_validated = true
+          render json: {
+            notice: Alchemy.t(:element_saved),
+            previewText: Rails::Html::SafeListSanitizer.new.sanitize(@element.preview_text),
+            ingredientAnchors: @element.ingredients.select { |i| i.settings[:anchor] }.map do |ingredient|
+              {
+                ingredientId: ingredient.id,
+                active: ingredient.dom_id.present?
+              }
+            end
+          }
         else
-          element_update_error
-          @error_messages = @element.ingredient_error_messages
+          @warning = Alchemy.t("Validation failed")
+          render json: {
+            warning: @warning,
+            errorMessage: Alchemy.t(:ingredient_validations_headline),
+            ingredientsWithErrors: @element.ingredients_with_errors.map(&:id),
+            errors: @element.ingredient_error_messages
+          }
         end
       end
 
@@ -101,6 +113,11 @@ module Alchemy
           ids = collapse_nested_elements_ids(@element)
           Alchemy::Element.where(id: ids).update_all(folded: true)
         end
+
+        render json: {
+          folded: @element.folded,
+          title: Alchemy.t(@element.folded? ? :show_element_content : :hide_element_content)
+        }
       end
 
       private
@@ -170,12 +187,6 @@ module Alchemy
 
       def create_element_params
         params.require(:element).permit(:name, :page_version_id, :parent_element_id)
-      end
-
-      def element_update_error
-        @element_validated = false
-        @notice = Alchemy.t("Validation failed")
-        @error_message = "<h2>#{@notice}</h2><p>#{Alchemy.t(:ingredient_validations_headline)}</p>".html_safe
       end
     end
   end

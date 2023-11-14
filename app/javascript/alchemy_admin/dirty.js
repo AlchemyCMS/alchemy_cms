@@ -1,31 +1,5 @@
-function ElementDirtyObserver(selector) {
-  $(selector)
-    .find('input[type="text"], select')
-    .change(function (event) {
-      const $content = $(event.target)
-      $content.addClass("dirty")
-      setElementDirty($content.closest(".element-editor"))
-    })
-}
-
-function setElementDirty(element) {
-  $(element).addClass("dirty")
-  window.onbeforeunload = () => Alchemy.t("page_dirty_notice")
-}
-
-function setElementClean(element) {
-  const $element = $(element)
-  $element.removeClass("dirty")
-  $element.find("> .element-body .dirty").removeClass("dirty")
-  window.onbeforeunload = () => {}
-}
-
 function isPageDirty() {
-  return $("#element_area").find(".element-editor.dirty").length > 0
-}
-
-function isElementDirty(element) {
-  return $(element).hasClass("dirty")
+  return $("#element_area").find("alchemy-element-editor.dirty").length > 0
 }
 
 function checkPageDirtyness(element) {
@@ -70,10 +44,6 @@ function PageLeaveObserver() {
 }
 
 export default {
-  ElementDirtyObserver,
-  setElementDirty,
-  setElementClean,
-  isElementDirty,
   checkPageDirtyness,
   PageLeaveObserver
 }

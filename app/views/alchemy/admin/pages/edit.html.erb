@@ -189,10 +189,7 @@
         }
       ]
     }, function() {
-      Alchemy.ImageLoader('#element_area');
       Alchemy.SortableElements(<%= @page.id %>, '<%= form_authenticity_token %>');
-      Alchemy.ElementEditors.init();
-      Alchemy.ElementDirtyObserver('#element_area');
       if (window.location.hash) {
         $(window.location.hash).trigger('FocusElementEditor.Alchemy');
       }

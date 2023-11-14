@@ -36,6 +36,21 @@ Alchemy.ElementsWindow =
     window.requestAnimationFrame =>
       spinner = new Alchemy.Spinner('medium')
       spinner.spin @element_area[0]
+
+    window.addEventListener 'message', (event) =>
+      data = event.data
+      if data?.message == 'Alchemy.focusElementEditor'
+        element = document.getElementById("element_#{data.element_id}")
+        Alchemy.ElementsWindow.show()
+        element?.focusElement()
+      true
+
+    @$body.on "click", (evt) =>
+      unless evt.target.closest(".element-editor")
+        @element_area.find('.element-editor').removeClass('selected')
+        Alchemy.PreviewWindow.postMessage(message: 'Alchemy.blurElements')
+      return
+
     $('#main_content').append(@element_window)
     @show()
     @reload()
@@ -49,9 +64,6 @@ Alchemy.ElementsWindow =
   reload: ->
     $.get @url, (data) =>
       @element_area.html data
-      Alchemy.GUI.init(@element_area)
-      Alchemy.fileEditors(@element_area.find(".ingredient-editor.file, .ingredient-editor.audio, .ingredient-editor.video").selector)
-      Alchemy.pictureEditors(@element_area.find(".ingredient-editor.picture").selector)
       if @callback
         @callback.call()
     .fail (xhr, status, error) =>

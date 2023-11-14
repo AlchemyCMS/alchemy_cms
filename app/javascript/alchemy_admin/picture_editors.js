@@ -93,7 +93,7 @@ class PictureEditor {
     this.pictureIdField.value = ""
     this.image = null
     this.cropLink.classList.add("disabled")
-    Alchemy.setElementDirty(this.container.closest(".element-editor"))
+    this.container.closest(".element-editor").setDirty()
   }
 
   updateCropLink() {

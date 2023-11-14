@@ -72,11 +72,8 @@ class Tinymce extends AlchemyHTMLElement {
         this.getElementsByTagName("alchemy-spinner")[0].remove()
 
         // event listener to mark the editor as dirty
-        editor.on("dirty", () => Alchemy.setElementDirty(this.elementEditor))
-        editor.on("click", (event) => {
-          event.target = this.elementEditor
-          Alchemy.ElementEditors.onClickElement(event)
-        })
+        editor.on("dirty", () => this.elementEditor.setDirty())
+        editor.on("click", () => this.elementEditor.onClickElement(false))
       })
     })
   }
@@ -116,7 +113,9 @@ class Tinymce extends AlchemyHTMLElement {
   }
 
   get elementEditor() {
-    return document.getElementById(this.editorId).closest(".element-editor")
+    return document
+      .getElementById(this.editorId)
+      .closest("alchemy-element-editor")
   }
 }
 

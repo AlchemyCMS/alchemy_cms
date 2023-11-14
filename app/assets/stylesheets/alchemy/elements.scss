@@ -100,22 +100,36 @@
   cursor: move;
 }
 
-.ajax-folder {
+.element-toggle {
+  display: flex;
+  align-items: center;
   position: absolute;
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   right: 8px;
-  top: 10px;
+  top: 8px;
   transition: none;
+  background: none;
+  border-color: transparent;
+  color: inherit;
+  box-shadow: none;
+  padding: 4px;
+  margin: 0;
 
-  .error_icon {
-    float: left;
-    width: 14px;
-    height: 15px;
-    text-align: center;
-    background-color: white;
-    border: 1px solid #935b5b;
-    color: #935b5b;
+  &:hover {
+    &:not(:focus):not(:active) {
+      background-color: $default-border-color;
+      border-color: transparent;
+      cursor: pointer;
+    }
+  }
+
+  .icon {
+    pointer-events: none;
+
+    &.hidden {
+      display: none;
+    }
   }
 }
 
@@ -124,8 +138,13 @@
   border: 1px solid $default-border-color;
   border-radius: $default-border-radius;
   background-color: $light-gray;
-  margin-bottom: 2 * $default-margin;
+  margin: 2 * $default-margin 0;
   transition: box-shadow $transition-duration;
+  scroll-margin: 2 * $default-margin;
+
+  &:first-child {
+    margin-top: 0;
+  }
 
   &.hidden {
     display: block;
@@ -206,6 +225,10 @@
   }
 
   &.folded {
+    .element-toolbar,
+    .element-body,
+    .element-footer,
+    .nestable-elements,
     .nested-elements {
       display: none;
     }
@@ -269,7 +292,7 @@
       max-width: 75%;
     }
 
-    &:not(.folded) .ajax-folder {
+    &:not(.folded) .element-toggle {
       pointer-events: none;
 
       i:before {
@@ -875,7 +898,6 @@ textarea.has_tinymce {
 }
 
 .element_errors {
-  display: none;
   margin-top: 8px;
   margin-bottom: 8px;
   background-color: $error_background_color;
@@ -884,6 +906,10 @@ textarea.has_tinymce {
   border-radius: $default-border-radius;
   color: $error_text_color;
   border: 1px solid $error_border_color;
+
+  &.hidden {
+    display: none;
+  }
 
   p {
     margin: 0;
@@ -922,6 +948,7 @@ textarea.has_tinymce {
 
 .element-editor,
 .droppable_element_placeholder {
+  display: block;
   width: 100%;
 
   .not-fixed & {

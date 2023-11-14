@@ -136,7 +136,8 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
 
   # Sets the link either in TinyMCE or on an Ingredient.
   setLink: (url, title, target) ->
-    Alchemy.setElementDirty(@$link_object.closest('.element-editor'))
+    element_editor = @$link_object[0].closest('alchemy-element-editor')
+    element_editor.setDirty()
     if @link_object.editor
       @setTinyMCELink(url, title, target)
     else
@@ -262,7 +263,8 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     link_class_field.value = ""
     link_target_field.value = ""
     if link.classList.contains('linked')
-      Alchemy.setElementDirty link.closest('.element-editor')
+      element_editor = link.closest('alchemy-element-editor')
+      element_editor.setDirty()
       link.classList.replace('linked', 'disabled')
       link.setAttribute('tabindex', '-1')
       link.blur()

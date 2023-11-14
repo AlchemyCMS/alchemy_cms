@@ -9,19 +9,6 @@ function init(scope) {
   TagsAutocomplete(scope)
 }
 
-function initElement($el) {
-  Alchemy.ElementDirtyObserver($el)
-  init($el && $el.selector)
-  Alchemy.ImageLoader($el[0])
-  Alchemy.fileEditors(
-    $el.find(
-      ".ingredient-editor.file, .ingredient-editor.audio, .ingredient-editor.video"
-    ).selector
-  )
-  Alchemy.pictureEditors($el.find(".ingredient-editor.picture").selector)
-}
-
 export default {
-  init,
-  initElement
+  init
 }

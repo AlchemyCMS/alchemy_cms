@@ -37,11 +37,11 @@ export function patch(url, data) {
   return ajax("PATCH", url, data)
 }
 
-export function post(url, data) {
-  return ajax("POST", url, data)
+export function post(url, data, accept = "application/json") {
+  return ajax("POST", url, data, accept)
 }
 
-export default function ajax(method, path, data) {
+export default function ajax(method, path, data, accept = "application/json") {
   const xhr = new XMLHttpRequest()
   const promise = buildPromise(xhr)
   const url = new URL(window.location.origin + path)
@@ -52,7 +52,7 @@ export default function ajax(method, path, data) {
 
   xhr.open(method, url.toString())
   xhr.setRequestHeader("Content-type", "application/json; charset=utf-8")
-  xhr.setRequestHeader("Accept", "application/json")
+  xhr.setRequestHeader("Accept", accept)
   xhr.setRequestHeader("X-CSRF-Token", getToken())
 
   if (data && method.toLowerCase() !== "get") {
