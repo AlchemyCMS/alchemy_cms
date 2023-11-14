@@ -95,5 +95,25 @@ RSpec.describe Alchemy::Page::Publisher do
         publish
       end
     end
+
+    context "in parallel" do
+      before do
+        # another publisher - instance created a mutex entry and locked the page
+        Alchemy::PageMutex.create(page: page, created_at: 5.seconds.ago)
+      end
+
+      it "fails, if another process locked the page" do
+        expect { publish }.to raise_error Alchemy::PageMutex::LockFailed
+      end
+
+      context "another page" do
+        let(:another_page) { create(:alchemy_page) }
+        let(:publisher) { described_class.new(another_page) }
+
+        it "should allow the publishing of another page" do
+          expect { publish }.to change { another_page.versions.published.count }.by(1)
+        end
+      end
+    end
   end
 end
