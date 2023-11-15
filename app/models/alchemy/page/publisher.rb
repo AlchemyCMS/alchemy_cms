@@ -20,21 +20,23 @@ module Alchemy
       #
       def publish!(public_on:)
         Page.transaction do
-          version = public_version(public_on)
-          DeleteElements.new(version.elements).call
+          PageMutex.with_lock!(@page) do
+            version = public_version(public_on)
+            DeleteElements.new(version.elements).call
 
-          repository = page.draft_version.element_repository
-          ActiveRecord::Base.no_touching do
-            Element.acts_as_list_no_update do
-              repository.visible.not_nested.each.with_index(1) do |element, position|
-                Alchemy::DuplicateElement.new(element, repository: repository).call(
-                  page_version_id: version.id,
-                  position: position
-                )
+            repository = page.draft_version.element_repository
+            ActiveRecord::Base.no_touching do
+              Element.acts_as_list_no_update do
+                repository.visible.not_nested.each.with_index(1) do |element, position|
+                  Alchemy::DuplicateElement.new(element, repository: repository).call(
+                    page_version_id: version.id,
+                    position: position
+                  )
+                end
               end
             end
+            page.update(published_at: public_on)
           end
-          page.update(published_at: public_on)
         end
 
         Alchemy.publish_targets.each { |p| p.perform_later(page) }

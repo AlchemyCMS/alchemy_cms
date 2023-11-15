@@ -16,6 +16,11 @@ Rails.application.configure do
   # system, or in some way before deploying your code.
   config.eager_load = ENV["CI"].present?
 
+  # Issue: https://github.com/hotwired/turbo-rails/issues/512
+  if ENV["CI"].present?
+    Rails.autoloaders.once.do_not_eager_load("#{Turbo::Engine.root}/app/channels")
+  end
+
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = true
   config.public_file_server.headers = {

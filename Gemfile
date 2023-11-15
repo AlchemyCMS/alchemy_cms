@@ -26,6 +26,11 @@ group :development, :test do
     # Necessary because GH Actions gem cache does not have this "Bundled with Ruby" gem installed
     gem "rexml", "~> 3.2.4"
     gem "sassc", "~> 2.4.0" # https://github.com/sass/sassc-ruby/issues/146
+
+    # https://github.com/hotwired/turbo-rails/issues/512
+    if rails_version == "7.1"
+      gem "actioncable", "~> #{rails_version}.0"
+    end
   else
     gem "launchy"
     gem "annotate"
