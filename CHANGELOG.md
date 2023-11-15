@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.0.6 (2023-11-15)
+
+- [7.0-stable] Merge pull request #2612 from sascha-karnatz/harden-page-publisher [#2613](https://github.com/AlchemyCMS/alchemy_cms/pull/2613) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.0] Allow Rails 7.1 [#2603](https://github.com/AlchemyCMS/alchemy_cms/pull/2603) ([tvdeyen](https://github.com/tvdeyen))
+- [7.0-stable] Merge pull request #2601 from tvdeyen/remove-jquery-ui-rails [#2602](https://github.com/AlchemyCMS/alchemy_cms/pull/2602) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.0.5 (2023-10-06)
 
 - [7.0-stable] Merge pull request #2593 from tvdeyen/fix-turbo-redirect [#2594](https://github.com/AlchemyCMS/alchemy_cms/pull/2594) ([alchemycms-bot](https://github.com/alchemycms-bot))
