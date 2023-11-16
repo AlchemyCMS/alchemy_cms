@@ -1,8 +1,11 @@
-<%= content_tag "alchemy-element-editor",
-  id: "element_#{element.id}",
-  data: {'element-id' => element.id, 'element-name' => element.name},
-  class: element.css_classes do %>
-
+<alchemy-element-editor
+  id="element_<%= element.id %>"
+  data-element-id="<%= element.id %>"
+  data-element-name="<%= element.name %>"
+  class="<%= element.css_classes %>"
+  <%= element.compact? ? "compact" : nil %>
+  <%= element.fixed? ? "fixed" : nil %>
+>
   <% unless element.fixed? %>
     <%= render 'alchemy/admin/elements/header', element: element %>
   <% end %>
@@ -75,4 +78,4 @@
       <%= render "alchemy/admin/elements/add_nested_element_form", element: element %>
     </div>
   <% end %>
-<% end %>
+</alchemy-element-editor>

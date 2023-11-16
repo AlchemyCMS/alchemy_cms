@@ -40,10 +40,6 @@ export class ElementEditor extends HTMLElement {
         this.toggle()
       }
     })
-    this.addEventListener("FocusElementEditor.Alchemy", (event) => {
-      event.stopPropagation()
-      this.focusElement()
-    })
     on(
       "click",
       this.bodySelector,
@@ -108,31 +104,20 @@ export class ElementEditor extends HTMLElement {
   }
 
   /**
-   * Scrolls to element
-   * Unfold if folded
+   * Scrolls and highlights element
+   * Expands if collapsed
    * Also chooses the right fixed elements tab, if necessary.
    * Can be triggered through custom event 'FocusElementEditor.Alchemy'
    * Used by the elements on click events in the preview frame.
    */
-  focusElement() {
-    const focus = () => {
-      // If we have folded parents we need to unfold each of them
-      // and then finally scroll to or unfold ourself
-      const foldedParents = parents(this, "alchemy-element-editor.folded")
-      if (foldedParents.length > 0) {
-        this.unfoldParents(foldedParents, () => {
-          this.scrollToOrUnfold()
-        })
-      } else {
-        this.scrollToOrUnfold(() => this.selectElement(true))
-      }
+  async focusElement() {
+    // Select tab if necessary
+    if (document.querySelector("#fixed-elements")) {
+      await this.selectTabForElement()
     }
-    const tabs = document.querySelector("#fixed-elements")
-    if (tabs) {
-      this.selectTabForElement(focus)
-    } else {
-      focus()
-    }
+    // Expand if necessary
+    await this.expand()
+    this.selectElement(true)
   }
 
   focusElementPreview() {
@@ -220,23 +205,13 @@ export class ElementEditor extends HTMLElement {
    * Smoothly scrolls to element
    */
   scrollToElement() {
-    this.scrollIntoView({
-      behavior: "smooth"
-    })
-  }
-
-  /**
-   * Scrolls to element
-   * If it's folded it unfolds it.
-   *
-   * Also takes an optional callback that gets triggered after element is unfolded.
-   */
-  scrollToOrUnfold(callback) {
-    if (this.classList.contains("folded")) {
-      this.toggleFold(callback)
-    } else {
-      this.selectElement(true)
-    }
+    // The timeout gives the browser some time to calculate the position
+    // of nested elements correctly
+    setTimeout(() => {
+      this.scrollIntoView({
+        behavior: "smooth"
+      })
+    }, 50)
   }
 
   /**
@@ -255,18 +230,20 @@ export class ElementEditor extends HTMLElement {
 
   /**
    * Selects tab for given element
-   * Takes an optional callback that gets called after the tab panel is shown.
-   * @param {function} callback
+   * Resolves the promise if this is done.
+   * @returns {Promise}
    */
-  selectTabForElement(callback) {
-    const tabs = document.querySelector("#fixed-elements")
-    const panel = this.closest("sl-tab-panel")
-    if (tabs && panel) {
-      tabs.show(panel.getAttribute("name"))
-      if (callback) {
-        window.requestAnimationFrame(callback)
+  selectTabForElement() {
+    return new Promise((resolve, reject) => {
+      const tabs = document.querySelector("#fixed-elements")
+      const panel = this.closest("sl-tab-panel")
+      if (tabs && panel) {
+        tabs.show(panel.getAttribute("name"))
+        resolve()
+      } else {
+        reject(new Error("No tabs present"))
       }
-    }
+    })
   }
 
   /**
@@ -311,61 +288,102 @@ export class ElementEditor extends HTMLElement {
    * Expands or collapses element editor
    * If the element is dirty (has unsaved changes) it displays a confirm first.
    */
-  toggle() {
-    if (this.dirty) {
-      Alchemy.openConfirmDialog(Alchemy.t("element_dirty_notice"), {
-        title: Alchemy.t("warning"),
-        ok_label: Alchemy.t("ok"),
-        cancel_label: Alchemy.t("cancel"),
-        on_ok: () => this.toggleFold()
-      })
+  async toggle() {
+    if (this.collapsed) {
+      await this.expand()
     } else {
-      this.toggleFold()
+      await this.collapse()
     }
   }
 
   /**
-   * Collapses or expands the element editor and persists the state on the server
-   * @param {function} callback
+   * Collapses the element editor and persists the state on the server
+   * @returns {Promise}
    */
-  toggleFold(callback) {
+  collapse() {
+    if (this.collapsed || this.compact || this.fixed) {
+      return Promise.resolve()
+    }
+
     const spinner = new Alchemy.Spinner("small")
     spinner.spin(this.toggleButton)
-    this.toggleIcon.classList.add("hidden")
-    return post(Alchemy.routes.fold_admin_element_path(this.elementId))
+    this.toggleIcon?.classList?.add("hidden")
+    return post(Alchemy.routes.collapse_admin_element_path(this.elementId))
       .then((response) => {
         const data = response.data
-        this.folded = data.folded
-        this.classList.toggle("folded")
-        this.classList.toggle("expanded")
-        this.toggleIcon.classList.toggle("fa-minus-square")
-        this.toggleIcon.classList.toggle("fa-plus-square")
-        this.toggleButton.setAttribute("title", data.title)
-        callback?.call()
+
+        this.collapsed = true
+        this.toggleButton?.setAttribute("title", data.title)
+
+        // Collapse all nested elements if necessarry
+        if (data.nestedElementIds.length) {
+          const selector = data.nestedElementIds
+            .map((e) => `#element_${e.id}`)
+            .join(", ")
+          this.querySelectorAll(selector).forEach((nestedElement) => {
+            nestedElement.collapsed = true
+            nestedElement.toggleButton?.setAttribute("title", data.title)
+          })
+        }
       })
       .catch((error) => {
         Alchemy.growl(error.message, "error")
+        console.error(error)
       })
       .finally(() => {
-        this.toggleIcon.classList.remove("hidden")
+        this.toggleIcon?.classList?.remove("hidden")
         spinner.stop()
       })
   }
 
   /**
-   * Unfolds given parents until the last one is reached, then calls callback
-   * @param {array} foldedParents
-   * @param {function} callback (optional)
+   * Collapses the element editor and persists the state on the server
+   * @* @returns {Promise}
    */
-  unfoldParents(foldedParents, callback) {
-    const lastParent = foldedParents[foldedParents.length - 1]
-    foldedParents.forEach((parentElement) => {
-      if (lastParent === parentElement) {
-        parentElement.toggleFold(callback)
-      } else {
-        parentElement.toggleFold()
-      }
-    })
+  expand() {
+    if (this.expanded && !this.compact) {
+      return Promise.resolve()
+    }
+
+    if (this.compact && this.parentElementEditor) {
+      return this.parentElementEditor.expand()
+    } else {
+      const spinner = new Alchemy.Spinner("small")
+      spinner.spin(this.toggleButton)
+      this.toggleIcon?.classList.add("hidden")
+
+      return new Promise((resolve, reject) => {
+        post(Alchemy.routes.expand_admin_element_path(this.elementId))
+          .then((response) => {
+            const data = response.data
+
+            // First expand all parent elements if necessary
+            if (data.parentElementIds.length) {
+              const selector = data.parentElementIds
+                .map((id) => `#element_${id}`)
+                .join(", ")
+              document.querySelectorAll(selector).forEach((parentElement) => {
+                parentElement.collapsed = false
+                parentElement.toggleButton?.setAttribute("title", data.title)
+              })
+            }
+            // Finally collapse ourselve
+            this.collapsed = false
+            this.toggleButton?.setAttribute("title", data.title)
+            // Resolve the promise that scrolls to the element very last
+            resolve()
+          })
+          .catch((error) => {
+            Alchemy.growl(error.message, "error")
+            console.error(error)
+            reject()
+          })
+          .finally(() => {
+            this.toggleIcon?.classList?.remove("hidden")
+            spinner.stop()
+          })
+      })
+    }
   }
 
   /**
@@ -381,6 +399,44 @@ export class ElementEditor extends HTMLElement {
         detail: { title }
       })
     )
+  }
+
+  /**
+   * @returns {boolean}
+   */
+  get compact() {
+    return !!this.getAttribute("compact")
+  }
+
+  /**
+   * @returns {boolean}
+   */
+  get fixed() {
+    return !!this.getAttribute("fixed")
+  }
+
+  /**
+   * @param {boolean} value
+   */
+  set collapsed(value) {
+    this.classList.toggle("folded", value)
+    this.classList.toggle("expanded", !value)
+    this.toggleIcon?.classList?.toggle("fa-minus-square", !value)
+    this.toggleIcon?.classList?.toggle("fa-plus-square", value)
+  }
+
+  /**
+   * @returns {boolean}
+   */
+  get collapsed() {
+    return this.classList.contains("folded")
+  }
+
+  /**
+   * @returns {boolean}
+   */
+  get expanded() {
+    return !this.collapsed
   }
 
   /**
@@ -441,7 +497,7 @@ export class ElementEditor extends HTMLElement {
   /**
    * The collapse/expand toggle button
    *
-   * @returns {HTMLButtonElement}
+   * @returns {HTMLButtonElement|undefined}
    */
   get toggleButton() {
     return this.querySelector(".element-toggle")
@@ -450,10 +506,10 @@ export class ElementEditor extends HTMLElement {
   /**
    * The collapse/expand toggle buttons icon
    *
-   * @returns {HTMLElement}
+   * @returns {HTMLElement|undefined}
    */
   get toggleIcon() {
-    return this.toggleButton.querySelector(".icon")
+    return this.toggleButton?.querySelector(".icon")
   }
 
   /**
@@ -517,6 +573,15 @@ export class ElementEditor extends HTMLElement {
    */
   get firstChild() {
     return this.querySelector("alchemy-element-editor")
+  }
+
+  /**
+   * The parent element editor if present
+   *
+   * @returns {ElementEditor|undefined}
+   */
+  get parentElementEditor() {
+    return this.parentElement?.closest("alchemy-element-editor")
   }
 }
 

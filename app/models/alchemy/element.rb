@@ -183,6 +183,17 @@ module Alchemy
       end
     end
 
+    # Heavily unoptimized naive way to get all parent ids
+    def parent_element_ids
+      ids ||= []
+      parent = parent_element
+      while parent
+        ids.push parent.id
+        parent = parent.parent_element
+      end
+      ids
+    end
+
     # Returns next public element from same page.
     #
     # Pass an element name to get next of this kind.

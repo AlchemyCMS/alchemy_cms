@@ -3,7 +3,7 @@
 module Alchemy
   module Admin
     class ElementsController < Alchemy::Admin::BaseController
-      before_action :load_element, only: [:update, :destroy, :fold, :publish]
+      before_action :load_element, only: [:update, :destroy, :collapse, :expand, :publish]
       authorize_resource class: Alchemy::Element
 
       def index
@@ -102,20 +102,33 @@ module Alchemy
         end
       end
 
-      # Toggle folds the element and persists the state in the db
+      # Collapses the element, all nested elements and persists the state in the db
       #
-      def fold
-        @page = @element.page
+      def collapse
         # We do not want to trigger the touch callback or any validations
-        @element.update_columns(folded: !@element.folded)
-        # Fold all nested elements if folded
-        if @element.folded?
-          ids = collapse_nested_elements_ids(@element)
-          Alchemy::Element.where(id: ids).update_all(folded: true)
-        end
+        @element.update_columns(folded: true)
+        # Collapse all nested elements
+        nested_elements_ids = collapse_nested_elements_ids(@element)
+        Alchemy::Element.where(id: nested_elements_ids).update_all(folded: true)
 
         render json: {
-          folded: @element.folded,
+          nestedElementIds: nested_elements_ids,
+          title: Alchemy.t(@element.folded? ? :show_element_content : :hide_element_content)
+        }
+      end
+
+      # Expands the element, all parents and persists the state in the db
+      #
+      def expand
+        # We do not want to trigger the touch callback or any validations
+        @element.update_columns(folded: false)
+        # We want to expand the upper most parent first in order to prevent
+        # re-painting issues in the browser
+        parent_element_ids = @element.parent_element_ids.reverse
+        Alchemy::Element.where(id: parent_element_ids).update_all(folded: false)
+
+        render json: {
+          parentElementIds: parent_element_ids,
           title: Alchemy.t(@element.folded? ? :show_element_content : :hide_element_content)
         }
       end
