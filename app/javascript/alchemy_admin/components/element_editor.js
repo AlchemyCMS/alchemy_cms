@@ -84,16 +84,16 @@ export class ElementEditor extends HTMLElement {
       })
     }
 
-    if (sessionStorage.hasOwnProperty("Alchemy.expanded_ingredient_groups")) {
+    if (localStorage.hasOwnProperty("Alchemy.expanded_ingredient_groups")) {
       this.expandIngredientGroups()
     }
   }
 
   /**
-   * Expands ingredient groups that are stored in sessionStorage as expanded
+   * Expands ingredient groups that are stored in localStorage as expanded
    */
   expandIngredientGroups() {
-    const expanded_ingredient_groups = sessionStorage.getItem(
+    const expanded_ingredient_groups = localStorage.getItem(
       "Alchemy.expanded_ingredient_groups"
     )
     Array.from(JSON.parse(expanded_ingredient_groups)).forEach((header_id) => {
@@ -181,7 +181,7 @@ export class ElementEditor extends HTMLElement {
     group_div.classList.toggle("expanded")
 
     let expanded_ingredient_groups = JSON.parse(
-      sessionStorage.getItem("Alchemy.expanded_ingredient_groups") || "[]"
+      localStorage.getItem("Alchemy.expanded_ingredient_groups") || "[]"
     )
 
     // Add or remove depending on whether this ingredient group is expanded
@@ -195,7 +195,7 @@ export class ElementEditor extends HTMLElement {
       )
     }
 
-    sessionStorage.setItem(
+    localStorage.setItem(
       "Alchemy.expanded_ingredient_groups",
       JSON.stringify(expanded_ingredient_groups)
     )
