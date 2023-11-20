@@ -3,6 +3,8 @@ window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 # Adds buttons into a toolbar inside of overlay windows
 Alchemy.ToolbarButton = (options) ->
   $btn = $('<div class="button_with_label" />')
+  if options.align
+    $btn.addClass(options.align)
   if options.buttonId
     $btn.attr(id: options.buttonId)
   $lnk = $("<a title='#{options.title}' class='icon_button' href='#' />")
@@ -14,7 +16,7 @@ Alchemy.ToolbarButton = (options) ->
     return
   $lnk.append "<i class='icon fas fa-#{options.iconClass} fa-fw' />"
   $btn.append $lnk
-  $btn.append "<br><label>#{options.label}</label>"
+  $btn.append "<br><label class='#{options.align || "left"}-aligned'>#{options.label}</label>"
   $btn
 
 Alchemy.ElementsWindow =
@@ -33,6 +35,7 @@ Alchemy.ElementsWindow =
     @button.click =>
       @hide()
       false
+
     window.requestAnimationFrame =>
       spinner = new Alchemy.Spinner('medium')
       spinner.spin @element_area[0]
@@ -56,10 +59,17 @@ Alchemy.ElementsWindow =
     @reload()
 
   createToolbar: (buttons) ->
-    @toolbar = $('<div id="overlay_toolbar"/>')
+    @toolbar = $('<div class="elements-window-toolbar" />')
+    buttons.push
+      label: "Collapse all elements"
+      iconClass: "compress-alt"
+      align: "right"
+      onClick: =>
+        $("alchemy-element-editor:not([compact]):not([fixed])").each () ->
+          @collapse()
     for btn in buttons
       @toolbar.append Alchemy.ToolbarButton(btn)
-    @toolbar
+    @toolbar.append @collapseAllBtn
 
   reload: ->
     $.get @url, (data) =>

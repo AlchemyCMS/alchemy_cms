@@ -25,6 +25,17 @@
   }
 }
 
+.elements-window-toolbar {
+  @extend %gradiated-toolbar;
+  display: flex;
+  padding: 2 * $default-padding;
+  border-bottom: $default-border;
+
+  .right {
+    margin-left: auto;
+  }
+}
+
 #element_area {
   height: calc(100vh - #{$top-menu-height + $toolbar-height});
   overflow-x: hidden;
