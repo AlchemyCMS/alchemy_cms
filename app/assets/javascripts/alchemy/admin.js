@@ -25,4 +25,3 @@
 //= require alchemy/alchemy.list_filter
 //= require alchemy/alchemy.uploader
 //= require alchemy/alchemy.preview_window
-//= require alchemy/node_select
