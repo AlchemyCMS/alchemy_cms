@@ -18,6 +18,7 @@ module Alchemy
 
       def attributes
         options = {
+          "allow-clear": true,
           placeholder: @placeholder,
           url: @url || alchemy.api_nodes_path
         }

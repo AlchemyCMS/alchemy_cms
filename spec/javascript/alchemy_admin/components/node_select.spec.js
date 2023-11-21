@@ -18,7 +18,7 @@ describe("alchemy-node-select", () => {
   describe("without configuration", () => {
     beforeEach(() => {
       const html = `
-        <alchemy-node-select>
+        <alchemy-node-select allow-clear>
           <input type="text">
         </alchemy-node-select>
       `

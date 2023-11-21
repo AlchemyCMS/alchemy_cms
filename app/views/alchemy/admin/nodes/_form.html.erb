@@ -32,14 +32,14 @@
   const nodeUrl = document.getElementById("node_url")
   const form = document.getElementById("node_form")
 
-  form.addEventListener("Alchemy.PageSelect.PageAdded", (event) => {
+  form.addEventListener("Alchemy.PageSelect.ItemAdded", (event) => {
     const page = event.detail
     nodeName.setAttribute("placeholder", page.name)
     nodeUrl.value = page.url_path
     nodeUrl.setAttribute("disabled", "disabled")
   })
 
-  form.addEventListener("Alchemy.PageSelect.PageRemoved", (event) => {
+  form.addEventListener("Alchemy.PageSelect.ItemRemoved", (event) => {
     nodeName.removeAttribute("placeholder")
     nodeUrl.value = ""
     nodeUrl.removeAttribute("disabled")
