@@ -113,7 +113,7 @@
       type: Select
       hint: true
       settings:
-        select_values: [A, B, C]
+        select_values: [A, B, C, D, E, F, G, H, I, J, K, L, M]
       validate:
         - uniqueness
     - role: boolean
