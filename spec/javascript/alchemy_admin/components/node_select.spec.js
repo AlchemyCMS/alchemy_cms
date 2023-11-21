@@ -91,7 +91,7 @@ describe("alchemy-node-select", () => {
     })
 
     it("should add the query parameter to the API call", () => {
-      expect(component.ajaxConfig.data("test").q.foo).toEqual("bar")
+      expect(component.ajaxConfig.data("test").filter.foo).toEqual("bar")
     })
   })
 })

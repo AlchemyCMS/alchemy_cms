@@ -3,7 +3,7 @@ import { RemoteSelect } from "./remote_select"
 class NodeSelect extends RemoteSelect {
   _searchQuery(term, page) {
     return {
-      q: {
+      filter: {
         name_or_page_name_cont: term,
         ...JSON.parse(this.queryParams)
       },
