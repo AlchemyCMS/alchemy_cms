@@ -22,6 +22,7 @@ $.fx.speeds._default = 400
 // Web Components
 import "alchemy_admin/components/char_counter"
 import "alchemy_admin/components/datepicker"
+import "alchemy_admin/components/node_select"
 import "alchemy_admin/components/overlay"
 import "alchemy_admin/components/page_select"
 import "alchemy_admin/components/select"
