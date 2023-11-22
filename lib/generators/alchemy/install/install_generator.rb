@@ -114,7 +114,6 @@ module Alchemy
         rake("alchemy:install:migrations", abort_on_failure: true)
         rake("db:migrate", abort_on_failure: true)
         install_tasks.inject_seeder
-        rake("db:seed", abort_on_failure: true)
       end
 
       def finalize
