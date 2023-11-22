@@ -18,7 +18,7 @@ describe("alchemy-node-select", () => {
   describe("without configuration", () => {
     beforeEach(() => {
       const html = `
-        <alchemy-node-select>
+        <alchemy-node-select allow-clear>
           <input type="text">
         </alchemy-node-select>
       `
@@ -91,7 +91,7 @@ describe("alchemy-node-select", () => {
     })
 
     it("should add the query parameter to the API call", () => {
-      expect(component.ajaxConfig.data("test").q.foo).toEqual("bar")
+      expect(component.ajaxConfig.data("test").filter.foo).toEqual("bar")
     })
   })
 })

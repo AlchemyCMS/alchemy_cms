@@ -48,6 +48,10 @@ module Alchemy
 
       private
 
+      def searchable_alchemy_resource_associations
+        %w[page]
+      end
+
       # Reads the element definitions file named +menus.yml+ from +config/alchemy/+ folder.
       #
       def read_definitions_file
