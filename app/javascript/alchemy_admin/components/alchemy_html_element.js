@@ -86,6 +86,16 @@ export class AlchemyHTMLElement extends HTMLElement {
   afterRender() {}
 
   /**
+   * Dispatches a custom event with given name
+   * @param {string} name The name of the custom event
+   * @param {object} detail Optional event details
+   */
+  dispatchCustomEvent(name, detail = {}) {
+    const event = new CustomEvent(`Alchemy.${name}`, { bubbles: true, detail })
+    this.dispatchEvent(event)
+  }
+
+  /**
    * (re)render the component content inside the component container
    * @private
    */
