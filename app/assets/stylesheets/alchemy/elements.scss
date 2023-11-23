@@ -48,16 +48,15 @@
 
   textarea {
     width: 100%;
-
-    &.has_tinymce {
-      // We need to do this, because globally all texareas have height: auto !important
-      height: 140px !important;
-    }
   }
 
   > .message {
     margin: 2 * $default-margin;
   }
+}
+
+alchemy-tinymce {
+  display: block;
 }
 
 #main-content-elements,
