@@ -15,7 +15,6 @@
   $element_area = $('[name="fixed-element-<%= @element.id %>"]');
 <% elsif @element.parent_element %>
   $element_area = $('#element_<%= @element.parent_element_id %> > .nestable-elements > .nested-elements');
-  Alchemy.Buttons.enable('.nestable-elements');
 <% else %>
   $element_area = $('#main-content-elements');
 <% end %>

@@ -109,9 +109,6 @@ class window.Alchemy.Dialog
   # Watches ajax requests inside of dialog body and replaces the content accordingly
   watch_remote_forms: ->
     form = $('[data-remote="true"]', @dialog_body)
-    form.bind "ajax:complete", () =>
-      Alchemy.Buttons.enable(@dialog_body)
-      return
     form.bind "ajax:success", (event) =>
       xhr = event.detail[2]
       content_type = xhr.getResponseHeader('Content-Type')

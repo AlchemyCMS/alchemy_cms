@@ -1,7 +1,6 @@
 import TagsAutocomplete from "alchemy_admin/tags_autocomplete"
 
 function init(scope) {
-  Alchemy.Buttons.observe(scope)
   if (!scope) {
     Alchemy.watchForDialogs()
   }

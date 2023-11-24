@@ -1,7 +1,6 @@
 import "@hotwired/turbo-rails"
 import Rails from "@rails/ujs"
 
-import Buttons from "alchemy_admin/buttons"
 import GUI from "alchemy_admin/gui"
 import { translate } from "alchemy_admin/i18n"
 import Dirty from "alchemy_admin/dirty"
@@ -21,6 +20,7 @@ import PagePublicationFields from "alchemy_admin/page_publication_fields"
 $.fx.speeds._default = 400
 
 // Web Components
+import "alchemy_admin/components/button"
 import "alchemy_admin/components/char_counter"
 import "alchemy_admin/components/datepicker"
 import "alchemy_admin/components/node_select"
@@ -41,7 +41,6 @@ if (typeof window.Alchemy === "undefined") {
 
 // Enhance the global Alchemy object with imported features
 Object.assign(Alchemy, {
-  Buttons,
   ...Dirty,
   GUI,
   t: translate, // Global utility method for translating a given string

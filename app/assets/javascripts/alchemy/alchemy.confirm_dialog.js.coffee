@@ -31,7 +31,6 @@ class window.Alchemy.ConfirmDialog extends Alchemy.Dialog
     @cancel_button.focus()
     @cancel_button.click =>
       @close()
-      Alchemy.Buttons.enable()
       false
     @ok_button.click =>
       @close()
