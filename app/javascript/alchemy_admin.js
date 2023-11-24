@@ -1,4 +1,5 @@
 import "@hotwired/turbo-rails"
+import Rails from "@rails/ujs"
 
 import Buttons from "alchemy_admin/buttons"
 import GUI from "alchemy_admin/gui"
@@ -56,5 +57,7 @@ Object.assign(Alchemy, {
   Spinner,
   PagePublicationFields
 })
+
+Rails.start()
 
 $(document).on("turbo:load", Initializer)
