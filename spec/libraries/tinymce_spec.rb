@@ -20,5 +20,17 @@ module Alchemy
         expect(Tinymce.init).to include(another_config)
       end
     end
+
+    describe ".preloadable_plugins" do
+      subject { Tinymce.preloadable_plugins }
+
+      before do
+        Tinymce.plugins += ["foo"]
+      end
+
+      it "returns all plugins without default plugins" do
+        is_expected.to eq(%w[alchemy_link foo])
+      end
+    end
   end
 end
