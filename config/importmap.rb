@@ -6,6 +6,7 @@ pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true
 pin "@shoelace/tab", to: "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/components/tab/tab.js", preload: true
 pin "@shoelace/tab-group", to: "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/components/tab-group/tab-group.js", preload: true
 pin "@shoelace/tab-panel", to: "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/components/tab-panel/tab-panel.js", preload: true
+pin "@rails/ujs", to: "https://ga.jspm.io/npm:@rails/ujs@7.1.2/app/assets/javascripts/rails-ujs.esm.js"
 
 pin "alchemy_admin", to: "alchemy_admin.js", preload: true
 pin_all_from File.expand_path("../app/javascript/alchemy_admin", __dir__), under: "alchemy_admin"

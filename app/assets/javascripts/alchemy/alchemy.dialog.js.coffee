@@ -109,17 +109,23 @@ class window.Alchemy.Dialog
   # Watches ajax requests inside of dialog body and replaces the content accordingly
   watch_remote_forms: ->
     form = $('[data-remote="true"]', @dialog_body)
-    form.bind "ajax:complete", (e, xhr, status) =>
-      content_type = xhr.getResponseHeader('Content-Type')
+    form.bind "ajax:complete", () =>
       Alchemy.Buttons.enable(@dialog_body)
-      if status == 'success'
-        if content_type.match(/javascript/)
-          return
-        else
-          @dialog_body.html(xhr.responseText)
-          @init()
+      return
+    form.bind "ajax:success", (event) =>
+      xhr = event.detail[2]
+      content_type = xhr.getResponseHeader('Content-Type')
+      if content_type.match(/javascript/)
+        return
       else
-        @show_error(xhr, status)
+        @dialog_body.html(xhr.responseText)
+        @init()
+      return
+    form.bind "ajax:error", (event, b, c) =>
+      statusText = event.detail[1]
+      xhr = event.detail[2]
+      @show_error(xhr, statusText)
+      return
 
   # Displays an error message
   show_error: (xhr, status_message, $container = @dialog_body) ->
