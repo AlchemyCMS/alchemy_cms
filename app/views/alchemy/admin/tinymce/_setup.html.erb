@@ -1,0 +1,18 @@
+<script>
+  // Setting TinyMCE path.
+  var tinyMCEPreInit = {
+    <% if ActionController::Base.config.asset_host_set? %>
+    base: '<%= asset_url(assets_prefix + '/tinymce') %>',
+    <% else %>
+    base: '<%= asset_path(assets_prefix + '/tinymce') %>',
+    <% end %>
+    suffix: '.min'
+  };
+  // Holds the default Alchemy TinyMCE configuration
+  Alchemy.TinymceDefaults = {
+    plugins: '<%= Alchemy::Tinymce.plugins.join(',') %>',
+    <% Alchemy::Tinymce.init.each do |k, v| %>
+    <%= k %>: <%== v.to_json %>,
+    <% end %>
+  };
+</script>
