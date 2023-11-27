@@ -1,32 +1,28 @@
-<%= form_for [:admin, object], html: {multipart: true, class: 'upload-button'} do |f| %>
-  <%= f.file_field file_attribute,
-    class: 'fileupload fileupload--field', multiple: true,
-    name: "#{f.object_name}[#{file_attribute}]", tabindex: '-1' %>
-  <%= hidden_field_tag("#{f.object_name}[upload_hash]", Time.current.hash) if object.respond_to?(:upload_hash) %>
-  <%= f.label file_attribute, data: {alchemy_hotkey: 'alt+n'} do %>
-    <%= content_tag "sl-tooltip", content: local_assigns[:label] || Alchemy.t(:button_label, scope: [:uploader, object.class.model_name.i18n_key]), placement: "top-start" do %>
-      <span class="icon_button" tabindex="0"><%= render_icon "upload-2" %></span>
+<% file_types = configuration(:uploader)['allowed_filetypes'][object.class.model_name.collection] || ['*'] %>
+<% accept = file_types == ["*"] ? false : file_types.map {|type| ".#{type}"}.join(", ") %>
+
+<alchemy-uploader dropzone="<%= local_assigns[:dropzone] || "#main_content" %>">
+  <%= form_for [:admin, object], html: { multipart: true, class: 'upload-button' } do |f| %>
+    <%= f.file_field file_attribute,
+      class: 'fileupload fileupload--field', multiple: true, accept: accept,
+      name: "#{f.object_name}[#{file_attribute}]", tabindex: '-1' %>
+    <%= hidden_field_tag("#{f.object_name}[upload_hash]", Time.current.hash) if object.respond_to?(:upload_hash) %>
+    <%= f.label file_attribute, data: { alchemy_hotkey: 'alt+n' } do %>
+      <%= content_tag "sl-tooltip", content: local_assigns[:label] ||
+                Alchemy.t(:button_label, scope: [:uploader, object.class.model_name.i18n_key]), placement: "top-start" do %>
+        <span class="icon_button" tabindex="0"><%= render_icon "upload-2" %></span>
+      <% end %>
     <% end %>
   <% end %>
-<% end %>
-
-<% file_types = local_assigns[:file_types].presence ||
-  configuration(:uploader)['allowed_filetypes'][object.class.model_name.collection] || ['*'] %>
+</alchemy-uploader>
 
 <script type='text/javascript'>
-  $(function() {
-    var options = {
-      file_types: '<%= file_types.join("|") %>',
-      dropzone: '<%= local_assigns[:dropzone] || '#main_content' %>',
-      complete: function() {
-        var url = '<%= redirect_url.html_safe %>';
-      <% if local_assigns[:in_dialog] %>
-        $.get(url, null, null, 'script');
-      <% else %>
-        Turbo.visit(url);
-      <% end %>
-      }
-    };
-    Alchemy.Uploader(options);
-  });
+  document.querySelector("alchemy-uploader").addEventListener("Alchemy.Upload.Complete", () => {
+    var url = '<%= redirect_url.html_safe %>';
+    <% if local_assigns[:in_dialog] %>
+    $.get(url, null, null, 'script');
+    <% else %>
+    Turbo.visit(url);
+    <% end %>
+  })
 </script>
