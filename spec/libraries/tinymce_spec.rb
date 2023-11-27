@@ -29,7 +29,20 @@ module Alchemy
       end
 
       it "returns all plugins without default plugins" do
-        is_expected.to eq(%w[alchemy_link foo])
+        is_expected.to eq %w[
+          anchor
+          charmap
+          code
+          directionality
+          fullscreen
+          hr
+          link
+          lists
+          paste
+          tabfocus
+          alchemy_link
+          foo
+        ]
       end
     end
   end

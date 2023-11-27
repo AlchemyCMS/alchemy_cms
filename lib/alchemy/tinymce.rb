@@ -4,7 +4,7 @@ module Alchemy
   module Tinymce
     mattr_accessor :languages, :plugins
 
-    DEFAULT_PLUGINS = %w[anchor charmap code directionality fullscreen hr link lists paste tabfocus table]
+    DEFAULT_PLUGINS = %w[anchor charmap code directionality fullscreen hr link lists paste tabfocus]
 
     @@plugins = DEFAULT_PLUGINS + %w[alchemy_link]
     @@init = {
@@ -36,7 +36,7 @@ module Alchemy
       end
 
       def preloadable_plugins
-        @@plugins - DEFAULT_PLUGINS
+        @@plugins
       end
     end
   end
