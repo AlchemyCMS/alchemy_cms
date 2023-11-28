@@ -244,7 +244,7 @@ window.Alchemy.openDialog = (url, options) ->
 
 # Watches elements for Alchemy Dialogs
 #
-# Links having a data-alchemy-dialog or data-alchemy-confirm-delete
+# Links having a data-alchemy-confirm-delete
 # and input/buttons having a data-alchemy-confirm attribute get watched.
 #
 # You can pass a scope so that only elements inside this scope are queried.
@@ -254,13 +254,6 @@ window.Alchemy.openDialog = (url, options) ->
 # See Alchemy.Dialog for further options you can add to the data attribute
 #
 window.Alchemy.watchForDialogs = (scope = '#alchemy') ->
-  $(scope).on 'click', '[data-alchemy-dialog]:not(.disabled)', (event) ->
-    $this = $(this)
-    url = $this.attr('href')
-    options = $this.data('alchemy-dialog')
-    Alchemy.openDialog(url, options)
-    event.preventDefault()
-    return
   $(scope).on 'click', '[data-alchemy-confirm-delete]', (event) ->
     $this = $(this)
     options = $this.data('alchemy-confirm-delete')

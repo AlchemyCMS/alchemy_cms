@@ -55,7 +55,10 @@ module Alchemy
         default_options = {modal: true}
         options = default_options.merge(options)
         link_to content, url,
-          html_options.merge("data-alchemy-dialog" => options.to_json)
+          html_options.merge(
+            "data-dialog-options" => options.to_json,
+            :is => "alchemy-dialog-link"
+          )
       end
 
       # Used for translations selector in Alchemy cockpit user settings.
