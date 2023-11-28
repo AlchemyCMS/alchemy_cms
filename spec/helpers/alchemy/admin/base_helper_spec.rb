@@ -4,6 +4,23 @@ require "rails_helper"
 
 module Alchemy
   describe Admin::BaseHelper do
+    describe "#link_to_dialog" do
+      it "renders a alchemy-dialog-link" do
+        link = helper.link_to_dialog("Open", admin_dashboard_path)
+        expect(link).to have_css %(a[href="#{admin_dashboard_path}"][is="alchemy-dialog-link"])
+      end
+
+      it "passes options to alchemy-dialog-link" do
+        link = helper.link_to_dialog("Open", admin_dashboard_path, {size: "800x600"})
+        expect(link).to match %(data-dialog-options="{&quot;modal&quot;:true,&quot;size&quot;:&quot;800x600&quot;}")
+      end
+
+      it "passes html options to alchemy-dialog-link" do
+        link = helper.link_to_dialog("Open", admin_dashboard_path, {}, {id: "my-link"})
+        expect(link).to have_css("a#my-link")
+      end
+    end
+
     describe "#toolbar_button" do
       context "with permission" do
         before { allow(helper).to receive(:can?).and_return(true) }
