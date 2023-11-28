@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.0.7 (2023-11-28)
+
+- [7.0] Disable Turbolinks on menubar [#2622](https://github.com/AlchemyCMS/alchemy_cms/pull/2622) ([tvdeyen](https://github.com/tvdeyen))
+- [7.0-stable] Merge pull request #2617 from kennyadsl/patch-1 [#2618](https://github.com/AlchemyCMS/alchemy_cms/pull/2618) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.0.6 (2023-11-15)
 
 - [7.0-stable] Merge pull request #2612 from sascha-karnatz/harden-page-publisher [#2613](https://github.com/AlchemyCMS/alchemy_cms/pull/2613) ([alchemycms-bot](https://github.com/alchemycms-bot))
