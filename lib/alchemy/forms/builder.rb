@@ -41,10 +41,11 @@ module Alchemy
       #
       def submit(label, options = {})
         options = {
-          wrapper_html: {class: "submit"}
+          wrapper_html: {class: "submit"},
+          input_html: {is: "alchemy-button"}
         }.update(options)
         template.content_tag("div", options.delete(:wrapper_html)) do
-          template.content_tag("button", label, options.delete(:input_html))
+          template.button_tag(label, options.delete(:input_html))
         end
       end
     end

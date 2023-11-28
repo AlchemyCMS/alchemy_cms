@@ -55,6 +55,10 @@ describe("get", () => {
   })
 
   it("network errors get rejected", async () => {
+    global.console = {
+      ...console,
+      error: jest.fn()
+    }
     xhrMock.get("http://localhost/users", () => {
       return Promise.reject(new Error())
     })

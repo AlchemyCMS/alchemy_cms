@@ -175,7 +175,6 @@ Alchemy.ElementEditors =
     # Prevent this event from beeing called twice on the same element
     if event.currentTarget == event.target
       Alchemy.setElementClean($element)
-      Alchemy.Buttons.enable($element)
     true
 
   # Toggle visibility of the ingredient fields in the group

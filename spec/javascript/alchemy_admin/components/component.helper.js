@@ -6,7 +6,7 @@
  */
 export const renderComponent = (name, html) => {
   document.body.innerHTML = html
-  return document.querySelector(name)
+  return document.querySelector(`${name}, [is="${name}"]`)
 }
 
 export const setupLanguage = () => {

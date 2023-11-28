@@ -21,7 +21,6 @@
   $errors.html('<%= j @error_message %><ul><li><%== j @error_messages.join("</li><li>") %></li></ul>');
   $errors.show();
   $('<%== @element.ingredients_with_errors.map { |ingredient| "[data-ingredient-id=\"#{ingredient.id}\"]" }.join(", ") %>').addClass('validation_failed');
-  Alchemy.Buttons.enable($el);
 
 <%- end -%>
 })();
