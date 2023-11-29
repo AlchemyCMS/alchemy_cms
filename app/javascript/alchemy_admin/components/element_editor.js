@@ -104,7 +104,7 @@ export class ElementEditor extends HTMLElement {
   }
 
   /**
-   * Scrolls and highlights element
+   * Scrolls to and highlights element
    * Expands if collapsed
    * Also chooses the right fixed elements tab, if necessary.
    * Can be triggered through custom event 'FocusElementEditor.Alchemy'
@@ -219,9 +219,11 @@ export class ElementEditor extends HTMLElement {
    * @param {boolean} scroll smoothly scroll element into view. Default (false)
    */
   selectElement(scroll = false) {
-    document.querySelectorAll("alchemy-element-editor").forEach((el) => {
-      el.classList.remove("selected")
-    })
+    document
+      .querySelectorAll("alchemy-element-editor.selected")
+      .forEach((el) => {
+        el.classList.remove("selected")
+      })
     window.requestAnimationFrame(() => {
       this.classList.add("selected")
     })
@@ -252,7 +254,7 @@ export class ElementEditor extends HTMLElement {
    */
   setClean() {
     this.dirty = false
-    window.onbeforeunload = () => {}
+    window.onbeforeunload = null
     this.dispatchEvent(
       new CustomEvent("alchemy:element-clean", { bubbles: true })
     )
@@ -302,7 +304,7 @@ export class ElementEditor extends HTMLElement {
    */
   collapse() {
     if (this.collapsed || this.compact || this.fixed) {
-      return Promise.resolve()
+      return Promise.resolve("Element is already collapsed.")
     }
 
     const spinner = new Alchemy.Spinner("small")
@@ -318,7 +320,7 @@ export class ElementEditor extends HTMLElement {
         // Collapse all nested elements if necessarry
         if (data.nestedElementIds.length) {
           const selector = data.nestedElementIds
-            .map((e) => `#element_${e.id}`)
+            .map((id) => `#element_${id}`)
             .join(", ")
           this.querySelectorAll(selector).forEach((nestedElement) => {
             nestedElement.collapsed = true
@@ -342,7 +344,7 @@ export class ElementEditor extends HTMLElement {
    */
   expand() {
     if (this.expanded && !this.compact) {
-      return Promise.resolve()
+      return Promise.resolve("Element is already expanded.")
     }
 
     if (this.compact && this.parentElementEditor) {
@@ -367,7 +369,7 @@ export class ElementEditor extends HTMLElement {
                 parentElement.toggleButton?.setAttribute("title", data.title)
               })
             }
-            // Finally collapse ourselve
+            // Finally expand ourselve
             this.collapsed = false
             this.toggleButton?.setAttribute("title", data.title)
             // Resolve the promise that scrolls to the element very last
@@ -376,7 +378,7 @@ export class ElementEditor extends HTMLElement {
           .catch((error) => {
             Alchemy.growl(error.message, "error")
             console.error(error)
-            reject()
+            reject(error)
           })
           .finally(() => {
             this.toggleIcon?.classList?.remove("hidden")
@@ -405,14 +407,14 @@ export class ElementEditor extends HTMLElement {
    * @returns {boolean}
    */
   get compact() {
-    return !!this.getAttribute("compact")
+    return this.getAttribute("compact") !== null
   }
 
   /**
    * @returns {boolean}
    */
   get fixed() {
-    return !!this.getAttribute("fixed")
+    return this.getAttribute("fixed") !== null
   }
 
   /**
