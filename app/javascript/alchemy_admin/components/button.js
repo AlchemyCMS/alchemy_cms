@@ -3,7 +3,19 @@ import Spinner from "../spinner"
 class Button extends HTMLButtonElement {
   connectedCallback() {
     if (this.form) {
-      this.form.addEventListener("submit", (event) => {
+      this.form.addEventListener("submit", this)
+
+      if (this.form.dataset.remote == "true") {
+        this.form.addEventListener("ajax:complete", this)
+      }
+    } else {
+      console.warn("No form for button found!", this)
+    }
+  }
+
+  handleEvent(event) {
+    switch (event.type) {
+      case "submit":
         const isDisabled = this.getAttribute("disabled") === "disabled"
 
         if (isDisabled) {
@@ -12,15 +24,10 @@ class Button extends HTMLButtonElement {
         } else {
           this.disable()
         }
-      })
-
-      if (this.form.dataset.remote == "true") {
-        this.form.addEventListener("ajax:complete", () => {
-          this.enable()
-        })
-      }
-    } else {
-      console.warn("No form for button found!", this)
+        break
+      case "ajax:complete":
+        this.enable()
+        break
     }
   }
 
