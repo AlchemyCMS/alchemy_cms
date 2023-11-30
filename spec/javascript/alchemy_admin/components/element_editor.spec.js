@@ -222,31 +222,6 @@ describe("alchemy-element-editor", () => {
     })
   })
 
-  describe("on click on ingredient group header", () => {
-    it("stores ingredient group state in localStorage", () => {
-      editor = getComponent(`
-        <alchemy-element-editor id="element_123">
-          <form class="element-body">
-            <details class="ingredient-group">
-              <summary>Details</summary>
-              <div class="ingredient-group-ingredients"></div>
-            </details>
-          </form>
-        </alchemy-element-editor>
-      `)
-      const group = editor.querySelector("details")
-      expect(
-        localStorage.hasOwnProperty("Alchemy.expanded_ingredient_groups")
-      ).toBeFalsy()
-      const click = new Event("toggle", { bubbles: true })
-      group.dispatchEvent(click)
-      expect(
-        localStorage.hasOwnProperty("Alchemy.expanded_ingredient_groups")
-      ).toBeTruthy()
-      localStorage.clear()
-    })
-  })
-
   describe("if editor has nested elements", () => {
     beforeEach(() => {
       editor = getComponent(`

@@ -58,14 +58,6 @@ export class ElementEditor extends HTMLElement {
     }
 
     if (this.body) {
-      this.body
-        .querySelectorAll(".ingredient-group")
-        .forEach((ingredientGroup) => {
-          ingredientGroup.addEventListener("toggle", () => {
-            this.onToggleIngredientGroup(ingredientGroup)
-          })
-        })
-
       // We use of @rails/ujs for Rails remote forms
       this.body.addEventListener("ajax:success", (event) => {
         const responseJSON = event.detail[0]
@@ -80,25 +72,6 @@ export class ElementEditor extends HTMLElement {
         this.setDirty()
       })
     }
-
-    if (localStorage.hasOwnProperty("Alchemy.expanded_ingredient_groups")) {
-      this.expandIngredientGroups()
-    }
-  }
-
-  /**
-   * Expands ingredient groups that are stored in localStorage as expanded
-   */
-  expandIngredientGroups() {
-    const expanded_ingredient_groups = localStorage.getItem(
-      "Alchemy.expanded_ingredient_groups"
-    )
-    Array.from(JSON.parse(expanded_ingredient_groups)).forEach((group_id) => {
-      const group = document.querySelector(`#${group_id}`)
-      if (group) {
-        group.open = true
-      }
-    })
   }
 
   /**
@@ -168,32 +141,6 @@ export class ElementEditor extends HTMLElement {
         IngredientAnchorLink.updateIcon(anchor.ingredientId, anchor.active)
       })
     }
-  }
-
-  /**
-   * Toggle visibility of the ingredient fields in the group
-   * @param {HTMLLinkElement} group
-   */
-  onToggleIngredientGroup(group) {
-    let expanded_ingredient_groups = JSON.parse(
-      localStorage.getItem("Alchemy.expanded_ingredient_groups") || "[]"
-    )
-
-    // Add or remove depending on whether this ingredient group is expanded
-    if (group.open) {
-      if (expanded_ingredient_groups.indexOf(group.id) === -1) {
-        expanded_ingredient_groups.push(group.id)
-      }
-    } else {
-      expanded_ingredient_groups = expanded_ingredient_groups.filter(
-        (value) => value !== group.id
-      )
-    }
-
-    localStorage.setItem(
-      "Alchemy.expanded_ingredient_groups",
-      JSON.stringify(expanded_ingredient_groups)
-    )
   }
 
   /**
