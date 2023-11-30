@@ -122,4 +122,4 @@ jobs:
       - name: Install yarn
         run: yarn install
       - name: Run jest
-        run: yarn jest
+        run: yarn jest --verbose
