@@ -37,15 +37,13 @@
 
           <!-- Each ingredient group -->
           <% element.ingredients.select { |i| i.definition[:group] }.group_by { |i| i.definition[:group] }.each do |group, ingredients| %>
-            <div class="ingredient-group">
-              <%= link_to '#', id: "element_#{element.id}_ingredient_group_#{group.parameterize.underscore}_header", class: 'ingredient-group-header', data: { toggle_ingredient_group: true } do %>
+            <%= content_tag :details, class: "ingredient-group", id: "element_#{element.id}_ingredient_group_#{group.parameterize.underscore}" do %>
+              <summary>
                 <%= element.translated_group group %>
                 <i class="ingredient-group-expand icon fa-fw fa-angle-down fas"></i>
-              <% end %>
-              <%= content_tag :div, id: "element_#{element.id}_ingredient_group_#{group.parameterize.underscore}", class: 'ingredient-group-ingredients' do %>
-                <%= render ingredients, element_form: f %>
-              <% end %>
-            </div>
+              </summary>
+              <%= render ingredients, element_form: f %>
+            <% end %>
           <% end %>
         </div>
       <% end %>

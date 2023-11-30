@@ -147,38 +147,9 @@ RSpec.describe "The edit elements feature", type: :system do
     # Need to be on page editor rather than just admin_elements in order to have JS interaction
     before { visit alchemy.edit_admin_page_path(element.page) }
 
-    scenario "collapsed ingredient groups shown", :js do
-      # No group ingredient initially visible
-      expect(page).not_to have_selector(".ingredient-group-ingredients", visible: true)
-
-      page.find("a#element_#{element.id}_ingredient_group_details_header", text: "Details").click
-      # 'Details' group ingredient visible
-      expect(page).to have_selector("#element_#{element.id}_ingredient_group_details", visible: true)
-      within("#element_#{element.id}_ingredient_group_details") do
-        expect(page).to have_selector("[data-ingredient-role='description']")
-        expect(page).to have_selector("[data-ingredient-role='key_words']")
-      end
-      expect(page).to have_selector("#element_#{element.id}_ingredient_group_details", visible: true)
-
-      # 'Size' group ingredient not visible
-      expect(page).not_to have_selector("#element_#{element.id}_ingredient_group_size", visible: true)
-
-      page.find("a#element_#{element.id}_ingredient_group_size_header", text: "Size").click
-      # 'Size' group now visible
-      expect(page).to have_selector("#element_#{element.id}_ingredient_group_size", visible: true)
-      within("#element_#{element.id}_ingredient_group_size") do
-        expect(page).to have_selector("[data-ingredient-role='width']")
-        expect(page).to have_selector("[data-ingredient-role='height']")
-      end
-
-      page.find("a#element_#{element.id}_ingredient_group_size_header", text: "Size").click
-      # 'Size' group hidden
-      expect(page).not_to have_selector("#element_#{element.id}_ingredient_group_size", visible: true)
-    end
-
     scenario "expanded ingredient groups persist between visits", :js do
       expect(page).not_to have_selector("#element_#{element.id}_ingredient_group_details", visible: true)
-      page.find("a#element_#{element.id}_ingredient_group_details_header", text: "Details").click
+      page.find("details#element_#{element.id}_ingredient_group_details", text: "Details").click
       expect(page).to have_selector("#element_#{element.id}_ingredient_group_details", visible: true)
       visit alchemy.edit_admin_page_path(element.page)
       expect(page).to have_selector("#element_#{element.id}_ingredient_group_details", visible: true)

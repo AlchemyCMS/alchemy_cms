@@ -9,8 +9,6 @@ import { createHtmlElement } from "../utils/dom_helpers"
 
 export class ElementEditor extends HTMLElement {
   connectedCallback() {
-    const self = this
-
     // The placeholder while be being dragged is empty.
     if (this.classList.contains("ui-sortable-placeholder")) {
       return
@@ -40,15 +38,6 @@ export class ElementEditor extends HTMLElement {
         this.toggle()
       }
     })
-    on(
-      "click",
-      this.bodySelector,
-      "[data-toggle-ingredient-group]",
-      function (event) {
-        self.onToggleIngredientGroup(this)
-        event.preventDefault()
-      }
-    )
 
     if (this.hasChildren) {
       this.addEventListener("alchemy:element-update-title", (event) => {
@@ -69,6 +58,14 @@ export class ElementEditor extends HTMLElement {
     }
 
     if (this.body) {
+      this.body
+        .querySelectorAll(".ingredient-group")
+        .forEach((ingredientGroup) => {
+          ingredientGroup.addEventListener("toggle", () => {
+            this.onToggleIngredientGroup(ingredientGroup)
+          })
+        })
+
       // We use of @rails/ujs for Rails remote forms
       this.body.addEventListener("ajax:success", (event) => {
         const responseJSON = event.detail[0]
@@ -96,10 +93,11 @@ export class ElementEditor extends HTMLElement {
     const expanded_ingredient_groups = localStorage.getItem(
       "Alchemy.expanded_ingredient_groups"
     )
-    Array.from(JSON.parse(expanded_ingredient_groups)).forEach((header_id) => {
-      const header = document.querySelector(`#${header_id}`)
-      const group = header?.closest(".ingredient-group")
-      group?.classList.add("expanded")
+    Array.from(JSON.parse(expanded_ingredient_groups)).forEach((group_id) => {
+      const group = document.querySelector(`#${group_id}`)
+      if (group) {
+        group.open = true
+      }
     })
   }
 
@@ -174,24 +172,21 @@ export class ElementEditor extends HTMLElement {
 
   /**
    * Toggle visibility of the ingredient fields in the group
-   * @param {HTMLLinkElement} target
+   * @param {HTMLLinkElement} group
    */
-  onToggleIngredientGroup(target) {
-    const group_div = target.closest(".ingredient-group")
-    group_div.classList.toggle("expanded")
-
+  onToggleIngredientGroup(group) {
     let expanded_ingredient_groups = JSON.parse(
       localStorage.getItem("Alchemy.expanded_ingredient_groups") || "[]"
     )
 
     // Add or remove depending on whether this ingredient group is expanded
-    if (group_div.classList.contains("expanded")) {
-      if (expanded_ingredient_groups.indexOf(target.id) === -1) {
-        expanded_ingredient_groups.push(target.id)
+    if (group.open) {
+      if (expanded_ingredient_groups.indexOf(group.id) === -1) {
+        expanded_ingredient_groups.push(group.id)
       }
     } else {
       expanded_ingredient_groups = expanded_ingredient_groups.filter(
-        (value) => value !== target.id
+        (value) => value !== group.id
       )
     }
 

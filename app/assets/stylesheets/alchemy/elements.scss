@@ -459,7 +459,7 @@ alchemy-tinymce {
     padding-bottom: 0;
   }
 
-  .ingredient-group-header {
+  summary {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -468,17 +468,13 @@ alchemy-tinymce {
     padding: $default-padding 1px;
   }
 
-  .ingredient-group-ingredients {
-    display: none;
-  }
-
-  &.expanded {
-    .ingredient-group-ingredients {
-      display: block;
-    }
-
+  &[open] {
     .ingredient-group-expand {
       @extend .fa-angle-up;
+    }
+
+    > :not(summary) {
+      box-sizing: border-box;
     }
   }
 }
