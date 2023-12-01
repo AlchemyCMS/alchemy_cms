@@ -282,8 +282,12 @@
     }
 
     .ingredient-editor,
-    .picture_thumbnail {
+    .ingredient-editor.picture .picture_thumbnail {
       width: 100%;
+    }
+
+    .ingredient-editor.picture {
+      padding-right: 1px;
     }
 
     .picture_thumbnail {
@@ -455,14 +459,6 @@
   flex-wrap: wrap;
 }
 
-.picture_thumbnail .picture_image {
-  overflow: hidden;
-
-  img.img_paddingtop {
-    @extend .disable-user-select;
-  }
-}
-
 #fixed-elements {
   min-height: 100px;
 }
@@ -563,25 +559,50 @@
 
 .ingredient-editor.picture {
   position: relative;
+  width: 50%;
+  padding-left: 1px; // Compensate the box shadow
+
+  + .picture {
+    padding-left: $default-padding;
+    padding-right: 1px; // Compensate the box shadow
+  }
 
   .picture_thumbnail {
     display: inline-block;
     width: 160px;
     margin: $default-margin 0;
     padding-bottom: 28px;
+
+    .picture_image {
+      overflow: hidden;
+      border-top-right-radius: var(--picture-thumbnail-border-radius);
+      border-top-left-radius: var(--picture-thumbnail-border-radius);
+
+      img.img_paddingtop {
+        @extend .disable-user-select;
+      }
+    }
+
+    img {
+      --picture-thumbnail-border-radius: 0;
+    }
   }
 
   &.validation_failed .picture_thumbnail {
     border-color: $error_border_color;
   }
 
-  .thumbnail_background .icon {
-    font-size: 4em;
-    color: $medium-gray;
-    vertical-align: top;
+  .thumbnail_background {
+    height: 120px;
 
-    &.error {
-      font-size: 1.2em;
+    .icon {
+      font-size: 4em;
+      color: $medium-gray;
+      vertical-align: top;
+
+      &.error {
+        font-size: 1.2em;
+      }
     }
   }
 
@@ -837,17 +858,6 @@ select.long {
       .select2-container {
         width: 170px;
       }
-    }
-  }
-
-  &.picture {
-    width: 50%;
-    padding-left: 1px; // Compensate the box shadow
-    padding-right: $default-padding;
-
-    + .picture {
-      padding-left: $default-padding;
-      padding-right: 1px; // Compensate the box shadow
     }
   }
 }
