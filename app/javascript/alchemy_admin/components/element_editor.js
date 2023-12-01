@@ -3,7 +3,6 @@ import ImageLoader from "alchemy_admin/image_loader"
 import fileEditors from "alchemy_admin/file_editors"
 import pictureEditors from "alchemy_admin/picture_editors"
 import IngredientAnchorLink from "alchemy_admin/ingredient_anchor_link"
-import { on } from "alchemy_admin/utils/events"
 import { post } from "alchemy_admin/utils/ajax"
 import { createHtmlElement } from "../utils/dom_helpers"
 
@@ -23,12 +22,8 @@ export class ElementEditor extends HTMLElement {
     TagsAutocomplete(this)
 
     // Add event listeners
-    this.addEventListener("click", (evt) => {
-      const elementEditor = evt.target.closest("alchemy-element-editor")
-      if (elementEditor === this) {
-        this.onClickElement()
-      }
-    })
+    this.addEventListener("click", this)
+
     this.header?.addEventListener("dblclick", () => {
       this.toggle()
     })
@@ -40,37 +35,52 @@ export class ElementEditor extends HTMLElement {
     })
 
     if (this.hasChildren) {
-      this.addEventListener("alchemy:element-update-title", (event) => {
-        if (event.target == this.firstChild) {
-          this.setTitle(event.detail.title)
-        }
-      })
-      this.addEventListener("alchemy:element-dirty", (event) => {
-        if (event.target !== this) {
-          this.setDirty()
-        }
-      })
-      this.addEventListener("alchemy:element-clean", (event) => {
-        if (event.target !== this) {
-          this.setClean()
-        }
-      })
+      this.addEventListener("alchemy:element-update-title", this)
+      this.addEventListener("alchemy:element-dirty", this)
+      this.addEventListener("alchemy:element-clean", this)
     }
 
     if (this.body) {
       // We use of @rails/ujs for Rails remote forms
-      this.body.addEventListener("ajax:success", (event) => {
+      this.addEventListener("ajax:success", this)
+      // Dirty observer
+      this.addEventListener("change", this)
+    }
+  }
+
+  handleEvent(event) {
+    switch (event.type) {
+      case "click":
+        const elementEditor = event.target.closest("alchemy-element-editor")
+        if (elementEditor === this) {
+          this.onClickElement()
+        }
+        break
+      case "ajax:success":
         const responseJSON = event.detail[0]
         event.stopPropagation()
         this.onSaveElement(responseJSON)
-      })
-      // Dirty observer
-      on("change", this.bodySelector, "input, select", (event) => {
-        const content = event.target
+        break
+      case "alchemy:element-update-title":
+        if (event.target == this.firstChild) {
+          this.setTitle(event.detail.title)
+        }
+        break
+      case "alchemy:element-dirty":
+        if (event.target !== this) {
+          this.setDirty()
+        }
+        break
+      case "alchemy:element-clean":
+        if (event.target !== this) {
+          this.setClean()
+        }
+        break
+      case "change":
         event.stopPropagation()
-        content.classList.add("dirty")
+        event.target.classList.add("dirty")
         this.setDirty()
-      })
+        break
     }
   }
 
