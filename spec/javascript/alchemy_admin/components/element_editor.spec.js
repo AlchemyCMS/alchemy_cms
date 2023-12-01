@@ -276,14 +276,53 @@ describe("alchemy-element-editor", () => {
   })
 
   describe("on ajax:success", () => {
-    it("sets element to saved state", () => {
-      const event = new CustomEvent("ajax:success", {
-        bubbles: true,
-        detail: [{ ingredientAnchors: [] }]
+    describe("if event was triggered on this element", () => {
+      it("sets element to saved state", () => {
+        const event = new CustomEvent("ajax:success", {
+          bubbles: true,
+          detail: [{ ingredientAnchors: [] }]
+        })
+        editor.dirty = true
+        editor.body.dispatchEvent(event)
+        expect(editor.dirty).toBeFalsy()
       })
-      editor.dirty = true
-      editor.body.dispatchEvent(event)
-      expect(editor.dirty).toBeFalsy
+    })
+
+    describe("if event was triggered on child element", () => {
+      it("does not set parent element to saved", () => {
+        editor = getComponent(`
+          <alchemy-element-editor id="element_456" data-element-id="456" class="expanded">
+            <div class="element-header">
+              <div class="preview_text_quote">Lorem Ipsum</div>
+            </div>
+            <div class="nested-elements">
+              <alchemy-element-editor id="element_123" data-element-id="123" class="expanded">
+              </alchemy-element-editor>
+              <alchemy-element-editor id="element_789" data-element-id="789" class="dirty">
+                <div class="element-header">
+                  <div class="preview_text_quote">Child Lorem ipsum</div>
+                </div>
+                <form class="element-body">
+                  <div class="element_errors">
+                    <ul class="error-messages"></ul>
+                  </div>
+                </form>
+              </alchemy-element-editor>
+            </div>
+          </alchemy-element-editor>
+        `)
+        const event = new CustomEvent("ajax:success", {
+          bubbles: true,
+          detail: [{ previewText: "Child Element", ingredientAnchors: [] }]
+        })
+        const childElement = editor.querySelector("#element_789")
+        childElement.dirty = true
+        childElement.body.dispatchEvent(event)
+        expect(
+          editor.header.querySelector(".preview_text_quote").textContent
+        ).toBe("Lorem Ipsum")
+        expect(childElement.dirty).toBeFalsy()
+      })
     })
   })
 

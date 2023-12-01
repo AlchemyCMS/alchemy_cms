@@ -7,6 +7,31 @@ import { post } from "alchemy_admin/utils/ajax"
 import { createHtmlElement } from "../utils/dom_helpers"
 
 export class ElementEditor extends HTMLElement {
+  constructor() {
+    super()
+
+    // Add event listeners
+    this.addEventListener("click", this)
+    // Triggered by child elements
+    this.addEventListener("alchemy:element-update-title", this)
+    this.addEventListener("alchemy:element-dirty", this)
+    this.addEventListener("alchemy:element-clean", this)
+    // We use of @rails/ujs for Rails remote forms
+    this.addEventListener("ajax:success", this)
+    // Dirty observer
+    this.addEventListener("change", this)
+
+    this.header?.addEventListener("dblclick", () => {
+      this.toggle()
+    })
+    this.toggleButton?.addEventListener("click", (evt) => {
+      const elementEditor = evt.target.closest("alchemy-element-editor")
+      if (elementEditor === this) {
+        this.toggle()
+      }
+    })
+  }
+
   connectedCallback() {
     // The placeholder while be being dragged is empty.
     if (this.classList.contains("ui-sortable-placeholder")) {
@@ -20,32 +45,6 @@ export class ElementEditor extends HTMLElement {
     )
     pictureEditors(`#${this.id} .ingredient-editor.picture`)
     TagsAutocomplete(this)
-
-    // Add event listeners
-    this.addEventListener("click", this)
-
-    this.header?.addEventListener("dblclick", () => {
-      this.toggle()
-    })
-    this.toggleButton?.addEventListener("click", (evt) => {
-      const elementEditor = evt.target.closest("alchemy-element-editor")
-      if (elementEditor === this) {
-        this.toggle()
-      }
-    })
-
-    if (this.hasChildren) {
-      this.addEventListener("alchemy:element-update-title", this)
-      this.addEventListener("alchemy:element-dirty", this)
-      this.addEventListener("alchemy:element-clean", this)
-    }
-
-    if (this.body) {
-      // We use of @rails/ujs for Rails remote forms
-      this.addEventListener("ajax:success", this)
-      // Dirty observer
-      this.addEventListener("change", this)
-    }
   }
 
   handleEvent(event) {
@@ -57,9 +56,11 @@ export class ElementEditor extends HTMLElement {
         }
         break
       case "ajax:success":
-        const responseJSON = event.detail[0]
-        event.stopPropagation()
-        this.onSaveElement(responseJSON)
+        if (event.target === this.body) {
+          const responseJSON = event.detail[0]
+          event.stopPropagation()
+          this.onSaveElement(responseJSON)
+        }
         break
       case "alchemy:element-update-title":
         if (event.target == this.firstChild) {
