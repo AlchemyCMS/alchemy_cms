@@ -1,6 +1,6 @@
 <tr class="<%= cycle('even', 'odd') %>">
   <td class="icon">
-    <%= render_icon attachment.icon_css_class, style: 'regular', size: 'lg' %>
+    <%= render_icon attachment.icon_css_class %>
   </td>
   <td class="name">
   <% if can?(:show, attachment) %>
@@ -26,7 +26,7 @@
   <td class="tools long">
   <% if can?(:show, attachment) %>
     <%= link_to_dialog(
-      render_icon('info-circle'),
+      render_icon(:information),
       alchemy.admin_attachment_path(attachment),
       {
         title: attachment.name,

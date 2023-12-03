@@ -59,7 +59,7 @@ $form-field-border-style: $default-border-style !default;
 $form-field-border-color: $default-border-color $default-border-color
   $border-inset-color $border-inset-color !default;
 $form-field-box-shadow: inset 0px 0 1px $medium-gray !default;
-$form-field-padding: 0.6em 0.75em !default;
+$form-field-padding: $default-padding 2 * $default-padding !default;
 $form-field-font-size: $default-font-size !default;
 $form-field-line-height: 1.25 !default;
 $form-field-text-color: $text-color !default;
@@ -80,7 +80,7 @@ $button-font-weight: 700 !default;
 $button-text-shadow: none !default;
 $button-box-shadow: 0px 1px 1px -1px #333 !default;
 $button-focus-box-shadow: 0px 1px 1px 0px $button-focus-border-color !default;
-$button-padding: 0.55em 2em !default;
+$button-padding: $default-padding 5 * $default-padding !default;
 $small-button-padding: 0.4em 0.8em !default;
 $button-margin: $form-field-margin !default;
 

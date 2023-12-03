@@ -1,4 +1,4 @@
-<% dialog_link = link_to_dialog render_icon(:file, style: "regular"),
+<% dialog_link = link_to_dialog render_icon("file-add"),
   alchemy.admin_attachments_path(
     form_field_id: file_editor.form_field_id(:attachment_id),
     only: file_editor.settings[:only],
@@ -18,11 +18,11 @@
   <%= element_form.fields_for(:ingredients, file_editor.ingredient) do |f| %>
     <%= ingredient_label(file_editor) %>
     <div class="file">
-      <% if file_editor.attachment %>
-        <div class="file_icon">
+      <div class="file_icon">
+        <% if file_editor.attachment %>
           <%= render_icon(file_editor.attachment.icon_css_class) %>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
       <div class="file_name">
         <%= file_editor.attachment&.name %>
       </div>

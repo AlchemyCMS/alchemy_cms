@@ -5,7 +5,7 @@
   <%= hidden_field_tag("#{f.object_name}[upload_hash]", Time.current.hash) if object.respond_to?(:upload_hash) %>
   <%= f.label file_attribute, data: {alchemy_hotkey: 'alt+n'} do %>
     <div class="button_with_label">
-      <span class="icon_button" tabindex="0"><%= render_icon :upload %></span>
+      <span class="icon_button" tabindex="0"><%= render_icon "upload-2" %></span>
       <label>
         <%= local_assigns[:label] ||
           Alchemy.t(:button_label, scope: [:uploader, object.class.model_name.i18n_key]) %>

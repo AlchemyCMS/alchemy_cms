@@ -6,7 +6,6 @@
   position: relative;
 
   .button_with_label {
-
     form {
       margin: 0;
       display: inline-block;
@@ -22,6 +21,7 @@
 }
 
 .toolbar_buttons {
+  display: flex;
   margin-right: 8px;
   white-space: nowrap;
   overflow-x: auto;
@@ -38,7 +38,7 @@
     right: -8px;
     top: 0;
     margin-left: 8px;
-    padding: 8px;
+    padding: 8px 0;
     background-color: $toolbar-bg-color;
 
     label {
@@ -55,10 +55,21 @@
   }
 
   .icon_button {
-
     .icon {
-      font-size: 1.25em;
+      font-size: 1.5em;
       text-shadow: 0 0 1px rgba(#fff, 0.75);
+    }
+  }
+
+  .button_with_label {
+    margin: 0 2 * $default-margin;
+
+    &:first-child {
+      margin-left: $default-margin;
+
+      select {
+        margin-left: 2 * $default-margin;
+      }
     }
   }
 }
@@ -84,7 +95,7 @@
   position: relative;
   display: inline-block;
   vertical-align: top;
-  margin: 0 2*$default-margin;
+  margin: 0 2 * $default-margin;
 
   &:hover label {
     display: block;

@@ -1,16 +1,18 @@
 <% content_for :toolbar do %>
-  <%= toolbar_button(
-    icon: :plus,
-    label: Alchemy.t('New Tag'),
-    url: alchemy.new_admin_tag_path,
-    title: Alchemy.t('New Tag'),
-    hotkey: 'alt+n',
-    dialog_options: {
+  <div class="toolbar_buttons">
+    <%= toolbar_button(
+      icon: :plus,
+      label: Alchemy.t('New Tag'),
+      url: alchemy.new_admin_tag_path,
       title: Alchemy.t('New Tag'),
-      size: '310x180'
-    },
-    if_permitted_to: [:create, Alchemy::Tag]
-  ) %>
+      hotkey: 'alt+n',
+      dialog_options: {
+        title: Alchemy.t('New Tag'),
+        size: '310x180'
+      },
+      if_permitted_to: [:create, Alchemy::Tag]
+    ) %>
+  </div>
   <%= render 'alchemy/admin/partials/search_form' %>
 <% end %>
 

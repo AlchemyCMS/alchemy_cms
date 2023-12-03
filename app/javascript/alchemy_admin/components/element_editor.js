@@ -376,8 +376,8 @@ export class ElementEditor extends HTMLElement {
   set collapsed(value) {
     this.classList.toggle("folded", value)
     this.classList.toggle("expanded", !value)
-    this.toggleIcon?.classList?.toggle("fa-minus-square", !value)
-    this.toggleIcon?.classList?.toggle("fa-plus-square", value)
+    this.toggleIcon?.classList?.toggle("ri-arrow-down-s-line", !value)
+    this.toggleIcon?.classList?.toggle("ri-arrow-left-s-line", value)
   }
 
   /**

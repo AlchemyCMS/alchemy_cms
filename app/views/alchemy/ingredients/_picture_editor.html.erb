@@ -15,7 +15,7 @@
       },
       class: "picture_thumbnail" do %>
       <a class="picture_tool delete">
-        <%= render_icon(:times) %>
+        <%= render_icon("close") %>
       </a>
       <div class="picture_image">
         <div class="thumbnail_background">
@@ -27,7 +27,7 @@
               title: Alchemy.t(:image_name, name: picture_editor.picture.name),
             ) %>
           <% else %>
-            <%= render_icon(:image, style: "regular") %>
+            <%= render_icon(:image) %>
           <% end %>
         </div>
       </div>

@@ -177,7 +177,7 @@ module Alchemy
       context "mp3 file" do
         let(:attachment) { stub_model(Attachment, file_mime_type: "audio/mpeg") }
 
-        it { is_expected.to eq("file-audio") }
+        it { is_expected.to eq("file-music") }
       end
 
       context "video file" do
@@ -195,13 +195,13 @@ module Alchemy
       context "vcard file" do
         let(:attachment) { stub_model(Attachment, file_mime_type: "application/vcard") }
 
-        it { is_expected.to eq("address-card") }
+        it { is_expected.to eq("profile") }
       end
 
       context "zip file" do
         let(:attachment) { stub_model(Attachment, file_mime_type: "application/zip") }
 
-        it { is_expected.to eq("file-archive") }
+        it { is_expected.to eq("file-zip") }
       end
 
       context "photoshop file" do
@@ -213,49 +213,49 @@ module Alchemy
       context "text file" do
         let(:attachment) { stub_model(Attachment, file_mime_type: "text/plain") }
 
-        it { is_expected.to eq("file-alt") }
+        it { is_expected.to eq("file-text") }
       end
 
       context "rtf file" do
         let(:attachment) { stub_model(Attachment, file_mime_type: "application/rtf") }
 
-        it { is_expected.to eq("file-alt") }
+        it { is_expected.to eq("file-text") }
       end
 
       context "pdf file" do
         let(:attachment) { stub_model(Attachment, file_mime_type: "application/pdf") }
 
-        it { is_expected.to eq("file-pdf") }
+        it { is_expected.to eq("file-pdf-2") }
       end
 
       context "word file" do
         let(:attachment) { stub_model(Attachment, file_mime_type: "application/msword") }
 
-        it { is_expected.to eq("file-word") }
+        it { is_expected.to eq("file-word-2") }
       end
 
       context "excel file" do
         let(:attachment) { stub_model(Attachment, file_mime_type: "application/vnd.ms-excel") }
 
-        it { is_expected.to eq("file-excel") }
+        it { is_expected.to eq("file-excel-2") }
       end
 
       context "xlsx file" do
         let(:attachment) { stub_model(Attachment, file_mime_type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") }
 
-        it { is_expected.to eq("file-excel") }
+        it { is_expected.to eq("file-excel-2") }
       end
 
       context "csv file" do
         let(:attachment) { stub_model(Attachment, file_mime_type: "text/csv") }
 
-        it { is_expected.to eq("file-excel") }
+        it { is_expected.to eq("file-excel-2") }
       end
 
       context "unknown file" do
         let(:attachment) { stub_model(Attachment, file_mime_type: "") }
 
-        it { is_expected.to eq("file") }
+        it { is_expected.to eq("file-3") }
       end
     end
 

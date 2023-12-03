@@ -18,7 +18,7 @@
     onclick: "return false"
   } %>
 
-<%= link_to_dialog render_icon("file-image", style: "regular"),
+<%= link_to_dialog render_icon("image-add"),
   alchemy.admin_pictures_path(
     form_field_id: picture_editor.form_field_id(:picture_id)
   ),
@@ -29,23 +29,23 @@
   },
   title: (picture_editor.picture ? Alchemy.t(:swap_image) : Alchemy.t(:insert_image)) %>
 
-<%= link_to_if linkable, render_icon(:link), "", {
+<%= link_to_if linkable, render_icon("link", style: "m"), "", {
   onclick: "new Alchemy.LinkDialog(this).open(); return false;",
   class: picture_editor.linked? ? "linked" : nil,
   title: Alchemy.t(:link_image),
   "data-parent-selector": "[data-ingredient-id='#{picture_editor.id}']",
   id: "edit_link_#{picture_editor.id}"
 } do %>
-  <span class="disabled" tabindex="-1"><%= render_icon(:link) %></span>
+  <span class="disabled" tabindex="-1"><%= render_icon("link", style: "m") %></span>
 <% end %>
 
-<%= link_to_if linkable, render_icon(:unlink), "", {
+<%= link_to_if linkable, render_icon("link-unlink", style: "m"), "", {
   onclick: "return Alchemy.LinkDialog.removeLink(this, '[data-ingredient-id=\"#{picture_editor.id}\"]')",
   class: picture_editor.linked? ? "linked" : "disabled",
   tabindex: picture_editor.linked? ? nil : "-1",
   title: Alchemy.t(:unlink)
 } do %>
-  <span class="disabled" tabindex="-1"><%= render_icon(:unlink) %></span>
+  <span class="disabled" tabindex="-1"><%= render_icon("link-unlink", style: "m") %></span>
 <% end %>
 
 <%= link_to_dialog render_icon(:edit),

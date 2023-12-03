@@ -9,12 +9,16 @@ div.message {
   margin-bottom: 8px;
   text-align: left;
 
-  h1, h2, h3 { margin-top: 0 }
+  h1,
+  h2,
+  h3 {
+    margin-top: 0;
+  }
 
   .icon {
     position: absolute;
-    left: 8px;
-    top: 10px;
+    left: 2 * $default-margin;
+    top: 2 * $default-margin;
     color: inherit;
   }
 
@@ -54,7 +58,9 @@ div.message {
     color: $error_text_color;
   }
 
-  &.warning, &.warn, &.alert {
+  &.warning,
+  &.warn,
+  &.alert {
     background-color: $warning_background_color;
     border-color: $warning_border_color;
     color: $warning_text_color;

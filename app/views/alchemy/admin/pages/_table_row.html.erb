@@ -3,17 +3,17 @@
     <% if can?(:edit_content, page) %>
       <% if page.locked? %>
         <span class="with-hint">
-          <i class="icon fas fa-edit fa-fw"></i>
+          <i class="icon ri-file-edit-line ri-fw"></i>
           <span class="hint-bubble">
             <%= Alchemy.t("This page is locked", name: page.locker_name) %>
           </span>
         </span>
       <% else %>
-        <i class="icon far fa-file fa-lg"></i>
+        <i class="icon ri-file-line ri-fw"></i>
       <% end %>
     <% else %>
       <span class="with-hint">
-        <i class="icon fas fa-ban fa-fw"></i>
+        <i class="icon ri-file-forbid-line ri-fw"></i>
         <span class="hint-bubble">
           <%= Alchemy.t("Your user role does not allow you to edit this page") %>
         </span>
@@ -43,14 +43,7 @@
     <%= l(page.updated_at, format: :"alchemy.default") %>
   </td>
   <td class="status center">
-    <span class="page_status with-hint">
-      <i class="icon fas fa-fw fa-compass <% unless page.public? %>disabled<% end %>" data-fa-transform="shrink-2"></i>
-      <span class="hint-bubble"><%= page.status_title(:public) %></span>
-    </span>
-    <span class="page_status with-hint">
-      <i class="icon fas fa-fw fa-lock <% unless page.restricted? %>disabled<% end %>" data-fa-transform="shrink-2"></i>
-      <span class="hint-bubble"><%= page.status_title(:restricted) %></span>
-    </span>
+    <%= render "alchemy/admin/pages/page_infos", page: page %>
   </td>
   <td class="tools">
     <% if can?(:info, page) %>

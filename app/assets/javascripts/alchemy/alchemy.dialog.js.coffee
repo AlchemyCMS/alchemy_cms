@@ -174,7 +174,7 @@ class window.Alchemy.Dialog
     @dialog_body = $('<div class="alchemy-dialog-body" />')
     @dialog_header = $('<div class="alchemy-dialog-header" />')
     @dialog_title = $('<div class="alchemy-dialog-title" />')
-    @close_button = $('<a class="alchemy-dialog-close"><i class="icon fas fa-times fa-fw fa-xs"/></a>')
+    @close_button = $('<a class="alchemy-dialog-close"><i class="icon ri-close-line ri-fw" /></a>')
     @dialog_title.text(@options.title)
     @dialog_header.append(@dialog_title)
     @dialog_header.append(@close_button)
@@ -272,12 +272,12 @@ window.Alchemy.watchForDialogs = (scope = '#alchemy') ->
     event.preventDefault()
     return
 
-# Returns a FontAwesome icon for given message type
+# Returns a Remix icon for given message type
 #
 window.Alchemy.messageIcon = (messageType) ->
   icon_class = switch messageType
-    when "warning", "warn", "alert" then "exclamation"
+    when "warning", "warn", "alert" then "alert"
     when "notice" then "check"
     when "error" then "bug"
     else messageType
-  "<i class=\"icon fas fa-#{icon_class} fa-fw\" />"
+  "<i class=\"icon ri-#{icon_class}-line ri-fw\" />"

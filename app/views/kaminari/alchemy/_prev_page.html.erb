@@ -7,9 +7,11 @@
     remote:        data-remote
 -%>
 <% if current_page.first? -%>
-  <span class="previous_page disabled"><i class="icon fas fa-angle-left"></i></span>
+  <span class="previous_page disabled">
+    <i class="icon ri-arrow-left-s-line ri-fw"></i>
+  </span>
 <% else -%>
   <%= link_to url, rel: 'prev', remote: remote, class: 'previous_page', title: Alchemy.t(:previous_page, scope: 'pagination') do %>
-    <i class="icon fas fa-angle-left"></i>
+    <i class="icon ri-arrow-left-s-line ri-fw"></i>
   <% end %>
 <% end -%>

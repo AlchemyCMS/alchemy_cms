@@ -128,6 +128,7 @@ $sitemap-url-xlarge-width: 350px;
 
     a {
       display: block;
+      text-decoration: none;
     }
   }
 
@@ -213,8 +214,6 @@ $sitemap-url-xlarge-width: 350px;
   .page_urlname {
     display: none;
     margin-left: auto;
-    padding-left: 2 * $default-padding;
-    padding-right: 2 * $default-padding;
 
     @media screen and (min-width: $large-screen-break-point) {
       display: block;
@@ -228,7 +227,7 @@ $sitemap-url-xlarge-width: 350px;
 
   .page_status {
     padding-left: 2 * $default-padding;
-    margin-right: 188px;
+    margin-right: 190px;
     margin-left: auto;
 
     @media screen and (min-width: $large-screen-break-point) {

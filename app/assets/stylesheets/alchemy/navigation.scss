@@ -48,7 +48,7 @@
   position: relative;
   display: block;
   line-height: 46px;
-  margin-bottom: 3*$default-padding;
+  margin-bottom: 3 * $default-padding;
   background-color: transparent;
   transition: background-color $transition-duration $transition-easing;
 
@@ -62,11 +62,13 @@
     }
   }
 
-  &.active, &:hover {
+  &.active,
+  &:hover {
     background-color: $main-menu-active-bg-color;
     cursor: default;
 
-    a, .icon {
+    a,
+    .icon {
       color: $main-menu-active-text-color;
       text-decoration: none;
       text-shadow: none;
@@ -85,8 +87,8 @@
     top: 0;
     left: $collapsed-main-menu-width - 1;
     width: auto;
-    padding-left: 4*$default-padding;
-    padding-right: 4*$default-padding;
+    padding-left: 4 * $default-padding;
+    padding-right: 4 * $default-padding;
     visibility: hidden;
     opacity: 0;
     background-color: $main-menu-active-bg-color;
@@ -101,7 +103,7 @@
         visibility: visible;
         max-width: $main-menu-entry-max-width;
         opacity: 1;
-        padding-left: $default-padding;
+        padding-left: 2 * $default-padding;
         background-color: transparent;
       }
     }
@@ -122,9 +124,14 @@
     opacity: 1;
   }
 
-  img, .icon {
-    display: inline-block;
+  img,
+  svg,
+  .icon {
+    display: inline-flex;
     width: 24px;
+    height: 24px;
+    align-items: center;
+    justify-content: center;
   }
 
   img {
@@ -135,11 +142,15 @@
 
   .icon {
     vertical-align: -0.15em;
+    font-size: 20px;
+    font-weight: 400;
     color: inherit;
   }
 
   a {
-    display: block;
+    display: flex;
+    align-items: center;
+    height: 46px;
     padding-left: 3 * $default-padding;
     font-weight: bold;
     color: $main-menu-text-color;
@@ -172,14 +183,15 @@
   }
 
   a {
-    padding-left: 4*$default-padding;
-    padding-right: 4*$default-padding;
+    padding-left: 4 * $default-padding;
+    padding-right: 4 * $default-padding;
     background-color: transparent;
     transition: background-color $transition-duration $transition-easing;
     @include truncate($main-menu-width, $display: block, $wrap: nowrap);
   }
 
-  &.active a, a:hover {
+  &.active a,
+  a:hover {
     background-color: darken($dark-orange, 5%);
   }
 }
@@ -235,8 +247,8 @@
 
 .locked_page {
   display: flex;
+  align-items: center;
   flex-wrap: nowrap;
-  line-height: $header-height - 1;
   color: #444;
   border-right: $default-border;
   border-bottom: $default-border;
@@ -255,8 +267,9 @@
 
   > a {
     display: flex;
+    align-items: end;
     cursor: pointer;
-    padding-left: 2 * $default-padding;
+    padding: $default-padding 2 * $default-padding;
 
     &:focus {
       @include default-focus-style($box-shadow: inset 0 0 0 2px $focus-color);
@@ -279,7 +292,6 @@
     color: $muted-text-color;
     font-size: $small-font-size;
     margin-right: $default-margin;
-    line-height: 31px;
   }
 
   .page_language {

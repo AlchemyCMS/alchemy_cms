@@ -19,21 +19,21 @@ module Alchemy
       end
     end
 
-    # Render a Fontawesome icon
+    # Render a Remix icon
     #
-    # @param icon_class [String] Fontawesome icon name
-    # @param size: nil [String] Fontawesome icon size
-    # @param transform: nil [String] Fontawesome transform style
+    # @param icon_name [String] icon name
+    # @option options - style: nil [String] icon style. line or fill
+    # @option options - size: nil [String] icon size
     #
     # @return [String]
-    def render_icon(icon_class, options = {})
-      options = {style: "solid"}.merge(options)
+    def render_icon(icon_name, options = {})
+      options = {style: "line", fixed_width: true}.merge(options)
+      style = options[:style] && "-#{options[:style]}"
       classes = [
-        "icon fa-fw",
-        "fa-#{icon_class}",
-        "fa#{options[:style].first}",
-        options[:size] ? "fa-#{options[:size]}" : nil,
-        options[:transform] ? "fa-#{options[:transform]}" : nil,
+        "icon",
+        "ri-#{ri_icon(icon_name)}#{style}",
+        options[:size] ? "ri-#{options[:size]}" : nil,
+        options[:fixed_width] ? "ri-fw" : nil,
         options[:class]
       ].compact
       content_tag("i", nil, class: classes)
@@ -87,10 +87,10 @@ module Alchemy
       end
     end
 
-    # Returns the FontAwesome icon name for given message type
+    # Returns the icon name for given message type
     #
     # @param message_type [String] The message type. One of +warning+, +info+, +notice+, +error+
-    # @return [String] The FontAwesome icon name
+    # @return [String] The icon name
     def message_icon_class(message_type)
       case message_type.to_s
       when "warning", "warn", "alert" then "exclamation"
@@ -98,6 +98,39 @@ module Alchemy
       when "error" then "bug"
       else
         message_type
+      end
+    end
+
+    private
+
+    # Returns the Remix icon name for given icon name
+    #
+    # @param icon_name [String] The icon name.
+    # @return [String] The Remix icon class
+    def ri_icon(icon_name)
+      case icon_name.to_s
+      when "minus", "remove", "delete"
+        "delete-bin-2"
+      when "plus"
+        "add"
+      when "copy"
+        "file-copy"
+      when "download"
+        "download-2"
+      when "upload"
+        "upload-2"
+      when "exclamation"
+        "alert"
+      when "info-circle", "info"
+        "information"
+      when "times"
+        "close"
+      when "tag"
+        "price-tag-3"
+      when "cog"
+        "settings-3"
+      else
+        icon_name
       end
     end
   end

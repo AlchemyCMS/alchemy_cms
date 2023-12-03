@@ -5,10 +5,10 @@ select {
     $background-color: $form-field-background-color,
     $hover-color: $form-field-background-color,
     $hover-border-color: darken($default-border-color, 10%),
-    $padding: 0.4em 26px 0.4em 0.6em,
+    $padding: $default-padding 26px $default-padding 2 * $default-padding,
     $border: 1px solid $default-border-color,
     $box-shadow: none,
-    $color: $text-color,
+    $color: $form-field-text-color,
     $margin: 0
   );
   height: $form-field-height;
@@ -19,11 +19,11 @@ select {
 
   background-image: var(
     --select-background-image,
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='#{$icon-color}' style='opacity: #{$addon-icon-opacity}' viewBox='0 0 320 512'%3E%3Cpath d='M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z'/%3E%3C/svg%3E")
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='#{$icon-color}' viewBox='0 0 24 24'%3E%3Cpath d='M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z'%3E%3C/path%3E%3C/svg%3E")
   );
-  background-position: right 0.75rem center;
+  background-position: right 0.75em center;
   background-repeat: no-repeat;
-  background-size: 0.75rem;
+  background-size: 1em;
 
   &.tiny {
     padding-right: 0.6em;
@@ -49,41 +49,46 @@ select {
         $padding: $form-field-padding,
         $border: 1px solid $default-border-color,
         $box-shadow: none,
-        $color: $text-color,
+        $color: $form-field-text-color,
         $margin: 0
       );
       background-image: none;
-      display: block;
+      display: flex;
+      gap: 2 * $default-padding;
+      align-items: center;
       font-weight: normal;
       text-align: left;
 
+      .select2-chosen {
+        flex-grow: 1;
+        margin-right: 0;
+      }
+
       .select2-arrow {
-        top: 0;
-        width: $form-field-height;
-        height: $form-field-height;
+        position: static;
         background: transparent;
         border-left: 0 none;
 
         b {
-          @extend .fas;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: "remixicon";
           background-image: none;
-          opacity: $addon-icon-opacity;
-          font-size: 14px;
-          line-height: 1;
+          font-weight: normal;
+          color: $icon-color;
 
           &:before {
-            content: fa-content($fa-var-caret-down);
-            position: absolute;
-            top: calc(50% - 2px);
-            left: calc(50% + 2px);
-            transform: translate(-50%, -50%);
+            content: $ri-arrow-down-s-line;
           }
         }
       }
 
       .select2-search-choice-close {
-        top: 9px;
-        right: 28px;
+        position: static;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
       }
     }
 
@@ -136,19 +141,16 @@ select {
   &.select2-container-multi,
   &.select2-allowclear {
     .select2-search-choice-close {
-      @extend .fas;
-      @extend .fa-fw;
+      font-family: "remixicon";
       left: auto;
-      right: 5px;
-      top: 5px;
+      right: $default-padding;
+      top: $default-padding;
       background: none;
-      font-size: $small-font-size;
+      font-size: 12px;
       text-decoration: none;
 
       &:before {
-        @extend .fa-xs;
-        content: fa-content($fa-var-times);
-        opacity: $addon-icon-opacity;
+        content: $ri-close-line;
       }
 
       &:hover {

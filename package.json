@@ -7,6 +7,7 @@
   "keywords": [],
   "author": "Thomas von Deyen",
   "license": "BSD-3-Clause",
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.22.11",
     "@babel/preset-env": "^7.22.11",
@@ -14,8 +15,8 @@
     "flatpickr": "^4.6.9",
     "jest": "^29.6.4",
     "jest-environment-jsdom": "^29.6.4",
-    "jsdom-testing-mocks": "^1.11.0",
     "jquery": "^2.2.4",
+    "jsdom-testing-mocks": "^1.11.0",
     "lodash-es": "^4.17.21",
     "prettier": "^3.0.0",
     "sortablejs": "^1.10.2",

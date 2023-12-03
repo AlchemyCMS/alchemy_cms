@@ -1,5 +1,5 @@
 <span class="edit-ingredient-anchor-link">
-  <%= link_to_dialog render_icon(:bookmark, { style: ingredient_editor.dom_id.present? ? "solid" : "regular" }),
+  <%= link_to_dialog render_icon(:bookmark, { style: ingredient_editor.dom_id.present? ? "fill" : "line" }),
     alchemy.edit_admin_ingredient_path(id: ingredient_editor.id),
     {
       title: Alchemy.t(:edit_anchor),

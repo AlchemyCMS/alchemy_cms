@@ -25,7 +25,7 @@ class NodeSelect extends RemoteSelect {
     const ancestors = node.ancestors.map((a) => a.name)
     return `
       <div class="node-select--node">
-        <i class="icon fas fa-list fa-lg"></i>
+        <i class="icon ri-menu-2-line"></i>
         <div class="node-select--node-display_name">
           <span class="node-select--node-ancestors">
             ${ancestors.join(" /&nbsp;")}

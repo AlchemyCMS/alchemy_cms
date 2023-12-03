@@ -4,13 +4,11 @@
       <% if navigation["image"] %>
         <%= image_tag(navigation["image"]) %>
       <% elsif navigation["inline_image"] %>
-        <span class="icon fa-fw">
-          <%== navigation["inline_image"] %>
-        </span>
+        <%== navigation["inline_image"] %>
       <% elsif navigation["icon"] %>
-        <i class="module icon fas fa-<%= navigation["icon"] %> fa-lg fa-fw"></i>
+        <i class="icon ri-<%= navigation["icon"] %>"></i>
       <% else %>
-        <i class="module icon fas fa-table fa-lg fa-fw"></i>
+        <i class="icon ri-table-line"></i>
       <% end %>
       <label><%= Alchemy.t(navigation['name']) %></label>
     <% end %>

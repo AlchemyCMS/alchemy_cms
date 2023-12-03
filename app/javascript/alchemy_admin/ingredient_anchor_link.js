@@ -7,11 +7,8 @@ export default class IngredientAnchorLink {
       const icon = ingredientEditor.querySelector(
         ".edit-ingredient-anchor-link > a > .icon"
       )
-      if (icon) {
-        active
-          ? icon.classList.replace("far", "fas")
-          : icon.classList.replace("fas", "far")
-      }
+      icon?.classList.toggle("ri-bookmark-fill", active)
+      icon?.classList.toggle("ri-bookmark-line", !active)
     }
   }
 }

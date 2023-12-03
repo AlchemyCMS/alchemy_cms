@@ -40,7 +40,7 @@
             <%= content_tag :details, class: "ingredient-group", id: "element_#{element.id}_ingredient_group_#{group.parameterize.underscore}", is: "alchemy-ingredient-group" do %>
               <summary>
                 <%= element.translated_group group %>
-                <i class="ingredient-group-expand icon fa-fw fa-angle-down fas"></i>
+                <i class="ingredient-group-expand icon ri-fw ri-arrow-left-s-line"></i>
               </summary>
               <%= render ingredients, element_form: f %>
             <% end %>

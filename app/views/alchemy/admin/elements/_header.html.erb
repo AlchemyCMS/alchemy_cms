@@ -5,11 +5,7 @@
     <% elsif element.deprecated? %>
       <%= hint_with_tooltip element.deprecation_notice %>
     <% else %>
-      <% if element.public? %>
-        <%= render_icon('window-maximize', style: 'regular', class: 'element') %>
-      <% else %>
-        <%= render_icon('window-close', class: 'element') %>
-      <% end %>
+      <%= render_icon('draggable', style: nil, class: 'element') %>
     <% end %>
   </span>
   <span class="element-title">
@@ -23,6 +19,6 @@
     title: Alchemy.t(element.folded? ? :show_element_content : :hide_element_content),
     class: "element-toggle"
   }) do %>
-    <%= render_icon element.folded? ? 'plus-square' : 'minus-square' %>
+    <%= render_icon element.folded? ? 'arrow-left-s' : 'arrow-down-s' %>
   <% end %>
 </div>
