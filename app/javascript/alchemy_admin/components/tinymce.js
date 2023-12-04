@@ -1,6 +1,11 @@
 import { AlchemyHTMLElement } from "./alchemy_html_element"
 import { currentLocale } from "alchemy_admin/i18n"
 
+const TOOLBAR_ROW_HEIGHT = 30
+const TOOLBAR_BORDER_WIDTH = 1
+const STATUSBAR_HEIGHT = 29.5
+const EDITOR_BORDER_WIDTH = 2
+
 class Tinymce extends AlchemyHTMLElement {
   /**
    * the observer will initialize Tinymce if the textarea becomes visible
@@ -53,6 +58,7 @@ class Tinymce extends AlchemyHTMLElement {
    * hide the textarea until TinyMCE is ready to show the editor
    */
   afterRender() {
+    this.style.minHeight = `${this.minHeight}px`
     this.editor.style.display = "none"
   }
 
@@ -72,11 +78,8 @@ class Tinymce extends AlchemyHTMLElement {
         this.getElementsByTagName("alchemy-spinner")[0].remove()
 
         // event listener to mark the editor as dirty
-        editor.on("dirty", () => Alchemy.setElementDirty(this.elementEditor))
-        editor.on("click", (event) => {
-          event.target = this.elementEditor
-          Alchemy.ElementEditors.onClickElement(event)
-        })
+        editor.on("dirty", () => this.elementEditor.setDirty())
+        editor.on("click", () => this.elementEditor.onClickElement(false))
       })
     })
   }
@@ -116,7 +119,27 @@ class Tinymce extends AlchemyHTMLElement {
   }
 
   get elementEditor() {
-    return document.getElementById(this.editorId).closest(".element-editor")
+    return document
+      .getElementById(this.editorId)
+      .closest("alchemy-element-editor")
+  }
+
+  get minHeight() {
+    let minHeight = this.configuration.min_height || 0
+
+    if (Array.isArray(this.configuration.toolbar)) {
+      minHeight += this.configuration.toolbar.length * TOOLBAR_ROW_HEIGHT
+      minHeight += TOOLBAR_BORDER_WIDTH
+    } else if (this.configuration.toolbar) {
+      minHeight += TOOLBAR_ROW_HEIGHT
+      minHeight += TOOLBAR_BORDER_WIDTH
+    }
+    if (this.configuration.statusbar) {
+      minHeight += STATUSBAR_HEIGHT
+    }
+    minHeight += EDITOR_BORDER_WIDTH
+
+    return minHeight
   }
 }
 

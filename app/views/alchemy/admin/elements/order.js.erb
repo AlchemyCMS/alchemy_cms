@@ -1,9 +1,8 @@
 (function() {
 <% if @parent_element && @parent_element.ingredients.empty? %>
-  var $parent = $('#element_<%= @parent_element.id %>');
-  Alchemy.ElementEditors.setTitle(
-    $parent,
-    '<%= sanitize(@parent_element.preview_text.presence || '&nbsp;') %>'
+  var parent = document.querySelector('#element_<%= @parent_element.id %>');
+  parent.setTitle(
+    '<%= sanitize(@parent_element.preview_text) %>'
   );
 <% end %>
   Alchemy.growl('<%= Alchemy.t(:successfully_saved_element_position) -%>');

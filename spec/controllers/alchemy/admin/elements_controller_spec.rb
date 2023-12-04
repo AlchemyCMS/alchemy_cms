@@ -244,51 +244,98 @@ module Alchemy
       end
     end
 
-    describe "#fold" do
-      subject { post :fold, params: {id: element.id}, xhr: true }
+    describe "#collapse" do
+      subject { post :collapse, params: {id: element.id} }
 
       let(:page) { create(:alchemy_page) }
+      let(:element) { create(:alchemy_element, folded: false) }
 
       before do
         element.touchable_pages << page
       end
 
-      context "if element is folded" do
-        let(:element) { create(:alchemy_element, folded: true) }
-
-        it "sets folded to false." do
-          expect(page).not_to receive(:touch)
-          expect { subject }.to change { element.reload.folded }.to(false)
-        end
+      it "sets folded to true." do
+        expect(page).not_to receive(:touch)
+        expect { subject }.to change { element.reload.folded }.to(true)
       end
 
-      context "if element is not folded" do
-        let(:element) { create(:alchemy_element, folded: false) }
+      context "if element has nested elements" do
+        let!(:nested_element) { create(:alchemy_element, parent_element: element) }
+        let!(:nested_nested_element) { create(:alchemy_element, parent_element: nested_element) }
+        let!(:nested_folded_element) { create(:alchemy_element, folded: true, parent_element: element) }
+        let!(:nested_nested_folded_element) { create(:alchemy_element, folded: true, parent_element: nested_folded_element) }
+        let!(:nested_compact_element) { create(:alchemy_element, :compact, parent_element: element) }
+        let!(:nested_nested_compact_element) { create(:alchemy_element, :compact, parent_element: nested_compact_element) }
 
-        it "sets folded to true." do
-          expect(page).not_to receive(:touch)
-          expect { subject }.to change { element.reload.folded }.to(true)
+        it "collapses all nested not compact elements" do
+          subject
+          aggregate_failures do
+            expect(nested_element.reload).to be_folded
+            expect(nested_nested_element.reload).to be_folded
+            expect(nested_folded_element.reload).to be_folded
+            expect(nested_nested_folded_element.reload).to be_folded
+            expect(nested_compact_element.reload).to_not be_folded
+            expect(nested_nested_compact_element.reload).to_not be_folded
+          end
         end
 
-        context "if element has nested elements" do
-          let!(:nested_element) { create(:alchemy_element, parent_element: element) }
-          let!(:nested_nested_element) { create(:alchemy_element, parent_element: nested_element) }
-          let!(:nested_folded_element) { create(:alchemy_element, folded: true, parent_element: element) }
-          let!(:nested_nested_folded_element) { create(:alchemy_element, folded: true, parent_element: nested_folded_element) }
-          let!(:nested_compact_element) { create(:alchemy_element, :compact, parent_element: element) }
-          let!(:nested_nested_compact_element) { create(:alchemy_element, :compact, parent_element: nested_compact_element) }
+        it "returns json" do
+          subject
+          expect(JSON.parse(response.body)).to eq({
+            "nestedElementIds" => [
+              nested_element.id,
+              nested_nested_element.id
+            ],
+            "title" => "Show content of this element."
+          })
+        end
+      end
+    end
 
-          it "collapses all nested not compact elements" do
-            subject
-            aggregate_failures do
-              expect(nested_element.reload).to be_folded
-              expect(nested_nested_element.reload).to be_folded
-              expect(nested_folded_element.reload).to be_folded
-              expect(nested_nested_folded_element.reload).to be_folded
-              expect(nested_compact_element.reload).to_not be_folded
-              expect(nested_nested_compact_element.reload).to_not be_folded
-            end
+    describe "#expand" do
+      subject { post :expand, params: {id: element.id} }
+
+      let(:page) { create(:alchemy_page) }
+      let(:element) { create(:alchemy_element, folded: true) }
+
+      before do
+        element.touchable_pages << page
+      end
+
+      it "sets folded to false." do
+        expect(page).not_to receive(:touch)
+        expect { subject }.to change { element.reload.folded }.to(false)
+      end
+
+      context "if element has parent elements" do
+        let!(:nested_element) { create(:alchemy_element, parent_element: element) }
+        let!(:nested_nested_element) { create(:alchemy_element, folded: true, parent_element: nested_element) }
+        let!(:nested_folded_element) { create(:alchemy_element, folded: true, parent_element: nested_nested_element) }
+        let!(:nested_nested_folded_element) { create(:alchemy_element, folded: true, parent_element: nested_folded_element) }
+
+        subject { post :expand, params: {id: nested_nested_folded_element.id} }
+
+        it "expands all parent elements" do
+          subject
+          aggregate_failures do
+            expect(nested_element.reload).to_not be_folded
+            expect(nested_nested_element.reload).to_not be_folded
+            expect(nested_folded_element.reload).to_not be_folded
+            expect(nested_nested_folded_element.reload).to_not be_folded
           end
+        end
+
+        it "returns json" do
+          subject
+          expect(JSON.parse(response.body)).to eq({
+            "parentElementIds" => [
+              element.id,
+              nested_element.id,
+              nested_nested_element.id,
+              nested_folded_element.id
+            ],
+            "title" => "Hide this elements content."
+          })
         end
       end
     end

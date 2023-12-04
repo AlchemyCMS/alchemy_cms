@@ -16,7 +16,7 @@ class FileEditor {
     this.fileIcon.innerHTML = ""
     this.fileName.innerHTML = ""
     this.deleteLink.classList.add("hidden")
-    Alchemy.setElementDirty(this.container.closest(".element-editor"))
+    this.container.closest("alchemy-element-editor").setDirty()
     return false
   }
 }

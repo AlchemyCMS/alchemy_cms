@@ -19,12 +19,10 @@
     </span>
   </span>
   <%= render_hint_for(element) %>
-  <%= link_to '#', {
-    'data-element-toggle' => element.id,
+  <%= button_tag({
     title: Alchemy.t(element.folded? ? :show_element_content : :hide_element_content),
-    id: "element_#{element.id}_folder",
-    class: "ajax-folder"
-  } do %>
+    class: "element-toggle"
+  }) do %>
     <%= render_icon element.folded? ? 'plus-square' : 'minus-square' %>
   <% end %>
 </div>

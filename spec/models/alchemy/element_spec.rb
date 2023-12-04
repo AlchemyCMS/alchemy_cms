@@ -609,6 +609,18 @@ module Alchemy
       end
     end
 
+    describe "#parent_element_ids" do
+      let(:page) { create(:alchemy_page) }
+
+      let!(:element1) { create(:alchemy_element, page_version: page.draft_version, name: "slider", autogenerate_nested_elements: false) }
+      let!(:element2) { create(:alchemy_element, page_version: page.draft_version, name: "slide", parent_element: element1) }
+      let!(:element3) { create(:alchemy_element, page_version: page.draft_version, name: "slide", parent_element: element2) }
+
+      it "returns parent element ids" do
+        expect(element3.parent_element_ids).to eq([element2.id, element1.id])
+      end
+    end
+
     describe ".after_update" do
       let(:element) { create(:alchemy_element, page_version: page_version) }
 

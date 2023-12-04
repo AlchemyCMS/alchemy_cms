@@ -48,7 +48,7 @@ Alchemy.initAlchemyPreviewMode = ->
 
       # Mark element in preview frame as selected and scrolls to it.
       selectElement: (element) ->
-        @blurElements()
+        @blurElements(element)
         element.classList.add('selected')
         Object.assign element.style, @getStyle('selected')
         element.scrollIntoView
@@ -57,10 +57,11 @@ Alchemy.initAlchemyPreviewMode = ->
         return
 
       # Blur all elements in preview frame.
-      blurElements: ->
+      blurElements: (selectedElement) ->
         @elements.forEach (element) =>
-          element.classList.remove('selected')
-          Object.assign element.style, @getStyle('reset')
+          if element != selectedElement
+            element.classList.remove('selected')
+            Object.assign element.style, @getStyle('reset')
           return
         return
 

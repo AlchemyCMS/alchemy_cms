@@ -45,7 +45,8 @@ Alchemy::Engine.routes.draw do
       end
       member do
         patch :publish
-        post :fold
+        post :collapse
+        post :expand
       end
     end
 

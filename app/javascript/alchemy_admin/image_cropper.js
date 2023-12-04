@@ -91,7 +91,10 @@ export default class ImageCropper {
 
   bind() {
     this.dialog.dialog_body.find('button[type="submit"]').click(() => {
-      Alchemy.setElementDirty(`[data-element-id='${this.elementId}']`)
+      const elementEditor = document.querySelector(
+        `[data-element-id='${this.elementId}']`
+      )
+      elementEditor.setDirty()
       this.dialog.close()
       return false
     })

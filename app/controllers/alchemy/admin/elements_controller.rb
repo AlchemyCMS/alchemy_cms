@@ -3,7 +3,7 @@
 module Alchemy
   module Admin
     class ElementsController < Alchemy::Admin::BaseController
-      before_action :load_element, only: [:update, :destroy, :fold, :publish]
+      before_action :load_element, only: [:update, :destroy, :collapse, :expand, :publish]
       authorize_resource class: Alchemy::Element
 
       def index
@@ -53,13 +53,25 @@ module Alchemy
       # Updates the element and all ingredients in the element.
       #
       def update
-        @page = @element.page
-
         if @element.update(element_params)
-          @element_validated = true
+          render json: {
+            notice: Alchemy.t(:element_saved),
+            previewText: Rails::Html::SafeListSanitizer.new.sanitize(@element.preview_text),
+            ingredientAnchors: @element.ingredients.select { |i| i.settings[:anchor] }.map do |ingredient|
+              {
+                ingredientId: ingredient.id,
+                active: ingredient.dom_id.present?
+              }
+            end
+          }
         else
-          element_update_error
-          @error_messages = @element.ingredient_error_messages
+          @warning = Alchemy.t("Validation failed")
+          render json: {
+            warning: @warning,
+            errorMessage: Alchemy.t(:ingredient_validations_headline),
+            ingredientsWithErrors: @element.ingredients_with_errors.map(&:id),
+            errors: @element.ingredient_error_messages
+          }
         end
       end
 
@@ -90,17 +102,35 @@ module Alchemy
         end
       end
 
-      # Toggle folds the element and persists the state in the db
+      # Collapses the element, all nested elements and persists the state in the db
       #
-      def fold
-        @page = @element.page
+      def collapse
         # We do not want to trigger the touch callback or any validations
-        @element.update_columns(folded: !@element.folded)
-        # Fold all nested elements if folded
-        if @element.folded?
-          ids = collapse_nested_elements_ids(@element)
-          Alchemy::Element.where(id: ids).update_all(folded: true)
-        end
+        @element.update_columns(folded: true)
+        # Collapse all nested elements
+        nested_elements_ids = collapse_nested_elements_ids(@element)
+        Alchemy::Element.where(id: nested_elements_ids).update_all(folded: true)
+
+        render json: {
+          nestedElementIds: nested_elements_ids,
+          title: Alchemy.t(@element.folded? ? :show_element_content : :hide_element_content)
+        }
+      end
+
+      # Expands the element, all parents and persists the state in the db
+      #
+      def expand
+        # We do not want to trigger the touch callback or any validations
+        @element.update_columns(folded: false)
+        # We want to expand the upper most parent first in order to prevent
+        # re-painting issues in the browser
+        parent_element_ids = @element.parent_element_ids.reverse
+        Alchemy::Element.where(id: parent_element_ids).update_all(folded: false)
+
+        render json: {
+          parentElementIds: parent_element_ids,
+          title: Alchemy.t(@element.folded? ? :show_element_content : :hide_element_content)
+        }
       end
 
       private
@@ -170,12 +200,6 @@ module Alchemy
 
       def create_element_params
         params.require(:element).permit(:name, :page_version_id, :parent_element_id)
-      end
-
-      def element_update_error
-        @element_validated = false
-        @notice = Alchemy.t("Validation failed")
-        @error_message = "<h2>#{@notice}</h2><p>#{Alchemy.t(:ingredient_validations_headline)}</p>".html_safe
       end
     end
   end

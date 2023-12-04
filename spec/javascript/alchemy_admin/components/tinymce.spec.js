@@ -74,4 +74,55 @@ describe("alchemy-tinymce", () => {
       expect(tinymceSettings.toolbar).toEqual("bold italic")
     })
   })
+
+  describe("minHeight", () => {
+    const html = `
+      <alchemy-tinymce>
+        <textarea id="tinymce-textarea"></textarea>
+      </alchemy-tinymce>
+    `
+
+    beforeEach(() => {
+      Alchemy.TinymceDefaults = {
+        toolbar: ["1", "2"],
+        statusbar: true,
+        min_height: 220
+      }
+    })
+
+    it("calculates with default config", () => {
+      const component = renderComponent("alchemy-tinymce", html)
+      expect(component.minHeight).toEqual(312.5)
+    })
+
+    it("calculates if toolbar is an array of 1", () => {
+      const component = renderComponent("alchemy-tinymce", html)
+      Alchemy.TinymceDefaults.toolbar = ["1"]
+      expect(component.minHeight).toEqual(282.5)
+    })
+
+    it("calculates if another min_height is set in config", () => {
+      const component = renderComponent("alchemy-tinymce", html)
+      Alchemy.TinymceDefaults.min_height = 123
+      expect(component.minHeight).toEqual(215.5)
+    })
+
+    it("calculates if toolbar is a string", () => {
+      const component = renderComponent("alchemy-tinymce", html)
+      Alchemy.TinymceDefaults.toolbar = "1|2"
+      expect(component.minHeight).toEqual(282.5)
+    })
+
+    it("calculates if toolbar is false", () => {
+      const component = renderComponent("alchemy-tinymce", html)
+      Alchemy.TinymceDefaults.toolbar = false
+      expect(component.minHeight).toEqual(251.5)
+    })
+
+    it("calculates if statusbar is false", () => {
+      const component = renderComponent("alchemy-tinymce", html)
+      Alchemy.TinymceDefaults.statusbar = false
+      expect(component.minHeight).toEqual(283)
+    })
+  })
 })

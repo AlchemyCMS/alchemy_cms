@@ -1,59 +1,62 @@
-<%= content_tag :div,
-  id: "element_#{element.id}",
-  data: {'element-id' => element.id, 'element-name' => element.name},
-  class: element.css_classes do %>
-
+<alchemy-element-editor
+  id="element_<%= element.id %>"
+  data-element-id="<%= element.id %>"
+  data-element-name="<%= element.name %>"
+  class="<%= element.css_classes %>"
+  <%= element.compact? ? "compact" : nil %>
+  <%= element.fixed? ? "fixed" : nil %>
+>
   <% unless element.fixed? %>
     <%= render 'alchemy/admin/elements/header', element: element %>
   <% end %>
 
-  <% if element.expanded? || element.fixed? %>
-    <%= render 'alchemy/admin/elements/toolbar', element: element %>
+  <%= render 'alchemy/admin/elements/toolbar', element: element %>
 
-    <% element.definition[:message].tap do |message| %>
-      <%= render_message(:info, sanitize(message)) if message %>
-    <% end %>
+  <% element.definition[:message].tap do |message| %>
+    <%= render_message(:info, sanitize(message)) if message %>
+  <% end %>
 
-    <% element.definition[:warning].tap do |warning| %>
-      <%= render_message(:warning, sanitize(warning)) if warning %>
-    <% end %>
+  <% element.definition[:warning].tap do |warning| %>
+    <%= render_message(:warning, sanitize(warning)) if warning %>
+  <% end %>
 
-    <% if element.editable? %>
-      <%= form_for [alchemy, :admin, element], remote: true,
-        html: {id: "element_#{element.id}_form".html_safe, class: 'element-body'} do |f| %>
+  <% if element.editable? %>
+    <%= form_for [alchemy, :admin, element], remote: true,
+      html: {id: "element_#{element.id}_form".html_safe, class: 'element-body'} do |f| %>
 
-        <div id="element_<%= element.id %>_errors" class="element_errors"></div>
+      <div id="element_<%= element.id %>_errors" class="element_errors hidden">
+        <h2><%= Alchemy.t("Validation failed") %></h2>
+        <p><%= Alchemy.t(:ingredient_validations_headline) %></p>
+        <ul class="error-messages"></ul>
+      </div>
 
-        <!-- Ingredients -->
-        <% if element.has_ingredients_defined? %>
-          <div class="element-ingredient-editors">
-            <%= render element.ingredients.select { |i| !i.definition[:group] }, element_form: f %>
+      <!-- Ingredients -->
+      <% if element.has_ingredients_defined? %>
+        <div class="element-ingredient-editors">
+          <%= render element.ingredients.select { |i| !i.definition[:group] }, element_form: f %>
 
-            <!-- Each ingredient group -->
-            <% element.ingredients.select { |i| i.definition[:group] }.group_by { |i| i.definition[:group] }.each do |group, ingredients| %>
-              <div class="ingredient-group">
-                <%= link_to '#', id: "element_#{element.id}_ingredient_group_#{group.parameterize.underscore}_header", class: 'ingredient-group-header', data: { toggle_ingredient_group: true } do %>
-                  <%= element.translated_group group %>
-                  <i class="ingredient-group-expand icon fa-fw fa-angle-down fas"></i>
-                <% end %>
-                <%= content_tag :div, id: "element_#{element.id}_ingredient_group_#{group.parameterize.underscore}", class: 'ingredient-group-ingredients' do %>
-                  <%= render ingredients, element_form: f %>
-                <% end %>
-              </div>
+          <!-- Each ingredient group -->
+          <% element.ingredients.select { |i| i.definition[:group] }.group_by { |i| i.definition[:group] }.each do |group, ingredients| %>
+            <%= content_tag :details, class: "ingredient-group", id: "element_#{element.id}_ingredient_group_#{group.parameterize.underscore}", is: "alchemy-ingredient-group" do %>
+              <summary>
+                <%= element.translated_group group %>
+                <i class="ingredient-group-expand icon fa-fw fa-angle-down fas"></i>
+              </summary>
+              <%= render ingredients, element_form: f %>
             <% end %>
-          </div>
-        <% end %>
-
-        <% if element.taggable? %>
-          <div class="autocomplete_tag_list">
-            <%= f.label :tag_list %>
-            <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f %>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
       <% end %>
 
-      <%= render 'alchemy/admin/elements/footer', element: element %>
+      <% if element.taggable? %>
+        <div class="autocomplete_tag_list">
+          <%= f.label :tag_list %>
+          <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f %>
+        </div>
+      <% end %>
     <% end %>
+
+    <%= render 'alchemy/admin/elements/footer', element: element %>
   <% end %>
 
   <%# We need to render nested elements even if the element is folded,
@@ -73,4 +76,4 @@
       <%= render "alchemy/admin/elements/add_nested_element_form", element: element %>
     </div>
   <% end %>
-<% end %>
+</alchemy-element-editor>

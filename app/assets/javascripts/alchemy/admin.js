@@ -13,7 +13,6 @@
 //= require alchemy/alchemy.dialog
 //= require alchemy/alchemy.confirm_dialog
 //= require alchemy/alchemy.dragndrop
-//= require alchemy/alchemy.element_editors
 //= require alchemy/alchemy.elements_window
 //= require alchemy/alchemy.fixed_elements
 //= require alchemy/alchemy.growler

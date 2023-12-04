@@ -5,9 +5,7 @@ import Rails from "@rails/ujs"
 import GUI from "alchemy_admin/gui"
 import { translate } from "alchemy_admin/i18n"
 import Dirty from "alchemy_admin/dirty"
-import fileEditors from "alchemy_admin/file_editors"
 import IngredientAnchorLink from "alchemy_admin/ingredient_anchor_link"
-import pictureEditors from "alchemy_admin/picture_editors"
 import ImageLoader from "alchemy_admin/image_loader"
 import ImageCropper from "alchemy_admin/image_cropper"
 import Initializer from "alchemy_admin/initializer"
@@ -25,6 +23,8 @@ import "alchemy_admin/components/button"
 import "alchemy_admin/components/char_counter"
 import "alchemy_admin/components/datepicker"
 import "alchemy_admin/components/dialog_link"
+import "alchemy_admin/components/element_editor"
+import "alchemy_admin/components/ingredient_group"
 import "alchemy_admin/components/node_select"
 import "alchemy_admin/components/overlay"
 import "alchemy_admin/components/page_select"
@@ -46,8 +46,6 @@ Object.assign(Alchemy, {
   ...Dirty,
   GUI,
   t: translate, // Global utility method for translating a given string
-  fileEditors,
-  pictureEditors,
   ImageLoader: ImageLoader.init,
   ImageCropper,
   Initializer,
