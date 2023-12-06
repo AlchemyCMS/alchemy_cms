@@ -51,36 +51,30 @@ input.button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 27px;
-  height: 27px;
+  width: 30px;
+  height: 30px;
   margin: 0;
-  padding: 3px;
+  padding: 0;
   overflow: hidden;
-  text-align: center;
   text-shadow: none;
   border-radius: $default-border-radius;
 
   &.small {
     width: 15px;
     height: 15px;
-    padding: 0;
-    position: relative;
-    top: 0px;
     background: none;
     border: none;
+  }
 
-    .icon {
-      transition: color 250ms;
-    }
+  &:hover {
+    text-decoration: none;
+    background-color: $default-border-color;
+    cursor: pointer;
+  }
 
-    &:hover {
-      background-color: $default-border-color;
-      cursor: pointer;
-
-      .icon {
-        color: inherit;
-      }
-    }
+  .icon {
+    color: inherit;
+    transition: color 250ms;
   }
 
   &.disabled,
@@ -146,10 +140,6 @@ button.icon_button {
     top: 0;
   }
 
-  .icon_button {
-    text-decoration: none;
-  }
-
   &.disabled {
     opacity: 0.5;
     cursor: default;
@@ -158,11 +148,6 @@ button.icon_button {
 
 .button_with_label,
 .button_group {
-  .icon_button {
-    width: 29px;
-    height: 29px;
-  }
-
   label {
     border-radius: $default-border-radius;
     position: absolute;

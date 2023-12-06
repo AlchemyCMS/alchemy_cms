@@ -532,19 +532,9 @@ alchemy-tinymce {
   bottom: 0;
   z-index: 0;
   width: 100%;
-  padding: $default-padding $default-padding/2;
+  padding: $default-padding/2;
 
   a {
-    margin: 0 $default-padding/2;
-    padding: $default-padding/2;
-    cursor: pointer;
-
-    &:hover {
-      background-color: $default-border-color;
-      border-radius: $default-border-radius;
-      text-decoration: none;
-    }
-
     &.linked {
       border-radius: $default-border-radius;
       background-color: $linked-color;
@@ -571,7 +561,7 @@ alchemy-tinymce {
     display: inline-block;
     width: 160px;
     margin: $default-margin 0;
-    padding-bottom: 30.72px;
+    padding-bottom: 34px;
 
     .picture_image {
       overflow: hidden;
