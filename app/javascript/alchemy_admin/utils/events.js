@@ -1,8 +1,7 @@
 export function on(eventName, baseSelector, targetSelector, callback) {
   document.querySelectorAll(baseSelector).forEach((baseNode) => {
-    const targets = Array.from(baseNode.querySelectorAll(targetSelector))
-
     baseNode.addEventListener(eventName, (evt) => {
+      const targets = Array.from(baseNode.querySelectorAll(targetSelector))
       let currentNode = evt.target
 
       while (currentNode !== baseNode) {
