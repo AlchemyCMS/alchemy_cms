@@ -1,4 +1,7 @@
 #toolbar {
+  display: flex;
+  align-items: center;
+  gap: 2 * $default-padding;
   z-index: 10;
   @extend %gradiated-toolbar;
   margin-right: 0px;
@@ -22,11 +25,10 @@
 
 .toolbar_buttons {
   display: flex;
-  margin-right: 8px;
+  flex-grow: 1;
   white-space: nowrap;
   overflow-x: auto;
   overflow-y: visible;
-  max-width: calc(100vw - #{$collapsed-main-menu-width + 65px});
   -webkit-overflow-scrolling: touch;
 
   @media screen and (min-width: $medium-screen-break-point) {
@@ -34,12 +36,14 @@
   }
 
   &.right {
-    position: absolute;
-    right: -8px;
-    top: 0;
-    margin-left: 8px;
+    flex-grow: 0;
     padding: 8px 0;
-    background-color: $toolbar-bg-color;
+
+    .button_with_label {
+      &:last-child {
+        margin-right: $default-margin;
+      }
+    }
 
     label {
       left: auto;
@@ -67,7 +71,8 @@
     &:first-child {
       margin-left: $default-margin;
 
-      select {
+      select,
+      .alchemy_selectbox {
         margin-left: 2 * $default-margin;
       }
     }
