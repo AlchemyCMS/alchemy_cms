@@ -30,14 +30,15 @@
     </div>
     <div class="sitemap_right_tools">
       {{#if permissions.info}}
-      <div class="button_with_label sitemap_tool">
+      <div class="button_with_label">
         <%= link_to_dialog(
           render_icon("information"),
           alchemy.info_admin_page_path(id: "__ID__"),
           {
             title: Alchemy.t(:page_infos),
             size: "520x290"
-          }
+          },
+          class: "icon_button"
         ) %>
         <label class="center"><%= Alchemy.t(:page_infos) %></label>
       {{else}}
@@ -49,14 +50,15 @@
       {{/if}}
       </div>
       {{#if permissions.configure}}
-      <div class="button_with_label sitemap_tool">
+      <div class="button_with_label">
         <%= link_to_dialog(
           render_icon("settings-3"),
           alchemy.configure_admin_page_path(id: "__ID__"),
           {
             title: Alchemy.t(:edit_page_properties),
             size: "450x680"
-          }
+          },
+          class: "icon_button"
         ) -%>
         <label class="center"><%= Alchemy.t(:edit_page_properties) %></label>
       {{else}}
@@ -68,7 +70,7 @@
       {{/if}}
       </div>
       {{#if permissions.copy}}
-      <div class="button_with_label sitemap_tool">
+      <div class="button_with_label">
         <%= link_to(
           render_icon("file-copy"),
           alchemy.insert_admin_clipboard_path(
@@ -76,7 +78,8 @@
             remarkable_id: "__ID__",
           ),
           remote: true,
-          method: :post
+          method: :post,
+          class: "icon_button"
         ) %>
         <label class="center"><%= Alchemy.t(:copy_page) %></label>
       {{else}}
@@ -88,7 +91,7 @@
       {{/if}}
       </div>
       {{#if permissions.destroy}}
-      <div class="button_with_label sitemap_tool">
+      <div class="button_with_label">
         <%= link_to_confirm_dialog(
           render_icon("delete-bin-2"),
           Alchemy.t(:confirm_to_delete_page),
@@ -96,7 +99,8 @@
             controller: "pages",
             action: "destroy",
             id: "__ID__"
-          )
+          ),
+          class: "icon_button"
         ) -%>
         <label class="center"><%= Alchemy.t(:delete_page) %></label>
       {{else}}
@@ -108,7 +112,7 @@
       {{/if}}
       </div>
       {{#if permissions.create}}
-      <div class="button_with_label sitemap_tool">
+      <div class="button_with_label">
         <%= link_to_dialog(
           render_icon(:add),
           alchemy.new_admin_page_path(parent_id: "__ID__"),
@@ -116,7 +120,8 @@
             title: Alchemy.t(:create_page),
             size: "340x165",
             overflow: true
-          }
+          },
+          class: "icon_button"
         ) -%>
         <label class="left"><%= Alchemy.t(:create_page) %></label>
       {{else}}

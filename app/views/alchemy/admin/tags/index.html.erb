@@ -25,7 +25,7 @@
       <tr>
         <th class="icon"></th>
         <th class="name"><%= sort_link(@query, :name) %></th>
-        <th class="count"><%= Gutentag::Tag.human_attribute_name(:taggings_types) %></th>
+        <th style="width: 15%"><%= Gutentag::Tag.human_attribute_name(:taggings_types) %></th>
         <th class="count"><%= sort_link(@query, :taggings_count) %></th>
         <th class="tools"></th>
       </tr>

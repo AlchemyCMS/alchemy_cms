@@ -54,26 +54,28 @@
           {
             title: Alchemy.t(:page_infos),
             size: '520x290'
-          }
+          },
+          class: "icon_button"
         ) %>
         <label class="center"><%= Alchemy.t(:page_infos) %></label>
       </div>
     <% end %>
     <% if can?(:configure, page) %>
-      <div class="button_with_label sitemap_tool">
+      <div class="button_with_label">
         <%= link_to_dialog(
           render_icon(:cog),
           alchemy.configure_admin_page_path(page),
           {
             title: Alchemy.t(:edit_page_properties),
             size: '450x680'
-          }
+          },
+          class: "icon_button"
         ) -%>
         <label class="center"><%= Alchemy.t(:edit_page_properties) %></label>
       </div>
     <% end %>
     <% if can?(:copy, page) %>
-      <div class="button_with_label sitemap_tool">
+      <div class="button_with_label">
         <%= link_to(
           render_icon(:copy),
           alchemy.insert_admin_clipboard_path(
@@ -81,7 +83,8 @@
             remarkable_id: page.id,
           ),
           remote: true,
-          method: :post
+          method: :post,
+          class: "icon_button"
         ) %>
         <label class="center"><%= Alchemy.t(:copy_page) %></label>
       </div>
@@ -91,9 +94,10 @@
         <%= link_to_confirm_dialog(
           render_icon(:minus),
           Alchemy.t(:confirm_to_delete_page),
-          alchemy.admin_page_path(page)
+          alchemy.admin_page_path(page),
+          class: "icon_button"
         ) -%>
-        <label class="center"><%= Alchemy.t(:delete_page) %></label>
+        <label class="left"><%= Alchemy.t(:delete_page) %></label>
       </div>
     <% end %>
   </td>

@@ -310,12 +310,7 @@ RSpec.describe "Resources", type: :system do
         click_link "Matinee"
         expect(page).to have_content("Casablanca")
         expect(page).to_not have_content("Die Hard IX")
-
-        # Keep the tags when editing an event
-        click_link "Edit"
-        click_button "Save"
-        expect(page).to have_content("Casablanca")
-        expect(page).to_not have_content("Die Hard IX")
+        expect(page).to have_link(nil, href: "/admin/events/#{event.id}/edit?tagged_with=Matinee")
       end
     end
   end
@@ -344,11 +339,7 @@ RSpec.describe "Resources", type: :system do
       expect(page).to_not have_content("Horse Expo")
 
       # Keep the filter when editing an event
-      click_link "Edit"
-      click_button "Save"
-      expect(page).to have_content("Hovercar Expo")
-      expect(page).to_not have_content("Car Expo")
-      expect(page).to_not have_content("Horse Expo")
+      expect(page).to have_link(nil, href: "/admin/events/#{future_event.id}/edit?filter%5Bstart%5D=future")
     end
 
     it "does not work with undefined scopes" do

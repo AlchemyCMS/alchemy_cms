@@ -109,12 +109,14 @@ $sitemap-url-xlarge-width: 350px;
 }
 
 .sitemap_right_tools {
+  display: flex;
+  align-items: center;
+  gap: $default-padding;
   height: $sitemap-line-height;
   padding: 0 2 * $default-padding;
   float: right;
 
   .sitemap_tool {
-    float: left;
     width: $sitemap-line-height;
     height: $sitemap-line-height;
     line-height: $sitemap-line-height;
@@ -124,11 +126,6 @@ $sitemap-url-xlarge-width: 350px;
     &.disabled .icon {
       opacity: 0.25;
       filter: grayscale(100%);
-    }
-
-    a {
-      display: block;
-      text-decoration: none;
     }
   }
 

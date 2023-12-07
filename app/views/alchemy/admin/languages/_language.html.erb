@@ -28,16 +28,22 @@
   </td>
   <td class="tools">
   <%- if can?(:destroy, language) -%>
-    <%= delete_button resource_path(language) %>
+    <div class="button_with_label">
+      <%= delete_button resource_path(language) %>
+      <label class="center"><%= Alchemy.t("Delete") %></label>
+    </div>
   <%- end -%>
   <%- if can?(:edit, language) -%>
-    <%= link_to_dialog render_icon(:edit),
-      alchemy.edit_admin_language_path(language),
-      {
-        title: Alchemy.t("Edit"),
-        size: "430x415"
-      },
-      title: Alchemy.t("Edit") %>
+    <div class="button_with_label">
+      <%= link_to_dialog render_icon(:edit),
+        alchemy.edit_admin_language_path(language),
+        {
+          title: Alchemy.t("Edit"),
+          size: "430x415"
+        },
+        class: "icon_button" %>
+      <label class="left"><%= Alchemy.t("Edit") %></label>
+    </div>
   <%- end -%>
   </td>
 </tr>
