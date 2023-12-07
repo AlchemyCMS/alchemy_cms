@@ -51,6 +51,7 @@
   --color-grey_medium: hsl(0deg, 0%, 78%);
   --color-grey_dark: hsl(0deg, 0%, 40%);
   --color-grey_very_dark: hsl(0deg, 0%, 20%);
+  --color-text: hsla(224, 22.7%, 25.9%, 0.8);
 }
 
 .alchemy-light {
@@ -58,4 +59,5 @@
 
   --tabs_indicator-color: var(--color-orange_dark);
   --tabs_track-color: var(--color-grey_light);
+  --sl-input-label-color: var(--color-text);
 }
