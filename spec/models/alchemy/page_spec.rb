@@ -1683,7 +1683,7 @@ module Alchemy
 
       describe "#status_title" do
         it "returns a translated status string for public status" do
-          expect(page.status_title(:public)).to eq("Page is published.")
+          expect(page.status_title(:public)).to eq("online")
         end
 
         it "returns a translated status string for locked status" do
@@ -1691,7 +1691,21 @@ module Alchemy
         end
 
         it "returns a translated status string for restricted status" do
-          expect(page.status_title(:restricted)).to eq("Page is not restricted.")
+          expect(page.status_title(:restricted)).to eq("accessible")
+        end
+      end
+
+      describe "#status_message" do
+        it "returns a translated status string for public status" do
+          expect(page.status_message(:public)).to eq("Page is available online.")
+        end
+
+        it "returns a translated status string for locked status" do
+          expect(page.status_message(:locked)).to eq("")
+        end
+
+        it "returns a translated status string for restricted status" do
+          expect(page.status_message(:restricted)).to eq("Page is accessible by all visitors.")
         end
       end
     end

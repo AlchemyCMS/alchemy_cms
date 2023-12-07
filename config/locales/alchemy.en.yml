@@ -527,19 +527,27 @@ en:
     "Page created": "Page: '%{name}' created."
     page_infos: "Page info"
     page_properties: "Page properties"
-    page_public: "published"
     page_published: "Published page"
-    page_restricted: "restricted"
     page_states:
       public:
-        "true": "Page is published."
-        "false": "Page is unpublished."
+        "true": "Page is available online."
+        "false": "Page is unavailable for website visitors."
       locked:
         "true": "Page is being edited at the moment."
         "false": ""
       restricted:
-        "true": "Page is restricted."
-        "false": "Page is not restricted."
+        "true": "Page is only accessible by members."
+        "false": "Page is accessible by all visitors."
+    page_status_titles:
+      public:
+        "true": "online"
+        "false": "offline"
+      locked:
+        "true": "locked"
+        "false": ""
+      restricted:
+        "true": "restricted"
+        "false": "accessible"
     page_status: "Status"
     page_title: "Title"
     page_type: "Type"

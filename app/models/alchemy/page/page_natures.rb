@@ -62,12 +62,20 @@ module Alchemy
         }
       end
 
-      # Returns the translated status for given status type.
+      # Returns the long translated status message for given status type.
+      #
+      # @param [Symbol] status_type
+      #
+      def status_message(status_type)
+        Alchemy.t(status[status_type].to_s, scope: "page_states.#{status_type}")
+      end
+
+      # Returns the sort translated status title for given status type.
       #
       # @param [Symbol] status_type
       #
       def status_title(status_type)
-        Alchemy.t(status[status_type].to_s, scope: "page_states.#{status_type}")
+        Alchemy.t(status[status_type].to_s, scope: "page_status_titles.#{status_type}")
       end
 
       # Returns the self#page_layout definition from config/alchemy/page_layouts.yml file.
