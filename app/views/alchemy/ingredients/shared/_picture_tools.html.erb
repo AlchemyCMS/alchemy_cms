@@ -13,12 +13,12 @@
     padding: false
   }, {
     title: Alchemy.t("Edit Picturemask"),
-    class: croppable ? "crop_link" : "disabled crop_link",
+    class: croppable ? "crop_link icon_button" : "disabled crop_link icon_button" ,
     tabindex: croppable ? nil : "-1",
     onclick: "return false"
   } %>
 
-<%= link_to_dialog render_icon("file-image", style: "regular"),
+<%= link_to_dialog render_icon("image-add"),
   alchemy.admin_pictures_path(
     form_field_id: picture_editor.form_field_id(:picture_id)
   ),
@@ -27,25 +27,26 @@
     size: "790x590",
     padding: false
   },
-  title: (picture_editor.picture ? Alchemy.t(:swap_image) : Alchemy.t(:insert_image)) %>
+  title: (picture_editor.picture ? Alchemy.t(:swap_image) : Alchemy.t(:insert_image)),
+  class: "icon_button" %>
 
-<%= link_to_if linkable, render_icon(:link), "", {
+<%= link_to_if linkable, render_icon("link", style: "m"), "", {
   onclick: "new Alchemy.LinkDialog(this).open(); return false;",
-  class: picture_editor.linked? ? "linked" : nil,
+  class: picture_editor.linked? ? "linked icon_button" : "icon_button",
   title: Alchemy.t(:link_image),
   "data-parent-selector": "[data-ingredient-id='#{picture_editor.id}']",
   id: "edit_link_#{picture_editor.id}"
 } do %>
-  <span class="disabled" tabindex="-1"><%= render_icon(:link) %></span>
+  <span class="disabled" tabindex="-1"><%= render_icon("link", style: "m") %></span>
 <% end %>
 
-<%= link_to_if linkable, render_icon(:unlink), "", {
+<%= link_to_if linkable, render_icon("link-unlink", style: "m"), "", {
   onclick: "return Alchemy.LinkDialog.removeLink(this, '[data-ingredient-id=\"#{picture_editor.id}\"]')",
-  class: picture_editor.linked? ? "linked" : "disabled",
+  class: picture_editor.linked? ? "linked icon_button" : "icon_button disabled",
   tabindex: picture_editor.linked? ? nil : "-1",
   title: Alchemy.t(:unlink)
 } do %>
-  <span class="disabled" tabindex="-1"><%= render_icon(:unlink) %></span>
+  <span class="disabled" tabindex="-1"><%= render_icon("link-unlink", style: "m") %></span>
 <% end %>
 
 <%= link_to_dialog render_icon(:edit),
@@ -54,4 +55,5 @@
     title: Alchemy.t(:edit_image_properties),
     size: "380x255"
   },
-  title: Alchemy.t(:edit_image_properties) %>
+  title: Alchemy.t(:edit_image_properties),
+  class: "icon_button" %>

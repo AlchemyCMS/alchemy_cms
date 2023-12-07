@@ -1,12 +1,12 @@
 .hint-with-icon {
   @extend .with-hint;
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  margin: 0 $default-margin;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
   .toolbar_buttons & {
-    margin: 0 2*$default-margin;
+    margin: 0 2 * $default-margin;
+    align-self: center;
   }
 
   > .icon {
@@ -30,7 +30,7 @@
     background-color: $hint-background-color;
     color: $hint-text-color;
     border-radius: $default-border-radius;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, .3);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -44,11 +44,11 @@
     text-align: left;
     font-size: $default-font-size;
     opacity: 0;
-    transition: .3s;
+    transition: 0.3s;
     pointer-events: none;
 
     &:before {
-      content: '';
+      content: "";
       position: absolute;
       top: -8px;
       left: 50%;

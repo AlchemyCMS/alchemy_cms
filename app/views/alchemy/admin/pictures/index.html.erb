@@ -13,7 +13,7 @@
     <div class="button_group">
       <div class="button_with_label">
         <%= link_to(
-          render_icon('search-minus'),
+          render_icon('zoom-out'),
           alchemy.admin_pictures_path(
             size: "small",
             q: search_filter_params[:q],
@@ -39,7 +39,7 @@
       </div>
       <div class="button_with_label">
         <%= link_to(
-          render_icon('search-plus'),
+          render_icon('zoom-in'),
           alchemy.admin_pictures_path(
             size: "large",
             q: search_filter_params[:q],
@@ -56,7 +56,7 @@
     <div class="toolbar_spacer"></div>
     <div class="button_with_label">
       <%= link_to(
-        render_icon('check-square', style: 'regular'),
+        render_icon('checkbox-multiple'),
         nil,
         id: 'select_all_pictures',
         class: 'icon_button',

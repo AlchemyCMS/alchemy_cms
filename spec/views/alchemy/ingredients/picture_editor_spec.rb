@@ -36,8 +36,8 @@ RSpec.describe "alchemy/ingredients/_picture_editor" do
 
   context "with settings[:linkable] being nil" do
     it "should not render a button to link and unlink the picture" do
-      is_expected.to have_selector("a .icon.fa-link")
-      is_expected.to have_selector("a .icon.fa-unlink")
+      is_expected.to have_selector("a .icon.ri-link-m")
+      is_expected.to have_selector("a .icon.ri-link-unlink-m")
     end
   end
 
@@ -49,13 +49,13 @@ RSpec.describe "alchemy/ingredients/_picture_editor" do
     end
 
     it "should not render a button to link and unlink the picture" do
-      is_expected.to_not have_selector("a .icon.fa-link")
-      is_expected.to_not have_selector("a .icon.fa-unlink")
+      is_expected.to_not have_selector("a .icon.ri-link-m")
+      is_expected.to_not have_selector("a .icon.ri-link-unlink-m")
     end
 
     it "but renders the disabled link and unlink icons" do
-      is_expected.to have_selector(".icon.fa-link")
-      is_expected.to have_selector(".icon.fa-unlink")
+      is_expected.to have_selector(".icon.ri-link-m")
+      is_expected.to have_selector(".icon.ri-link-unlink-m")
     end
   end
 
@@ -83,7 +83,7 @@ RSpec.describe "alchemy/ingredients/_picture_editor" do
     end
 
     it "shows disabled cropping link" do
-      is_expected.to have_selector("a.disabled .icon.fa-crop")
+      is_expected.to have_selector("a.disabled .icon.ri-crop-line")
     end
   end
 

@@ -1,48 +1,46 @@
 <% remarkable_type = "elements" %>
 <div class="element-toolbar">
-  <span class="element_tools">
-    <div class="button_with_label">
-      <%= link_to(
-        render_icon(:clone),
-        alchemy.insert_admin_clipboard_path(remarkable_type: remarkable_type, remarkable_id: element.id),
-        remote: true,
-        method: :post,
-        class: "icon_button"
-      ) %>
-      <label><%= Alchemy.t(:copy_element) %></label>
-    </div>
-    <div class="button_with_label">
-      <%= link_to(
-        render_icon(:cut),
-        alchemy.insert_admin_clipboard_path(remarkable_type: remarkable_type, remarkable_id: element.id, remove: true),
-        remote: true,
-        method: :post,
-        class: "icon_button"
-      ) %>
-      <label><%= Alchemy.t(:cut_element) %></label>
-    </div>
-    <div class="button_with_label">
-      <%= link_to_confirm_dialog(
-        render_icon('trash-alt'),
-        Alchemy.t(:confirm_to_delete_element),
-        alchemy.admin_element_path(element),
-        class: "icon_button"
-      ) -%>
-      <label><%= Alchemy.t("Delete element") %></label>
-    </div>
-    <div class="button_with_label publish-element-button">
-      <%= link_to(
-        render_icon(element.public? ? 'eye-slash' : 'eye'),
-        alchemy.publish_admin_element_path(id: element.id),
-        remote: true,
-        method: :patch,
-        class: "icon_button"
-      ) %>
-      <% if element.public? %>
-        <label><%= Alchemy.t(:hide_element) %></label>
-      <% else %>
-        <label><%= Alchemy.t(:show_element) %></label>
-      <% end %>
-    </div>
-  </span>
+  <div class="button_with_label">
+    <%= link_to(
+      render_icon("file-copy"),
+      alchemy.insert_admin_clipboard_path(remarkable_type: remarkable_type, remarkable_id: element.id),
+      remote: true,
+      method: :post,
+      class: "icon_button"
+    ) %>
+    <label><%= Alchemy.t(:copy_element) %></label>
+  </div>
+  <div class="button_with_label">
+    <%= link_to(
+      render_icon("scissors-cut"),
+      alchemy.insert_admin_clipboard_path(remarkable_type: remarkable_type, remarkable_id: element.id, remove: true),
+      remote: true,
+      method: :post,
+      class: "icon_button"
+    ) %>
+    <label><%= Alchemy.t(:cut_element) %></label>
+  </div>
+  <div class="button_with_label">
+    <%= link_to_confirm_dialog(
+      render_icon('delete-bin-2'),
+      Alchemy.t(:confirm_to_delete_element),
+      alchemy.admin_element_path(element),
+      class: "icon_button"
+    ) -%>
+    <label><%= Alchemy.t("Delete element") %></label>
+  </div>
+  <div class="button_with_label publish-element-button">
+    <%= link_to(
+      render_icon(:toggle, style: element.public? ? 'fill' : 'line'),
+      alchemy.publish_admin_element_path(id: element.id),
+      remote: true,
+      method: :patch,
+      class: "icon_button"
+    ) %>
+    <% if element.public? %>
+      <label><%= Alchemy.t(:hide_element) %></label>
+    <% else %>
+      <label><%= Alchemy.t(:show_element) %></label>
+    <% end %>
+  </div>
 </div>

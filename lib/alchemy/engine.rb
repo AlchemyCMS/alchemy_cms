@@ -46,8 +46,8 @@ module Alchemy
     initializer "alchemy.ransack" do
       Ransack.configure do |config|
         config.custom_arrows = {
-          up_arrow: '<i class="fa fas fa-xs fa-arrow-up"></i>',
-          down_arrow: '<i class="fa fas fa-xs fa-arrow-down"></i>'
+          up_arrow: '<i class="ri-1x ri-arrow-up-line"></i>',
+          down_arrow: '<i class="ri-1x ri-arrow-down-line"></i>'
         }
       end
     end

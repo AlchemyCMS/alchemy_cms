@@ -9,15 +9,15 @@
 </h2>
 <% if can? :update_check, :alchemy_admin_dashboard %>
 <p class="center" id="update_check">
-  <span id="update_available">
+  <span id="update_available" class="hidden">
     <%= render_icon(:exclamation) %>
     <%= Alchemy.t 'Update available' %>
   </span>
-  <span id="up_to_date">
+  <span id="up_to_date" class="hidden">
     <%= render_icon(:check) %>
     <%= Alchemy.t 'Alchemy is up to date' %>
   </span>
-  <span id="error">
+  <span id="error" class="hidden">
     <%= render_icon(:exclamation) %>
     <%= Alchemy.t 'Update status unavailable' %>
   </span>
@@ -28,12 +28,12 @@
   spinner.spin(el[0])
   $.get('<%= alchemy.update_check_path %>', function(data, textStatus, jqXHR) {
     if (data == 'true') {
-      $('#update_available').show()
+      $('#update_available').removeClass("hidden")
     } else {
-      $('#up_to_date').show()
+      $('#up_to_date').removeClass("hidden")
     }
   }).fail(function(jqXHR, textStatus, errorThrown) {
-    $('#error').show()
+    $('#error').removeClass("hidden")
   }).always(function() {
     spinner.stop()
   })
@@ -58,7 +58,7 @@
       <a href="http://blueimp.github.io/jQuery-File-Upload/" target="_blank">jQuery File Upload</a>
     </li>
     <li>
-      <a href="https://fontawesome.com" target="_blank">FontAwesome Icons</a>
+      <a href="https://remixicon.com" target="_blank">Remix Icon</a>
     </li>
   </ul>
 <% end %>

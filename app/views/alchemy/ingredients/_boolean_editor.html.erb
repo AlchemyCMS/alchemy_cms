@@ -5,7 +5,7 @@
     <%= f.label :value, style: "display: inline-block", for: nil do %>
       <%= f.check_box :value, id: nil %>
       <%= render_ingredient_role(boolean_editor) %>
+      <%= render_hint_for(boolean_editor, size: "lg", fixed_width: false) %>
     <% end %>
-    <%= render_hint_for(boolean_editor) %>
   <% end %>
 <% end %>

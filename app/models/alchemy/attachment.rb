@@ -138,29 +138,27 @@ module Alchemy
     def icon_css_class
       case file_mime_type
       when "application/pdf"
-        "file-pdf"
-      when "application/msword"
-        "file-word"
+        "file-pdf-2"
       when *TEXT_FILE_TYPES
-        "file-alt"
+        "file-text"
       when *EXCEL_FILE_TYPES
-        "file-excel"
+        "file-excel-2"
       when *POWERPOINT_FILE_TYPES
-        "file-powerpoint"
+        "file-ppt-2"
       when *WORD_FILE_TYPES
-        "file-word"
+        "file-word-2"
       when *VCARD_FILE_TYPES
-        "address-card"
+        "profile"
       when *ARCHIVE_FILE_TYPES
-        "file-archive"
+        "file-zip"
       when *AUDIO_FILE_TYPES
-        "file-audio"
+        "file-music"
       when *IMAGE_FILE_TYPES
         "file-image"
       when *VIDEO_FILE_TYPES
         "file-video"
       else
-        "file"
+        "file-3"
       end
     end
 

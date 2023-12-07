@@ -1,16 +1,18 @@
 <% content_for :toolbar do %>
-  <%= toolbar_button(
-    icon: :plus,
-    label: Alchemy.t('New Tag'),
-    url: alchemy.new_admin_tag_path,
-    title: Alchemy.t('New Tag'),
-    hotkey: 'alt+n',
-    dialog_options: {
+  <div class="toolbar_buttons">
+    <%= toolbar_button(
+      icon: :plus,
+      label: Alchemy.t('New Tag'),
+      url: alchemy.new_admin_tag_path,
       title: Alchemy.t('New Tag'),
-      size: '310x180'
-    },
-    if_permitted_to: [:create, Alchemy::Tag]
-  ) %>
+      hotkey: 'alt+n',
+      dialog_options: {
+        title: Alchemy.t('New Tag'),
+        size: '310x180'
+      },
+      if_permitted_to: [:create, Alchemy::Tag]
+    ) %>
+  </div>
   <%= render 'alchemy/admin/partials/search_form' %>
 <% end %>
 
@@ -23,7 +25,7 @@
       <tr>
         <th class="icon"></th>
         <th class="name"><%= sort_link(@query, :name) %></th>
-        <th class="count"><%= Gutentag::Tag.human_attribute_name(:taggings_types) %></th>
+        <th style="width: 15%"><%= Gutentag::Tag.human_attribute_name(:taggings_types) %></th>
         <th class="count"><%= sort_link(@query, :taggings_count) %></th>
         <th class="tools"></th>
       </tr>

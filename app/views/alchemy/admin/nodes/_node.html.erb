@@ -21,7 +21,7 @@
       <% end %>
       <% if can?(:destroy, node) %>
         <%= link_to_confirm_dialog(
-          render_icon(:minus),
+          render_icon("delete-bin-2"),
           node.root? ? Alchemy.t(:confirm_to_delete_menu) : Alchemy.t(:confirm_to_delete_node),
           url_for(
             controller: 'nodes',
@@ -35,7 +35,7 @@
       <% end %>
       <% if can?(:create, Alchemy::Node) %>
         <%= link_to_dialog(
-          render_icon(:plus),
+          render_icon(:add),
           alchemy.new_admin_node_path(parent_id: node.id),
           {
             title: Alchemy.t(:create_node),
@@ -50,8 +50,7 @@
       <%= node.name || '&nbsp;'.html_safe %>
       <span class="node_page">
       <% if node.page %>
-        <i class="icon far fa-file"></i>
-        &nbsp;
+        <i class="icon ri-file-3-line"></i>
         <%= link_to [:edit, :admin, node.page], title: Alchemy.t(:edit_page) do %>
           <%= node.page.name %>
         <% end %>
@@ -61,7 +60,7 @@
         <span class="node_url">
           <%= link_to node.url, node.url, target: '_blank', title: node.url %>
           <% if node.external? %>
-            <i class="fas fa-external-link-alt fa-sm"></i>
+            <i class="ri-external-link-line ri-sm"></i>
           <% end %>
         </span>
       <% end %>

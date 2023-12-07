@@ -1,6 +1,6 @@
 <span class="ingredient_link_buttons">
   <%= link_to(
-    render_icon(:link),
+    render_icon(:link, style: "m"),
     '#',
     onclick: 'new Alchemy.LinkDialog(this).open(); return false;',
     class: "icon_button#{ingredient_editor.linked? ? ' linked' : ''} link-ingredient",
@@ -9,7 +9,7 @@
     id: "edit_link_#{ingredient_editor.id}"
   ) %>
   <%= link_to(
-    render_icon(:unlink),
+    render_icon("link-unlink", style: "m"),
     '#',
     onclick: "return Alchemy.LinkDialog.removeLink(this, '[data-ingredient-id=\"#{ingredient_editor.id}\"]')",
     class: "icon_button unlink-ingredient #{ingredient_editor.linked? ? 'linked' : 'disabled'}",

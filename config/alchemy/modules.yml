@@ -4,78 +4,78 @@
   engine_name: alchemy
   position: 1
   navigation:
-    name: 'modules.dashboard'
-    controller: '/alchemy/admin/dashboard'
+    name: Home
+    controller: "/alchemy/admin/dashboard"
     action: index
-    inline_image: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="-4 -6 32 32" class="svg-inline--fa fa-lg fa-fw"><path fill="currentColor" d="M15.7 7.9L9.9 2.2 2.1 4.3 0 12.1l5.7 5.8 7.8-2.1 2.2-7.9zm-5.3 10.3l-1.2 4.4 3.2 3.2 4.4-1.2 1.2-4.4-3.2-3.2-4.4 1.2zM23.5 7.3L17.2 9l-1.7 6.2 4.5 4.6 6.2-1.7 1.7-6.2-4.4-4.6z"/></svg>'
+    icon: home-2-line
 
 - name: pages
   engine_name: alchemy
   position: 2
   navigation:
-    name: 'modules.pages'
-    controller: '/alchemy/admin/pages'
+    name: "modules.pages"
+    controller: "/alchemy/admin/pages"
     action: index
-    icon: file-alt
+    icon: pages-line
     sub_navigation:
-      - name: 'modules.pages'
-        controller: '/alchemy/admin/pages'
+      - name: "modules.pages"
+        controller: "/alchemy/admin/pages"
         action: index
-      - name: 'modules.layoutpages'
-        controller: '/alchemy/admin/layoutpages'
+      - name: "modules.layoutpages"
+        controller: "/alchemy/admin/layoutpages"
         action: index
     nested:
-      - controller: '/alchemy/admin/pages'
+      - controller: "/alchemy/admin/pages"
         action: edit
 
 - name: menus
   engine_name: alchemy
   position: 3
   navigation:
-    name: 'modules.menus'
-    controller: '/alchemy/admin/nodes'
+    name: "modules.menus"
+    controller: "/alchemy/admin/nodes"
     action: index
-    icon: list-ul
+    icon: menu-2-line
 
 - name: languages
   engine_name: alchemy
   position: 4
   navigation:
-    name: 'modules.languages'
-    controller: '/alchemy/admin/languages'
+    name: "modules.languages"
+    controller: "/alchemy/admin/languages"
     action: index
-    icon: flag
+    icon: translate-2
 
 - name: sites
   engine_name: alchemy
   position: 5
   navigation:
-    name: 'modules.sites'
-    controller: '/alchemy/admin/sites'
+    name: "modules.sites"
+    controller: "/alchemy/admin/sites"
     action: index
-    icon: bullseye
+    icon: global-line
 
 - name: tags
   engine_name: alchemy
   position: 6
   navigation:
-    name: 'modules.tags'
-    controller: '/alchemy/admin/tags'
+    name: "modules.tags"
+    controller: "/alchemy/admin/tags"
     action: index
-    icon: tags
+    icon: price-tag-3-line
 
 - name: archive
   engine_name: alchemy
   position: 7
   navigation:
-    controller: '/alchemy/admin/pictures'
+    controller: "/alchemy/admin/pictures"
     action: index
-    name: 'modules.library'
-    icon: archive
+    name: "modules.library"
+    icon: archive-drawer-line
     sub_navigation:
-      - name: 'modules.pictures'
-        controller: '/alchemy/admin/pictures'
+      - name: "modules.pictures"
+        controller: "/alchemy/admin/pictures"
         action: index
-      - name: 'modules.attachments'
-        controller: '/alchemy/admin/attachments'
+      - name: "modules.attachments"
+        controller: "/alchemy/admin/attachments"
         action: index

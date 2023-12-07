@@ -109,12 +109,14 @@ $sitemap-url-xlarge-width: 350px;
 }
 
 .sitemap_right_tools {
+  display: flex;
+  align-items: center;
+  gap: $default-padding;
   height: $sitemap-line-height;
   padding: 0 2 * $default-padding;
   float: right;
 
   .sitemap_tool {
-    float: left;
     width: $sitemap-line-height;
     height: $sitemap-line-height;
     line-height: $sitemap-line-height;
@@ -124,10 +126,6 @@ $sitemap-url-xlarge-width: 350px;
     &.disabled .icon {
       opacity: 0.25;
       filter: grayscale(100%);
-    }
-
-    a {
-      display: block;
     }
   }
 
@@ -213,8 +211,6 @@ $sitemap-url-xlarge-width: 350px;
   .page_urlname {
     display: none;
     margin-left: auto;
-    padding-left: 2 * $default-padding;
-    padding-right: 2 * $default-padding;
 
     @media screen and (min-width: $large-screen-break-point) {
       display: block;
@@ -228,7 +224,7 @@ $sitemap-url-xlarge-width: 350px;
 
   .page_status {
     padding-left: 2 * $default-padding;
-    margin-right: 188px;
+    margin-right: 190px;
     margin-left: auto;
 
     @media screen and (min-width: $large-screen-break-point) {

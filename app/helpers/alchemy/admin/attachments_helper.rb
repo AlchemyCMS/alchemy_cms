@@ -4,17 +4,18 @@ module Alchemy
   module Admin
     module AttachmentsHelper
       include Alchemy::Admin::BaseHelper
+      include Alchemy::Filetypes
 
       def mime_to_human(mime)
         Alchemy.t(mime, scope: "mime_types", default: Alchemy.t(:document))
       end
 
       def attachment_preview_size(attachment)
-        case attachment.icon_css_class
-        when "image" then "600x475"
-        when "audio" then "600x190"
-        when "video" then "600x485"
-        when "pdf" then "600x500"
+        case attachment.file_mime_type
+        when *IMAGE_FILE_TYPES then "600x475"
+        when *AUDIO_FILE_TYPES then "600x190"
+        when *VIDEO_FILE_TYPES then "600x485"
+        when "application/pdf" then "600x600"
         else
           "600x145"
         end

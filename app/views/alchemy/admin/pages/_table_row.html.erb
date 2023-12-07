@@ -3,17 +3,17 @@
     <% if can?(:edit_content, page) %>
       <% if page.locked? %>
         <span class="with-hint">
-          <i class="icon fas fa-edit fa-fw"></i>
+          <i class="icon ri-file-edit-line ri-fw"></i>
           <span class="hint-bubble">
             <%= Alchemy.t("This page is locked", name: page.locker_name) %>
           </span>
         </span>
       <% else %>
-        <i class="icon far fa-file fa-lg"></i>
+        <i class="icon ri-file-line ri-fw"></i>
       <% end %>
     <% else %>
       <span class="with-hint">
-        <i class="icon fas fa-ban fa-fw"></i>
+        <i class="icon ri-file-forbid-line ri-fw"></i>
         <span class="hint-bubble">
           <%= Alchemy.t("Your user role does not allow you to edit this page") %>
         </span>
@@ -43,14 +43,7 @@
     <%= l(page.updated_at, format: :"alchemy.default") %>
   </td>
   <td class="status center">
-    <span class="page_status with-hint">
-      <i class="icon fas fa-fw fa-compass <% unless page.public? %>disabled<% end %>" data-fa-transform="shrink-2"></i>
-      <span class="hint-bubble"><%= page.status_title(:public) %></span>
-    </span>
-    <span class="page_status with-hint">
-      <i class="icon fas fa-fw fa-lock <% unless page.restricted? %>disabled<% end %>" data-fa-transform="shrink-2"></i>
-      <span class="hint-bubble"><%= page.status_title(:restricted) %></span>
-    </span>
+    <%= render "alchemy/admin/pages/page_infos", page: page %>
   </td>
   <td class="tools">
     <% if can?(:info, page) %>
@@ -61,26 +54,28 @@
           {
             title: Alchemy.t(:page_infos),
             size: '520x290'
-          }
+          },
+          class: "icon_button"
         ) %>
         <label class="center"><%= Alchemy.t(:page_infos) %></label>
       </div>
     <% end %>
     <% if can?(:configure, page) %>
-      <div class="button_with_label sitemap_tool">
+      <div class="button_with_label">
         <%= link_to_dialog(
           render_icon(:cog),
           alchemy.configure_admin_page_path(page),
           {
             title: Alchemy.t(:edit_page_properties),
             size: '450x680'
-          }
+          },
+          class: "icon_button"
         ) -%>
         <label class="center"><%= Alchemy.t(:edit_page_properties) %></label>
       </div>
     <% end %>
     <% if can?(:copy, page) %>
-      <div class="button_with_label sitemap_tool">
+      <div class="button_with_label">
         <%= link_to(
           render_icon(:copy),
           alchemy.insert_admin_clipboard_path(
@@ -88,7 +83,8 @@
             remarkable_id: page.id,
           ),
           remote: true,
-          method: :post
+          method: :post,
+          class: "icon_button"
         ) %>
         <label class="center"><%= Alchemy.t(:copy_page) %></label>
       </div>
@@ -98,9 +94,10 @@
         <%= link_to_confirm_dialog(
           render_icon(:minus),
           Alchemy.t(:confirm_to_delete_page),
-          alchemy.admin_page_path(page)
+          alchemy.admin_page_path(page),
+          class: "icon_button"
         ) -%>
-        <label class="center"><%= Alchemy.t(:delete_page) %></label>
+        <label class="left"><%= Alchemy.t(:delete_page) %></label>
       </div>
     <% end %>
   </td>

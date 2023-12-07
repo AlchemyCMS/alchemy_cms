@@ -1,6 +1,6 @@
 <tr class="<%= cycle('even', 'odd') %>">
   <td class="icon">
-    <%= render_icon attachment.icon_css_class, style: 'regular', size: 'lg' %>
+    <%= render_icon attachment.icon_css_class, size: "xl" %>
   </td>
   <td class="name">
   <% if can?(:show, attachment) %>
@@ -25,49 +25,62 @@
   <td class="date"><%= l(attachment.created_at, format: :'alchemy.default') %></td>
   <td class="tools long">
   <% if can?(:show, attachment) %>
-    <%= link_to_dialog(
-      render_icon('info-circle'),
-      alchemy.admin_attachment_path(attachment),
-      {
-        title: attachment.name,
-        size: attachment_preview_size(attachment)
-      },
-      {
-        title: Alchemy.t('Attachment Preview')
-      }
-    ) %>
+    <div class="button_with_label">
+      <%= link_to_dialog(
+        render_icon(:information),
+        alchemy.admin_attachment_path(attachment),
+        {
+          title: attachment.name,
+          size: attachment_preview_size(attachment)
+        },
+        class: "icon_button"
+      ) %>
+      <label class="center"><%= Alchemy.t('Attachment Preview') %></label>
+    </div>
   <% end %>
   <% if can?(:download, attachment) %>
-    <%= link_to render_icon(:download),
-      alchemy.download_admin_attachment_path(attachment),
-      title: Alchemy.t("download_file", filename: attachment.file_name),
-      target: "_blank" %>
+    <div class="button_with_label">
+      <%= link_to render_icon(:download),
+        alchemy.download_admin_attachment_path(attachment),
+        target: "_blank",
+        class: "icon_button" %>
+      <label class="left"><%= Alchemy.t("download_file", filename: attachment.file_name) %></label>
+    </div>
   <% end %>
   <% if can?(:edit, attachment) %>
-    <%= render 'alchemy/admin/attachments/replace_button',
-      redirect_url: alchemy.admin_attachments_path,
-      object: attachment,
-      file_attribute: 'file' %>
+    <div class="button_with_label">
+      <%= render 'alchemy/admin/attachments/replace_button',
+        redirect_url: alchemy.admin_attachments_path,
+        object: attachment,
+        file_attribute: 'file' %>
+      <label class="left"><%= Alchemy.t(:replace_file) %></label>
+    </div>
   <% end %>
   <% if can?(:destroy, attachment) %>
-    <%= link_to_confirm_dialog render_icon(:minus),
-      Alchemy.t(:confirm_to_delete_file),
-      alchemy.admin_attachment_path(
-        id: attachment,
-        q: search_filter_params[:q],
-        page: params[:page],
-        per_page: params[:per_page]
-      ),
-      title: Alchemy.t(:delete_file) %>
+    <div class="button_with_label">
+      <%= link_to_confirm_dialog render_icon(:minus),
+        Alchemy.t(:confirm_to_delete_file),
+        alchemy.admin_attachment_path(
+          id: attachment,
+          q: search_filter_params[:q],
+          page: params[:page],
+          per_page: params[:per_page]
+        ),
+        class: "icon_button" %>
+      <label class="left"><%= Alchemy.t(:delete_file) %></label>
+    </div>
   <% end %>
   <% if can?(:edit, attachment) %>
-    <%= link_to_dialog render_icon(:edit),
-      alchemy.edit_admin_attachment_path(attachment, q: search_filter_params[:q], page: params[:page]),
-      {
-        title: Alchemy.t(:rename_file),
-        size: '500x250'
-      },
-      title: Alchemy.t(:rename_file) %>
+    <div class="button_with_label">
+      <%= link_to_dialog render_icon(:edit),
+        alchemy.edit_admin_attachment_path(attachment, q: search_filter_params[:q], page: params[:page]),
+        {
+          title: Alchemy.t(:rename_file),
+          size: '500x250'
+        },
+        class: "icon_button" %>
+      <label class="left"><%= Alchemy.t(:rename_file) %></label>
+    </div>
   <% end %>
   </td>
 </tr>

@@ -14,7 +14,7 @@ Alchemy.ToolbarButton = (options) ->
     e.preventDefault()
     options.onClick(e)
     return
-  $lnk.append "<i class='icon fas fa-#{options.iconClass} fa-fw' />"
+  $lnk.append "<i class='icon ri-#{options.iconClass} ri-fw' />"
   $btn.append $lnk
   $btn.append "<br><label class='#{options.align || "left"}-aligned'>#{options.label}</label>"
   $btn
@@ -62,7 +62,7 @@ Alchemy.ElementsWindow =
     @toolbar = $('<div class="elements-window-toolbar" />')
     buttons.push
       label: "Collapse all elements"
-      iconClass: "compress-alt"
+      iconClass: "contract-up-down-line"
       align: "right"
       onClick: =>
         $("alchemy-element-editor:not([compact]):not([fixed])").each () ->
@@ -92,12 +92,14 @@ Alchemy.ElementsWindow =
   toggleButton: ->
     if @hidden
       @button.find('label').text(@options.texts.showElements)
+      @button.find('.icon').removeClass("ri-menu-unfold-line").addClass("ri-menu-fold-line")
       @button.off('click')
       @button.click =>
         @show()
         false
     else
       @button.find('label').text(@options.texts.hideElements)
+      @button.find('.icon').removeClass("ri-menu-fold-line").addClass("ri-menu-unfold-line")
       @button.off('click')
       @button.click =>
         @hide()

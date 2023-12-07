@@ -1,4 +1,7 @@
 #toolbar {
+  display: flex;
+  align-items: center;
+  gap: 2 * $default-padding;
   z-index: 10;
   @extend %gradiated-toolbar;
   margin-right: 0px;
@@ -6,7 +9,6 @@
   position: relative;
 
   .button_with_label {
-
     form {
       margin: 0;
       display: inline-block;
@@ -22,11 +24,11 @@
 }
 
 .toolbar_buttons {
-  margin-right: 8px;
+  display: flex;
+  flex-grow: 1;
   white-space: nowrap;
   overflow-x: auto;
   overflow-y: visible;
-  max-width: calc(100vw - #{$collapsed-main-menu-width + 65px});
   -webkit-overflow-scrolling: touch;
 
   @media screen and (min-width: $medium-screen-break-point) {
@@ -34,12 +36,14 @@
   }
 
   &.right {
-    position: absolute;
-    right: -8px;
-    top: 0;
-    margin-left: 8px;
-    padding: 8px;
-    background-color: $toolbar-bg-color;
+    flex-grow: 0;
+    padding: 8px 0;
+
+    .button_with_label {
+      &:last-child {
+        margin-right: $default-margin;
+      }
+    }
 
     label {
       left: auto;
@@ -55,10 +59,22 @@
   }
 
   .icon_button {
-
     .icon {
-      font-size: 1.25em;
+      font-size: 1.5em;
       text-shadow: 0 0 1px rgba(#fff, 0.75);
+    }
+  }
+
+  .button_with_label {
+    margin: 0 2 * $default-margin;
+
+    &:first-child {
+      margin-left: $default-margin;
+
+      select,
+      .alchemy_selectbox {
+        margin-left: 2 * $default-margin;
+      }
     }
   }
 }
@@ -84,7 +100,7 @@
   position: relative;
   display: inline-block;
   vertical-align: top;
-  margin: 0 2*$default-margin;
+  margin: 0 2 * $default-margin;
 
   &:hover label {
     display: block;

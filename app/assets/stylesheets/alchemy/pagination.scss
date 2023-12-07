@@ -8,45 +8,53 @@
   width: 100%;
   left: 0px;
   height: $pagination-height;
-  padding: 2*$default-padding;
+  padding: 2 * $default-padding;
   padding-left: $main-menu-width + 10px;
   text-align: left;
   border-top: $default-border;
   z-index: 10;
 
-  a, span, em {
+  a,
+  span,
+  em {
     font-size: $default-font-size;
     font-weight: bold;
     color: $icon-color;
-    padding: $default-padding 2*$default-padding;
+    padding: $default-padding;
     margin: 0 $default-margin/2;
-  }
-
-  a:hover {
-    color: #000;
-    text-shadow: none;
-    text-decoration: none;
-  }
-
-  span a { padding: 0 }
-
-  .current {
-    color: $text-color;
-    border: 1px solid $text-color;
-    text-shadow: 0px 1px 1px #fff;
-    cursor: default;
     border-radius: $default-border-radius;
   }
 
+  a:hover {
+    color: $text-color;
+    background-color: $default-border-color;
+    text-decoration: none;
+  }
+
+  span a {
+    padding: 0;
+  }
+
+  .page {
+    padding: $default-padding 2 * $default-padding;
+  }
+
+  .current {
+    color: $text-color;
+    background-color: $default-border-color;
+    cursor: default;
+  }
+
   .previous_page {
-    margin-right: 2*$default-padding;
+    margin-right: 2 * $default-padding;
   }
 
   .next_page {
-    margin-left: 2*$default-padding;
+    margin-left: 2 * $default-padding;
   }
 
-  .disabled, span {
+  .disabled,
+  span {
     color: #c0c0c0;
   }
 
@@ -67,7 +75,8 @@
   display: inline;
 }
 
-#assign_image_list .pagination, #assign_file_list .pagination {
+#assign_image_list .pagination,
+#assign_file_list .pagination {
   position: absolute;
   padding-left: 8px;
 }

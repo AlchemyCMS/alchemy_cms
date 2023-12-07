@@ -2,18 +2,19 @@
   background-color: $medium-gray;
   margin-top: 12px;
 
-  audio, video {
+  audio,
+  video {
     display: block;
   }
 
   &.image-preview {
     height: 300px;
     text-align: center;
-    padding: 2*$default-padding;
+    padding: 2 * $default-padding;
     white-space: nowrap;
 
     &:before {
-      content: '';
+      content: "";
       display: inline-block;
       height: 100%;
       vertical-align: middle;
@@ -34,6 +35,6 @@
 .full-iframe {
   width: 100%;
   background-color: white;
-  min-height: 335px;
+  min-height: 435px;
   margin-top: 12px;
 }

@@ -192,7 +192,7 @@ module Alchemy
         options = {
           title: Alchemy.t("Delete"),
           message: Alchemy.t("Are you sure?"),
-          icon: :minus
+          icon: "delete-bin-2"
         }.merge(options)
         button_with_confirm(
           render_icon(options[:icon]),
@@ -333,11 +333,11 @@ module Alchemy
 
       # Render a hint icon with tooltip for given object.
       # The model class needs to include the hints module
-      def render_hint_for(element)
+      def render_hint_for(element, icon_options = {})
         return unless element.has_hint?
 
         content_tag :span, class: "hint-with-icon" do
-          render_icon("question-circle") +
+          render_icon("question", icon_options) +
             content_tag(:span, element.hint.html_safe, class: "hint-bubble")
         end
       end
@@ -377,10 +377,10 @@ module Alchemy
       #   <%= hint_with_tooltip('Page layout is missing', icon: 'info') %>
       #
       # @param text [String] - The text displayed in the tooltip
-      # @param icon: 'exclamation-triangle' [String] - Icon name
+      # @param icon: 'alert' [String] - Icon name
       #
       # @return [String]
-      def hint_with_tooltip(text, icon: "exclamation-triangle")
+      def hint_with_tooltip(text, icon: "alert")
         content_tag :span, class: "hint-with-icon" do
           render_icon(icon) + content_tag(:span, text, class: "hint-bubble")
         end

@@ -1,8 +1,16 @@
 <span class="page_status with-hint">
-  <%= render_icon(:compass, transform: 'shrink-2', class: @page.public? ? nil : 'disabled') %>
+  <% if page.public? %>
+    <%= render_icon(:cloud, size: local_assigns.fetch(:icon_size, "lg")) %>
+  <% else %>
+    <%= render_icon("cloud-off", size: local_assigns.fetch(:icon_size, "lg"), class: "disabled") %>
+  <% end %>
   <span class="hint-bubble"><%= page.status_title(:public) %></span>
 </span>
 <span class="page_status with-hint">
-  <%= render_icon(:lock, transform: 'shrink-2', class: @page.restricted? ? nil : 'disabled') %>
+  <% if page.restricted? %>
+    <%= render_icon(:lock, size: local_assigns.fetch(:icon_size, "lg")) %>
+  <% else %>
+    <%= render_icon("lock-unlock", size: local_assigns.fetch(:icon_size, "lg"), class: 'disabled') %>
+  <% end %>
   <span class="hint-bubble"><%= page.status_title(:restricted) %></span>
 </span>

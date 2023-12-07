@@ -2,6 +2,9 @@
 <table class="list" id="<%= resource_handler.resources_name %>_list">
   <thead>
     <tr>
+    <% if local_assigns[:icon] %>
+      <th class="icon"></th>
+    <% end %>
     <% resource_handler.sorted_attributes.each do |attribute| %>
       <th class="<%= attribute[:type] %> <%= attribute[:name] %>">
         <%= sort_link [:resource_url_proxy, @query],
@@ -14,7 +17,7 @@
     </tr>
   </thead>
   <tbody>
-    <%= render_resources %>
+    <%= render_resources(icon: local_assigns[:icon]) %>
   </tbody>
 </table>
 <% elsif search_filter_params[:q].present? %>

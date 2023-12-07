@@ -11,7 +11,7 @@
   flex-direction: column;
 
   .icon {
-    margin: 0 8px 0 4px;
+    margin: 0 $default-margin;
 
     .select2-highlighted & {
       color: $white;
@@ -28,7 +28,15 @@
 
 .page-select--bottom {
   font-size: $small-font-size;
-  padding-left: 6 * $default-padding;
+  padding-left: $default-padding;
+}
+
+.page-select--site-name {
+  color: $muted-text-color;
+
+  .select2-highlighted & {
+    color: $medium-gray;
+  }
 }
 
 .page-select--language-code {

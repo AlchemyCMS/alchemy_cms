@@ -4,7 +4,6 @@ $image-overlay-transition-duration: $transition-duration;
 $image-overlay-transition-easing: ease-in;
 
 .alchemy-image-overlay {
-
   &.open {
     background-color: rgba(0, 0, 0, 0.6);
   }
@@ -19,19 +18,17 @@ $image-overlay-transition-easing: ease-in;
 }
 
 .alchemy-image-overlay-dialog {
-
   &.hide-form {
-
     .picture-details-overlay {
       right: -$image-overlay-form-width;
     }
 
     .zoomed-picture-background {
-      padding-right: 2*$default-padding;
+      padding-right: 2 * $default-padding;
     }
 
     .alchemy-image-overlay-close {
-      right: $picture-overlay-handle-width + 2*$default-padding;
+      right: $picture-overlay-handle-width + 2 * $default-padding;
     }
 
     .next-picture {
@@ -53,18 +50,21 @@ $image-overlay-transition-easing: ease-in;
   height: 100%;
 
   > .message {
-    margin: 2*$default-margin;
+    margin: 2 * $default-margin;
     max-width: 400px;
   }
 }
 
 .alchemy-image-overlay-close {
+  position: absolute;
   width: 32px;
   height: 32px;
-  top: 2*$default-padding;
-  right: 2*$default-padding + $picture-overlay-handle-width + $image-overlay-form-width;
+  top: 2 * $default-padding;
+  right: 2 * $default-padding + $picture-overlay-handle-width +
+    $image-overlay-form-width;
   cursor: pointer;
-  transition: right $image-overlay-transition-duration $image-overlay-transition-easing;
+  transition: right $image-overlay-transition-duration
+    $image-overlay-transition-easing;
 
   .icon {
     font-size: 2em;
@@ -84,14 +84,16 @@ $image-overlay-transition-easing: ease-in;
   top: 0;
   background-color: $medium-gray;
   box-shadow: -2px 0 $default-padding -2px $text-color;
-  transition: right $image-overlay-transition-duration $image-overlay-transition-easing;
+  transition: right $image-overlay-transition-duration
+    $image-overlay-transition-easing;
 }
 
 .picture-details-overlay {
   right: 0;
   width: $image-overlay-form-width;
   height: 100%;
-  padding: 2*$default-padding 4*$default-padding 2*$default-padding $default-padding;
+  padding: 2 * $default-padding 4 * $default-padding 2 * $default-padding
+    $default-padding;
   overflow: auto;
 
   form .control-label,
@@ -123,7 +125,8 @@ $image-overlay-transition-easing: ease-in;
     transform: translate(-50%, -50%);
     font-size: 1.2em;
     color: $text-color;
-    transition: transform $image-overlay-transition-duration $image-overlay-transition-easing;
+    transition: transform $image-overlay-transition-duration
+      $image-overlay-transition-easing;
   }
 
   &:hover {
@@ -134,17 +137,19 @@ $image-overlay-transition-easing: ease-in;
 .zoomed-picture-background {
   width: 100%;
   height: 100%;
-  padding-top: 2*$default-padding;
-  padding-right: $image-overlay-form-width + 2*$default-padding + $picture-overlay-handle-width;
-  padding-bottom: 2*$default-padding;
-  padding-left: 2*$default-padding;
+  padding-top: 2 * $default-padding;
+  padding-right: $image-overlay-form-width + 2 * $default-padding +
+    $picture-overlay-handle-width;
+  padding-bottom: 2 * $default-padding;
+  padding-left: 2 * $default-padding;
   margin: 0 auto;
   text-align: center;
   cursor: pointer;
-  transition: padding-right $image-overlay-transition-duration $image-overlay-transition-easing;
+  transition: padding-right $image-overlay-transition-duration
+    $image-overlay-transition-easing;
 
   &:before {
-    content: '';
+    content: "";
     vertical-align: middle;
     display: inline-block;
     height: 100%;
@@ -156,7 +161,7 @@ $image-overlay-transition-easing: ease-in;
     height: auto;
     max-width: 100%;
     max-height: 100%;
-    box-shadow: 0 0 2*$default-margin $text-color;
+    box-shadow: 0 0 2 * $default-margin $text-color;
     background-color: $dark-gray;
     vertical-align: middle;
     cursor: default;
@@ -165,10 +170,10 @@ $image-overlay-transition-easing: ease-in;
 
 .picture-file-infos,
 .picture-usage-info {
-  padding: 2*$default-padding 0;
+  padding: 2 * $default-padding 0;
 
   .message {
-    margin: 2*$default-padding 0;
+    margin: 2 * $default-padding 0;
   }
 }
 
@@ -185,11 +190,11 @@ $image-overlay-transition-easing: ease-in;
   }
 
   .list {
-    margin: 2*$default-margin 0;
+    margin: 2 * $default-margin 0;
 
     li {
       display: flex;
-      padding: 2*$default-padding;
+      padding: 2 * $default-padding;
       border-radius: $default-border-radius;
       white-space: normal;
       margin-bottom: 1em;
@@ -228,7 +233,7 @@ $image-overlay-transition-easing: ease-in;
     transition: background-color $image-overlay-transition-duration linear;
 
     &:hover {
-      background-color: rgba(0,0,0, 0.3);
+      background-color: rgba(0, 0, 0, 0.3);
 
       .icon {
         color: $white;
@@ -253,6 +258,7 @@ $image-overlay-transition-easing: ease-in;
   .next-picture {
     right: $image-overlay-form-width + $picture-overlay-handle-width;
     @include border-left-radius($default-border-radius);
-    transition: right $image-overlay-transition-duration $image-overlay-transition-easing;
+    transition: right $image-overlay-transition-duration
+      $image-overlay-transition-easing;
   }
 }

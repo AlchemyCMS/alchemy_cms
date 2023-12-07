@@ -26,16 +26,20 @@ input.button {
 
   &.small {
     padding: $small-button-padding;
-    vertical-align: inherit;
     line-height: 4 * $default-padding;
     font-size: inherit;
   }
 
-  &.with_icon .icon {
-    position: relative;
-    top: -1px;
-    margin-right: 2 * $default-margin;
-    color: inherit;
+  &.with_icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    .icon {
+      font-weight: normal;
+      margin-right: $default-margin;
+      color: inherit;
+    }
   }
 
   &[disabled] {
@@ -44,49 +48,33 @@ input.button {
 }
 
 .icon_button {
-  width: 27px;
-  height: 27px;
-  line-height: 21px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
   margin: 0;
-  padding: 3px;
+  padding: 0;
   overflow: hidden;
-  text-align: center;
   text-shadow: none;
   border-radius: $default-border-radius;
-
-  img {
-    position: absolute;
-    top: 2px;
-    left: 3px;
-  }
 
   &.small {
     width: 15px;
     height: 15px;
-    padding: 0;
-    float: none;
-    display: inline-block;
-    vertical-align: middle;
-    position: relative;
-    top: 0px;
     background: none;
     border: none;
+  }
 
-    .icon {
-      position: absolute;
-      top: 50%;
-      transform: translateX(-50%) translateY(-50%);
-      transition: color 250ms;
-    }
+  &:hover {
+    text-decoration: none;
+    background-color: $default-border-color;
+    cursor: pointer;
+  }
 
-    &:hover {
-      border: $default-border-width $default-border-style $icon-color;
-      color: $icon-color;
-
-      .icon {
-        color: inherit;
-      }
-    }
+  .icon {
+    color: inherit;
+    transition: color 250ms;
   }
 
   &.disabled,
@@ -118,6 +106,7 @@ button.icon_button {
   background: transparent;
   border: 0 none;
   box-shadow: none;
+  font-weight: normal;
 
   &:disabled,
   &.disabled {
@@ -131,12 +120,10 @@ button.icon_button {
 
 .button_with_label {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-
-  .toolbar_buttons & {
-    margin: 0 2 * $default-margin;
-  }
 
   &.active,
   &:active,
@@ -153,15 +140,6 @@ button.icon_button {
     top: 0;
   }
 
-  .icon_button {
-    float: none;
-    margin-right: auto;
-    margin-left: auto;
-    display: inline-block;
-    vertical-align: middle;
-    position: relative;
-  }
-
   &.disabled {
     opacity: 0.5;
     cursor: default;
@@ -170,12 +148,6 @@ button.icon_button {
 
 .button_with_label,
 .button_group {
-  .icon_button {
-    width: 29px;
-    height: 29px;
-    line-height: 24px;
-  }
-
   label {
     border-radius: $default-border-radius;
     position: absolute;

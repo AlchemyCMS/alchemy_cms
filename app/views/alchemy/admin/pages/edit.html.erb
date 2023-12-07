@@ -7,7 +7,7 @@
   <div class="button_with_label">
     <%= form_tag alchemy.unlock_admin_page_path(@page, redirect_to: @layoutpage ? alchemy.admin_layoutpages_path : alchemy.admin_pages_path), id: 'unlock_page_form' do %>
       <button class="icon_button" title="<%= Alchemy.t(:explain_unlocking) %>" data-alchemy-hotkey="alt+x">
-        <%= render_icon('sign-out-alt', transform: 'flip-horizontal') %>
+        <%= render_icon('expand-left') %>
       </button>
       <label><%= Alchemy.t(:unlock_page) %></label>
     <% end %>
@@ -15,7 +15,7 @@
   <div class="toolbar_spacer"></div>
   <div class="button_with_label">
     <%= link_to_dialog(
-      render_icon('info-circle'),
+      render_icon(:information),
       alchemy.info_admin_page_path(@page),
       {
         title: Alchemy.t(:page_infos),
@@ -31,7 +31,7 @@
   <div class="button_with_label">
     <% if @page.layoutpage? %>
       <%= link_to_dialog(
-        render_icon(:cog),
+        render_icon("settings-3"),
         alchemy.edit_admin_layoutpage_path(@page),
         {
           title: Alchemy.t(:edit_page_properties),
@@ -43,7 +43,7 @@
       ) %>
     <% else %>
       <%= link_to_dialog(
-        render_icon(:cog),
+        render_icon("settings-3"),
         alchemy.configure_admin_page_path(@page),
         {
           title: Alchemy.t(:edit_page_properties),
@@ -59,7 +59,7 @@
   <div class="button_with_label">
     <%= form_tag alchemy.publish_admin_page_path(@page), id: 'publish_page_form' do %>
       <%= button_tag class: 'icon_button', disabled: cannot?(:publish, @page) do %>
-        <%= render_icon('cloud-upload-alt') %>
+        <%= render_icon('upload-cloud-2') %>
       <% end %>
       <label>
         <% if @page.language.public? %>
@@ -84,14 +84,14 @@
             data: { turbo: false },
             target: "_blank",
             class: 'icon_button' do %>
-          <%= render_icon('external-link-alt') %>
+          <%= render_icon('external-link') %>
         <% end %>
         <label><%= Alchemy.t("Visit page") %></label>
       <% else %>
         <%= content_tag "a",
             title: Alchemy.t(:cannot_visit_unpublic_page),
             class: 'disabled icon_button' do %>
-          <%= render_icon('external-link-alt') %>
+          <%= render_icon('external-link') %>
         <% end %>
         <label><%= Alchemy.t(:cannot_visit_unpublic_page) %></label>
       <% end %>
@@ -118,7 +118,7 @@
     </div>
   <% end %>
   <div class="button_with_label">
-    <%= link_to render_icon(:redo), nil, {
+    <%= link_to render_icon(:refresh), nil, {
       title: Alchemy.t('Reload Preview'),
       class: 'icon_button',
       id: 'reload_preview_button'
@@ -128,7 +128,7 @@
 </div>
 <div class="toolbar_buttons right">
   <div class="button_with_label" id="element_window_button">
-    <%= link_to render_icon(:bars), nil, {
+    <%= link_to render_icon("menu-unfold"), nil, {
       title: Alchemy.t(:hide_elements),
       class: 'icon_button'
     } %>
@@ -167,7 +167,7 @@
           title: '<%= Alchemy.t("New Element") %>',
           label: '<%= Alchemy.t("New Element") %>',
           hotkey: 'alt+n',
-          iconClass: 'plus',
+          iconClass: 'add-line',
           onClick: function() {
             Alchemy.openDialog('<%= alchemy.new_admin_element_path(page_version_id: @page_version.id) %>', {
               title: '<%= Alchemy.t("New Element") %>',
@@ -178,7 +178,7 @@
         {
           title: '<%= Alchemy.t("Clipboard") %>',
           label: '<%= Alchemy.t("Show clipboard") %>',
-          iconClass: '<%= clipboard_empty?("elements") ? "clipboard" : "paste" %>',
+          iconClass: '<%= clipboard_empty?("elements") ? "clipboard-line" : "clipboard-fill" %>',
           buttonId: 'clipboard_button',
           onClick: function() {
             Alchemy.openDialog('<%= alchemy.admin_clipboard_path(remarkable_type: "elements") %>', {

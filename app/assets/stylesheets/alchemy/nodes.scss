@@ -5,12 +5,11 @@
     padding-top: 100px;
 
     .page_icon {
-      cursor: move
+      cursor: move;
     }
   }
 
   .sitemap_node-level_0 {
-
     > .node_name {
       font-weight: bold;
     }
@@ -43,7 +42,7 @@
   .node_url {
     display: flex;
     align-items: center;
-    padding: 0 2*$default-padding;
+    padding: 0 2 * $default-padding;
     white-space: nowrap;
     background-color: $sitemap-info-background-color;
     line-height: $sitemap-line-height;
@@ -81,11 +80,11 @@
 
 #node_filter_result {
   display: none;
-  margin-left: 2*$default-margin;
+  margin-left: 2 * $default-margin;
 }
 
 .sitemap_node {
-  margin: 3*$default-margin 0;
+  margin: 3 * $default-margin 0;
   transition: background-color $transition-duration;
 
   &.highlight {
@@ -127,13 +126,13 @@
   width: 32px;
   line-height: $sitemap-line-height;
   float: left;
-  padding: 0 2*$default-padding;
+  padding: 0 2 * $default-padding;
   text-align: center;
 }
 
 .nodes_tree-right_tools {
   height: $sitemap-line-height;
-  padding: 0 2*$default-padding;
+  padding: 0 2 * $default-padding;
   float: right;
 
   > a {
@@ -142,6 +141,7 @@
     height: $sitemap-line-height;
     line-height: $sitemap-line-height;
     text-align: center;
+    text-decoration: none;
     margin: 0;
 
     &.disabled .icon {

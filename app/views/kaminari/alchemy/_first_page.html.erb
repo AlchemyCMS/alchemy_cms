@@ -7,9 +7,11 @@
     remote:        data-remote
 -%>
 <% if current_page.first? %>
-  <span class="first-page disabled"><i class="icon fas fa-angle-double-left"></i></span>
+  <span class="first-page disabled">
+    <i class="icon ri-skip-left-line ri-fw"></i>
+  </span>
 <% else %>
   <%= link_to url, remote: remote, title: Alchemy.t(:first, scope: 'pagination'), class: 'first-page' do %>
-    <i class="icon fas fa-angle-double-left"></i>
+    <i class="icon ri-skip-left-line ri-fw"></i>
   <% end %>
 <% end %>

@@ -4,47 +4,50 @@
     <% if layoutpage.definition.blank? %>
       <%= page_layout_missing_warning %>
     <% else %>
-      <i class="icon far fa-file fa-lg"></i>
+      <i class="icon ri-file-3-line ri-lg"></i>
     <% end %>
     </div>
     <div class="sitemap_right_tools">
     <%- if can?(:configure, layoutpage) -%>
-      <div class="button_with_label sitemap_tool">
+      <div class="button_with_label">
         <%= link_to_dialog(
-          render_icon(:cog),
+          render_icon("settings-3"),
           alchemy.edit_admin_layoutpage_path(layoutpage),
           {
             title: Alchemy.t(:edit_page_properties),
             size: '410x170'
-          }
+          },
+          class: "icon_button"
         ) -%>
         <label class="center"><%= Alchemy.t(:edit_page_properties) %></label>
       </div>
     <%- end -%>
     <%- if can?(:copy, layoutpage) -%>
-      <div class="button_with_label sitemap_tool">
+      <div class="button_with_label">
         <%= link_to(
-          render_icon(:copy),
+          render_icon("file-copy"),
           alchemy.insert_admin_clipboard_path(
             remarkable_type: layoutpage.class.name.demodulize.underscore.pluralize,
             remarkable_id: layoutpage.id
           ),
           remote: true,
-          method: 'post'
+          method: 'post',
+          class: "icon_button"
         ) %>
         <label class="center"><%= Alchemy.t(:copy_page) %></label>
       </div>
     <%- end -%>
     <%- if can?(:destroy, layoutpage) -%>
-      <div class="button_with_label sitemap_tool">
+      <div class="button_with_label">
         <%= link_to_confirm_dialog(
-          render_icon(:minus),
+          render_icon("delete-bin-2"),
           Alchemy.t(:confirm_to_delete_page),
           url_for(
             controller: 'pages',
             action: 'destroy',
             id: layoutpage.id
-          )
+          ),
+          class: "icon_button"
         ) -%>
         <label class="left"><%= Alchemy.t(:delete_page) %></label>
       </div>

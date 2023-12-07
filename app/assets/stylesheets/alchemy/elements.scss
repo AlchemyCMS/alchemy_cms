@@ -65,16 +65,11 @@ alchemy-tinymce {
 }
 
 .element-title {
+  flex-grow: 1;
   overflow: hidden;
   white-space: nowrap;
-  max-width: 85%;
-  margin-left: $default-margin;
   text-overflow: ellipsis;
   transition: color $transition-duration;
-
-  .has-hint & {
-    max-width: 80%;
-  }
 
   .preview_text_quote {
     font-size: $small-font-size;
@@ -88,42 +83,25 @@ alchemy-tinymce {
   line-height: 15px;
 }
 
-.element-handle,
-.element-title {
-  display: inline-block;
-  vertical-align: middle;
-}
-
 .element-handle {
-  position: relative;
-  width: 18px;
-  height: 18px;
-
-  .element.icon {
-    position: absolute;
-    top: 3px;
-    left: 1px;
-  }
-}
-
-.draggable .element-handle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   cursor: move;
 }
 
 .element-toggle {
-  display: flex;
-  align-items: center;
-  position: absolute;
   width: 20px;
   height: 20px;
-  right: 8px;
-  top: 8px;
+  display: flex;
+  align-items: center;
+  position: relative;
   transition: none;
   background: none;
   border-color: transparent;
   color: inherit;
   box-shadow: none;
-  padding: 4px;
+  padding: 0;
   margin: 0;
 
   &:hover {
@@ -275,7 +253,6 @@ alchemy-tinymce {
       visibility: hidden;
       position: absolute;
       height: 35px;
-      padding: 2px 0;
       opacity: 0;
       z-index: 1;
       border-bottom: $default-border;
@@ -298,15 +275,11 @@ alchemy-tinymce {
       }
     }
 
-    .element-title {
-      max-width: 75%;
-    }
-
     &:not(.folded) .element-toggle {
       pointer-events: none;
 
       i:before {
-        content: fa-content($fa-var-ellipsis-v);
+        content: $ri-more-2-line;
       }
     }
 
@@ -390,7 +363,9 @@ alchemy-tinymce {
 }
 
 .element-header {
-  position: relative;
+  display: flex;
+  gap: $default-padding;
+  align-items: center;
   padding: 2 * $default-padding;
   background-color: $element-header-bg-color;
   @extend .disable-user-select;
@@ -409,10 +384,6 @@ alchemy-tinymce {
   }
 
   > .hint-with-icon {
-    position: absolute;
-    right: 32px;
-    top: 10px;
-
     .hint-bubble {
       left: auto;
       right: -24px;
@@ -428,18 +399,12 @@ alchemy-tinymce {
 }
 
 .element-toolbar {
-  padding: $default-padding 0;
-  height: $element-toolbar-height;
-  border-bottom: 1px solid $medium-gray;
-}
-
-.element_tools {
   display: flex;
   width: 100%;
-
-  .button_with_label {
-    margin: 0 2px;
-  }
+  padding: $default-padding;
+  gap: $default-padding;
+  height: $element-toolbar-height;
+  border-bottom: 1px solid $medium-gray;
 }
 
 .element-footer {
@@ -473,8 +438,8 @@ alchemy-tinymce {
   }
 
   &[open] {
-    .ingredient-group-expand {
-      @extend .fa-angle-up;
+    .ingredient-group-expand::before {
+      content: $ri-arrow-down-s-line;
     }
 
     > :not(summary) {
@@ -567,13 +532,9 @@ alchemy-tinymce {
   bottom: 0;
   z-index: 0;
   width: 100%;
-  padding: $default-padding $default-padding/2;
+  padding: $default-padding/2;
 
   a {
-    margin: 0 $default-padding/2;
-    padding: $default-padding/2;
-    cursor: pointer;
-
     &.linked {
       border-radius: $default-border-radius;
       background-color: $linked-color;
@@ -600,7 +561,7 @@ alchemy-tinymce {
     display: inline-block;
     width: 160px;
     margin: $default-margin 0;
-    padding-bottom: 28px;
+    padding-bottom: 34px;
 
     .picture_image {
       overflow: hidden;
@@ -694,7 +655,9 @@ alchemy-tinymce {
   .file {
     display: flex;
     align-items: center;
+    gap: $default-padding;
     margin: 6px 0 $default-margin;
+    padding: 0 $default-padding 0 2 * $default-padding;
     border: $default-border;
     background-color: $white;
     border-radius: $default-border-radius;
@@ -706,16 +669,13 @@ alchemy-tinymce {
     }
   }
 
-  .file_icon {
-    text-align: center;
-    width: 24px;
-    padding: $default-padding;
-  }
-
   .file_name {
+    display: inline-flex;
+    flex-grow: 1;
+    height: 100%;
+    align-items: center;
     white-space: nowrap;
     overflow: hidden;
-    max-width: 80%;
     font-size: $small-font-size;
     text-overflow: ellipsis;
     padding: $default-padding;
@@ -729,16 +689,15 @@ alchemy-tinymce {
 
 .file_tools {
   display: flex;
+  gap: $default-padding;
   align-items: center;
-  margin-left: auto;
   background-color: white;
-  width: 48px;
   border-radius: 0 $default-border-radius $default-border-radius 0;
 
   a {
     text-align: center;
     text-decoration: none;
-    padding: $default-padding;
+    width: 24px;
   }
 }
 

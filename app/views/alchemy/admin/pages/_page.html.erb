@@ -8,19 +8,19 @@
         {{#if permissions.edit_content}}
           {{#if locked}}
             <span class="with-hint">
-              <i class="icon fas fa-edit fa-fw"></i>
+              <i class="icon ri-file-edit-line ri-fw"></i>
               <span class="hint-bubble">
                 {{locked_notice}}
               </span>
             </span>
           {{else}}
           <span class="{{#unless root}}handle{{/unless}}">
-            <i class="icon far fa-file fa-lg"></i>
+            <i class="icon ri-file-line ri-fw"></i>
           </span>
           {{/if}}
         {{else}}
           <span class="with-hint">
-            <i class="icon fas fa-ban fa-fw"></i>
+            <i class="icon ri-file-forbid-line ri-fw"></i>
             <span class="hint-bubble">
               <%= Alchemy.t("Your user role does not allow you to edit this page") %>
             </span>
@@ -30,98 +30,103 @@
     </div>
     <div class="sitemap_right_tools">
       {{#if permissions.info}}
-      <div class="button_with_label sitemap_tool">
+      <div class="button_with_label">
         <%= link_to_dialog(
-          render_icon("info-circle"),
+          render_icon("information"),
           alchemy.info_admin_page_path(id: "__ID__"),
           {
             title: Alchemy.t(:page_infos),
             size: "520x290"
-          }
+          },
+          class: "icon_button"
         ) %>
         <label class="center"><%= Alchemy.t(:page_infos) %></label>
       {{else}}
       <div class="sitemap_tool disabled with-hint">
-        <%= render_icon("info-circle") %>
+        <%= render_icon("information") %>
         <span class="hint-bubble">
           <%= Alchemy.t("Your user role does not allow you to edit this page") %>
         </span>
       {{/if}}
       </div>
       {{#if permissions.configure}}
-      <div class="button_with_label sitemap_tool">
+      <div class="button_with_label">
         <%= link_to_dialog(
-          render_icon(:cog),
+          render_icon("settings-3"),
           alchemy.configure_admin_page_path(id: "__ID__"),
           {
             title: Alchemy.t(:edit_page_properties),
             size: "450x680"
-          }
+          },
+          class: "icon_button"
         ) -%>
         <label class="center"><%= Alchemy.t(:edit_page_properties) %></label>
       {{else}}
       <div class="sitemap_tool disabled with-hint">
-        <%= render_icon(:cog) %>
+        <%= render_icon("settings-3") %>
         <span class="hint-bubble">
           <%= Alchemy.t("Your user role does not allow you to edit this page") %>
         </span>
       {{/if}}
       </div>
       {{#if permissions.copy}}
-      <div class="button_with_label sitemap_tool">
+      <div class="button_with_label">
         <%= link_to(
-          render_icon(:copy),
+          render_icon("file-copy"),
           alchemy.insert_admin_clipboard_path(
             remarkable_type: :pages,
             remarkable_id: "__ID__",
           ),
           remote: true,
-          method: :post
+          method: :post,
+          class: "icon_button"
         ) %>
         <label class="center"><%= Alchemy.t(:copy_page) %></label>
       {{else}}
       <div class="sitemap_tool disabled with-hint">
-        <%= render_icon(:copy) %>
+        <%= render_icon("file-copy") %>
         <span class="hint-bubble">
           <%= Alchemy.t("Your user role does not allow you to edit this page") %>
         </span>
       {{/if}}
       </div>
       {{#if permissions.destroy}}
-      <div class="button_with_label sitemap_tool">
+      <div class="button_with_label">
         <%= link_to_confirm_dialog(
-          render_icon(:minus),
+          render_icon("delete-bin-2"),
           Alchemy.t(:confirm_to_delete_page),
           url_for(
             controller: "pages",
             action: "destroy",
             id: "__ID__"
-          )
+          ),
+          class: "icon_button"
         ) -%>
         <label class="center"><%= Alchemy.t(:delete_page) %></label>
       {{else}}
       <div class="sitemap_tool disabled with-hint">
-        <%= render_icon(:minus) %>
+        <%= render_icon("delete-bin-2") %>
         <span class="hint-bubble">
           <%= Alchemy.t("Your user role does not allow you to edit this page") %>
         </span>
       {{/if}}
       </div>
       {{#if permissions.create}}
-      <div class="button_with_label sitemap_tool">
+      <div class="button_with_label">
         <%= link_to_dialog(
-          render_icon(:plus),
+          render_icon(:add),
           alchemy.new_admin_page_path(parent_id: "__ID__"),
           {
             title: Alchemy.t(:create_page),
             size: "340x165",
             overflow: true
-          }
+          },
+          class: "icon_button"
         ) -%>
         <label class="left"><%= Alchemy.t(:create_page) %></label>
       {{else}}
       <div class="sitemap_tool disabled with-hint">
-        <%= render_icon(:plus) %>
+        <%= render_icon("file-add") %>
         <span class="hint-bubble">
           <%= Alchemy.t("Your user role does not allow you to edit this page") %>
         </span>
@@ -130,11 +135,11 @@
     </div>
     <div class="page_infos">
       <span class="page_status with-hint">
-        <i class="icon fas fa-fw fa-compass {{#unless public}}disabled{{/unless}}" data-fa-transform="shrink-2"></i>
+        <i class="icon ri-fw ri-cloud{{#unless public}}-off{{/unless}}-line {{#unless public}}disabled{{/unless}}"></i>
         <span class="hint-bubble">{{status_titles.public}}</span>
       </span>
       <span class="page_status with-hint">
-        <i class="icon fas fa-fw fa-lock {{#unless restricted}}disabled{{/unless}}" data-fa-transform="shrink-2"></i>
+        <i class="icon ri-fw ri-lock{{#unless restricted}}-unlock{{/unless}}-line {{#unless restricted}}disabled{{/unless}}"></i>
         <span class="hint-bubble">{{status_titles.restricted}}</span>
       </span>
     </div>

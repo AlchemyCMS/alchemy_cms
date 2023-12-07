@@ -7,15 +7,19 @@ div#flash_notices {
 
   .flash.error {
     cursor: pointer;
-    padding-right: 24px;
+    padding-right: 32px;
 
     &:before {
-      content: fa-content($fa-var-times);
+      display: flex;
       position: absolute;
-      right: 2*$default-padding;
-      top: 11px;
-      font-size: $small-font-size;
-      font-family: 'Font Awesome 5 Free';
+      right: 2 * $default-padding;
+      top: 7px;
+      width: 20px;
+      height: 20px;
+      font-family: "remixicon";
+      content: $ri-close-line;
+      align-items: center;
+      justify-content: center;
     }
   }
 }
@@ -23,22 +27,24 @@ div#flash_notices {
 div.flash {
   border-radius: $default-border-radius;
   opacity: 0.95;
-  padding: 8px 8px 8px 30px;
+  padding: 8px 16px 8px 32px;
   font-weight: bold;
   border-width: 1px;
   border-style: solid;
   z-index: 1000;
-  margin: $default-margin $default-margin 2*$default-margin;
+  margin: $default-margin $default-margin 2 * $default-margin;
   position: relative;
   min-height: 2.6em;
   word-break: break-all;
   transition-property: opacity, transform;
   transition-duration: 0.4s;
+  line-height: 1.5;
 
   .icon {
     position: absolute;
-    top: 10px;
-    left: 8px;
+    top: 5px;
+    left: 2 * $default-padding;
+    vertical-align: bottom;
     color: inherit;
   }
 
@@ -66,7 +72,9 @@ div.flash {
     background-color: $info_background_color;
   }
 
-  &.warn, &.warning, &.alert {
+  &.warn,
+  &.warning,
+  &.alert {
     border-color: $warning_border_color;
     color: $warning_text_color;
     background-color: $warning_background_color;

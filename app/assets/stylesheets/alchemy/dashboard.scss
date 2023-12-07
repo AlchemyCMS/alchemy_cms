@@ -1,6 +1,6 @@
 #dashboard {
   overflow: auto;
-  padding: 4*$default-padding 0;
+  padding: 4 * $default-padding 0;
   width: 100%;
   position: relative;
 
@@ -35,8 +35,13 @@
       td {
         position: relative;
 
-        &:first-child { width: 40% }
-        form { float: right }
+        &:first-child {
+          width: 40%;
+        }
+
+        form {
+          float: right;
+        }
       }
     }
   }
@@ -53,10 +58,30 @@
     display: none;
   }
 
-  & > span { display: none }
+  > span {
+    display: inline-flex;
+    gap: $default-padding;
+    align-items: center;
 
-  span.icon {
-    vertical-align: top;
+    &.hidden {
+      display: none;
+    }
+
+    .icon {
+      color: inherit;
+    }
+  }
+
+  #up_to_date {
+    color: $success_text_color;
+  }
+
+  #error {
+    color: $error_text_color;
+  }
+
+  #update_available {
+    color: $warning_text_color;
   }
 }
 

@@ -2,7 +2,7 @@
   <%= render "alchemy/admin/partials/site_select" %>
   <%= render "alchemy/admin/partials/language_tree_select" %>
   <%= toolbar_button(
-    icon: :plus,
+    icon: "file-add",
     url: alchemy.new_admin_page_path(language: @current_language),
     hotkey: 'alt+n',
     dialog_options: {
@@ -30,7 +30,7 @@
   <% end %>
   <div class="button_with_label" id="clipboard_button">
     <%= link_to_dialog(
-      render_icon(clipboard_empty?("pages") ? :clipboard : :paste),
+      render_icon(:clipboard, style: clipboard_empty?("pages") ? "line" : "fill"),
       alchemy.admin_clipboard_path(remarkable_type: "pages"),
       {
         title: Alchemy.t("Clipboard"),
@@ -44,7 +44,7 @@
   <div class="toolbar_spacer"></div>
   <div class="button_with_label<%= @view != "list" ? " active" : nil %>">
     <%= link_to(
-      render_icon(:stream),
+      render_icon(:"menu-2"),
       alchemy.admin_pages_path(view: "tree"),
       class: "icon_button"
     ) %>
@@ -52,7 +52,7 @@
   </div>
   <div class="button_with_label<%= @view == "list" ? " active" : nil %>">
     <%= link_to(
-      render_icon("sort-amount-down-alt"),
+      render_icon("sort-desc", style: nil),
       alchemy.admin_pages_path(view: "list"),
       class: "icon_button"
     ) %>

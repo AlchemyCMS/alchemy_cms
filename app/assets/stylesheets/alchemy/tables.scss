@@ -6,28 +6,16 @@ table {
   width: 100%;
 
   &.list .tools {
-    button,
-    a {
-      display: inline-block;
-      width: 18px;
-      height: 18px;
-      padding: 0;
-      margin: 0 $default-margin;
-      line-height: inherit;
-      text-align: center;
-
-      > .icon {
-        margin: 0;
-      }
-    }
+    background-color: transparent;
+    padding: 2 * $default-padding;
   }
 }
 
 .list td,
 .list th {
-  padding: 2 * $default-padding;
+  padding: 3 * $default-padding;
   vertical-align: top;
-  line-height: 18px;
+  line-height: 22px;
   border-right: 1px solid $medium-gray;
   transition: background-color $transition-duration;
 
@@ -42,6 +30,7 @@ table {
   &.icon {
     width: 16px;
     text-align: center;
+    background-color: transparent;
   }
 }
 
@@ -109,7 +98,7 @@ th {
 
 td {
   &.file_name {
-    word-break: break-all;
+    white-space: nowrap;
   }
 
   &.file_type {
@@ -142,11 +131,17 @@ td {
   }
 
   &.page_layout {
-    width: 160px;
+    width: 10%;
+  }
+
+  &.url {
+    width: 15%;
+    white-space: nowrap;
   }
 
   &.status {
-    width: 80px;
+    width: 5%;
+    white-space: nowrap;
 
     .page_status {
       margin: 0 $default-margin;
@@ -169,7 +164,7 @@ td {
 
 th.count,
 td.count {
-  width: 120px;
+  width: 10%;
   text-align: right;
   padding-right: 16px;
 }
