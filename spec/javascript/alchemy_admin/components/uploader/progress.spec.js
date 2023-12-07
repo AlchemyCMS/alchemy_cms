@@ -48,7 +48,7 @@ describe("alchemy-upload-progress", () => {
 
     document.body.append(component)
 
-    progressBar = document.querySelector("progress")
+    progressBar = document.querySelector("sl-progress-bar")
     overallProgressValue = document.querySelector(".overall-progress-value")
     overallUploadValue = document.querySelector(".overall-upload-value")
 

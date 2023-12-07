@@ -108,7 +108,9 @@ describe("alchemy-uploader", () => {
 
     beforeEach(() => {
       component._uploadFiles([firstFile])
-      progressBar = document.querySelector("alchemy-upload-progress progress")
+      progressBar = document.querySelector(
+        "alchemy-upload-progress sl-progress-bar"
+      )
     })
 
     it("shows upload component", () => {

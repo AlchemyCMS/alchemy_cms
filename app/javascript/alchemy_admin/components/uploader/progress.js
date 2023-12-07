@@ -23,7 +23,7 @@ export class Progress extends AlchemyHTMLElement {
 
   render() {
     return `
-      <progress max="100" value="0"></progress>
+      <sl-progress-bar value="0"></sl-progress-bar>
       <div class="overall-progress-value value-text"></div>
       <div class="single-uploads" style="--progress-columns: ${
         this.fileCount > 3 ? 3 : this.fileCount
@@ -66,7 +66,13 @@ export class Progress extends AlchemyHTMLElement {
       this._sumFileProgresses("progressEventLoaded")
     )} / ${formatFileSize(this._sumFileProgresses("progressEventTotal"))}`
 
-    this.querySelector(`progress`).value = totalProgress
+    const status = this.status
+
+    this.progressElement.value = totalProgress
+    this.progressElement.toggleAttribute(
+      "indeterminate",
+      status === "upload-finished"
+    )
     this.querySelector(`.overall-progress-value`).textContent =
       overallProgressValue
     this.querySelector(`.overall-upload-value`).textContent = overallUploadSize
@@ -75,7 +81,7 @@ export class Progress extends AlchemyHTMLElement {
       this.onComplete()
     }
 
-    this.className = this.status
+    this.className = status
     this.visible = true
   }
 
@@ -91,6 +97,13 @@ export class Progress extends AlchemyHTMLElement {
    */
   get finished() {
     return this._activeUploads().every((entry) => entry.finished)
+  }
+
+  /**
+   * @returns {HTMLProgressElement|undefined}
+   */
+  get progressElement() {
+    return this.querySelector("sl-progress-bar")
   }
 
   /**

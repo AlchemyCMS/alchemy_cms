@@ -39,7 +39,7 @@ describe("alchemy-file-upload", () => {
     document.body.innerHTML = "" // reset previous content to prevent raise conditions
     document.body.append(component)
 
-    progressBar = document.querySelector("progress")
+    progressBar = document.querySelector("sl-progress-bar")
     fileName = document.querySelector(".file-name")
     loadedSize = document.querySelector(".loaded-size")
     cancelButton = document.querySelector("button")

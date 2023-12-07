@@ -67,15 +67,15 @@
   --sl-input-label-color: var(--color-text);
 
   --file-upload_background-color: hsla(0deg, 0%, 70%, 0.8);
-  --file-upload_single-upload-background-color: var(--color-grey_medium);
-  --file-upload_progress-bar-color: var(--color-blue_very_light);
-  --file-upload_progress-value-color: var(--color-blue_dark);
+  --file-upload_single-upload-background-color: var(--color-grey_light);
+  --file-upload_progress-track-color: var(--color-blue_very_light);
+  --file-upload_progress-indicator-color: var(--color-blue_dark);
 
-  --file-upload_progress-value-color-canceled: hsla(0deg, 0%, 60%, 0.8);
-  --file-upload_progress-value-color-failed: var(--color-red_medium);
-  --file-upload_progress-value-color-invalid: var(--color-red_medium);
-  --file-upload_progress-value-color-successful: var(--color-green_medium);
-  --file-upload_progress-value-color-upload-finished: var(
-    --color-grey-blue_light
+  --file-upload_progress-indicator-color-canceled: hsla(0deg, 0%, 60%, 0.8);
+  --file-upload_progress-indicator-color-failed: var(--color-red_medium);
+  --file-upload_progress-indicator-color-invalid: var(--color-red_medium);
+  --file-upload_progress-indicator-color-successful: var(--color-green_medium);
+  --file-upload_progress-indicator-color-upload-finished: var(
+    --color-blue_dark
   );
 }

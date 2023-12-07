@@ -32,6 +32,7 @@ import "alchemy_admin/components/page_select"
 import "alchemy_admin/components/select"
 import "alchemy_admin/components/spinner"
 import "alchemy_admin/components/tinymce"
+import "@shoelace/progress-bar"
 import "@shoelace/switch"
 import "@shoelace/tab"
 import "@shoelace/tab-group"
@@ -60,6 +61,7 @@ setDefaultAnimation("tooltip.hide", {
     duration: 100
   }
 })
+
 
 // Global Alchemy object
 if (typeof window.Alchemy === "undefined") {

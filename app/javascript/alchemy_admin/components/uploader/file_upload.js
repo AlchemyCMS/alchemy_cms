@@ -25,15 +25,17 @@ export class FileUpload extends AlchemyHTMLElement {
 
   render() {
     return `
-      <progress max="100" value="${this.value}"></progress>
+      <sl-progress-bar value="${this.value}"></sl-progress-bar>
       <div class="description">
         <span class="file-name">${this.file?.name}</span>
         <span class="loaded-size">${this.loadedSize}</span>
         <span class="error-message">${this.errorMessage}</span>
       </div>
-      <button class="icon_button" aria-label="Abort Upload">
-        <i class="fas fa-times fa-fw"></i>
-      </button>
+      <sl-tooltip content="${translate("Abort upload")}">
+        <button class="icon_button" aria-label="${translate("Abort upload")}">
+          <i class="icon ri-close-line ri-fw"></i>
+        </button>
+      </sl-tooltip>
     `
   }
 
@@ -181,7 +183,7 @@ export class FileUpload extends AlchemyHTMLElement {
    * @returns {HTMLProgressElement|undefined}
    */
   get progressElement() {
-    return this.querySelector("progress")
+    return this.querySelector("sl-progress-bar")
   }
 
   /**
@@ -220,6 +222,11 @@ export class FileUpload extends AlchemyHTMLElement {
   set status(status) {
     this._status = status
     this.className = status
+
+    this.progressElement?.toggleAttribute(
+      "indeterminate",
+      status === "upload-finished"
+    )
   }
 
   /**
