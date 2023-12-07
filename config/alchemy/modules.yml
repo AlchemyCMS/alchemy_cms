@@ -4,18 +4,10 @@
   engine_name: alchemy
   position: 1
   navigation:
-    name: "modules.dashboard"
+    name: Home
     controller: "/alchemy/admin/dashboard"
     action: index
-    inline_image: '
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
-        <g fill="currentColor">
-          <path d="m8.87 4.92 3 3.01-1.1 4.12-4.09 1.1-3-3.01 1.1-4.12zm.45-1.67-5.77 1.55-1.55 5.8 4.23 4.24 5.77-1.55 1.54-5.79z"/>
-          <path d="m11.75 15.58 1.27 1.28-.47 1.75-1.74.47-1.26-1.28.47-1.75zm.45-1.67-3.4.91-.92 3.42 2.49 2.51 3.41-.92.91-3.42z"/>
-          <path d="m18.15 9.13 2.18 2.19-.8 2.99-2.97.8-2.18-2.19.8-2.99zm.45-1.67-4.65 1.25-1.24 4.66 3.4 3.42 4.64-1.25 1.25-4.67z"/>
-        </g>
-      </svg>
-    '
+    icon: home-2-line
 
 - name: pages
   engine_name: alchemy
