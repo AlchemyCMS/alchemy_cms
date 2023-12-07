@@ -21,4 +21,17 @@ RSpec.describe Alchemy::Admin::ElementsController do
       end
     end
   end
+
+  describe "#publish" do
+    context "publish element" do
+      context "with validations" do
+        let(:element) { create(:alchemy_element, :with_ingredients, name: :all_you_can_eat, public: false) }
+
+        it "saves without running validations" do
+          patch publish_admin_element_path(id: element.id, format: :js)
+          expect(element.reload).to be_public
+        end
+      end
+    end
+  end
 end

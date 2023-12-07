@@ -29,18 +29,10 @@
     ) -%>
     <label><%= Alchemy.t("Delete element") %></label>
   </div>
-  <div class="button_with_label publish-element-button">
-    <%= link_to(
-      render_icon(:toggle, style: element.public? ? 'fill' : 'line'),
-      alchemy.publish_admin_element_path(id: element.id),
-      remote: true,
-      method: :patch,
-      class: "icon_button"
-    ) %>
-    <% if element.public? %>
-      <label><%= Alchemy.t(:hide_element) %></label>
-    <% else %>
-      <label><%= Alchemy.t(:show_element) %></label>
-    <% end %>
-  </div>
+  <alchemy-publish-element-button class="button_with_label">
+    <sl-switch <%= element.public? ? nil : "checked" %> size="small">
+      <%= t(".hide") %>
+    </sl-switch>
+    <label class="left"><%= Alchemy.t(:hide_element) %></label>
+  </alchemy-publish-element-button>
 </div>

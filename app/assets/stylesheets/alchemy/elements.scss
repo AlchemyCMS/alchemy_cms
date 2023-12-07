@@ -258,6 +258,10 @@ alchemy-tinymce {
       border-bottom: $default-border;
       background-color: $light-gray;
       transition: all $transition-duration;
+
+      sl-switch::part(label) {
+        display: none;
+      }
     }
 
     .element-header:hover + .element-toolbar,
@@ -405,6 +409,18 @@ alchemy-tinymce {
   gap: $default-padding;
   height: $element-toolbar-height;
   border-bottom: 1px solid $medium-gray;
+}
+
+alchemy-publish-element-button {
+  display: inline-flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: $default-margin;
+
+  sl-switch {
+    --thumb-size: 10px;
+    --height: 12px;
+  }
 }
 
 .element-footer {

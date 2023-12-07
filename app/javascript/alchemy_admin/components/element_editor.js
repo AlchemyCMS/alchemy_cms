@@ -6,6 +6,8 @@ import IngredientAnchorLink from "alchemy_admin/ingredient_anchor_link"
 import { post } from "alchemy_admin/utils/ajax"
 import { createHtmlElement } from "../utils/dom_helpers"
 
+import "./element_editor/publish_element_button"
+
 export class ElementEditor extends HTMLElement {
   constructor() {
     super()
@@ -354,6 +356,26 @@ export class ElementEditor extends HTMLElement {
         detail: { title }
       })
     )
+  }
+
+  /**
+   * Sets element published or hidden
+   * @param {boolean}
+   */
+  set published(isPublished) {
+    if (isPublished) {
+      this.classList.remove("hidden")
+    } else {
+      this.classList.add("hidden")
+    }
+  }
+
+  /**
+   * Is element published or hidden
+   * @returns {boolean}
+   */
+  get published() {
+    return !this.classList.contains("hidden")
   }
 
   /**

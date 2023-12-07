@@ -223,6 +223,10 @@ en:
         host: Either enter a <a href="https://en.wikipedia.org/wiki/Fully_qualified_domain_name" target="_blank">FQDN</a> or use a asterisk (*) to allow all domains to access this site.
         aliases: Enter additional domains this site should be accessible by. Please separate them by space or new line.
 
+    admin:
+      elements:
+        toolbar:
+          hide: Hide
     add_nested_element: "Add %{name}"
     anchor: "Anchor"
     anchor_link_headline: You can link to an anchor from the current page.
