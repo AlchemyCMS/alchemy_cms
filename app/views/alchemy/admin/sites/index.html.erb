@@ -21,7 +21,7 @@
 <div id="archive_all" class="resources-table-wrapper">
   <% if @sites.any? %>
     <%= render 'alchemy/admin/resources/table_header' %>
-    <%= render 'table' %>
+    <%= render 'table', icon: "global" %>
   <% elsif search_filter_params[:q].present? %>
     <%= render_message { Alchemy.t('Nothing found') } %>
   <% else %>
