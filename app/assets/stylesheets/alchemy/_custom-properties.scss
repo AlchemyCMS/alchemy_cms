@@ -47,8 +47,8 @@
   --color-grey-blue_medium: hsl(224deg, 23%, 40%);
   --color-grey-blue_dark: hsl(224deg, 23%, 26%);
 
-  --color-grey_light: hsl(0deg, 0%, 97%);
-  --color-grey_medium: hsl(0deg, 0%, 94%);
+  --color-grey_light: hsl(0deg, 0%, 94%);
+  --color-grey_medium: hsl(0deg, 0%, 78%);
   --color-grey_dark: hsl(0deg, 0%, 40%);
   --color-grey_very_dark: hsl(0deg, 0%, 20%);
 }
@@ -57,5 +57,5 @@
   --outline-color: var(--color-orange_dark);
 
   --tabs_indicator-color: var(--color-orange_dark);
-  --tabs_track-color: var(--color-grey_medium);
+  --tabs_track-color: var(--color-grey_light);
 }
