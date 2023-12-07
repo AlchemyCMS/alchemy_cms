@@ -160,10 +160,10 @@ module Alchemy
     #
     # NOTE: Alchemy gives you a local variable named like your resource
     #
-    def render_resources
-      render partial: resource_name, collection: resources_instance_variable
+    def render_resources(icon: nil)
+      render partial: resource_name, collection: resources_instance_variable, locals: {icon: icon}
     rescue ActionView::MissingTemplate
-      render partial: "resource", collection: resources_instance_variable
+      render partial: "resource", collection: resources_instance_variable, locals: {icon: icon}
     end
 
     def resource_has_tags

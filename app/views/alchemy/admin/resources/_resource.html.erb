@@ -1,4 +1,7 @@
 <tr class="<%= cycle('even', 'odd') %>">
+  <% if local_assigns[:icon] %>
+    <td class="icon"><%= render_icon(local_assigns[:icon], size: "xl") %></td>
+  <% end %>
 <% resource_handler.sorted_attributes.each do |attribute| %>
   <td class="<%= attribute[:type] %> <%= attribute[:name] %>">
   <% if attribute[:type] == :boolean %>
