@@ -85,9 +85,8 @@ alchemy-tinymce {
 
 .element-handle {
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
   cursor: move;
+  padding-right: $default-padding;
 }
 
 .element-toggle {
