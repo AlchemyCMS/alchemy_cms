@@ -269,13 +269,11 @@ select {
 }
 
 .select_with_label {
+  display: inline-flex;
+  align-items: center;
   margin: 0 3 * $default-margin;
-  display: inline-block;
-  vertical-align: middle;
 
   label {
-    display: inline-block;
-    vertical-align: middle;
     margin-right: 2 * $default-margin;
   }
 }
