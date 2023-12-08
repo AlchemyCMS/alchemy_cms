@@ -3,8 +3,15 @@
     <div class="sitemap_left_images">
     <% if layoutpage.definition.blank? %>
       <%= page_layout_missing_warning %>
+    <% elsif layoutpage.locked? %>
+      <span class="with-hint">
+        <i class="icon ri-file-edit-fill ri-fw ri-xl"></i>
+        <span class="hint-bubble">
+          <%= Alchemy.t("This page is locked", name: layoutpage.locker_name) %>
+        </span>
+      </span>
     <% else %>
-      <i class="icon ri-file-3-line ri-lg"></i>
+      <i class="icon ri-file-line ri-xl"></i>
     <% end %>
     </div>
     <div class="sitemap_right_tools">

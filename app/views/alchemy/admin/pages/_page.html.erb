@@ -8,19 +8,19 @@
         {{#if permissions.edit_content}}
           {{#if locked}}
             <span class="with-hint">
-              <i class="icon ri-file-edit-line ri-fw"></i>
+              <i class="icon ri-file-edit-fill ri-fw ri-xl"></i>
               <span class="hint-bubble">
                 {{locked_notice}}
               </span>
             </span>
           {{else}}
           <span class="{{#unless root}}handle{{/unless}}">
-            <i class="icon ri-file-line ri-fw"></i>
+            <i class="icon ri-file-line ri-fw ri-xl"></i>
           </span>
           {{/if}}
         {{else}}
           <span class="with-hint">
-            <i class="icon ri-file-forbid-line ri-fw"></i>
+            <i class="icon ri-file-forbid-line ri-fw ri-xl"></i>
             <span class="hint-bubble">
               <%= Alchemy.t("Your user role does not allow you to edit this page") %>
             </span>
