@@ -531,18 +531,11 @@ alchemy-tinymce {
   bottom: 0;
   z-index: 0;
   width: 100%;
-  padding: $default-padding/2;
+  padding: $default-padding;
 
-  a {
-    &.linked {
-      border-radius: $default-border-radius;
-      background-color: $linked-color;
-    }
-
-    &.disabled {
-      opacity: 0.3;
-      cursor: default;
-    }
+  .icon_button {
+    width: 26px;
+    height: 26px;
   }
 }
 
