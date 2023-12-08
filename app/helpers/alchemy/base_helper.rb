@@ -96,6 +96,7 @@ module Alchemy
       when "warning", "warn", "alert" then "exclamation"
       when "notice" then "check"
       when "error" then "bug"
+      when "hint" then "info"
       else
         message_type
       end

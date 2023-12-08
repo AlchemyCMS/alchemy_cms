@@ -1,6 +1,6 @@
 <div class="resource_info">
   <% if @page.has_hint? %>
-  <%= render_message do %>
+  <%= render_message(:hint) do %>
     <%= @page.hint %>
   <% end %>
   <% end %>

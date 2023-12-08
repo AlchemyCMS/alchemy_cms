@@ -114,6 +114,12 @@ module Alchemy
         it { is_expected.to eq "check" }
       end
 
+      context "when `hint` message type is given" do
+        let(:message_type) { "hint" }
+
+        it { is_expected.to eq "info" }
+      end
+
       context "when `error` message type is given" do
         let(:message_type) { "error" }
 
