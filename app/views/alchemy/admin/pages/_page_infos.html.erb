@@ -1,14 +1,24 @@
-<span class="page_status">
-  <% if page.public? %>
-    <%= render_icon(:cloud, size: "1x") %>
+<% if page.definition.blank? %>
+  <%= page_layout_missing_warning %>
+<% end %>
+<span class="page_name" title="<%= page.name %>">
+  <% if local_assigns[:truncate] %>
+    <%= truncate page.name, length: 15 %>
   <% else %>
-    <%= render_icon("cloud-off", size: "1x") %>
+    <%= page.name %>
   <% end %>
 </span>
-<span class="page_status">
-  <% if page.restricted? %>
-    <%= render_icon(:lock, size: "1x") %>
-  <% else %>
-    <%= render_icon("lock-unlock", size: "1x") %>
-  <% end %>
-</span>
+<%- if multi_site? -%>
+  <span class="page_site" title="<%= page.site_name %>">
+    <% if local_assigns[:truncate] %>
+      <%= truncate page.site_name, length: 15 %>
+    <% else %>
+      <%= page.site_name %>
+    <% end %>
+  </span>
+<%- end -%>
+<%- if page.site_languages.many? -%>
+  <span class="page_language" title="<%= page.language.name %>">
+    <%= page.language_code %>
+  </span>
+<%- end -%>
