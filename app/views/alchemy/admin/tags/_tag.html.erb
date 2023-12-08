@@ -7,24 +7,22 @@
   <td class="count"><%= tag.taggings.count %></td>
   <td class="tools">
   <% if can?(:destroy, Alchemy::Tag) %>
-    <div class="button_with_label">
+    <sl-tooltip content="<%= Alchemy.t(:delete_tag) %>">
       <%= delete_button admin_tag_path(tag), {
         message: Alchemy.t(:do_you_really_want_to_delete_this_tag?),
         icon: :minus
       } %>
-      <label class="center"><%= Alchemy.t(:delete_tag) %></label>
-    </div>
+    </sl-tooltip>
   <% end %>
   <% if can?(:edit, Alchemy::Tag) %>
-    <div class="button_with_label">
+    <sl-tooltip content="<%= Alchemy.t(:edit_tag) %>" placement="top-end">
       <%= link_to_dialog render_icon(:edit),
         edit_admin_tag_path(tag),
         {
           title: Alchemy.t(:edit_tag),
           size: '360x410'
         } %>
-      <label class="left"><%= Alchemy.t(:edit_tag) %></label>
-    </div>
+    </sl-tooltip>
   <% end %>
   </td>
 </tr>

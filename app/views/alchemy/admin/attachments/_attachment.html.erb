@@ -25,7 +25,7 @@
   <td class="date"><%= l(attachment.created_at, format: :'alchemy.default') %></td>
   <td class="tools long">
   <% if can?(:show, attachment) %>
-    <div class="button_with_label">
+    <sl-tooltip content="<%= Alchemy.t('Attachment Preview') %>">
       <%= link_to_dialog(
         render_icon(:information),
         alchemy.admin_attachment_path(attachment),
@@ -35,29 +35,26 @@
         },
         class: "icon_button"
       ) %>
-      <label class="center"><%= Alchemy.t('Attachment Preview') %></label>
-    </div>
+    </sl-tooltip>
   <% end %>
   <% if can?(:download, attachment) %>
-    <div class="button_with_label">
+    <sl-tooltip content="<%= Alchemy.t("download_file", filename: attachment.file_name) %>">
       <%= link_to render_icon(:download),
         alchemy.download_admin_attachment_path(attachment),
         target: "_blank",
         class: "icon_button" %>
-      <label class="left"><%= Alchemy.t("download_file", filename: attachment.file_name) %></label>
-    </div>
+    </sl-tooltip>
   <% end %>
   <% if can?(:edit, attachment) %>
-    <div class="button_with_label">
+    <sl-tooltip content="<%= Alchemy.t(:replace_file) %>">
       <%= render 'alchemy/admin/attachments/replace_button',
         redirect_url: alchemy.admin_attachments_path,
         object: attachment,
         file_attribute: 'file' %>
-      <label class="left"><%= Alchemy.t(:replace_file) %></label>
-    </div>
+    </sl-tooltip>
   <% end %>
   <% if can?(:destroy, attachment) %>
-    <div class="button_with_label">
+    <sl-tooltip content="<%= Alchemy.t(:delete_file) %>">
       <%= link_to_confirm_dialog render_icon(:minus),
         Alchemy.t(:confirm_to_delete_file),
         alchemy.admin_attachment_path(
@@ -67,11 +64,10 @@
           per_page: params[:per_page]
         ),
         class: "icon_button" %>
-      <label class="left"><%= Alchemy.t(:delete_file) %></label>
-    </div>
+    </sl-tooltip>
   <% end %>
   <% if can?(:edit, attachment) %>
-    <div class="button_with_label">
+    <sl-tooltip content="<%= Alchemy.t(:rename_file) %>">
       <%= link_to_dialog render_icon(:edit),
         alchemy.edit_admin_attachment_path(attachment, q: search_filter_params[:q], page: params[:page]),
         {
@@ -79,8 +75,7 @@
           size: '500x250'
         },
         class: "icon_button" %>
-      <label class="left"><%= Alchemy.t(:rename_file) %></label>
-    </div>
+    </sl-tooltip>
   <% end %>
   </td>
 </tr>

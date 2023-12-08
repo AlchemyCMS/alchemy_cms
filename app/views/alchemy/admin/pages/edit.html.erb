@@ -4,96 +4,89 @@
 
 <% content_for(:toolbar) do %>
 <div class="toolbar_buttons">
-  <div class="button_with_label">
-    <%= form_tag alchemy.unlock_admin_page_path(@page, redirect_to: @layoutpage ? alchemy.admin_layoutpages_path : alchemy.admin_pages_path), id: 'unlock_page_form' do %>
-      <button class="icon_button" title="<%= Alchemy.t(:explain_unlocking) %>" data-alchemy-hotkey="alt+x">
-        <%= render_icon('expand-left') %>
-      </button>
-      <label><%= Alchemy.t(:unlock_page) %></label>
-    <% end %>
+  <div class="toolbar_button">
+    <sl-tooltip content="<%= Alchemy.t(:explain_unlocking) %>" placement="top-start">
+      <%= form_tag alchemy.unlock_admin_page_path(@page, redirect_to: @layoutpage ? alchemy.admin_layoutpages_path : alchemy.admin_pages_path), id: 'unlock_page_form' do %>
+        <button class="icon_button" data-alchemy-hotkey="alt+x">
+          <%= render_icon('expand-left') %>
+        </button>
+      <% end %>
+    </sl-tooltip>
   </div>
   <div class="toolbar_spacer"></div>
-  <div class="button_with_label">
-    <%= link_to_dialog(
-      render_icon(:information),
-      alchemy.info_admin_page_path(@page),
-      {
-        title: Alchemy.t(:page_infos),
-        size: '520x320'
-      },
-      {
-        class: 'icon_button',
-        'data-alchemy-hotkey' => 'alt+i'
-      }
-    ) %>
-    <label><%= Alchemy.t(:page_infos) %></label>
-  </div>
-  <div class="button_with_label">
-    <% if @page.layoutpage? %>
+  <div class="toolbar_button">
+    <sl-tooltip content="<%= Alchemy.t(:page_infos) %>">
       <%= link_to_dialog(
-        render_icon("settings-3"),
-        alchemy.edit_admin_layoutpage_path(@page),
+        render_icon(:information),
+        alchemy.info_admin_page_path(@page),
         {
-          title: Alchemy.t(:edit_page_properties),
-          size: '450x170'
+          title: Alchemy.t(:page_infos),
+          size: '520x320'
         },
-        class: :icon_button,
-        title: Alchemy.t(:edit_page_properties),
-        'data-alchemy-hotkey' => 'alt+e'
-      ) %>
-    <% else %>
-      <%= link_to_dialog(
-        render_icon("settings-3"),
-        alchemy.configure_admin_page_path(@page),
         {
-          title: Alchemy.t(:edit_page_properties),
-          size: '450x680'
-        },
-        class: :icon_button,
-        title: Alchemy.t(:edit_page_properties),
-        'data-alchemy-hotkey' => 'alt+e'
+          class: 'icon_button',
+          'data-alchemy-hotkey' => 'alt+i'
+        }
       ) %>
-    <% end %>
-    <label><%= Alchemy.t(:page_properties) %></label>
+    </sl-tooltip>
   </div>
-  <div class="button_with_label">
-    <%= form_tag alchemy.publish_admin_page_path(@page), id: 'publish_page_form' do %>
-      <%= button_tag class: 'icon_button', disabled: cannot?(:publish, @page) do %>
-        <%= render_icon('upload-cloud-2') %>
+  <div class="toolbar_button">
+    <sl-tooltip content="<%= Alchemy.t(:edit_page_properties) %>">
+      <% if @page.layoutpage? %>
+        <%= link_to_dialog(
+          render_icon("settings-3"),
+          alchemy.edit_admin_layoutpage_path(@page),
+          {
+            title: Alchemy.t(:page_properties),
+            size: '450x170'
+          },
+          class: :icon_button,
+          'data-alchemy-hotkey' => 'alt+e'
+        ) %>
+      <% else %>
+        <%= link_to_dialog(
+          render_icon("settings-3"),
+          alchemy.configure_admin_page_path(@page),
+          {
+            title: Alchemy.t(:page_properties),
+            size: '450x680'
+          },
+          class: :icon_button,
+          'data-alchemy-hotkey' => 'alt+e'
+        ) %>
       <% end %>
-      <label>
-        <% if @page.language.public? %>
-          <%= Alchemy.t(:explain_publishing) %>
-        <% elsif @page.editable_by?(current_alchemy_user) %>
-          <%= Alchemy.t(:publish_page_language_not_public) %>
-        <% else %>
-          <%= Alchemy.t(:publish_page_not_allowed) %>
+    </sl-tooltip>
+  </div>
+  <div class="toolbar_button">
+    <%= content_tag "sl-tooltip", content: @page.language.public? ? Alchemy.t(:explain_publishing) : @page.editable_by?(current_alchemy_user) ? Alchemy.t(:publish_page_language_not_public) : Alchemy.t(:publish_page_not_allowed) do %>
+      <%= form_tag alchemy.publish_admin_page_path(@page), id: 'publish_page_form' do %>
+        <%= button_tag class: 'icon_button please_wait', disabled: cannot?(:publish, @page) do %>
+          <%= render_icon('upload-cloud-2') %>
         <% end %>
-      </label>
+      <% end %>
     <% end %>
   </div>
   <% unless @page.layoutpage? %>
-    <div class="button_with_label">
+    <div class="toolbar_button">
       <% if @page.public? %>
-        <%= link_to show_page_url(
+        <sl-tooltip content="<%= Alchemy.t("Visit page") %>">
+          <%= link_to show_page_url(
               urlname: @page.urlname,
               locale: prefix_locale? ? @page.language_code : nil,
               host: @page.site.host == "*" ? request.host : @page.site.host,
             ),
-            title: Alchemy.t("Visit page"),
             data: { turbo: false },
             target: "_blank",
             class: 'icon_button' do %>
-          <%= render_icon('external-link') %>
-        <% end %>
-        <label><%= Alchemy.t("Visit page") %></label>
+            <%= render_icon('external-link') %>
+          <% end %>
+        </sl-tooltip>
       <% else %>
-        <%= content_tag "a",
-            title: Alchemy.t(:cannot_visit_unpublic_page),
-            class: 'disabled icon_button' do %>
-          <%= render_icon('external-link') %>
-        <% end %>
-        <label><%= Alchemy.t(:cannot_visit_unpublic_page) %></label>
+        <sl-tooltip content="<%= Alchemy.t(:cannot_visit_unpublic_page) %>">
+          <%= content_tag "a", class: "disabled icon_button" do %>
+            <%= render_icon('external-link') %>
+          <% end %>
+        </sl-tooltip>
       <% end %>
     </div>
   <% end %>
@@ -113,22 +106,23 @@
         class: 'large', is: 'alchemy-select' %>
     </div>
   <% end %>
-  <div class="button_with_label">
-    <%= link_to render_icon(:refresh), nil, {
-      title: Alchemy.t('Reload Preview'),
-      class: 'icon_button',
-      id: 'reload_preview_button'
-    } %>
-    <label><%= Alchemy.t('Reload Preview') %></label>
+  <div class="toolbar_button">
+    <sl-tooltip content="<%= Alchemy.t('Reload Preview') %>">
+      <%= link_to render_icon(:refresh), nil, {
+        class: 'icon_button',
+        id: 'reload_preview_button'
+      } %>
+    </sl-tooltip>
   </div>
 </div>
 <div class="toolbar_buttons right">
-  <div class="button_with_label" id="element_window_button">
-    <%= link_to render_icon("menu-unfold"), nil, {
-      title: Alchemy.t(:hide_elements),
-      class: 'icon_button'
-    } %>
-    <label><%= Alchemy.t(:hide_elements) %></label>
+  <div class="toolbar_button">
+    <sl-tooltip content="<%= Alchemy.t(:hide_elements) %>">
+      <%= link_to render_icon("menu-unfold"), nil, {
+        id: "element_window_button",
+        class: "icon_button"
+      } %>
+    </sl-tooltip>
   </div>
 </div>
 <% end %>
@@ -160,10 +154,10 @@
       },
       toolbarButtons: [
         {
-          title: '<%= Alchemy.t("New Element") %>',
           label: '<%= Alchemy.t("New Element") %>',
           hotkey: 'alt+n',
           iconClass: 'add-line',
+          align: 'start',
           onClick: function() {
             Alchemy.openDialog('<%= alchemy.new_admin_element_path(page_version_id: @page_version.id) %>', {
               title: '<%= Alchemy.t("New Element") %>',
@@ -172,7 +166,6 @@
           }
         },
         {
-          title: '<%= Alchemy.t("Clipboard") %>',
           label: '<%= Alchemy.t("Show clipboard") %>',
           iconClass: '<%= clipboard_empty?("elements") ? "clipboard-line" : "clipboard-fill" %>',
           buttonId: 'clipboard_button',

@@ -16,7 +16,7 @@
     </div>
     <div class="sitemap_right_tools">
     <%- if can?(:configure, layoutpage) -%>
-      <div class="button_with_label">
+      <sl-tooltip content="<%= Alchemy.t(:edit_page_properties) %>">
         <%= link_to_dialog(
           render_icon("settings-3"),
           alchemy.edit_admin_layoutpage_path(layoutpage),
@@ -26,11 +26,10 @@
           },
           class: "icon_button"
         ) -%>
-        <label class="center"><%= Alchemy.t(:edit_page_properties) %></label>
-      </div>
+      </sl-tooltip>
     <%- end -%>
     <%- if can?(:copy, layoutpage) -%>
-      <div class="button_with_label">
+      <sl-tooltip content="<%= Alchemy.t(:copy_page) %>">
         <%= link_to(
           render_icon("file-copy"),
           alchemy.insert_admin_clipboard_path(
@@ -41,11 +40,10 @@
           method: 'post',
           class: "icon_button"
         ) %>
-        <label class="center"><%= Alchemy.t(:copy_page) %></label>
-      </div>
+      </sl-tooltip>
     <%- end -%>
     <%- if can?(:destroy, layoutpage) -%>
-      <div class="button_with_label">
+      <sl-tooltip content="<%= Alchemy.t(:delete_page) %>">
         <%= link_to_confirm_dialog(
           render_icon("delete-bin-2"),
           Alchemy.t(:confirm_to_delete_page),
@@ -56,8 +54,7 @@
           ),
           class: "icon_button"
         ) -%>
-        <label class="left"><%= Alchemy.t(:delete_page) %></label>
-      </div>
+      </sl-tooltip>
     <%- end -%>
     </div>
     <div class="sitemap_sitename without-status">

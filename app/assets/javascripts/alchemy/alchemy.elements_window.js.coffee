@@ -2,12 +2,12 @@ window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 
 # Adds buttons into a toolbar inside of overlay windows
 Alchemy.ToolbarButton = (options) ->
-  $btn = $('<div class="button_with_label" />')
+  $btn = $("<sl-tooltip content='#{options.label}' placement='top-#{options.align}'></sl-tooltip>")
   if options.align
-    $btn.addClass(options.align)
+    $btn.addClass(options.class)
   if options.buttonId
     $btn.attr(id: options.buttonId)
-  $lnk = $("<a title='#{options.title}' class='icon_button' href='#' />")
+  $lnk = $("<a class='icon_button' href='#' />")
   if options.hotkey
     $lnk.attr('data-alchemy-hotkey', options.hotkey)
   $lnk.click (e) ->
@@ -16,7 +16,6 @@ Alchemy.ToolbarButton = (options) ->
     return
   $lnk.append "<i class='icon ri-#{options.iconClass} ri-fw' />"
   $btn.append $lnk
-  $btn.append "<br><label class='#{options.align || "left"}-aligned'>#{options.label}</label>"
   $btn
 
 Alchemy.ElementsWindow =
@@ -63,7 +62,8 @@ Alchemy.ElementsWindow =
     buttons.push
       label: "Collapse all elements"
       iconClass: "contract-up-down-line"
-      align: "right"
+      align: "end"
+      class: "right"
       onClick: =>
         $("alchemy-element-editor:not([compact]):not([fixed])").each () ->
           @collapse()

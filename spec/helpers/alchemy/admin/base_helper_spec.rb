@@ -28,7 +28,7 @@ module Alchemy
         it "renders a toolbar button" do
           expect(
             helper.toolbar_button(url: admin_dashboard_path)
-          ).to match(/<div.+class="button_with_label/)
+          ).to have_css %(sl-tooltip .icon_button[href="#{admin_dashboard_path}"])
         end
       end
 
@@ -46,7 +46,7 @@ module Alchemy
         it "returns the button" do
           expect(
             helper.toolbar_button(url: admin_dashboard_path, skip_permission_check: true)
-          ).to match(/<div.+class="button_with_label/)
+          ).to have_css %(sl-tooltip .icon_button[href="#{admin_dashboard_path}"])
         end
       end
 

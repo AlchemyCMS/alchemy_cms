@@ -30,9 +30,9 @@ describe("alchemy-publish-element-button", () => {
   let html = `
     <alchemy-element-editor>
       <div class="element-toolbar">
-        <alchemy-publish-element-button>
-          <label>Show element</label>
-        </alchemy-publish-element-button>
+        <sl-tooltip content="Show element">
+          <alchemy-publish-element-button></alchemy-publish-element-button>
+        </sl-tooltip>
       </div>
     </alchemy-element-editor>
   `
@@ -62,7 +62,7 @@ describe("alchemy-publish-element-button", () => {
 
       return new Promise((resolve) => {
         setTimeout(() => {
-          expect(button.label.innerText).toEqual("Hide element")
+          expect(button.tooltip.getAttribute("content")).toEqual("Hide element")
           expect(Alchemy.reloadPreview).toHaveBeenCalled()
           resolve()
         }, 1)

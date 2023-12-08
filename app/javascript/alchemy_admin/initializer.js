@@ -31,7 +31,7 @@ function Initialize() {
   }
 
   // Add observer for please wait overlay.
-  $(".please_wait, .button_with_label form :submit")
+  $(".please_wait")
     .not("*[data-alchemy-confirm]")
     .click(Alchemy.pleaseWaitOverlay)
 

@@ -47,7 +47,7 @@
   </td>
   <td class="tools">
     <% if can?(:info, page) %>
-      <div class="button_with_label">
+      <sl-tooltip content="<%= Alchemy.t(:page_infos) %>">
         <%= link_to_dialog(
           render_icon('info-circle'),
           alchemy.info_admin_page_path(page),
@@ -57,11 +57,10 @@
           },
           class: "icon_button"
         ) %>
-        <label class="center"><%= Alchemy.t(:page_infos) %></label>
-      </div>
+      </sl-tooltip>
     <% end %>
     <% if can?(:configure, page) %>
-      <div class="button_with_label">
+      <sl-tooltip content="<%= Alchemy.t(:edit_page_properties) %>">
         <%= link_to_dialog(
           render_icon(:cog),
           alchemy.configure_admin_page_path(page),
@@ -71,11 +70,10 @@
           },
           class: "icon_button"
         ) -%>
-        <label class="center"><%= Alchemy.t(:edit_page_properties) %></label>
-      </div>
+      </sl-tooltip>
     <% end %>
     <% if can?(:copy, page) %>
-      <div class="button_with_label">
+      <sl-tooltip content="<%= Alchemy.t(:copy_page) %>">
         <%= link_to(
           render_icon(:copy),
           alchemy.insert_admin_clipboard_path(
@@ -86,19 +84,17 @@
           method: :post,
           class: "icon_button"
         ) %>
-        <label class="center"><%= Alchemy.t(:copy_page) %></label>
-      </div>
+      </sl-tooltip>
     <% end %>
     <% if can?(:destroy, page) %>
-      <div class="button_with_label">
+      <sl-tooltip content="<%= Alchemy.t(:delete_page) %>">
         <%= link_to_confirm_dialog(
           render_icon(:minus),
           Alchemy.t(:confirm_to_delete_page),
           alchemy.admin_page_path(page),
           class: "icon_button"
         ) -%>
-        <label class="left"><%= Alchemy.t(:delete_page) %></label>
-      </div>
+      </sl-tooltip>
     <% end %>
   </td>
 </tr>

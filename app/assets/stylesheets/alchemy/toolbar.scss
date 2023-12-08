@@ -8,11 +8,11 @@
   border-bottom: $default-border;
   position: relative;
 
-  .button_with_label {
+  .toolbar_button {
     form {
       margin: 0;
-      display: inline-block;
-      vertical-align: middle;
+      display: inline-flex;
+      align-items: center;
     }
   }
 
@@ -39,21 +39,9 @@
     flex-grow: 0;
     padding: 8px 0;
 
-    .button_with_label {
+    .toolbar_button {
       &:last-child {
         margin-right: $default-margin;
-      }
-    }
-
-    label {
-      left: auto;
-      right: 50%;
-      margin-left: 0;
-      margin-right: -12px;
-
-      &:before {
-        left: auto;
-        right: 8px;
       }
     }
   }
@@ -65,7 +53,7 @@
     }
   }
 
-  .button_with_label {
+  .toolbar_button {
     margin: 0 2 * $default-margin;
 
     &:first-child {
@@ -106,7 +94,7 @@
     display: block;
   }
 
-  .button_with_label {
+  .toolbar_button {
     margin: 0;
   }
 }

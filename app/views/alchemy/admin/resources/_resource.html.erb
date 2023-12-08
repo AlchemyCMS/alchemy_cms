@@ -13,13 +13,12 @@
 <% end %>
   <td class="tools">
   <% if can?(:destroy, resource) %>
-    <div class="button_with_label">
+    <sl-tooltip content="<%= Alchemy.t("Delete") %>">
       <%= delete_button resource_path(resource, search_filter_params) %>
-      <label class="center"><%= Alchemy.t("Delete") %></label>
-    </div>
+    </sl-tooltip>
   <% end %>
   <% if can?(:edit, resource) %>
-    <div class="button_with_label">
+    <sl-tooltip content="<%= Alchemy.t("Edit") %>">
       <%= link_to_dialog render_icon(:edit),
         edit_resource_path(resource, search_filter_params),
         {
@@ -28,7 +27,6 @@
         },
         class: "icon_button" %>
       <% end %>
-      <label class="left"><%= Alchemy.t("Edit") %></label>
-    </div>
+    </sl-tooltip>
   </td>
 </tr>
