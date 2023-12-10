@@ -2,22 +2,16 @@
   <td class="icon">
     <% if can?(:edit_content, page) %>
       <% if page.locked? %>
-        <span class="with-hint">
+        <sl-tooltip class="like-hint-tooltip" content="<%= Alchemy.t("This page is locked", name: page.locker_name) %>" placement="bottom-start">
           <i class="icon ri-file-edit-fill ri-fw ri-xl"></i>
-          <span class="hint-bubble">
-            <%= Alchemy.t("This page is locked", name: page.locker_name) %>
-          </span>
-        </span>
+        </sl-tooltip>
       <% else %>
         <i class="icon ri-file-line ri-fw ri-xl"></i>
       <% end %>
     <% else %>
-      <span class="with-hint">
+      <sl-tooltip class="like-hint-tooltip" content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" placement="bottom-start">
         <i class="icon ri-file-forbid-line ri-fw ri-xl"></i>
-        <span class="hint-bubble">
-          <%= Alchemy.t("Your user role does not allow you to edit this page") %>
-        </span>
-      </span>
+      </sl-tooltip>
     <% end %>
   </td>
   <td class="string name">

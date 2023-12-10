@@ -30,7 +30,7 @@ describe Alchemy::Admin::IngredientsHelper do
       end
 
       it "has hint indicator" do
-        is_expected.to have_selector("label > .hint-with-icon", text: "This is a hint")
+        is_expected.to have_selector("label > .like-hint-tooltip", text: "This is a hint")
       end
     end
 
@@ -70,8 +70,7 @@ describe Alchemy::Admin::IngredientsHelper do
       end
 
       it "renders a warning with tooltip" do
-        is_expected.to have_selector(".hint-with-icon .hint-bubble")
-        is_expected.to have_content Alchemy.t(:ingredient_definition_missing)
+        is_expected.to have_selector("sl-tooltip[content='#{Alchemy.t(:ingredient_definition_missing)}']")
       end
     end
 
@@ -89,7 +88,7 @@ describe Alchemy::Admin::IngredientsHelper do
       end
 
       it "renders a deprecation notice with tooltip" do
-        is_expected.to have_selector(".hint-bubble", text: Alchemy.t(:ingredient_deprecated))
+        is_expected.to have_selector("sl-tooltip[content='#{Alchemy.t(:ingredient_deprecated)}']")
       end
     end
 

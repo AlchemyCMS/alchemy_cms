@@ -332,5 +332,14 @@
 
 sl-tooltip {
   --max-width: 200px;
-  white-space: normal;
+
+  &::part(body) {
+    white-space: normal;
+    box-sizing: content-box; // otherwise the box shadow will peak out!
+  }
+
+  &::part(base__popup) {
+    border-radius: var(--border-radius_medium);
+    box-shadow: 0 0 var(--spacing-1) var(--color-grey_medium);
+  }
 }

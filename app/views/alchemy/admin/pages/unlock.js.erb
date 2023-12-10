@@ -1,7 +1,7 @@
 (function() {
   var locked_page_tab = document.querySelector('#locked_page_<%= @page.id -%>')
   var locked_page_icon = document.querySelector(
-    '#page_<%= @page.id -%> > .sitemap_page > .sitemap_left_images .with-hint'
+    '#page_<%= @page.id -%> > .sitemap_page > .sitemap_left_images .like-hint-tooltip'
   ) || document.querySelector('[data-page-id="<%= @page.id -%>"] > .icon')
   if (locked_page_tab) {
     locked_page_tab.remove()

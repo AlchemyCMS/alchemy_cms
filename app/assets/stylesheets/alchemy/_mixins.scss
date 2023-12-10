@@ -211,13 +211,6 @@
   white-space: $wrap;
 }
 
-@mixin hint-hover-style {
-  visibility: visible;
-  top: 26px;
-  opacity: 1;
-  transition-delay: 0.2s;
-}
-
 @mixin clearfix {
   &::after {
     clear: both;

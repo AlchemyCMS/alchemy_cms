@@ -375,20 +375,6 @@ alchemy-tinymce {
     color: inherit;
     transition: color $transition-duration;
   }
-
-  > .hint-with-icon {
-    .hint-bubble {
-      left: auto;
-      right: -24px;
-      transform: none;
-
-      &:before {
-        left: auto;
-        right: 24px;
-        transform: none;
-      }
-    }
-  }
 }
 
 .element-hidden-icon {
@@ -891,21 +877,6 @@ textarea.has_tinymce {
   p {
     margin: 0;
     line-height: 24px;
-  }
-}
-
-.ingredient-editor .hint-with-icon,
-.ingredient-editor .with-hint,
-.element-handle .hint-with-icon {
-  margin: 0;
-
-  > .hint-bubble {
-    left: -7px;
-    transform: none;
-
-    &:before {
-      left: 16px;
-    }
   }
 }
 

@@ -258,8 +258,9 @@ RSpec.describe "Page editing feature", type: :system do
 
       it "is not possible to edit the attribute", :aggregate_failures do
         visit alchemy.configure_admin_page_path(readonly_page)
+        puts page.body
         readonly_page.fixed_attributes.all.each do |attribute, _v|
-          expect(page).to have_selector("#page_#{attribute}[disabled=\"disabled\"]")
+          expect(page).to have_selector("#page_#{attribute}[disabled]")
         end
       end
     end

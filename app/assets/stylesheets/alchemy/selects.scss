@@ -108,17 +108,6 @@ select {
     }
 
     &.select2-container-disabled {
-      &:hover {
-        + .with-hint > .hint-bubble {
-          @include hint-hover-style;
-          top: 10px;
-        }
-      }
-
-      + .with-hint > .hint-bubble {
-        top: 0;
-      }
-
       .select2-choice,
       .select2-choice:hover {
         background-image: none;

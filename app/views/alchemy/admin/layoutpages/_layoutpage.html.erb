@@ -4,12 +4,9 @@
     <% if layoutpage.definition.blank? %>
       <%= page_layout_missing_warning %>
     <% elsif layoutpage.locked? %>
-      <span class="with-hint">
+      <sl-tooltip class="like-hint-tooltip" content="<%= Alchemy.t("This page is locked", name: layoutpage.locker_name) %>">
         <i class="icon ri-file-edit-fill ri-fw ri-xl"></i>
-        <span class="hint-bubble">
-          <%= Alchemy.t("This page is locked", name: layoutpage.locker_name) %>
-        </span>
-      </span>
+      </sl-tooltip>
     <% else %>
       <i class="icon ri-file-line ri-xl"></i>
     <% end %>
