@@ -14,6 +14,10 @@
       <%= sanitize(element.preview_text.presence || '&nbsp;') %>
     </span>
   </span>
+  <span class="element-hidden-icon">
+    <%= render_icon("cloud-off", size: "1x") %>
+    <%= Alchemy.t(:element_hidden) %>
+  </span>
   <%= button_tag({
     title: Alchemy.t(element.folded? ? :show_element_content : :hide_element_content),
     class: "element-toggle"

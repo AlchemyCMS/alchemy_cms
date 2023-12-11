@@ -424,6 +424,7 @@ en:
     edit_tag: "Edit tag"
     edit_selected_pictures: "Edit selected pictures"
     element_editor_not_found: "Error within this Element"
+    element_hidden: "Hidden"
     element_of_type: "Element"
     element_saved: "Saved element."
     enter_external_link: "Please enter the URL you want to link with"
