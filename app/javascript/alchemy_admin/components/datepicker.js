@@ -24,7 +24,7 @@ class Datepicker extends AlchemyHTMLElement {
       noCalendar: this.inputType === "time",
       time_24hr: translate("formats.time_24hr"),
       onValueUpdate(_selectedDates, _dateStr, instance) {
-        instance.element.closest("alchemy-element-editor").setDirty()
+        instance.element.closest("alchemy-element-editor")?.setDirty()
       }
     }
 
