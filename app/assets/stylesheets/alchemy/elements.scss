@@ -918,8 +918,10 @@ textarea.has_tinymce {
   }
 
   .element-editor:not(.is-fixed) & {
-    .element-header {
-      background-color: transparent;
+    .element-editor:not(.dirty) {
+      .element-header {
+        background-color: transparent;
+      }
     }
   }
 

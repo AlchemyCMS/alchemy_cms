@@ -16,8 +16,6 @@ export class ElementEditor extends HTMLElement {
     this.addEventListener("click", this)
     // Triggered by child elements
     this.addEventListener("alchemy:element-update-title", this)
-    this.addEventListener("alchemy:element-dirty", this)
-    this.addEventListener("alchemy:element-clean", this)
     // We use of @rails/ujs for Rails remote forms
     this.addEventListener("ajax:success", this)
     // Dirty observer
@@ -67,16 +65,6 @@ export class ElementEditor extends HTMLElement {
       case "alchemy:element-update-title":
         if (event.target == this.firstChild) {
           this.setTitle(event.detail.title)
-        }
-        break
-      case "alchemy:element-dirty":
-        if (event.target !== this) {
-          this.setDirty()
-        }
-        break
-      case "alchemy:element-clean":
-        if (event.target !== this) {
-          this.setClean()
         }
         break
       case "change":
@@ -205,14 +193,10 @@ export class ElementEditor extends HTMLElement {
 
   /**
    * Sets the element into clean (safed) state
-   * Dispatches alchemy:element-clean event
    */
   setClean() {
     this.dirty = false
     window.onbeforeunload = null
-    this.dispatchEvent(
-      new CustomEvent("alchemy:element-clean", { bubbles: true })
-    )
     if (this.hasEditors) {
       this.body.querySelectorAll(".dirty").forEach((el) => {
         el.classList.remove("dirty")
@@ -222,13 +206,9 @@ export class ElementEditor extends HTMLElement {
 
   /**
    * Sets the element into dirty (unsafed) state
-   * Dispatches alchemy:element-dirty event
    */
   setDirty() {
     this.dirty = true
-    this.dispatchEvent(
-      new CustomEvent("alchemy:element-dirty", { bubbles: true })
-    )
     window.onbeforeunload = () => Alchemy.t("page_dirty_notice")
   }
 

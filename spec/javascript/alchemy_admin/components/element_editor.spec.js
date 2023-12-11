@@ -250,29 +250,6 @@ describe("alchemy-element-editor", () => {
         ).toBe("New Title")
       })
     })
-
-    describe("on alchemy:element-dirty", () => {
-      it("updates title if triggered on child element", () => {
-        const childElement = editor.querySelector("#element_123")
-        const event = new CustomEvent("alchemy:element-dirty", {
-          bubbles: true
-        })
-        childElement.dispatchEvent(event)
-        expect(editor.dirty).toBeTruthy()
-      })
-    })
-
-    describe("on alchemy:element-clean", () => {
-      it("updates title if triggered on child element", () => {
-        editor.dirty = true
-        const childElement = editor.querySelector("#element_123")
-        const event = new CustomEvent("alchemy:element-clean", {
-          bubbles: true
-        })
-        childElement.dispatchEvent(event)
-        expect(editor.dirty).toBeFalsy()
-      })
-    })
   })
 
   describe("on ajax:success", () => {
@@ -588,15 +565,6 @@ describe("alchemy-element-editor", () => {
       expect(window.onbeforeunload).toBeNull()
     })
 
-    it("dispatches element-clean event", () => {
-      return new Promise((resolve) => {
-        editor.addEventListener("alchemy:element-clean", () => {
-          resolve()
-        })
-        editor.setClean()
-      })
-    })
-
     it("sets all ingredient editors clean", () => {
       editor.body.querySelectorAll(".ingredient-editor").forEach((el) => {
         expect(el.classList.contains("dirty")).toBeFalsy()
@@ -608,15 +576,6 @@ describe("alchemy-element-editor", () => {
     it("sets dirty to true", () => {
       editor.setDirty()
       expect(editor.dirty).toBeTruthy
-    })
-
-    it("dispatches element-dirty event", () => {
-      return new Promise((resolve) => {
-        editor.addEventListener("alchemy:element-dirty", () => {
-          resolve()
-        })
-        editor.setDirty()
-      })
     })
 
     it("sets beforeunload", () => {
