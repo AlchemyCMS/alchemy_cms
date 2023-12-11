@@ -253,7 +253,7 @@ alchemy-tinymce {
       height: 35px;
       opacity: 0;
       z-index: 1;
-      border-bottom: $default-border;
+      box-shadow: 0 1px 1px $default-border-color;
       background-color: $light-gray;
       transition: all $transition-duration;
 
@@ -378,6 +378,7 @@ alchemy-tinymce {
   .expanded & {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+    border-bottom: 1px solid $medium-gray;
   }
 
   .icon {
@@ -925,19 +926,6 @@ textarea.has_tinymce {
 
   .element-editor {
     position: relative;
-  }
-
-  .element-editor:not(.is-fixed) & {
-    .element-editor:not(.dirty) {
-      .element-header {
-        background-color: transparent;
-      }
-    }
-  }
-
-  .element-toolbar {
-    width: 100%;
-    border-top: 1px solid $medium-gray;
   }
 }
 
