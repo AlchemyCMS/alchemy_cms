@@ -41,8 +41,8 @@ module Alchemy
           e.public? && !e.restricted?
         end
 
-        can :read, Alchemy::Page, Alchemy::Page.published.not_restricted.from_current_site do |p|
-          p.public? && !p.restricted? && p.site == Alchemy::Site.current
+        can :read, Alchemy::Page, Alchemy::Page.published.not_restricted do |p|
+          p.public? && !p.restricted?
         end
       end
     end
@@ -64,8 +64,8 @@ module Alchemy
           e.public?
         end
 
-        can :read, Alchemy::Page, Alchemy::Page.published.from_current_site do |p|
-          p.public? && p.site == Alchemy::Site.current
+        can :read, Alchemy::Page, Alchemy::Page.published do |p|
+          p.public?
         end
       end
     end
@@ -89,7 +89,7 @@ module Alchemy
           :alchemy_admin_pages,
           :alchemy_admin_pictures,
           :alchemy_admin_tags,
-          :alchemy_admin_users
+          :alchemy_admin_users,
         ]
 
         # Controller actions
@@ -124,19 +124,46 @@ module Alchemy
       def alchemy_editor_rules
         alchemy_author_rules
 
-        # Navigation
-        can :index, [
-          :alchemy_admin_languages,
-          :alchemy_admin_users
-        ]
 
-        # Resources
+        if @user.accessible_languages.any?
+          # Navigation
+          # Allow to view (but not edit) all languages in sites for which the user has access to at least one language
+          can :index, :alchemy_admin_languages
+          can :index, Alchemy::Language, site_id: @user.accessible_site_ids
+
+          # Resources
+          can [
+            :copy,
+            :copy_language_tree,
+            :flush,
+            :order,
+            :switch_language,
+          ], Alchemy::Page, Alchemy::Page.where(language: @user.accessible_languages) do |page|
+            @user.can_access_language? page.language
+          end
+
+          # Resources which may be locked via template permissions
+          #
+          #     # config/alchemy/page_layouts.yml
+          #     - name: contact
+          #       editable_by:
+          #         - freelancer
+          #         - admin
+          #
+          can :publish, Alchemy::Page, Alchemy::Page.where(language: { id: @user.accessible_languages, public: true }) do |page|
+            page.language.public? && page.editable_by?(@user.user)
+          end
+          can :switch, Alchemy::Language
+        elsif Alchemy::Language.none?
+          can :index, Alchemy::Language
+        end
+
         can [
           :copy,
           :copy_language_tree,
           :flush,
           :order,
-          :switch_language
+          :switch_language,
         ], Alchemy::Page
 
         # Resources which may be locked via template permissions
@@ -149,10 +176,12 @@ module Alchemy
         #
         can([
           :create,
-          :destroy
-        ], Alchemy::Page) { |p| p.editable_by?(@user) }
+          :destroy,
+        ], Alchemy::Page, Alchemy::Page.where(language: @user.accessible_languages) do |page|
+          page.editable_by?(@user.user)
+        end
 
-        can(:publish, Alchemy::Page) do |page|
+        can(:publish, Alchemy::Page, Alchemy::Page.where(language: @user.accessible_languages)) do |page|
           page.language.public? && page.editable_by?(@user)
         end
 

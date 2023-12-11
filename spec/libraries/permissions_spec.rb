@@ -17,6 +17,7 @@ describe Alchemy::Permissions do
   let(:published_element) { mock_model(Alchemy::Element, restricted?: false, public?: true) }
   let(:restricted_element) { mock_model(Alchemy::Element, restricted?: true, public?: true) }
   let(:language) { build(:alchemy_language) }
+  let(:user_with_languages) { Alchemy::UserWithLanguages.new(user) }
 
   context "A guest user" do
     let(:user) { nil }
@@ -86,16 +87,25 @@ describe Alchemy::Permissions do
       is_expected.to be_able_to(:info, :alchemy_admin_dashboard)
     end
 
-    it "can edit page content" do
-      is_expected.to be_able_to(:show, unpublic_page)
-      is_expected.to be_able_to(:index, Alchemy::Page)
-      is_expected.to be_able_to(:info, Alchemy::Page)
-      is_expected.to be_able_to(:configure, Alchemy::Page)
-      is_expected.to be_able_to(:update, Alchemy::Page)
-      is_expected.to be_able_to(:fold, Alchemy::Page)
-      is_expected.to be_able_to(:link, Alchemy::Page)
-      is_expected.to be_able_to(:visit, Alchemy::Page)
-      is_expected.to be_able_to(:unlock, Alchemy::Page)
+    context "on a page editable by them" do
+      before { allow(unpublic_page).to receive(:editable_by?).with(user) { true } }
+
+      it "can edit page content" do
+        [:show, :index, :info, :configure, :update, :fold, :link, :visit, :unlock].each do |action|
+          is_expected.to be_able_to(action, unpublic_page)
+          is_expected.to be_able_to(action, Alchemy::Page)
+        end
+      end
+    end
+
+    context "on a page not editable by them" do
+      before { allow(unpublic_page).to receive(:editable_by?).with(user) { false } }
+
+      it "cannot edit page content" do
+        [:info, :configure, :update, :fold, :link, :visit, :unlock].each do |action|
+          is_expected.not_to be_able_to(action, unpublic_page)
+        end
+      end
     end
 
     it "can not publish pages" do
@@ -132,34 +142,99 @@ describe Alchemy::Permissions do
     it "can index layoutpages" do
       is_expected.to be_able_to(:index, :alchemy_admin_layoutpages)
     end
+
+    it "can only manage nodes for languages they have access to" do
+      user = build(:alchemy_dummy_user, :as_author, languages: create_list(:alchemy_language, 1))
+      is_expected.to be_able_to(:manage, create(:alchemy_node, language: user.languages.first))
+      is_expected.not_to be_able_to(:manage, create(:alchemy_node, language: create(:alchemy_language, :german)))
+    end
   end
 
   context "An editor" do
     let(:user) { build(:alchemy_dummy_user, :as_editor) }
 
-    it "can manage pages" do
-      is_expected.to be_able_to(:copy, Alchemy::Page)
-      is_expected.to be_able_to(:copy_language_tree, Alchemy::Page)
-      is_expected.to be_able_to(:create, Alchemy::Page)
-      is_expected.to be_able_to(:destroy, Alchemy::Page)
-      is_expected.to be_able_to(:flush, Alchemy::Page)
-      is_expected.to be_able_to(:order, Alchemy::Page)
-      is_expected.to be_able_to(:switch_language, Alchemy::Page)
-      is_expected.to be_able_to(:switch, Alchemy::Language)
+    context "on a page in a language they can access" do
+      before { unpublic_page.save }
+
+      let(:user) { create(:alchemy_dummy_user, :as_editor, languages: [unpublic_page.language]) }
+
+      it "can copy/copy language tree/flush/order/switch_language it" do
+        [:copy, :copy_language_tree, :flush, :order, :switch_language].each do |action|
+          is_expected.to be_able_to(action, unpublic_page)
+          expect(Alchemy::Page.accessible_by(subject, action)).to include unpublic_page
+        end
+      end
+    end
+
+    context "on a page in a language they can access" do
+      before { unpublic_page.save }
+
+      let(:user) { create(:alchemy_dummy_user, :as_editor, languages: create_list(:alchemy_language, 1, :german)) }
+
+      it "cannot copy/copy language tree/flush/order/switch_language it" do
+        [:copy, :copy_language_tree, :flush, :order, :switch_language].each do |action|
+          is_expected.not_to be_able_to(action, unpublic_page)
+          expect(Alchemy::Page.accessible_by(subject, action)).not_to include unpublic_page
+        end
+      end
+
+      context "when it is editable by them" do
+        before { allow(unpublic_page).to receive(:editable_by?).with(user) { true } }
+
+        it "can create and destroy" do
+          is_expected.to be_able_to :create, unpublic_page
+          is_expected.to be_able_to :destroy, unpublic_page
+        end
+      end
+
+      context "when it is not editable by them" do
+        before { allow(unpublic_page).to receive(:editable_by?).with(user) { false } }
+
+        it "can create and destroy" do
+          is_expected.not_to be_able_to :create, unpublic_page
+          is_expected.not_to be_able_to :destroy, unpublic_page
+        end
+      end
     end
 
     context "if page language is public" do
       let(:language) { create(:alchemy_language, :german, public: true) }
       let(:page) { create(:alchemy_page, language: language) }
 
-      it "can publish pages" do
-        is_expected.to be_able_to(:publish, page)
+      context "and in a language they have access to" do
+        let(:user) { build :alchemy_dummy_user, :as_editor, languages: [language] }
+
+        context "and it is editable by them" do
+          before { allow(page).to receive(:editable_by?).with(user) { true } }
+
+          it "can publish pages" do
+            is_expected.to be_able_to(:publish, page)
+          end
+        end
+
+        context "and it is not editable by them" do
+          before { allow(page).to receive(:editable_by?).with(user) { false } }
+
+          it "cannot publish pages" do
+            is_expected.not_to be_able_to(:publish, page)
+          end
+        end
+      end
+
+      context "and not in a language accessible to them" do
+        let(:user) { build :alchemy_dummy_user, :as_editor, languages: create_list(:alchemy_language, 1, :klingon) }
+
+        it "cannot publish pages" do
+          is_expected.not_to be_able_to(:publish, page)
+        end
       end
     end
 
     context "if page language is not public" do
       let(:language) { create(:alchemy_language, :german, public: false) }
       let(:page) { create(:alchemy_page, language: language) }
+
+      before { allow(page).to receive(:editable_by?).with(user) { true } }
 
       it "cannot publish pages" do
         is_expected.to_not be_able_to(:publish, page)
@@ -177,6 +252,24 @@ describe Alchemy::Permissions do
     it "can manage tags" do
       is_expected.to be_able_to(:manage, Alchemy::Tag)
     end
+
+    it "can index languages in sites they can access" do
+      user = create(:alchemy_dummy_user, :as_editor, languages: create_list(:alchemy_language, 1, :german))
+
+      is_expected.to be_able_to(
+        :index, 
+        create(:alchemy_language, site_id: user_with_languages.accessible_site_ids.first)
+      )
+    end
+
+    it "cannot index languages in sites they cannot access" do
+      user = create(:alchemy_dummy_user, :as_editor, languages: create_list(:alchemy_language, 1, :german))
+
+      is_expected.not_to be_able_to(
+        :index, 
+        create(:alchemy_language, site_id: create(:alchemy_site, host: "abc.def").id)
+      )
+    end
   end
 
   context "An admin" do
@@ -186,12 +279,41 @@ describe Alchemy::Permissions do
       is_expected.to be_able_to(:update_check, :alchemy_admin_dashboard)
     end
 
-    it "can manage languages" do
-      is_expected.to be_able_to(:manage, Alchemy::Language)
+    it "can index a site they can access" do
+      user = create(:alchemy_dummy_user, :as_editor, languages: create_list(:alchemy_language, 1, :german))
+      
+      is_expected.to be_able_to(:index, user_with_languages.accessible_sites.first)
     end
 
-    it "can manage sites" do
-      is_expected.to be_able_to(:manage, Alchemy::Site)
+    it "cannot index a site they cannot access" do
+      user = create(:alchemy_dummy_user, :as_editor, languages: create_list(:alchemy_language, 1, :german))
+      
+      is_expected.to be_able_to(:index, create(:alchemy_site, host: "abc.def"))
+    end
+
+    it "can manage a language they have access to" do
+      user = create(:alchemy_dummy_user, :as_editor, languages: create_list(:alchemy_language, 1, :german))
+
+      is_expected.to be_able_to(:manage, user.languages.first)
+      expect(Alchemy::Language.accessible_by(subject, :manage)).to match_array(user.languages)
+    end
+
+    it "cannot manage a language they do not have access to" do
+      user = create(:alchemy_dummy_user, :as_editor, languages: create_list(:alchemy_language, 1, :german))
+
+      is_expected.not_to be_able_to(:manage, create(:alchemy_language, :klingon))
+    end
+
+    it "can manage a site they can access" do
+      user = create(:alchemy_dummy_user, :as_editor, languages: create_list(:alchemy_language, 1, :german))
+
+      is_expected.to be_able_to(:manage, Alchemy::UserWithLanguages.new(user).accessible_sites.first)
+    end
+
+    it "cannot manage a site they cannot access" do
+      user = create(:alchemy_dummy_user, :as_editor, languages: create_list(:alchemy_language, 1, :german))
+
+      is_expected.to be_able_to(:index, create(:alchemy_site, host: "abc.def"))
     end
   end
 

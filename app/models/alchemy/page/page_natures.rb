@@ -42,9 +42,7 @@ module Alchemy
       end
 
       def editor_roles
-        return unless has_limited_editors?
-
-        definition["editable_by"]
+        has_limited_editors? ? definition["editable_by"] : []
       end
 
       # True if page locked_at timestamp and locked_by id are set

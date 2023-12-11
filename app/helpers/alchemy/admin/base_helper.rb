@@ -70,9 +70,7 @@ module Alchemy
 
       # Used for site selector in Alchemy cockpit.
       def sites_for_select
-        Alchemy::Site.all.map do |site|
-          [site.name, site.id]
-        end
+        UserWithLanguages.new(current_alchemy_user).accessible_sites.pluck(:name, :id)
       end
 
       # Returns a javascript driven live filter for lists.

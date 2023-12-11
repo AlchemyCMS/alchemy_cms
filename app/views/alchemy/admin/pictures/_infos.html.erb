@@ -27,12 +27,12 @@
             <li>
               <h3>
                 <%= render_icon 'file-alt' %>
-                <p><%= link_to page.name, edit_admin_page_path(page) %></p>
+                <p><%= link_to_if can?(:edit, page), page.name, edit_admin_page_path(page) %></p>
               </h3>
               <ul class="list">
                 <% picture_ingredients.group_by(&:element).each do |element, picture_ingredients| %>
                   <li class="<%= cycle('even', 'odd') %>">
-                    <% page_link = link_to element.display_name_with_preview_text,
+                    <% page_link = link_to_if can?(:edit, page), element.display_name_with_preview_text,
                                    edit_admin_page_path(page, anchor: "element_#{element.id}") %>
                     <% ingredients = picture_ingredients.map { |p| Alchemy::IngredientEditor.new(p).translated_role }.to_sentence %>
                     <% if element.public? %>
