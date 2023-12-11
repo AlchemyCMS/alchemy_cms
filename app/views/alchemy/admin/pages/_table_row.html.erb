@@ -37,7 +37,7 @@
     <%= l(page.updated_at, format: :"alchemy.default") %>
   </td>
   <td class="status center">
-    <%= render "alchemy/admin/pages/page_infos", page: page %>
+    <%= render "alchemy/admin/pages/page_status", page: page %>
   </td>
   <td class="tools">
     <% if can?(:info, page) %>
