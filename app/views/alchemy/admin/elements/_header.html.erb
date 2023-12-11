@@ -16,7 +16,9 @@
   </span>
   <span class="element-hidden-icon">
     <%= render_icon("cloud-off", size: "1x") %>
-    <%= Alchemy.t(:element_hidden) %>
+    <span class="element-hidden-label">
+      <%= Alchemy.t(:element_hidden) %>
+    </span>
   </span>
   <%= button_tag({
     title: Alchemy.t(element.folded? ? :show_element_content : :hide_element_content),

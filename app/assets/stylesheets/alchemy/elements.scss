@@ -137,7 +137,12 @@ alchemy-tinymce {
   &.hidden {
     display: block;
     border-style: dashed;
+    opacity: 0.7;
     transition: opacity $transition-duration;
+
+    &:hover {
+      opacity: 1;
+    }
 
     > .element-header {
       background-color: transparent;
@@ -238,6 +243,10 @@ alchemy-tinymce {
   }
 
   &.compact {
+    .element-hidden-label {
+      display: none;
+    }
+
     .element-toolbar {
       visibility: hidden;
       position: absolute;
@@ -379,6 +388,7 @@ alchemy-tinymce {
 
 .element-hidden-icon {
   display: none;
+  white-space: nowrap;
 }
 
 .element-toolbar {
