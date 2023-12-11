@@ -136,26 +136,14 @@ alchemy-tinymce {
   &.hidden {
     display: block;
     border-style: dashed;
-    opacity: 0.5;
     transition: opacity $transition-duration;
 
     > .element-header {
       background-color: transparent;
-      background-image: linear-gradient(
-        45deg,
-        $light-gray 25%,
-        $medium-gray 25%,
-        $medium-gray 50%,
-        $light-gray 50%,
-        $light-gray 75%,
-        $medium-gray 75%,
-        $medium-gray 100%
-      );
-      background-size: 28.28px 28.28px;
-    }
 
-    &:hover {
-      opacity: 1;
+      .element-hidden-icon {
+        display: inline;
+      }
     }
   }
 
@@ -258,6 +246,10 @@ alchemy-tinymce {
       border-bottom: $default-border;
       background-color: $light-gray;
       transition: all $transition-duration;
+
+      sl-switch::part(label) {
+        display: none;
+      }
     }
 
     .element-header:hover + .element-toolbar,
@@ -398,6 +390,10 @@ alchemy-tinymce {
   }
 }
 
+.element-hidden-icon {
+  display: none;
+}
+
 .element-toolbar {
   display: flex;
   width: 100%;
@@ -405,6 +401,18 @@ alchemy-tinymce {
   gap: $default-padding;
   height: $element-toolbar-height;
   border-bottom: 1px solid $medium-gray;
+}
+
+alchemy-publish-element-button {
+  display: inline-flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: $default-margin;
+
+  sl-switch {
+    --thumb-size: 10px;
+    --height: 12px;
+  }
 }
 
 .element-footer {

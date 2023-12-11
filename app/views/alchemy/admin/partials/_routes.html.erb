@@ -17,6 +17,10 @@
       return '<%= alchemy.expand_admin_element_path(id: 1) %>'.replace(/1/, id);
     },
 
+    publish_admin_element_path: function(id) {
+      return '<%= alchemy.publish_admin_element_path(id: 1) %>'.replace(/1/, id);
+    },
+
     node: {
       toggle_folded_api_path: function(id) {
         return '<%= alchemy.toggle_folded_api_node_path(id: 1) %>'.replace(/1/, id);

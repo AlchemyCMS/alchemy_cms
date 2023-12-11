@@ -82,7 +82,12 @@ module Alchemy
       end
 
       def publish
-        @element.update(public: !@element.public?)
+        @element.public = !@element.public?
+        @element.save(validate: false)
+        render json: {
+          public: @element.public?,
+          label: @element.public? ? Alchemy.t(:hide_element) : Alchemy.t(:show_element)
+        }
       end
 
       def order
