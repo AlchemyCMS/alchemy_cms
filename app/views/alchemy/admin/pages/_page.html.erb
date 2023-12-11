@@ -125,12 +125,12 @@
     <div class="page_infos">
       <span class="page_status">
         <sl-tooltip content="{{status_titles.public}}" class="like-hint-tooltip" placement="bottom-start">
-          <i class="icon ri-fw ri-cloud{{#unless public}}-off{{/unless}}-line {{#unless public}}disabled{{/unless}}"></i>
+          <i class="icon ri-fw ri-1x ri-cloud{{#unless public}}-off{{/unless}}-line {{#if public}}disabled{{/if}}"></i>
         </sl-tooltip>
       </span>
       <span class="page_status">
         <sl-tooltip content="{{status_titles.restricted}}" class="like-hint-tooltip" placement="bottom-start">
-          <i class="icon ri-fw ri-lock{{#unless restricted}}-unlock{{/unless}}-line {{#unless restricted}}disabled{{/unless}}"></i>
+          <i class="icon ri-fw ri-1x ri-lock{{#unless restricted}}-unlock{{/unless}}-line {{#unless restricted}}disabled{{/unless}}"></i>
         </sl-tooltip>
       </span>
     </div>
