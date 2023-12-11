@@ -35,7 +35,7 @@ div.flash {
   margin: $default-margin $default-margin 2 * $default-margin;
   position: relative;
   min-height: 2.6em;
-  word-break: break-all;
+  word-break: break-word;
   transition-property: opacity, transform;
   transition-duration: 0.4s;
   line-height: 1.5;

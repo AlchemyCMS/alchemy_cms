@@ -5,7 +5,7 @@
     <% elsif element.deprecated? %>
       <%= hint_with_tooltip element.deprecation_notice %>
     <% else %>
-      <%= render_icon('draggable', style: nil, class: 'element') %>
+      <%= render_icon('draggable', style: nil, class: 'element', fixed_width: false) %>
     <% end %>
   </span>
   <span class="element-title">
@@ -14,7 +14,6 @@
       <%= sanitize(element.preview_text.presence || '&nbsp;') %>
     </span>
   </span>
-  <%= render_hint_for(element) %>
   <%= button_tag({
     title: Alchemy.t(element.folded? ? :show_element_content : :hide_element_content),
     class: "element-toggle"

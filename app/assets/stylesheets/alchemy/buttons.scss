@@ -48,6 +48,7 @@ input.button {
 }
 
 .icon_button {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -55,7 +56,6 @@ input.button {
   height: 30px;
   margin: 0;
   padding: 0;
-  overflow: hidden;
   text-shadow: none;
   border-radius: $default-border-radius;
 
@@ -66,7 +66,9 @@ input.button {
     border: none;
   }
 
-  &:hover {
+  &.active,
+  &:active,
+  &:hover:not([disabled]):not(.disabled):not(.linked) {
     text-decoration: none;
     background-color: $default-border-color;
     cursor: pointer;
@@ -79,17 +81,15 @@ input.button {
 
   &.disabled,
   &[disabled] {
-    span {
-      opacity: 0.3;
-      cursor: not-allowed;
-    }
+    pointer-events: none;
 
     i {
       opacity: 0.3;
     }
 
     &:hover {
-      cursor: not-allowed;
+      text-decoration: none;
+      cursor: default;
     }
   }
 
@@ -97,7 +97,7 @@ input.button {
     @include linked-button;
   }
 
-  &:focus {
+  &:focus:not(.disabled):not([disabled]) {
     @include default-focus-style;
   }
 }
@@ -124,15 +124,6 @@ button.icon_button {
   align-items: center;
   justify-content: center;
   text-align: center;
-
-  &.active,
-  &:active,
-  &:hover {
-    .icon_button:not([disabled]) {
-      background-color: $default-border-color;
-      cursor: pointer;
-    }
-  }
 
   .select2-container,
   select {

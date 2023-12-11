@@ -85,9 +85,8 @@ alchemy-tinymce {
 
 .element-handle {
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
   cursor: move;
+  padding-right: $default-padding;
 }
 
 .element-toggle {
@@ -217,6 +216,7 @@ alchemy-tinymce {
     .element-body,
     .element-footer,
     .nestable-elements,
+    .message,
     .nested-elements {
       display: none;
     }
@@ -532,18 +532,11 @@ alchemy-tinymce {
   bottom: 0;
   z-index: 0;
   width: 100%;
-  padding: $default-padding/2;
+  padding: $default-padding;
 
-  a {
-    &.linked {
-      border-radius: $default-border-radius;
-      background-color: $linked-color;
-    }
-
-    &.disabled {
-      opacity: 0.3;
-      cursor: default;
-    }
+  .icon_button {
+    width: 26px;
+    height: 26px;
   }
 }
 

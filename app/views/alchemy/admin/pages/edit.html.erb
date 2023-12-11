@@ -97,10 +97,6 @@
       <% end %>
     </div>
   <% end %>
-  <% if @page.has_hint? %>
-    <div class="toolbar_spacer"></div>
-    <%= render_hint_for(@page) %>
-  <% end %>
   <div class="toolbar_spacer"></div>
   <div class="select_with_label">
     <label><%= Alchemy.t(:preview_size) %></label>

@@ -104,7 +104,6 @@ $sitemap-url-xlarge-width: 350px;
   width: 32px;
   line-height: $sitemap-line-height;
   float: left;
-  padding: 0 2 * $default-padding;
   text-align: center;
 }
 
@@ -146,9 +145,9 @@ $sitemap-url-xlarge-width: 350px;
 
   .page_folder {
     position: absolute;
-    left: -23px;
+    left: -$sitemap-line-height;
     top: 0;
-    width: 16px;
+    width: $sitemap-line-height;
     height: $sitemap-line-height;
   }
 

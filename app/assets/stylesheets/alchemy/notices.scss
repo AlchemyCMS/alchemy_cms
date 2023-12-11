@@ -46,6 +46,12 @@ div.message {
     }
   }
 
+  &.hint {
+    background-color: $hint-background-color;
+    border-color: $hint-background-color;
+    color: $hint-text-color;
+  }
+
   &.info {
     background-color: $info_background_color;
     border-color: $info_border_color;

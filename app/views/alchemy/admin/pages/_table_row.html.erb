@@ -3,17 +3,17 @@
     <% if can?(:edit_content, page) %>
       <% if page.locked? %>
         <span class="with-hint">
-          <i class="icon ri-file-edit-line ri-fw"></i>
+          <i class="icon ri-file-edit-fill ri-fw ri-xl"></i>
           <span class="hint-bubble">
             <%= Alchemy.t("This page is locked", name: page.locker_name) %>
           </span>
         </span>
       <% else %>
-        <i class="icon ri-file-line ri-fw"></i>
+        <i class="icon ri-file-line ri-fw ri-xl"></i>
       <% end %>
     <% else %>
       <span class="with-hint">
-        <i class="icon ri-file-forbid-line ri-fw"></i>
+        <i class="icon ri-file-forbid-line ri-fw ri-xl"></i>
         <span class="hint-bubble">
           <%= Alchemy.t("Your user role does not allow you to edit this page") %>
         </span>

@@ -13,7 +13,7 @@ table {
 
 .list td,
 .list th {
-  padding: 3 * $default-padding;
+  padding: 2 * $default-padding 3 * $default-padding;
   vertical-align: top;
   line-height: 22px;
   border-right: 1px solid $medium-gray;
@@ -60,6 +60,7 @@ tr.odd td {
 
 .list tr .tools {
   width: 40px;
+  padding: $default-padding 2 * $default-padding;
   white-space: nowrap;
   @extend .disable-user-select;
 
