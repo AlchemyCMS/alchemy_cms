@@ -46,11 +46,8 @@ module Alchemy
         end
       end
 
-      def click_button_with_label(label)
-        label = find("label", text: label)
-        within label.first(:xpath, ".//..") do
-          first("button").click
-        end
+      def click_link_with_tooltip(content)
+        find(%([content="#{content}"] a)).click
       end
 
       private
@@ -63,6 +60,8 @@ module Alchemy
         find "label:not(.select2-offscreen)",
           text: /#{Regexp.escape(text)}/i,
           match: :one
+      rescue Capybara::ElementNotFound
+        find %([content="#{text}"]), match: :one
       end
     end
   end

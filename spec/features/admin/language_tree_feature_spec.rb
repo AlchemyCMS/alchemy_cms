@@ -40,7 +40,7 @@ RSpec.describe "Language tree feature", type: :system, js: true do
 
         it "one should be able to switch the language tree" do
           visit("/admin/pages")
-          expect(page).to have_selector("label", text: Alchemy.t("Language tree"))
+          expect(page).to have_link_with_tooltip(Alchemy.t("Language tree"))
         end
       end
     end
