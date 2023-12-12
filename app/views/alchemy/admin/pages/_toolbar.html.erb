@@ -16,47 +16,52 @@
   ) %>
   <div class="toolbar_spacer"></div>
   <% if can?(:flush, Alchemy::Page) %>
-    <div class="button_with_label">
-      <%= link_to(
-        render_icon(:eraser),
-        alchemy.flush_admin_pages_path,
-        remote: true,
-        method: :post,
-        class: "icon_button please_wait",
-        title: Alchemy.t("Flush page cache")
-      ) %>
-      <label><%= Alchemy.t("Flush page cache") %></label>
+    <div class="toolbar_button">
+      <sl-tooltip content="<%= Alchemy.t("Flush page cache") %>">
+        <%= link_to(
+          render_icon(:eraser),
+          alchemy.flush_admin_pages_path,
+          remote: true,
+          method: :post,
+          class: "icon_button please_wait",
+          title: Alchemy.t("Flush page cache")
+        ) %>
+      </sl-tooltip>
     </div>
   <% end %>
-  <div class="button_with_label" id="clipboard_button">
-    <%= link_to_dialog(
-      render_icon(:clipboard, style: clipboard_empty?("pages") ? "line" : "fill"),
-      alchemy.admin_clipboard_path(remarkable_type: "pages"),
-      {
-        title: Alchemy.t("Clipboard"),
-        size: "380x305"
-      },
-      class: "icon_button",
-      title: Alchemy.t("Show clipboard")
-    ) %>
-    <label><%= Alchemy.t("Show clipboard") %></label>
+  <div class="toolbar_button">
+    <sl-tooltip content="<%= Alchemy.t("Show clipboard") %>">
+      <%= link_to_dialog(
+        render_icon(:clipboard, style: clipboard_empty?("pages") ? "line" : "fill"),
+        alchemy.admin_clipboard_path(remarkable_type: "pages"),
+        {
+          title: Alchemy.t("Clipboard"),
+          size: "380x305"
+        },
+        class: "icon_button",
+        title: Alchemy.t("Show clipboard"),
+        id: "clipboard_button"
+      ) %>
+    </sl-tooltip>
   </div>
   <div class="toolbar_spacer"></div>
-  <div class="button_with_label<%= @view != "list" ? " active" : nil %>">
-    <%= link_to(
-      render_icon(:"menu-2"),
-      alchemy.admin_pages_path(view: "tree"),
-      class: "icon_button"
-    ) %>
-    <label><%= Alchemy.t("Hierarchical") %></label>
+  <div class="toolbar_button">
+    <sl-tooltip content="<%= Alchemy.t("Hierarchical") %>">
+      <%= link_to(
+        render_icon(:"menu-2"),
+        alchemy.admin_pages_path(view: "tree"),
+        class: ["icon_button", @view != "list" && "active"].compact
+      ) %>
+    </sl-tooltip>
   </div>
-  <div class="button_with_label<%= @view == "list" ? " active" : nil %>">
-    <%= link_to(
-      render_icon("sort-desc", style: nil),
-      alchemy.admin_pages_path(view: "list"),
-      class: "icon_button"
-    ) %>
-    <label><%= Alchemy.t("Sortable List") %></label>
+  <div class="toolbar_button">
+    <sl-tooltip content="<%= Alchemy.t("Sortable List") %>">
+      <%= link_to(
+        render_icon("sort-desc", style: nil),
+        alchemy.admin_pages_path(view: "list"),
+        class: ["icon_button", @view == "list" && "active"].compact
+      ) %>
+    </sl-tooltip>
   </div>
 </div>
 <% search_filter_params[:view] = "list" %>

@@ -2,15 +2,6 @@
 
 require "rails_helper"
 
-# Here's a tiny custom matcher making it a bit easier to check the
-# current session for a language configuration.
-#
-RSpec::Matchers.define :include_language_information_for do |expected|
-  match do |actual|
-    actual[:alchemy_language_id] == expected.id
-  end
-end
-
 describe "Alchemy::ControllerActions", type: "controller" do
   # Anonymous controller to test the integration against
   controller(ActionController::Base) do

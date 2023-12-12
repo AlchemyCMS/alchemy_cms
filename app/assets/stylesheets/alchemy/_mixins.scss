@@ -28,6 +28,9 @@
   $focus-border-color: $button-focus-border-color,
   $focus-box-shadow: $button-focus-box-shadow
 ) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-family: $default-font-family;
   font-size: $default-font-size;
   font-weight: $button-font-weight;
@@ -209,13 +212,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: $wrap;
-}
-
-@mixin hint-hover-style {
-  visibility: visible;
-  top: 26px;
-  opacity: 1;
-  transition-delay: 0.2s;
 }
 
 @mixin clearfix {

@@ -13,7 +13,7 @@
     <div class="toolbar_spacer"></div>
   <% end %>
   <div class="button_group">
-    <div class="button_with_label">
+    <sl-tooltip content="<%= Alchemy.t(:small_thumbnails) %>">
       <%= link_to(
         render_icon('zoom-out'),
         alchemy.admin_pictures_path({
@@ -24,11 +24,10 @@
           tagged_with: search_filter_params[:tagged_with]
         }),
         remote: true,
-        title: Alchemy.t(:small_thumbnails),
         class: "icon_button"
       ) %>
-    </div>
-    <div class="button_with_label">
+    </sl-tooltip>
+    <sl-tooltip content="<%= Alchemy.t(:medium_thumbnails) %>">
       <%= link_to(
         render_icon('search'),
         alchemy.admin_pictures_path({
@@ -39,11 +38,10 @@
           tagged_with: search_filter_params[:tagged_with]
         }),
         remote: true,
-        title: Alchemy.t(:medium_thumbnails),
         class: "icon_button"
       ) %>
-    </div>
-    <div class="button_with_label">
+    </sl-tooltip>
+    <sl-tooltip content="<%= Alchemy.t(:big_thumbnails) %>">
       <%= link_to(
         render_icon('zoom-in'),
         alchemy.admin_pictures_path({
@@ -54,11 +52,9 @@
           tagged_with: search_filter_params[:tagged_with]
         }),
         remote: true,
-        title: Alchemy.t(:big_thumbnails),
         class: "icon_button"
       ) %>
-    </div>
-    <label><%= Alchemy.t('Image size') %></label>
+    </sl-tooltip>
     <%= hidden_field_tag('size', @size, id: 'overlay_thumbnails_size') %>
   </div>
   <%= render partial: 'alchemy/admin/partials/remote_search_form' %>

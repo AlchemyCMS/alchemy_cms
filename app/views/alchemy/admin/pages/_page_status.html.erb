@@ -1,14 +1,18 @@
 <span class="page_status">
-  <% if page.public? %>
-    <%= render_icon(:cloud, size: "1x") %>
-  <% else %>
-    <%= render_icon("cloud-off", size: "1x") %>
-  <% end %>
+  <sl-tooltip content="<%= page.status_title(:public) %>" placement="bottom" class="like-hint-tooltip">
+    <% if page.public? %>
+      <%= render_icon(:cloud, size: "1x", class: "disabled") %>
+    <% else %>
+      <%= render_icon("cloud-off", size: "1x") %>
+    <% end %>
+  </sl-tooltip>
 </span>
 <span class="page_status">
-  <% if page.restricted? %>
-    <%= render_icon(:lock, size: "1x") %>
-  <% else %>
-    <%= render_icon("lock-unlock", size: "1x") %>
-  <% end %>
+  <sl-tooltip content="<%= page.status_title(:restricted) %>" placement="bottom" class="like-hint-tooltip">
+    <% if page.restricted? %>
+      <%= render_icon(:lock, size: "1x") %>
+    <% else %>
+      <%= render_icon("lock-unlock", size: "1x", class: "disabled") %>
+    <% end %>
+  </sl-tooltip>
 </span>

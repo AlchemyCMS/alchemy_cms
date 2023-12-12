@@ -9,14 +9,20 @@ module Alchemy
         options[:wrapper] = :alchemy
 
         if object.respond_to?(:attribute_fixed?) && object.attribute_fixed?(attribute_name)
-          options[:disabled] = true
-          options[:input_html] = options.fetch(:input_html, {}).merge(
-            is: "alchemy-tooltip",
-            "data-tooltip": Alchemy.t(:attribute_fixed, attribute: attribute_name)
-          )
+          tooltip_options = {
+            content: Alchemy.t(:attribute_fixed, attribute: attribute_name),
+            class: "like-hint-tooltip",
+            placement: "bottom-start"
+          }
+          template.content_tag(:div, class: "input") do
+            label(attribute_name) +
+              template.content_tag("sl-tooltip", tooltip_options) do
+                input_field(attribute_name, disabled: true)
+              end
+          end
+        else
+          super
         end
-
-        super
       end
 
       # Renders a simple_form input that displays a datepicker

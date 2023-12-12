@@ -28,7 +28,7 @@ module Alchemy
         it "renders a toolbar button" do
           expect(
             helper.toolbar_button(url: admin_dashboard_path)
-          ).to match(/<div.+class="button_with_label/)
+          ).to have_css %(sl-tooltip .icon_button[href="#{admin_dashboard_path}"])
         end
       end
 
@@ -46,7 +46,7 @@ module Alchemy
         it "returns the button" do
           expect(
             helper.toolbar_button(url: admin_dashboard_path, skip_permission_check: true)
-          ).to match(/<div.+class="button_with_label/)
+          ).to have_css %(sl-tooltip .icon_button[href="#{admin_dashboard_path}"])
         end
       end
 
@@ -220,10 +220,8 @@ module Alchemy
     describe "#hint_with_tooltip" do
       subject { helper.hint_with_tooltip("My hint") }
 
-      it "renders a warning icon with hint text wrapped in tooltip", :aggregate_failures do
-        is_expected.to have_css "span.hint-with-icon i.ri-alert-line"
-        is_expected.to have_css "span.hint-with-icon span.hint-bubble"
-        is_expected.to have_content "My hint"
+      it "renders a warning icon with hint text wrapped in tooltip" do
+        is_expected.to have_css "sl-tooltip.like-hint-tooltip[content='My hint'] i.ri-alert-line"
       end
 
       context "with icon set to info" do

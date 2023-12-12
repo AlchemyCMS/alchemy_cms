@@ -84,6 +84,7 @@
 }
 
 .sitemap_node {
+  height: $sitemap-line-height;
   margin: 3 * $default-margin 0;
   transition: background-color $transition-duration;
 
@@ -101,6 +102,7 @@
   }
 
   .node_name {
+    height: $sitemap-line-height;
     display: flex;
     justify-content: space-between;
     @include border-left-radius($default-border-radius);
@@ -131,9 +133,11 @@
 }
 
 .nodes_tree-right_tools {
+  display: flex;
   height: $sitemap-line-height;
   padding: 0 2 * $default-padding;
   float: right;
+  align-items: center;
 
   > a {
     float: left;

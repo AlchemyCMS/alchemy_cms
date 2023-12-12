@@ -23,18 +23,16 @@ form {
     padding: $default-padding 0;
     @include clearfix;
 
-    > input[type="url"],
-    > input[type="number"],
-    > input[type="text"],
-    > input[type="email"],
-    > input[type="password"],
-    > textarea,
-    > select,
-    > .select2-container,
-    > .autocomplete_tag_list,
-    > .tinymce_container,
-    > alchemy-datepicker,
-    > .with-hint {
+    input[type="url"],
+    input[type="number"],
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    textarea,
+    select,
+    .select2-container,
+    .autocomplete_tag_list,
+    .tinymce_container {
       width: $form-right-width;
       float: right;
     }
@@ -170,16 +168,6 @@ form {
     }
   }
 
-  .input > .with-hint,
-  .checkbox > .with-hint {
-    cursor: default;
-
-    input,
-    textarea {
-      cursor: not-allowed;
-    }
-  }
-
   .inline-input {
     @include clearfix;
     margin: 0 -1 * $default-margin;
@@ -236,12 +224,17 @@ form {
   }
 
   .input-column {
-    float: left;
     padding: 0 $default-padding;
-    width: 50%;
+
+    input[type] {
+      float: none;
+      width: 100%;
+    }
   }
 
   .input-row {
+    display: flex;
+
     .input-column {
       &:first-of-type {
         padding-left: 0;

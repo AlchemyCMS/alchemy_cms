@@ -13,7 +13,7 @@ export class PublishElementButton extends HTMLElement {
       patch(Alchemy.routes.publish_admin_element_path(this.elementId))
         .then((response) => {
           this.elementEditor.published = response.data.public
-          this.label.innerText = response.data.label
+          this.tooltip.setAttribute("content", response.data.label)
           Alchemy.reloadPreview()
         })
         .catch((error) => Alchemy.growl(error.message, "error"))
@@ -24,8 +24,8 @@ export class PublishElementButton extends HTMLElement {
     return this.closest("alchemy-element-editor")
   }
 
-  get label() {
-    return this.querySelector("label")
+  get tooltip() {
+    return this.closest("sl-tooltip")
   }
 
   get elementId() {

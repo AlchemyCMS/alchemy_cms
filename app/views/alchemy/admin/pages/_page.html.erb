@@ -7,30 +7,24 @@
       {{else}}
         {{#if permissions.edit_content}}
           {{#if locked}}
-            <span class="with-hint">
+            <sl-tooltip content="{{locked_notice}}" class="like-hint-tooltip" placement="bottom-start">
               <i class="icon ri-file-edit-fill ri-fw ri-xl"></i>
-              <span class="hint-bubble">
-                {{locked_notice}}
-              </span>
-            </span>
+            </sl-tooltip>
           {{else}}
           <span class="{{#unless root}}handle{{/unless}}">
             <i class="icon ri-file-line ri-fw ri-xl"></i>
           </span>
           {{/if}}
         {{else}}
-          <span class="with-hint">
+          <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
             <i class="icon ri-file-forbid-line ri-fw ri-xl"></i>
-            <span class="hint-bubble">
-              <%= Alchemy.t("Your user role does not allow you to edit this page") %>
-            </span>
-          </span>
+          </sl-tooltip>
         {{/if}}
       {{/if}}
     </div>
     <div class="sitemap_right_tools">
       {{#if permissions.info}}
-      <div class="button_with_label">
+      <sl-tooltip content="<%= Alchemy.t(:page_infos) %>">
         <%= link_to_dialog(
           render_icon("information"),
           alchemy.info_admin_page_path(id: "__ID__"),
@@ -40,17 +34,16 @@
           },
           class: "icon_button"
         ) %>
-        <label class="center"><%= Alchemy.t(:page_infos) %></label>
+      </sl-tooltip>
       {{else}}
-      <div class="sitemap_tool disabled with-hint">
-        <%= render_icon("information") %>
-        <span class="hint-bubble">
-          <%= Alchemy.t("Your user role does not allow you to edit this page") %>
-        </span>
-      {{/if}}
+      <div class="sitemap_tool disabled">
+        <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
+          <%= render_icon("information") %>
+        </sl-tooltip>
       </div>
+      {{/if}}
       {{#if permissions.configure}}
-      <div class="button_with_label">
+      <sl-tooltip content="<%= Alchemy.t(:edit_page_properties) %>">
         <%= link_to_dialog(
           render_icon("settings-3"),
           alchemy.configure_admin_page_path(id: "__ID__"),
@@ -60,17 +53,16 @@
           },
           class: "icon_button"
         ) -%>
-        <label class="center"><%= Alchemy.t(:edit_page_properties) %></label>
+      </sl-tooltip>
       {{else}}
-      <div class="sitemap_tool disabled with-hint">
-        <%= render_icon("settings-3") %>
-        <span class="hint-bubble">
-          <%= Alchemy.t("Your user role does not allow you to edit this page") %>
-        </span>
-      {{/if}}
+      <div class="sitemap_tool disabled">
+        <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
+          <%= render_icon("settings-3") %>
+        </sl-tooltip>
       </div>
+      {{/if}}
       {{#if permissions.copy}}
-      <div class="button_with_label">
+      <sl-tooltip content="<%= Alchemy.t(:copy_page) %>">
         <%= link_to(
           render_icon("file-copy"),
           alchemy.insert_admin_clipboard_path(
@@ -81,17 +73,16 @@
           method: :post,
           class: "icon_button"
         ) %>
-        <label class="center"><%= Alchemy.t(:copy_page) %></label>
+      </sl-tooltip>
       {{else}}
-      <div class="sitemap_tool disabled with-hint">
-        <%= render_icon("file-copy") %>
-        <span class="hint-bubble">
-          <%= Alchemy.t("Your user role does not allow you to edit this page") %>
-        </span>
-      {{/if}}
+      <div class="sitemap_tool disabled">
+        <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
+          <%= render_icon("file-copy") %>
+        </sl-tooltip>
       </div>
+      {{/if}}
       {{#if permissions.destroy}}
-      <div class="button_with_label">
+      <sl-tooltip content="<%= Alchemy.t(:delete_page) %>">
         <%= link_to_confirm_dialog(
           render_icon("delete-bin-2"),
           Alchemy.t(:confirm_to_delete_page),
@@ -102,17 +93,16 @@
           ),
           class: "icon_button"
         ) -%>
-        <label class="center"><%= Alchemy.t(:delete_page) %></label>
+      </sl-tooltip>
       {{else}}
-      <div class="sitemap_tool disabled with-hint">
-        <%= render_icon("delete-bin-2") %>
-        <span class="hint-bubble">
-          <%= Alchemy.t("Your user role does not allow you to edit this page") %>
-        </span>
-      {{/if}}
+      <div class="sitemap_tool disabled">
+        <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
+          <%= render_icon("delete-bin-2") %>
+        </sl-tooltip>
       </div>
+      {{/if}}
       {{#if permissions.create}}
-      <div class="button_with_label">
+      <sl-tooltip content="<%= Alchemy.t(:create_page) %>">
         <%= link_to_dialog(
           render_icon(:add),
           alchemy.new_admin_page_path(parent_id: "__ID__"),
@@ -123,24 +113,25 @@
           },
           class: "icon_button"
         ) -%>
-        <label class="left"><%= Alchemy.t(:create_page) %></label>
+      </sl-tooltip>
       {{else}}
-      <div class="sitemap_tool disabled with-hint">
-        <%= render_icon("file-add") %>
-        <span class="hint-bubble">
-          <%= Alchemy.t("Your user role does not allow you to edit this page") %>
-        </span>
-      {{/if}}
+      <div class="sitemap_tool disabled">
+        <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
+          <%= render_icon("file-add") %>
+        </sl-tooltip>
       </div>
+      {{/if}}
     </div>
     <div class="page_infos">
-      <span class="page_status with-hint">
-        <i class="icon ri-fw ri-cloud{{#unless public}}-off{{/unless}}-line {{#unless public}}disabled{{/unless}}"></i>
-        <span class="hint-bubble">{{status_titles.public}}</span>
+      <span class="page_status">
+        <sl-tooltip content="{{status_titles.public}}" class="like-hint-tooltip" placement="bottom-start">
+          <i class="icon ri-fw ri-1x ri-cloud{{#unless public}}-off{{/unless}}-line {{#if public}}disabled{{/if}}"></i>
+        </sl-tooltip>
       </span>
-      <span class="page_status with-hint">
-        <i class="icon ri-fw ri-lock{{#unless restricted}}-unlock{{/unless}}-line {{#unless restricted}}disabled{{/unless}}"></i>
-        <span class="hint-bubble">{{status_titles.restricted}}</span>
+      <span class="page_status">
+        <sl-tooltip content="{{status_titles.restricted}}" class="like-hint-tooltip" placement="bottom-start">
+          <i class="icon ri-fw ri-1x ri-lock{{#unless restricted}}-unlock{{/unless}}-line {{#unless restricted}}disabled{{/unless}}"></i>
+        </sl-tooltip>
       </span>
     </div>
     <div class="sitemap_url" title="{{url_path}}">

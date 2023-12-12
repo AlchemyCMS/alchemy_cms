@@ -48,7 +48,7 @@ RSpec.describe "Legacy page url management", type: :system, js: true do
     end
 
     it "lets a user remove a page link" do
-      click_link "Remove"
+      click_link_with_tooltip("Remove")
       click_button "Yes"
       within "#legacy_page_urls" do
         expect(page).to_not have_content("a-page-link")

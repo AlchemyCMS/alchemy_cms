@@ -1,17 +1,19 @@
 <% content_for(:toolbar) do %>
   <div class="toolbar_buttons">
     <% if can? :create, Alchemy::Picture %>
-      <%= render 'alchemy/admin/uploader/button',
-        object: Alchemy::Picture.new,
-        file_attribute: 'image_file',
-        redirect_url: alchemy.admin_pictures_path(
-          size: @size,
-          filter: { misc: 'last_upload' }
-        ) %>
+      <div class="toolbar_button">
+        <%= render 'alchemy/admin/uploader/button',
+          object: Alchemy::Picture.new,
+          file_attribute: 'image_file',
+          redirect_url: alchemy.admin_pictures_path(
+            size: @size,
+            filter: { misc: 'last_upload' }
+          ) %>
+      </div>
       <div class="toolbar_spacer"></div>
     <% end %>
     <div class="button_group">
-      <div class="button_with_label">
+      <sl-tooltip content="<%= Alchemy.t(:small_thumbnails) %>">
         <%= link_to(
           render_icon('zoom-out'),
           alchemy.admin_pictures_path(
@@ -20,11 +22,10 @@
             filter: search_filter_params[:filter],
             tagged_with: search_filter_params[:tagged_with]
           ),
-          title: Alchemy.t(:small_thumbnails),
           class: "icon_button"
         ) %>
-      </div>
-      <div class="button_with_label">
+      </sl-tooltip>
+      <sl-tooltip content="<%= Alchemy.t(:medium_thumbnails) %>">
         <%= link_to(
           render_icon('search'),
           alchemy.admin_pictures_path(
@@ -33,11 +34,10 @@
             filter: search_filter_params[:filter],
             tagged_with: search_filter_params[:tagged_with]
           ),
-          title: Alchemy.t(:medium_thumbnails),
           class: "icon_button"
         ) %>
-      </div>
-      <div class="button_with_label">
+      </sl-tooltip>
+      <sl-tooltip content="<%= Alchemy.t(:big_thumbnails) %>">
         <%= link_to(
           render_icon('zoom-in'),
           alchemy.admin_pictures_path(
@@ -46,23 +46,22 @@
             filter: search_filter_params[:filter],
             tagged_with: search_filter_params[:tagged_with]
           ),
-          title: Alchemy.t(:big_thumbnails),
           class: "icon_button"
         ) %>
-      </div>
-      <label><%= Alchemy.t('Image size') %></label>
+      </sl-tooltip>
       <%= hidden_field_tag('size', @size, id: 'overlay_thumbnails_size') %>
     </div>
     <div class="toolbar_spacer"></div>
-    <div class="button_with_label">
-      <%= link_to(
-        render_icon('checkbox-multiple'),
-        nil,
-        id: 'select_all_pictures',
-        class: 'icon_button',
-        'data-alchemy-hotkey' => 'alt+a'
-      ) %>
-      <label><%= Alchemy.t("Select all") %></label>
+    <div class="toolbar_button">
+      <sl-tooltip content="<%= Alchemy.t("Select all") %>">
+        <%= link_to(
+          render_icon('checkbox-multiple'),
+          nil,
+          id: 'select_all_pictures',
+          class: 'icon_button',
+          'data-alchemy-hotkey' => 'alt+a'
+        ) %>
+      </sl-tooltip>
     </div>
   </div>
 

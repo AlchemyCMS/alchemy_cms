@@ -270,7 +270,7 @@
    */
 
   --sl-tooltip-border-radius: var(--sl-border-radius-medium);
-  --sl-tooltip-background-color: var(--sl-color-neutral-800);
+  --sl-tooltip-background-color: var(--sl-color-primary-800);
   --sl-tooltip-color: var(--sl-color-neutral-0);
   --sl-tooltip-font-family: var(--sl-font-sans);
   --sl-tooltip-font-weight: var(--sl-font-weight-normal);
@@ -323,5 +323,23 @@
 
   sl-tab-panel {
     --padding: var(--spacing-4);
+  }
+
+  sl-tooltip {
+    --show-delay: 0.2s;
+  }
+}
+
+sl-tooltip {
+  --max-width: 200px;
+
+  &::part(body) {
+    white-space: normal;
+    box-sizing: content-box; // otherwise the box shadow will peak out!
+  }
+
+  &::part(base__popup) {
+    border-radius: var(--border-radius_medium);
+    box-shadow: 0 0 var(--spacing-1) var(--color-grey_medium);
   }
 }

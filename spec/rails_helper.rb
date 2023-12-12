@@ -27,6 +27,7 @@ require "alchemy/test_support/shared_dom_ids_examples"
 require "alchemy/test_support/shared_ingredient_examples"
 require "alchemy/test_support/shared_ingredient_editor_examples"
 require "alchemy/test_support/integration_helpers"
+require "alchemy/test_support/rspec_matchers"
 require "alchemy/test_support/shared_contexts"
 require "alchemy/test_support/shared_uploader_examples"
 

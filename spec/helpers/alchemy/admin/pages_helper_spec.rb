@@ -35,8 +35,29 @@ describe Alchemy::Admin::PagesHelper do
         end
 
         it "displays icon with warning and tooltip" do
-          is_expected.to have_selector ".hint-with-icon .hint-bubble"
+          is_expected.to have_selector("sl-tooltip[content='#{Alchemy.t(:page_definition_missing)}']")
         end
+      end
+    end
+  end
+
+  describe "#page_status_checkbox" do
+    subject { helper.page_status_checkbox(page, :restricted) }
+
+    context "when page has fixed attributes" do
+      let(:page) { build(:alchemy_page, page_layout: "readonly") }
+
+      it "returns disabled checkbox with tooltip" do
+        expect(subject).to have_selector("label > sl-tooltip > input#page_restricted[disabled][type='checkbox']")
+      end
+    end
+
+    context "when page has no fixed attributes" do
+      let(:page) { build(:alchemy_page) }
+
+      it "returns normal checkbox" do
+        expect(subject).to have_selector("label > input#page_restricted[type='checkbox']")
+        expect(subject).to_not have_selector("label > sl-tooltip > input[disabled][type='checkbox']")
       end
     end
   end

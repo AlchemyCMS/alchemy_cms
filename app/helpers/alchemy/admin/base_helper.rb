@@ -336,9 +336,9 @@ module Alchemy
       def render_hint_for(element, icon_options = {})
         return unless element.has_hint?
 
-        content_tag :span, class: "hint-with-icon" do
+        content_tag "sl-tooltip", class: "like-hint-tooltip", placement: "bottom-start" do
           render_icon("question", icon_options) +
-            content_tag(:span, element.hint.html_safe, class: "hint-bubble")
+            content_tag(:span, element.hint.html_safe, slot: "content")
         end
       end
 
@@ -381,8 +381,8 @@ module Alchemy
       #
       # @return [String]
       def hint_with_tooltip(text, icon: "alert")
-        content_tag :span, class: "hint-with-icon" do
-          render_icon(icon) + content_tag(:span, text, class: "hint-bubble")
+        content_tag :"sl-tooltip", class: "like-hint-tooltip", content: text, placement: "bottom" do
+          render_icon(icon)
         end
       end
 

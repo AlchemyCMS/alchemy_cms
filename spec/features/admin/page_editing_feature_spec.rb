@@ -63,8 +63,8 @@ RSpec.describe "Page editing feature", type: :system do
 
     it "can create a new element", :js do
       visit alchemy.edit_admin_page_path(a_page)
-      expect(page).to have_link("New element")
-      click_link("New element")
+      expect(page).to have_link_with_tooltip("New element")
+      click_link_with_tooltip("New element")
       expect(page).to have_selector(".alchemy-dialog-body .simple_form")
       within ".alchemy-dialog-body .simple_form" do
         select2("Article", from: "Element")
@@ -258,8 +258,9 @@ RSpec.describe "Page editing feature", type: :system do
 
       it "is not possible to edit the attribute", :aggregate_failures do
         visit alchemy.configure_admin_page_path(readonly_page)
+        puts page.body
         readonly_page.fixed_attributes.all.each do |attribute, _v|
-          expect(page).to have_selector("#page_#{attribute}[disabled=\"disabled\"]")
+          expect(page).to have_selector("#page_#{attribute}[disabled]")
         end
       end
     end
