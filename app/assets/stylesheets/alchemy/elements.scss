@@ -137,7 +137,12 @@ alchemy-tinymce {
   &.hidden {
     display: block;
     border-style: dashed;
+    opacity: 0.7;
     transition: opacity $transition-duration;
+
+    &:hover {
+      opacity: 1;
+    }
 
     > .element-header {
       background-color: transparent;
@@ -219,9 +224,7 @@ alchemy-tinymce {
         padding: 8px 4px 4px;
 
         .add-nestable-element-button {
-          width: calc(50% - 8px);
           margin: 4px;
-          text-align: center;
         }
       }
     }
@@ -238,13 +241,17 @@ alchemy-tinymce {
   }
 
   &.compact {
+    .element-hidden-label {
+      display: none;
+    }
+
     .element-toolbar {
       visibility: hidden;
       position: absolute;
       height: 35px;
       opacity: 0;
       z-index: 1;
-      border-bottom: $default-border;
+      box-shadow: 0 1px 1px $default-border-color;
       background-color: $light-gray;
       transition: all $transition-duration;
 
@@ -369,6 +376,7 @@ alchemy-tinymce {
   .expanded & {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+    border-bottom: 1px solid $medium-gray;
   }
 
   .icon {
@@ -379,6 +387,7 @@ alchemy-tinymce {
 
 .element-hidden-icon {
   display: none;
+  white-space: nowrap;
 }
 
 .element-toolbar {
@@ -915,17 +924,6 @@ textarea.has_tinymce {
 
   .element-editor {
     position: relative;
-  }
-
-  .element-editor:not(.is-fixed) & {
-    .element-header {
-      background-color: transparent;
-    }
-  }
-
-  .element-toolbar {
-    width: 100%;
-    border-top: 1px solid $medium-gray;
   }
 }
 
