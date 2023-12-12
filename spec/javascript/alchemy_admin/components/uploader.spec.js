@@ -1,5 +1,12 @@
 import { Uploader } from "alchemy_admin/components/uploader"
 
+jest.mock("alchemy_admin/utils/ajax", () => {
+  return {
+    __esModule: true,
+    getToken: () => "123"
+  }
+})
+
 describe("alchemy-uploader", () => {
   /**
    * @type {Uploader}
@@ -125,6 +132,29 @@ describe("alchemy-uploader", () => {
       const progress = new ProgressEvent("progress", { loaded: 50, total: 100 })
       xhrMock.upload.onprogress(progress)
       expect(progressBar.value).toBe(50)
+    })
+
+    describe("request header", () => {
+      it("sends a CSRF token", () => {
+        expect(xhrMock.setRequestHeader).toHaveBeenCalledWith(
+          "X-CSRF-Token",
+          "123"
+        )
+      })
+
+      it("should mark the request as XHR for Rails request handling", () => {
+        expect(xhrMock.setRequestHeader).toHaveBeenCalledWith(
+          "X-Requested-With",
+          "XMLHttpRequest"
+        )
+      })
+
+      it("should request json as answer", () => {
+        expect(xhrMock.setRequestHeader).toHaveBeenCalledWith(
+          "Accept",
+          "application/json"
+        )
+      })
     })
   })
 

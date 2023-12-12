@@ -24,7 +24,7 @@ function buildPromise(xhr) {
   })
 }
 
-function getToken() {
+export function getToken() {
   const metaTag = document.querySelector('meta[name="csrf-token"]')
   return metaTag.attributes.content.textContent
 }
@@ -53,6 +53,7 @@ export default function ajax(method, path, data, accept = "application/json") {
   xhr.open(method, url.toString())
   xhr.setRequestHeader("Content-type", "application/json; charset=utf-8")
   xhr.setRequestHeader("Accept", accept)
+  xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest")
   xhr.setRequestHeader("X-CSRF-Token", getToken())
 
   if (data && method.toLowerCase() !== "get") {

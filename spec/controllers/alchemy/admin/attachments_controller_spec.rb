@@ -87,7 +87,7 @@ module Alchemy
           expect(response.media_type).to eq("application/json")
           expect(response.status).to eq(201)
           json = JSON.parse(response.body)
-          expect(json).to have_key("growl_message")
+          expect(json).to have_key("message")
           expect(json).to have_key("files")
         end
       end
@@ -134,7 +134,7 @@ module Alchemy
             expect(response.media_type).to eq("application/json")
             expect(response.status).to eq(202)
             json = JSON.parse(response.body)
-            expect(json).to have_key("growl_message")
+            expect(json).to have_key("message")
             expect(json).to have_key("files")
           end
 

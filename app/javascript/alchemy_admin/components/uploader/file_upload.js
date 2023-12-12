@@ -203,7 +203,7 @@ export class FileUpload extends AlchemyHTMLElement {
   get responseMessage() {
     try {
       const response = JSON.parse(this.request.responseText)
-      return response["growl_message"]
+      return response["message"]
     } catch (error) {
       return translate("Could not parse JSON result")
     }

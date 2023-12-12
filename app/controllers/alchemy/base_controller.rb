@@ -53,7 +53,9 @@ module Alchemy
           #{current_alchemy_user.inspect}
         WARN
       end
-      if current_alchemy_user
+      if request.format.json?
+        render json: {message: Alchemy.t("You are not authorized")}, status: :unauthorized
+      elsif current_alchemy_user
         handle_redirect_for_user
       else
         handle_redirect_for_guest

@@ -78,7 +78,7 @@ export class Progress extends AlchemyHTMLElement {
     this.querySelector(`.overall-upload-value`).textContent = overallUploadSize
 
     if (this.finished) {
-      this.onComplete()
+      this.onComplete(status)
     }
 
     this.className = status
@@ -90,7 +90,7 @@ export class Progress extends AlchemyHTMLElement {
    * it would be possible to trigger the event here, but the dispatching would happen
    * in the scope of that component and can't be cached o uploader - component level
    */
-  onComplete() {}
+  onComplete(_status) {}
 
   /**
    * @returns {boolean}

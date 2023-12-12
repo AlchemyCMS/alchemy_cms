@@ -62,7 +62,6 @@ setDefaultAnimation("tooltip.hide", {
   }
 })
 
-
 // Global Alchemy object
 if (typeof window.Alchemy === "undefined") {
   window.Alchemy = {}

@@ -159,7 +159,7 @@ describe("alchemy-file-upload", () => {
       describe("successful server response", () => {
         beforeEach(() => {
           const xhrMock = mockXMLHttpRequest(200, {
-            growl_message: "Foo Bar"
+            message: "Foo Bar"
           })
           renderComponent(testFile, xhrMock)
           component.request.open("post", "/admin/pictures")
@@ -183,7 +183,7 @@ describe("alchemy-file-upload", () => {
       describe("failed server response", () => {
         beforeEach(() => {
           const xhrMock = mockXMLHttpRequest(400, {
-            growl_message: "Error: Foo Bar"
+            message: "Error: Foo Bar"
           })
           renderComponent(testFile, xhrMock)
           component.request.open("post", "/admin/pictures")

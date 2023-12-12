@@ -5,10 +5,6 @@ module Alchemy
     module UploaderResponses
       extend ActiveSupport::Concern
 
-      included do
-        rescue_from ActiveRecord::ActiveRecordError, with: :error_uploaded_response
-      end
-
       def successful_uploader_response(file:, status: :created)
         message = Alchemy.t(:upload_success,
           scope: [:uploader, file.class.model_name.i18n_key],
@@ -34,15 +30,10 @@ module Alchemy
 
       private
 
-      def error_uploaded_response(exception)
-        message = Alchemy.t(:error, scope: :uploader, error: exception.message)
-        render json: {growl_message: message}, status: 500
-      end
-
       def uploader_response(file:, message:)
         {
           files: [file.to_jq_upload],
-          growl_message: message
+          message: message
         }
       end
     end
