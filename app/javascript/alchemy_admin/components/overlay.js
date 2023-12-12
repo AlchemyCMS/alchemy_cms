@@ -1,4 +1,4 @@
-import { AlchemyHTMLElement } from "./alchemy_html_element"
+import { AlchemyHTMLElement } from "alchemy_admin/components/alchemy_html_element"
 
 class Overlay extends AlchemyHTMLElement {
   static properties = {

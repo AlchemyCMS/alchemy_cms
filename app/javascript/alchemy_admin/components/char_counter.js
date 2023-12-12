@@ -1,7 +1,7 @@
 /**
  * Show the character counter below input fields and textareas
  */
-import { AlchemyHTMLElement } from "./alchemy_html_element"
+import { AlchemyHTMLElement } from "alchemy_admin/components/alchemy_html_element"
 import { translate } from "alchemy_admin/i18n"
 
 class CharCounter extends AlchemyHTMLElement {
