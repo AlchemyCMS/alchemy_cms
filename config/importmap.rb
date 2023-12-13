@@ -4,12 +4,12 @@ pin "lodash-es/debounce", to: "https://ga.jspm.io/npm:lodash-es@4.17.21/debounce
 pin "lodash-es/max", to: "https://ga.jspm.io/npm:lodash-es@4.17.21/max.js", preload: true
 pin "sortablejs", to: "https://ga.jspm.io/npm:sortablejs@1.15.0/modular/sortable.esm.js", preload: true
 pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true
-pin "@shoelace/switch", to: "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/components/switch/switch.js", preload: true
-pin "@shoelace/tab", to: "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/components/tab/tab.js", preload: true
-pin "@shoelace/tab-group", to: "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/components/tab-group/tab-group.js", preload: true
-pin "@shoelace/tab-panel", to: "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/components/tab-panel/tab-panel.js", preload: true
-pin "@shoelace/tooltip", to: "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/components/tooltip/tooltip.js", preload: true
-pin "@shoelace/animation-registry", to: "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/utilities/animation-registry.js", preload: true
+pin "@shoelace/animation-registry", to: "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.12.0/cdn/utilities/animation-registry.js", preload: true
+pin "@shoelace/switch", to: "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.12.0/cdn/components/switch/switch.js", preload: true
+pin "@shoelace/tab", to: "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.12.0/cdn/components/tab/tab.js", preload: true
+pin "@shoelace/tab-group", to: "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.12.0/cdn/components/tab-group/tab-group.js", preload: true
+pin "@shoelace/tab-panel", to: "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.12.0/cdn/components/tab-panel/tab-panel.js", preload: true
+pin "@shoelace/tooltip", to: "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.12.0/cdn/components/tooltip/tooltip.js", preload: true
 pin "@rails/ujs", to: "https://ga.jspm.io/npm:@rails/ujs@7.1.2/app/assets/javascripts/rails-ujs.esm.js"
 
 pin "alchemy_admin", to: "alchemy_admin.js", preload: true
