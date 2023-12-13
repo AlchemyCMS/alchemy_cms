@@ -1,4 +1,4 @@
-import { RemoteSelect } from "./remote_select"
+import { RemoteSelect } from "alchemy_admin/components/remote_select"
 
 class NodeSelect extends RemoteSelect {
   _searchQuery(term, page) {

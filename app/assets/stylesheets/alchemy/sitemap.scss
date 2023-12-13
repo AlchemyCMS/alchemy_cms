@@ -1,5 +1,6 @@
 $sitemap-url-large-width: 250px;
 $sitemap-url-xlarge-width: 350px;
+$sitemap-url-header-offset: 110px;
 
 #sort_panel {
   background: $light-gray;
@@ -177,12 +178,20 @@ $sitemap-url-xlarge-width: 350px;
   background-color: $sitemap-page-background-color;
   border-left: 1px solid $light-gray;
   float: right;
+  display: none;
+  justify-content: end;
+  width: 170px;
   height: $sitemap-line-height;
   line-height: $sitemap-line-height;
-  padding: 0 $default-padding;
 
   .page_status {
+    margin: 0 $default-margin;
     padding: 0 $default-padding;
+    white-space: nowrap;
+  }
+
+  @media screen and (min-width: $medium-screen-break-point) {
+    display: flex;
   }
 }
 
@@ -210,21 +219,27 @@ $sitemap-url-xlarge-width: 350px;
   .page_urlname {
     display: none;
     margin-left: auto;
+    padding-left: $default-padding;
 
     @media screen and (min-width: $large-screen-break-point) {
       display: block;
-      width: $sitemap-url-large-width;
+      width: $sitemap-url-large-width + $sitemap-url-header-offset;
     }
 
     @media screen and (min-width: 1440px) {
-      width: $sitemap-url-xlarge-width;
+      width: $sitemap-url-xlarge-width + $sitemap-url-header-offset;
     }
   }
 
   .page_status {
+    display: none;
     padding-left: 2 * $default-padding;
     margin-right: 190px;
     margin-left: auto;
+
+    @media screen and (min-width: $medium-screen-break-point) {
+      display: block;
+    }
 
     @media screen and (min-width: $large-screen-break-point) {
       margin-left: initial;

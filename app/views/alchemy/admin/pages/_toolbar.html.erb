@@ -5,12 +5,12 @@
     icon: "file-add",
     url: alchemy.new_admin_page_path(language: @current_language),
     hotkey: 'alt+n',
+    tooltip_placement: "top-start",
     dialog_options: {
       title: Alchemy.t('Add a page'),
       size: '340x215',
       overflow: true
     },
-    title: Alchemy.t('Add a page'),
     label: Alchemy.t('Add a page'),
     if_permitted_to: [:create, Alchemy::Page]
   ) %>

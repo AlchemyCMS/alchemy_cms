@@ -1,4 +1,4 @@
-import { RemoteSelect } from "./remote_select"
+import { RemoteSelect } from "alchemy_admin/components/remote_select"
 
 class PageSelect extends RemoteSelect {
   onChange(event) {

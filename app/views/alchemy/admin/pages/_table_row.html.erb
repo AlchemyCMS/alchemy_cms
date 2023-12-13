@@ -36,8 +36,19 @@
   <td class="date">
     <%= l(page.updated_at, format: :"alchemy.default") %>
   </td>
-  <td class="status center">
-    <%= render "alchemy/admin/pages/page_status", page: page %>
+  <td class="status right">
+    <% if page.restricted? %>
+      <span class="page_status">
+        <%= render_icon(:lock, size: "1x") %>
+        <%= page.status_title(:restricted) %>
+      </span>
+    <% end %>
+    <% unless page.public? %>
+      <span class="page_status">
+        <%= render_icon("cloud-off", size: "1x") %>
+        <%= page.status_title(:public) %>
+      </span>
+    <% end %>
   </td>
   <td class="tools">
     <% if can?(:info, page) %>
