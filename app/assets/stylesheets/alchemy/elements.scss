@@ -537,6 +537,9 @@ alchemy-publish-element-button {
   z-index: 0;
   width: 100%;
   padding: $default-padding;
+  background-color: #fff;
+  border-bottom-left-radius: $default-border-radius;
+  border-bottom-right-radius: $default-border-radius;
 
   .icon_button {
     width: 26px;
@@ -559,6 +562,7 @@ alchemy-publish-element-button {
     width: 160px;
     margin: $default-margin 0;
     padding-bottom: 34px;
+    box-shadow: 0 0 1px 1px $default-border-color;
 
     .picture_image {
       overflow: hidden;

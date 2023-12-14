@@ -4,27 +4,25 @@
   </span>
   <% if picture.deletable? && can?(:destroy, picture) %>
   <span class="picture_tool delete">
-    <%= link_to_confirm_dialog(
-      render_icon("delete-bin-2"),
-      Alchemy.t(:confirm_to_delete_image_from_server),
-      alchemy.admin_picture_path(
-        id: picture,
-        q: search_filter_params[:q],
-        page: params[:page],
-        tagged_with: search_filter_params[:tagged_with],
-        size: @size,
-        filter: search_filter_params[:filter]
-      ),
-      {
-        title: Alchemy.t('Delete image')
-      }
-    ) -%>
+    <sl-tooltip content="<%= Alchemy.t('Delete image') %>">
+      <%= link_to_confirm_dialog(
+        render_icon("delete-bin-2"),
+        Alchemy.t(:confirm_to_delete_image_from_server),
+        alchemy.admin_picture_path(
+          id: picture,
+          q: search_filter_params[:q],
+          page: params[:page],
+          tagged_with: search_filter_params[:tagged_with],
+          size: @size,
+          filter: search_filter_params[:filter]
+        )
+      ) -%>
+    </sl-tooltip>
   </span>
   <% end %>
   <% image = image_tag(
     picture.url(size: preview_size(@size), flatten: true) || "alchemy/missing-image.svg",
-    alt: picture.name,
-    title: Alchemy.t(:zoom_image)
+    alt: picture.name
   ) %>
   <% if can?(:edit, picture) %>
     <%= link_to(
