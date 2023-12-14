@@ -9,7 +9,7 @@
 </div>
 
 <%= form_tag delete_multiple_admin_pictures_path, method: :delete do %>
-  <div class="selected_item_tools">
+  <div class="selected_item_tools hidden">
     <h3><%= Alchemy.t(:edit_selected_pictures) %></h3>
     <%= link_to(
       render_icon(:edit, size: '1x') + Alchemy.t("Edit"),
@@ -38,7 +38,7 @@
       style: 'float: none'
     ) %>
   </div>
-  <div id="pictures">
+  <div id="pictures" class="picture-size--<%= @size %>">
   <% if @pictures.blank? and @recent_pictures.blank? and search_filter_params[:q].blank? %>
     <%= render_message do %>
       <%= Alchemy.t(:no_images_in_archive) %>
