@@ -105,7 +105,8 @@ module Alchemy
     def page_status_titles(page)
       {
         public: page.status_title(:public),
-        restricted: page.status_title(:restricted)
+        restricted: page.status_title(:restricted),
+        locked: page.status_title(:locked)
       }
     end
   end

@@ -3,7 +3,7 @@
     <% if can?(:edit_content, page) %>
       <% if page.locked? %>
         <sl-tooltip class="like-hint-tooltip" content="<%= Alchemy.t("This page is locked", name: page.locker_name) %>" placement="bottom-start">
-          <i class="icon ri-file-edit-fill ri-fw ri-xl"></i>
+          <i class="icon ri-file-edit-line ri-fw ri-xl"></i>
         </sl-tooltip>
       <% else %>
         <i class="icon ri-file-line ri-fw ri-xl"></i>
@@ -37,6 +37,12 @@
     <%= l(page.updated_at, format: :"alchemy.default") %>
   </td>
   <td class="status right">
+    <% if page.locked? %>
+      <span class="page_status">
+        <%= render_icon(:edit, size: "1x") %>
+        <%= page.status_title(:locked) %>
+      </span>
+    <% end %>
     <% if page.restricted? %>
       <span class="page_status">
         <%= render_icon(:lock, size: "1x") %>
