@@ -7,7 +7,7 @@
     locked_page_tab.remove()
   }
   if (locked_page_icon) {
-    locked_page_icon.innerHTML = '<i class="icon ri-file-line ri-fw"></i>'
+    locked_page_icon.outerHTML = '<span class="handle"><i class="icon ri-file-line ri-fw ri-xl"></i></span>'
   }
   Alchemy.growl('<%= flash[:notice] -%>')
 })()

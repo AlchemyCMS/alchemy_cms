@@ -26,7 +26,7 @@
           <% if page %>
             <li>
               <h3>
-                <%= render_icon 'file-alt' %>
+                <%= render_icon 'file' %>
                 <p><%= link_to page.name, edit_admin_page_path(page) %></p>
               </h3>
               <ul class="list">
@@ -35,11 +35,7 @@
                     <% page_link = link_to element.display_name_with_preview_text,
                                    edit_admin_page_path(page, anchor: "element_#{element.id}") %>
                     <% ingredients = picture_ingredients.map { |p| Alchemy::IngredientEditor.new(p).translated_role }.to_sentence %>
-                    <% if element.public? %>
-                      <%= render_icon('window-maximize', style: 'regular') %>
-                    <% else %>
-                      <%= render_icon('window-close') %>
-                    <% end %>
+                    <%= render_icon('draggable', style: nil) %>
                     <p>
                       <%== Alchemy.t(:pictures_in_page, page: page_link, pictures: ingredients) %>
                     </p>
