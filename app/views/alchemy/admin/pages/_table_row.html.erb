@@ -1,4 +1,4 @@
-<tr class="<%= cycle(:even, :odd) %>" data-page-id="<%= page.id %>">
+<tr class="<%= cycle(:even, :odd) %>" data-page-id="<%= page.id %>" id="page_<%= page.id %>">
   <td class="icon">
     <% if can?(:edit_content, page) %>
       <% if page.locked? %>
@@ -38,7 +38,7 @@
   </td>
   <td class="status right">
     <% if page.locked? %>
-      <span class="page_status">
+      <span class="page_status locked">
         <%= render_icon(:edit, size: "1x") %>
         <%= page.status_title(:locked) %>
       </span>

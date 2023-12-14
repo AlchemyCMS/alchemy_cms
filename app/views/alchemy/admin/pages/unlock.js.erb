@@ -1,13 +1,20 @@
 (function() {
+  var locked_page_icon_content
   var locked_page_tab = document.querySelector('#locked_page_<%= @page.id -%>')
   var locked_page_icon = document.querySelector(
     '#page_<%= @page.id -%> > .sitemap_page > .sitemap_left_images .like-hint-tooltip'
-  ) || document.querySelector('[data-page-id="<%= @page.id -%>"] > .icon')
+  ) || document.querySelector('[data-page-id="<%= @page.id -%>"] i.icon')
   if (locked_page_tab) {
     locked_page_tab.remove()
   }
   if (locked_page_icon) {
-    locked_page_icon.outerHTML = '<span class="handle"><i class="icon ri-file-line ri-fw ri-xl"></i></span>'
+    if (locked_page_icon.parentElement.classList.contains("handle")) {
+      locked_page_icon_content = '<span class="handle"><i class="icon ri-file-line ri-fw ri-xl"></i></span>'
+    } else {
+      locked_page_icon_content = '<i class="icon ri-file-line ri-fw ri-xl"></i>'
+    }
+    locked_page_icon.outerHTML = locked_page_icon_content
   }
+  document.querySelector("#page_<%= @page.id -%> .page_status.locked").remove()
   Alchemy.growl('<%= flash[:notice] -%>')
 })()
