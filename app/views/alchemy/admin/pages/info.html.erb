@@ -20,6 +20,13 @@
   <div class="value">
     <label><%= Alchemy.t(:page_status) %></label>
     <p>
+      <% if @page.locked? %>
+        <span class="page_status">
+          <%= render_icon(:edit, size: "1x") %>
+          <%= Alchemy.t(:currently_edited_by) %>
+          <%= @page.locker_name %>
+        </span>
+      <% end %>
       <span class="page_status">
         <% if @page.public? %>
           <%= render_icon(:cloud, size: "1x") %>
@@ -46,10 +53,4 @@
     <label><%= Alchemy.t(:page_was_updated) %></label>
     <p><%= Alchemy.t(:from_at) % {by: @page.updater_name, at: l(@page.updated_at, format: :'alchemy.page_status')} %></p>
   </div>
-  <% if @page.locked? %>
-  <div class="value">
-    <label><%= Alchemy.t(:currently_edited_by) %></label>
-    <p><%= @page.locker_name %></p>
-  </div>
-  <% end %>
 </div>

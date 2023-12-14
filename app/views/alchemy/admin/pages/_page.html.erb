@@ -123,6 +123,12 @@
       {{/if}}
     </div>
     <div class="page_infos">
+      {{#if locked}}
+      <span class="page_status">
+        <i class="icon ri-fw ri-1x ri-edit-line"></i>
+        {{status_titles.locked}}
+      </span>
+      {{/if}}
       {{#if restricted}}
       <span class="page_status">
         <i class="icon ri-fw ri-1x ri-lock-line"></i>
