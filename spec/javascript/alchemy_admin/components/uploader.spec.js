@@ -66,6 +66,7 @@ describe("alchemy-uploader", () => {
     renderComponent()
 
     xhrMock = {
+      abort: jest.fn(),
       open: jest.fn(),
       setRequestHeader: jest.fn(),
       send: jest.fn(),
@@ -156,6 +157,22 @@ describe("alchemy-uploader", () => {
         )
       })
     })
+
+    describe("another upload", () => {
+      it("should have only one progress - component", () => {
+        component._uploadFiles([firstFile])
+        expect(
+          document.querySelectorAll("alchemy-upload-progress").length
+        ).toEqual(1)
+      })
+
+      it("should cancel the previous process", () => {
+        const uploadProgress = document.querySelector("alchemy-upload-progress")
+        uploadProgress.cancel = jest.fn()
+        component._uploadFiles([firstFile])
+        expect(uploadProgress.cancel).toBeCalled()
+      })
+    })
   })
 
   describe("Validate", () => {
@@ -202,6 +219,57 @@ describe("alchemy-uploader", () => {
 
     it("should mark the last file as invalid", () => {
       expect(document.querySelector("alchemy-file-upload").valid).toBeFalsy()
+    })
+  })
+
+  describe("on complete", () => {
+    beforeEach(() => {
+      component.dispatchCustomEvent = jest.fn()
+      component._uploadFiles([firstFile, secondFile])
+    })
+
+    describe("successful", () => {
+      beforeEach(() => {
+        component.uploadProgress.onComplete("successful")
+      })
+
+      it("should fire upload - event", () => {
+        expect(component.dispatchCustomEvent).toBeCalledWith(
+          "upload.successful"
+        )
+      })
+
+      it("should hide the progress component", () => {
+        expect(component.uploadProgress.visible).toBeFalsy()
+      })
+    })
+
+    describe("canceled", () => {
+      beforeEach(() => {
+        component.uploadProgress.onComplete("canceled")
+      })
+
+      it("should fire upload - event", () => {
+        expect(component.dispatchCustomEvent).toBeCalledWith("upload.canceled")
+      })
+
+      it("should hide the progress component", () => {
+        expect(component.uploadProgress.visible).toBeFalsy()
+      })
+    })
+
+    describe("failed", () => {
+      beforeEach(() => {
+        component.uploadProgress.onComplete("failed")
+      })
+
+      it("should fire upload - event", () => {
+        expect(component.dispatchCustomEvent).toBeCalledWith("upload.failed")
+      })
+
+      it("should not hide the progress component", () => {
+        expect(component.uploadProgress.visible).toBeTruthy()
+      })
     })
   })
 })

@@ -81,19 +81,7 @@ export class Uploader extends AlchemyHTMLElement {
       return fileUpload
     })
 
-    // create progress bar
-    this.uploadProgress = new Progress(fileUploads)
-    this.uploadProgress.onComplete = (status) => {
-      if (status === "successful") {
-        // wait three seconds to see the result of the progressbar
-        setTimeout(() => (this.uploadProgress.visible = false), 1500)
-        setTimeout(() => this.dispatchCustomEvent("Upload.Complete"), 2000)
-      } else {
-        this.dispatchCustomEvent("Upload.Failure")
-      }
-    }
-
-    document.body.append(this.uploadProgress)
+    this._createProgress(fileUploads)
   }
 
   /**
@@ -110,6 +98,27 @@ export class Uploader extends AlchemyHTMLElement {
     request.setRequestHeader("X-Requested-With", "XMLHttpRequest")
     request.setRequestHeader("Accept", "application/json")
     request.send(formData)
+  }
+
+  /**
+   * create (and maybe remove the old) progress bar - component
+   * @param {FileUpload[]} fileUploads
+   * @private
+   */
+  _createProgress(fileUploads) {
+    if (this.uploadProgress) {
+      this.uploadProgress.cancel()
+      document.body.removeChild(this.uploadProgress)
+    }
+    this.uploadProgress = new Progress(fileUploads)
+    this.uploadProgress.onComplete = (status) => {
+      if (status === "successful" || status === "canceled") {
+        this.uploadProgress.visible = false
+      }
+      this.dispatchCustomEvent(`upload.${status}`)
+    }
+
+    document.body.append(this.uploadProgress)
   }
 
   /**

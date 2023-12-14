@@ -52,8 +52,8 @@ alchemy-upload-progress {
   display: grid;
   font-size: var(--font-size_medium);
   gap: var(--spacing-4);
-  grid-template-columns: calc(100% - var(--pogress_value-width)) var(
-      --pogress_value-width
+  grid-template-columns: calc(100% - var(--pogress_value-width)) calc(
+      var(--pogress_value-width) - var(--spacing-2)
     );
   height: auto;
   left: 0;
@@ -69,12 +69,17 @@ alchemy-upload-progress {
     opacity: 1;
   }
 
+  .overall-progress-value {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+
   .value-text {
-    color: white;
+    color: var(--font-color_default);
     font-size: var(--font-size_large);
     font-weight: var(--font-weigth_bold);
     min-width: 100px;
-    text-shadow: 0 1px 2px var(--color-grey_dark);
   }
 
   .single-uploads {

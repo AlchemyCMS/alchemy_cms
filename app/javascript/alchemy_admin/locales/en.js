@@ -20,6 +20,8 @@ export const en = {
   "Maximum number of files exceeded": "Maximum number of files exceeded",
   "Uploaded bytes exceed file size": "Uploaded bytes exceed file size",
   "Abort upload": "Abort upload",
+  "Cancel all uploads": "Cancel all uploads",
+  Close: "Close",
   formats: {
     datetime: "Y-m-d H:i",
     date: "Y-m-d",

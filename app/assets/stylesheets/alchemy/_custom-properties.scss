@@ -61,12 +61,13 @@
   --outline-color: var(--color-orange_dark);
 
   --font-color_failed: var(--color-red_medium);
+  --font-color_default: var(--color-text);
 
   --tabs_indicator-color: var(--color-orange_dark);
   --tabs_track-color: var(--color-grey_light);
   --sl-input-label-color: var(--color-text);
 
-  --file-upload_background-color: hsla(0deg, 0%, 70%, 0.8);
+  --file-upload_background-color: hsla(0deg, 0%, 80%, 0.8);
   --file-upload_single-upload-background-color: var(--color-grey_light);
   --file-upload_progress-track-color: var(--color-blue_very_light);
   --file-upload_progress-indicator-color: var(--color-blue_dark);

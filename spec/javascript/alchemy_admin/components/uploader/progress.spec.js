@@ -20,6 +20,7 @@ describe("alchemy-upload-progress", () => {
   let overallUploadValue = undefined
   let firstFileUpload = undefined
   let secondFileUpload = undefined
+  let actionButton = undefined
 
   const mockXMLHttpRequest = (status = 200, response = {}) => {
     mock.setup()
@@ -49,7 +50,10 @@ describe("alchemy-upload-progress", () => {
     document.body.append(component)
 
     progressBar = document.querySelector("sl-progress-bar")
-    overallProgressValue = document.querySelector(".overall-progress-value")
+    overallProgressValue = document.querySelector(
+      ".overall-progress-value span"
+    )
+    actionButton = document.querySelector(".icon_button")
     overallUploadValue = document.querySelector(".overall-upload-value")
 
     const fileUploadComponents = document.querySelectorAll(
@@ -112,6 +116,12 @@ describe("alchemy-upload-progress", () => {
     it("should have a total progress of 0", () => {
       expect(progressBar.value).toEqual(0)
     })
+
+    it("shows have a cancel button", () => {
+      expect(actionButton.getAttribute("aria-label")).toEqual(
+        "Cancel all uploads"
+      )
+    })
   })
 
   describe("update", () => {
@@ -135,11 +145,6 @@ describe("alchemy-upload-progress", () => {
     })
 
     describe("complete upload", () => {
-      // beforeEach(() => {
-      //   firstFileUpload.request.upload.onprogress(progressEvent(100))
-      //   secondFileUpload.request.upload.onprogress(progressEvent(200, 200))
-      // })
-
       it("should marked as upload-finished (the response from the server is missing)", () => {
         renderComponent()
         firstFileUpload.request.upload.onprogress(progressEvent(100))
@@ -162,6 +167,14 @@ describe("alchemy-upload-progress", () => {
         renderComponent()
         firstFileUpload.request.upload.onprogress(progressEvent(100))
         secondFileUpload.request.upload.onprogress(progressEvent(200, 200))
+
+        expect(overallProgressValue.textContent).toEqual("100% (2 / 2)")
+      })
+
+      it("should prevent uploads higher than 100%", () => {
+        renderComponent()
+        firstFileUpload.request.upload.onprogress(progressEvent(100))
+        secondFileUpload.request.upload.onprogress(progressEvent(220, 200))
 
         expect(overallProgressValue.textContent).toEqual("100% (2 / 2)")
       })
@@ -228,6 +241,34 @@ describe("alchemy-upload-progress", () => {
     })
   })
 
+  describe("Action Button", () => {
+    beforeEach(renderComponent)
+
+    it("it cancel the requests, if the upload is active", () => {
+      component.cancel = jest.fn()
+      actionButton.click()
+      expect(component.cancel).toBeCalled()
+    })
+
+    describe("after upload", () => {
+      beforeEach(() => {
+        firstFileUpload.status = "successful"
+        secondFileUpload.status = "successful"
+        firstFileUpload.dispatchCustomEvent("FileUpload.Change")
+      })
+
+      it("shows a close button", () => {
+        expect(actionButton.ariaLabel).toEqual("Close")
+      })
+
+      it("it is not visible anymore after click", () => {
+        expect(component.visible).toBeTruthy()
+        actionButton.click()
+        expect(component.visible).toBeFalsy()
+      })
+    })
+  })
+
   describe("cancel upload", () => {
     beforeEach(renderComponent)
 
@@ -267,6 +308,36 @@ describe("alchemy-upload-progress", () => {
       renderComponent()
       component = new Progress()
       expect(component.fileCount).toEqual(0)
+    })
+  })
+
+  describe("cancel", () => {
+    it("should call the cancel - action file upload", () => {
+      const fileUpload = new FileUpload(firstFile, mockXMLHttpRequest())
+      fileUpload.cancel = jest.fn()
+
+      renderComponent([fileUpload])
+      component.cancel()
+      expect(fileUpload.cancel).toBeCalled()
+    })
+
+    it("should have the status canceled", () => {
+      renderComponent()
+      component.cancel()
+      expect(component.status).toEqual("canceled")
+    })
+
+    it("should call only active file uploads", () => {
+      const activeFileUpload = new FileUpload(firstFile, mockXMLHttpRequest())
+      const uploadedFileUpload = new FileUpload(firstFile, mockXMLHttpRequest())
+      activeFileUpload.cancel = jest.fn()
+      uploadedFileUpload.cancel = jest.fn()
+      uploadedFileUpload.status = "canceled"
+
+      renderComponent([activeFileUpload, uploadedFileUpload])
+      component.cancel()
+      expect(activeFileUpload.cancel).toBeCalled()
+      expect(uploadedFileUpload.cancel).not.toBeCalled()
     })
   })
 })

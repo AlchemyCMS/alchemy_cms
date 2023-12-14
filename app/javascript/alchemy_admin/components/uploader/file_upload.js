@@ -43,7 +43,13 @@ export class FileUpload extends AlchemyHTMLElement {
     this.querySelector("button").addEventListener("click", () => this.cancel())
 
     if (this.file?.type.includes("image")) {
-      this._prependImage()
+      const reader = new FileReader()
+      reader.readAsDataURL(this.file)
+      reader.addEventListener("load", () => {
+        const image = new Image()
+        image.src = reader.result
+        this.prepend(image)
+      })
     }
   }
 
@@ -51,9 +57,11 @@ export class FileUpload extends AlchemyHTMLElement {
    * cancel the upload
    */
   cancel() {
-    this.status = "canceled"
-    this.request?.abort()
-    this.dispatchCustomEvent("FileUpload.Change")
+    if (!this.finished) {
+      this.status = "canceled"
+      this.request?.abort()
+      this.dispatchCustomEvent("FileUpload.Change")
+    }
   }
 
   /**
@@ -120,20 +128,6 @@ export class FileUpload extends AlchemyHTMLElement {
     this.request.onerror = () => {
       this.errorMessage = translate("An error occurred during the transaction")
     }
-  }
-
-  /**
-   * add the file as image
-   * @private
-   */
-  _prependImage() {
-    const reader = new FileReader()
-    reader.readAsDataURL(this.file)
-    reader.addEventListener("load", () => {
-      const image = new Image()
-      image.src = reader.result
-      this.prepend(image)
-    })
   }
 
   /**

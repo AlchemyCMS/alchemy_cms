@@ -17,12 +17,14 @@
 </alchemy-uploader>
 
 <script type='text/javascript'>
-  document.querySelector("alchemy-uploader").addEventListener("Alchemy.Upload.Complete", () => {
-    var url = '<%= redirect_url.html_safe %>';
-    <% if local_assigns[:in_dialog] %>
-    $.get(url, null, null, 'script');
-    <% else %>
-    Turbo.visit(url);
-    <% end %>
+  document.querySelector("alchemy-uploader").addEventListener("Alchemy.upload.successful", () => {
+    setTimeout(() => {
+      var url = '<%= redirect_url.html_safe %>';
+      <% if local_assigns[:in_dialog] %>
+      $.get(url, null, null, 'script');
+      <% else %>
+      Turbo.visit(url);
+      <% end %>
+    }, 1000)
   })
 </script>

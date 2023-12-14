@@ -13,7 +13,7 @@
 </alchemy-uploader>
 
 <script type='text/javascript'>
-  document.getElementById("<%= file_upload_id %>").addEventListener("Alchemy.Upload.Complete", (event) => {
+  document.getElementById("<%= file_upload_id %>").addEventListener("Alchemy.upload.successful", (event) => {
     Turbo.visit('<%= redirect_url.html_safe %>');
   })
 </script>

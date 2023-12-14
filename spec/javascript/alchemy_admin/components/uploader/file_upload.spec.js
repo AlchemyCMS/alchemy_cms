@@ -134,6 +134,21 @@ describe("alchemy-file-upload", () => {
       component.cancel()
       expect(component.className).toEqual("canceled")
     })
+
+    describe("finished state", () => {
+      beforeEach(() => {
+        component.status = "successful"
+        component.cancel()
+      })
+
+      it("should not abort request", () => {
+        expect(component.request.abort).not.toBeCalled()
+      })
+
+      it("should not set the status to canceled", () => {
+        expect(component.className).toEqual("successful")
+      })
+    })
   })
 
   describe("request", () => {
