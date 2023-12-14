@@ -20,6 +20,7 @@ describe("alchemy-overlay", () => {
 
   it("should be hidden", () => {
     renderComponent()
+    overlay.show = false
     expect(overlay.style.getPropertyValue("display")).toBe("none")
   })
 
@@ -29,7 +30,8 @@ describe("alchemy-overlay", () => {
   })
 
   it("should be visible", () => {
-    renderComponent(`<alchemy-overlay show="true"></alchemy-overlay>`)
+    renderComponent()
+    overlay.show = true
     expect(overlay.style.getPropertyValue("display")).toBe("block")
   })
 })
