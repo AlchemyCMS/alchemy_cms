@@ -1,3 +1,59 @@
+#alchemy {
+  display: grid;
+  grid-template-areas:
+    "left_menu top_menu top_menu"
+    "left_menu main_content main_content";
+  grid-template-columns: 150px 1fr 48px;
+  grid-template-rows: 75px 1fr;
+
+  &.collapsed-menu {
+    grid-template-columns: 48px 1fr 25vw;
+  }
+
+  &.pages.edit {
+    grid-template-areas:
+      "left_menu top_menu top_menu"
+      "left_menu iframe main_content";
+  }
+}
+
+#main_content {
+  grid-area: main_content;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  padding: $default-padding;
+}
+
+#top_menu {
+  grid-area: top_menu;
+  @extend .disable-user-select;
+}
+
+#left_menu {
+  position: relative;
+  z-index: 500;
+  background: red;
+
+  grid-area: left_menu;
+  background-color: $main-menu-bg-color;
+  display: grid;
+  grid-template-rows: 1fr 48px;
+  @extend .disable-user-select;
+}
+
+#main_navi {
+  max-height: 100vh;
+  padding-top: 28px;
+  padding-bottom: 80px;
+
+  @media screen and (max-width: $medium-screen-break-point) {
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
 div#overlay {
   display: none;
   position: fixed;
@@ -28,20 +84,8 @@ div#overlay_text_box {
   }
 }
 
-#logout {
-  position: absolute;
-  z-index: 1;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  margin-bottom: 0;
-
-  &:not(:hover) {
-    background-color: $main-menu-bg-color;
-  }
-}
-
 #header {
+  outline: 1px solid fuchsia;
   display: flex;
   height: $header-height;
   background: $header-background;
@@ -71,20 +115,6 @@ div#overlay_text_box {
   }
 }
 
-#main_content {
-  padding-top: 84px;
-  padding-right: 8px;
-  padding-bottom: 8px;
-  padding-left: $collapsed-main-menu-width + 8px;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-
-  @media screen and (min-width: $large-screen-break-point) {
-    padding-left: $main-menu-width + 8px;
-  }
-}
-
 #user_info {
   display: flex;
   align-items: center;
@@ -103,5 +133,11 @@ div#overlay_text_box {
 
   .current-user-name {
     padding-right: 2 * $default-padding;
+  }
+}
+
+#logout {
+  &:not(:hover) {
+    background-color: $main-menu-bg-color;
   }
 }

@@ -41,25 +41,26 @@
           <%= alchemy_main_navigation_entry(alchemy_module) %>
         <% end %>
         <%= yield(:alchemy_main_navigation) %>
+
       </div>
-      <div id="logout" class="main_navi_entry">
-        <% if current_alchemy_user %>
-          <%= link_to_dialog(
-            %(
-              #{render_icon('logout-box-r', class: 'module')}
-              <label>#{Alchemy.t(:leave)}</label>
-            ).html_safe,
-            alchemy.leave_admin_path, {
-              size: "300x155",
-              title: Alchemy.t("Leave Alchemy")
-          }, {'data-alchemy-hotkey' => 'alt+q'}) %>
-        <% else %>
-          <%= link_to(alchemy.root_path) do %>
-            <i class="icon ri-logout-r-line ri-fw ri-lg"></i>
-            <label><%= Alchemy.t(:leave) %></label>
+  <div id="logout" class="main_navi_entry">
+          <% if current_alchemy_user %>
+            <%= link_to_dialog(
+              %(
+                #{render_icon('logout-box-r', class: 'module')}
+                <label>#{Alchemy.t(:leave)}</label>
+              ).html_safe,
+              alchemy.leave_admin_path, {
+                size: "300x155",
+                title: Alchemy.t("Leave Alchemy")
+            }, {'data-alchemy-hotkey' => 'alt+q'}) %>
+          <% else %>
+            <%= link_to(alchemy.root_path) do %>
+              <i class="icon ri-logout-r-line ri-fw ri-lg"></i>
+              <label><%= Alchemy.t(:leave) %></label>
+            <% end %>
           <% end %>
-        <% end %>
-      </div>
+        </div>
     </div>
     <% if current_alchemy_user %>
     <div id="top_menu">

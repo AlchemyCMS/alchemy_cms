@@ -1,56 +1,8 @@
-#top_menu {
-  position: fixed;
-  top: 0;
-  margin-left: $collapsed-main-menu-width;
-  padding-right: $collapsed-main-menu-width;
-  z-index: 20;
-  width: 100%;
-  @extend .disable-user-select;
-
-  @media screen and (min-width: $large-screen-break-point) {
-    body:not(.collapsed-menu) & {
-      margin-left: $main-menu-width;
-      padding-right: $main-menu-width;
-    }
-  }
-}
-
-#left_menu {
-  z-index: 30;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: $collapsed-main-menu-width;
-  background-color: $main-menu-bg-color;
-  @extend .disable-user-select;
-
-  @media screen and (min-width: $large-screen-break-point) {
-    body:not(.collapsed-menu) & {
-      width: $main-menu-width;
-    }
-  }
-}
-
-#main_navi {
-  max-height: 100vh;
-  padding-top: 28px;
-  padding-bottom: 80px;
-
-  @media screen and (max-width: $medium-screen-break-point) {
-    overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-}
-
 .main_navi_entry {
   position: relative;
   display: block;
   line-height: 46px;
-  margin-bottom: 3 * $default-padding;
-  background-color: transparent;
-  transition: background-color $transition-duration $transition-easing;
+  // transition: background-color $transition-duration $transition-easing;
 
   &:hover {
     background-color: $main-menu-active-bg-color;
@@ -92,7 +44,7 @@
     visibility: hidden;
     opacity: 0;
     background-color: $main-menu-active-bg-color;
-    transition: opacity $transition-duration $transition-easing;
+    // transition: opacity $transition-duration $transition-easing;
     vertical-align: middle;
     cursor: pointer;
     @include truncate($collapsed-main-menu-entry-max-width, $wrap: nowrap);
@@ -154,7 +106,7 @@
     padding-left: 3 * $default-padding;
     font-weight: bold;
     color: $main-menu-text-color;
-    transition: color $transition-duration $transition-easing;
+    // transition: color $transition-duration $transition-easing;
     @include antialiased-font-smoothing;
 
     &:focus {

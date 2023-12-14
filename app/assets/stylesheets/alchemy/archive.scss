@@ -1,3 +1,10 @@
+#picture_archive.with_tag_filter,
+#archive_all.with_tag_filter {
+  display: grid;
+  grid-template-columns: 2fr 0.5fr;
+  min-height: 100%;
+}
+
 .resources-header {
   padding: 0 2 * $default-padding;
 }
@@ -20,7 +27,6 @@
   padding-bottom: 60px;
 
   &.with_tag_filter {
-    width: calc(100% - 235px);
     overflow-x: auto;
   }
 }
@@ -194,11 +200,9 @@ div.assign_image_list_image {
 div#library_sidebar {
   display: flex;
   flex-direction: column;
-  position: fixed;
   border-left: 1px solid $default-border-color;
   top: 0;
   right: 0;
-  width: 232px;
 
   padding: $top-menu-height + 2 * $default-padding 4 * $default-padding
     $pagination-height + 2 * $default-padding 4 * $default-padding;
