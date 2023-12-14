@@ -90,8 +90,13 @@
     $(function() {
       Alchemy.pictureSelector();
       $('#select_all_pictures').on('click', function(e) {
-        $('.picture_tool.select :checkbox').prop('checked', true).change();
+        $(this).toggleClass("active")
+        $('.picture_tool.select :checkbox')
+          .prop('checked', function(_i, val) { return !val })
+          .closest(".picture_thumbnail")
+          .toggleClass("active");
         e.preventDefault;
+        $(".selected_item_tools").toggleClass("hidden")
         return false;
       });
       $('.thumbnail_background').click(function(event) {
