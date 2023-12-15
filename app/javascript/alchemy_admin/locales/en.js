@@ -17,8 +17,11 @@ export const en = {
   "File is too large": "File is too large",
   "File is too small": "File is too small",
   "File type not allowed": "File type not allowed",
-  "Maximum number of files exceeded": "Maximum number of files exceeded.",
+  "Maximum number of files exceeded": "Maximum number of files exceeded",
   "Uploaded bytes exceed file size": "Uploaded bytes exceed file size",
+  "Abort upload": "Abort upload",
+  "Cancel all uploads": "Cancel all uploads",
+  Close: "Close",
   formats: {
     datetime: "Y-m-d H:i",
     date: "Y-m-d",

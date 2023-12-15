@@ -48,14 +48,13 @@ module Alchemy
         @error = error
         # truncate the message, because very long error messages (i.e from mysql2) causes cookie overflow errors
         @notice = error.message[0..255]
-        @trace = error.backtrace[0..50]
-        if request.xhr?
+        if request.format.json?
+          render json: {message: @notice}, status: 500
+        elsif request.xhr?
           render action: "error_notice"
         else
-          respond_to do |format|
-            format.html { render "500", status: 500 }
-            format.json { render json: {message: @notice}, status: 500 }
-          end
+          @trace = error.backtrace[0..50]
+          render "500", status: 500
         end
       end
 

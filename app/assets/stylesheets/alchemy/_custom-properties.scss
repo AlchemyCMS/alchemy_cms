@@ -16,6 +16,9 @@
   --font-size_medium: 14px; // 1rem
   --font-size_large: 16px; // 1.25 rem
 
+  --font-weigth_normal: 500;
+  --font-weigth_bold: 700;
+
   // border-radius
   --border-radius_medium: 3px;
 
@@ -57,7 +60,23 @@
 .alchemy-light {
   --outline-color: var(--color-orange_dark);
 
+  --font-color_failed: var(--color-red_medium);
+  --font-color_default: var(--color-text);
+
   --tabs_indicator-color: var(--color-orange_dark);
   --tabs_track-color: var(--color-grey_light);
   --sl-input-label-color: var(--color-text);
+
+  --file-upload_background-color: hsla(0deg, 0%, 80%, 0.8);
+  --file-upload_single-upload-background-color: var(--color-grey_light);
+  --file-upload_progress-track-color: var(--color-blue_very_light);
+  --file-upload_progress-indicator-color: var(--color-blue_dark);
+
+  --file-upload_progress-indicator-color-canceled: hsla(0deg, 0%, 60%, 0.8);
+  --file-upload_progress-indicator-color-failed: var(--color-red_medium);
+  --file-upload_progress-indicator-color-invalid: var(--color-red_medium);
+  --file-upload_progress-indicator-color-successful: var(--color-green_medium);
+  --file-upload_progress-indicator-color-upload-finished: var(
+    --color-blue_dark
+  );
 }

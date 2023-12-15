@@ -33,7 +33,7 @@ module Alchemy
       def uploader_response(file:, message:)
         {
           files: [file.to_jq_upload],
-          growl_message: message
+          message: message
         }
       end
     end

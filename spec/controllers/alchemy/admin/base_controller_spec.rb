@@ -61,6 +61,7 @@ describe Alchemy::Admin::BaseController do
     context "when called with an AccessDenied exception" do
       before do
         allow(controller).to receive(:redirect_to)
+        allow(controller).to receive(:render)
       end
 
       it "redirects to login_path if no user" do
@@ -72,6 +73,79 @@ describe Alchemy::Admin::BaseController do
         authorize_user(build(:alchemy_dummy_user))
         controller.send(:permission_denied, CanCan::AccessDenied.new)
         expect(controller).to have_received(:redirect_to).with(Alchemy.unauthorized_path)
+      end
+
+      context "for a json request" do
+        before do
+          expect(controller).to receive(:request) do
+            double(format: double(json?: true))
+          end
+        end
+
+        it "returns 'not authorized' message" do
+          controller.send(:permission_denied, CanCan::AccessDenied.new)
+          expect(controller).to have_received(:render).with(
+            json: {message: Alchemy.t("You are not authorized")},
+            status: :unauthorized
+          )
+        end
+      end
+    end
+  end
+
+  describe "#show_error_notice" do
+    let(:error) do
+      ActiveRecord::ActiveRecordError.new("Database is busy")
+    end
+
+    subject do
+      controller.send(:show_error_notice, error)
+    end
+
+    before do
+      allow(controller).to receive(:render)
+    end
+
+    context "for a json request" do
+      before do
+        expect(controller).to receive(:request) do
+          double(format: double(json?: true))
+        end
+      end
+
+      it "returns error message" do
+        subject
+        expect(controller).to have_received(:render).with(
+          json: {message: "Database is busy"},
+          status: 500
+        )
+      end
+    end
+
+    context "for a xhr request" do
+      before do
+        expect(controller).to receive(:request) do
+          double(xhr?: true, format: double(json?: false))
+        end.twice
+      end
+
+      it "renders error notice" do
+        subject
+        expect(controller).to have_received(:render).with(action: "error_notice")
+      end
+    end
+
+    context "for a html request" do
+      before do
+        expect(controller).to receive(:request) do
+          double(xhr?: false, format: double(json?: false))
+        end.twice
+        error.set_backtrace(%(foo))
+      end
+
+      it "renders error template" do
+        subject
+        expect(controller).to have_received(:render).with("500", status: 500)
       end
     end
   end
