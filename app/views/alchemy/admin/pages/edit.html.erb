@@ -178,7 +178,7 @@
         }
       ]
     }, function() {
-      Alchemy.SortableElements(<%= @page.id %>, '<%= form_authenticity_token %>');
+      Alchemy.SortableElements(<%= @page.id %>);
       if (window.location.hash) {
         $(window.location.hash).trigger('FocusElementEditor.Alchemy');
       }
