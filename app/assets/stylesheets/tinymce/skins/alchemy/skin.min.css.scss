@@ -645,22 +645,14 @@ body .mce-abs-layout-item {
   &:focus,
   &:hover {
     color: $text-color;
-
-    button {
-      background: inherit;
-    }
   }
 
   &:hover {
-    background-color: darken($medium-gray, 3%);
-  }
-
-  &:focus {
-    background-color: $focus-color;
+    background-color: $default-border-color;
   }
 
   button {
-    padding: 2px 4px;
+    padding: 5px $default-padding;
     font-size: 12px;
     line-height: 20px;
     cursor: pointer;
@@ -692,14 +684,17 @@ body .mce-abs-layout-item {
     text-shadow: 1px 1px #fff;
   }
 
-  &.mce-disabled button,
-  &.mce-disabled:hover button {
-    cursor: default;
-    box-shadow: none;
-    opacity: 0.4;
-    filter: alpha(opacity=40);
-  }
+  &.mce-disabled,
+  &.mce-disabled:hover {
+    background-color: transparent;
 
+    button {
+      cursor: default;
+      box-shadow: none;
+      opacity: 0.4;
+      filter: alpha(opacity=40);
+    }
+  }
   &.mce-active,
   &.mce-active:hover {
     background-color: $default-border-color;
@@ -736,13 +731,13 @@ body .mce-abs-layout-item {
 }
 
 .mce-btn .mce-caret {
-  margin-top: 8px;
-  margin-left: 0;
+  margin-top: 2px;
+  margin-left: 2px;
 }
 
 .mce-btn-small .mce-caret {
-  margin-top: 8px;
-  margin-left: 0;
+  margin-top: 2px;
+  margin-left: 2px;
 }
 
 .mce-caret {
@@ -803,7 +798,8 @@ i.mce-i-checkbox {
   margin: 0 3px 0 0;
   border: 1px solid #c5c5c5;
   border-radius: $default-border-radius;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
     0 1px 2px rgba(0, 0, 0, 0.05);
   background-color: #f0f0f0;
   background-image: -moz-linear-gradient(top, #fff, #d9d9d9);
@@ -1129,7 +1125,7 @@ i.mce-i-checkbox {
 .mce-menubtn span {
   color: #333;
   margin-right: 2px;
-  line-height: 20px;
+  line-height: 16px;
 }
 
 .mce-menubtn.mce-btn-small span {
@@ -1201,7 +1197,7 @@ i.mce-i-checkbox {
 
 .mce-menu-item.mce-selected .mce-text,
 .mce-menu-item:hover .mce-text {
-  color: #fff;
+  color: #fff !important;
 }
 
 .mce-menu-item.mce-selected .mce-ico,
@@ -1276,7 +1272,7 @@ i.mce-i-checkbox {
 .mce-menu-item:hover {
   text-decoration: none;
   color: #fff;
-  background: $button-hover-bg-color;
+  background: $dark-blue;
 }
 
 .mce-menu-item-sep:hover,
@@ -1406,11 +1402,15 @@ i.mce-i-resize {
 }
 
 .mce-splitbtn .mce-open.mce-active {
-  -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15),
+  -webkit-box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.15),
     0 1px 2px rgba(0, 0, 0, 0.05);
-  -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15),
+  -moz-box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.15),
     0 1px 2px rgba(0, 0, 0, 0.05);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.15),
+    0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .mce-splitbtn.mce-btn-small .mce-open {
@@ -1487,7 +1487,9 @@ i.mce-i-resize {
   border-radius: $default-border-radius;
   box-shadow: $form-field-box-shadow;
   display: inline-block;
-  transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition:
+    border linear 0.2s,
+    box-shadow linear 0.2s;
   resize: none;
   white-space: pre-wrap;
   color: $form-field-text-color;
@@ -1534,7 +1536,8 @@ i.mce-i-resize {
 
 @font-face {
   font-family: "tinymce";
-  src: url("tinymce/skins/alchemy/fonts/tinymce.woff") format("woff"),
+  src:
+    url("tinymce/skins/alchemy/fonts/tinymce.woff") format("woff"),
     url("tinymce/skins/alchemy/fonts/tinymce.ttf") format("truetype"),
     url("tinymce/skins/alchemy/fonts/tinymce.svg#tinymce") format("svg");
   font-weight: normal;
@@ -1543,7 +1546,8 @@ i.mce-i-resize {
 
 @font-face {
   font-family: "tinymce-small";
-  src: url("tinymce/skins/alchemy/fonts/tinymce-small.woff") format("woff"),
+  src:
+    url("tinymce/skins/alchemy/fonts/tinymce-small.woff") format("woff"),
     url("tinymce/skins/alchemy/fonts/tinymce-small.ttf") format("truetype"),
     url("tinymce/skins/alchemy/fonts/tinymce-small.svg#tinymce") format("svg");
   font-weight: normal;
