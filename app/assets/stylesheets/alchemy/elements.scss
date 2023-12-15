@@ -231,12 +231,17 @@ alchemy-tinymce {
   }
 
   &.dragged {
-    border-style: dotted;
-    overflow: hidden;
+    border: 1px dashed var(--color-blue_light);
+    background-color: var(--color-blue_very_light);
+    box-shadow: none !important;
 
     &:not(.compact) {
-      height: 36px !important;
-      transition: height 0.2s;
+      height: 36px;
+      overflow: hidden;
+    }
+
+    * {
+      visibility: hidden;
     }
   }
 
@@ -516,14 +521,6 @@ alchemy-publish-element-button {
       @extend .right-rounded-border;
     }
   }
-}
-
-.droppable_element_placeholder {
-  height: 36px;
-  border: 1px dotted $button-border-color;
-  background-color: $medium-gray;
-  margin-bottom: 2 * $default-margin;
-  border-radius: $default-border-radius;
 }
 
 .edit_images_bottom {
@@ -909,8 +906,7 @@ textarea.has_tinymce {
   }
 }
 
-.element-editor,
-.droppable_element_placeholder {
+.element-editor {
   display: block;
   width: 100%;
 

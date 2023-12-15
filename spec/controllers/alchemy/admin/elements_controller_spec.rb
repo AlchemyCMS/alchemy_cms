@@ -44,22 +44,15 @@ module Alchemy
       let!(:element_1) { create(:alchemy_element) }
       let!(:element_2) { create(:alchemy_element, page_version: page_version) }
       let!(:element_3) { create(:alchemy_element, page_version: page_version) }
-      let(:element_ids) { [element_1.id, element_3.id, element_2.id] }
       let(:page_version) { element_1.page_version }
 
-      it "sets new position for given element ids" do
-        post :order, params: {element_ids: element_ids}, xhr: true
+      it "sets new position for given element" do
+        post :order, params: {element_id: element_3, position: 2}
         expect(Element.all.pluck(:id, :position)).to eq([
           [element_1.id, 1],
           [element_3.id, 2],
           [element_2.id, 3]
         ])
-      end
-
-      context "with missing [:element_ids] param" do
-        it "does not raise any error and silently rejects to order" do
-          expect { post :order, xhr: true }.to_not raise_error
-        end
       end
 
       context "when nested inside parent element" do
@@ -69,20 +62,18 @@ module Alchemy
           parent.update_column(:updated_at, 3.days.ago)
           expect {
             post :order, params: {
-              element_ids: element_ids,
+              element_id: element_3.id,
               parent_element_id: parent.id
-            }, xhr: true
+            }
           }.to change { parent.reload.updated_at }
         end
 
         it "assigns parent element id to each element" do
           post :order, params: {
-            element_ids: element_ids,
+            element_id: element_3,
             parent_element_id: parent.id
-          }, xhr: true
-          [element_1, element_2, element_3].each do |element|
-            expect(element.reload.parent_element_id).to eq parent.id
-          end
+          }
+          expect(element_3.reload.parent_element_id).to eq parent.id
         end
       end
     end

@@ -303,22 +303,43 @@ describe("alchemy-element-editor", () => {
     })
   })
 
-  describe("on change of inputs or selects", () => {
-    it("sets element to dirty state", () => {
-      editor = getComponent(`
-        <alchemy-element-editor id="element_123" class="expanded">
-          <form class="element-body">
-            <div class="element-ingredient-editors">
-              <input type="text">
-            </div>
-          </form>
-          <div class="element-footer"></div>
-        </alchemy-element-editor>
-      `)
-      const event = new Event("change", { bubbles: true })
-      editor.dirty = false
-      editor.querySelector("input").dispatchEvent(event)
-      expect(editor.dirty).toBeTruthy()
+  describe("on change", () => {
+    describe("of inputs or selects", () => {
+      it("sets element to dirty state", () => {
+        editor = getComponent(`
+          <alchemy-element-editor id="element_123" class="expanded">
+            <form class="element-body">
+              <div class="element-ingredient-editors">
+                <input type="text">
+              </div>
+            </form>
+            <div class="element-footer"></div>
+          </alchemy-element-editor>
+        `)
+        const event = new Event("change", { bubbles: true })
+        editor.dirty = false
+        editor.querySelector("input").dispatchEvent(event)
+        expect(editor.dirty).toBeTruthy()
+      })
+    })
+
+    describe("of nestable elements", () => {
+      it("does not set element to dirty state", () => {
+        editor = getComponent(`
+          <alchemy-element-editor id="element_123" class="expanded">
+            <form class="element-body">
+              <div class="element-ingredient-editors">
+                <input type="text">
+              </div>
+            </form>
+            <div class="nested-elements"></div>
+          </alchemy-element-editor>
+        `)
+        const event = new Event("change", { bubbles: true })
+        editor.dirty = false
+        editor.querySelector(".nested-elements").dispatchEvent(event)
+        expect(editor.dirty).toBeFalsy()
+      })
     })
   })
 
@@ -573,14 +594,29 @@ describe("alchemy-element-editor", () => {
   })
 
   describe("setDirty", () => {
-    it("sets dirty to true", () => {
-      editor.setDirty()
-      expect(editor.dirty).toBeTruthy
-    })
+    describe("if element has ingredient editors", () => {
+      beforeEach(() => {
+        editor = getComponent(`
+          <alchemy-element-editor id="element_123" class="expanded">
+            <form class="element-body">
+              <div class="element-ingredient-editors">
+                <input type="text">
+              </div>
+            </form>
+            <div class="nested-elements"></div>
+          </alchemy-element-editor>
+        `)
+      })
 
-    it("sets beforeunload", () => {
-      editor.setDirty()
-      expect(window.onbeforeunload).toBeInstanceOf(Function)
+      it("sets dirty to true", () => {
+        editor.setDirty()
+        expect(editor.dirty).toBeTruthy
+      })
+
+      it("sets beforeunload", () => {
+        editor.setDirty()
+        expect(window.onbeforeunload).toBeInstanceOf(Function)
+      })
     })
   })
 

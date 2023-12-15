@@ -63,11 +63,17 @@ export class ElementEditor extends HTMLElement {
         }
         break
       case "alchemy:element-update-title":
-        if (event.target == this.firstChild) {
+        if (!this.hasEditors && event.target == this.firstChild) {
           this.setTitle(event.detail.title)
         }
         break
       case "change":
+        // SortableJS fires a native change event :/
+        // and we do not want to set the element editor dirty
+        // when this happens
+        if (event.target.classList.contains("nested-elements")) {
+          return
+        }
         event.stopPropagation()
         event.target.classList.add("dirty")
         this.setDirty()
@@ -208,8 +214,10 @@ export class ElementEditor extends HTMLElement {
    * Sets the element into dirty (unsafed) state
    */
   setDirty() {
-    this.dirty = true
-    window.onbeforeunload = () => Alchemy.t("page_dirty_notice")
+    if (this.hasEditors) {
+      this.dirty = true
+      window.onbeforeunload = () => Alchemy.t("page_dirty_notice")
+    }
   }
 
   /**
