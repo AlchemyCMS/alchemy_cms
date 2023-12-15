@@ -297,11 +297,9 @@ alchemy-tinymce {
     }
 
     .picture_thumbnail {
-      margin: 0;
-    }
-
-    .thumbnail_background {
-      height: 115px;
+      img {
+        width: auto;
+      }
     }
 
     textarea,
@@ -558,9 +556,12 @@ alchemy-publish-element-button {
   }
 
   .picture_thumbnail {
+    --picture-width: 160px;
+    --picture-height: 120px;
     display: inline-block;
     width: 160px;
     margin: $default-margin 0;
+    padding: 0;
     padding-bottom: 34px;
     box-shadow: 0 0 1px 1px $default-border-color;
 
@@ -584,6 +585,7 @@ alchemy-publish-element-button {
   }
 
   .thumbnail_background {
+    --picture-thumbnail-border-radius: 0;
     height: 120px;
 
     .icon {

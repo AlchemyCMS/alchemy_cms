@@ -67,10 +67,15 @@
   }
 
   img {
-    width: auto;
-    height: auto;
+    width: 100%;
     max-width: 100%;
     max-height: 100%;
+    background-color: $thumbnail-background-color;
+
+    &[src*=".svg"] {
+      width: var(--picture-width);
+      max-height: var(--picture-height);
+    }
   }
 
   .picture_name {
