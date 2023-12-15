@@ -119,7 +119,7 @@
   display: grid;
   gap: 2 * $default-margin;
   grid-template-columns: repeat(
-    auto-fit,
+    auto-fill,
     minmax(var(--picture-thumbnail-width), auto)
   );
   justify-items: center;
