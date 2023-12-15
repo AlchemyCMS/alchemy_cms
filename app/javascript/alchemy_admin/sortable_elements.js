@@ -19,7 +19,7 @@ function onStart(ui) {
   }
 }
 
-function onUpdate(event, ui, page_id) {
+function onUpdate(event, ui) {
   // This callback is called twice for both elements, the source and the receiving
   // but, we only want to call ajax callback once on the receiving element.
   if (initializedSortableElements) {
@@ -37,7 +37,6 @@ function onUpdate(event, ui, page_id) {
     .closest("[data-element-id]")
     .data("element-id")
   const params = {
-    page_id,
     authenticity_token: getToken(),
     element_ids
   }
@@ -65,7 +64,7 @@ function onStop(ui) {
   ui.item.removeClass("dragged")
 }
 
-export default function SortableElements(page_id, selector) {
+export default function SortableElements(selector) {
   if (selector == null) {
     selector = "#element_area .sortable-elements"
   }
@@ -81,7 +80,7 @@ export default function SortableElements(page_id, selector) {
     containment: $("#element_area"),
     tolerance: "pointer",
     start: (_evt, ui) => onStart(ui),
-    update: (evt, ui) => onUpdate(evt, ui, page_id),
+    update: (evt, ui) => onUpdate(evt, ui),
     stop: (_evt, ui) => onStop(ui)
   }
 

@@ -74,6 +74,7 @@ Alchemy.ElementsWindow =
   reload: ->
     $.get @url, (data) =>
       @element_area.html data
+      Alchemy.SortableElements()
       if @callback
         @callback.call()
     .fail (xhr, status, error) =>
