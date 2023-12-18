@@ -1,8 +1,6 @@
 class window.Alchemy.ImageOverlay extends Alchemy.Dialog
 
   constructor: (url) ->
-    @options =
-      draggable: false
     super(url, @options)
     return
 
