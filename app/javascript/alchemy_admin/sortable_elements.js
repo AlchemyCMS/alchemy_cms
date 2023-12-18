@@ -10,6 +10,13 @@ const SORTABLE_OPTIONS = {
   easing: "cubic-bezier(1, 0, 0, 1)"
 }
 
+function onStart(event) {
+  const name = event.item.dataset.elementName
+  document
+    .querySelectorAll(`[data-droppable-elements~="${name}"]`)
+    .forEach((dropzone) => dropzone.classList.add("droppable-elements"))
+}
+
 function onSort(event) {
   const item = event.item
   const parentElement = event.to.parentElement.closest(".element-editor")
@@ -30,6 +37,13 @@ function onSort(event) {
   })
 }
 
+function onEnd() {
+  const dropzones = document.querySelectorAll("[data-droppable-elements]")
+  dropzones.forEach((dropzone) =>
+    dropzone.classList.remove("droppable-elements")
+  )
+}
+
 function createSortable(element) {
   const group = {
     name: element.dataset.elementName,
@@ -41,7 +55,9 @@ function createSortable(element) {
   }
   new Sortable(element, {
     ...SORTABLE_OPTIONS,
+    onStart,
     onSort,
+    onEnd,
     group
   })
 }

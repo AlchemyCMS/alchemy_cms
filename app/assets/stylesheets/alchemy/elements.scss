@@ -231,8 +231,9 @@ alchemy-tinymce {
   }
 
   &.dragged {
-    border: 1px dashed var(--color-blue_light);
-    background-color: var(--color-blue_very_light);
+    border: 1px solid var(--color-grey_dark);
+    background-color: var(--color-grey_medium);
+    opacity: 0.5;
     box-shadow: none !important;
 
     &:not(.compact) {
@@ -924,9 +925,18 @@ textarea.has_tinymce {
   display: flex;
   flex-wrap: wrap;
 
+  &.droppable-elements {
+    border-radius: var(--border-radius_medium);
+  }
+
   .element-editor {
     position: relative;
   }
+}
+
+.droppable-elements {
+  min-height: 36px;
+  background-color: var(--color-yellow_light);
 }
 
 .ingredient-date--label,
