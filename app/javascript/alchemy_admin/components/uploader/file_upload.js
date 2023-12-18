@@ -1,4 +1,4 @@
-import { AlchemyHTMLElement } from "../alchemy_html_element"
+import { AlchemyHTMLElement } from "alchemy_admin/components/alchemy_html_element"
 import { formatFileSize } from "alchemy_admin/utils/format"
 import { translate } from "alchemy_admin/i18n"
 

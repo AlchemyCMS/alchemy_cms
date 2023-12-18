@@ -1,7 +1,7 @@
-import { AlchemyHTMLElement } from "../alchemy_html_element"
-import { FileUpload } from "./file_upload"
-import { formatFileSize } from "../../utils/format"
-import { translate } from "../../i18n"
+import { AlchemyHTMLElement } from "alchemy_admin/components/alchemy_html_element"
+import { FileUpload } from "alchemy_admin/components/uploader/file_upload"
+import { formatFileSize } from "alchemy_admin/utils/format"
+import { translate } from "alchemy_admin/i18n"
 
 export class Progress extends AlchemyHTMLElement {
   #visible = false

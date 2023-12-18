@@ -3,9 +3,9 @@
  * @property {string} name
  * @property {number} size
  */
-import { AlchemyHTMLElement } from "./alchemy_html_element"
-import { Progress } from "./uploader/progress"
-import { FileUpload } from "./uploader/file_upload"
+import { AlchemyHTMLElement } from "alchemy_admin/components/alchemy_html_element"
+import { Progress } from "alchemy_admin/components/uploader/progress"
+import { FileUpload } from "alchemy_admin/components/uploader/file_upload"
 import { translate } from "alchemy_admin/i18n"
 import { getToken } from "alchemy_admin/utils/ajax"
 
