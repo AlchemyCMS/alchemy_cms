@@ -380,7 +380,6 @@ alchemy-tinymce {
   .expanded & {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-    border-bottom: 1px solid $medium-gray;
   }
 
   .icon {
@@ -400,6 +399,7 @@ alchemy-tinymce {
   padding: $default-padding;
   gap: $default-padding;
   height: $element-toolbar-height;
+  border-top: 1px solid $medium-gray;
   border-bottom: 1px solid $medium-gray;
 }
 
