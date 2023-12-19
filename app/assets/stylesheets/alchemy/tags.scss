@@ -3,6 +3,10 @@
   flex-direction: column;
   height: 100%;
 
+  .alchemy-dialog-body & {
+    max-height: 316px;
+  }
+
   .js_filter_field_box {
     margin: 0;
 

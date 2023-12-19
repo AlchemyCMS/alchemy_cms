@@ -38,13 +38,8 @@
 }
 
 #element_area {
-  height: calc(100vh - #{$top-menu-height + $toolbar-height});
-  overflow-x: hidden;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-
   .sortable-elements {
-    min-height: 100px;
+    min-height: 100%;
   }
 
   textarea {
@@ -60,9 +55,21 @@ alchemy-tinymce {
   display: block;
 }
 
-#main-content-elements,
-.element-editor.is-fixed .nestable-elements {
+#main-content-elements {
+  --scrollable-elements-offset: #{$top-menu-height + $toolbar-height};
   padding: 2 * $default-padding $default-padding 2px;
+}
+
+#fixed-elements sl-tab-panel {
+  --scrollable-elements-offset: #{$top-menu-height + $toolbar-height +
+    $tab-bar-height};
+}
+
+.scrollable-elements {
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  height: calc(100vh - var(--scrollable-elements-offset, 0));
 }
 
 .element-title {
@@ -156,6 +163,10 @@ alchemy-tinymce {
   &.is-fixed {
     border-width: 0;
     border-radius: 0;
+
+    .nestable-elements {
+      padding: 2 * $default-padding $default-padding / 2;
+    }
   }
 
   &.not-draggable {
@@ -221,11 +232,7 @@ alchemy-tinymce {
       .nestable-elements {
         box-shadow: inset 0 4px 8px -2px darken($medium-gray, 15%);
         background-color: $medium-gray;
-        padding: 8px 4px 4px;
-
-        .add-nestable-element-button {
-          margin: 4px;
-        }
+        padding: $default-padding;
       }
     }
   }
@@ -380,7 +387,6 @@ alchemy-tinymce {
   .expanded & {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-    border-bottom: 1px solid $medium-gray;
   }
 
   .icon {
@@ -400,6 +406,12 @@ alchemy-tinymce {
   padding: $default-padding;
   gap: $default-padding;
   height: $element-toolbar-height;
+  border-top: 1px solid $medium-gray;
+
+  .is-fixed & {
+    border-top-width: 0;
+  }
+
   border-bottom: 1px solid $medium-gray;
 }
 
@@ -900,11 +912,6 @@ textarea.has_tinymce {
       border-bottom: 1px solid $medium-gray;
     }
   }
-
-  > .nestable-elements .add-nestable-element-button {
-    width: 100%;
-    text-align: center;
-  }
 }
 
 .element-editor {
@@ -921,6 +928,14 @@ textarea.has_tinymce {
   }
 }
 
+.nestable-elements {
+  .add-nestable-element-button {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+  }
+}
+
 .nested-elements {
   display: flex;
   flex-wrap: wrap;
@@ -931,7 +946,12 @@ textarea.has_tinymce {
 
   .element-editor {
     position: relative;
+    margin: $default-margin;
   }
+}
+
+.add-nested-element {
+  padding: $default-padding;
 }
 
 .droppable-elements {

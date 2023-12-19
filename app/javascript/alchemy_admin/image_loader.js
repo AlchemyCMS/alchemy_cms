@@ -15,7 +15,7 @@ export default class ImageLoader {
   constructor(image) {
     this.image = image
     this.parent = image.parentNode
-    this.spinner = new Alchemy.Spinner("small", "white")
+    this.spinner = new Alchemy.Spinner("small")
     this.bind()
   }
 

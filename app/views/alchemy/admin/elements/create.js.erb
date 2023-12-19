@@ -24,11 +24,9 @@
   $element_area.append(element_html);
 <%- end -%>
 
-  if ($element_area.find('.element-editor').length > 0) {
-    Alchemy.SortableElements($element_area.selector);
-  } else {
-    $element_area.sortable('refresh');
-  }
+<% if @element.fixed? %>
+  Alchemy.SortableElements('[name="fixed-element-<%= @element.id %>"] .nested-elements');
+<% end %>
 
   Alchemy.growl('<%= Alchemy.t(:successfully_added_element) %>');
   Alchemy.closeCurrentDialog();

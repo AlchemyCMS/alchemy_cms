@@ -41,6 +41,7 @@ select {
 .select2-container {
   &.alchemy_selectbox {
     .select2-choice {
+      width: 100%;
       height: $form-field-height;
       @include button-defaults(
         $background-color: $form-field-background-color,

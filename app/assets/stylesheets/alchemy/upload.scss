@@ -1,11 +1,6 @@
 .upload-button {
   display: inline-block;
 
-  #toolbar &,
-  #overlay_toolbar & {
-    vertical-align: top;
-  }
-
   label {
     cursor: pointer;
   }

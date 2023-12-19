@@ -10,22 +10,16 @@
     <% end %>
     <sl-tab-panel
       name="main-content-elements"
-      class="sortable-elements"
+      class="sortable-elements scrollable-elements"
       data-droppable-elements="<%= @page.element_definition_names.join(' ') %>"
       data-element-name="main-content-elements"
       id="main-content-elements"
-      style="--padding: 4px"
+      style="--padding: 0"
     >
       <%= render @elements.map { |element| Alchemy::ElementEditor.new(element) } %>
     </sl-tab-panel>
     <% @fixed_elements.each do |element| %>
-      <sl-tab-panel
-        name="fixed-element-<%= element.id %>"
-        class="sortable-elements"
-        style="--padding: 8px"
-        data-droppable-elements="<%= element.nestable_elements.join(' ') %>"
-        data-element-name="<%= element.name %>"
-      >
+      <sl-tab-panel name="fixed-element-<%= element.id %>" style="--padding: 0" class="scrollable-elements">
         <%= render Alchemy::ElementEditor.new(element) %>
       </sl-tab-panel>
     <% end %>
@@ -33,7 +27,7 @@
 <% else %>
   <div
     id="main-content-elements"
-    class="sortable-elements"
+    class="sortable-elements scrollable-elements"
     data-droppable-elements="<%= @page.element_definition_names.join(' ') %>"
     data-element-name="main-content-elements"
   >

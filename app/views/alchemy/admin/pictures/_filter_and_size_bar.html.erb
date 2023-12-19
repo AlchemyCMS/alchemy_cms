@@ -1,15 +1,17 @@
 <div class="toolbar_buttons">
   <% if can? :create, Alchemy::Picture %>
-    <%= render 'alchemy/admin/uploader/button',
-      object: Alchemy::Picture.new,
-      dropzone: '#assign_image_list',
-      file_attribute: 'image_file',
-      in_dialog: true,
-      redirect_url: alchemy.admin_pictures_path(
-        size: search_filter_params[:size],
-        filter: { misc: 'last_upload' },
-        form_field_id: @form_field_id
-      ) %>
+    <div class="toolbar_button">
+      <%= render 'alchemy/admin/uploader/button',
+        object: Alchemy::Picture.new,
+        dropzone: '#assign_image_list',
+        file_attribute: 'image_file',
+        in_dialog: true,
+        redirect_url: alchemy.admin_pictures_path(
+          size: search_filter_params[:size],
+          filter: { misc: 'last_upload' },
+          form_field_id: @form_field_id
+        ) %>
+    </div>
     <div class="toolbar_spacer"></div>
   <% end %>
   <div class="button_group">
