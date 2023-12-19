@@ -38,11 +38,6 @@
 }
 
 #element_area {
-  height: calc(100vh - #{$top-menu-height + $toolbar-height});
-  overflow-x: hidden;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-
   .sortable-elements {
     min-height: 100%;
   }
@@ -61,7 +56,20 @@ alchemy-tinymce {
 }
 
 #main-content-elements {
+  --scrollable-elements-offset: #{$top-menu-height + $toolbar-height};
   padding: 2 * $default-padding $default-padding 2px;
+}
+
+#fixed-elements sl-tab-panel {
+  --scrollable-elements-offset: #{$top-menu-height + $toolbar-height +
+    $tab-bar-height};
+}
+
+.scrollable-elements {
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  height: calc(100vh - var(--scrollable-elements-offset, 0));
 }
 
 .element-title {
