@@ -19,13 +19,7 @@
       <%= render @elements.map { |element| Alchemy::ElementEditor.new(element) } %>
     </sl-tab-panel>
     <% @fixed_elements.each do |element| %>
-      <sl-tab-panel
-        name="fixed-element-<%= element.id %>"
-        class="sortable-elements"
-        style="--padding: 0"
-        data-droppable-elements="<%= element.nestable_elements.join(' ') %>"
-        data-element-name="<%= element.name %>"
-      >
+      <sl-tab-panel name="fixed-element-<%= element.id %>" style="--padding: 0">
         <%= render Alchemy::ElementEditor.new(element) %>
       </sl-tab-panel>
     <% end %>

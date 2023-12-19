@@ -64,17 +64,15 @@ function createSortable(element, options = {}) {
 }
 
 export default function SortableElements(selector) {
-  if (selector == null) {
-    selector = "#element_area .sortable-elements"
-  }
+  if (selector == null) selector = ".sortable-elements"
+
   const sortable_areas = document.querySelectorAll(selector, {
     direction: "vertical"
   })
 
-  sortable_areas.forEach((element) => {
-    createSortable(element)
-    element.querySelectorAll(".nested-elements").forEach((nestedElement) => {
-      createSortable(nestedElement)
-    })
+  sortable_areas.forEach((element) => createSortable(element))
+
+  document.querySelectorAll(".nested-elements").forEach((nestedElement) => {
+    createSortable(nestedElement)
   })
 }

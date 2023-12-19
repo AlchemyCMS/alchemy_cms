@@ -23,7 +23,7 @@ Alchemy.FixedElements = {
     $fixed_elements.append($tab)
 
     var $panel = $(
-      '<sl-tab-panel name="' + panel_name + '" class="sortable-elements" />'
+      '<sl-tab-panel name="' + panel_name + '" style="--padding: 0" />'
     )
     $fixed_elements.append($panel)
     window.requestAnimationFrame(function () {
