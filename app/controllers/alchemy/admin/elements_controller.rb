@@ -91,20 +91,19 @@ module Alchemy
       end
 
       def order
-        @parent_element = Element.find_by(id: params[:parent_element_id])
-        Element.transaction do
-          params.fetch(:element_ids, []).each.with_index(1) do |element_id, position|
-            # We need to set the parent_element_id, because we might have dragged the
-            # element over from another nestable element
-            Element.find_by(id: element_id).update_columns(
-              parent_element_id: params[:parent_element_id],
-              position: position
-            )
-          end
-          # Need to manually touch the parent because Rails does not do it
-          # with the update_columns above
-          @parent_element&.touch
+        @element = Element.find(params[:element_id])
+        @element.update(
+          parent_element_id: params[:parent_element_id],
+          position: params[:position]
+        )
+        if params[:parent_element_id].present?
+          @parent_element = Element.find_by(id: params[:parent_element_id])
         end
+
+        render json: {
+          message: Alchemy.t(:successfully_saved_element_position),
+          preview_text: @element.preview_text
+        }
       end
 
       # Collapses the element, all nested elements and persists the state in the db

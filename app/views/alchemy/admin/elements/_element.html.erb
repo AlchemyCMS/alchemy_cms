@@ -70,7 +70,8 @@
     <div class="nestable-elements">
       <%= content_tag :div,
         class: "nested-elements", data: {
-          'droppable-elements' => element.nestable_elements.join(' ')
+          'droppable-elements' => element.nestable_elements.join(' '),
+          'element-name' => element.name
         } do %>
         <%= render element.all_nested_elements.map { |element|
           Alchemy::ElementEditor.new(element)

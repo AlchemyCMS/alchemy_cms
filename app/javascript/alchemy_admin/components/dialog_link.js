@@ -5,7 +5,6 @@ export const DEFAULTS = {
   title: "",
   modal: true,
   overflow: "visible",
-  draggable: true,
   ready: () => {},
   closed: () => {}
 }

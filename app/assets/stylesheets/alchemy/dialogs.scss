@@ -132,10 +132,6 @@ $dialog-transition-duration: 150ms;
   font-weight: normal;
   font-size: $dialog-header-font-size;
   @include border-top-radius($default-border-radius);
-
-  .ui-draggable & {
-    cursor: move;
-  }
 }
 
 .alchemy-dialog-title {

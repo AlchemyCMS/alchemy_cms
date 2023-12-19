@@ -1,8 +1,6 @@
 // Alchemy CMS Sprockets Manifest
 // ------------------------------
 //= require jquery2
-//= require jquery-ui/widgets/draggable
-//= require jquery-ui/widgets/sortable
 //= require tinymce/tinymce.min
 //= require_tree ../../../../vendor/assets/javascripts/jquery_plugins/
 //= require clipboard.min
@@ -12,7 +10,6 @@
 //= require alchemy/templates
 //= require alchemy/alchemy.dialog
 //= require alchemy/alchemy.confirm_dialog
-//= require alchemy/alchemy.dragndrop
 //= require alchemy/alchemy.elements_window
 //= require alchemy/alchemy.fixed_elements
 //= require alchemy/alchemy.growler
