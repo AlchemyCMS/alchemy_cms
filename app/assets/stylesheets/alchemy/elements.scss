@@ -400,6 +400,11 @@ alchemy-tinymce {
   gap: $default-padding;
   height: $element-toolbar-height;
   border-top: 1px solid $medium-gray;
+
+  .is-fixed & {
+    border-top-width: 0;
+  }
+
   border-bottom: 1px solid $medium-gray;
 }
 
