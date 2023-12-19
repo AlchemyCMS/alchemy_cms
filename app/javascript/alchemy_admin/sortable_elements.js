@@ -44,7 +44,7 @@ function onEnd() {
   )
 }
 
-function createSortable(element) {
+function createSortable(element, options = {}) {
   const group = {
     name: element.dataset.elementName,
     put(to, _from, item) {
@@ -55,6 +55,7 @@ function createSortable(element) {
   }
   new Sortable(element, {
     ...SORTABLE_OPTIONS,
+    ...options,
     onStart,
     onSort,
     onEnd,
@@ -66,7 +67,9 @@ export default function SortableElements(selector) {
   if (selector == null) {
     selector = "#element_area .sortable-elements"
   }
-  const sortable_areas = document.querySelectorAll(selector)
+  const sortable_areas = document.querySelectorAll(selector, {
+    direction: "vertical"
+  })
 
   sortable_areas.forEach((element) => {
     createSortable(element)
