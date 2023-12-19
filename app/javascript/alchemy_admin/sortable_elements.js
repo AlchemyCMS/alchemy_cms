@@ -10,6 +10,13 @@ const SORTABLE_OPTIONS = {
   easing: "cubic-bezier(1, 0, 0, 1)"
 }
 
+function onStart(event) {
+  const name = event.item.dataset.elementName
+  document
+    .querySelectorAll(`[data-droppable-elements~="${name}"]`)
+    .forEach((dropzone) => dropzone.classList.add("droppable-elements"))
+}
+
 function onSort(event) {
   const item = event.item
   const parentElement = event.to.parentElement.closest(".element-editor")
@@ -30,7 +37,14 @@ function onSort(event) {
   })
 }
 
-function createSortable(element) {
+function onEnd() {
+  const dropzones = document.querySelectorAll("[data-droppable-elements]")
+  dropzones.forEach((dropzone) =>
+    dropzone.classList.remove("droppable-elements")
+  )
+}
+
+function createSortable(element, options = {}) {
   const group = {
     name: element.dataset.elementName,
     put(to, _from, item) {
@@ -41,7 +55,10 @@ function createSortable(element) {
   }
   new Sortable(element, {
     ...SORTABLE_OPTIONS,
+    ...options,
+    onStart,
     onSort,
+    onEnd,
     group
   })
 }
@@ -50,7 +67,9 @@ export default function SortableElements(selector) {
   if (selector == null) {
     selector = "#element_area .sortable-elements"
   }
-  const sortable_areas = document.querySelectorAll(selector)
+  const sortable_areas = document.querySelectorAll(selector, {
+    direction: "vertical"
+  })
 
   sortable_areas.forEach((element) => {
     createSortable(element)
