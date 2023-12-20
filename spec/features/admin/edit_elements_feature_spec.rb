@@ -65,7 +65,7 @@ RSpec.describe "The edit elements feature", type: :system do
       scenario "the add button opens add element form with the clipboard tab" do
         visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
         button = page.find(".add-nestable-element-button")
-        expect(button).to have_content "Add slide"
+        expect(button).to have_content "Add Slide"
         button.click
         expect(page).to have_select("Element")
         expect(page).to have_link("Paste from clipboard")
@@ -76,7 +76,7 @@ RSpec.describe "The edit elements feature", type: :system do
       scenario "the add element button immediately creates the nested element." do
         visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
         button = page.find("button.add-nestable-element-button")
-        expect(button).to have_content "Add slide"
+        expect(button).to have_content "Add Slide"
         button.click
         expect(page).to have_selector(".element-editor[data-element-name='slide']")
       end
