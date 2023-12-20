@@ -33,11 +33,11 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     @initPageSelect()
     return
 
-  # Attaches click events to several buttons in the link dialog.
+  # Attaches click events to forms in the link dialog.
   attachEvents: ->
-    # The ok buttons
-    $('.create-link.button', @dialog_body).click (e) =>
-      @link_type = $(e.target).data('link-type')
+    $('[data-link-form-type]', @dialog_body).on "submit", (e) =>
+      e.preventDefault()
+      @link_type = e.target.dataset.linkFormType
       url = $("##{@link_type}_link").val()
       if @link_type == 'internal' && @$element_anchor.val() != ''
         url += "##{@$element_anchor.val()}"
