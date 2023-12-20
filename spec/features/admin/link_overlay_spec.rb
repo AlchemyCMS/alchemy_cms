@@ -56,9 +56,9 @@ RSpec.describe "Link overlay", type: :system do
     it "should be possible to link a page" do
       visit edit_admin_page_path(page1)
 
-      within "#element_#{article.id}" do
+      within "#element_#{article.id} .ingredient-editor.text.linkable" do
         fill_in "Intro", with: "Link me"
-        click_link "Link text"
+        click_button_with_tooltip Alchemy.t(:place_link)
       end
 
       within "[name='overlay_tab_internal_link']" do
@@ -84,9 +84,9 @@ RSpec.describe "Link overlay", type: :system do
     it "should be possible to link an external url" do
       visit edit_admin_page_path(page1)
 
-      within "#element_#{article.id}" do
+      within "#element_#{article.id} .ingredient-editor.text.linkable" do
         fill_in "Intro", with: "Link me"
-        click_link "Link text"
+        click_button_with_tooltip Alchemy.t(:place_link)
       end
 
       within "#overlay_tabs" do
@@ -117,9 +117,9 @@ RSpec.describe "Link overlay", type: :system do
       file = create(:alchemy_attachment)
       visit edit_admin_page_path(page1)
 
-      within "#element_#{article.id}" do
+      within "#element_#{article.id} .ingredient-editor.text.linkable" do
         fill_in "Intro", with: "Link me"
-        click_link "Link text"
+        click_button_with_tooltip Alchemy.t(:place_link)
       end
 
       within "#overlay_tabs" do

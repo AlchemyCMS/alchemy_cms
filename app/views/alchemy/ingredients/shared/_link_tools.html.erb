@@ -1,20 +1,10 @@
-<span class="ingredient_link_buttons">
-  <%= link_to(
-    render_icon(:link, style: "m"),
-    '#',
-    onclick: 'new Alchemy.LinkDialog(this).open(); return false;',
-    class: "icon_button#{ingredient_editor.linked? ? ' linked' : ''} link-ingredient",
-    "data-parent-selector": "[data-ingredient-id='#{ingredient_editor.id}']",
-    title: Alchemy.t(:place_link),
-    id: "edit_link_#{ingredient_editor.id}"
-  ) %>
-  <%= link_to(
-    render_icon("link-unlink", style: "m"),
-    '#',
-    onclick: "return Alchemy.LinkDialog.removeLink(this, '[data-ingredient-id=\"#{ingredient_editor.id}\"]')",
-    class: "icon_button unlink-ingredient #{ingredient_editor.linked? ? 'linked' : 'disabled'}",
-    tabindex: ingredient_editor.linked? ? nil : '-1',
-    'data-ingredient-id' => ingredient_editor.id,
-    title: Alchemy.t(:unlink)
-  ) %>
-</span>
+<alchemy-link-buttons class="ingredient_link_buttons" data-ingredient-id="<%= ingredient_editor.id %>">
+  <%= content_tag "sl-tooltip", content: Alchemy.t(:place_link) do %>
+    <%= content_tag "button", "", is: "alchemy-link-button",
+      class: ["link-ingredient", ingredient_editor.linked? ? "linked" : nil] %>
+  <% end %>
+  <%= content_tag "sl-tooltip", content: Alchemy.t(:unlink) do %>
+    <%= content_tag "button", "", is: "alchemy-unlink-button",
+      class: ["unlink-ingredient", ingredient_editor.linked? ? "linked" : "disabled"] %>
+  <% end %>
+</alchemy-link-buttons>

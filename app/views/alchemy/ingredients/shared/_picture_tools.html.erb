@@ -32,26 +32,22 @@
     class: "icon_button" %>
 <% end %>
 
-<%= content_tag "sl-tooltip", content: Alchemy.t(:link_image), disabled: !linkable do %>
-  <%= link_to_if linkable, render_icon("link", style: "m"), "", {
-    onclick: "new Alchemy.LinkDialog(this).open(); return false;",
-    class: picture_editor.linked? ? "linked icon_button" : "icon_button",
-    "data-parent-selector": "[data-ingredient-id='#{picture_editor.id}']",
-    id: "edit_link_#{picture_editor.id}"
-  } do %>
+<alchemy-link-buttons data-ingredient-id="<%= picture_editor.id %>">
+  <% if linkable %>
+    <%= content_tag "sl-tooltip", content: Alchemy.t(:link_image) do %>
+      <%= content_tag "button", "", is: "alchemy-link-button", class: picture_editor.linked? ? "linked" : "" %>
+    <% end %>
+  <% else %>
     <span class="disabled" tabindex="-1"><%= render_icon("link", style: "m") %></span>
   <% end %>
-<% end %>
-
-<%= content_tag "sl-tooltip", content: Alchemy.t(:unlink), disabled: !picture_editor.linked? do %>
-  <%= link_to_if linkable, render_icon("link-unlink", style: "m"), "", {
-    onclick: "return Alchemy.LinkDialog.removeLink(this, '[data-ingredient-id=\"#{picture_editor.id}\"]')",
-    class: picture_editor.linked? ? "linked icon_button" : "icon_button disabled",
-    tabindex: picture_editor.linked? ? nil : "-1"
-  } do %>
+  <% if linkable %>
+    <%= content_tag "sl-tooltip", content: Alchemy.t(:unlink) do %>
+      <%= content_tag "button", "", is: "alchemy-unlink-button", class: picture_editor.linked? ? "linked" : "disabled" %>
+    <% end %>
+  <% else %>
     <span class="disabled" tabindex="-1"><%= render_icon("link-unlink", style: "m") %></span>
   <% end %>
-<% end %>
+</alchemy-link-buttons>
 
 <%= content_tag "sl-tooltip", content: Alchemy.t(:edit_image_properties), placement: "top-end" do %>
   <%= link_to_dialog render_icon(:edit),

@@ -46,8 +46,12 @@ module Alchemy
         end
       end
 
+      def click_button_with_tooltip(content)
+        find(%([content="#{content}"] > button)).click
+      end
+
       def click_link_with_tooltip(content)
-        find(%([content="#{content}"] a)).click
+        find(%([content="#{content}"] > a)).click
       end
 
       private

@@ -4,13 +4,6 @@
 class window.Alchemy.LinkDialog extends Alchemy.Dialog
 
   constructor: (@link_object) ->
-    if @link_object.dataset
-      parent_selector = @link_object.dataset.parentSelector
-      parent = document.querySelector(parent_selector)
-      @link_value_field = parent.querySelector("[data-link-value]")
-      @link_title_field = parent.querySelector("[data-link-title]")
-      @link_target_field = parent.querySelector("[data-link-target]")
-      @link_class_field = parent.querySelector("[data-link-class]")
     @url = Alchemy.routes.link_admin_pages_path
     @$link_object = $(@link_object)
     @options =
@@ -136,12 +129,11 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
 
   # Sets the link either in TinyMCE or on an Ingredient.
   setLink: (url, title, target) ->
-    element_editor = @$link_object[0].closest('alchemy-element-editor')
-    element_editor.setDirty()
     if @link_object.editor
       @setTinyMCELink(url, title, target)
     else
-      @setLinkFields(url, title, target)
+      @link_object.setLink(url, title, target, @link_type)
+    return
 
   # Sets a link in TinyMCE editor.
   setTinyMCELink: (url, title, target) ->
@@ -155,23 +147,11 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     editor.selection.collapse()
     true
 
-  # Sets a link on an Ingredient (e.g. Picture).
-  setLinkFields: (url, title, target) ->
-    @link_value_field.value = url
-    @link_value_field.dispatchEvent(new Event("change"))
-    @link_title_field.value = title
-    @link_class_field.value = @link_type
-    @link_target_field.value = target
-    @link_object.classList.add("linked")
-    @link_object.nextElementSibling.classList.replace("disabled", "linked")
-    @link_object.nextElementSibling.removeAttribute("tabindex")
-    return
-
   # Selects the correct tab for link type and fills all fields.
   selectTab: ->
     # Creating an temporary anchor node if we are linking an Picture Ingredient.
-    if (@link_object.nodeType)
-      @$link = @createTempLink()
+    if (@link_object.getAttribute("is") == "alchemy-link-button")
+      @$link = $(@createTempLink())
     # Restoring the bookmarked selection inside the TinyMCE of an Richtext.
     else if (@link_object.node.nodeName == 'A')
       @$link = $(@link_object.node)
@@ -215,15 +195,15 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     # store the anchor
     @$element_anchor.val(url[1])
 
-  # Creates a temporay $('a') object that holds all values on it.
+  # Creates a temporay 'a' element that holds all values on it.
   createTempLink: ->
-    @$tmp_link = $('<a/>')
-    @$tmp_link.attr('href', @link_value_field.value)
-    @$tmp_link.attr('title', @link_title_field.value)
-    @$tmp_link.attr('data-link-target', @link_target_field.value)
-    @$tmp_link.attr('target', if @link_target_field.value == 'blank' then '_blank' else null)
-    @$tmp_link.addClass(@link_class_field.value)
-    @$tmp_link
+    tmp_link = document.createElement("a")
+    tmp_link.setAttribute('href', @link_object.linkUrl)
+    tmp_link.setAttribute('title', @link_object.linkTitle)
+    tmp_link.setAttribute('data-link-target', @link_object.linkTarget)
+    tmp_link.setAttribute('target', if @link_object.target == 'blank' then '_blank' else "")
+    tmp_link.classList.add(@link_object.linkClass) if @link_object.linkClass != ''
+    tmp_link
 
   # Validates url for beginning with an protocol.
   validateURLFormat: (url) ->
@@ -247,26 +227,3 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     else
       @$anchor_link.html("<option>#{Alchemy.t('No anchors found')}</option>")
     return
-
-  # Public class methods
-
-  # Removes link from Ingredient.
-  @removeLink = (link, parent_selector) ->
-    parent = document.querySelector(parent_selector)
-    link_value_field = parent.querySelector("[data-link-value]")
-    link_title_field = parent.querySelector("[data-link-title]")
-    link_target_field = parent.querySelector("[data-link-target]")
-    link_class_field = parent.querySelector("[data-link-class]")
-    link_value_field.value = ""
-    link_value_field.dispatchEvent(new Event("change"))
-    link_title_field.value = ""
-    link_class_field.value = ""
-    link_target_field.value = ""
-    if link.classList.contains('linked')
-      element_editor = link.closest('alchemy-element-editor')
-      element_editor.setDirty()
-      link.classList.replace('linked', 'disabled')
-      link.setAttribute('tabindex', '-1')
-      link.blur()
-    link.previousElementSibling.classList.remove("linked")
-    false
