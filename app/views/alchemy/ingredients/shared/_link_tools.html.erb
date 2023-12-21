@@ -1,10 +1,10 @@
-<alchemy-link-buttons class="ingredient_link_buttons" data-ingredient-id="<%= ingredient_editor.id %>">
+<%= content_tag "alchemy-link-buttons", class: local_assigns[:wrapper_class], data: {ingredient_id: ingredient_editor.id} do %>
   <%= content_tag "sl-tooltip", content: Alchemy.t(:place_link) do %>
     <%= content_tag "button", "", is: "alchemy-link-button",
-      class: ["link-ingredient", ingredient_editor.linked? ? "linked" : nil] %>
+      class: [ingredient_editor.linked? ? "linked" : nil] %>
   <% end %>
   <%= content_tag "sl-tooltip", content: Alchemy.t(:unlink) do %>
     <%= content_tag "button", "", is: "alchemy-unlink-button",
-      class: ["unlink-ingredient", ingredient_editor.linked? ? "linked" : "disabled"] %>
+      class: [ingredient_editor.linked? ? "linked" : "disabled"] %>
   <% end %>
-</alchemy-link-buttons>
+<% end %>

@@ -32,22 +32,12 @@
     class: "icon_button" %>
 <% end %>
 
-<alchemy-link-buttons data-ingredient-id="<%= picture_editor.id %>">
-  <% if linkable %>
-    <%= content_tag "sl-tooltip", content: Alchemy.t(:link_image) do %>
-      <%= content_tag "button", "", is: "alchemy-link-button", class: picture_editor.linked? ? "linked" : "" %>
-    <% end %>
-  <% else %>
-    <span class="disabled" tabindex="-1"><%= render_icon("link", style: "m") %></span>
-  <% end %>
-  <% if linkable %>
-    <%= content_tag "sl-tooltip", content: Alchemy.t(:unlink) do %>
-      <%= content_tag "button", "", is: "alchemy-unlink-button", class: picture_editor.linked? ? "linked" : "disabled" %>
-    <% end %>
-  <% else %>
-    <span class="disabled" tabindex="-1"><%= render_icon("link-unlink", style: "m") %></span>
-  <% end %>
-</alchemy-link-buttons>
+<% if linkable %>
+  <%= render "alchemy/ingredients/shared/link_tools", ingredient_editor: picture_editor %>
+<% else %>
+  <span class="disabled"><%= render_icon("link", style: "m") %></span>
+  <span class="disabled"><%= render_icon("link-unlink", style: "m") %></span>
+<% end %>
 
 <%= content_tag "sl-tooltip", content: Alchemy.t(:edit_image_properties), placement: "top-end" do %>
   <%= link_to_dialog render_icon(:edit),

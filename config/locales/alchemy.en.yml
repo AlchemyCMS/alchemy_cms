@@ -560,7 +560,7 @@ en:
     password: "Password"
     paste: "paste"
     pictures_in_page: "%{page} in %{pictures}"
-    place_link: "Link text"
+    place_link: "Add link"
     player_version: "Flash Player version"
     "please enter subject and mail address": "Please enter recipient and subject."
     please_confirm: "Please confirm"
@@ -617,7 +617,7 @@ en:
     title: "Title"
     to_alchemy: "To Alchemy"
     unknown: "unknown"
-    unlink: "Remove link from this image."
+    unlink: "Remove link"
     unlock_page: "Leave page"
     unlocked_page: "Unlocked page %{name}."
     uploader:

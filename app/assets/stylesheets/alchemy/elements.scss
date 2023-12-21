@@ -307,6 +307,13 @@ alchemy-tinymce {
 
     .ingredient-editor.picture {
       padding-right: 1px;
+
+      alchemy-link-buttons {
+        width: 33.333%;
+        flex-wrap: nowrap;
+        display: inline-flex;
+        justify-content: space-between;
+      }
     }
 
     .picture_thumbnail {
