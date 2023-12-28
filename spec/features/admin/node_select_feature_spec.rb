@@ -16,8 +16,8 @@ RSpec.describe "Node select", type: :system, js: true do
 
   %w[english klingon].each do |language|
     context language do
-      let(:element) { send "#{language}_element" }
-      let(:node) { send "#{language}_node" }
+      let(:element) { send(:"#{language}_element") }
+      let(:node) { send(:"#{language}_node") }
 
       it "restricts to the site/language of the page the element is on" do
         visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
