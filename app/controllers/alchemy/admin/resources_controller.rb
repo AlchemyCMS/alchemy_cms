@@ -34,16 +34,16 @@ module Alchemy
         respond_to do |format|
           format.html do
             items = items.page(params[:page] || 1).per(items_per_page)
-            instance_variable_set("@#{resource_handler.resources_name}", items)
+            instance_variable_set(:"@#{resource_handler.resources_name}", items)
           end
           format.csv do
-            instance_variable_set("@#{resource_handler.resources_name}", items)
+            instance_variable_set(:"@#{resource_handler.resources_name}", items)
           end
         end
       end
 
       def new
-        instance_variable_set("@#{resource_handler.resource_name}", resource_handler.model.new)
+        instance_variable_set(:"@#{resource_handler.resource_name}", resource_handler.model.new)
       end
 
       def show
@@ -54,7 +54,7 @@ module Alchemy
       end
 
       def create
-        instance_variable_set("@#{resource_handler.resource_name}", resource_handler.model.new(resource_params))
+        instance_variable_set(:"@#{resource_handler.resource_name}", resource_handler.model.new(resource_params))
         resource_instance_variable.save
         render_errors_or_redirect(
           resource_instance_variable,
@@ -169,7 +169,7 @@ module Alchemy
       end
 
       def load_resource
-        instance_variable_set("@#{resource_handler.resource_name}", resource_handler.model.find(params[:id]))
+        instance_variable_set(:"@#{resource_handler.resource_name}", resource_handler.model.find(params[:id]))
       end
 
       def authorize_resource

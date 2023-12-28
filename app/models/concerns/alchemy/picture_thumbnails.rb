@@ -168,7 +168,7 @@ module Alchemy
     def fix_crop_values
       %i[crop_from crop_size].each do |crop_value|
         if public_send(crop_value).is_a?(String)
-          public_send("#{crop_value}=", normalize_crop_value(crop_value))
+          public_send(:"#{crop_value}=", normalize_crop_value(crop_value))
         end
       end
     end

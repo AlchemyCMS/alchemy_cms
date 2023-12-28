@@ -51,10 +51,10 @@ module Alchemy
       validations.each do |validation|
         if validation.respond_to?(:keys)
           validation.map do |key, value|
-            send("validate_#{key}", value)
+            send(:"validate_#{key}", value)
           end
         else
-          send("validate_#{validation}")
+          send(:"validate_#{validation}")
         end
       end
     end
