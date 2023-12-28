@@ -47,40 +47,6 @@
       "note": "Because we actually can't know all attributes each inheriting controller supports, we permit all resource model params. It is adviced that all inheriting controllers implement this method and provide its own set of permitted attributes. As this all happens inside the password protected /admin namespace this can be considered a false positive."
     },
     {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "384ec61125c6390d59fb7ebcf52792ba284bfd463d70d4ef552ab6c328e776f6",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/views/alchemy/admin/elements/fold.js.erb",
-      "line": 11,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => Alchemy::ElementEditor.new(Element.find(params[:id])), {})",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Alchemy::Admin::ElementsController",
-          "method": "fold",
-          "line": 98,
-          "file": "app/controllers/alchemy/admin/elements_controller.rb",
-          "rendered": {
-            "name": "alchemy/admin/elements/fold",
-            "file": "app/views/alchemy/admin/elements/fold.js.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "alchemy/admin/elements/fold"
-      },
-      "user_input": "params[:id]",
-      "confidence": "Weak",
-      "cwe_id": [
-        22
-      ],
-      "note": ""
-    },
-    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
       "fingerprint": "6e6ed4f8b20c07868bc04a4dc419103ecce33bb514eff77790abd57246a4513f",

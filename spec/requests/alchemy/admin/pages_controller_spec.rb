@@ -683,10 +683,28 @@ module Alchemy
           end
 
           context "if passing :redirect_to through params" do
-            subject { post unlock_admin_page_path(page, redirect_to: "this/path") }
+            context "that is admin layout pages path" do
+              subject { post unlock_admin_page_path(page, redirect_to: "/admin/layout_pages") }
 
-            it "should redirect to the given path" do
-              is_expected.to redirect_to("this/path")
+              it "should redirect to the given path" do
+                is_expected.to redirect_to("/admin/layout_pages")
+              end
+            end
+
+            context "that is admin pages path" do
+              subject { post unlock_admin_page_path(page, redirect_to: "/admin/pages") }
+
+              it "should redirect to the given path" do
+                is_expected.to redirect_to("/admin/pages")
+              end
+            end
+
+            context "that is another path" do
+              subject { post unlock_admin_page_path(page, redirect_to: "/this/path") }
+
+              it "should redirect to admin_pages_path" do
+                is_expected.to redirect_to(admin_pages_path)
+              end
             end
           end
         end

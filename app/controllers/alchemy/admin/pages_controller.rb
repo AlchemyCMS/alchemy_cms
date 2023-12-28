@@ -183,11 +183,16 @@ module Alchemy
         respond_to do |format|
           format.js
           format.html do
-            redirect_to(
-              params[:redirect_to].presence || admin_pages_path,
-              allow_other_host: true
-            )
+            redirect_to(unlock_redirect_path, allow_other_host: true)
           end
+        end
+      end
+
+      def unlock_redirect_path
+        if params[:redirect_to].to_s.match?(/\A\/admin\/(layout_)?pages/)
+          params[:redirect_to]
+        else
+          admin_pages_path
         end
       end
 
