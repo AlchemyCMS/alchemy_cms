@@ -25,11 +25,11 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.0"
+          ruby-version: "3.2"
 
       - name: Setup Brakeman
         env:
-          BRAKEMAN_VERSION: "5.4" # SARIF support is provided in Brakeman version 4.10+
+          BRAKEMAN_VERSION: "6.1" # SARIF support is provided in Brakeman version 4.10+
         run: |
           gem install brakeman --version $BRAKEMAN_VERSION
 
