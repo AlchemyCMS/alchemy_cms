@@ -108,7 +108,7 @@ module Alchemy
     def initialize(controller_path, module_definition = nil, custom_model = nil)
       @controller_path = controller_path
       @module_definition = module_definition
-      @model = (custom_model || guess_model_from_controller_path)
+      @model = custom_model || guess_model_from_controller_path
       if model.respond_to?(:alchemy_resource_relations)
         if !model.respond_to?(:reflect_on_all_associations)
           raise MissingActiveRecordAssociation
@@ -320,7 +320,7 @@ module Alchemy
       model.alchemy_resource_relations.each do |name, options|
         relation_name = name.to_s.gsub(/_id$/, "") # ensure that we don't have an id
         association = association_from_relation_name(relation_name)
-        foreign_key = association.options[:foreign_key] || "#{association.name}_id".to_sym
+        foreign_key = association.options[:foreign_key] || :"#{association.name}_id"
         collection = options[:collection] || resource_relation_class(association).all
         resource_relations[foreign_key] = options.merge(
           model_association: association,

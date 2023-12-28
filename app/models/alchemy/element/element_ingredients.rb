@@ -158,8 +158,8 @@ module Alchemy
               "#{name}.#{role}.#{error}",
               scope: "ingredient_validations",
               default: [
-                "fields.#{role}.#{error}".to_sym,
-                "errors.#{error}".to_sym
+                :"fields.#{role}.#{error}",
+                :"errors.#{error}"
               ],
               field: Alchemy::Ingredient.translated_label_for(role, name)
             )
