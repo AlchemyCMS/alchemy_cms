@@ -44,7 +44,7 @@ module Alchemy
       context "if validation of message" do
         before do
           allow(Element).to receive(:find_by).and_return(element)
-          allow(element).to receive(:ingredient).with(:success_page).and_return("thank-you")
+          allow(element).to receive(:value_for) { |a| (a == :success_page) ? "thank-you" : next }
           allow_any_instance_of(Message).to receive(:contact_form_id).and_return(1)
         end
 
@@ -72,26 +72,30 @@ module Alchemy
           describe "#mail_to" do
             context "with element having mail_to ingredient" do
               before do
-                allow(element).to receive(:ingredient).with(:mail_to).and_return("peter@schroeder.de")
+                allow(element).to receive(:value_for).with(:mail_to).and_return("peter@schroeder.de")
                 message
                 allow(Message).to receive(:new).and_return(message)
               end
 
               it "returns the ingredient" do
-                expect(MessagesMailer).to receive(:contact_form_mail).with(message, "peter@schroeder.de", "", "")
+                expect(MessagesMailer).to receive(:contact_form_mail).with(
+                  message, "peter@schroeder.de", "your.mail@your-domain.com", "A new contact form message"
+                )
                 subject
               end
             end
 
             context "with element having no mail_to ingredient" do
               before do
-                allow(element).to receive(:ingredient).with(:mail_to).and_return(nil)
+                allow(element).to receive(:value_for).with(:mail_to).and_return(nil)
                 message
                 allow(Message).to receive(:new).and_return(message)
               end
 
               it "returns the config value" do
-                expect(MessagesMailer).to receive(:contact_form_mail).with(message, "your.mail@your-domain.com", "", "")
+                expect(MessagesMailer).to receive(:contact_form_mail).with(
+                  message, "your.mail@your-domain.com", "your.mail@your-domain.com", "A new contact form message"
+                )
                 subject
               end
             end
@@ -100,26 +104,30 @@ module Alchemy
           describe "#mail_from" do
             context "with element having mail_from ingredient" do
               before do
-                allow(element).to receive(:ingredient).with(:mail_from).and_return("peter@schroeder.de")
+                allow(element).to receive(:value_for).with(:mail_from).and_return("peter@schroeder.de")
                 message
                 allow(Message).to receive(:new).and_return(message)
               end
 
               it "returns the ingredient" do
-                expect(MessagesMailer).to receive(:contact_form_mail).with(message, "", "peter@schroeder.de", "")
+                expect(MessagesMailer).to receive(:contact_form_mail).with(
+                  message, "your.mail@your-domain.com", "peter@schroeder.de", "A new contact form message"
+                )
                 subject
               end
             end
 
             context "with element having no mail_from ingredient" do
               before do
-                allow(element).to receive(:ingredient).with(:mail_from).and_return(nil)
+                allow(element).to receive(:value_for).with(:mail_from).and_return(nil)
                 message
                 allow(Message).to receive(:new).and_return(message)
               end
 
               it "returns the config value" do
-                expect(MessagesMailer).to receive(:contact_form_mail).with(message, "", "your.mail@your-domain.com", "")
+                expect(MessagesMailer).to receive(:contact_form_mail).with(
+                  message, "your.mail@your-domain.com", "your.mail@your-domain.com", "A new contact form message"
+                )
                 subject
               end
             end
@@ -128,26 +136,30 @@ module Alchemy
           describe "#subject" do
             context "with element having subject ingredient" do
               before do
-                allow(element).to receive(:ingredient).with(:subject).and_return("A new message")
+                allow(element).to receive(:value_for).with(:subject).and_return("A new message")
                 message
                 allow(Message).to receive(:new).and_return(message)
               end
 
               it "returns the ingredient" do
-                expect(MessagesMailer).to receive(:contact_form_mail).with(message, "", "", "A new message")
+                expect(MessagesMailer).to receive(:contact_form_mail).with(
+                  message, "your.mail@your-domain.com", "your.mail@your-domain.com", "A new message"
+                )
                 subject
               end
             end
 
             context "with element having no subject ingredient" do
               before do
-                allow(element).to receive(:ingredient).with(:subject).and_return(nil)
+                allow(element).to receive(:value_for).with(:subject).and_return(nil)
                 message
                 allow(Message).to receive(:new).and_return(message)
               end
 
               it "returns the config value" do
-                expect(MessagesMailer).to receive(:contact_form_mail).with(message, "", "", "A new contact form message")
+                expect(MessagesMailer).to receive(:contact_form_mail).with(
+                  message, "your.mail@your-domain.com", "your.mail@your-domain.com", "A new contact form message"
+                )
                 subject
               end
             end
@@ -157,7 +169,7 @@ module Alchemy
             context "if 'success_page' ingredient of element" do
               context "is set with urlname string" do
                 before do
-                  allow(element).to receive(:ingredient).with(:success_page).and_return("success-page")
+                  allow(element).to receive(:value_for).with(:success_page).and_return("success-page")
                 end
 
                 it "should redirect to the given urlname" do
@@ -171,7 +183,7 @@ module Alchemy
                 let(:page) { build(:alchemy_page, name: "Success", urlname: "success-page") }
 
                 before do
-                  allow(element).to receive(:ingredient).with(:success_page).and_return(page)
+                  allow(element).to receive(:value_for).with(:success_page).and_return(page)
                 end
 
                 it "should redirect to the given urlname" do
@@ -184,7 +196,7 @@ module Alchemy
 
             context "if 'success_page' ingredient of element is not set" do
               before do
-                allow(element).to receive(:ingredient).with(:success_page).and_return(nil)
+                allow(element).to receive(:value_for).with(:success_page).and_return(nil)
               end
 
               context "but mailer_config['forward_to_page'] is true and mailer_config['mail_success_page'] is set" do
