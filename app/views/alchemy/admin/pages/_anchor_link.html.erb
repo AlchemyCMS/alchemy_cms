@@ -1,4 +1,4 @@
-<%= form_tag do %>
+<form data-link-form-type="anchor">
   <%= render_message do %>
     <p><%= Alchemy.t(:anchor_link_headline) %></p>
   <% end %>
@@ -17,6 +17,6 @@
     <%= text_field_tag "anchor_link_title", '', class: 'link_title' %>
   </div>
   <div class="submit">
-    <%= button_tag Alchemy.t(:apply), class: 'create-link button', data: { link_type: 'anchor' } %>
+    <%= button_tag Alchemy.t(:apply) %>
   </div>
-<% end %>
+</form>

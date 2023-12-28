@@ -35,9 +35,9 @@ RSpec.describe "alchemy/ingredients/_picture_editor" do
   end
 
   context "with settings[:linkable] being nil" do
-    it "should not render a button to link and unlink the picture" do
-      is_expected.to have_selector("a .icon.ri-link-m")
-      is_expected.to have_selector("a .icon.ri-link-unlink-m")
+    it "should render a button to link and unlink the picture" do
+      is_expected.to have_selector('button[is="alchemy-link-button"]')
+      is_expected.to have_selector('button[is="alchemy-unlink-button"]')
     end
   end
 
@@ -49,13 +49,13 @@ RSpec.describe "alchemy/ingredients/_picture_editor" do
     end
 
     it "should not render a button to link and unlink the picture" do
-      is_expected.to_not have_selector("a .icon.ri-link-m")
-      is_expected.to_not have_selector("a .icon.ri-link-unlink-m")
+      is_expected.to_not have_selector('button[is="alchemy-link-button"]')
+      is_expected.to_not have_selector('button[is="alchemy-unlink-button"]')
     end
 
     it "but renders the disabled link and unlink icons" do
-      is_expected.to have_selector(".icon.ri-link-m")
-      is_expected.to have_selector(".icon.ri-link-unlink-m")
+      is_expected.to have_selector(".disabled .icon.ri-link-m")
+      is_expected.to have_selector(".disabled .icon.ri-link-unlink-m")
     end
   end
 

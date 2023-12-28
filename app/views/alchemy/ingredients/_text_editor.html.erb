@@ -17,7 +17,7 @@
       <%= f.hidden_field :link_title, "data-link-title": true, id: nil %>
       <%= f.hidden_field :link_class_name, "data-link-class": true, id: nil %>
       <%= f.hidden_field :link_target, "data-link-target": true, id: nil %>
-      <%= render "alchemy/ingredients/shared/link_tools", ingredient_editor: text_editor %>
+      <%= render "alchemy/ingredients/shared/link_tools", ingredient_editor: text_editor, wrapper_class: "ingredient_link_buttons" %>
     <% end %>
   <% end %>
 <% end %>

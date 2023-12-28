@@ -307,6 +307,13 @@ alchemy-tinymce {
 
     .ingredient-editor.picture {
       padding-right: 1px;
+
+      alchemy-link-buttons {
+        width: 33.333%;
+        flex-wrap: nowrap;
+        display: inline-flex;
+        justify-content: space-between;
+      }
     }
 
     .picture_thumbnail {
@@ -484,54 +491,52 @@ alchemy-publish-element-button {
   right: 0;
 
   .icon_button {
-    @include button-defaults(
-      $background-color: $medium-gray,
-      $hover-color: darken($medium-gray, 5%),
-      $border: 1px solid #c0c0c0,
-      $box-shadow: none,
-      $hover-border-color: #c0c0c0,
-      $line-height: 30px,
-      $padding: 0,
-      $margin: 0,
-      $border-radius: 0,
-      $focus-border-color: $focus-color,
-      $focus-box-shadow: 0 0 0 2px $focus-color
-    );
-    width: $form-field-addon-width;
-    height: $form-field-height;
+    &:not(.linked) {
+      background-color: $medium-gray;
+      border-color: $default-border-color;
+      border-width: $form-field-border-width;
+      border-style: $form-field-border-style;
+      box-shadow: none;
+      padding: 0;
+      margin: 0;
+      border-radius: 0;
+      width: $form-field-addon-width;
+      height: $form-field-height;
 
-    &.disabled,
-    &.disabled:hover {
-      background-color: $form-field-disabled-bg-color;
-    }
-
-    &.linked.link-ingredient {
-      @include linked-button(
-        $border-radius: 0,
-        $line-height: 30px,
-        $padding: 0
-      );
+      &:hover {
+        border-color: #c0c0c0;
+      }
 
       &:focus {
-        border-radius: 0;
+        box-shadow: 0 0 0 2px $focus-color;
+        border-color: $focus-color;
+      }
+
+      &[is="alchemy-unlink-button"] {
+        border-left-width: 0;
+        @extend .right-rounded-border;
+      }
+
+      &.disabled,
+      &.disabled:hover {
+        background-color: $form-field-disabled-bg-color;
       }
     }
 
-    &.linked.unlink-ingredient {
-      @include linked-button(
-        $border-radius: 0 $default-border-radius $default-border-radius 0,
-        $line-height: 30px,
-        $padding: 0
-      );
+    &.linked {
+      height: 31px;
+      padding: 0;
+      border-radius: 0;
+      border-color: rgba(187, 162, 102, 0.5);
 
-      &:focus {
+      &[is="alchemy-unlink-button"] {
         border-radius: 0 $default-border-radius $default-border-radius 0;
-      }
-    }
+        border-left-width: 0;
 
-    &.unlink-ingredient {
-      border-left-width: 0;
-      @extend .right-rounded-border;
+        &:focus {
+          border-radius: 0 $default-border-radius $default-border-radius 0;
+        }
+      }
     }
   }
 }

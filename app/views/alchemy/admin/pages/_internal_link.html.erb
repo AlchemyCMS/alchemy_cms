@@ -1,4 +1,4 @@
-<%= form_tag do %>
+<form data-link-form-type="internal">
   <%= render_message do %>
     <h3><%= Alchemy.t(:internal_link_headline) %></h3>
     <p><%= Alchemy.t(:internal_link_page_elements_explanation) %></p>
@@ -30,6 +30,6 @@
       class: 'link_target' %>
   </div>
   <div class="submit">
-    <%= button_tag Alchemy.t(:apply), class: 'create-link button', data: { link_type: 'internal' } %>
+    <%= button_tag Alchemy.t(:apply) %>
   </div>
-<% end %>
+</form>

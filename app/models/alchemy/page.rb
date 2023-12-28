@@ -541,7 +541,7 @@ module Alchemy
 
     def set_fixed_attributes
       fixed_attributes.all.each do |attribute, value|
-        send("#{attribute}=", value)
+        send(:"#{attribute}=", value)
       end
     end
 

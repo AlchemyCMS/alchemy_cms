@@ -1,4 +1,4 @@
-<%= form_tag do %>
+<form data-link-form-type="external">
   <%= render_message do %>
     <h3><%= Alchemy.t(:enter_external_link) %></h3>
     <p><%= Alchemy.t(:external_link_notice_1) %></p>
@@ -26,6 +26,6 @@
       class: 'link_target' %>
   </div>
   <div class="submit">
-    <%= button_tag Alchemy.t(:apply), class: 'create-link button', data: { link_type: 'external' } %>
+    <%= button_tag Alchemy.t(:apply) %>
   </div>
-<% end %>
+</form>
