@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.0.8 (2023-12-28)
+
+- [7.0-stable] Merge pull request #2658 from tvdeyen/fix-contactform-mailer [#2660](https://github.com/AlchemyCMS/alchemy_cms/pull/2660) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.0] Fix humanization for add nested element button [#2659](https://github.com/AlchemyCMS/alchemy_cms/pull/2659) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.0.7 (2023-11-28)
 
 - [7.0] Disable Turbolinks on menubar [#2622](https://github.com/AlchemyCMS/alchemy_cms/pull/2622) ([tvdeyen](https://github.com/tvdeyen))
