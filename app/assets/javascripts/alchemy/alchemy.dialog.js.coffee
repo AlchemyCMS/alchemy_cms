@@ -147,10 +147,10 @@ class window.Alchemy.Dialog
   # - Overlay (if the Dialog is a modal)
   # - ESC Key
   bind_close_events: ->
-    @close_button.click =>
+    @close_button.on "click", =>
       @close()
       false
-    @dialog_container.addClass('closable').click (e) =>
+    @dialog_container.addClass('closable').on "click", (e) =>
       return true if e.target != @dialog_container.get(0)
       @close()
       false

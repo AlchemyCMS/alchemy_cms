@@ -33,7 +33,7 @@ function Initialize() {
   // Add observer for please wait overlay.
   $(".please_wait")
     .not("*[data-alchemy-confirm]")
-    .click(Alchemy.pleaseWaitOverlay)
+    .on("click", Alchemy.pleaseWaitOverlay)
 
   // Hack for enabling tab focus for <a>'s styled as button.
   $("a.button").attr({ tabindex: 0 })

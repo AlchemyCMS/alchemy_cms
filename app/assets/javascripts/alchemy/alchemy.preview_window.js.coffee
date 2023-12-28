@@ -10,7 +10,7 @@ Alchemy.PreviewWindow =
     $iframe = $("<iframe name=\"alchemy_preview_window\" src=\"#{@previewUrl}\" id=\"alchemy_preview_window\" frameborder=\"0\"/>")
     $reload = $('#reload_preview_button')
     @_showSpinner()
-    $iframe.load =>
+    $iframe.on "load", =>
       @_hideSpinner()
     $('body').append($iframe)
     @currentWindow = $iframe
@@ -31,7 +31,7 @@ Alchemy.PreviewWindow =
     @_showSpinner()
     # We need to be sure that no load event is binded on the preview frame.
     $iframe.off('load')
-    $iframe.load (e) =>
+    $iframe.on "load", (e) =>
       @_hideSpinner()
       if callback
         callback.call(e, $iframe)
@@ -55,7 +55,7 @@ Alchemy.PreviewWindow =
     $reload = $('#reload_preview_button')
     key 'alt+r', =>
       @refresh()
-    $reload.click (e) =>
+    $reload.on "click", (e) =>
       e.preventDefault()
       @refresh()
 
@@ -71,7 +71,7 @@ Alchemy.PreviewWindow =
       null
 
   _bindSelect: ->
-    $(@select).change (e) =>
+    $(@select).on "change", (e) =>
       @previewUrl = e.target.value
       option = e.target.querySelector("option[value='#{@previewUrl}']")
       window.localStorage.setItem("alchemyPreview", option.text)

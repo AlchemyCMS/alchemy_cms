@@ -12,7 +12,7 @@ Alchemy.Growler =
 
   fade: ->
     $(".flash:not(.error)", "#flash_notices").delay(5000).queue(-> Alchemy.Growler.dismiss(this))
-    $(".flash", "#flash_notices").click((e) => @dismiss(e.currentTarget))
+    $(".flash", "#flash_notices").on("click", (e) => @dismiss(e.currentTarget))
     return
 
   dismiss: (element) ->

@@ -19,7 +19,7 @@
 <% if @settings %>
 <script type="text/javascript">
   Alchemy.ImageLoader('#jscropper .thumbnail_background');
-  $('#imageToCrop').load(function() {
+  $('#imageToCrop').on("load", function() {
     new Alchemy.ImageCropper(
       <%= @settings[:min_size].to_json %>,
       <%= @settings[:default_box].to_json %>,
