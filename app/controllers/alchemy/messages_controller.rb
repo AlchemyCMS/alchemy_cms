@@ -77,15 +77,15 @@ module Alchemy
     end
 
     def mail_to
-      @element.ingredient(:mail_to) || mailer_config["mail_to"]
+      @element.value_for(:mail_to) || mailer_config["mail_to"]
     end
 
     def mail_from
-      @element.ingredient(:mail_from) || mailer_config["mail_from"]
+      @element.value_for(:mail_from) || mailer_config["mail_from"]
     end
 
     def subject
-      @element.ingredient(:subject) || mailer_config["subject"]
+      @element.value_for(:subject) || mailer_config["subject"]
     end
 
     def redirect_to_success_page
@@ -104,7 +104,7 @@ module Alchemy
     end
 
     def success_page
-      @_success_page ||= @element.ingredient(:success_page)
+      @_success_page ||= @element.value_for(:success_page)
     end
 
     def success_page_urlname
