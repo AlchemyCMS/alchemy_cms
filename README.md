@@ -51,7 +51,7 @@ Visit the existing demo at https://alchemy-demo.fly.dev/
 
 ## 🚂 Rails Version
 
-**This version of AlchemyCMS runs with Rails 7.0**
+**This version of AlchemyCMS runs with Rails 7.0 and 7.1**
 
 * For a Rails 6.1 compatible version use the [`7.0-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/7.0-stable).
 * For a Rails 6.0 compatible version use the [`6.1-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/6.1-stable).
