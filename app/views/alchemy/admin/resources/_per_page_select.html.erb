@@ -1,6 +1,6 @@
 <%= form_tag url_for, method: :get, class: 'per-page-select-form' do |f| %>
   <% search_filter_params.reject { |k, _| k == 'page' || k == 'per_page' }.each do |key, value| %>
-    <% if value.is_a? Hash %>
+    <% if value.is_a? ActionController::Parameters %>
       <% value.each do |k, v| %>
         <%= hidden_field_tag "#{key}[#{k}]", v, id: nil %>
       <% end %>
