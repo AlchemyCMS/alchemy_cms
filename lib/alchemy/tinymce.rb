@@ -4,7 +4,15 @@ module Alchemy
   module Tinymce
     mattr_accessor :languages, :plugins
 
-    DEFAULT_PLUGINS = %w[anchor charmap code directionality fullscreen hr link lists paste tabfocus]
+    DEFAULT_PLUGINS = %w[
+      anchor
+      charmap
+      code
+      directionality
+      fullscreen
+      link
+      lists
+    ]
 
     @@plugins = DEFAULT_PLUGINS + %w[alchemy_link]
     @@init = {
@@ -14,6 +22,7 @@ module Alchemy
       width: "auto",
       resize: true,
       min_height: 250,
+      height: 250,
       menubar: false,
       statusbar: true,
       toolbar: [

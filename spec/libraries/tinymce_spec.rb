@@ -35,11 +35,8 @@ module Alchemy
           code
           directionality
           fullscreen
-          hr
           link
           lists
-          paste
-          tabfocus
           alchemy_link
           foo
         ]
