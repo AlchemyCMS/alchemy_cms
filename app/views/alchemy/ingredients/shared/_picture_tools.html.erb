@@ -35,8 +35,8 @@
 <% if linkable %>
   <%= render "alchemy/ingredients/shared/link_tools", ingredient_editor: picture_editor %>
 <% else %>
-  <span class="disabled"><%= render_icon("link", style: "m") %></span>
-  <span class="disabled"><%= render_icon("link-unlink", style: "m") %></span>
+  <span class="icon_button disabled"><%= render_icon("link", style: "m") %></span>
+  <span class="icon_button disabled"><%= render_icon("link-unlink", style: "m") %></span>
 <% end %>
 
 <%= content_tag "sl-tooltip", content: Alchemy.t(:edit_image_properties), placement: "top-end" do %>
