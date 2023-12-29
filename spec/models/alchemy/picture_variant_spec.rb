@@ -178,7 +178,7 @@ RSpec.describe Alchemy::PictureVariant do
       it "flattens the image." do
         step = subject.steps[0]
         expect(step.name).to eq(:encode)
-        expect(step.arguments).to eq(["png", "-flatten"])
+        expect(step.arguments).to eq(["png", "-background transparent -flatten"])
       end
 
       context "converted to webp" do

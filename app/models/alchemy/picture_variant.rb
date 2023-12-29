@@ -100,6 +100,7 @@ module Alchemy
       end
 
       if options[:flatten]
+        encoding_options << "-background transparent" if render_format == "png"
         encoding_options << "-flatten"
       end
 
