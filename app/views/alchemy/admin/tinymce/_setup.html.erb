@@ -1,7 +1,6 @@
 <% asset_host = ActionController::Base.config.asset_host %>
 
-<link rel="preload" href="<%= asset_host %><%= assets_prefix %>/tinymce/skins/alchemy/skin.min.css" as="style" />
-<link rel="preload" href="<%= asset_host %><%= assets_prefix %>/tinymce/skins/alchemy/content.min.css" as="style" />
+<link rel="preload" href="<%= asset_host %><%= assets_prefix %>/tinymce/skins/ui/alchemy/skin.min.css" as="style" />
 <% if Alchemy::Tinymce.init[:content_css] %>
   <link rel="preload" href="<%= asset_host %><%= Alchemy::Tinymce.init[:content_css] %>" as="style" />
 <% end %>

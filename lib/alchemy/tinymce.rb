@@ -9,6 +9,7 @@ module Alchemy
     @@plugins = DEFAULT_PLUGINS + %w[alchemy_link]
     @@init = {
       skin: "alchemy",
+      content_css: "/assets/tinymce/skins/content/alchemy/content.min.css",
       width: "auto",
       resize: true,
       min_height: 220,

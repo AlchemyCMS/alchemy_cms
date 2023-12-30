@@ -555,8 +555,8 @@ alchemy-publish-element-button {
   border-bottom-right-radius: $default-border-radius;
 
   .icon_button {
-    width: 26px;
-    height: 26px;
+    width: $icon-button-medium-width;
+    height: $icon-button-medium-height;
   }
 }
 

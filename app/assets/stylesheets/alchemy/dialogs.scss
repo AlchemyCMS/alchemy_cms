@@ -126,7 +126,7 @@ $dialog-transition-duration: 150ms;
   gap: $default-padding;
   position: relative;
   height: $dialog-header-height;
-  padding: 0 2 * $default-padding;
+  padding: $dialog-header-padding;
   background: $dialog-header-color;
   color: $dialog-header-text-color;
   font-weight: normal;

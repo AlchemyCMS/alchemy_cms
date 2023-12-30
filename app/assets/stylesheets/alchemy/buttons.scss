@@ -52,16 +52,16 @@ input.button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: $icon-button-width;
+  height: $icon-button-height;
   margin: 0;
   padding: 0;
   text-shadow: none;
   border-radius: $default-border-radius;
 
   &.small {
-    width: 15px;
-    height: 15px;
+    width: $icon-button-small-width;
+    height: $icon-button-small-height;
     background: none;
     border: none;
   }
