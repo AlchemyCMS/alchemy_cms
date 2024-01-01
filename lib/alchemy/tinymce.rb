@@ -13,7 +13,7 @@ module Alchemy
       icons: "remixicons",
       width: "auto",
       resize: true,
-      min_height: 220,
+      min_height: 250,
       menubar: false,
       statusbar: true,
       toolbar: [
