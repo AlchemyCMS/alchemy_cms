@@ -84,7 +84,7 @@ class Tinymce extends AlchemyHTMLElement {
 
     // read the attributes on the component and add them as custom configuration
     this.getAttributeNames().forEach((attributeName) => {
-      if (!["class", "id", "is", "name"].includes(attributeName)) {
+      if (!["class", "id", "is", "name", "style"].includes(attributeName)) {
         const config = this.getAttribute(attributeName)
         const key = attributeName.replaceAll("-", "_")
 
