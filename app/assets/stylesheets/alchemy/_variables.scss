@@ -30,7 +30,11 @@ $default-font-size: 1em !default;
 $small-font-size: 0.9em !default;
 $default-font-style: $default-font-size $default-font-family !default;
 
+$default-padding: 4px !default;
+$default-margin: $default-padding !default;
+
 $dialog-header-height: 36px !default;
+$dialog-header-padding: 0 2 * $default-padding !default;
 $dialog-header-color: $dark-blue !default;
 $dialog-header-text-color: $white !default;
 $dialog-header-font-size: $default-font-size !default;
@@ -38,9 +42,6 @@ $dialog-box-shadow: 0 8px 16px rgba(35, 35, 35, 0.5) !default;
 $dialog-overlay-color: rgb(100, 100, 100) !default;
 $dialog-overlay-opacity: 0.4 !default;
 $dialog-background-color: $light-gray !default;
-
-$default-padding: 4px !default;
-$default-margin: $default-padding !default;
 
 $default-border-color: rgba(#afafaf, 0.5) !default;
 $border-inset-color: lighten($default-border-color, 10%) !default;
@@ -83,6 +84,13 @@ $button-focus-box-shadow: 0px 1px 1px 0px $button-focus-border-color !default;
 $button-padding: $default-padding 5 * $default-padding !default;
 $small-button-padding: 0.4em 0.8em !default;
 $button-margin: $form-field-margin !default;
+
+$icon-button-width: 30px !default;
+$icon-button-height: 30px !default;
+$icon-button-medium-width: 26px !default;
+$icon-button-medium-height: 26px !default;
+$icon-button-small-width: 15px !default;
+$icon-button-small-height: 15px !default;
 
 $secondary-button-bg-color: transparent !default;
 $secondary-button-text-color: $text-color !default;

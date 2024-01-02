@@ -34,8 +34,7 @@ RSpec.describe "TinyMCE Editor", type: :system do
     it "should preload assets" do
       visit admin_dashboard_path
       expect(page)
-        .to have_css('link[rel="preload"][href="/assets/tinymce/skins/alchemy/skin.min.css"]')
-        .and have_css('link[rel="preload"][href="/assets/tinymce/skins/alchemy/content.min.css"]')
+        .to have_css('link[rel="preload"][href="/assets/tinymce/skins/ui/alchemy/skin.min.css"]')
     end
 
     context "with asset host" do
@@ -49,8 +48,7 @@ RSpec.describe "TinyMCE Editor", type: :system do
       it "should preload assets from host" do
         visit admin_dashboard_path
         expect(page)
-          .to have_css('link[rel="preload"][href="https://myhost.com/assets/tinymce/skins/alchemy/skin.min.css"]')
-          .and have_css('link[rel="preload"][href="https://myhost.com/assets/tinymce/skins/alchemy/content.min.css"]')
+          .to have_css('link[rel="preload"][href="https://myhost.com/assets/tinymce/skins/ui/alchemy/skin.min.css"]')
       end
     end
 

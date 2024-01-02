@@ -16,9 +16,6 @@ import SortableElements from "alchemy_admin/sortable_elements"
 import Spinner from "alchemy_admin/spinner"
 import PagePublicationFields from "alchemy_admin/page_publication_fields"
 
-// Setting jQueryUIs global animation duration to something more snappy
-$.fx.speeds._default = 400
-
 // Web Components
 import "alchemy_admin/components/button"
 import "alchemy_admin/components/char_counter"

@@ -149,13 +149,13 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
 
   # Selects the correct tab for link type and fills all fields.
   selectTab: ->
-    # Creating an temporary anchor node if we are linking an Picture Ingredient.
-    if (@link_object.getAttribute("is") == "alchemy-link-button")
-      @$link = $(@createTempLink())
     # Restoring the bookmarked selection inside the TinyMCE of an Richtext.
-    else if (@link_object.node.nodeName == 'A')
+    if @link_object.node?.nodeName == 'A'
       @$link = $(@link_object.node)
       @link_object.selection.moveToBookmark(@link_object.bookmark)
+    # Creating an temporary anchor node if we are linking an Picture Ingredient.
+    else if @link_object.getAttribute("is") == "alchemy-link-button"
+      @$link = $(@createTempLink())
     else
       return false
     # Populate title and target fields.
