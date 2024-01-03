@@ -2094,9 +2094,9 @@ body.tox-dialog__disable-scroll {
   border-width: 1px;
   box-shadow: none;
   box-sizing: border-box;
-  height: 24px;
+  height: 23px;
   position: absolute;
-  top: 6px;
+  top: 4px;
   width: 24px;
 }
 
@@ -2116,11 +2116,11 @@ body.tox-dialog__disable-scroll {
     linear-gradient(45deg, transparent 75%, rgba(0, 0, 0, 0.25) 75%),
     linear-gradient(-45deg, transparent 75%, rgba(0, 0, 0, 0.25) 75%);
   background-position:
-    0 0,
-    0 6px,
-    6px -6px,
-    -6px 0;
-  background-size: 12px 12px;
+    -1px -1px,
+    -1px 3px,
+    3px -5px,
+    -5px -1px;
+  background-size: 8px 8px;
   border: 1px solid #fff;
   border-radius: $default-border-radius;
   box-sizing: border-box;
@@ -2142,7 +2142,7 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox:not([dir="rtl"]) .tox-color-input span {
-  left: 6px;
+  left: 4px;
 }
 
 .tox[dir="rtl"] .tox-color-input .tox-textfield {
@@ -2150,7 +2150,7 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox[dir="rtl"] .tox-color-input span {
-  right: 6px;
+  right: 4px;
 }
 
 .tox .tox-label,
