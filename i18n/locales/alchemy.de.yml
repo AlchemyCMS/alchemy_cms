@@ -445,6 +445,7 @@ de:
     edit_tag: "Tag bearbeiten"
     edit_selected_pictures: "Selektierte Bilder:"
     element_editor_not_found: "Bei diesem Element ist ein Fehler aufgetreten"
+    element_hidden: "versteckt"
     element_of_type: "Element"
     element_saved: "Element wurde gespeichert."
     enter_external_link: "Geben Sie hier die Adresse der Seite ein zu der Sie einen Link setzen wollen."
@@ -561,14 +562,21 @@ de:
         "true": "Die Seite ist in der Navigation sichtbar."
         "false": "Die Seite ist nicht in der Navigation sichtbar."
       public:
-        "true": "Die Seite ist veröffentlicht."
-        "false": "Die Seite ist nicht veröffentlicht."
+        "true": "Die Seite ist öffentlich."
+        "false": "Die Seite ist versteckt."
       locked:
         "true": "Die Seite wird gerade bearbeitet."
         "false": ""
       restricted:
-        "true": "Die Seite ist geschützt."
-        "false": "Die Seite ist nicht geschützt."
+        "true": "Die Seite ist beschränkt auf Mitglieder."
+        "false": "Die Seite ist für jeden zugänglich."
+    page_status_titles:
+      public:
+        "true": "öffentlich"
+        "false": "versteckt"
+      restricted:
+        "true": "beschränkt"
+        "false": "zugänglich"
     page_status: "Status"
     page_title: "Titel"
     page_type: "Typ"
