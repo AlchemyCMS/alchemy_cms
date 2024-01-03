@@ -2,6 +2,8 @@ import { AlchemyHTMLElement } from "alchemy_admin/components/alchemy_html_elemen
 import { currentLocale } from "alchemy_admin/i18n"
 
 class Tinymce extends AlchemyHTMLElement {
+  #min_height = null
+
   /**
    * the observer will initialize Tinymce if the textarea becomes visible
    */
@@ -120,7 +122,11 @@ class Tinymce extends AlchemyHTMLElement {
   }
 
   get minHeight() {
-    return this.configuration.min_height
+    return this.#min_height || this.configuration.min_height
+  }
+
+  set minHeight(value) {
+    this.#min_height = value
   }
 }
 
