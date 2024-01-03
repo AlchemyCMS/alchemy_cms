@@ -74,8 +74,6 @@ tinymce.IconManager.add("remixicons", {
       '<svg viewBox="0 0 24 24" width="16" height="16"><path d="m5.6 4 4.9 6 4.9-6H18l-6.2 7.5L18 19h-2.6l-4.9-6-5 6H3l6.2-7.5L3 4h2.6Zm16.2 12a.8.8 0 1 0-1.6.2l-1.1.3a2 2 0 1 1 3.3 1L20.7 19H23v1h-4v-1l2.6-2.4.2-.6Z"/></svg>',
     superscript:
       '<svg viewBox="0 0 24 24" width="16" height="16"><path d="m5.6 5 4.9 6 4.9-6H18l-6.2 7.5L18 20h-2.6l-4.9-6-5 6H3l6.2-7.5L3 5h2.6Zm16 1.6a.8.8 0 0 0-.6-1.4.8.8 0 0 0-.8 1l-1.1.3a2 2 0 1 1 3.3 1L20.7 9H23v1h-4V9l2.6-2.4Z"/></svg>',
-    table:
-      '<svg viewBox="0 0 24 24" width="16" height="16"><path d="M13 10v4h6v-4h-6Zm-2 0H5v4h6v-4Zm2 9h6v-3h-6v3Zm-2 0v-3H5v3h6Zm2-14v3h6V5h-6Zm-2 0H5v3h6V5ZM4 3h16c.6 0 1 .4 1 1v16c0 .6-.4 1-1 1H4a1 1 0 0 1-1-1V4c0-.6.4-1 1-1Z"/></svg>',
     "text-color":
       '<svg viewBox="0 0 24 24" width="16" height="16"><path d="M15.2 14H8.8l-1.6 4H5l6-15h2l6 15h-2.2l-1.6-4Zm-.8-2L12 5.9 9.6 12h4.8ZM3 20h18v2H3v-2Z"/></svg>',
     underline:
