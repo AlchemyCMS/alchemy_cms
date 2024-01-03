@@ -69,9 +69,12 @@
   img {
     max-width: 100%;
     max-height: 100%;
-    background: $thumbnail-background;
 
-    &[src*=".svg"] {
+    &:not([src*="alchemy/missing-image"]) {
+      background: $thumbnail-background;
+    }
+
+    &[src$=".svg"]:not([src*="alchemy/missing-image"]) {
       width: var(--picture-width);
       max-height: var(--picture-height);
     }

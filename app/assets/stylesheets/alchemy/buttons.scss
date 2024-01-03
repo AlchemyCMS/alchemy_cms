@@ -64,6 +64,7 @@ input.button {
     height: $icon-button-small-height;
     background: none;
     border: none;
+    padding: 0; // button.small has padding
   }
 
   &.active,

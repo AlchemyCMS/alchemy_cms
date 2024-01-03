@@ -604,9 +604,8 @@ alchemy-publish-element-button {
     height: 120px;
 
     .icon {
-      font-size: 4em;
-      color: $medium-gray;
-      vertical-align: top;
+      font-size: 3em;
+      color: var(--color-grey_dark);
 
       &.error {
         font-size: 1.2em;
