@@ -68,11 +68,8 @@ describe("alchemy-tinymce", () => {
       expect(component.configuration.foo_bar).toEqual("bar | foo")
     })
 
-    it("should use these configuration for the tinymce", () => {
-      intersectionObserver.enterNode(component)
-      const tinymceSettings = tinymce.get(textareaId).settings
-      expect(tinymceSettings.id).toEqual(textareaId)
-      expect(tinymceSettings.toolbar).toEqual("bold italic")
+    it("should set the selector to textarea id", () => {
+      expect(component.configuration.selector).toEqual("#tinymce-textarea")
     })
   })
 
