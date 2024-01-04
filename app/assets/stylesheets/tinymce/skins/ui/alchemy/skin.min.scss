@@ -1556,6 +1556,8 @@ button::-moz-focus-inner {
 .tox .tox-dialog__header .tox-button {
   z-index: 1;
   color: $white;
+  background-image: none; // If used in Solidus we need to override the background image
+  border: none; // If used in Solidus we need to override the border
 }
 
 .tox .tox-dialog__draghandle {
@@ -2265,6 +2267,7 @@ body.tox-dialog__disable-scroll {
   -moz-appearance: none;
   appearance: none;
   background-color: $form-field-background-color;
+  background-image: none; // If nested in Solidus we need to override the background image
   border-color: $form-field-border-color;
   border-radius: $default-border-radius;
   border-style: $form-field-border-style;
@@ -2281,6 +2284,11 @@ body.tox-dialog__disable-scroll {
   padding: $form-field-padding;
   resize: none;
   width: 100%;
+
+  // If nested in Solidus we need to override the background image
+  &:hover {
+    background-image: none;
+  }
 }
 
 .tox .tox-textarea[disabled],
