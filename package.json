@@ -17,7 +17,6 @@
     "jest-environment-jsdom": "^29.6.4",
     "jquery": "^3.7.1",
     "jsdom-testing-mocks": "^1.11.0",
-    "lodash-es": "^4.17.21",
     "prettier": "^3.0.0",
     "sortablejs": "^1.10.2",
     "xhr-mock": "^2.5.1"
