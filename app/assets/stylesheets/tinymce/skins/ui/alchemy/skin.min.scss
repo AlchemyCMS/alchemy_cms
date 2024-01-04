@@ -2303,7 +2303,7 @@ body.tox-dialog__disable-scroll {
 .tox .tox-textfield:focus {
   border-color: transparent;
   box-shadow: none;
-  outline: 1px solid $focus-color;
+  outline: 1px solid $focus-color !important; // Need to force the outline if used in Solidus
 }
 
 .tox .tox-toolbar-textfield {
