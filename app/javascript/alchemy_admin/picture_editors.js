@@ -1,4 +1,4 @@
-import debounce from "lodash-es/debounce"
+import debounce from "alchemy_admin/utils/debounce"
 import max from "lodash-es/max"
 import { get } from "alchemy_admin/utils/ajax"
 import ImageLoader from "alchemy_admin/image_loader"
@@ -27,6 +27,8 @@ class PictureEditor {
       this.imageLoader = new ImageLoader(this.image)
     }
 
+    // The mutation observer is observing multiple fields that all get updated
+    // simultaneously. We only want to update the image once, so we debounce.
     this.update = debounce(() => {
       this.updateImage()
       this.updateCropLink()
