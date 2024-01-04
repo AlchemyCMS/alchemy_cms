@@ -1,5 +1,5 @@
 import debounce from "alchemy_admin/utils/debounce"
-import max from "lodash-es/max"
+import max from "alchemy_admin/utils/max"
 import { get } from "alchemy_admin/utils/ajax"
 import ImageLoader from "alchemy_admin/image_loader"
 
