@@ -51,6 +51,43 @@ module Alchemy
           end
         end
       end
+
+      context "if config has been replaced" do
+        context "with a new default" do
+          before do
+            expect(described_class).to receive(:replaced_config_keys).at_least(:once) do
+              {foo: :bar}
+            end
+          end
+
+          context "and config uses old key" do
+            before do
+              expect(described_class).to receive(:show).at_least(:once) do
+                {"bar" => :baz}
+              end
+            end
+
+            it "warns about new key and returns old value" do
+              expect(Alchemy::Deprecation).to \
+                receive(:warn).with("Using bar configuration is deprecated and will be removed in Alchemy #{Alchemy::Deprecation.deprecation_horizon}. Please use foo instead.")
+              expect(Config.get(:foo)).to eq(:baz)
+            end
+          end
+
+          context "and config uses new key" do
+            before do
+              expect(described_class).to receive(:show).at_least(:once) do
+                {"foo" => :bar}
+              end
+            end
+
+            it "warns about new key and returns old value" do
+              expect(Alchemy::Deprecation).to_not receive(:warn)
+              expect(Config.get(:foo)).to eq(:bar)
+            end
+          end
+        end
+      end
     end
 
     describe ".main_app_config" do

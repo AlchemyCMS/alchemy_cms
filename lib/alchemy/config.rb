@@ -9,7 +9,8 @@ module Alchemy
       #
       def get(name)
         check_deprecation(name)
-        show[name.to_s]
+        key = check_replacement(name)
+        show[key.to_s]
       end
 
       alias_method :parameter, :get
@@ -27,10 +28,15 @@ module Alchemy
         @config ||= merge_configs!(alchemy_config, main_app_config, env_specific_config)
       end
 
-      # A list of deprecated configurations
+      # A list of deprecated configuration values
       # a value of nil means there is no new default
       # any not nil value is the new default
       def deprecated_configs
+        {}
+      end
+
+      # A list of replaced configuration keys
+      def replaced_config_keys
         {}
       end
 
@@ -85,6 +91,20 @@ module Alchemy
               Alchemy::Deprecation.warn("Setting #{name} configuration to #{value} is deprecated and will be always #{config} in Alchemy #{Alchemy::Deprecation.deprecation_horizon}")
             end
           end
+        end
+      end
+
+      def check_replacement(name)
+        if replaced_config_keys.key?(name.to_sym)
+          old_key = replaced_config_keys[name.to_sym]
+          if show[old_key.to_s]
+            Alchemy::Deprecation.warn("Using #{old_key} configuration is deprecated and will be removed in Alchemy #{Alchemy::Deprecation.deprecation_horizon}. Please use #{name} instead.")
+            old_key
+          else
+            name
+          end
+        else
+          name
         end
       end
     end
