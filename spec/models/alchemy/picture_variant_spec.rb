@@ -227,7 +227,7 @@ RSpec.describe Alchemy::PictureVariant do
         it "does not flatten the image." do
           step = subject.steps[0]
           expect(step.name).to eq(:encode)
-          expect(step.arguments).to eq(["webp", ""])
+          expect(step.arguments).to eq(["webp", "-quality 85"])
         end
       end
     end
@@ -315,6 +315,90 @@ RSpec.describe Alchemy::PictureVariant do
             expect(step.name).to eq(:encode)
             expect(step.arguments).to eq([format, "-quality 30"])
           end
+        end
+      end
+
+      context "and image has webp format" do
+        let(:image_file) do
+          File.new(File.expand_path("../../fixtures/image5.webp", __dir__))
+        end
+
+        let(:alchemy_picture) do
+          build_stubbed(:alchemy_picture, image_file: image_file, image_file_format: "webp")
+        end
+
+        let(:options) do
+          {format: format}
+        end
+
+        it "converts the picture into #{format}" do
+          step = subject.steps[0]
+          expect(step.name).to eq(:encode)
+          expect(step.arguments).to eq([format, "-quality 85"])
+        end
+
+        context "and quality is passed in options" do
+          let(:options) do
+            {format: format, quality: "30"}
+          end
+
+          it "sets the quality as well" do
+            step = subject.steps[0]
+            expect(step.name).to eq(:encode)
+            expect(step.arguments).to eq([format, "-quality 30"])
+          end
+        end
+      end
+    end
+  end
+
+  context "when webp format is requested" do
+    let(:options) do
+      {format: "webp"}
+    end
+
+    context "and the image file format is not WebP" do
+      it "converts image into webp and sets the default quality" do
+        step = subject.steps[0]
+        expect(step.name).to eq(:encode)
+        expect(step.arguments).to eq(["webp", "-quality 85"])
+      end
+
+      context "but quality is passed" do
+        let(:options) do
+          {format: "webp", quality: "30"}
+        end
+
+        it "converts with given quality" do
+          step = subject.steps[0]
+          expect(step.name).to eq(:encode)
+          expect(step.arguments).to eq(["webp", "-quality 30"])
+        end
+      end
+    end
+
+    context "and image already has webp format" do
+      let(:image_file) do
+        File.new(File.expand_path("../../fixtures/image5.webp", __dir__))
+      end
+
+      let(:alchemy_picture) do
+        build_stubbed(:alchemy_picture, image_file: image_file, image_file_format: "webp")
+      end
+
+      it "does not convert the picture format" do
+        expect(subject).to_not respond_to(:steps)
+      end
+
+      context "and quality is passed in options" do
+        let(:options) do
+          {format: "webp", quality: "30"}
+        end
+
+        it "converts to given quality" do
+          step = subject.steps[0]
+          expect(step.name).to eq(:encode)
+          expect(step.arguments).to eq(["webp", "-quality 30"])
         end
       end
     end

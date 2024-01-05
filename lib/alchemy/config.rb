@@ -37,7 +37,9 @@ module Alchemy
 
       # A list of replaced configuration keys
       def replaced_config_keys
-        {}
+        {
+          output_image_quality: :output_image_jpg_quality
+        }
       end
 
       private

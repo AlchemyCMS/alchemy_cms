@@ -78,13 +78,13 @@ items_per_page: 15
 #
 # ==== Global Options:
 #
-#   output_image_jpg_quality  [Integer]       # If image gets rendered as JPG this is the quality setting for it. (Default 85)
+#   output_image_quality      [Integer]       # If image gets rendered as JPG or WebP this is the quality setting for it. (Default 85)
 #   preprocess_image_resize   [String]        # Use this option to resize images to the given size when they are uploaded to the image library. Downsizing example: '1000x1000>' (Default nil)
 #   image_output_format       [String]        # The global image output format setting. (Default +original+)
 #
 # NOTE: You can always override the output format in the settings of your ingredients in elements.yml, I.E. {format: 'gif'}
 #
-output_image_jpg_quality: 85
+output_image_quality: 85
 preprocess_image_resize:
 image_output_format: original
 
@@ -133,7 +133,8 @@ mailer:
   mail_from: your.mail@your-domain.com
   mail_to: your.mail@your-domain.com
   subject: A new contact form message
-  fields: [salutation, firstname, lastname, address, zip, city, phone, email, message]
+  fields:
+    [salutation, firstname, lastname, address, zip, city, phone, email, message]
   validate_fields: [lastname, email]
 
 # === User roles
@@ -166,14 +167,14 @@ uploader:
   file_size_limit: 100
   allowed_filetypes:
     alchemy/attachments:
-    - '*'
+      - "*"
     alchemy/pictures:
-    - jpg
-    - jpeg
-    - gif
-    - png
-    - svg
-    - webp
+      - jpg
+      - jpeg
+      - gif
+      - png
+      - svg
+      - webp
 
 # === Link Target Options
 #
