@@ -14,6 +14,7 @@ module Alchemy
     include Alchemy::Picture::Transformations
 
     ANIMATED_IMAGE_FORMATS = %w[gif webp]
+    TRANSPARENT_IMAGE_FORMATS = %w[gif webp png]
 
     attr_reader :picture, :render_format
 
@@ -100,7 +101,9 @@ module Alchemy
       end
 
       if options[:flatten]
-        encoding_options << "-background transparent" if render_format == "png"
+        if render_format.in?(TRANSPARENT_IMAGE_FORMATS) && picture.image_file_format.in?(TRANSPARENT_IMAGE_FORMATS)
+          encoding_options << "-background transparent"
+        end
         encoding_options << "-flatten"
       end
 
