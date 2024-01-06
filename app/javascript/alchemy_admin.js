@@ -31,14 +31,8 @@ import "alchemy_admin/components/page_select"
 import "alchemy_admin/components/select"
 import "alchemy_admin/components/spinner"
 import "alchemy_admin/components/tinymce"
-import "@shoelace/progress-bar"
-import "@shoelace/switch"
-import "@shoelace/tab"
-import "@shoelace/tab-group"
-import "@shoelace/tab-panel"
-import "@shoelace/tooltip"
 
-import { setDefaultAnimation } from "@shoelace/animation-registry"
+import { setDefaultAnimation } from "shoelace"
 
 // Change the default animation for all dialogs
 setDefaultAnimation("tooltip.show", {
