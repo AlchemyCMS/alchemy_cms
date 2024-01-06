@@ -9,7 +9,7 @@ pin "@shoelace/tab-group", to: "https://cdn.jsdelivr.net/npm/@shoelace-style/sho
 pin "@shoelace/tab-panel", to: "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.12.0/cdn/components/tab-panel/tab-panel.js", preload: true
 pin "@shoelace/tooltip", to: "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.12.0/cdn/components/tooltip/tooltip.js", preload: true
 pin "@shoelace/progress-bar", to: "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.12.0/cdn/components/progress-bar/progress-bar.js", preload: true
-pin "@rails/ujs", to: "https://ga.jspm.io/npm:@rails/ujs@7.1.2/app/assets/javascripts/rails-ujs.esm.js"
+pin "@rails/ujs", to: "https://ga.jspm.io/npm:@rails/ujs@7.1.2/app/assets/javascripts/rails-ujs.esm.js", preload: true
 
 pin "alchemy_admin", to: "alchemy_admin.js", preload: true
-pin_all_from File.expand_path("../app/javascript/alchemy_admin", __dir__), under: "alchemy_admin"
+pin_all_from File.expand_path("../app/javascript/alchemy_admin", __dir__), under: "alchemy_admin", preload: true
