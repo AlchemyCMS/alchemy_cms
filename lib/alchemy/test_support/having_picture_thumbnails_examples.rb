@@ -203,8 +203,8 @@ RSpec.shared_examples_for "having picture thumbnails" do
       allow(record).to receive(:settings) { settings }
     end
 
-    it "includes the image's original file format." do
-      expect(thumbnail_url).to match(/\.png/)
+    it "includes webp file format." do
+      expect(thumbnail_url).to match(/\.webp/)
     end
 
     it "flattens the image." do
@@ -305,8 +305,8 @@ RSpec.shared_examples_for "having picture thumbnails" do
         create(:alchemy_picture)
       end
 
-      it "includes the image's original file format." do
-        expect(thumbnail_url_options[:format]).to eq("png")
+      it "uses webp image format." do
+        expect(thumbnail_url_options[:format]).to eq("webp")
       end
 
       it "flattens the image." do
@@ -381,7 +381,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
           crop_from: nil,
           crop_size: nil,
           flatten: true,
-          format: "jpg",
+          format: "webp",
           size: "160x120"
         )
       end
@@ -400,7 +400,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
             crop_from: nil,
             crop_size: nil,
             flatten: true,
-            format: "jpg",
+            format: "webp",
             size: "160x120"
           )
         end
