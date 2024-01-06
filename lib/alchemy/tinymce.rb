@@ -47,7 +47,7 @@ module Alchemy
       end
 
       def preloadable_plugins
-        @@plugins
+        @@plugins - DEFAULT_PLUGINS
       end
     end
   end

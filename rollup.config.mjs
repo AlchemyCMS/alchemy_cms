@@ -1,4 +1,5 @@
 import resolve from "@rollup/plugin-node-resolve"
+import commonjs from "@rollup/plugin-commonjs"
 import terser from "@rollup/plugin-terser"
 
 export default [
@@ -36,5 +37,14 @@ export default [
       file: "vendor/javascript/shoelace.min.js"
     },
     plugins: [resolve(), terser()]
+  },
+  {
+    input: "bundles/tinymce.js",
+    output: {
+      file: "vendor/javascript/tinymce.min.js",
+      name: "tinymce",
+      format: "esm"
+    },
+    plugins: [resolve(), commonjs(), terser()]
   }
 ]
