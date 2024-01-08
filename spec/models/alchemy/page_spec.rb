@@ -4,6 +4,8 @@ require "rails_helper"
 
 module Alchemy
   describe Page do
+    it { is_expected.to have_many(:folded_pages).dependent(:destroy) }
+    it { is_expected.to have_many(:legacy_urls).dependent(:destroy) }
     it { is_expected.to have_many(:versions) }
     it { is_expected.to have_one(:draft_version) }
     it { is_expected.to have_one(:public_version) }
