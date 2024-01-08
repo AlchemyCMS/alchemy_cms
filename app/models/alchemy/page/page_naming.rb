@@ -25,6 +25,8 @@ module Alchemy
         after_update :update_descendants_urlnames,
           if: :saved_change_to_urlname?
 
+        before_save :destroy_obsolete_legacy_urls, if: :renamed?
+
         after_move :update_urlname!
       end
 
@@ -53,6 +55,11 @@ module Alchemy
       def update_descendants_urlnames
         reload
         descendants.each(&:update_urlname!)
+      end
+
+      def destroy_obsolete_legacy_urls
+        obsolete_legacy_urls = legacy_urls.select { |legacy_url| legacy_url.urlname == urlname }
+        legacy_urls.destroy(obsolete_legacy_urls)
       end
 
       # Sets the urlname to a url friendly slug.

@@ -1689,6 +1689,18 @@ module Alchemy
           expect(page.legacy_urls.pluck(:urlname)).to include("parentparent/parent/page")
         end
       end
+
+      context "if new urlname exists as a legacy url" do
+        it "will delete obsolete legacy_urls" do
+          expect(page.urlname).to eq("parentparent/parent/page")
+          page.update!(urlname: "other-name")
+          expect(page.legacy_urls.pluck(:urlname)).to include("parentparent/parent/page")
+          page.update!(urlname: "page")
+          expect(page.legacy_urls.pluck(:urlname)).to include("parentparent/parent/other-name")
+          expect(page.urlname).to eq("parentparent/parent/page")
+          expect(page.legacy_urls.pluck(:urlname)).not_to include("parentparent/parent/page")
+        end
+      end
     end
 
     describe "#update_node!" do
