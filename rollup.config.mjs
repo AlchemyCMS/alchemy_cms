@@ -19,6 +19,14 @@ export default [
     context: "window"
   },
   {
+    input: "node_modules/keymaster/keymaster.js",
+    output: {
+      file: "vendor/javascript/keymaster.min.js"
+    },
+    plugins: [terser()],
+    context: "window"
+  },
+  {
     input: "node_modules/sortablejs/modular/sortable.esm.js",
     output: {
       file: "vendor/javascript/sortable.min.js"
