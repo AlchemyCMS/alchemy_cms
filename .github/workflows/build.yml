@@ -1,0 +1,41 @@
+name: Build new JS packages
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  Build:
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          cache: "yarn"
+      - name: Restore node_modules cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules
+      - name: Install dependencies
+        run: yarn install
+      - name: YARN build
+        run: yarn build
+      - name: git push
+        run: |
+          git config --local user.name 'AlchemyCMS - CI Bot'
+          git config --local user.email 'alchemy@blish.cloud'
+          git remote set-url origin https://x-access-token:${{ secrets.ALCHEMY_CI_BOT_ACCESS_TOKEN }}@github.com/$GITHUB_REPOSITORY
+          git add vendor/javascript
+          git commit -m "Update JS packages" -m "Dependabot updated dependencies."
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
