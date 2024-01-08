@@ -15,6 +15,7 @@ module Alchemy
 
     ANIMATED_IMAGE_FORMATS = %w[gif webp]
     TRANSPARENT_IMAGE_FORMATS = %w[gif webp png]
+    ENCODABLE_IMAGE_FORMATS = %w[jpg jpeg webp]
 
     attr_reader :picture, :render_format
 
@@ -95,8 +96,8 @@ module Alchemy
 
       convert_format = render_format.sub("jpeg", "jpg") != picture.image_file_format.sub("jpeg", "jpg")
 
-      if render_format =~ /jpe?g/ && (convert_format || options[:quality])
-        quality = options[:quality] || Config.get(:output_image_jpg_quality)
+      if encodable_image? && (convert_format || options[:quality])
+        quality = options[:quality] || Config.get(:output_image_quality)
         encoding_options << "-quality #{quality}"
       end
 
@@ -114,6 +115,10 @@ module Alchemy
       end
 
       image
+    end
+
+    def encodable_image?
+      render_format.in?(ENCODABLE_IMAGE_FORMATS)
     end
   end
 end
