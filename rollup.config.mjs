@@ -4,6 +4,13 @@ import terser from "@rollup/plugin-terser"
 
 export default [
   {
+    input: "node_modules/clipboard/dist/clipboard.min.js",
+    output: {
+      file: "vendor/javascript/clipboard.min.js"
+    },
+    context: "window"
+  },
+  {
     input: "node_modules/flatpickr/dist/esm/index.js",
     output: {
       file: "vendor/javascript/flatpickr.min.js"

@@ -31,6 +31,7 @@ import "alchemy_admin/components/page_select"
 import "alchemy_admin/components/select"
 import "alchemy_admin/components/spinner"
 import "alchemy_admin/components/tinymce"
+import "alchemy_admin/clipboard"
 
 import { setDefaultAnimation } from "shoelace"
 
