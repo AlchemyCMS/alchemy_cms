@@ -154,7 +154,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
       @$link = $(@link_object.node)
       @link_object.selection.moveToBookmark(@link_object.bookmark)
     # Creating an temporary anchor node if we are linking an Picture Ingredient.
-    else if @link_object.getAttribute("is") == "alchemy-link-button"
+    else if @link_object.getAttribute && @link_object.getAttribute("is") == "alchemy-link-button"
       @$link = $(@createTempLink())
     else
       return false
