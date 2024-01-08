@@ -5,7 +5,7 @@ import { renderComponent } from "./component.helper"
 import jQuery from "jquery"
 globalThis.$ = jQuery
 globalThis.jQuery = jQuery
-import("vendor/jquery_plugins/select2")
+import("assets/jquery_plugins/select2")
 
 describe("alchemy-select", () => {
   /**

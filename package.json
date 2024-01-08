@@ -38,7 +38,8 @@
     },
     "moduleNameMapper": {
       "alchemy_admin/(.*)": "<rootDir>/app/javascript/alchemy_admin/$1",
-      "vendor/(.*)": "<rootDir>/vendor/assets/javascripts/$1"
+      "assets/(.*)": "<rootDir>/vendor/assets/javascripts/$1",
+      "vendor/(.*)": "<rootDir>/vendor/javascript/$1"
     },
     "testEnvironment": "jsdom",
     "roots": [
