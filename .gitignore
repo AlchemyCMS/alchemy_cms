@@ -29,3 +29,4 @@ yarn-debug.log*
 .yarn-integrity
 /spec/dummy/public/pictures
 .byebug_history
+.vscode/
