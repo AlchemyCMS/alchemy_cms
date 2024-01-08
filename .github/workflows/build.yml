@@ -1,19 +1,37 @@
-name: Build new JS packages
+name: JS Build
 
 on:
   pull_request:
     types: [opened, synchronize]
-
-permissions:
-  contents: write
-  pull-requests: read
+  push:
+    branches:
+      - main
 
 jobs:
-  Build:
-    if: ${{ github.actor == 'dependabot[bot]' }}
+  check_yarn_lock:
     runs-on: ubuntu-latest
+    name: Check yarn.lock
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Get all changed markdown files
+        id: changed-yarn-lock
+        uses: tj-actions/changed-files@v41
+        with:
+          files: yarn.lock
+    outputs:
+      yarn_lock_changed: ${{ steps.changed-yarn-lock.outputs.any_changed }}
+  build:
+    runs-on: ubuntu-latest
+    name: Build JS packages
+    needs: check_yarn_lock
+    if: ${{ needs.check_yarn_lock.outputs.yarn_lock_changed }}
+    permissions:
+      contents: write
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Setup Node
@@ -31,11 +49,15 @@ jobs:
         run: yarn install
       - name: YARN build
         run: yarn build
+      - name: Check git status
+        id: git-status
+        run: git diff --quiet || echo "::set-output name=changed::true"
       - name: git push
+        if: steps.git-status.outputs.changed == true
         run: |
           git config --local user.name 'AlchemyCMS - CI Bot'
           git config --local user.email 'alchemy@blish.cloud'
           git remote set-url origin https://x-access-token:${{ secrets.ALCHEMY_CI_BOT_ACCESS_TOKEN }}@github.com/$GITHUB_REPOSITORY
           git add vendor/javascript
-          git commit -m "Update JS packages" -m "Dependabot updated dependencies."
+          git commit -m "Update JS packages" -m "Rebuilt packages due to updated dependencies."
           git push origin HEAD:${{ github.event.pull_request.head.ref }}
