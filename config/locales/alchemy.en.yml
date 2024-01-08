@@ -118,7 +118,9 @@ en:
             gif: GIF Image
             jpeg: JPG Image
             png: PNG Image
+            svg: SVG Image
             tiff: TIFF Image
+            webp: WebP Image
         misc:
           name: Miscellaneous
           values:

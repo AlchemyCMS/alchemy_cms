@@ -181,6 +181,37 @@ RSpec.describe Alchemy::PictureVariant do
         expect(step.arguments).to eq(["png", "-background transparent -flatten"])
       end
 
+      context "converted to non transparent format" do
+        let(:options) do
+          {format: "jpg"}
+        end
+
+        it "does not add transparent background." do
+          step = subject.steps[0]
+          expect(step.name).to eq(:encode)
+          expect(step.arguments).to eq(["jpg", "-quality 85 -flatten"])
+        end
+      end
+
+      context "converted from non transparent format" do
+        let(:options) do
+          {format: "png", flatten: true}
+        end
+
+        let(:image_file) do
+          fixture_file_upload(
+            File.expand_path("../../fixtures/image4.jpg", __dir__),
+            "image/jpeg"
+          )
+        end
+
+        it "does not add transparent background." do
+          step = subject.steps[0]
+          expect(step.name).to eq(:encode)
+          expect(step.arguments).to eq(["png", "-flatten"])
+        end
+      end
+
       context "converted to webp" do
         let(:options) do
           {format: "webp"}
