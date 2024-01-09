@@ -1,5 +1,22 @@
 # Changelog
 
+## 7.1.0-b2 (2024-01-09)
+
+- Download and bundle third party JS packages with npm [#2679](https://github.com/AlchemyCMS/alchemy_cms/pull/2679) ([tvdeyen](https://github.com/tvdeyen))
+- Remove legacy pages urls and folded pages if page gets destroyed [#2678](https://github.com/AlchemyCMS/alchemy_cms/pull/2678) ([tvdeyen](https://github.com/tvdeyen))
+- Clear unnecessary legacy URLs [#2677](https://github.com/AlchemyCMS/alchemy_cms/pull/2677) ([mamhoff](https://github.com/mamhoff))
+- Fix error linking text in tinymce [#2676](https://github.com/AlchemyCMS/alchemy_cms/pull/2676) ([tvdeyen](https://github.com/tvdeyen))
+- Use WebP for all thumbnails [#2675](https://github.com/AlchemyCMS/alchemy_cms/pull/2675) ([tvdeyen](https://github.com/tvdeyen))
+- Allow quality setting for webp images [#2674](https://github.com/AlchemyCMS/alchemy_cms/pull/2674) ([tvdeyen](https://github.com/tvdeyen))
+- Do not remove background from non transparent images [#2673](https://github.com/AlchemyCMS/alchemy_cms/pull/2673) ([tvdeyen](https://github.com/tvdeyen))
+- Update Tinymce to v6 [#2671](https://github.com/AlchemyCMS/alchemy_cms/pull/2671) ([tvdeyen](https://github.com/tvdeyen))
+- Update Tinymce to v5 [#2670](https://github.com/AlchemyCMS/alchemy_cms/pull/2670) ([tvdeyen](https://github.com/tvdeyen))
+- Fix missing image styles [#2667](https://github.com/AlchemyCMS/alchemy_cms/pull/2667) ([tvdeyen](https://github.com/tvdeyen))
+- Preserve transparent backgrounds for PNGs [#2666](https://github.com/AlchemyCMS/alchemy_cms/pull/2666) ([tvdeyen](https://github.com/tvdeyen))
+- Resource filter fixes [#2665](https://github.com/AlchemyCMS/alchemy_cms/pull/2665) ([tvdeyen](https://github.com/tvdeyen))
+- [ruby - main] Update sqlite3 → 1.7.0 (unknown) [#2663](https://github.com/AlchemyCMS/alchemy_cms/pull/2663) ([depfu](https://github.com/apps/depfu))
+- Fix brakeman offense [#2661](https://github.com/AlchemyCMS/alchemy_cms/pull/2661) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.1.0-b1 (2023-12-28)
 
 - Fix messages controller [#2658](https://github.com/AlchemyCMS/alchemy_cms/pull/2658) ([tvdeyen](https://github.com/tvdeyen))
