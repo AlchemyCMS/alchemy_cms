@@ -2229,6 +2229,11 @@ body.tox-dialog__disable-scroll {
   -ms-flex-preferred-size: auto;
 }
 
+.tox .tox-form__group--stretched .tox-textarea-wrap {
+  display: flex;
+  flex: 1;
+}
+
 .tox .tox-form__group--stretched .tox-textarea {
   flex: 1;
   -ms-flex-preferred-size: auto;
