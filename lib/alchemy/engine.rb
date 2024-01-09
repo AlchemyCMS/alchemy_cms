@@ -24,7 +24,8 @@ module Alchemy
       Alchemy.importmap.draw(Engine.root.join("config", "importmap.rb"))
 
       package_path = Engine.root.join("app/javascript")
-      app.config.assets.paths << package_path
+      vendor_packages_path = Engine.root.join("vendor/javascript")
+      app.config.assets.paths += [package_path, vendor_packages_path]
 
       if app.config.importmap.sweep_cache
         Alchemy.importmap.cache_sweeper(watches: package_path)

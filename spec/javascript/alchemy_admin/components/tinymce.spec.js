@@ -1,7 +1,7 @@
 import { renderComponent, setupLanguage } from "./component.helper"
 import "../mocks/matchMedia.js"
 import "alchemy_admin/components/tinymce"
-import "vendor/tinymce/tinymce.min"
+import "vendor/tinymce.min"
 import { mockIntersectionObserver } from "jsdom-testing-mocks"
 
 describe("alchemy-tinymce", () => {

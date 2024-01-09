@@ -1,3 +1,4 @@
+import "tinymce"
 import { AlchemyHTMLElement } from "alchemy_admin/components/alchemy_html_element"
 import { currentLocale } from "alchemy_admin/i18n"
 

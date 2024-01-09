@@ -8,14 +8,14 @@
   <div class="value with-icon">
     <label><%= Alchemy::Attachment.human_attribute_name(:url) %></label>
     <p><%= @attachment.url %></p>
-    <a data-clipboard-text="<%= @attachment.url %>" class="icon_button--right">
+    <a data-clipboard-text="<%= @attachment.url %>" data-clipboard-success-text="<%= Alchemy.t("Copied to clipboard") %>" class="icon_button--right">
       <%= render_icon(:clipboard) %>
     </a>
   </div>
   <div class="value with-icon">
     <label><%= Alchemy::Attachment.human_attribute_name(:download_url) %></label>
     <p><%= @attachment.url(download: true) %></p>
-    <a data-clipboard-text="<%= @attachment.url(download: true) %>" class="icon_button--right">
+    <a data-clipboard-text="<%= @attachment.url(download: true) %>" data-clipboard-success-text="<%= Alchemy.t("Copied to clipboard") %>" class="icon_button--right">
       <%= render_icon(:clipboard) %>
     </a>
   </div>
@@ -39,16 +39,3 @@
   Your browser does not support frames.
 </iframe>
 <% end %>
-
-<script type="text/javascript">
-  $(function() {
-    var clipboard = new Clipboard('.icon_button--right');
-    clipboard.on('success', function(e) {
-      Alchemy.growl('<%= Alchemy.t("Copied to clipboard") %>');
-      e.clearSelection();
-    });
-    Alchemy.currentDialog().dialog.on('DialogClose.Alchemy', function() {
-      clipboard.destroy();
-    });
-  });
-</script>
