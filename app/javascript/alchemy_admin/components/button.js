@@ -1,4 +1,4 @@
-import Spinner from "../spinner"
+import Spinner from "alchemy_admin/spinner"
 
 class Button extends HTMLButtonElement {
   connectedCallback() {
