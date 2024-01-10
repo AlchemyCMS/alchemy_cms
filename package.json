@@ -3,6 +3,7 @@
   "scripts": {
     "test": "jest",
     "lint": "prettier --check 'app/javascript/**/*.js'",
+    "eslint": "eslint app/javascript/**/*.js",
     "build": "rollup -c"
   },
   "keywords": [],
@@ -25,6 +26,7 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
     "babel-jest": "^29.6.4",
+    "eslint": "^8.56.0",
     "jest": "^29.6.4",
     "jest-environment-jsdom": "^29.6.4",
     "jquery": "^3.7.1",
