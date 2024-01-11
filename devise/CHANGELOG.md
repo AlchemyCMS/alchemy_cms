@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.1.0 (2023-01-11)
+
+- Update brakeman to 6.1 [#194](https://github.com/AlchemyCMS/alchemy-devise/pull/194) ([tvdeyen](https://github.com/tvdeyen))
+- Rails 7.1 support [#193](https://github.com/AlchemyCMS/alchemy-devise/pull/193) ([tvdeyen](https://github.com/tvdeyen))
+- Add Alchemy 7.1 support [#192](https://github.com/AlchemyCMS/alchemy-devise/pull/192) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.0.0 (2023-07-05)
 
 - Update to Alchemy 7.0 [#173](https://github.com/AlchemyCMS/alchemy-devise/pull/173) ([tvdeyen](https://github.com/tvdeyen))
