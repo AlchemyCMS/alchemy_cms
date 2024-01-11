@@ -549,6 +549,7 @@ de:
       alchemy/node: "<h2>Sie haben bisher keine Menüs.</h2><p>Mittels Menüs können Benutzer Ihre Webseite navigieren. Sie können mehrere Menüs auf Ihrer Website anzeigen. Wie viele hängt von Ihrem Website-Template ab.</p><p>Bitte wählen Sie aus welches Menü Sie erstellen wollen.</p>"
       alchemy/site: "<h2>Sie haben bisher keine Websites.</h2><p>Um Anfragen bedienen zu können, müssen Sie zunächst eine Website erstellen.</p><p>Dieses Formular wurde mit sinnvollen Standardwerten ausgefüllt, die in den meisten Fällen funktionieren.</p>"
     no_search_results: "Keine Suchergebnisse."
+    not_found: "ohne"
     "not a valid image": "Keine valide Bilddatei."
     "or": "oder"
     or_replace_it_with_an_existing_tag: "Oder Sie ersetzen es durch ein vorhandenes Tag"
