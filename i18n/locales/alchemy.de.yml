@@ -232,6 +232,7 @@ de:
 
     resource_help_texts:
       site:
+        host: Geben Sie entweder einen <a href="https://de.wikipedia.org/wiki/Domain_(Internet)#Fully_Qualified_Domain_Name_(FQDN)" target="_blank">vollständigen Domain Namen</a> ein oder verwenden Sie ein Sternchen (*), um allen Domains den Zugang zu dieser Website zu ermöglichen.
         aliases: Weitere Domains bitte mit Leerzeichen oder Leerzeile getrennt angeben.
 
     add_nested_element: "%{name} hinzufügen"
@@ -477,6 +478,7 @@ de:
         "Open upload form": "Datei hochladen"
         "Select all pictures": "Alle Bilder auswählen"
     hide_element_content: "Element einklappen"
+    homepage_does_not_exist: "Diese Sprache hat noch keine Startseite."
     dashboard: "Dashboard"
     image_alt_tag: "Alt-Tag"
     image_caption: "Bildunterschrift"
@@ -542,7 +544,10 @@ de:
     no_images_in_archive: "Sie haben keine Bilder in Ihrem Archiv"
     no_more_elements_to_add: "Keine weiteren Elemente verfügbar."
     no_resource_found:
+      default: "Bisher kein(e) %{resource} vorhanden. Erstellen Sie ein(e) %{resource} unten."
+      alchemy/language: "<h2>Ihre Website enthält noch keine Sprachen.</h2><p>Sie benötigen mindestens eine Sprache, mit der Sie arbeiten können. Bitte erstellen Sie hier eine.</p>"
       alchemy/node: "<h2>Sie haben bisher keine Menüs.</h2><p>Mittels Menüs können Benutzer Ihre Webseite navigieren. Sie können mehrere Menüs auf Ihrer Website anzeigen. Wie viele hängt von Ihrem Website-Template ab.</p><p>Bitte wählen Sie aus welches Menü Sie erstellen wollen.</p>"
+      alchemy/site: "<h2>Sie haben bisher keine Websites.</h2><p>Um Anfragen bedienen zu können, müssen Sie zunächst eine Website erstellen.</p><p>Dieses Formular wurde mit sinnvollen Standardwerten ausgefüllt, die in den meisten Fällen funktionieren.</p>"
     no_search_results: "Keine Suchergebnisse."
     "not a valid image": "Keine valide Bilddatei."
     "or": "oder"
