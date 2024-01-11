@@ -103,7 +103,7 @@ class Tinymce extends AlchemyHTMLElement {
     return {
       ...Alchemy.TinymceDefaults,
       ...customConfig,
-      locale: currentLocale(),
+      language: currentLocale(),
       selector: `#${this.editorId}`
     }
   }
