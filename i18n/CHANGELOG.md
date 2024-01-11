@@ -1,5 +1,23 @@
 # Changelog
 
+## [v4.1.0](https://github.com/AlchemyCMS/alchemy_i18n/tree/v4.1.0) (2024-01-11)
+
+[Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v4.0.2...v4.1.0)
+
+**Merged pull requests:**
+
+- Update Tinymce language packs for v6 [\#56](https://github.com/AlchemyCMS/alchemy_i18n/pull/56) ([tvdeyen](https://github.com/tvdeyen))
+- Update German translations for Alchemy 7.1 [\#54](https://github.com/AlchemyCMS/alchemy_i18n/pull/54) ([tvdeyen](https://github.com/tvdeyen))
+
+## [v4.0.2](https://github.com/AlchemyCMS/alchemy_i18n/tree/v4.0.2) (2024-01-11)
+
+**Merged pull requests:**
+
+[Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v4.0.1...v4.0.2)
+
+- Add German translations for onboarding notices [\#55](https://github.com/AlchemyCMS/alchemy_i18n/pull/55) ([tvdeyen](https://github.com/tvdeyen))
+- Fixes for french translations [\#53](https://github.com/AlchemyCMS/alchemy_i18n/pull/53) ([oz-tal](https://github.com/oz-tal))
+
 ## [v4.0.1](https://github.com/AlchemyCMS/alchemy_i18n/tree/v4.0.1) (2023-10-06)
 
 [Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v4.0.0...v4.0.1)
