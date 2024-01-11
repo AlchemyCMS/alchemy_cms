@@ -11,7 +11,11 @@
 <% if can_update_role? %>
   <%= f.input :alchemy_roles,
     collection: @user_roles,
-    input_html: {multiple: true, class: 'alchemy_selectbox'},
+    input_html: {
+      multiple: true,
+      is: 'alchemy-select',
+      class: 'alchemy_selectbox'
+    },
     as: 'select' %>
 <% end %>
 <% unless while_signup? %>
