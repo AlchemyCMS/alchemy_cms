@@ -28,7 +28,7 @@ module Alchemy
     # @return [String]
     def render_icon(icon_name, options = {})
       options = {style: "line", fixed_width: true}.merge(options)
-      style = options[:style] && "-#{options[:style]}"
+      style = options[:style] && "-#{ri_style(options[:style])}"
       classes = [
         "icon",
         "ri-#{ri_icon(icon_name)}#{style}",
@@ -132,6 +132,21 @@ module Alchemy
         "settings-3"
       else
         icon_name
+      end
+    end
+
+    # Returns the Remix icon style for given style
+    #
+    # @param style [String] The style name
+    # @return [String] The RemixIcon style
+    def ri_style(style)
+      case style.to_s
+      when "solid", "fill"
+        "fill"
+      when "line", "regular"
+        "line"
+      else
+        style
       end
     end
   end

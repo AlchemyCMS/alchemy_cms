@@ -9,7 +9,7 @@ module Alchemy
 
       let(:options) { {} }
 
-      it "renders a solid remix icon with fixed width and line style" do
+      it "renders a remix icon with fixed width and line style" do
         is_expected.to have_css "i.icon.ri-information-line.ri-fw"
       end
 
@@ -18,6 +18,30 @@ module Alchemy
 
         it "renders a filled remix icon" do
           is_expected.to have_css 'i[class*="-fill"]'
+        end
+      end
+
+      context "with style set to solid" do
+        let(:options) { {style: "solid"} }
+
+        it "renders a filled remix icon" do
+          is_expected.to have_css 'i[class*="-fill"]'
+        end
+      end
+
+      context "with style set to regular" do
+        let(:options) { {style: "regular"} }
+
+        it "renders a line remix icon" do
+          is_expected.to have_css 'i[class*="-line"]'
+        end
+      end
+
+      context "with style set to m" do
+        let(:options) { {style: "m"} }
+
+        it "renders a line remix icon" do
+          is_expected.to have_css 'i[class*="-m"]'
         end
       end
 
