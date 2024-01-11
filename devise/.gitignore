@@ -3,7 +3,7 @@ log/*.log
 pkg/
 spec/dummy/config/initializers/devise.rb
 spec/dummy/db/*.sqlite3
-spec/dummy/db/*.sqlite3-journal
+spec/dummy/db/*.sqlite3-*
 spec/dummy/log/*.log
 spec/dummy/tmp/
 spec/dummy/.sass-cache
