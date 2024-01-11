@@ -59,8 +59,8 @@ describe("alchemy-tinymce", () => {
       expect(component.configuration).toBeInstanceOf(Object)
     })
 
-    it("should have the locale", () => {
-      expect(component.configuration.locale).toEqual("en")
+    it("should have the language", () => {
+      expect(component.configuration.language).toEqual("en")
     })
 
     it("should add the attributes to configuration and cast dashes with underscores", () => {
