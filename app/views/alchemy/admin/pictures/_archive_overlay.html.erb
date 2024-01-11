@@ -8,7 +8,20 @@
       <%= render 'tag_list' %>
     </div>
   </div>
-  <div id="overlay_picture_list" class="picture-size--<%= @size %>">
-    <%= render 'overlay_picture_list' %>
-  </div>
+  <% if @pictures.empty? %>
+    <%= render_message do %>
+      <% if search_filter_params.empty? %>
+        <%= Alchemy.t(:no_images_in_archive) %>
+      <% else %>
+        <%= Alchemy.t(:no_search_results) %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <div id="overlay_picture_list" class="picture-size--<%= @size %>">
+      <%= render partial: 'picture_to_assign',
+        collection: @pictures,
+        locals: {size: @size} %>
+      <%= paginate @pictures, theme: 'alchemy', remote: true, hide_per_page_select: true %>
+    </div>
+  <% end %>
 </div>
