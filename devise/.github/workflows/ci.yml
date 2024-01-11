@@ -9,11 +9,13 @@ jobs:
       fail-fast: false
       matrix:
         alchemy_branch:
-          - main
+          - "7.0-stable"
+          - "main"
         ruby:
           - "3.0"
           - "3.1"
           - "3.2"
+          - "3.3"
         database:
           - mysql
           - postgresql
@@ -71,18 +73,6 @@ jobs:
           sudo apt update -qq
           sudo apt install -qq --fix-missing libmysqlclient-dev -o dir::cache::archives="/home/runner/apt/cache"
           sudo chown -R runner /home/runner/apt/cache
-      - name: Restore node modules cache
-        id: yarn-cache
-        uses: actions/cache@v3
-        with:
-          path: spec/dummy/node_modules
-          key: ${{ runner.os }}-yarn-dummy-${{ hashFiles('./package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-dummy-
-      - name: Set up Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
       - name: Prepare database
         run: bundle exec rake alchemy:spec:prepare
       - name: Run tests & publish code coverage
