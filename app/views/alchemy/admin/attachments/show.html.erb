@@ -8,16 +8,20 @@
   <div class="value with-icon">
     <label><%= Alchemy::Attachment.human_attribute_name(:url) %></label>
     <p><%= @attachment.url %></p>
-    <a data-clipboard-text="<%= @attachment.url %>" data-clipboard-success-text="<%= Alchemy.t("Copied to clipboard") %>" class="icon_button--right">
-      <%= render_icon(:clipboard) %>
-    </a>
+    <alchemy-clipboard-button
+      content="<%= @attachment.url %>"
+      success-text="<%= Alchemy.t("Copied to clipboard") %>"
+      class="icon_button--right"
+    ></alchemy-clipboard-button>
   </div>
   <div class="value with-icon">
     <label><%= Alchemy::Attachment.human_attribute_name(:download_url) %></label>
     <p><%= @attachment.url(download: true) %></p>
-    <a data-clipboard-text="<%= @attachment.url(download: true) %>" data-clipboard-success-text="<%= Alchemy.t("Copied to clipboard") %>" class="icon_button--right">
-      <%= render_icon(:clipboard) %>
-    </a>
+    <alchemy-clipboard-button
+      content="<%= @attachment.url(download: true) %>"
+      success-text="<%= Alchemy.t("Copied to clipboard") %>"
+      class="icon_button--right"
+    ></alchemy-clipboard-button>
   </div>
 </div>
 
