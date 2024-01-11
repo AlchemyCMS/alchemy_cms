@@ -43,6 +43,13 @@ module Alchemy
         template.content_tag("alchemy-datepicker", date_field, type: type)
       end
 
+      # Renders a simple_form input that displays a richtext editor
+      #
+      def richtext(attribute_name, options = {})
+        text_area = input(attribute_name, options.merge(as: :text))
+        template.content_tag("alchemy-tinymce", text_area)
+      end
+
       # Renders a button tag wrapped in a div with 'submit' class.
       #
       def submit(label, options = {})
