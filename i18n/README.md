@@ -1,9 +1,10 @@
 # AlchemyCMS Translations
 
-Translations files for AlchemyCMS 7.0 and above.
+Translations files for AlchemyCMS 7.1 and above.
 
 ## Alchemy version
 
+- For a Alchemy 7.0 compatible version use v4.0.2 or the `4.0-stable` branch.
 - For a Alchemy 6.1 compatible version use v3.2.0 or the `3.2-stable` branch.
 - For a Alchemy 5.3 compatible version use v2.3.1 or the `2.3-stable` branch.
 
