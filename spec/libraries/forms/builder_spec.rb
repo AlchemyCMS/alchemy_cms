@@ -26,20 +26,20 @@ RSpec.describe Alchemy::Forms::Builder, type: :controller do
     end
   end
 
-  let(:template) do
-    double(
-      "Template",
-      controller: controller,
-      label: "<label>",
-      text_field: "<input>",
-      content_tag: "<alchemy-datepicker>"
-    )
-  end
-
   let(:builder) { described_class.new(object_name, form_object, template, {}) }
 
   describe "#datepicker" do
     let(:attribute) { :foo }
+
+    let(:template) do
+      double(
+        "Template",
+        controller: controller,
+        label: "<label>",
+        text_field: "<input>",
+        content_tag: "<alchemy-datepicker>"
+      )
+    end
 
     subject { builder.datepicker(attribute, options) }
 
@@ -89,6 +89,34 @@ RSpec.describe Alchemy::Forms::Builder, type: :controller do
         let(:type) { :datetime }
         let(:value) { nil }
       end
+    end
+  end
+
+  describe "#richtext" do
+    let(:attribute) { :foo }
+
+    let(:template) do
+      double(
+        "Template",
+        controller: controller,
+        label: "<label>",
+        text_area: "<textarea>",
+        content_tag: "<alchemy-tinymce>"
+      )
+    end
+
+    subject { builder.richtext(attribute) }
+
+    it "uses a alchemy-tinymce" do
+      expect(template).to receive(:text_area).with(
+        "Ding",
+        :foo,
+        hash_including(
+          class: [:text, :required]
+        )
+      )
+      expect(template).to receive(:content_tag).with("alchemy-tinymce", "<alchemy-tinymce>")
+      subject
     end
   end
 end
