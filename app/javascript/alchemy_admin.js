@@ -21,6 +21,7 @@ import PagePublicationFields from "alchemy_admin/page_publication_fields"
 // Web Components
 import "alchemy_admin/components/button"
 import "alchemy_admin/components/char_counter"
+import "alchemy_admin/components/clipboard_button"
 import "alchemy_admin/components/datepicker"
 import "alchemy_admin/components/dialog_link"
 import "alchemy_admin/components/element_editor"
@@ -33,7 +34,6 @@ import "alchemy_admin/components/page_select"
 import "alchemy_admin/components/select"
 import "alchemy_admin/components/spinner"
 import "alchemy_admin/components/tinymce"
-import "alchemy_admin/clipboard"
 
 import { setDefaultAnimation } from "shoelace"
 
