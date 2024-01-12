@@ -1,11 +1,9 @@
 # encoding: UTF-8
 
 it:
-
   # = Alchemy Translations
   # All translations used in Alchemy CMS are inside this alchemy namespace.
   alchemy:
-
     # == Translations for menu names
     # Just use the menu name like defined inside the config/alchemy/menus.yml file and translate it.
     # We're providing main and footer menu here as a convenience.
@@ -84,8 +82,8 @@ it:
     content_validations:
       errors:
         blank: "%{field} non può essere vuoto"
-        invalid: '%{field} ha un formato errato'
-        taken: '%{field} è già stato preso'
+        invalid: "%{field} ha un formato errato"
+        taken: "%{field} è già stato preso"
 
     default_content_texts:
       lorem: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -93,39 +91,39 @@ it:
 
     essence_pictures:
       css_classes:
-        left: 'Alla sinistra del testo'
-        right: 'Alla destra del testo'
-        no_float: 'Sopra al testo'
+        left: "Alla sinistra del testo"
+        right: "Alla destra del testo"
+        no_float: "Sopra al testo"
 
     # == Contactform translations
     contactform:
       labels:
-        salutation: 'Salve'
-        choose: 'Scegli'
-        mr: 'Sig.'
-        mrs: 'Sig.ra'
-        firstname: 'Nome'
-        lastname: 'Cognome'
-        address: 'Via / N.'
-        zip: 'CAP / Città'
-        phone: 'Telefono'
-        email: 'Email'
-        message: 'Messaggio'
-        send: 'Invia'
-        mandatory_fields: '*Campi obbligatori.'
+        salutation: "Salve"
+        choose: "Scegli"
+        mr: "Sig."
+        mrs: "Sig.ra"
+        firstname: "Nome"
+        lastname: "Cognome"
+        address: "Via / N."
+        zip: "CAP / Città"
+        phone: "Telefono"
+        email: "Email"
+        message: "Messaggio"
+        send: "Invia"
+        mandatory_fields: "*Campi obbligatori."
       # The flash message shown after successfully sending the message.
       messages:
-        success: 'Il suo messaggio è stato consegnato con successo.'
+        success: "Il suo messaggio è stato consegnato con successo."
 
     # == Translated language names for translation select
     translations:
-      de: 'DE'
-      en: 'EN'
-      es: 'ES'
-      it: 'IT'
-      fr: 'FR'
-      nl: 'NL'
-      ru: 'RU'
+      de: "DE"
+      en: "EN"
+      es: "ES"
+      it: "IT"
+      fr: "FR"
+      nl: "NL"
+      ru: "RU"
 
     # == User roles translations
     user_roles:
@@ -138,32 +136,32 @@ it:
     # == Mime Types translations
     # These are human readable mime types used for the document-type row in archive files.
     mime_types:
-      audio/mp4: 'Audio-MP4'
-      application/msword: 'Documento-Word'
-      application/rtf: 'Documento-RTF'
-      audio/mpeg: 'Audio-MP3'
-      text/plain: 'Documento-di-Testo'
-      video/mp4: 'Video-MP4'
-      video/mpeg: 'Video-MPEG'
-      application/pdf: 'Documento-PDF'
-      application/x-flash-video: 'Video-Flash'
-      video/x-flv: 'Video-Flash'
-      application/x-shockwave-flash: 'Video-Flash'
-      application/zip: 'Archivio-ZIP'
-      application/x-rar: 'Archivio-RAR'
+      audio/mp4: "Audio-MP4"
+      application/msword: "Documento-Word"
+      application/rtf: "Documento-RTF"
+      audio/mpeg: "Audio-MP3"
+      text/plain: "Documento-di-Testo"
+      video/mp4: "Video-MP4"
+      video/mpeg: "Video-MPEG"
+      application/pdf: "Documento-PDF"
+      application/x-flash-video: "Video-Flash"
+      video/x-flv: "Video-Flash"
+      application/x-shockwave-flash: "Video-Flash"
+      application/zip: "Archivio-ZIP"
+      application/x-rar: "Archivio-RAR"
       application/vnd:
-        ms-excel: 'Documento-Excel'
-      video/quicktime: 'Video-Quicktime'
-      image/x-psd: 'File-Photoshop'
-      image/gif: 'Immagine-GIF'
-      image/png: 'Immagine-PNG'
-      image/svg+xml: 'Immagine-SVG'
-      image/jpeg: 'Immagine-JPG'
-      video/x-msvideo: 'Video-AVI'
-      video/x-ms-wmv: 'Windows Media Video'
-      image/tiff: 'Immagine-TIFF'
-      'text/x-vcard': 'vCard'
-      application/vcard: 'vCard'
+        ms-excel: "Documento-Excel"
+      video/quicktime: "Video-Quicktime"
+      image/x-psd: "File-Photoshop"
+      image/gif: "Immagine-GIF"
+      image/png: "Immagine-PNG"
+      image/svg+xml: "Immagine-SVG"
+      image/jpeg: "Immagine-JPG"
+      video/x-msvideo: "Video-AVI"
+      video/x-ms-wmv: "Windows Media Video"
+      image/tiff: "Immagine-TIFF"
+      "text/x-vcard": "vCard"
+      application/vcard: "vCard"
 
     link_target_options:
       default: Stessa Finestra
@@ -175,16 +173,16 @@ it:
         aliases: Separa i domini aggiuntivi con uno spazio od un ritorno a capo.
 
     add_nested_element: "Add %{name}"
-    anchor: 'Collegamento'
+    anchor: "Collegamento"
     attribute_fixed: Il valore non può essere modificato
-    back: 'indietro'
+    back: "indietro"
     create_tree_as_new_language: "Crea una nuova struttura della lingua per %{language}"
     locked_pages: "Pagine attive"
     "Add global page": "Aggiungi pagina globale"
     "Add page link": "Aggiungi un collegamento alla pagina"
     "Alchemy is open software and itself uses open software and free resources:": "Alchemy è software open ed usa software open e risorse liberamente disponibili:"
-    "Alchemy is up to date": 'Alchemy è aggiornato'
-    'An error happened': 'Si è verificato un errore'
+    "Alchemy is up to date": "Alchemy è aggiornato"
+    "An error happened": "Si è verificato un errore"
     "Change password": "Modifica password"
     "Choose page": "Scegli pagina"
     "Cleared trash": "Cestino svuotato"
@@ -351,7 +349,7 @@ it:
     copy_language_tree_heading: "Copia struttura delle pagine"
     create_menu: "Aggiungi un menu"
     create_node: "Aggiungi un nodo al menu"
-    country_code_placeholder: 'ad es. US (opzionale)'
+    country_code_placeholder: "ad es. US (opzionale)"
     country_code_foot_note: "È necessario configurare un codice nazione solo se vuoi supportare diverse nazioni con la stessa lingua."
     create: "crea"
     "Create language": "Crea una nuova lingua"
@@ -364,9 +362,9 @@ it:
     delete_image: "Elimina quest'immagine"
     delete_language: "Elimina questa lingua"
     delete_menu: "Cancella il menu"
-    delete_node: "Cancella il nodo di menu"    
+    delete_node: "Cancella il nodo di menu"
     delete_page: "Elimina questa pagina"
-    delete_tag: 'Elimina tag'
+    delete_tag: "Elimina tag"
     document: "File"
     download_csv: "Scarica CSV"
     download_file: "Scarica file '%{filename}'"
@@ -379,7 +377,7 @@ it:
     edit_menu: "Modifica il menu"
     edit_node: "Modifica il nodo di menu"
     edit_page_properties: "Modifica proprietà pagina"
-    edit_tag: 'Modifica tag'
+    edit_tag: "Modifica tag"
     edit_selected_pictures: "Modifica le immagini selezionate"
     element_editor_not_found: "Errore in questo Elemento"
     element_of_type: "Elemento"
@@ -424,7 +422,7 @@ it:
     "item removed from clipboard": "%{name} eliminato dalla clipboard"
     javascript_disabled_headline: "Javascript disabilitato!"
     javascript_disabled_text: "Javascript è richiesto per far funzionare Alchemy al meglio. Abilitalo nelle configurazioni del tuo browser."
-    language_code_placeholder: 'i.e. it'
+    language_code_placeholder: "i.e. it"
     language_does_not_exist: "Questa struttura della lingua non esiste"
     language_pages_copied: "Struttura della lingua copiata con successo."
     last_upload_only: "Solo ultimo upload"
@@ -473,12 +471,12 @@ it:
     no_more_elements_to_add: "Nessun elemento disponibile."
     no_search_results: "La tua ricerca non ha prodotto alcun risultato."
     "not a valid image": "Questa non è un'immagine valida."
-    "or": 'oppure'
-    or_replace_it_with_an_existing_tag: 'Oppure sostituiscilo con un tag esistente'
+    "or": "oppure"
+    or_replace_it_with_an_existing_tag: "Oppure sostituiscilo con un tag esistente"
     "Page created": "Pagina: '%{name}' creata."
     page_for_links:
       choose_page: "Sceglio %{name}"
-    page_infos: 'Informazioni pagina'
+    page_infos: "Informazioni pagina"
     page_layout_changed_notice: "Il tipo di pagina è stato cambiato. Gli elementi che non erano più disponibili sono stati spostati nel cestino."
     page_properties: "Proprietà della pagina"
     page_public: "pubblicata"
@@ -497,6 +495,16 @@ it:
       restricted:
         "true": "Pagina riservata."
         "false": "Pagina non riservata."
+    page_status_titles:
+      locked:
+        "true": "bloccata"
+        "false": ""
+      public:
+        "true": "pubblicata"
+        "false": "non pubblicata"
+      restricted:
+        "true": "riservata"
+        "false": "non riservata"
     page_status: "Stato"
     page_title: "Titolo"
     page_type: "Tipologia"
@@ -508,7 +516,7 @@ it:
         comma_seperated: "Separate da virgola"
     password: "Password"
     paste: "incolla"
-    picture_gallery_editor: 'Immagini'
+    picture_gallery_editor: "Immagini"
     picture_library:
       filter:
         last_upload: "dall'ultimo upload"
@@ -524,23 +532,23 @@ it:
     position_in_text: "Posizione nel testo"
     preview_size: "Dimensione preview"
     preview_sizes:
-      '240': '240px (telefono piccolo)'
-      '320': '320px (iPhone)'
-      '480': '480px (Tablet piccolo)'
-      '768': '768px (iPad - Portrait)'
-      '1024': '1024px (iPad - Landscape)'
-      '1280': '1280px (Desktop)'
-    recently_uploaded_only: 'Solo caricate recentemente'
+      "240": "240px (telefono piccolo)"
+      "320": "320px (iPhone)"
+      "480": "480px (Tablet piccolo)"
+      "768": "768px (iPad - Portrait)"
+      "1024": "1024px (iPad - Landscape)"
+      "1280": "1280px (Desktop)"
+    recently_uploaded_only: "Solo caricate recentemente"
     "regular method": "Metodo normale"
     remove: "Rimuovi"
     rename_file: "Rinomina questo file."
     rename: "Rinomina"
     replace: sostituisci
     replace_file: Sostituire il file
-    'Replaced Tag': "Il tag '%{old_tag}' è stato sostiuito con '%{new_tag}'"
+    "Replaced Tag": "Il tag '%{old_tag}' è stato sostiuito con '%{new_tag}'"
     resources:
       relation_select:
-        blank: '- vuoto -'
+        blank: "- vuoto -"
     right: "destra"
     robot_follow: "i robot possono seguire i link."
     robot_index: "permetti ai robot di indicizzare."
@@ -556,7 +564,7 @@ it:
     show_eq: "Mostra EQ"
     show_navigation: "Mostra in navigazione"
     show_page_in_sitemap: "Mostra la pagina nella sitemap."
-    signup_mail_delivery_error: 'Non è stato possibile consegnare la mail di signup. Ricontrolla le impostazioni dell''email.'
+    signup_mail_delivery_error: "Non è stato possibile consegnare la mail di signup. Ricontrolla le impostazioni dell'email."
     small_thumbnails: "Thumbnail piccoli"
     subject: "Soggetto"
     successfully_added_element: "Aggiunto nuovo elemento con successo."
@@ -567,7 +575,7 @@ it:
     swap_image: "Modifica immagine"
     insert_image: "Inserisci immagine"
     tag_list: Tag
-    tags_get_created_if_used_the_first_time: 'I tag vengono creati se usati per la prima volta.'
+    tags_get_created_if_used_the_first_time: "I tag vengono creati se usati per la prima volta."
     this_picture_is_used_on_these_pages: "L'immagine è usata nelle seguenti pagine"
     title: "Titolo"
     to_alchemy: "Torna ad Alchemy"
@@ -611,9 +619,9 @@ it:
     "Successfully updated": "Aggiornato con successo"
     "Successfully removed": "Rimosso con successo"
     "Nothing found": "Non è stato trovato nulla."
-    complete: 'Completato'
-    "Update available": 'Aggiornamento disponibile'
-    "Update status unavailable": 'Stato dell''update non disponibile'
+    complete: "Completato"
+    "Update available": "Aggiornamento disponibile"
+    "Update status unavailable": "Stato dell'update non disponibile"
     "Uploading": "Caricamento in corso"
 
     # Kaminari pagination translations
@@ -625,11 +633,11 @@ it:
 
     # Simple form translations
     forms:
-      "yes": 'Sì'
-      "no": 'No'
+      "yes": "Sì"
+      "no": "No"
       required:
-        text: 'obbligatorio'
-        mark: '*'
+        text: "obbligatorio"
+        mark: "*"
       error_notification:
         default_message: "Correggi gli errori sottostanti:"
       labels:
@@ -663,9 +671,9 @@ it:
       alchemy/content:
         attributes:
           name:
-            taken: 'è stato già preso in questo elemento.'
+            taken: "è stato già preso in questo elemento."
           essence:
-            validation_failed: 'Validazione fallita.'
+            validation_failed: "Validazione fallita."
       alchemy/element:
         attributes:
           name:
@@ -673,8 +681,8 @@ it:
       alchemy/language:
         attributes:
           language_code:
-            invalid: '^Il formato del codice della lingua è errato. Usa esattamente 2 lettere minuscole.'
-            taken: 'è già preso per questo codice nazione.'
+            invalid: "^Il formato del codice della lingua è errato. Usa esattamente 2 lettere minuscole."
+            taken: "è già preso per questo codice nazione."
           locale:
             missing_file: "Localizzazione non trovata per il codice lingua fornito. Scegline uno esistente."
       alchemy/page:
@@ -706,15 +714,15 @@ it:
         other: Messaggi
     attributes:
       alchemy/message:
-        salutation: 'Salve'
-        firstname: 'Nome'
-        lastname: 'Cognome'
-        address: 'Via / N.'
-        zip: 'CAP'
+        salutation: "Salve"
+        firstname: "Nome"
+        lastname: "Cognome"
+        address: "Via / N."
+        zip: "CAP"
         city: Città
-        phone: 'Telefono'
-        email: 'Email'
-        message: 'Messaggio'
+        phone: "Telefono"
+        email: "Email"
+        message: "Messaggio"
 
   # Translations for Alchemy database models
   activerecord:
@@ -736,7 +744,7 @@ it:
         other: "Lingue"
       alchemy/node:
         one: "Nodo Menu"
-        other: "Nodi Menu"        
+        other: "Nodi Menu"
       alchemy/page:
         one: "Pagina"
         other: "Pagine"

@@ -1,11 +1,9 @@
 # encoding: UTF-8
 
 fr:
-
   # = Alchemy Translations
   # All translations used in Alchemy CMS are inside this alchemy namespace.
   alchemy:
-
     # == Translations for menu names
     # Just use the menu name like defined inside the config/alchemy/menus.yml file and translate it.
     # We're providing main and footer menu here as a convenience.
@@ -32,11 +30,11 @@ fr:
     #
 
     page_layout_names:
-      contact: 'Contact'
-      search: 'Recherche'
-      layout_header: 'Haut de page'
-      layout_footer: 'Bas de page'
-      external: 'Link extérieur'
+      contact: "Contact"
+      search: "Recherche"
+      layout_header: "Haut de page"
+      layout_footer: "Bas de page"
+      external: "Link extérieur"
 
     # == Translations for element names
     # Just use the elements name like defined inside the config/alchemy/elements.yml file and translate it.
@@ -49,22 +47,22 @@ fr:
     #         intro_image_text: Intro article
     #
     element_names:
-      article: 'Article'
-      intro_image_text: 'Intro article'
-      text: 'Texte'
-      bild: 'Image(s)'
-      bild_text: 'Texte (image)'
-      headline: 'Surtitre'
-      image_mosaic: 'Galerie images'
-      footnote: 'Bas de page'
-      sitename: 'Nom de page'
-      claim: 'Claim'
-      header: 'image de front'
-      intro: 'Intro'
-      subheadline: 'Titre medial'
-      news: 'Nouveautées'
-      searchresult: 'detail de recherche'
-      contactform: 'Formulaire de contact'
+      article: "Article"
+      intro_image_text: "Intro article"
+      text: "Texte"
+      bild: "Image(s)"
+      bild_text: "Texte (image)"
+      headline: "Surtitre"
+      image_mosaic: "Galerie images"
+      footnote: "Bas de page"
+      sitename: "Nom de page"
+      claim: "Claim"
+      header: "image de front"
+      intro: "Intro"
+      subheadline: "Titre medial"
+      news: "Nouveautées"
+      searchresult: "detail de recherche"
+      contactform: "Formulaire de contact"
 
     # == Translated names for contents in elements.
     # Used for the content editor label inside the element editor view (The elements window)
@@ -72,15 +70,15 @@ fr:
     # Tip: You can translate content names globally for all contents of this name, or specificly for an element.
     # To do so, just place the content_name under the element name
     content_names:
-      text: 'Texte'
-      date: 'Date'
-      body: 'Contenu'
-      image: 'Image'
-      mail_from: 'Envoyeur (E-Mail)'
-      mail_to: 'Receveur (E-Mail)'
+      text: "Texte"
+      date: "Date"
+      body: "Contenu"
+      image: "Image"
+      mail_from: "Envoyeur (E-Mail)"
+      mail_to: "Receveur (E-Mail)"
       caption: "Sous-titre image"
-      subject: 'Concerne'
-      intro: 'Introduction'
+      subject: "Concerne"
+      intro: "Introduction"
       headline: "Surtitre"
       subheadline: "Sous-titre"
       news_headline: "Surtitre nouvelles"
@@ -89,7 +87,7 @@ fr:
         show_caption: "voir écriture bas d’image"
       file: Dossier
       contactform:
-        success_page: 'Page suivante'
+        success_page: "Page suivante"
 
     # Translations for content validations
     #
@@ -98,9 +96,9 @@ fr:
         success_page:
           blank: "sélectionnez la page suivante s’il vous plait"
       errors:
-        blank: '%{field} Ne peut être vide'
-        invalid: '%{field} A le mauvais format'
-        taken: '%{field} Déja utilisé'
+        blank: "%{field} Ne peut être vide"
+        invalid: "%{field} A le mauvais format"
+        taken: "%{field} Déja utilisé"
 
     default_content_texts:
       lorem: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -108,39 +106,39 @@ fr:
 
     essence_pictures:
       css_classes:
-        left: 'À gauche du texte'
-        right: 'À droite du texte'
-        no_float: 'Au-dessus du texte'
+        left: "À gauche du texte"
+        right: "À droite du texte"
+        no_float: "Au-dessus du texte"
 
-   # == Contactform translations
+    # == Contactform translations
     contactform:
       labels:
-        salutation: 'Titre'
-        choose: 'Veuillez choisir'
-        mr: 'Monsieur'
-        mrs: 'Madame'
-        firstname: 'Prénom'
-        lastname: 'Nom'
-        address: 'Rue / Nr.'
-        zip: 'Code postal / Lieu'
-        phone: 'Téléphone'
-        email: 'E-Mail'
-        message: 'Message'
-        send: 'envoyer'
+        salutation: "Titre"
+        choose: "Veuillez choisir"
+        mr: "Monsieur"
+        mrs: "Madame"
+        firstname: "Prénom"
+        lastname: "Nom"
+        address: "Rue / Nr."
+        zip: "Code postal / Lieu"
+        phone: "Téléphone"
+        email: "E-Mail"
+        message: "Message"
+        send: "envoyer"
         mandatory_fields: "*Obligatoire. S’il vous plaît remplir ces champs."
       # The flash message shown after successfully sending the message.
       messages:
-        success: 'Votre message a été envoyé avec succès.'
+        success: "Votre message a été envoyé avec succès."
 
     # == Translated language names for translation select
     translations:
-      de: 'DE'
-      en: 'EN'
-      es: 'ES'
-      it: 'IT'
-      fr: 'FR'
-      nl: 'NL'
-      ru: 'RU'
+      de: "DE"
+      en: "EN"
+      es: "ES"
+      it: "IT"
+      fr: "FR"
+      nl: "NL"
+      ru: "RU"
 
     # == User roles translations
     user_roles:
@@ -153,53 +151,53 @@ fr:
     # == Mime Types translations
     # These are human readable mime types used for the document-type row in archive files.
     mime_types:
-      audio/mp4: 'Audio MP4'
-      application/msword: 'Document Word'
-      application/rtf: 'Document RTF'
-      audio/mpeg: 'Audio MP3'
-      text/plain: 'Document de texte'
-      video/mp4: 'vidéo MP4'
-      video/mpeg: 'vidéo MPEG'
-      application/pdf: 'Document PDF'
-      application/x-flash-video: 'vidéo flash'
-      video/x-flv: 'vidéo flash'
-      application/x-shockwave-flash: 'vidéo flash'
-      application/zip: 'ZIP-Archive'
-      application/x-rar: 'RAR-Archive'
+      audio/mp4: "Audio MP4"
+      application/msword: "Document Word"
+      application/rtf: "Document RTF"
+      audio/mpeg: "Audio MP3"
+      text/plain: "Document de texte"
+      video/mp4: "vidéo MP4"
+      video/mpeg: "vidéo MPEG"
+      application/pdf: "Document PDF"
+      application/x-flash-video: "vidéo flash"
+      video/x-flv: "vidéo flash"
+      application/x-shockwave-flash: "vidéo flash"
+      application/zip: "ZIP-Archive"
+      application/x-rar: "RAR-Archive"
       application/vnd:
-        ms-excel: 'Document Excel'
-      video/quicktime: 'vidéo Quicktime'
-      image/x-psd: 'fichier Photoshop'
-      image/gif: 'image GIF'
-      image/jpeg: 'image JPG'
-      image/png: 'image PNG'
-      video/x-msvideo: 'vidéo AVI'
-      video/x-ms-wmv: 'vidéo Windows Media'
-      image/tiff: 'image TIFF'
-      'text/x-vcard': 'vCard'
-      application/vcard: 'vCard'
+        ms-excel: "Document Excel"
+      video/quicktime: "vidéo Quicktime"
+      image/x-psd: "fichier Photoshop"
+      image/gif: "image GIF"
+      image/jpeg: "image JPG"
+      image/png: "image PNG"
+      video/x-msvideo: "vidéo AVI"
+      video/x-ms-wmv: "vidéo Windows Media"
+      image/tiff: "image TIFF"
+      "text/x-vcard": "vCard"
+      application/vcard: "vCard"
 
     link_target_options:
-      default: 'Fenêtre identique'
-      blank: 'nouvelle fenêtre/Tab'
-      overlay: 'un revêtement'
+      default: "Fenêtre identique"
+      blank: "nouvelle fenêtre/Tab"
+      overlay: "un revêtement"
 
     resource_help_texts:
       site:
         aliases: "Veuillez séparer les domaines supplémentaires par des espaces ou de nouvelles lignes."
 
     add_nested_element: "Add %{name}"
-    anchor: 'ancre'
+    anchor: "ancre"
     attribute_fixed: La valeur ne peut être modifiée
-    back: 'arrière'
+    back: "arrière"
     create_tree_as_new_language: "Créer %{langue} comme nouvelle arborescence de langues"
-    "<a href=\"http://get.adobe.com/flashplayer\" target=\"_blank\">%{value}</a>": ""
+    '<a href="http://get.adobe.com/flashplayer" target="_blank">%{value}</a>': ""
     locked_pages: "sites actifs"
     "Add global page": "Nouvelle page globale"
     "Add page link": "Nouveau lien vers une page"
     "Alchemy is open software and itself uses open software and free resources:": "Alchemy est un logiciel open source et utilise le logiciel libre et les ressources libres même :"
-    "Alchemy is up to date": 'Alchemy est à jour'
-    'An error happened': 'une erreur est survenue'
+    "Alchemy is up to date": "Alchemy est à jour"
+    "An error happened": "une erreur est survenue"
     "Change password": "modifier mot de passe"
     "Choose page": "choisir page"
     "Cleared trash": "La Corbeille a été vidée"
@@ -367,7 +365,7 @@ fr:
     copy_page: "Copier page"
     "Could not delete Pictures": "Images n’ont pas pu être supprimés"
     copy_language_tree_heading: "Copier un langage d’arbres"
-    country_code_placeholder: 'par exemple AT (optionnel)'
+    country_code_placeholder: "par exemple AT (optionnel)"
     country_code_foot_note: "Le code du pays est seulement nécessaire si vous souhaitez appliquer plusieurs pays de langues différentes."
     create: "Etablir"
     "Create language": "Création d’un nouveau langage"
@@ -380,7 +378,7 @@ fr:
     delete_image: "supprimer l’image."
     delete_language: "Supprimer la langue"
     delete_page: "Supprimer la page"
-    delete_tag: 'Supprimer le tag'
+    delete_tag: "Supprimer le tag"
     document: "Document"
     download_csv: "CSV télécharger"
     download_file: "%{filename} télécharger"
@@ -391,7 +389,7 @@ fr:
     edit_language: "Modifier la langue"
     edit_page: "Modifier la page"
     edit_page_properties: "Modifier les propriétés de la page"
-    edit_tag: 'Modifier Tag'
+    edit_tag: "Modifier Tag"
     edit_selected_pictures: "Les photos sélectionnées :"
     element_editor_not_found: "Dans cet élément est survenu une erreur"
     element_of_type: "élément"
@@ -436,7 +434,7 @@ fr:
     "item removed from clipboard": "%{name} a été retiré du presse-papiers."
     javascript_disabled_headline: "Javascript est activé !"
     javascript_disabled_text: "Alchimie ne fonctionne correctement qu’avec Javascript. S’il vous plaît activer dans votre navigateur."
-    language_code_placeholder: 'par exemple. de'
+    language_code_placeholder: "par exemple. de"
     language_does_not_exist: "l’arborescence de la langue n’existe pas encore"
     language_pages_copied: "L’arborescence de la langue a été copié"
     last_upload_only: "Dernière téléchargées"
@@ -454,7 +452,7 @@ fr:
     mail_to: "adresse du destinataire"
     main_content: "contenu principal"
     male: "Monsieur"
-    me: 'Moi'
+    me: "Moi"
     medium_thumbnails: "Image de mignature moyenne"
     meta_data: "meta dates"
     meta_description: "meta Description"
@@ -485,12 +483,12 @@ fr:
     no_more_elements_to_add: "Aucun élément disponible."
     no_search_results: "Aucun résultat de recherche."
     "not a valid image": "Aucun fichier image valide."
-    "or": 'ou'
-    or_replace_it_with_an_existing_tag: 'Ou la remplacer par une balise existante'
+    "or": "ou"
+    or_replace_it_with_an_existing_tag: "Ou la remplacer par une balise existante"
     "Page created": "page « %{name} » a été créé."
     page_for_links:
       choose_page: "%{name} chisir"
-    page_infos: 'Info de page'
+    page_infos: "Info de page"
     page_layout_changed_notice: "Le type de page a été modifiée. Articles ne sont plus utilisables ont été déplacés vers la Corbeille."
     page_properties: "Propriétés de la page"
     page_public: "publique"
@@ -509,6 +507,16 @@ fr:
       restricted:
         "true": "La page est protégée."
         "false": "La page n’est pas protégée."
+    page_status_titles:
+      locked:
+        "true": "Verrouillé"
+        "false": ""
+      public:
+        "true": "Publié"
+        "false": "Non publié"
+      restricted:
+        "true": "Protégé"
+        "false": "Non protégé"
     page_status: "Statut"
     page_title: "Titre"
     page_type: "Type"
@@ -520,7 +528,7 @@ fr:
         comma_seperated: "Séparés par des virgules"
     password: "Mot de passe"
     paste: "insérer"
-    picture_gallery_editor: 'Images'
+    picture_gallery_editor: "Images"
     picture_library:
       filter:
         last_upload: "plus récemment téléchargés ont étés"
@@ -534,23 +542,23 @@ fr:
     position_in_text: "Agencement de texte"
     preview_size: "Taille de l’aperçu"
     preview_sizes:
-      '240': '240px (petit téléphone mobile)'
-      '320': '320px (iPhone)'
-      '480': '480px (Petit Tablet)'
-      '768': '768px (iPad - Portrait)'
-      '1024': '1024px (iPad - Widescreen)'
-      '1280': '1280px (Desktop)'
-    recently_uploaded_only: 'Récemment transféré'
+      "240": "240px (petit téléphone mobile)"
+      "320": "320px (iPhone)"
+      "480": "480px (Petit Tablet)"
+      "768": "768px (iPad - Portrait)"
+      "1024": "1024px (iPad - Widescreen)"
+      "1280": "1280px (Desktop)"
+    recently_uploaded_only: "Récemment transféré"
     "regular method": "procédé conventionnel"
     remove: "supprimer"
     rename_file: "Renommer un fichier"
     rename: renommer
     replace: remplacer
     replace_file: Remplacer le fichier
-    'Replaced Tag %{old_tag} with %{new_tag}': "Le Tag « %{old_tag} » à été remplacé par le Tag « %{new_tag} »"
+    "Replaced Tag %{old_tag} with %{new_tag}": "Le Tag « %{old_tag} » à été remplacé par le Tag « %{new_tag} »"
     resources:
       relation_select:
-        blank: '- sans -'
+        blank: "- sans -"
     right: "droite"
     robot_follow: "laissez le robot suivre les liens"
     robot_index: "index par Robot"
@@ -560,7 +568,7 @@ fr:
     search: "chercher"
     search_engines: "moteur de recherche"
     select_element: "Sélectionnez élément"
-    seperate_tags_with_comma: 'Séparez les tags avec des virgules.'
+    seperate_tags_with_comma: "Séparez les tags avec des virgules."
     show_element_content: "Afficher élément"
     show_elements_from_page: "Voir les articles sur cette page"
     show_eq: "afficher EQ"
@@ -605,7 +613,7 @@ fr:
     welcome_back_note: "Bienvenue à nouveau %{name}"
     welcome_please_identify_notice: "Bienvenue ! Veuillez vous identifier."
     width: "Largeur"
-    without_tag: 'Sans Tag'
+    without_tag: "Sans Tag"
     you_can_rename_this_tag: "Vous pouvez renommer ce tag"
     zoom_image: "Afficher l’image en taille réelle."
     "Leave Alchemy": "Quitter Alchemy"
@@ -625,8 +633,8 @@ fr:
     "Nothing found": "Aucun article trouvé."
     "Now drop the files": "Lacher les fichiers maintenant"
     "Queued x files": "x Fichiers dans la file d’attente."
-    complete: 'terminé'
-    "Update available": 'Il ya une mise à jour disponible'
+    complete: "terminé"
+    "Update available": "Il ya une mise à jour disponible"
     "Update status unavailable": "L’état de mise à jour n’a pas pu être déterminée"
     "Uploading": "Télécharger"
     "Uploaded x files": "x fichiers téléchargés."
@@ -649,11 +657,11 @@ fr:
 
     # Simple form translations
     forms:
-      "yes": 'oui'
-      "no": 'non'
+      "yes": "oui"
+      "no": "non"
       required:
-        text: 'champ obligatoire'
-        mark: '*'
+        text: "champ obligatoire"
+        mark: "*"
       error_notification:
         default_message: "Il ya des erreurs :"
       labels:
@@ -687,9 +695,9 @@ fr:
       alchemy/content:
         attributes:
           name:
-            taken: 'existe déja dans cet élément.'
+            taken: "existe déja dans cet élément."
           essence:
-            validation_failed: 'validation échoué.'
+            validation_failed: "validation échoué."
       alchemy/element:
         attributes:
           name:
@@ -698,7 +706,7 @@ fr:
         attributes:
           language_code:
             invalid: "n’est pas correct. S’il vous plaît utiliser deux minuscules exactement."
-            taken: 'existe déjà pour les codes de ce pays.'
+            taken: "existe déjà pour les codes de ce pays."
           locale:
             missing_file: "Localization not found for given language code. Please choose an existing one."
       alchemy/page:
@@ -722,7 +730,7 @@ fr:
           alchemy_roles:
             blank: "au moins un rôle doit être précisé"
 
- # Translations for Alchemy models
+  # Translations for Alchemy models
   activemodel:
     models:
       alchemy/message:

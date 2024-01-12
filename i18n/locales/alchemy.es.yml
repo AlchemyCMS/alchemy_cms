@@ -509,6 +509,16 @@ es:
       restricted:
         "true": "La página está restringida."
         "false": "La página no está restringida."
+    page_status_titles:
+      locked:
+        "true": "Bloqueada"
+        "false": ""
+      public:
+        "true": "Publicada"
+        "false": "No publicada"
+      restricted:
+        "true": "Restringida"
+        "false": "No restringida"
     page_status: "Estado"
     page_title: "Título"
     page_type: "Tipo"
