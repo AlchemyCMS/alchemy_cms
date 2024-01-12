@@ -149,6 +149,28 @@ module Alchemy
       it "returns a form tag with method=delete" do
         is_expected.to have_selector('form input[name="_method"][value="delete"]')
       end
+
+      context "with title in html options" do
+        subject(:button) do
+          delete_button("/admin/pages", {}, {title: "Open Me"})
+        end
+
+        it "passes html title to sl-tooltip" do
+          expect(button).to have_css("sl-tooltip[content='Open Me']")
+          expect(button).to_not have_css("button[title='Open Me']")
+        end
+      end
+
+      context "without title in html options" do
+        subject(:button) do
+          delete_button("/admin/pages", {}, {})
+        end
+
+        it "has no sl-toolip" do
+          expect(button).to_not have_css("sl-tooltip")
+          expect(button).to_not have_css("button[title]")
+        end
+      end
     end
 
     describe "#alchemy_datepicker" do

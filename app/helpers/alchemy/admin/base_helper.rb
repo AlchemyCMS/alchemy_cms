@@ -201,16 +201,22 @@ module Alchemy
           message: Alchemy.t("Are you sure?"),
           icon: "delete-bin-2"
         }.merge(options)
-        button_with_confirm(
+
+        if html_options[:title]
+          tooltip = html_options.delete(:title)
+        end
+        button = button_with_confirm(
           render_icon(options[:icon]),
-          url, {
-            message: options[:message]
-          }, {
+          url, options, {
             method: "delete",
-            title: options[:title],
             class: "icon_button #{html_options.delete(:class)}".strip
           }.merge(html_options)
         )
+        if tooltip
+          content_tag("sl-tooltip", button, content: tooltip)
+        else
+          button
+        end
       end
 
       # (internal) Renders translated Module Names for html title element.

@@ -273,7 +273,7 @@ RSpec.describe "Resources", type: :system do
       second_event
       visit "/admin/events"
       within("tr", text: "My second Event") do
-        click_on "Delete"
+        click_button_with_tooltip "Delete"
       end
     end
 
