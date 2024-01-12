@@ -13,7 +13,7 @@ Rails.application.config.to_prepare do
       name: "modules.users",
       controller: "/alchemy/admin/users",
       action: "index",
-      icon: (Alchemy.gem_version > Gem::Version.new("7.0")) ? "group-line" : "users"
+      icon: (Alchemy.gem_version > Gem::Version.new("7.1.0-b1")) ? "group-line" : "users"
     }
   })
 

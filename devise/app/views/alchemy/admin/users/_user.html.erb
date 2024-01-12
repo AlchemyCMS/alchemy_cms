@@ -25,7 +25,8 @@
       message: Alchemy.t(:confirm_to_delete_user),
       title: Alchemy.t(:delete_user),
       icon: :minus
-    } %>
+    },
+    title: Alchemy.t(:delete_user) %>
   <% end %>
   <% if can?(:edit, user) %>
     <%= link_to_dialog render_icon(:edit),
