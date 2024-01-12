@@ -54,11 +54,18 @@ module Alchemy
       def link_to_dialog(content, url, options = {}, html_options = {})
         default_options = {modal: true}
         options = default_options.merge(options)
-        link_to content, url,
-          html_options.merge(
-            "data-dialog-options" => options.to_json,
-            :is => "alchemy-dialog-link"
-          )
+        if html_options[:title]
+          tooltip = html_options.delete(:title)
+        end
+        anchor = link_to(content, url, html_options.merge(
+          "data-dialog-options" => options.to_json,
+          :is => "alchemy-dialog-link"
+        ))
+        if tooltip
+          content_tag("sl-tooltip", anchor, content: tooltip)
+        else
+          anchor
+        end
       end
 
       # Used for translations selector in Alchemy cockpit user settings.
