@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.1.1 (2023-01-12)
+
+- Alchemy 7.1 UI fixes [#195](https://github.com/AlchemyCMS/alchemy-devise/pull/195) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.1.0 (2023-01-11)
 
 - Update brakeman to 6.1 [#194](https://github.com/AlchemyCMS/alchemy-devise/pull/194) ([tvdeyen](https://github.com/tvdeyen))
