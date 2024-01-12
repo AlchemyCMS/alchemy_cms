@@ -1,7 +1,6 @@
 # encoding: UTF-8
 
 zh-CN:
-
   # = Alchemy Translations
   # All translations used in Alchemy CMS are inside this alchemy namespace.
   alchemy:
@@ -29,8 +28,8 @@ zh-CN:
     #       search: Search
     #
     page_layout_names:
-       contact: 联系
-       search: 搜索
+      contact: 联系
+      search: 搜索
 
     # == Translations for element names
     # Just use the elements name like defined inside the config/alchemy/elements.yml file and translate it.
@@ -44,8 +43,8 @@ zh-CN:
     #       contactform: Contact form
     #
     element_names:
-       article: 文章
-       contactform: 联系表单
+      article: 文章
+      contactform: 联系表单
 
     # == Translated names for contents in elements.
     # Used for the content editor label inside the element editor view (The elements window)
@@ -90,15 +89,15 @@ zh-CN:
     content_validations:
       content_validations:
         contactform:
-         success_page:
-           blank: '请选择一个跳转页面。'
-         mail_to:
-           blank: '请选择一个电子邮件地址已便所有咨询转发到这个地址。'
+          success_page:
+            blank: "请选择一个跳转页面。"
+          mail_to:
+            blank: "请选择一个电子邮件地址已便所有咨询转发到这个地址。"
 
       errors:
         blank: "%{field} 不能为空"
-        invalid: '%{field} 格式出错'
-        taken: '%{field} 已经被使用'
+        invalid: "%{field} 格式出错"
+        taken: "%{field} 已经被使用"
 
     default_content_texts:
       lorem: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -106,39 +105,39 @@ zh-CN:
 
     essence_pictures:
       css_classes:
-        left: '文字左边'
-        right: '文字右边'
-        no_float: '文字上边'
+        left: "文字左边"
+        right: "文字右边"
+        no_float: "文字上边"
 
     # == Contactform translations
     contactform:
       labels:
-        salutation: '联系方式'
-        choose: '请选择'
-        mr: '先生'
-        mrs: '女士'
-        firstname: '名'
-        lastname: '姓'
-        address: '街道 / 门牌号'
-        zip: '邮编 / 城市'
-        phone: '电话'
-        email: '电子邮件'
-        message: '信息'
-        send: '发送'
-        mandatory_fields: '*必填字段。'
+        salutation: "联系方式"
+        choose: "请选择"
+        mr: "先生"
+        mrs: "女士"
+        firstname: "名"
+        lastname: "姓"
+        address: "街道 / 门牌号"
+        zip: "邮编 / 城市"
+        phone: "电话"
+        email: "电子邮件"
+        message: "信息"
+        send: "发送"
+        mandatory_fields: "*必填字段。"
       # The flash message shown after successfully sending the message.
       messages:
-        success: '你的信息已成功发送。'
+        success: "你的信息已成功发送。"
 
     # == Translated language names for translation select
     translations:
-      de: '德语'
-      en: '英语'
-      es: '西班牙语'
-      it: '意大利语'
-      fr: '法语'
-      nl: '荷兰语'
-      ru: '俄语'
+      de: "德语"
+      en: "英语"
+      es: "西班牙语"
+      it: "意大利语"
+      fr: "法语"
+      nl: "荷兰语"
+      ru: "俄语"
 
     # == User roles translations
     user_roles:
@@ -151,31 +150,31 @@ zh-CN:
     # == Mime Types translations
     # These are human readable mime types used for the document-type row in archive files.
     mime_types:
-      audio/mp4: 'MP4音频'
-      application/msword: 'Word文档'
-      application/rtf: 'RTF文档'
-      audio/mpeg: 'MP3音频'
-      text/plain: 'Text文档'
-      video/mp4: 'MP4视频'
-      video/mpeg: 'MPEG视频'
-      application/pdf: 'PDF文档'
-      application/x-flash-video: 'Flash视频'
-      video/x-flv: 'Flash视频'
-      application/x-shockwave-flash: 'Flash视频'
-      application/zip: 'ZIP压缩文档'
-      application/x-rar: 'RAR压缩文档'
+      audio/mp4: "MP4音频"
+      application/msword: "Word文档"
+      application/rtf: "RTF文档"
+      audio/mpeg: "MP3音频"
+      text/plain: "Text文档"
+      video/mp4: "MP4视频"
+      video/mpeg: "MPEG视频"
+      application/pdf: "PDF文档"
+      application/x-flash-video: "Flash视频"
+      video/x-flv: "Flash视频"
+      application/x-shockwave-flash: "Flash视频"
+      application/zip: "ZIP压缩文档"
+      application/x-rar: "RAR压缩文档"
       application/vnd:
-        ms-excel: 'Excel文档'
-      video/quicktime: 'Quicktime视频'
-      image/x-psd: 'Photoshop文件'
-      image/gif: 'GIF图片'
-      image/png: 'PNG图片'
-      image/jpeg: 'JPG图片'
-      video/x-msvideo: 'AVI视频'
-      video/x-ms-wmv: 'Windows Media视频'
-      image/tiff: 'TIFF图片'
-      'text/x-vcard': 'vCard'
-      application/vcard: 'vCard'
+        ms-excel: "Excel文档"
+      video/quicktime: "Quicktime视频"
+      image/x-psd: "Photoshop文件"
+      image/gif: "GIF图片"
+      image/png: "PNG图片"
+      image/jpeg: "JPG图片"
+      video/x-msvideo: "AVI视频"
+      video/x-ms-wmv: "Windows Media视频"
+      image/tiff: "TIFF图片"
+      "text/x-vcard": "vCard"
+      application/vcard: "vCard"
 
     link_target_options:
       default: 同一个窗口
@@ -187,16 +186,16 @@ zh-CN:
         aliases: 请用空格或换行符分隔额外域名。
 
     add_nested_element: "Add %{name}"
-    anchor: '锚点'
+    anchor: "锚点"
     attribute_fixed: 针对这种页面类型，不能改变值
-    back: '返回'
+    back: "返回"
     create_tree_as_new_language: "添加 %{language} 到语言树"
     locked_pages: "激活页面"
     "Add global page": "添加通用页面"
     "Add page link": "添加页面链接"
     "Alchemy is open software and itself uses open software and free resources:": "Alchemy是开源软件并且它自身也使用开源软件和免费资源"
-    "Alchemy is up to date": 'Alchemy是目前最新版本'
-    'An error happened': '发生错误'
+    "Alchemy is up to date": "Alchemy是目前最新版本"
+    "An error happened": "发生错误"
     "Change password": "改变密码"
     "Choose page": "选择页面"
     "Cleared trash": "已清空垃圾箱"
@@ -362,7 +361,7 @@ zh-CN:
     copy_page: "复制页面"
     "Could not delete Pictures": "无法删除图片"
     copy_language_tree_heading: "复制页面树"
-    country_code_placeholder: '例如 US (可选)'
+    country_code_placeholder: "例如 US (可选)"
     country_code_foot_note: "只有你要用同一种语言支持多个国家时才需要设置国家代码。"
     create: "创建"
     "Create language": "创建一个新语言"
@@ -375,7 +374,7 @@ zh-CN:
     delete_image: "删除这个图片"
     delete_language: "删除这个语言"
     delete_page: "删除这个页面"
-    delete_tag: '删除标签'
+    delete_tag: "删除标签"
     document: "文件"
     download_csv: "下载 CSV"
     download_file: "下载文件 '%{filename}'"
@@ -386,13 +385,13 @@ zh-CN:
     edit_language: "编辑语言"
     edit_page: "编辑这个页面"
     edit_page_properties: "编辑页面属性"
-    edit_tag: '编辑标签'
+    edit_tag: "编辑标签"
     edit_selected_pictures: "编辑选中的图片"
     element_editor_not_found: "元素内出错"
     element_of_type: "元素"
     element_saved: "已保存元素。"
     enter_external_link: "请输入你想要链接的网址"
-    explain_cropping: "<p>移动框架并通过鼠标或键盘来调整尺寸来更改图片掩码。当对你的选择满意时单击 \"应用\"。</p><p>如果你想恢复系统默认的图片掩码居中显示，请单击 \"复位\" 和 \"应用\" 。</p>"
+    explain_cropping: '<p>移动框架并通过鼠标或键盘来调整尺寸来更改图片掩码。当对你的选择满意时单击 "应用"。</p><p>如果你想恢复系统默认的图片掩码居中显示，请单击 "复位" 和 "应用" 。</p>'
     explain_publishing: "发布页面并删除服务器端的缓存版本。"
     explain_sitemap_dragndrop_sorting: "小窍门: 拖动页面图标来进行排序。"
     explain_unlocking: "离开页面并为其他用户解锁。"
@@ -431,7 +430,7 @@ zh-CN:
     "item removed from clipboard": "已经从剪贴板中删除 %{name}"
     javascript_disabled_headline: "Javascript被禁用！"
     javascript_disabled_text: "Alchemy 需要 Javascript 才能正常运行。请在你的浏览器设置中激活它。"
-    language_code_placeholder: '例如：en'
+    language_code_placeholder: "例如：en"
     language_does_not_exist: "这个语言树不存在。"
     language_pages_copied: "成功复制语言树。"
     last_upload_only: "只要最近上传得"
@@ -478,12 +477,12 @@ zh-CN:
     no_more_elements_to_add: "没有元素可用。"
     no_search_results: "你的搜索没有返回任何结果。"
     "not a valid image": "这个不是合法的图片。"
-    "or": '或'
-    or_replace_it_with_an_existing_tag: '或者使用已经存在的标签替代它。'
+    "or": "或"
+    or_replace_it_with_an_existing_tag: "或者使用已经存在的标签替代它。"
     "Page created": "页面: '%{name}' 已经被创建。"
     page_for_links:
       choose_page: "选择 %{name}"
-    page_infos: '页面信息'
+    page_infos: "页面信息"
     page_layout_changed_notice: "页面类型已被更改。不可用的元素已被移进垃圾箱。"
     page_properties: "页面属性"
     page_public: "已发布"
@@ -502,6 +501,16 @@ zh-CN:
       restricted:
         "true": "页面有限制。"
         "false": "页面没有限制。"
+    page_status_titles:
+      public:
+        "true": "公开"
+        "false": "未公开"
+      locked:
+        "true": "锁定"
+        "false": ""
+      restricted:
+        "true": "限制"
+        "false": "未限制"
     page_status: "状态"
     page_title: "标题"
     page_type: "类别"
@@ -513,7 +522,7 @@ zh-CN:
         comma_seperated: "用逗号分隔"
     password: "密码"
     paste: "粘贴"
-    picture_gallery_editor: '图片'
+    picture_gallery_editor: "图片"
     picture_library:
       filter:
         last_upload: "自从上次上传"
@@ -528,23 +537,23 @@ zh-CN:
     position_in_text: "文本中位置"
     preview_size: "预览大小"
     preview_sizes:
-      '240': '240px (小屏幕手机)'
-      '320': '320px (iPhone)'
-      '480': '480px (小平板电脑)'
-      '768': '768px (iPad - 竖放)'
-      '1024': '1024px (iPad - 横放)'
-      '1280': '1280px (桌面电脑)'
-    recently_uploaded_only: '只是最近上传的'
+      "240": "240px (小屏幕手机)"
+      "320": "320px (iPhone)"
+      "480": "480px (小平板电脑)"
+      "768": "768px (iPad - 竖放)"
+      "1024": "1024px (iPad - 横放)"
+      "1280": "1280px (桌面电脑)"
+    recently_uploaded_only: "只是最近上传的"
     "regular method": "正常方法"
     remove: "删除"
     rename_file: "重命名这个文件。"
     rename: "重命名"
     replace: 替代
     replace_file: 替代文件
-    'Replaced Tag': "标签 '%{old_tag}' 已经被 '%{new_tag}'所替代"
+    "Replaced Tag": "标签 '%{old_tag}' 已经被 '%{new_tag}'所替代"
     resources:
       relation_select:
-        blank: '- 无 -'
+        blank: "- 无 -"
     right: "右"
     robot_follow: "机器人可以追踪链接。"
     robot_index: "允许机器人索引。"
@@ -560,7 +569,7 @@ zh-CN:
     show_eq: "显示EQ"
     show_navigation: "在导航中显示"
     show_page_in_sitemap: "在站点地图中显示页面。"
-    signup_mail_delivery_error: '无法发送注册邮件。请检查你的邮件设置。'
+    signup_mail_delivery_error: "无法发送注册邮件。请检查你的邮件设置。"
     small_thumbnails: "小缩略图"
     subject: "主题"
     successfully_added_element: "成功添加元素。"
@@ -571,7 +580,7 @@ zh-CN:
     swap_image: "更改图片"
     insert_image: "插入图片"
     tag_list: 标签
-    tags_get_created_if_used_the_first_time: '在第一次使用标签的同时会创建它。'
+    tags_get_created_if_used_the_first_time: "在第一次使用标签的同时会创建它。"
     this_picture_is_used_on_these_pages: "这个图片用于如下页面"
     title: "标题"
     to_alchemy: "给Alchemy"
@@ -615,9 +624,9 @@ zh-CN:
     "Successfully updated": "更新成功"
     "Successfully removed": "删除成功"
     "Nothing found": "没找到。"
-    complete: '完成'
-    "Update available": '有最新更新'
-    "Update status unavailable": '没有最新更新'
+    complete: "完成"
+    "Update available": "有最新更新"
+    "Update status unavailable": "没有最新更新"
     "Uploading": "正在上传"
 
     # Kaminari pagination translations
@@ -629,11 +638,11 @@ zh-CN:
 
     # Simple form translations
     forms:
-      "yes": '是'
-      "no": '否'
+      "yes": "是"
+      "no": "否"
       required:
-        text: '必填'
-        mark: '*'
+        text: "必填"
+        mark: "*"
       error_notification:
         default_message: "请检查如下错误："
       labels:
@@ -667,9 +676,9 @@ zh-CN:
       alchemy/content:
         attributes:
           name:
-            taken: '在这个元素中已经被使用。'
+            taken: "在这个元素中已经被使用。"
           essence:
-            validation_failed: '验证失败。'
+            validation_failed: "验证失败。"
       alchemy/element:
         attributes:
           name:
@@ -677,8 +686,8 @@ zh-CN:
       alchemy/language:
         attributes:
           language_code:
-            invalid: '^语言代码格式非法。请使用两位小写字母。'
-            taken: '针对现在的国家代码，它已经被使用。'
+            invalid: "^语言代码格式非法。请使用两位小写字母。"
+            taken: "针对现在的国家代码，它已经被使用。"
           locale:
             missing_file: "针对选择的语言代码，本地化文件不存在。请选择一个现有的。"
       alchemy/page:
@@ -710,15 +719,15 @@ zh-CN:
         other: 消息
     attributes:
       alchemy/message:
-        salutation: '联系方式'
-        firstname: '名'
-        lastname: '姓'
-        address: '街名 / 门牌号'
-        zip: '邮编'
+        salutation: "联系方式"
+        firstname: "名"
+        lastname: "姓"
+        address: "街名 / 门牌号"
+        zip: "邮编"
         city: 城市
-        phone: '电话'
-        email: '电子邮件'
-        message: '消息'
+        phone: "电话"
+        email: "电子邮件"
+        message: "消息"
 
   # Translations for Alchemy database models
   activerecord:

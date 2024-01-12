@@ -577,6 +577,9 @@ de:
         "true": "Die Seite ist beschränkt auf Mitglieder."
         "false": "Die Seite ist für jeden zugänglich."
     page_status_titles:
+      locked:
+        "true": "bearbeitet"
+        "false": ""
       public:
         "true": "öffentlich"
         "false": "versteckt"

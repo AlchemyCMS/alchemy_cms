@@ -146,7 +146,7 @@ nb-NO:
   alchemy:
     Add global page: Legg til global side
     Add page link: Legg til sidekobling
-    'Alchemy is open software and itself uses open software and free resources:': 'Alchemy er fri programvare og bruker selv fri programvare og ressurser:'
+    "Alchemy is open software and itself uses open software and free resources:": "Alchemy er fri programvare og bruker selv fri programvare og ressurser:"
     Alchemy is up to date: Alchemy er oppdatert
     An error happened: En feil oppstod
     Are you sure?: Er du sikker?
@@ -213,7 +213,7 @@ nb-NO:
     New Tag Created: Ny tag opprettet
     New page: Ny side
     New password: Nytt passord
-    'No': Nei
+    "No": Nei
     No EssenceType given:
     No Tags found: Ingen tags funnet
     No items in your clipboard: Ingen elementer i utklippstavlen
@@ -225,7 +225,7 @@ nb-NO:
     Open Link in: Åpne kobling med
     Page: Side
     Page cache flushed: Sidehurtiglager tømt
-    Page created: 'Side: ''%{name}'' opprettet.'
+    Page created: "Side: '%{name}' opprettet."
     Page deleted: "%{name} slettet"
     Page edit shortcuts: Side rediger snarveier
     Page saved: "%{name} lagret"
@@ -269,7 +269,7 @@ nb-NO:
     Show trash: Vis papirkurv
     Site successfully created: Nettsted vellykket opprettet.
     Site successfully removed: Nettsted vellykket fjernet.
-    Site successfully updated: 'Nettsted vellykket oppdatert '
+    Site successfully updated: "Nettsted vellykket oppdatert "
     Size: Størrelse
     Sort pages: Endre rekkefølge på sider
     Status:
@@ -282,7 +282,7 @@ nb-NO:
     Successfully updated: Oppdatert
     Switch to Flash® Uploader:
     Tags: Tags
-    These pictures could not be deleted, because they were in use: 'Disse bildene kunne ikke slettes fordi de var i bruk: %{names}'
+    These pictures could not be deleted, because they were in use: "Disse bildene kunne ikke slettes fordi de var i bruk: %{names}"
     This page is locked: Denne siden er låst av %{name}
     Title: Tittel
     Trash: Papirkurv
@@ -301,7 +301,7 @@ nb-NO:
     "We need at least one default\x01": Et standardspråk må eksistere.
     Welcome to Alchemy: Velkommen til Alchemy
     Who else is online: Hvem andre er online
-    'Yes': Ja
+    "Yes": Ja
     You are about to edit many pictures at once: Du er i ferd med å redigere %{length} bilder på en gang
     You are about to leave Alchemy: Du er i ferd med å forlate Alchemy
     You are not authorized: Du har ikke tilgang
@@ -364,7 +364,7 @@ nb-NO:
       messages:
         success: Din beskjed ble levert
     contactform_body:
-    content_definition_missing: 'Advarsel: Innhold mangler definisjon. Vennligst sjekk elements.yml'
+    content_definition_missing: "Advarsel: Innhold mangler definisjon. Vennligst sjekk elements.yml"
     content_essence_not_found: Innholdsessens ikke funnet
     content_names:
     content_not_found: Felt for innhold mangler
@@ -433,27 +433,27 @@ nb-NO:
         right: Høyre fra tekst
     explain_cropping: "<p>Flytt rammen og endre størrelse med mus eller piltaster for å justere bildemasken. Klikk på utfør når du er fornøyd med valget.</p><p>Hvis du vil tilbake til den opprinnelige sentrerte bildemasken som var definert i layout, klikk tilbakestill og utfør etterpå.</p>"
     explain_publishing: Publiser siden og fjern hurtiglagret versjon fra server
-    explain_sitemap_dragndrop_sorting: 'Tips: Dra sidene fra ikonet for å sortere'
+    explain_sitemap_dragndrop_sorting: "Tips: Dra sidene fra ikonet for å sortere"
     explain_unlocking: Forlat side og lås opp for andre brukere.
     external_link_notice_1: Vennligst skriv inn komplett url med http:// or tilsvarende protokoll.
     external_link_notice_2: For å vise til en sti fra ditt nettsted, start med /
-    'false': Nei
+    "false": Nei
     female: Kvinnelig
     file: Fil
     file_rename_error: Feil ved navneendring av fil.
     forms:
       error_notification:
-        default_message: 'Vennligst se gjennom problemene under:'
+        default_message: "Vennligst se gjennom problemene under:"
       labels:
         user:
           email: E-post
           login: Logginn
           password: Passord
-      'no': Nei
+      "no": Nei
       required:
         mark:
         text: påkrevd
-      'yes': Ja
+      "yes": Ja
     from:
     from_at: fra %{by} %{at}
     height: Høyde
@@ -481,7 +481,7 @@ nb-NO:
     insert_image: Sett inn bilde
     internal_link_headline: Velg en side å lenke til.
     internal_link_page_anchors_explanation: Alternativt kan du lenke til et anker på den aktuelle siden.
-    internal_link_page_elements_explanation: 'I tillegg kan du klippe ved siden av en side på vis elementer for å lenke til et elementanker fra den siden. '
+    internal_link_page_elements_explanation: "I tillegg kan du klippe ved siden av en side på vis elementer for å lenke til et elementanker fra den siden. "
     item copied to clipboard: Kopierte %{name} til utklippstavle
     item moved to clipboard: Flyttet %{name} til utklippstavle
     item removed from clipboard: Fjernet %{name} fra utklippstavlen
@@ -583,17 +583,27 @@ nb-NO:
     page_restricted: begrenset
     page_states:
       locked:
-        'false':
-        'true': Side redigeres for øyeblikket.
+        "false":
+        "true": Side redigeres for øyeblikket.
       public:
-        'false': Side er upublisert
-        'true': Side er publisert.
+        "false": Side er upublisert
+        "true": Side er publisert.
       restricted:
-        'false': Side er upublisert.
-        'true': Side er begrenset.
+        "false": Side er upublisert.
+        "true": Side er begrenset.
       visible:
-        'false': Side er ikke synlig i navigasjon.
-        'true': Side er synlig i navigasjon
+        "false": Side er ikke synlig i navigasjon.
+        "true": Side er synlig i navigasjon
+    page_status_titles:
+      locked:
+        "true": "låst"
+        "false": ""
+      public:
+        "true": "publisert"
+        "false": "upublisert"
+      restricted:
+        "true": "begrenset"
+        "false": "ubegrenset"
     page_status: Status
     page_title: Tittel
     page_type: Type
@@ -626,12 +636,12 @@ nb-NO:
     position_in_text: Posisjon i tekst
     preview_size: Størrelse på forhåndsvisning
     preview_sizes:
-      '1024': 1024px (iPad - Landscape)
-      '1280': 1280px (Desktop)
-      '240': 240px (small phone)
-      '320': 320px (iPhone)
-      '480': 480px (small Tablet)
-      '768': 768px (iPad - Portrait)
+      "1024": 1024px (iPad - Landscape)
+      "1280": 1280px (Desktop)
+      "240": 240px (small phone)
+      "320": 320px (iPhone)
+      "480": 480px (small Tablet)
+      "768": 768px (iPad - Portrait)
     public_available:
     recently_uploaded_only: Kun nylige opplastinger
     regular method: Ordinær metode
@@ -698,11 +708,11 @@ nb-NO:
     uploader:
       alchemy/attachment:
         button_label: Last opp fil(er)
-        upload_failure: 'Fil %{name} opplastingsfeil: %{error}'
+        upload_failure: "Fil %{name} opplastingsfeil: %{error}"
         upload_success: Fil %{name} lastet opp vellykket
       alchemy/picture:
         button_label: Last opp bilde(r)
-        upload_failure: 'Feil under opplasting %{name}: %{error}'
+        upload_failure: "Feil under opplasting %{name}: %{error}"
         upload_success: Bilde %{name} lastet opp
     url_name: URL-navn
     use_alternative_uploader_instead:
