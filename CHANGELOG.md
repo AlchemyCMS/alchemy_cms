@@ -1,5 +1,17 @@
 # Changelog
 
+## 7.1.0-rc1 (2024-01-15)
+
+- Use title attribute for link_to_dialog and delete_button tooltip [#2688](https://github.com/AlchemyCMS/alchemy_cms/pull/2688) ([tvdeyen](https://github.com/tvdeyen))
+- Add alchemy-clipboard-button component [#2687](https://github.com/AlchemyCMS/alchemy_cms/pull/2687) ([tvdeyen](https://github.com/tvdeyen))
+- Fix layout of empty picture archive [#2686](https://github.com/AlchemyCMS/alchemy_cms/pull/2686) ([tvdeyen](https://github.com/tvdeyen))
+- Fix Tinymce language config [#2685](https://github.com/AlchemyCMS/alchemy_cms/pull/2685) ([tvdeyen](https://github.com/tvdeyen))
+- Add richtext input type for form builder [#2684](https://github.com/AlchemyCMS/alchemy_cms/pull/2684) ([tvdeyen](https://github.com/tvdeyen))
+- Add support for legacy icon styles [#2683](https://github.com/AlchemyCMS/alchemy_cms/pull/2683) ([tvdeyen](https://github.com/tvdeyen))
+- Fix imports of ES modules [#2682](https://github.com/AlchemyCMS/alchemy_cms/pull/2682) ([tvdeyen](https://github.com/tvdeyen))
+- Use webp for image cropper [#2681](https://github.com/AlchemyCMS/alchemy_cms/pull/2681) ([tvdeyen](https://github.com/tvdeyen))
+- Fix sizing of tinymce textarea [#2680](https://github.com/AlchemyCMS/alchemy_cms/pull/2680) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.1.0-b2 (2024-01-09)
 
 - Download and bundle third party JS packages with npm [#2679](https://github.com/AlchemyCMS/alchemy_cms/pull/2679) ([tvdeyen](https://github.com/tvdeyen))
