@@ -108,7 +108,6 @@ module Alchemy
 
         context "of an existing page" do
           it "should return the page object" do
-            session[:alchemy_language_id] = page.language_id
             expect(helper.page_or_find(page.page_layout)).to eq(page)
           end
         end

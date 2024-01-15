@@ -213,11 +213,6 @@ module Alchemy
           end
 
           context "with no lang parameter present" do
-            it "should store defaults language id in the session." do
-              get :show, params: {urlname: page.urlname}
-              expect(controller.session[:alchemy_language_id]).to eq(Language.default.id)
-            end
-
             it "should store default language as class var." do
               get :show, params: {urlname: page.urlname}
               expect(Language.current).to eq(Language.default)
