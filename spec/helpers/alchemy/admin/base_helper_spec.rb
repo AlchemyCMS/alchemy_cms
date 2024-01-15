@@ -19,6 +19,22 @@ module Alchemy
         link = helper.link_to_dialog("Open", admin_dashboard_path, {}, {id: "my-link"})
         expect(link).to have_css("a#my-link")
       end
+
+      context "with title in html options" do
+        it "passes html title to sl-tooltip" do
+          link = helper.link_to_dialog("Open", admin_dashboard_path, {}, {title: "Open Me"})
+          expect(link).to have_css("sl-tooltip[content='Open Me']")
+          expect(link).to_not have_css("a[title='Open Me']")
+        end
+      end
+
+      context "without title in html options" do
+        it "has no sl-toolip" do
+          link = helper.link_to_dialog("Open", admin_dashboard_path, {}, {})
+          expect(link).to_not have_css("sl-tooltip")
+          expect(link).to_not have_css("a[title]")
+        end
+      end
     end
 
     describe "#toolbar_button" do
@@ -132,6 +148,28 @@ module Alchemy
 
       it "returns a form tag with method=delete" do
         is_expected.to have_selector('form input[name="_method"][value="delete"]')
+      end
+
+      context "with title in html options" do
+        subject(:button) do
+          delete_button("/admin/pages", {}, {title: "Open Me"})
+        end
+
+        it "passes html title to sl-tooltip" do
+          expect(button).to have_css("sl-tooltip[content='Open Me']")
+          expect(button).to_not have_css("button[title='Open Me']")
+        end
+      end
+
+      context "without title in html options" do
+        subject(:button) do
+          delete_button("/admin/pages", {}, {})
+        end
+
+        it "has no sl-toolip" do
+          expect(button).to_not have_css("sl-tooltip")
+          expect(button).to_not have_css("button[title]")
+        end
       end
     end
 

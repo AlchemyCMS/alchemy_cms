@@ -54,11 +54,18 @@ module Alchemy
       def link_to_dialog(content, url, options = {}, html_options = {})
         default_options = {modal: true}
         options = default_options.merge(options)
-        link_to content, url,
-          html_options.merge(
-            "data-dialog-options" => options.to_json,
-            :is => "alchemy-dialog-link"
-          )
+        if html_options[:title]
+          tooltip = html_options.delete(:title)
+        end
+        anchor = link_to(content, url, html_options.merge(
+          "data-dialog-options" => options.to_json,
+          :is => "alchemy-dialog-link"
+        ))
+        if tooltip
+          content_tag("sl-tooltip", anchor, content: tooltip)
+        else
+          anchor
+        end
       end
 
       # Used for translations selector in Alchemy cockpit user settings.
@@ -194,16 +201,22 @@ module Alchemy
           message: Alchemy.t("Are you sure?"),
           icon: "delete-bin-2"
         }.merge(options)
-        button_with_confirm(
+
+        if html_options[:title]
+          tooltip = html_options.delete(:title)
+        end
+        button = button_with_confirm(
           render_icon(options[:icon]),
-          url, {
-            message: options[:message]
-          }, {
+          url, options, {
             method: "delete",
-            title: options[:title],
             class: "icon_button #{html_options.delete(:class)}".strip
           }.merge(html_options)
         )
+        if tooltip
+          content_tag("sl-tooltip", button, content: tooltip)
+        else
+          button
+        end
       end
 
       # (internal) Renders translated Module Names for html title element.
