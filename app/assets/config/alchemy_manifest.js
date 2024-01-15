@@ -5,6 +5,7 @@
 //= link alchemy/print.css
 //= link alchemy/welcome.css
 //= link tinymce/plugins/alchemy_link/plugin.min.js
+//= link tinymce/icons/remixicons/icons.js
 //= link_directory ../stylesheets/tinymce/skins/ui/alchemy/ .css
 //= link_directory ../stylesheets/tinymce/skins/content/alchemy/ .css
 //= link_tree ../images/alchemy/
