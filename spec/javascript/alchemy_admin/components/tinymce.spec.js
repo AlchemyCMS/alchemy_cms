@@ -52,6 +52,29 @@ describe("alchemy-tinymce", () => {
         <textarea id="${textareaId}"></textarea>
       </alchemy-tinymce>
     `
+      // The tinymce configuration is set in the global Alchemy object
+      // because we translate the configuration from the Rails backend
+      // into the JS world.
+      Alchemy.TinymceDefaults = {
+        skin: "alchemy",
+        content_css: "/assets/tinymce/skins/content/alchemy/content.min.css",
+        icons: "remixicons",
+        width: "auto",
+        resize: true,
+        min_height: 250,
+        menubar: false,
+        statusbar: true,
+        toolbar: [
+          "bold italic underline | strikethrough subscript superscript | numlist bullist indent outdent | removeformat | fullscreen",
+          "pastetext charmap hr | undo redo | alchemy_link unlink anchor | code"
+        ],
+        fix_list_elements: true,
+        convert_urls: false,
+        entity_encoding: "raw",
+        paste_as_text: true,
+        element_format: "html",
+        branding: false
+      }
       component = renderComponent("alchemy-tinymce", html)
     })
 
@@ -70,6 +93,22 @@ describe("alchemy-tinymce", () => {
 
     it("should set the selector to textarea id", () => {
       expect(component.configuration.selector).toEqual("#tinymce-textarea")
+    })
+
+    it("sets height to min_height from defaults", () => {
+      expect(component.configuration.height).toEqual(250)
+    })
+
+    describe("if min-height is set on component", () => {
+      it("uses that value for height", () => {
+        const html = `
+          <alchemy-tinymce toolbar="bold italic" foo-bar="bar | foo" min-height="400">
+            <textarea id="${textareaId}"></textarea>
+          </alchemy-tinymce>
+        `
+        component = renderComponent("alchemy-tinymce", html)
+        expect(component.configuration.height).toEqual(400)
+      })
     })
   })
 
