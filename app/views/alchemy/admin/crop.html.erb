@@ -8,7 +8,7 @@
     <%= simple_format Alchemy.t(:explain_cropping) %>
   <% end %>
   <div class="thumbnail_background">
-    <%= image_tag @picture.url(size: '800x600', flatten: true, format: "webp"), id: 'imageToCrop' %>
+    <%= image_tag @picture.thumbnail_url(size: '800x600'), id: 'imageToCrop' %>
   </div>
   <form>
     <%= button_tag Alchemy.t(:apply), type: 'submit' %>

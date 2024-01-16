@@ -192,6 +192,21 @@ module Alchemy
       nil
     end
 
+    # Returns an url for the thumbnail representation of the picture
+    #
+    # @param [String] size - The size of the thumbnail
+    #
+    # @return [String]
+    def thumbnail_url(size: "160x120")
+      return if image_file.nil?
+
+      url(
+        flatten: true,
+        format: "webp",
+        size: size
+      )
+    end
+
     # Updates name and tag_list attributes.
     #
     # Used by +Admin::PicturesController#update_multiple+

@@ -310,6 +310,51 @@ module Alchemy
       end
     end
 
+    describe "#thumbnail_url" do
+      subject(:thumbnail_url) { picture.thumbnail_url }
+
+      let(:picture) do
+        build(:alchemy_picture, image_file: image)
+      end
+
+      context "with no image file present" do
+        let(:image) { nil }
+
+        it { is_expected.to be_nil }
+      end
+
+      context "with image file present" do
+        let(:image) do
+          fixture_file_upload(
+            File.expand_path("../../fixtures/500x500.png", __dir__),
+            "image/png"
+          )
+        end
+
+        it "returns the url to the thumbnail" do
+          expect(picture).to receive(:url).with(
+            flatten: true,
+            format: "webp",
+            size: "160x120"
+          )
+          thumbnail_url
+        end
+
+        context "with size given" do
+          subject(:thumbnail_url) { picture.thumbnail_url(size: "800x600") }
+
+          it "returns the url to the thumbnail" do
+            expect(picture).to receive(:url).with(
+              flatten: true,
+              format: "webp",
+              size: "800x600"
+            )
+            thumbnail_url
+          end
+        end
+      end
+    end
+
     describe "#urlname" do
       subject { picture.urlname }
 
