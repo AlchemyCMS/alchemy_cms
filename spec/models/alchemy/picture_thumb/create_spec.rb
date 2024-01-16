@@ -28,30 +28,4 @@ RSpec.describe Alchemy::PictureThumb::Create do
       expect { create }.to_not change { picture.thumbs.reload.length }
     end
   end
-
-  context "on processing errors" do
-    before do
-      variant
-      expect(variant).to receive(:image) do
-        raise(Dragonfly::Job::Fetch::NotFound)
-      end
-    end
-
-    it "destroys thumbnail" do
-      expect { subject }.to_not change { variant.picture.thumbs.reload.length }
-    end
-  end
-
-  context "on file errors" do
-    before do
-      variant
-      expect_any_instance_of(Dragonfly::Content).to receive(:to_file) do
-        raise("Bam!")
-      end
-    end
-
-    it "destroys thumbnail" do
-      expect { subject }.to_not change { variant.picture.thumbs.reload.length }
-    end
-  end
 end

@@ -17,7 +17,7 @@ module Alchemy
     TRANSPARENT_IMAGE_FORMATS = %w[gif webp png]
     ENCODABLE_IMAGE_FORMATS = %w[jpg jpeg webp]
 
-    attr_reader :picture, :render_format
+    attr_reader :picture, :render_format, :options
 
     def_delegators :@picture,
       :image_file,

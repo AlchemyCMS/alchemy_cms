@@ -17,18 +17,12 @@ module Alchemy
         # @return [Alchemy::PictureThumb] The persisted thumbnail record
         #
         def call(variant, signature, uid)
-          # create the thumb before storing
-          # to prevent db race conditions
-          @thumb = Alchemy::PictureThumb.create_or_find_by!(signature: signature) do |thumb|
+          # create the thumb before storing to be able to background the storage job
+          Alchemy::PictureThumb.create_or_find_by!(signature: signature) do |thumb|
             thumb.picture = variant.picture
             thumb.uid = uid
-          end
-          begin
-            Alchemy::PictureThumb.storage_class.call(variant, uid)
-          rescue => e
-            ErrorTracking.notification_handler.call(e)
-            # destroy the thumb if processing or storing fails
-            @thumb&.destroy
+          end.tap do |thumb|
+            Alchemy::StorePictureThumbJob.perform_later(thumb, uid, variant.options)
           end
         end
       end

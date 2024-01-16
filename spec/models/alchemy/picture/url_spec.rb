@@ -29,7 +29,7 @@ RSpec.describe Alchemy::Picture::Url do
   end
 
   context "with a processed variant" do
-    let(:variant) { Alchemy::PictureVariant.new(picture, {size: "10x10"}) }
+    let!(:variant) { Alchemy::PictureVariant.new(picture, {size: "10x10"}) }
 
     it "returns the url to the thumbnail" do
       is_expected.to match(/\/pictures\/\d+\/.+\/image\.png/)
@@ -38,6 +38,11 @@ RSpec.describe Alchemy::Picture::Url do
     it "connects to writing database" do
       writing_role = ActiveRecord.writing_role
       expect(ActiveRecord::Base).to receive(:connected_to).with(role: writing_role)
+      subject
+    end
+
+    it "calls thumb create class" do
+      expect(Alchemy::PictureThumb::Create).to receive(:call)
       subject
     end
   end
