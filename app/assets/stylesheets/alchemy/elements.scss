@@ -605,10 +605,11 @@ alchemy-publish-element-button {
 
     .icon {
       font-size: 3em;
-      color: var(--color-grey_dark);
+      color: $default-border-color;
 
       &.error {
-        font-size: 1.2em;
+        font-size: 16px;
+        color: $icon-color;
       }
     }
   }
