@@ -100,12 +100,19 @@ class Tinymce extends AlchemyHTMLElement {
       }
     })
 
-    return {
+    const config = {
       ...Alchemy.TinymceDefaults,
       ...customConfig,
       language: currentLocale(),
       selector: `#${this.editorId}`
     }
+
+    // Tinymce has a height of 400px by default
+    // if the element has a min_height set, we use this value for the height as well
+    // so we do not need to set both values in the element configuration
+    config.height = config.min_height
+
+    return config
   }
 
   get editorId() {

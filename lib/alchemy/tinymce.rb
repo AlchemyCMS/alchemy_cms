@@ -22,7 +22,6 @@ module Alchemy
       width: "auto",
       resize: true,
       min_height: 250,
-      height: 250,
       menubar: false,
       statusbar: true,
       toolbar: [
