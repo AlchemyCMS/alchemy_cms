@@ -2,7 +2,7 @@
   <sl-tooltip content="<%= Alchemy.t(:assign_image) %>">
     <%= link_to(
       image_tag(
-        picture_to_assign.url(size: preview_size(size), flatten: true, format: "webp") || "alchemy/missing-image.svg",
+        picture_to_assign.thumbnail_url(size: preview_size(size)) || "alchemy/missing-image.svg",
         alt: picture_to_assign.name
       ),
       alchemy.assign_admin_picture_path(

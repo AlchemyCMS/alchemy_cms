@@ -20,7 +20,7 @@
     </sl-tooltip>
   </span>
   <% end %>
-  <% picture_url = picture.url(size: preview_size(@size), flatten: true, format: "webp") %>
+  <% picture_url = picture.thumbnail_url(size: preview_size(@size)) %>
   <% image = image_tag(picture_url || "alchemy/missing-image.svg", alt: picture.name) %>
   <% if can?(:edit, picture) && picture_url %>
     <%= link_to(
