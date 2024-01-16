@@ -22,6 +22,8 @@
 
 module Alchemy
   class Picture < BaseRecord
+    THUMBNAIL_QUALITY = 90
+
     THUMBNAIL_SIZES = {
       small: "80x60",
       medium: "160x120",
@@ -195,14 +197,16 @@ module Alchemy
     # Returns an url for the thumbnail representation of the picture
     #
     # @param [String] size - The size of the thumbnail
+    # @param [Integer] quality - The quality of the thumbnail
     #
     # @return [String]
-    def thumbnail_url(size: "160x120")
+    def thumbnail_url(size: "160x120", quality: THUMBNAIL_QUALITY)
       return if image_file.nil?
 
       url(
         flatten: true,
         format: "webp",
+        quality: quality,
         size: size
       )
     end

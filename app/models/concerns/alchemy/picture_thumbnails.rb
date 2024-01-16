@@ -84,7 +84,8 @@ module Alchemy
         crop_from: crop && crop_from.presence || default_crop_from&.join("x"),
         crop_size: crop && crop_size.presence || default_crop_size&.join("x"),
         flatten: true,
-        format: "webp"
+        format: "webp",
+        quality: Alchemy::Picture::THUMBNAIL_QUALITY
       }
     end
 
