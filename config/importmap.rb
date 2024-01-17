@@ -2,7 +2,7 @@ pin "@ungap/custom-elements", to: "ungap-custom-elements.min.js", preload: true 
 pin "clipboard", to: "clipboard.min.js", preload: true
 pin "flatpickr", to: "flatpickr.min.js", preload: true # @4.6.13
 pin "keymaster", to: "keymaster.min.js", preload: true
-pin "sortablejs", to: "sortable.min.js", preload: true # @1.15.1
+pin "sortablejs" # @1.15.2
 pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true
 pin "shoelace", to: "shoelace.min.js", preload: true
 pin "@rails/ujs", to: "rails-ujs.min.js", preload: true # @7.1.2
