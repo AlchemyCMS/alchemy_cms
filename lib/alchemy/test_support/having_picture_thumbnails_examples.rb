@@ -284,9 +284,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
         expect(picture).to receive(:url) { nil }
       end
 
-      it "returns missing image url" do
-        is_expected.to eq "alchemy/missing-image.svg"
-      end
+      it { is_expected.to be_nil }
     end
   end
 

@@ -69,7 +69,7 @@ module Alchemy
     def thumbnail_url
       return if picture.nil?
 
-      picture.url(thumbnail_url_options) || "alchemy/missing-image.svg"
+      picture.url(thumbnail_url_options)
     end
 
     # Thumbnail rendering options

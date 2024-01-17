@@ -1,7 +1,6 @@
 import debounce from "alchemy_admin/utils/debounce"
 import max from "alchemy_admin/utils/max"
 import { get } from "alchemy_admin/utils/ajax"
-import ImageLoader from "alchemy_admin/image_loader"
 
 const UPDATE_DELAY = 125
 const IMAGE_PLACEHOLDER = '<i class="icon ri-image-line ri-fw"></i>'
@@ -16,16 +15,12 @@ class PictureEditor {
     this.targetSizeField = container.querySelector("[data-target-size]")
     this.imageCropperField = container.querySelector("[data-image-cropper]")
     this.image = container.querySelector("img")
-    this.thumbnailBackground = container.querySelector(".thumbnail_background")
+    this.pictureThumbnail = container.querySelector("alchemy-picture-thumbnail")
     this.deleteButton = container.querySelector(".picture_tool.delete")
     this.cropLink = container.querySelector(".crop_link")
 
     this.targetSize = this.targetSizeField.dataset.targetSize
     this.pictureId = this.pictureIdField.value
-
-    if (this.image) {
-      this.imageLoader = new ImageLoader(this.image)
-    }
 
     // The mutation observer is observing multiple fields that all get updated
     // simultaneously. We only want to update the image once, so we debounce.
@@ -62,7 +57,6 @@ class PictureEditor {
     this.ensureImage()
     this.image.removeAttribute("alt")
     this.image.removeAttribute("src")
-    this.imageLoader.load(true)
     get(Alchemy.routes.url_admin_picture_path(this.pictureId), {
       crop: this.imageCropperEnabled,
       crop_from: this.cropFrom,
@@ -74,6 +68,7 @@ class PictureEditor {
         this.image.src = data.url
         this.image.alt = data.alt
         this.image.title = data.title
+        this.pictureThumbnail.start()
       })
       .catch((error) => {
         console.error(error.message || error)
@@ -85,13 +80,12 @@ class PictureEditor {
     if (this.image) return
 
     const img = new Image()
-    this.thumbnailBackground.replaceChildren(img)
+    this.pictureThumbnail.replaceChildren(img)
     this.image = img
-    this.imageLoader = new ImageLoader(img)
   }
 
   removeImage() {
-    this.thumbnailBackground.innerHTML = IMAGE_PLACEHOLDER
+    this.pictureThumbnail.innerHTML = IMAGE_PLACEHOLDER
     this.pictureIdField.value = ""
     this.image = null
     this.cropLink.classList.add("disabled")

@@ -49,9 +49,6 @@ function Initialize() {
     $(this.form).submit()
   })
 
-  // Attaches the image loader on all images
-  Alchemy.ImageLoader("#main_content")
-
   // Override the filter of keymaster.js so we can blur the fields on esc key.
   key.filter = function (event) {
     let tagName = (event.target || event.srcElement).tagName

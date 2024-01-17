@@ -18,7 +18,7 @@
         <%= render_icon("close") %>
       </a>
       <div class="picture_image">
-        <div class="thumbnail_background">
+        <alchemy-picture-thumbnail>
           <%- if picture_editor.picture -%>
             <%= image_tag(
               picture_editor.thumbnail_url,
@@ -30,7 +30,7 @@
           <% else %>
             <%= render_icon(:image) %>
           <% end %>
-        </div>
+        </alchemy-picture-thumbnail>
       </div>
       <%- if picture_editor.css_class.present? -%>
         <div class="picture_ingredient_css_class">
