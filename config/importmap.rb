@@ -5,7 +5,7 @@ pin "keymaster", to: "keymaster.min.js", preload: true
 pin "sortablejs", to: "sortable.min.js", preload: true # @1.15.1
 pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true
 pin "shoelace", to: "shoelace.min.js", preload: true
-pin "@rails/ujs", to: "rails-ujs.min.js", preload: true # @7.1.2
+pin "@rails/ujs", to: "@rails--ujs.js" # @7.1.3
 pin "tinymce", to: "tinymce.min.js", preload: true
 
 pin "alchemy_admin", to: "alchemy_admin.js", preload: true
