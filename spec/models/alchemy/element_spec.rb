@@ -233,7 +233,6 @@ module Alchemy
         let(:yaml) { "- name: :symbol" }
 
         before do
-          expect(File).to receive(:exist?).and_return(true)
           expect(File).to receive(:read).and_return(yaml)
         end
 
@@ -246,7 +245,6 @@ module Alchemy
         let(:yaml) { "- default: 2017-12-24" }
 
         before do
-          expect(File).to receive(:exist?).and_return(true)
           expect(File).to receive(:read).and_return(yaml)
         end
 
@@ -259,7 +257,6 @@ module Alchemy
         let(:yaml) { "- format: !ruby/regexp '/\A[^@\s]+@([^@\s]+.)+[^@\s]+\z/'" }
 
         before do
-          expect(File).to receive(:exist?).and_return(true)
           expect(File).to receive(:read).and_return(yaml)
         end
 
