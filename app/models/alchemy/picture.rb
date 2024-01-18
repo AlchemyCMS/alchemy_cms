@@ -179,7 +179,7 @@ module Alchemy
     # @see Alchemy::Picture::Url#call for url options
     # @return [String|Nil]
     def url(options = {})
-      return unless image_file
+      return unless image_file && valid?
 
       variant = PictureVariant.new(self, options.slice(*TRANSFORMATION_OPTIONS))
       self.class.url_class.new(variant).call(

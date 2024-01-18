@@ -29,23 +29,6 @@ RSpec.describe Alchemy::PictureThumb::Create do
     end
   end
 
-  context "with an invalid picture" do
-    let(:picture) { FactoryBot.build(:alchemy_picture) }
-
-    before do
-      expect(picture).to receive(:valid?) { false }
-    end
-
-    it "does not create a thumb" do
-      expect { create }.not_to change { variant.picture.thumbs.reload.length }
-    end
-
-    it "does not process the image" do
-      expect(variant).to_not receive(:image)
-      create
-    end
-  end
-
   context "on processing errors" do
     before do
       variant

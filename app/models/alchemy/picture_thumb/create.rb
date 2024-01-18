@@ -17,8 +17,6 @@ module Alchemy
         # @return [Alchemy::PictureThumb] The persisted thumbnail record
         #
         def call(variant, signature, uid)
-          return if !variant.picture.valid?
-
           # create the thumb before storing
           # to prevent db race conditions
           @thumb = Alchemy::PictureThumb.create_or_find_by!(signature: signature) do |thumb|

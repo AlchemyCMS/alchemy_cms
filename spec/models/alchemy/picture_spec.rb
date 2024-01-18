@@ -267,6 +267,16 @@ module Alchemy
         end
       end
 
+      context "with an invalid picture" do
+        before do
+          expect(picture).to receive(:valid?) { false }
+        end
+
+        it "returns nil" do
+          expect(url).to be_nil
+        end
+      end
+
       context "when the image can not be fetched" do
         before do
           expect_any_instance_of(described_class.url_class).to receive(:call) do
