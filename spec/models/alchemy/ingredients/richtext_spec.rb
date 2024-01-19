@@ -10,12 +10,14 @@ RSpec.describe Alchemy::Ingredients::Richtext do
   end
   let(:richtext_settings) { {} }
 
+  let(:value) { "<h1 style=\"color: red;\">Hello!</h1><p class=\"green\">Welcome to Peters Petshop.</p>" }
+
   let(:richtext_ingredient) do
     described_class.new(
       element: element,
       type: described_class.name,
       role: "text",
-      value: "<h1 style=\"color: red;\">Hello!</h1><p class=\"green\">Welcome to Peters Petshop.</p>"
+      value: value
     )
   end
 
@@ -31,6 +33,16 @@ RSpec.describe Alchemy::Ingredients::Richtext do
   it "has a sanitized version of body column" do
     richtext_ingredient.save
     expect(richtext_ingredient.sanitized_body).to eq("<h1>Hello!</h1><p class=\"green\">Welcome to Peters Petshop.</p>")
+  end
+
+  context "sanitizing with spaces in a link" do
+    let(:value) { "<a href=\"/hello/ \">Hello!</a><p class=\"green\">Welcome to Peters Petshop.</p>" }
+
+    it "won't HTML escape spaces in links" do
+      richtext_ingredient.save
+
+      expect(richtext_ingredient.sanitized_body).to eq("<a href=\"/hello/ \">Hello!</a><p class=\"green\">Welcome to Peters Petshop.</p>")
+    end
   end
 
   describe "#custom_tinymce_config" do

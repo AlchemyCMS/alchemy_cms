@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "alchemy/scrubbers/safe_list"
 module Alchemy
   module Ingredients
     # A blob of richtext
@@ -39,14 +40,12 @@ module Alchemy
       private
 
       def strip_content
-        self.stripped_body = Rails::Html::FullSanitizer.new.sanitize(value)
+        self.stripped_body = Rails::HTML5::FullSanitizer.new.sanitize(value)
       end
 
       def sanitize_content
-        self.sanitized_body = Rails::Html::SafeListSanitizer.new.sanitize(
-          value,
-          sanitizer_settings
-        )
+        scrubber = Alchemy::Scrubbers::SafeList.new(sanitizer_settings)
+        self.sanitized_body = Loofah.html5_fragment(value).scrub!(scrubber).to_html
       end
 
       def sanitizer_settings
