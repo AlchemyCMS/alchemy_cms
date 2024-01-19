@@ -1,0 +1,48 @@
+<%= turbo_frame_tag("page_nodes") do %>
+  <table class="list">
+    <tr>
+      <th class="name">
+        <%= Alchemy::Node.model_name.human %>
+      </th>
+      <th class="tools"></th>
+    </tr>
+    <% nodes = @page.nodes.select(&:persisted?) %>
+    <% if nodes.length > 0 %>
+      <% nodes.each do |node| %>
+        <tr class="even">
+          <td><%= "#{node.ancestors.map(&:name).join(" / ")} / #{node.name}" %></td>
+          <td class="tools">
+            <sl-tooltip content="<%= Alchemy.t("delete_node") %>">
+              <%= link_to render_icon(:minus),
+                admin_node_path(node),
+                class: "icon_button",
+                data: { turbo_method: :delete, turbo_confirm: Alchemy.t('confirm_to_delete_node') } %>
+            </sl-tooltip>
+          </td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr class="even">
+        <td><%= Alchemy.t('No menu node for this page found') %></td>
+        <td class="tools"></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <fieldset>
+    <legend><%= Alchemy.t('Create node on parent:') %></legend>
+
+    <%= alchemy_form_for([:admin, @page.nodes.build], id: "new_node_form") do |f| %>
+      <%= f.hidden_field :page_id, value: @page.id %>
+      <%= f.hidden_field :language_id, value: @page.language_id %>
+
+      <%= render Alchemy::Admin::NodeSelect.new(nil, url: alchemy.api_nodes_path(language_id: @page.language_id, include: :ancestors)) do %>
+        <%= f.text_field :parent_id, class: 'alchemy_selectbox full_width' %>
+      <% end %>
+
+      <div class="submit">
+        <button is="alchemy-button"><%= Alchemy.t(:create_node) %></button>
+      </div>
+    <% end %>
+  </fieldset>
+<% end %>

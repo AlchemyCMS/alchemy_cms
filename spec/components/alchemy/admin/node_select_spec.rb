@@ -16,7 +16,7 @@ RSpec.describe Alchemy::Admin::NodeSelect, type: :component do
     end
 
     it "should have the default placeholder" do
-      expect(page).to have_selector("alchemy-node-select[placeholder='Search node']")
+      expect(page).to have_selector("alchemy-node-select[placeholder='Search menu node']")
     end
 
     it "should have the default node api - url" do

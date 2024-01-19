@@ -169,7 +169,8 @@ form {
   }
 
   .inline-input {
-    @include clearfix;
+    align-items: center;
+    display: flex;
     margin: 0 -1 * $default-margin;
 
     .left-column,
@@ -179,12 +180,10 @@ form {
 
     .left-column {
       width: $form-right-width;
-      float: left;
     }
 
     .right-column {
       width: $form-left-width;
-      float: right;
     }
 
     button,

@@ -78,5 +78,29 @@ module Alchemy
         end
       end
     end
+
+    describe "#destroy" do
+      let(:node) { create(:alchemy_node) }
+
+      context "as default call" do
+        it "removes node and redirects to index" do
+          expect {
+            delete :destroy, params: {id: node.id}
+          }.to change { Alchemy::Node.count }.by(0)
+          expect(response).to redirect_to(admin_nodes_path)
+        end
+      end
+
+      context "as turbo stream call", type: :request do
+        let!(:page) { create(:alchemy_page, nodes: [node]) }
+
+        it "removes node and returns the new frame" do
+          expect(Alchemy::Node.count).to eq(1)
+          delete admin_node_path(node), as: :turbo_stream
+          expect(Alchemy::Node.count).to eq(0)
+          expect(response.code).to eq("302")
+        end
+      end
+    end
   end
 end

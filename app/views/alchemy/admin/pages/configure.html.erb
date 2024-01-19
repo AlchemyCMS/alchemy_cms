@@ -2,11 +2,17 @@
   <sl-tab slot="nav" panel="page_properties">
     <%= Alchemy.t('Properties') %>
   </sl-tab>
+  <sl-tab slot="nav" panel="nodes">
+    <%= render 'alchemy/admin/nodes/label', count: @page.nodes.size %>
+  </sl-tab>
   <sl-tab slot="nav" panel="legacy_urls" id="legacy_urls_label">
     <%= render 'alchemy/admin/legacy_page_urls/label', count: @page.legacy_urls.size %>
   </sl-tab>
   <sl-tab-panel name="page_properties">
     <%= render 'form' %>
+  </sl-tab-panel>
+  <sl-tab-panel name="nodes">
+    <%= render 'alchemy/admin/nodes/page_nodes' %>
   </sl-tab-panel>
   <sl-tab-panel name="legacy_urls">
     <%= render 'legacy_urls' %>

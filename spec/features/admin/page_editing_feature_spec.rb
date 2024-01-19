@@ -226,7 +226,7 @@ RSpec.describe "Page editing feature", type: :system do
       it "saves the name" do
         within(".alchemy-dialog.modal") do
           find("input#page_name").set("name with some %!x^)'([@!{}]|/?:# characters")
-          find(".submit button").click
+          find(".edit_page .submit button").click
         end
         expect(page).to_not have_selector(".alchemy-dialog-overlay.open")
         expect(page).to have_selector("#sitemap a.sitemap_pagename_link", text: "name with some %!x^)'([@!{}]|/?:# characters")
@@ -240,7 +240,7 @@ RSpec.describe "Page editing feature", type: :system do
         within(".alchemy-dialog.modal") do
           expect(page).to have_css("#s2id_page_parent_id")
           select2_search(new_parent.name, from: "Parent")
-          find(".submit button").click
+          find(".edit_page .submit button").click
         end
         expect(page).to_not have_selector(".alchemy-dialog-overlay.open")
         expect(page).to have_selector("#sitemap .sitemap_url", text: "/#{new_parent.urlname}/#{a_page.urlname}")

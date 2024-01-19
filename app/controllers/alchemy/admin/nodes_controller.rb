@@ -16,6 +16,32 @@ module Alchemy
         )
       end
 
+      def create
+        if turbo_frame_request?
+          @page = Alchemy::Page.find(resource_params[:page_id])
+          @node = @page.nodes.build(resource_params)
+          if @node.valid?
+            @node.save
+            flash_notice_for_resource_action(:create)
+          else
+            flash[:error] = @node.errors.full_messages.join(", ")
+          end
+        else
+          super
+        end
+      end
+
+      def destroy
+        if turbo_frame_request?
+          @node = Alchemy::Node.find(params[:id])
+          @page = @node.page
+          @page.nodes.destroy(@node)
+          flash_notice_for_resource_action(:destroy)
+        else
+          super
+        end
+      end
+
       private
 
       def resource_params
