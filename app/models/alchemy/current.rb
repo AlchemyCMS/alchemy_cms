@@ -17,5 +17,10 @@ module Alchemy
       self.language = page&.language
       self.site = page&.site
     end
+
+    def preview_page?(page = Current.page)
+      return false if preview_page.nil?
+      preview_page == page
+    end
   end
 end

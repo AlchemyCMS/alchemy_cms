@@ -49,10 +49,7 @@ module Alchemy
       end
 
       context "when/if preview mode is active" do
-        before do
-          assign(:preview_mode, true)
-          assign(:page, page)
-        end
+        include_context "in preview mode"
 
         subject { helper.element_view_for(element) }
         it { is_expected.to have_css "#{expected_wrapper_tag}[data-alchemy-element='#{element.id}']" }

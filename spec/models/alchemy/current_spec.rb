@@ -104,4 +104,47 @@ RSpec.describe Alchemy::Current do
       end
     end
   end
+
+  describe ".preview_page?" do
+    context "with Current.page being Current.preview_page" do
+      it "returns true" do
+        page = build_stubbed(:alchemy_page)
+        described_class.preview_page = page
+        described_class.page = page
+        expect(described_class.preview_page?).to be_truthy
+      end
+    end
+
+    context "with page being Current.preview_page" do
+      it "returns true" do
+        page = build_stubbed(:alchemy_page)
+        described_class.preview_page = page
+        expect(described_class.preview_page?(page)).to be_truthy
+      end
+    end
+
+    context "with page not being Current.preview_page" do
+      it "returns false" do
+        described_class.preview_page = build_stubbed(:alchemy_page)
+        page = build_stubbed(:alchemy_page)
+        expect(described_class.preview_page?(page)).to be_falsey
+      end
+    end
+
+    context "with Current.page not being Current.preview_page" do
+      it "returns false" do
+        described_class.preview_page = build_stubbed(:alchemy_page, id: 2)
+        described_class.page = build_stubbed(:alchemy_page, id: 1)
+        expect(described_class.preview_page?).to be_falsey
+      end
+    end
+
+    context "with preview_page being nil" do
+      it "returns false" do
+        described_class.preview_page = nil
+        described_class.page = build_stubbed(:alchemy_page, id: 1)
+        expect(described_class.preview_page?).to be_falsey
+      end
+    end
+  end
 end
