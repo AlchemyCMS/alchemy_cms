@@ -22,7 +22,7 @@ module Alchemy
     end
 
     describe "#render_site_layout" do
-      let(:default_site) { Alchemy::Site.default }
+      let(:default_site) { Alchemy::Site.first }
 
       it "renders the partial for current site" do
         expect(helper).to receive(:current_alchemy_site).and_return(default_site)

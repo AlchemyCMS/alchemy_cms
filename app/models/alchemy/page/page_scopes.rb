@@ -98,7 +98,7 @@ module Alchemy
         #
         scope :from_current_site,
           -> {
-            where(Language.table_name => {site_id: Current.site || Site.default}).joins(:language)
+            where(Language.table_name => {site_id: Current.site}).joins(:language)
           }
 
         # All pages for xml sitemap

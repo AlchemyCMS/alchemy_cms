@@ -28,29 +28,11 @@ module Alchemy
       end
     end
 
-    describe ".default" do
-      subject { Site.default }
-
-      context "when no default site is present" do
-        before do
-          Site.delete_all
-        end
-
-        it { is_expected.to be nil }
-      end
-
-      context "when default site is present" do
-        it "returns it" do
-          is_expected.to eq(Site.default)
-        end
-      end
-    end
-
     describe ".find_for_host" do
       # No need to create a default site, as it has already been added through the seeds.
       # But let's add some more:
       #
-      let(:default_site) { Site.default }
+      let(:default_site) { Site.first }
       let!(:magiclabs_site) { create(:alchemy_site, host: "www.magiclabs.de", aliases: "magiclabs.de magiclabs.com www.magiclabs.com") }
 
       subject { Site.find_for_host(host) }

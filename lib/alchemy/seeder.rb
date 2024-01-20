@@ -31,7 +31,7 @@ module Alchemy
           log "There are already pages present in your database. " \
               "Please use `rake db:reset' if you want to rebuild your database.", :skip
         else
-          create_default_site! unless Alchemy::Site.default
+          create_default_site! unless Alchemy::Site.first
           create_default_language! unless Alchemy::Language.default
           seed_pages if contentpages.present?
           seed_layoutpages if layoutpages.present?
@@ -126,7 +126,7 @@ module Alchemy
             page_layout: default_language["page_layout"],
             public: true,
             default: true,
-            site: Alchemy::Site.default
+            site: Alchemy::Site.first
           )
         else
           raise DefaultLanguageNotFoundError

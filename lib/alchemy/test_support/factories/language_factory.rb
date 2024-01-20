@@ -10,7 +10,7 @@ FactoryBot.define do
 
     public { true }
 
-    site { Alchemy::Site.default || create(:alchemy_site, :default) }
+    site { Alchemy::Site.first || create(:alchemy_site, :default) }
 
     trait :klingon do
       name { "Klingon" }

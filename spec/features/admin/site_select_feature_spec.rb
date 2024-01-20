@@ -30,8 +30,8 @@ RSpec.describe "Site select", type: :system do
         %w[admin_pages_path admin_layoutpages_path admin_languages_path].each do |module_path|
           visit send(module_path)
           expect(page).to have_select("change_site",
-            options: [Alchemy::Site.default.name, a_site.name],
-            selected: Alchemy::Site.default.name)
+            options: [Alchemy::Site.first.name, a_site.name],
+            selected: Alchemy::Site.first.name)
         end
       end
     end
@@ -48,7 +48,7 @@ RSpec.describe "Site select", type: :system do
       context "when site id is not found" do
         it "stores the default site in session" do
           visit admin_pages_path(site_id: "")
-          expect(page).to have_select("change_site", selected: Alchemy::Site.default.name)
+          expect(page).to have_select("change_site", selected: Alchemy::Site.first.name)
         end
       end
     end

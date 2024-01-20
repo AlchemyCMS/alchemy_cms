@@ -69,15 +69,14 @@ module Alchemy
       end
       deprecate current: :"Alchemy::Current.site", deprecator: Alchemy::Deprecation
 
-      def default
-        Site.first
-      end
+      alias_method :default, :first
+      deprecate default: :first, deprecator: Alchemy::Deprecation
 
       def find_for_host(host)
         # These are split up into two separate queries in order to run the
         # fastest query first (selecting the domain by its primary host name).
         #
-        find_by(host: host) || find_in_aliases(host) || default
+        find_by(host: host) || find_in_aliases(host) || first
       end
 
       def find_in_aliases(host)
