@@ -129,10 +129,11 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
 
   # Sets the link either in TinyMCE or on an Ingredient.
   setLink: (url, title, target) ->
+    trimmedUrl = url.trim()
     if @link_object.editor
-      @setTinyMCELink(url, title, target)
+      @setTinyMCELink(trimmedUrl, title, target)
     else
-      @link_object.setLink(url, title, target, @link_type)
+      @link_object.setLink(trimmedUrl, title, target, @link_type)
     return
 
   # Sets a link in TinyMCE editor.

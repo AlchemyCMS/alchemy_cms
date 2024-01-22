@@ -13,7 +13,9 @@ module Alchemy
 
       def scrub(node)
         return CONTINUE if sanitize(node) == CONTINUE
-
+        if Loofah::HTML5::Scrub.allowed_element?(node.name)
+          node.before(node.children)
+        end
         node.remove
         STOP
       end
