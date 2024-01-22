@@ -334,7 +334,7 @@ module Alchemy
         it "returns the url to the thumbnail" do
           expect(picture).to receive(:url).with(
             flatten: true,
-            format: "webp",
+            format: "png",
             quality: Alchemy::Picture::THUMBNAIL_QUALITY,
             size: "160x120"
           )
@@ -347,7 +347,7 @@ module Alchemy
           it "returns the url to the thumbnail" do
             expect(picture).to receive(:url).with(
               flatten: true,
-              format: "webp",
+              format: "png",
               quality: Alchemy::Picture::THUMBNAIL_QUALITY,
               size: "800x600"
             )
@@ -361,7 +361,7 @@ module Alchemy
           it "returns the url to the thumbnail" do
             expect(picture).to receive(:url).with(
               flatten: true,
-              format: "webp",
+              format: "png",
               quality: 50,
               size: "160x120"
             )
