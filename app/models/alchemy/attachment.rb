@@ -24,7 +24,8 @@ module Alchemy
     include Alchemy::Taggable
     include Alchemy::TouchElements
 
-    has_one_attached(:file)
+    # New ActiveStorage file attachments
+    has_one_attached :file, service: :alchemy_cms
 
     stampable stamper_class_name: Alchemy.user_class.name
 

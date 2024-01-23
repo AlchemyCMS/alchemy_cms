@@ -78,7 +78,7 @@ module Alchemy
     end
 
     # Use ActiveStorage image processing
-    has_one_attached(:image_file)
+    has_one_attached :image_file, service: :alchemy_cms
 
     validates_presence_of :image_file
     validate :image_file_type_allowed, :image_file_not_too_big,
