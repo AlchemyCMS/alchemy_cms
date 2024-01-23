@@ -88,7 +88,7 @@ module Alchemy
 
     describe ".alchemy_resource_filters" do
       context "with image file formats" do
-        let!(:picture) { create(:alchemy_picture, image_file_format: "png") }
+        let!(:picture) { create(:alchemy_picture, image_file: image_file) }
 
         it "returns a list of filters with image file formats" do
           expect(Alchemy::Picture.alchemy_resource_filters).to eq([
@@ -403,7 +403,7 @@ module Alchemy
 
     describe "#convertible?" do
       let(:picture) do
-        Picture.new(image_file_format: "image/png")
+        build(:alchemy_picture, image_file: image_file)
       end
 
       subject { picture.convertible? }
