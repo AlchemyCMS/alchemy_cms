@@ -129,7 +129,11 @@ module Alchemy
       end
 
       def searchable_alchemy_resource_attributes
-        %w[name image_file_name]
+        %w[name]
+      end
+
+      def searchable_alchemy_resource_associations
+        %w[image_file_blob]
       end
 
       def last_upload
