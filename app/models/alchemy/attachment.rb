@@ -81,8 +81,17 @@ module Alchemy
         where(id: last_id)
       end
 
+      # Used by Alchemy::Resource#search_field_name to build the search query
       def searchable_alchemy_resource_attributes
-        %w[name file_name]
+        %w[name file_blob_filename]
+      end
+
+      def ransackable_attributes(_auth_object = nil)
+        %w[name]
+      end
+
+      def ransackable_associations(_auth_object = nil)
+        %w[file_blob]
       end
 
       def allowed_filetypes

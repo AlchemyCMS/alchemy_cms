@@ -62,6 +62,30 @@ module Alchemy
       end
     end
 
+    describe ".searchable_alchemy_resource_attributes" do
+      subject { described_class.searchable_alchemy_resource_attributes }
+
+      it "returns an array of attributes for the search field query" do
+        is_expected.to eq(%w[name image_file_blob_filename])
+      end
+    end
+
+    describe ".ransackable_attributes" do
+      subject { described_class.ransackable_attributes }
+
+      it "returns an array of ransackable attributes" do
+        is_expected.to eq(%w[name])
+      end
+    end
+
+    describe ".ransackable_associations" do
+      subject { described_class.ransackable_associations }
+
+      it "returns an array of ransackable associations" do
+        is_expected.to eq(%w[image_file_blob])
+      end
+    end
+
     describe ".alchemy_resource_filters" do
       context "with image file formats" do
         let!(:picture) { create(:alchemy_picture, image_file_format: "png") }
