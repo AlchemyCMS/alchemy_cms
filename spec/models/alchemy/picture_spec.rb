@@ -215,7 +215,7 @@ module Alchemy
           end
 
           it "returns the url to the thumbnail" do
-            is_expected.to match(/\/rails\/active_storage\/representations\/proxy\/.+\/square\.png/)
+            is_expected.to match(/\/rails\/active_storage\/representations\/redirect\/.+\/square\.png/)
           end
         end
       end
