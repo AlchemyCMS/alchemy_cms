@@ -68,6 +68,30 @@ module Alchemy
       end
     end
 
+    describe ".searchable_alchemy_resource_attributes" do
+      subject { described_class.searchable_alchemy_resource_attributes }
+
+      it "returns an array of attributes for the search field query" do
+        is_expected.to eq(%w[name image_file_blob_filename])
+      end
+    end
+
+    describe ".ransackable_attributes" do
+      subject { described_class.ransackable_attributes }
+
+      it "returns an array of ransackable attributes" do
+        is_expected.to eq(%w[name])
+      end
+    end
+
+    describe ".ransackable_associations" do
+      subject { described_class.ransackable_associations }
+
+      it "returns an array of ransackable associations" do
+        is_expected.to eq(%w[image_file_blob])
+      end
+    end
+
     describe ".last_upload" do
       it "should return all pictures that have the same upload-hash as the most recent picture" do
         other_upload = create(:alchemy_picture, image_file: image_file, upload_hash: "456")
