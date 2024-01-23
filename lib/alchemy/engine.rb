@@ -67,5 +67,12 @@ module Alchemy
         Alchemy::LiveReloadWatcher.init
       end
     end
+
+    # Rails 7.0 does not know anything about WebP even in 2024 :rolling-eyes:
+    initializer "alchemy.webp-mime_type" do
+      unless Mime::Type.lookup_by_extension(:webp)
+        Mime::Type.register("image/webp", :webp)
+      end
+    end
   end
 end
