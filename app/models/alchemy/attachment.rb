@@ -24,7 +24,7 @@ module Alchemy
     include Alchemy::Taggable
     include Alchemy::TouchElements
 
-    # New ActiveStorage file attachments
+    # Use ActiveStorage file attachments
     has_one_attached :file, service: :alchemy_cms
 
     stampable stamper_class_name: Alchemy.user_class.name
@@ -147,7 +147,7 @@ module Alchemy
     end
 
     def file_mime_type
-      file&.content_type
+      super || file&.content_type
     end
 
     # File format suffix
