@@ -32,3 +32,7 @@ local:
 #   service: Mirror
 #   primary: local
 #   mirrors: [ amazon, google, microsoft ]
+
+alchemy_cms:
+  service: Disk
+  root: <%= Rails.root.join("storage") %>

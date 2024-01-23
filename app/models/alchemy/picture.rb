@@ -77,6 +77,22 @@ module Alchemy
       @_preprocessor_class = klass
     end
 
+    # Legacy Dragonfly image attachments
+    extend Dragonfly::Model
+    dragonfly_accessor :legacy_image_file, app: :alchemy_pictures
+    DEPRECATED_COLUMNS = %i[
+      legacy_image_file
+      legacy_image_file_format
+      legacy_image_file_height
+      legacy_image_file_name
+      legacy_image_file_size
+      legacy_image_file_uid
+      legacy_image_file_width
+    ].each do |column|
+      deprecate column, deprecator: Alchemy::Deprecation
+      deprecate :"#{column}=", deprecator: Alchemy::Deprecation
+    end
+
     # Use ActiveStorage image processing
     has_one_attached :image_file, service: :alchemy_cms
 
