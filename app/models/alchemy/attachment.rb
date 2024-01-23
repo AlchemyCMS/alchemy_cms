@@ -24,6 +24,19 @@ module Alchemy
     include Alchemy::Taggable
     include Alchemy::TouchElements
 
+    # Legacy Dragonfly file attachments
+    extend Dragonfly::Model
+    dragonfly_accessor :legacy_file, app: :alchemy_attachments
+    DEPRECATED_COLUMNS = %i[
+      legacy_file
+      legacy_file_name
+      legacy_file_size
+      legacy_file_uid
+    ].each do |column|
+      deprecate column, deprecator: Alchemy::Deprecation
+      deprecate :"#{column}=", deprecator: Alchemy::Deprecation
+    end
+
     # Use ActiveStorage file attachments
     has_one_attached :file, service: :alchemy_cms
 
