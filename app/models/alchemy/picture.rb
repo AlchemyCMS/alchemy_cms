@@ -131,8 +131,17 @@ module Alchemy
         ]
       end
 
+      # Used by Alchemy::Resource#search_field_name to build the search query
       def searchable_alchemy_resource_attributes
-        %w[name image_file_name]
+        %w[name image_file_blob_filename]
+      end
+
+      def ransackable_attributes(_auth_object = nil)
+        %w[name]
+      end
+
+      def ransackable_associations(_auth_object = nil)
+        %w[image_file_blob]
       end
 
       def last_upload

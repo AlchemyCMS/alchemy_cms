@@ -154,7 +154,7 @@ module Alchemy
         context "with search params" do
           let(:search_filter_params) do
             {
-              q: {name_or_file_name_cont: "kitten"},
+              q: {name_or_file_blob_filename_cont: "kitten"},
               tagged_with: "cute",
               filter: {by_file_type: "pdf"},
               page: 2
@@ -204,7 +204,7 @@ module Alchemy
       context "with search params" do
         let(:search_filter_params) do
           {
-            q: {name_or_file_name_cont: "kitten"},
+            q: {name_or_file_blob_filename_cont: "kitten"},
             tagged_with: "cute",
             filter: {by_file_type: "pdf"},
             page: 2
