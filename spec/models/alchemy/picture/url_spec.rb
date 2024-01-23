@@ -11,7 +11,7 @@ RSpec.describe Alchemy::Picture::Url do
   let(:options) { {} }
 
   it "returns the proxy url to the image" do
-    is_expected.to match(/\/rails\/active_storage\/representations\/proxy\/.+\/image\.png/)
+    is_expected.to match(/\/rails\/active_storage\/representations\/redirect\/.+\/image\.png/)
   end
 
   it "adds image name and format to url" do
