@@ -22,7 +22,7 @@ module Alchemy
         variant = image_file&.variant(variant_options)
         return unless variant
 
-        Rails.application.routes.url_helpers.rails_storage_proxy_url(
+        Rails.application.routes.url_helpers.rails_blob_path(
           variant,
           {
             filename: filename(options),
