@@ -205,7 +205,7 @@ module Alchemy
 
       url(
         flatten: true,
-        format: "webp",
+        format: image_file_format || "jpg",
         quality: quality,
         size: size
       )
