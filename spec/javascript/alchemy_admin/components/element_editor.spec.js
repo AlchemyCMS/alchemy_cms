@@ -426,6 +426,10 @@ describe("alchemy-element-editor", () => {
         expect(editor.errorsDisplay.innerHTML).toBe("")
       })
 
+      it("hides element errors", () => {
+        expect(editor.elementErrors.classList).toContain("hidden")
+      })
+
       it("removes ingredient invalid state", () => {
         expect(
           editor.querySelector(`[data-ingredient-id="666"]`).classList

@@ -121,6 +121,7 @@ export class ElementEditor extends HTMLElement {
     this.setClean()
     // Reset errors that might be visible from last save attempt
     this.errorsDisplay.innerHTML = ""
+    this.elementErrors.classList.add("hidden")
     this.body
       .querySelectorAll(".ingredient-editor")
       .forEach((el) => el.classList.remove("validation_failed"))
