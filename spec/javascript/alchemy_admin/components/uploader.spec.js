@@ -238,10 +238,6 @@ describe("alchemy-uploader", () => {
           "upload.successful"
         )
       })
-
-      it("should hide the progress component", () => {
-        expect(component.uploadProgress.visible).toBeFalsy()
-      })
     })
 
     describe("canceled", () => {
@@ -251,10 +247,6 @@ describe("alchemy-uploader", () => {
 
       it("should fire upload - event", () => {
         expect(component.dispatchCustomEvent).toBeCalledWith("upload.canceled")
-      })
-
-      it("should hide the progress component", () => {
-        expect(component.uploadProgress.visible).toBeFalsy()
       })
     })
 

@@ -160,7 +160,7 @@ describe("alchemy-upload-progress", () => {
         firstFileUpload.request.onload()
         secondFileUpload.request.onload()
         expect(component.status).toEqual("successful")
-        expect(component.className).toEqual("successful visible")
+        expect(component.className).toEqual("successful")
       })
 
       it("should set overall progress value", () => {
@@ -255,6 +255,9 @@ describe("alchemy-upload-progress", () => {
         firstFileUpload.status = "successful"
         secondFileUpload.status = "successful"
         firstFileUpload.dispatchCustomEvent("FileUpload.Change")
+        component.onComplete = () => {
+          component.visible = false
+        }
       })
 
       it("shows a close button", () => {

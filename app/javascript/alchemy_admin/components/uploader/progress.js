@@ -27,7 +27,6 @@ export class Progress extends AlchemyHTMLElement {
     this.actionButton.addEventListener("click", () => {
       if (this.finished) {
         this.onComplete(this.status)
-        this.visible = false
       } else {
         this.cancel()
       }
@@ -126,6 +125,7 @@ export class Progress extends AlchemyHTMLElement {
    */
   _updateView() {
     const status = this.status
+    this.className = status
 
     // update progress bar
     this.progressElement.value = this.totalProgress
@@ -143,10 +143,9 @@ export class Progress extends AlchemyHTMLElement {
     if (this.finished) {
       this._setupCloseButton()
       this.onComplete(status)
+    } else {
+      this.visible = true
     }
-
-    this.className = status
-    this.visible = true
   }
 
   /**
