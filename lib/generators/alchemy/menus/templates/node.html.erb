@@ -1,8 +1,8 @@
-<%% cache [node, @page, @preview_mode] do %>
+<%% cache [node, @page, Alchemy::Current.preview_page?] do %>
   <%%= content_tag :li, class: ['nav-item', node.children.any? ? 'dropdown' : nil].compact do %>
     <%%= link_to_if node.url,
       node.name,
-      @preview_mode ? 'javascript: void(0)' : node.url,
+      Alchemy::Current.preview_page? ? 'javascript: void(0)' : node.url,
       class: ['nav-link', current_page?(node.url) ? 'active' : nil].compact,
       title: node.title,
       target: node.external? ? '_blank' : nil,

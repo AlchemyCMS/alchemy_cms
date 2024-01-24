@@ -1,4 +1,4 @@
-<% if @preview_mode %>
+<% if Alchemy::Current.preview_page? %>
   <script type="text/javascript">
     Alchemy = { locale: "<%= session[:alchemy_locale] %>" };
   </script>
