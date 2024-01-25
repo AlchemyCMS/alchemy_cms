@@ -1,5 +1,18 @@
 # Changelog
 
+## 7.1.0 (2024-01-25)
+
+- Revert "Set admin picture thumbnail quality to 90" [#2706](https://github.com/AlchemyCMS/alchemy_cms/pull/2706) ([tvdeyen](https://github.com/tvdeyen))
+- [js] Update all development Yarn dependencies (2024-01-25) [#2705](https://github.com/AlchemyCMS/alchemy_cms/pull/2705) ([depfu](https://github.com/apps/depfu))
+- 7.1 Fix UI glitches [#2704](https://github.com/AlchemyCMS/alchemy_cms/pull/2704) ([tvdeyen](https://github.com/tvdeyen))
+- [7.1] Revert WebP thumbnails [#2703](https://github.com/AlchemyCMS/alchemy_cms/pull/2703) ([tvdeyen](https://github.com/tvdeyen))
+- TinyMCE: Trim spaces from pasted links [#2702](https://github.com/AlchemyCMS/alchemy_cms/pull/2702) ([mamhoff](https://github.com/mamhoff))
+- [js] Update sortablejs 1.15.1 → 1.15.2 (patch) [#2698](https://github.com/AlchemyCMS/alchemy_cms/pull/2698) ([depfu](https://github.com/apps/depfu))
+- [js] Update @rails/ujs 7.1.2 → 7.1.3 (patch) [#2697](https://github.com/AlchemyCMS/alchemy_cms/pull/2697) ([depfu](https://github.com/apps/depfu))
+- Set admin picture thumbnail quality to 90 [#2692](https://github.com/AlchemyCMS/alchemy_cms/pull/2692) ([tvdeyen](https://github.com/tvdeyen))
+- Set Tinymce editor form min-height [#2691](https://github.com/AlchemyCMS/alchemy_cms/pull/2691) ([tvdeyen](https://github.com/tvdeyen))
+- Link tinymce icons [#2690](https://github.com/AlchemyCMS/alchemy_cms/pull/2690) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.1.0-rc1 (2024-01-15)
 
 - Use title attribute for link_to_dialog and delete_button tooltip [#2688](https://github.com/AlchemyCMS/alchemy_cms/pull/2688) ([tvdeyen](https://github.com/tvdeyen))
