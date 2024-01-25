@@ -51,9 +51,9 @@ jobs:
         run: yarn build
       - name: Check git status
         id: git-status
-        run: git diff --quiet || echo "::set-output name=changed::true"
+        run: git diff --quiet || echo "changed=true" >> $GITHUB_OUTPUT
       - name: git push
-        if: steps.git-status.outputs.changed == true
+        if: steps.git-status.outputs.changed == 'true'
         run: |
           git config --local user.name 'AlchemyCMS - CI Bot'
           git config --local user.email 'alchemy@blish.cloud'

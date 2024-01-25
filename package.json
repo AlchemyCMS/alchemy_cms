@@ -16,7 +16,7 @@
     "clipboard": "^2.0.11",
     "flatpickr": "^4.6.13",
     "keymaster": "^1.6.2",
-    "sortablejs": "^1.15.1",
+    "sortablejs": "^1.15.2",
     "tinymce": "^6.8.2"
   },
   "devDependencies": {
