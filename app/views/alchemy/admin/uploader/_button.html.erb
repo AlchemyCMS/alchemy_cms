@@ -17,9 +17,10 @@
 </alchemy-uploader>
 
 <script type='text/javascript'>
-  document.querySelector("alchemy-uploader").addEventListener("Alchemy.upload.successful", () => {
+  document.querySelector("alchemy-uploader").addEventListener("Alchemy.upload.successful", (evt) => {
     setTimeout(() => {
       var url = '<%= redirect_url.html_safe %>';
+      evt.target.uploadProgress.visible = false;
       <% if local_assigns[:in_dialog] %>
       $.get(url, null, null, 'script');
       <% else %>

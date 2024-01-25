@@ -112,9 +112,6 @@ export class Uploader extends AlchemyHTMLElement {
     }
     this.uploadProgress = new Progress(fileUploads)
     this.uploadProgress.onComplete = (status) => {
-      if (status === "successful" || status === "canceled") {
-        this.uploadProgress.visible = false
-      }
       this.dispatchCustomEvent(`upload.${status}`)
     }
 
