@@ -335,7 +335,6 @@ module Alchemy
           expect(picture).to receive(:url).with(
             flatten: true,
             format: "png",
-            quality: Alchemy::Picture::THUMBNAIL_QUALITY,
             size: "160x120"
           )
           thumbnail_url
@@ -348,22 +347,7 @@ module Alchemy
             expect(picture).to receive(:url).with(
               flatten: true,
               format: "png",
-              quality: Alchemy::Picture::THUMBNAIL_QUALITY,
               size: "800x600"
-            )
-            thumbnail_url
-          end
-        end
-
-        context "with quality given" do
-          subject(:thumbnail_url) { picture.thumbnail_url(quality: 50) }
-
-          it "returns the url to the thumbnail" do
-            expect(picture).to receive(:url).with(
-              flatten: true,
-              format: "png",
-              quality: 50,
-              size: "160x120"
             )
             thumbnail_url
           end

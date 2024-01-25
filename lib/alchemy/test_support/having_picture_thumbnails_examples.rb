@@ -382,7 +382,6 @@ RSpec.shared_examples_for "having picture thumbnails" do
           crop_size: nil,
           flatten: true,
           format: "jpg",
-          quality: Alchemy::Picture::THUMBNAIL_QUALITY,
           size: "160x120"
         )
       end
@@ -402,7 +401,6 @@ RSpec.shared_examples_for "having picture thumbnails" do
             crop_size: nil,
             flatten: true,
             format: "jpg",
-            quality: Alchemy::Picture::THUMBNAIL_QUALITY,
             size: "160x120"
           )
         end
