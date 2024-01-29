@@ -94,7 +94,13 @@ module Alchemy
     end
 
     # Use ActiveStorage image processing
-    has_one_attached :image_file, service: :alchemy_cms
+    has_one_attached :image_file, service: :alchemy_cms do |attachable|
+      # Only works in Rails 7.1
+      if has_convertible_format?
+        self.class.preprocessor_class.new(attachable).call
+        Preprocessor.generate_thumbs!(attachable)
+      end
+    end
 
     validates_presence_of :image_file
     validate :image_file_type_allowed, :image_file_not_too_big,
