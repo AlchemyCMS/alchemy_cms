@@ -60,7 +60,7 @@ Alchemy.ElementsWindow =
   createToolbar: (buttons) ->
     @toolbar = $('<div class="elements-window-toolbar" />')
     buttons.push
-      label: "Collapse all elements"
+      label: Alchemy.t("Collapse all elements")
       iconClass: "contract-up-down-line"
       align: "end"
       class: "right"
