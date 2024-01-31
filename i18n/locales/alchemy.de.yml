@@ -236,6 +236,10 @@ de:
         aliases: Weitere Domains bitte mit Leerzeichen oder Leerzeile getrennt angeben.
 
     add_nested_element: "%{name} hinzufügen"
+    admin:
+      elements:
+        toolbar:
+          hide: ausblenden
     anchor: "Sprungmarke"
     attribute_fixed: Dieser Wert ist für diesen Seitentyp nicht veränderbar
     back: "zurück"
@@ -919,6 +923,8 @@ de:
         meta_keywords: "Suchbegriffe"
         name: "Name"
         page_layout: "Seitentyp"
+        parent_id: "Übergeordnete Seite"
+        parent: "Übergeordnete Seite"
         public: "veröffentlicht"
         restricted: "Passwort geschützt"
         robot_follow: "den Robot Links folgen lassen"
