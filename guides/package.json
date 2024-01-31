@@ -1,6 +1,6 @@
 {
   "engines": {
-    "node": "18"
+    "node": "20"
   },
   "scripts": {
     "guides:preview": "vuepress dev guides",
