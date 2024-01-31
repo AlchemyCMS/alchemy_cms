@@ -1,6 +1,7 @@
 import { defaultTheme } from "@vuepress/theme-default"
 import { docsearchPlugin } from "@vuepress/plugin-docsearch"
 import { shikiPlugin } from "@vuepress/plugin-shiki"
+import { viteBundler } from "@vuepress/bundler-vite"
 
 const VERSIONS = [4, 5, 6, 7]
 const CURRENT_VERSION = process.env.VERSION || 7
@@ -358,6 +359,7 @@ export default {
       theme: "one-dark-pro",
     }),
   ],
+  bundler: viteBundler(),
   theme: defaultTheme({
     repo: "AlchemyCMS/alchemy-guides",
     logo: "icon.svg",
