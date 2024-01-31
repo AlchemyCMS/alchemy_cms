@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.1.1 (2024-01-31)
+
+- Translate collapse all elements button [#2711](https://github.com/AlchemyCMS/alchemy_cms/pull/2711) ([tvdeyen](https://github.com/tvdeyen))
+- Slighty raise page properties dialog width [#2710](https://github.com/AlchemyCMS/alchemy_cms/pull/2710) ([tvdeyen](https://github.com/tvdeyen))
+- [js] Update @shoelace-style/shoelace 2.12.0 → 2.13.1 (minor) [#2709](https://github.com/AlchemyCMS/alchemy_cms/pull/2709) ([depfu](https://github.com/apps/depfu))
+
 ## 7.1.0 (2024-01-25)
 
 - Revert "Set admin picture thumbnail quality to 90" [#2706](https://github.com/AlchemyCMS/alchemy_cms/pull/2706) ([tvdeyen](https://github.com/tvdeyen))
