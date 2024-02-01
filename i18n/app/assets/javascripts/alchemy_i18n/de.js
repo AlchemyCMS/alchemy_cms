@@ -4,6 +4,7 @@ Alchemy.translations.de = {
   cancel: "Abbrechen",
   cancelled: "Abgebrochen",
   click_to_edit: "Klicken zum Bearbeiten",
+  "Collapse all elements": "Alle Elemente einklappen",
   complete: "Abgeschlossen",
   element_dirty_notice:
     "Dieses Element hat nicht gespeicherte Änderungen. Möchten Sie es wirklich einklappen?",
