@@ -1,5 +1,13 @@
 # Changelog
 
+## [v4.1.3](https://github.com/AlchemyCMS/alchemy_i18n/tree/v4.1.3) (2024-02-01)
+
+[Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v4.1.2...v4.1.3)
+
+**Merged pull requests:**
+
+- Add missing German translations for Alchemy 7.1 [\#59](https://github.com/AlchemyCMS/alchemy_i18n/pull/59) ([tvdeyen](https://github.com/tvdeyen))
+
 ## [v4.1.2](https://github.com/AlchemyCMS/alchemy_i18n/tree/v4.1.2) (2024-01-12)
 
 [Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v4.1.1...v4.1.2)
