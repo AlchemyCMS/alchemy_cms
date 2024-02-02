@@ -100,7 +100,7 @@ module Alchemy
           flash[:notice] = Alchemy.t(flash_notice)
           do_redirect_to redirect_url
         else
-          render action: ((params[:action] == "update") ? "edit" : "new")
+          render action: ((params[:action] == "update") ? "edit" : "new"), status: :unprocessable_entity
         end
       end
 
