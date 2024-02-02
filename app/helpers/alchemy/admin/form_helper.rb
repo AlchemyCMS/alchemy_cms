@@ -16,12 +16,13 @@ module Alchemy
       def alchemy_form_for(object, *args, &block)
         options = args.extract_options!
         options[:builder] = Alchemy::Forms::Builder
-        options[:remote] = request.xhr?
         options[:html] = {
           id: options.delete(:id),
           class: ["alchemy", options.delete(:class)].compact.join(" ")
         }
-        simple_form_for(object, *(args << options), &block)
+        turbo_frame_tag("alchemy-form", target: "_top") do
+          simple_form_for(object, *(args << options), &block)
+        end
       end
     end
   end

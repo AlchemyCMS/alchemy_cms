@@ -151,15 +151,18 @@ module Alchemy
           flash[:warning] = @page.errors.full_messages.to_sentence
         end
 
+        @redirect_url = if @page.layoutpage?
+          alchemy.admin_layoutpages_path
+        else
+          alchemy.admin_pages_path
+        end
+
         respond_to do |format|
           format.js do
-            @redirect_url = if @page.layoutpage?
-              alchemy.admin_layoutpages_path
-            else
-              alchemy.admin_pages_path
-            end
-
             render :redirect
+          end
+          format.turbo_stream do
+            redirect_to @redirect_url
           end
         end
       end
