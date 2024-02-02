@@ -31,9 +31,9 @@ module Alchemy
 
       private
 
-      # Disable layout rendering for xhr requests.
+      # Disable layout rendering for xhr or turbo frame requests.
       def set_layout
-        request.xhr? ? false : "alchemy/admin"
+        (request.xhr? || turbo_frame_request?) ? false : "alchemy/admin"
       end
 
       # Handles exceptions
@@ -108,11 +108,16 @@ module Alchemy
       #
       def do_redirect_to(url_or_path)
         respond_to do |format|
-          format.js {
+          format.js do
             @redirect_url = url_or_path
             render :redirect
-          }
-          format.html { redirect_to url_or_path }
+          end
+          format.turbo_stream do
+            redirect_to url_or_path
+          end
+          format.html do
+            redirect_to url_or_path
+          end
         end
       end
 

@@ -98,25 +98,23 @@ class window.Alchemy.Dialog
   # Initializes the Dialog body
   init: ->
     Alchemy.GUI.init(@dialog_body)
-    @watch_remote_forms()
+    @watch_turbo_frames()
 
   # Watches ajax requests inside of dialog body and replaces the content accordingly
-  watch_remote_forms: ->
-    form = $('[data-remote="true"]', @dialog_body)
-    form.bind "ajax:success", (event) =>
-      xhr = event.detail[2]
-      content_type = xhr.getResponseHeader('Content-Type')
-      if content_type.match(/javascript/)
-        return
-      else
-        @dialog_body.html(xhr.responseText)
-        @init()
+  watch_turbo_frames: ->
+    frame = $('turbo-frame[id="alchemy-form"]', @dialog_body)
+    frame.bind "turbo:before-fetch-response", (event) =>
+      response = event.detail.fetchResponse.response
+      switch response.status
+        when 200
+          if response.redirected
+            event.preventDefault()
+            @options.closed = => Turbo.visit(response.url)
+          @close()
+        when 500
+          @show_error(response)
       return
-    form.bind "ajax:error", (event, b, c) =>
-      statusText = event.detail[1]
-      xhr = event.detail[2]
-      @show_error(xhr, statusText)
-      return
+    return
 
   # Displays an error message
   show_error: (xhr, status_message, $container = @dialog_body) ->
