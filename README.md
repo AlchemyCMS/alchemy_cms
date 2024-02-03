@@ -166,7 +166,7 @@ def alchemy_roles
 end
 ```
 
-Please follow [this guide](http://guides.alchemy-cms.com/stable/custom_authentication.html) for further instructions on how to customize your user class even more.
+Please follow [this guide](https://guides.alchemy-cms.com/how_to_add_custom_authentication.html) for further instructions on how to customize your user class even more.
 
 #### 4. Install Alchemy into your app:
 
