@@ -33,7 +33,7 @@ module Alchemy
 
       # Disable layout rendering for xhr requests.
       def set_layout
-        request.xhr? ? false : "alchemy/admin"
+        (request.xhr? || turbo_frame_request?) ? false : "alchemy/admin"
       end
 
       # Handles exceptions
