@@ -9,7 +9,7 @@ module Alchemy
       helper "alchemy/admin/tags"
 
       before_action :load_resource,
-        only: [:show, :edit, :update, :url, :destroy, :info]
+        only: [:show, :edit, :update, :url, :destroy]
 
       before_action :set_size, only: [:index, :show, :edit_multiple]
 
