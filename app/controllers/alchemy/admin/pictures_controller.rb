@@ -193,7 +193,7 @@ module Alchemy
       end
 
       def picture_params
-        params.require(:picture).permit(:image_file, :upload_hash, :name, :tag_list)
+        params.require(:picture).permit(:image_file, :upload_hash, :name, :description, :tag_list)
       end
 
       def picture_url_params
