@@ -101,7 +101,7 @@ module Alchemy
       end
 
       def alt_text
-        ingredient.alt_tag.presence || html_options.delete(:alt) || ingredient.picture.name&.humanize
+        html_options.delete(:alt) || ingredient.alt_text
       end
     end
   end
