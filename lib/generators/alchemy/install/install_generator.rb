@@ -68,6 +68,15 @@ module Alchemy
         copy_file "all.css", app_vendor_assets_path.join("stylesheets", "alchemy", "admin", "all.css")
       end
 
+      def set_active_storage_service
+        insert_into_file app_config_path.join("storage.yml"), <<-YAML.strip_heredoc
+
+          alchemy_cms:
+            service: Disk
+            root: <%= Rails.root.join("storage") %>
+        YAML
+      end
+
       def copy_demo_views
         return if options[:skip_demo_files]
 
@@ -85,14 +94,6 @@ module Alchemy
         copy_file "_article.html.erb", app_views_path.join("alchemy", "elements", "_article.html.erb")
         copy_file "_standard.html.erb", app_views_path.join("alchemy", "page_layouts", "_standard.html.erb")
         copy_file "alchemy.en.yml", app_config_path.join("locales", "alchemy.en.yml")
-      end
-
-      def copy_dragonfly_config
-        template(
-          "#{__dir__}/templates/dragonfly.rb.tt",
-          app_config_path.join("initializers", "dragonfly.rb"),
-          skip: options[:auto_accept]
-        )
       end
 
       def install_gutentag_migrations

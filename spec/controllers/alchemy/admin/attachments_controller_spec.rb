@@ -6,13 +6,10 @@ module Alchemy
   describe Admin::AttachmentsController do
     routes { Alchemy::Engine.routes }
 
-    let(:attachment) { build_stubbed(:alchemy_attachment) }
+    let(:attachment) { create(:alchemy_attachment, file: file) }
 
     let(:file) do
-      fixture_file_upload(
-        File.expand_path("../../../fixtures/500x500.png", __dir__),
-        "image/png"
-      )
+      File.expand_path("../../../fixtures/500x500.png", __dir__)
     end
 
     before do
@@ -54,7 +51,7 @@ module Alchemy
 
         let!(:jpg) do
           create :alchemy_attachment,
-            file: File.new(File.expand_path("../../../fixtures/image3.jpeg", __dir__))
+            file: File.expand_path("../../../fixtures/image3.jpeg", __dir__)
         end
 
         it "loads only attachments with matching content type" do
@@ -80,6 +77,13 @@ module Alchemy
       subject { post :create, params: params }
 
       context "with passing validations" do
+        let(:file) do
+          fixture_file_upload(
+            File.expand_path("../../../fixtures/500x500.png", __dir__),
+            "image/png"
+          )
+        end
+
         let(:params) { {attachment: {file: file}} }
 
         it "renders json response with success message" do
@@ -139,7 +143,7 @@ module Alchemy
           end
 
           it "replaces the file" do
-            expect { subject }.to change { attachment.reload.file_uid }
+            expect { subject }.to change { attachment.reload.file_blob }
           end
         end
       end
@@ -172,7 +176,9 @@ module Alchemy
       end
 
       context "with failing validations" do
-        include_context "with invalid file"
+        before do
+          expect_any_instance_of(Alchemy::Attachment).to receive(:errors).at_least(:once) { ["invalid file"] }
+        end
 
         it "renders edit form" do
           is_expected.to render_template(:edit)
@@ -208,17 +214,6 @@ module Alchemy
           delete :destroy, params: {id: 1}.merge(search_filter_params), xhr: true
           expect(assigns(:url)).to eq admin_attachments_url(search_filter_params.merge(host: "test.host"))
         end
-      end
-    end
-
-    describe "#download" do
-      before do
-        expect(Attachment).to receive(:find).and_return(attachment)
-      end
-
-      it "sends the file as download" do
-        get :download, params: {id: attachment.id}
-        expect(response.headers["Content-Disposition"]).to match(/attachment/)
       end
     end
 

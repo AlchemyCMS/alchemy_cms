@@ -18,9 +18,9 @@ module Alchemy
       # @param disable_link [Boolean] (false) Whether to disable the link even if the picture has a link.
       # @param srcset [Array<String>] An array of srcset sizes that will generate variants of the picture.
       # @param sizes [Array<String>] An array of sizes that will be passed to the img tag.
-      # @param picture_options [Hash] Options that will be passed to the picture url. See {Alchemy::PictureVariant} for options.
+      # @param picture_options [Hash] Options that will be passed to the picture url. See {Alchemy::Picture#url} for options.
       # @param html_options [Hash] Options that will be passed to the img tag.
-      # @see Alchemy::PictureVariant
+      # @see Alchemy::Picture#url
       def initialize(
         ingredient,
         show_caption: nil,
@@ -101,7 +101,7 @@ module Alchemy
       end
 
       def alt_text
-        ingredient.alt_tag.presence || html_options.delete(:alt) || ingredient.picture.name&.humanize
+        ingredient.alt_tag.presence || html_options.delete(:alt) || ingredient.picture.name&.humanize&.presence
       end
     end
   end

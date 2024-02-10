@@ -67,7 +67,6 @@ Alchemy::Engine.routes.draw do
 
     resources :attachments, except: [:new] do
       member do
-        get :download
         put :assign
       end
     end

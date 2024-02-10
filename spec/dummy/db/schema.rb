@@ -10,19 +10,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_13_104432) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_28_195408) do
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum"
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
-    t.string "file_name"
+    t.string "legacy_file_name"
     t.string "file_mime_type"
-    t.integer "file_size"
+    t.integer "legacy_file_size"
     t.integer "creator_id"
     t.integer "updater_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "file_uid"
+    t.string "legacy_file_uid"
     t.index ["creator_id"], name: "index_alchemy_attachments_on_creator_id"
-    t.index ["file_uid"], name: "index_alchemy_attachments_on_file_uid"
+    t.index ["legacy_file_uid"], name: "index_alchemy_attachments_on_legacy_file_uid"
     t.index ["updater_id"], name: "index_alchemy_attachments_on_updater_id"
   end
 
@@ -136,7 +164,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_13_104432) do
 
   create_table "alchemy_page_mutexes", force: :cascade do |t|
     t.integer "page_id", null: false
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.index ["page_id"], name: "index_alchemy_page_mutexes_on_page_id", unique: true
   end
 
@@ -196,19 +224,19 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_13_104432) do
 
   create_table "alchemy_pictures", force: :cascade do |t|
     t.string "name"
-    t.string "image_file_name"
-    t.integer "image_file_width"
-    t.integer "image_file_height"
+    t.string "legacy_image_file_name"
+    t.integer "legacy_image_file_width"
+    t.integer "legacy_image_file_height"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "creator_id"
     t.integer "updater_id"
     t.string "upload_hash"
-    t.string "image_file_uid"
-    t.integer "image_file_size"
-    t.string "image_file_format"
+    t.string "legacy_image_file_uid"
+    t.integer "legacy_image_file_size"
+    t.string "legacy_image_file_format"
     t.index ["creator_id"], name: "index_alchemy_pictures_on_creator_id"
-    t.index ["image_file_name"], name: "index_alchemy_pictures_on_image_file_name"
+    t.index ["legacy_image_file_name"], name: "index_alchemy_pictures_on_legacy_image_file_name"
     t.index ["name"], name: "index_alchemy_pictures_on_name"
     t.index ["updater_id"], name: "index_alchemy_pictures_on_updater_id"
   end
@@ -284,6 +312,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_13_104432) do
     t.string "name"
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "alchemy_elements", "alchemy_page_versions", column: "page_version_id", on_delete: :cascade
   add_foreign_key "alchemy_ingredients", "alchemy_elements", column: "element_id", on_delete: :cascade
   add_foreign_key "alchemy_languages", "alchemy_sites", column: "site_id"
