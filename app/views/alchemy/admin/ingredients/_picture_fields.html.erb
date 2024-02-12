@@ -1,6 +1,6 @@
 <%= f.input :caption, as: ingredient.settings[:caption_as_textarea] ? 'text' : 'string' %>
 <%= f.input :title %>
-<%= f.input :alt_tag %>
+<%= f.input :alt_tag, as: :text, placeholder: ingredient.alt_text %>
 <%- if ingredient.settings[:sizes].present? && ingredient.settings[:srcset].blank? -%>
   <%= f.input :render_size,
     collection: [

@@ -38,6 +38,10 @@ module Alchemy
         upsample
       ]
 
+      def alt_text
+        alt_tag.presence || picture&.description || picture&.name&.humanize
+      end
+
       # The first 30 characters of the pictures name
       #
       # Used by the Element#preview_text method.

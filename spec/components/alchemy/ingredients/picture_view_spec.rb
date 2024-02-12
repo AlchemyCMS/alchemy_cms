@@ -287,6 +287,18 @@ RSpec.describe Alchemy::Ingredients::PictureView, type: :component do
         it "uses this as image alt text" do
           expect(page).to have_selector('img[alt="Cute kittens"]')
         end
+
+        context "with additional alt_tag" do
+          let(:ingredient) do
+            stub_model Alchemy::Ingredients::Picture,
+              picture: picture,
+              alt_tag: "not used alt text"
+          end
+
+          it "uses html option as image alt text" do
+            expect(page).to have_selector('img[alt="Cute kittens"]')
+          end
+        end
       end
 
       context "and not passed as html option" do

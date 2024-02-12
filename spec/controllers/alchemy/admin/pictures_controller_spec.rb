@@ -245,6 +245,19 @@ module Alchemy
           expect(assigns(:message)[:type]).to eq("error")
         end
       end
+
+      context "update description" do
+        let(:picture) { create(:alchemy_picture) }
+
+        subject do
+          put :update, params: {id: 1, picture: {name: "", description: "foo bar"}}, xhr: true
+        end
+
+        it "sets the description" do
+          subject
+          expect(picture.description).to eq("foo bar")
+        end
+      end
     end
 
     describe "#update_multiple" do

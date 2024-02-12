@@ -24,6 +24,40 @@ RSpec.describe Alchemy::Ingredients::Picture do
     it { is_expected.to eq("A cute kitten") }
   end
 
+  describe "alt_text" do
+    subject { picture_ingredient.alt_text }
+
+    context "with a alt_tag" do
+      before { picture_ingredient.alt_tag = "A cute kitten" }
+
+      it { is_expected.to eq("A cute kitten") }
+    end
+
+    context "with a picture description" do
+      before { picture.description = "Another cute kitten" }
+
+      it { is_expected.to eq("Another cute kitten") }
+
+      context "with a alt_tag" do
+        before { picture_ingredient.alt_tag = "A cute kitten" }
+
+        it { is_expected.to eq("A cute kitten") }
+      end
+    end
+
+    context "with a picture name" do
+      before { picture.name = "cute_kitten" }
+
+      it { is_expected.to eq("Cute kitten") }
+
+      context "with a picture description" do
+        before { picture.description = "Another cute kitten" }
+
+        it { is_expected.to eq("Another cute kitten") }
+      end
+    end
+  end
+
   describe "css_class" do
     before { picture_ingredient.css_class = "download" }
     subject { picture_ingredient.css_class }
