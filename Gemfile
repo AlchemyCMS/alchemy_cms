@@ -40,7 +40,7 @@ group :development, :test do
     gem "pry-byebug"
     gem "listen"
     gem "localeapp", "~> 3.0", require: false
-    gem "dotenv", "~> 2.2"
+    gem "dotenv", "~> 3.0"
     gem "github_fast_changelog", require: false
     gem "active_record_query_trace", require: false
     gem "rack-mini-profiler", require: false
