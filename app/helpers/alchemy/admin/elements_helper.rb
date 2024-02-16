@@ -18,7 +18,7 @@ module Alchemy
             Element.display_name_for(e["name"]),
             e["name"]
           ]
-        end
+        end.sort
       end
     end
   end
