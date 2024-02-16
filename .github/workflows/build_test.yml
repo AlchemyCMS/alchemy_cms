@@ -1,10 +1,67 @@
-name: Test
+name: Build & Test
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+      - 7.1-stable
+      - 7.0-stable
+      - 6.1-stable
+  pull_request:
 
 jobs:
+  check_yarn_lock:
+    runs-on: ubuntu-latest
+    name: Check yarn.lock
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Get changed files
+        id: changed-yarn-lock
+        uses: tj-actions/changed-files@v41
+        with:
+          files: yarn.lock
+    outputs:
+      yarn_lock_changed: ${{ steps.changed-yarn-lock.outputs.any_changed }}
+
+  Build:
+    runs-on: ubuntu-latest
+    name: Build JS packages
+    needs: check_yarn_lock
+    if: ${{ needs.check_yarn_lock.outputs.yarn_lock_changed }}
+    permissions:
+      contents: write
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          persist-credentials: false
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          cache: "yarn"
+      - name: Restore node_modules cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules
+      - name: Install dependencies
+        run: yarn install
+      - name: YARN build
+        run: yarn build
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: Javascripts
+          path: vendor/javascript
+
   RSpec:
     runs-on: ubuntu-latest
+    needs: Build
     strategy:
       fail-fast: false
       matrix:
@@ -56,7 +113,7 @@ jobs:
           MARIADB_ROOT_PASSWORD: password
         options: --health-cmd="mariadb-admin ping" --health-interval=10s --health-timeout=5s --health-retries=5
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -64,7 +121,7 @@ jobs:
           bundler-cache: true
       - name: Restore apt cache
         id: apt-cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: /home/runner/apt/cache
           key: ${{ runner.os }}-apt-${{ matrix.database }}
@@ -84,14 +141,6 @@ jobs:
           sudo apt update -qq
           sudo apt install -qq --fix-missing libmysqlclient-dev -o dir::cache::archives="/home/runner/apt/cache"
           sudo chown -R runner /home/runner/apt/cache
-      - name: Restore node modules cache
-        id: yarn-cache
-        uses: actions/cache@v3
-        with:
-          path: spec/dummy/node_modules
-          key: ${{ runner.os }}-yarn-dummy-${{ hashFiles('./package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-dummy-
       - name: Prepare database
         run: |
           bundle exec rake alchemy:spec:prepare
@@ -101,19 +150,20 @@ jobs:
           CC_TEST_REPORTER_ID: bca4349e32f97919210ac8a450b04904b90683fcdd57d65a22c0f5065482bc22
         with:
           coverageCommand: bundle exec rspec
-      - uses: actions/upload-artifact@main
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: Screenshots
           path: spec/dummy/tmp/screenshots
+
   Jest:
     runs-on: ubuntu-latest
     env:
       NODE_ENV: test
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Restore node modules cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: node_modules
           key: ${{ runner.os }}-yarn-${{ hashFiles('./package.json') }}
