@@ -9,7 +9,22 @@ on:
       - 6.1-stable
 
 jobs:
+  Build:
+    uses: ./.github/workflows/build.yml
+
+  Upload:
+    runs-on: ubuntu-latest
+    needs: Build
+    if: success('Build')
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: javascripts-${{ github.ref_name }}
+          path: vendor/javascript
+
   update_js_packages:
+    needs: Upload
     runs-on: ubuntu-latest
     name: Update JS packages
     permissions:
@@ -22,7 +37,7 @@ jobs:
           persist-credentials: false
       - uses: actions/download-artifact@v4
         with:
-          name: Javascripts
+          name: javascripts-${{ github.ref_name }}
           path: vendor/javascript
       - name: Check git status
         id: git-status
