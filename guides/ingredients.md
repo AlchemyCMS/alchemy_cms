@@ -286,7 +286,7 @@ Note how `element_view_for` allows you to call `el.render` on ingredients within
 
 Without using the `element_view_for` helper, you can still access ingredients:
 
-`article.ingredient_by_name('headline')&.value`
+`article.ingredient_by_role('headline')&.value`
 
 But the `el.render` helper takes care of generating the appropriate DOM elements to display the ingredient based on its type. It is recommended you rely on these helpers unless you are comfortable with the structure of the ingredient model you are trying to render.
 
