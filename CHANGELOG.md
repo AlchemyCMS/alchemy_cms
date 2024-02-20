@@ -1,5 +1,15 @@
 # Changelog
 
+## 7.1.3 (2024-02-19)
+
+- Update tinymce to version 6.8.3 [#2727](https://github.com/AlchemyCMS/alchemy_cms/pull/2727) ([depfu](https://github.com/apps/depfu))
+- [7.1-stable] Merge pull request #2728 from sascha-karnatz/overlay-picture-grid-row-height [#2729](https://github.com/AlchemyCMS/alchemy_cms/pull/2729) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
+## 7.1.2 (2024-02-12)
+
+- [7.1-stable] Merge pull request #2720 from sascha-karnatz/restrict-turbo-rails-version [#2723](https://github.com/AlchemyCMS/alchemy_cms/pull/2723) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] Merge pull request #2714 from kulturbande/fix-rails-7.1-picture-controller [#2715](https://github.com/AlchemyCMS/alchemy_cms/pull/2715) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.1.1 (2024-01-31)
 
 - Translate collapse all elements button [#2711](https://github.com/AlchemyCMS/alchemy_cms/pull/2711) ([tvdeyen](https://github.com/tvdeyen))
