@@ -1,6 +1,6 @@
 <%= alchemy_form_for [:admin, @picture] do |f| %>
   <%= f.input :name %>
-  <%= f.input :description %>
+  <%= render "picture_description_field", f: f %>
   <div class="input tag_list">
     <%= f.label :tag_list %>
     <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f %>
