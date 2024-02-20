@@ -20,11 +20,9 @@
     </sl-tooltip>
   </span>
   <% end %>
-  <% picture_url = picture.thumbnail_url(size: preview_size(@size)) %>
-  <% image = image_tag(picture_url || "alchemy/missing-image.svg", alt: picture.name) %>
-  <% if can?(:edit, picture) && picture_url %>
+  <% thumbnail = Alchemy::Admin::PictureThumbnail.new(picture, size: @size) %>
+  <% if can?(:edit, picture) %>
     <%= link_to(
-      image,
       alchemy.admin_picture_path(
         id: picture,
         q: search_filter_params[:q],
@@ -33,10 +31,12 @@
         size: @size,
         filter: search_filter_params[:filter]
       ),
-      class: 'thumbnail_background'
-    ) %>
+      class: "js-picture-zoom"
+    ) do %>
+      <%= render(thumbnail) %>
+    <% end %>
   <% else %>
-    <%= image %>
+    <%= render(thumbnail) %>
   <% end %>
   <span class="picture_name" title="<%= picture.name %>">
     <%= picture.name %>

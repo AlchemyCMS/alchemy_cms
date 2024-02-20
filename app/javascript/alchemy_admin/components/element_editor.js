@@ -1,5 +1,4 @@
 import TagsAutocomplete from "alchemy_admin/tags_autocomplete"
-import ImageLoader from "alchemy_admin/image_loader"
 import fileEditors from "alchemy_admin/file_editors"
 import pictureEditors from "alchemy_admin/picture_editors"
 import IngredientAnchorLink from "alchemy_admin/ingredient_anchor_link"
@@ -39,7 +38,6 @@ export class ElementEditor extends HTMLElement {
     }
 
     // Init GUI elements
-    ImageLoader.init(this)
     fileEditors(
       `#${this.id} .ingredient-editor.file, #${this.id} .ingredient-editor.audio, #${this.id} .ingredient-editor.video`
     )

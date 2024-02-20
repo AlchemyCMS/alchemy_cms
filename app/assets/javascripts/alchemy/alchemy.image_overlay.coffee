@@ -5,7 +5,6 @@ class window.Alchemy.ImageOverlay extends Alchemy.Dialog
     return
 
   init: ->
-    Alchemy.ImageLoader(@dialog_body[0])
     $('.zoomed-picture-background').on "click", (e) =>
       e.stopPropagation()
       return if e.target.nodeName == 'IMG'

@@ -8,7 +8,6 @@ import GUI from "alchemy_admin/gui"
 import { translate } from "alchemy_admin/i18n"
 import Dirty from "alchemy_admin/dirty"
 import IngredientAnchorLink from "alchemy_admin/ingredient_anchor_link"
-import ImageLoader from "alchemy_admin/image_loader"
 import ImageCropper from "alchemy_admin/image_cropper"
 import Initializer from "alchemy_admin/initializer"
 import pictureSelector from "alchemy_admin/picture_selector"
@@ -32,6 +31,7 @@ import "alchemy_admin/components/node_select"
 import "alchemy_admin/components/uploader"
 import "alchemy_admin/components/overlay"
 import "alchemy_admin/components/page_select"
+import "alchemy_admin/components/picture_thumbnail"
 import "alchemy_admin/components/select"
 import "alchemy_admin/components/spinner"
 import "alchemy_admin/components/tinymce"
@@ -69,7 +69,6 @@ Object.assign(Alchemy, {
   ...Dirty,
   GUI,
   t: translate, // Global utility method for translating a given string
-  ImageLoader: ImageLoader.init,
   ImageCropper,
   Initializer,
   IngredientAnchorLink,
