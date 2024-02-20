@@ -20,8 +20,8 @@
     "tinymce": "^6.8.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.7",
-    "@babel/preset-env": "^7.23.7",
+    "@babel/core": "^7.23.9",
+    "@babel/preset-env": "^7.23.9",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
@@ -31,8 +31,8 @@
     "jest-environment-jsdom": "^29.6.4",
     "jquery": "^3.7.1",
     "jsdom-testing-mocks": "^1.11.0",
-    "prettier": "^3.2.4",
-    "rollup": "^4.9.5",
+    "prettier": "^3.2.5",
+    "rollup": "^4.9.6",
     "xhr-mock": "^2.5.1"
   },
   "jest": {
