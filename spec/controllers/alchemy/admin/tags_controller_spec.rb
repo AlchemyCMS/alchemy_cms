@@ -10,9 +10,25 @@ module Alchemy
       before { authorize_user(:as_admin) }
 
       describe "#index" do
+        render_views
+
+        let!(:picture) { create(:alchemy_picture, tag_list: "Foo,Bar") }
+
         it "renders index template" do
           get :index
           expect(response).to be_successful
+        end
+
+        context "with taggable missing" do
+          before do
+            picture.thumbs.destroy_all
+            picture.delete
+          end
+
+          it "does not raise error" do
+            get :index
+            expect(response).to be_successful
+          end
         end
       end
 

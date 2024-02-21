@@ -2,7 +2,11 @@
   <td class="icon"><%= render_icon(:tag, size: "xl") %></td>
   <td class="name"><%= tag.name %></td>
   <td>
-    <%= tag.taggings.collect(&:taggable).collect { |t| t.class.model_name.human }.uniq.join(', ') %>
+    <% tag.taggings.collect(&:taggable).compact.uniq.each do |taggable| %>
+      <span class="label">
+        <%= taggable.class.model_name.human %>
+      </span>
+    <% end %>
   </td>
   <td class="count"><%= tag.taggings.count %></td>
   <td class="tools">
