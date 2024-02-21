@@ -2,7 +2,7 @@
   <td class="icon"><%= render_icon :tag %></td>
   <td class="name"><%= tag.name %></td>
   <td class="count">
-    <%= tag.taggings.collect(&:taggable).collect { |t| t.class.model_name.human }.uniq.join(', ') %>
+    <%= tag.taggings.collect(&:taggable).compact.map { |t| t.class.model_name.human }.uniq.join(', ') %>
   </td>
   <td class="count"><%= tag.taggings.count %></td>
   <td class="tools">
