@@ -11,7 +11,7 @@
   "license": "BSD-3-Clause",
   "dependencies": {
     "@rails/ujs": "^7.1.3",
-    "@shoelace-style/shoelace": "^2.13.1",
+    "@shoelace-style/shoelace": "^2.14.0",
     "@ungap/custom-elements": "^1.3.0",
     "clipboard": "^2.0.11",
     "flatpickr": "^4.6.13",
