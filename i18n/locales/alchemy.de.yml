@@ -263,6 +263,7 @@ de:
     "Currently locked pages": "Momentan bearbeitete Seiten"
     "Default language has to be public": "Die Standardsprache muss veröffentlicht sein."
     "Delete image": "Bild löschen"
+    "Delete element": "Element löschen"
     "Do you really want to clear the clipboard?": "Wollen Sie die Zwischenablage wirklich leeren?"
     "Do you really want to clear the trash?": "Wollen Sie den Papierkorb wirklich leeren?"
     "Do you really want to delete this content?": "Wollen Sie diesen Inhalt wirklich löschen?"
@@ -833,6 +834,24 @@ de:
 
   # Translations for Alchemy database models
   activerecord:
+    errors:
+      models:
+        alchemy/node:
+          attributes:
+            base:
+              node_ingredients_present: "Dieser Menü-Eintrag ist in folgenden Seiten innerhalb von Alchemy Elementen in Benutzung: %{page_names}."
+        alchemy/site:
+          attributes:
+            languages:
+              still_present: "sind immer noch mit dieser Website verbunden. Bitte entfernen Sie diese zuerst."
+        alchemy/language:
+          attributes:
+            pages:
+              still_present: "sind immer noch mit dieser Sprache verbunden. Bitte entfernen Sie diese zuerst."
+        alchemy/page:
+          attributes:
+            nodes:
+              still_present: "sind immer noch mit dieser Seite verbunden. Bitte entfernen Sie diese zuerst."
     models:
       gutentag/tag:
         one: Tag
@@ -843,6 +862,9 @@ de:
       alchemy/element:
         one: "Element"
         other: "Elemente"
+      alchemy/ingredients/headline:
+        one: Überschrift
+        other: Überschriften
       alchemy/legacy_page_url:
         one: "Verweis"
         other: "Verweise"
@@ -886,6 +908,10 @@ de:
         css_class: Stil
         link_text: Link-Text
         title: Titel
+      alchemy/ingredients/headline:
+        value: Überschrift
+        level: Stufe
+        size: Größe
       alchemy/essence_picture:
         caption: "Untertitel"
         title: "Titel"
