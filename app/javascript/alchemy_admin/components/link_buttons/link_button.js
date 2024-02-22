@@ -5,7 +5,7 @@ class LinkButton extends HTMLButtonElement {
     this.classList.add("icon_button")
     // Prevent accidental form submits if this component is wrapped inside a form
     this.setAttribute("type", "button")
-    this.innerHTML = '<i class="icon ri-link-m ri-fw"></i>'
+    this.innerHTML = '<alchemy-icon name="link" icon-style="m"></alchemy-icon>'
   }
 
   handleEvent(event) {

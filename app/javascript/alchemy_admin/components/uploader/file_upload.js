@@ -33,7 +33,7 @@ export class FileUpload extends AlchemyHTMLElement {
       </div>
       <sl-tooltip content="${translate("Abort upload")}">
         <button class="icon_button" aria-label="${translate("Abort upload")}">
-          <i class="icon ri-close-line ri-fw"></i>
+          <alchemy-icon name="close"></alchemy-icon>
         </button>
       </sl-tooltip>
     `

@@ -385,8 +385,8 @@ export class ElementEditor extends HTMLElement {
   set collapsed(value) {
     this.classList.toggle("folded", value)
     this.classList.toggle("expanded", !value)
-    this.toggleIcon?.classList?.toggle("ri-arrow-down-s-line", !value)
-    this.toggleIcon?.classList?.toggle("ri-arrow-left-s-line", value)
+    this.toggleIcon &&
+      (this.toggleIcon.name = value ? "arrow-left-s" : "arrow-down-s")
   }
 
   /**
@@ -473,7 +473,7 @@ export class ElementEditor extends HTMLElement {
    * @returns {HTMLElement|undefined}
    */
   get toggleIcon() {
-    return this.toggleButton?.querySelector(".icon")
+    return this.toggleButton?.querySelector("alchemy-icon")
   }
 
   /**

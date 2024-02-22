@@ -9,17 +9,10 @@ div#flash_notices {
     cursor: pointer;
     padding-right: 32px;
 
-    &:before {
-      display: flex;
+    alchemy-icon[name="close"] {
       position: absolute;
+      left: initial;
       right: 2 * $default-padding;
-      top: 7px;
-      width: 20px;
-      height: 20px;
-      font-family: "remixicon";
-      content: $ri-close-line;
-      align-items: center;
-      justify-content: center;
     }
   }
 }
@@ -40,12 +33,15 @@ div.flash {
   transition-duration: 0.4s;
   line-height: 1.5;
 
-  .icon {
+  alchemy-icon {
     position: absolute;
-    top: 5px;
+    top: 9px;
     left: 2 * $default-padding;
     vertical-align: bottom;
-    color: inherit;
+
+    .icon {
+      fill: currentColor;
+    }
   }
 
   &.dismissed {

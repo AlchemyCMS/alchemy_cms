@@ -147,13 +147,10 @@ $dialog-transition-duration: 150ms;
 .alchemy-image-overlay-close,
 .alchemy-dialog-close {
   cursor: pointer;
-}
-
-.alchemy-dialog-close {
-  color: inherit;
+  height: 16px;
 
   .icon {
-    color: inherit;
+    fill: currentColor;
   }
 }
 

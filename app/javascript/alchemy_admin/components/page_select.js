@@ -47,7 +47,7 @@ class PageSelect extends RemoteSelect {
     return `
       <div class="page-select--page">
         <div class="page-select--top">
-          <i class="icon ri-file-3-line"></i>
+          <alchemy-icon name="file-3"></alchemy-icon>
           <span class="page-select--page-name">${page.name}</span>
           <span class="page-select--page-urlname">${page.url_path}</span>
         </div>

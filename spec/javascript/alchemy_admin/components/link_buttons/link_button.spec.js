@@ -33,7 +33,7 @@ describe("alchemy-link-button", () => {
       </alchemy-link-buttons>
     `
     const button = renderComponent("alchemy-link-button", html)
-    expect(button.querySelector("i.icon.ri-link-m")).toBeTruthy()
+    expect(button.querySelector('alchemy-icon[name="link"]')).toBeTruthy()
   })
 
   it("opens link dialog on click", () => {

@@ -4,6 +4,7 @@ import { renderComponent } from "./component.helper"
 describe("alchemy-element-editor", () => {
   const html = `
     <details id="element_123_ingredient_group_kicker" is="alchemy-ingredient-group">
+      <alchemy-icon name="arrow-down-s"></alchemy-icon>
       <summary>Kicker</summary>
     </details>
   `

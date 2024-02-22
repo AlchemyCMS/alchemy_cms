@@ -65,8 +65,18 @@
     margin: 0;
   }
 
+  .next_page,
+  .previous_page,
+  .first-page,
+  .last-page,
+  .gap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .icon {
-    color: inherit;
+    fill: currentColor;
   }
 }
 

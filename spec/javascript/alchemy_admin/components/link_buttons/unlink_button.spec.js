@@ -33,7 +33,9 @@ describe("alchemy-unlink-button", () => {
       </alchemy-link-buttons>
     `
     const button = renderComponent("alchemy-unlink-button", html)
-    expect(button.querySelector("i.icon.ri-link-unlink-m")).toBeTruthy()
+    expect(
+      button.querySelector('alchemy-icon[name="link-unlink"]')
+    ).toBeTruthy()
   })
 
   it("removes link on click", () => {

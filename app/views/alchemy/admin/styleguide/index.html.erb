@@ -63,7 +63,7 @@
       class="icon_button"
       data-dialog-options="{&quot;size&quot;:&quot;800x600&quot;,&quot;title&quot;:&quot;Styleguide in Dialog&quot;}"
     >
-      <i class="icon ri-window-line"></i>
+      <%= render_icon "window" %>
     </a>
   </sl-tooltip>
   <a
@@ -71,7 +71,7 @@
     is="alchemy-dialog-link"
     class="icon_button disabled"
   >
-    <i class="icon ri-window-line"></i>
+    <%= render_icon "window" %>
   </a>
 </div>
 
@@ -213,33 +213,33 @@
   </tr>
   <tr class="even">
     <td class="icon">
-      <i class="icon ri-fw ri-user-line"></i>
+      <%= render_icon "user" %>
     </td>
     <td>Even table cell 1</td>
     <td>Even table cell 2</td>
     <td>Even table cell 3</td>
     <td class="tools">
       <a href="#" class="icon_button">
-        <i class="icon ri-fw ri-delete-bin-2-line"></i>
+        <%= render_icon "delete-bin-2" %>
       </a>
       <a href="#" class="icon_button">
-        <i class="icon ri-fw ri-edit-line"></i>
+        <%= render_icon "edit" %>
       </a>
     </td>
   </tr>
   <tr class="odd">
     <td class="icon">
-      <i class="icon ri-fw ri-user-line"></i>
+      <%= render_icon "user", style: "fill" %>
     </td>
     <td>Odd table cell 1</td>
     <td>Odd table cell 2</td>
     <td>Odd table cell 3</td>
     <td class="tools">
       <a href="#" class="icon_button">
-        <i class="icon ri-fw ri-delete-bin-2-line"></i>
+        <%= render_icon "delete-bin-2" %>
       </a>
       <a href="#" class="icon_button">
-        <i class="icon ri-fw ri-edit-line"></i>
+        <%= render_icon "edit" %>
       </a>
     </td>
   </tr>

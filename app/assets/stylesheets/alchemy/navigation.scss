@@ -124,34 +124,31 @@
     opacity: 1;
   }
 
+  svg {
+    fill: currentColor;
+    transition: fill $transition-duration $transition-easing;
+  }
+
   img,
   svg,
   .icon {
     display: inline-flex;
-    width: 24px;
-    height: 24px;
+    width: var(--icon-size-xxl);
+    height: var(--icon-size-xxl);
     align-items: center;
     justify-content: center;
   }
 
   img {
     border-style: none;
-    height: 24px;
     vertical-align: -0.6em;
-  }
-
-  .icon {
-    vertical-align: -0.15em;
-    font-size: 20px;
-    font-weight: 400;
-    color: inherit;
   }
 
   a {
     display: flex;
     align-items: center;
     height: 46px;
-    padding-left: 3 * $default-padding;
+    padding-left: 14px;
     font-weight: bold;
     color: $main-menu-text-color;
     transition: color $transition-duration $transition-easing;
@@ -214,7 +211,7 @@
         line-height: 24px;
 
         a {
-          padding: 8px 4px 8px 44px;
+          padding: 8px 4px 8px 42px;
         }
       }
     }

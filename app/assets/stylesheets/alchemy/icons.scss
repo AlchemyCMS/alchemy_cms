@@ -1,5 +1,7 @@
-.icon {
-  color: $icon-color;
+alchemy-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
   &.disabled {
     opacity: 0.3;
@@ -7,5 +9,31 @@
 
   &.blank {
     background: transparent;
+  }
+}
+
+.icon {
+  fill: var(--color-icon, currentColor);
+  width: var(--icon-size-md);
+  height: var(--icon-size-md);
+
+  &--xs {
+    width: var(--icon-size-xs);
+    height: var(--icon-size-xs);
+  }
+
+  &--sm {
+    width: var(--icon-size-sm);
+    height: var(--icon-size-sm);
+  }
+
+  &--1x {
+    width: var(--icon-size-1x);
+    height: var(--icon-size-1x);
+  }
+
+  &--xl {
+    width: var(--icon-size-xl);
+    height: var(--icon-size-xl);
   }
 }

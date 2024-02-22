@@ -13,7 +13,7 @@
 <% else -%>
   Alchemy.growl('<%= j Alchemy.t("item copied to clipboard", name: @item.class.name == "Alchemy::Element" ? @item.display_name_with_preview_text : @item.name) %>')
 <% end -%>
-$('#clipboard_button .icon').removeClass('ri-clipboard-line').addClass('ri-clipboard-fill');
+$('#clipboard_button alchemy-icon').attr('icon-style', 'fill');
 
 <%# Update add nested element forms for any elements that accept ONLY this as a nested element %>
 <% if @item.class == Alchemy::Element %>

@@ -8,10 +8,10 @@
 -%>
 <% if current_page.first? %>
   <span class="first-page disabled">
-    <i class="icon ri-skip-left-line ri-fw"></i>
+    <%= render_icon("skip-left") %>
   </span>
 <% else %>
   <%= link_to url, remote: remote, title: Alchemy.t(:first, scope: 'pagination'), class: 'first-page' do %>
-    <i class="icon ri-skip-left-line ri-fw"></i>
+    <%= render_icon("skip-left") %>
   <% end %>
 <% end %>

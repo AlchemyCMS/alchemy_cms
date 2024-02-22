@@ -54,6 +54,10 @@ module Alchemy
         find(%([content="#{content}"] > a)).click
       end
 
+      def click_icon(name)
+        find(%(alchemy-icon[name="#{name}"])).click
+      end
+
       private
 
       def within_entire_page(&block)

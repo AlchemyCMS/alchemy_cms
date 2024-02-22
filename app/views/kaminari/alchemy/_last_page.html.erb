@@ -8,10 +8,10 @@
 -%>
 <% if current_page.last? %>
   <span class="last-page disabled">
-    <i class="icon ri-skip-right-line ri-fw"></i>
+    <%= render_icon("skip-right") %>
   </span>
 <% else %>
   <%= link_to url, remote: remote, title: Alchemy.t(:last, scope: 'pagination'), class: 'last-page' do %>
-    <i class="icon ri-skip-right-line ri-fw"></i>
+    <%= render_icon("skip-right") %>
   <% end %>
 <% end %>
