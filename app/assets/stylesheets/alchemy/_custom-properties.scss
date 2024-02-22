@@ -5,6 +5,14 @@
   --spacing-3: 12px;
   --spacing-4: 16px;
 
+  // Icons
+  --icon-size-xs: 0.75rem;
+  --icon-size-sm: 0.875rem;
+  --icon-size-1x: 1rem;
+  --icon-size-md: 1.3rem;
+  --icon-size-xl: 1.5rem;
+  --icon-size-xxl: 1.6rem;
+
   // Font Families
   --font-mono: Menlo, Monaco, "Bitstream Vera Sans Mono", "Lucida Console",
     Terminal, monospace;
@@ -55,6 +63,7 @@
   --color-grey_dark: hsl(0deg, 0%, 40%);
   --color-grey_very_dark: hsl(0deg, 0%, 20%);
   --color-text: hsla(224, 22.7%, 25.9%, 0.8);
+  --color-icon: hsla(224, 22.7%, 25.9%, 0.75);
 }
 
 .alchemy-light {

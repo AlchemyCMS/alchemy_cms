@@ -36,7 +36,7 @@ module Alchemy
         label_tag ingredient.form_field_id(column), html_options do
           [
             render_ingredient_role(ingredient),
-            render_hint_for(ingredient, size: "lg", fixed_width: false)
+            render_hint_for(ingredient, size: "1x", fixed_width: false)
           ].compact.join("&nbsp;").html_safe
         end
       end

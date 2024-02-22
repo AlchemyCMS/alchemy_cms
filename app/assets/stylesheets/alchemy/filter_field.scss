@@ -2,7 +2,7 @@
   position: relative;
   margin: $form-field-margin;
 
-  > .icon {
+  > alchemy-icon {
     position: absolute;
     left: 8px;
     top: 50%;
@@ -22,14 +22,15 @@
   }
 
   .js_filter_field_clear {
-    display: none;
+    display: flex;
+    visibility: hidden;
     position: absolute;
     right: 4px;
     top: 50%;
     transform: translateY(-50%);
     width: 16px;
     height: 16px;
-    line-height: 14px;
-    text-align: center;
+    align-items: center;
+    justify-content: center;
   }
 }

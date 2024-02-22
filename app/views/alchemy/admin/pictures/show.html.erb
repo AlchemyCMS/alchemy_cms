@@ -14,7 +14,7 @@
       ),
       class: "previous-picture",
       remote: true do %>
-      <i class="icon ri-arrow-left-s-line ri-fw"></i>
+      <%= render_icon "arrow-left-s" %>
     <% end %>
   <% end %>
   <% if @next %>
@@ -28,7 +28,7 @@
       ),
       class: "next-picture",
       remote: true do %>
-      <i class="icon ri-arrow-right-s-line ri-fw"></i>
+      <%= render_icon "arrow-right-s" %>
     <% end %>
   <% end %>
 </div>
@@ -39,5 +39,5 @@
 </div>
 
 <div class="picture-overlay-handle">
-  <i class="icon ri-contract-right-line ri-fw"></i>
+  <%= render_icon "contract-right" %>
 </div>

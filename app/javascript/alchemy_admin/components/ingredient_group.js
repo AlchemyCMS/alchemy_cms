@@ -18,8 +18,10 @@ export class IngredientGroup extends HTMLDetailsElement {
     let expanded_ingredient_groups = this.localStorageItem
 
     if (this.open) {
+      this.toggleIcon.name = "arrow-down-s"
       if (!this.isInLocalStorage) expanded_ingredient_groups.push(this.id)
     } else {
+      this.toggleIcon.name = "arrow-left-s"
       expanded_ingredient_groups = expanded_ingredient_groups.filter(
         (value) => value !== this.id
       )
@@ -46,6 +48,10 @@ export class IngredientGroup extends HTMLDetailsElement {
       console.error(error)
       return []
     }
+  }
+
+  get toggleIcon() {
+    return this.querySelector("alchemy-icon")
   }
 }
 

@@ -22,21 +22,12 @@ module Alchemy
     # Render a Remix icon
     #
     # @param icon_name [String] icon name
-    # @option options - style: nil [String] icon style. line or fill
+    # @option options - style: fill [String] icon style. line or fill. Pass false for no style.
     # @option options - size: nil [String] icon size
     #
     # @return [String]
     def render_icon(icon_name, options = {})
-      options = {style: "line", fixed_width: true}.merge(options)
-      style = options[:style] && "-#{ri_style(options[:style])}"
-      classes = [
-        "icon",
-        "ri-#{ri_icon(icon_name)}#{style}",
-        options[:size] ? "ri-#{options[:size]}" : nil,
-        options[:fixed_width] ? "ri-fw" : nil,
-        options[:class]
-      ].compact
-      content_tag("i", nil, class: classes)
+      render Alchemy::Admin::Icon.new(icon_name, options)
     end
 
     # Returns a div with an icon and the passed content
@@ -99,54 +90,6 @@ module Alchemy
       when "hint" then "info"
       else
         message_type
-      end
-    end
-
-    private
-
-    # Returns the Remix icon name for given icon name
-    #
-    # @param icon_name [String] The icon name.
-    # @return [String] The Remix icon class
-    def ri_icon(icon_name)
-      case icon_name.to_s
-      when "minus", "remove", "delete"
-        "delete-bin-2"
-      when "plus"
-        "add"
-      when "copy"
-        "file-copy"
-      when "download"
-        "download-2"
-      when "upload"
-        "upload-2"
-      when "exclamation"
-        "alert"
-      when "info-circle", "info"
-        "information"
-      when "times"
-        "close"
-      when "tag"
-        "price-tag-3"
-      when "cog"
-        "settings-3"
-      else
-        icon_name
-      end
-    end
-
-    # Returns the Remix icon style for given style
-    #
-    # @param style [String] The style name
-    # @return [String] The RemixIcon style
-    def ri_style(style)
-      case style.to_s
-      when "solid", "fill"
-        "fill"
-      when "line", "regular"
-        "line"
-      else
-        style
       end
     end
   end

@@ -12,10 +12,7 @@
 
   .icon {
     margin: 0 $default-margin;
-
-    .select2-highlighted & {
-      color: $white;
-    }
+    fill: currentColor;
   }
 }
 

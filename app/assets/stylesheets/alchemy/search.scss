@@ -28,19 +28,19 @@
 }
 
 .search_field_clear {
-  display: none;
+  display: flex;
+  visibility: hidden;
   position: absolute;
   top: 7px;
   right: 8px;
   width: 16px;
   height: 16px;
-  line-height: 14px;
-  text-align: center;
+  align-items: center;
+  justify-content: center;
 }
 
 #toolbar,
 #overlay_toolbar {
-
   .search_form {
     position: absolute;
     top: 0;

@@ -78,10 +78,16 @@ alchemy-tinymce {
   white-space: nowrap;
   text-overflow: ellipsis;
   transition: color $transition-duration;
+  line-height: 1;
+  max-width: 85%;
+
+  .hidden & {
+    max-width: 65%;
+  }
 
   .preview_text_quote {
     font-size: $small-font-size;
-    line-height: 15px;
+    margin-left: $default-margin / 2;
   }
 }
 
@@ -109,7 +115,11 @@ alchemy-tinymce {
   color: inherit;
   box-shadow: none;
   padding: 0;
-  margin: 0;
+  margin: 0 0 0 auto;
+
+  .hidden & {
+    margin-left: unset;
+  }
 
   &:hover {
     &:not(:focus):not(:active) {
@@ -155,7 +165,15 @@ alchemy-tinymce {
       background-color: transparent;
 
       .element-hidden-icon {
-        display: inline;
+        display: inline-flex;
+        align-items: center;
+        gap: $default-padding;
+        margin-left: auto;
+      }
+
+      .element-hidden-label {
+        line-height: 1;
+        font-size: $small-font-size;
       }
     }
   }
@@ -290,10 +308,6 @@ alchemy-tinymce {
 
     &:not(.folded) .element-toggle {
       pointer-events: none;
-
-      i:before {
-        content: $ri-more-2-line;
-      }
     }
 
     .element-body {
@@ -353,6 +367,8 @@ alchemy-tinymce {
   }
 
   .autocomplete_tag_list {
+    display: block;
+    margin-top: $default-padding;
     padding: $default-padding 0;
 
     label {
@@ -397,8 +413,8 @@ alchemy-tinymce {
   }
 
   .icon {
-    color: inherit;
-    transition: color $transition-duration;
+    fill: currentColor;
+    transition: fill $transition-duration;
   }
 }
 
@@ -414,12 +430,16 @@ alchemy-tinymce {
   gap: $default-padding;
   height: $element-toolbar-height;
   border-top: 1px solid $medium-gray;
+  border-bottom: 1px solid $medium-gray;
 
   .is-fixed & {
     border-top-width: 0;
   }
 
-  border-bottom: 1px solid $medium-gray;
+  .icon_button {
+    width: $icon-button-medium-width;
+    height: $icon-button-medium-height;
+  }
 }
 
 alchemy-publish-element-button {
@@ -427,6 +447,7 @@ alchemy-publish-element-button {
   align-items: center;
   margin-left: auto;
   margin-right: $default-margin;
+  line-height: 1;
 
   sl-switch {
     --thumb-size: 10px;
@@ -465,10 +486,6 @@ alchemy-publish-element-button {
   }
 
   &[open] {
-    .ingredient-group-expand::before {
-      content: $ri-arrow-down-s-line;
-    }
-
     > :not(summary) {
       box-sizing: border-box;
     }
@@ -712,7 +729,10 @@ alchemy-publish-element-button {
   border-radius: 0 $default-border-radius $default-border-radius 0;
 
   a {
-    text-align: center;
+    display: inline-flex;
+    padding: $default-padding;
+    justify-content: center;
+    align-items: center;
     text-decoration: none;
     width: 24px;
   }
@@ -829,7 +849,7 @@ select.long {
   }
 
   label {
-    display: block;
+    display: flex;
     margin: $default-margin 0;
     font-size: $small-font-size;
     line-height: 15px;
@@ -963,18 +983,26 @@ textarea.has_tinymce {
   background-color: var(--color-yellow_light);
 }
 
-.ingredient-date--label,
+label.ingredient-date--label,
 .edit-ingredient-anchor-link {
+  display: inline-flex;
+  align-items: center;
   position: absolute;
-  right: 2 * $default-padding;
-  bottom: 15px;
+  bottom: 3 * $default-padding;
   margin: 0 !important;
+}
+
+label.ingredient-date--label {
+  padding: $default-padding;
+  right: 5px;
 }
 
 .edit-ingredient-anchor-link {
   right: $default-padding;
 
-  > a {
+  a {
+    display: inline-flex;
+    align-items: center;
     padding: $default-padding;
   }
 

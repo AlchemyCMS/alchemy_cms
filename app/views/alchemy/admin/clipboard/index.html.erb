@@ -12,7 +12,7 @@
         <%= render_icon(:file) %>
         <%= truncate(item.name, length: 50) %>
       <% else %>
-        <%= render_icon(:draggable, style: nil) %>
+        <%= render_icon(:draggable, style: false) %>
         <%= truncate(item.display_name_with_preview_text(50), length: 50) %>
       <% end %>
       <span class="float_right">

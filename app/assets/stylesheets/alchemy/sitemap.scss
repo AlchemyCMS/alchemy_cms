@@ -62,6 +62,7 @@
   padding: 0 0 104px 0;
 
   .handle {
+    display: inline-flex;
     cursor: move;
   }
 
@@ -223,15 +224,20 @@
 }
 
 .page_status_and_name .page_status {
-  margin-left: 2px;
+  margin-left: $default-margin;
+  margin-bottom: -1px;
+
+  // The lock icon is a bit too high, so we need to adjust it
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .page_status {
-  display: inline-block;
-
-  .alchemy-dialog & {
-    display: block;
-  }
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: $default-margin;
 }
 
 #page_filter_result {

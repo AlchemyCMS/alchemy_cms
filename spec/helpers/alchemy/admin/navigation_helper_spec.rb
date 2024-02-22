@@ -75,6 +75,7 @@ describe Alchemy::Admin::NavigationHelper do
   describe "#alchemy_main_navigation_entry" do
     before do
       allow(helper).to receive(:url_for_module).and_return("")
+      allow(helper).to receive(:render_icon).and_return("<alchemy-icon />")
       allow(Alchemy).to receive(:t).and_return(alchemy_module["name"])
     end
 

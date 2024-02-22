@@ -77,7 +77,7 @@ export class Progress extends AlchemyHTMLElement {
 
         <sl-tooltip content="${this.buttonLabel}">
           <button class="icon_button" aria-label="${this.buttonLabel}">
-            <i class="icon ri-close-line ri-fw"></i>
+            <alchemy-icon name="close"></alchemy-icon>
           </button>
         </sl-tooltip>
       </div>

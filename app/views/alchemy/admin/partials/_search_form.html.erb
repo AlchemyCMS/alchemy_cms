@@ -11,11 +11,11 @@
     <% local_assigns.fetch(:additional_query_fields, []).each do |field| %>
       <%= f.hidden_field field, id: nil %>
     <% end %>
-    <%= link_to render_icon(:times, size: 'xs'), url,
+    <%= link_to render_icon(:times, size: '1x'), url,
         class: 'search_field_clear',
         id: 'search_field_clear',
         title: Alchemy.t(:click_to_show_all),
-        style: search_filter_params.fetch(:q, {}).fetch(resource_handler.search_field_name, '').present? ? 'display: block' : 'display: none' %>
+        style: search_filter_params.fetch(:q, {}).fetch(resource_handler.search_field_name, '').present? ? 'visibility: visible' : 'visibility: hidden' %>
 
     <% search_filter_params.fetch(:filter, []).each do |filter_param| %>
       <%= hidden_field_tag "filter[#{filter_param[0]}]", filter_param[1], id: nil %>
