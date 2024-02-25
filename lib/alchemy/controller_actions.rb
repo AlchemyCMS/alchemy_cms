@@ -59,17 +59,15 @@ module Alchemy
       Site.current = current_alchemy_site
     end
 
-    # Try to find and stores current language for Alchemy.
+    # Sets the current language for Alchemy.
     #
     def set_alchemy_language(lang = nil)
       @language = if lang
         lang.is_a?(Language) ? lang : load_alchemy_language_from_id_or_code(lang)
       else
-        # find the best language and remember it for later
-        load_alchemy_language_from_params ||
-          load_alchemy_language_from_session ||
-          Language.default
+        load_alchemy_language_from_params || Language.default
       end
+
       store_current_alchemy_language(@language)
     end
 
@@ -80,26 +78,15 @@ module Alchemy
       end
     end
 
-    # Load language from session if it's present on current site.
-    # Otherwise return nil so we can load the default language from current site.
-    def load_alchemy_language_from_session
-      if session[:alchemy_language_id].present? && Site.current
-        Site.current.languages.find_by(id: session[:alchemy_language_id])
-      end
-    end
-
     def load_alchemy_language_from_id_or_code(id_or_code)
       Language.find_by(id: id_or_code) ||
         Language.find_by_code(id_or_code)
     end
 
-    # Stores language's id in the session.
-    #
-    # Also stores language in +Language.current+
+    # Stores language in +Language.current+
     #
     def store_current_alchemy_language(language)
       if language&.id
-        session[:alchemy_language_id] = language.id
         Language.current = language
       end
     end
