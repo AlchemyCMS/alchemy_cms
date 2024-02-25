@@ -171,9 +171,14 @@ module Alchemy
       tag_builder.tag_options(element_preview_code_attributes(element))
     end
 
+    # is element in preview mode and connected with current page
+    def is_element_in_preview_mode?(element)
+      element.present? && @preview_mode && element.page == @page
+    end
+
     # Returns a hash containing the HTML tag attributes required for preview mode.
     def element_preview_code_attributes(element)
-      return {} unless element.present? && @preview_mode && element.page == @page
+      return {} unless is_element_in_preview_mode?(element)
 
       {"data-alchemy-element" => element.id}
     end

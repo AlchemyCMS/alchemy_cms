@@ -1,4 +1,9 @@
 <% if @preview_mode %>
+  <style>
+    alchemy-preview {
+      display: flow;
+    }
+  </style>
   <script type="text/javascript">
     Alchemy = { locale: "<%= session[:alchemy_locale] %>" };
   </script>

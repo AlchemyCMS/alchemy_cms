@@ -202,6 +202,20 @@ module Alchemy
       end
     end
 
+    describe "#is_element_in_preview_mode?" do
+      subject { helper.is_element_in_preview_mode?(element) }
+
+      context "in preview_mode" do
+        before { assign(:preview_mode, true) }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context "not in preview_mode" do
+        it { is_expected.to be_falsy }
+      end
+    end
+
     describe "#element_preview_code" do
       subject { helper.element_preview_code(element) }
 

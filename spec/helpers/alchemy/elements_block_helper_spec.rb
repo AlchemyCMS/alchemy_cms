@@ -56,6 +56,11 @@ module Alchemy
 
         subject { helper.element_view_for(element) }
         it { is_expected.to have_css "#{expected_wrapper_tag}[data-alchemy-element='#{element.id}']" }
+
+        context "without tag" do
+          subject { helper.element_view_for(element, tag: false) }
+          it { is_expected.to have_css "alchemy-preview[data-alchemy-element='#{element.id}']" }
+        end
       end
     end
 

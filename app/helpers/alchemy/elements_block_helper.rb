@@ -113,7 +113,13 @@ module Alchemy
       end
 
       # wrap output in a useful DOM element
-      if (tag = options.delete(:tag))
+      tag = options.delete(:tag)
+
+      # add custom element with no representation if the user is in the preview mode to allow
+      # an interaction with the element
+      tag = "alchemy-preview" if tag.blank? && is_element_in_preview_mode?(element)
+
+      if tag.present?
         # add preview attributes
         options.merge!(element_preview_code_attributes(element))
 
