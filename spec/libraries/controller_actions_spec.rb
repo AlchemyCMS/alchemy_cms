@@ -64,24 +64,24 @@ describe "Alchemy::ControllerActions", type: "controller" do
       RequestStore.store[:alchemy_current_language] = nil
     end
 
-    context "with a Language argument" do
-      it "should set the language to the passed Language instance" do
+    context "with a Language object given" do
+      it "should set the language to the Language instance" do
         controller.send :set_alchemy_language, klingon
         expect(assigns(:language)).to eq(klingon)
         expect(Alchemy::Language.current).to eq(klingon)
       end
     end
 
-    context "with a language id argument" do
-      it "should set the language to the language specified by the passed id" do
+    context "with a language id given" do
+      it "should find and set the language by the id" do
         controller.send :set_alchemy_language, klingon.id
         expect(assigns(:language)).to eq(klingon)
         expect(Alchemy::Language.current).to eq(klingon)
       end
     end
 
-    context "with a language code argument" do
-      it "should set the language to the language specified by the passed code" do
+    context "with a locale given" do
+      it "should find and set the language by the locale" do
         controller.send :set_alchemy_language, klingon.code
         expect(assigns(:language)).to eq(klingon)
         expect(Alchemy::Language.current).to eq(klingon)
@@ -94,55 +94,6 @@ describe "Alchemy::ControllerActions", type: "controller" do
         controller.send :set_alchemy_language
         expect(assigns(:language)).to eq(default_language)
         expect(Alchemy::Language.current).to eq(default_language)
-        expect(controller.session).to include_language_information_for(default_language)
-      end
-    end
-
-    context "with language in the session" do
-      before do
-        allow(controller).to receive(:session).and_return(alchemy_language_id: klingon.id)
-      end
-
-      it "should use the language from the session" do
-        controller.send :set_alchemy_language
-        expect(assigns(:language)).to eq(klingon)
-        expect(Alchemy::Language.current).to eq(klingon)
-      end
-
-      context "if no current site exists" do
-        before do
-          expect(Alchemy::Site).to receive(:current).exactly(:twice) { nil }
-        end
-
-        it "should set the default language" do
-          controller.send :set_alchemy_language
-
-          expect(assigns(:language)).to eq(default_language)
-          expect(Alchemy::Language.current).to eq(default_language)
-        end
-      end
-
-      context "if the language is not on the current site" do
-        let(:french_site) do
-          create(:alchemy_site, host: "french.fr")
-        end
-
-        let(:french_language) do
-          create(:alchemy_language, site: french_site, code: :fr)
-        end
-
-        before do
-          expect(controller).to receive(:session).at_least(:once) do
-            {alchemy_language_id: french_language.id}
-          end
-        end
-
-        it "should set the default language" do
-          controller.send :set_alchemy_language
-
-          expect(assigns(:language)).to eq(default_language)
-          expect(Alchemy::Language.current).to eq(default_language)
-        end
       end
     end
 
@@ -152,7 +103,6 @@ describe "Alchemy::ControllerActions", type: "controller" do
         controller.send :set_alchemy_language
         expect(assigns(:language)).to eq(klingon)
         expect(Alchemy::Language.current).to eq(klingon)
-        expect(controller.session).to include_language_information_for(klingon)
       end
 
       context "for language that does not exist" do
