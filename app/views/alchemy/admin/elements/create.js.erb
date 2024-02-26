@@ -24,9 +24,7 @@
   $element_area.append(element_html);
 <%- end -%>
 
-<% if @element.fixed? %>
-  Alchemy.SortableElements('[name="fixed-element-<%= @element.id %>"] .nested-elements');
-<% end %>
+  Alchemy.SortableElements('[data-element-id="<%= @element.id %>"] .nested-elements');
 
   Alchemy.growl('<%= Alchemy.t(:successfully_added_element) %>');
   Alchemy.closeCurrentDialog();
