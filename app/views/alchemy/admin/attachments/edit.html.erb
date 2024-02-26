@@ -2,9 +2,8 @@
   url: {action: :update, q: search_filter_params[:q], page: params[:page]}) do |f| -%>
   <%= f.input :name, input_html: {autofocus: true} %>
   <%= f.input :file_name, input_html: {autofocus: true}, hint: Alchemy.t(:attachment_filename_notice) %>
-  <div class="input string autocomplete_tag_list">
-    <%= f.label :tag_list %>
-    <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f %>
-  </div>
+  <%= render Alchemy::Admin::TagsAutocomplete.new do %>
+    <%= f.input :tag_list, input_html: { value: f.object.tag_list.join(",") } %>
+  <% end %>
   <%= f.submit Alchemy.t(:save) %>
 <% end %>

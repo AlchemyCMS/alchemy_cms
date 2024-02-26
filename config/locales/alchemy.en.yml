@@ -414,6 +414,7 @@ en:
     delete_page: "Delete this page"
     delete_tag: "Delete tag"
     search_node: "Search menu node"
+    search_tag: "Search tag"
     document: "File"
     download_csv: "Download CSV"
     download_file: "Download file '%{filename}'"
