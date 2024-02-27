@@ -34,6 +34,7 @@ import "alchemy_admin/components/overlay"
 import "alchemy_admin/components/page_select"
 import "alchemy_admin/components/select"
 import "alchemy_admin/components/spinner"
+import "alchemy_admin/components/tags_autocomplete"
 import "alchemy_admin/components/tinymce"
 
 import { setDefaultAnimation } from "shoelace"

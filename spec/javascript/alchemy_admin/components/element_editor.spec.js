@@ -1,17 +1,9 @@
-import TagsAutocomplete from "alchemy_admin/tags_autocomplete"
 import ImageLoader from "alchemy_admin/image_loader"
 import fileEditors from "alchemy_admin/file_editors"
 import pictureEditors from "alchemy_admin/picture_editors"
 import IngredientAnchorLink from "alchemy_admin/ingredient_anchor_link"
 import { ElementEditor } from "alchemy_admin/components/element_editor"
 import { renderComponent } from "./component.helper"
-
-jest.mock("alchemy_admin/tags_autocomplete", () => {
-  return {
-    __esModule: true,
-    default: jest.fn()
-  }
-})
 
 jest.mock("alchemy_admin/image_loader", () => {
   return {
@@ -141,7 +133,6 @@ describe("alchemy-element-editor", () => {
 
   describe("connectedCallback", () => {
     beforeEach(() => {
-      TagsAutocomplete.mockClear()
       ImageLoader.init.mockClear()
       fileEditors.mockClear()
       pictureEditors.mockClear()
@@ -170,11 +161,6 @@ describe("alchemy-element-editor", () => {
     it("initializes picture editors", () => {
       getComponent(html)
       expect(pictureEditors).toHaveBeenCalled()
-    })
-
-    it("initializes tags autocomplete", () => {
-      getComponent(html)
-      expect(TagsAutocomplete).toHaveBeenCalled()
     })
   })
 

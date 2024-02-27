@@ -1,4 +1,3 @@
-import TagsAutocomplete from "alchemy_admin/tags_autocomplete"
 import ImageLoader from "alchemy_admin/image_loader"
 import fileEditors from "alchemy_admin/file_editors"
 import pictureEditors from "alchemy_admin/picture_editors"
@@ -44,7 +43,6 @@ export class ElementEditor extends HTMLElement {
       `#${this.id} .ingredient-editor.file, #${this.id} .ingredient-editor.audio, #${this.id} .ingredient-editor.video`
     )
     pictureEditors(`#${this.id} .ingredient-editor.picture`)
-    TagsAutocomplete(this)
   }
 
   handleEvent(event) {

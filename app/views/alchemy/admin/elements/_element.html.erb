@@ -53,10 +53,10 @@
       <% end %>
 
       <% if element.taggable? %>
-        <div class="autocomplete_tag_list">
+        <%= render Alchemy::Admin::TagsAutocomplete.new do %>
           <%= f.label :tag_list %>
-          <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f %>
-        </div>
+          <%= f.text_field :tag_list, value: f.object.tag_list.join(",") %>
+        <% end %>
       <% end %>
     <% end %>
 

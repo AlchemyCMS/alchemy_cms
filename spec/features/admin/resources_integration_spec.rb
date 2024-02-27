@@ -290,7 +290,7 @@ RSpec.describe "Resources", type: :system do
   context "with event that acts_as_taggable" do
     it "shows an autocomplete tag list in the form" do
       visit "/admin/events/new"
-      expect(page).to have_selector('input#event_tag_list[type="text"][data-autocomplete="/admin/tags/autocomplete"]')
+      expect(page).to have_selector('alchemy-tags-autocomplete input#event_tag_list[type="text"]')
     end
 
     context "with tagged events in the index view" do
