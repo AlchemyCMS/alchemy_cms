@@ -12,18 +12,19 @@ jobs:
     runs-on: ubuntu-latest
     # Only react to merged PRs for security reasons.
     # See https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request_target.
-    if: >
-      github.event.pull_request.merged
+    if: |
+      github.event.pull_request.merged == true
+      && contains(
+           join(github.event.pull_request.labels.*.name, '---'),
+           '---backport'
+         )
       && (
-        github.event.action == 'closed'
-        || (
-          github.event.action == 'labeled'
-          && contains(github.event.label.name, 'backport')
-        )
+        (github.event.action == 'labeled' && startsWith(github.event.label.name, 'backport')) ||
+          (github.event.action == 'closed')
       )
     steps:
       - name: Backport pull request
-        uses: sqren/backport-github-action@v9.3.1
+        uses: sorenlouv/backport-github-action@v9.3.1
         with:
           github_token: ${{ secrets.ALCHEMY_CI_BOT_ACCESS_TOKEN }}
           auto_backport_label_prefix: backport-to-
