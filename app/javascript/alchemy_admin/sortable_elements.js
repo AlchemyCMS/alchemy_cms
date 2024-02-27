@@ -29,12 +29,17 @@ function onSort(event) {
     params.parent_element_id = parentElement.dataset.elementId
   }
 
-  post(Alchemy.routes.order_admin_elements_path, params).then((response) => {
-    const data = response.data
-    Alchemy.growl(data.message)
-    Alchemy.PreviewWindow.refresh()
-    item.updateTitle(data.preview_text)
-  })
+  // Only send the request if the item was moved to a different container
+  // or sorted in the same list. Not on the old list in order to avoid incrementing
+  // the position of the other elements.
+  if (event.target === event.to) {
+    post(Alchemy.routes.order_admin_elements_path, params).then((response) => {
+      const data = response.data
+      Alchemy.growl(data.message)
+      Alchemy.PreviewWindow.refresh()
+      item.updateTitle(data.preview_text)
+    })
+  }
 }
 
 function onEnd() {
