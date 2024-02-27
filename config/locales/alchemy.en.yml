@@ -661,7 +661,6 @@ en:
     "Successfully updated": "Successfully updated"
     "Successfully removed": "Successfully removed"
     "Nothing found": "Nothing found."
-    complete: "Abgeschlossen"
     "Update available": "Update available"
     "Update status unavailable": "Update status unavailable"
     "Uploading": "Uploading"
@@ -795,7 +794,7 @@ en:
         other: "Elements"
       alchemy/ingredients/headline:
         one: Headline
-        other: Headline
+        other: Headlines
       alchemy/legacy_page_url:
         one: "Link"
         other: "Links"
