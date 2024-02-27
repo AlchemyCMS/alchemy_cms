@@ -1,5 +1,13 @@
 # Changelog
 
+## 7.1.4 (2024-02-27)
+
+- [7.1-stable] Merge pull request #2752 from tvdeyen/fix-copy-elements-order [#2754](https://github.com/AlchemyCMS/alchemy_cms/pull/2754) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] Merge pull request #2750 from tvdeyen/fix-sortable-elements [#2751](https://github.com/AlchemyCMS/alchemy_cms/pull/2751) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] Merge pull request #2689 from robinboening/fix_switching_to_default_language [#2746](https://github.com/AlchemyCMS/alchemy_cms/pull/2746) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] Merge pull request #2741 from tvdeyen/fix-svg-thumbnail-size [#2743](https://github.com/AlchemyCMS/alchemy_cms/pull/2743) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] Merge pull request #2735 from tvdeyen/fix-tags [#2736](https://github.com/AlchemyCMS/alchemy_cms/pull/2736) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.1.3 (2024-02-19)
 
 - Update tinymce to version 6.8.3 [#2727](https://github.com/AlchemyCMS/alchemy_cms/pull/2727) ([depfu](https://github.com/apps/depfu))
