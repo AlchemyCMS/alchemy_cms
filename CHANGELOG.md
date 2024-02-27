@@ -1,5 +1,13 @@
 # Changelog
 
+## 7.0.9 (2024-02-27)
+
+- [7.0] Fix tags view for missing taggables [#2757](https://github.com/AlchemyCMS/alchemy_cms/pull/2757) ([tvdeyen](https://github.com/tvdeyen))
+- [7.0-stable] Merge pull request #2752 from tvdeyen/fix-copy-elements-order [#2753](https://github.com/AlchemyCMS/alchemy_cms/pull/2753) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.0-stable] Merge pull request #2689 from robinboening/fix_switching_to_default_language [#2745](https://github.com/AlchemyCMS/alchemy_cms/pull/2745) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.0-stable] Merge pull request #2720 from sascha-karnatz/restrict-turbo-rails-version [#2725](https://github.com/AlchemyCMS/alchemy_cms/pull/2725) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.0-stable] Merge pull request #2665 from tvdeyen/resource-filter-fixes [#2668](https://github.com/AlchemyCMS/alchemy_cms/pull/2668) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.0.8 (2023-12-28)
 
 - [7.0-stable] Merge pull request #2658 from tvdeyen/fix-contactform-mailer [#2660](https://github.com/AlchemyCMS/alchemy_cms/pull/2660) ([alchemycms-bot](https://github.com/alchemycms-bot))
