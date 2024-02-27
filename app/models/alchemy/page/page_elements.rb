@@ -37,11 +37,20 @@ module Alchemy
         #
         def copy_elements(source, target)
           repository = source.draft_version.element_repository
+          elements = repository.not_nested
+          page_version = target.draft_version
+          duplicate_elements(elements.unfixed, repository, page_version) +
+            duplicate_elements(elements.fixed, repository, page_version)
+        end
+
+        private
+
+        def duplicate_elements(elements, repository, page_version)
           transaction do
             Element.acts_as_list_no_update do
-              repository.not_nested.each.with_index(1) do |element, position|
+              elements.each.with_index(1) do |element, position|
                 Alchemy::DuplicateElement.new(element, repository: repository).call(
-                  page_version_id: target.draft_version.id,
+                  page_version_id: page_version.id,
                   position: position
                 )
               end
