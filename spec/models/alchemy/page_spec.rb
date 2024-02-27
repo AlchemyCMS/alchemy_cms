@@ -392,6 +392,29 @@ module Alchemy
       end
     end
 
+    describe ".copy_elements" do
+      let(:page) { create(:alchemy_page) }
+      let(:page_2) { create(:alchemy_page) }
+      let!(:element_1) { create(:alchemy_element, page_version: page.draft_version) }
+      let!(:element_2) { create(:alchemy_element, page_version: page.draft_version) }
+      let!(:element_3) { create(:alchemy_element, page_version: page.draft_version) }
+      let!(:fixed_element_1) { create(:alchemy_element, :fixed, page_version: page.draft_version) }
+      let!(:fixed_element_2) { create(:alchemy_element, :fixed, page_version: page.draft_version) }
+
+      subject(:copy_elements) { Page.copy_elements(page, page_2) }
+
+      it "should keep original order of fixed and non-fixed elements" do
+        elements = copy_elements
+        expect(elements.map(&:position)).to match([
+          element_1.position,
+          element_2.position,
+          element_3.position,
+          fixed_element_1.position,
+          fixed_element_2.position
+        ])
+      end
+    end
+
     describe ".create" do
       context "before/after filter" do
         it "should automatically set the title from its name" do
