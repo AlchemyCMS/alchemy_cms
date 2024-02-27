@@ -7,7 +7,9 @@
     <label for="internal_link" class="control-label">
       <%= Alchemy.t(:page) %>
     </label>
-    <input type="text" id="internal_link" class="alchemy_selectbox full_width">
+    <%= render Alchemy::Admin::PageSelect.new(@page, allow_clear: true) do %>
+      <input type="text" value="<%= @page ? @url : "" %>" id="internal_link">
+    <% end %>
   </div>
   <div class="input select">
     <label for="element_anchor" class="control-label">

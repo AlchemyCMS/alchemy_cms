@@ -58,6 +58,10 @@ class PageSelect extends RemoteSelect {
       </div>
     `
   }
+
+  get pageId() {
+    return this.selection ? JSON.parse(this.selection)["id"] : undefined
+  }
 }
 
 customElements.define("alchemy-page-select", PageSelect)
