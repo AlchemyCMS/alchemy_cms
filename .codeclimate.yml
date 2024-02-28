@@ -9,12 +9,12 @@ engines:
   duplication:
     enabled: true
     exclude_paths:
-    - "lib/alchemy/permissions.rb"
-    - "lib/alchemy/tasks/tidy.rb"
-    - "lib/tasks/alchemy/upgrade.rake"
+      - "lib/alchemy/permissions.rb"
+      - "lib/alchemy/tasks/tidy.rb"
+      - "lib/tasks/alchemy/upgrade.rake"
     config:
       languages:
-      - ruby
+        - ruby
   eslint:
     enabled: false
   fixme:
@@ -23,13 +23,13 @@ engines:
     enabled: false
 ratings:
   paths:
-  - Gemfile.lock
-  - "**.erb"
-  - "**.rb"
+    - Gemfile.lock
+    - "**.erb"
+    - "**.rb"
 exclude_paths:
-- "config/"
-- "db/"
-- "spec/"
-- "lib/alchemy/upgrader/"
-- "lib/rails/"
-- "vendor/assets/"
+  - "config/"
+  - "db/"
+  - "spec/"
+  - "lib/alchemy/upgrader/"
+  - "lib/rails/"
+  - "vendor/assets/"
