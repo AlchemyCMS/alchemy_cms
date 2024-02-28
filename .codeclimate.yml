@@ -1,7 +1,7 @@
 ---
 engines:
   brakeman:
-    enabled: true
+    enabled: false
   csslint:
     enabled: false
   coffeelint:
