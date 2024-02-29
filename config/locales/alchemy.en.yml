@@ -670,6 +670,7 @@ en:
     delete_user: "Delete this user"
     edit_user: "Edit the user´s properties."
     "No users found": "No users found."
+    url: "Url"
 
     # Kaminari pagination translations
     pagination:

@@ -1,26 +1,6 @@
 <sl-tab-group id="overlay_tabs">
-  <sl-tab slot="nav" panel="overlay_tab_internal_link">
-    <%= Alchemy.t('link_overlay_tab_label.internal') %>
-  </sl-tab>
-  <sl-tab slot="nav" panel="overlay_tab_anchor_link">
-    <%= Alchemy.t('link_overlay_tab_label.anchor') %>
-  </sl-tab>
-  <sl-tab slot="nav" panel="overlay_tab_external_link">
-    <%= Alchemy.t('link_overlay_tab_label.external') %>
-  </sl-tab>
-  <sl-tab slot="nav" panel="overlay_tab_file_link">
-    <%= Alchemy.t('link_overlay_tab_label.file') %>
-  </sl-tab>
-  <sl-tab-panel name="overlay_tab_internal_link">
-    <%= render partial: 'internal_link' %>
-  </sl-tab-panel>
-  <sl-tab-panel name="overlay_tab_anchor_link">
-    <%= render partial: 'anchor_link' %>
-  </sl-tab-panel>
-  <sl-tab-panel name="overlay_tab_external_link">
-    <%= render partial: 'external_link' %>
-  </sl-tab-panel>
-  <sl-tab-panel name="overlay_tab_file_link">
-    <%= render partial: 'file_link' %>
-  </sl-tab-panel>
+  <% tabs = [Alchemy::Admin::Pages::InternalTab, Alchemy::Admin::Pages::AnchorTab, Alchemy::Admin::Pages::ExternalTab, Alchemy::Admin::Pages::FileTab] %>
+  <% tabs.each do |tab| %>
+    <%= render tab.new(@url) %>
+  <% end %>
 </sl-tab-group>

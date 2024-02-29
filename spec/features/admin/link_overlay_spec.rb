@@ -95,7 +95,7 @@ RSpec.describe "Link overlay", type: :system do
 
       within "[name='overlay_tab_external_link']" do
         expect(page).to have_selector("#external_link")
-        fill_in("URL", with: "https://example.com")
+        fill_in("Url", with: "https://example.com")
         click_button "apply"
       end
 

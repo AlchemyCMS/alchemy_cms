@@ -164,16 +164,6 @@ module Alchemy
 
       def link
         @url = params[:url]
-        @page = nil
-
-        if @url
-          uri = URI(@url)
-          @page = Alchemy::Page.find_by(urlname: uri.path[1..])
-        end
-
-        @attachments = Attachment.all.collect { |f|
-          [f.name, download_attachment_path(id: f.id, name: f.slug)]
-        }
       end
 
       def fold
