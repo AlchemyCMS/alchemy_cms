@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.1.2 (2024-02-29)
+
+- Allow setting a layout for user_sessions and passwords controller [#127](https://github.com/AlchemyCMS/alchemy-devise/pull/127) ([robinboening](https://github.com/robinboening))
+
 ## 7.1.1 (2023-01-12)
 
 - Alchemy 7.1 UI fixes [#195](https://github.com/AlchemyCMS/alchemy-devise/pull/195) ([tvdeyen](https://github.com/tvdeyen))
