@@ -2,7 +2,7 @@
   <td class="icon"><%= render_icon :tag %></td>
   <td class="name"><%= tag.name %></td>
   <td>
-    <% tag.taggings.collect(&:taggable).compact.uniq.each do |taggable| %>
+    <% tag.taggings.collect(&:taggable).compact.uniq(&:class).each do |taggable| %>
       <span class="label">
         <%= taggable.class.model_name.human %>
       </span>
