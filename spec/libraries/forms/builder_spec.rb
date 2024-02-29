@@ -8,7 +8,7 @@ RSpec.describe Alchemy::Forms::Builder, type: :controller do
 
   shared_examples_for "datepicker expect" do
     it "has the alchemy-datepicker" do
-      expect(template).to receive(:content_tag).with("alchemy-datepicker", "<alchemy-datepicker>", {type: type})
+      expect(template).to receive(:content_tag).with("alchemy-datepicker", "<alchemy-datepicker>", {"input-type" => type})
       subject
     end
 

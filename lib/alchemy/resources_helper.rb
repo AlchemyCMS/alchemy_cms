@@ -107,12 +107,7 @@ module Alchemy
       when "boolean"
         options
       when "date", "time", "datetime"
-        options.merge(
-          as: "string",
-          input_html: {
-            data: {datepicker_type: input_type}
-          }
-        )
+        options.merge(as: input_type)
       when "text"
         options.merge(as: "text", input_html: {rows: 4})
       else
