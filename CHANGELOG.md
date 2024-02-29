@@ -1,5 +1,18 @@
 # Changelog
 
+## 7.1.5 (2024-02-29)
+
+- [7.1-stable] Fix taggable uniqueness in tags admin table [#2764](https://github.com/AlchemyCMS/alchemy_cms/pull/2764) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] Fix datepicker in resource forms [#2762](https://github.com/AlchemyCMS/alchemy_cms/pull/2762) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
+## 7.1.4 (2024-02-27)
+
+- [7.1-stable] Merge pull request #2752 from tvdeyen/fix-copy-elements-order [#2754](https://github.com/AlchemyCMS/alchemy_cms/pull/2754) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] Merge pull request #2750 from tvdeyen/fix-sortable-elements [#2751](https://github.com/AlchemyCMS/alchemy_cms/pull/2751) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] Merge pull request #2689 from robinboening/fix_switching_to_default_language [#2746](https://github.com/AlchemyCMS/alchemy_cms/pull/2746) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] Merge pull request #2741 from tvdeyen/fix-svg-thumbnail-size [#2743](https://github.com/AlchemyCMS/alchemy_cms/pull/2743) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] Merge pull request #2735 from tvdeyen/fix-tags [#2736](https://github.com/AlchemyCMS/alchemy_cms/pull/2736) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.1.3 (2024-02-19)
 
 - Update tinymce to version 6.8.3 [#2727](https://github.com/AlchemyCMS/alchemy_cms/pull/2727) ([depfu](https://github.com/apps/depfu))
@@ -159,6 +172,18 @@
 - convert Initializer from Coffeescript to Javascript [#2513](https://github.com/AlchemyCMS/alchemy_cms/pull/2513) ([sascha-karnatz](https://github.com/sascha-karnatz))
 - Convert Dirty from Coffeescript to Javascript [#2510](https://github.com/AlchemyCMS/alchemy_cms/pull/2510) ([sascha-karnatz](https://github.com/sascha-karnatz))
 - Convert buttons.js.coffee to buttons.js [#2509](https://github.com/AlchemyCMS/alchemy_cms/pull/2509) ([sascha-karnatz](https://github.com/sascha-karnatz))
+
+## 7.0.10 (2024-02-29)
+
+- [7.0-stable] Fix taggable uniqueness in tags admin table [#2763](https://github.com/AlchemyCMS/alchemy_cms/pull/2763) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
+## 7.0.9 (2024-02-27)
+
+- [7.0] Fix tags view for missing taggables [#2757](https://github.com/AlchemyCMS/alchemy_cms/pull/2757) ([tvdeyen](https://github.com/tvdeyen))
+- [7.0-stable] Merge pull request #2752 from tvdeyen/fix-copy-elements-order [#2753](https://github.com/AlchemyCMS/alchemy_cms/pull/2753) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.0-stable] Merge pull request #2689 from robinboening/fix_switching_to_default_language [#2745](https://github.com/AlchemyCMS/alchemy_cms/pull/2745) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.0-stable] Merge pull request #2720 from sascha-karnatz/restrict-turbo-rails-version [#2725](https://github.com/AlchemyCMS/alchemy_cms/pull/2725) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.0-stable] Merge pull request #2665 from tvdeyen/resource-filter-fixes [#2668](https://github.com/AlchemyCMS/alchemy_cms/pull/2668) ([alchemycms-bot](https://github.com/alchemycms-bot))
 
 ## 7.0.8 (2023-12-28)
 
