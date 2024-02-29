@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.0.10 (2024-02-29)
+
+- [7.0-stable] Fix taggable uniqueness in tags admin table [#2763](https://github.com/AlchemyCMS/alchemy_cms/pull/2763) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.0.9 (2024-02-27)
 
 - [7.0] Fix tags view for missing taggables [#2757](https://github.com/AlchemyCMS/alchemy_cms/pull/2757) ([tvdeyen](https://github.com/tvdeyen))
