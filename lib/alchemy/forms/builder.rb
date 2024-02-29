@@ -40,7 +40,7 @@ module Alchemy
         }.merge(options[:input_html] || {})
 
         date_field = input attribute_name, as: :string, input_html: input_options
-        template.content_tag("alchemy-datepicker", date_field, type: type)
+        template.content_tag("alchemy-datepicker", date_field, "input-type" => type)
       end
 
       # Renders a simple_form input that displays a richtext editor
