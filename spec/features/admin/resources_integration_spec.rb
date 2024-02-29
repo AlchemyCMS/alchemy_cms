@@ -176,12 +176,12 @@ RSpec.describe "Resources", type: :system do
     it "renders an input field according to the attribute's type" do
       visit "/admin/events/new"
       expect(page).to have_selector('input#event_name[type="text"]')
-      expect(page).to have_selector('input#event_starts_at[data-datepicker-type="datetime"]')
-      expect(page).to have_selector('input#event_ends_at[data-datepicker-type="datetime"]')
+      expect(page).to have_selector('alchemy-datepicker[input-type="datetime"] input#event_starts_at')
+      expect(page).to have_selector('alchemy-datepicker[input-type="datetime"] input#event_ends_at')
       expect(page).to have_selector("textarea#event_description")
       expect(page).to have_selector('input#event_published[type="checkbox"]')
-      expect(page).to have_selector('input#event_lunch_starts_at[data-datepicker-type="time"]')
-      expect(page).to have_selector('input#event_lunch_ends_at[data-datepicker-type="time"]')
+      expect(page).to have_selector('alchemy-datepicker[input-type="time"] input#event_lunch_starts_at')
+      expect(page).to have_selector('alchemy-datepicker[input-type="time"] input#event_lunch_ends_at')
     end
 
     it "should have a select box for associated models" do
@@ -202,7 +202,7 @@ RSpec.describe "Resources", type: :system do
     describe "date fields" do
       it "have date picker" do
         visit "/admin/bookings/new"
-        expect(page).to have_selector('input#booking_from[data-datepicker-type="date"]')
+        expect(page).to have_selector('alchemy-datepicker[input-type="date"] input#booking_from')
       end
     end
   end
