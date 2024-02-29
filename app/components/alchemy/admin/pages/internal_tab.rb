@@ -40,7 +40,7 @@ module Alchemy
 
         def page_select
           label = label_tag("internal_link", Alchemy.t(:page), class: "control-label")
-          input = text_field_tag("internal_link", page ? @url : "", id: "internal_link")
+          input = text_field_tag("internal_link", tab_selected? ? @url : "", id: "internal_link")
           page_select = render Alchemy::Admin::PageSelect.new(page, allow_clear: true).with_content(input)
           content_tag("div", label + page_select, class: "input select")
         end

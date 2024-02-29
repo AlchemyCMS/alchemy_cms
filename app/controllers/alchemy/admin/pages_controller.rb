@@ -164,6 +164,9 @@ module Alchemy
 
       def link
         @url = params[:url]
+        @tab = params[:tab]
+        @title = params[:title]
+        @target = params[:target]
       end
 
       def fold

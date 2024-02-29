@@ -37,7 +37,7 @@ module Alchemy
         def attachment_select
           label = label_tag("file_link", Alchemy.t(:file), class: "control-label")
           select = select_tag "file_link",
-            options_for_select(attachments),
+            options_for_select(attachments, tab_selected? ? @url : nil),
             prompt: Alchemy.t("Please choose"),
             is: "alchemy-select"
           content_tag("div", label + select, class: "input select")

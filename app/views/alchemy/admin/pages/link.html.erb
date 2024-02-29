@@ -1,6 +1,6 @@
 <sl-tab-group id="overlay_tabs">
   <% tabs = [Alchemy::Admin::Pages::InternalTab, Alchemy::Admin::Pages::AnchorTab, Alchemy::Admin::Pages::ExternalTab, Alchemy::Admin::Pages::FileTab] %>
   <% tabs.each do |tab| %>
-    <%= render tab.new(@url) %>
+    <%= render tab.new(@url, @tab, @title, @target) %>
   <% end %>
 </sl-tab-group>

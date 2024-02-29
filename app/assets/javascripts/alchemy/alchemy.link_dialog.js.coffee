@@ -5,11 +5,16 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
 
   constructor: (@link_object) ->
     @$link_object = $(@link_object)
-    @url = Alchemy.routes.link_admin_pages_path + "?url="+ encodeURIComponent(@link_object.linkUrl)
+    url = new URL(Alchemy.routes.link_admin_pages_path, window.location)
+    url.searchParams.set("url", @link_object.linkUrl)
+    url.searchParams.set("tab", @link_object.linkClass)
+    url.searchParams.set("title", @link_object.linkTitle)
+    url.searchParams.set("target", @link_object.linkTarget)
+
     @options =
       size: '600x320'
       title: 'Link'
-    super(@url, @options)
+    super(url.href, @options)
 
   # Called from Dialog class after the url was loaded
   replace: (data) ->
@@ -32,6 +37,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     if @link_object
       # we select the correct tab
       @selectTab()
+      @initInternalLinkTab()
     return
 
   # Attaches click events to forms in the link dialog.
@@ -123,42 +129,6 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
       @$link = $(@createTempLink())
     else
       return false
-    # Populate title and target fields.
-    $('.link_title', @dialog_body).val @$link.attr('title')
-    $('.link_target', @dialog_body).select2('val', @$link.attr('data-link-target'))
-    # Checking of what kind the link is (internal, external or file).
-    if @$link.hasClass('external')
-      # Handles an external link.
-      tab = 'overlay_tab_external_link'
-      @$external_link.val(@$link.attr('href'))
-    else if @$link.hasClass('file')
-      # Handles a file link.
-      tab = 'overlay_tab_file_link'
-      @$file_link.select2('val', @$link[0].pathname + @$link[0].search)
-    else if @$link.attr('href').match(/^#/)
-      # Handles an anchor link.
-      tab = 'overlay_tab_anchor_link'
-      @$anchor_link.select2('val', @$link.attr('href'))
-    else if @$link.hasClass('internal')
-      # Handles an internal link.
-      tab = 'overlay_tab_internal_link'
-      @initInternalLinkTab()
-    else
-      # Emit an event to allow extensions hook into the link overlay.
-      @$overlay_tabs.trigger 'SelectLinkTab.Alchemy',
-        link: @$link
-    if tab
-      window.requestAnimationFrame =>
-        @$overlay_tabs.get(0).show(tab)
-    return
-
-  # Handles actions for internal link tab.
-  initInternalLinkTab: ->
-    url = @$link.attr('href').split('#')
-    # update the url field
-    @$internal_link.val(url[0])
-    # store the anchor
-    @$element_anchor.val(url[1])
 
   # Creates a temporay 'a' element that holds all values on it.
   createTempLink: ->

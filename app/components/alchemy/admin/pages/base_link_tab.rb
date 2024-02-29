@@ -4,10 +4,13 @@ module Alchemy
   module Admin
     module Pages
       class BaseLinkTab < ViewComponent::Base
-        delegate :render_message, to: :helpers
+        include BaseHelper
 
-        def initialize(url)
+        def initialize(url, selected_tab, title, target)
           @url = url
+          @selected_tab = selected_tab
+          @title = title
+          @target = target
         end
 
         def title
@@ -26,6 +29,10 @@ module Alchemy
           nil
         end
 
+        def tab_selected?
+          type == @selected_tab&.to_sym
+        end
+
         def call
           content = message ? render_message(:info, message) : ""
           content += content_tag("div", content_tag("ul"), id: "errors", class: "errors")
@@ -35,6 +42,7 @@ module Alchemy
 
           panel_name = "overlay_tab_#{type}_link"
           options = {slot: "nav", panel: panel_name}
+          options[:active] = "" if tab_selected?
 
           content_tag("sl-tab", title, options) +
             content_tag("sl-tab-panel", form, name: panel_name)
@@ -45,7 +53,7 @@ module Alchemy
         def title_input
           name = "#{type}_link_title"
           label = label_tag(name, Alchemy.t(:link_title), class: "control-label")
-          input = text_field_tag name, "", class: "link_title"
+          input = text_field_tag name, @title, class: "link_title"
           content_tag("div", label + input, class: "input text")
         end
 

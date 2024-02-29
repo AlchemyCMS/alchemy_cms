@@ -30,7 +30,7 @@ module Alchemy
 
         def url_input
           label = label_tag("external_link", Alchemy.t(:url), class: "control-label")
-          input = text_field_tag "external_link", ""
+          input = text_field_tag "external_link", tab_selected? ? @url : ""
           content_tag("div", label + input, class: "input text")
         end
       end

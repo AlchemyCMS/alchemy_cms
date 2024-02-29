@@ -3,8 +3,6 @@
 require "rails_helper"
 
 class TestTab < Alchemy::Admin::Pages::BaseLinkTab
-  delegate :render_message, to: :helpers
-
   def title
     "Test Tab"
   end
@@ -22,24 +20,60 @@ class TestTab < Alchemy::Admin::Pages::BaseLinkTab
 end
 
 RSpec.describe Alchemy::Admin::Pages::BaseLinkTab, type: :component do
+  let(:active_tab) { "foo" }
+  let(:title) { nil }
+  let(:target) { nil }
+
   before do
-    render_inline(TestTab.new("/foo"))
+    render_inline(TestTab.new("/foo", active_tab, title, target))
   end
 
-  it "should render a tab with a panel" do
-    expect(page).to have_selector("sl-tab[panel='overlay_tab_test_link']")
-    expect(page).to have_selector("sl-tab-panel[name='overlay_tab_test_link']")
+  context "default configuration" do
+    it "should render a tab with a panel" do
+      expect(page).to have_selector("sl-tab[panel='overlay_tab_test_link']")
+      expect(page).to have_selector("sl-tab-panel[name='overlay_tab_test_link']")
+    end
+
+    it "should have a title" do
+      expect(page).to have_text("Test Tab")
+    end
+
+    it "should allow to add title input and have no value" do
+      expect(page).to have_selector("input[name=test_link_title]")
+      expect(page.find(:css, "input[name=test_link_title]").value).to be_nil
+    end
+
+    it "should allow to add target select" do
+      expect(page).to have_selector("select[name=test_link_target]")
+      expect(page.find(:css, "select[name=test_link_target]").value).to be_empty
+    end
+
+    it "isn't active" do
+      expect(page).to_not have_selector("sl-tab[active]")
+    end
   end
 
-  it "should have a title" do
-    expect(page).to have_text("Test Tab")
+  context "active tab" do
+    let(:active_tab) { "test" }
+
+    it "is active" do
+      expect(page).to have_selector("sl-tab[active]")
+    end
   end
 
-  it "should allow to add title input" do
-    expect(page).to have_selector("input[name=test_link_title]")
+  context "title input" do
+    let(:title) { "test" }
+
+    it "should have a pre-filled value" do
+      expect(page.find(:css, "input[name=test_link_title]").value).to eq(title)
+    end
   end
 
-  it "should allow to add target select" do
-    expect(page).to have_selector("select[name=test_link_target]")
+  context "target select" do
+    let(:target) { "blank" }
+
+    it "should have a pre-filled value" do
+      expect(page.find(:css, "select[name=test_link_target]").value).to eq(target)
+    end
   end
 end
