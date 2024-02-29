@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.1.5 (2024-02-29)
+
+- [7.1-stable] Fix taggable uniqueness in tags admin table [#2764](https://github.com/AlchemyCMS/alchemy_cms/pull/2764) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] Fix datepicker in resource forms [#2762](https://github.com/AlchemyCMS/alchemy_cms/pull/2762) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.1.4 (2024-02-27)
 
 - [7.1-stable] Merge pull request #2752 from tvdeyen/fix-copy-elements-order [#2754](https://github.com/AlchemyCMS/alchemy_cms/pull/2754) ([alchemycms-bot](https://github.com/alchemycms-bot))
