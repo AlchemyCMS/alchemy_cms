@@ -284,10 +284,7 @@ describe Alchemy::ResourcesHelper do
         is_expected.to match(
           hash_including(
             hint: nil,
-            as: "string",
-            input_html: {
-              data: {datepicker_type: "date"}
-            }
+            as: "date"
           )
         )
       end
@@ -304,10 +301,7 @@ describe Alchemy::ResourcesHelper do
         is_expected.to match(
           hash_including(
             hint: nil,
-            as: "string",
-            input_html: {
-              data: {datepicker_type: "datetime"}
-            }
+            as: "datetime"
           )
         )
       end
@@ -324,10 +318,7 @@ describe Alchemy::ResourcesHelper do
         is_expected.to match(
           hash_including(
             hint: nil,
-            as: "string",
-            input_html: {
-              data: {datepicker_type: "time"}
-            }
+            as: "time"
           )
         )
       end
