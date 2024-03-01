@@ -19,6 +19,7 @@ import Spinner from "alchemy_admin/spinner"
 import PagePublicationFields from "alchemy_admin/page_publication_fields"
 
 // Web Components
+import "alchemy_admin/components/anchor_select"
 import "alchemy_admin/components/button"
 import "alchemy_admin/components/char_counter"
 import "alchemy_admin/components/clipboard_button"

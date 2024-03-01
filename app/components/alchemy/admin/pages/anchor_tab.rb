@@ -27,10 +27,13 @@ module Alchemy
 
         def anchor_select
           label = label_tag("anchor_link", Alchemy.t(:anchor), class: "control-label")
-          select = select_tag(:anchor_link,
-            options_for_select([[Alchemy.t("Please choose"), ""]]),
-            is: "alchemy-select")
-          content_tag("div", label + select, class: "input select")
+          options = [[Alchemy.t("Please choose"), ""]]
+          options += [["##{@url}", @url]] if tab_selected? && @url
+
+          select = select_tag(:anchor_link, options_for_select(options, @url), is: "alchemy-select")
+          select_component = content_tag("alchemy-anchor-select", select, {type: "preview"})
+
+          content_tag("div", label + select_component, class: "input select")
         end
       end
     end

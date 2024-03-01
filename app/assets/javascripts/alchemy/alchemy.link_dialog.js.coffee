@@ -24,66 +24,39 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     # Store some jQuery objects for further reference
     @$internal_link = $('#internal_link', @dialog_body)
     @$element_anchor = $('#element_anchor', @dialog_body)
-    @$anchor_link = $('#anchor_link', @dialog_body)
-    @$external_link = $('#external_link', @dialog_body)
-    @$file_link = $('#file_link', @dialog_body)
-    @$overlay_tabs = $('#overlay_tabs', @dialog_body)
-    @$page_container = $('#page_selector_container')
+    @linkForm = document.querySelector('[data-link-form-type="internal"]')
 
     # attach events we handle
     @attachEvents()
-    @initAnchorLinks()
     # if we edit an existing link
     if @link_object
       # we select the correct tab
       @selectTab()
-      @initInternalLinkTab()
     return
+
+  updatePage: (page) ->
+    @$internal_link.val(page?.url_path)
+    @linkForm.querySelector('alchemy-anchor-select').page = page?.id
 
   # Attaches click events to forms in the link dialog.
   attachEvents: ->
-    # enable the dom selection in internal link tab
-    element_anchor_placeholder = @$element_anchor.attr('placeholder')
-    linkForm = document.querySelector('[data-link-form-type="internal"]')
-    selectedPageId = linkForm.querySelector('alchemy-page-select').pageId
-
-    if selectedPageId
-      @initDomIdSelect(selectedPageId)
-
-    linkForm.addEventListener "Alchemy.PageSelect.ItemRemoved", (e) =>
-      @$element_anchor.val(element_anchor_placeholder)
-      @$element_anchor.select2('destroy').prop('disabled', true)
-
-    linkForm.addEventListener "Alchemy.PageSelect.ItemAdded", (e) =>
-      page = e.detail
-      @$internal_link.val(page.url_path)
-      @initDomIdSelect(page.id)
+    @linkForm.addEventListener "Alchemy.PageSelect.ItemRemoved", (e) => @updatePage()
+    @linkForm.addEventListener "Alchemy.PageSelect.ItemAdded", (e) => @updatePage(e.detail)
 
     $('[data-link-form-type]', @dialog_body).on "submit", (e) =>
       e.preventDefault()
       @link_type = e.target.dataset.linkFormType
-      url = $("##{@link_type}_link").val()
+      # get url and remove a possible hash fragment
+      url = $("##{@link_type}_link").val().replace(/#\w+$/, '')
       if @link_type == 'internal' && @$element_anchor.val() != ''
-        url += "##{@$element_anchor.val()}"
+        url += "#" + @$element_anchor.val()
+
       # Create the link
       @createLink
         url: url
         title: $("##{@link_type}_link_title").val()
         target: $("##{@link_type}_link_target").val()
       false
-
-  # Initializes the select2 based dom id select
-  # reveals after a page has been selected
-  initDomIdSelect: (page_id) ->
-    @$element_anchor.val('')
-    $.get Alchemy.routes.api_ingredients_path, page_id: page_id, (data) =>
-      dom_ids = data.ingredients.filter (ingredient) ->
-        ingredient.data?.dom_id
-      .map (ingredient) ->
-        id: ingredient.data.dom_id
-        text: "##{ingredient.data.dom_id}"
-      @$element_anchor.prop('disabled', false).removeAttr('placeholder').select2
-        data: [ id: '', text: Alchemy.t('None') ].concat(dom_ids)
 
   # Creates a link if no validation errors are present.
   # Otherwise shows an error notice.
@@ -151,14 +124,3 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
   showValidationError: ->
     $('#errors ul', @dialog_body).html("<li>#{Alchemy.t('url_validation_failed')}</li>")
     $('#errors', @dialog_body).show()
-
-  # Populates the internal anchors select
-  initAnchorLinks: ->
-    frame = document.getElementById('alchemy_preview_window')
-    elements = frame.contentDocument?.querySelectorAll('[id]') || []
-    if elements.length > 0
-      for element in elements
-        @$anchor_link.append("<option value='##{element.id}'>##{element.id}</option>")
-    else
-      @$anchor_link.html("<option>#{Alchemy.t('No anchors found')}</option>")
-    return

@@ -15,7 +15,7 @@ module Alchemy
         def fields
           [
             page_select,
-            dom_id_select,
+            anchor_select,
             title_input,
             target_select
           ]
@@ -28,19 +28,34 @@ module Alchemy
 
         private
 
-        def page
-          @_page ||= @url ? Alchemy::Page.find_by(urlname: URI(@url).path[1..]) : nil
+        ##
+        # transform url into a URI object
+        #
+        # encode the uri and parse it again to prevent exceptions if the Url is in the wrong format
+        # @return [URI|nil]
+        def uri
+          @_uri ||= @url ? URI(@url.strip) : nil
         end
 
-        def dom_id_select
+        def page
+          @_page ||= uri ? Alchemy::Page.find_by(urlname: uri.path[1..]) : nil
+        end
+
+        def anchor_select
+          fragment = uri.fragment if uri
           label = label_tag("element_anchor", Alchemy.t(:anchor), class: "control-label")
-          input = text_field_tag("element_anchor", nil, {id: "element_anchor", class: "alchemy_selectbox full_width", disabled: true, placeholder: Alchemy.t("Select a page first")})
-          content_tag("div", label + input, class: "input select")
+          options = [[Alchemy.t("Please choose"), ""]]
+          options += [["##{fragment}", fragment]] if tab_selected? && fragment
+
+          select = select_tag("element_anchor", options_for_select(options, fragment), is: "alchemy-select")
+          select_component = content_tag("alchemy-anchor-select", select, {page: page&.id})
+
+          content_tag("div", label + select_component, class: "input select")
         end
 
         def page_select
           label = label_tag("internal_link", Alchemy.t(:page), class: "control-label")
-          input = text_field_tag("internal_link", tab_selected? ? @url : "", id: "internal_link")
+          input = text_field_tag("internal_link", tab_selected? ? uri : "", id: "internal_link")
           page_select = render Alchemy::Admin::PageSelect.new(page, allow_clear: true).with_content(input)
           content_tag("div", label + page_select, class: "input select")
         end
