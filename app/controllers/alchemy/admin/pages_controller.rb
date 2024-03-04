@@ -163,6 +163,7 @@ module Alchemy
       end
 
       def link
+        render LinkDialog::Tabs.new
       end
 
       def fold
