@@ -1,6 +1,5 @@
 <sl-tab-group id="overlay_tabs">
-  <% tabs = [Alchemy::Admin::LinkDialog::InternalTab, Alchemy::Admin::LinkDialog::AnchorTab, Alchemy::Admin::LinkDialog::ExternalTab, Alchemy::Admin::LinkDialog::FileTab] %>
-  <% tabs.each do |tab| %>
+  <% Alchemy.link_dialog_tabs.each do |tab| %>
     <%= render tab.new %>
   <% end %>
 </sl-tab-group>
