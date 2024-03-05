@@ -12,6 +12,8 @@ export default function Datepicker(scope = document) {
   // Initializes the datepickers
   datepickerInputs.forEach((input) => {
     const type = input.dataset.datepickerType
+    const enableTime = /time/.test(type)
+
     const options = {
       // alchemy_i18n supports `zh_CN` etc., but flatpickr only has two-letter codes (`zh`)
       locale: Alchemy.locale.slice(0, 2),
@@ -19,7 +21,7 @@ export default function Datepicker(scope = document) {
       altFormat: Alchemy.t(`formats.${type}`),
       altInputClass: "flatpickr-input",
       dateFormat: "Z",
-      enableTime: /time/.test(type),
+      enableTime,
       noCalendar: type === "time",
       time_24hr: Alchemy.t("formats.time_24hr"),
       onValueUpdate(_selectedDates, _dateStr, instance) {
@@ -28,6 +30,11 @@ export default function Datepicker(scope = document) {
         )
       }
     }
+
+    if (enableTime) {
+      options.dateFormat = "Z"
+    }
+
     flatpickr(input, options)
   })
 }
