@@ -2,6 +2,20 @@
 
 require "rails_helper"
 
+class TestTab < Alchemy::Admin::LinkDialog::BaseTab
+  def title
+    "Test Tab"
+  end
+
+  def name
+    :test_tab
+  end
+
+  def fields
+    [title_input, target_select]
+  end
+end
+
 RSpec.describe "Link overlay", type: :system do
   let!(:language) { create(:alchemy_language) }
 
@@ -28,6 +42,17 @@ RSpec.describe "Link overlay", type: :system do
     it "has a tab for linking files" do
       visit link_admin_pages_path
       within("#overlay_tabs") { expect(page).to have_content("File") }
+    end
+
+    context "add new tab" do
+      before do
+        Alchemy.link_dialog_tabs << TestTab
+      end
+
+      it "has a new tab" do
+        visit link_admin_pages_path
+        within("#overlay_tabs") { expect(page).to have_content("Test Tab") }
+      end
     end
   end
 
