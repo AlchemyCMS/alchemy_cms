@@ -58,4 +58,34 @@ describe("alchemy-datepicker", () => {
       expect(document.querySelector(".flatpickr-calendar")).toBeNull()
     })
   })
+
+  it("should include timezone for time inputs", () => {
+    const html = `
+      <alchemy-datepicker input-type="time">
+        <input type="text">
+      </alchemy-datepicker>
+    `
+    component = renderComponent("alchemy-datepicker", html)
+    expect(component.flatpickrOptions.dateFormat).toEqual("Z")
+  })
+
+  it("should include timezone for datetime inputs", () => {
+    const html = `
+      <alchemy-datepicker input-type="datetime">
+        <input type="text">
+      </alchemy-datepicker>
+    `
+    component = renderComponent("alchemy-datepicker", html)
+    expect(component.flatpickrOptions.dateFormat).toEqual("Z")
+  })
+
+  it("should not include timezone for date inputs", () => {
+    const html = `
+      <alchemy-datepicker input-type="date">
+        <input type="text">
+      </alchemy-datepicker>
+    `
+    component = renderComponent("alchemy-datepicker", html)
+    expect(component.flatpickrOptions.dateFormat).toBeUndefined()
+  })
 })
