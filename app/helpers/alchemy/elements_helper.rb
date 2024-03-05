@@ -72,13 +72,13 @@ module Alchemy
     #
     def render_elements(options = {}, &blk)
       options = {
-        from_page: @page,
+        from_page: Current.page,
         render_format: "html"
       }.update(options)
 
       finder = options[:finder] || Alchemy::ElementsFinder.new(options)
 
-      page_version = if @preview_mode
+      page_version = if Current.preview_page?
         options[:from_page]&.draft_version
       else
         options[:from_page]&.public_version
@@ -173,7 +173,7 @@ module Alchemy
 
     # Returns a hash containing the HTML tag attributes required for preview mode.
     def element_preview_code_attributes(element)
-      return {} unless element.present? && @preview_mode && element.page == @page
+      return {} unless element.present? && Current.preview_page?(element.page)
 
       {"data-alchemy-element" => element.id}
     end

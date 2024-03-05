@@ -28,29 +28,11 @@ module Alchemy
       end
     end
 
-    describe ".default" do
-      subject { Site.default }
-
-      context "when no default site is present" do
-        before do
-          Site.delete_all
-        end
-
-        it { is_expected.to be nil }
-      end
-
-      context "when default site is present" do
-        it "returns it" do
-          is_expected.to eq(Site.default)
-        end
-      end
-    end
-
     describe ".find_for_host" do
       # No need to create a default site, as it has already been added through the seeds.
       # But let's add some more:
       #
-      let(:default_site) { Site.default }
+      let(:default_site) { Site.first }
       let!(:magiclabs_site) { create(:alchemy_site, host: "www.magiclabs.de", aliases: "magiclabs.de magiclabs.com www.magiclabs.com") }
 
       subject { Site.find_for_host(host) }
@@ -86,21 +68,6 @@ module Alchemy
       end
     end
 
-    describe ".current" do
-      context "when set to nil" do
-        let!(:site) { create(:alchemy_site, host: "example.com") }
-
-        before do
-          Site.current = nil
-        end
-
-        it "should return default site" do
-          expect(Site.current).not_to be_nil
-          expect(Site.current).to eq(Site.default)
-        end
-      end
-    end
-
     describe ".definitions" do
       # To prevent memoization across specs
       before { Site.instance_variable_set(:@definitions, nil) }
@@ -132,18 +99,18 @@ module Alchemy
 
       subject { default_site.current? }
 
-      context "when Site.current is set to the same site" do
-        before { Site.current = default_site }
+      context "when Current.site is set to the same site" do
+        before { Current.site = default_site }
         it { is_expected.to be(true) }
       end
 
-      context "when Site.current is set to nil" do
-        before { Site.current = nil }
+      context "when Current.site is set to nil" do
+        before { Current.site = nil }
         it { is_expected.to be(true) }
       end
 
-      context "when Site.current is set to a different site" do
-        before { Site.current = another_site }
+      context "when Current.site is set to a different site" do
+        before { Current.site = another_site }
         it { is_expected.to be(false) }
       end
     end

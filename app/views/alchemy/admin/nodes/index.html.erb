@@ -35,8 +35,8 @@
         <%== Alchemy.t('alchemy/node', scope: :no_resource_found) %>
       <% end %>
       <%= render 'form', node: Alchemy::Node.new(
-          site: Alchemy::Site.current,
-          language: Alchemy::Language.current
+          site: Alchemy::Current.site,
+          language: Alchemy::Current.language
         ),
         button_label: Alchemy.t(:create) %>
     </div>

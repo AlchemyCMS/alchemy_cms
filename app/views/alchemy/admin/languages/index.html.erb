@@ -32,7 +32,7 @@
       <% end %>
       <%= render 'form', language: Alchemy::Language.new(
         Alchemy::Config.get(:default_language).merge(
-          site: Alchemy::Site.current,
+          site: Alchemy::Current.site,
           default: true,
           public: true
         )

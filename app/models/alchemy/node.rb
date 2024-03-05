@@ -37,9 +37,9 @@ module Alchemy
     class << self
       # Returns all root nodes for current language
       def language_root_nodes
-        raise "No language found" if Language.current.nil?
+        raise "No language found" if Current.language.nil?
 
-        roots.where(language_id: Language.current.id)
+        roots.where(language_id: Current.language.id)
       end
 
       def available_menu_names

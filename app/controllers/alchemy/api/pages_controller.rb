@@ -66,11 +66,11 @@ module Alchemy
     end
 
     def load_page_by_urlname
-      return unless Language.current
+      return unless Current.language
 
-      Language.current.pages.where(
+      Current.language.pages.where(
         urlname: params[:urlname],
-        language_code: params[:locale] || Language.current.code
+        language_code: params[:locale] || Current.language.code
       ).includes(page_includes).first
     end
 

@@ -227,7 +227,7 @@ module Alchemy
                 end
 
                 it "should redirect to the language root page" do
-                  allow(Language).to receive(:current).and_return(language)
+                  allow(Current).to receive(:language).and_return(language)
                   expect(
                     subject
                   ).to redirect_to(show_page_path(urlname: "lang-root"))

@@ -7,7 +7,7 @@
         'language_id',
         options_for_select(
           languages.map { |l| [l.name, l.id] },
-          Alchemy::Language.current.id
+          Alchemy::Current.language.id
         ),
         class: 'short',
         is: 'alchemy-select',

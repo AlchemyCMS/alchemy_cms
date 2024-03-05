@@ -87,8 +87,6 @@ RSpec.configure do |config|
 
   # All specs are running in transactions, but feature specs not.
   config.before(:each) do
-    Alchemy::Site.current = nil
-    Alchemy::Language.current = nil
     ::I18n.locale = :en
   end
 

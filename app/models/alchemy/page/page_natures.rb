@@ -108,7 +108,7 @@ module Alchemy
       # If the page is the current preview it uses the +updated_at+ value as cache key.
       #
       def cache_version
-        if Page.current_preview == id
+        if Current.preview_page == self
           updated_at.to_s
         else
           published_at.to_s

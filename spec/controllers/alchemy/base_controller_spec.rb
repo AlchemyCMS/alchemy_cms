@@ -5,10 +5,10 @@ require "rails_helper"
 module Alchemy
   describe BaseController do
     describe "#set_locale" do
-      context "with Language.current set" do
+      context "with Current.language set" do
         let(:language) { create(:alchemy_language, :klingon) }
 
-        before { Alchemy::Language.current = language }
+        before { Alchemy::Current.language = language }
 
         it "sets the ::I18n.locale to current language code" do
           controller.send(:set_locale)
@@ -16,8 +16,8 @@ module Alchemy
         end
       end
 
-      context "without Language.current set" do
-        before { Alchemy::Language.current = nil }
+      context "without Current.language set" do
+        before { Alchemy::Current.language = nil }
 
         it "does not set the ::I18n.locale" do
           expect {
@@ -102,7 +102,7 @@ module Alchemy
 
         context "and current language is not the default locale" do
           before do
-            allow(Alchemy::Language).to receive(:current) { double(code: "kl") }
+            allow(Alchemy::Current).to receive(:language) { double(code: "kl") }
             allow(::I18n).to receive(:default_locale) { :de }
           end
 
@@ -111,7 +111,7 @@ module Alchemy
 
         context "and current language is the default locale" do
           before do
-            allow(Alchemy::Language).to receive(:current) { double(code: "de") }
+            allow(Alchemy::Current).to receive(:language) { double(code: "de") }
             allow(::I18n).to receive(:default_locale) { :de }
           end
 

@@ -563,31 +563,6 @@ module Alchemy
       end
     end
 
-    describe ".current_preview=" do
-      let(:page) { create(:alchemy_page) }
-
-      it "stores page id in request store" do
-        described_class.current_preview = page
-        expect(RequestStore.store[:alchemy_current_preview]).to eq(page.id)
-      end
-
-      context "with page being nil" do
-        it "removes page id from request store" do
-          described_class.current_preview = nil
-          expect(RequestStore.store[:alchemy_current_preview]).to be_nil
-        end
-      end
-    end
-
-    describe ".current_preview" do
-      let(:page) { create(:alchemy_page) }
-
-      it "returns page id from request store" do
-        described_class.current_preview = page
-        expect(described_class.current_preview).to eq(page.id)
-      end
-    end
-
     # InstanceMethods (a-z)
 
     describe "#available_element_definitions" do
@@ -719,11 +694,11 @@ module Alchemy
       subject { page.cache_version }
 
       before do
-        expect(Page).to receive(:current_preview).and_return(preview)
+        expect(Current).to receive(:preview_page).and_return(preview)
       end
 
       context "when current page rendered in preview mode" do
-        let(:preview) { page.id }
+        let(:preview) { page }
 
         it "uses updated_at" do
           is_expected.to eq(now.to_s)
@@ -1524,7 +1499,7 @@ module Alchemy
         let(:parent) { build(:alchemy_page, language: nil, language_id: nil, language_code: nil) }
 
         before do
-          expect(Language).to receive(:current).twice { default_language }
+          expect(Current).to receive(:language).twice { default_language }
           page.send(:set_language)
         end
 
@@ -1560,9 +1535,9 @@ module Alchemy
       end
 
       it "sets current preview to nil" do
-        Page.current_preview = page
+        Current.preview_page = page
         page.unlock!
-        expect(Page.current_preview).to be_nil
+        expect(Current.preview_page).to be_nil
       end
     end
 

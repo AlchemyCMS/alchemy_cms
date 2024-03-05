@@ -52,14 +52,14 @@ describe "Alchemy::ControllerActions", type: "controller" do
       # We must never change the app's locale
       expect(::I18n.locale).to eq(:en)
       # Reset the current language so its fresh for every subsequent test
-      RequestStore.store[:alchemy_current_language] = nil
+      Alchemy::Current.language = nil
     end
 
     context "with a Language object given" do
       it "should set the language to the Language instance" do
         controller.send :set_alchemy_language, klingon
         expect(assigns(:language)).to eq(klingon)
-        expect(Alchemy::Language.current).to eq(klingon)
+        expect(Alchemy::Current.language).to eq(klingon)
       end
     end
 
@@ -67,7 +67,7 @@ describe "Alchemy::ControllerActions", type: "controller" do
       it "should find and set the language by the id" do
         controller.send :set_alchemy_language, klingon.id
         expect(assigns(:language)).to eq(klingon)
-        expect(Alchemy::Language.current).to eq(klingon)
+        expect(Alchemy::Current.language).to eq(klingon)
       end
     end
 
@@ -75,7 +75,7 @@ describe "Alchemy::ControllerActions", type: "controller" do
       it "should find and set the language by the locale" do
         controller.send :set_alchemy_language, klingon.code
         expect(assigns(:language)).to eq(klingon)
-        expect(Alchemy::Language.current).to eq(klingon)
+        expect(Alchemy::Current.language).to eq(klingon)
       end
     end
 
@@ -84,7 +84,7 @@ describe "Alchemy::ControllerActions", type: "controller" do
         allow(controller).to receive(:params).and_return({})
         controller.send :set_alchemy_language
         expect(assigns(:language)).to eq(default_language)
-        expect(Alchemy::Language.current).to eq(default_language)
+        expect(Alchemy::Current.language).to eq(default_language)
       end
     end
 
@@ -93,7 +93,7 @@ describe "Alchemy::ControllerActions", type: "controller" do
         allow(controller).to receive(:params).and_return(locale: klingon.code)
         controller.send :set_alchemy_language
         expect(assigns(:language)).to eq(klingon)
-        expect(Alchemy::Language.current).to eq(klingon)
+        expect(Alchemy::Current.language).to eq(klingon)
       end
 
       context "for language that does not exist" do

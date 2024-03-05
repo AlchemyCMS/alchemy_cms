@@ -14,3 +14,11 @@ RSpec.shared_context "with invalid file" do
     end
   end
 end
+
+RSpec.shared_context "in preview mode" do
+  around do |example|
+    Alchemy::Current.preview_page = page
+    example.run
+    Alchemy::Current.preview_page = nil
+  end
+end

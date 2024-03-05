@@ -7,7 +7,7 @@
     <tr class="<%= cycle('even', 'odd', name: 'sites') %>">
       <td>
         <% if alchemy.respond_to?(:login_url) %>
-          <%= link_to_unless site == Alchemy::Site.current,
+          <%= link_to_unless site == Alchemy::Current.site,
             site.name,
             alchemy.login_url(
               protocol: 'http://',

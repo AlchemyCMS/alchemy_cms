@@ -9,7 +9,7 @@ RSpec.describe "Admin site requests" do
 
   context "a site with host" do
     let!(:site) { create(:alchemy_site, :public, host: "alchemy-cms.com") }
-    let(:another_site) { Alchemy::Site.default }
+    let(:another_site) { Alchemy::Site.first }
 
     context "in params" do
       it "loads dashboard of another site by id and stores it in the session" do

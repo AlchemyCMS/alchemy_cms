@@ -1,4 +1,4 @@
-<% if !@preview_mode && @page && can?(:edit_content, @page) %>
+<% if !Alchemy::Current.preview_page? && @page && can?(:edit_content, @page) %>
   <alchemy-menubar>
     <template>
       <%= stylesheet_link_tag("alchemy/menubar") %>

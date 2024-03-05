@@ -14,7 +14,7 @@ module Alchemy
 
     describe ".language_root_nodes" do
       context "with no current language present" do
-        before { expect(Language).to receive(:current) { nil } }
+        before { expect(Current).to receive(:language) { nil } }
 
         it "raises error if no current language is set" do
           expect { Node.language_root_nodes }.to raise_error("No language found")

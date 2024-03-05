@@ -56,7 +56,7 @@ module Alchemy
     # can be scoped against it.
     #
     def set_current_alchemy_site
-      Site.current = current_alchemy_site
+      Current.site = current_alchemy_site
     end
 
     # Sets the current language for Alchemy.
@@ -83,11 +83,11 @@ module Alchemy
         Language.find_by_code(id_or_code)
     end
 
-    # Stores language in +Language.current+
+    # Stores language in +Current.language+
     #
     def store_current_alchemy_language(language)
       if language&.id
-        Language.current = language
+        Current.language = language
       end
     end
   end

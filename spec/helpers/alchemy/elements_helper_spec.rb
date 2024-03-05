@@ -9,7 +9,7 @@ module Alchemy
     let(:element) { create(:alchemy_element, name: "headline") }
 
     before do
-      assign(:page, element&.page)
+      Current.page = element&.page
       allow_any_instance_of(Element).to receive(:store_page).and_return(true)
     end
 
@@ -83,9 +83,7 @@ module Alchemy
         context "in preview_mode" do
           let!(:draft_element) { create(:alchemy_element, name: "headline", page_version: page.draft_version) }
 
-          before do
-            assign(:preview_mode, true)
-          end
+          include_context "in preview mode"
 
           it "page draft version is used" do
             is_expected.to have_selector("##{draft_element.dom_id}")
@@ -125,9 +123,7 @@ module Alchemy
           context "in preview_mode" do
             let!(:draft_element) { create(:alchemy_element, name: "headline", page_version: another_page.draft_version) }
 
-            before do
-              assign(:preview_mode, true)
-            end
+            include_context "in preview mode"
 
             it "page draft version is used" do
               is_expected.to have_selector("##{draft_element.dom_id}")
@@ -188,7 +184,9 @@ module Alchemy
       subject { helper.element_preview_code_attributes(element) }
 
       context "in preview_mode" do
-        before { assign(:preview_mode, true) }
+        include_context "in preview mode" do
+          let(:page) { element.page }
+        end
 
         it "should return the data-alchemy-element HTML attribute for element" do
           is_expected.to eq({"data-alchemy-element" => element.id})
@@ -206,7 +204,9 @@ module Alchemy
       subject { helper.element_preview_code(element) }
 
       context "in preview_mode" do
-        before { assign(:preview_mode, true) }
+        include_context "in preview mode" do
+          let(:page) { element.page }
+        end
 
         it "should return the data-alchemy-element HTML attribute for element" do
           is_expected.to eq(" data-alchemy-element=\"#{element.id}\"")

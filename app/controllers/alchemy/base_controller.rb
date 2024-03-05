@@ -25,9 +25,9 @@ module Alchemy
     # Sets +I18n.locale+ to current Alchemy language.
     #
     def set_locale
-      return unless Language.current
+      return unless Current.language
 
-      ::I18n.locale = Language.current&.locale
+      ::I18n.locale = Current.language&.locale
     end
 
     def not_found_error!(msg = "Not found \"#{request.fullpath}\"")
