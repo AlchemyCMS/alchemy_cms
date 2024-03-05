@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.0.11 (2024-03-05)
+
+- [7.0-stable] Do not include timezone in datepickers only displaying date [#2769](https://github.com/AlchemyCMS/alchemy_cms/pull/2769) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.0.10 (2024-02-29)
 
 - [7.0-stable] Fix taggable uniqueness in tags admin table [#2763](https://github.com/AlchemyCMS/alchemy_cms/pull/2763) ([alchemycms-bot](https://github.com/alchemycms-bot))
