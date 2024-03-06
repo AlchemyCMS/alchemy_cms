@@ -362,6 +362,7 @@ module Alchemy
           expect(response.status).to eq(200)
           response_json = JSON.parse(response.body)
           expect(response_json["parent_id"]).to eq(page.id)
+          expect(response_json["url_path"]).to eq(page_3.reload.url_path)
           expect(page.children).to include(page_3)
         end
       end
