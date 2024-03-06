@@ -57,8 +57,7 @@ export function createSortables(sortables) {
       animation: 150,
       fallbackOnBody: true,
       swapThreshold: 0.65,
-      handle: ".handle",
-      onSort,
+      onSort
     })
   })
 }

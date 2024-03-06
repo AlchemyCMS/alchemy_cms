@@ -1,3 +1,9 @@
+<% if @sortable %>
+  <%= render_message do %>
+    <%= t(".sortable_info") %>
+  <% end %>
+<% end %>
+
 <h4 id="sitemap_heading">
   <span class="page_name"><%= Alchemy::Page.human_attribute_name(:name) %></span>
   <span class="page_urlname"><%= Alchemy::Page.human_attribute_name(:urlname) %></span>
@@ -15,7 +21,7 @@
 
 <script id="sitemap-list" type="text/x-handlebars-template">
   {{#each children}}
-  <%= render partial: page_partial, object: @page_root %>
+  <%= render partial: page_partial, object: @page_root, locals: {sortable: @sortable} %>
   {{/each}}
 </script>
 
@@ -23,7 +29,8 @@
  $(function() {
    Alchemy.currentSitemap = new Alchemy.Sitemap({
      url: '<%= alchemy.tree_admin_pages_path %>',
-     page_root_id: <%= @page_root.id %>
+     page_root_id: <%= @page_root.id %>,
+     sortable: <%= !!@sortable %>
    });
    Alchemy.PagePublicationFields();
  });

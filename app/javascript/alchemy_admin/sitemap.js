@@ -79,7 +79,10 @@ export default class Sitemap {
       .querySelectorAll(".sitemap_page")
     this.sitemap_wrapper = document.getElementById("sitemap-wrapper")
     this._observe()
-    PageSorter()
+    displayPageFolders()
+    if (this.options.sortable) {
+      PageSorter()
+    }
   }
 
   reRender(pageId, data) {
@@ -87,8 +90,10 @@ export default class Sitemap {
     pageEl.outerHTML = this.list_template({ children: data.pages })
     pageEl = document.getElementById(`page_${pageId}`)
     const sortables = pageEl.querySelectorAll("ul.children")
-    createSortables(sortables)
     displayPageFolders()
+    if (this.options.sortable) {
+      createSortables(sortables)
+    }
   }
 
   // Filters the sitemap

@@ -229,6 +229,9 @@ en:
       elements:
         toolbar:
           hide: Hide
+      pages:
+        sitemap:
+          sortable_info: "Use Drag'n'Drop to sort pages"
     add_nested_element: "Add %{name}"
     anchor: "Anchor"
     anchor_link_headline: You can link to an anchor from the current page.
