@@ -40,6 +40,11 @@ export default class Sitemap {
       .catch(this.errorHandler)
   }
 
+  // Reloads the sitemap
+  reload() {
+    this.load(this.options.page_root_id)
+  }
+
   // Watch page folder clicks and re-render the page branch
   handlePageFolders() {
     on(

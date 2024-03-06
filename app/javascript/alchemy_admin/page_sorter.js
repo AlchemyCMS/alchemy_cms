@@ -23,6 +23,7 @@ function onFinishDragging(evt) {
     })
     .catch((error) => {
       Alchemy.growl(error.message || error, "error")
+      Alchemy.currentSitemap.reload()
     })
     .finally(() => {
       pleaseWaitOverlay(false)
