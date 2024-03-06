@@ -1,5 +1,6 @@
 import Sortable from "sortablejs"
 import { patch } from "alchemy_admin/utils/ajax"
+import pleaseWaitOverlay from "alchemy_admin/please_wait_overlay"
 
 function onFinishDragging(evt) {
   const pageId = evt.item.dataset.pageId
@@ -9,6 +10,7 @@ function onFinishDragging(evt) {
     new_position: evt.newIndex
   }
 
+  pleaseWaitOverlay(true)
   patch(url, data)
     .then(async (response) => {
       const pageData = await response.data
@@ -21,6 +23,9 @@ function onFinishDragging(evt) {
     })
     .catch((error) => {
       Alchemy.growl(error.message || error, "error")
+    })
+    .finally(() => {
+      pleaseWaitOverlay(false)
     })
 }
 
