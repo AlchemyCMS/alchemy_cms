@@ -2,7 +2,7 @@ import Sortable from "sortablejs"
 import { patch } from "alchemy_admin/utils/ajax"
 import pleaseWaitOverlay from "alchemy_admin/please_wait_overlay"
 
-function onFinishDragging(evt) {
+function onSort(evt) {
   const pageId = evt.item.dataset.pageId
   const url = Alchemy.routes.move_admin_page_path(pageId)
   const data = {
@@ -10,24 +10,26 @@ function onFinishDragging(evt) {
     new_position: evt.newIndex
   }
 
-  pleaseWaitOverlay(true)
-  patch(url, data)
-    .then(async (response) => {
-      const pageData = await response.data
-      const pageEl = document.getElementById(`page_${pageId}`)
-      const urlPathEl = pageEl.querySelector(".sitemap_url")
+  if (evt.target === evt.to) {
+    pleaseWaitOverlay(true)
+    patch(url, data)
+      .then(async (response) => {
+        const pageData = await response.data
+        const pageEl = document.getElementById(`page_${pageId}`)
+        const urlPathEl = pageEl.querySelector(".sitemap_url")
 
-      Alchemy.growl(Alchemy.t("Successfully moved page"))
-      urlPathEl.textContent = pageData.url_path
-      displayPageFolders()
-    })
-    .catch((error) => {
-      Alchemy.growl(error.message || error, "error")
-      Alchemy.currentSitemap.reload()
-    })
-    .finally(() => {
-      pleaseWaitOverlay(false)
-    })
+        Alchemy.growl(Alchemy.t("Successfully moved page"))
+        urlPathEl.textContent = pageData.url_path
+        displayPageFolders()
+      })
+      .catch((error) => {
+        Alchemy.growl(error.message || error, "error")
+        Alchemy.currentSitemap.reload()
+      })
+      .finally(() => {
+        pleaseWaitOverlay(false)
+      })
+  }
 }
 
 export function displayPageFolders() {
@@ -56,7 +58,7 @@ export function createSortables(sortables) {
       fallbackOnBody: true,
       swapThreshold: 0.65,
       handle: ".handle",
-      onEnd: onFinishDragging
+      onSort
     })
   })
 }
