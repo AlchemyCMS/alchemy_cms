@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 require "simplecov"
+if ENV["GITHUB_ACTIONS"]
+  require "simplecov-cobertura"
+  SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
+end
+
 SimpleCov.start "rails" do
   add_filter "/lib/alchemy/upgrader"
   add_filter "/lib/alchemy/version"
