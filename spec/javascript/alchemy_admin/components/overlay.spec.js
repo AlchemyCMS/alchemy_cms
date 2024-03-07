@@ -21,7 +21,7 @@ describe("alchemy-overlay", () => {
   it("should be hidden", () => {
     renderComponent()
     overlay.show = false
-    expect(overlay.style.getPropertyValue("display")).toBe("none")
+    expect(overlay.classList).not.toContain("visible")
   })
 
   it("should have a given text", () => {
@@ -32,6 +32,6 @@ describe("alchemy-overlay", () => {
   it("should be visible", () => {
     renderComponent()
     overlay.show = true
-    expect(overlay.style.getPropertyValue("display")).toBe("block")
+    expect(overlay.classList).toContain("visible")
   })
 })

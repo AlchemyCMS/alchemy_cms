@@ -1,12 +1,21 @@
 alchemy-overlay {
-  display: none;
+  visibility: hidden;
   position: fixed;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   z-index: 400000;
-  background-color: rgba(229, 229, 229, 0.4);
+  background-color: transparent;
+  transition: all $transition-duration $transition-easing;
+  transition-delay: 0;
+
+  &.visible {
+    visibility: visible;
+    transition-delay: 300ms;
+    transition-property: background-color;
+    background-color: rgba(229, 229, 229, 0.2);
+  }
 }
 
 div#overlay_text_box {
