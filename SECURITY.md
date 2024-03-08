@@ -6,7 +6,7 @@ We support the current major and last minor version of the previous major versio
 
 ## Reporting a Vulnerability
 
-Please send a preferably encrypted email to hello@alchemy-cms.com
+Please send a preferably encrypted email to alchemy@blish.cloud
 
 PGP public key finger print
 
