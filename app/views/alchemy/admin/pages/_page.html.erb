@@ -22,6 +22,41 @@
         {{/if}}
       {{/if}}
     </div>
+    <div class="sitemap_sitename">
+      {{#if permissions.edit_content}}
+        <%= link_to(
+          "{{name}}",
+          alchemy.edit_admin_page_path(id: "__ID__"),
+          title: Alchemy.t(:edit_page),
+          class: "sitemap_pagename_link"
+        ) -%>
+      {{else}}
+        <%= content_tag("span", "{{name}}", class: "sitemap_pagename_link") %>
+      {{/if}}
+    </div>
+    <div class="sitemap_url" title="{{url_path}}">
+      {{ url_path }}
+    </div>
+    <div class="page_infos">
+      {{#if locked}}
+      <span class="page_status locked">
+        <i class="icon ri-fw ri-1x ri-edit-line"></i>
+        {{status_titles.locked}}
+      </span>
+      {{/if}}
+      {{#if restricted}}
+      <span class="page_status">
+        <i class="icon ri-fw ri-1x ri-lock-line"></i>
+        {{status_titles.restricted}}
+      </span>
+      {{/if}}
+      {{#unless public}}
+      <span class="page_status">
+        <i class="icon ri-fw ri-1x ri-cloud-off-line"></i>
+        {{status_titles.public}}
+      </span>
+      {{/unless}}
+    </div>
     <div class="sitemap_right_tools">
       {{#if permissions.info}}
       <sl-tooltip content="<%= Alchemy.t(:page_infos) %>">
@@ -120,41 +155,6 @@
           <%= render_icon("file-add") %>
         </sl-tooltip>
       </div>
-      {{/if}}
-    </div>
-    <div class="page_infos">
-      {{#if locked}}
-      <span class="page_status locked">
-        <i class="icon ri-fw ri-1x ri-edit-line"></i>
-        {{status_titles.locked}}
-      </span>
-      {{/if}}
-      {{#if restricted}}
-      <span class="page_status">
-        <i class="icon ri-fw ri-1x ri-lock-line"></i>
-        {{status_titles.restricted}}
-      </span>
-      {{/if}}
-      {{#unless public}}
-      <span class="page_status">
-        <i class="icon ri-fw ri-1x ri-cloud-off-line"></i>
-        {{status_titles.public}}
-      </span>
-      {{/unless}}
-    </div>
-    <div class="sitemap_url" title="{{url_path}}">
-      {{ url_path }}
-    </div>
-    <div class="sitemap_sitename">
-      {{#if permissions.edit_content}}
-        <%= link_to(
-          "{{name}}",
-          alchemy.edit_admin_page_path(id: "__ID__"),
-          title: Alchemy.t(:edit_page),
-          class: "sitemap_pagename_link"
-        ) -%>
-      {{else}}
-        <%= content_tag("span", "{{name}}", class: "sitemap_pagename_link") %>
       {{/if}}
     </div>
   </div>
