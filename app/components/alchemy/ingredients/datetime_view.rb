@@ -15,7 +15,7 @@ module Alchemy
           ingredient.value.to_s(:rfc822)
         else
           ::I18n.l(ingredient.value, format: date_format)
-        end
+        end.html_safe
       end
     end
   end

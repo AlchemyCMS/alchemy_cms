@@ -4,7 +4,7 @@ module Alchemy
       def call
         content_tag(:audio, **html_options) do
           tag(:source, src: src, type: type)
-        end
+        end.html_safe
       end
 
       def render?
