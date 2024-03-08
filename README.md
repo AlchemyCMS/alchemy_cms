@@ -4,8 +4,7 @@
 [![Brakeman Scan](https://github.com/AlchemyCMS/alchemy_cms/actions/workflows/brakeman-analysis.yml/badge.svg)](https://github.com/AlchemyCMS/alchemy_cms/actions/workflows/brakeman-analysis.yml)
 
 [![Gem Version](https://badge.fury.io/rb/alchemy_cms.svg)](https://badge.fury.io/rb/alchemy_cms)
-[![Maintainability](https://api.codeclimate.com/v1/badges/196c56c56568ed24a697/maintainability)](https://codeclimate.com/github/AlchemyCMS/alchemy_cms/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/196c56c56568ed24a697/test_coverage)](https://codeclimate.com/github/AlchemyCMS/alchemy_cms/test_coverage)
+[![codecov](https://codecov.io/gh/AlchemyCMS/alchemy_cms/graph/badge.svg?token=uUHQGfB2xe)](https://codecov.io/gh/AlchemyCMS/alchemy_cms)
 [![Lint](https://github.com/AlchemyCMS/alchemy_cms/actions/workflows/lint.yml/badge.svg)](https://github.com/AlchemyCMS/alchemy_cms/actions/workflows/lint.yml)
 [![Depfu](https://badges.depfu.com/badges/ebe56d2dd7b7044a8ae700cc81212a8e/overview.svg)](https://depfu.com/github/AlchemyCMS/alchemy_cms?project_id=4600)
 

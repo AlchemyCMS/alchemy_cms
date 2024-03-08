@@ -98,12 +98,15 @@ jobs:
       - name: Prepare database
         run: |
           bundle exec rake alchemy:spec:prepare
-      - name: Run tests & publish code coverage
-        uses: paambaati/codeclimate-action@v3.2.0
-        env:
-          CC_TEST_REPORTER_ID: bca4349e32f97919210ac8a450b04904b90683fcdd57d65a22c0f5065482bc22
+      - name: Run tests
+        run: |
+          bundle exec rspec
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4
         with:
-          coverageCommand: bundle exec rspec
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: AlchemyCMS/alchemy_cms
+          file: ./coverage/coverage.xml
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
