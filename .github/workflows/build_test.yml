@@ -1,5 +1,9 @@
 name: Build & Test
 
+concurrency:
+  group: test-${{ github.ref_name }}
+  cancel-in-progress: ${{ github.ref_name != 'main' }}
+
 on:
   push:
     branches:
