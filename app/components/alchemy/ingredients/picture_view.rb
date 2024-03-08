@@ -57,7 +57,7 @@ module Alchemy
           content_tag(:figure, output, {class: ingredient.css_class.presence}.merge(html_options))
         else
           output
-        end
+        end.html_safe
       end
 
       private

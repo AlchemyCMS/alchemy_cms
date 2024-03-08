@@ -24,7 +24,7 @@ module Alchemy
             target: ((link_target == "blank") ? "_blank" : nil),
             data: {link_target: link_target}
           }.merge(html_options))
-        end
+        end.html_safe
       end
 
       private
