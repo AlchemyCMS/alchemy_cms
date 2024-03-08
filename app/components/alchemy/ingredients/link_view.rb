@@ -12,7 +12,7 @@ module Alchemy
       end
 
       def call
-        link_to(link_text, value, {target: link_target}.merge(html_options))
+        link_to(link_text, value, {target: link_target}.merge(html_options)).html_safe
       end
 
       private
