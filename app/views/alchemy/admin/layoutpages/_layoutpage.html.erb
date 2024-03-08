@@ -11,6 +11,22 @@
       <i class="icon ri-file-line ri-xl"></i>
     <% end %>
     </div>
+    <div class="sitemap_sitename without-status">
+      <%= link_to(
+        layoutpage.name,
+        alchemy.edit_admin_page_path(layoutpage),
+        title: Alchemy.t(:edit_page),
+        class: "sitemap_pagename_link #{cycle('even', 'odd')}"
+      ) -%>
+    </div>
+    <div class="page_infos">
+      <% if layoutpage.locked? %>
+        <span class="page_status locked">
+          <i class="icon ri-fw ri-1x ri-edit-line"></i>
+          <%= layoutpage.status_title(:locked) %>
+        </span>
+      <% end %>
+    </div>
     <div class="sitemap_right_tools">
     <%- if can?(:configure, layoutpage) -%>
       <sl-tooltip content="<%= Alchemy.t(:edit_page_properties) %>">
@@ -53,22 +69,6 @@
         ) -%>
       </sl-tooltip>
     <%- end -%>
-    </div>
-    <div class="page_infos">
-      <% if layoutpage.locked? %>
-        <span class="page_status locked">
-          <i class="icon ri-fw ri-1x ri-edit-line"></i>
-          <%= layoutpage.status_title(:locked) %>
-        </span>
-      <% end %>
-    </div>
-    <div class="sitemap_sitename without-status">
-      <%= link_to(
-        layoutpage.name,
-        alchemy.edit_admin_page_path(layoutpage),
-        title: Alchemy.t(:edit_page),
-        class: "sitemap_pagename_link #{cycle('even', 'odd')}"
-      ) -%>
     </div>
   </div>
 </li>
