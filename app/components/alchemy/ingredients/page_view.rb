@@ -4,7 +4,7 @@ module Alchemy
       delegate :page, to: :ingredient
 
       def call
-        link_to page.name, alchemy.show_page_path(urlname: page.urlname)
+        link_to(page.name, alchemy.show_page_path(urlname: page.urlname)).html_safe
       end
 
       def render?

@@ -6,7 +6,7 @@ module Alchemy
       def call
         content_tag(:video, html_options) do
           tag(:source, src: src, type: attachment.file_mime_type)
-        end
+        end.html_safe
       end
 
       def render?

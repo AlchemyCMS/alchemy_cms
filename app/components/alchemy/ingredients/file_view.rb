@@ -23,7 +23,7 @@ module Alchemy
             class: ingredient.css_class.presence,
             title: ingredient.title.presence
           }.merge(html_options)
-        )
+        ).html_safe
       end
 
       def render?
