@@ -16,7 +16,7 @@ module Alchemy
       end
 
       def call
-        value
+        value.html_safe
       end
 
       def render?
