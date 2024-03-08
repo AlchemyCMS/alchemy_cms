@@ -49,9 +49,13 @@ module Alchemy
     def move
       @page = Page.find(params[:id])
       authorize! :update, @page
-      target_parent_page = Page.find(params[:target_parent_id])
-      @page.move_to_child_with_index(target_parent_page, params[:new_position])
-      render json: @page, serializer: PageSerializer
+      begin
+        target_parent_page = Page.find(params[:target_parent_id])
+        @page.move_to_child_with_index(target_parent_page, params[:new_position])
+        render json: @page, serializer: PageNodeSerializer
+      rescue => err
+        render json: {message: err.message}, status: 422
+      end
     end
 
     private

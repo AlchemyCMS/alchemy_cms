@@ -12,7 +12,7 @@ RSpec.describe "Nodes management", type: :system, js: true do
 
   def open_page_properties
     visit admin_pages_path
-    expect(page.find("alchemy-overlay").style("display")["display"]).to have_content("none")
+    expect(page.find("alchemy-overlay")).to_not have_css(".visible")
     page.find("a[href='#{configure_admin_page_path(a_page)}']", wait: 10).click
     find("[panel='nodes']").click
   end
