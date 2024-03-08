@@ -362,7 +362,18 @@ module Alchemy
           expect(response.status).to eq(200)
           response_json = JSON.parse(response.body)
           expect(response_json["parent_id"]).to eq(page.id)
+          expect(response_json["url_path"]).to eq(page_3.reload.url_path)
           expect(page.children).to include(page_3)
+        end
+
+        context "when moving causes error" do
+          it "returns JSON with error message" do
+            allow_any_instance_of(Alchemy::Page).to receive(:move_to_child_with_index).and_raise(CollectiveIdea::Acts::NestedSet::Move::ImpossibleMove.new("Impossible move"))
+            patch :move, params: {id: page_3, target_parent_id: page.id, new_position: 0, format: :json}
+            expect(response.status).to eq(422)
+            response_json = JSON.parse(response.body)
+            expect(response_json["message"]).to eq("Impossible move")
+          end
         end
       end
 

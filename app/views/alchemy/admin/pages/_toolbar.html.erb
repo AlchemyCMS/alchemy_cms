@@ -46,6 +46,26 @@
   </div>
   <div class="toolbar_spacer"></div>
   <div class="toolbar_button">
+    <% if @sortable %>
+      <sl-tooltip content="<%= Alchemy.t("Disable sorting") %>">
+        <%= link_to(
+          render_icon(:"drag-drop"),
+          alchemy.admin_pages_path(view: "tree"),
+          class: ["icon_button", "active"].compact
+        ) %>
+      </sl-tooltip>
+    <% else %>
+      <sl-tooltip content="<%= Alchemy.t("Enable sorting") %>">
+        <%= link_to(
+          render_icon(:"drag-drop"),
+          alchemy.admin_pages_path(view: "tree", sortable: true),
+          class: ["icon_button"].compact
+        ) %>
+      </sl-tooltip>
+    <% end %>
+  </div>
+  <div class="toolbar_spacer"></div>
+  <div class="toolbar_button">
     <sl-tooltip content="<%= Alchemy.t("Hierarchical") %>">
       <%= link_to(
         render_icon(:"menu-2"),

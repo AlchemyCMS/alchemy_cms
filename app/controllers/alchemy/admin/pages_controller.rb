@@ -54,6 +54,8 @@ module Alchemy
 
           items = items.page(params[:page] || 1).per(items_per_page)
           @pages = items
+        elsif params[:sortable] == "true"
+          @sortable = true
         end
       end
 

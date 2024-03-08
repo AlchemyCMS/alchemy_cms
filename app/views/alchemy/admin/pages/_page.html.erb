@@ -6,13 +6,21 @@
         <%= page_layout_missing_warning %>
       {{else}}
         {{#if permissions.edit_content}}
-          <span class="{{#unless root}}handle{{/unless}}">
+          <span class="<%= sortable && '{{#unless root}}handle{{/unless}}' %>">
             {{#if locked}}
-              <sl-tooltip content="{{locked_notice}}" class="like-hint-tooltip" placement="bottom-start">
-                <i class="icon ri-file-edit-line ri-fw ri-xl"></i>
-              </sl-tooltip>
+              <% if sortable %>
+                <i class="icon ri-{{#if root}}file-line{{else}}draggable{{/if}} ri-fw ri-xl"></i>
+              <% else %>
+                <sl-tooltip content="{{locked_notice}}" class="like-hint-tooltip" placement="bottom-start">
+                  <i class="icon ri-file-edit-line ri-fw ri-xl"></i>
+                </sl-tooltip>
+              <% end %>
             {{else}}
-              <i class="icon ri-file-line ri-fw ri-xl"></i>
+              <% if sortable %>
+                <i class="icon ri-{{#if root}}file-line{{else}}draggable{{/if}} ri-fw ri-xl"></i>
+              <% else %>
+                <i class="icon ri-file-line ri-fw ri-xl"></i>
+              <% end %>
             {{/if}}
           </span>
         {{else}}
@@ -23,16 +31,20 @@
       {{/if}}
     </div>
     <div class="sitemap_sitename">
-      {{#if permissions.edit_content}}
-        <%= link_to(
-          "{{name}}",
-          alchemy.edit_admin_page_path(id: "__ID__"),
-          title: Alchemy.t(:edit_page),
-          class: "sitemap_pagename_link"
-        ) -%>
-      {{else}}
+      <% if sortable %>
         <%= content_tag("span", "{{name}}", class: "sitemap_pagename_link") %>
-      {{/if}}
+      <% else %>
+        {{#if permissions.edit_content}}
+          <%= link_to(
+            "{{name}}",
+            alchemy.edit_admin_page_path(id: "__ID__"),
+            title: Alchemy.t(:edit_page),
+            class: "sitemap_pagename_link"
+          ) -%>
+        {{else}}
+          <%= content_tag("span", "{{name}}", class: "sitemap_pagename_link") %>
+        {{/if}}
+      <% end %>
     </div>
     <div class="sitemap_url" title="{{url_path}}">
       {{ url_path }}

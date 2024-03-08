@@ -51,6 +51,10 @@
       margin-left: initial;
     }
   }
+
+  .sortable & {
+    display: none;
+  }
 }
 
 #sitemap-wrapper {
@@ -91,6 +95,12 @@
       padding-left: $sitemap-line-height;
       padding-right: 0;
     }
+  }
+}
+
+.sitemap-item {
+  .children.droppable {
+    background-color: var(--color-yellow_light);
   }
 }
 
@@ -207,6 +217,13 @@
 
   @media screen and (min-width: $small-screen-break-point) {
     display: flex;
+  }
+
+  .icon_button,
+  .sitemap_tool {
+    .sortable & {
+      display: none !important;
+    }
   }
 
   .sitemap_tool {

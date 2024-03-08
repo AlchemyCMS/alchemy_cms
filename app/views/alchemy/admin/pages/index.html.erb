@@ -6,6 +6,10 @@
   <%= render "alchemy/admin/pages/toolbar" %>
 <% end %>
 
+<% if @sortable %>
+  <% content_for(:alchemy_body_class) { "sortable" } %>
+<% end %>
+
 <%= content_tag :div,
   id: "archive_all",
   class: [@view == "list" && "resources-table-wrapper with_tag_filter"] do %>
