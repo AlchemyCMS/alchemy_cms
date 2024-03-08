@@ -7,13 +7,22 @@ module Alchemy
       end
 
       def call
-        content_tag "h#{@level || ingredient.level}",
-          ingredient.value,
-          id: ingredient.dom_id.presence,
-          class: [
-            ingredient.size ? "h#{ingredient.size}" : nil,
-            html_options[:class]
-          ]
+        content_tag tag_name, id: dom_id, class: css_classes do
+          ingredient.value
+        end.html_safe
+      end
+
+      private
+
+      def tag_name = "h#{@level || ingredient.level}"
+
+      def dom_id = ingredient.dom_id.presence
+
+      def css_classes
+        [
+          ingredient.size ? "h#{ingredient.size}" : nil,
+          html_options[:class]
+        ]
       end
     end
   end

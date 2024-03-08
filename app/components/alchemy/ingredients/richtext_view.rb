@@ -15,7 +15,7 @@ module Alchemy
           ingredient.stripped_body
         else
           value.to_s.html_safe
-        end
+        end.html_safe
       end
     end
   end
