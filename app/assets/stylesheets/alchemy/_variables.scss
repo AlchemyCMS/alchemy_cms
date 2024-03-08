@@ -190,5 +190,8 @@ $thumbnail-background:
   linear-gradient(-45deg, transparent 75%, $medium-gray 75%) 0 0.5em/1em 1em
     $white !default;
 
+$small-screen-break-point: 500px;
 $medium-screen-break-point: 700px;
 $large-screen-break-point: 1000px;
+$xlarge-screen-break-point: 1440px;
+$xxlarge-screen-break-point: 1680px;
