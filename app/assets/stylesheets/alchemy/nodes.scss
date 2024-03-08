@@ -84,6 +84,8 @@
 }
 
 .sitemap_node {
+  display: flex;
+  align-items: center;
   height: $sitemap-line-height;
   margin: 3 * $default-margin 0;
   transition: background-color $transition-duration;
@@ -102,8 +104,9 @@
   }
 
   .node_name {
-    height: $sitemap-line-height;
     display: flex;
+    height: $sitemap-line-height;
+    flex: 1;
     justify-content: space-between;
     @include border-left-radius($default-border-radius);
     padding: 0 0 0 10px;
@@ -126,8 +129,7 @@
 .nodes_tree-left_images {
   position: relative;
   width: 32px;
-  line-height: $sitemap-line-height;
-  float: left;
+  height: $sitemap-line-height;
   padding: 0 2 * $default-padding;
   text-align: center;
 }
@@ -136,15 +138,13 @@
   display: flex;
   height: $sitemap-line-height;
   padding: 0 2 * $default-padding;
-  float: right;
   align-items: center;
 
   > a {
-    float: left;
+    display: inline-flex;
     width: $sitemap-line-height;
     height: $sitemap-line-height;
-    line-height: $sitemap-line-height;
-    text-align: center;
+    align-items: center;
     text-decoration: none;
     margin: 0;
 

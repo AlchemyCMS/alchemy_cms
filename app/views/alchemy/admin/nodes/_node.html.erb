@@ -7,6 +7,25 @@
     <span class="nodes_tree-left_images">
       &nbsp;
     </span>
+    <div class="node_name">
+      <%= node.name || '&nbsp;'.html_safe %>
+      <span class="node_page">
+      <% if node.page %>
+        <i class="icon ri-file-3-line"></i>
+        <%= link_to [:edit, :admin, node.page], title: Alchemy.t(:edit_page) do %>
+          <%= node.page.name %>
+        <% end %>
+      <% end %>
+      </span>
+      <% if node.url %>
+        <span class="node_url">
+          <%= link_to node.url, node.url, target: '_blank', title: node.url %>
+          <% if node.external? %>
+            <i class="ri-external-link-line ri-sm"></i>
+          <% end %>
+        </span>
+      <% end %>
+    </div>
     <span class="nodes_tree-right_tools">
       <% if can?(:edit, node) %>
         <sl-tooltip content="<%= node.root? ? Alchemy.t(:edit_menu) : Alchemy.t(:edit_node) %>">
@@ -52,25 +71,6 @@
         </sl-tooltip>
       <% end %>
     </span>
-    <div class="node_name">
-      <%= node.name || '&nbsp;'.html_safe %>
-      <span class="node_page">
-      <% if node.page %>
-        <i class="icon ri-file-3-line"></i>
-        <%= link_to [:edit, :admin, node.page], title: Alchemy.t(:edit_page) do %>
-          <%= node.page.name %>
-        <% end %>
-      <% end %>
-      </span>
-      <% if node.url %>
-        <span class="node_url">
-          <%= link_to node.url, node.url, target: '_blank', title: node.url %>
-          <% if node.external? %>
-            <i class="ri-external-link-line ri-sm"></i>
-          <% end %>
-        </span>
-      <% end %>
-    </div>
   <% end %>
   <%= content_tag :ul, class: "children #{' folded' if node.folded?}", data: { record_id: node.id } do %>
     <%= render partial: 'node', collection: node.children.includes(:page, :children) %>
