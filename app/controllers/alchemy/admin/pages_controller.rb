@@ -7,11 +7,11 @@ module Alchemy
 
       helper "alchemy/pages"
 
-      before_action :load_resource, except: [:index, :flush, :new, :order, :create, :copy_language_tree, :link]
+      before_action :load_resource, except: [:index, :flush, :new, :create, :copy_language_tree, :link]
 
       authorize_resource class: Alchemy::Page, except: [:index, :tree]
 
-      before_action only: [:index, :tree, :flush, :new, :order, :create, :copy_language_tree] do
+      before_action only: [:index, :tree, :flush, :new, :create, :copy_language_tree] do
         authorize! :index, :alchemy_admin_pages
       end
 
@@ -21,7 +21,7 @@ module Alchemy
         except: [:show]
 
       before_action :set_root_page,
-        only: [:index, :show, :order]
+        only: [:index, :show]
 
       before_action :set_preview_mode, only: [:show]
 
