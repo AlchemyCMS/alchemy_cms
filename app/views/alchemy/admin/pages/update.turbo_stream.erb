@@ -1,0 +1,10 @@
+<alchemy-growl message="<%= @notice %>"></alchemy-growl>
+<% if @page.layoutpage %>
+  <%= turbo_stream.replace @page do %>
+    <%= render "alchemy/admin/layoutpages/layoutpage", layoutpage: @page %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.replace @page do %>
+    <%= render "page", page: @page %>
+  <% end %>
+<% end %>
