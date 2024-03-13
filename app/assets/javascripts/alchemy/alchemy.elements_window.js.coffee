@@ -30,6 +30,7 @@ Alchemy.ElementsWindow =
     @callback = callback
     @element_window.append @createToolbar(options.toolbarButtons)
     @element_window.append @element_area
+    Alchemy.GUI.init(@element_window)
     @button = $('#element_window_button')
     @button.on "click", =>
       @hide()
