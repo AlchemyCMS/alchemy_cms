@@ -54,8 +54,8 @@ RSpec.describe "alchemy/ingredients/_picture_editor" do
     end
 
     it "but renders the disabled link and unlink icons" do
-      is_expected.to have_selector(".disabled .icon.ri-link-m")
-      is_expected.to have_selector(".disabled .icon.ri-link-unlink-m")
+      is_expected.to have_selector('.disabled alchemy-icon[name="link"]')
+      is_expected.to have_selector('.disabled alchemy-icon[name="link-unlink"]')
     end
   end
 
@@ -83,7 +83,7 @@ RSpec.describe "alchemy/ingredients/_picture_editor" do
     end
 
     it "shows disabled cropping link" do
-      is_expected.to have_selector("a.disabled .icon.ri-crop-line")
+      is_expected.to have_selector('a.disabled alchemy-icon[name="crop"]')
     end
   end
 

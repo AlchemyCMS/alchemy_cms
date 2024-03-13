@@ -14,7 +14,7 @@ Alchemy.ToolbarButton = (options) ->
     e.preventDefault()
     options.onClick(e)
     return
-  $lnk.append "<i class='icon ri-#{options.iconClass} ri-fw' />"
+  $lnk.append "<alchemy-icon name='#{options.iconClass}' icon-style='#{options.iconStyle || "line"}'></alchemy-icon>"
   $btn.append $lnk
   $btn
 
@@ -93,14 +93,14 @@ Alchemy.ElementsWindow =
   toggleButton: ->
     if @hidden
       @button.find('label').text(@options.texts.showElements)
-      @button.find('.icon').removeClass("ri-menu-unfold-line").addClass("ri-menu-fold-line")
+      @button.find('alchemy-icon').attr("name", "menu-fold")
       @button.off('click')
       @button.on "click", =>
         @show()
         false
     else
       @button.find('label').text(@options.texts.hideElements)
-      @button.find('.icon').removeClass("ri-menu-fold-line").addClass("ri-menu-unfold-line")
+      @button.find('alchemy-icon').attr("name", "menu-unfold")
       @button.off('click')
       @button.on "click", =>
         @hide()

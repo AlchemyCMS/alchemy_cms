@@ -38,7 +38,7 @@ input.button {
     .icon {
       font-weight: normal;
       margin-right: $default-margin;
-      color: inherit;
+      fill: currentColor;
     }
   }
 
@@ -76,15 +76,14 @@ input.button {
   }
 
   .icon {
-    color: inherit;
-    transition: color 250ms;
+    transition: fill 250ms;
   }
 
   &.disabled,
   &[disabled] {
     pointer-events: none;
 
-    i {
+    svg {
       opacity: 0.3;
     }
 

@@ -12,7 +12,7 @@
       placeholder: Alchemy.t(:search),
       class: 'search_input_field',
       id: nil %>
-    <%= link_to render_icon(:times, size: 'xs'), url_for({
+    <%= link_to render_icon(:times, size: '1x'), url_for({
         action: 'index',
         form_field_id: @form_field_id,
         size: @size,
@@ -21,6 +21,6 @@
       remote: true,
       class: 'search_field_clear',
       title: Alchemy.t(:click_to_show_all),
-      style: search_filter_params[:q].blank? ? 'display: none' : 'display: block' %>
+      style: search_filter_params[:q].blank? ? 'visibility: hidden' : 'visibility: visible' %>
   </div>
 <% end %>

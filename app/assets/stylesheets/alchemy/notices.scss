@@ -15,11 +15,15 @@ div.message {
     margin-top: 0;
   }
 
-  .icon {
+  alchemy-icon {
     position: absolute;
     left: 2 * $default-margin;
-    top: 2 * $default-margin;
+    top: 9px;
     color: inherit;
+
+    .icon {
+      fill: currentColor;
+    }
   }
 
   &.footnote {

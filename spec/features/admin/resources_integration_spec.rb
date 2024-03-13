@@ -11,7 +11,7 @@ RSpec.describe "Resources", type: :system do
   describe "index view" do
     it "should have a button for creating a new resource items" do
       visit "/admin/events"
-      expect(page).to have_selector("#toolbar sl-tooltip a.icon_button .icon.ri-add-line")
+      expect(page).to have_selector('#toolbar sl-tooltip a.icon_button alchemy-icon[name="add"]')
     end
 
     it "should list existing items" do

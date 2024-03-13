@@ -9,9 +9,9 @@
   }
   if (locked_page_icon) {
     if (locked_page_icon.parentElement.classList.contains("handle")) {
-      locked_page_icon_content = '<span class="handle"><i class="icon ri-file-line ri-fw ri-xl"></i></span>'
+      locked_page_icon_content = '<span class="handle"><alchemy-icon name="file" size="xl"></alchemy-icon></span>'
     } else {
-      locked_page_icon_content = '<i class="icon ri-file-line ri-fw ri-xl"></i>'
+      locked_page_icon_content = '<alchemy-icon name="file" size="xl"></alchemy-icon>'
     }
     locked_page_icon.outerHTML = locked_page_icon_content
   }

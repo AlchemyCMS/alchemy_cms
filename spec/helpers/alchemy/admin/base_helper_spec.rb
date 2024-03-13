@@ -259,14 +259,14 @@ module Alchemy
       subject { helper.hint_with_tooltip("My hint") }
 
       it "renders a warning icon with hint text wrapped in tooltip" do
-        is_expected.to have_css "sl-tooltip.like-hint-tooltip[content='My hint'] i.ri-alert-line"
+        is_expected.to have_css 'sl-tooltip.like-hint-tooltip[content="My hint"] alchemy-icon[name="alert"]'
       end
 
       context "with icon set to info" do
         subject { helper.hint_with_tooltip("My hint", icon: "info") }
 
         it "renders an info icon instead" do
-          is_expected.to have_css "i.ri-information-line"
+          is_expected.to have_css 'alchemy-icon[name="information"]'
         end
       end
     end

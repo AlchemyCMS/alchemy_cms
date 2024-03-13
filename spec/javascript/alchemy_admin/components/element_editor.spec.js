@@ -89,7 +89,7 @@ describe("alchemy-element-editor", () => {
       <div class="element-header">
         <div class="preview_text_quote">Lorem ipsum</div>
         <button class="element-toggle">
-          <i class="icon"></i>
+          <alchemy-icon name="expand"></alchemy-icon>
         </button>
       </div>
       <form class="element-body">

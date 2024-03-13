@@ -3,6 +3,8 @@
   ingredients:
     - role: image
       type: Picture
+      settings:
+        linkable: false
 
 - name: headline
   ingredients:

@@ -7,6 +7,7 @@
     <link rel="shortcut icon" href="<%= asset_path('alchemy/favicon.ico') %>">
     <%= csrf_meta_tag %>
     <meta name="robots" content="noindex">
+    <meta name="alchemy-icon-sprite" content="<%= asset_path("remixicon.symbol.svg") %>">
     <%= stylesheet_link_tag('alchemy/admin/all', media: 'screen', 'data-turbo-track' => true) %>
     <%= stylesheet_link_tag('alchemy/print', media: 'print', 'data-turbo-track' => true) %>
     <%= yield :stylesheets %>
@@ -55,7 +56,7 @@
           }, {'data-alchemy-hotkey' => 'alt+q'}) %>
         <% else %>
           <%= link_to(alchemy.root_path) do %>
-            <i class="icon ri-logout-box-r-line ri-fw ri-lg"></i>
+            <%= render_icon "logout-box-r", size: "lg" %>
             <label><%= Alchemy.t(:leave) %></label>
           <% end %>
         <% end %>

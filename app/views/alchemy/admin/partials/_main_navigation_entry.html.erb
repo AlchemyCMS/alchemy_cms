@@ -6,9 +6,11 @@
       <% elsif navigation["inline_image"] %>
         <%== navigation["inline_image"] %>
       <% elsif navigation["icon"] %>
-        <i class="icon ri-<%= navigation["icon"] %>"></i>
+        <svg class="icon">
+          <use xlink:href="<%= asset_path("remixicon.symbol.svg") %>#ri-<%= navigation["icon"] %>" />
+        </svg>
       <% else %>
-        <i class="icon ri-table-line"></i>
+        <%= render_icon :table %>
       <% end %>
       <label><%= Alchemy.t(navigation['name']) %></label>
     <% end %>

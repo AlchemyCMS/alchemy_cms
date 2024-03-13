@@ -168,7 +168,7 @@ class window.Alchemy.Dialog
     @dialog_body = $('<div class="alchemy-dialog-body" />')
     @dialog_header = $('<div class="alchemy-dialog-header" />')
     @dialog_title = $('<div class="alchemy-dialog-title" />')
-    @close_button = $('<a class="alchemy-dialog-close"><i class="icon ri-close-line ri-fw" /></a>')
+    @close_button = $('<a class="alchemy-dialog-close"><alchemy-icon name="close"></alchemy-icon></a>')
     @dialog_title.text(@options.title)
     @dialog_header.append(@dialog_title)
     @dialog_header.append(@close_button)
@@ -269,9 +269,10 @@ window.Alchemy.watchForDialogs = (scope = '#alchemy') ->
 # Returns a Remix icon for given message type
 #
 window.Alchemy.messageIcon = (messageType) ->
-  icon_class = switch messageType
+  icon_name = switch messageType
     when "warning", "warn", "alert" then "alert"
     when "notice" then "check"
+    when "info" then "information"
     when "error" then "bug"
     else messageType
-  "<i class=\"icon ri-#{icon_class}-line ri-fw\" />"
+  "<alchemy-icon name=\"#{icon_name}\"></alchemy-icon>"

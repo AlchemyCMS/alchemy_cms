@@ -218,7 +218,9 @@ RSpec.describe "Page editing feature", type: :system do
 
     before do
       visit alchemy.admin_pages_path
-      find(".sitemap_page[name='#{a_page.name}'] .icon.ri-settings-3-line").click
+      within ".sitemap_page[name='#{a_page.name}']" do
+        click_icon("settings-3")
+      end
       expect(page).to have_selector(".alchemy-dialog-overlay.open")
     end
 

@@ -27,6 +27,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
       max-width: 100%;
+      line-height: 2;
 
       .external & {
         max-width: 90%;
@@ -35,6 +36,9 @@
   }
 
   .node_page {
+    display: inline-flex;
+    gap: $default-padding;
+    align-items: center;
     padding: 0 8px;
     margin-left: auto;
   }
@@ -48,14 +52,10 @@
     line-height: $sitemap-line-height;
     font-size: $small-font-size;
     @include border-right-radius($default-border-radius);
-
-    > i {
-      margin-left: auto;
-      padding-left: $default-padding;
-    }
   }
 
   .node_folder {
+    display: inline-flex;
     cursor: pointer;
   }
 

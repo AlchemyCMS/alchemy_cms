@@ -11,7 +11,7 @@
       <%= node.name || '&nbsp;'.html_safe %>
       <span class="node_page">
       <% if node.page %>
-        <i class="icon ri-file-3-line"></i>
+        <%= render_icon "file-3" %>
         <%= link_to [:edit, :admin, node.page], title: Alchemy.t(:edit_page) do %>
           <%= node.page.name %>
         <% end %>
@@ -21,7 +21,7 @@
         <span class="node_url">
           <%= link_to node.url, node.url, target: '_blank', title: node.url %>
           <% if node.external? %>
-            <i class="ri-external-link-line ri-sm"></i>
+            <%= render_icon "external-link", size: "sm" %>
           <% end %>
         </span>
       <% end %>

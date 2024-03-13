@@ -108,7 +108,6 @@ export default class Sitemap {
         item.classList.remove("highlight")
       }
     })
-    this.filter_field_clear.style.display = "inline-block"
     const { length } = results
 
     if (length === 1) {
@@ -128,7 +127,6 @@ export default class Sitemap {
         left: 0,
         behavior: "smooth"
       })
-      this.filter_field_clear.style.display = "none"
     }
   }
 
@@ -136,6 +134,8 @@ export default class Sitemap {
   _observe() {
     this.search_field.addEventListener("keyup", (evt) => {
       const term = evt.target.value
+      this.filter_field_clear.style.visibility =
+        term == "" ? "hidden" : "visible"
       this.filter(term.toLowerCase())
     })
     this.search_field.addEventListener("focus", () => key.setScope("search"))

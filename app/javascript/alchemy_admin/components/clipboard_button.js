@@ -5,7 +5,7 @@ class ClipboardButton extends HTMLElement {
     super()
 
     this.innerHTML = `
-      <i class="icon ri-clipboard-line ri-fw"></i>
+      <alchemy-icon name="clipboard"></alchemy-icon>
     `
 
     this.clipboard = new ClipboardJS(this, {

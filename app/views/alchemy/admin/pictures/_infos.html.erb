@@ -35,7 +35,7 @@
                     <% page_link = link_to element.display_name_with_preview_text,
                                    edit_admin_page_path(page, anchor: "element_#{element.id}") %>
                     <% ingredients = picture_ingredients.map { |p| Alchemy::IngredientEditor.new(p).translated_role }.to_sentence %>
-                    <%= render_icon('draggable', style: nil) %>
+                    <%= render_icon('draggable', style: false) %>
                     <p>
                       <%== Alchemy.t(:pictures_in_page, page: page_link, pictures: ingredients) %>
                     </p>

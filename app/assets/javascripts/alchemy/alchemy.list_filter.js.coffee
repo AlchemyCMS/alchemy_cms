@@ -17,7 +17,7 @@ class Alchemy.ListFilterHandler
 
   _observe: ->
     @filter_field.on 'keyup', (e) =>
-      @clear.show()
+      @clear.css("visibility", "visible")
       @_filter @filter_field.val()
     @clear.on "click", (e) =>
       e.preventDefault()
@@ -29,7 +29,7 @@ class Alchemy.ListFilterHandler
       @filter_field.blur()
 
   _filter: (term) ->
-    @clear.hide() if term == ''
+    @clear.css("visibility", "hidden") if term == ''
     @items.map ->
       item = $(this)
       # indexOf is much faster then match()

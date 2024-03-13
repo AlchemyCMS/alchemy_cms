@@ -156,7 +156,7 @@
         {
           label: '<%= Alchemy.t("New Element") %>',
           hotkey: 'alt+n',
-          iconClass: 'add-line',
+          iconClass: 'add',
           align: 'start',
           onClick: function() {
             Alchemy.openDialog('<%= alchemy.new_admin_element_path(page_version_id: @page_version.id) %>', {
@@ -167,7 +167,8 @@
         },
         {
           label: '<%= Alchemy.t("Show clipboard") %>',
-          iconClass: '<%= clipboard_empty?("elements") ? "clipboard-line" : "clipboard-fill" %>',
+          iconClass: 'clipboard',
+          iconStyle: '<%= clipboard_empty?("elements") ? "line" : "fill" %>',
           buttonId: 'clipboard_button',
           onClick: function() {
             Alchemy.openDialog('<%= alchemy.admin_clipboard_path(remarkable_type: "elements") %>', {

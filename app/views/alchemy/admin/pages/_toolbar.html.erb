@@ -57,7 +57,7 @@
   <div class="toolbar_button">
     <sl-tooltip content="<%= Alchemy.t("Sortable List") %>">
       <%= link_to(
-        render_icon("sort-desc", style: nil),
+        render_icon("sort-desc", style: false),
         alchemy.admin_pages_path(view: "list"),
         class: ["icon_button", @view == "list" && "active"].compact
       ) %>

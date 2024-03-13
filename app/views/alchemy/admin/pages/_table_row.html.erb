@@ -3,14 +3,14 @@
     <% if can?(:edit_content, page) %>
       <% if page.locked? %>
         <sl-tooltip class="like-hint-tooltip" content="<%= Alchemy.t("This page is locked", name: page.locker_name) %>" placement="bottom-start">
-          <i class="icon ri-file-edit-line ri-fw ri-xl"></i>
+          <%= render_icon "file-edit", size: "xl" %>
         </sl-tooltip>
       <% else %>
-        <i class="icon ri-file-line ri-fw ri-xl"></i>
+        <%= render_icon "file-edit", size: "xl" %>
       <% end %>
     <% else %>
       <sl-tooltip class="like-hint-tooltip" content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" placement="bottom-start">
-        <i class="icon ri-file-forbid-line ri-fw ri-xl"></i>
+        <%= render_icon "file-forbid", size: "xl" %>
       </sl-tooltip>
     <% end %>
   </td>

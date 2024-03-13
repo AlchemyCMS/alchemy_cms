@@ -135,7 +135,7 @@ RSpec.describe "The edit elements feature", type: :system do
     scenario "is possible to copy element into clipboard" do
       visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
       expect(page).to have_selector(".element-toolbar")
-      find(".ri-file-copy-line").click
+      click_icon("file-copy")
       within "#flash_notices" do
         expect(page).to have_content(/Copied Article/)
       end

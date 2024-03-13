@@ -6,7 +6,8 @@ class UnlinkButton extends HTMLButtonElement {
     // Prevent accidental form submits if this component is wrapped inside a form
     this.setAttribute("type", "button")
     this.linked = this.linked
-    this.innerHTML = '<i class="icon ri-link-unlink-m ri-fw"></i>'
+    this.innerHTML =
+      '<alchemy-icon name="link-unlink" icon-style="m"></alchemy-icon>'
   }
 
   handleEvent(event) {

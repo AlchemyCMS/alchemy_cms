@@ -4,7 +4,7 @@ import { get } from "alchemy_admin/utils/ajax"
 import ImageLoader from "alchemy_admin/image_loader"
 
 const UPDATE_DELAY = 125
-const IMAGE_PLACEHOLDER = '<i class="icon ri-image-line ri-fw"></i>'
+const IMAGE_PLACEHOLDER = '<alchemy-icon name="image"></alchemy-icon>'
 const THUMBNAIL_SIZE = "160x120"
 
 class PictureEditor {
