@@ -1,8 +1,10 @@
+import Hotkeys from "alchemy_admin/hotkeys"
+
 function init(scope) {
   if (!scope) {
     Alchemy.watchForDialogs()
   }
-  Alchemy.Hotkeys(scope)
+  Hotkeys(scope)
   Alchemy.ListFilter(scope)
 }
 
