@@ -10,7 +10,7 @@ describe("alchemy-icon", () => {
     const icon = renderComponent("alchemy-icon", html)
 
     expect(icon.innerHTML).toEqual(
-      '<svg class="icon"><use xlink:href="/assets/remixicon.symbol.svg#ri-image-line"></use></svg>'
+      '<svg class="icon"><use href="/assets/remixicon.symbol.svg#ri-image-line"></use></svg>'
     )
   })
 
@@ -22,7 +22,7 @@ describe("alchemy-icon", () => {
     const icon = renderComponent("alchemy-icon", html)
 
     expect(icon.innerHTML).toEqual(
-      '<svg class="icon"><use xlink:href="/assets/remixicon.symbol.svg#ri-image-fill"></use></svg>'
+      '<svg class="icon"><use href="/assets/remixicon.symbol.svg#ri-image-fill"></use></svg>'
     )
   })
 
@@ -34,7 +34,7 @@ describe("alchemy-icon", () => {
     const icon = renderComponent("alchemy-icon", html)
 
     expect(icon.innerHTML).toEqual(
-      '<svg class="icon"><use xlink:href="/assets/remixicon.symbol.svg#ri-image"></use></svg>'
+      '<svg class="icon"><use href="/assets/remixicon.symbol.svg#ri-image"></use></svg>'
     )
   })
 
@@ -46,7 +46,7 @@ describe("alchemy-icon", () => {
     const icon = renderComponent("alchemy-icon", html)
 
     expect(icon.innerHTML).toEqual(
-      '<svg class="icon icon--medium"><use xlink:href="/assets/remixicon.symbol.svg#ri-image-line"></use></svg>'
+      '<svg class="icon icon--medium"><use href="/assets/remixicon.symbol.svg#ri-image-line"></use></svg>'
     )
   })
 })

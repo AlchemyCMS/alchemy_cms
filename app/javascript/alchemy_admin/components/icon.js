@@ -20,7 +20,7 @@ class Icon extends HTMLElement {
 
   render() {
     const sizeClass = this.size ? ` icon--${this.size}` : ""
-    this.innerHTML = `<svg class="icon${sizeClass}"><use xlink:href="${this.spriteUrl}#ri-${this.iconName}${this.style}" /></svg>`
+    this.innerHTML = `<svg class="icon${sizeClass}"><use href="${this.spriteUrl}#ri-${this.iconName}${this.style}" /></svg>`
   }
 
   set name(value) {
