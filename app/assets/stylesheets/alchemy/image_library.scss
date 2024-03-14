@@ -222,23 +222,30 @@ $image-overlay-transition-easing: ease-in;
 
   .previous-picture,
   .next-picture {
+    display: flex;
     position: absolute;
     top: 0;
     width: 64px;
     height: 128px;
-    line-height: 120px;
     margin-top: -64px;
     cursor: pointer;
-    text-align: center;
+    justify-content: center;
+    align-items: center;
     text-decoration: none;
     transition: background-color $image-overlay-transition-duration linear;
+
+    .icon {
+      width: 32px;
+      height: 32px;
+      fill: $white;
+      filter: drop-shadow(0 0 1px $very-dark-gray);
+    }
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.3);
 
       .icon {
-        color: $white;
-        text-shadow: none;
+        transition: fill $image-overlay-transition-duration linear;
       }
     }
   }
@@ -259,7 +266,5 @@ $image-overlay-transition-easing: ease-in;
   .next-picture {
     right: $image-overlay-form-width + $picture-overlay-handle-width;
     @include border-left-radius($default-border-radius);
-    transition: right $image-overlay-transition-duration
-      $image-overlay-transition-easing;
   }
 }
