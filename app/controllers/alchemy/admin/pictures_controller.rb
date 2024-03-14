@@ -5,6 +5,7 @@ module Alchemy
     class PicturesController < Alchemy::Admin::ResourcesController
       include UploaderResponses
       include ArchiveOverlay
+      include CurrentLanguage
 
       helper "alchemy/admin/tags"
 
@@ -33,6 +34,9 @@ module Alchemy
         @previous = filtered_pictures.where("name < ?", @picture.name).last
         @next = filtered_pictures.where("name > ?", @picture.name).first
         @assignments = @picture.picture_ingredients.joins(element: :page)
+        @picture_description = @picture.descriptions.find_or_initialize_by(
+          language_id: Alchemy::Current.language.id
+        )
 
         render action: "show"
       end
@@ -193,7 +197,20 @@ module Alchemy
       end
 
       def picture_params
-        params.require(:picture).permit(:image_file, :upload_hash, :name, :description, :tag_list)
+        params.require(:picture).permit(
+          :image_file,
+          :upload_hash,
+          :name,
+          {
+            descriptions_attributes: [
+              :id,
+              :text,
+              :language_id,
+              :picture_id
+            ]
+          },
+          :tag_list
+        )
       end
 
       def picture_url_params

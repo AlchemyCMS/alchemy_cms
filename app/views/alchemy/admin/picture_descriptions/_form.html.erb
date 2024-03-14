@@ -1,0 +1,11 @@
+<% field_name_prefix = "picture[descriptions_attributes][#{picture_description_counter}]" %>
+
+<% if picture_description.persisted? %>
+  <%= hidden_field field_name_prefix, :id, value: picture_description.id %>
+<% else %>
+  <%= hidden_field field_name_prefix, :language_id, value: picture_description.language_id %>
+  <%= hidden_field field_name_prefix, :picture_id, value: picture_description.picture_id %>
+<% end %>
+
+<%= label field_name_prefix, :text, Alchemy::PictureDescription.human_attribute_name(:text), class: "control-label" %>
+<%= text_area field_name_prefix, :text, value: picture_description.text, rows: 3 %>

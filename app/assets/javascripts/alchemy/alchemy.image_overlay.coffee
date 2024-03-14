@@ -17,7 +17,8 @@ class window.Alchemy.ImageOverlay extends Alchemy.Dialog
     @$previous = $('.previous-picture')
     @$next = $('.next-picture')
     @$document.keydown (e) =>
-      return true if e.target.nodeName == 'INPUT'
+      if e.target.nodeName == 'INPUT' || e.target.nodeName == 'TEXTAREA'
+        return true
       switch e.which
         when 37
           @previous()

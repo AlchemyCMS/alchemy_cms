@@ -38,8 +38,10 @@ module Alchemy
         upsample
       ]
 
-      def alt_text
-        alt_tag.presence || picture&.description || picture&.name&.humanize
+      def alt_text(language: Alchemy::Current.language)
+        alt_tag.presence ||
+          picture&.description_for(language) ||
+          picture&.name&.humanize
       end
 
       # The first 30 characters of the pictures name

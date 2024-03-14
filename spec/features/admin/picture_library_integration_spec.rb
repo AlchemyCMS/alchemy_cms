@@ -7,6 +7,8 @@ RSpec.describe "Picture Library", type: :system do
     authorize_user(:as_admin)
   end
 
+  let!(:language) { create(:alchemy_language) }
+
   describe "Tagging" do
     let!(:picture_1) { create(:alchemy_picture, tag_list: "tag1", name: "TaggedWith1") }
     let!(:picture_2) { create(:alchemy_picture, tag_list: "tag2", name: "TaggedWith2") }
@@ -59,6 +61,36 @@ RSpec.describe "Picture Library", type: :system do
       click_on "bla (1)"
 
       expect(page).to have_content("bla")
+    end
+  end
+
+  describe "Picture descriptions" do
+    let!(:picture) { create(:alchemy_picture) }
+
+    scenario "allows to add a picture description", :js do
+      visit alchemy.admin_pictures_path
+      page.find("a.thumbnail_background").click
+      expect(page).to have_field("Description")
+      fill_in "Description", with: "This is an amazing image."
+      click_button "Save"
+      within "#flash_notices" do
+        expect(page).to have_content("Picture updated successfully")
+      end
+      expect(picture.description_for(language)).to eq("This is an amazing image.")
+    end
+
+    scenario "allows to add multi language picture descriptions", :js do
+      german = create(:alchemy_language, :german)
+      visit alchemy.admin_pictures_path
+      page.find("a.thumbnail_background").click
+      expect(page).to have_field("Description")
+      select(german.language_code.upcase, from: "Language")
+      fill_in "Description", with: "Tolles Bild."
+      click_button "Save"
+      within "#flash_notices" do
+        expect(page).to have_content("Picture updated successfully")
+      end
+      expect(picture.description_for(german)).to eq("Tolles Bild.")
     end
   end
 end

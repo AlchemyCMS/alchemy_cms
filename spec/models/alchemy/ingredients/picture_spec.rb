@@ -34,14 +34,32 @@ RSpec.describe Alchemy::Ingredients::Picture do
     end
 
     context "with a picture description" do
-      before { picture.description = "Another cute kitten" }
+      it "returns picture description" do
+        expect(picture).to receive(:description_for) {
+          "Another cute kitten"
+        }
+        is_expected.to eq("Another cute kitten")
+      end
 
-      it { is_expected.to eq("Another cute kitten") }
+      context "with language given" do
+        let(:language) { create(:alchemy_language, :german) }
+
+        subject { picture_ingredient.alt_text(language: language) }
+
+        it "returns picture description for given language" do
+          expect(picture).to receive(:description_for).with(language) {
+            "Eine süße Katze"
+          }
+          is_expected.to eq("Eine süße Katze")
+        end
+      end
 
       context "with a alt_tag" do
         before { picture_ingredient.alt_tag = "A cute kitten" }
 
-        it { is_expected.to eq("A cute kitten") }
+        it "returns alt text" do
+          is_expected.to eq("A cute kitten")
+        end
       end
     end
 
@@ -50,10 +68,16 @@ RSpec.describe Alchemy::Ingredients::Picture do
 
       it { is_expected.to eq("Cute kitten") }
 
-      context "with a picture description" do
-        before { picture.description = "Another cute kitten" }
+      context "with a picture description for current language" do
+        before do
+          expect(picture).to receive(:description_for) {
+            "Another cute kitten"
+          }
+        end
 
-        it { is_expected.to eq("Another cute kitten") }
+        it "returns the picture description" do
+          is_expected.to eq("Another cute kitten")
+        end
       end
     end
   end

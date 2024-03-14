@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_08_101342) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_11_155901) do
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
     t.string "file_name"
@@ -136,7 +136,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_08_101342) do
 
   create_table "alchemy_page_mutexes", force: :cascade do |t|
     t.integer "page_id", null: false
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.index ["page_id"], name: "index_alchemy_page_mutexes_on_page_id", unique: true
   end
 
@@ -186,6 +186,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_08_101342) do
     t.index ["urlname"], name: "index_pages_on_urlname"
   end
 
+  create_table "alchemy_picture_descriptions", force: :cascade do |t|
+    t.integer "picture_id", null: false
+    t.integer "language_id", null: false
+    t.text "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["language_id"], name: "index_alchemy_picture_descriptions_on_language_id"
+    t.index ["picture_id"], name: "index_alchemy_picture_descriptions_on_picture_id"
+  end
+
   create_table "alchemy_picture_thumbs", force: :cascade do |t|
     t.integer "picture_id", null: false
     t.string "signature", null: false
@@ -207,7 +217,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_08_101342) do
     t.string "image_file_uid"
     t.integer "image_file_size"
     t.string "image_file_format"
-    t.text "description"
     t.index ["creator_id"], name: "index_alchemy_pictures_on_creator_id"
     t.index ["image_file_name"], name: "index_alchemy_pictures_on_image_file_name"
     t.index ["name"], name: "index_alchemy_pictures_on_name"
@@ -293,5 +302,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_08_101342) do
   add_foreign_key "alchemy_page_mutexes", "alchemy_pages", column: "page_id"
   add_foreign_key "alchemy_page_versions", "alchemy_pages", column: "page_id", on_delete: :cascade
   add_foreign_key "alchemy_pages", "alchemy_languages", column: "language_id"
+  add_foreign_key "alchemy_picture_descriptions", "alchemy_languages", column: "language_id"
+  add_foreign_key "alchemy_picture_descriptions", "alchemy_pictures", column: "picture_id"
   add_foreign_key "alchemy_picture_thumbs", "alchemy_pictures", column: "picture_id"
 end

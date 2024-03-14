@@ -812,6 +812,9 @@ en:
       alchemy/picture:
         one: Picture
         other: Pictures
+      alchemy/picture_description:
+        one: Picture Description
+        other: Picture Descriptions
       alchemy/user:
         one: User
         other: User
@@ -902,6 +905,8 @@ en:
         image_file_size: "Filesize"
         name: "Name"
         tag_list: Tags
+      alchemy/picture_description:
+        text: "Description"
       alchemy/site:
         name: "Name"
         host: "Primary Host"
