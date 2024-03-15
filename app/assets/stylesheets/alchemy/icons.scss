@@ -10,12 +10,16 @@ alchemy-icon {
   &.blank {
     background: transparent;
   }
+
+  &.error {
+    padding: 2rem;
+  }
 }
 
 .icon {
   fill: var(--color-icon, currentColor);
-  width: var(--icon-size-md);
-  height: var(--icon-size-md);
+  width: var(--icon-size, var(--icon-size-md));
+  height: var(--icon-size, var(--icon-size-md));
 
   &--xs {
     width: var(--icon-size-xs);

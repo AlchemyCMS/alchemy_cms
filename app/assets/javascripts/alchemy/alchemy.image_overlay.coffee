@@ -30,11 +30,11 @@ class window.Alchemy.ImageOverlay extends Alchemy.Dialog
     super()
 
   previous: ->
-    @$previous.click()
+    @$previous[0]?.click()
     return
 
   next: ->
-    @$next.click()
+    @$next[0]?.click()
     return
 
   build: ->
