@@ -9,7 +9,6 @@
 //= require alchemy/alchemy.elements_window
 //= require alchemy/alchemy.fixed_elements
 //= require alchemy/alchemy.growler
-//= require alchemy/alchemy.hotkeys
 //= require alchemy/alchemy.image_overlay
 //= require alchemy/alchemy.link_dialog
 //= require alchemy/alchemy.list_filter

@@ -1,6 +1,5 @@
 import "@ungap/custom-elements"
 import "@hotwired/turbo-rails"
-import "keymaster"
 
 import Rails from "@rails/ujs"
 
