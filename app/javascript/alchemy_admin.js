@@ -10,6 +10,7 @@ import IngredientAnchorLink from "alchemy_admin/ingredient_anchor_link"
 import ImageLoader from "alchemy_admin/image_loader"
 import ImageCropper from "alchemy_admin/image_cropper"
 import Initializer from "alchemy_admin/initializer"
+import ListFilter from "alchemy_admin/list_filter"
 import pictureSelector from "alchemy_admin/picture_selector"
 import pleaseWaitOverlay from "alchemy_admin/please_wait_overlay"
 import Sitemap from "alchemy_admin/sitemap"
@@ -74,6 +75,7 @@ Object.assign(Alchemy, {
   ImageCropper,
   Initializer,
   IngredientAnchorLink,
+  ListFilter,
   pictureSelector,
   pleaseWaitOverlay,
   Sitemap,
