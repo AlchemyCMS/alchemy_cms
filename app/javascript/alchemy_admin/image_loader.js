@@ -38,9 +38,9 @@ export default class ImageLoader {
   }
 
   onError(evt) {
-    const message = `Could not load "${this.image.src}"`
+    const message = `Could not load ${this.image.src}`
     this.spinner.stop()
-    this.parent.innerHTML = `<span class="icon error ri-alert-line" title="${message}" />`
+    this.parent.innerHTML = `<alchemy-icon name="alert" class="error" title="${message}" />`
     console.error(message, evt)
     this.unbind()
   }

@@ -251,9 +251,9 @@ $image-overlay-transition-easing: ease-in;
   }
 
   .icon {
-    font-size: 4em;
-    color: $medium-gray;
-    text-shadow: 0 0 $default-padding $text-color;
+    --icon-size: 4em;
+    fill: $medium-gray;
+    filter: drop-shadow(0 0 $default-padding $text-color);
     transition: all $image-overlay-transition-duration linear;
     vertical-align: middle;
   }
