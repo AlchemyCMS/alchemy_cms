@@ -6,54 +6,64 @@
 //
 class ListFilterHandler {
   // Pass a input field with a data-alchemy-list-filter attribute to this constructor
-  constructor(filter) {
-    this.filter_field = $(filter)
-    this.items = $(this.filter_field.data("alchemy-list-filter"))
-    this.clear = this.filter_field.siblings(".js_filter_field_clear")
-    this._observe()
+  constructor(filter_field) {
+    this.filterField = filter_field
+    this.items = document.querySelectorAll(
+      filter_field.dataset.alchemyListFilter
+    )
+    this.clearButton = filter_field.parentNode.querySelector(
+      ".js_filter_field_clear"
+    )
+    this.observe()
   }
 
-  _observe() {
-    this.filter_field.on("keyup", (e) => {
-      this.clear.css("visibility", "visible")
-      this._filter(this.filter_field.val())
+  observe() {
+    this.filterField.addEventListener("keyup", () => {
+      const term = this.filterField.value
+      this.clearButton.style.visibility = "visible"
+      this.filter(term)
     })
-    this.clear.on("click", (e) => {
+    this.clearButton.addEventListener("click", (e) => {
       e.preventDefault()
-      this._clear()
+      this.clear()
     })
-    this.filter_field.on("focus", () => key.setScope("list_filter"))
+    this.filterField.addEventListener("focus", () =>
+      key.setScope("list_filter")
+    )
     key("esc", "list_filter", () => {
-      this._clear()
-      this.filter_field.blur()
+      this.clear()
+      this.filterField.blur()
     })
   }
 
-  _filter(term) {
+  filter(term) {
     if (term === "") {
-      this.clear.css("visibility", "hidden")
+      this.clearButton.style.visibility = "hidden"
     }
-    this.items.map(function () {
-      const item = $(this)
+    this.items.forEach((item) => {
+      const name = item.getAttribute("name").toLowerCase()
       // indexOf is much faster then match()
-      if (item.attr("name").toLowerCase().indexOf(term.toLowerCase()) !== -1) {
-        item.show()
+      if (name.indexOf(term.toLowerCase()) !== -1) {
+        item.classList.remove("hidden")
       } else {
-        item.hide()
+        item.classList.add("hidden")
       }
     })
   }
 
-  _clear() {
-    this.filter_field.val("")
-    this._filter("")
+  clear() {
+    this.filterField.value = ""
+    this.filter("")
   }
 }
 
-// Initializes an Alchemy.ListFilterHandler on all input fields with a data-alchemy-list-filter attribute.
+// Initializes an ListFilterHandler on all input fields with a data-alchemy-list-filter attribute.
 //
-export default function ListFilter(scope) {
-  $("[data-alchemy-list-filter]", scope).map(function () {
-    new ListFilterHandler(this)
+export default function ListFilter(scope = document) {
+  if (scope instanceof jQuery) {
+    scope = scope[0]
+  }
+  scope.querySelectorAll("[data-alchemy-list-filter]").forEach((field) => {
+    new ListFilterHandler(field)
   })
 }
