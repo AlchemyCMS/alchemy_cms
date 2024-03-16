@@ -6,6 +6,7 @@ import Rails from "@rails/ujs"
 import GUI from "alchemy_admin/gui"
 import { translate } from "alchemy_admin/i18n"
 import Dirty from "alchemy_admin/dirty"
+import { growl } from "alchemy_admin/growler"
 import IngredientAnchorLink from "alchemy_admin/ingredient_anchor_link"
 import ImageLoader from "alchemy_admin/image_loader"
 import ImageCropper from "alchemy_admin/image_cropper"
@@ -71,6 +72,7 @@ Object.assign(Alchemy, {
   ...Dirty,
   GUI,
   t: translate, // Global utility method for translating a given string
+  growl,
   ImageLoader: ImageLoader.init,
   ImageCropper,
   Initializer,
