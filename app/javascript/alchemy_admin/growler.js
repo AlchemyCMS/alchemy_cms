@@ -1,28 +1,36 @@
-function build(message, flash_type) {
-  const $flash_container = $(`<div class="flash ${flash_type}" />`)
-  $flash_container.append(Alchemy.messageIcon(flash_type))
-  if (flash_type === "error") {
-    $flash_container.append('<alchemy-icon name="close"></alchemy-icon>')
+import { createHtmlElement } from "alchemy_admin/utils/dom_helpers"
+
+function build(message, flashType) {
+  const notices = document.getElementById("flash_notices")
+  const flashContainer = createHtmlElement(
+    `<div class="flash ${flashType}"></div>`
+  )
+  const icon = createHtmlElement(Alchemy.messageIcon(flashType))
+  flashContainer.append(icon)
+  if (flashType === "error") {
+    const closeButton = createHtmlElement(
+      '<alchemy-icon name="close"></alchemy-icon>'
+    )
+    flashContainer.append(closeButton)
   }
-  $flash_container.append(message)
-  $("#flash_notices").append($flash_container)
-  $("#flash_notices").show()
-  $flash_container.on("click", () => dismiss($flash_container))
+  flashContainer.append(message)
+  notices.append(flashContainer)
+  flashContainer.addEventListener("click", () => dismiss(flashContainer))
 
   fade()
 }
 
 function dismiss(element) {
-  $(element).on("transitionend", () => $(element).remove())
-  $(element).addClass("dismissed")
+  element.addEventListener("transitionend", () => element.remove())
+  element.classList.add("dismissed")
 }
 
 export function fade() {
-  $(".flash:not(.error)", "#flash_notices")
-    .delay(5000)
-    .queue(function () {
-      dismiss(this)
-    })
+  const notices = document.getElementById("flash_notices")
+  const flashNotices = notices.querySelectorAll(".flash:not(.error)")
+  setTimeout(() => {
+    flashNotices.forEach((notice) => dismiss(notice))
+  }, 5000)
 }
 
 export function growl(message, style = "notice") {
