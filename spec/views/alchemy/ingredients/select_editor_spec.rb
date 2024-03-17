@@ -30,7 +30,7 @@ RSpec.describe "alchemy/ingredients/_select_editor" do
     end
 
     it "renders a warning" do
-      is_expected.to have_css(".warning")
+      is_expected.to have_css('alchemy-message[type="warning"]')
     end
   end
 

@@ -1,5 +1,3 @@
-import { fade as fadeGrowl } from "alchemy_admin/growler"
-
 /**
  * add change listener to select to redirect the user after selecting another locale or site
  * @param {string} selectId
@@ -26,11 +24,6 @@ function Initialize() {
 
   // Initialize the GUI.
   Alchemy.GUI.init()
-
-  // Fade all growl notifications.
-  if ($("#flash_notices").length > 0) {
-    fadeGrowl()
-  }
 
   // Add observer for please wait overlay.
   $(".please_wait")

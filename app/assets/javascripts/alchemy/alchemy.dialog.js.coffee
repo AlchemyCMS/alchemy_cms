@@ -136,10 +136,10 @@ class window.Alchemy.Dialog
         else
           error_header = "#{xhr.statusText} (#{xhr.status})"
         error_body = "Please check log and try again."
-    $errorDiv = $("<div class=\"message #{error_type}\" />")
-    $errorDiv.append Alchemy.messageIcon(error_type)
-    $errorDiv.append "<h1>#{error_header}</h1>"
-    $errorDiv.append "<p>#{error_body}</p>"
+    $errorDiv = $("<alchemy-message type=\"#{error_type}\">
+      <h1>#{error_header}</h1>
+      <p>#{error_body}</p>
+    </alchemy-message>")
     $container.html $errorDiv
 
   # Binds close events on:
@@ -265,14 +265,3 @@ window.Alchemy.watchForDialogs = (scope = '#alchemy') ->
         return
     event.preventDefault()
     return
-
-# Returns a Remix icon for given message type
-#
-window.Alchemy.messageIcon = (messageType) ->
-  icon_name = switch messageType
-    when "warning", "warn", "alert" then "alert"
-    when "notice" then "check"
-    when "info" then "information"
-    when "error" then "bug"
-    else messageType
-  "<alchemy-icon name=\"#{icon_name}\"></alchemy-icon>"

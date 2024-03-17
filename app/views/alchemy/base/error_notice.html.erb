@@ -1,1 +1,3 @@
-<%= render_flash_notice @notice, :error %>
+<%= render_message :error do %>
+  <strong><%= @notice %></strong>
+<% end %>
