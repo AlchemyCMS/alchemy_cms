@@ -11,5 +11,4 @@
 //= require alchemy/alchemy.growler
 //= require alchemy/alchemy.image_overlay
 //= require alchemy/alchemy.link_dialog
-//= require alchemy/alchemy.list_filter
 //= require alchemy/alchemy.preview_window
