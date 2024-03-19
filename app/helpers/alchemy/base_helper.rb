@@ -4,9 +4,11 @@ module Alchemy
   module BaseHelper
     # An alias for truncate.
     # Left here for downwards compatibilty.
+    # @deprecated
     def shorten(text, length)
       text.truncate(length: length)
     end
+    deprecate :shorten, deprecator: Alchemy::Deprecation
 
     # Logs a message in the Rails logger (warn level)
     # and optionally displays an error message to the user.
@@ -56,6 +58,7 @@ module Alchemy
     # Checks if the given argument is a String or a Page object.
     # If a String is given, it tries to find the page via page_layout
     # Logs a warning if no page is given.
+    # @deprecated
     def page_or_find(page)
       unless Current.language
         warning("No default language set up")
@@ -72,5 +75,6 @@ module Alchemy
         page
       end
     end
+    deprecate :page_or_find, deprecator: Alchemy::Deprecation
   end
 end
