@@ -29,10 +29,15 @@ module Alchemy
 
         private
 
+        def page
+          @_page ||= @url ? Alchemy::Page.find_by(urlname: URI(@url).path[1..]) : nil
+        end
+
         def page_select
           label = label_tag("internal_link", Alchemy.t(:page), class: "control-label")
-          input = text_field_tag("internal_link", "", id: "internal_link", class: "alchemy_selectbox full_width")
-          content_tag("div", label + input, class: "input select")
+          input = text_field_tag("internal_link", page ? @url : "", id: "internal_link")
+          page_select = render Alchemy::Admin::PageSelect.new(page, allow_clear: true).with_content(input)
+          content_tag("div", label + page_select, class: "input select")
         end
 
         def dom_id_select

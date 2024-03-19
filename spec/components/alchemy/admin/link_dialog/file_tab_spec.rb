@@ -7,7 +7,7 @@ RSpec.describe Alchemy::Admin::LinkDialog::FileTab, type: :component do
   let(:url) { Alchemy::Engine.routes.url_helpers.download_attachment_path(id: attachment.id, name: attachment.slug) }
 
   before do
-    render_inline(described_class.new)
+    render_inline(described_class.new("/foo"))
   end
 
   it "should render a pre-filled file select" do

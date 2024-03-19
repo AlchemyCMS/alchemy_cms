@@ -23,7 +23,7 @@ end
 
 RSpec.describe Alchemy::Admin::LinkDialog::BaseTab, type: :component do
   before do
-    render_inline(BaseTestTab.new)
+    render_inline(BaseTestTab.new("/foo"))
   end
 
   it "should render a tab with a panel" do

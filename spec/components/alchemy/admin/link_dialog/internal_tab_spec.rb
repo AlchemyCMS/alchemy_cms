@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Alchemy::Admin::LinkDialog::InternalTab, type: :component do
   before do
-    render_inline(described_class.new)
+    render_inline(described_class.new("/foo"))
   end
 
   it "should have an url input" do

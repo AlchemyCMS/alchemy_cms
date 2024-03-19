@@ -4,19 +4,19 @@
 class window.Alchemy.LinkDialog extends Alchemy.Dialog
 
   constructor: (@link_object) ->
-    @url = Alchemy.routes.link_admin_pages_path
+    url = new URL(Alchemy.routes.link_admin_pages_path, window.location)
+    url.searchParams.set("url", @link_object.linkUrl)
+
     @$link_object = $(@link_object)
     @options =
       size: '600x320'
       title: 'Link'
-    super(@url, @options)
+    super(url.href, @options)
 
   # Called from Dialog class after the url was loaded
   replace: (data) ->
     # let Dialog class handle the content replacement
     super(data)
-    # attach events we handle
-    @attachEvents()
     # Store some jQuery objects for further reference
     @$internal_link = $('#internal_link', @dialog_body)
     @$element_anchor = $('#element_anchor', @dialog_body)
@@ -25,83 +25,49 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     @$file_link = $('#file_link', @dialog_body)
     @$overlay_tabs = $('#overlay_tabs', @dialog_body)
     @$page_container = $('#page_selector_container')
+
+    # attach events we handle
+    @attachEvents()
     @initAnchorLinks()
     # if we edit an existing link
     if @link_object
       # we select the correct tab
       @selectTab()
-    @initPageSelect()
     return
 
   # Attaches click events to forms in the link dialog.
   attachEvents: ->
+    # enable the dom selection in internal link tab
+    element_anchor_placeholder = @$element_anchor.attr('placeholder')
+    linkForm = document.querySelector('[data-link-form-type="internal"]')
+    selectedPageId = linkForm.querySelector('alchemy-page-select').pageId
+
+    if selectedPageId
+      @initDomIdSelect(selectedPageId)
+
+    linkForm.addEventListener "Alchemy.PageSelect.ItemRemoved", (e) =>
+      @$element_anchor.val(element_anchor_placeholder)
+      @$element_anchor.select2('destroy').prop('disabled', true)
+
+    linkForm.addEventListener "Alchemy.PageSelect.ItemAdded", (e) =>
+      page = e.detail
+      @$element_anchor.val('')
+      @$internal_link.val(page.url_path)
+      @initDomIdSelect(page.id)
+
     $('[data-link-form-type]', @dialog_body).on "submit", (e) =>
       e.preventDefault()
       @link_type = e.target.dataset.linkFormType
       url = $("##{@link_type}_link").val()
       if @link_type == 'internal' && @$element_anchor.val() != ''
         url += "##{@$element_anchor.val()}"
+
       # Create the link
       @createLink
         url: url
         title: $("##{@link_type}_link_title").val()
         target: $("##{@link_type}_link_target").val()
       false
-
-  # Initializes the select2 based Page select
-  initPageSelect: ->
-    pageTemplate = HandlebarsTemplates.page
-    element_anchor_placeholder = @$element_anchor.attr('placeholder')
-    @$internal_link.select2
-      placeholder: Alchemy.t('Search page')
-      allowClear: true
-      minimumInputLength: 3
-      ajax:
-        url: Alchemy.routes.api_pages_path
-        datatype: 'json'
-        quietMillis: 300
-        data: (term, page) ->
-          q:
-            name_cont: term
-          page: page
-        results: (data) ->
-          meta = data.meta
-          results:
-            data.pages.map (page) ->
-              id: page.url_path
-              name: page.name
-              url_path: page.url_path
-              page_id: page.id
-              language: page.language
-              site: page.site
-          more: meta.page * meta.per_page < meta.total_count
-      initSelection: ($element, callback) =>
-        urlname = $element.val()
-        $.get Alchemy.routes.api_pages_path,
-          q:
-            urlname_eq: urlname.replace(/^\/([a-z]{2}(-[A-Z]{2})?\/)?(.+?)\/?$/, '$3')
-          page: 1
-          per_page: 1,
-          (data) =>
-            page = data.pages[0]
-            if page
-              @initDomIdSelect(page.id)
-              callback
-                id: page.url_path
-                name: page.name
-                url_path: page.url_path
-                page_id: page.id
-      formatSelection: (page) ->
-        page.name
-      formatResult: (page) ->
-        pageTemplate(page: page)
-    .on 'change', (event) =>
-      if event.val == ''
-        @$element_anchor.val(element_anchor_placeholder)
-        @$element_anchor.select2('destroy').prop('disabled', true)
-      else
-        @$element_anchor.val('')
-        @initDomIdSelect(event.added.page_id)
 
   # Initializes the select2 based dom id select
   # reveals after a page has been selected

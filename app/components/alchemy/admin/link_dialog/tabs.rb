@@ -7,10 +7,14 @@ module Alchemy
         erb_template <<~ERB
           <sl-tab-group id="overlay_tabs">
             <% tabs.each do |tab| %>
-              <%= render tab.new %>
+              <%= render tab.new(@url) %>
             <% end %>
           </sl-tab-group>
         ERB
+
+        def initialize(url)
+          @url = url
+        end
 
         def tabs
           Alchemy.link_dialog_tabs

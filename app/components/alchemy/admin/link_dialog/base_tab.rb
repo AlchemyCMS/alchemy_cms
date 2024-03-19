@@ -21,6 +21,10 @@ module Alchemy
           </sl-tab-panel>
         ERB
 
+        def initialize(url)
+          @url = url
+        end
+
         def title
           raise ArgumentError, "The tab needs to have a title"
         end
