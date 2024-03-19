@@ -23,7 +23,7 @@ describe "alchemy/admin/elements/_element" do
     let(:element) { create(:alchemy_element, name: "with_message") }
 
     it "renders the message" do
-      is_expected.to have_css('.message:contains("One nice message")')
+      is_expected.to have_css('alchemy-message:contains("One nice message")')
     end
 
     context "that contains HTML" do
@@ -35,7 +35,7 @@ describe "alchemy/admin/elements/_element" do
       end
 
       it "renders the HTML message" do
-        is_expected.to have_css('.message h1:contains("One nice message")')
+        is_expected.to have_css('alchemy-message[type="info"] h1:contains("One nice message")')
       end
     end
   end
@@ -51,7 +51,7 @@ describe "alchemy/admin/elements/_element" do
     end
 
     it "renders the warning" do
-      is_expected.to have_css('.warning:contains("One nice warning")')
+      is_expected.to have_css('alchemy-message[type="warning"]:contains("One nice warning")')
     end
 
     context "that contains HTML" do
@@ -63,7 +63,7 @@ describe "alchemy/admin/elements/_element" do
       end
 
       it "renders the HTML warning" do
-        is_expected.to have_css('.warning h1:contains("One nice warning")')
+        is_expected.to have_css('alchemy-message[type="warning"] h1:contains("One nice warning")')
       end
     end
   end

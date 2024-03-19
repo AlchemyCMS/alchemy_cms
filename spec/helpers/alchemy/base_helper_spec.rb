@@ -24,18 +24,44 @@ module Alchemy
 
     describe "#render_message" do
       context "if no argument is passed" do
-        it "should render a div with an info icon and the given content" do
-          expect(helper.render_message { content_tag(:p, "my notice") }).to match(
-            /<div class="info message"><alchemy-icon name="information" icon-style="line"><\/alchemy-icon><p>my notice/
-          )
+        it "should render an alchemy-message with an info icon and the given content" do
+          expect(helper.render_message { content_tag(:p, "my notice") }).to eq <<~HTML
+            <alchemy-message type="info">
+              <p>my notice</p>
+            </alchemy-message>
+          HTML
         end
       end
 
       context "if an argument is passed" do
-        it "should render the passed argument as the css classname for the icon container" do
-          expect(helper.render_message(:error) { content_tag(:p, "my notice") }).to match(
-            /<div class="error message"><alchemy-icon name="bug" icon-style="line">/
-          )
+        it "should render the passed argument as the type for the message" do
+          expect(helper.render_message(:error) { content_tag(:p, "my notice") }).to eq <<~HTML
+            <alchemy-message type="error">
+              <p>my notice</p>
+            </alchemy-message>
+          HTML
+        end
+      end
+    end
+
+    describe "#render_flash_notice" do
+      context "if no argument is passed" do
+        it "should render an alchemy-message with an check icon and the given content" do
+          expect(helper.render_flash_notice("my notice")).to eq <<~HTML
+            <alchemy-message type="notice" dismissable>
+              my notice
+            </alchemy-message>
+          HTML
+        end
+      end
+
+      context "if an argument is passed" do
+        it "should render the passed argument as the type for the message" do
+          expect(helper.render_flash_notice("A error", :error)).to eq <<~HTML
+            <alchemy-message type="error" dismissable>
+              A error
+            </alchemy-message>
+          HTML
         end
       end
     end
@@ -60,44 +86,6 @@ module Alchemy
       context "passing a page object" do
         it "should return the given page object" do
           expect(helper.page_or_find(page)).to eq(page)
-        end
-      end
-    end
-
-    describe "#message_icon_class" do
-      subject { helper.message_icon_class(message_type) }
-
-      context "when `warning`, `warn` or `alert` message type is given" do
-        %w[warning warn alert].each do |type|
-          let(:message_type) { type }
-
-          it { is_expected.to eq "exclamation" }
-        end
-      end
-
-      context "when `notice` message type is given" do
-        let(:message_type) { "notice" }
-
-        it { is_expected.to eq "check" }
-      end
-
-      context "when `hint` message type is given" do
-        let(:message_type) { "hint" }
-
-        it { is_expected.to eq "info" }
-      end
-
-      context "when `error` message type is given" do
-        let(:message_type) { "error" }
-
-        it { is_expected.to eq "bug" }
-      end
-
-      context "when unknown message type is given" do
-        let(:message_type) { "info" }
-
-        it "returns the given message type as icon name" do
-          is_expected.to eq "info"
         end
       end
     end

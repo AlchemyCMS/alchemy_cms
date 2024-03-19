@@ -4,9 +4,11 @@ module Alchemy
   module BaseHelper
     # An alias for truncate.
     # Left here for downwards compatibilty.
+    # @deprecated
     def shorten(text, length)
       text.truncate(length: length)
     end
+    deprecate :shorten, deprecator: Alchemy::Deprecation
 
     # Logs a message in the Rails logger (warn level)
     # and optionally displays an error message to the user.
@@ -41,26 +43,22 @@ module Alchemy
     #   <% end %>
     #
     def render_message(type = :info, msg = nil, &blk)
-      icon_class = message_icon_class(type)
-      if blk
-        content_tag :div, render_icon(icon_class) + capture(&blk), class: "#{type} message"
-      else
-        content_tag :div, render_icon(icon_class) + msg, class: "#{type} message"
-      end
+      render Alchemy::Admin::Message.new(msg || capture(&blk), type: type)
     end
 
-    # Renders the flash partial (+alchemy/admin/partials/flash+)
+    # Renders a dismissable growl message.
     #
-    # @param [String] notice The notice you want to display
-    # @param [Symbol] style The style of this flash. Valid values are +:notice+ (default), +:warn+ and +:error+
+    # @param [String] notice - The notice you want to display
+    # @param [Symbol] type - The type of this flash. Valid values are +:notice+ (default), +:warn+, +:info+ and +:error+
     #
-    def render_flash_notice(notice, style = :notice)
-      render("alchemy/admin/partials/flash", flash_type: style, message: notice)
+    def render_flash_notice(notice, type = :notice)
+      render Alchemy::Admin::Message.new(notice, type: type, dismissable: true)
     end
 
     # Checks if the given argument is a String or a Page object.
     # If a String is given, it tries to find the page via page_layout
     # Logs a warning if no page is given.
+    # @deprecated
     def page_or_find(page)
       unless Current.language
         warning("No default language set up")
@@ -77,20 +75,6 @@ module Alchemy
         page
       end
     end
-
-    # Returns the icon name for given message type
-    #
-    # @param message_type [String] The message type. One of +warning+, +info+, +notice+, +error+
-    # @return [String] The icon name
-    def message_icon_class(message_type)
-      case message_type.to_s
-      when "warning", "warn", "alert" then "exclamation"
-      when "notice" then "check"
-      when "error" then "bug"
-      when "hint" then "info"
-      else
-        message_type
-      end
-    end
+    deprecate :page_or_find, deprecator: Alchemy::Deprecation
   end
 end

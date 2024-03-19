@@ -5,74 +5,28 @@ div#flash_notices {
   width: 400px;
   top: 0;
 
-  .flash.error {
-    cursor: pointer;
-    padding-right: 32px;
+  alchemy-message {
+    font-weight: bold;
+    margin: $default-margin $default-margin 2 * $default-margin;
+    opacity: 0.95;
+    transition-property: opacity, transform;
+    transition-duration: 0.4s;
 
-    alchemy-icon[name="close"] {
-      position: absolute;
-      left: initial;
-      right: 2 * $default-padding;
+    &.dismissed {
+      display: block;
+      opacity: 0;
+      transform: translate3d(0, -100%, 0);
     }
-  }
-}
 
-div.flash {
-  border-radius: $default-border-radius;
-  opacity: 0.95;
-  padding: 8px 16px 8px 32px;
-  font-weight: bold;
-  border-width: 1px;
-  border-style: solid;
-  z-index: 1000;
-  margin: $default-margin $default-margin 2 * $default-margin;
-  position: relative;
-  min-height: 2.6em;
-  word-break: break-word;
-  transition-property: opacity, transform;
-  transition-duration: 0.4s;
-  line-height: 1.5;
+    &[type="error"] {
+      cursor: pointer;
+      padding-right: 32px;
 
-  alchemy-icon {
-    position: absolute;
-    top: 9px;
-    left: 2 * $default-padding;
-    vertical-align: bottom;
-
-    .icon {
-      fill: currentColor;
+      alchemy-icon[name="close"] {
+        position: absolute;
+        left: initial;
+        right: 2 * $default-padding;
+      }
     }
-  }
-
-  &.dismissed {
-    display: block;
-    opacity: 0;
-    transform: translate3d(0, -100%, 0);
-  }
-
-  &.notice {
-    border-color: $success_border_color;
-    color: $success_text_color;
-    background-color: $success_background_color;
-  }
-
-  &.error {
-    border-color: $error_border_color;
-    color: $error_text_color;
-    background-color: $error_background_color;
-  }
-
-  &.info {
-    border-color: $info_border_color;
-    color: $info_text_color;
-    background-color: $info_background_color;
-  }
-
-  &.warn,
-  &.warning,
-  &.alert {
-    border-color: $warning_border_color;
-    color: $warning_text_color;
-    background-color: $warning_background_color;
   }
 }

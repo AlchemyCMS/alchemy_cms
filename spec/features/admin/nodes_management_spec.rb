@@ -41,7 +41,7 @@ RSpec.describe "Nodes management", type: :system, js: true do
       open_page_properties
 
       click_button "Add a menu node"
-      within ".flash.error" do
+      within "alchemy-message[type='error']" do
         expect(page).to have_content("Menu Type can't be blank")
       end
     end

@@ -38,13 +38,13 @@
 <h3>Info Message</h3>
 
 <%= render_message do %>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  <p>Lorem ipsum <strong>dolor</strong> sit amet, consectetur adipiscing elit.</p>
 <% end %>
 
 <h3>Warning Message</h3>
 
 <%= render_message :warning do %>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  <p>Lorem ipsum dolor sit amet, <a href="">consectetur</a> adipiscing elit.</p>
 <% end %>
 
 <h3>Error Message</h3>
@@ -53,27 +53,32 @@
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 <% end %>
 
+<h3>Growl Messages</h3>
+
+<%= link_to render_icon(:check), 'javascript:Alchemy.growl("Success message")', class: "icon_button" %>
+<%= link_to render_icon(:info), 'javascript:Alchemy.growl("Info message", "info")', class: "icon_button" %>
+<%= link_to render_icon(:alert), 'javascript:Alchemy.growl("Warning message", "warn")', class: "icon_button" %>
+<%= link_to render_icon(:bug), 'javascript:Alchemy.growl("Error message", "error")', class: "icon_button" %>
+
 <h2>Dialog Links</h2>
 
-<div class="panel">
-  <sl-tooltip content="Open in Dialog">
-    <a
-      href="/admin/styleguide"
-      is="alchemy-dialog-link"
-      class="icon_button"
-      data-dialog-options="{&quot;size&quot;:&quot;800x600&quot;,&quot;title&quot;:&quot;Styleguide in Dialog&quot;}"
-    >
-      <%= render_icon "window" %>
-    </a>
-  </sl-tooltip>
+<sl-tooltip content="Open in Dialog">
   <a
-    href="#"
+    href="/admin/styleguide"
     is="alchemy-dialog-link"
-    class="icon_button disabled"
+    class="icon_button"
+    data-dialog-options="{&quot;size&quot;:&quot;800x600&quot;,&quot;title&quot;:&quot;Styleguide in Dialog&quot;}"
   >
     <%= render_icon "window" %>
   </a>
-</div>
+</sl-tooltip>
+<a
+  href="#"
+  is="alchemy-dialog-link"
+  class="icon_button disabled"
+>
+  <%= render_icon "window" %>
+</a>
 
 <h2>Forms</h2>
 
