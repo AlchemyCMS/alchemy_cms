@@ -287,16 +287,6 @@ module Alchemy
         end
       end
 
-      # (internal) Used by upload form
-      def new_asset_path_with_session_information(asset_type)
-        session_key = Rails.application.config.session_options[:key]
-        if asset_type == "picture"
-          alchemy.admin_pictures_path(session_key => cookies[session_key], request_forgery_protection_token => form_authenticity_token, :format => :js)
-        elsif asset_type == "attachment"
-          alchemy.admin_attachments_path(session_key => cookies[session_key], request_forgery_protection_token => form_authenticity_token, :format => :js)
-        end
-      end
-
       # Renders a textfield ready to display a datepicker
       #
       # A Javascript observer converts this into a fancy Datepicker.
