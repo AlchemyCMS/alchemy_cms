@@ -8,7 +8,7 @@ module Alchemy
           Alchemy.t("link_overlay_tab_label.anchor")
         end
 
-        def name
+        def self.panel_name
           :anchor
         end
 
@@ -27,8 +27,11 @@ module Alchemy
 
         def anchor_select
           label = label_tag("anchor_link", Alchemy.t(:anchor), class: "control-label")
+          options = [[Alchemy.t("Please choose"), ""]]
+          options += [[@url, @url]] if is_selected? && @url
+
           select = select_tag(:anchor_link,
-            options_for_select([[Alchemy.t("Please choose"), ""]]),
+            options_for_select(options, @url),
             is: "alchemy-select")
           content_tag("div", label + select, class: "input select")
         end

@@ -164,7 +164,7 @@ module Alchemy
       end
 
       def link
-        render LinkDialog::Tabs.new(params[:url])
+        render LinkDialog::Tabs.new(**link_dialog_params)
       end
 
       def fold
@@ -281,6 +281,10 @@ module Alchemy
 
       def page_params
         params.require(:page).permit(*secure_attributes)
+      end
+
+      def link_dialog_params
+        params.permit([:url, :selected_tab, :link_title, :link_target])
       end
 
       def secure_attributes

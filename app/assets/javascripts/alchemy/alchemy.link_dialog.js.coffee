@@ -5,7 +5,16 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
 
   constructor: (@link_object) ->
     url = new URL(Alchemy.routes.link_admin_pages_path, window.location)
-    url.searchParams.set("url", @link_object.linkUrl)
+    parameterMapping = {
+      url: @link_object.linkUrl,
+      selected_tab: @link_object.linkClass,
+      link_title: @link_object.linkTitle,
+      link_target:@link_object.linkTarget
+    }
+
+    # searchParams.set would also add undefined values
+    Object.keys(parameterMapping).forEach (key) =>
+      url.searchParams.set(key, parameterMapping[key]) if parameterMapping[key]
 
     @$link_object = $(@link_object)
     @options =
@@ -123,44 +132,6 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     # Creating an temporary anchor node if we are linking an Picture Ingredient.
     else if @link_object.getAttribute && @link_object.getAttribute("is") == "alchemy-link-button"
       @$link = $(@createTempLink())
-    else
-      return false
-    # Populate title and target fields.
-    $('.link_title', @dialog_body).val @$link.attr('title')
-    $('.link_target', @dialog_body).select2('val', @$link.attr('data-link-target'))
-    # Checking of what kind the link is (internal, external or file).
-    if @$link.hasClass('external')
-      # Handles an external link.
-      tab = 'overlay_tab_external_link'
-      @$external_link.val(@$link.attr('href'))
-    else if @$link.hasClass('file')
-      # Handles a file link.
-      tab = 'overlay_tab_file_link'
-      @$file_link.select2('val', @$link[0].pathname + @$link[0].search)
-    else if @$link.attr('href').match(/^#/)
-      # Handles an anchor link.
-      tab = 'overlay_tab_anchor_link'
-      @$anchor_link.select2('val', @$link.attr('href'))
-    else if @$link.hasClass('internal')
-      # Handles an internal link.
-      tab = 'overlay_tab_internal_link'
-      @initInternalLinkTab()
-    else
-      # Emit an event to allow extensions hook into the link overlay.
-      @$overlay_tabs.trigger 'SelectLinkTab.Alchemy',
-        link: @$link
-    if tab
-      window.requestAnimationFrame =>
-        @$overlay_tabs.get(0).show(tab)
-    return
-
-  # Handles actions for internal link tab.
-  initInternalLinkTab: ->
-    url = @$link.attr('href').split('#')
-    # update the url field
-    @$internal_link.val(url[0])
-    # store the anchor
-    @$element_anchor.val(url[1])
 
   # Creates a temporay 'a' element that holds all values on it.
   createTempLink: ->
