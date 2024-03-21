@@ -231,6 +231,18 @@ RSpec.describe Alchemy::PictureVariant do
         end
       end
     end
+
+    context "passed as symbol" do
+      let(:options) do
+        {format: :gif}
+      end
+
+      it "converts the format" do
+        step = subject.steps[0]
+        expect(step.name).to eq(:encode)
+        expect(step.arguments).to include("gif")
+      end
+    end
   end
 
   context "requesting a not allowed format" do
