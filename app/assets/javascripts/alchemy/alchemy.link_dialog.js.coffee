@@ -3,20 +3,14 @@
 #
 class window.Alchemy.LinkDialog extends Alchemy.Dialog
 
-  constructor: (@link_object) ->
+  constructor: (link) ->
     url = new URL(Alchemy.routes.link_admin_pages_path, window.location)
-    parameterMapping = {
-      url: @link_object.linkUrl,
-      selected_tab: @link_object.linkClass,
-      link_title: @link_object.linkTitle,
-      link_target:@link_object.linkTarget
-    }
+    parameterMapping = { url: link.url, selected_tab: link.type, link_title: link.title, link_target: link.target }
 
     # searchParams.set would also add undefined values
     Object.keys(parameterMapping).forEach (key) =>
       url.searchParams.set(key, parameterMapping[key]) if parameterMapping[key]
 
-    @$link_object = $(@link_object)
     @options =
       size: '600x320'
       title: 'Link'
@@ -33,11 +27,13 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
 
     # attach events we handle
     @attachEvents()
-    # if we edit an existing link
-    if @link_object
-      # we select the correct tab
-      @selectTab()
-    return
+
+  # make the open method a promise
+  # maybe in a future version the whole Dialog will respond with a promise result if the dialog is closing
+  open: () ->
+    super
+    new Promise (resolve) =>
+      @resolve = resolve
 
   updatePage: (page) ->
     @$internal_link.val(page?.url_path)
@@ -69,53 +65,17 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
   createLink: (options) ->
     if @link_type == 'external'
       if options.url.match(Alchemy.link_url_regexp)
-        @setLink(options.url, options.title, options.target)
+        @setLink(options)
       else
         return @showValidationError()
     else
-      @setLink(options.url, options.title, options.target)
+      @setLink(options)
     @close()
 
   # Sets the link either in TinyMCE or on an Ingredient.
-  setLink: (url, title, target) ->
-    trimmedUrl = url.trim()
-    if @link_object.editor
-      @setTinyMCELink(trimmedUrl, title, target)
-    else
-      @link_object.setLink(trimmedUrl, title, target, @link_type)
-    return
-
-  # Sets a link in TinyMCE editor.
-  setTinyMCELink: (url, title, target) ->
-    editor = @link_object.editor
-    editor.execCommand 'mceInsertLink', false,
-      'href': url
-      'class': @link_type
-      'title': title
-      'data-link-target': target
-      'target': if target == 'blank' then '_blank' else null
-    editor.selection.collapse()
-    true
-
-  # Selects the correct tab for link type and fills all fields.
-  selectTab: ->
-    # Restoring the bookmarked selection inside the TinyMCE of an Richtext.
-    if @link_object.node?.nodeName == 'A'
-      @$link = $(@link_object.node)
-      @link_object.selection.moveToBookmark(@link_object.bookmark)
-    # Creating an temporary anchor node if we are linking an Picture Ingredient.
-    else if @link_object.getAttribute && @link_object.getAttribute("is") == "alchemy-link-button"
-      @$link = $(@createTempLink())
-
-  # Creates a temporay 'a' element that holds all values on it.
-  createTempLink: ->
-    tmp_link = document.createElement("a")
-    tmp_link.setAttribute('href', @link_object.linkUrl)
-    tmp_link.setAttribute('title', @link_object.linkTitle)
-    tmp_link.setAttribute('data-link-target', @link_object.linkTarget)
-    tmp_link.setAttribute('target', if @link_object.target == 'blank' then '_blank' else "")
-    tmp_link.classList.add(@link_object.linkClass) if @link_object.linkClass != ''
-    tmp_link
+  setLink: (options) ->
+    trimmedUrl = options.url.trim()
+    @resolve({url: trimmedUrl, title: options.title, target: options.target, type: @link_type})
 
   # Shows validation errors
   showValidationError: ->
