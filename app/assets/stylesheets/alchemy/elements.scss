@@ -81,7 +81,7 @@ alchemy-tinymce {
   line-height: 1;
   max-width: 85%;
 
-  .hidden & {
+  .element-hidden & {
     max-width: 65%;
   }
 
@@ -117,7 +117,7 @@ alchemy-tinymce {
   padding: 0;
   margin: 0 0 0 auto;
 
-  .hidden & {
+  .element-hidden & {
     margin-left: unset;
   }
 
@@ -131,10 +131,6 @@ alchemy-tinymce {
 
   .icon {
     pointer-events: none;
-
-    &.hidden {
-      display: none;
-    }
   }
 }
 
@@ -151,7 +147,7 @@ alchemy-tinymce {
     margin-top: 0;
   }
 
-  &.hidden {
+  &.element-hidden {
     display: block;
     border-style: dashed;
     opacity: 0.7;
@@ -220,12 +216,12 @@ alchemy-tinymce {
 
   &.selected:not(.is-fixed),
   &:hover:not(.is-fixed) {
-    &:not(.hidden) {
+    &:not(.element-hidden) {
       box-shadow: 0 2px 8px rgba(#9b9b9b, 0.75);
     }
   }
 
-  &.selected:not(.is-fixed):not(.folded):not(.dirty):not(.hidden):not(
+  &.selected:not(.is-fixed):not(.folded):not(.dirty):not(.element-hidden):not(
       .deprecated
     ) {
     > .element-header {
@@ -918,10 +914,6 @@ textarea.has_tinymce {
   border-radius: $default-border-radius;
   color: $error_text_color;
   border: 1px solid $error_border_color;
-
-  &.hidden {
-    display: none;
-  }
 
   p {
     margin: 0;

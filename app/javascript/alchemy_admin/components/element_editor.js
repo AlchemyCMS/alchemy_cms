@@ -351,9 +351,9 @@ export class ElementEditor extends HTMLElement {
    */
   set published(isPublished) {
     if (isPublished) {
-      this.classList.remove("hidden")
+      this.classList.remove("element-hidden")
     } else {
-      this.classList.add("hidden")
+      this.classList.add("element-hidden")
     }
   }
 

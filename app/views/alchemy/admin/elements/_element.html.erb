@@ -2,7 +2,7 @@
   id="element_<%= element.id %>"
   data-element-id="<%= element.id %>"
   data-element-name="<%= element.name %>"
-  class="<%= element.css_classes %>"
+  class="<%= element.css_classes.join(" ") %>"
   <%= element.compact? ? "compact" : nil %>
   <%= element.fixed? ? "fixed" : nil %>
 >

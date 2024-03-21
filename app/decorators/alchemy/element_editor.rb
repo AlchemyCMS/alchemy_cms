@@ -59,8 +59,8 @@ module Alchemy
         compact? ? "compact" : nil,
         deprecated? ? "deprecated" : nil,
         fixed? ? "is-fixed" : "not-fixed",
-        public? ? "visible" : "hidden"
-      ].join(" ")
+        public? ? nil : "element-hidden"
+      ]
     end
 
     # Tells us, if we should show the element footer and form inputs.
