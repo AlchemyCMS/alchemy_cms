@@ -64,6 +64,8 @@ Alchemy::Engine.routes.draw do
       end
     end
 
+    resources :picture_descriptions, only: [:index, :edit]
+
     resources :attachments, except: [:new] do
       member do
         get :download
