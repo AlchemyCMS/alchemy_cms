@@ -52,6 +52,22 @@ RSpec.describe Alchemy::Ingredients::PictureView, type: :component do
       expect(page).to have_content("This is a cute cat")
     end
 
+    context "having html tags" do
+      let(:ingredient) do
+        stub_model Alchemy::Ingredients::Picture,
+          role: "image",
+          picture: picture,
+          data: {
+            caption: "This is a<br />cute cat"
+          }
+      end
+
+      it "should show the caption" do
+        render_view
+        expect(page).to have_content("This is acute cat")
+      end
+    end
+
     it "does not pass default options to picture url" do
       expect(ingredient).to receive(:picture_url).with({}) { picture_url }
       render_view
