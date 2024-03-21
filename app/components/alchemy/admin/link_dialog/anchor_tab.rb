@@ -30,10 +30,10 @@ module Alchemy
           options = [[Alchemy.t("Please choose"), ""]]
           options += [[@url, @url]] if is_selected? && @url
 
-          select = select_tag(:anchor_link,
-            options_for_select(options, @url),
-            is: "alchemy-select")
-          content_tag("div", label + select, class: "input select")
+          select = select_tag(:anchor_link, options_for_select(options, @url), is: "alchemy-select")
+          select_component = content_tag("alchemy-anchor-select", select, {type: "preview"})
+
+          content_tag("div", label + select_component, class: "input select")
         end
       end
     end

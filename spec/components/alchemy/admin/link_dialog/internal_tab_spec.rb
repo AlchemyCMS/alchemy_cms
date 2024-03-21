@@ -25,7 +25,7 @@ RSpec.describe Alchemy::Admin::LinkDialog::InternalTab, type: :component do
       end
 
       it "should not have the value of the hash fragment" do
-        expect(page.find(:css, "input[name=element_anchor]").value).to be_empty
+        expect(page.find(:css, "select[name=element_anchor]").value).to be_empty
       end
     end
 
@@ -37,7 +37,7 @@ RSpec.describe Alchemy::Admin::LinkDialog::InternalTab, type: :component do
       end
 
       it "should not have the value of the hash fragment" do
-        expect(page.find(:css, "input[name=element_anchor]").value).to eq(fragment)
+        expect(page.find(:css, "select[name=element_anchor]").value).to eq(fragment)
       end
     end
   end

@@ -1,3 +1,4 @@
+import "alchemy_admin/components/anchor_select"
 import "alchemy_admin/components/button"
 import "alchemy_admin/components/char_counter"
 import "alchemy_admin/components/clipboard_button"

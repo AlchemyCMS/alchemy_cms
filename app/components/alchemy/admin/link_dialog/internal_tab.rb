@@ -50,10 +50,15 @@ module Alchemy
         end
 
         def dom_id_select
+          fragment = uri.fragment if uri
           label = label_tag("element_anchor", Alchemy.t(:anchor), class: "control-label")
-          options = {id: "element_anchor", class: "alchemy_selectbox full_width", disabled: true, placeholder: Alchemy.t("Select a page first")}
-          input = text_field_tag("element_anchor", (is_selected? && uri) ? uri.fragment : "", options)
-          content_tag("div", label + input, class: "input select")
+          options = [[Alchemy.t("Please choose"), ""]]
+          options += [["##{fragment}", fragment]] if is_selected? && fragment
+
+          select = select_tag("element_anchor", options_for_select(options, fragment), is: "alchemy-select")
+          select_component = content_tag("alchemy-anchor-select", select, {page: page&.id})
+
+          content_tag("div", label + select_component, class: "input select")
         end
       end
     end
