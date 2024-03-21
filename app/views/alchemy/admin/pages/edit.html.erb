@@ -127,12 +127,11 @@
 </div>
 <% end %>
 
-<% content_for :javascripts do %>
-
 <% content_for :javascript_includes do %>
   <meta name="turbo-cache-control" content="no-cache">
 <% end %>
 
+<% content_for :javascripts do %>
 <script type="text/javascript" charset="utf-8">
   $(document).one('turbo:load', function() {
     $('#unlock_page_form, #publish_page_form').on('submit', function(event) {
