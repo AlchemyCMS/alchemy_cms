@@ -1,7 +1,11 @@
+import { translate } from "alchemy_admin/i18n"
+
 // Represents the link Dialog that appears, if a user clicks the link buttons
 // in TinyMCE or on an Ingredient that has links enabled (e.g. Picture)
 //
 export class LinkDialog extends Alchemy.Dialog {
+  #onCreateLink
+
   constructor(link) {
     const url = new URL(Alchemy.routes.link_admin_pages_path, window.location)
     const parameterMapping = {
@@ -20,7 +24,7 @@ export class LinkDialog extends Alchemy.Dialog {
 
     super(url.href, {
       size: "600x320",
-      title: "Link"
+      title: translate("Link")
     })
   }
 
@@ -30,13 +34,7 @@ export class LinkDialog extends Alchemy.Dialog {
   replace(data) {
     // let Dialog class handle the content replacement
     super.replace(data)
-    // Store some jQuery objects for further reference
-    this.$internal_link = $("#internal_link", this.dialog_body)
-    this.$element_anchor = $("#element_anchor", this.dialog_body)
-    this.linkForm = document.querySelector('[data-link-form-type="internal"]')
-
-    // attach events we handle
-    this.attachEvents()
+    this.#attachEvents()
   }
 
   /**
@@ -45,74 +43,93 @@ export class LinkDialog extends Alchemy.Dialog {
    * @returns {Promise<unknown>}
    */
   open() {
-    super.open(...arguments)
-    return new Promise((resolve) => (this.resolve = resolve))
+    super.open()
+    return new Promise((resolve) => (this.#onCreateLink = resolve))
   }
 
-  updatePage(page) {
-    this.$internal_link.val(page != null ? page.url_path : undefined)(
-      (this.linkForm.querySelector("alchemy-anchor-select").page =
-        page != null ? page.id : undefined)
-    )
-  }
-
-  // Attaches click events to forms in the link dialog.
-  attachEvents() {
+  /**
+   * Attaches click events to forms in the link dialog.
+   */
+  #attachEvents() {
     // enable the dom selection in internal link tab
-    this.linkForm.addEventListener("Alchemy.PageSelect.ItemRemoved", (e) =>
-      this.updatePage()
+    const internalForm = document.querySelector(
+      '[data-link-form-type="internal"]'
     )
-    this.linkForm.addEventListener("Alchemy.PageSelect.ItemAdded", (e) =>
-      this.updatePage(e.detail)
+    internalForm.addEventListener("Alchemy.PageSelect.ItemRemoved", (e) =>
+      this.#updatePage()
+    )
+    internalForm.addEventListener("Alchemy.PageSelect.ItemAdded", (e) =>
+      this.#updatePage(e.detail)
     )
 
-    $("[data-link-form-type]", this.dialog_body).on("submit", (e) => {
-      e.preventDefault()
-      this.link_type = e.target.dataset.linkFormType
-      // get url and remove a possible hash fragment
-      let url = $(`#${this.link_type}_link`).val().replace(/#\w+$/, "")
-      if (this.link_type === "internal" && this.$element_anchor.val() !== "") {
-        url += "#" + this.$element_anchor.val()
-      }
-
-      // Create the link
-      this.createLink({
-        url,
-        title: $(`#${this.link_type}_link_title`).val(),
-        target: $(`#${this.link_type}_link_target`).val()
+    document.querySelectorAll("[data-link-form-type]").forEach((form) => {
+      form.addEventListener("submit", (e) => {
+        e.preventDefault()
+        this.#submitForm(e.target.dataset.linkFormType)
       })
     })
   }
 
-  // Creates a link if no validation errors are present.
-  // Otherwise shows an error notice.
-  createLink(options) {
-    if (
-      this.link_type === "external" &&
-      !options.url.match(Alchemy.link_url_regexp)
-    ) {
-      this.showValidationError()
+  /**
+   * update page select and set anchor select
+   * @param page
+   */
+  #updatePage(page = null) {
+    document.getElementById("internal_link").value =
+      page != null ? page.url_path : undefined
+
+    document.querySelector(
+      '[data-link-form-type="internal"] alchemy-anchor-select'
+    ).page = page != null ? page.id : undefined
+  }
+
+  /**
+   * submit the form itself
+   * @param linkType
+   */
+  #submitForm(linkType) {
+    const elementAnchor = document.getElementById("element_anchor")
+    let url = document.getElementById(`${linkType}_link`).value
+
+    if (linkType === "internal" && elementAnchor.value !== "") {
+      // remove possible fragments on the url and attach the fragment (which contains the #)
+      url = url.replace(/#\w+$/, "") + elementAnchor.value
+    }
+
+    // Create the link
+    this.#createLink({
+      url: url.trim(),
+      title: document.getElementById(`${linkType}_link_title`).value,
+      target: document.getElementById(`${linkType}_link_target`)?.value,
+      type: linkType
+    })
+  }
+
+  /**
+   * Creates a link if no validation errors are present.
+   * Otherwise shows an error notice.
+   * @param linkOptions
+   */
+  #createLink(linkOptions) {
+    const invalidInput =
+      linkOptions.type === "external" &&
+      !linkOptions.url.match(Alchemy.link_url_regexp)
+
+    if (invalidInput) {
+      this.#showValidationError()
     } else {
-      this.setLink(options)
+      this.#onCreateLink(linkOptions)
       this.close()
     }
   }
 
-  // Sets the link either in TinyMCE or on an Ingredient.
-  setLink(options) {
-    this.resolve({
-      url: options.url.trim(),
-      title: options.title,
-      target: options.target,
-      type: this.link_type
-    })
-  }
-
-  // Shows validation errors
-  showValidationError() {
-    $("#errors ul", this.dialog_body).html(
+  /**
+   * Shows validation errors
+   */
+  #showValidationError() {
+    const errors = document.getElementById("errors")
+    errors.querySelector("ul").innerHTML =
       `<li>${Alchemy.t("url_validation_failed")}</li>`
-    )
-    return $("#errors", this.dialog_body).show()
+    errors.style.display = "block"
   }
 }
