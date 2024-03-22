@@ -38,56 +38,11 @@ module Alchemy
     end
 
     describe "#toolbar_button" do
-      context "with permission" do
-        before { allow(helper).to receive(:can?).and_return(true) }
-
-        it "renders a toolbar button" do
-          expect(
-            helper.toolbar_button(url: admin_dashboard_path)
-          ).to have_css %(sl-tooltip .icon_button[href="#{admin_dashboard_path}"])
-        end
-      end
-
-      context "without permission" do
-        before { allow(helper).to receive(:can?).and_return(false) }
-
-        it "returns empty string" do
-          expect(helper.toolbar_button(url: admin_dashboard_path)).to be_empty
-        end
-      end
-
-      context "with disabled permission check" do
-        before { allow(helper).to receive(:can?).and_return(false) }
-
-        it "returns the button" do
-          expect(
-            helper.toolbar_button(url: admin_dashboard_path, skip_permission_check: true)
-          ).to have_css %(sl-tooltip .icon_button[href="#{admin_dashboard_path}"])
-        end
-      end
-
-      context "with empty permission option" do
-        before { allow(helper).to receive(:can?).and_return(true) }
-
-        it "returns reads the permission from url" do
-          expect(helper).to receive(:permission_array_from_url)
-          expect(
-            helper.toolbar_button(url: admin_dashboard_path, if_permitted_to: "")
-          ).not_to be_empty
-        end
-      end
-
-      context "with overlay option set to false" do
-        before do
-          allow(helper).to receive(:can?).and_return(true)
-          expect(helper).to receive(:permission_array_from_url)
-        end
-
-        it "renders a normal link" do
-          button = helper.toolbar_button(url: admin_dashboard_path, overlay: false)
-          expect(button).to match(/<a.+href="#{admin_dashboard_path}"/)
-          expect(button).not_to match(/data-alchemy-overlay/)
-        end
+      it "renders alchemy toolbar button component" do
+        expect(helper).to receive(:render).with(
+          an_instance_of(Alchemy::Admin::ToolbarButton)
+        )
+        helper.toolbar_button(url: admin_dashboard_path, icon: "info", label: "Show Info")
       end
     end
 
