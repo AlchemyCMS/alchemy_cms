@@ -1,36 +1,72 @@
-<% if @fixed_elements.any? %>
-  <sl-tab-group id="fixed-elements">
-    <sl-tab slot="nav" panel="main-content-elements">
-      <%= Alchemy.t(:main_content) %>
-    </sl-tab>
-    <% @fixed_elements.each do |element| %>
-      <sl-tab slot="nav" panel="fixed-element-<%= element.id %>">
-        <%= element.display_name %>
-      </sl-tab>
+<%= turbo_frame_tag "alchemy_elements_window" do %>
+  <alchemy-elements-window>
+    <div class="elements-window-toolbar">
+      <%= toolbar_button(
+        url: alchemy.new_admin_element_path(page_version_id: @page_version.id),
+        icon: :add,
+        hotkey: "alt+n",
+        label: Alchemy.t("New Element"),
+        dialog_options: {
+          title: Alchemy.t("New Element"),
+          size: "320x125"
+        },
+        if_permitted_to: [:create, Alchemy::Element]
+      ) %>
+      <%= toolbar_button(
+        url: alchemy.admin_clipboard_path(remarkable_type: "elements"),
+        label: Alchemy.t("Show clipboard"),
+        icon: :clipboard,
+        icon_style: clipboard_empty?("elements") ? "line" : "fill",
+        dialog_options: {
+          title: Alchemy.t("Clipboard"),
+          size: "400x305"
+        },
+        link_options: {
+          id: "clipboard_button"
+        },
+        if_permitted_to: [:show, :alchemy_clipboard]
+      ) %>
+      <sl-tooltip content="<%= Alchemy.t("Collapse all elements") %>" placement="top-end" class="right">
+        <button id="collapse-all-elements-button" class="icon_button">
+          <alchemy-icon name="contract-up-down"></alchemy-icon>
+        </button>
+      </sl-tooltip>
+    </div>
+    <% if @fixed_elements.any? %>
+      <sl-tab-group id="fixed-elements">
+        <sl-tab slot="nav" panel="main-content-elements">
+          <%= Alchemy.t(:main_content) %>
+        </sl-tab>
+        <% @fixed_elements.each do |element| %>
+          <sl-tab slot="nav" panel="fixed-element-<%= element.id %>">
+            <%= element.display_name %>
+          </sl-tab>
+        <% end %>
+        <sl-tab-panel
+          name="main-content-elements"
+          class="sortable-elements scrollable-elements"
+          data-droppable-elements="<%= @page.element_definition_names.join(' ') %>"
+          data-element-name="main-content-elements"
+          id="main-content-elements"
+          style="--padding: 0"
+        >
+          <%= render @elements.map { |element| Alchemy::ElementEditor.new(element) } %>
+        </sl-tab-panel>
+        <% @fixed_elements.each do |element| %>
+          <sl-tab-panel name="fixed-element-<%= element.id %>" style="--padding: 0" class="scrollable-elements">
+            <%= render Alchemy::ElementEditor.new(element) %>
+          </sl-tab-panel>
+        <% end %>
+      </sl-tab-group>
+    <% else %>
+      <div
+        id="main-content-elements"
+        class="sortable-elements scrollable-elements"
+        data-droppable-elements="<%= @page.element_definition_names.join(' ') %>"
+        data-element-name="main-content-elements"
+      >
+        <%= render @elements.map { |element| Alchemy::ElementEditor.new(element) } %>
+      </div>
     <% end %>
-    <sl-tab-panel
-      name="main-content-elements"
-      class="sortable-elements scrollable-elements"
-      data-droppable-elements="<%= @page.element_definition_names.join(' ') %>"
-      data-element-name="main-content-elements"
-      id="main-content-elements"
-      style="--padding: 0"
-    >
-      <%= render @elements.map { |element| Alchemy::ElementEditor.new(element) } %>
-    </sl-tab-panel>
-    <% @fixed_elements.each do |element| %>
-      <sl-tab-panel name="fixed-element-<%= element.id %>" style="--padding: 0" class="scrollable-elements">
-        <%= render Alchemy::ElementEditor.new(element) %>
-      </sl-tab-panel>
-    <% end %>
-  </sl-tab-group>
-<% else %>
-  <div
-    id="main-content-elements"
-    class="sortable-elements scrollable-elements"
-    data-droppable-elements="<%= @page.element_definition_names.join(' ') %>"
-    data-element-name="main-content-elements"
-  >
-    <%= render @elements.map { |element| Alchemy::ElementEditor.new(element) } %>
-  </div>
+  </alchemy-elements-window>
 <% end %>

@@ -5,7 +5,7 @@
     </p>
   <% end %>
 
-  <button type="submit" form="element_<%= element.id %>_form" is="alchemy-button">
+  <button type="submit" form="element_<%= element.id %>_form" is="alchemy-button" data-turbo="false">
     <%= Alchemy.t(:save) %>
   </button>
 </div>

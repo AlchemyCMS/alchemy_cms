@@ -3,6 +3,7 @@
   right: 0;
   top: $top-menu-height;
   z-index: 20;
+  display: block;
   width: calc(100vw - #{$collapsed-main-menu-width});
   height: calc(100vh - #{$top-menu-height});
   border-left: $default-border;
