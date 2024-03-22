@@ -43,7 +43,7 @@ module Alchemy
 
       @picture = picture
       @options = options
-      @render_format = options[:format] || picture.default_render_format
+      @render_format = (options[:format] || picture.default_render_format).to_s
     end
 
     # Process a variant of picture

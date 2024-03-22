@@ -65,7 +65,7 @@ module Alchemy
       def caption
         return unless show_caption?
 
-        @_caption ||= content_tag(:figcaption, ingredient.caption)
+        @_caption ||= content_tag(:figcaption, ingredient.caption.html_safe)
       end
 
       def src
