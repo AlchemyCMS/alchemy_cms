@@ -1,5 +1,6 @@
 import Sortable from "sortablejs"
 import { post } from "alchemy_admin/utils/ajax"
+import { reloadPreview } from "alchemy_admin/components/preview_window"
 
 const SORTABLE_OPTIONS = {
   draggable: ".element-editor",
@@ -36,7 +37,7 @@ function onSort(event) {
     post(Alchemy.routes.order_admin_elements_path, params).then((response) => {
       const data = response.data
       Alchemy.growl(data.message)
-      Alchemy.PreviewWindow.refresh()
+      reloadPreview()
       item.updateTitle(data.preview_text)
     })
   }

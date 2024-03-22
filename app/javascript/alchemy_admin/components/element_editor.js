@@ -97,7 +97,7 @@ export class ElementEditor extends HTMLElement {
   }
 
   focusElementPreview() {
-    Alchemy.PreviewWindow.postMessage({
+    this.previewWindow?.postMessage({
       message: "Alchemy.focusElement",
       element_id: this.elementId
     })
@@ -141,7 +141,9 @@ export class ElementEditor extends HTMLElement {
       this.elementErrors.classList.remove("hidden")
     } else {
       Alchemy.growl(data.notice)
-      Alchemy.PreviewWindow.refresh(() => this.focusElementPreview())
+      this.previewWindow?.refresh().then(() => {
+        this.focusElementPreview()
+      })
       this.updateTitle(data.previewText)
       data.ingredientAnchors.forEach((anchor) => {
         IngredientAnchorLink.updateIcon(anchor.ingredientId, anchor.active)
@@ -546,6 +548,10 @@ export class ElementEditor extends HTMLElement {
    */
   get parentElementEditor() {
     return this.parentElement?.closest("alchemy-element-editor")
+  }
+
+  get previewWindow() {
+    return document.getElementById("alchemy_preview_window")
   }
 }
 

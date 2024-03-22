@@ -18,6 +18,7 @@ import Sitemap from "alchemy_admin/sitemap"
 import SortableElements from "alchemy_admin/sortable_elements"
 import Spinner from "alchemy_admin/spinner"
 import PagePublicationFields from "alchemy_admin/page_publication_fields"
+import { reloadPreview } from "alchemy_admin/components/preview_window"
 
 // Web Components
 import "alchemy_admin/components"
@@ -66,7 +67,8 @@ Object.assign(Alchemy, {
   Sitemap,
   SortableElements,
   Spinner,
-  PagePublicationFields
+  PagePublicationFields,
+  reloadPreview
 })
 
 Rails.start()

@@ -1,4 +1,5 @@
 import { patch } from "alchemy_admin/utils/ajax"
+import { reloadPreview } from "alchemy_admin/components/preview_window"
 
 export class PublishElementButton extends HTMLElement {
   constructor() {
@@ -14,7 +15,7 @@ export class PublishElementButton extends HTMLElement {
         .then((response) => {
           this.elementEditor.published = response.data.public
           this.tooltip.setAttribute("content", response.data.label)
-          Alchemy.reloadPreview()
+          reloadPreview()
         })
         .catch((error) => Alchemy.growl(error.message, "error"))
     }

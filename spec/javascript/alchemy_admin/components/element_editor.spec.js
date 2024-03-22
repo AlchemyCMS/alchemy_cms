@@ -178,8 +178,14 @@ describe("alchemy-element-editor", () => {
 
     it("focuses element in preview", () => {
       const click = new Event("click", { bubbles: true })
+      const postMessage = jest.fn()
+      jest.spyOn(editor, "previewWindow", "get").mockImplementation(() => {
+        return {
+          postMessage
+        }
+      })
       editor.dispatchEvent(click)
-      expect(Alchemy.PreviewWindow.postMessage).toHaveBeenCalledWith({
+      expect(postMessage).toHaveBeenCalledWith({
         message: "Alchemy.focusElement",
         element_id: "123"
       })

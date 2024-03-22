@@ -112,6 +112,7 @@ module Alchemy
             klass.new(routes: Alchemy::Engine.routes).url_for(@page)
           ]
         end
+        @preview_url = @preview_urls.first.last
         @layoutpage = @page.layoutpage?
       end
 

@@ -133,6 +133,13 @@
   <meta name="turbo-cache-control" content="no-cache">
 <% end %>
 
+<iframe
+  url="<%= @preview_url %>"
+  id="alchemy_preview_window"
+  is="alchemy-preview-window"
+  frameborder="0">
+</iframe>
+
 <%= turbo_frame_tag "alchemy_elements_window", src: alchemy.admin_elements_path(page_version_id: @page_version.id) do %>
   <alchemy-spinner></alchemy-spinner>
 <% end %>
@@ -147,16 +154,6 @@
     });
     Alchemy.PagePublicationFields();
     Alchemy.PageLeaveObserver();
-    Alchemy.PreviewWindow.init(<%== @preview_urls.first %>);
-
-    $('select#preview_size').on('change', function() {
-      var width = this.value;
-      if (width === 'auto') {
-        Alchemy.PreviewWindow.currentWindow.css('width', '');
-      } else {
-        Alchemy.PreviewWindow.resize(width);
-      }
-    });
   });
 
 </script>
