@@ -268,23 +268,7 @@ module Alchemy
       #   Shows the please wait dialog while loading. Only for buttons not opening an dialog.
       #
       def toolbar_button(options = {})
-        options = {
-          dialog: true,
-          skip_permission_check: false,
-          active: false,
-          link_options: {},
-          dialog_options: {},
-          loading_indicator: false
-        }.merge(options.symbolize_keys)
-        button = render(
-          "alchemy/admin/partials/toolbar_button",
-          options: options
-        )
-        if options[:skip_permission_check] || can?(*permission_from_options(options))
-          button
-        else
-          ""
-        end
+        render Alchemy::Admin::ToolbarButton.new(**options)
       end
 
       # Renders a textfield ready to display a datepicker
@@ -395,24 +379,6 @@ module Alchemy
         hint_with_tooltip(
           Alchemy.t(:page_definition_missing)
         )
-      end
-
-      private
-
-      def permission_from_options(options)
-        if options[:if_permitted_to].blank?
-          options[:if_permitted_to] = permission_array_from_url(options)
-        else
-          options[:if_permitted_to]
-        end
-      end
-
-      def permission_array_from_url(options)
-        action_controller = options[:url].gsub(/\A\//, "").split("/")
-        [
-          action_controller.last.to_sym,
-          action_controller[0..action_controller.length - 2].join("_").to_sym
-        ]
       end
     end
   end
