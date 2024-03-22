@@ -149,14 +149,6 @@
     Alchemy.PageLeaveObserver();
     Alchemy.PreviewWindow.init(<%== @preview_urls.first %>);
 
-    $('#preview_size').bind('open.selectBoxIt', function (e) {
-      $('#top_menu').css('z-index', 5000);
-    });
-
-    $('#preview_size').bind('blur.selectBoxIt', function (e) {
-      $('#top_menu').css('z-index', 30);
-    });
-
     $('select#preview_size').on('change', function() {
       var width = this.value;
       if (width === 'auto') {
