@@ -9,4 +9,3 @@
 //= require alchemy/alchemy.fixed_elements
 //= require alchemy/alchemy.image_overlay
 //= require alchemy/alchemy.link_dialog
-//= require alchemy/alchemy.preview_window

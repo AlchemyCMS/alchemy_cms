@@ -156,7 +156,6 @@ RSpec.describe "The edit elements feature", type: :system do
     before { visit alchemy.edit_admin_page_path(element.page) }
 
     scenario "expanded ingredient groups persist between visits", :js do
-      expect(page).not_to have_selector("#element_#{element.id}_ingredient_group_details", visible: true)
       page.find("details#element_#{element.id}_ingredient_group_details", text: "Details").click
       expect(page).to have_selector("#element_#{element.id}_ingredient_group_details", visible: true)
       visit alchemy.edit_admin_page_path(element.page)

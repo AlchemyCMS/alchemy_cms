@@ -55,6 +55,10 @@ class ElementsWindow extends HTMLElement {
     return document.querySelector("#element_window_button")
   }
 
+  get previewWindow() {
+    return document.getElementById("alchemy_preview_window")
+  }
+
   #attachEvents() {
     this.collapseButton?.addEventListener("click", () => {
       this.collapseAllElements()
@@ -72,7 +76,7 @@ class ElementsWindow extends HTMLElement {
         this.querySelectorAll("alchemy-element-editor").forEach((editor) => {
           editor.classList.remove("selected")
         })
-        Alchemy.PreviewWindow.postMessage({ message: "Alchemy.blurElements" })
+        this.previewWindow?.postMessage({ message: "Alchemy.blurElements" })
       }
     })
   }

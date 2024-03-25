@@ -1,6 +1,16 @@
 import "alchemy_admin/components/element_editor/publish_element_button"
 import { renderComponent } from "../component.helper"
 
+const mockReloadPreview = jest.fn()
+
+jest.mock("alchemy_admin/components/preview_window", () => {
+  return {
+    reloadPreview: () => {
+      mockReloadPreview()
+    }
+  }
+})
+
 jest.mock("alchemy_admin/utils/ajax", () => {
   return {
     __esModule: true,
@@ -63,7 +73,7 @@ describe("alchemy-publish-element-button", () => {
       return new Promise((resolve) => {
         setTimeout(() => {
           expect(button.tooltip.getAttribute("content")).toEqual("Hide element")
-          expect(Alchemy.reloadPreview).toHaveBeenCalled()
+          expect(mockReloadPreview).toHaveBeenCalled()
           resolve()
         }, 1)
       })

@@ -18,28 +18,10 @@ import Sitemap from "alchemy_admin/sitemap"
 import SortableElements from "alchemy_admin/sortable_elements"
 import Spinner from "alchemy_admin/spinner"
 import PagePublicationFields from "alchemy_admin/page_publication_fields"
+import { reloadPreview } from "alchemy_admin/components/preview_window"
 
 // Web Components
-import "alchemy_admin/components/button"
-import "alchemy_admin/components/char_counter"
-import "alchemy_admin/components/clipboard_button"
-import "alchemy_admin/components/datepicker"
-import "alchemy_admin/components/dialog_link"
-import "alchemy_admin/components/element_editor"
-import "alchemy_admin/components/elements_window"
-import "alchemy_admin/components/message"
-import "alchemy_admin/components/growl"
-import "alchemy_admin/components/icon"
-import "alchemy_admin/components/ingredient_group"
-import "alchemy_admin/components/link_buttons"
-import "alchemy_admin/components/node_select"
-import "alchemy_admin/components/uploader"
-import "alchemy_admin/components/overlay"
-import "alchemy_admin/components/page_select"
-import "alchemy_admin/components/select"
-import "alchemy_admin/components/spinner"
-import "alchemy_admin/components/tags_autocomplete"
-import "alchemy_admin/components/tinymce"
+import "alchemy_admin/components"
 
 import { setDefaultAnimation } from "shoelace"
 
@@ -85,7 +67,8 @@ Object.assign(Alchemy, {
   Sitemap,
   SortableElements,
   Spinner,
-  PagePublicationFields
+  PagePublicationFields,
+  reloadPreview
 })
 
 Rails.start()
