@@ -50,13 +50,13 @@ module Alchemy
         end
 
         def dom_id_select
-          fragment = uri.fragment if uri
+          fragment = "##{uri.fragment}" if uri&.fragment
           label = label_tag("element_anchor", Alchemy.t(:anchor), class: "control-label")
-          options = [[Alchemy.t("Please choose"), ""]]
-          options += [["##{fragment}", fragment]] if is_selected? && fragment
+          options = [[page.nil? ? Alchemy.t("Select a page first") : Alchemy.t("None"), ""]]
+          options += [[fragment, fragment]] if is_selected? && fragment
 
-          select = select_tag("element_anchor", options_for_select(options, fragment), is: "alchemy-select")
-          select_component = content_tag("alchemy-anchor-select", select, {page: page&.id})
+          select = select_tag("element_anchor", options_for_select(options, fragment), is: "alchemy-select", disabled: page.nil?)
+          select_component = content_tag("alchemy-dom-id-api-select", select, {page: page&.id})
 
           content_tag("div", label + select_component, class: "input select")
         end

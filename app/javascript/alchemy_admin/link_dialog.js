@@ -75,12 +75,13 @@ export class LinkDialog extends Alchemy.Dialog {
    * @param page
    */
   #updatePage(page = null) {
-    document.getElementById("internal_link").value =
-      page != null ? page.url_path : undefined
+    const internalLink = document.getElementById("internal_link")
+    const domIdSelect = document.querySelector(
+      '[data-link-form-type="internal"] alchemy-dom-id-api-select'
+    )
 
-    document.querySelector(
-      '[data-link-form-type="internal"] alchemy-anchor-select'
-    ).page = page != null ? page.id : undefined
+    internalLink.value = page != null ? page.url_path : undefined
+    domIdSelect.page = page != null ? page.id : undefined
   }
 
   /**
@@ -94,33 +95,20 @@ export class LinkDialog extends Alchemy.Dialog {
     if (linkType === "internal" && elementAnchor.value !== "") {
       // remove possible fragments on the url and attach the fragment (which contains the #)
       url = url.replace(/#\w+$/, "") + elementAnchor.value
+    } else if (linkType === "external" && !url.match(Alchemy.link_url_regexp)) {
+      // show validation error and prevent link creation
+      this.#showValidationError()
+      return
     }
 
     // Create the link
-    this.#createLink({
+    this.#onCreateLink({
       url: url.trim(),
       title: document.getElementById(`${linkType}_link_title`).value,
       target: document.getElementById(`${linkType}_link_target`)?.value,
       type: linkType
     })
-  }
-
-  /**
-   * Creates a link if no validation errors are present.
-   * Otherwise shows an error notice.
-   * @param linkOptions
-   */
-  #createLink(linkOptions) {
-    const invalidInput =
-      linkOptions.type === "external" &&
-      !linkOptions.url.match(Alchemy.link_url_regexp)
-
-    if (invalidInput) {
-      this.#showValidationError()
-    } else {
-      this.#onCreateLink(linkOptions)
-      this.close()
-    }
+    this.close()
   }
 
   /**

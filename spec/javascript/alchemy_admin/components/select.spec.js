@@ -40,12 +40,15 @@ describe("alchemy-select", () => {
     })
   })
 
-  describe("data", () => {
+  describe("setOptions", () => {
     it("adds the new entry and replace the old ones", () => {
-      component.data = [
-        { id: "foo", text: "bar" },
-        { id: "bar", text: "last" }
-      ]
+      component.setOptions(
+        [
+          { id: "foo", text: "bar" },
+          { id: "bar", text: "last" }
+        ],
+        "Please Select"
+      )
 
       expect(component.options.length).toEqual(3)
       expect(component.options[0].text).toEqual("Please Select")
@@ -53,11 +56,22 @@ describe("alchemy-select", () => {
       expect(component.options[2].text).toEqual("last")
     })
 
+    it("does not add a prompt, if no prompt value is given", () => {
+      component.setOptions([
+        { id: "foo", text: "bar" },
+        { id: "bar", text: "last" }
+      ])
+
+      expect(component.options.length).toEqual(2)
+      expect(component.options[0].text).toEqual("bar")
+      expect(component.options[1].text).toEqual("last")
+    })
+
     it("resets without any options", () => {
       const html = `<select is="alchemy-select"></select>`
 
       component = renderComponent("alchemy-select", html)
-      component.data = [{ id: "foo", text: "bar" }]
+      component.setOptions([{ id: "foo", text: "bar" }])
 
       expect(component.options.length).toEqual(1)
       expect(component.options[0].text).toEqual("bar")
@@ -73,15 +87,37 @@ describe("alchemy-select", () => {
       `
 
       component = renderComponent("alchemy-select", html)
-      component.data = [
+      component.setOptions([
         { id: "foo", text: "bar" },
         { id: "2", text: "Second" }
-      ]
+      ])
 
       expect(component.options.length).toEqual(2)
       expect(component.options[0].text).toEqual("bar")
       expect(component.options[1].text).toEqual("Second")
       expect(component.options[1].selected).toBeTruthy()
+    })
+  })
+
+  describe("enable", () => {
+    it("removes the disabled attribute", () => {
+      const html = `<select is="alchemy-select" disabled="disabled"></select>`
+
+      component = renderComponent("alchemy-select", html)
+      component.enable()
+
+      expect(component.hasAttribute("disabled")).toBeFalsy()
+    })
+  })
+
+  describe("disable", () => {
+    it("adds the disabled attribute", () => {
+      const html = `<select is="alchemy-select"></select>`
+
+      component = renderComponent("alchemy-select", html)
+      component.disable()
+
+      expect(component.hasAttribute("disabled")).toBeTruthy()
     })
   })
 })

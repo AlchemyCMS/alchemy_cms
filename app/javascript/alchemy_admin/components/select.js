@@ -1,5 +1,5 @@
 class Select extends HTMLSelectElement {
-  #select2Element = undefined
+  #select2Element
 
   connectedCallback() {
     this.classList.add("alchemy_selectbox")
@@ -10,25 +10,37 @@ class Select extends HTMLSelectElement {
     })
   }
 
-  set data(data) {
-    let selected = this.value
-    // remove all previous entries except the default please select entry which has no value or is selected
-    const emptyOption =
-      this.options[0]?.value === ""
-        ? this.options[0].cloneNode(true)
-        : undefined
+  enable() {
+    this.removeAttribute("disabled")
+    this.#updateSelect2()
+  }
 
+  disable() {
+    this.setAttribute("disabled", "disabled")
+    this.#updateSelect2()
+  }
+
+  setOptions(data, prompt = undefined) {
+    let selectedValue = this.value
+
+    // reset the old options and insert the placeholder(s) first
     this.innerHTML = ""
-    if (emptyOption) {
-      this.add(emptyOption)
+    if (prompt) {
+      this.add(new Option(prompt, ""))
     }
+
     // add the new options to the select
     data.forEach((item) => {
-      const option = new Option(item.text, item.id, false, item.id === selected)
-      this.add(option)
+      this.add(new Option(item.text, item.id, false, item.id === selectedValue))
     })
 
-    // inform Select2 to update
+    this.#updateSelect2()
+  }
+
+  /**
+   * inform Select2 to update
+   */
+  #updateSelect2() {
     this.#select2Element.trigger("change")
   }
 }

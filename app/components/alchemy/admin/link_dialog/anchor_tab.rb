@@ -14,7 +14,7 @@ module Alchemy
 
         def fields
           [
-            anchor_select,
+            dom_id_select,
             title_input
           ]
         end
@@ -25,13 +25,13 @@ module Alchemy
 
         private
 
-        def anchor_select
+        def dom_id_select
           label = label_tag("anchor_link", Alchemy.t(:anchor), class: "control-label")
-          options = [[Alchemy.t("Please choose"), ""]]
+          options = [[Alchemy.t("None"), ""]]
           options += [[@url, @url]] if is_selected? && @url
 
           select = select_tag(:anchor_link, options_for_select(options, @url), is: "alchemy-select")
-          select_component = content_tag("alchemy-anchor-select", select, {type: "preview"})
+          select_component = content_tag("alchemy-dom-id-preview-select", select)
 
           content_tag("div", label + select_component, class: "input select")
         end
