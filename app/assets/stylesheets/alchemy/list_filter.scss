@@ -1,6 +1,6 @@
-.js_filter_field_box {
+alchemy-list-filter {
+  display: flex;
   position: relative;
-  margin: $form-field-margin;
 
   > alchemy-icon {
     position: absolute;
@@ -15,7 +15,7 @@
     padding-right: 24px;
     margin: 0;
 
-    .input & {
+    form .input & {
       float: none;
       width: 100%;
     }
