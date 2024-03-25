@@ -2,6 +2,8 @@
 
 <% content_for(:main_menu_style) { 'collapsed-menu' } %>
 
+<% content_for(:alchemy_body_class) { 'elements-window-visible' } %>
+
 <% content_for(:toolbar) do %>
 <div class="toolbar_buttons">
   <div class="toolbar_button">
@@ -127,12 +129,15 @@
 </div>
 <% end %>
 
-<% content_for :javascripts do %>
-
 <% content_for :javascript_includes do %>
   <meta name="turbo-cache-control" content="no-cache">
 <% end %>
 
+<%= turbo_frame_tag "alchemy_elements_window", src: alchemy.admin_elements_path(page_version_id: @page_version.id) do %>
+  <alchemy-spinner></alchemy-spinner>
+<% end %>
+
+<% content_for :javascripts do %>
 <script type="text/javascript" charset="utf-8">
   $(document).one('turbo:load', function() {
     $('#unlock_page_form, #publish_page_form').on('submit', function(event) {
@@ -142,48 +147,6 @@
     });
     Alchemy.PagePublicationFields();
     Alchemy.PageLeaveObserver();
-    Alchemy.ElementsWindow.init('<%= alchemy.admin_elements_path(page_version_id: @page_version.id) %>', {
-      texts: {
-        title: '<%= Alchemy.t("Elements") %>',
-        dirtyTitle: '<%= Alchemy.t("Warning!") %>',
-        dirtyMessage: '<%= Alchemy.t(:element_dirty_close_window_notice) %>',
-        ok_label: '<%= Alchemy.t("Yes") %>',
-        cancel_label: '<%= Alchemy.t("No") %>',
-        hideElements: '<%= Alchemy.t(:hide_elements) %>',
-        showElements: '<%= Alchemy.t(:show_elements) %>'
-      },
-      toolbarButtons: [
-        {
-          label: '<%= Alchemy.t("New Element") %>',
-          hotkey: 'alt+n',
-          iconClass: 'add',
-          align: 'start',
-          onClick: function() {
-            Alchemy.openDialog('<%= alchemy.new_admin_element_path(page_version_id: @page_version.id) %>', {
-              title: '<%= Alchemy.t("New Element") %>',
-              size: '320x125'
-            });
-          }
-        },
-        {
-          label: '<%= Alchemy.t("Show clipboard") %>',
-          iconClass: 'clipboard',
-          iconStyle: '<%= clipboard_empty?("elements") ? "line" : "fill" %>',
-          buttonId: 'clipboard_button',
-          onClick: function() {
-            Alchemy.openDialog('<%= alchemy.admin_clipboard_path(remarkable_type: "elements") %>', {
-              title :'<%= Alchemy.t("Clipboard") %>',
-              size: '400x305'
-            });
-          }
-        }
-      ]
-    }, function() {
-      if (window.location.hash) {
-        $(window.location.hash).trigger('FocusElementEditor.Alchemy');
-      }
-    });
-
     Alchemy.PreviewWindow.init(<%== @preview_urls.first %>);
 
     $('#preview_size').bind('open.selectBoxIt', function (e) {

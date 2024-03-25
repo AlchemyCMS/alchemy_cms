@@ -8,7 +8,7 @@
       <%= f.hidden_field :name %>
       <%= f.hidden_field :page_version_id, value: element.page_version_id %>
       <%= f.hidden_field :parent_element_id, value: element.id %>
-      <button class="add-nestable-element-button" is="alchemy-button">
+      <button class="add-nestable-element-button" is="alchemy-button" data-turbo="false">
         <%= Alchemy.t(:add_nested_element, name: Alchemy.t(nestable_element.to_sym, scope: 'element_names')) %>
       </button>
     <% end %>

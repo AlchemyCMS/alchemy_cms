@@ -23,7 +23,8 @@
       render_icon('delete-bin-2'),
       Alchemy.t(:confirm_to_delete_element),
       alchemy.admin_element_path(element),
-      class: "icon_button"
+      class: "icon_button",
+      data: {turbo: false}
     ) -%>
   </sl-tooltip>
   <sl-tooltip content="<%= element.public? ? Alchemy.t(:hide_element) : Alchemy.t(:show_element) %>" placement="top-end">
