@@ -46,10 +46,6 @@
   textarea {
     width: 100%;
   }
-
-  > .message {
-    margin: 2 * $default-margin;
-  }
 }
 
 alchemy-tinymce {
@@ -236,7 +232,7 @@ alchemy-tinymce {
     .element-body,
     .element-footer,
     .nestable-elements,
-    .message,
+    alchemy-message,
     .nested-elements {
       display: none;
     }
@@ -355,7 +351,7 @@ alchemy-tinymce {
     text-align: left;
   }
 
-  .message {
+  alchemy-message {
     margin: 2 * $default-margin;
   }
 
@@ -784,7 +780,7 @@ select.long {
   }
 
   &.missing {
-    .message {
+    alchemy-message {
       margin: 0;
       @include clearfix;
     }
