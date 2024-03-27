@@ -18,21 +18,10 @@
     <%= @error.class %>
     <%= @notice %>
   </h2>
-  <p class="hidden">
-  <% @trace.each do |line| %>
-    <%= line %><br>
-  <% end %>
-  </p>
-  <a href="#" class="error_details--toggle">
-    <%= Alchemy.t('Show error details') %>
-  </a>
+  <details>
+    <summary><%= Alchemy.t('Show error details') %></summary>
+    <% @trace.each do |line| %>
+      <%= line %><br>
+    <% end %>
+  </details>
 <% end %>
-
-<script>
-  $(function(){
-    $('.error_details--toggle').on("click", function(){
-      $('.error.message p').toggleClass('hidden');
-      return false;
-    });
-  });
-</script>
