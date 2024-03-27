@@ -1,5 +1,4 @@
-ul,
-ol {
+ul, ol {
   padding-left: 16px;
   margin-top: 1em;
   margin-bottom: 1em;
@@ -16,15 +15,15 @@ ul.list {
 
   li {
     list-style-type: none;
-    display: flex;
+    display: block;
     margin-bottom: 0;
 
     &.list-header {
       overflow: hidden;
       background-color: transparent;
       font-weight: bold;
-      padding: $default-padding 2 * $default-padding;
-      margin-bottom: 2 * $default-margin;
+      padding: $default-padding 2*$default-padding;
+      margin-bottom: 2*$default-margin;
 
       .list-secondary {
         color: $text-color;
@@ -49,12 +48,12 @@ ul.list {
   }
 
   .list-primary {
+    float: left;
     max-width: 65%;
   }
 
-  .list-secondary,
-  .right {
-    margin-left: auto;
+  .list-secondary, .right {
+    float: right;
     text-align: left;
     width: 30%;
     color: $dark-gray;
