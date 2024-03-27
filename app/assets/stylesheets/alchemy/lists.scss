@@ -41,7 +41,7 @@ ul.list {
 
   .list-primary,
   .list-secondary {
-    display: inline-block;
+    display: inline-flex;
     overflow: hidden;
     text-overflow: ellipsis;
     vertical-align: middle;

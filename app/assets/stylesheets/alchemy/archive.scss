@@ -322,14 +322,15 @@ div#filter_bar {
 
     a {
       @extend %text-overflow;
-      display: block;
+      display: flex;
+      justify-content: space-between;
       line-height: 25px;
       text-decoration: none;
       padding: $default-padding 2 * $default-padding;
     }
 
     alchemy-icon {
-      margin-right: 4px;
+      margin-right: 2 * $default-margin;
       vertical-align: bottom;
     }
   }
