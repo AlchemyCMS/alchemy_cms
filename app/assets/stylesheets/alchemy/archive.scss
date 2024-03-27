@@ -307,7 +307,7 @@ div#filter_bar {
 
 #overlay_file_list {
   .assign_file_file {
-    display: flex;
+    display: block;
     margin-bottom: 4px;
     word-break: break-all;
 
@@ -322,8 +322,7 @@ div#filter_bar {
 
     a {
       @extend %text-overflow;
-      display: flex;
-      width: 100%;
+      display: block;
       line-height: 25px;
       text-decoration: none;
       padding: $default-padding 2 * $default-padding;
