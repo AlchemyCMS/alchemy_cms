@@ -107,16 +107,8 @@ module Alchemy
       # @option options [String or Hash] :data ({'alchemy-list-filter' => items})
       #   A HTML data attribute that holds the jQuery selector that represents the list to be filtered
       #
-      def js_filter_field(items, options = {})
-        options = {
-          class: "js_filter_field",
-          data: {"alchemy-list-filter" => items}
-        }.merge(options)
-        content_tag(:div, class: "js_filter_field_box") do
-          concat text_field_tag(nil, nil, options)
-          concat render_icon(:search)
-          concat link_to(render_icon(:times, size: "1x"), "", class: "js_filter_field_clear", title: Alchemy.t(:click_to_show_all))
-        end
+      def js_filter_field(items, _options = {})
+        render Alchemy::Admin::ListFilter.new(items)
       end
 
       # Returns a link that opens a modal confirmation to delete window.

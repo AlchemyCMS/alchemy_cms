@@ -7,7 +7,7 @@
     max-height: 316px;
   }
 
-  .js_filter_field_box {
+  alchemy-list-filter {
     margin: 0;
 
     input {
@@ -96,7 +96,7 @@
 }
 
 #tags_tag_list {
-  .js_filter_field_box {
+  alchemy-list-filter {
     margin-top: 0;
   }
 
