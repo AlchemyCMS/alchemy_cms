@@ -54,7 +54,7 @@ end
 # Necessary until https://github.com/mikel/mail/pull/1439
 # got merged and released.
 if Gem.ruby_version >= Gem::Version.new("3.1.0")
-  gem "net-smtp", "~> 0.4.0", require: false
+  gem "net-smtp", "~> 0.5.0", require: false
 end
 
 gem "web-console", "~> 4.2", group: :development
