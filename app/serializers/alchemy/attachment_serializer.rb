@@ -7,6 +7,7 @@ module Alchemy
       :file_name,
       :file_mime_type,
       :file_size,
+      :icon_css_class,
       :tag_list,
       :created_at,
       :updated_at

@@ -115,6 +115,7 @@ Alchemy::Engine.routes.draw do
   resources :elements, only: :show
 
   namespace :api, defaults: {format: "json"} do
+    resources :attachments, only: [:index]
     resources :ingredients, only: [:index]
 
     resources :elements, only: [:index, :show]

@@ -28,18 +28,10 @@ module Alchemy
 
         private
 
-        def attachments
-          @_attachments ||= Attachment.all.collect { |f|
-            [f.name, alchemy.download_attachment_path(id: f.id, name: f.slug)]
-          }
-        end
-
         def attachment_select
           label = label_tag("file_link", Alchemy.t(:file), class: "control-label")
-          select = select_tag "file_link",
-            options_for_select(attachments),
-            prompt: Alchemy.t("Please choose"),
-            is: "alchemy-select"
+          input = text_field_tag("file_link", "", id: "file_link")
+          select = render Alchemy::Admin::AttachmentSelect.new.with_content(input)
           content_tag("div", label + select, class: "input select")
         end
       end
