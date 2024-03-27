@@ -6,7 +6,7 @@
         <%= page_layout_missing_warning %>
       {{else}}
         {{#if permissions.edit_content}}
-          <span class="{{#unless root}}handle{{/unless}}">
+          <span class="page-icon {{#unless root}}handle{{/unless}}">
             {{#if locked}}
               <sl-tooltip content="{{locked_notice}}" class="like-hint-tooltip" placement="bottom-start">
                 <alchemy-icon name="file-edit" size="xl"></alchemy-icon>

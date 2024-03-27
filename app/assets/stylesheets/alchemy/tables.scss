@@ -75,10 +75,10 @@ td.heading {
   text-decoration: underline;
 }
 
-.list .tools .icon,
-.list td.icon .icon {
+.list .tools alchemy-icon,
+.list td.icon alchemy-icon {
   @extend .disable-user-select;
-  margin: 0 $default-margin;
+  margin: 2px 0;
 }
 
 .list tr:hover td {
