@@ -127,11 +127,13 @@
 }
 
 .nodes_tree-left_images {
+  justify-content: center;
+  display: flex;
+  align-items: center;
   position: relative;
   width: 32px;
   height: $sitemap-line-height;
   padding: 0 2 * $default-padding;
-  text-align: center;
 }
 
 .nodes_tree-right_tools {
