@@ -18,7 +18,7 @@ module Alchemy
       private
 
       def link_target
-        (ingredient.link_target == "blank") ? "_blank" : nil
+        ingredient.link_target.present? ? "_#{ingredient.link_target}" : nil
       end
     end
   end

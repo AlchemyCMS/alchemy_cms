@@ -8,13 +8,13 @@ module Alchemy
           Alchemy.t("link_overlay_tab_label.anchor")
         end
 
-        def name
+        def self.panel_name
           :anchor
         end
 
         def fields
           [
-            anchor_select,
+            dom_id_select,
             title_input
           ]
         end
@@ -25,12 +25,15 @@ module Alchemy
 
         private
 
-        def anchor_select
+        def dom_id_select
           label = label_tag("anchor_link", Alchemy.t(:anchor), class: "control-label")
-          select = select_tag(:anchor_link,
-            options_for_select([[Alchemy.t("Please choose"), ""]]),
-            is: "alchemy-select")
-          content_tag("div", label + select, class: "input select")
+          options = [[Alchemy.t("None"), ""]]
+          options += [[@url, @url]] if is_selected? && @url
+
+          select = select_tag(:anchor_link, options_for_select(options, @url), is: "alchemy-select")
+          select_component = content_tag("alchemy-dom-id-preview-select", select)
+
+          content_tag("div", label + select_component, class: "input select")
         end
       end
     end

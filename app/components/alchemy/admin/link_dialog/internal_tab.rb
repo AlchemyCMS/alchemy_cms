@@ -8,7 +8,7 @@ module Alchemy
           Alchemy.t("link_overlay_tab_label.internal")
         end
 
-        def name
+        def self.panel_name
           :internal
         end
 
@@ -29,17 +29,36 @@ module Alchemy
 
         private
 
+        ##
+        # transform url into a URI object
+        #
+        # encode the uri and parse it again to prevent exceptions if the Url is in the wrong format
+        # @return [URI,nil]
+        def uri
+          @_uri ||= @url ? URI(@url.strip) : nil
+        end
+
+        def page
+          @_page ||= uri ? Alchemy::Page.find_by(urlname: uri.path[1..]) : nil
+        end
+
         def page_select
           label = label_tag("internal_link", Alchemy.t(:page), class: "control-label")
-          input = text_field_tag("internal_link", "", id: "internal_link", class: "alchemy_selectbox full_width")
-          content_tag("div", label + input, class: "input select")
+          input = text_field_tag("internal_link", is_selected? ? uri : "", id: "internal_link")
+          page_select = render Alchemy::Admin::PageSelect.new(page, allow_clear: true).with_content(input)
+          content_tag("div", label + page_select, class: "input select")
         end
 
         def dom_id_select
+          fragment = "##{uri.fragment}" if uri&.fragment
           label = label_tag("element_anchor", Alchemy.t(:anchor), class: "control-label")
-          options = {id: "element_anchor", class: "alchemy_selectbox full_width", disabled: true, placeholder: Alchemy.t("Select a page first")}
-          input = text_field_tag("element_anchor", nil, options)
-          content_tag("div", label + input, class: "input select")
+          options = [[page.nil? ? Alchemy.t("Select a page first") : Alchemy.t("None"), ""]]
+          options += [[fragment, fragment]] if is_selected? && fragment
+
+          select = select_tag("element_anchor", options_for_select(options, fragment), is: "alchemy-select", disabled: page.nil?)
+          select_component = content_tag("alchemy-dom-id-api-select", select, {page: page&.id})
+
+          content_tag("div", label + select_component, class: "input select")
         end
       end
     end

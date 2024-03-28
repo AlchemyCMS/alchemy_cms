@@ -8,4 +8,3 @@
 //= require alchemy/alchemy.confirm_dialog
 //= require alchemy/alchemy.fixed_elements
 //= require alchemy/alchemy.image_overlay
-//= require alchemy/alchemy.link_dialog

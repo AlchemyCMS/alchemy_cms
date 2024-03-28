@@ -9,17 +9,22 @@ class LinkButton extends HTMLButtonElement {
   }
 
   handleEvent(event) {
-    const dialog = new Alchemy.LinkDialog(this)
-    dialog.open()
+    const dialog = new Alchemy.LinkDialog({
+      url: this.linkUrl,
+      title: this.linkTitle,
+      target: this.linkTarget,
+      type: this.linkClass
+    })
+    dialog.open().then((link) => this.setLink(link))
     event.preventDefault()
   }
 
-  setLink(url, title, target, type) {
+  setLink(link) {
     this.classList.add("linked")
     this.dispatchEvent(
       new CustomEvent("alchemy:link", {
         bubbles: true,
-        detail: { url, title, target, type }
+        detail: link
       })
     )
   }

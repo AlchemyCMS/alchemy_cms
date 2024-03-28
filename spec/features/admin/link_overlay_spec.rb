@@ -7,7 +7,7 @@ class TestTab < Alchemy::Admin::LinkDialog::BaseTab
     "Test Tab"
   end
 
-  def name
+  def self.panel_name
     :test_tab
   end
 

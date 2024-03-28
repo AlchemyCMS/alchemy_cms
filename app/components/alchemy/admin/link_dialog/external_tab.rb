@@ -8,7 +8,7 @@ module Alchemy
           Alchemy.t("link_overlay_tab_label.external")
         end
 
-        def name
+        def self.panel_name
           :external
         end
 
@@ -33,7 +33,7 @@ module Alchemy
 
         def url_input
           label = label_tag("external_link", "URL", class: "control-label")
-          input = text_field_tag "external_link", ""
+          input = text_field_tag "external_link", is_selected? ? @url : ""
           content_tag("div", label + input, class: "input text")
         end
       end
