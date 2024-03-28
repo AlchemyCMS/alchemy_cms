@@ -49,7 +49,7 @@ module Alchemy
       end
 
       context "with content"
-      let(:link_target) { "blank" }
+      let(:link_target) { "_blank" }
 
       it "should have a pre-filled value" do
         expect(page.find(:css, "select[name=#{name}_link_target]").value).to eq(link_target)

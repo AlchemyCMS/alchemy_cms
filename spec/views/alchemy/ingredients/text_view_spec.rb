@@ -39,7 +39,7 @@ describe "alchemy/ingredients/_text_view" do
         data: {
           link: "http://google.com",
           link_title: "Foo",
-          link_target: "blank"
+          link_target: "_blank"
         }
       )
     end
@@ -47,13 +47,13 @@ describe "alchemy/ingredients/_text_view" do
     it "renders the linked value" do
       render ingredient
       expect(rendered).to have_content("Hello World")
-      expect(rendered).to have_selector('a[title="Foo"][target="_blank"][data-link-target="blank"][href="http://google.com"]')
+      expect(rendered).to have_selector('a[title="Foo"][target="_blank"][href="http://google.com"]')
     end
 
     context "with html_options given" do
       it "renders the linked with these options" do
         render ingredient, html_options: {title: "Bar", class: "blue"}
-        expect(rendered).to have_selector('a.blue[title="Bar"][target="_blank"][data-link-target="blank"]')
+        expect(rendered).to have_selector('a.blue[title="Bar"][target="_blank"]')
       end
     end
 

@@ -21,8 +21,7 @@ module Alchemy
           link_to(value, url_for(link), {
             id: dom_id.presence,
             title: link_title,
-            target: ((link_target == "blank") ? "_blank" : nil),
-            data: {link_target: link_target}
+            target: link_target
           }.merge(html_options))
         end.html_safe
       end

@@ -271,8 +271,10 @@ module Alchemy
         options = [[Alchemy.t(:default, scope: "link_target_options"), ""]]
         link_target_options = Config.get(:link_target_options)
         link_target_options.each do |option|
+          # add an underscore to the options to provide the default syntax
+          # @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#target
           options << [Alchemy.t(option, scope: "link_target_options",
-            default: option.to_s.humanize), option]
+            default: option.to_s.humanize), "_#{option}"]
         end
         options
       end
