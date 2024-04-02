@@ -153,7 +153,7 @@ RSpec.describe "Link overlay", type: :system do
 
       within "[name='overlay_tab_file_link']" do
         expect(page).to have_selector("#file_link")
-        select2(file.name, from: "File")
+        select2_search(file.name, from: "File")
         click_button "apply"
       end
 
@@ -167,7 +167,7 @@ RSpec.describe "Link overlay", type: :system do
 
       expect(page).to have_css("iframe#alchemy_preview_window", wait: 5)
       within_frame "alchemy_preview_window" do
-        expect(page).to have_link("Link me", href: "/attachment/#{file.id}/download/#{file.name}")
+        expect(page).to have_link("Link me", href: "/attachment/#{file.id}/download/#{file.file_name}")
       end
     end
   end

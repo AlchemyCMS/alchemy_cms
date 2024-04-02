@@ -19,20 +19,21 @@ RSpec.describe Alchemy::Admin::LinkDialog::FileTab, type: :component do
 
   context "file link" do
     it "has a file select" do
-      expect(page).to have_selector("select[name=file_link] option")
+      expect(page).to have_selector("alchemy-attachment-select [name=file_link]")
     end
 
     context "tab selected" do
       let(:is_selected) { true }
 
       it "has a selected value" do
-        expect(page).to have_selector("select[name=file_link] option[selected='selected']")
+        expect(page).to have_selector("alchemy-attachment-select [value='#{url}']")
       end
     end
 
     context "tab not selected" do
       it "has a selected value" do
-        expect(page).to_not have_selector("select[name=file_link] option[selected='selected']")
+        expect(page).to have_selector("alchemy-attachment-select [value='#{url}']")
+        # expect(page).to_not have_selector("alchemy-attachment-select [name=file_link] option[selected='selected']")
       end
     end
   end

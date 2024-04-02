@@ -55,9 +55,17 @@ export class LinkDialog extends Alchemy.Dialog {
     const internalForm = document.querySelector(
       '[data-link-form-type="internal"]'
     )
+    const attachmentSelect = document.querySelector(
+      '[data-link-form-type="file"] alchemy-attachment-select'
+    )
 
     internalForm.addEventListener("Alchemy.RemoteSelect.Change", (e) => {
       this.#updatePage(e.detail.added)
+    })
+
+    attachmentSelect.addEventListener("Alchemy.RemoteSelect.Change", (e) => {
+      const attachment = e.detail.added
+      document.getElementById("file_link").value = attachment.url
     })
 
     document.querySelectorAll("[data-link-form-type]").forEach((form) => {
