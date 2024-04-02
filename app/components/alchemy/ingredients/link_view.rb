@@ -12,13 +12,7 @@ module Alchemy
       end
 
       def call
-        link_to(link_text, value, {target: link_target}.merge(html_options)).html_safe
-      end
-
-      private
-
-      def link_target
-        (ingredient.link_target == "blank") ? "_blank" : nil
+        link_to(link_text, value, {target: ingredient.link_target.presence}.merge(html_options)).html_safe
       end
     end
   end

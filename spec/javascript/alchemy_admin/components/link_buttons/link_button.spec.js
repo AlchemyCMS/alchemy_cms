@@ -2,7 +2,9 @@ import "alchemy_admin/components/link_buttons/link_button"
 import { renderComponent } from "../component.helper"
 
 beforeEach(() => {
-  Alchemy.LinkDialog = jest.fn(() => ({ open: jest.fn() }))
+  Alchemy.LinkDialog = jest.fn(() => ({
+    open: jest.fn(() => Promise.resolve({ data: {} }))
+  }))
 })
 
 describe("alchemy-link-button", () => {
@@ -45,8 +47,18 @@ describe("alchemy-link-button", () => {
     const button = renderComponent("alchemy-link-button", html)
     const click = new Event("click", { bubbles: true })
 
+    button.linkButtons.linkUrlField = { value: "http://example.com" }
+    button.linkButtons.linkTitleField = { value: "Example" }
+    button.linkButtons.linkTargetField = { value: "_blank" }
+    button.linkButtons.linkClassField = { value: "external" }
+
     button.dispatchEvent(click)
-    expect(Alchemy.LinkDialog).toHaveBeenCalledWith(button)
+    expect(Alchemy.LinkDialog).toHaveBeenCalledWith({
+      url: "http://example.com",
+      title: "Example",
+      target: "_blank",
+      type: "external"
+    })
   })
 
   describe("setLink", () => {
@@ -81,7 +93,12 @@ describe("alchemy-link-button", () => {
             })
             resolve()
           })
-        button.setLink("http://example.com", "Example", "_blank", "external")
+        button.setLink({
+          url: "http://example.com",
+          title: "Example",
+          target: "_blank",
+          type: "external"
+        })
       })
     })
   })

@@ -9,6 +9,10 @@ class PageSelect extends RemoteSelect {
     }
   }
 
+  get pageId() {
+    return this.selection ? JSON.parse(this.selection)["id"] : undefined
+  }
+
   _searchQuery(term, page) {
     return {
       q: {

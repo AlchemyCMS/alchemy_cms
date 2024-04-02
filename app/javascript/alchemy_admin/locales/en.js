@@ -21,6 +21,9 @@ export const en = {
   "Uploaded bytes exceed file size": "Uploaded bytes exceed file size",
   "Abort upload": "Abort upload",
   "Cancel all uploads": "Cancel all uploads",
+  None: "None",
+  "No anchors found": "No anchors found",
+  "Select a page first": "Select a page first",
   Close: "Close",
   formats: {
     datetime: "Y-m-d H:i",
