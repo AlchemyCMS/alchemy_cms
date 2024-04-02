@@ -18,7 +18,7 @@ function selectHandler(selectId, parameterName, forcedReload = false) {
   })
 }
 
-function Initialize() {
+export default function Initializer() {
   // We obviously have javascript enabled.
   $("html").removeClass("no-js")
 
@@ -56,5 +56,3 @@ function Initialize() {
     )
   }
 }
-
-export default Initialize

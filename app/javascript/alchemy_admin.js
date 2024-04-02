@@ -59,7 +59,6 @@ Object.assign(Alchemy, {
   growl,
   ImageLoader: ImageLoader.init,
   ImageCropper,
-  Initializer,
   IngredientAnchorLink,
   LinkDialog,
   pictureSelector,
