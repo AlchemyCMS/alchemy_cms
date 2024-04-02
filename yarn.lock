@@ -1457,10 +1457,10 @@
   resolved "https://registry.yarnpkg.com/@shoelace-style/localize/-/localize-3.1.2.tgz#2c63f16d8aa80842dbe5127845c76ed53f6a5e8e"
   integrity sha512-Hf45HeO+vdQblabpyZOTxJ4ZeZsmIUYXXPmoYrrR4OJ5OKxL+bhMz5mK8JXgl7HsoEowfz7+e248UGi861de9Q==
 
-"@shoelace-style/shoelace@^2.14.0":
-  version "2.14.0"
-  resolved "https://registry.yarnpkg.com/@shoelace-style/shoelace/-/shoelace-2.14.0.tgz#050b1de2d0bb2668735d6644fbee53d9e9783c6e"
-  integrity sha512-b8HXsSMvKX/9D5yCygnCkAuwZfxYof1+owJx9fYggq/bOAQ8WQcZzMBPTI4amgfwEnFzhRF8ETT+V8w+sptlww==
+"@shoelace-style/shoelace@^2.15.0":
+  version "2.15.0"
+  resolved "https://registry.yarnpkg.com/@shoelace-style/shoelace/-/shoelace-2.15.0.tgz#3410d6bb50811fad001b2c2fbd455cb60d6341a9"
+  integrity sha512-Lcg938Y8U2VsHqIYewzlt+H1rbrXC4GRSUkTJgXyF8/0YAOlI+srd5OSfIw+/LYmwLP2Peyh398Kae/6tg4PDA==
   dependencies:
     "@ctrl/tinycolor" "^4.0.2"
     "@floating-ui/dom" "^1.5.3"
