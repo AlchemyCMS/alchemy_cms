@@ -8,21 +8,21 @@ module Alchemy
 
     class << self
       def update_element_positions
-        Alchemy::Page.all.each do |page|
-          if page.elements.any?
-            puts "\n## Updating element positions of page `#{page.name}`"
+        puts "\n## Updating element positions"
+
+        count = 0
+        Alchemy::Page.all.includes(draft_version: :elements, public_version: :elements).find_each do |page|
+          fix_element_positions(page.draft_version, count)
+          if page.public_version
+            fix_element_positions(page.public_version, count)
           end
-          page.elements.group_by(&:parent_element_id).each do |_, elements|
-            elements.each_with_index do |element, idx|
-              position = idx + 1
-              if element.position != position
-                log "Updating position for element ##{element.id} to #{position}"
-                element.update_column(:position, position)
-              else
-                log "Position for element ##{element.id} is already correct (#{position})", :skip
-              end
-            end
-          end
+        end
+        puts "\n#{count}"
+
+        if count.positive?
+          log "Fixed #{count} element positions"
+        else
+          log "All element positions are correct"
         end
       end
 
@@ -74,6 +74,27 @@ module Alchemy
       end
 
       private
+
+      def fix_element_positions(page_version, count)
+        page_version.elements.fixed.group_by(&:parent_element_id).each do |_, elements|
+          fix_positions(elements, count)
+        end
+        page_version.elements.unfixed.group_by(&:parent_element_id).each do |_, elements|
+          fix_positions(elements, count)
+        end
+      end
+
+      def fix_positions(elements, count)
+        elements.each.with_index(1) do |element, position|
+          if element.position != position
+            element.update_column(:position, position)
+            count += 1
+            print "F"
+          else
+            print "."
+          end
+        end
+      end
 
       def destroy_orphaned_records(records, class_name)
         records.each do |record|
