@@ -577,6 +577,12 @@ alchemy-publish-element-button {
     width: $icon-button-medium-width;
     height: $icon-button-medium-height;
   }
+
+  alchemy-link-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 38%;
+  }
 }
 
 .ingredient-editor.picture {
