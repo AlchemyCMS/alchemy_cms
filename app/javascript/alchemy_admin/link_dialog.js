@@ -65,7 +65,9 @@ export class LinkDialog extends Alchemy.Dialog {
 
     attachmentSelect.addEventListener("Alchemy.RemoteSelect.Change", (e) => {
       const attachment = e.detail.added
-      document.getElementById("file_link").value = attachment.url
+      document.getElementById("file_link").value = attachment
+        ? attachment.url
+        : ""
     })
 
     document.querySelectorAll("[data-link-form-type]").forEach((form) => {
@@ -86,8 +88,8 @@ export class LinkDialog extends Alchemy.Dialog {
       '[data-link-form-type="internal"] alchemy-dom-id-api-select'
     )
 
-    internalLink.value = page != null ? page.url_path : undefined
-    domIdSelect.page = page != null ? page.id : undefined
+    internalLink.value = page ? page.url_path : ""
+    domIdSelect.page = page ? page.id : undefined
   }
 
   /**
