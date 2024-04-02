@@ -27,7 +27,10 @@ export class RemoteSelect extends AlchemyHTMLElement {
    * @param {Event} event
    */
   onChange(event) {
-    // Left empty for sub classes to define this as needed.
+    this.dispatchCustomEvent("RemoteSelect.Change", {
+      removed: event.removed,
+      added: event.added
+    })
   }
 
   /**

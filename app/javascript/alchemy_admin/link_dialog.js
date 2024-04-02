@@ -55,12 +55,10 @@ export class LinkDialog extends Alchemy.Dialog {
     const internalForm = document.querySelector(
       '[data-link-form-type="internal"]'
     )
-    internalForm.addEventListener("Alchemy.PageSelect.ItemRemoved", (e) =>
-      this.#updatePage()
-    )
-    internalForm.addEventListener("Alchemy.PageSelect.ItemAdded", (e) =>
-      this.#updatePage(e.detail)
-    )
+
+    internalForm.addEventListener("Alchemy.RemoteSelect.Change", (e) => {
+      this.#updatePage(e.detail.added)
+    })
 
     document.querySelectorAll("[data-link-form-type]").forEach((form) => {
       form.addEventListener("submit", (e) => {
