@@ -1,3 +1,5 @@
+import SortableElements from "alchemy_admin/sortable_elements"
+
 class ElementsWindow extends HTMLElement {
   #visible = true
 
@@ -16,7 +18,7 @@ class ElementsWindow extends HTMLElement {
         .querySelector(window.location.hash)
         ?.trigger("FocusElementEditor.Alchemy")
     }
-    Alchemy.SortableElements()
+    SortableElements()
   }
 
   collapseAllElements() {
