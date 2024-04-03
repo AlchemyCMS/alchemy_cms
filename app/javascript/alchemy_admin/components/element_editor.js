@@ -8,6 +8,7 @@ import { createHtmlElement } from "alchemy_admin/utils/dom_helpers"
 import { growl } from "alchemy_admin/growler"
 
 import "alchemy_admin/components/element_editor/publish_element_button"
+import "alchemy_admin/components/element_editor/delete_element_button"
 
 export class ElementEditor extends HTMLElement {
   constructor() {

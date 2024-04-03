@@ -76,9 +76,11 @@ module Alchemy
       end
 
       def destroy
-        @richtext_ids = @element.richtext_ingredients_ids
         @element.destroy
-        @notice = Alchemy.t("Successfully deleted element") % {element: @element.display_name}
+
+        render json: {
+          message: Alchemy.t("Successfully deleted element") % {element: @element.display_name}
+        }
       end
 
       def publish

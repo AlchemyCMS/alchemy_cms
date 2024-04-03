@@ -88,22 +88,26 @@ export function openConfirmDialog(message, options = {}) {
 //   cancel_label: ''  - The label for the cancel button (String)
 //
 export function confirmToDeleteDialog(url, opts = {}) {
-  const options = {
-    on_ok() {
-      pleaseWaitOverlay()
-      $.ajax({
-        url,
-        type: "DELETE",
-        error(xhr, _status, error) {
-          const type = xhr.status === 403 ? "warning" : "error"
-          growl(xhr.responseText || error, type)
-        },
-        complete() {
-          pleaseWaitOverlay(false)
-        }
-      })
+  return new Promise((resolve, reject) => {
+    const options = {
+      on_ok() {
+        pleaseWaitOverlay()
+        $.ajax({
+          url,
+          type: "DELETE",
+          error(xhr, _status, error) {
+            const type = xhr.status === 403 ? "warning" : "error"
+            growl(xhr.responseText || error, type)
+            reject(error)
+          },
+          complete(response) {
+            pleaseWaitOverlay(false)
+            resolve(response)
+          }
+        })
+      }
     }
-  }
 
-  return openConfirmDialog(opts.message, { ...options, ...opts })
+    openConfirmDialog(opts.message, { ...options, ...opts })
+  })
 }
