@@ -5,6 +5,5 @@
 //= require handlebars
 //= require alchemy/templates
 //= require alchemy/alchemy.dialog
-//= require alchemy/alchemy.confirm_dialog
 //= require alchemy/alchemy.fixed_elements
 //= require alchemy/alchemy.image_overlay

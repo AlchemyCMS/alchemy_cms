@@ -18,6 +18,10 @@ import Sitemap from "alchemy_admin/sitemap"
 import Spinner from "alchemy_admin/spinner"
 import PagePublicationFields from "alchemy_admin/page_publication_fields"
 import { reloadPreview } from "alchemy_admin/components/preview_window"
+import {
+  openConfirmDialog,
+  confirmToDeleteDialog
+} from "alchemy_admin/confirm_dialog"
 
 // Web Components
 import "alchemy_admin/components"
@@ -65,7 +69,9 @@ Object.assign(Alchemy, {
   Sitemap,
   Spinner,
   PagePublicationFields,
-  reloadPreview
+  reloadPreview,
+  openConfirmDialog,
+  confirmToDeleteDialog
 })
 
 Rails.start()
