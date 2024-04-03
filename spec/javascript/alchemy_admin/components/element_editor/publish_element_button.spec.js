@@ -1,5 +1,6 @@
 import "alchemy_admin/components/element_editor/publish_element_button"
 import { renderComponent } from "../component.helper"
+import { growl } from "alchemy_admin/growler"
 
 const mockReloadPreview = jest.fn()
 
@@ -8,6 +9,12 @@ jest.mock("alchemy_admin/components/preview_window", () => {
     reloadPreview: () => {
       mockReloadPreview()
     }
+  }
+})
+
+jest.mock("alchemy_admin/growler", () => {
+  return {
+    growl: jest.fn()
   }
 })
 
@@ -56,12 +63,11 @@ describe("alchemy-publish-element-button", () => {
           return `/admin/elements/${id}/publish`
         }
       },
-      reloadPreview: jest.fn(),
-      growl: jest.fn()
+      reloadPreview: jest.fn()
     }
 
     Alchemy.reloadPreview.mockClear()
-    Alchemy.growl.mockClear()
+    growl.mockClear()
   })
 
   describe("on change", () => {
@@ -88,7 +94,7 @@ describe("alchemy-publish-element-button", () => {
 
       return new Promise((resolve) => {
         setTimeout(() => {
-          expect(Alchemy.growl).toHaveBeenCalled()
+          expect(growl).toHaveBeenCalled()
           resolve()
         }, 1)
       })

@@ -1,6 +1,7 @@
 import debounce from "alchemy_admin/utils/debounce"
 import max from "alchemy_admin/utils/max"
 import { get } from "alchemy_admin/utils/ajax"
+import { growl } from "alchemy_admin/growler"
 import ImageLoader from "alchemy_admin/image_loader"
 
 const UPDATE_DELAY = 125
@@ -77,7 +78,7 @@ class PictureEditor {
       })
       .catch((error) => {
         console.error(error.message || error)
-        Alchemy.growl(error.message || error, "error")
+        growl(error.message || error, "error")
       })
   }
 

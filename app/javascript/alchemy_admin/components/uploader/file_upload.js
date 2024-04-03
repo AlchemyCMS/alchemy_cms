@@ -1,6 +1,7 @@
 import { AlchemyHTMLElement } from "alchemy_admin/components/alchemy_html_element"
 import { formatFileSize } from "alchemy_admin/utils/format"
 import { translate } from "alchemy_admin/i18n"
+import { growl } from "alchemy_admin/growler"
 
 export class FileUpload extends AlchemyHTMLElement {
   /**
@@ -116,7 +117,7 @@ export class FileUpload extends AlchemyHTMLElement {
     this.request.onload = () => {
       if (this.request.status < 400) {
         this.status = "successful"
-        Alchemy.growl(this.responseMessage)
+        growl(this.responseMessage)
       } else {
         this.status = "failed"
         this.errorMessage = this.responseMessage
@@ -153,7 +154,7 @@ export class FileUpload extends AlchemyHTMLElement {
     if (errorMessageContainer) {
       errorMessageContainer.textContent = message
     }
-    Alchemy.growl(message, "error")
+    growl(message, "error")
   }
 
   /**

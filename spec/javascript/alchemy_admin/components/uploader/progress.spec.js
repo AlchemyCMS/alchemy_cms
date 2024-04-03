@@ -3,6 +3,12 @@ import mock from "xhr-mock"
 import { Progress } from "alchemy_admin/components/uploader/progress"
 import { FileUpload } from "alchemy_admin/components/uploader/file_upload"
 
+jest.mock("alchemy_admin/growler", () => {
+  return {
+    growl: jest.fn()
+  }
+})
+
 describe("alchemy-upload-progress", () => {
   /**
    * @type {Progress}
@@ -75,7 +81,6 @@ describe("alchemy-upload-progress", () => {
     }
 
     Alchemy = {
-      growl: jest.fn(),
       uploader_defaults: {
         file_size_limit: 100,
         upload_limit: 50,

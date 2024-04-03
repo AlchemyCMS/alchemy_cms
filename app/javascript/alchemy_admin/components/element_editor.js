@@ -4,6 +4,7 @@ import pictureEditors from "alchemy_admin/picture_editors"
 import IngredientAnchorLink from "alchemy_admin/ingredient_anchor_link"
 import { post } from "alchemy_admin/utils/ajax"
 import { createHtmlElement } from "alchemy_admin/utils/dom_helpers"
+import { growl } from "alchemy_admin/growler"
 
 import "alchemy_admin/components/element_editor/publish_element_button"
 
@@ -137,10 +138,10 @@ export class ElementEditor extends HTMLElement {
         )
       })
       // Show message
-      Alchemy.growl(warning, "warn")
+      growl(warning, "warn")
       this.elementErrors.classList.remove("hidden")
     } else {
-      Alchemy.growl(data.notice)
+      growl(data.notice)
       this.previewWindow?.refresh().then(() => {
         this.focusElementPreview()
       })
@@ -273,7 +274,7 @@ export class ElementEditor extends HTMLElement {
         }
       })
       .catch((error) => {
-        Alchemy.growl(error.message, "error")
+        growl(error.message, "error")
         console.error(error)
       })
       .finally(() => {
@@ -320,7 +321,7 @@ export class ElementEditor extends HTMLElement {
             resolve()
           })
           .catch((error) => {
-            Alchemy.growl(error.message, "error")
+            growl(error.message, "error")
             console.error(error)
             reject(error)
           })

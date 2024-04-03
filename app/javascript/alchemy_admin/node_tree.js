@@ -1,6 +1,7 @@
 import Sortable from "sortablejs"
 import { patch } from "alchemy_admin/utils/ajax"
 import { on } from "alchemy_admin/utils/events"
+import { growl } from "alchemy_admin/growler"
 
 function displayNodeFolders() {
   document.querySelectorAll("li.menu-item").forEach((el) => {
@@ -32,11 +33,11 @@ function onFinishDragging(evt) {
   patch(url, data)
     .then(() => {
       const message = Alchemy.t("Successfully moved menu item")
-      Alchemy.growl(message)
+      growl(message)
       displayNodeFolders()
     })
     .catch((error) => {
-      Alchemy.growl(error.message || error, "error")
+      growl(error.message || error, "error")
     })
 }
 
@@ -56,7 +57,7 @@ function handleNodeFolders() {
         displayNodeFolders()
       })
       .catch((error) => {
-        Alchemy.growl(error.message || error)
+        growl(error.message || error)
       })
   })
 }
