@@ -18,15 +18,15 @@ export class DeleteElementButton extends HTMLElement {
 
   #removeElement(response) {
     const elementEditor = this.closest("alchemy-element-editor")
-    const elementId = elementEditor.elementId
-    $(`#element_${elementId}`).hide(200, function () {
-      growl(response.message)
-      reloadPreview()
+    elementEditor.addEventListener("transitionend", () => {
       if (elementEditor.fixed) {
-        Alchemy.FixedElements.removeTab(elementId)
+        Alchemy.FixedElements.removeTab(elementEditor.elementId)
       }
-      this.remove()
+      elementEditor.remove()
     })
+    elementEditor.classList.add("dismiss")
+    growl(response.message)
+    reloadPreview()
   }
 
   get url() {
