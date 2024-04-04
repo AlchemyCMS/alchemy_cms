@@ -35,7 +35,7 @@ module Alchemy
             defined_controllers.concat(definition_hash["navigation"]["sub_navigation"].map { |x| x["controller"] })
           end
 
-          validate_controllers_existence(defined_controllers)
+          validate_controllers_existence(defined_controllers, definition_hash)
         end
 
         @@alchemy_modules |= [definition_hash]
@@ -43,7 +43,7 @@ module Alchemy
 
       private
 
-      def validate_controllers_existence(controllers)
+      def validate_controllers_existence(controllers, definition_hash)
         controllers.each do |controller_val|
           next if controller_val.blank?
 
