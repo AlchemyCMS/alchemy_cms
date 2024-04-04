@@ -1,6 +1,6 @@
-function isPageDirty() {
-  return $("#element_area").find("alchemy-element-editor.dirty").length > 0
-}
+import { openConfirmDialog } from "alchemy_admin/confirm_dialog"
+import { translate } from "alchemy_admin/i18n"
+import pleaseWaitOverlay from "alchemy_admin/please_wait_overlay"
 
 function checkPageDirtyness(element) {
   let callback = () => {}
@@ -13,18 +13,21 @@ function checkPageDirtyness(element) {
       $form.append($(element).find("input"))
       $form.appendTo("body")
 
-      Alchemy.pleaseWaitOverlay()
-      $form.submit()
+      pleaseWaitOverlay()
+      $form.trigger("submit")
     }
   } else if ($(element).is("a")) {
     callback = () => Turbo.visit(element.pathname)
   }
 
-  if (isPageDirty()) {
-    Alchemy.openConfirmDialog(Alchemy.t("page_dirty_notice"), {
-      title: Alchemy.t("warning"),
-      ok_label: Alchemy.t("ok"),
-      cancel_label: Alchemy.t("cancel"),
+  const isPageDirty =
+    document.querySelectorAll("alchemy-element-editor.dirty").length > 0
+
+  if (isPageDirty) {
+    openConfirmDialog(translate("page_dirty_notice"), {
+      title: translate("warning"),
+      ok_label: translate("ok"),
+      cancel_label: translate("cancel"),
       on_ok: function () {
         window.onbeforeunload = void 0
         callback()
@@ -36,10 +39,12 @@ function checkPageDirtyness(element) {
 }
 
 function PageLeaveObserver() {
-  $("#main_navi a").on("click", function (event) {
-    if (!checkPageDirtyness(event.currentTarget)) {
-      event.preventDefault()
-    }
+  document.querySelectorAll("#main_navi a").forEach((element) => {
+    element.addEventListener("click", (event) => {
+      if (!checkPageDirtyness(event.currentTarget)) {
+        event.preventDefault()
+      }
+    })
   })
 }
 

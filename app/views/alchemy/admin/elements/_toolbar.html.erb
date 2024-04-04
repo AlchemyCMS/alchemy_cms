@@ -19,13 +19,14 @@
     ) %>
   </sl-tooltip>
   <sl-tooltip content="<%= Alchemy.t("Delete element") %>">
-    <%= link_to_confirm_dialog(
-      render_icon('delete-bin-2'),
-      Alchemy.t(:confirm_to_delete_element),
-      alchemy.admin_element_path(element),
-      class: "icon_button",
-      data: {turbo: false}
-    ) -%>
+    <alchemy-delete-element-button
+      href="<%= alchemy.admin_element_path(element) %>"
+      message="<%= Alchemy.t(:confirm_to_delete_element) %>"
+    >
+      <button type="button" class="icon_button" data-turbo="false">
+        <%= render_icon('delete-bin-2') %>
+      </button>
+    </alchemy-delete-element-button>
   </sl-tooltip>
   <sl-tooltip content="<%= element.public? ? Alchemy.t(:hide_element) : Alchemy.t(:show_element) %>" placement="top-end">
     <alchemy-publish-element-button>

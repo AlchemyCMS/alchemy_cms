@@ -339,6 +339,15 @@ alchemy-tinymce {
     }
   }
 
+  &.dismiss {
+    opacity: 0;
+    transform: scale(0);
+    transform-origin: top center;
+    transition:
+      opacity $transition-duration ease-out,
+      transform 1s ease-in;
+  }
+
   .element-body {
     margin: 2 * $default-padding;
   }
