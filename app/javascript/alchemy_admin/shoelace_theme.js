@@ -20,3 +20,24 @@ setDefaultAnimation("tooltip.hide", {
     duration: 100
   }
 })
+
+// Change the default animation for all dialogs
+setDefaultAnimation("dialog.show", {
+  keyframes: [
+    { transform: "scale(0.98)", opacity: "0" },
+    { transform: "scale(1)", opacity: "1" }
+  ],
+  options: {
+    duration: 150
+  }
+})
+
+setDefaultAnimation("dialog.hide", {
+  keyframes: [
+    { transform: "scale(1)", opacity: "1" },
+    { transform: "scale(0.98)", opacity: "0" }
+  ],
+  options: {
+    duration: 150
+  }
+})
