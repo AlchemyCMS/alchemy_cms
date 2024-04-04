@@ -1,4 +1,4 @@
-import { setDefaultAnimation } from "shoelace"
+import { registerIconLibrary, setDefaultAnimation } from "shoelace"
 
 // Change the default animation for all tooltips
 setDefaultAnimation("tooltip.show", {
@@ -41,3 +41,20 @@ setDefaultAnimation("dialog.hide", {
     duration: 150
   }
 })
+
+const spriteUrl = document
+  .querySelector('meta[name="alchemy-icon-sprite"]')
+  .getAttribute("content")
+
+const iconMap = {
+  "x-lg": "close"
+}
+
+const options = {
+  resolver: (name) => `${spriteUrl}#ri-${iconMap[name] || name}-line`,
+  mutator: (svg) => svg.setAttribute("fill", "currentColor"),
+  spriteSheet: true
+}
+
+registerIconLibrary("default", options)
+registerIconLibrary("system", options)
