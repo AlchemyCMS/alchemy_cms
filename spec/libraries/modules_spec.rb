@@ -162,11 +162,15 @@ module Alchemy
       end
 
       it "fails to register a module when a matching navigation controller cannot be found" do
-        expect { Modules.register_module(bad_alchemy_module_a) }.to raise_error(NameError)
+        expect { Modules.register_module(bad_alchemy_module_a) }.to raise_error(
+          "Error in AlchemyCMS module definition: 'bad_module_a'. Could not find the matching controller class BadModuleController for the specified controller: 'bad_module'"
+        )
       end
 
       it "fails to register a module when a matching sub_navigation controller cannot be found" do
-        expect { Modules.register_module(bad_alchemy_module_b) }.to raise_error(NameError)
+        expect { Modules.register_module(bad_alchemy_module_b) }.to raise_error(
+          "Error in AlchemyCMS module definition: 'bad_module_b'. Could not find the matching controller class BadModuleController for the specified controller: 'bad_module'"
+        )
       end
 
       it "registers a module definition only once" do
