@@ -151,3 +151,18 @@ a img {
 .hidden {
   display: none !important;
 }
+
+.mx-1 {
+  margin-left: var(--spacing-1);
+  margin-right: var(--spacing-1);
+}
+
+.mx-2 {
+  margin-left: var(--spacing-2);
+  margin-right: var(--spacing-2);
+}
+
+.my-0 {
+  margin-top: 0;
+  margin-bottom: 0;
+}

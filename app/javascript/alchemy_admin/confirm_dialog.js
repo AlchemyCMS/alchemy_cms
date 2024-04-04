@@ -1,56 +1,76 @@
 import { growl } from "alchemy_admin/growler"
 import pleaseWaitOverlay from "alchemy_admin/please_wait_overlay"
+import { createHtmlElement } from "alchemy_admin/utils/dom_helpers"
+import { translate } from "alchemy_admin/i18n"
 
-Alchemy.Dialog = window.Alchemy.Dialog || class Dialog {}
-
-class ConfirmDialog extends Alchemy.Dialog {
+class ConfirmDialog {
   constructor(message, options = {}) {
     const DEFAULTS = {
       size: "300x100",
-      title: "Please confirm",
-      ok_label: "Yes",
-      cancel_label: "No",
+      title: translate("Please confirm"),
+      ok_label: translate("Yes"),
+      cancel_label: translate("No"),
       on_ok() {}
     }
 
     options = { ...DEFAULTS, ...options }
 
-    super("", options)
     this.message = message
     this.options = options
+    this.#build()
+    this.#bindEvents()
   }
 
-  load() {
-    this.dialog_title.text(this.options.title)
-    this.dialog_body.html(`<p>${this.message}</p>`)
-    this.dialog_body.append(this.build_buttons())
-    this.bind_buttons()
-  }
-
-  build_buttons() {
-    const $btn_container = $('<div class="alchemy-dialog-buttons" />')
-    this.cancel_button = $(
-      `<button class=\"cancel secondary\">${this.options.cancel_label}</button>`
-    )
-    this.ok_button = $(
-      `<button class=\"confirm\">${this.options.ok_label}</button>`
-    )
-    $btn_container.append(this.cancel_button)
-    $btn_container.append(this.ok_button)
-    return $btn_container
-  }
-
-  bind_buttons() {
-    this.cancel_button.trigger("focus")
-    this.cancel_button.on("click", () => {
-      this.close()
-      return false
+  open() {
+    requestAnimationFrame(() => {
+      this.dialog.show()
     })
-    this.ok_button.on("click", () => {
-      this.close()
+  }
+
+  #build() {
+    const width = this.options.size.split("x")[0]
+    this.dialog = createHtmlElement(`
+      <sl-dialog label="${this.options.title}" style="--width: ${width}px">
+        ${this.message}
+        <button slot="footer" type="reset" class="secondary mx-1 my-0" autofocus>
+          ${this.options.cancel_label}
+        </button>
+        <button slot="footer" type="submit" class="mx-1 my-0">
+          ${this.options.ok_label}
+        </button>
+      </sl-dialog>
+    `)
+    document.body.append(this.dialog)
+  }
+
+  #bindEvents() {
+    this.cancelButton.addEventListener("click", (evt) => {
+      evt.preventDefault()
+      this.dialog.hide()
+    })
+    this.okButton.addEventListener("click", (evt) => {
+      evt.preventDefault()
       this.options.on_ok()
-      return false
+      this.dialog.hide()
     })
+    // Prevent the dialog from closing when the user clicks on the overlay
+    this.dialog.addEventListener("sl-request-close", (event) => {
+      if (event.detail.source === "overlay") {
+        event.preventDefault()
+      }
+    })
+    // Remove the dialog from the DOM after it has been hidden
+    this.dialog.addEventListener("sl-after-hide", () => {
+      this.dialog.remove()
+    })
+  }
+
+  get cancelButton() {
+    return this.dialog.querySelector("button[type=reset]")
+  }
+
+  get okButton() {
+    return this.dialog.querySelector("button[type=submit]")
   }
 }
 

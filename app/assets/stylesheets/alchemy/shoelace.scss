@@ -343,3 +343,35 @@ sl-tooltip {
     box-shadow: 0 0 var(--spacing-1) var(--color-grey_medium);
   }
 }
+
+sl-dialog {
+  &::part(panel) {
+    background-color: var(--color-grey_light);
+  }
+
+  &::part(header) {
+    --header-spacing: var(--spacing-3);
+    background-color: var(--color-blue_dark);
+    border-top-left-radius: var(--border-radius_medium);
+    border-top-right-radius: var(--border-radius_medium);
+  }
+
+  &::part(header-actions) {
+    --header-spacing: var(--spacing-1);
+  }
+
+  &::part(title) {
+    --sl-font-size-large: var(--font-size_small);
+    color: var(--color-white);
+  }
+
+  &::part(close-button) {
+    color: var(--color-white);
+    fill: currentColor;
+  }
+
+  &::part(close-button):hover,
+  &::part(close-button__base):focus-visible {
+    --sl-color-primary-600: var(--color-white);
+  }
+}
