@@ -1,6 +1,7 @@
 import ImageLoader from "alchemy_admin/image_loader"
 import fileEditors from "alchemy_admin/file_editors"
 import pictureEditors from "alchemy_admin/picture_editors"
+import SortableElements from "alchemy_admin/sortable_elements"
 import IngredientAnchorLink from "alchemy_admin/ingredient_anchor_link"
 import { post } from "alchemy_admin/utils/ajax"
 import { createHtmlElement } from "alchemy_admin/utils/dom_helpers"
@@ -44,6 +45,7 @@ export class ElementEditor extends HTMLElement {
       `#${this.id} .ingredient-editor.file, #${this.id} .ingredient-editor.audio, #${this.id} .ingredient-editor.video`
     )
     pictureEditors(`#${this.id} .ingredient-editor.picture`)
+    SortableElements(`#${this.id} .nested-elements`)
   }
 
   handleEvent(event) {

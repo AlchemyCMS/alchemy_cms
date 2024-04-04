@@ -15,7 +15,6 @@ import { LinkDialog } from "alchemy_admin/link_dialog"
 import pictureSelector from "alchemy_admin/picture_selector"
 import pleaseWaitOverlay from "alchemy_admin/please_wait_overlay"
 import Sitemap from "alchemy_admin/sitemap"
-import SortableElements from "alchemy_admin/sortable_elements"
 import Spinner from "alchemy_admin/spinner"
 import PagePublicationFields from "alchemy_admin/page_publication_fields"
 import { reloadPreview } from "alchemy_admin/components/preview_window"
@@ -64,7 +63,6 @@ Object.assign(Alchemy, {
   pictureSelector,
   pleaseWaitOverlay,
   Sitemap,
-  SortableElements,
   Spinner,
   PagePublicationFields,
   reloadPreview

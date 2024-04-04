@@ -78,8 +78,4 @@ export default function SortableElements(selector) {
   })
 
   sortable_areas.forEach((element) => createSortable(element))
-
-  document.querySelectorAll(".nested-elements").forEach((nestedElement) => {
-    createSortable(nestedElement)
-  })
 }
