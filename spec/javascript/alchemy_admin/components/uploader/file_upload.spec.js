@@ -1,5 +1,12 @@
 import { FileUpload } from "alchemy_admin/components/uploader/file_upload"
 import mock from "xhr-mock"
+import { growl } from "alchemy_admin/growler"
+
+jest.mock("alchemy_admin/growler", () => {
+  return {
+    growl: jest.fn()
+  }
+})
 
 describe("alchemy-file-upload", () => {
   /**
@@ -57,7 +64,6 @@ describe("alchemy-file-upload", () => {
 
   beforeEach(() => {
     Alchemy = {
-      growl: jest.fn(),
       uploader_defaults: {
         file_size_limit: 100,
         upload_limit: 50,
@@ -65,6 +71,7 @@ describe("alchemy-file-upload", () => {
         allowed_filetype_attachments: "*"
       }
     }
+    growl.mockClear()
     renderComponent()
   })
 
@@ -182,8 +189,8 @@ describe("alchemy-file-upload", () => {
         })
 
         it("should call the growl method", () => {
-          expect(Alchemy.growl).toHaveBeenCalledWith("Foo Bar")
-          expect(Alchemy.growl).toHaveBeenCalledTimes(1)
+          expect(growl).toHaveBeenCalledWith("Foo Bar")
+          expect(growl).toHaveBeenCalledTimes(1)
         })
 
         it("should mark as successful", () => {
@@ -206,8 +213,8 @@ describe("alchemy-file-upload", () => {
         })
 
         it("should call the growl method", () => {
-          expect(Alchemy.growl).toHaveBeenCalledWith("Error: Foo Bar", "error")
-          expect(Alchemy.growl).toHaveBeenCalledTimes(1)
+          expect(growl).toHaveBeenCalledWith("Error: Foo Bar", "error")
+          expect(growl).toHaveBeenCalledTimes(1)
         })
 
         it("should mark as failed", () => {
@@ -224,11 +231,11 @@ describe("alchemy-file-upload", () => {
       it("should call the growl method", () => {
         component.request.onerror()
 
-        expect(Alchemy.growl).toHaveBeenCalledWith(
+        expect(growl).toHaveBeenCalledWith(
           "An error occurred during the transaction",
           "error"
         )
-        expect(Alchemy.growl).toHaveBeenCalledTimes(1)
+        expect(growl).toHaveBeenCalledTimes(1)
       })
     })
   })
@@ -354,11 +361,11 @@ describe("alchemy-file-upload", () => {
         })
 
         it("should call the growl method", () => {
-          expect(Alchemy.growl).toHaveBeenCalledWith(
+          expect(growl).toHaveBeenCalledWith(
             "Uploaded bytes exceed file size",
             "error"
           )
-          expect(Alchemy.growl).toHaveBeenCalledTimes(1)
+          expect(growl).toHaveBeenCalledTimes(1)
         })
 
         it("should be invalid", () => {
@@ -448,11 +455,8 @@ describe("alchemy-file-upload", () => {
           })
 
           it("should call the growl method", () => {
-            expect(Alchemy.growl).toHaveBeenCalledWith(
-              "File type not allowed",
-              "error"
-            )
-            expect(Alchemy.growl).toHaveBeenCalledTimes(1)
+            expect(growl).toHaveBeenCalledWith("File type not allowed", "error")
+            expect(growl).toHaveBeenCalledTimes(1)
           })
 
           it("should have an error message", () => {

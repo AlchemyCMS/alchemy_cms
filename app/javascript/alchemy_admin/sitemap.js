@@ -2,6 +2,7 @@
 import PageSorter from "alchemy_admin/page_sorter"
 import { on } from "alchemy_admin/utils/events"
 import { get, patch } from "alchemy_admin/utils/ajax"
+import { growl } from "alchemy_admin/growler"
 import { createSortables, displayPageFolders } from "alchemy_admin/page_sorter"
 
 export default class Sitemap {
@@ -147,7 +148,7 @@ export default class Sitemap {
   }
 
   errorHandler(error) {
-    Alchemy.growl(error.message || error, "error")
+    growl(error.message || error, "error")
     console.error(error)
   }
 }

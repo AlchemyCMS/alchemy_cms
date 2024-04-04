@@ -1,4 +1,5 @@
 import "clipboard"
+import { growl } from "alchemy_admin/growler"
 
 class ClipboardButton extends HTMLElement {
   constructor() {
@@ -15,7 +16,7 @@ class ClipboardButton extends HTMLElement {
     })
 
     this.clipboard.on("success", () => {
-      Alchemy.growl(this.getAttribute("success-text"))
+      growl(this.getAttribute("success-text"))
     })
   }
 

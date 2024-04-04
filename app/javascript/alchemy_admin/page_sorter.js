@@ -1,4 +1,5 @@
 import Sortable from "sortablejs"
+import { growl } from "alchemy_admin/growler"
 import { patch } from "alchemy_admin/utils/ajax"
 import pleaseWaitOverlay from "alchemy_admin/please_wait_overlay"
 
@@ -18,12 +19,12 @@ function onSort(evt) {
         const pageEl = document.getElementById(`page_${pageId}`)
         const urlPathEl = pageEl.querySelector(".sitemap_url")
 
-        Alchemy.growl(Alchemy.t("Successfully moved page"))
+        growl(Alchemy.t("Successfully moved page"))
         urlPathEl.textContent = pageData.url_path
         displayPageFolders()
       })
       .catch((error) => {
-        Alchemy.growl(error.message || error, "error")
+        growl(error.message || error, "error")
         Alchemy.currentSitemap.reload()
       })
       .finally(() => {

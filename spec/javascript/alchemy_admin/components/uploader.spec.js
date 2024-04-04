@@ -1,9 +1,16 @@
+import { growl } from "alchemy_admin/growler"
 import { Uploader } from "alchemy_admin/components/uploader"
 
 jest.mock("alchemy_admin/utils/ajax", () => {
   return {
     __esModule: true,
     getToken: () => "123"
+  }
+})
+
+jest.mock("alchemy_admin/growler", () => {
+  return {
+    growl: jest.fn()
   }
 })
 
@@ -187,7 +194,7 @@ describe("alchemy-uploader", () => {
       })
 
       it("should call the growl method", () => {
-        expect(Alchemy.growl).toHaveBeenCalledWith(
+        expect(growl).toHaveBeenCalledWith(
           "Maximum number of files exceeded",
           "error"
         )

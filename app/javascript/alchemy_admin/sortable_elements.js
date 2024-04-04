@@ -1,4 +1,5 @@
 import Sortable from "sortablejs"
+import { growl } from "alchemy_admin/growler"
 import { post } from "alchemy_admin/utils/ajax"
 import { reloadPreview } from "alchemy_admin/components/preview_window"
 
@@ -36,7 +37,7 @@ function onSort(event) {
   if (event.target === event.to) {
     post(Alchemy.routes.order_admin_elements_path, params).then((response) => {
       const data = response.data
-      Alchemy.growl(data.message)
+      growl(data.message)
       reloadPreview()
       item.updateTitle(data.preview_text)
     })

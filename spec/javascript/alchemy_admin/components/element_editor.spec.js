@@ -4,6 +4,13 @@ import pictureEditors from "alchemy_admin/picture_editors"
 import IngredientAnchorLink from "alchemy_admin/ingredient_anchor_link"
 import { ElementEditor } from "alchemy_admin/components/element_editor"
 import { renderComponent } from "./component.helper"
+import { growl } from "alchemy_admin/growler"
+
+jest.mock("alchemy_admin/growler", () => {
+  return {
+    growl: jest.fn()
+  }
+})
 
 jest.mock("alchemy_admin/image_loader", () => {
   return {
@@ -128,7 +135,7 @@ describe("alchemy-element-editor", () => {
     }
     Alchemy.PreviewWindow.postMessage.mockClear()
     Alchemy.PreviewWindow.refresh.mockClear()
-    Alchemy.growl.mockClear()
+    growl.mockClear()
   })
 
   describe("connectedCallback", () => {
@@ -433,7 +440,7 @@ describe("alchemy-element-editor", () => {
       })
 
       it("growls success", () => {
-        expect(Alchemy.growl).toHaveBeenCalledWith("Element saved")
+        expect(growl).toHaveBeenCalledWith("Element saved")
       })
     })
 
@@ -476,10 +483,7 @@ describe("alchemy-element-editor", () => {
       })
 
       it("growls a warning", () => {
-        expect(Alchemy.growl).toHaveBeenCalledWith(
-          "Something is not right",
-          "warn"
-        )
+        expect(growl).toHaveBeenCalledWith("Something is not right", "warn")
       })
     })
   })
@@ -715,10 +719,7 @@ describe("alchemy-element-editor", () => {
           error: jest.fn()
         }
         await editor.collapse()
-        expect(Alchemy.growl).toHaveBeenCalledWith(
-          "Something went wrong!",
-          "error"
-        )
+        expect(growl).toHaveBeenCalledWith("Something went wrong!", "error")
       })
     })
   })
@@ -787,10 +788,7 @@ describe("alchemy-element-editor", () => {
         try {
           await editor.expand()
         } catch {
-          expect(Alchemy.growl).toHaveBeenCalledWith(
-            "Something went wrong!",
-            "error"
-          )
+          expect(growl).toHaveBeenCalledWith("Something went wrong!", "error")
         }
       })
     })
