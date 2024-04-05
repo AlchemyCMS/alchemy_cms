@@ -96,7 +96,7 @@
   --sl-shadow-small: 0 1px 2px hsl(240 3.8% 46.1% / 12%);
   --sl-shadow-medium: 0 2px 4px hsl(240 3.8% 46.1% / 12%);
   --sl-shadow-large: 0 2px 8px hsl(240 3.8% 46.1% / 12%);
-  --sl-shadow-x-large: 0 4px 16px hsl(240 3.8% 46.1% / 12%);
+  --sl-shadow-x-large: 0 8px 16px rgba(35, 35, 35, 0.5);
 
   /*
    * Spacings
@@ -255,7 +255,7 @@
    * Overlays
    */
 
-  --sl-overlay-background-color: hsl(240 3.8% 46.1% / 33%);
+  --sl-overlay-background-color: hsl(0 0% 39.2% / 40%);
 
   /*
    * Panels
@@ -341,5 +341,36 @@ sl-tooltip {
   &::part(base__popup) {
     border-radius: var(--border-radius_medium);
     box-shadow: 0 0 var(--spacing-1) var(--color-grey_medium);
+  }
+}
+
+sl-dialog {
+  &::part(panel) {
+    background-color: var(--color-grey_light);
+    --body-spacing: var(--spacing-4) var(--spacing-3);
+    --footer-spacing: var(--spacing-4) var(--spacing-3);
+  }
+
+  &::part(header) {
+    --header-spacing: var(--spacing-3);
+    background-color: var(--color-blue_dark);
+    border-top-left-radius: var(--border-radius_medium);
+    border-top-right-radius: var(--border-radius_medium);
+  }
+
+  &::part(header-actions) {
+    --header-spacing: var(--spacing-1);
+  }
+
+  &::part(title) {
+    --sl-font-size-large: var(--font-size_small);
+    color: var(--color-white);
+  }
+
+  &::part(close-button) {
+    --sl-color-primary-600: var(--color-white);
+    --sl-color-primary-700: var(--color-white);
+    color: var(--color-white);
+    fill: currentColor;
   }
 }
