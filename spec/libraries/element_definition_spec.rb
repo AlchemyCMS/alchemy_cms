@@ -35,5 +35,13 @@ module Alchemy
         expect(ElementDefinition.get("default")).to eq({"name" => "default"})
       end
     end
+
+    describe ".reset!" do
+      it "sets @definitions to nil" do
+        ElementDefinition.all
+        ElementDefinition.reset!
+        expect(ElementDefinition.instance_variable_get(:@definitions)).to be_nil
+      end
+    end
   end
 end

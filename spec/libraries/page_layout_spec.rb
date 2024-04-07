@@ -67,5 +67,13 @@ module Alchemy
         expect(PageLayout.get("default")).to eq({"name" => "default"})
       end
     end
+
+    describe ".reset!" do
+      it "sets @definitions to nil" do
+        PageLayout.all
+        PageLayout.reset!
+        expect(PageLayout.instance_variable_get(:@definitions)).to be_nil
+      end
+    end
   end
 end

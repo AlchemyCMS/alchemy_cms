@@ -41,6 +41,16 @@ module Alchemy
         all.detect { |a| a["name"].casecmp(name).zero? }
       end
 
+      def reset!
+        @definitions = nil
+      end
+
+      # The absolute +page_layouts.yml+ file path
+      # @return [Pathname]
+      def layouts_file_path
+        Rails.root.join("config", "alchemy", "page_layouts.yml")
+      end
+
       private
 
       # Reads the layout definitions from +config/alchemy/page_layouts.yml+.
@@ -57,12 +67,6 @@ module Alchemy
         else
           raise LoadError, "Could not find page_layouts.yml file! Please run `rails generate alchemy:install`"
         end
-      end
-
-      # Returns the page_layouts.yml file path
-      #
-      def layouts_file_path
-        Rails.root.join "config/alchemy/page_layouts.yml"
       end
     end
   end
