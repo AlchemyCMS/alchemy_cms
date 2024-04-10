@@ -121,6 +121,8 @@ module Alchemy
     has_one :draft_version, -> { drafts }, class_name: "Alchemy::PageVersion"
     has_one :public_version, -> { published }, class_name: "Alchemy::PageVersion", autosave: -> { persisted? }
 
+    has_many :page_essences, class_name: "Alchemy::EssencePage", foreign_key: :page_id, inverse_of: :ingredient_association, dependent: :nullify
+
     before_validation :set_language,
       if: -> { language.nil? }
 

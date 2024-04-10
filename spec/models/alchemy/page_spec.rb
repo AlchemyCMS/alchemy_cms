@@ -220,6 +220,14 @@ module Alchemy
         it "destroys elements along with itself" do
           expect { page.destroy! }.to change(Alchemy::Element, :count).from(3).to(0)
         end
+
+        context "with an essence page pointing to the page" do
+          let!(:essence_page) { create(:alchemy_essence_page, page: page) }
+
+          it "nullifies the essence on destruction" do
+            expect { page.destroy! }.to change { essence_page.reload.page_id }.from(page.id).to(nil)
+          end
+        end
       end
     end
 
