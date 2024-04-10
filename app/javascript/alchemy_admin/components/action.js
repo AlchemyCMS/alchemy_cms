@@ -1,4 +1,5 @@
 import { reloadPreview } from "alchemy_admin/components/preview_window"
+import { closeCurrentDialog } from "alchemy_admin/dialog"
 import IngredientAnchorLink from "alchemy_admin/ingredient_anchor_link"
 
 class Action extends HTMLElement {
@@ -10,7 +11,7 @@ class Action extends HTMLElement {
       // add a intermediate closeCurrentDialog - action
       // this will be gone, if all dialogs are working with a promise and
       // we don't have to implicitly close the dialog
-      closeCurrentDialog: Alchemy.closeCurrentDialog,
+      closeCurrentDialog,
       reloadPreview,
       updateAnchorIcon: IngredientAnchorLink.updateIcon
     }

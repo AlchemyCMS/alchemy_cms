@@ -1,7 +1,15 @@
 import "alchemy_admin/components/action"
 import { renderComponent } from "./component.helper"
+import { closeCurrentDialog } from "alchemy_admin/dialog"
 import * as PreviewWindow from "alchemy_admin/components/preview_window"
 import IngredientAnchorLink from "alchemy_admin/ingredient_anchor_link"
+
+jest.mock("alchemy_admin/dialog", () => {
+  return {
+    __esModule: true,
+    closeCurrentDialog: jest.fn()
+  }
+})
 
 jest.mock("alchemy_admin/components/preview_window", () => {
   return {
@@ -39,11 +47,10 @@ describe("alchemy-action", () => {
   })
 
   it("call closeCurrentDialog function ", () => {
-    window.Alchemy.closeCurrentDialog = jest.fn()
     renderComponent(
       "alchemy-action",
       `<alchemy-action name="closeCurrentDialog"></alchemy-action>`
     )
-    expect(window.Alchemy.closeCurrentDialog).toBeCalled()
+    expect(closeCurrentDialog).toBeCalled()
   })
 })
