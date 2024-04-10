@@ -61,4 +61,30 @@ describe("alchemy-button", () => {
       expect(button.innerHTML).toEqual("Save")
     })
   })
+
+  describe("on turbo forms", () => {
+    it("re-enables button on turbo:submit-end", () => {
+      const html = `
+        <turbo-frame>
+          <form>
+            <button type="submit" is="alchemy-button">Save</button>
+          </form>
+        </turbo-frame>
+      `
+      const button = renderComponent("alchemy-button", html)
+
+      const submit = new Event("submit", { bubbles: true })
+      button.form.dispatchEvent(submit)
+
+      expect(button.getAttribute("disabled")).toEqual("disabled")
+
+      const submitEnd = new CustomEvent("turbo:submit-end", { bubbles: true })
+      button.form.dispatchEvent(submitEnd)
+
+      expect(button.getAttribute("disabled")).toBeNull()
+      expect(button.getAttribute("tabindex")).toBeNull()
+      expect(button.classList.contains("disabled")).toBeFalsy()
+      expect(button.innerHTML).toEqual("Save")
+    })
+  })
 })
