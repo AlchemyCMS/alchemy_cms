@@ -32,16 +32,17 @@
   const nodeUrl = document.getElementById("node_url")
   const form = document.getElementById("node_form")
 
-  form.addEventListener("Alchemy.PageSelect.ItemAdded", (event) => {
-    const page = event.detail
-    nodeName.setAttribute("placeholder", page.name)
-    nodeUrl.value = page.url_path
-    nodeUrl.setAttribute("disabled", "disabled")
-  })
+  form.addEventListener("Alchemy.RemoteSelect.Change", (event) => {
+    const page = event.detail.added
 
-  form.addEventListener("Alchemy.PageSelect.ItemRemoved", (event) => {
-    nodeName.removeAttribute("placeholder")
-    nodeUrl.value = ""
-    nodeUrl.removeAttribute("disabled")
+    if (page) {
+      nodeName.setAttribute("placeholder", page.name)
+      nodeUrl.value = page.url_path
+      nodeUrl.setAttribute("disabled", "disabled")
+    } else {
+      nodeName.removeAttribute("placeholder")
+      nodeUrl.value = ""
+      nodeUrl.removeAttribute("disabled")
+    }
   })
 </script>

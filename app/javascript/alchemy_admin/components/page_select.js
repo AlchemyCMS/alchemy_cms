@@ -1,14 +1,6 @@
 import { RemoteSelect } from "alchemy_admin/components/remote_select"
 
 class PageSelect extends RemoteSelect {
-  onChange(event) {
-    if (event.added) {
-      this.dispatchCustomEvent("PageSelect.ItemAdded", event.added)
-    } else {
-      this.dispatchCustomEvent("PageSelect.ItemRemoved")
-    }
-  }
-
   get pageId() {
     return this.selection ? JSON.parse(this.selection)["id"] : undefined
   }

@@ -20,13 +20,18 @@ class LinkButton extends HTMLButtonElement {
   }
 
   setLink(link) {
-    this.classList.add("linked")
-    this.dispatchEvent(
-      new CustomEvent("alchemy:link", {
-        bubbles: true,
-        detail: link
-      })
-    )
+    if (link.url === "") {
+      this.classList.remove("linked")
+      this.dispatchEvent(new CustomEvent("alchemy:unlink", { bubbles: true }))
+    } else {
+      this.classList.add("linked")
+      this.dispatchEvent(
+        new CustomEvent("alchemy:link", {
+          bubbles: true,
+          detail: link
+        })
+      )
+    }
   }
 
   get linkUrl() {

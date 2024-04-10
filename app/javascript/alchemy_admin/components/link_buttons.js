@@ -38,6 +38,7 @@ class LinkButtons extends HTMLElement {
     this.linkTargetField.value = ""
 
     this.linkButton.classList.remove("linked")
+    this.unlinkButton.linked = false
 
     this.elementEditor.setDirty()
   }
