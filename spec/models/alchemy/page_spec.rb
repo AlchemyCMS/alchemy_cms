@@ -224,6 +224,14 @@ module Alchemy
         it "destroys elements along with itself" do
           expect { page.destroy! }.to change(Alchemy::Element, :count).from(3).to(0)
         end
+
+        context "with a page ingredient pointing to the page" do
+          let!(:ingredient) { create(:alchemy_ingredient_page, page: page) }
+
+          it "nullifies the foreign key on the ingredient" do
+            expect { page.destroy! }.to change { ingredient.reload.related_object_id }.from(page.id).to(nil)
+          end
+        end
       end
     end
 
