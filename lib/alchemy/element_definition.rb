@@ -42,6 +42,16 @@ module Alchemy
         all.detect { |a| a["name"] == name }
       end
 
+      def reset!
+        @definitions = nil
+      end
+
+      # The absolute +elements.yml+ file path
+      # @return [Pathname]
+      def definitions_file_path
+        Rails.root.join("config", "alchemy", "elements.yml")
+      end
+
       private
 
       # Reads the element definitions from +config/alchemy/elements.yml+.
@@ -57,12 +67,6 @@ module Alchemy
           raise LoadError,
             "Could not find elements.yml file! Please run `rails generate alchemy:install`"
         end
-      end
-
-      # Returns the elements.yml file path
-      #
-      def definitions_file_path
-        Rails.root.join "config/alchemy/elements.yml"
       end
     end
   end
