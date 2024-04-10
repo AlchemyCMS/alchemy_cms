@@ -26,6 +26,7 @@
 
   Alchemy.growl('<%= Alchemy.t(:successfully_added_element) %>');
   Alchemy.closeCurrentDialog();
+  Alchemy.reloadPreview();
 
   el = document.querySelector('#element_<%= @element.id %>');
   el.focusElement();
