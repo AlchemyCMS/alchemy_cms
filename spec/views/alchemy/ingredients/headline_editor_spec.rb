@@ -38,6 +38,10 @@ RSpec.describe "alchemy/ingredients/_headline_editor" do
     is_expected.to have_selector("select[name='element[ingredients_attributes][0][level]']")
   end
 
+  it "renders a tooltip" do
+    is_expected.to have_selector("sl-tooltip[content='Level']")
+  end
+
   context "when only one level is given" do
     let(:settings) do
       {levels: [1]}
@@ -59,6 +63,10 @@ RSpec.describe "alchemy/ingredients/_headline_editor" do
 
     it "renders a size select" do
       is_expected.to have_selector("select[name='element[ingredients_attributes][0][size]']")
+    end
+
+    it "renders a tooltip" do
+      is_expected.to have_selector("sl-tooltip[content='Size']")
     end
   end
 

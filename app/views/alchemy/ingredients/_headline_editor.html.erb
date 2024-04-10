@@ -13,21 +13,24 @@
     <% end %>
 
     <div class="input-addon right<%= " second" if has_size_select %>">
-      <%= f.select :level,
-        options_for_select(headline_editor.level_options, headline_editor.level),
-        {},
-        {
-          class: "custom-select",
-          title: f.object.class.human_attribute_name(:level),
-          disabled: !has_level_select
-        } %>
+      <sl-tooltip content="<%= f.object.class.human_attribute_name(:level) %>">
+        <%= f.select :level,
+          options_for_select(headline_editor.level_options, headline_editor.level),
+          {},
+          {
+            class: "custom-select",
+            disabled: !has_level_select
+          } %>
+      </sl-tooltip>
     </div>
 
     <% if has_size_select %>
       <div class="input-addon right">
-        <%= f.select :size, options_for_select(headline_editor.size_options, headline_editor.size),
-          {},
-          { class: "custom-select", title: f.object.class.human_attribute_name(:size) } %>
+        <sl-tooltip content="<%= f.object.class.human_attribute_name(:size) %>">
+          <%= f.select :size, options_for_select(headline_editor.size_options, headline_editor.size),
+            {},
+            { class: "custom-select" } %>
+        </sl-tooltip>
       </div>
     <% end %>
   <% end %>
