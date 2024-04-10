@@ -224,6 +224,14 @@ module Alchemy
         it "destroys elements along with itself" do
           expect { page.destroy! }.to change(Alchemy::Element, :count).from(3).to(0)
         end
+
+        context "with a node attached to the page" do
+          let!(:node) { create(:alchemy_node, page: page) }
+
+          it "nullifies the node" do
+            expect { page.destroy! }.to change { node.reload.page_id }.from(page.id).to(nil)
+          end
+        end
       end
     end
 

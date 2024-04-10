@@ -116,7 +116,7 @@ module Alchemy
     has_many :site_languages, through: :site, source: :languages
     has_many :folded_pages, dependent: :destroy
     has_many :legacy_urls, class_name: "Alchemy::LegacyPageUrl", dependent: :destroy
-    has_many :nodes, class_name: "Alchemy::Node", inverse_of: :page
+    has_many :nodes, class_name: "Alchemy::Node", inverse_of: :page, dependent: :nullify
     has_many :versions, class_name: "Alchemy::PageVersion", inverse_of: :page, dependent: :destroy
     has_one :draft_version, -> { drafts }, class_name: "Alchemy::PageVersion"
     has_one :public_version, -> { published }, class_name: "Alchemy::PageVersion", autosave: -> { persisted? }
