@@ -12,14 +12,16 @@
       <%= render "alchemy/ingredients/shared/anchor", ingredient_editor: headline_editor %>
     <% end %>
 
-    <% if has_level_select %>
-      <div class="input-addon right<%= " second" if has_size_select %>">
-        <%= f.select :level,
-          options_for_select(headline_editor.level_options, headline_editor.level),
-          {},
-          { class: "custom-select", title: f.object.class.human_attribute_name(:level) } %>
-      </div>
-    <% end %>
+    <div class="input-addon right<%= " second" if has_size_select %>">
+      <%= f.select :level,
+        options_for_select(headline_editor.level_options, headline_editor.level),
+        {},
+        {
+          class: "custom-select",
+          title: f.object.class.human_attribute_name(:level),
+          disabled: !has_level_select
+        } %>
+    </div>
 
     <% if has_size_select %>
       <div class="input-addon right">

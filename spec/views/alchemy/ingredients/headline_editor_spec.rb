@@ -43,8 +43,8 @@ RSpec.describe "alchemy/ingredients/_headline_editor" do
       {levels: [1]}
     end
 
-    it "does not render a level select" do
-      is_expected.to_not have_selector("select[name='element[ingredients_attributes][0][level]']")
+    it "renders a disabled level select" do
+      is_expected.to have_selector("select[disabled][name='element[ingredients_attributes][0][level]']")
     end
   end
 
