@@ -33,6 +33,7 @@ RSpec.describe "Admin page list", type: :system do
     specify "can sort table of pages by name" do
       visit admin_pages_path(view: "list")
       page.find(".sort_link", text: "Name").click
+      expect(page).to have_css("thead a.sort_link.desc:contains('Name')")
       within("table.list") do
         expect(page).to have_css("tr:nth-child(1) td.name:contains('Page 1')")
         expect(page).to have_css("tr:nth-child(2) td.name:contains('Intro')")
@@ -44,6 +45,7 @@ RSpec.describe "Admin page list", type: :system do
       Timecop.travel("2020-08-25") do
         visit admin_pages_path(view: "list")
         page.find(".sort_link", text: "Updated at").click
+        expect(page).to have_css("thead a.sort_link.desc:contains('Updated at')")
         within("table.list") do
           expect(page).to have_css("tr:nth-child(1) td.name:contains('Intro')")
           expect(page).to have_css("tr:nth-child(2) td.name:contains('Contact')")
@@ -56,6 +58,7 @@ RSpec.describe "Admin page list", type: :system do
       visit admin_pages_path(view: "list")
       page.find(".search_input_field").set("Page")
       page.find(".search_field button").click
+      expect(page).to have_content("1 Page")
       within("table.list") do
         expect(page).to have_css("tr:nth-child(1) td.name:contains('Page 1')")
         expect(page).to_not have_css("tr:nth-child(2)")
@@ -66,6 +69,7 @@ RSpec.describe "Admin page list", type: :system do
     specify "can filter table of pages by status", :js do
       visit admin_pages_path(view: "list")
       select2("Published", from: "Status")
+      expect(page).to have_content("Filtered by")
       within("table.list") do
         expect(page.find("tr:nth-child(1) td.name", text: "Intro")).to be
         expect(page).to_not have_css("tr:nth-child(2)")
@@ -76,6 +80,7 @@ RSpec.describe "Admin page list", type: :system do
     specify "can filter table of pages by type", :js do
       visit admin_pages_path(view: "list")
       select2("Contact", from: "Page type")
+      expect(page).to have_content("Filtered by")
       within("table.list") do
         expect(page.find("tr:nth-child(1) td.name", text: "Contact")).to be
         expect(page).to_not have_css("tr:nth-child(2)")
