@@ -41,12 +41,12 @@ module Alchemy
           end
         end
         if @element.save
-          render :create
+          render :create, status: :created
         else
           @element.page_version = @page_version
           @elements = @page.available_element_definitions
           load_clipboard_items
-          render :new
+          render :new, status: :unprocessable_entity
         end
       end
 

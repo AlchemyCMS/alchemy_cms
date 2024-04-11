@@ -40,6 +40,15 @@ export class ElementEditor extends HTMLElement {
       return
     }
 
+    // When newly created, focus the element and refresh the preview
+    if (this.hasAttribute("created")) {
+      this.focusElement()
+      this.previewWindow?.refresh().then(() => {
+        this.focusElementPreview()
+      })
+      this.removeAttribute("created")
+    }
+
     // Init GUI elements
     ImageLoader.init(this)
     fileEditors(
