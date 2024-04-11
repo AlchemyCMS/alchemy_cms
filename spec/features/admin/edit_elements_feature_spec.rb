@@ -9,6 +9,13 @@ RSpec.describe "The edit elements feature", type: :system do
     authorize_user(:as_editor)
   end
 
+  context "The elements window" do
+    it "shows a clipboard button" do
+      visit alchemy.admin_elements_path(page_version_id: a_page.draft_version.id)
+      expect(page).to have_selector("#clipboard_button")
+    end
+  end
+
   context "Visiting the new element form" do
     context "with a page_version_id passed" do
       scenario "a form to select a new element for the page appears." do
