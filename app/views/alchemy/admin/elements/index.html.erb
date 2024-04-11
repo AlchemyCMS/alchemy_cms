@@ -24,7 +24,7 @@
         link_options: {
           id: "clipboard_button"
         },
-        if_permitted_to: [:show, :alchemy_clipboard]
+        if_permitted_to: [:index, :alchemy_admin_clipboard]
       ) %>
       <sl-tooltip content="<%= Alchemy.t("Collapse all elements") %>" placement="top-end" class="right">
         <button id="collapse-all-elements-button" class="icon_button">
