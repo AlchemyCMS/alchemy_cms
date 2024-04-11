@@ -10,7 +10,7 @@ jobs:
       matrix:
         alchemy_branch:
           - "7.0-stable"
-          - "main"
+          - "7.1-stable"
         ruby:
           - "3.0"
           - "3.1"
