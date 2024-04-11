@@ -1,0 +1,34 @@
+<% opts = {
+  partial: "alchemy/admin/elements/element",
+  locals: {
+    element: Alchemy::ElementEditor.new(@element),
+    created: true
+  }
+} %>
+
+<% if @element.fixed? %>
+  <% target = "fixed_element_#{@element.id}" %>
+<% elsif @element.parent_element %>
+  <% target = "element_#{@element.parent_element_id}_nested_elements" %>
+<% else %>
+  <% target = "main-content-elements" %>
+<% end %>
+
+<%- if @cut_element_id -%>
+  <%= turbo_stream.remove "element_#{@cut_element_id}" %>
+<% end %>
+
+<% if @insert_at_top %>
+  <%= turbo_stream.prepend target, **opts %>
+<% else %>
+  <%= turbo_stream.append target, **opts %>
+<% end %>
+
+<%= turbo_stream.replace "clipboard_button",
+  partial: "alchemy/admin/elements/clipboard_button" %>
+
+<alchemy-growl>
+  <%= Alchemy.t(:successfully_added_element) %>
+</alchemy-growl>
+
+<alchemy-action name="closeCurrentDialog"></alchemy-action>
