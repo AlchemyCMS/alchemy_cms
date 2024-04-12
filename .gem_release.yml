@@ -1,0 +1,9 @@
+bump:
+  file: lib/alchemy/version.rb
+  remote: upstream
+  version: patch
+tag:
+  remote: upstream
+release:
+  github: true
+  repo: AlchemyCMS/alchemy_cms
