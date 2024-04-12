@@ -59,3 +59,5 @@ end
 gem "web-console", "~> 4.2", group: :development
 
 gem "rails_live_reload", "~> 0.3.5"
+
+gem "gem-release", "~> 2.2"
