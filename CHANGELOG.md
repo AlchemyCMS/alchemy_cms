@@ -1,5 +1,12 @@
 # Changelog
 
+## 7.0.12 (2024-04-12)
+
+- [7.0-stable] Fix Ingredient Boolean View [#2837](https://github.com/AlchemyCMS/alchemy_cms/pull/2837) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.0-stable] Nullify Ingredients::Page on Page destroy [#2830](https://github.com/AlchemyCMS/alchemy_cms/pull/2830) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.0-stable] Fix module error [#2821](https://github.com/AlchemyCMS/alchemy_cms/pull/2821) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.0-stable] Mark ingredient output as html_safe [#2781](https://github.com/AlchemyCMS/alchemy_cms/pull/2781) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.0.11 (2024-03-05)
 
 - [7.0-stable] Do not include timezone in datepickers only displaying date [#2769](https://github.com/AlchemyCMS/alchemy_cms/pull/2769) ([tvdeyen](https://github.com/tvdeyen))
