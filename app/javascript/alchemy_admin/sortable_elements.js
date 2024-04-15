@@ -24,7 +24,7 @@ function onSort(event) {
   const parentElement = event.to.parentElement.closest(".element-editor")
   const params = {
     element_id: item.dataset.elementId,
-    position: event.newIndex + 1
+    position: event.newIndex
   }
 
   if (parentElement) {
