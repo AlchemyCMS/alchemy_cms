@@ -18,6 +18,16 @@ describe "alchemy/admin/pictures/show.html.erb" do
     })
   end
 
+  let(:language) { create(:alchemy_language) }
+
+  let(:picture_description) do
+    Alchemy::PictureDescription.create!(
+      picture: picture,
+      language: language,
+      text: "This is an amazing image."
+    )
+  end
+
   before do
     allow(view).to receive(:admin_picture_path).and_return("/path")
     allow(view).to receive(:edit_admin_page_path).and_return("/path")
@@ -26,6 +36,7 @@ describe "alchemy/admin/pictures/show.html.erb" do
     view.extend Alchemy::Admin::FormHelper
     view.extend Alchemy::BaseHelper
     assign(:picture, picture)
+    assign(:picture_description, picture_description)
   end
 
   it "displays picture in original format" do

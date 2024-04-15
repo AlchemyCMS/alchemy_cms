@@ -157,6 +157,7 @@ module Alchemy
         end
 
         can :manage, Alchemy::Picture
+        can :manage, Alchemy::PictureDescription
         can :manage, Alchemy::Attachment
         can :manage, Alchemy::Tag
         can :index, Alchemy::Language

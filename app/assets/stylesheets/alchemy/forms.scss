@@ -19,6 +19,12 @@ form {
     @include form-label;
   }
 
+  .inline-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-1);
+  }
+
   .input {
     padding: $default-padding 0;
     @include clearfix;

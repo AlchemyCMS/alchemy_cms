@@ -26,6 +26,8 @@ module Alchemy
       authorize_user(:as_admin)
     end
 
+    let!(:language) { create(:alchemy_language) }
+
     describe "#index" do
       context "with search params" do
         let!(:picture_1) { create(:alchemy_picture, name: "cute kitten") }
@@ -250,12 +252,23 @@ module Alchemy
         let(:picture) { create(:alchemy_picture) }
 
         subject do
-          put :update, params: {id: 1, picture: {name: "", description: "foo bar"}}, xhr: true
+          put :update, params: {
+            id: 1,
+            picture: {
+              name: "",
+              descriptions_attributes: {
+                0 => {
+                  text: "foo bar",
+                  language_id: language.id
+                }
+              }
+            }
+          }, xhr: true
         end
 
         it "sets the description" do
           subject
-          expect(picture.description).to eq("foo bar")
+          expect(picture.description_for(language)).to eq("foo bar")
         end
       end
     end

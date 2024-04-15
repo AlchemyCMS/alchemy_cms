@@ -3,6 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "alchemy/ingredients/_picture_editor" do
+  let(:page) { stub_model(Alchemy::Page) }
   let(:picture) { stub_model(Alchemy::Picture) }
   let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat") }
   let(:element_editor) { Alchemy::ElementEditor.new(element) }
@@ -27,6 +28,7 @@ RSpec.describe "alchemy/ingredients/_picture_editor" do
     allow(ingredient).to receive(:settings) { settings }
     view.class.send :include, Alchemy::Admin::BaseHelper
     view.class.send :include, Alchemy::Admin::IngredientsHelper
+    assign(:page, page)
   end
 
   subject do

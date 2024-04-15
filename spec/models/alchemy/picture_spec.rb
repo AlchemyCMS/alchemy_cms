@@ -373,6 +373,29 @@ module Alchemy
       end
     end
 
+    describe "#description_for" do
+      subject { picture.description_for(language) }
+
+      let(:picture) { create(:alchemy_picture) }
+      let(:language) { create(:alchemy_language) }
+
+      context "with a description for the given language" do
+        let!(:description) do
+          Alchemy::PictureDescription.create!(
+            picture: picture,
+            language: language,
+            text: "A nice picture"
+          )
+        end
+
+        it { is_expected.to eq(description.text) }
+      end
+
+      context "without a description for the given language" do
+        it { is_expected.to be_nil }
+      end
+    end
+
     describe "#to_jq_upload" do
       subject { picture.to_jq_upload }
 

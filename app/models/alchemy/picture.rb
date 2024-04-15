@@ -55,6 +55,9 @@ module Alchemy
     has_many :elements, through: :picture_ingredients
     has_many :pages, through: :elements
     has_many :thumbs, class_name: "Alchemy::PictureThumb", dependent: :destroy
+    has_many :descriptions, class_name: "Alchemy::PictureDescription", dependent: :destroy
+
+    accepts_nested_attributes_for :descriptions, allow_destroy: true, reject_if: ->(attr) { attr[:text].blank? }
 
     # Raise error, if picture is in use (aka. assigned to an Picture ingredient)
     #
@@ -229,6 +232,11 @@ module Alchemy
         size: image_file_size,
         error: errors[:image_file].join
       }
+    end
+
+    # Returns the picture description for a given language.
+    def description_for(language)
+      descriptions.find_by(language: language)&.text
     end
 
     # Returns an uri escaped name.

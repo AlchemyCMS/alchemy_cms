@@ -1,0 +1,6 @@
+<turbo-frame id="picture_descriptions">
+  <%= render "form", {
+    picture_description: @picture_description,
+    picture_description_counter: @picture.descriptions.index(@picture_description)
+  } %>
+</turbo-frame>

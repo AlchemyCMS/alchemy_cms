@@ -16,6 +16,7 @@ RSpec.describe "Alchemy::Admin::PicturesController" do
     context "as author" do
       before do
         authorize_user(:as_author)
+        create(:alchemy_language)
       end
 
       it "returns the url to picture" do

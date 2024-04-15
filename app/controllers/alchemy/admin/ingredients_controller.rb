@@ -10,6 +10,8 @@ module Alchemy
       helper "Alchemy::Admin::Ingredients"
 
       def edit
+        @language = Alchemy::Language.find_by(id: params[:language_id]) ||
+          Alchemy::Current.language
       end
 
       def update

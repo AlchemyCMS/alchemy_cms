@@ -114,6 +114,7 @@ module Alchemy
         end
         @preview_url = @preview_urls.first.last
         @layoutpage = @page.layoutpage?
+        Alchemy::Current.language = @page.language
       end
 
       # Set page configuration like page names, meta tags and states.
