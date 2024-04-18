@@ -1,4 +1,4 @@
-@import "alchemy_admin/select2";
+@use "alchemy_admin/select2";
 
 select {
   @include button-defaults(
