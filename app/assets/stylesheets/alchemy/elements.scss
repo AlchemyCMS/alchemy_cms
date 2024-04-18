@@ -616,15 +616,13 @@ alchemy-publish-element-button {
   .picture_ingredient_css_class {
     position: absolute;
     z-index: 1;
-    bottom: 24px;
-    width: 99px;
-    background-color: white;
+    bottom: 34px;
     background-color: rgba(255, 254, 255, 0.7);
     padding: 4px 8px;
     font-size: $small-font-size;
-    text-align: right;
-    height: 12px;
     overflow: hidden;
+    max-width: 100%;
+    text-overflow: ellipsis;
   }
 }
 
