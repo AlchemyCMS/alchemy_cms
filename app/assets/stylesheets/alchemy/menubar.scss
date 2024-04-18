@@ -2,8 +2,8 @@
  *= require_self
  */
 
-@use "alchemy/variables";
-@use "alchemy/mixins";
+@import "alchemy/variables";
+@import "alchemy/mixins";
 
 #alchemy_menubar {
   position: fixed;
