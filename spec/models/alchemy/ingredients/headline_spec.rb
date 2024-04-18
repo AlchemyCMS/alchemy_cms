@@ -49,6 +49,18 @@ RSpec.describe Alchemy::Ingredients::Headline do
 
       it { is_expected.to eq([[".h3", 3], [".h4", 4]]) }
     end
+
+    context "when two dimensional array" do
+      before do
+        expect(ingredient).to receive(:settings) do
+          {
+            sizes: [["XL", "text-xl"], ["L", "text-lg"]]
+          }
+        end
+      end
+
+      it { is_expected.to eq([["XL", "text-xl"], ["L", "text-lg"]]) }
+    end
   end
 
   describe "creating from a settings" do

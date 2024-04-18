@@ -29,7 +29,14 @@ module Alchemy
       end
 
       def size_options
-        sizes.map { |size| [".h#{size}", size] }
+        sizes.map do |size|
+          case size
+          when Array
+            size
+          else
+            [".h#{size}", size]
+          end
+        end
       end
 
       private
