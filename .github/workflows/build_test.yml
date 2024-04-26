@@ -53,7 +53,7 @@ jobs:
         run: yarn build
       - uses: actions/upload-artifact@v4
         with:
-          name: javascript-files-${{ github.ref_name }}
+          name: javascript-bundles
           path: vendor/javascript
 
   RSpec:
@@ -142,7 +142,7 @@ jobs:
       - uses: actions/download-artifact@v4
         if: needs.check_yarn_lock.outputs.yarn_lock_changed == 'true'
         with:
-          name: javascript-files-${{ github.ref_name }}
+          name: javascript-bundles
           path: vendor/javascript
       - name: Prepare database
         run: |
@@ -173,7 +173,7 @@ jobs:
       - uses: actions/download-artifact@v4
         if: needs.check_yarn_lock.outputs.yarn_lock_changed == 'true'
         with:
-          name: javascript-files-${{ github.ref_name }}
+          name: javascript-bundles
           path: vendor/javascript
       - name: Check git status
         id: git-status
