@@ -51,6 +51,10 @@ jobs:
         run: yarn install
       - name: YARN build
         run: yarn build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: javascript-files-${{ github.ref_name }}
+          path: vendor/javascript
 
   RSpec:
     needs: [check_yarn_lock, build_javascript]
@@ -135,6 +139,11 @@ jobs:
           sudo apt update -qq
           sudo apt install -qq --fix-missing libmysqlclient-dev -o dir::cache::archives="/home/runner/apt/cache"
           sudo chown -R runner /home/runner/apt/cache
+      - uses: actions/download-artifact@v4
+        if: needs.check_yarn_lock.outputs.yarn_lock_changed == 'true'
+        with:
+          name: javascript-files-${{ github.ref_name }}
+          path: vendor/javascript
       - name: Prepare database
         run: |
           bundle exec rake alchemy:spec:prepare
