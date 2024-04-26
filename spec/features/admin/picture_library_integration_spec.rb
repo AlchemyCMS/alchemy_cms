@@ -76,7 +76,7 @@ RSpec.describe "Picture Library", type: :system do
       within "#flash_notices" do
         expect(page).to have_content("Picture updated successfully")
       end
-      expect(picture.description_for(language)).to eq("This is an amazing image.")
+      expect(picture.reload.description_for(language)).to eq("This is an amazing image.")
     end
 
     scenario "allows to add multi language picture descriptions", :js do
@@ -90,7 +90,7 @@ RSpec.describe "Picture Library", type: :system do
       within "#flash_notices" do
         expect(page).to have_content("Picture updated successfully")
       end
-      expect(picture.description_for(german)).to eq("Tolles Bild.")
+      expect(picture.reload.description_for(german)).to eq("Tolles Bild.")
     end
   end
 end
