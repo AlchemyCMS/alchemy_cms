@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0 # Fetch all history
       - name: Get changed files
         id: changed-yarn-lock
         uses: tj-actions/changed-files@v41
@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Build JS packages
     needs: check_yarn_lock
-    if: ${{ needs.check_yarn_lock.outputs.yarn_lock_changed }}
+    if: needs.check_yarn_lock.outputs.yarn_lock_changed == 'true'
     steps:
       - uses: actions/checkout@v4
       - name: Setup Node
