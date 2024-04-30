@@ -7,9 +7,6 @@
 <%- end -%>
 
 <% if @element.fixed? %>
-  if ($('#fixed-elements').length == 0) {
-    Alchemy.FixedElements.buildTabs('<%= Alchemy.t(:main_content) %>');
-  }
   Alchemy.FixedElements.createTab('<%= @element.id %>', '<%= @element.display_name %>');
   $element_area = $('[name="fixed-element-<%= @element.id %>"]');
 <% elsif @element.parent_element %>

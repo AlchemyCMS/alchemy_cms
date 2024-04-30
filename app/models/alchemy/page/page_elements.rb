@@ -80,21 +80,21 @@ module Alchemy
       #       type: Richtext
       #
       def available_element_definitions(only_element_named = nil)
-        @_element_definitions ||= if only_element_named
+        @_available_element_definitions ||= if only_element_named
           definition = Element.definition_by_name(only_element_named)
           element_definitions_by_name(definition["nestable_elements"])
         else
-          element_definitions
+          element_definitions.dup
         end
 
-        return [] if @_element_definitions.blank?
+        return [] if @_available_element_definitions.blank?
 
         existing_elements = draft_version.elements.not_nested
         @_existing_element_names = existing_elements.pluck(:name)
         delete_unique_element_definitions!
         delete_outnumbered_element_definitions!
 
-        @_element_definitions
+        @_available_element_definitions
       end
 
       # All names of elements that can actually be placed on current page.
@@ -186,18 +186,18 @@ module Alchemy
         end
       end
 
-      # Deletes unique and already present definitions from @_element_definitions.
+      # Deletes unique and already present definitions from @_available_element_definitions.
       #
       def delete_unique_element_definitions!
-        @_element_definitions.delete_if do |element|
+        @_available_element_definitions.delete_if do |element|
           element["unique"] && @_existing_element_names.include?(element["name"])
         end
       end
 
-      # Deletes limited and outnumbered definitions from @_element_definitions.
+      # Deletes limited and outnumbered definitions from @_available_element_definitions.
       #
       def delete_outnumbered_element_definitions!
-        @_element_definitions.delete_if do |element|
+        @_available_element_definitions.delete_if do |element|
           outnumbered = @_existing_element_names.select { |name| name == element["name"] }
           element["amount"] && outnumbered.count >= element["amount"].to_i
         end
