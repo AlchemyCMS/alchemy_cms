@@ -4,15 +4,6 @@ Alchemy.FixedElements = {
   WRAPPER: '<sl-tab-group id="fixed-elements" />',
   TABS: '<sl-tab slot="nav" panel="main-content-elements">{{label}}</sl-tab>',
 
-  // Builds fixed elements tabs
-  buildTabs: function (label) {
-    var $wrapper = $(this.WRAPPER),
-      $tabs = $(this.TABS.replace(/{{label}}/, label))
-
-    $("#main-content-elements").wrap($wrapper)
-    $("#fixed-elements").prepend($tabs)
-  },
-
   // Creates a fixed element tab.
   createTab: function (element_id, label) {
     var $fixed_elements = $("#fixed-elements")
