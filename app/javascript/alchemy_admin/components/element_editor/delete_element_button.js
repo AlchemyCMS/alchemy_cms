@@ -1,3 +1,4 @@
+import { removeTab } from "alchemy_admin/fixed_elements"
 import { growl } from "alchemy_admin/growler"
 import { reloadPreview } from "alchemy_admin/components/preview_window"
 import { confirmToDeleteDialog } from "alchemy_admin/confirm_dialog"
@@ -20,7 +21,7 @@ export class DeleteElementButton extends HTMLElement {
     const elementEditor = this.closest("alchemy-element-editor")
     elementEditor.addEventListener("transitionend", () => {
       if (elementEditor.fixed) {
-        Alchemy.FixedElements.removeTab(elementEditor.elementId)
+        removeTab(elementEditor.elementId)
       }
       elementEditor.remove()
     })
