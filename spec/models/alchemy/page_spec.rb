@@ -590,6 +590,12 @@ module Alchemy
           expect(subject.collect { |e| e["name"] }).to include("article")
           expect(subject.collect { |e| e["name"] }).not_to include("header")
         end
+
+        it "does not mutate the element_definitions collection" do
+          expect(page.element_definitions.collect { |e| e["name"] }).to include("header")
+          subject
+          expect(page.element_definitions.collect { |e| e["name"] }).to include("header")
+        end
       end
 
       context "limited amount" do
@@ -649,6 +655,12 @@ module Alchemy
 
         it "should be ignored if unique" do
           expect(subject.collect { |e| e["name"] }).not_to include("unique_headline")
+        end
+
+        it "does not mutate the element_definitions collection" do
+          expect(page.element_definitions.collect { |e| e["name"] }).to include("column_headline")
+          subject
+          expect(page.element_definitions.collect { |e| e["name"] }).to include("column_headline")
         end
       end
 
