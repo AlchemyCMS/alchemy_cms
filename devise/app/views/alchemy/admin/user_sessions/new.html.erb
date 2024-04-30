@@ -1,6 +1,6 @@
 <div class="login_signup_box">
   <%= image_tag 'alchemy/alchemy-logo.svg', id: 'logo' %>
-  <%= alchemy_form_for :user, url: {action: 'create'}, id: 'login' do |f| %>
+  <%= alchemy_form_for :user, url: {action: 'create'}, id: 'login', data: { turbo: false } do |f| %>
     <%= f.input Devise.authentication_keys.first, autofocus: true %>
     <%= f.input :password %>
     <div class="input link">
