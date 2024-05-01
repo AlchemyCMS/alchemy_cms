@@ -106,10 +106,11 @@ module Alchemy
       #   The css class of the <input> tag
       # @option options [String or Hash] :data ({'alchemy-list-filter' => items})
       #   A HTML data attribute that holds the jQuery selector that represents the list to be filtered
-      #
+      # @deprecated render Alchemy::Admin::ListFilter.new(items) instead
       def js_filter_field(items, _options = {})
         render Alchemy::Admin::ListFilter.new(items)
       end
+      deprecate js_filter_field: "render Alchemy::Admin::ListFilter.new(items) instead", deprecator: Alchemy::Deprecation
 
       # Returns a link that opens a modal confirmation to delete window.
       #

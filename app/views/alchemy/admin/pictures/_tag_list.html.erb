@@ -1,6 +1,6 @@
 <% if Alchemy::Picture.tag_counts.any? %>
   <h3><%= Alchemy.t("Filter by tag") %></h3>
-  <%= js_filter_field '.tag-list li' %>
+  <%= render Alchemy::Admin::ListFilter.new(".tag-list li") %>
   <ul>
     <%= render_tag_list('Alchemy::Picture') %>
   </ul>
