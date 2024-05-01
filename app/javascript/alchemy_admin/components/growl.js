@@ -2,7 +2,11 @@ import { growl } from "alchemy_admin/growler"
 
 class Growl extends HTMLElement {
   connectedCallback() {
-    growl(this.getAttribute("message"), this.getAttribute("type") || "notice")
+    growl(this.message, this.getAttribute("type") || "notice")
+  }
+
+  get message() {
+    return this.getAttribute("message") || this.innerHTML
   }
 }
 
