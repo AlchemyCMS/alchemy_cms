@@ -329,7 +329,7 @@ const VERSION_NAVIGATION = {
 export default {
   title: "AlchemyCMS",
   description:
-    "The Rails CMS framework that plugs nicely into your existing app.",
+    "Alchemy is the Open Source Rails CMS framework for the component based web that can be used as classic server side rendered or headless CMS.",
   head: [
     [
       "link",
