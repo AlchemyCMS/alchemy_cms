@@ -44,28 +44,6 @@ module Alchemy
       end
     end
 
-    describe "#render_flash_notice" do
-      context "if no argument is passed" do
-        it "should render an alchemy-message with an check icon and the given content" do
-          expect(helper.render_flash_notice("my notice")).to eq <<~HTML
-            <alchemy-message type="notice" dismissable>
-              my notice
-            </alchemy-message>
-          HTML
-        end
-      end
-
-      context "if an argument is passed" do
-        it "should render the passed argument as the type for the message" do
-          expect(helper.render_flash_notice("A error", :error)).to eq <<~HTML
-            <alchemy-message type="error" dismissable>
-              A error
-            </alchemy-message>
-          HTML
-        end
-      end
-    end
-
     describe "#page_or_find" do
       let(:page) { create(:alchemy_page, :public) }
 
