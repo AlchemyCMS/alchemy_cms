@@ -2,7 +2,7 @@
 <div class="toolbar_buttons">
   <%= render 'alchemy/admin/partials/site_select' %>
   <%= render 'alchemy/admin/partials/language_tree_select' %>
-  <%= toolbar_button(
+  <%= render Alchemy::Admin::ToolbarButton.new(
     icon: "file-add",
     url: alchemy.new_admin_page_path(language: @current_language, layoutpage: true),
     hotkey: 'alt+n',
@@ -15,7 +15,7 @@
     tooltip_placement: "top-start",
     if_permitted_to: [:create, Alchemy::Page]
   ) %>
-  <%= toolbar_button(
+  <%= render Alchemy::Admin::ToolbarButton.new(
     icon: clipboard_empty?('pages') ? 'clipboard' : 'paste',
     url: alchemy.admin_clipboard_path(remarkable_type: 'pages'),
     dialog_options: {

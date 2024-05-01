@@ -2,12 +2,10 @@
 
 module Alchemy
   module Admin
-    # This module contains helper methods for rendering dialogs, toolbar buttons and confirmation windows.
+    # This module contains helper methods for rendering dialogs and confirmation windows.
     #
     # The most important helpers for module developers are:
     #
-    # * {#toolbar}
-    # * {#toolbar_button}
     # * {#link_to_dialog}
     # * {#link_to_confirm_dialog}
     #
@@ -258,10 +256,11 @@ module Alchemy
       #   Skip the permission check. NOT RECOMMENDED!
       # @option options [Boolean] :loading_indicator (true)
       #   Shows the please wait dialog while loading. Only for buttons not opening an dialog.
-      #
+      # @deprecated render Alchemy::Admin::ToolbarButton.new instead
       def toolbar_button(options = {})
         render Alchemy::Admin::ToolbarButton.new(**options)
       end
+      deprecate toolbar_button: "render Alchemy::Admin::ToolbarButton.new instead", deprecator: Alchemy::Deprecation
 
       # Renders a textfield ready to display a datepicker
       #

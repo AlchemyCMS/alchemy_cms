@@ -1,7 +1,7 @@
 <%= turbo_frame_tag "alchemy_elements_window" do %>
   <alchemy-elements-window>
     <div class="elements-window-toolbar">
-      <%= toolbar_button(
+      <%= render Alchemy::Admin::ToolbarButton.new(
         url: alchemy.new_admin_element_path(page_version_id: @page_version.id),
         icon: :add,
         hotkey: "alt+n",
@@ -12,7 +12,7 @@
         },
         if_permitted_to: [:create, Alchemy::Element]
       ) %>
-      <%= toolbar_button(
+      <%= render Alchemy::Admin::ToolbarButton.new(
         url: alchemy.admin_clipboard_path(remarkable_type: "elements"),
         label: Alchemy.t("Show clipboard"),
         icon: :clipboard,

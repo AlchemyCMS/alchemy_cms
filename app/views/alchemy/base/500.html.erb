@@ -1,5 +1,5 @@
 <%= content_for :toolbar do %>
-  <%= toolbar_button(
+  <%= render Alchemy::Admin::ToolbarButton.new(
     icon: 'angle-double-left',
     url: request.referer || alchemy.admin_dashboard_path,
     label: Alchemy.t(:back),
