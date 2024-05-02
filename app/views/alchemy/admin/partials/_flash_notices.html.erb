@@ -1,7 +1,7 @@
 <div id="flash_notices">
 <% flash.keys.each do |flash_type| %>
   <% if flash[flash_type.to_sym].present? %>
-    <%= render_flash_notice(flash[flash_type.to_sym], flash_type) %>
+    <%= render Alchemy::Admin::Message.new(flash[flash_type.to_sym], type: flash_type, dismissable: true) %>
   <% end %>
 <% end %>
 </div>

@@ -46,15 +46,6 @@ module Alchemy
       render Alchemy::Admin::Message.new(msg || capture(&blk), type: type)
     end
 
-    # Renders a dismissable growl message.
-    #
-    # @param [String] notice - The notice you want to display
-    # @param [Symbol] type - The type of this flash. Valid values are +:notice+ (default), +:warn+, +:info+ and +:error+
-    #
-    def render_flash_notice(notice, type = :notice)
-      render Alchemy::Admin::Message.new(notice, type: type, dismissable: true)
-    end
-
     # Checks if the given argument is a String or a Page object.
     # If a String is given, it tries to find the page via page_layout
     # Logs a warning if no page is given.
