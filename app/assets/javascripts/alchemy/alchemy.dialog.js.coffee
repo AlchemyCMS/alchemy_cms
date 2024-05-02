@@ -1,5 +1,5 @@
 # Dialog windows
-#
+# @deprecated use dialog.js instead
 class window.Alchemy.Dialog
 
   DEFAULTS:
@@ -228,6 +228,11 @@ window.Alchemy.closeCurrentDialog = (callback) ->
   if dialog?
     dialog.options.closed = callback
     dialog.close()
+
+  # this is a intermediate solution to use the same method also with the new dialog
+  new_dialog = document.querySelector("sl-dialog")
+  if new_dialog
+    new_dialog.dialogClassInstance.onSubmitSuccess(callback)
 
 # Utility function to open a new Dialog
 window.Alchemy.openDialog = (url, options) ->

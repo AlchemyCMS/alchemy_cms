@@ -75,8 +75,8 @@ RSpec.describe "The edit elements feature", type: :system do
         expect(button).to have_content "Add Slide"
         button.click
 
-        expect(page).to have_css(".alchemy-dialog")
-        within ".alchemy-dialog" do
+        expect(page).to have_css("sl-dialog")
+        within "sl-dialog" do
           expect(page).to have_select("Element")
           expect(page).to have_css("[panel='paste_element_tab']")
         end
@@ -103,8 +103,8 @@ RSpec.describe "The edit elements feature", type: :system do
 
         scenario "the add button now opens add element form with the clipboard tab" do
           find("a.add-nestable-element-button").click
-          expect(page).to have_css(".alchemy-dialog")
-          within ".alchemy-dialog" do
+          expect(page).to have_css("sl-dialog")
+          within "sl-dialog" do
             expect(page).to have_select("Element")
             expect(page).to have_css("[panel='paste_element_tab']")
           end
@@ -126,8 +126,8 @@ RSpec.describe "The edit elements feature", type: :system do
       button = page.find(".add-nestable-element-button")
       expect(button).to have_content "New element"
       button.click
-      expect(page).to have_css(".alchemy-dialog")
-      within ".alchemy-dialog" do
+      expect(page).to have_css("sl-dialog")
+      within "sl-dialog" do
         expect(page).to have_select("Element")
         select2("Text", from: "Element")
         click_button("Add")

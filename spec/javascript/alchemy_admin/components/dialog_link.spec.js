@@ -1,28 +1,18 @@
 import "alchemy_admin/components/dialog_link"
-import { DEFAULTS } from "alchemy_admin/components/dialog_link"
 import { renderComponent } from "./component.helper"
-
-class Dialog {
-  open() {}
-}
-
-beforeEach(() => {
-  global.Alchemy = {
-    Dialog: Dialog
-  }
-})
+import { Dialog } from "alchemy_admin/dialog"
 
 describe("alchemy-dialog-link", () => {
   it("opens a dialog on click", () => {
     const html = `
       <a type="submit" is="alchemy-dialog-link">Open Dialog</a>
     `
-    const openSpy = jest.spyOn(Dialog.prototype, "open")
+    Dialog.prototype.open = jest.fn(() => Promise.resolve())
     const dialogLink = renderComponent("alchemy-dialog-link", html)
     const click = new Event("click", { bubbles: true })
 
     dialogLink.dispatchEvent(click)
-    expect(openSpy).toHaveBeenCalled()
+    expect(Dialog.prototype.open).toHaveBeenCalled()
   })
 
   it("has default dialogOptions", () => {
@@ -31,7 +21,7 @@ describe("alchemy-dialog-link", () => {
     `
     const dialogLink = renderComponent("alchemy-dialog-link", html)
 
-    expect(dialogLink.dialogOptions).toEqual(DEFAULTS)
+    expect(dialogLink.dialogOptions).toEqual({})
   })
 
   it("parses dialogOptions from dataset", () => {
