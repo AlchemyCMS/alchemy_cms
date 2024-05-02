@@ -1,6 +1,6 @@
 <%= content_for :toolbar do %>
   <div class="toolbar_buttons">
-    <%= toolbar_button(
+    <%= render Alchemy::Admin::ToolbarButton.new(
       icon: 'information',
       label: Alchemy.t(:info),
       url: alchemy.dashboard_info_path,

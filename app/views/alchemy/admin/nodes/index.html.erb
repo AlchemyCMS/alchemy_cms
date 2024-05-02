@@ -6,7 +6,7 @@
   <div class="toolbar_buttons">
     <%= render 'alchemy/admin/partials/site_select' %>
     <%= render 'alchemy/admin/partials/language_tree_select' %>
-    <%= toolbar_button(
+    <%= render Alchemy::Admin::ToolbarButton.new(
       icon: 'menu-add',
       label: Alchemy.t(:create_menu),
       url: alchemy.new_admin_node_path,

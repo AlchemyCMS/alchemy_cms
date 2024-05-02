@@ -3,7 +3,7 @@
 <% content_for :toolbar do %>
   <div class="toolbar_buttons">
     <%= render 'alchemy/admin/partials/site_select' %>
-    <%= toolbar_button(
+    <%= render Alchemy::Admin::ToolbarButton.new(
       icon: :plus,
       label: label_title,
       url: new_resource_path,
