@@ -8,6 +8,8 @@ class Button extends HTMLButtonElement {
       if (this.form.dataset.remote == "true") {
         this.form.addEventListener("ajax:complete", this)
       }
+
+      this.form.addEventListener("turbo:submit-end", this)
     } else {
       console.warn("No form for button found!", this)
     }
@@ -26,6 +28,7 @@ class Button extends HTMLButtonElement {
         }
         break
       case "ajax:complete":
+      case "turbo:submit-end":
         this.enable()
         break
     }
