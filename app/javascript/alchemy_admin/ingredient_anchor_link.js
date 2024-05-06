@@ -5,10 +5,9 @@ export default class IngredientAnchorLink {
     )
     if (ingredientEditor) {
       const icon = ingredientEditor.querySelector(
-        ".edit-ingredient-anchor-link > a > .icon"
+        ".edit-ingredient-anchor-link alchemy-icon"
       )
-      icon?.classList.toggle("ri-bookmark-fill", active)
-      icon?.classList.toggle("ri-bookmark-line", !active)
+      icon.setAttribute("icon-style", active ? "fill" : "line")
     }
   }
 }
