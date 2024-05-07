@@ -64,9 +64,13 @@ module Alchemy
     #
     def render_site_layout(&block)
       render current_alchemy_site, &block
-    rescue ActionView::MissingTemplate
-      warning("Site layout for #{current_alchemy_site.try(:name)} not found. Please run `rails g alchemy:site_layouts`")
-      ""
+    rescue ActionView::MissingTemplate => error
+      if Rails.application.config.consider_all_requests_local?
+        raise error
+      else
+        warning("Site layout for #{current_alchemy_site.try(:name)} not found. Please run `rails g alchemy:site_layouts`")
+        ""
+      end
     end
 
     # Renders a menu partial

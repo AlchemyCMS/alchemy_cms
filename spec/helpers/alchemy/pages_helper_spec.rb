@@ -41,9 +41,22 @@ module Alchemy
       end
 
       context "with missing partial" do
-        it "returns empty string and logges warning" do
-          expect(helper).to receive(:current_alchemy_site).twice.and_return(default_site)
-          expect(helper.render_site_layout).to eq("")
+        context "in production environment" do
+          before { allow(Rails.application.config).to receive(:consider_all_requests_local?).and_return(false) }
+
+          it "returns empty string and logges warning" do
+            expect(helper).to receive(:current_alchemy_site).twice.and_return(default_site)
+            expect(helper.render_site_layout).to eq("")
+          end
+        end
+
+        context "in dev or test environment" do
+          before { allow(Rails.application.config).to receive(:consider_all_requests_local?).and_return(true) }
+
+          it "raises missing template error" do
+            expect(helper).to receive(:current_alchemy_site).and_return(default_site)
+            expect { helper.render_site_layout }.to raise_error(ActionView::MissingTemplate)
+          end
         end
       end
     end
