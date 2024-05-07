@@ -79,7 +79,17 @@ module Alchemy
         context "but the template does not exist" do
           let(:menu_type) { "unknown" }
 
-          it { is_expected.to be_nil }
+          context "in production environment" do
+            before { allow(Rails.application.config).to receive(:consider_all_requests_local?).and_return(false) }
+
+            it { is_expected.to be_nil }
+          end
+
+          context "in dev or test environment" do
+            before { allow(Rails.application.config).to receive(:consider_all_requests_local?).and_return(true) }
+
+            it { expect { subject }.to raise_error(ActionView::MissingTemplate) }
+          end
         end
       end
 

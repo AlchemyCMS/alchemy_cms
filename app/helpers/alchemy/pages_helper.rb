@@ -91,11 +91,15 @@ module Alchemy
       end
 
       render("alchemy/menus/#{menu_type}/wrapper", menu: root_node, options: options)
-    rescue ActionView::MissingTemplate => e
-      warning <<~WARN
-        Menu partial not found for #{menu_type}.
-        #{e}
-      WARN
+    rescue ActionView::MissingTemplate => error
+      if Rails.application.config.consider_all_requests_local?
+        raise error
+      else
+        warning <<~WARN
+          Menu partial not found for #{menu_type}.
+          #{error}
+        WARN
+      end
     end
 
     # Returns page links in a breadcrumb beginning from root to current page.
