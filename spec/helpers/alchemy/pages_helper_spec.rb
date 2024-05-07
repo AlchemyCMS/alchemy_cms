@@ -272,6 +272,45 @@ module Alchemy
       end
     end
 
+    describe "#page_title" do
+      let(:response) { double("response", status: 200) }
+
+      before do
+        allow(helper).to receive(:response) { response }
+        @page = public_page
+      end
+
+      subject { helper.page_title }
+
+      context "when current page has a title set" do
+        before { public_page.title = "My Public Page" }
+
+        it { is_expected.to eq "My Public Page" }
+      end
+
+      context "when current page has no title set" do
+        before do
+          language_root.title = "Title from language root"
+        end
+
+        context "when current page is the language root page" do
+          before { @page = language_root }
+
+          it { is_expected.to eq "Title from language root" }
+        end
+      end
+
+      context "when response status is not 200" do
+        let(:response) { double("response", status: 404) }
+
+        before { public_page.title = "My Public Page" }
+
+        it "should return the status code" do
+          is_expected.to eq "404"
+        end
+      end
+    end
+
     describe "meta data" do
       before { @page = public_page }
 
