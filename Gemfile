@@ -45,7 +45,6 @@ group :development, :test do
     gem "github_fast_changelog", require: false
     gem "active_record_query_trace", require: false
     gem "rack-mini-profiler", require: false
-    gem "rufo", require: false
     gem "brakeman", require: false
   end
 end
