@@ -22,7 +22,7 @@ module Alchemy
         @message = message_for_resource_action
         render :update
       else
-        render :edit
+        render :edit, status: :unprocessable_entity
       end
     end
 

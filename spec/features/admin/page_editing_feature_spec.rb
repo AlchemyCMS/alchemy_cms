@@ -224,6 +224,16 @@ RSpec.describe "Page editing feature", type: :system do
       expect(page).to have_selector(".alchemy-dialog-overlay.open")
     end
 
+    context "with validation errors" do
+      it "should show the error messages" do
+        within(".alchemy-dialog.modal") do
+          fill_in "page_name", with: ""
+          click_button "Save"
+        end
+        expect(page).to have_content("can't be blank")
+      end
+    end
+
     context "when updating the name" do
       it "saves the name" do
         within(".alchemy-dialog.modal") do

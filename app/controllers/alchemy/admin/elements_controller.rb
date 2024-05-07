@@ -71,7 +71,7 @@ module Alchemy
             errorMessage: Alchemy.t(:ingredient_validations_headline),
             ingredientsWithErrors: @element.ingredients_with_errors.map(&:id),
             errors: @element.ingredient_error_messages
-          }
+          }, status: :unprocessable_entity
         end
       end
 

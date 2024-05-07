@@ -135,7 +135,7 @@ module Alchemy
             @tree = serialized_page_tree
           end
         else
-          render :configure
+          render :configure, status: :unprocessable_entity
         end
       end
 
