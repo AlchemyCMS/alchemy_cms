@@ -21,28 +21,20 @@ export class Dialog {
    */
   open() {
     this.#build()
-    // Show the dialog with the spinner after a small delay.
-    // in most cases the content of the dialog is already available and the spinner is not flashing
-    setTimeout(() => this.#openDialog, 300)
+    this.#openDialog()
+    this.#select2Handling()
 
-    this.#loadContent().then((content) => {
-      // create the dialog markup and show the dialog
-      this.#dialogComponent.innerHTML = content
-      this.#select2Handling()
-      this.#openDialog()
+    // bind the current class instance to the DOM - element
+    // this should be an intermediate solution
+    // the main goal, is to close the dialog with the turbo:submit-end - event
+    this.#dialogComponent.dialogClassInstance = this
 
-      // bind the current class instance to the DOM - element
-      // this should be an intermediate solution
-      // the main goal, is to close the dialog with the turbo:submit-end - event
-      this.#dialogComponent.dialogClassInstance = this
-
-      // the dialog is closing with the overlay, esc - key, or close - button
-      // the reject - callback will be fired, because the user decided to close the
-      // dialog without saving anything
-      this.#dialogComponent.addEventListener("sl-request-close", () => {
-        this.#removeDialog()
-        this.#onReject()
-      })
+    // the dialog is closing with the overlay, esc - key, or close - button
+    // the reject - callback will be fired, because the user decided to close the
+    // dialog without saving anything
+    this.#dialogComponent.addEventListener("sl-after-hide", () => {
+      this.#removeDialog()
+      this.#onReject()
     })
 
     return new Promise((resolve, reject) => {
@@ -70,23 +62,12 @@ export class Dialog {
   }
 
   /**
-   * load content of the given url
-   * @returns {Promise<string>}
-   */
-  async #loadContent() {
-    const response = await fetch(this.url, {
-      headers: { "X-Requested-With": "XMLHttpRequest" }
-    })
-    return await response.text()
-  }
-
-  /**
    * create and append the dialog container to the DOM
    */
   #build() {
     this.#dialogComponent = createHtmlElement(`
       <sl-dialog label="${this.title}" style="${this.styles}">
-        <alchemy-spinner size="medium"></alchemy-spinner>
+        <alchemy-remote-partial url="${this.url}"></alchemy-remote-partial>
       </sl-dialog>
     `)
     document.body.append(this.#dialogComponent)
@@ -107,10 +88,8 @@ export class Dialog {
    * remove the dialog from dom
    */
   #removeDialog() {
-    this.#dialogComponent.addEventListener("sl-after-hide", () => {
-      this.#dialogComponent.remove()
-      this.#isOpen = false
-    })
+    this.#dialogComponent.remove()
+    this.#isOpen = false
   }
 
   /**

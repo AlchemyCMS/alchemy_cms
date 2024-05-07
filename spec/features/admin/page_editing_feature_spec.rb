@@ -239,7 +239,7 @@ RSpec.describe "Page editing feature", type: :system do
       let!(:new_parent) { create(:alchemy_page) }
 
       it "can change page parent" do
-        within(".simple_form:first-child") do
+        within(".simple_form.edit_page") do
           expect(page).to have_css("#s2id_page_parent_id")
           select2_search(new_parent.name, from: "Parent")
           find(".edit_page .submit button").click

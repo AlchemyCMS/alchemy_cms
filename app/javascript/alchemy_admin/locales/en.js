@@ -25,6 +25,11 @@ export const en = {
   "No anchors found": "No anchors found",
   "Select a page first": "Select a page first",
   Close: "Close",
+  "The server does not respond.": "The server does not respond.",
+  "Please check server and try again.": "Please check server and try again.",
+  "Please check log and try again.": "Please check log and try again.",
+  "You are not authorized!": "You are not authorized!",
+  "Please close this window.": "Please close this window.",
   formats: {
     datetime: "Y-m-d H:i",
     date: "Y-m-d",
