@@ -65,12 +65,7 @@ module Alchemy
     def render_site_layout(&block)
       render current_alchemy_site, &block
     rescue ActionView::MissingTemplate => error
-      if Rails.application.config.consider_all_requests_local?
-        raise error
-      else
-        warning("Site layout for #{current_alchemy_site.try(:name)} not found. Please run `rails g alchemy:site_layouts`")
-        ""
-      end
+      error_or_warning(error, "Site layout for #{current_alchemy_site.try(:name)} not found. Please run `rails g alchemy:site_layouts`")
     end
 
     # Renders a menu partial
@@ -92,14 +87,7 @@ module Alchemy
 
       render("alchemy/menus/#{menu_type}/wrapper", menu: root_node, options: options)
     rescue ActionView::MissingTemplate => error
-      if Rails.application.config.consider_all_requests_local?
-        raise error
-      else
-        warning <<~WARN
-          Menu partial not found for #{menu_type}.
-          #{error}
-        WARN
-      end
+      error_or_warning(error, "Menu partial for #{menu_type} not found. Please run `rails g alchemy:menus`")
     end
 
     # Returns page links in a breadcrumb beginning from root to current page.
@@ -176,6 +164,17 @@ module Alchemy
 
     def meta_robots
       "#{@page.robot_index? ? "" : "no"}index, #{@page.robot_follow? ? "" : "no"}follow"
+    end
+
+    private
+
+    def error_or_warning(error, message)
+      if Rails.application.config.consider_all_requests_local?
+        raise error, message
+      else
+        Rails.logger.error message
+        ""
+      end
     end
   end
 end

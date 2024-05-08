@@ -54,7 +54,7 @@ module Alchemy
           before { allow(Rails.application.config).to receive(:consider_all_requests_local?).and_return(true) }
 
           it "raises missing template error" do
-            expect(helper).to receive(:current_alchemy_site).and_return(default_site)
+            expect(helper).to receive(:current_alchemy_site).twice.and_return(default_site)
             expect { helper.render_site_layout }.to raise_error(ActionView::MissingTemplate)
           end
         end
@@ -82,7 +82,7 @@ module Alchemy
           context "in production environment" do
             before { allow(Rails.application.config).to receive(:consider_all_requests_local?).and_return(false) }
 
-            it { is_expected.to be_nil }
+            it { is_expected.to eq("") }
           end
 
           context "in dev or test environment" do
