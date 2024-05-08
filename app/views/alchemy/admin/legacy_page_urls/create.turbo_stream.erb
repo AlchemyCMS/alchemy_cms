@@ -1,0 +1,8 @@
+<% if @legacy_page_url.valid? %>
+  <%= render "update" %>
+<% else %>
+  <%= turbo_stream.update "new_legacy_page_url" do %>
+    <%= render 'new',
+      legacy_page_url: @legacy_page_url %>
+  <% end %>
+<% end %>

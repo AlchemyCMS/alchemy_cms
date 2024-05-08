@@ -1,0 +1,27 @@
+<%= turbo_frame_tag(@legacy_page_url, class: "row") do %>
+  <div class="col p-0">
+    <%= form_for [:admin, @legacy_page_url] do |f| %>
+      <%= content_tag :div, class: @legacy_page_url.errors.any? ? "field_with_errors" : nil do %>
+        <%= f.text_field :urlname, placeholder: Alchemy::LegacyPageUrl.human_attribute_name(:urlname), autofocus: true %>
+        <% if @legacy_page_url.errors.any? %>
+          <small class="error">
+            <%= @legacy_page_url.errors.full_messages_for(:urlname).join %>
+          </small>
+        <% end %>
+      <% end %>
+      <%= hidden_field_tag :page_id, @legacy_page_url.page_id %>
+    <% end %>
+  </div>
+  <div class="col tools">
+    <sl-tooltip content="<%= Alchemy.t(:save) %>">
+      <%= button_tag type: "submit", form: dom_id(@legacy_page_url, :edit), class: "icon_button" do %>
+        <%= render_icon :check %>
+      <% end %>
+    </sl-tooltip>
+    <sl-tooltip content="<%= Alchemy.t(:cancel) %>">
+      <%= link_to admin_legacy_page_url_path(@legacy_page_url, page_id: @legacy_page_url.page_id), class: "icon_button" do %>
+        <%= render_icon :close %>
+      <% end %>
+    </sl-tooltip>
+  </div>
+<% end %>

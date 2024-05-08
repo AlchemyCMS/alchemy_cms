@@ -1,20 +1,18 @@
-<%= alchemy_form_for [:admin, @legacy_page_url ||= @page.legacy_urls.build],
-  id: 'new_legacy_page_url' do |f| %>
-  <% if @legacy_page_url.errors.any? %>
-    <%= render_message :error do %>
-      <%= @legacy_page_url.errors.full_messages.join %>
+<%= turbo_frame_tag "new_legacy_page_url" do %>
+  <%= alchemy_form_for [:admin, legacy_page_url] do |f| %>
+    <% if legacy_page_url.errors.any? %>
+      <%= render_message :error do %>
+        <%= legacy_page_url.errors.full_messages.join %>
+      <% end %>
     <% end %>
+    <%= hidden_field_tag :page_id, @page.id %>
+    <div class="inline-input">
+      <div class="left-column">
+        <%= f.text_field :urlname, placeholder: Alchemy::LegacyPageUrl.human_attribute_name(:urlname) %>
+      </div>
+      <div class="right-column">
+        <button><%= Alchemy.t(:add) %></button>
+      </div>
+    </div>
   <% end %>
-  <%= hidden_field_tag :page_id, @page.id %>
-  <div class="inline-input">
-    <div class="left-column">
-      <%= f.text_field :urlname, placeholder: Alchemy::LegacyPageUrl.human_attribute_name(:urlname) %>
-    </div>
-    <div class="right-column">
-      <button class="with_icon">
-        <%= render_icon(:plus) %>
-        <%= Alchemy.t(:add) %>
-      </button>
-    </div>
-  </div>
 <% end %>

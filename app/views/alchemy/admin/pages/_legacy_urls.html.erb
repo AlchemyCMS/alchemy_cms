@@ -2,22 +2,11 @@
   <p><%== Alchemy.t(:legacy_url_info_text) %></p>
 <% end %>
 
-<table class="list" id="legacy_page_urls">
-  <tr>
-    <th class="name">
-      <%= Alchemy::LegacyPageUrl.human_attribute_name(:urlname) %>
-    </th>
-    <th class="tools"></th>
-  </tr>
-  <%= render partial: 'alchemy/admin/legacy_page_urls/legacy_page_url',
-    collection: @page.legacy_urls %>
-  <tr class="even" id="no_page_links_notice" style="display: <%= @page.legacy_urls.any? ? 'none' : 'table-row' %>">
-    <td><%= Alchemy.t('No page links for this page found') %></td>
-    <td class="tools"></td>
-  </tr>
-</table>
+<%= turbo_frame_tag("legacy_page_urls") do %>
+  <%= render "alchemy/admin/legacy_page_urls/table", legacy_page_urls: @page.legacy_urls %>
+<% end %>
 
 <fieldset>
   <legend><%= Alchemy.t('Add page link') %></legend>
-  <%= render 'alchemy/admin/legacy_page_urls/new' %>
+  <%= render 'alchemy/admin/legacy_page_urls/new', legacy_page_url: @page.legacy_urls.build %>
 </fieldset>
