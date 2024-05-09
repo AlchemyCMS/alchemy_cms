@@ -47,6 +47,10 @@ module Alchemy
     describe "#page_or_find" do
       let(:page) { create(:alchemy_page, :public) }
 
+      around do |example|
+        Alchemy::Deprecation.silence { example.run }
+      end
+
       context "passing a page_layout string" do
         context "of a not existing page" do
           it "should return nil" do

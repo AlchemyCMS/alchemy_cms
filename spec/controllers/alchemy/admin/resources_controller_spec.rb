@@ -129,6 +129,15 @@ describe Admin::EventsController do
     end
   end
 
+  describe "#show" do
+    let(:event) { create(:event) }
+
+    it "renders the edit template" do
+      get :show, params: {id: event.id}
+      expect(response).to render_template(:edit)
+    end
+  end
+
   describe "#destroy" do
     let(:params) { {q: {name_or_hidden_name_or_description_or_location_name_cont: "some_query"}, page: 6} }
     let!(:peter) { create(:event, name: "Peter") }

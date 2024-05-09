@@ -42,7 +42,9 @@ module Alchemy
         expect(helper).to receive(:render).with(
           an_instance_of(Alchemy::Admin::ToolbarButton)
         )
-        helper.toolbar_button(url: admin_dashboard_path, icon: "info", label: "Show Info")
+        Alchemy::Deprecation.silence do
+          helper.toolbar_button(url: admin_dashboard_path, icon: "info", label: "Show Info")
+        end
       end
     end
 
