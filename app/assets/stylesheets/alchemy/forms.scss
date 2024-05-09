@@ -87,41 +87,6 @@ form {
       }
     }
 
-    &.field_with_errors {
-      input[type="text"],
-      input[type="email"],
-      input[type="password"],
-      textarea,
-      .select2-choices {
-        @extend %field-with-error;
-      }
-
-      .select2-choice,
-      .select2-choices {
-        border-color: $error_border_color;
-        color: $error_text_color;
-        margin-bottom: 4px;
-
-        input[type="text"] {
-          box-shadow: none;
-        }
-      }
-
-      label {
-        color: $error_text_color;
-      }
-    }
-
-    small.error {
-      color: $error_text_color;
-      display: block;
-      margin-left: $form-left-width;
-      line-height: 1.5em;
-      clear: both;
-      text-align: right;
-      margin-bottom: 0.25em;
-    }
-
     &.language_locale small.error {
       @include form-hint(
         $background-color: $error_background_color,
@@ -129,6 +94,41 @@ form {
       );
       text-align: left;
     }
+  }
+
+  .field_with_errors {
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    textarea,
+    .select2-choices {
+      @extend %field-with-error;
+    }
+
+    .select2-choice,
+    .select2-choices {
+      border-color: $error_border_color;
+      color: $error_text_color;
+      margin-bottom: 4px;
+
+      input[type="text"] {
+        box-shadow: none;
+      }
+    }
+
+    label {
+      color: $error_text_color;
+    }
+  }
+
+  small.error {
+    color: $error_text_color;
+    display: block;
+    margin-left: $form-left-width;
+    line-height: 1.5em;
+    clear: both;
+    text-align: right;
+    margin-bottom: 0.25em;
   }
 
   .input-addon {
