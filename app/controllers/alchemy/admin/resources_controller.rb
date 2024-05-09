@@ -141,23 +141,28 @@ module Alchemy
         resource_filters.map(&:values).flatten
       end
 
-      # Returns a translated +flash[:notice]+.
-      # The key should look like "Modelname successfully created|updated|destroyed."
-      def flash_notice_for_resource_action(action = params[:action])
+      # Returns a translated +flash[:notice]+ for current controller action.
+      def flash_notice_for_resource_action(action = action_name)
         return if resource_instance_variable.errors.any?
 
+        flash[:notice] = message_for_resource_action(action)
+      end
+
+      # Returns a translated message for a +flash[:notice]+.
+      # The key should look like "Modelname successfully created|updated|destroyed."
+      def message_for_resource_action(action = action_name)
         case action.to_sym
         when :create
-          verb = "created"
+          verb = Alchemy.t("created", scope: "resources.actions")
         when :update
-          verb = "updated"
+          verb = Alchemy.t("updated", scope: "resources.actions")
         when :destroy
-          verb = "removed"
+          verb = Alchemy.t("removed", scope: "resources.actions")
         end
-        flash[:notice] = Alchemy.t(
-          "#{resource_handler.resource_name.classify} successfully #{verb}",
-          default: Alchemy.t("Successfully #{verb}")
-        )
+        Alchemy.t("%{resource_name} successfully %{action}",
+          resource_name: resource_handler.model.model_name.human,
+          action: verb,
+          default: Alchemy.t("Successfully #{verb}"))
       end
 
       def is_alchemy_module?

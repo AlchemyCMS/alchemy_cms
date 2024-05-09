@@ -591,7 +591,12 @@ en:
     replace: replace
     replace_file: Replace file
     "Replaced Tag": "Tag '%{old_tag}' was replaced with '%{new_tag}'"
+    "%{resource_name} successfully %{action}": "%{resource_name} successfully %{action}."
     resources:
+      actions:
+        created: "created"
+        updated: "updated"
+        removed: "removed"
       relation_select:
         blank: "- none -"
     right: "right"

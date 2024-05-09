@@ -226,7 +226,7 @@ RSpec.describe "Resources", type: :system do
       end
 
       it "shows a success message" do
-        expect(page).to have_content("Successfully created")
+        expect(page).to have_content("Event successfully created.")
       end
     end
 
@@ -246,7 +246,7 @@ RSpec.describe "Resources", type: :system do
       end
 
       it "should not display success notice" do
-        expect(page).not_to have_content("successfully created")
+        expect(page).not_to have_content("Event successfully created.")
       end
     end
   end
@@ -263,7 +263,7 @@ RSpec.describe "Resources", type: :system do
     end
 
     it "shows a success message" do
-      expect(page).to have_content("Successfully updated")
+      expect(page).to have_content("Event successfully updated.")
     end
   end
 
@@ -283,7 +283,7 @@ RSpec.describe "Resources", type: :system do
     end
 
     it "should display success message" do
-      expect(page).to have_content("Successfully removed")
+      expect(page).to have_content("Event successfully removed.")
     end
   end
 
