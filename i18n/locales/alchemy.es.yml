@@ -559,7 +559,12 @@ es:
     replace: Reemplazar
     replace_file: Reemplazar el archivo
     'Replaced Tag': "La etiqueta '%{old_tag}' fue reemplazada por '%{new_tag}'"
+    "%{resource_name} successfully %{action}": "%{resource_name} %{action} con éxito."
     resources:
+      actions:
+        created: creado
+        updated: actualizado
+        removed: eliminado
       relation_select:
         blank: '- nada -'
     right: "Derecha"

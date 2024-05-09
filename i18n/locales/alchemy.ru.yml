@@ -532,7 +532,12 @@ ru:
     replace: "Заменить"
     replace_file: "Заменить файл"
     "Replaced Tag": "Метка '%{old_tag}' заменена на '%{new_tag}'"
+    "%{resource_name} successfully %{action}": "%{resource_name} успешно %{action}."
     resources:
+      actions:
+        created: создано
+        updated: обновлено
+        removed: удалено
       relation_select:
         blank: "- нет -"
     right: "справа"

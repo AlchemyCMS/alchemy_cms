@@ -636,7 +636,12 @@ de:
     replace: ersetzen
     replace_file: Datei ersetzen
     "Replaced Tag": "Das Tag '%{old_tag}' wurde durch das Tag '%{new_tag}' ersetzt"
+    "%{resource_name} successfully %{action}": "%{resource_name} erfolgreich %{action}."
     resources:
+      actions:
+        created: erstellt
+        updated: aktualisiert
+        removed: gelöscht
       relation_select:
         blank: "- ohne -"
     right: "rechts"
