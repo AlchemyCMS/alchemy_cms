@@ -12,7 +12,7 @@ module Alchemy
       before_action :load_resource,
         only: [:show, :edit, :update, :url, :destroy]
 
-      before_action :set_size, only: [:index, :show, :edit_multiple]
+      before_action :set_size, only: [:index, :show, :edit_multiple, :update]
 
       authorize_resource class: Alchemy::Picture
 

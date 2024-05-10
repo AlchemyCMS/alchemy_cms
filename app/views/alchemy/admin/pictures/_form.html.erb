@@ -1,14 +1,16 @@
-<%= alchemy_form_for [:admin, @picture] do |f| %>
-  <%= f.input :name %>
-  <%= render "picture_description_field", f: f %>
-  <%= render Alchemy::Admin::TagsAutocomplete.new(additional_class: "input") do %>
-    <%= f.label :tag_list %>
-    <%= f.text_field :tag_list, value: f.object.tag_list.join(",") %>
-    <small class="hint"><%= Alchemy.t('Please seperate the tags with commata') %></small>
+<%= turbo_frame_tag(@picture) do %>
+  <%= alchemy_form_for [:admin, @picture] do |f| %>
+    <%= f.input :name %>
+    <%= render "picture_description_field", f: f %>
+    <%= render Alchemy::Admin::TagsAutocomplete.new(additional_class: "input") do %>
+      <%= f.label :tag_list %>
+      <%= f.text_field :tag_list, value: f.object.tag_list.join(",") %>
+      <small class="hint"><%= Alchemy.t('Please seperate the tags with commata') %></small>
+    <% end %>
+    <%= hidden_field_tag :q, search_filter_params[:q] %>
+    <%= hidden_field_tag :size, @size %>
+    <%= hidden_field_tag :tagged_with, search_filter_params[:tagged_with] %>
+    <%= hidden_field_tag :filter, search_filter_params[:filter] %>
+    <%= f.submit Alchemy.t(:save) %>
   <% end %>
-  <%= hidden_field_tag :q, search_filter_params[:q] %>
-  <%= hidden_field_tag :size, @size %>
-  <%= hidden_field_tag :tagged_with, search_filter_params[:tagged_with] %>
-  <%= hidden_field_tag :filter, search_filter_params[:filter] %>
-  <%= f.submit Alchemy.t(:save) %>
 <% end %>

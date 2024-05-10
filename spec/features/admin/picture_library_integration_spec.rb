@@ -100,4 +100,23 @@ RSpec.describe "Picture Library", type: :system do
       expect(page).to have_field("Description", with: "This is an amazing image.")
     end
   end
+
+  describe "Updating Pictures", :js do
+    let!(:picture) { create(:alchemy_picture) }
+
+    scenario "allows to update a pictures name" do
+      visit alchemy.admin_pictures_path
+      page.find("a.thumbnail_background").click
+      expect(page).to have_field("Name")
+      fill_in "Name", with: "my-amazing-image"
+      click_button "Save"
+      within "#flash_notices" do
+        expect(page).to have_content("Picture updated successfully")
+      end
+      find(".zoomed-picture-background").click
+      within "#picture_#{picture.id} .picture_name" do
+        expect(page).to have_content("my-amazing-image")
+      end
+    end
+  end
 end

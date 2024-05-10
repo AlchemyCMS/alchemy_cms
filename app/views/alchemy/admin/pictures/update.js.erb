@@ -1,6 +1,0 @@
-Alchemy.growl('<%= @message[:body] %>', '<%= @message[:type] %>');
-$('#picture_<%= @picture.id %> .picture_name').text('<%= @picture.name %>');
-$('#picture_<%= @picture.id %> .picture_tags').html('<%== @picture.tag_list.map do |tag|
-  "<span class=\"tag\">#{tag}</span>".html_safe
-end.join %>');
-$('#picture_name').blur();
