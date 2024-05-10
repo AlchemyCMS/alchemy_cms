@@ -5,8 +5,7 @@
 <%- if css_classes.present? -%>
   <%= f.input :css_class,
     collection: css_classes,
-    include_blank: Alchemy.t('None'),
-    input_html: {is: 'alchemy-select'} %>
+    include_blank: Alchemy.t('None') %>
 <%- else -%>
   <%= f.input :css_class,
     label: Alchemy.t(:position_in_text),

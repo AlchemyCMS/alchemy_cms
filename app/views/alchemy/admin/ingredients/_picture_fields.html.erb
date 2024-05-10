@@ -6,14 +6,12 @@
     collection: [
       [Alchemy.t('Layout default'), ""]
     ] + ingredient.settings[:sizes].to_a,
-    include_blank: false,
-    input_html: {is: 'alchemy-select'} %>
+    include_blank: false %>
 <%- end -%>
 <%- if ingredient.settings[:css_classes].present? -%>
   <%= f.input :css_class,
     collection: ingredient.settings[:css_classes],
-    include_blank: Alchemy.t('None'),
-    input_html: {is: 'alchemy-select'} %>
+    include_blank: Alchemy.t('None') %>
 <%- else -%>
   <%= f.input :css_class,
     label: Alchemy.t(:position_in_text),
