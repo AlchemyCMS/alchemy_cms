@@ -1,0 +1,16 @@
+<div class="table">
+  <% if legacy_page_urls.any? %>
+    <header>
+      <div class="col name">
+        <%= Alchemy::LegacyPageUrl.human_attribute_name(:urlname) %>
+      </div>
+    </header>
+    <%= render partial: 'alchemy/admin/legacy_page_urls/legacy_page_url',
+      collection: legacy_page_urls %>
+  <% else %>
+    <div class="row even">
+      <div class="col"><%= Alchemy.t('No page links for this page found') %></div>
+      <div class="col tools"></div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,12 @@
+<%= turbo_stream.update "legacy_urls_label" do %>
+  <%= render "label", count: @page.legacy_urls.size %>
+<% end %>
+<%= turbo_stream.update "legacy_page_urls" do %>
+  <%= render "table", legacy_page_urls: @page.legacy_urls %>
+<% end %>
+<%= turbo_stream.update "new_legacy_page_url" do %>
+  <%= render 'new', legacy_page_url: @page.legacy_urls.build %>
+<% end %>
+<alchemy-growl>
+  <%= @message %>
+</alchemy-growl>

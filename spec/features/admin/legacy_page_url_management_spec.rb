@@ -47,9 +47,25 @@ RSpec.describe "Legacy page url management", type: :system, js: true do
       find("[panel='legacy_urls']").click
     end
 
+    it "lets a user update a page link" do
+      within "#legacy_page_urls" do
+        click_link_with_tooltip("Edit")
+        page.find("input#legacy_page_url_urlname").set("updated-link")
+        click_button_with_tooltip "Save"
+      end
+      within "sl-tab-panel[name='legacy_urls']" do
+        expect(page).to have_button("Add")
+      end
+      within "#legacy_page_urls" do
+        expect(page).to_not have_content("a-page-link")
+        expect(page).to have_content("updated-link")
+      end
+    end
+
     it "lets a user remove a page link" do
-      click_link_with_tooltip("Remove")
-      click_button "Yes"
+      page.accept_alert do
+        click_link_with_tooltip("Remove")
+      end
       within "#legacy_page_urls" do
         expect(page).to_not have_content("a-page-link")
         expect(page).to have_content(Alchemy.t("No page links for this page found"))

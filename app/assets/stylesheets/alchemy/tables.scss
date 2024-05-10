@@ -11,8 +11,29 @@ table {
   }
 }
 
+.table {
+  display: flex;
+  flex-direction: column;
+  row-gap: $default-padding;
+
+  .row,
+  header {
+    display: flex;
+  }
+
+  .col {
+    flex: 1;
+  }
+
+  .tools {
+    flex: 0;
+    white-space: nowrap;
+  }
+}
+
 .list td,
-.list th {
+.list th,
+.table .col {
   padding: 2 * $default-padding 3 * $default-padding;
   vertical-align: top;
   line-height: 22px;
@@ -42,7 +63,8 @@ table {
   }
 }
 
-th {
+th,
+.table header .col {
   white-space: nowrap;
   text-align: left;
   vertical-align: top;
@@ -50,19 +72,26 @@ th {
   font-weight: bold;
 }
 
-tr.even td {
+tr.even td,
+.table .row.even .col {
   background-color: $table-row-even-background-color;
 }
 
-tr.odd td {
+tr.odd td,
+.table .row.odd .col {
   background-color: $table-row-odd-background-color;
+}
+
+.list tr .tools,
+.table .row .col.tools {
+  padding: $default-padding 2 * $default-padding;
+  white-space: nowrap;
+  @extend .disable-user-select;
+  background-color: transparent;
 }
 
 .list tr .tools {
   width: 40px;
-  padding: $default-padding 2 * $default-padding;
-  white-space: nowrap;
-  @extend .disable-user-select;
 
   &.long {
     width: 60px;
@@ -81,12 +110,14 @@ td.heading {
   margin: 2px 0;
 }
 
-.list tr:hover td {
+.list tr:hover td,
+.table .row:hover .col {
   background-color: $table-row-hover-color;
 }
 
 td,
-th {
+th,
+.table .col {
   &.center,
   &.boolean {
     text-align: center;
@@ -97,7 +128,8 @@ th {
   }
 }
 
-td {
+td,
+.table .col {
   &.file_name {
     white-space: nowrap;
   }
