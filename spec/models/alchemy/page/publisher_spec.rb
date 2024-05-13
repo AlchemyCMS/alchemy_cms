@@ -55,8 +55,9 @@ RSpec.describe Alchemy::Page::Publisher do
     end
 
     context "with published version existing" do
+      let(:yesterday) { Date.yesterday.to_time }
       let!(:public_version) do
-        create(:alchemy_page_version, :with_elements, element_count: 3, public_on: Date.yesterday.to_time, page: page)
+        create(:alchemy_page_version, :with_elements, element_count: 3, public_on: yesterday, page: page)
       end
 
       let!(:nested_element) do
@@ -65,6 +66,12 @@ RSpec.describe Alchemy::Page::Publisher do
 
       it "does not change current public versions public on date" do
         expect { publish }.to_not change(page.public_version, :public_on)
+      end
+
+      it "updates public version's updated_at timestamp" do
+        # Need to do this here, because the nested element touches the version on creation.
+        public_version.update_columns(updated_at: yesterday)
+        expect { publish }.to change(page.public_version, :updated_at)
       end
 
       it "does not create another public version" do

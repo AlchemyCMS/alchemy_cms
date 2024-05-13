@@ -711,13 +711,13 @@ module Alchemy
       end
 
       around do |example|
-        travel_to(Time.parse("2019-01-01 12:00:00")) do
+        travel_to(Time.parse("2019-01-01 12:00:00 UTC")) do
           example.run
         end
       end
 
       it "returns a cache version string" do
-        expect(page.cache_version).to eq("2018-12-31 11:00:00 UTC")
+        expect(page.cache_version).to eq("2018-12-31 12:00:00 UTC")
       end
     end
 

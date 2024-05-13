@@ -35,6 +35,7 @@ module Alchemy
                 end
               end
             end
+            version.update(updated_at: public_on)
             page.update(published_at: public_on)
           end
         end
