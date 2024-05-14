@@ -3,6 +3,8 @@
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 117.074 25.488"
     width="60px"
+    height="0.8rem"
+    style="transform: translateY(0.05rem)"
     class="blish-logo"
   >
     <path
@@ -13,9 +15,6 @@
 
 <style lang="css">
   .blish-logo {
-    height: 0.8rem;
-    transform: translateY(0.05rem);
-
     path {
       fill: #1c0238;
     }
