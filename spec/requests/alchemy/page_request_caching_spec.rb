@@ -3,8 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "Page request caching" do
-  let!(:page) { create(:alchemy_page, :public, published_at: published_at) }
-  let(:published_at) { nil }
+  let!(:page) { create(:alchemy_page, :public) }
 
   context "when caching is disabled in app" do
     before do
@@ -81,18 +80,17 @@ RSpec.describe "Page request caching" do
         expect(response.headers).to have_key("ETag")
       end
 
-      it "does not set last-modified header" do
-        get "/#{page.urlname}"
-        expect(response.headers).to_not have_key("Last-Modified")
-      end
+      context "and public version is present" do
+        let(:jan_first) { Time.new(2020, 1, 1) }
 
-      context "and published_at is set" do
-        let(:published_at) { DateTime.yesterday }
+        before do
+          allow_any_instance_of(Alchemy::Page).to receive(:last_modified_at) { jan_first }
+        end
 
         it "sets last-modified header" do
           get "/#{page.urlname}"
           expect(response.headers).to have_key("Last-Modified")
-          expect(response.headers["Last-Modified"]).to eq(published_at.httpdate)
+          expect(response.headers["Last-Modified"]).to eq(jan_first.httpdate)
         end
       end
     end

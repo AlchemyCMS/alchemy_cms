@@ -101,19 +101,18 @@ module Alchemy
         page_layout.parameterize.underscore
       end
 
-      # Returns the string version of the +last_modified_at+ timestamp.
+      # Returns the version string that's taken for Rails' recycable cache key.
       #
       def cache_version
         last_modified_at&.to_s
       end
 
-      # Returns the timestamp that the page was last modified at, regardless of through.
+      # Returns the timestamp that the page was last modified at, regardless of through
       # publishing or editing page, or through a change of related objects through ingredients.
       # Respects the public version not changing if editing a preview.
       #
       # In preview mode, it will take the draft version's updated_at timestamp.
       # In public mode, it will take the public version's updated_at timestamp.
-      # If no version is available, it will take the page's updated_at timestamp.
       #
       def last_modified_at
         relevant_page_version = (Current.preview_page == self) ? draft_version : public_version

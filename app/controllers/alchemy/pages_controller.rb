@@ -216,7 +216,7 @@ module Alchemy
     def render_fresh_page?
       must_not_cache? || stale?(
         etag: page_etag,
-        last_modified: @page.published_at,
+        last_modified: @page.last_modified_at,
         public: !@page.restricted,
         template: "pages/show"
       )
