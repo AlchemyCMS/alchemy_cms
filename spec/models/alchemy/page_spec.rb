@@ -706,18 +706,30 @@ module Alchemy
     describe "#cache_version" do
       let(:page) { build(:alchemy_page) }
 
-      before do
-        allow(page).to receive(:last_modified_at).and_return(1.day.ago)
-      end
-
       around do |example|
         travel_to(Time.parse("2019-01-01 12:00:00 UTC")) do
           example.run
         end
       end
 
-      it "returns a cache version string" do
-        expect(page.cache_version).to eq("2018-12-31 12:00:00 UTC")
+      context "last modified is a time object" do
+        before do
+          allow(page).to receive(:last_modified_at).and_return(1.day.ago)
+        end
+
+        it "returns a cache version string" do
+          expect(page.cache_version).to eq("2018-12-31 12:00:00 UTC")
+        end
+      end
+
+      context "last modified at is nil" do
+        before do
+          allow(page).to receive(:last_modified_at).and_return(nil)
+        end
+
+        it "returns a cache version string" do
+          expect(page.cache_version).to be(nil)
+        end
       end
     end
 
@@ -768,8 +780,8 @@ module Alchemy
           context "if page has no draft version" do
             let(:draft_version) { nil }
 
-            it "uses page's updated_at" do
-              is_expected.to be_within(1.second).of(yesterday)
+            it "is nil" do
+              is_expected.to be(nil)
             end
           end
         end
@@ -777,8 +789,8 @@ module Alchemy
         context "not in preview mode" do
           let(:preview) { nil }
 
-          it "uses page's updated_at" do
-            is_expected.to be_within(1.second).of(yesterday)
+          it "is nil" do
+            is_expected.to be(nil)
           end
         end
       end

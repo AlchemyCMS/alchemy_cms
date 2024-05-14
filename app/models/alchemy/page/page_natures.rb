@@ -104,7 +104,7 @@ module Alchemy
       # Returns the string version of the +last_modified_at+ timestamp.
       #
       def cache_version
-        last_modified_at.to_s
+        last_modified_at&.to_s
       end
 
       # Returns the timestamp that the page was last modified at, regardless of through.
@@ -117,7 +117,7 @@ module Alchemy
       #
       def last_modified_at
         relevant_page_version = (Current.preview_page == self) ? draft_version : public_version
-        relevant_page_version&.updated_at || updated_at
+        relevant_page_version&.updated_at
       end
 
       # Returns true if the page cache control headers should be set.
