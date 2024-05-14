@@ -7,13 +7,12 @@
     "guides:build": "vuepress build guides"
   },
   "devDependencies": {
-    "@vuepress/bundler-vite": "2.0.0-rc.2",
-    "@vuepress/client": "2.0.0-rc.2",
-    "@vuepress/plugin-docsearch": "2.0.0-rc.3",
-    "@vuepress/plugin-shiki": "2.0.0-rc.3",
-    "@vuepress/theme-default": "2.0.0-rc.2",
+    "@vuepress/bundler-vite": "2.0.0-rc.9",
+    "@vuepress/plugin-docsearch": "2.0.0-rc.28",
+    "@vuepress/plugin-shiki": "2.0.0-rc.28",
+    "@vuepress/theme-default": "2.0.0-rc.28",
     "vue": "^3.4.15",
-    "vuepress": "2.0.0-rc.2"
+    "vuepress": "2.0.0-rc.9"
   },
   "dependencies": {
     "@algolia/client-search": ">= 4.9.1 < 6"
