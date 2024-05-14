@@ -126,14 +126,27 @@ html.dark {
   --c-brand: #214166;
   --c-brand-light: #d8741c;
   --c-text-light: #f7f7f7;
+
+  .arrow {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='rgba(255,255,255,0.75)' d='M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z'/%3E%3C/svg%3E");
+  }
 }
 
 .navbar {
   --c-text: var(--c-text-light);
+
+  .arrow {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='rgba(255,255,255,0.75)' d='M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z'/%3E%3C/svg%3E");
+  }
 }
 
 .navbar-item {
   color: var(--c-text-light);
+
+  .external-link .external-link-icon path,
+  .external-link .external-link-icon polygon {
+    fill: rgba(255, 255, 255, 0.75);
+  }
 }
 
 .sidebar .navbar-item {
