@@ -364,7 +364,14 @@ export default {
     repo: "AlchemyCMS/alchemy-guides",
     logo: "icon.svg",
     docsDir: "guides",
-    navbar: [VERSION_NAVIGATION, ...VERSION_NAVITEMS[CURRENT_VERSION]],
+    navbar: [
+      VERSION_NAVIGATION,
+      ...VERSION_NAVITEMS[CURRENT_VERSION],
+      {
+        text: "Slack",
+        link: "https://join.slack.com/t/alchemy-cms/shared_invite/zt-2ir32b4ph-L3EVS0FiMiWKx7omNNbeyw",
+      },
+    ],
     sidebar: "auto",
   }),
 }
