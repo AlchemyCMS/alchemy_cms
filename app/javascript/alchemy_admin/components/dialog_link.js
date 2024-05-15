@@ -10,13 +10,16 @@ export const DEFAULTS = {
 }
 
 export class DialogLink extends HTMLAnchorElement {
-  connectedCallback() {
-    this.addEventListener("click", (evt) => {
-      if (!this.disabled) {
-        this.openDialog()
-      }
-      evt.preventDefault()
-    })
+  constructor() {
+    super()
+    this.addEventListener("click", this)
+  }
+
+  handleEvent(evt) {
+    if (!this.disabled) {
+      this.openDialog()
+    }
+    evt.preventDefault()
   }
 
   openDialog() {
