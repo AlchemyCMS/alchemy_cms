@@ -1,5 +1,5 @@
 <div class="input">
-  <% if Alchemy::Language.many? %>
+  <% if Alchemy::Language.published.many? %>
     <label class="inline-label" style="float: right">
       <%= Alchemy::Language.model_name.human %>
       <%= select_tag :language_id, options_from_collection_for_select(
