@@ -23,12 +23,14 @@ class NodeSelect extends RemoteSelect {
    */
   _renderListEntry(node) {
     const ancestors = node.ancestors.map((a) => a.name)
+    const seperator = `<alchemy-icon name="arrow-right-s"></alchemy-icon>`
+
     return `
       <div class="node-select--node">
         <alchemy-icon name="menu-2"></alchemy-icon>
         <div class="node-select--node-display_name">
           <span class="node-select--node-ancestors">
-            ${ancestors.join(" /&nbsp;")}
+            ${ancestors.length > 0 ? ancestors.join(seperator) + seperator : ""}
           </span>
           <span class="node-select--node-name">
             ${node.name}

@@ -10,13 +10,21 @@
   align-items: center;
   height: 21px;
 
-  .icon {
+  > alchemy-icon {
     margin: 0 8px 0 4px;
+  }
 
+  .icon {
     .select2-highlighted & {
       fill: $white;
     }
   }
+}
+
+.node-select--node-display_name,
+.node-select--node-ancestors {
+  display: inline-flex;
+  align-items: center;
 }
 
 .node-select--node-name {
