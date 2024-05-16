@@ -9,7 +9,7 @@ module Alchemy
       @nodes = Node.all
       @nodes = @nodes.includes(:parent)
       @nodes = @nodes.where(language_id: params[:language_id]) if params[:language_id]
-      @nodes = @nodes.ransack(params[:filter]).result
+      @nodes = @nodes.ransack(params[:filter]).result.order(:lft)
 
       if params[:page]
         @nodes = @nodes.page(params[:page]).per(params[:per_page])

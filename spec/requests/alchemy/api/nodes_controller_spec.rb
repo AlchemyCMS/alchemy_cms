@@ -17,6 +17,8 @@ module Alchemy
       context "with nodes present" do
         let!(:node) { create(:alchemy_node, name: "lol") }
         let!(:node2) { create(:alchemy_node, name: "yup") }
+        let!(:node3) { create(:alchemy_node, name: "foo", parent: node) }
+
         let(:result) { JSON.parse(response.body) }
 
         it "returns JSON" do
@@ -26,19 +28,21 @@ module Alchemy
           expect(result).to have_key("data")
         end
 
-        it "returns all nodes" do
+        it "returns all nodes ordered by nesting" do
           get alchemy.api_nodes_path(params: {format: :json})
-
-          expect(result["data"].size).to eq(2)
+          expect(result["data"].size).to eq(3)
+          expect(result["data"][0]).to match(hash_including("id" => node.id))
+          expect(result["data"][1]).to match(hash_including("id" => node3.id))
+          expect(result["data"][2]).to match(hash_including("id" => node2.id))
         end
 
         it "includes meta data" do
           get alchemy.api_nodes_path(params: {format: :json})
 
-          expect(result["data"].size).to eq(2)
+          expect(result["data"].size).to eq(3)
           expect(result["meta"]["page"]).to eq(1)
-          expect(result["meta"]["per_page"]).to eq(2)
-          expect(result["meta"]["total_count"]).to eq(2)
+          expect(result["meta"]["per_page"]).to eq(3)
+          expect(result["meta"]["total_count"]).to eq(3)
         end
 
         context "with page param given" do
@@ -52,7 +56,7 @@ module Alchemy
             expect(result["data"].size).to eq(1)
             expect(result["meta"]["page"]).to eq(2)
             expect(result["meta"]["per_page"]).to eq(1)
-            expect(result["meta"]["total_count"]).to eq(2)
+            expect(result["meta"]["total_count"]).to eq(3)
           end
         end
 
