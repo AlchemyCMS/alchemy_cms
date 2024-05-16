@@ -33,7 +33,8 @@ module Alchemy
       entity_encoding: "raw",
       paste_as_text: true,
       element_format: "html",
-      branding: false
+      branding: false,
+      license_key: "gpl"
     }
 
     class << self
