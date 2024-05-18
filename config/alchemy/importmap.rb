@@ -9,4 +9,4 @@ pin "@rails/ujs", to: "rails-ujs.min.js", preload: true # @7.1.2
 pin "tinymce", to: "tinymce.min.js", preload: true
 
 pin "alchemy_admin", to: "alchemy_admin.js", preload: true
-pin_all_from File.expand_path("../app/javascript/alchemy_admin", __dir__), under: "alchemy_admin", preload: true
+pin_all_from File.expand_path("../../app/javascript/alchemy_admin", __dir__), under: "alchemy_admin", preload: true
