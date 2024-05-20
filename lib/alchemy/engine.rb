@@ -21,14 +21,21 @@ module Alchemy
     end
 
     initializer "alchemy.importmap" do |app|
-      Alchemy.importmap.draw(Engine.root.join("config", "importmap.rb"))
+      watch_paths = []
 
-      package_path = Engine.root.join("app/javascript")
-      vendor_packages_path = Engine.root.join("vendor/javascript")
-      app.config.assets.paths += [package_path, vendor_packages_path]
+      Alchemy.engine_importmaps.each do |engine|
+        Alchemy.importmap.draw engine.root.join("config/alchemy", "importmap.rb")
+        package_path = engine.root.join("app/javascript")
+        watch_paths << package_path
+        vendor_packages_path = engine.root.join("vendor/javascript")
+        app.config.assets.paths += [package_path, vendor_packages_path]
+        if engine.engine_name != "alchemy"
+          Alchemy.admin_js_imports.add(engine.engine_name)
+        end
+      end
 
       if app.config.importmap.sweep_cache
-        Alchemy.importmap.cache_sweeper(watches: package_path)
+        Alchemy.importmap.cache_sweeper(watches: watch_paths)
         ActiveSupport.on_load(:action_controller_base) do
           before_action { Alchemy.importmap.cache_sweeper.execute_if_updated }
         end

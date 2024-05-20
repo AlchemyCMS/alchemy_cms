@@ -62,6 +62,29 @@ module Alchemy
     @_admin_js_imports = Set[sources]
   end
 
+  # Additional importmaps from engines to be included in the Alchemy admin UI
+  #
+  # Be sure to also pin modules with +Alchemy.importmap+.
+  #
+  # == Example
+  #
+  #    # config/alchemy/importmap.rb
+  #    Alchemy.importmap.pin "alchemy_solidus", to: "alchemy_solidus.js", preload: true
+  #    Alchemy.importmap.pin_all_from Alchemy::Solidus::Engine.root.join("app/javascript/alchemy_solidus"),
+  #      under: "alchemy_solidus",
+  #      preload: true
+  #
+  #    # lib/alchemy/solidus/engine.rb
+  #    initializer "alchemy_solidus.assets", before: "alchemy.importmap" do |app|
+  #      Alchemy.engine_importmaps.add(Engine)
+  #      app.config.assets.precompile << "alchemy_solidus/manifest.js"
+  #    end
+  #
+  # @return [Set<Rails::Engine>]
+  def self.engine_importmaps
+    @_engine_importmaps ||= Set.new([Alchemy::Engine])
+  end
+
   # Define page publish targets
   #
   # A publish target is a ActiveJob that gets performed
