@@ -35,7 +35,7 @@ module Alchemy
 
         def attachment_select
           label = label_tag("file_link", Alchemy.t(:file), class: "control-label")
-          input = text_field_tag("file_link", url, id: "file_link")
+          input = text_field_tag("file_link", attachment && url, id: "file_link")
           select = render Alchemy::Admin::AttachmentSelect.new(attachment).with_content(input)
           content_tag("div", label + select, class: "input select")
         end

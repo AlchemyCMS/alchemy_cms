@@ -17,24 +17,21 @@ RSpec.describe Alchemy::Admin::LinkDialog::FileTab, type: :component do
   it_behaves_like "a link dialog tab", :file, "File"
   it_behaves_like "a link dialog - target select", :file
 
-  context "file link" do
-    it "has a file select" do
-      expect(page).to have_selector("alchemy-attachment-select [name=file_link]")
+  it "has a file select" do
+    expect(page).to have_selector("alchemy-attachment-select [name=file_link]")
+  end
+
+  context "with attachment found by url" do
+    it "has value set" do
+      expect(page).to have_selector("alchemy-attachment-select [value='#{url}']")
     end
+  end
 
-    context "tab selected" do
-      let(:is_selected) { true }
+  context "with attachment not found by url" do
+    let(:url) { Alchemy::Engine.routes.url_helpers.show_page_path(urlname: "foo") }
 
-      it "has a selected value" do
-        expect(page).to have_selector("alchemy-attachment-select [value='#{url}']")
-      end
-    end
-
-    context "tab not selected" do
-      it "has a selected value" do
-        expect(page).to have_selector("alchemy-attachment-select [value='#{url}']")
-        # expect(page).to_not have_selector("alchemy-attachment-select [name=file_link] option[selected='selected']")
-      end
+    it "has no value set" do
+      expect(page).to_not have_selector("alchemy-attachment-select [value='#{url}']")
     end
   end
 end
