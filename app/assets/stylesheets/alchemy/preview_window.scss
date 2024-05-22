@@ -21,7 +21,7 @@
 
     @media screen and (min-width: $large-screen-break-point) {
       width: calc(
-        100vw - #{$collapsed-main-menu-width - $default-border-width} - #{$elements-window-min-width}
+        100vw - #{$collapsed-main-menu-width - $default-border-width} - #{$elements-window-width}
       );
     }
   }
