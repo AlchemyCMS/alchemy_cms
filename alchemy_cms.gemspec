@@ -37,7 +37,6 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency "awesome_nested_set", ["~> 3.1"]
   gem.add_runtime_dependency "cancancan", [">= 2.1", "< 4.0"]
   gem.add_runtime_dependency "coffee-rails", [">= 4.0", "< 6.0"]
-  gem.add_runtime_dependency "dartsass-rails", [">= 0.4", "< 1.0"]
   gem.add_runtime_dependency "dragonfly", ["~> 1.4"]
   gem.add_runtime_dependency "dragonfly_svg", ["~> 0.0.4"]
   gem.add_runtime_dependency "gutentag", ["~> 2.2", ">= 2.2.1"]

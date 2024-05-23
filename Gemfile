@@ -28,7 +28,6 @@ group :development, :test do
     gem "simplecov-cobertura", "~> 2.1"
     # Necessary because GH Actions gem cache does not have this "Bundled with Ruby" gem installed
     gem "rexml", "~> 3.2.4"
-    gem "sassc", "~> 2.4.0" # https://github.com/sass/sassc-ruby/issues/146
 
     # https://github.com/hotwired/turbo-rails/issues/512
     if rails_version == "7.1"
@@ -61,3 +60,5 @@ end
 gem "web-console", "~> 4.2", group: :development
 
 gem "rails_live_reload", "~> 0.3.5"
+
+gem "dartsass-rails", "~> 0.5.0"

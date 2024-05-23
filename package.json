@@ -5,7 +5,7 @@
     "lint": "prettier --check 'app/javascript/**/*.js'",
     "eslint": "eslint app/javascript/**/*.js",
     "build:js": "rollup -c",
-    "build:css": "sass --style=compressed --source-map --load-path app/assets/stylesheets --load-path vendor/assets/stylesheets app/assets/stylesheets/alchemy/admin.scss:app/assets/builds/alchemy/admin.css app/assets/stylesheets/alchemy/admin/print.scss:app/assets/builds/alchemy/admin/print.css app/assets/stylesheets/alchemy/welcome.scss:app/assets/builds/alchemy/welcome.css",
+    "build:css": "sass --style=compressed --source-map --load-path app/assets/stylesheets --load-path vendor/assets/stylesheets app/assets/stylesheets/alchemy/admin.scss:app/assets/builds/alchemy/admin.css app/assets/stylesheets/alchemy/admin/print.scss:app/assets/builds/alchemy/admin/print.css app/assets/stylesheets/alchemy/welcome.scss:app/assets/builds/alchemy/welcome.css app/assets/stylesheets/tinymce/skins/content/alchemy/content.scss:app/assets/builds/tinymce/skins/content/alchemy/content.min.css app/assets/stylesheets/tinymce/skins/ui/alchemy/skin.scss:app/assets/builds/tinymce/skins/ui/alchemy/skin.min.css",
     "build": "yarn build:js && yarn build:css"
   },
   "keywords": [],
