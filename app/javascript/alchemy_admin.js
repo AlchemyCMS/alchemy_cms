@@ -8,7 +8,6 @@ import { translate } from "alchemy_admin/i18n"
 import Dirty from "alchemy_admin/dirty"
 import * as FixedElements from "alchemy_admin/fixed_elements"
 import { growl } from "alchemy_admin/growler"
-import IngredientAnchorLink from "alchemy_admin/ingredient_anchor_link"
 import ImageLoader from "alchemy_admin/image_loader"
 import ImageCropper from "alchemy_admin/image_cropper"
 import Initializer from "alchemy_admin/initializer"
@@ -44,7 +43,6 @@ Object.assign(Alchemy, {
   growl,
   ImageLoader: ImageLoader.init,
   ImageCropper,
-  IngredientAnchorLink,
   LinkDialog,
   pictureSelector,
   pleaseWaitOverlay,
