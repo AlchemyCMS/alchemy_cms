@@ -114,25 +114,25 @@ RSpec.describe "Show page feature:", type: :system do
 
       it "a link to the admin area" do
         within find("alchemy-menubar").shadow_root do
-          expect(page).to have_selector("li a[href='#{alchemy.admin_dashboard_url(host: host)}']")
+          expect(page).to have_selector("a[href='#{alchemy.admin_dashboard_url(host: host)}']")
         end
       end
 
       it "a link to edit the current page" do
         within find("alchemy-menubar").shadow_root do
           expect(page).to \
-            have_selector("li a[href='#{alchemy.edit_admin_page_url(public_page, host: host)}']")
+            have_selector("a[href='#{alchemy.edit_admin_page_url(public_page, host: host)}']")
         end
       end
 
       it "a form and button to logout of alchemy" do
         within find("alchemy-menubar").shadow_root do
           expect(page).to \
-            have_selector("li form[action='#{Alchemy.logout_path}'][method='post']")
+            have_selector("form[action='#{Alchemy.logout_path}'][method='post']")
           expect(page).to \
-            have_selector("li form[action='#{Alchemy.logout_path}'] > button[type='submit']")
+            have_selector("form[action='#{Alchemy.logout_path}'] > button[type='submit']")
           expect(page).to \
-            have_selector("li form[action='#{Alchemy.logout_path}'] > input[type='hidden'][name='_method'][value='#{Alchemy.logout_method}']")
+            have_selector("form[action='#{Alchemy.logout_path}'] > input[type='hidden'][name='_method'][value='#{Alchemy.logout_method}']")
         end
       end
     end
