@@ -5,7 +5,7 @@
     "lint": "prettier --check 'app/javascript/**/*.js'",
     "eslint": "eslint app/javascript/**/*.js",
     "build:js": "rollup -c",
-    "build:css": "sass --style=compressed --source-map --load-path app/assets/stylesheets --load-path vendor/assets/stylesheets app/assets/stylesheets/alchemy/admin.scss:package/dist/admin.css app/assets/stylesheets/alchemy/admin/print.scss:package/dist/admin/print.css app/assets/stylesheets/alchemy/welcome.scss:package/dist/welcome.css",
+    "build:css": "sass --style=compressed --source-map --load-path app/assets/stylesheets --load-path vendor/assets/stylesheets app/assets/stylesheets/alchemy/admin.scss:app/assets/builds/alchemy/admin.css app/assets/stylesheets/alchemy/admin/print.scss:app/assets/builds/alchemy/admin/print.css app/assets/stylesheets/alchemy/welcome.scss:app/assets/builds/alchemy/welcome.css",
     "build": "yarn build:js && yarn build:css"
   },
   "keywords": [],
