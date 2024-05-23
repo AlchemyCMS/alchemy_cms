@@ -16,10 +16,10 @@
 
   .collapsed-menu.elements-window-visible & {
     width: calc(
-      100vw - #{$collapsed-main-menu-width - $default-border-width} - #{$elements-window-width}
+      100vw - #{$collapsed-main-menu-width - $default-border-width} - #{$elements-window-min-width}
     );
 
-    @media screen and (min-width: $large-screen-break-point) {
+    @media screen and (min-width: 1777px) {
       width: calc(
         100vw - #{$collapsed-main-menu-width - $default-border-width} - #{$elements-window-width}
       );
