@@ -10,6 +10,7 @@ tmp
 log
 .sass-cache
 spec/dummy/app/assets/builds/*
+!spec/dummy/app/assets/builds/.keep
 spec/dummy/config/alchemy/config.yml
 spec/dummy/db/*.sqlite3*
 spec/dummy/postcss.config.js
