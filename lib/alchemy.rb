@@ -62,7 +62,7 @@ module Alchemy
     @_admin_js_imports = Set[sources]
   end
 
-  # Additional importmaps from engines to be included in the Alchemy admin UI
+  # Additional importmaps to be included in the Alchemy admin UI
   #
   # Be sure to also pin modules with +Alchemy.importmap+.
   #
@@ -76,13 +76,26 @@ module Alchemy
   #
   #    # lib/alchemy/solidus/engine.rb
   #    initializer "alchemy_solidus.assets", before: "alchemy.importmap" do |app|
-  #      Alchemy.engine_importmaps.add(Engine)
+  #      Alchemy.admin_importmaps.add({
+  #        importmap_path: root.join("config/importmap.rb"),
+  #        source_paths: [
+  #          root.join("app/javascript")
+  #        ],
+  #        name: "alchemy_solidus"
+  #      })
   #      app.config.assets.precompile << "alchemy_solidus/manifest.js"
   #    end
   #
-  # @return [Set<Rails::Engine>]
-  def self.engine_importmaps
-    @_engine_importmaps ||= Set.new([Alchemy::Engine])
+  # @return [Set<Hash>]
+  def self.admin_importmaps
+    @_admin_importmaps ||= Set.new([{
+      importmap_path: Engine.root.join("config/importmap.rb"),
+      source_paths: [
+        Engine.root.join("app/javascript"),
+        Engine.root.join("vendor/javascript")
+      ],
+      name: "alchemy_admin"
+    }])
   end
 
   # Define page publish targets

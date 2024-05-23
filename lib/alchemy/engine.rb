@@ -23,14 +23,12 @@ module Alchemy
     initializer "alchemy.importmap" do |app|
       watch_paths = []
 
-      Alchemy.engine_importmaps.each do |engine|
-        Alchemy.importmap.draw engine.root.join("config/alchemy", "importmap.rb")
-        package_path = engine.root.join("app/javascript")
-        watch_paths << package_path
-        vendor_packages_path = engine.root.join("vendor/javascript")
-        app.config.assets.paths += [package_path, vendor_packages_path]
-        if engine.engine_name != "alchemy"
-          Alchemy.admin_js_imports.add(engine.engine_name)
+      Alchemy.admin_importmaps.each do |admin_import|
+        Alchemy.importmap.draw admin_import[:importmap_path]
+        watch_paths += admin_import[:source_paths]
+        app.config.assets.paths += admin_import[:source_paths]
+        if admin_import[:name] != "alchemy_admin"
+          Alchemy.admin_js_imports.add(admin_import[:name])
         end
       end
 
