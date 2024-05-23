@@ -1,0 +1,5 @@
+<alchemy-action name="closeCurrentDialog"></alchemy-action>
+<alchemy-action name="reloadPreview"></alchemy-action>
+<% if @ingredient.settings[:anchor] %>
+<alchemy-action name="updateAnchorIcon" params="<%= [@ingredient.id, @ingredient.dom_id.present?].to_json %>"></alchemy-action>
+<% end %>
