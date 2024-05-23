@@ -1,7 +1,3 @@
-/*
- *= require_self
- */
-
 @import "alchemy/defaults";
 
 div#main_menu,
@@ -18,7 +14,7 @@ div#archive_all {
 }
 
 span.icon.true:before {
-  content: 'x';
+  content: "x";
 }
 
 div.pagination {
@@ -31,5 +27,5 @@ div.pagination em.current {
 }
 
 div.pagination em:before {
-  content: 'Page ';
+  content: "Page ";
 }
