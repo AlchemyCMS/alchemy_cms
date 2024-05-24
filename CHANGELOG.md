@@ -1,5 +1,20 @@
 # Changelog
 
+## 7.2.0.rc1 (2024-05-24)
+
+- Deprecate float positioning in File and Picture ingredients [#2894](https://github.com/AlchemyCMS/alchemy_cms/pull/2894) ([tvdeyen](https://github.com/tvdeyen))
+- Use inline styles for menubar component [#2893](https://github.com/AlchemyCMS/alchemy_cms/pull/2893) ([tvdeyen](https://github.com/tvdeyen))
+- Fix link selection of internal root or locale urls [#2892](https://github.com/AlchemyCMS/alchemy_cms/pull/2892) ([tvdeyen](https://github.com/tvdeyen))
+- Switch ingredient update response from Javascript to Turob Stream [#2891](https://github.com/AlchemyCMS/alchemy_cms/pull/2891) ([sascha-karnatz](https://github.com/sascha-karnatz))
+- Prevent jumping of toggle button in element window [#2888](https://github.com/AlchemyCMS/alchemy_cms/pull/2888) ([sascha-karnatz](https://github.com/sascha-karnatz))
+- Fix preview window width for smaller viewports [#2887](https://github.com/AlchemyCMS/alchemy_cms/pull/2887) ([tvdeyen](https://github.com/tvdeyen))
+- fix(alchemy_link.plugin): Avoid getting an absolute URL [#2885](https://github.com/AlchemyCMS/alchemy_cms/pull/2885) ([tvdeyen](https://github.com/tvdeyen))
+- Allow to add to Alchemy's importmap from Rails application [#2884](https://github.com/AlchemyCMS/alchemy_cms/pull/2884) ([tvdeyen](https://github.com/tvdeyen))
+- Only set url on attachment select if attachment found [#2882](https://github.com/AlchemyCMS/alchemy_cms/pull/2882) ([tvdeyen](https://github.com/tvdeyen))
+- Fix Preview Window width [#2879](https://github.com/AlchemyCMS/alchemy_cms/pull/2879) ([tvdeyen](https://github.com/tvdeyen))
+- Allow engine importmaps [#2878](https://github.com/AlchemyCMS/alchemy_cms/pull/2878) ([tvdeyen](https://github.com/tvdeyen))
+- fix(node-select): Display order and seperator style [#2877](https://github.com/AlchemyCMS/alchemy_cms/pull/2877) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.2.0.b (2024-05-16)
 
 - fix language scope in picture description field [#2876](https://github.com/AlchemyCMS/alchemy_cms/pull/2876) ([tvdeyen](https://github.com/tvdeyen))
