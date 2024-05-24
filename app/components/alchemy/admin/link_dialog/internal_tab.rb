@@ -4,6 +4,8 @@ module Alchemy
   module Admin
     module LinkDialog
       class InternalTab < BaseTab
+        PAGE_URL_PATTERN = /\/(?<locale>[a-z]{2})?(?<slash>\/)?(?<urlname>.*)/
+
         def title
           Alchemy.t("link_overlay_tab_label.internal")
         end
@@ -39,12 +41,28 @@ module Alchemy
         end
 
         def page
-          @_page ||= uri ? Alchemy::Page.find_by(urlname: uri.path[1..]) : nil
+          @_page ||= if uri&.path == "/"
+            Alchemy::Current.site.default_language.root_page
+          elsif uri
+            Alchemy::Page.find_by(page_attributes)
+          end
+        end
+
+        def page_attributes
+          locale, _slash, urlname = uri.path.match(PAGE_URL_PATTERN)&.captures
+
+          if locale && urlname.present?
+            {language_code: locale, urlname: urlname}
+          elsif locale
+            {language_code: locale, language_root: true}
+          else
+            {urlname: urlname}
+          end
         end
 
         def page_select
           label = label_tag("internal_link", Alchemy.t(:page), class: "control-label")
-          input = text_field_tag("internal_link", is_selected? ? uri : "", id: "internal_link")
+          input = text_field_tag("internal_link", page && uri, id: "internal_link")
           page_select = render Alchemy::Admin::PageSelect.new(page, allow_clear: true).with_content(input)
           content_tag("div", label + page_select, class: "input select")
         end
@@ -53,7 +71,7 @@ module Alchemy
           fragment = "##{uri.fragment}" if uri&.fragment
           label = label_tag("element_anchor", Alchemy.t(:anchor), class: "control-label")
           options = [[page.nil? ? Alchemy.t("Select a page first") : Alchemy.t("None"), ""]]
-          options += [[fragment, fragment]] if is_selected? && fragment
+          options += [[fragment, fragment]] if page && fragment
 
           select = select_tag("element_anchor", options_for_select(options, fragment), is: "alchemy-select", disabled: page.nil?)
           select_component = content_tag("alchemy-dom-id-api-select", select, {page: page&.id})
