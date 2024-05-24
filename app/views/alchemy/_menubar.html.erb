@@ -1,20 +1,133 @@
 <% if !Alchemy::Current.preview_page? && @page && can?(:edit_content, @page) %>
   <alchemy-menubar>
     <template>
-      <%= stylesheet_link_tag("alchemy/menubar") %>
-      <div id="alchemy_menubar" data-turbo="false">
-        <ul>
-          <li><%= link_to Alchemy.t(:to_alchemy), alchemy.admin_dashboard_url %></li>
-          <li><%= link_to Alchemy.t(:edit_page), alchemy.edit_admin_page_url(@page) %></li>
-          <li>
-            <%= form_tag Alchemy.logout_path, method: Alchemy.logout_method do %>
-              <%= button_tag Alchemy.t(:logout) %>
-            <% end %>
-          </li>
-        </ul>
+      <style>
+        .menubar {
+          --icon-size: 24px;
+          --panel-width: 525px;
+          --border-radius: 3px;
+          --left-offset: 0px;
+          display: flex;
+          position: fixed;
+          top: 0;
+          left: calc(-1 * (var(--panel-width) - var(--left-offset)));
+          z-index: 10000;
+          background: #214166;
+          transition: left 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+          box-shadow: 0 0 0 1px #fff;
+          box-sizing: border-box;
+          border-bottom-right-radius: var(--border-radius);
+          padding: 12px 16px 12px;
+          gap: 12px;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: nowrap;
+          overflow: hidden;
+          font-family: "Open Sans", "Lucida Grande", "Lucida Sans Unicode",
+            "Lucida Sans", Verdana, Tahoma, sans-serif;
+          font-size: 13px;
+        }
+
+        .menubar * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+
+        .menubar:hover,
+        .menubar:focus-within {
+          left: 0;
+        }
+
+        .menubar > svg {
+          width: var(--icon-size);
+          height: var(--icon-size);
+          flex-shrink: 0;
+          margin-left: 4px;
+        }
+
+        .menubar .button {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          font-size: inherit;
+          font-weight: 700;
+          cursor: pointer;
+          border-radius: var(--border-radius);
+          background-color: transparent;
+          border: 1px solid rgba(255, 255, 255, 0.5);
+          color: #fff;
+          margin: 0;
+          padding: 0.75em 1.5em;
+          appearance: none;
+          transition: all 250ms;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          text-decoration: none;
+          white-space: nowrap;
+        }
+
+        .menubar .button:hover {
+          text-decoration: none;
+          background-color: rgba(0, 0, 0, 0.25);
+          border-color: rgba(255, 255, 255, 0.75)
+        }
+
+        .menubar .button:active {
+          box-shadow: inset 0px 1px 1px -1px #333;
+        }
+
+        .menubar .button:focus {
+          outline: solid 2px #eca96e;
+          outline-offset: 2px;
+        }
+      </style>
+
+      <div class="menubar" data-turbo="false">
+        <%= link_to alchemy.admin_dashboard_url, class: "button" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"></path>
+          </svg>
+          <%= Alchemy.t(:to_alchemy) %>
+        <% end %>
+        <%= link_to alchemy.edit_admin_page_url(@page), class: "button" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M6.41421 15.89L16.5563 5.74785L15.1421 4.33363L5 14.4758V15.89H6.41421ZM7.24264 17.89H3V13.6473L14.435 2.21231C14.8256 1.82179 15.4587 1.82179 15.8492 2.21231L18.6777 5.04074C19.0682 5.43126 19.0682 6.06443 18.6777 6.45495L7.24264 17.89ZM3 19.89H21V21.89H3V19.89Z"></path>
+          </svg>
+          <%= Alchemy.t(:edit_page) %>
+        <% end %>
+        <%= form_tag Alchemy.logout_path, method: Alchemy.logout_method do %>
+          <%= button_tag class: "button" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M5 22C4.44772 22 4 21.5523 4 21V3C4 2.44772 4.44772 2 5 2H19C19.5523 2 20 2.44772 20 3V6H18V4H6V20H18V18H20V21C20 21.5523 19.5523 22 19 22H5ZM18 16V13H11V11H18V8L23 12L18 16Z"></path>
+            </svg>
+            <%= Alchemy.t(:logout) %>
+          <% end %>
+        <% end %>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
+          <path fill="#fff" d="M15.7 7.9L9.9 2.2 2.1 4.3 0 12.1l5.7 5.8 7.8-2.1 2.2-7.9zm-5.3 10.3l-1.2 4.4 3.2 3.2 4.4-1.2 1.2-4.4-3.2-3.2-4.4 1.2zM23.5 7.3L17.2 9l-1.7 6.2 4.5 4.6 6.2-1.7 1.7-6.2-4.4-4.6z"/>
+        </svg>
       </div>
     </template>
-  </alchemy-menubar>
 
-  <%= javascript_include_tag('menubar', type: "module") %>
+    <script type="module">
+      class Menubar extends HTMLElement {
+        constructor() {
+          super()
+          const template = this.querySelector("template")
+          const attachedShadowRoot = this.attachShadow({ mode: "open" })
+          attachedShadowRoot.appendChild(template.content.cloneNode(true))
+        }
+
+        connectedCallback() {
+          const bar = this.shadowRoot.querySelector(".menubar")
+          const width = bar.offsetWidth
+          bar.style = `--panel-width: ${width}px; --left-offset: calc(var(--icon-size) + 32px);`
+        }
+      }
+
+      customElements.define("alchemy-menubar", Menubar)
+    </script>
+  </alchemy-menubar>
 <% end %>
