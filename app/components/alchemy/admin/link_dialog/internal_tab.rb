@@ -4,7 +4,7 @@ module Alchemy
   module Admin
     module LinkDialog
       class InternalTab < BaseTab
-        PAGE_URL_PATTERN = /\/(?<locale>[a-z]{2})?(?<slash>\/)?(?<urlname>.*)/
+        PAGE_URL_PATTERN = /\A\/(?<locale>[a-z]{2})?(?<slash>\/)?(?<urlname>.*?)(?<trailing-slash>\/)?\z/
 
         def title
           Alchemy.t("link_overlay_tab_label.internal")
@@ -49,7 +49,7 @@ module Alchemy
         end
 
         def page_attributes
-          locale, _slash, urlname = uri.path.match(PAGE_URL_PATTERN)&.captures
+          locale, _, urlname, _ = uri.path.match(PAGE_URL_PATTERN)&.captures
 
           if locale && urlname.present?
             {language_code: locale, urlname: urlname}

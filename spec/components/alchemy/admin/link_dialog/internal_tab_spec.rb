@@ -25,6 +25,20 @@ RSpec.describe Alchemy::Admin::LinkDialog::InternalTab, type: :component do
       expect(page.find(:css, "input[name=internal_link]").value).to eq(url)
     end
 
+    context "with trailing slash" do
+      let(:language) { create(:alchemy_language, default: true, site: site) }
+      let(:alchemy_page) { create(:alchemy_page, language: language) }
+      let(:url) { alchemy_page.url_path + "/" + "#" + fragment }
+
+      it "has url value set" do
+        expect(page.find(:css, "input[name=internal_link]").value).to eq(url)
+      end
+
+      it "has hash fragment set" do
+        expect(page.find(:css, "select[name=element_anchor]").value).to eq("#" + fragment)
+      end
+    end
+
     it "has hash fragment set" do
       expect(page.find(:css, "select[name=element_anchor]").value).to eq("#" + fragment)
     end
@@ -34,6 +48,16 @@ RSpec.describe Alchemy::Admin::LinkDialog::InternalTab, type: :component do
 
       it "has url value set" do
         expect(page.find(:css, "input[name=internal_link]").value).to eq(url)
+      end
+
+      context "with trailing slash" do
+        let(:language) { create(:alchemy_language, default: true, site: site) }
+        let(:alchemy_page) { create(:alchemy_page, language: language) }
+        let(:url) { "/#{alchemy_page.language_code}/#{alchemy_page.urlname}/" }
+
+        it "has url value set" do
+          expect(page.find(:css, "input[name=internal_link]").value).to eq(url)
+        end
       end
     end
 
@@ -56,6 +80,17 @@ RSpec.describe Alchemy::Admin::LinkDialog::InternalTab, type: :component do
 
       it "has url value set to root url" do
         expect(page.find(:css, "input[name=internal_link]").value).to eq(url)
+      end
+
+      context "with trailing slash" do
+        let(:language) { create(:alchemy_language, default: true, site: site) }
+        let(:alchemy_page) { create(:alchemy_page, language: language) }
+
+        let(:url) { alchemy_page && "/en/" }
+
+        it "has url value set to root url" do
+          expect(page.find(:css, "input[name=internal_link]").value).to eq(url)
+        end
       end
     end
   end
