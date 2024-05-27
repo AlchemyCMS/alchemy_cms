@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.2.0.rc2 (2024-05-27)
+
+- Harden specs [#2896](https://github.com/AlchemyCMS/alchemy_cms/pull/2896) ([tvdeyen](https://github.com/tvdeyen))
+- Support trailing slash in internal link tab selection [#2895](https://github.com/AlchemyCMS/alchemy_cms/pull/2895) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.2.0.rc1 (2024-05-24)
 
 - Deprecate float positioning in File and Picture ingredients [#2894](https://github.com/AlchemyCMS/alchemy_cms/pull/2894) ([tvdeyen](https://github.com/tvdeyen))
