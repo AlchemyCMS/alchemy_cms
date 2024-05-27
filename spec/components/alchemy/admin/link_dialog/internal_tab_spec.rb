@@ -4,9 +4,10 @@ require "rails_helper"
 
 RSpec.describe Alchemy::Admin::LinkDialog::InternalTab, type: :component do
   let(:site) { create(:alchemy_site) }
-  let(:alchemy_page) { create(:alchemy_page) }
-  let(:url) { alchemy_page.url_path + "#" + fragment }
-  let(:fragment) { "bar" }
+  let(:language) { create(:alchemy_language, site: site, default: true, code: "en") }
+  let(:url) { "/homepage#bar" }
+
+  let!(:alchemy_page) { create(:alchemy_page, urlname: "homepage", language: language, language_code: "en") }
 
   let(:is_selected) { false }
   let(:link_title) { nil }
@@ -22,74 +23,61 @@ RSpec.describe Alchemy::Admin::LinkDialog::InternalTab, type: :component do
 
   context "with page found by url" do
     it "has url value set" do
-      expect(page.find(:css, "input[name=internal_link]").value).to eq(url)
+      expect(page.find(:css, "input[name=internal_link]").value).to eq("/homepage#bar")
     end
 
     context "with trailing slash" do
-      let(:language) { create(:alchemy_language, default: true, site: site) }
-      let(:alchemy_page) { create(:alchemy_page, language: language) }
-      let(:url) { alchemy_page.url_path + "/" + "#" + fragment }
+      let(:url) { "/homepage/#bar" }
 
       it "has url value set" do
-        expect(page.find(:css, "input[name=internal_link]").value).to eq(url)
+        expect(page.find(:css, "input[name=internal_link]").value).to eq("/homepage/#bar")
       end
 
       it "has hash fragment set" do
-        expect(page.find(:css, "select[name=element_anchor]").value).to eq("#" + fragment)
+        expect(page.find(:css, "select[name=element_anchor]").value).to eq("#bar")
       end
     end
 
     it "has hash fragment set" do
-      expect(page.find(:css, "select[name=element_anchor]").value).to eq("#" + fragment)
+      expect(page.find(:css, "select[name=element_anchor]").value).to eq("#bar")
     end
 
     context "with locale in url" do
-      let(:url) { "/#{alchemy_page.language_code}/#{alchemy_page.urlname}" }
+      let(:url) { "/en/homepage" }
 
       it "has url value set" do
-        expect(page.find(:css, "input[name=internal_link]").value).to eq(url)
+        expect(page.find(:css, "input[name=internal_link]").value).to eq("/en/homepage")
       end
 
       context "with trailing slash" do
-        let(:language) { create(:alchemy_language, default: true, site: site) }
-        let(:alchemy_page) { create(:alchemy_page, language: language) }
-        let(:url) { "/#{alchemy_page.language_code}/#{alchemy_page.urlname}/" }
+        let(:url) { "/en/homepage/" }
 
         it "has url value set" do
-          expect(page.find(:css, "input[name=internal_link]").value).to eq(url)
+          expect(page.find(:css, "input[name=internal_link]").value).to eq("/en/homepage/")
         end
       end
     end
 
     context "with root url" do
-      let(:language) { create(:alchemy_language, default: true, site: site) }
-      let(:alchemy_page) { create(:alchemy_page, language: language) }
-
       let(:url) { alchemy_page && "/" }
 
       it "has url value set to root url" do
-        expect(page.find(:css, "input[name=internal_link]").value).to eq(url)
+        expect(page.find(:css, "input[name=internal_link]").value).to eq("/")
       end
     end
 
     context "with locale root url" do
-      let(:language) { create(:alchemy_language, default: true, site: site) }
-      let(:alchemy_page) { create(:alchemy_page, language: language) }
-
-      let(:url) { alchemy_page && "/en" }
+      let(:url) { "/en" }
 
       it "has url value set to root url" do
-        expect(page.find(:css, "input[name=internal_link]").value).to eq(url)
+        expect(page.find(:css, "input[name=internal_link]").value).to eq("/en")
       end
 
       context "with trailing slash" do
-        let(:language) { create(:alchemy_language, default: true, site: site) }
-        let(:alchemy_page) { create(:alchemy_page, language: language) }
-
-        let(:url) { alchemy_page && "/en/" }
+        let(:url) { "/en/" }
 
         it "has url value set to root url" do
-          expect(page.find(:css, "input[name=internal_link]").value).to eq(url)
+          expect(page.find(:css, "input[name=internal_link]").value).to eq("/en/")
         end
       end
     end
