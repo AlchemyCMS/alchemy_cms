@@ -14,7 +14,9 @@ RSpec.feature "Ingredient Pictures admin feature", type: :system do
   end
 
   scenario "Picture description is used as default for ingredient picture alt text" do
-    visit alchemy.edit_admin_ingredient_path(ingredient_picture)
-    expect(page).to have_field("Alternative text", placeholder: "A nice picture")
+    Alchemy::Deprecation.silence do
+      visit alchemy.edit_admin_ingredient_path(ingredient_picture)
+      expect(page).to have_field("Alternative text", placeholder: "A nice picture")
+    end
   end
 end
