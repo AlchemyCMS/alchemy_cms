@@ -29,7 +29,7 @@ RSpec.describe "Nodes management", type: :system, js: true do
     add_menu_item
 
     within "#page_nodes table" do
-      expect(page).to have_content("Menu node MenuA Page 1")
+      expect(page).to have_content("Menu node Menu#{a_page.name}")
     end
     within "[panel='nodes']" do
       expect(page).to have_content("(1) Menu node")
@@ -59,7 +59,7 @@ RSpec.describe "Nodes management", type: :system, js: true do
       end
 
       within "#page_nodes table" do
-        expect(page).to_not have_content("Menu node MenuA Page 1")
+        expect(page).to_not have_content("Menu node Menu#{a_page.name}")
         expect(page).to have_content(Alchemy.t("No menu node for this page found"))
       end
       within "[panel='nodes']" do
