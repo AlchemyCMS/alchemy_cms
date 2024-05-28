@@ -18,10 +18,11 @@ class NodeSelect extends RemoteSelect {
   /**
    * html template for each list entry
    * @param {object} node
+   * @param {string} term
    * @returns {string}
    * @private
    */
-  _renderListEntry(node) {
+  _renderListEntry(node, term) {
     const ancestors = node.ancestors.map((a) => a.name)
     const seperator = `<alchemy-icon name="arrow-right-s"></alchemy-icon>`
 
@@ -33,7 +34,7 @@ class NodeSelect extends RemoteSelect {
             ${ancestors.length > 0 ? ancestors.join(seperator) + seperator : ""}
           </span>
           <span class="node-select--node-name">
-            ${node.name}
+            ${this._hightlightTerm(node.name, term)}
           </span>
         </div>
         <div class="node-select--node-url">

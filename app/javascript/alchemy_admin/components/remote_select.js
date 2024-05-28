@@ -62,7 +62,8 @@ export class RemoteSelect extends AlchemyHTMLElement {
       },
       ajax: this.ajaxConfig,
       formatSelection: (item) => this._renderResult(item),
-      formatResult: (item) => this._renderListEntry(item)
+      formatResult: (item, _el, query) =>
+        this._renderListEntry(item, query.term)
     }
   }
 
@@ -126,6 +127,7 @@ export class RemoteSelect extends AlchemyHTMLElement {
   /**
    * html template for each list entry
    * @param {object} item
+   * @param {string} term
    * @returns {string}
    * @private
    */
@@ -133,5 +135,16 @@ export class RemoteSelect extends AlchemyHTMLElement {
     throw new Error(
       "You need to define a _renderListEntry function on your sub class!"
     )
+  }
+
+  /**
+   * hightlighted search term
+   * @param {string} name
+   * @param {string} term
+   * @returns {string}
+   * @private
+   */
+  _hightlightTerm(name, term) {
+    return name.replace(new RegExp(term, "gi"), (match) => `<em>${match}</em>`)
   }
 }
