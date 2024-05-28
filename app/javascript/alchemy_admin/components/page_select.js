@@ -36,15 +36,16 @@ class PageSelect extends RemoteSelect {
   /**
    * html template for each list entry
    * @param {object} page
+   * @param {string} term
    * @returns {string}
    * @private
    */
-  _renderListEntry(page) {
+  _renderListEntry(page, term) {
     return `
       <div class="page-select--page">
         <div class="page-select--top">
           <alchemy-icon name="file-3"></alchemy-icon>
-          <span class="page-select--page-name">${page.name}</span>
+          <span class="page-select--page-name">${this._hightlightTerm(page.name, term)}</span>
           <span class="page-select--site-name">${page.site.name}</span>
         </div>
         <div class="page-select--bottom">
