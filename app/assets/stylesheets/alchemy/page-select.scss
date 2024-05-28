@@ -10,9 +10,12 @@
   display: flex;
   flex-direction: column;
 
-  .icon {
-    margin: 0 $default-margin;
-    fill: currentColor;
+  alchemy-icon {
+    margin-right: $default-margin;
+
+    .icon {
+      fill: currentColor;
+    }
   }
 }
 
@@ -25,11 +28,12 @@
 
 .page-select--bottom {
   font-size: $small-font-size;
-  padding-left: $default-padding;
+  padding-left: $default-padding / 2;
 }
 
-.page-select--site-name {
+.page-select--page-urlname {
   color: $muted-text-color;
+  padding-right: $default-padding;
 
   .select2-highlighted & {
     color: $medium-gray;
@@ -42,6 +46,7 @@
   margin-left: auto;
   border-radius: $default-border-radius;
   padding: $default-padding / 2 $default-padding;
+  text-transform: uppercase;
 
   .select2-highlighted & {
     color: $select-hover-bg-color;
@@ -49,9 +54,9 @@
   }
 }
 
-.page-select--page-urlname {
+.page-select--site-name {
   margin-left: auto;
-  padding: $default-padding 2 * $default-padding;
+  padding: $default-padding 0 $default-padding 2 * $default-padding;
   color: $dark-gray;
   font-size: $small-font-size;
 
