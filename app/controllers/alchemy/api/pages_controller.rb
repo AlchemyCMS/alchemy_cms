@@ -43,7 +43,7 @@ module Alchemy
     #
     def show
       authorize! :show, @page
-      respond_with @page
+      render json: @page, serializer: PageSerializer
     end
 
     def move
