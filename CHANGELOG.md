@@ -1,5 +1,13 @@
 # Changelog
 
+## 7.2.0 (2024-05-28)
+
+- Remove responders gem [#2901](https://github.com/AlchemyCMS/alchemy_cms/pull/2901) ([tvdeyen](https://github.com/tvdeyen))
+- Add Language and Site serializers [#2900](https://github.com/AlchemyCMS/alchemy_cms/pull/2900) ([tvdeyen](https://github.com/tvdeyen))
+- PageSelect: Move URL to bottom [#2899](https://github.com/AlchemyCMS/alchemy_cms/pull/2899) ([tvdeyen](https://github.com/tvdeyen))
+- Highlight search terms in RemoteSelect [#2898](https://github.com/AlchemyCMS/alchemy_cms/pull/2898) ([tvdeyen](https://github.com/tvdeyen))
+- fix(InternalTab): Fix for urls with trailing slash and no locale [#2897](https://github.com/AlchemyCMS/alchemy_cms/pull/2897) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.2.0.rc2 (2024-05-27)
 
 - Harden specs [#2896](https://github.com/AlchemyCMS/alchemy_cms/pull/2896) ([tvdeyen](https://github.com/tvdeyen))
