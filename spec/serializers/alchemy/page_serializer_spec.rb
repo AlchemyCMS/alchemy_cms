@@ -57,29 +57,11 @@ RSpec.describe Alchemy::PageSerializer do
         "elements" => [],
         "site" => {
           "id" => page.site.id,
-          "aliases" => nil,
-          "created_at" => an_instance_of(String),
-          "host" => "*",
-          "name" => "Default Site",
-          "public" => true,
-          "redirect_to_primary_host" => false,
-          "updated_at" => an_instance_of(String)
+          "name" => "Default Site"
         },
         "language" => {
-          "country_code" => "",
-          "created_at" => an_instance_of(String),
-          "creator_id" => nil,
-          "default" => true,
-          "frontpage_name" => "Intro",
           "id" => page.language_id,
-          "language_code" => "en",
-          "locale" => "en",
-          "name" => "Your Language",
-          "page_layout" => "index",
-          "public" => true,
-          "site_id" => page.site.id,
-          "updated_at" => an_instance_of(String),
-          "updater_id" => nil
+          "name" => "Your Language"
         }
       )
     end
