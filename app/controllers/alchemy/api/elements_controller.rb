@@ -37,7 +37,7 @@ module Alchemy
     def show
       @element = Element.where(id: params[:id]).includes(*element_includes).first
       authorize! :show, @element
-      respond_with @element
+      render json: @element, serializer: ElementSerializer
     end
 
     private

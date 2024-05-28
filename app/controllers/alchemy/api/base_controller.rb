@@ -3,7 +3,6 @@
 module Alchemy
   class Api::BaseController < Alchemy::BaseController
     layout false
-    respond_to :json
 
     rescue_from CanCan::AccessDenied, with: :render_not_authorized
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
