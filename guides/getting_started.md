@@ -15,7 +15,7 @@ This guide covers getting up and running with AlchemyCMS. After reading it, you 
 This guide is designed for beginners who want to get started with AlchemyCMS from scratch. It does not assume that you have any prior experience with AlchemyCMS. However, to get the most out of it, you need to have some prerequisites installed:
 
 * The [Ruby](http://www.ruby-lang.org/en/downloads) programming language
-* At least one of these databases: [MySQL](http://www.mysql.com/downloads/mysql) or [PostgreSQL](http://www.postgresql.org/download)
+* At least one of these databases: [MySQL](http://www.mysql.com/downloads/mysql), [MariaDB](http://www.mariadb.org) or [PostgreSQL](http://www.postgresql.org/download)
 * The image processing library [ImageMagick](http://www.imagemagick.org/script/install-source.php)
 
 ### Installing dependencies
