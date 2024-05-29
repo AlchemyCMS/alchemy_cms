@@ -1,7 +1,7 @@
 #toolbar {
   display: flex;
   align-items: center;
-  gap: 2 * $default-padding;
+  gap: var(--spacing-2);
   z-index: 10;
   @extend %gradiated-toolbar;
   margin-right: 0px;
@@ -18,7 +18,7 @@
 
   div p {
     float: right;
-    margin: 3px $default-margin 0 0;
+    margin: 3px var(--spacing-1) 0 0;
     padding: 0;
   }
 }
@@ -37,11 +37,11 @@
 
   &.right {
     flex-grow: 0;
-    padding: 8px 0;
+    padding: var(--spacing-2) 0;
 
     .toolbar_button {
       &:last-child {
-        margin-right: $default-margin;
+        margin-right: var(--spacing-1);
       }
     }
   }
@@ -54,14 +54,14 @@
   }
 
   .toolbar_button {
-    margin: 0 2 * $default-margin;
+    margin: 0 var(--spacing-2);
 
     &:first-child {
-      margin-left: $default-margin;
+      margin-left: var(--spacing-1);
 
       select,
       .alchemy_selectbox {
-        margin-left: 2 * $default-margin;
+        margin-left: var(--spacing-2);
       }
     }
   }
@@ -75,8 +75,8 @@
   border-right-style: solid;
   border-right-width: 1px;
   border-right-color: $default-border-color;
-  margin-right: $default-margin;
-  margin-left: $default-margin;
+  margin-right: var(--spacing-1);
+  margin-left: var(--spacing-1);
 }
 
 #overlay_toolbar {
@@ -88,7 +88,7 @@
   position: relative;
   display: inline-block;
   vertical-align: top;
-  margin: 0 2 * $default-margin;
+  margin: 0 var(--spacing-2);
 
   &:hover label {
     display: block;

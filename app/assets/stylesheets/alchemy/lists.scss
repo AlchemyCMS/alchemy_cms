@@ -1,5 +1,6 @@
-ul, ol {
-  padding-left: 16px;
+ul,
+ol {
+  padding-left: var(--spacing-4);
   margin-top: 1em;
   margin-bottom: 1em;
 
@@ -22,8 +23,8 @@ ul.list {
       overflow: hidden;
       background-color: transparent;
       font-weight: bold;
-      padding: $default-padding 2*$default-padding;
-      margin-bottom: 2*$default-margin;
+      padding: var(--spacing-1) var(--spacing-2);
+      margin-bottom: var(--spacing-2);
 
       .list-secondary {
         color: $text-color;
@@ -52,7 +53,8 @@ ul.list {
     max-width: 65%;
   }
 
-  .list-secondary, .right {
+  .list-secondary,
+  .right {
     float: right;
     text-align: left;
     width: 30%;

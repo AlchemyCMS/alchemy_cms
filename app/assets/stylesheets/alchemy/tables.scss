@@ -1,20 +1,20 @@
 table {
   border-style: none;
-  border-spacing: 0 $default-padding;
+  border-spacing: 0 var(--spacing-1);
   padding: 0;
   font-size: inherit;
   width: 100%;
 
   &.list .tools {
     background-color: transparent;
-    padding: 2 * $default-padding;
+    padding: var(--spacing-2);
   }
 }
 
 .table {
   display: flex;
   flex-direction: column;
-  row-gap: $default-padding;
+  row-gap: var(--spacing-1);
 
   .row,
   header {
@@ -34,7 +34,7 @@ table {
 .list td,
 .list th,
 .table .col {
-  padding: 2 * $default-padding 3 * $default-padding;
+  padding: var(--spacing-2) var(--spacing-3);
   vertical-align: top;
   line-height: 22px;
   border-right: 1px solid $medium-gray;
@@ -84,7 +84,7 @@ tr.odd td,
 
 .list tr .tools,
 .table .row .col.tools {
-  padding: $default-padding 2 * $default-padding;
+  padding: var(--spacing-1) var(--spacing-2);
   white-space: nowrap;
   @extend .disable-user-select;
   background-color: transparent;
@@ -99,7 +99,7 @@ tr.odd td,
 }
 
 td.heading {
-  padding: $default-padding 0;
+  padding: var(--spacing-1) 0;
   font-weight: bold;
   text-decoration: underline;
 }
@@ -107,7 +107,7 @@ td.heading {
 .list .tools alchemy-icon,
 .list td.icon alchemy-icon {
   @extend .disable-user-select;
-  margin: 2px 0;
+  margin: var(--spacing-0) 0;
 }
 
 .list tr:hover td,
@@ -177,7 +177,7 @@ td,
     white-space: nowrap;
 
     .page_status {
-      margin: 0 $default-margin;
+      margin: 0 var(--spacing-1);
     }
   }
 
@@ -186,10 +186,10 @@ td,
 
     .tag {
       margin: 0;
-      padding: 0 2 + $default-padding;
+      padding: calc(0 2 + var(--spacing-1));
 
       &:before {
-        padding-right: $default-padding;
+        padding-right: var(--spacing-1);
       }
     }
   }
@@ -199,7 +199,7 @@ th.count,
 td.count {
   width: 10%;
   text-align: right;
-  padding-right: 16px;
+  padding-right: var(--spacing-4);
 }
 
 .list .login_status {

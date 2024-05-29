@@ -7,7 +7,7 @@ div#flash_notices {
 
   alchemy-message {
     font-weight: bold;
-    margin: $default-margin $default-margin 2 * $default-margin;
+    margin: var(--spacing-1) var(--spacing-1) var(--spacing-2);
     opacity: 0.95;
     transition-property: opacity, transform;
     transition-duration: 0.4s;
@@ -20,12 +20,12 @@ div#flash_notices {
 
     &[type="error"] {
       cursor: pointer;
-      padding-right: 32px;
+      padding-right: var(--spacing-8);
 
       alchemy-icon[name="close"] {
         position: absolute;
         left: initial;
-        right: 2 * $default-padding;
+        right: var(--spacing-2);
       }
     }
   }

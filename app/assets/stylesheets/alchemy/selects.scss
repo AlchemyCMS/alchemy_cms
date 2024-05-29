@@ -5,7 +5,7 @@ select {
     $background-color: $form-field-background-color,
     $hover-color: $form-field-background-color,
     $hover-border-color: darken($default-border-color, 10%),
-    $padding: $default-padding 26px $default-padding 2 * $default-padding,
+    $padding: var(--spacing-1) 26px var(--spacing-1) var(--spacing-2),
     $border: 1px solid $default-border-color,
     $box-shadow: none,
     $color: $form-field-text-color,
@@ -55,7 +55,7 @@ select {
       );
       background-image: none;
       display: flex;
-      gap: 2 * $default-padding;
+      gap: var(--spacing-2);
       align-items: center;
       font-weight: normal;
       text-align: left;
@@ -135,7 +135,7 @@ select {
   &.select2-allowclear {
     .select2-search-choice-close {
       left: auto;
-      right: $default-padding;
+      right: var(--spacing-1);
       top: 5px;
       background: none;
       text-decoration: none;
@@ -166,12 +166,13 @@ select {
 
     .select2-choices {
       @extend %default-input-style;
-      padding: 0 2px;
+      padding: 0 var(--spacing-0);
       width: 100%;
 
       .select2-search-choice {
-        margin: 4px;
-        padding: 4px 24px 4px 8px;
+        margin: var(--spacing-1);
+        padding: var(--spacing-1) var(--spacing-6) var(--spacing-1)
+          var(--spacing-2);
         background-image: none;
         border: 0 none;
         box-shadow: none;
@@ -193,7 +194,7 @@ select {
 
 .select2-drop {
   .select2-search {
-    margin: $default-margin 0;
+    margin: var(--spacing-1) 0;
 
     .select2-input {
       width: inherit;
@@ -218,7 +219,7 @@ select {
 
     .select2-result {
       margin: 0;
-      padding: 4px 0;
+      padding: var(--spacing-1) 0;
 
       &.select2-highlighted {
         background: $select-hover-bg-color;
@@ -232,16 +233,16 @@ select {
 
     .select2-no-results,
     .select2-searching {
-      padding: 8px;
+      padding: var(--spacing-2);
       margin: 0;
     }
 
     .select2-result-label {
-      padding: 4px 8px;
+      padding: var(--spacing-1) var(--spacing-2);
     }
 
     ul.select2-result-sub > li .select2-result-label {
-      padding-left: 16px;
+      padding-left: var(--spacing-4);
     }
   }
 
@@ -252,7 +253,7 @@ select {
 
   .select2-more-results,
   .select2-ajax-error {
-    padding: 2 * $default-padding;
+    padding: var(--spacing-2);
     margin-bottom: 0;
   }
 }
@@ -267,7 +268,7 @@ select {
 .select_with_label {
   display: inline-flex;
   align-items: center;
-  margin: 0 3 * $default-margin;
+  margin: 0 var(--spacing-3);
 
   label,
   alchemy-icon {

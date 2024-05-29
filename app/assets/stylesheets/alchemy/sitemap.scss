@@ -29,7 +29,7 @@
   .page_urlname {
     display: none;
     margin-left: auto;
-    padding-left: $default-padding;
+    padding-left: var(--spacing-1);
     width: calc(var(--sitemap-url-width) - 60px);
 
     @media screen and (min-width: $large-screen-break-point) {
@@ -39,7 +39,7 @@
 
   .page_status {
     display: none;
-    padding-left: 2 * $default-padding;
+    padding-left: var(--spacing-2);
     margin-right: 190px;
     margin-left: auto;
 
@@ -102,7 +102,7 @@
   display: flex;
   align-items: center;
   height: $sitemap-line-height;
-  margin: 3 * $default-margin 0;
+  margin: var(--spacing-3) 0;
   position: relative;
   transition: background-color $transition-duration;
 
@@ -168,7 +168,7 @@
   background-color: $sitemap-info-background-color;
   line-height: $sitemap-line-height - 2px;
   font-size: $small-font-size;
-  padding: 0 2 * $default-padding;
+  padding: 0 var(--spacing-2);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -191,8 +191,8 @@
   line-height: $sitemap-line-height;
 
   .page_status {
-    margin: 0 $default-margin;
-    padding: 0 $default-padding;
+    margin: 0 var(--spacing-1);
+    padding: 0 var(--spacing-1);
     white-space: nowrap;
   }
 
@@ -204,9 +204,9 @@
 .sitemap_right_tools {
   display: none;
   align-items: center;
-  gap: $default-padding;
+  gap: var(--spacing-1);
   height: $sitemap-line-height;
-  padding: 0 2 * $default-padding;
+  padding: 0 var(--spacing-2);
 
   @media screen and (min-width: $small-screen-break-point) {
     display: flex;
@@ -227,7 +227,7 @@
 }
 
 .page_status_and_name .page_status {
-  margin-left: $default-margin;
+  margin-left: var(--spacing-1);
   margin-bottom: -1px;
 
   // The lock icon is a bit too high, so we need to adjust it
@@ -240,12 +240,12 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  gap: $default-margin;
+  gap: var(--spacing-1);
 }
 
 #page_filter_result {
   display: none;
-  margin-left: 2 * $default-margin;
+  margin-left: var(--spacing-2);
 }
 
 .alchemy-dialog {
@@ -255,7 +255,7 @@
 
   #sitemap {
     margin: 0;
-    padding: 0 24px 8px 8px;
+    padding: 0 var(--spacing-6) var(--spacing-2) var(--spacing-2);
 
     .page_icon {
       cursor: default;

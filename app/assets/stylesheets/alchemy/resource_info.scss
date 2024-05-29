@@ -25,12 +25,11 @@
     align-items: center;
     justify-content: center;
     position: absolute;
-    right: 2 * $default-padding;
-    top: 2 * $default-padding;
+    right: 0;
+    top: var(--spacing-1);
     height: $form-field-height;
     background-color: $medium-gray;
-    margin: -$default-margin -2 * $default-margin;
-    padding: 0 2 * $default-padding;
+    padding: 0 var(--spacing-2);
     transition: background-color 0.3s;
     @extend .right-rounded-border;
 

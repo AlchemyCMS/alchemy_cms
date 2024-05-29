@@ -8,7 +8,7 @@
   width: 100%;
   left: 0px;
   height: $pagination-height;
-  padding: 2 * $default-padding;
+  padding: var(--spacing-2);
   padding-left: $main-menu-width + 10px;
   text-align: left;
   border-top: $default-border;
@@ -20,8 +20,8 @@
     font-size: $default-font-size;
     font-weight: bold;
     color: $icon-color;
-    padding: $default-padding;
-    margin: 0 $default-margin/2;
+    padding: var(--spacing-1);
+    margin: 0 var(--spacing-0);
     border-radius: $default-border-radius;
   }
 
@@ -36,7 +36,7 @@
   }
 
   .page {
-    padding: $default-padding 2 * $default-padding;
+    padding: var(--spacing-1) var(--spacing-2);
   }
 
   .current {
@@ -46,11 +46,11 @@
   }
 
   .previous_page {
-    margin-right: 2 * $default-padding;
+    margin-right: var(--spacing-2);
   }
 
   .next_page {
-    margin-left: 2 * $default-padding;
+    margin-left: var(--spacing-2);
   }
 
   .disabled,
@@ -88,5 +88,5 @@
 #assign_image_list .pagination,
 #assign_file_list .pagination {
   position: absolute;
-  padding-left: 8px;
+  padding-left: var(--spacing-2);
 }

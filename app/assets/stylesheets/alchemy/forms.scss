@@ -1,7 +1,7 @@
 form {
   #main_content > &.alchemy {
     max-width: 600px;
-    padding: 2 * $default-padding;
+    padding: var(--spacing-2);
     margin: 2em auto;
   }
 
@@ -26,7 +26,7 @@ form {
   }
 
   .input {
-    padding: $default-padding 0;
+    padding: var(--spacing-1) 0;
     @include clearfix;
 
     input[type="url"],
@@ -61,7 +61,7 @@ form {
 
     select,
     .select2-container {
-      margin: 4px 0;
+      margin: var(--spacing-1) 0;
     }
 
     &.boolean {
@@ -71,18 +71,18 @@ form {
         width: 100%;
         text-align: left;
         padding: 0;
-        margin: $default-margin 0;
+        margin: var(--spacing-1) 0;
         float: none;
-        margin-left: 4px;
+        margin-left: var(--spacing-1);
       }
     }
 
     label.checkbox {
       display: block;
-      margin: $default-margin 0;
+      margin: var(--spacing-1) 0;
 
       input {
-        margin-right: $default-margin;
+        margin-right: var(--spacing-1);
         margin-left: 1px;
       }
     }
@@ -109,7 +109,7 @@ form {
     .select2-choices {
       border-color: $error_border_color;
       color: $error_text_color;
-      margin-bottom: 4px;
+      margin-bottom: var(--spacing-1);
 
       input[type="text"] {
         box-shadow: none;
@@ -134,7 +134,7 @@ form {
   .input-addon {
     width: $form-field-addon-width;
     position: absolute;
-    bottom: 2 * $default-padding;
+    bottom: var(--spacing-2);
     --select-background-image: none;
 
     select {
@@ -177,11 +177,11 @@ form {
   .inline-input {
     align-items: center;
     display: flex;
-    margin: 0 -1 * $default-margin;
+    margin: 0 calc(-1 * var(--spacing-1));
 
     .left-column,
     .right-column {
-      padding: 0 $default-padding;
+      padding: 0 var(--spacing-1);
     }
 
     .left-column {
@@ -205,7 +205,7 @@ form {
 
   .control_group {
     width: $form-right-width;
-    padding-top: $default-margin;
+    padding-top: var(--spacing-1);
     float: right;
   }
 
@@ -224,12 +224,12 @@ form {
   }
 
   .submit {
-    padding: $default-padding 0;
+    padding: var(--spacing-1) 0;
     text-align: right;
   }
 
   .input-column {
-    padding: 0 $default-padding;
+    padding: 0 var(--spacing-1);
 
     input[type] {
       float: none;
@@ -254,5 +254,5 @@ form {
 
 .input-column > label {
   display: block;
-  margin-top: $default-margin + 1;
+  margin-top: calc(var(--spacing-1) + 1);
 }

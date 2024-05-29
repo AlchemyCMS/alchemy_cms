@@ -30,7 +30,7 @@ noscript {
 
   h1,
   p {
-    margin: 16px 0;
+    margin: var(--spacing-4) 0;
   }
 }
 
@@ -87,9 +87,9 @@ hr {
   width: 80%;
   max-width: 500px;
   margin: 2em auto;
-  padding: 4 * $default-padding;
+  padding: var(--spacing-4);
   background: $medium-gray;
-  border-radius: $default-border-radius;
+  border-radius: var(--border-radius_medium);
 }
 
 .float_right {
@@ -121,7 +121,7 @@ hr {
 }
 
 .bottom-left-rounded-border {
-  border-bottom-left-radius: $default-border-radius;
+  border-bottom-left-radius: var(--border-radius_medium);
 }
 
 .disable-user-select {
@@ -133,11 +133,11 @@ hr {
 }
 
 .with_padding {
-  padding: 2 * $default-padding;
+  padding: var(--spacing-2);
 }
 
 .with_margin {
-  margin: 2 * $default-margin;
+  margin: var(--spacing-2);
 }
 
 a img {

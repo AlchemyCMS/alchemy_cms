@@ -1,6 +1,6 @@
 .attachment_preview_container {
   background-color: $medium-gray;
-  margin-top: 12px;
+  margin-top: var(--spacing-3);
 
   audio,
   video {
@@ -10,7 +10,7 @@
   &.image-preview {
     height: 300px;
     text-align: center;
-    padding: 2 * $default-padding;
+    padding: var(--spacing-2);
     white-space: nowrap;
 
     &:before {
@@ -36,5 +36,5 @@
   width: 100%;
   background-color: white;
   min-height: 435px;
-  margin-top: 12px;
+  margin-top: var(--spacing-3);
 }

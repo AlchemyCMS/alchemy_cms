@@ -18,10 +18,12 @@ input[type="checkbox"] {
   transition: $transition-duration;
 
   &:focus {
-    @include default-focus-style($box-shadow: (
-      inset 0 0 0 1px $focus-color,
-      0 0 0 1px $focus-color
-    ));
+    @include default-focus-style(
+      $box-shadow: (
+        inset 0 0 0 1px $focus-color,
+        0 0 0 1px $focus-color
+      )
+    );
   }
 }
 
@@ -32,7 +34,7 @@ input[type="search"] {
 input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-results-button,
-input[type="search"]::-webkit-search-results-decoration  {
+input[type="search"]::-webkit-search-results-decoration {
   -webkit-appearance: none;
 }
 
@@ -68,7 +70,7 @@ fieldset {
 }
 
 .page-publication-date-fields {
-  padding-bottom: $default-padding;
+  padding-bottom: var(--spacing-1);
   @include clearfix;
 
   &.hidden {

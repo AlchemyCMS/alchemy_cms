@@ -26,7 +26,7 @@ input.button {
 
   &.small {
     padding: $small-button-padding;
-    line-height: 4 * $default-padding;
+    line-height: var(--spacing-4);
     font-size: inherit;
   }
 
@@ -37,7 +37,7 @@ input.button {
 
     .icon {
       font-weight: normal;
-      margin-right: $default-margin;
+      margin-right: var(--spacing-1);
       fill: currentColor;
     }
   }

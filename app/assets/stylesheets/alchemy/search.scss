@@ -1,13 +1,13 @@
 .search_field {
   position: relative;
-  margin-bottom: $default-margin;
+  margin-bottom: var(--spacing-1);
   height: 29px;
 }
 
 .search_field {
   .fa-search {
     position: absolute;
-    left: 8px;
+    left: var(--spacing-2);
     top: 9px;
   }
 
@@ -32,7 +32,7 @@
   visibility: hidden;
   position: absolute;
   top: 7px;
-  right: 8px;
+  right: var(--spacing-2);
   width: 16px;
   height: 16px;
   align-items: center;
@@ -61,7 +61,7 @@
       width $transition-duration ease-in-out,
       background-color $transition-duration linear;
     border-radius: 0;
-    padding: 8px 16px 8px 32px;
+    padding: var(--spacing-2) var(--spacing-4) var(--spacing-2) var(--spacing-8);
     margin: 0;
     text-align: left;
     box-shadow: none;
@@ -87,6 +87,6 @@
   }
 
   .search_field_clear {
-    top: 16px;
+    top: var(--spacing-4);
   }
 }

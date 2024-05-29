@@ -4,7 +4,7 @@
   height: 21px;
 
   .icon {
-    margin: 0 $default-margin 0 0;
+    margin: 0 var(--spacing-1) 0 0;
 
     .select2-highlighted & {
       fill: $white;

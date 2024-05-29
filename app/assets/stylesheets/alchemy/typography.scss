@@ -51,7 +51,7 @@ h5,
 }
 
 p {
-  margin: 0 0 2 * $default-margin 0;
+  margin: 0 0 var(--spacing-2) 0;
   white-space: normal;
 
   a {
@@ -62,7 +62,7 @@ p {
 kbd,
 code {
   border: $default-border;
-  border-radius: $default-border-radius;
+  border-radius: var(--border-radius_medium);
   font-family: Courier, monospaced;
   margin: 0 0.25ex;
   padding: 0.25em 0.5em;

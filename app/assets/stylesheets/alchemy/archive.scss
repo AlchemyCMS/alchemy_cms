@@ -1,5 +1,5 @@
 .resources-header {
-  padding: 0 2 * $default-padding;
+  padding: 0 var(--spacing-2);
 }
 
 .applied-filter {
@@ -26,10 +26,10 @@
 }
 
 .selected_item_tools {
-  margin: -2 * $default-padding;
+  margin: calc(-1 * var(--spacing-2));
   border-bottom: 1px solid $default-border-color;
-  margin-bottom: 4 * $default-padding;
-  padding: 4 * $default-padding;
+  margin-bottom: var(--spacing-4);
+  padding: var(--spacing-4);
 
   .button {
     vertical-align: middle;
@@ -57,7 +57,7 @@
   height: var(--picture-thumbnail-height);
   position: relative;
   border-radius: var(--picture-thumbnail-border-radius);
-  padding: 2 * $default-padding;
+  padding: var(--spacing-2);
   padding-bottom: 2.5em;
   transition: all $transition-duration;
 
@@ -89,7 +89,7 @@
     bottom: 0;
     left: 0;
     line-height: 2.5;
-    padding: 0 $default-padding;
+    padding: 0 var(--spacing-1);
     text-overflow: ellipsis;
   }
 
@@ -124,7 +124,7 @@
   );
 
   display: grid;
-  gap: 2 * $default-margin;
+  gap: var(--spacing-2);
   grid-auto-rows: min-content;
   grid-template-columns: repeat(
     auto-fill,
@@ -171,8 +171,8 @@ div.assign_image_list_image {
   justify-content: center;
   position: absolute;
   background-color: white;
-  top: $default-padding;
-  padding: $default-padding / 2;
+  top: var(--spacing-1);
+  padding: var(--spacing-0);
   z-index: 10;
   border-radius: $default-border-radius;
   box-shadow: 0 0 1px $dark-gray;
@@ -192,7 +192,7 @@ div.assign_image_list_image {
   }
 
   &.select {
-    left: $default-padding;
+    left: var(--spacing-1);
 
     input {
       margin: 0;
@@ -202,7 +202,7 @@ div.assign_image_list_image {
 
   &.delete {
     cursor: pointer;
-    right: $default-padding;
+    right: var(--spacing-1);
   }
 
   a {
@@ -226,7 +226,7 @@ div.assign_image_list_image {
   left: 0;
   width: 100%;
   max-height: 80%;
-  padding: $default-padding;
+  padding: var(--spacing-1);
   pointer-events: none;
 
   .tag {
@@ -250,14 +250,14 @@ div#library_sidebar {
   right: 0;
   width: 232px;
 
-  padding: $top-menu-height + 2 * $default-padding 4 * $default-padding
-    $pagination-height + 2 * $default-padding 4 * $default-padding;
+  padding: calc(#{$top-menu-height} + var(--spacing-2)) var(--spacing-4)
+    calc(#{$pagination-height} + var(--spacing-2)) var(--spacing-4);
   height: 100%;
   z-index: 3;
   background-color: $light-gray;
 
   h2 {
-    margin-top: 4 * $default-margin;
+    margin-top: var(--spacing-4);
   }
 
   h3 {
@@ -277,7 +277,7 @@ div#filter_bar {
 
 .alchemy-dialog-body {
   #library_sidebar {
-    padding: 0 4 * $default-padding;
+    padding: 0 var(--spacing-4);
   }
 }
 
@@ -308,7 +308,7 @@ div#filter_bar {
 #overlay_file_list {
   .assign_file_file {
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: var(--spacing-1);
     word-break: break-all;
 
     &:hover {
@@ -318,7 +318,7 @@ div#filter_bar {
 
   > ul {
     margin: 0;
-    padding: 4px 0;
+    padding: var(--spacing-1) 0;
 
     a {
       @extend %text-overflow;
@@ -326,11 +326,11 @@ div#filter_bar {
       justify-content: space-between;
       line-height: 25px;
       text-decoration: none;
-      padding: $default-padding 2 * $default-padding;
+      padding: var(--spacing-1) var(--spacing-2);
     }
 
     alchemy-icon {
-      margin-right: 2 * $default-margin;
+      margin-right: var(--spacing-2);
       vertical-align: bottom;
     }
   }
