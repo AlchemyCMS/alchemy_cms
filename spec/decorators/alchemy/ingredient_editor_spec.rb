@@ -35,10 +35,10 @@ RSpec.describe Alchemy::IngredientEditor do
     end
 
     context "when responding to level_options" do
-      context "and having many level options" do
+      context "and having any level options" do
         before do
           expect(ingredient).to receive(:level_options) do
-            [["H1", 1], ["H2", 2]]
+            [["H1", 1]]
           end
         end
 
