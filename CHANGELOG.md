@@ -1,5 +1,12 @@
 # Changelog
 
+## 7.1.8 (2024-05-29)
+
+- [7.1-stable] Fix preview window width for smaller viewports [#2890](https://github.com/AlchemyCMS/alchemy_cms/pull/2890) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] Fix Preview Window width [#2881](https://github.com/AlchemyCMS/alchemy_cms/pull/2881) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] Fix preview window resize transition [#2872](https://github.com/AlchemyCMS/alchemy_cms/pull/2872) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] UI fixes for picture css class display [#2846](https://github.com/AlchemyCMS/alchemy_cms/pull/2846) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.1.7 (2024-04-12)
 
 - [7.1-stable] Fix Ingredient Boolean View [#2838](https://github.com/AlchemyCMS/alchemy_cms/pull/2838) ([alchemycms-bot](https://github.com/alchemycms-bot))
