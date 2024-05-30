@@ -653,7 +653,12 @@ nb-NO:
     resource_help_texts:
       site:
         aliases: Vennligst del ekstra domener med mellomrom eller linjeskift
+    "%{resource_name} successfully %{action}": "%{resource_name} vellykket %{action}."
     resources:
+      actions:
+        created: opprettet
+        updated: oppdatert
+        removed: fjernet
       relation_select:
         blank: "- ingen -"
     right: høyre

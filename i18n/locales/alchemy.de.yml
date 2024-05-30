@@ -405,6 +405,7 @@ de:
     "clear clipboard": "Zwischenablage leeren"
     "clear trash": "Papierkorb leeren"
     click_to_show_all: "wieder alles anzeigen"
+    "Collapse all elements": "Alle Elemente einklappen"
     confirm_to_delete_file: "Wollen Sie diese Datei wirklich vom Server löschen?"
     confirm_to_delete_image: "Wollen Sie dieses Bild wirklich löschen?"
     confirm_to_delete_image_from_server: "Wollen Sie dieses Bild wirklich vom Server löschen?"
@@ -444,6 +445,8 @@ de:
     download_file: "%{filename} runterladen"
     do_you_really_want_to_delete_this_tag?: "Wollen Sie dieses Tag wirklich löschen?"
     drag_to_sort: "Mit der Maus halten und verschieben"
+    edit: bearbeiten
+    edit_anchor: "Sprungmarke bearbeiten"
     edit_file_properties: "Dateieigenschaften bearbeiten"
     edit_image_properties: "Bildeigenschaften bearbeiten"
     edit_language: "Sprache bearbeiten"
@@ -612,6 +615,7 @@ de:
         recent: "aus den letzten 24 Stunden"
         without_tag: "ohne Tag"
     picture_not_in_use_yet: Dieses Bild ist bisher nicht in Verwendung
+    picture_updated_successfully: "Bild wurde gespeichert."
     pictures_in_page: "%{page} in %{pictures}"
     place_link: "Text verlinken"
     player_version: "Flashplayer Version"
@@ -636,7 +640,12 @@ de:
     replace: ersetzen
     replace_file: Datei ersetzen
     "Replaced Tag": "Das Tag '%{old_tag}' wurde durch das Tag '%{new_tag}' ersetzt"
+    "%{resource_name} successfully %{action}": "%{resource_name} erfolgreich %{action}."
     resources:
+      actions:
+        created: erstellt
+        updated: aktualisiert
+        removed: gelöscht
       relation_select:
         blank: "- ohne -"
     right: "rechts"
@@ -904,27 +913,36 @@ de:
         name: "Name"
         public: "sichtbar"
         tag_list: Tags
-      alchemy/essence_file:
+      alchemy/ingredient:
+        autoplay: Direkt abspielen
+        controls: Bedienelemente anzeigen
         css_class: Stil
-        link_text: Link-Text
+        dom_id: Sprungmarke
+        link: Link
+        link_class_name: "Link CSS-Klasse"
+        link_title: Link-Titel
+        link_target: Link-Ziel
+        loop: Endlosschleife
+        muted: Stumm
+        preload: Vorladen
         title: Titel
+        width: Breite
+        height: Höhe
+      alchemy/ingredients/file:
+        link_text: Link-Text
       alchemy/ingredients/headline:
         value: Überschrift
         level: Stufe
         size: Größe
-      alchemy/essence_picture:
+      alchemy/ingredients/picture:
         caption: "Untertitel"
-        title: "Titel"
         alt_tag: "Alternativ-Text"
-        link: Link
-        link_class_name: "Link CSS-Klasse"
-        link_title: Link-Titel
-        css_class: Stil
-        link_target: Link-Ziel
         render_size: Darstellungsgröße
         crop_from: Bildmaskenursprung
         crop_size: Bildmaskenausmaß
         picture_id: Bild
+      alchemy/ingredients/video:
+        playsinline: Auf der Seite abspielen
       alchemy/language:
         country_code: "Länderkürzel"
         language_code: "Sprachkürzel"

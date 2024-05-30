@@ -551,7 +551,12 @@ zh-CN:
     replace: 替代
     replace_file: 替代文件
     "Replaced Tag": "标签 '%{old_tag}' 已经被 '%{new_tag}'所替代"
+    "%{resource_name} successfully %{action}": "成功%{action}%{resource_name}"
     resources:
+      actions:
+        created: "创建"
+        updated: "更新"
+        removed: "删除"
       relation_select:
         blank: "- 无 -"
     right: "右"

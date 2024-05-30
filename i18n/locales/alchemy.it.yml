@@ -546,7 +546,12 @@ it:
     replace: sostituisci
     replace_file: Sostituire il file
     "Replaced Tag": "Il tag '%{old_tag}' è stato sostiuito con '%{new_tag}'"
+    "%{resource_name} successfully %{action}": "%{resource_name} %{action} con successo."
     resources:
+      actions:
+        created: creato
+        updated: aggiornato
+        removed: rimosso
       relation_select:
         blank: "- vuoto -"
     right: "destra"

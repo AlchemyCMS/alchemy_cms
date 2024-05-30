@@ -556,7 +556,12 @@ fr:
     replace: remplacer
     replace_file: Remplacer le fichier
     "Replaced Tag %{old_tag} with %{new_tag}": "Le Tag « %{old_tag} » à été remplacé par le Tag « %{new_tag} »"
+    "%{resource_name} successfully %{action}": "%{resource_name} %{action} avec succès."
     resources:
+      actions:
+        created: créé
+        updated: mis à jour
+        removed: supprimé
       relation_select:
         blank: "- sans -"
     right: "droite"

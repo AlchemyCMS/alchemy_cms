@@ -542,7 +542,12 @@ nl:
     replace: vervangen
     replace_file: Vervang file
     "Replaced Tag": "De tag '%{old_tag}' wordt door de tag '%{new_tag}' vervangen"
+    "%{resource_name} successfully %{action}": "%{resource_name} succesvol %{action}."
     resources:
+      actions:
+        created: aangemaakt
+        updated: aangepast
+        removed: verwijderd
       relation_select:
         blank: "- geen -"
     right: "rechts"
