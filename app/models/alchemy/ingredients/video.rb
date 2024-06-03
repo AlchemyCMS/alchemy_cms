@@ -31,6 +31,18 @@ module Alchemy
       def preview_text(max_length = 30)
         name.to_s[0..max_length - 1]
       end
+
+      %i[
+        autoplay
+        controls
+        loop
+        muted
+        playsinline
+      ].each do |method|
+        define_method(:"#{method}=") do |value|
+          super(ActiveModel::Type::Boolean.new.cast(value))
+        end
+      end
     end
   end
 end
