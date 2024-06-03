@@ -1,5 +1,12 @@
 # Changelog
 
+## 7.2.1 (2024-06-03)
+
+- Add name attribute to Preview IFrame [#2908](https://github.com/AlchemyCMS/alchemy_cms/pull/2908) ([mamhoff](https://github.com/mamhoff))
+- [js] Update all development Yarn dependencies (2024-05-30) [#2907](https://github.com/AlchemyCMS/alchemy_cms/pull/2907) ([depfu](https://github.com/apps/depfu))
+- fix(HeadlineEditor): Add css class for any level option [#2905](https://github.com/AlchemyCMS/alchemy_cms/pull/2905) ([tvdeyen](https://github.com/tvdeyen))
+- [js] Update @shoelace-style/shoelace 2.15.0 → 2.15.1 (patch) [#2903](https://github.com/AlchemyCMS/alchemy_cms/pull/2903) ([depfu](https://github.com/apps/depfu))
+
 ## 7.2.0 (2024-05-28)
 
 - Remove responders gem [#2901](https://github.com/AlchemyCMS/alchemy_cms/pull/2901) ([tvdeyen](https://github.com/tvdeyen))
