@@ -21,24 +21,64 @@ RSpec.describe Alchemy::Ingredients::Audio do
     subject { audio_ingredient.autoplay }
     before { audio_ingredient.autoplay = false }
     it { is_expected.to eq(false) }
+
+    context "when set to '0'" do
+      before { audio_ingredient.autoplay = "0" }
+      it { is_expected.to eq(false) }
+    end
+
+    context "when set to 't'" do
+      before { audio_ingredient.autoplay = "t" }
+      it { is_expected.to eq(true) }
+    end
   end
 
   describe "#controls" do
     subject { audio_ingredient.controls }
     before { audio_ingredient.controls = true }
     it { is_expected.to eq(true) }
+
+    context "when set to '0'" do
+      before { audio_ingredient.controls = "0" }
+      it { is_expected.to eq(false) }
+    end
+
+    context "when set to 't'" do
+      before { audio_ingredient.controls = "t" }
+      it { is_expected.to eq(true) }
+    end
   end
 
   describe "#loop" do
     subject { audio_ingredient.loop }
     before { audio_ingredient.loop = false }
     it { is_expected.to eq(false) }
+
+    context "when set to '0'" do
+      before { audio_ingredient.loop = "0" }
+      it { is_expected.to eq(false) }
+    end
+
+    context "when set to 't'" do
+      before { audio_ingredient.loop = "t" }
+      it { is_expected.to eq(true) }
+    end
   end
 
   describe "#muted" do
     subject { audio_ingredient.muted }
     before { audio_ingredient.muted = true }
     it { is_expected.to eq(true) }
+
+    context "when set to '0'" do
+      before { audio_ingredient.muted = "0" }
+      it { is_expected.to eq(false) }
+    end
+
+    context "when set to 't'" do
+      before { audio_ingredient.muted = "t" }
+      it { is_expected.to eq(true) }
+    end
   end
 
   describe "#attachment" do

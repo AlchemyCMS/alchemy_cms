@@ -27,12 +27,32 @@ RSpec.describe Alchemy::Ingredients::Video do
     subject { video_ingredient.autoplay }
     before { video_ingredient.autoplay = false }
     it { is_expected.to eq(false) }
+
+    context "when set to '0'" do
+      before { video_ingredient.autoplay = "0" }
+      it { is_expected.to eq(false) }
+    end
+
+    context "when set to 't'" do
+      before { video_ingredient.autoplay = "t" }
+      it { is_expected.to eq(true) }
+    end
   end
 
   describe "#controls" do
     subject { video_ingredient.controls }
     before { video_ingredient.controls = true }
     it { is_expected.to eq(true) }
+
+    context "when set to '0'" do
+      before { video_ingredient.controls = "0" }
+      it { is_expected.to eq(false) }
+    end
+
+    context "when set to 't'" do
+      before { video_ingredient.controls = "t" }
+      it { is_expected.to eq(true) }
+    end
   end
 
   describe "#height" do
@@ -45,18 +65,48 @@ RSpec.describe Alchemy::Ingredients::Video do
     subject { video_ingredient.loop }
     before { video_ingredient.loop = false }
     it { is_expected.to eq(false) }
+
+    context "when set to '0'" do
+      before { video_ingredient.loop = "0" }
+      it { is_expected.to eq(false) }
+    end
+
+    context "when set to 't'" do
+      before { video_ingredient.loop = "t" }
+      it { is_expected.to eq(true) }
+    end
   end
 
   describe "#muted" do
     subject { video_ingredient.muted }
     before { video_ingredient.muted = true }
     it { is_expected.to eq(true) }
+
+    context "when set to '0'" do
+      before { video_ingredient.muted = "0" }
+      it { is_expected.to eq(false) }
+    end
+
+    context "when set to 't'" do
+      before { video_ingredient.muted = "t" }
+      it { is_expected.to eq(true) }
+    end
   end
 
   describe "#playsinline" do
     subject { video_ingredient.playsinline }
     before { video_ingredient.playsinline = true }
     it { is_expected.to eq(true) }
+
+    context "when set to '0'" do
+      before { video_ingredient.playsinline = "0" }
+      it { is_expected.to eq(false) }
+    end
+
+    context "when set to 't'" do
+      before { video_ingredient.playsinline = "t" }
+      it { is_expected.to eq(true) }
+    end
   end
 
   describe "#preload" do
