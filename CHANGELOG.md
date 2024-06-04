@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.1.9 (2024-06-04)
+
+- [7.1-stable] fix(RoutingConstraints): Allow Turbo Stream requests [#2915](https://github.com/AlchemyCMS/alchemy_cms/pull/2915) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] fix Ingredient Audio and Video boolean type casting [#2911](https://github.com/AlchemyCMS/alchemy_cms/pull/2911) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.1.8 (2024-05-29)
 
 - [7.1-stable] Fix preview window width for smaller viewports [#2890](https://github.com/AlchemyCMS/alchemy_cms/pull/2890) ([alchemycms-bot](https://github.com/alchemycms-bot))
