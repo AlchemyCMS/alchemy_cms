@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.2.2 (2024-06-04)
+
+- [7.2-stable] fix(RoutingConstraints): Allow Turbo Stream requests [#2916](https://github.com/AlchemyCMS/alchemy_cms/pull/2916) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.2-stable] fix Ingredient Audio and Video boolean type casting [#2912](https://github.com/AlchemyCMS/alchemy_cms/pull/2912) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.2.1 (2024-06-03)
 
 - Add name attribute to Preview IFrame [#2908](https://github.com/AlchemyCMS/alchemy_cms/pull/2908) ([mamhoff](https://github.com/mamhoff))
