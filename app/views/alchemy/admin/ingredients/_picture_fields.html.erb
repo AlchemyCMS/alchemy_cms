@@ -9,9 +9,16 @@
     include_blank: false %>
 <%- end -%>
 <%- if ingredient.settings[:css_classes].present? -%>
-  <%= f.input :css_class,
-    collection: ingredient.settings[:css_classes],
-    include_blank: Alchemy.t('None') %>
+  <% css_classes = ingredient.settings[:css_classes] %>
+  <% css_classes_collection = case css_classes.first
+    when Array
+      then css_classes
+    else
+      css_classes.map do |klass|
+        [Alchemy.t(klass, scope: "picture_ingredients.css_classes", default: picture_editor.css_class.camelcase), klass]
+      end
+    end %>
+  <%= f.input :css_class, collection: css_classes_collection, include_blank: false %>
 <%- else -%>
   <% Alchemy::Deprecation.warn %(Float positioning in Picture ingredients is deprecated. If you rely on them, please use `css_classes` in your "#{ingredient.role}" settings instead.) %>
   <%= f.input :css_class,
