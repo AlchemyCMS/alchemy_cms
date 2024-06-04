@@ -194,6 +194,14 @@ describe "The Routing" do
     end
   end
 
+  describe "Turbo stream requests" do
+    it do
+      expect({
+        get: "/contact/thanks.turbo_stream"
+      }).to be_routable
+    end
+  end
+
   context "for admin interface" do
     context "default" do
       it "should route to admin dashboard" do
