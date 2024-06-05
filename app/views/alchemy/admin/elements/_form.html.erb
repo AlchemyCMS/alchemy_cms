@@ -10,7 +10,7 @@
       collection: elements_for_select(@elements),
       prompt: Alchemy.t(:select_element),
       selected: (@elements.first if @elements.count == 1),
-      input_html: {is: 'alchemy-select', autofocus: true, disabled: @elements.count == 1} %>
+      input_html: {is: 'alchemy-select', autofocus: true} %>
     <% if @elements.count == 1 %>
       <%= form.hidden_field :name, value: @elements.first[:name] %>
     <% end %>
