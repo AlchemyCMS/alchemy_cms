@@ -636,14 +636,25 @@ alchemy-publish-element-button {
 
   .picture_ingredient_css_class {
     position: absolute;
-    z-index: 1;
-    bottom: 34px;
-    background-color: rgba(255, 254, 255, 0.7);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    z-index: 0;
+    bottom: 35px;
+    background-color: rgba(0, 0, 0, 0.15);
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+    color: var(--color-white);
     padding: 4px 8px;
     font-size: $small-font-size;
     overflow: hidden;
     max-width: 100%;
     text-overflow: ellipsis;
+
+    .icon {
+      fill: currentColor;
+      filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.25));
+    }
   }
 }
 

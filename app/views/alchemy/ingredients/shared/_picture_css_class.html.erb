@@ -1,0 +1,6 @@
+<div class="picture_ingredient_css_class">
+  <%= render_icon "pencil-ruler-2", style: "line", size: "1x" %>
+  <%= Alchemy.t(css_class,
+    scope: "picture_ingredients.css_classes",
+    default: css_class.camelcase) %>
+</div>

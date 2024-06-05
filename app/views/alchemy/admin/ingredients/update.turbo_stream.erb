@@ -3,3 +3,10 @@
 <% if @ingredient.settings[:anchor] %>
 <alchemy-action name="updateAnchorIcon" params="<%= [@ingredient.id, @ingredient.dom_id.present?].to_json %>"></alchemy-action>
 <% end %>
+<% if @ingredient.type == "Alchemy::Ingredients::Picture" %>
+  <%= turbo_stream.replace_all "[data-ingredient-id='#{@ingredient.id}'] .picture_ingredient_css_class",
+    partial: "alchemy/ingredients/shared/picture_css_class",
+    locals: {
+      css_class: Alchemy::IngredientEditor.new(@ingredient).css_class
+    } %>
+<% end %>
