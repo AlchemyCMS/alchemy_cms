@@ -94,10 +94,12 @@
   <% end %>
   <div class="toolbar_spacer"></div>
   <div class="select_with_label">
-    <label><%= Alchemy.t(:preview_size) %></label>
-    <%= select_tag 'preview_size',
-      options_for_select(preview_sizes_for_select),
-      class: 'medium', is: 'alchemy-select' %>
+    <sl-tooltip content="<%= Alchemy.t(:preview_size) %>" placement="top-start">
+      <%= render_icon(:computer) %>
+      <%= select_tag "preview_size",
+        options_for_select(preview_sizes_for_select),
+        include_blank: Alchemy.t("auto", scope: "preview_sizes") %>
+    </sl-tooltip>
   </div>
   <div class="toolbar_spacer"></div>
   <% if @preview_urls.many? %>

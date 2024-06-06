@@ -66,8 +66,7 @@ class PreviewWindow extends HTMLIFrameElement {
 
     key("alt+r", () => this.refresh())
 
-    // Need to listen with jQuery here because select2 does not emit native events.
-    $(this.sizeSelect).on("change", (evt) => {
+    this.sizeSelect.addEventListener("change", (evt) => {
       const select = evt.target
       const width = select.value
 
