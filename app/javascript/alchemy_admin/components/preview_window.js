@@ -71,7 +71,7 @@ class PreviewWindow extends HTMLIFrameElement {
       const select = evt.target
       const width = select.value
 
-      if (width === "auto") {
+      if (width === "") {
         this.style.width = null
       } else {
         this.resize(width)

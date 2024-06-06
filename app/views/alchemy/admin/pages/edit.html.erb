@@ -96,7 +96,7 @@
   <div class="select_with_label">
     <label><%= Alchemy.t(:preview_size) %></label>
     <%= select_tag 'preview_size',
-      preview_sizes_for_select,
+      options_for_select(preview_sizes_for_select),
       class: 'medium', is: 'alchemy-select' %>
   </div>
   <div class="toolbar_spacer"></div>

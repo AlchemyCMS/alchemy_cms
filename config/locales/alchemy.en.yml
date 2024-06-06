@@ -572,14 +572,15 @@ en:
     please_confirm: "Please confirm"
     please_wait: "Please wait"
     position_in_text: "Position in text"
-    preview_size: "Preview size"
+    preview_size: "Preview Size"
     preview_sizes:
-      "240": "240px (small phone)"
-      "320": "320px (iPhone)"
-      "480": "480px (small Tablet)"
-      "768": "768px (iPad - Portrait)"
-      "1024": "1024px (iPad - Landscape)"
-      "1280": "1280px (Desktop)"
+      "auto": "Auto"
+      "360": "Phone (360px)"
+      "640": "Small Tablet (640px)"
+      "768": "iPad Portrait (768px)"
+      "1024": "iPad Landscape (1024px)"
+      "1280": "Laptop (1280px)"
+      "1440": "Desktop (1440px)"
     preview_url: Preview
     publish_page_language_not_public: Cannot publish page if language is not public
     publish_page_not_allowed: You have not the permission to publish this page
