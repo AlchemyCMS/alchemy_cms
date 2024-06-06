@@ -91,7 +91,7 @@ module Alchemy
     end
 
     describe ".main_app_config" do
-      let(:main_app_config_path) { "#{Rails.root}/config/alchemy/config.yml" }
+      let(:main_app_config_path) { Rails.root.join("config/alchemy/config.yml") }
 
       it "should call and return .read_file with the correct config path" do
         expect(Config).to receive(:read_file).with(main_app_config_path).once.and_return({setting: "true"})
@@ -100,7 +100,7 @@ module Alchemy
     end
 
     describe ".env_specific_config" do
-      let(:env_specific_config_path) { "#{Rails.root}/config/alchemy/#{Rails.env}.config.yml" }
+      let(:env_specific_config_path) { Rails.root.join("config/alchemy/#{Rails.env}.config.yml") }
 
       it "should call and return .read_file with the correct config path" do
         expect(Config).to receive(:read_file).with(env_specific_config_path).once.and_return({setting: "true"})
