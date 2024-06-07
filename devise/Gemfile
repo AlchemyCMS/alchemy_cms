@@ -14,7 +14,9 @@ gem "sprockets-rails", "< 3.5.0"
 gemspec
 
 group :test do
-  gem "sqlite3" if ENV["DB"].nil? || ENV["DB"] == "sqlite"
+  if ENV["DB"].nil? || ENV["DB"] == "sqlite"
+    gem "sqlite3", "~> 1.4"
+  end
   gem "mysql2" if ENV["DB"] == "mysql"
   gem "pg", "~> 1.0" if ENV["DB"] == "postgresql"
 end
