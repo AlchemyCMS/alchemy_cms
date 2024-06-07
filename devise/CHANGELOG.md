@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.2.0 (2024-06-07)
+
+- Update Devise config for Turbo [#209](https://github.com/AlchemyCMS/alchemy-devise/pull/209) ([tvdeyen](https://github.com/tvdeyen))
+- Disable Turbo Drive on login form [#203](https://github.com/AlchemyCMS/alchemy-devise/pull/203) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.1.2 (2024-02-29)
 
 - Allow setting a layout for user_sessions and passwords controller [#127](https://github.com/AlchemyCMS/alchemy-devise/pull/127) ([robinboening](https://github.com/robinboening))
