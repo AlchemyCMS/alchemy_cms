@@ -269,8 +269,9 @@ select {
   align-items: center;
   margin: 0 3 * $default-margin;
 
-  label {
-    margin-right: 2 * $default-margin;
+  label,
+  alchemy-icon {
+    margin-right: var(--spacing-2);
   }
 }
 

@@ -46,17 +46,17 @@ module Alchemy
 
       # Alchemy default configuration
       def alchemy_config
-        read_file(File.join(File.dirname(__FILE__), "..", "..", "config/alchemy/config.yml"))
+        read_file Engine.root.join("config/alchemy/config.yml")
       end
 
       # Application specific configuration
       def main_app_config
-        read_file("#{Rails.root}/config/alchemy/config.yml")
+        read_file Rails.root.join("config/alchemy/config.yml")
       end
 
       # Rails Environment specific configuration
       def env_specific_config
-        read_file("#{Rails.root}/config/alchemy/#{Rails.env}.config.yml")
+        read_file Rails.root.join("config/alchemy/#{Rails.env}.config.yml")
       end
 
       # Tries to load yaml file from given path.

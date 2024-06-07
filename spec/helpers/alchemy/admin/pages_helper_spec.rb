@@ -5,7 +5,14 @@ require "rails_helper"
 describe Alchemy::Admin::PagesHelper do
   describe "#preview_sizes_for_select" do
     it "returns a options string of preview screen sizes for select tag" do
-      expect(helper.preview_sizes_for_select).to include("option", "auto", "240", "320", "480", "768", "1024", "1280")
+      expect(helper.preview_sizes_for_select).to match_array([
+        ["Phone (360px)", 360],
+        ["Small Tablet (640px)", 640],
+        ["iPad Portrait (768px)", 768],
+        ["iPad Landscape (1024px)", 1024],
+        ["Laptop (1280px)", 1280],
+        ["Desktop (1440px)", 1440]
+      ])
     end
   end
 
