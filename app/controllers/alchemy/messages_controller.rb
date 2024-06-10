@@ -97,7 +97,7 @@ module Alchemy
       else
         Language.current_root_page.urlname
       end
-      redirect_to show_page_path(
+      redirect_to alchemy.show_page_path(
         urlname: urlname,
         locale: prefix_locale? ? Language.current.code : nil
       )
