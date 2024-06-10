@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+/// Throws Sass warnings to announce backend deprecations. You can disable them
+/// by setting the `$output-alchemy-deprecation-warnings` variable to `false`.
+///
+/// @access private
+
+$output-alchemy-deprecation-warnings: true !default;
+
+@mixin alchemy-deprecated-variable($variable, $replacement) {
+  @if $output-alchemy-deprecation-warnings == true {
+    @if global-variable-exists($variable) {
+      @warn "[Alchemy] [Deprecation] Sass variable `#{$variable}` is deprecated and will be " +
+        "removed in Alchemy 8.0. Please use custom property `#{$replacement}` instead";
+    }
+  }
+}
