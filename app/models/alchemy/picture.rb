@@ -181,7 +181,7 @@ module Alchemy
 
       url(
         flatten: true,
-        format: image_file_format || "jpg",
+        format: image_file_extension || "jpg",
         size: size
       )
     end
