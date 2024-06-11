@@ -129,14 +129,23 @@ module Alchemy
       end
     end
 
-    initializer "alchemy.webp-mime_type" do
-      # Rails does not know anything about webp even in 2022
-      unless Mime::Type.lookup_by_extension(:webp)
-        Mime::Type.register("image/webp", :webp)
-      end
+    initializer "alchemy.webp-mime_type" do |app|
+      webp = "image/webp"
+
       # Dragonfly uses Rack to read the mime type and guess what
+      # Rack 3.0 has this included, but Rails 8 still allows Rack 2.2
       unless Rack::Mime::MIME_TYPES[".webp"]
-        Rack::Mime::MIME_TYPES[".webp"] = "image/webp"
+        Rack::Mime::MIME_TYPES[".webp"] = webp
+      end
+
+      # ActiveStorage 7.2 adds support for webp, but we still support Rails 7.1
+      if app.config.active_storage
+        unless app.config.active_storage.web_image_content_types.include? webp
+          app.config.active_storage.web_image_content_types += [webp]
+        end
+        unless app.config.active_storage.content_types_allowed_inline.include? webp
+          app.config.active_storage.content_types_allowed_inline += [webp]
+        end
       end
     end
   end
