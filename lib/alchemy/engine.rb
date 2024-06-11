@@ -95,6 +95,11 @@ module Alchemy
       end
     end
 
+    initializer "alchemy.active_storage" do |app|
+      app.config.active_storage.web_image_content_types += %w[image/webp]
+      app.config.active_storage.content_types_allowed_inline += %w[image/webp]
+    end
+
     config.after_initialize do
       if Alchemy.user_class
         ActiveSupport.on_load(:active_record) do
