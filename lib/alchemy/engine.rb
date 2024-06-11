@@ -129,7 +129,7 @@ module Alchemy
       end
     end
 
-    initializer "alchemy.webp-mime_type" do
+    initializer "alchemy.webp-mime_type" do |app|
       # Rails does not know anything about webp even in 2022
       unless Mime::Type.lookup_by_extension(:webp)
         Mime::Type.register("image/webp", :webp)
@@ -138,6 +138,8 @@ module Alchemy
       unless Rack::Mime::MIME_TYPES[".webp"]
         Rack::Mime::MIME_TYPES[".webp"] = "image/webp"
       end
+      app.config.active_storage.web_image_content_types += %w[image/webp]
+      app.config.active_storage.content_types_allowed_inline += %w[image/webp]
     end
   end
 end
