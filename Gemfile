@@ -27,7 +27,7 @@ group :development, :test do
   if ENV["GITHUB_ACTIONS"]
     gem "simplecov-cobertura", "~> 2.1"
     # Necessary because GH Actions gem cache does not have this "Bundled with Ruby" gem installed
-    gem "rexml", "~> 3.2.4"
+    gem "rexml", "~> 3.3.0"
     gem "sassc", "~> 2.4.0" # https://github.com/sass/sassc-ruby/issues/146
 
     # https://github.com/hotwired/turbo-rails/issues/512
