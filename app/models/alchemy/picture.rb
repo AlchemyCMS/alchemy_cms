@@ -224,16 +224,6 @@ module Alchemy
       save!
     end
 
-    # Returns a Hash suitable for jquery fileupload json.
-    #
-    def to_jq_upload
-      {
-        name: image_file_name,
-        size: image_file_size,
-        error: errors[:image_file].join
-      }
-    end
-
     # Returns the picture description for a given language.
     def description_for(language)
       descriptions.find_by(language: language)&.text

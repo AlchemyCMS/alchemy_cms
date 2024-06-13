@@ -102,14 +102,6 @@ module Alchemy
 
     # Instance methods
 
-    def to_jq_upload
-      {
-        "name" => read_attribute(:file_name),
-        "size" => read_attribute(:file_size),
-        "error" => errors[:file].join
-      }
-    end
-
     def url(options = {})
       if file
         self.class.url_class.new(self).call(options)

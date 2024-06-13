@@ -396,31 +396,6 @@ module Alchemy
       end
     end
 
-    describe "#to_jq_upload" do
-      subject { picture.to_jq_upload }
-
-      let(:picture) { build_stubbed(:alchemy_picture, image_file_name: "cute-kittens.jpg", image_file_size: 1024) }
-
-      it "returns a hash containing data for jquery fileuploader" do
-        is_expected.to be_an_instance_of(Hash)
-        is_expected.to include(name: picture.image_file_name)
-        is_expected.to include(size: picture.image_file_size)
-      end
-
-      context "with error" do
-        let(:picture) { build_stubbed(:alchemy_picture) }
-
-        before do
-          expect(picture).to receive(:errors).and_return({image_file: %w[stupid_cats]})
-        end
-
-        it "returns hash with error message" do
-          is_expected.to be_an_instance_of(Hash)
-          is_expected.to include(error: "stupid_cats")
-        end
-      end
-    end
-
     describe "#restricted?" do
       subject { picture.restricted? }
 
