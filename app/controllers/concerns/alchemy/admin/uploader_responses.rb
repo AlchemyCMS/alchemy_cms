@@ -11,7 +11,7 @@ module Alchemy
           name: file.name)
 
         {
-          json: uploader_response(file: file, message: message),
+          json: {message: message},
           status: status
         }
       end
@@ -23,17 +23,8 @@ module Alchemy
           name: file.name)
 
         {
-          json: uploader_response(file: file, message: message),
+          json: {message: message},
           status: :unprocessable_entity
-        }
-      end
-
-      private
-
-      def uploader_response(file:, message:)
-        {
-          files: [file.to_jq_upload],
-          message: message
         }
       end
     end

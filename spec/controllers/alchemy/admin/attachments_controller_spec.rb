@@ -88,7 +88,6 @@ module Alchemy
           expect(response.status).to eq(201)
           json = JSON.parse(response.body)
           expect(json).to have_key("message")
-          expect(json).to have_key("files")
         end
       end
 
@@ -135,7 +134,6 @@ module Alchemy
             expect(response.status).to eq(202)
             json = JSON.parse(response.body)
             expect(json).to have_key("message")
-            expect(json).to have_key("files")
           end
 
           it "replaces the file" do
