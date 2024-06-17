@@ -11,7 +11,7 @@
     "@vuepress/plugin-docsearch": "2.0.0-rc.28",
     "@vuepress/plugin-shiki": "2.0.0-rc.28",
     "@vuepress/theme-default": "2.0.0-rc.28",
-    "vue": "^3.4.29",
+    "vue": "^3.4.15",
     "vuepress": "2.0.0-rc.9"
   },
   "dependencies": {
