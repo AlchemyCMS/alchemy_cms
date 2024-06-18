@@ -71,6 +71,7 @@
   --color-white: hsl(0deg, 0%, 100%);
 
   --color-text: hsla(224deg, 23%, 26%, 0.8);
+  --color-text_muted: hsla(224deg, 23%, 26%, 0.5);
   --color-icon: hsla(224deg, 23%, 26%, 0.75);
 }
 

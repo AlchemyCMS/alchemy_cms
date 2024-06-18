@@ -286,7 +286,7 @@
   .page_language,
   .page_site {
     display: inline-block;
-    color: $muted-text-color;
+    color: var(--color-text_muted);
     font-size: $small-font-size;
     margin-right: var(--spacing-1);
   }

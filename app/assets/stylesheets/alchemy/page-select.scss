@@ -32,7 +32,7 @@
 }
 
 .page-select--page-urlname {
-  color: $muted-text-color;
+  color: var(--color-text_muted);
   padding-right: var(--spacing-1);
 
   .select2-highlighted & {

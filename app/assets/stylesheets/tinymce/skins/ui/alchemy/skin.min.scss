@@ -3249,7 +3249,7 @@ body.tox-dialog__disable-scroll {
   align-items: center;
   background-color: $light-gray;
   border-top: $default-border;
-  color: $muted-text-color;
+  color: var(--color-text_muted);
   display: flex;
   flex: 0 0 auto;
   font-size: $small-font-size;
