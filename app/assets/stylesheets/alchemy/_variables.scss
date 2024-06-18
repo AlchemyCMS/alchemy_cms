@@ -1,19 +1,19 @@
 @import "alchemy/deprecated_variables";
 
-$light-blue: #cddce5;
+$light-blue: hsl(203, 32%, 85%);
 $very-light-blue: lighten($light-blue, 12%);
-$blue: #2d5a8d;
+$blue: hsl(212, 52%, 36%);
 $dark-blue: darken($blue, 10%);
-$light-gray: #f7f7f7;
-$medium-gray: #efefef;
-$dark-gray: #666666;
-$very-dark-gray: #333;
-$dark-gray-blue: rgb(51, 59, 81);
-$light_yellow: #fbfbd8;
-$orange: #ffd77a;
-$dark-orange: #eca96e;
+$light-gray: hsl(0, 0%, 97%);
+$medium-gray: hsl(0, 0%, 94%);
+$dark-gray: hsl(0, 0%, 40%);
+$very-dark-gray: hsl(0, 0%, 20%);
+$dark-gray-blue: hsl(224, 23%, 26%);
+$light_yellow: hsl(60, 81%, 92%);
+$orange: hsl(42, 100%, 74%);
+$dark-orange: hsl(28, 77%, 68%);
 $very-dark-orange: darken($dark-orange, 20%);
-$white: #fff;
+$white: hsl(0, 0%, 100%);
 
 $text-color: rgba($dark-gray-blue, 0.8) !default;
 $muted-text-color: rgba($dark-gray-blue, 0.5) !default;
@@ -40,12 +40,12 @@ $dialog-header-padding: 0 2 * $default-padding !default;
 $dialog-header-color: $dark-blue !default;
 $dialog-header-text-color: $white !default;
 $dialog-header-font-size: $default-font-size !default;
-$dialog-box-shadow: 0 8px 16px rgba(35, 35, 35, 0.5) !default;
-$dialog-overlay-color: rgb(100, 100, 100) !default;
+$dialog-box-shadow: 0 8px 16px hsla(0, 0%, 14%, 0.5) !default;
+$dialog-overlay-color: hsl(0, 0%, 39%) !default;
 $dialog-overlay-opacity: 0.4 !default;
 $dialog-background-color: $light-gray !default;
 
-$default-border-color: rgba(#afafaf, 0.5) !default;
+$default-border-color: hsla(0, 0%, 69%, 0.5) !default;
 $border-inset-color: lighten($default-border-color, 10%) !default;
 $default-border-width: 1px !default;
 $default-border-style: solid !default;
@@ -66,8 +66,8 @@ $form-field-padding: $default-padding 2 * $default-padding !default;
 $form-field-font-size: $default-font-size !default;
 $form-field-line-height: 1.25 !default;
 $form-field-text-color: $text-color !default;
-$form-field-disabled-text-color: #888 !default;
-$form-field-disabled-bg-color: rgba($white, 0.5) !default;
+$form-field-disabled-text-color: hsl(0, 0%, 53%) !default;
+$form-field-disabled-bg-color: hsla(0, 0%, 100%, 0.5) !default;
 
 $focus-color: rgba($dark-orange, 0.75) !default;
 
@@ -81,7 +81,7 @@ $button-hover-border-color: $default-border-color !default;
 $button-focus-border-color: $dark-orange !default;
 $button-font-weight: 700 !default;
 $button-text-shadow: none !default;
-$button-box-shadow: 0px 1px 1px -1px #333 !default;
+$button-box-shadow: 0px 1px 1px -1px hsl(0, 0%, 20%) !default;
 $button-focus-box-shadow: 0px 1px 1px 0px $button-focus-border-color !default;
 $button-padding: $default-padding 5 * $default-padding !default;
 $small-button-padding: 0.4em 0.8em !default;
@@ -101,33 +101,33 @@ $secondary-button-border-color: $default-border-color !default;
 $linked-button-color: rgba($linked-color, 0.75) !default;
 $linked-border-color: darken($linked-color, 10%) !default;
 
-$success_border_color: #9cc4a1 !default;
-$success_text_color: #2e5934 !default;
-$success_background_color: #e2efd3 !default;
+$success_border_color: hsl(127, 25%, 69%) !default;
+$success_text_color: hsl(128, 32%, 26%) !default;
+$success_background_color: hsl(88, 47%, 88%) !default;
 
-$info_border_color: #8392b5 !default;
-$info_text_color: #233772 !default;
-$info_background_color: #cadbf3 !default;
+$info_border_color: hsl(222, 25%, 61%) !default;
+$info_text_color: hsl(225, 53%, 29%) !default;
+$info_background_color: hsl(215, 63%, 87%) !default;
 
-$warning_border_color: #c4c19c !default;
-$warning_text_color: #726d23 !default;
-$warning_background_color: #f3f0c1 !default;
+$warning_border_color: hsl(55, 25%, 69%) !default;
+$warning_text_color: hsl(56, 53%, 29%) !default;
+$warning_background_color: hsl(56, 68%, 85%) !default;
 
-$error_border_color: #c49c9c !default;
-$error_text_color: #a23434 !default;
-$error_background_color: #efd3d3 !default;
+$error_border_color: hsl(0, 25%, 69%) !default;
+$error_text_color: hsl(0, 51%, 42%) !default;
+$error_background_color: hsl(0, 47%, 88%) !default;
 
 $hint-background-color: $light_yellow !default;
-$hint-text-color: #59543e !default;
+$hint-text-color: hsl(49, 18%, 30%) !default;
 
 $form-left-width: 35% !default;
 $form-right-width: 65% !default;
 
 $sitemap-line-height: 32px !default;
-$sitemap-page-background-color: rgba($white, 0.75) !default;
+$sitemap-page-background-color: hsla(0, 0, 100%, 0.75) !default;
 $sitemap-page-hover-color: rgba($light_yellow, 0.5) !default;
-$sitemap-info-background-color: rgba($white, 0.5) !default;
-$sitemap-highlight-color: rgba(#fffba5, 0.5) !default;
+$sitemap-info-background-color: hsla(0, 0, 100%, 0.5) !default;
+$sitemap-highlight-color: hsla(57, 100%, 82%, 0.5) !default;
 
 $main-menu-width: 150px !default;
 $collapsed-main-menu-width: 48px !default;
@@ -143,8 +143,8 @@ $toolbar-height: 46px !default;
 $tab-bar-height: 51px !default;
 $element-toolbar-height: 37px !default;
 $header-height: 29px !default;
-$header-background: #d8d8d8 !default;
-$text-shadow-light: rgba($white, 0.5) 0 0 4px !default;
+$header-background: hsl(0, 0%, 85%) !default;
+$text-shadow-light: hsla(0, 0, 100%, 0.5) 0 0 4px !default;
 $transition-duration: 250ms !default;
 $transition-easing: linear !default;
 
@@ -153,7 +153,7 @@ $tooltip-background-color: $dark-blue !default;
 $addon-icon-opacity: 0.85 !default;
 
 $table-row-even-background-color: $white !default;
-$table-row-odd-background-color: rgba($white, 0.5) !default;
+$table-row-odd-background-color: hsla(0, 0, 100%, 0.5) !default;
 $table-row-hover-color: rgba($light_yellow, 0.5) !default;
 
 $elements-window-width: 22.5vw !default;
@@ -161,8 +161,8 @@ $elements-window-min-width: 400px !default;
 $element-header-bg-color: transparent !default;
 $element-header-active-bg-color: $dark-blue !default;
 $element-header-active-color: $white !default;
-$element-header-deprecated-bg-color: rgba(253, 213, 175, 0.25) !default;
-$element-deprecated-border-color: rgb(253, 213, 175) !default;
+$element-header-deprecated-bg-color: hsla(29, 95%, 84%, 0.25) !default;
+$element-deprecated-border-color: hsl(29, 95%, 84%) !default;
 $top-menu-height: 75px !default;
 
 $tabs-height: 31px !default;
