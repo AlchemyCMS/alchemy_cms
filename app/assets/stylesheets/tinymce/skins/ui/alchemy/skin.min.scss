@@ -734,12 +734,12 @@ button::-moz-focus-inner {
 
 .tox .tox-collection--list .tox-collection__item--enabled {
   background-color: rgba(175, 175, 175, 0.25);
-  color: $text-color;
+  color: var(--color-text);
 }
 
 .tox .tox-collection--toolbar .tox-collection__item--enabled {
   background-color: rgba(175, 175, 175, 0.5);
-  color: $text-color;
+  color: var(--color-text);
 }
 
 .tox .tox-collection--toolbar .tox-collection__item--active {
@@ -748,14 +748,14 @@ button::-moz-focus-inner {
 
 .tox .tox-collection--grid .tox-collection__item--enabled {
   background-color: rgba(175, 175, 175, 0.5);
-  color: $text-color;
+  color: var(--color-text);
 }
 
 .tox
   .tox-collection--grid
   .tox-collection__item--active:not(.tox-collection__item--state-disabled) {
   background-color: rgba(175, 175, 175, 0.25);
-  color: $text-color;
+  color: var(--color-text);
   outline: none;
 }
 
@@ -776,7 +776,7 @@ button::-moz-focus-inner {
 .tox
   .tox-collection--toolbar
   .tox-collection__item--active:not(.tox-collection__item--state-disabled) {
-  color: $text-color;
+  color: var(--color-text);
 }
 
 .tox .tox-collection__item-checkmark,
@@ -3289,7 +3289,7 @@ body.tox-dialog__disable-scroll {
 .tox .tox-statusbar a,
 .tox .tox-statusbar__path-item,
 .tox .tox-statusbar__wordcount {
-  color: $text-color;
+  color: var(--color-text);
   text-decoration: none;
 }
 

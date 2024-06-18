@@ -37,7 +37,7 @@ noscript {
 body {
   margin: 0;
   padding: 0;
-  color: $text-color;
+  color: var(--color-text);
   font: $default-font-style;
   background-color: $body-background-color;
   height: 100%;

@@ -26,7 +26,7 @@
   }
 
   a:hover {
-    color: $text-color;
+    color: var(--color-text);
     background-color: $default-border-color;
     text-decoration: none;
   }
@@ -40,7 +40,7 @@
   }
 
   .current {
-    color: $text-color;
+    color: var(--color-text);
     background-color: $default-border-color;
     cursor: default;
   }

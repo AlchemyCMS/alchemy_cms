@@ -150,7 +150,7 @@ select {
       }
 
       &:hover {
-        color: $text-color;
+        color: var(--color-icon);
       }
     }
   }
@@ -176,7 +176,7 @@ select {
         background-image: none;
         border: 0 none;
         box-shadow: none;
-        color: $text-color;
+        color: var(--color-text);
       }
 
       .select2-search-field {

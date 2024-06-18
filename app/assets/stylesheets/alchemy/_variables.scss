@@ -65,7 +65,7 @@ $form-field-box-shadow: inset 0px 0 1px $medium-gray !default;
 $form-field-padding: $default-padding 2 * $default-padding !default;
 $form-field-font-size: $default-font-size !default;
 $form-field-line-height: 1.25 !default;
-$form-field-text-color: $text-color !default;
+$form-field-text-color: var(--color-text) !default;
 $form-field-disabled-text-color: hsl(0deg, 0%, 53%) !default;
 $form-field-disabled-bg-color: hsla(0deg, 0%, 100%, 0.5) !default;
 
@@ -76,7 +76,7 @@ $button-hover-bg-color: transparent !default;
 $button-border-color: $default-border-color !default;
 $button-border-width: 1px !default;
 $button-border-radius: $default-border-radius !default;
-$button-text-color: $text-color !default;
+$button-text-color: var(--color-text) !default;
 $button-hover-border-color: $default-border-color !default;
 $button-focus-border-color: $dark-orange !default;
 $button-font-weight: 700 !default;
@@ -95,7 +95,7 @@ $icon-button-small-width: 15px !default;
 $icon-button-small-height: 15px !default;
 
 $secondary-button-bg-color: transparent !default;
-$secondary-button-text-color: $text-color !default;
+$secondary-button-text-color: var(--color-text) !default;
 $secondary-button-border-color: $default-border-color !default;
 
 $linked-button-color: hsla(42deg, 100%, 74%, 0.75) !default;
@@ -172,13 +172,13 @@ $datepicker_current_bg: $blue !default;
 $datepicker_current_color: $white !default;
 $datepicker_current_box_shadow: none !default;
 $datepicker_hover_bg: $light_yellow !default;
-$datepicker_hover_color: $text-color !default;
+$datepicker_hover_color: var(--color-text) !default;
 $datepicker_today_bg: $medium-gray !default;
 $datepicker_today_color: $blue !default;
-$datepicker_header_color: $text-color !default;
+$datepicker_header_color: var(--color-text) !default;
 $datepicker_day_bg: $light-gray !default;
 $datepicker_day_border: 1px solid $medium-gray !default;
-$datepicker_day_color: $text-color !default;
+$datepicker_day_color: var(--color-text) !default;
 
 $select-hover-bg-color: $dark-blue !default;
 $select-hover-text-color: $white !default;

@@ -156,7 +156,7 @@ $dialog-transition-duration: 150ms;
 
 .alchemy-dialog-body {
   position: relative;
-  color: $text-color;
+  color: var(--color-text);
 
   .message {
     margin: var(--spacing-2);

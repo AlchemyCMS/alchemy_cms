@@ -6,6 +6,7 @@
 */
 
 @import "alchemy/variables";
+@import "alchemy/custom-properties";
 
 html {
   font-size: 13px;
@@ -15,7 +16,7 @@ body {
   font-family: $default-font-family;
   line-height: 1.4;
   margin: 1em;
-  color: $text-color;
+  color: var(--color-text);
 }
 
 a {

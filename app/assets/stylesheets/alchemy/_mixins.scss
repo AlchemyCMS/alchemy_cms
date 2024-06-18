@@ -160,7 +160,7 @@
   overflow: hidden;
   position: relative;
   border-radius: $default-border-radius;
-  color: $text-color;
+  color: var(--color-text);
 }
 
 @mixin tag-base(

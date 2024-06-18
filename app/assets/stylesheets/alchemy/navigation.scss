@@ -258,7 +258,7 @@
   }
 
   &:hover {
-    color: $text-color;
+    color: var(--color-text);
     text-decoration: none;
   }
 
