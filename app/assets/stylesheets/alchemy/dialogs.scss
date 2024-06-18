@@ -58,7 +58,7 @@ $dialog-transition-duration: 150ms;
 .alchemy-dialog,
 .alchemy-image-overlay-dialog {
   position: relative;
-  max-width: calc(100vw - 16px);
+  max-width: calc(100vw - var(--spacing-4));
   display: inline-block;
   vertical-align: middle;
   text-align: left;
@@ -66,14 +66,14 @@ $dialog-transition-duration: 150ms;
 
 .alchemy-dialog {
   white-space: normal;
-  margin: 2 * $default-margin;
+  margin: var(--spacing-2);
   @include border-top-radius($default-border-radius);
   box-shadow: $dialog-box-shadow;
   background-color: $dialog-background-color;
   transition: min-height $dialog-transition-duration ease-in-out;
 
   div#jscropper {
-    padding: 2 * $default-padding;
+    padding: var(--spacing-2);
 
     .thumbnail_background {
       width: 800px;
@@ -84,14 +84,14 @@ $dialog-transition-duration: 150ms;
     form,
     .info.message {
       position: absolute;
-      right: 2 * $default-padding;
+      right: var(--spacing-2);
       width: 256px;
     }
 
     .info.message {
-      top: 2 * $default-padding;
-      margin: 0 0 0 8px;
-      padding: 0 8px 0 32px;
+      top: var(--spacing-2);
+      margin: 0 0 0 var(--spacing-2);
+      padding: 0 var(--spacing-2) 0 var(--spacing-8);
     }
 
     .jcrop-holder {
@@ -105,12 +105,12 @@ $dialog-transition-duration: 150ms;
 
     form {
       padding: 0;
-      bottom: 2 * $default-padding;
-      margin-left: 8px;
+      bottom: var(--spacing-2);
+      margin-left: var(--spacing-2);
 
       button {
         margin-bottom: 0;
-        width: calc(50% - #{$default-padding});
+        width: calc(50% - var(--spacing-1));
       }
 
       button[type="submit"] {
@@ -123,7 +123,7 @@ $dialog-transition-duration: 150ms;
 .alchemy-dialog-header {
   display: flex;
   align-items: center;
-  gap: $default-padding;
+  gap: var(--spacing-1);
   position: relative;
   height: $dialog-header-height;
   padding: $dialog-header-padding;
@@ -137,7 +137,7 @@ $dialog-transition-duration: 150ms;
 .alchemy-dialog-title {
   flex-grow: 1;
   font-weight: bold;
-  padding: 0 $default-padding;
+  padding: 0 var(--spacing-1);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -159,14 +159,14 @@ $dialog-transition-duration: 150ms;
   color: $text-color;
 
   .message {
-    margin: 8px;
+    margin: var(--spacing-2);
   }
 
   &.padded {
-    padding: 4 * $default-padding;
+    padding: var(--spacing-4);
 
     .message {
-      margin: 0 0 8px 0;
+      margin: 0 0 var(--spacing-2) 0;
     }
   }
 
@@ -175,20 +175,20 @@ $dialog-transition-duration: 150ms;
 
     label {
       float: left;
-      margin-top: 12px;
+      margin-top: var(--spacing-3);
     }
   }
 }
 
 .alchemy-dialog-buttons {
-  padding-top: 4 * $default-padding;
+  padding-top: var(--spacing-4);
   text-align: right;
 
   button:first-child {
-    margin-right: 2 * $default-margin;
+    margin-right: var(--spacing-2);
   }
 }
 
 #overlay_tabs {
-  margin: -4 * $default-padding;
+  margin: calc(-1 * var(--spacing-4));
 }

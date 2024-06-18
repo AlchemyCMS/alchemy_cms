@@ -11,7 +11,7 @@
   flex-direction: column;
 
   alchemy-icon {
-    margin-right: $default-margin;
+    margin-right: var(--spacing-1);
 
     .icon {
       fill: currentColor;
@@ -28,12 +28,12 @@
 
 .page-select--bottom {
   font-size: $small-font-size;
-  padding-left: $default-padding / 2;
+  padding-left: var(--spacing-0);
 }
 
 .page-select--page-urlname {
   color: $muted-text-color;
-  padding-right: $default-padding;
+  padding-right: var(--spacing-1);
 
   .select2-highlighted & {
     color: $medium-gray;
@@ -45,7 +45,7 @@
   background-color: $medium-gray;
   margin-left: auto;
   border-radius: $default-border-radius;
-  padding: $default-padding / 2 $default-padding;
+  padding: var(--spacing-0) var(--spacing-1);
   text-transform: uppercase;
 
   .select2-highlighted & {
@@ -56,7 +56,7 @@
 
 .page-select--site-name {
   margin-left: auto;
-  padding: $default-padding 0 $default-padding 2 * $default-padding;
+  padding: var(--spacing-1) 0 var(--spacing-1) var(--spacing-2);
   color: $dark-gray;
   font-size: $small-font-size;
 

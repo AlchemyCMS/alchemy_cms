@@ -1,8 +1,8 @@
 #errorExplanation {
   background: #ffdfdf;
-  padding: 2*$default-padding;
+  padding: var(--spacing-2);
   text-align: left;
-  margin-bottom: 8px;
+  margin-bottom: var(--spacing-2);
   border: 1px solid #d08f91;
   color: #690001;
   border-radius: $default-border-radius;
@@ -12,13 +12,14 @@
   }
 
   ul {
-    padding: 0 0 0 16px;
+    padding: 0 0 0 var(--spacing-4);
   }
 }
 
-div#errors, div.errors {
-  margin-bottom: 8px;
-  padding: 8px 8px 4px 28px;
+div#errors,
+div.errors {
+  margin-bottom: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-2) var(--spacing-1) var(--spacing-7);
   border-width: 1px;
   border-style: solid;
   border-radius: $default-border-radius;

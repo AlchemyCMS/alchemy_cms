@@ -19,10 +19,18 @@
   -ms-touch-action: manipulation;
   touch-action: manipulation;
   background: $white;
-  -webkit-box-shadow: 1px 0 0 $medium-gray, -1px 0 0 $medium-gray,
-    0 1px 0 $medium-gray, 0 -1px 0 $medium-gray, 0 3px 13px rgba(0, 0, 0, 0.08);
-  box-shadow: 1px 0 0 $medium-gray, -1px 0 0 $medium-gray, 0 1px 0 $medium-gray,
-    0 -1px 0 $medium-gray, 0 3px 13px rgba(0, 0, 0, 0.08);
+  -webkit-box-shadow:
+    1px 0 0 $medium-gray,
+    -1px 0 0 $medium-gray,
+    0 1px 0 $medium-gray,
+    0 -1px 0 $medium-gray,
+    0 3px 13px rgba(0, 0, 0, 0.08);
+  box-shadow:
+    1px 0 0 $medium-gray,
+    -1px 0 0 $medium-gray,
+    0 1px 0 $medium-gray,
+    0 -1px 0 $medium-gray,
+    0 3px 13px rgba(0, 0, 0, 0.08);
 }
 .flatpickr-calendar.open,
 .flatpickr-calendar.inline {
@@ -62,8 +70,12 @@
   .flatpickr-days
   .dayContainer:nth-child(n + 2)
   .flatpickr-day.inRange:nth-child(7n + 1) {
-  -webkit-box-shadow: -2px 0 0 $medium-gray, 5px 0 0 $medium-gray;
-  box-shadow: -2px 0 0 $medium-gray, 5px 0 0 $medium-gray;
+  -webkit-box-shadow:
+    -2px 0 0 $medium-gray,
+    5px 0 0 $medium-gray;
+  box-shadow:
+    -2px 0 0 $medium-gray,
+    5px 0 0 $medium-gray;
 }
 .flatpickr-calendar .hasWeeks .dayContainer,
 .flatpickr-calendar .hasTime .dayContainer {
@@ -245,7 +257,7 @@
   position: absolute;
   right: 0;
   width: 14px;
-  padding: 0 4px 0 2px;
+  padding: 0 var(--spacing-1) 0 var(--spacing-0);
   height: 50%;
   line-height: 50%;
   opacity: 0;
@@ -589,8 +601,12 @@ span.flatpickr-weekday {
 }
 .flatpickr-day.inRange {
   border-radius: 0;
-  -webkit-box-shadow: -5px 0 0 $medium-gray, 5px 0 0 $medium-gray;
-  box-shadow: -5px 0 0 $medium-gray, 5px 0 0 $medium-gray;
+  -webkit-box-shadow:
+    -5px 0 0 $medium-gray,
+    5px 0 0 $medium-gray;
+  box-shadow:
+    -5px 0 0 $medium-gray,
+    5px 0 0 $medium-gray;
 }
 .flatpickr-day.flatpickr-disabled,
 .flatpickr-day.flatpickr-disabled:hover,
@@ -611,8 +627,12 @@ span.flatpickr-weekday {
 }
 .flatpickr-day.week.selected {
   border-radius: 0;
-  -webkit-box-shadow: -5px 0 0 $blue, 5px 0 0 $blue;
-  box-shadow: -5px 0 0 $blue, 5px 0 0 $blue;
+  -webkit-box-shadow:
+    -5px 0 0 $blue,
+    5px 0 0 $blue;
+  box-shadow:
+    -5px 0 0 $blue,
+    5px 0 0 $blue;
 }
 .flatpickr-day.hidden {
   visibility: hidden;

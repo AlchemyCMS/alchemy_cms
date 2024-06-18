@@ -37,16 +37,16 @@
 
   .node_page {
     display: inline-flex;
-    gap: $default-padding;
+    gap: var(--spacing-1);
     align-items: center;
-    padding: 0 8px;
+    padding: 0 var(--spacing-2);
     margin-left: auto;
   }
 
   .node_url {
     display: flex;
     align-items: center;
-    padding: 0 2 * $default-padding;
+    padding: 0 var(--spacing-2);
     white-space: nowrap;
     background-color: $sitemap-info-background-color;
     line-height: $sitemap-line-height;
@@ -70,7 +70,7 @@
 
   li {
     line-height: $sitemap-line-height;
-    padding-left: $default-padding;
+    padding-left: var(--spacing-1);
 
     li {
       padding-left: $sitemap-line-height;
@@ -80,14 +80,14 @@
 
 #node_filter_result {
   display: none;
-  margin-left: 2 * $default-margin;
+  margin-left: var(--spacing-2);
 }
 
 .sitemap_node {
   display: flex;
   align-items: center;
   height: $sitemap-line-height;
-  margin: 3 * $default-margin 0;
+  margin: var(--spacing-3) 0;
   transition: background-color $transition-duration;
 
   &.highlight {
@@ -110,7 +110,7 @@
     justify-content: space-between;
     @include border-left-radius($default-border-radius);
     padding: 0 0 0 10px;
-    margin: 2px;
+    margin: var(--spacing-0);
     text-decoration: none;
     overflow: hidden;
     background-color: $sitemap-page-background-color;
@@ -133,13 +133,13 @@
   position: relative;
   width: 32px;
   height: $sitemap-line-height;
-  padding: 0 2 * $default-padding;
+  padding: 0 var(--spacing-2);
 }
 
 .nodes_tree-right_tools {
   display: flex;
   height: $sitemap-line-height;
-  padding: 0 2 * $default-padding;
+  padding: 0 var(--spacing-2);
   align-items: center;
 
   > a {
@@ -157,7 +157,7 @@
   }
 
   .icon.blank {
-    margin-left: 2px;
+    margin-left: var(--spacing-0);
     float: left;
     margin-top: 3px;
     margin-right: 3px;

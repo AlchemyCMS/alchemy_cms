@@ -141,7 +141,7 @@ button::-moz-focus-inner {
 }
 
 .tox .accessibility-issue__repair {
-  margin-top: 16px;
+  margin-top: var(--spacing-4);
 }
 
 .tox
@@ -893,7 +893,7 @@ button::-moz-focus-inner {
 .tox .tox-collection--horizontal .tox-collection__item {
   height: 34px;
   margin: 2px 0 3px 0;
-  padding: 0 4px;
+  padding: 0 var(--spacing-1);
 }
 
 .tox .tox-collection--horizontal .tox-collection__item-label {
@@ -901,7 +901,7 @@ button::-moz-focus-inner {
 }
 
 .tox .tox-collection--horizontal .tox-collection__item-caret {
-  margin-left: 4px;
+  margin-left: var(--spacing-1);
 }
 
 .tox .tox-collection__item-container {
@@ -1035,7 +1035,7 @@ button::-moz-focus-inner {
 }
 
 .tox[dir="rtl"] .tox-collection--horizontal .tox-collection__item-caret {
-  margin-right: 4px;
+  margin-right: var(--spacing-1);
 }
 
 .tox .tox-color-picker-container {
@@ -1181,7 +1181,7 @@ button::-moz-focus-inner {
 .tox .tox-toolbar .tox-swatches,
 .tox .tox-toolbar__overflow .tox-swatches,
 .tox .tox-toolbar__primary .tox-swatches {
-  margin: 2px 0 3px 4px;
+  margin: 2px 0 3px var(--spacing-1);
 }
 
 .tox .tox-collection--list .tox-collection__group .tox-swatches-menu {
@@ -1619,7 +1619,7 @@ button::-moz-focus-inner {
   display: inline-block;
   font-size: $base-font-size;
   line-height: 1.3;
-  padding: 16px 15px;
+  padding: var(--spacing-4) 15px;
   text-decoration: none;
   white-space: nowrap;
   border-bottom: 2px solid var(--tabs_track-color);
@@ -1703,7 +1703,7 @@ button::-moz-focus-inner {
   font-style: normal;
   font-weight: 700;
   letter-spacing: normal;
-  margin-bottom: 4 * $default-margin;
+  margin-bottom: var(--spacing-4);
   margin-top: 2rem;
   text-transform: none;
 }
@@ -1714,13 +1714,13 @@ button::-moz-focus-inner {
   font-style: normal;
   font-weight: 700;
   letter-spacing: normal;
-  margin-bottom: 4 * $default-margin;
+  margin-bottom: var(--spacing-4);
   margin-top: 2rem;
   text-transform: none;
 }
 
 .tox .tox-dialog__body-content .tox-form__group p {
-  margin-bottom: 4 * $default-margin;
+  margin-bottom: var(--spacing-4);
 }
 
 .tox .tox-dialog__body-content .tox-form__group h1:first-child,
@@ -2087,7 +2087,7 @@ body.tox-dialog__disable-scroll {
   box-sizing: border-box;
   height: 23px;
   position: absolute;
-  top: 4px;
+  top: var(--spacing-1);
   width: 24px;
 }
 
@@ -2133,7 +2133,7 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox:not([dir="rtl"]) .tox-color-input span {
-  left: 4px;
+  left: var(--spacing-1);
 }
 
 .tox[dir="rtl"] .tox-color-input .tox-textfield {
@@ -2141,7 +2141,7 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox[dir="rtl"] .tox-color-input span {
-  right: 4px;
+  right: var(--spacing-1);
 }
 
 .tox .tox-label,
@@ -2174,11 +2174,11 @@ body.tox-dialog__disable-scroll {
 
 .tox .tox-form__group {
   box-sizing: border-box;
-  margin-bottom: 4 * $default-margin;
+  margin-bottom: var(--spacing-4);
 }
 
 .tox .tox-form__group .tox-label {
-  margin-bottom: $default-margin;
+  margin-bottom: var(--spacing-1);
 }
 
 .tox .tox-form-group--maximize {
@@ -2357,7 +2357,7 @@ body.tox-dialog__disable-scroll {
 .tox .tox-listbox__select-label {
   cursor: default;
   flex: 1;
-  margin: 0 4px;
+  margin: 0 var(--spacing-1);
 }
 
 .tox .tox-listbox__select-chevron {
@@ -2407,7 +2407,7 @@ body.tox-dialog__disable-scroll {
   margin: 0;
   min-height: 34px;
   outline: 0;
-  padding: 5px 4px;
+  padding: 5px var(--spacing-1);
   resize: none;
   width: 100%;
 }
@@ -2695,7 +2695,7 @@ body.tox-dialog__disable-scroll {
   flex: 0 0 auto;
   flex-shrink: 0;
   flex-wrap: wrap;
-  padding: 0 4px 0 4px;
+  padding: 0 var(--spacing-1) 0 var(--spacing-1);
 }
 
 .tox.tox-tinymce:not(.tox-tinymce-inline)
@@ -2721,7 +2721,7 @@ body.tox-dialog__disable-scroll {
   margin: 2px 0 3px 0;
   outline: 0;
   overflow: hidden;
-  padding: 0 4px;
+  padding: 0 var(--spacing-1);
   text-transform: none;
   width: auto;
 }
@@ -2758,7 +2758,7 @@ body.tox-dialog__disable-scroll {
 .tox .tox-mbtn__select-label {
   cursor: default;
   font-weight: 400;
-  margin: 0 4px;
+  margin: 0 var(--spacing-1);
 }
 
 .tox .tox-mbtn[disabled] .tox-mbtn__select-label {
@@ -3373,7 +3373,7 @@ body.tox-dialog__disable-scroll {
   font-weight: 400;
   height: $icon-button-medium-height;
   justify-content: center;
-  margin: $default-margin 1px;
+  margin: var(--spacing-1) 1px;
   outline: 0;
   overflow: hidden;
   padding: 0;
@@ -3487,7 +3487,7 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox .tox-tbtn--labeled {
-  padding: 0 4px;
+  padding: 0 var(--spacing-1);
   width: unset;
 }
 
@@ -3502,14 +3502,14 @@ body.tox-dialog__disable-scroll {
 
 .tox .tox-tbtn--select {
   margin: 2px 0 3px 0;
-  padding: 0 4px;
+  padding: 0 var(--spacing-1);
   width: auto;
 }
 
 .tox .tox-tbtn__select-label {
   cursor: default;
   font-weight: 400;
-  margin: 0 4px;
+  margin: 0 var(--spacing-1);
 }
 
 .tox .tox-tbtn__select-chevron {

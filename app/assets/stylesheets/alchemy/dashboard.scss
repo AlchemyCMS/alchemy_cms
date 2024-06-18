@@ -1,34 +1,34 @@
 #dashboard {
   overflow: auto;
-  padding: 4 * $default-padding 0;
+  padding: var(--spacing-4) 0;
   width: 100%;
   position: relative;
 
   h1 {
     font-size: 1.5em;
-    margin: 0 0 8px 8px;
+    margin: 0 0 var(--spacing-2) var(--spacing-2);
   }
 
   p {
-    margin: 0 0 16px 8px;
+    margin: 0 0 var(--spacing-4) var(--spacing-2);
   }
 
   .column {
     width: 50%;
     float: left;
-    padding-right: 16px;
+    padding-right: var(--spacing-4);
   }
 
   .widget {
-    margin-bottom: 16px;
+    margin-bottom: var(--spacing-4);
 
     h2 {
-      padding: 2 * $default-padding;
+      padding: var(--spacing-2);
       margin-bottom: 0;
     }
 
     p {
-      margin: 4px 0;
+      margin: var(--spacing-1) 0;
     }
 
     table {
@@ -60,7 +60,7 @@
 
   > span {
     display: inline-flex;
-    gap: $default-padding;
+    gap: var(--spacing-1);
     align-items: center;
 
     &.hidden {

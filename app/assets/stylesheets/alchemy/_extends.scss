@@ -57,6 +57,6 @@
 
 %gradiated-toolbar {
   background: $toolbar-bg-color;
-  padding: 8px 4px;
+  padding: var(--spacing-2) var(--spacing-1);
   height: $toolbar-height;
 }

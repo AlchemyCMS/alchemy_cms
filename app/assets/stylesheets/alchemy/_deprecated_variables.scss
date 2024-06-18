@@ -1,0 +1,4 @@
+@import "alchemy/deprecation";
+
+@include alchemy-deprecated-variable("$default-padding", "var(--spacing-1)");
+@include alchemy-deprecated-variable("$default-margin", "var(--spacing-1)");

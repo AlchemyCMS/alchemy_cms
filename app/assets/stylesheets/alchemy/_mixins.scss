@@ -84,9 +84,9 @@
 
 @mixin form-label {
   width: $form-left-width;
-  padding-right: 2 * $default-padding;
+  padding-right: var(--spacing-2);
   padding-top: 0.6em;
-  margin-top: $default-margin;
+  margin-top: var(--spacing-1);
   vertical-align: top;
   word-break: normal;
   float: left;
@@ -98,7 +98,7 @@
   float: right;
   width: $form-right-width;
   margin: $form-field-margin;
-  padding: $default-padding 2 * $default-padding;
+  padding: var(--spacing-1) var(--spacing-2);
   line-height: 21px;
   min-height: $form-field-height;
   background: white;
@@ -111,7 +111,7 @@
 ) {
   font-size: $small-font-size;
   line-height: 1.5em;
-  padding: $default-padding;
+  padding: var(--spacing-1);
   background-color: $background-color;
   border: 1px solid $border-color;
   display: block;
@@ -147,12 +147,12 @@
 }
 
 @mixin label-base(
-  $margin: 2 * $default-margin 0,
-  $padding: $default-padding 3 * $default-padding
+  $margin: var(--spacing-2) 0,
+  $padding: var(--spacing-1) var(--spacing-3)
 ) {
   display: inline-flex;
   align-items: center;
-  gap: $default-padding;
+  gap: var(--spacing-1);
   vertical-align: middle;
   padding: $padding;
   margin: $margin;
@@ -164,8 +164,8 @@
 }
 
 @mixin tag-base(
-  $margin: 2 * $default-margin 0,
-  $padding: $default-padding 3 * $default-padding
+  $margin: var(--spacing-2) 0,
+  $padding: var(--spacing-1) var(--spacing-3)
 ) {
   @include label-base($margin: $margin, $padding: $padding);
 

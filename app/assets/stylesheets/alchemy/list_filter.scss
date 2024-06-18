@@ -4,15 +4,15 @@ alchemy-list-filter {
 
   > alchemy-icon {
     position: absolute;
-    left: 8px;
+    left: var(--spacing-2);
     top: 50%;
     transform: translateY(-50%);
   }
 
   .js_filter_field {
     width: 100%;
-    padding-left: 28px;
-    padding-right: 24px;
+    padding-left: var(--spacing-7);
+    padding-right: var(--spacing-6);
     margin: 0;
 
     form .input & {
@@ -25,7 +25,7 @@ alchemy-list-filter {
     display: flex;
     visibility: hidden;
     position: absolute;
-    right: 4px;
+    right: var(--spacing-1);
     top: 50%;
     transform: translateY(-50%);
     width: 16px;

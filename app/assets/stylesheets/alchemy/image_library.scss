@@ -24,11 +24,11 @@ $image-overlay-transition-easing: ease-in;
     }
 
     .zoomed-picture-background {
-      padding-right: 2 * $default-padding;
+      padding-right: var(--spacing-2);
     }
 
     .alchemy-image-overlay-close {
-      right: $picture-overlay-handle-width + 2 * $default-padding;
+      right: $picture-overlay-handle-width + var(--spacing-2);
     }
 
     .next-picture {
@@ -50,7 +50,7 @@ $image-overlay-transition-easing: ease-in;
   height: 100%;
 
   > .message {
-    margin: 2 * $default-margin;
+    margin: var(--spacing-2);
     max-width: 400px;
   }
 }
@@ -62,9 +62,10 @@ $image-overlay-transition-easing: ease-in;
   align-items: center;
   width: 32px;
   height: 32px;
-  top: 2 * $default-padding;
-  right: 2 * $default-padding + $picture-overlay-handle-width +
-    $image-overlay-form-width;
+  top: var(--spacing-2);
+  right: calc(
+    var(--spacing-2) + #{$picture-overlay-handle-width} + #{$image-overlay-form-width}
+  );
   cursor: pointer;
   transition: right $image-overlay-transition-duration
     $image-overlay-transition-easing;
@@ -72,7 +73,7 @@ $image-overlay-transition-easing: ease-in;
   .icon {
     font-size: 2em;
     color: $medium-gray;
-    text-shadow: 0 0 $default-padding $text-color;
+    text-shadow: 0 0 4px $text-color;
     transition: color $image-overlay-transition-duration linear;
 
     &:hover {
@@ -86,7 +87,7 @@ $image-overlay-transition-easing: ease-in;
   position: absolute;
   top: 0;
   background-color: $medium-gray;
-  box-shadow: -2px 0 $default-padding -2px $text-color;
+  box-shadow: -2px 0 4px -2px $text-color;
   transition: right $image-overlay-transition-duration
     $image-overlay-transition-easing;
 }
@@ -95,8 +96,7 @@ $image-overlay-transition-easing: ease-in;
   right: 0;
   width: $image-overlay-form-width;
   height: 100%;
-  padding: 2 * $default-padding 4 * $default-padding 2 * $default-padding
-    $default-padding;
+  padding: var(--spacing-2) var(--spacing-4) var(--spacing-2) var(--spacing-1);
   overflow: auto;
 
   form .control-label,
@@ -141,11 +141,12 @@ $image-overlay-transition-easing: ease-in;
 .zoomed-picture-background {
   width: 100%;
   height: 100%;
-  padding-top: 2 * $default-padding;
-  padding-right: $image-overlay-form-width + 2 * $default-padding +
-    $picture-overlay-handle-width;
-  padding-bottom: 2 * $default-padding;
-  padding-left: 2 * $default-padding;
+  padding-top: var(--spacing-2);
+  padding-right: calc(
+    #{$image-overlay-form-width} + var(--spacing-2) + #{$picture-overlay-handle-width}
+  );
+  padding-bottom: var(--spacing-2);
+  padding-left: var(--spacing-2);
   margin: 0 auto;
   text-align: center;
   cursor: pointer;
@@ -165,7 +166,7 @@ $image-overlay-transition-easing: ease-in;
     height: auto;
     max-width: 100%;
     max-height: 100%;
-    box-shadow: 0 0 2 * $default-margin $text-color;
+    box-shadow: 0 0 var(--spacing-2) $text-color;
     background: $thumbnail-background;
     vertical-align: middle;
     cursor: default;
@@ -174,10 +175,10 @@ $image-overlay-transition-easing: ease-in;
 
 .picture-file-infos,
 .picture-usage-info {
-  padding: 2 * $default-padding 0;
+  padding: var(--spacing-2) 0;
 
   .message {
-    margin: 2 * $default-padding 0;
+    margin: var(--spacing-2) 0;
   }
 }
 
@@ -185,8 +186,8 @@ $image-overlay-transition-easing: ease-in;
   h3 {
     display: flex;
     align-items: center;
-    gap: $default-padding;
-    padding: 4px 8px 0;
+    gap: var(--spacing-1);
+    padding: var(--spacing-1) var(--spacing-2) 0;
     margin: 0;
   }
 
@@ -196,14 +197,14 @@ $image-overlay-transition-easing: ease-in;
   }
 
   .list {
-    margin: 2 * $default-margin 0;
+    margin: var(--spacing-2) 0;
 
     li {
       display: flex;
       align-items: center;
-      gap: $default-padding;
-      padding: 2 * $default-padding;
-      border-radius: $default-border-radius;
+      gap: var(--spacing-1);
+      padding: var(--spacing-2);
+      border-radius: var(--border-radius_medium);
       white-space: normal;
       margin-bottom: 1em;
     }
@@ -253,7 +254,7 @@ $image-overlay-transition-easing: ease-in;
   .icon {
     --icon-size: 4em;
     fill: $medium-gray;
-    filter: drop-shadow(0 0 $default-padding $text-color);
+    filter: drop-shadow(0 0 4px $text-color);
     transition: all $image-overlay-transition-duration linear;
     vertical-align: middle;
   }

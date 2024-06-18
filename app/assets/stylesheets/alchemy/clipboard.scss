@@ -1,7 +1,7 @@
 #clipboard_items {
   ul {
     list-style-type: none;
-    margin: 0 0 8px;
+    margin: 0 0 var(--spacing-2);
     padding: 0;
     height: 220px;
     overflow-y: auto;

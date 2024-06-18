@@ -11,7 +11,7 @@
   height: 21px;
 
   > alchemy-icon {
-    margin: 0 8px 0 4px;
+    margin: 0 var(--spacing-2) 0 var(--spacing-1);
   }
 
   .icon {
@@ -33,7 +33,7 @@
 
 .node-select--node-url {
   margin-left: auto;
-  padding: $default-padding 2 * $default-padding;
+  padding: var(--spacing-1) var(--spacing-2);
   color: $dark-gray;
   font-size: $small-font-size;
 
