@@ -17,7 +17,7 @@
     "flatpickr": "^4.6.13",
     "keymaster": "^1.6.2",
     "sortablejs": "^1.15.2",
-    "tinymce": "^7.1.1"
+    "tinymce": "^7.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.24.6",
