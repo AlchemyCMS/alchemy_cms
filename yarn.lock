@@ -4064,10 +4064,10 @@ tiny-emitter@^2.0.0:
   resolved "https://registry.yarnpkg.com/tiny-emitter/-/tiny-emitter-2.1.0.tgz#1d1a56edfc51c43e863cbb5382a72330e3555423"
   integrity sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q==
 
-tinymce@^7.1.1:
-  version "7.1.1"
-  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-7.1.1.tgz#63cd62c0288bdbddb854b3565387c8d7dec14be4"
-  integrity sha512-QQJKsEiM+jUfrlxNivuVUiv1jsHv4a27rub4oqajtsYQ4mFukN3hkWQrZnzVNtnPOIUsOGU2Ycem0DnEU/JKcA==
+tinymce@^7.2.0:
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-7.2.0.tgz#c5015567e742093b43186400c3e7c8394b90cc1f"
+  integrity sha512-R460NlE4REIFuLcZd9mpHK8zRsHdOueLV2m6Wsn0JHfGhDWMcfB1IqUX2QGrSbJga93ygJbJbNMwb2sakFlE/g==
 
 tmpl@1.0.5:
   version "1.0.5"
