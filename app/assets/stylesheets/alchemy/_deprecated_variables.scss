@@ -7,3 +7,4 @@
   "$muted-text-color",
   "var(--color-text_muted)"
 );
+@include alchemy-deprecated-variable("$icon-color", "var(--color-icon)");
