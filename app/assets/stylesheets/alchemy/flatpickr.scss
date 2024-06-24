@@ -572,11 +572,11 @@ span.flatpickr-weekday {
 .flatpickr-day.selected.nextMonthDay,
 .flatpickr-day.startRange.nextMonthDay,
 .flatpickr-day.endRange.nextMonthDay {
-  background: $blue;
+  background: var(--color-blue_medium);
   -webkit-box-shadow: none;
   box-shadow: none;
   color: $white;
-  border-color: $blue;
+  border-color: var(--color-blue_medium);
 }
 .flatpickr-day.selected.startRange,
 .flatpickr-day.startRange.startRange,
@@ -591,8 +591,8 @@ span.flatpickr-weekday {
 .flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n + 1)),
 .flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n + 1)),
 .flatpickr-day.endRange.startRange + .endRange:not(:nth-child(7n + 1)) {
-  -webkit-box-shadow: -10px 0 0 $blue;
-  box-shadow: -10px 0 0 $blue;
+  -webkit-box-shadow: -10px 0 0 var(--color-blue_medium);
+  box-shadow: -10px 0 0 var(--color-blue_medium);
 }
 .flatpickr-day.selected.startRange.endRange,
 .flatpickr-day.startRange.startRange.endRange,
@@ -628,11 +628,11 @@ span.flatpickr-weekday {
 .flatpickr-day.week.selected {
   border-radius: 0;
   -webkit-box-shadow:
-    -5px 0 0 $blue,
-    5px 0 0 $blue;
+    -5px 0 0 var(--color-blue_medium),
+    5px 0 0 var(--color-blue_medium);
   box-shadow:
-    -5px 0 0 $blue,
-    5px 0 0 $blue;
+    -5px 0 0 var(--color-blue_medium),
+    5px 0 0 var(--color-blue_medium);
 }
 .flatpickr-day.hidden {
   visibility: hidden;

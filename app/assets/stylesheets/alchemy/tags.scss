@@ -41,7 +41,7 @@
       }
 
       &:hover {
-        background-color: $very-light-blue;
+        background-color: var(--color-blue_very_light);
       }
 
       &.active {
