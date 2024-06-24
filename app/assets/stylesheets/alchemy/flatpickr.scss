@@ -20,16 +20,16 @@
   touch-action: manipulation;
   background: $white;
   -webkit-box-shadow:
-    1px 0 0 $medium-gray,
-    -1px 0 0 $medium-gray,
-    0 1px 0 $medium-gray,
-    0 -1px 0 $medium-gray,
+    1px 0 0 var(--color-grey_medium),
+    -1px 0 0 var(--color-grey_medium),
+    0 1px 0 var(--color-grey_medium),
+    0 -1px 0 var(--color-grey_medium),
     0 3px 13px rgba(0, 0, 0, 0.08);
   box-shadow:
-    1px 0 0 $medium-gray,
-    -1px 0 0 $medium-gray,
-    0 1px 0 $medium-gray,
-    0 -1px 0 $medium-gray,
+    1px 0 0 var(--color-grey_medium),
+    -1px 0 0 var(--color-grey_medium),
+    0 1px 0 var(--color-grey_medium),
+    0 -1px 0 var(--color-grey_medium),
     0 3px 13px rgba(0, 0, 0, 0.08);
 }
 .flatpickr-calendar.open,
@@ -71,11 +71,11 @@
   .dayContainer:nth-child(n + 2)
   .flatpickr-day.inRange:nth-child(7n + 1) {
   -webkit-box-shadow:
-    -2px 0 0 $medium-gray,
-    5px 0 0 $medium-gray;
+    -2px 0 0 var(--color-grey_medium),
+    5px 0 0 var(--color-grey_medium);
   box-shadow:
-    -2px 0 0 $medium-gray,
-    5px 0 0 $medium-gray;
+    -2px 0 0 var(--color-grey_medium),
+    5px 0 0 var(--color-grey_medium);
 }
 .flatpickr-calendar .hasWeeks .dayContainer,
 .flatpickr-calendar .hasTime .dayContainer {
@@ -88,7 +88,7 @@
 }
 .flatpickr-calendar.hasTime .flatpickr-time {
   height: 40px;
-  border-top: 1px solid $medium-gray;
+  border-top: 1px solid var(--color-grey_medium);
 }
 .flatpickr-calendar.noCalendar.hasTime .flatpickr-time {
   height: auto;
@@ -129,7 +129,7 @@
   bottom: 100%;
 }
 .flatpickr-calendar.arrowTop:before {
-  border-bottom-color: $medium-gray;
+  border-bottom-color: var(--color-grey_medium);
 }
 .flatpickr-calendar.arrowTop:after {
   border-bottom-color: $white;
@@ -139,7 +139,7 @@
   top: 100%;
 }
 .flatpickr-calendar.arrowBottom:before {
-  border-top-color: $medium-gray;
+  border-top-color: var(--color-grey_medium);
 }
 .flatpickr-calendar.arrowBottom:after {
   border-top-color: $white;
@@ -500,8 +500,8 @@ span.flatpickr-weekday {
   opacity: 1;
 }
 .dayContainer + .dayContainer {
-  -webkit-box-shadow: -1px 0 0 $medium-gray;
-  box-shadow: -1px 0 0 $medium-gray;
+  -webkit-box-shadow: -1px 0 0 var(--color-grey_medium);
+  box-shadow: -1px 0 0 var(--color-grey_medium);
 }
 .flatpickr-day {
   background: none;
@@ -542,8 +542,8 @@ span.flatpickr-weekday {
 .flatpickr-day.nextMonthDay:focus {
   cursor: pointer;
   outline: 0;
-  background: $medium-gray;
-  border-color: $medium-gray;
+  background: var(--color-grey_medium);
+  border-color: var(--color-grey_medium);
 }
 .flatpickr-day.today {
   border-color: $dark-gray;
@@ -602,11 +602,11 @@ span.flatpickr-weekday {
 .flatpickr-day.inRange {
   border-radius: 0;
   -webkit-box-shadow:
-    -5px 0 0 $medium-gray,
-    5px 0 0 $medium-gray;
+    -5px 0 0 var(--color-grey_medium),
+    5px 0 0 var(--color-grey_medium);
   box-shadow:
-    -5px 0 0 $medium-gray,
-    5px 0 0 $medium-gray;
+    -5px 0 0 var(--color-grey_medium),
+    5px 0 0 var(--color-grey_medium);
 }
 .flatpickr-day.flatpickr-disabled,
 .flatpickr-day.flatpickr-disabled:hover,
@@ -645,8 +645,8 @@ span.flatpickr-weekday {
 }
 .flatpickr-weekwrapper .flatpickr-weeks {
   padding: 0 12px;
-  -webkit-box-shadow: 1px 0 0 $medium-gray;
-  box-shadow: 1px 0 0 $medium-gray;
+  -webkit-box-shadow: 1px 0 0 var(--color-grey_medium);
+  box-shadow: 1px 0 0 var(--color-grey_medium);
 }
 .flatpickr-weekwrapper .flatpickr-weekday {
   float: none;

@@ -72,7 +72,7 @@ $image-overlay-transition-easing: ease-in;
 
   .icon {
     font-size: 2em;
-    color: $medium-gray;
+    color: var(--color-grey_medium);
     text-shadow: 0 0 4px var(--color-text);
     transition: color $image-overlay-transition-duration linear;
 
@@ -86,7 +86,7 @@ $image-overlay-transition-easing: ease-in;
 .picture-overlay-handle {
   position: absolute;
   top: 0;
-  background-color: $medium-gray;
+  background-color: var(--color-grey_medium);
   box-shadow: -2px 0 4px -2px var(--color-text);
   transition: right $image-overlay-transition-duration
     $image-overlay-transition-easing;
@@ -134,7 +134,7 @@ $image-overlay-transition-easing: ease-in;
   }
 
   &:hover {
-    background-color: darken($medium-gray, 5%);
+    background-color: hsl(0deg, 0%, 89%);
   }
 }
 
@@ -253,7 +253,7 @@ $image-overlay-transition-easing: ease-in;
 
   .icon {
     --icon-size: 4em;
-    fill: $medium-gray;
+    fill: var(--color-grey_medium);
     filter: drop-shadow(0 0 4px var(--color-icon));
     transition: all $image-overlay-transition-duration linear;
     vertical-align: middle;

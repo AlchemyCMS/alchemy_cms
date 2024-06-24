@@ -8,3 +8,7 @@
   "var(--color-text_muted)"
 );
 @include alchemy-deprecated-variable("$icon-color", "var(--color-icon)");
+@include alchemy-deprecated-variable(
+  "$medium-gray",
+  "var(--color-grey_medium)"
+);
