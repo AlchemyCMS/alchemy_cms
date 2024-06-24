@@ -12,3 +12,12 @@
   "$medium-gray",
   "var(--color-grey_medium)"
 );
+@include alchemy-deprecated-variable("$orange", "var(--color-orange_medium)");
+@include alchemy-deprecated-variable(
+  "$dark-orange",
+  "var(--color-orange_dark)"
+);
+@include alchemy-deprecated-variable(
+  "$very-dark-orange",
+  "var(--color-orange_very_dark)"
+);

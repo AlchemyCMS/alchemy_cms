@@ -18,8 +18,8 @@ $white: hsl(0deg, 0%, 100%);
 $text-color: hsla(224deg, 23%, 26%, 0.8) !default;
 $muted-text-color: hsla(224deg, 23%, 26%, 0.5) !default;
 $icon-color: hsla(224deg, 23%, 26%, 0.75) !default;
-$linked-color: $orange !default;
-$anchor-color: $very-dark-orange !default;
+$linked-color: var(--color-orange_medium) !default;
+$anchor-color: var(--color-orange_very_dark) !default;
 
 $body-background-color: $light-gray !default;
 
@@ -78,7 +78,7 @@ $button-border-width: 1px !default;
 $button-border-radius: $default-border-radius !default;
 $button-text-color: var(--color-text) !default;
 $button-hover-border-color: $default-border-color !default;
-$button-focus-border-color: $dark-orange !default;
+$button-focus-border-color: var(--color-orange_dark) !default;
 $button-font-weight: 700 !default;
 $button-text-shadow: none !default;
 $button-box-shadow: 0px 1px 1px -1px hsl(0deg, 0%, 20%) !default;
@@ -133,7 +133,7 @@ $main-menu-width: 150px !default;
 $collapsed-main-menu-width: 48px !default;
 $collapsed-main-menu-entry-max-width: 300px !default;
 $main-menu-bg-color: $dark-blue !default;
-$main-menu-active-bg-color: $dark-orange !default;
+$main-menu-active-bg-color: var(--color-orange_dark) !default;
 $main-menu-active-text-color: $dark-blue !default;
 $main-menu-text-color: $white !default;
 $main-menu-icon-color: $white !default;
