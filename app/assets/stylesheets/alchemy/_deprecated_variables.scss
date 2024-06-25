@@ -18,6 +18,10 @@
   "$very-dark-gray",
   "var(--color-grey_very_dark)"
 );
+@include alchemy-deprecated-variable(
+  "$light_yellow",
+  "var(--color-yellow_light)"
+);
 @include alchemy-deprecated-variable("$orange", "var(--color-orange_medium)");
 @include alchemy-deprecated-variable(
   "$dark-orange",

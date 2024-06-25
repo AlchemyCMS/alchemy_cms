@@ -116,7 +116,7 @@ $error_border_color: hsl(0deg, 25%, 69%) !default;
 $error_text_color: hsl(0deg, 51%, 42%) !default;
 $error_background_color: hsl(0deg, 47%, 88%) !default;
 
-$hint-background-color: $light_yellow !default;
+$hint-background-color: var(--color-yellow_light) !default;
 $hint-text-color: hsl(49deg, 18%, 30%) !default;
 
 $form-left-width: 35% !default;
@@ -170,7 +170,7 @@ $pagination-height: 52px !default;
 $datepicker_current_bg: var(--color-blue_medium) !default;
 $datepicker_current_color: $white !default;
 $datepicker_current_box_shadow: none !default;
-$datepicker_hover_bg: $light_yellow !default;
+$datepicker_hover_bg: var(--color-yellow_light) !default;
 $datepicker_hover_color: var(--color-text) !default;
 $datepicker_today_bg: var(--color-grey_medium) !default;
 $datepicker_today_color: var(--color-blue_medium) !default;

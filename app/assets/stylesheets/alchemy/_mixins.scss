@@ -106,7 +106,7 @@
 }
 
 @mixin form-hint(
-  $background-color: $light_yellow,
+  $background-color: var(--color-yellow_light),
   $border-color: var(--color-grey_medium)
 ) {
   font-size: $small-font-size;
