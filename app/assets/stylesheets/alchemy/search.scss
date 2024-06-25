@@ -56,7 +56,7 @@
     width: 0;
     height: 100%;
     border: none;
-    background-color: transparentize($form-field-background-color, 0.25);
+    background-color: hsla(0deg, 0%, 100%, 0.75);
     transition:
       width $transition-duration ease-in-out,
       background-color $transition-duration linear;

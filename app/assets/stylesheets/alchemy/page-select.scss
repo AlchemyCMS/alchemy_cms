@@ -61,6 +61,6 @@
   font-size: $small-font-size;
 
   .select2-highlighted & {
-    color: $white;
+    color: var(--color-white);
   }
 }

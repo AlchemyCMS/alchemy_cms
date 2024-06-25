@@ -11,10 +11,10 @@
     margin: 0;
 
     input {
-      background-color: transparentize($white, 0.25);
+      background-color: hsla(0deg, 0%, 100%, 0.25);
 
       &:focus {
-        background-color: $white;
+        background-color: var(--color-white);
       }
     }
   }

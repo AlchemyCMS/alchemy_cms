@@ -71,7 +71,7 @@
   &[disabled]:active,
   &.disabled:hover,
   &[disabled]:hover {
-    background-color: transparentize($button-bg-color, 0.5);
+    background-color: hsla(0deg, 0%, 100%, 0.5);
     cursor: not-allowed;
     box-shadow: none;
   }

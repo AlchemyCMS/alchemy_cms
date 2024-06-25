@@ -77,7 +77,7 @@ $image-overlay-transition-easing: ease-in;
     transition: color $image-overlay-transition-duration linear;
 
     &:hover {
-      color: $white;
+      color: var(--color-white);
     }
   }
 }
@@ -238,7 +238,7 @@ $image-overlay-transition-easing: ease-in;
     .icon {
       width: 32px;
       height: 32px;
-      fill: $white;
+      fill: var(--color-white);
       filter: drop-shadow(0 0 1px var(--color-grey_very_dark));
     }
 

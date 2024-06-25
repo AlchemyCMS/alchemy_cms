@@ -1555,7 +1555,7 @@ button::-moz-focus-inner {
 
 .tox .tox-dialog__header .tox-button {
   z-index: 1;
-  color: $white;
+  color: var(--color-white);
   background-image: none; // If used in Solidus we need to override the background image
   border: none; // If used in Solidus we need to override the border
 }

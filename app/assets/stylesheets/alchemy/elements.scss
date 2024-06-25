@@ -715,7 +715,7 @@ alchemy-publish-element-button {
     margin: 6px 0 var(--spacing-1);
     padding: 0 var(--spacing-1) 0 var(--spacing-2);
     border: $default-border;
-    background-color: $white;
+    background-color: var(--color-white);
     border-radius: $default-border-radius;
     height: $form-field-height;
 

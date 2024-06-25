@@ -1,9 +1,10 @@
+@import "alchemy/custom-properties"
 @import "alchemy/variables"
 @import "alchemy/fonts"
 
 body
   background-color: $main-menu-bg-color
-  color: $white
+  color: var(--color-white)
   font-family: $default-font-family
   font-weight: normal
   font-size: 15px
@@ -33,17 +34,17 @@ ul
   list-style-position: outside
 
 li
-  color: $white
+  color: var(--color-white)
   margin-bottom: 12px
   background-color: none
   border-bottom: 0 none
   line-height: 22px
 
 a
-  color: $white
+  color: var(--color-white)
   text-decoration: underline
   transition: all 0.1s ease-in-out
 
   &:hover
-    color: $white
+    color: var(--color-white)
     text-decoration: none

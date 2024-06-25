@@ -16,7 +16,7 @@
 
   .icon {
     .select2-highlighted & {
-      fill: $white;
+      fill: var(--color-white);
     }
   }
 }
@@ -38,7 +38,7 @@
   font-size: $small-font-size;
 
   .select2-highlighted & {
-    color: $white;
+    color: var(--color-white);
   }
 }
 
