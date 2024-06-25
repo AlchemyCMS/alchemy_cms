@@ -8,9 +8,15 @@
   "var(--color-text_muted)"
 );
 @include alchemy-deprecated-variable("$icon-color", "var(--color-icon)");
+@include alchemy-deprecated-variable("$light-gray", "var(--color-grey_light)");
 @include alchemy-deprecated-variable(
   "$medium-gray",
   "var(--color-grey_medium)"
+);
+@include alchemy-deprecated-variable("$dark-gray", "var(--color-grey_dark)");
+@include alchemy-deprecated-variable(
+  "$very-dark-gray",
+  "var(--color-grey_very_dark)"
 );
 @include alchemy-deprecated-variable("$orange", "var(--color-orange_medium)");
 @include alchemy-deprecated-variable(

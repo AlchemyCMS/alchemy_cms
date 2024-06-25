@@ -217,7 +217,7 @@
       /*rtl:end:ignore*/
 .flatpickr-months .flatpickr-prev-month:hover,
 .flatpickr-months .flatpickr-next-month:hover {
-  color: $dark-gray;
+  color: var(--color-grey_dark);
 }
 .flatpickr-months .flatpickr-prev-month:hover svg,
 .flatpickr-months .flatpickr-next-month:hover svg {
@@ -546,12 +546,12 @@ span.flatpickr-weekday {
   border-color: var(--color-grey_medium);
 }
 .flatpickr-day.today {
-  border-color: $dark-gray;
+  border-color: var(--color-grey_dark);
 }
 .flatpickr-day.today:hover,
 .flatpickr-day.today:focus {
-  border-color: $dark-gray;
-  background: $dark-gray;
+  border-color: var(--color-grey_dark);
+  background: var(--color-grey_dark);
   color: $white;
 }
 .flatpickr-day.selected,
@@ -778,7 +778,7 @@ span.flatpickr-weekday {
 .flatpickr-time .flatpickr-am-pm:hover,
 .flatpickr-time input:focus,
 .flatpickr-time .flatpickr-am-pm:focus {
-  background: $light-gray;
+  background: var(--color-grey_light);
 }
 .flatpickr-input[readonly] {
   cursor: pointer;

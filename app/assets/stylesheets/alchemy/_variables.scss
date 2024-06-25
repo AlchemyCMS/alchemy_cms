@@ -21,7 +21,7 @@ $icon-color: hsla(224deg, 23%, 26%, 0.75) !default;
 $linked-color: var(--color-orange_medium) !default;
 $anchor-color: var(--color-orange_very_dark) !default;
 
-$body-background-color: $light-gray !default;
+$body-background-color: var(--color-grey_light) !default;
 
 $default-font-family: "Open Sans", "Lucida Grande", "Lucida Sans Unicode",
   "Lucida Sans", Verdana, Tahoma, sans-serif !default;
@@ -43,7 +43,7 @@ $dialog-header-font-size: $default-font-size !default;
 $dialog-box-shadow: 0 8px 16px hsla(0deg, 0%, 14%, 0.5) !default;
 $dialog-overlay-color: hsl(0deg, 0%, 39%) !default;
 $dialog-overlay-opacity: 0.4 !default;
-$dialog-background-color: $light-gray !default;
+$dialog-background-color: var(--color-grey_light) !default;
 
 $default-border-color: hsla(0deg, 0%, 69%, 0.5) !default;
 $border-inset-color: hsla(0deg, 0%, 79%, 0.5) !default;
@@ -176,7 +176,7 @@ $datepicker_hover_color: var(--color-text) !default;
 $datepicker_today_bg: var(--color-grey_medium) !default;
 $datepicker_today_color: var(--color-blue_medium) !default;
 $datepicker_header_color: var(--color-text) !default;
-$datepicker_day_bg: $light-gray !default;
+$datepicker_day_bg: var(--color-grey_light) !default;
 $datepicker_day_border: 1px solid var(--color-grey_medium) !default;
 $datepicker_day_color: var(--color-text) !default;
 

@@ -2689,8 +2689,8 @@ body.tox-dialog__disable-scroll {
 
 .tox .tox-menubar {
   background: url("data:image/svg+xml;charset=utf8,%3Csvg height='39px' viewBox='0 0 40 39px' width='40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='38px' width='100' height='1' fill='rgba%28175,%20175,%20175,%200.5%29'/%3E%3C/svg%3E")
-    left 0 top 0 $light-gray;
-  background-color: $light-gray;
+    left 0 top 0 var(--color-grey_light);
+  background-color: var(--color-grey_light);
   display: flex;
   flex: 0 0 auto;
   flex-shrink: 0;
@@ -3247,7 +3247,7 @@ body.tox-dialog__disable-scroll {
 
 .tox .tox-statusbar {
   align-items: center;
-  background-color: $light-gray;
+  background-color: var(--color-grey_light);
   border-top: $default-border;
   color: var(--color-text_muted);
   display: flex;
@@ -3583,14 +3583,14 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox .tox-toolbar-overlord {
-  background-color: $light-gray;
+  background-color: var(--color-grey_light);
 }
 
 .tox .tox-toolbar,
 .tox .tox-toolbar__overflow,
 .tox .tox-toolbar__primary {
   background: url("data:image/svg+xml;charset=utf8,%3Csvg height='34px' viewBox='0 0 40 39px' width='34px' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='33px' width='100' height='1' fill='rgba%28175,%20175,%20175,%200.5%29'/%3E%3C/svg%3E")
-    left 0 top 0 $light-gray;
+    left 0 top 0 var(--color-grey_light);
   display: flex;
   flex: 0 0 auto;
   flex-shrink: 0;

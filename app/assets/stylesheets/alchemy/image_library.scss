@@ -239,7 +239,7 @@ $image-overlay-transition-easing: ease-in;
       width: 32px;
       height: 32px;
       fill: $white;
-      filter: drop-shadow(0 0 1px $very-dark-gray);
+      filter: drop-shadow(0 0 1px var(--color-grey_very_dark));
     }
 
     &:hover {

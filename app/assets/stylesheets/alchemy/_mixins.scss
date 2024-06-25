@@ -138,7 +138,7 @@
 }
 
 @mixin drop-shadow {
-  $shadow: 0px 0px 4px $dark-gray;
+  $shadow: 0px 0px 4px var(--color-grey_dark);
   -webkit-box-shadow: $shadow;
   -moz-box-shadow: $shadow;
   -ms-box-shadow: $shadow;

@@ -115,7 +115,7 @@ select {
       .select2-choice,
       .select2-choice:hover {
         background-image: none;
-        background-color: $light-gray;
+        background-color: var(--color-grey_light);
         box-shadow: none;
         border-color: $border-inset-color;
         cursor: not-allowed;

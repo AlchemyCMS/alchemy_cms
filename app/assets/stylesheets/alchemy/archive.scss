@@ -175,7 +175,7 @@ div.assign_image_list_image {
   padding: var(--spacing-0);
   z-index: 10;
   border-radius: $default-border-radius;
-  box-shadow: 0 0 1px $dark-gray;
+  box-shadow: 0 0 1px var(--color-grey_dark);
 
   &:hover {
     text-decoration: none;
@@ -254,7 +254,7 @@ div#library_sidebar {
     calc(#{$pagination-height} + var(--spacing-2)) var(--spacing-4);
   height: 100%;
   z-index: 3;
-  background-color: $light-gray;
+  background-color: var(--color-grey_light);
 
   h2 {
     margin-top: var(--spacing-4);

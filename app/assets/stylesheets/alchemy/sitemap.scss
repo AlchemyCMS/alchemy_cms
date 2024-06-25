@@ -183,7 +183,7 @@
 .page_infos {
   @extend .right-rounded-border;
   background-color: $sitemap-page-background-color;
-  border-left: 1px solid $light-gray;
+  border-left: 1px solid var(--color-grey_light);
   display: none;
   justify-content: end;
   width: var(--sitemap-status-width);

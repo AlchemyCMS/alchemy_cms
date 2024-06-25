@@ -39,7 +39,7 @@ figure {
 }
 
 figure figcaption {
-  color: $dark-gray;
+  color: var(--color-grey_dark);
   display: block;
   margin-top: 0.25rem;
   text-align: center;
@@ -52,7 +52,7 @@ hr {
 }
 
 code {
-  background-color: $light-gray;
+  background-color: var(--color-grey_light);
   border-radius: $default-border-radius;
   padding: 0.1rem 0.2rem;
 }
