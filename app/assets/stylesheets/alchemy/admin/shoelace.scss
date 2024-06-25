@@ -60,10 +60,10 @@
   --sl-color-danger-950: var(--color-red_dark);
 
   /* Neutral */
-  --sl-color-neutral-50: var(--color-grey_light);
-  --sl-color-neutral-100: var(--color-grey_light);
+  --sl-color-neutral-50: var(--color-grey_very_light);
+  --sl-color-neutral-100: var(--color-grey_very_light);
   --sl-color-neutral-200: var(--color-grey_light);
-  --sl-color-neutral-300: var(--color-grey_medium);
+  --sl-color-neutral-300: var(--color-grey_light);
   --sl-color-neutral-400: var(--color-grey_medium);
   --sl-color-neutral-500: var(--color-grey_medium);
   --sl-color-neutral-600: var(--color-grey_dark);
@@ -340,13 +340,13 @@ sl-tooltip {
 
   &::part(base__popup) {
     border-radius: var(--border-radius_medium);
-    box-shadow: 0 0 var(--spacing-1) var(--color-grey_medium);
+    box-shadow: 0 0 var(--spacing-1) var(--color-grey_light);
   }
 }
 
 sl-dialog {
   &::part(panel) {
-    background-color: var(--color-grey_light);
+    background-color: var(--color-grey_very_light);
     --body-spacing: var(--spacing-4) var(--spacing-3);
     --footer-spacing: var(--spacing-4) var(--spacing-3);
   }

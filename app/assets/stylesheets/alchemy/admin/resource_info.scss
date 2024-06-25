@@ -28,7 +28,7 @@
     right: 0;
     top: var(--spacing-1);
     height: $form-field-height;
-    background-color: var(--color-grey_medium);
+    background-color: var(--color-grey_light);
     padding: 0 var(--spacing-2);
     transition: background-color 0.3s;
     @extend .right-rounded-border;

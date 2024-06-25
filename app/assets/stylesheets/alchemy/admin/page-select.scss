@@ -36,13 +36,13 @@
   padding-right: var(--spacing-1);
 
   .select2-highlighted & {
-    color: var(--color-grey_medium);
+    color: var(--color-grey_light);
   }
 }
 
 .page-select--language-code {
   display: inline-block;
-  background-color: var(--color-grey_medium);
+  background-color: var(--color-grey_light);
   margin-left: auto;
   border-radius: $default-border-radius;
   padding: var(--spacing-0) var(--spacing-1);

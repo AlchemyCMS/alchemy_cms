@@ -20,7 +20,7 @@ $icon-color: hsla(224deg, 23%, 26%, 0.75) !default;
 $linked-color: var(--color-orange_medium) !default;
 $anchor-color: var(--color-orange_very_dark) !default;
 
-$body-background-color: var(--color-grey_light) !default;
+$body-background-color: var(--color-grey_very_light) !default;
 
 $default-font-family: "Open Sans", "Lucida Grande", "Lucida Sans Unicode",
   "Lucida Sans", Verdana, Tahoma, sans-serif !default;
@@ -42,7 +42,7 @@ $dialog-header-font-size: $default-font-size !default;
 $dialog-box-shadow: 0 8px 16px hsla(0deg, 0%, 14%, 0.5) !default;
 $dialog-overlay-color: hsl(0deg, 0%, 39%) !default;
 $dialog-overlay-opacity: 0.4 !default;
-$dialog-background-color: var(--color-grey_light) !default;
+$dialog-background-color: var(--color-grey_very_light) !default;
 
 $default-border-color: hsla(0deg, 0%, 69%, 0.5) !default;
 $border-inset-color: hsla(0deg, 0%, 79%, 0.5) !default;
@@ -60,7 +60,7 @@ $form-field-border-width: $default-border-width !default;
 $form-field-border-style: $default-border-style !default;
 $form-field-border-color: $default-border-color $default-border-color
   $border-inset-color $border-inset-color !default;
-$form-field-box-shadow: inset 0px 0 1px var(--color-grey_medium) !default;
+$form-field-box-shadow: inset 0px 0 1px var(--color-grey_light) !default;
 $form-field-padding: $default-padding 2 * $default-padding !default;
 $form-field-font-size: $default-font-size !default;
 $form-field-line-height: 1.25 !default;
@@ -137,7 +137,7 @@ $main-menu-active-text-color: var(--color-blue_dark) !default;
 $main-menu-text-color: var(--color-white) !default;
 $main-menu-icon-color: var(--color-white) !default;
 $main-menu-entry-max-width: 110px !default;
-$toolbar-bg-color: var(--color-grey_medium) !default;
+$toolbar-bg-color: var(--color-grey_light) !default;
 $toolbar-height: 46px !default;
 $tab-bar-height: 51px !default;
 $element-toolbar-height: 37px !default;
@@ -172,11 +172,11 @@ $datepicker_current_color: var(--color-white) !default;
 $datepicker_current_box_shadow: none !default;
 $datepicker_hover_bg: var(--color-yellow_light) !default;
 $datepicker_hover_color: var(--color-text) !default;
-$datepicker_today_bg: var(--color-grey_medium) !default;
+$datepicker_today_bg: var(--color-grey_light) !default;
 $datepicker_today_color: var(--color-blue_medium) !default;
 $datepicker_header_color: var(--color-text) !default;
-$datepicker_day_bg: var(--color-grey_light) !default;
-$datepicker_day_border: 1px solid var(--color-grey_medium) !default;
+$datepicker_day_bg: var(--color-grey_very_light) !default;
+$datepicker_day_border: 1px solid var(--color-grey_light) !default;
 $datepicker_day_color: var(--color-text) !default;
 
 $select-hover-bg-color: var(--color-blue_dark) !default;
@@ -185,13 +185,13 @@ $medium-select-box-width: 90px;
 $large-select-box-width: 120px;
 
 $thumbnail-background:
-  linear-gradient(45deg, var(--color-grey_medium) 25%, transparent 25%) 0.5em
+  linear-gradient(45deg, var(--color-grey_light) 25%, transparent 25%) 0.5em
     0.5em/1em 1em,
-  linear-gradient(-45deg, var(--color-grey_medium) 25%, transparent 25%) -0.5em 0/1em
+  linear-gradient(-45deg, var(--color-grey_light) 25%, transparent 25%) -0.5em 0/1em
     1em,
-  linear-gradient(45deg, transparent 75%, var(--color-grey_medium) 75%) 0 0/1em
+  linear-gradient(45deg, transparent 75%, var(--color-grey_light) 75%) 0 0/1em
     1em,
-  linear-gradient(-45deg, transparent 75%, var(--color-grey_medium) 75%) 0 0.5em/1em
+  linear-gradient(-45deg, transparent 75%, var(--color-grey_light) 75%) 0 0.5em/1em
     1em var(--color-white) !default;
 
 $small-screen-break-point: 500px;

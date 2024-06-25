@@ -254,7 +254,7 @@ div#library_sidebar {
     calc(#{$pagination-height} + var(--spacing-2)) var(--spacing-4);
   height: 100%;
   z-index: 3;
-  background-color: var(--color-grey_light);
+  background-color: var(--color-grey_very_light);
 
   h2 {
     margin-top: var(--spacing-4);

@@ -78,7 +78,7 @@
   }
 
   .placeholder {
-    background-color: var(--color-grey_medium);
+    background-color: var(--color-grey_light);
     margin-bottom: 0px;
     margin-left: 22px;
   }
@@ -111,7 +111,7 @@
   }
 
   &.no-match .sitemap_pagename_link {
-    color: var(--color-grey_medium);
+    color: var(--color-grey_light);
   }
 
   &:hover {
@@ -183,7 +183,7 @@
 .page_infos {
   @extend .right-rounded-border;
   background-color: $sitemap-page-background-color;
-  border-left: 1px solid var(--color-grey_light);
+  border-left: 1px solid var(--color-grey_very_light);
   display: none;
   justify-content: end;
   width: var(--sitemap-status-width);
