@@ -28,14 +28,14 @@
     right: 0;
     top: var(--spacing-1);
     height: $form-field-height;
-    background-color: $medium-gray;
+    background-color: var(--color-grey_medium);
     padding: 0 var(--spacing-2);
     transition: background-color 0.3s;
     @extend .right-rounded-border;
 
     &:hover {
       cursor: pointer;
-      background-color: darken($medium-gray, 10%);
+      background-color: hsl(0deg, 0%, 84%);
       text-decoration: none;
     }
   }

@@ -63,7 +63,7 @@ div#overlay_text_box {
   .page_status_and_name {
     align-items: center;
     padding: var(--spacing-1) var(--spacing-2);
-    background-color: $medium-gray;
+    background-color: var(--color-grey_medium);
     text-shadow: $text-shadow-light;
     @extend .disable-user-select;
     @extend .locked_page;

@@ -19,14 +19,14 @@
   em {
     font-size: $default-font-size;
     font-weight: bold;
-    color: $icon-color;
+    color: var(--color-icon);
     padding: var(--spacing-1);
     margin: 0 var(--spacing-0);
     border-radius: $default-border-radius;
   }
 
   a:hover {
-    color: $text-color;
+    color: var(--color-text);
     background-color: $default-border-color;
     text-decoration: none;
   }
@@ -40,7 +40,7 @@
   }
 
   .current {
-    color: $text-color;
+    color: var(--color-text);
     background-color: $default-border-color;
     cursor: default;
   }

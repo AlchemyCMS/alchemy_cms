@@ -16,7 +16,7 @@
 
   .icon {
     .select2-highlighted & {
-      fill: $white;
+      fill: var(--color-white);
     }
   }
 }
@@ -34,11 +34,11 @@
 .node-select--node-url {
   margin-left: auto;
   padding: var(--spacing-1) var(--spacing-2);
-  color: $dark-gray;
+  color: var(--color-grey_dark);
   font-size: $small-font-size;
 
   .select2-highlighted & {
-    color: $white;
+    color: var(--color-white);
   }
 }
 

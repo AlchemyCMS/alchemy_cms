@@ -189,7 +189,7 @@
 
   &.active a,
   a:hover {
-    background-color: darken($dark-orange, 5%);
+    background-color: hsl(28deg, 77%, 63%);
   }
 }
 
@@ -258,7 +258,7 @@
   }
 
   &:hover {
-    color: $text-color;
+    color: var(--color-text);
     text-decoration: none;
   }
 
@@ -286,7 +286,7 @@
   .page_language,
   .page_site {
     display: inline-block;
-    color: $muted-text-color;
+    color: var(--color-text_muted);
     font-size: $small-font-size;
     margin-right: var(--spacing-1);
   }

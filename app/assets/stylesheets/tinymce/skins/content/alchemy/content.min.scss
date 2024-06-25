@@ -6,6 +6,7 @@
 */
 
 @import "alchemy/variables";
+@import "alchemy/custom-properties";
 
 html {
   font-size: 13px;
@@ -15,11 +16,11 @@ body {
   font-family: $default-font-family;
   line-height: 1.4;
   margin: 1em;
-  color: $text-color;
+  color: var(--color-text);
 }
 
 a {
-  color: $dark-blue;
+  color: var(--color-blue_dark);
 }
 
 table {
@@ -38,7 +39,7 @@ figure {
 }
 
 figure figcaption {
-  color: $dark-gray;
+  color: var(--color-grey_dark);
   display: block;
   margin-top: 0.25rem;
   text-align: center;
@@ -51,7 +52,7 @@ hr {
 }
 
 code {
-  background-color: $light-gray;
+  background-color: var(--color-grey_light);
   border-radius: $default-border-radius;
   padding: 0.1rem 0.2rem;
 }

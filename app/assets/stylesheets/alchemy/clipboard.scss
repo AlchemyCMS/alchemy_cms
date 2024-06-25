@@ -17,7 +17,7 @@
       border-radius: $default-border-radius;
 
       &.elements {
-        background-color: $medium-gray;
+        background-color: var(--color-grey_medium);
       }
 
       .icon_button {

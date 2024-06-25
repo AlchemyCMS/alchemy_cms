@@ -7,7 +7,7 @@
   width: calc(100vw - #{$collapsed-main-menu-width});
   height: calc(100vh - #{$top-menu-height});
   border-left: $default-border;
-  background-color: $light-gray;
+  background-color: var(--color-grey_light);
   transition: $transition-duration ease-in-out;
   transform: translate3d(100%, 0, 0);
 
@@ -131,7 +131,7 @@ alchemy-tinymce {
   position: relative;
   border: 1px solid $default-border-color;
   border-radius: $default-border-radius;
-  background-color: $light-gray;
+  background-color: var(--color-grey_light);
   margin: var(--spacing-2) 0;
   transition: box-shadow $transition-duration;
   scroll-margin: var(--spacing-2);
@@ -237,8 +237,8 @@ alchemy-tinymce {
   &.expanded {
     &.not-fixed {
       .nestable-elements {
-        box-shadow: inset 0 4px 8px -2px darken($medium-gray, 15%);
-        background-color: $medium-gray;
+        box-shadow: inset 0 4px 8px -2px hsl(0deg, 0%, 79%);
+        background-color: var(--color-grey_medium);
         padding: var(--spacing-1);
       }
     }
@@ -272,7 +272,7 @@ alchemy-tinymce {
       opacity: 0;
       z-index: 1;
       box-shadow: 0 1px 1px $default-border-color;
-      background-color: $light-gray;
+      background-color: var(--color-grey_light);
       transition: all $transition-duration;
 
       sl-switch::part(label) {
@@ -389,7 +389,7 @@ alchemy-tinymce {
     width: 100%;
     margin: 0 0 var(--spacing-4) 0;
     border: 0 none;
-    border-top: 1px solid $medium-gray;
+    border-top: 1px solid var(--color-grey_medium);
     opacity: 1;
   }
 }
@@ -427,8 +427,8 @@ alchemy-tinymce {
   padding: var(--spacing-1);
   gap: var(--spacing-1);
   height: $element-toolbar-height;
-  border-top: 1px solid $medium-gray;
-  border-bottom: 1px solid $medium-gray;
+  border-top: 1px solid var(--color-grey_medium);
+  border-bottom: 1px solid var(--color-grey_medium);
 
   .is-fixed & {
     border-top-width: 0;
@@ -454,7 +454,7 @@ alchemy-publish-element-button {
 }
 
 .element-footer {
-  border-top: 1px solid $medium-gray;
+  border-top: 1px solid var(--color-grey_medium);
   padding: var(--spacing-2);
   text-align: right;
 
@@ -467,7 +467,7 @@ alchemy-publish-element-button {
   width: 100%;
   padding: var(--spacing-1) 0;
   position: relative;
-  border-bottom: 1px solid $medium-gray;
+  border-bottom: 1px solid var(--color-grey_medium);
 
   &:last-child {
     border-bottom: none;
@@ -507,7 +507,7 @@ alchemy-publish-element-button {
 
   .icon_button {
     &:not(.linked) {
-      background-color: $medium-gray;
+      background-color: var(--color-grey_medium);
       border-color: $default-border-color;
       border-width: $form-field-border-width;
       border-style: $form-field-border-style;
@@ -715,7 +715,7 @@ alchemy-publish-element-button {
     margin: 6px 0 var(--spacing-1);
     padding: 0 var(--spacing-1) 0 var(--spacing-2);
     border: $default-border;
-    background-color: $white;
+    background-color: var(--color-white);
     border-radius: $default-border-radius;
     height: $form-field-height;
 
@@ -953,7 +953,7 @@ textarea.has_tinymce {
   &.with-ingredients {
     > .element-footer {
       border-top: 0;
-      border-bottom: 1px solid $medium-gray;
+      border-bottom: 1px solid var(--color-grey_medium);
     }
   }
 }

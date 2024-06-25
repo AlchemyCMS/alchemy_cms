@@ -27,7 +27,7 @@ ul.list {
       margin-bottom: var(--spacing-2);
 
       .list-secondary {
-        color: $text-color;
+        color: var(--color-text);
       }
     }
 
@@ -58,6 +58,6 @@ ul.list {
     float: right;
     text-align: left;
     width: 30%;
-    color: $dark-gray;
+    color: var(--color-grey_dark);
   }
 }

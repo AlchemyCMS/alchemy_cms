@@ -72,12 +72,12 @@ $image-overlay-transition-easing: ease-in;
 
   .icon {
     font-size: 2em;
-    color: $medium-gray;
-    text-shadow: 0 0 4px $text-color;
+    color: var(--color-grey_medium);
+    text-shadow: 0 0 4px var(--color-text);
     transition: color $image-overlay-transition-duration linear;
 
     &:hover {
-      color: $white;
+      color: var(--color-white);
     }
   }
 }
@@ -86,8 +86,8 @@ $image-overlay-transition-easing: ease-in;
 .picture-overlay-handle {
   position: absolute;
   top: 0;
-  background-color: $medium-gray;
-  box-shadow: -2px 0 4px -2px $text-color;
+  background-color: var(--color-grey_medium);
+  box-shadow: -2px 0 4px -2px var(--color-text);
   transition: right $image-overlay-transition-duration
     $image-overlay-transition-easing;
 }
@@ -128,13 +128,13 @@ $image-overlay-transition-easing: ease-in;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 1.2em;
-    color: $text-color;
+    color: var(--color-icon);
     transition: transform $image-overlay-transition-duration
       $image-overlay-transition-easing;
   }
 
   &:hover {
-    background-color: darken($medium-gray, 5%);
+    background-color: hsl(0deg, 0%, 89%);
   }
 }
 
@@ -166,7 +166,7 @@ $image-overlay-transition-easing: ease-in;
     height: auto;
     max-width: 100%;
     max-height: 100%;
-    box-shadow: 0 0 var(--spacing-2) $text-color;
+    box-shadow: 0 0 var(--spacing-2) var(--color-text);
     background: $thumbnail-background;
     vertical-align: middle;
     cursor: default;
@@ -238,8 +238,8 @@ $image-overlay-transition-easing: ease-in;
     .icon {
       width: 32px;
       height: 32px;
-      fill: $white;
-      filter: drop-shadow(0 0 1px $very-dark-gray);
+      fill: var(--color-white);
+      filter: drop-shadow(0 0 1px var(--color-grey_very_dark));
     }
 
     &:hover {
@@ -253,8 +253,8 @@ $image-overlay-transition-easing: ease-in;
 
   .icon {
     --icon-size: 4em;
-    fill: $medium-gray;
-    filter: drop-shadow(0 0 4px $text-color);
+    fill: var(--color-grey_medium);
+    filter: drop-shadow(0 0 4px var(--color-icon));
     transition: all $image-overlay-transition-duration linear;
     vertical-align: middle;
   }

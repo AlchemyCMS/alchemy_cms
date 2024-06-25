@@ -7,7 +7,7 @@
     margin: 0 var(--spacing-1) 0 0;
 
     .select2-highlighted & {
-      fill: $white;
+      fill: var(--color-white);
     }
   }
 }

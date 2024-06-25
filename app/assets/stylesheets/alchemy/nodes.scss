@@ -95,7 +95,7 @@
   }
 
   &.no-match .sitemap_pagename_link {
-    color: $medium-gray;
+    color: var(--color-grey_medium);
   }
 
   &:hover {

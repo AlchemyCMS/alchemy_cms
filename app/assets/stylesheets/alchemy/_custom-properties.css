@@ -36,42 +36,39 @@
   --border-radius_medium: 3px;
 
   // Colors
-  --color-blue_very_light: hsl(203deg, 32%, 85%);
-  --color-blue_light: hsl(212deg, 51%, 50%);
+  --color-blue_very_light: hsl(203deg, 32%, 97%);
+  --color-blue_light: hsl(203deg, 32%, 85%);
   --color-blue_medium: hsl(212deg, 52%, 36%);
-  --color-blue_dark: hsl(212deg, 51%, 26%);
+  --color-blue_dark: hsl(212deg, 52%, 26%);
 
   --color-green_very_light: hsl(88deg, 47%, 88%);
   --color-green_light: hsl(127deg, 25%, 69%);
   --color-green_medium: hsl(127deg, 25%, 48%);
   --color-green_dark: hsl(128deg, 32%, 26%);
 
-  --color-yellow_light: hsl(60, 81%, 92%);
-  --color-yellow_medium: hsl(56, 68%, 85%);
-  --color-yellow_dark: hsl(56, 53%, 29%);
+  --color-yellow_light: hsl(60deg, 81%, 92%);
+  --color-yellow_medium: hsl(56deg, 68%, 85%);
+  --color-yellow_dark: hsl(56deg, 53%, 29%);
 
   --color-orange_medium: hsl(42deg, 100%, 74%);
   --color-orange_dark: hsl(28deg, 77%, 68%);
   --color-orange_very_dark: hsl(28deg, 77%, 48%);
 
-  --color-red_very_light: hsl(360deg, 47%, 88%);
-  --color-red_light: hsl(360deg, 25%, 69%);
-  --color-red_medium: hsl(360deg, 51%, 42%);
-  --color-red_dark: hsl(360deg, 51%, 25%);
+  --color-red_very_light: hsl(0deg, 47%, 88%);
+  --color-red_light: hsl(0deg, 25%, 69%);
+  --color-red_medium: hsl(0deg, 51%, 42%);
+  --color-red_dark: hsl(0deg, 51%, 25%);
 
-  --color-grey-blue_light: hsl(224deg, 23%, 60%);
-  --color-grey-blue_medium: hsl(224deg, 23%, 40%);
-  --color-grey-blue_dark: hsl(224deg, 23%, 26%);
-
-  --color-grey_light: hsl(0deg, 0%, 94%);
-  --color-grey_medium: hsl(0deg, 0%, 78%);
+  --color-grey_light: hsl(0deg, 0%, 97%);
+  --color-grey_medium: hsl(0deg, 0%, 94%);
   --color-grey_dark: hsl(0deg, 0%, 40%);
   --color-grey_very_dark: hsl(0deg, 0%, 20%);
 
   --color-white: hsl(0deg, 0%, 100%);
 
-  --color-text: hsla(224, 22.7%, 25.9%, 0.8);
-  --color-icon: hsla(224, 22.7%, 25.9%, 0.75);
+  --color-text: hsla(224deg, 23%, 26%, 0.8);
+  --color-text_muted: hsla(224deg, 23%, 26%, 0.5);
+  --color-icon: hsla(224deg, 23%, 26%, 0.75);
 }
 
 .alchemy-light {
@@ -81,11 +78,11 @@
   --font-color_default: var(--color-text);
 
   --tabs_indicator-color: var(--color-orange_dark);
-  --tabs_track-color: var(--color-grey_light);
+  --tabs_track-color: var(--color-grey_medium);
   --sl-input-label-color: var(--color-text);
 
   --file-upload_background-color: hsla(0deg, 0%, 80%, 0.8);
-  --file-upload_single-upload-background-color: var(--color-grey_light);
+  --file-upload_single-upload-background-color: var(--color-grey_medium);
   --file-upload_progress-track-color: var(--color-blue_very_light);
   --file-upload_progress-indicator-color: var(--color-blue_dark);
 

@@ -5,7 +5,7 @@ html {
 
   &.turbo-progress-bar::before,
   .turbo-progress-bar {
-    background-color: $blue !important;
+    background-color: var(--color-blue_medium) !important;
     z-index: 400001;
   }
 }
@@ -37,7 +37,7 @@ noscript {
 body {
   margin: 0;
   padding: 0;
-  color: $text-color;
+  color: var(--color-text);
   font: $default-font-style;
   background-color: $body-background-color;
   height: 100%;
@@ -88,7 +88,7 @@ hr {
   max-width: 500px;
   margin: 2em auto;
   padding: var(--spacing-4);
-  background: $medium-gray;
+  background: var(--color-grey_medium);
   border-radius: var(--border-radius_medium);
 }
 

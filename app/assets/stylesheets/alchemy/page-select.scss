@@ -32,17 +32,17 @@
 }
 
 .page-select--page-urlname {
-  color: $muted-text-color;
+  color: var(--color-text_muted);
   padding-right: var(--spacing-1);
 
   .select2-highlighted & {
-    color: $medium-gray;
+    color: var(--color-grey_medium);
   }
 }
 
 .page-select--language-code {
   display: inline-block;
-  background-color: $medium-gray;
+  background-color: var(--color-grey_medium);
   margin-left: auto;
   border-radius: $default-border-radius;
   padding: var(--spacing-0) var(--spacing-1);
@@ -57,10 +57,10 @@
 .page-select--site-name {
   margin-left: auto;
   padding: var(--spacing-1) 0 var(--spacing-1) var(--spacing-2);
-  color: $dark-gray;
+  color: var(--color-grey_dark);
   font-size: $small-font-size;
 
   .select2-highlighted & {
-    color: $white;
+    color: var(--color-white);
   }
 }

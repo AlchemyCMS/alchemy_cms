@@ -2,3 +2,40 @@
 
 @include alchemy-deprecated-variable("$default-padding", "var(--spacing-1)");
 @include alchemy-deprecated-variable("$default-margin", "var(--spacing-1)");
+@include alchemy-deprecated-variable("$text-color", "var(--color-text)");
+@include alchemy-deprecated-variable(
+  "$muted-text-color",
+  "var(--color-text_muted)"
+);
+@include alchemy-deprecated-variable("$icon-color", "var(--color-icon)");
+@include alchemy-deprecated-variable("$light-gray", "var(--color-grey_light)");
+@include alchemy-deprecated-variable(
+  "$medium-gray",
+  "var(--color-grey_medium)"
+);
+@include alchemy-deprecated-variable("$dark-gray", "var(--color-grey_dark)");
+@include alchemy-deprecated-variable(
+  "$very-dark-gray",
+  "var(--color-grey_very_dark)"
+);
+@include alchemy-deprecated-variable(
+  "$light_yellow",
+  "var(--color-yellow_light)"
+);
+@include alchemy-deprecated-variable("$orange", "var(--color-orange_medium)");
+@include alchemy-deprecated-variable(
+  "$dark-orange",
+  "var(--color-orange_dark)"
+);
+@include alchemy-deprecated-variable(
+  "$very-dark-orange",
+  "var(--color-orange_very_dark)"
+);
+@include alchemy-deprecated-variable(
+  "$very-light-blue",
+  "var(--color-blue_very_light)"
+);
+@include alchemy-deprecated-variable("$light-blue", "var(--color-blue_light)");
+@include alchemy-deprecated-variable("$blue", "var(--color-blue_medium)");
+@include alchemy-deprecated-variable("$dark-blue", "var(--color-blue_dark)");
+@include alchemy-deprecated-variable("$white", "var(--color-white)");

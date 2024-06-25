@@ -18,18 +18,18 @@
   box-sizing: border-box;
   -ms-touch-action: manipulation;
   touch-action: manipulation;
-  background: $white;
+  background: var(--color-white);
   -webkit-box-shadow:
-    1px 0 0 $medium-gray,
-    -1px 0 0 $medium-gray,
-    0 1px 0 $medium-gray,
-    0 -1px 0 $medium-gray,
+    1px 0 0 var(--color-grey_medium),
+    -1px 0 0 var(--color-grey_medium),
+    0 1px 0 var(--color-grey_medium),
+    0 -1px 0 var(--color-grey_medium),
     0 3px 13px rgba(0, 0, 0, 0.08);
   box-shadow:
-    1px 0 0 $medium-gray,
-    -1px 0 0 $medium-gray,
-    0 1px 0 $medium-gray,
-    0 -1px 0 $medium-gray,
+    1px 0 0 var(--color-grey_medium),
+    -1px 0 0 var(--color-grey_medium),
+    0 1px 0 var(--color-grey_medium),
+    0 -1px 0 var(--color-grey_medium),
     0 3px 13px rgba(0, 0, 0, 0.08);
 }
 .flatpickr-calendar.open,
@@ -71,11 +71,11 @@
   .dayContainer:nth-child(n + 2)
   .flatpickr-day.inRange:nth-child(7n + 1) {
   -webkit-box-shadow:
-    -2px 0 0 $medium-gray,
-    5px 0 0 $medium-gray;
+    -2px 0 0 var(--color-grey_medium),
+    5px 0 0 var(--color-grey_medium);
   box-shadow:
-    -2px 0 0 $medium-gray,
-    5px 0 0 $medium-gray;
+    -2px 0 0 var(--color-grey_medium),
+    5px 0 0 var(--color-grey_medium);
 }
 .flatpickr-calendar .hasWeeks .dayContainer,
 .flatpickr-calendar .hasTime .dayContainer {
@@ -88,7 +88,7 @@
 }
 .flatpickr-calendar.hasTime .flatpickr-time {
   height: 40px;
-  border-top: 1px solid $medium-gray;
+  border-top: 1px solid var(--color-grey_medium);
 }
 .flatpickr-calendar.noCalendar.hasTime .flatpickr-time {
   height: auto;
@@ -129,20 +129,20 @@
   bottom: 100%;
 }
 .flatpickr-calendar.arrowTop:before {
-  border-bottom-color: $medium-gray;
+  border-bottom-color: var(--color-grey_medium);
 }
 .flatpickr-calendar.arrowTop:after {
-  border-bottom-color: $white;
+  border-bottom-color: var(--color-white);
 }
 .flatpickr-calendar.arrowBottom:before,
 .flatpickr-calendar.arrowBottom:after {
   top: 100%;
 }
 .flatpickr-calendar.arrowBottom:before {
-  border-top-color: $medium-gray;
+  border-top-color: var(--color-grey_medium);
 }
 .flatpickr-calendar.arrowBottom:after {
-  border-top-color: $white;
+  border-top-color: var(--color-white);
 }
 .flatpickr-calendar:focus {
   outline: 0;
@@ -217,11 +217,11 @@
       /*rtl:end:ignore*/
 .flatpickr-months .flatpickr-prev-month:hover,
 .flatpickr-months .flatpickr-next-month:hover {
-  color: $dark-gray;
+  color: var(--color-grey_dark);
 }
 .flatpickr-months .flatpickr-prev-month:hover svg,
 .flatpickr-months .flatpickr-next-month:hover svg {
-  fill: $dark-orange;
+  fill: var(--color-orange_dark);
 }
 .flatpickr-months .flatpickr-prev-month svg,
 .flatpickr-months .flatpickr-next-month svg {
@@ -500,8 +500,8 @@ span.flatpickr-weekday {
   opacity: 1;
 }
 .dayContainer + .dayContainer {
-  -webkit-box-shadow: -1px 0 0 $medium-gray;
-  box-shadow: -1px 0 0 $medium-gray;
+  -webkit-box-shadow: -1px 0 0 var(--color-grey_medium);
+  box-shadow: -1px 0 0 var(--color-grey_medium);
 }
 .flatpickr-day {
   background: none;
@@ -542,17 +542,17 @@ span.flatpickr-weekday {
 .flatpickr-day.nextMonthDay:focus {
   cursor: pointer;
   outline: 0;
-  background: $medium-gray;
-  border-color: $medium-gray;
+  background: var(--color-grey_medium);
+  border-color: var(--color-grey_medium);
 }
 .flatpickr-day.today {
-  border-color: $dark-gray;
+  border-color: var(--color-grey_dark);
 }
 .flatpickr-day.today:hover,
 .flatpickr-day.today:focus {
-  border-color: $dark-gray;
-  background: $dark-gray;
-  color: $white;
+  border-color: var(--color-grey_dark);
+  background: var(--color-grey_dark);
+  color: var(--color-white);
 }
 .flatpickr-day.selected,
 .flatpickr-day.startRange,
@@ -572,11 +572,11 @@ span.flatpickr-weekday {
 .flatpickr-day.selected.nextMonthDay,
 .flatpickr-day.startRange.nextMonthDay,
 .flatpickr-day.endRange.nextMonthDay {
-  background: $blue;
+  background: var(--color-blue_medium);
   -webkit-box-shadow: none;
   box-shadow: none;
-  color: $white;
-  border-color: $blue;
+  color: var(--color-white);
+  border-color: var(--color-blue_medium);
 }
 .flatpickr-day.selected.startRange,
 .flatpickr-day.startRange.startRange,
@@ -591,8 +591,8 @@ span.flatpickr-weekday {
 .flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n + 1)),
 .flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n + 1)),
 .flatpickr-day.endRange.startRange + .endRange:not(:nth-child(7n + 1)) {
-  -webkit-box-shadow: -10px 0 0 $blue;
-  box-shadow: -10px 0 0 $blue;
+  -webkit-box-shadow: -10px 0 0 var(--color-blue_medium);
+  box-shadow: -10px 0 0 var(--color-blue_medium);
 }
 .flatpickr-day.selected.startRange.endRange,
 .flatpickr-day.startRange.startRange.endRange,
@@ -602,11 +602,11 @@ span.flatpickr-weekday {
 .flatpickr-day.inRange {
   border-radius: 0;
   -webkit-box-shadow:
-    -5px 0 0 $medium-gray,
-    5px 0 0 $medium-gray;
+    -5px 0 0 var(--color-grey_medium),
+    5px 0 0 var(--color-grey_medium);
   box-shadow:
-    -5px 0 0 $medium-gray,
-    5px 0 0 $medium-gray;
+    -5px 0 0 var(--color-grey_medium),
+    5px 0 0 var(--color-grey_medium);
 }
 .flatpickr-day.flatpickr-disabled,
 .flatpickr-day.flatpickr-disabled:hover,
@@ -628,11 +628,11 @@ span.flatpickr-weekday {
 .flatpickr-day.week.selected {
   border-radius: 0;
   -webkit-box-shadow:
-    -5px 0 0 $blue,
-    5px 0 0 $blue;
+    -5px 0 0 var(--color-blue_medium),
+    5px 0 0 var(--color-blue_medium);
   box-shadow:
-    -5px 0 0 $blue,
-    5px 0 0 $blue;
+    -5px 0 0 var(--color-blue_medium),
+    5px 0 0 var(--color-blue_medium);
 }
 .flatpickr-day.hidden {
   visibility: hidden;
@@ -645,8 +645,8 @@ span.flatpickr-weekday {
 }
 .flatpickr-weekwrapper .flatpickr-weeks {
   padding: 0 12px;
-  -webkit-box-shadow: 1px 0 0 $medium-gray;
-  box-shadow: 1px 0 0 $medium-gray;
+  -webkit-box-shadow: 1px 0 0 var(--color-grey_medium);
+  box-shadow: 1px 0 0 var(--color-grey_medium);
 }
 .flatpickr-weekwrapper .flatpickr-weekday {
   float: none;
@@ -778,7 +778,7 @@ span.flatpickr-weekday {
 .flatpickr-time .flatpickr-am-pm:hover,
 .flatpickr-time input:focus,
 .flatpickr-time .flatpickr-am-pm:focus {
-  background: $light-gray;
+  background: var(--color-grey_light);
 }
 .flatpickr-input[readonly] {
   cursor: pointer;
