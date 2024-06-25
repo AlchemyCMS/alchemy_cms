@@ -186,7 +186,7 @@ td,
 
     .tag {
       margin: 0;
-      padding: calc(0 2 + var(--spacing-1));
+      padding: 0 calc(2 + var(--spacing-1));
 
       &:before {
         padding-right: var(--spacing-1);
