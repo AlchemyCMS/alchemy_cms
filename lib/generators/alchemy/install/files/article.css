@@ -1,0 +1,25 @@
+article {
+  width: 50%;
+  font: 16px/20px Helvetica, Arial, sans-serif;
+  color: #333;
+  margin: 1em auto;
+  padding: 0.5em 1em;
+  background: #f4f4f4;
+}
+article h2 {
+  font-size: 24px;
+  line-height: 1.25;
+  font-weight: bold;
+}
+article a {
+  color: #5588D3;
+}
+article img {
+  max-width: 100%;
+}
+article figure {
+  margin: 0;
+}
+article figcaption {
+  font-size: 14px;
+}

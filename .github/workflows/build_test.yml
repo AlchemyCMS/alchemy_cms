@@ -117,6 +117,7 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
+          rubygems: "latest"
       - name: Restore apt cache
         id: apt-cache
         uses: actions/cache@v4

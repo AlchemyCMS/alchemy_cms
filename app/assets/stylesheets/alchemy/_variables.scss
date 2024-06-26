@@ -123,9 +123,9 @@ $form-left-width: 35% !default;
 $form-right-width: 65% !default;
 
 $sitemap-line-height: 32px !default;
-$sitemap-page-background-color: hsla(0deg, 0, 100%, 0.75) !default;
+$sitemap-page-background-color: hsla(0deg, 0%, 100%, 0.75) !default;
 $sitemap-page-hover-color: hsla(60deg, 81%, 92%, 0.5) !default;
-$sitemap-info-background-color: hsla(0deg, 0, 100%, 0.5) !default;
+$sitemap-info-background-color: hsla(0deg, 0%, 100%, 0.5) !default;
 $sitemap-highlight-color: hsla(57deg, 100%, 82%, 0.5) !default;
 
 $main-menu-width: 150px !default;
@@ -143,7 +143,7 @@ $tab-bar-height: 51px !default;
 $element-toolbar-height: 37px !default;
 $header-height: 29px !default;
 $header-background: hsl(0deg, 0%, 85%) !default;
-$text-shadow-light: hsla(0deg, 0, 100%, 0.5) 0 0 4px !default;
+$text-shadow-light: hsla(0deg, 0%, 100%, 0.5) 0 0 4px !default;
 $transition-duration: 250ms !default;
 $transition-easing: linear !default;
 
@@ -152,7 +152,7 @@ $tooltip-background-color: var(--color-blue_dark) !default;
 $addon-icon-opacity: 0.85 !default;
 
 $table-row-even-background-color: var(--color-white) !default;
-$table-row-odd-background-color: hsla(0deg, 0, 100%, 0.5) !default;
+$table-row-odd-background-color: hsla(0deg, 0%, 100%, 0.5) !default;
 $table-row-hover-color: hsla(60deg, 81%, 92%, 0.5) !default;
 
 $elements-window-width: 22.5vw !default;

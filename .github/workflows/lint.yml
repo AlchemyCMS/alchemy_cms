@@ -17,6 +17,7 @@ jobs:
         with:
           ruby-version: "3.0"
           bundler-cache: true
+          rubygems: "latest"
       - name: Lint Ruby files
         run: bundle exec standardrb
   ESLint:

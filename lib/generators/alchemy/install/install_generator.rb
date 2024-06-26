@@ -65,21 +65,19 @@ module Alchemy
 
       def install_assets
         copy_file "all.js", app_vendor_assets_path.join("javascripts", "alchemy", "admin", "all.js")
-        copy_file "all.css", app_vendor_assets_path.join("stylesheets", "alchemy", "admin", "all.css")
       end
 
       def copy_demo_views
         return if options[:skip_demo_files]
 
         copy_file "application.html.erb", app_views_path.join("layouts", "application.html.erb")
-        copy_file "article.scss", app_assets_path.join("stylesheets", "alchemy", "elements", "article.scss")
+        copy_file "article.css", app_assets_path.join("stylesheets", "alchemy", "elements", "_article.css")
 
-        stylesheet_require = " *= require_tree ./alchemy/elements\n"
+        stylesheet_require = %(@import "alchemy/elements/article";\n)
         if File.exist?(app_assets_path.join("stylesheets", "application.css"))
-          insert_into_file app_assets_path.join("stylesheets", "application.css"), stylesheet_require,
-            before: " */"
+          prepend_file app_assets_path.join("stylesheets", "application.css"), stylesheet_require
         else
-          create_file app_assets_path.join("stylesheets", "application.css"), "/*\n#{stylesheet_require} */\n"
+          create_file app_assets_path.join("stylesheets", "application.css"), stylesheet_require
         end
 
         copy_file "_article.html.erb", app_views_path.join("alchemy", "elements", "_article.html.erb")
