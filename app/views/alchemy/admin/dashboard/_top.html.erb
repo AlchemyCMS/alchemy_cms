@@ -1,0 +1,12 @@
+<h1>
+  <% if @first_time -%>
+  <%= Alchemy.t(:welcome_note, name: current_alchemy_user.try(:name)) %>
+  <% else -%>
+  <%= Alchemy.t(:welcome_back_note, name: current_alchemy_user.try(:name)) %>
+  <% end -%>
+</h1>
+<% if @last_sign_at %>
+<p>
+  <small><%= Alchemy.t('Your last login was on', time: l(@last_sign_at, format: :'alchemy.default')) %></small>
+</p>
+<% end %>
