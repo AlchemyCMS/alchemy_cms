@@ -9,6 +9,7 @@
     <meta name="robots" content="noindex">
     <meta name="alchemy-icon-sprite" content="<%= asset_path("remixicon.symbol.svg") %>">
     <meta name="turbo-prefetch" content="false">
+    <meta name="turbo-cache-control" content="no-cache">
     <%= stylesheet_link_tag('alchemy/admin', media: 'screen', 'data-turbo-track' => true) %>
     <%= stylesheet_link_tag('alchemy/admin/print', media: 'print', 'data-turbo-track' => true) %>
     <%= yield :stylesheets %>
