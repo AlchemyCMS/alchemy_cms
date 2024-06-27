@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.1.10 (2024-06-27)
+
+- [7.1-stable] Prevent Javascript error if the page will be unlocked [#2945](https://github.com/AlchemyCMS/alchemy_cms/pull/2945) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] fix(ContactMessages): Use alchemy route proxy [#2928](https://github.com/AlchemyCMS/alchemy_cms/pull/2928) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.1.9 (2024-06-04)
 
 - [7.1-stable] fix(RoutingConstraints): Allow Turbo Stream requests [#2915](https://github.com/AlchemyCMS/alchemy_cms/pull/2915) ([alchemycms-bot](https://github.com/alchemycms-bot))
