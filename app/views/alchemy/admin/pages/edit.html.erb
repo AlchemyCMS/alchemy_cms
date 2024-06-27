@@ -131,10 +131,6 @@
 </div>
 <% end %>
 
-<% content_for :javascript_includes do %>
-  <meta name="turbo-cache-control" content="no-cache">
-<% end %>
-
 <iframe
   url="<%= @preview_url %>"
   id="alchemy_preview_window"
