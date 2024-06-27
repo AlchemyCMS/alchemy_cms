@@ -107,7 +107,7 @@
 
 @mixin form-hint(
   $background-color: var(--color-yellow_light),
-  $border-color: var(--color-grey_medium)
+  $border-color: var(--color-grey_light)
 ) {
   font-size: $small-font-size;
   line-height: 1.5em;
@@ -156,7 +156,7 @@
   vertical-align: middle;
   padding: $padding;
   margin: $margin;
-  background-color: var(--color-grey_medium);
+  background-color: var(--color-grey_light);
   overflow: hidden;
   position: relative;
   border-radius: $default-border-radius;

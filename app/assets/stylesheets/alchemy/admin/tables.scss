@@ -37,7 +37,7 @@ table {
   padding: var(--spacing-2) var(--spacing-3);
   vertical-align: top;
   line-height: 22px;
-  border-right: 1px solid var(--color-grey_medium);
+  border-right: 1px solid var(--color-grey_light);
   transition: background-color $transition-duration;
 
   &:last-child {
@@ -59,7 +59,7 @@ table {
   position: relative;
 
   &.icon {
-    border-bottom: 1px solid var(--color-grey_medium);
+    border-bottom: 1px solid var(--color-grey_light);
   }
 }
 
@@ -68,7 +68,7 @@ th,
   white-space: nowrap;
   text-align: left;
   vertical-align: top;
-  border-bottom: 1px solid var(--color-grey_medium);
+  border-bottom: 1px solid var(--color-grey_light);
   font-weight: bold;
 }
 
