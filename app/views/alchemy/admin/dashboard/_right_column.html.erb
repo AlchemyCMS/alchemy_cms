@@ -1,0 +1,9 @@
+<div class="column right">
+  <% if @online_users.try(:any?) %>
+    <%= render 'alchemy/admin/dashboard/widgets/users' %>
+  <% end %>
+
+  <% if multi_site? %>
+    <%= render 'alchemy/admin/dashboard/widgets/sites' %>
+  <% end %>
+</div>
