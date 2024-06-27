@@ -15,6 +15,6 @@
     }
     locked_page_icon.outerHTML = locked_page_icon_content
   }
-  document.querySelector("#page_<%= @page.id -%> .page_status.locked").remove()
+  document.querySelector("#page_<%= @page.id -%> .page_status.locked")?.remove()
   Alchemy.growl('<%= flash[:notice] -%>')
 })()
