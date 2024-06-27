@@ -1,5 +1,17 @@
 # Changelog
 
+## 7.2.3 (2024-06-27)
+
+- [7.2-stable] Disable Turbo Prefetch in Admin [#2947](https://github.com/AlchemyCMS/alchemy_cms/pull/2947) ([tvdeyen](https://github.com/tvdeyen))
+- [7.2-stable] Prevent Javascript error if the page will be unlocked [#2946](https://github.com/AlchemyCMS/alchemy_cms/pull/2946) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.2-stable] fix(ContactMessages): Use alchemy route proxy [#2929](https://github.com/AlchemyCMS/alchemy_cms/pull/2929) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.2-stable] [js] Update tinymce 7.1.0 → 7.1.1 (patch) [#2921](https://github.com/AlchemyCMS/alchemy_cms/pull/2921) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
+## 7.2.2 (2024-06-04)
+
+- [7.2-stable] fix(RoutingConstraints): Allow Turbo Stream requests [#2916](https://github.com/AlchemyCMS/alchemy_cms/pull/2916) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.2-stable] fix Ingredient Audio and Video boolean type casting [#2912](https://github.com/AlchemyCMS/alchemy_cms/pull/2912) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.2.1 (2024-06-03)
 
 - Add name attribute to Preview IFrame [#2908](https://github.com/AlchemyCMS/alchemy_cms/pull/2908) ([mamhoff](https://github.com/mamhoff))
@@ -144,6 +156,23 @@
 - Use Rails' CurrentAttributes to store globals [#2701](https://github.com/AlchemyCMS/alchemy_cms/pull/2701) ([tvdeyen](https://github.com/tvdeyen))
 - Add nodes to page dialog [#2699](https://github.com/AlchemyCMS/alchemy_cms/pull/2699) ([sascha-karnatz](https://github.com/sascha-karnatz))
 - Fixes language switching to default language [#2689](https://github.com/AlchemyCMS/alchemy_cms/pull/2689) ([robinboening](https://github.com/robinboening))
+
+## 7.1.10 (2024-06-27)
+
+- [7.1-stable] Prevent Javascript error if the page will be unlocked [#2945](https://github.com/AlchemyCMS/alchemy_cms/pull/2945) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] fix(ContactMessages): Use alchemy route proxy [#2928](https://github.com/AlchemyCMS/alchemy_cms/pull/2928) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
+## 7.1.9 (2024-06-04)
+
+- [7.1-stable] fix(RoutingConstraints): Allow Turbo Stream requests [#2915](https://github.com/AlchemyCMS/alchemy_cms/pull/2915) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] fix Ingredient Audio and Video boolean type casting [#2911](https://github.com/AlchemyCMS/alchemy_cms/pull/2911) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
+## 7.1.8 (2024-05-29)
+
+- [7.1-stable] Fix preview window width for smaller viewports [#2890](https://github.com/AlchemyCMS/alchemy_cms/pull/2890) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] Fix Preview Window width [#2881](https://github.com/AlchemyCMS/alchemy_cms/pull/2881) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] Fix preview window resize transition [#2872](https://github.com/AlchemyCMS/alchemy_cms/pull/2872) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] UI fixes for picture css class display [#2846](https://github.com/AlchemyCMS/alchemy_cms/pull/2846) ([alchemycms-bot](https://github.com/alchemycms-bot))
 
 ## 7.1.7 (2024-04-12)
 
