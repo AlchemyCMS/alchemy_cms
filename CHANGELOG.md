@@ -1,5 +1,12 @@
 # Changelog
 
+## 7.2.3 (2024-06-27)
+
+- [7.2-stable] Disable Turbo Prefetch in Admin [#2947](https://github.com/AlchemyCMS/alchemy_cms/pull/2947) ([tvdeyen](https://github.com/tvdeyen))
+- [7.2-stable] Prevent Javascript error if the page will be unlocked [#2946](https://github.com/AlchemyCMS/alchemy_cms/pull/2946) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.2-stable] fix(ContactMessages): Use alchemy route proxy [#2929](https://github.com/AlchemyCMS/alchemy_cms/pull/2929) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.2-stable] [js] Update tinymce 7.1.0 → 7.1.1 (patch) [#2921](https://github.com/AlchemyCMS/alchemy_cms/pull/2921) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.2.2 (2024-06-04)
 
 - [7.2-stable] fix(RoutingConstraints): Allow Turbo Stream requests [#2916](https://github.com/AlchemyCMS/alchemy_cms/pull/2916) ([alchemycms-bot](https://github.com/alchemycms-bot))
