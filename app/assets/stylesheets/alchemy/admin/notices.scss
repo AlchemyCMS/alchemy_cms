@@ -11,6 +11,10 @@ alchemy-message {
   word-break: break-word;
   line-height: 1.5;
 
+  turbo-frame & {
+    margin: var(--spacing-2);
+  }
+
   &[type="footnote"] {
     font-size: $small-font-size;
     margin: var(--spacing-4);
