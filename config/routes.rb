@@ -49,7 +49,7 @@ Alchemy::Engine.routes.draw do
       end
     end
 
-    resources :layoutpages, only: [:index, :edit]
+    resources :layoutpages, only: [:index, :edit, :update]
 
     resources :pictures, except: [:new] do
       collection do
