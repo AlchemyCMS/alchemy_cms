@@ -62,5 +62,29 @@ module Alchemy
         end
       end
     end
+
+    describe "#update" do
+      let(:page) { create(:alchemy_page, :layoutpage) }
+
+      context "with passing validations" do
+        subject { put :update, params: {id: page.id, page: {name: "New Name"}}, format: :js }
+
+        it "renders update template" do
+          is_expected.to render_template("alchemy/admin/pages/update")
+        end
+      end
+
+      context "with failing validations" do
+        subject { put :update, params: {id: page.id, page: {name: ""}} }
+
+        it "renders edit form" do
+          is_expected.to render_template(:edit)
+        end
+
+        it "sets 422 status" do
+          expect(subject.status).to eq 422
+        end
+      end
+    end
   end
 end
