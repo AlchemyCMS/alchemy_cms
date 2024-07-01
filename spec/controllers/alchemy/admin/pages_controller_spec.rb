@@ -10,6 +10,8 @@ RSpec.describe Alchemy::Admin::PagesController do
     authorize_user(:as_admin)
   end
 
+  it_behaves_like "a controller that loads current language"
+
   describe "#index" do
     let!(:page) { create(:alchemy_page) }
 

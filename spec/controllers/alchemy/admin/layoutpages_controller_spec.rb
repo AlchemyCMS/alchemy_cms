@@ -10,6 +10,8 @@ module Alchemy
       authorize_user(:as_admin)
     end
 
+    it_behaves_like "a controller that loads current language"
+
     describe "#index" do
       context "with no language present" do
         it "redirects to the languages admin" do
