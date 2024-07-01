@@ -148,6 +148,10 @@ describe Alchemy::Permissions do
       is_expected.to be_able_to(:switch, Alchemy::Language)
     end
 
+    it "can update layoutpages" do
+      is_expected.to be_able_to(:update, :alchemy_admin_layoutpages)
+    end
+
     context "if page language is public" do
       let(:language) { create(:alchemy_language, :german, public: true) }
       let(:page) { create(:alchemy_page, language: language) }
