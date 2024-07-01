@@ -96,7 +96,7 @@ module Alchemy
         can :leave, :alchemy_admin
         can [:info, :help], :alchemy_admin_dashboard
         can :manage, :alchemy_admin_clipboard
-        can :edit, :alchemy_admin_layoutpages
+        can :update, :alchemy_admin_layoutpages
         can :tree, :alchemy_admin_pages
 
         # Resources
