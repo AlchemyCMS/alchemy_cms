@@ -245,6 +245,10 @@ module Alchemy
           expect(assigns(:message)[:body]).to eq(Alchemy.t(:picture_update_failed))
           expect(assigns(:message)[:type]).to eq("error")
         end
+
+        it "sets 422 status" do
+          expect(subject.status).to eq 422
+        end
       end
 
       context "update description" do

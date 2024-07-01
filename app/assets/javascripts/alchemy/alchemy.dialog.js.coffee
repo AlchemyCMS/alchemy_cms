@@ -128,6 +128,10 @@ class window.Alchemy.Dialog
       when 403
         error_header = "You are not authorized!"
         error_body = "Please close this window."
+      when 422
+        @dialog_body.html(xhr.responseText)
+        @init()
+        return
       else
         error_type = "error"
         if status_message

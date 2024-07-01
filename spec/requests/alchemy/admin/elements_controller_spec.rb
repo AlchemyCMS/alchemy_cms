@@ -34,4 +34,19 @@ RSpec.describe Alchemy::Admin::ElementsController do
       end
     end
   end
+
+  describe "#update" do
+    let(:element) { create(:alchemy_element) }
+
+    context "if validation failed" do
+      before do
+        allow_any_instance_of(Alchemy::Element).to receive(:update).and_return(false)
+      end
+
+      it "returns 422 status" do
+        patch admin_element_path(id: element.id)
+        expect(response.status).to eq 422
+      end
+    end
+  end
 end

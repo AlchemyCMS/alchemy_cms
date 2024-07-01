@@ -175,6 +175,10 @@ module Alchemy
         it "renders edit form" do
           is_expected.to render_template(:edit)
         end
+
+        it "sets 422 status" do
+          expect(subject.status).to eq 422
+        end
       end
     end
 
