@@ -347,6 +347,7 @@ sl-tooltip {
 sl-dialog {
   &::part(panel) {
     background-color: var(--color-grey_very_light);
+    min-height: var(--dialog-min-height);
     --body-spacing: var(--spacing-4) var(--spacing-3);
     --footer-spacing: var(--spacing-4) var(--spacing-3);
   }
