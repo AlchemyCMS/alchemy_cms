@@ -1,4 +1,4 @@
-<%= alchemy_form_for [:admin, @page], class: 'edit_page' do |f| %>
+<%= alchemy_form_for [:admin, @page], url: alchemy.admin_layoutpage_path(@page), class: 'edit_page' do |f| %>
   <%= f.input :name, autofocus: true %>
   <div class="input string">
     <%= f.label :tag_list %>
