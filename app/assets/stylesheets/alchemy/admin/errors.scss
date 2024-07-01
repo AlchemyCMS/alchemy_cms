@@ -45,3 +45,18 @@ body.error {
     overflow-y: scroll;
   }
 }
+
+.turbo-frame-error {
+  display: block;
+  padding: var(--spacing-2);
+  background-color: var(--color-yellow_medium);
+  border: 1px solid var(--color-yellow_dark);
+  border-radius: var(--border-radius_medium);
+  margin: var(--spacing-2);
+  color: var(--color-yellow_dark);
+
+  &:before {
+    content: "⚠️";
+    padding: var(--spacing-2);
+  }
+}

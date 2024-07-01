@@ -35,20 +35,58 @@ module Alchemy
     end
 
     describe "#permission_denied" do
+      subject(:permission_denied) do
+        controller.send(:permission_denied, CanCan::AccessDenied.new)
+      end
+
       context "when called with an AccessDenied exception" do
         before do
           allow(controller).to receive(:redirect_to)
         end
 
         it "redirects to login_path if no user" do
-          controller.send(:permission_denied, CanCan::AccessDenied.new)
+          permission_denied
           expect(controller).to have_received(:redirect_to).with(Alchemy.login_path)
         end
 
-        it "redirects to unauthorized_path for a logged in user" do
-          authorize_user(build(:alchemy_dummy_user))
-          controller.send(:permission_denied, CanCan::AccessDenied.new)
-          expect(controller).to have_received(:redirect_to).with(Alchemy.unauthorized_path)
+        context "for a logged in member user" do
+          before do
+            authorize_user build(:alchemy_dummy_user)
+          end
+
+          it "redirects to unauthorized_path" do
+            permission_denied
+            expect(controller).to have_received(:redirect_to).with(Alchemy.unauthorized_path)
+          end
+        end
+
+        context "for a logged in author user" do
+          before do
+            authorize_user build(:alchemy_dummy_user, :as_author)
+          end
+
+          it "redirects to dashboard path" do
+            permission_denied
+            expect(controller).to have_received(:redirect_to).with(admin_dashboard_path)
+          end
+
+          context "with a turbo frame request" do
+            before do
+              allow(controller).to receive(:turbo_frame_request?).and_return(true)
+            end
+
+            controller do
+              def index
+                permission_denied
+              end
+            end
+
+            it "renders 403 page" do
+              get :index
+              expect(response).to be_forbidden
+              expect(response).to render_template("alchemy/base/403")
+            end
+          end
         end
       end
     end

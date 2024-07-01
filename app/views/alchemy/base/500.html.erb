@@ -12,16 +12,18 @@
 
 <% content_for(:alchemy_body_class) { 'error' } %>
 
-<%= render_message(:error) do %>
-  <h1><%= Alchemy.t('An error happened') %></h1>
-  <h2>
-    <%= @error.class %>
-    <%= @notice %>
-  </h2>
-  <details>
-    <summary><%= Alchemy.t('Show error details') %></summary>
-    <% @trace.each do |line| %>
-      <%= line %><br>
-    <% end %>
-  </details>
+<%= turbo_frame_tag request.headers["Turbo-Frame"] do %>
+  <%= render_message(:error) do %>
+    <h1><%= Alchemy.t('An error happened') %></h1>
+    <h2>
+      <%= @error.class %>
+      <%= @notice %>
+    </h2>
+    <details>
+      <summary><%= Alchemy.t('Show error details') %></summary>
+      <% @trace.each do |line| %>
+        <%= line %><br>
+      <% end %>
+    </details>
+  <% end %>
 <% end %>

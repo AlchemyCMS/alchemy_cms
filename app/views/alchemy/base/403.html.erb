@@ -1,0 +1,6 @@
+<%= turbo_frame_tag request.headers["Turbo-Frame"] do %>
+  <%= render_message(:warning) do %>
+    <h1><%= Alchemy.t("You are not authorized.") %></h1>
+    <p><%= Alchemy.t("Your current user role is not permitted to access this resource.") %></p>
+  <% end %>
+<% end %>

@@ -82,6 +82,8 @@ module Alchemy
               locals: {message: flash[:warning], flash_type: "warning"}
           end
         end
+      elsif turbo_frame_request?
+        render "403", status: 403
       else
         redirect_to(alchemy.admin_dashboard_path)
       end
