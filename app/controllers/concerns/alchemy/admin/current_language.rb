@@ -13,7 +13,11 @@ module Alchemy
 
       def load_current_language
         @current_language = if session[:alchemy_language_id].present?
-          set_alchemy_language(session[:alchemy_language_id])
+          if Current.site.languages.where(id: session[:alchemy_language_id]).exists?
+            set_alchemy_language(session[:alchemy_language_id])
+          else
+            Current.site.default_language
+          end
         else
           Current.language
         end
