@@ -1,26 +1,28 @@
-<%= alchemy_form_for resource_instance_variable, url: resource_path(resource_instance_variable, search_filter_params) do |f| %>
-  <% resource_handler.editable_attributes.each do |attribute| %>
-    <% if relation = attribute[:relation] %>
-      <%= f.association relation[:name].to_sym,
-        collection: relation[:collection],
-        label_method: relation[:attr_method],
-        include_blank: Alchemy.t(:blank, scope: 'resources.relation_select'),
-        input_html: {is: 'alchemy-select'} %>
-    <% elsif attribute[:type].in? %i[date time datetime] %>
-      <%= f.datepicker attribute[:name], resource_attribute_field_options(attribute) %>
-    <% elsif attribute[:enum].present? %>
-      <%= f.input attribute[:name],
-        collection: attribute[:enum],
-        include_blank: Alchemy.t(:blank, scope: 'resources.relation_select'),
-        input_html: {is: 'alchemy-select'} %>
-    <% else %>
-      <%= f.input attribute[:name], resource_attribute_field_options(attribute) %>
+<%= turbo_frame_tag resource_instance_variable do %>
+  <%= alchemy_form_for resource_instance_variable, url: resource_path(resource_instance_variable, search_filter_params) do |f| %>
+    <% resource_handler.editable_attributes.each do |attribute| %>
+      <% if relation = attribute[:relation] %>
+        <%= f.association relation[:name].to_sym,
+          collection: relation[:collection],
+          label_method: relation[:attr_method],
+          include_blank: Alchemy.t(:blank, scope: 'resources.relation_select'),
+          input_html: {is: 'alchemy-select'} %>
+      <% elsif attribute[:type].in? %i[date time datetime] %>
+        <%= f.datepicker attribute[:name], resource_attribute_field_options(attribute) %>
+      <% elsif attribute[:enum].present? %>
+        <%= f.input attribute[:name],
+          collection: attribute[:enum],
+          include_blank: Alchemy.t(:blank, scope: 'resources.relation_select'),
+          input_html: {is: 'alchemy-select'} %>
+      <% else %>
+        <%= f.input attribute[:name], resource_attribute_field_options(attribute) %>
+      <% end %>
     <% end %>
-  <% end %>
-  <% if f.object.respond_to?(:tag_list) %>
-    <%= render Alchemy::Admin::TagsAutocomplete.new do %>
-      <%= f.input :tag_list, input_html: { value: f.object.tag_list.join(",") } %>
+    <% if f.object.respond_to?(:tag_list) %>
+      <%= render Alchemy::Admin::TagsAutocomplete.new do %>
+        <%= f.input :tag_list, input_html: { value: f.object.tag_list.join(",") } %>
+      <% end %>
     <% end %>
+    <%= f.submit Alchemy.t(:save) %>
   <% end %>
-  <%= f.submit Alchemy.t(:save) %>
 <% end %>
