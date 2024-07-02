@@ -7,7 +7,6 @@ namespace :alchemy do
     desc "Tidy up Alchemy database."
     task :up do
       Rake::Task["alchemy:tidy:element_positions"].invoke
-      Rake::Task["alchemy:tidy:content_positions"].invoke
       Rake::Task["alchemy:tidy:remove_orphaned_records"].invoke
       Rake::Task["alchemy:tidy:remove_trashed_elements"].invoke
       Rake::Task["alchemy:tidy:remove_duplicate_legacy_urls"].invoke
