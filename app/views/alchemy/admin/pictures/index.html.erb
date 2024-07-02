@@ -89,16 +89,6 @@
   <script type="text/javascript" charset="utf-8">
     $(function() {
       Alchemy.pictureSelector();
-      $('#select_all_pictures').on('click', function(e) {
-        $(this).toggleClass("active")
-        $('.picture_tool.select :checkbox')
-          .prop('checked', function(_i, val) { return !val })
-          .closest(".picture_thumbnail")
-          .toggleClass("active");
-        e.preventDefault;
-        $(".selected_item_tools").toggleClass("hidden")
-        return false;
-      });
       $('#picture_archive').on("click", ".thumbnail_background", function(event) {
         var url = $(this).attr('href');
         var overlay = new Alchemy.ImageOverlay(url);

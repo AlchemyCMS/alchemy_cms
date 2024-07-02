@@ -4,20 +4,36 @@ import { on } from "alchemy_admin/utils/events"
  * Multiple picture select handler for the picture archive.
  */
 export default function PictureSelector() {
+  const selectAllButton = document.querySelector("#select_all_pictures")
   const selectedItemTools = document.querySelector(".selected_item_tools")
   const checkedInputs = () =>
     document.querySelectorAll("#picture_archive input:checked")
 
+  on("click", ".toolbar_buttons", "a#select_all_pictures", (event) => {
+    event.preventDefault()
+
+    selectAllButton.classList.toggle("active")
+
+    const state = selectAllButton.classList.contains("active")
+
+    document
+      .querySelectorAll(".picture_tool.select input[type='checkbox']")
+      .forEach(function (checkbox) {
+        checkbox.checked = state
+        checkbox.closest(".picture_thumbnail").classList.toggle("active", state)
+      })
+
+    selectedItemTools.classList.toggle("hidden", !state)
+  })
+
   // make the item toolbar visible and show the checkbox also if it is not hovered anymore
   on("change", ".picture_tool.select", "input", (event) => {
-    selectedItemTools.style.display =
-      checkedInputs().length > 0 ? "block" : "none"
+    selectedItemTools.classList.toggle("hidden", checkedInputs().length === 0)
 
     const parentElementClassList = event.target.parentElement.classList
     const checked = event.target.checked
 
     parentElementClassList.toggle("visible", checked)
-    parentElementClassList.toggle("hidden", !checked)
   })
 
   // open the edit view in a dialog modal
