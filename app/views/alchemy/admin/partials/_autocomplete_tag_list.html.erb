@@ -1,3 +1,3 @@
 <%= render Alchemy::Admin::TagsAutocomplete.new do %>
-  <%= f.text_field :tag_list, value: object.tag_list.join(",") %>
+  <%= f.text_field :tag_list, value: f.object.tag_list.join(",") %>
 <% end %>
