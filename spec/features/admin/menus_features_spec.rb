@@ -20,6 +20,40 @@ RSpec.describe "Admin Menus Features", type: :system do
         expect(page).to have_selector(".node_name", text: "Main Menu")
       end
     end
+
+    context "with pages", :js do
+      let(:default_language) { create(:alchemy_language) }
+      let!(:contentpage) { create(:alchemy_page, language: default_language) }
+      let!(:layoutpage) { create(:alchemy_page, :layoutpage, language: default_language) }
+      let!(:main_menu) { create(:alchemy_node, name: "Main Menu") }
+
+      it "can assign contentpages" do
+        visit alchemy.admin_nodes_path
+        expect(page).to have_selector(".node_name", text: "Main Menu")
+        within ".nodes_tree" do
+          click_link_with_tooltip Alchemy.t(:create_node)
+        end
+        within ".alchemy-dialog" do
+          select2_search contentpage.name, from: "Page"
+          click_button "create"
+        end
+        expect(page).to have_selector(".node_name", text: contentpage.name)
+      end
+
+      it "can not assign layoutpages" do
+        visit alchemy.admin_nodes_path
+        expect(page).to have_selector(".node_name", text: "Main Menu")
+        within ".nodes_tree" do
+          click_link_with_tooltip Alchemy.t(:create_node)
+        end
+        within ".alchemy-dialog" do
+          select2_search layoutpage.name, from: "Page", select: false
+        end
+        within ".select2-results" do
+          expect(page).to have_content("No matches found")
+        end
+      end
+    end
   end
 
   describe "adding a new menu" do
