@@ -13,7 +13,7 @@
         value: node.page && node.read_attribute(:name).blank? ? nil : node.name,
         placeholder: node.page ? node.page.name : nil
       } %>
-      <%= render Alchemy::Admin::PageSelect.new(node.page, allow_clear: true) do %>
+      <%= render Alchemy::Admin::PageSelect.new(node.page, allow_clear: true, query_params: {contentpages: true}) do %>
         <%= f.input :page_id, label: Alchemy::Page.model_name.human %>
       <% end %>
       <%= f.input :url, input_html: { disabled: node.page }, hint: Alchemy.t(:node_url_hint) %>

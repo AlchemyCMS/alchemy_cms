@@ -40,9 +40,12 @@ module Alchemy
 
         within_entire_page do
           find("input.select2-input.select2-focused").set(value)
-          expect(page).to have_selector(".select2-result-label", visible: true)
-          find("div.select2-result-label", text: /#{Regexp.escape(value)}/i, match: :prefer_exact).click
-          expect(page).not_to have_selector(".select2-result-label")
+          expect(page).to_not have_selector(".select2-searching")
+          unless options[:select] == false
+            expect(page).to have_selector(".select2-result-label", visible: true)
+            find("div.select2-result-label", text: /#{Regexp.escape(value)}/i, match: :prefer_exact).click
+            expect(page).not_to have_selector(".select2-result-label")
+          end
         end
       end
 

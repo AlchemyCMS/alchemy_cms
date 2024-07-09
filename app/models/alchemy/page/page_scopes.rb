@@ -124,7 +124,7 @@ module Alchemy
         end
 
         def ransackable_scopes(_auth_object)
-          [:published, :from_current_site, :searchables, :layoutpages]
+          [:published, :contentpages, :from_current_site, :searchables, :layoutpages]
         end
       end
     end

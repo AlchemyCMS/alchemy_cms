@@ -669,7 +669,9 @@ module Alchemy
 
         subject { described_class.ransackable_scopes(auth_object) }
 
-        it { is_expected.to match_array([:published, :from_current_site, :layoutpages, :searchables]) }
+        it do
+          is_expected.to match_array([:published, :contentpages, :from_current_site, :layoutpages, :searchables])
+        end
       end
     end
 
