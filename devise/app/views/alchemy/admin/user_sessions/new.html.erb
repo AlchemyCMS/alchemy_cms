@@ -1,3 +1,7 @@
+<%= content_for :stylesheets do %>
+  <%= stylesheet_link_tag "alchemy-devise" %>
+<% end %>
+
 <div class="login_signup_box">
   <%= image_tag 'alchemy/alchemy-logo.svg', id: 'logo' %>
   <%= alchemy_form_for :user, url: {action: 'create'}, id: 'login', data: { turbo: false } do |f| %>

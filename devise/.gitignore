@@ -37,3 +37,4 @@ Gemfile.lock
 /coverage/
 /rdoc/
 .ruby-*
+/node_modules/
