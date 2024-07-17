@@ -1,10 +1,10 @@
 body.user_sessions,
 body.passwords {
-  background-color: $main-menu-bg-color;
-  color: $white;
+  background-color: var(--color-blue_dark);
+  color: var(--color-white);
 
   a {
-    color: $white;
+    color: var(--color-white);
   }
 
   #errors,
@@ -43,7 +43,7 @@ body.passwords {
   }
 
   button.secondary {
-    color: $white;
-    border-color: $white;
+    color: var(--color-white);
+    border-color: var(--color-white);
   }
 }
