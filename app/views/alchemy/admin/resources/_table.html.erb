@@ -1,27 +1,3 @@
-<% if resources_instance_variable.any? %>
-<table class="list" id="<%= resource_handler.resources_name %>_list">
-  <thead>
-    <tr>
-    <% if local_assigns[:icon] %>
-      <th class="icon"></th>
-    <% end %>
-    <% resource_handler.sorted_attributes.each do |attribute| %>
-      <th class="<%= attribute[:type] %> <%= attribute[:name] %>">
-        <%= sort_link [:resource_url_proxy, @query],
-          sortable_resource_header_column(attribute),
-          resource_handler.model.human_attribute_name(attribute[:name]),
-          default_order: attribute[:type].to_s =~ /date|time/ ? 'desc' : 'asc' %>
-      </th>
-    <% end %>
-      <th class="tools"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render_resources(icon: local_assigns[:icon]) %>
-  </tbody>
-</table>
-<% elsif search_filter_params[:q].present? %>
-<p><%= Alchemy.t('Nothing found') %></p>
-<% end %>
+<%= render Alchemy::Admin::Resource::Table.new(resources_instance_variable, query: @query, search_filter_params: search_filter_params, icon: local_assigns[:icon]) %>
 
 <%= paginate resources_instance_variable, scope: resource_url_proxy, theme: 'alchemy' %>
