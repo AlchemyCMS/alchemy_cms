@@ -30,6 +30,7 @@ require "alchemy/test_support/integration_helpers"
 require "alchemy/test_support/rspec_matchers"
 require "alchemy/test_support/shared_contexts"
 require "alchemy/test_support/shared_uploader_examples"
+require "alchemy/test_support/current_language_shared_examples"
 
 require_relative "support/calculation_examples"
 require_relative "support/hint_examples"
