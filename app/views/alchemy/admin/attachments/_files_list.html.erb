@@ -7,22 +7,80 @@
     <% end %>
   <% end %>
 <% else %>
-  <table id="all_files" class="list">
-    <thead>
-      <tr>
-        <th class="icon"></th>
-        <th class="name"><%= sort_link(@query, :name) %></th>
-        <th class="file_name"><%= sort_link(@query, :file_name) %></th>
-        <th class="file_type"><%= Alchemy::Attachment.human_attribute_name('file_mime_type') %></th>
-        <th class="file_size"><%= sort_link(@query, :file_size) %></th>
-        <th class="date"><%= sort_link(@query, :created_at, default_order: 'desc') %></th>
-        <th class="tools"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <%= render partial: 'alchemy/admin/attachments/attachment', collection: @attachments %>
-    </tbody>
-  </table>
+  <%= render Alchemy::Admin::Resource::Table.new(@attachments, query: @query) do |table| %>
+    <% table.icon_column { |attachment| attachment.icon_css_class } %>
+    <% table.column :name, sortable: true do |attachment| %>
+      <% if can?(:show, attachment) %>
+        <%= link_to_dialog(
+              attachment.name,
+              alchemy.admin_attachment_path(attachment),
+              {
+                title: attachment.name,
+                size: attachment_preview_size(attachment)
+              },
+              {
+                title: Alchemy.t('Attachment Preview')
+              }
+            ) %>
+      <% else %>
+        <%= attachment.name %>
+      <% end %>
+    <% end %>
+    <% table.column :file_name, sortable: true %>
+    <% table.column :file_mime_type do |attachment| %>
+      <%= mime_to_human(attachment.file_mime_type) %>
+    <% end %>
+    <% table.column :file_size, sortable: true do |attachment| %>
+      <%= number_to_human_size(attachment.file_size) %>
+    <% end %>
+    <% table.column :created_at, sortable: true %>
+
+    <% table.button(:show, tooltip: Alchemy.t('Attachment Preview')) do |attachment| %>
+      <%= link_to_dialog(
+            render_icon(:information),
+            alchemy.admin_attachment_path(attachment),
+            {
+              title: attachment.name,
+              size: attachment_preview_size(attachment)
+            },
+            class: "icon_button"
+          ) %>
+    <% end %>
+    <% table.button(:download) do |attachment| %>
+      <sl-tooltip content="<%= Alchemy.t("download_file", filename: attachment.file_name) %>">
+        <%= link_to render_icon(:download),
+          alchemy.download_admin_attachment_path(attachment),
+          target: "_blank",
+          class: "icon_button" %>
+      </sl-tooltip>
+    <% end %>
+    <% table.button(:edit, tooltip: Alchemy.t(:replace_file)) do |attachment| %>
+      <%= render 'alchemy/admin/attachments/replace_button',
+        redirect_url: alchemy.admin_attachments_path,
+        object: attachment,
+        file_attribute: 'file' %>
+    <% end %>
+    <% table.button(:destroy, tooltip: Alchemy.t(:delete_file)) do |attachment| %>
+      <%= link_to_confirm_dialog render_icon(:minus),
+        Alchemy.t(:confirm_to_delete_file),
+        alchemy.admin_attachment_path(
+          id: attachment,
+          q: search_filter_params[:q],
+          page: params[:page],
+          per_page: params[:per_page]
+        ),
+        class: "icon_button" %>
+    <% end %>
+    <% table.button(:edit, tooltip: Alchemy.t(:rename_file)) do |attachment| %>
+      <%= link_to_dialog render_icon(:edit),
+        alchemy.edit_admin_attachment_path(attachment, q: search_filter_params[:q], page: params[:page]),
+        {
+          title: Alchemy.t(:rename_file),
+          size: '500x250'
+        },
+        class: "icon_button" %>
+    <% end %>
+  <% end %>
 
   <%= paginate @attachments, theme: 'alchemy' %>
 <% end %>
