@@ -26,13 +26,13 @@
   <% table.column :page_type do |page| %>
     <%= Alchemy.t(page.page_layout, scope: "page_layout_names", default: page.page_layout.to_s.humanize) %>
   <% end %>
-  <% table.column :tag_list do |page| %>
+  <% table.column :tag_list, class_name: "tags" do |page| %>
     <% page.tag_list.each do |tag| %>
       <%= content_tag(:span, tag, class: "tag") %>
     <% end %>
   <% end %>
   <% table.column :updated_at, sortable: true %>
-  <% table.column :status, alignment: :right do |page| %>
+  <% table.column :status, class_name: :right do |page| %>
     <% if page.locked? %>
       <span class="page_status locked">
         <%= render_icon(:edit, size: "1x") %>

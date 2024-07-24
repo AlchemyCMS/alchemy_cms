@@ -21,20 +21,21 @@
   <%= render 'alchemy/admin/resources/table_header' %>
   <% if @tags.any? %>
 
-  <table class="list">
-    <thead>
-      <tr>
-        <th class="icon"></th>
-        <th class="name"><%= sort_link(@query, :name) %></th>
-        <th style="width: 15%"><%= Gutentag::Tag.human_attribute_name(:taggings_types) %></th>
-        <th class="count"><%= sort_link(@query, :taggings_count) %></th>
-        <th class="tools"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <%= render partial: 'tag', collection: @tags %>
-    </tbody>
-  </table>
+    <%= render Alchemy::Admin::Resource::Table.new(@tags, query: @query, search_filter_params: search_filter_params) do |table| %>
+      <% table.icon_column "tag" %>
+      <% table.column :name, sortable: true %>
+      <% table.column :taggings_types do |tag| %>
+        <% tag.taggings.collect(&:taggable).compact.uniq(&:class).each do |taggable| %>
+          <span class="label">
+            <%= taggable.class.model_name.human %>
+          </span>
+        <% end %>
+      <% end %>
+      <% table.column :taggings_count, sortable: true, class_name: "count" %>
+
+      <% table.delete_button tooltip: Alchemy.t(:delete_tag), message: Alchemy.t(:do_you_really_want_to_delete_this_tag?) %>
+      <% table.edit_button tooltip: Alchemy.t(:edit_tag), title: Alchemy.t(:edit_tag) %>
+    <% end %>
 
   <%= paginate @tags, theme: 'alchemy' %>
 
