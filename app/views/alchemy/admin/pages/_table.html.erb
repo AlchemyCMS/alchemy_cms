@@ -1,30 +1,95 @@
-<table class="list">
-  <thead>
-    <tr>
-      <th class="icon"></th>
-      <th class="string name">
-        <%= sort_link [:alchemy, @query],
-          "name",
-          Alchemy::Page.human_attribute_name(:name),
-          default_order: "asc" %>
-      </th>
-      <th><%= Alchemy::Page.human_attribute_name(:urlname) %></th>
-      <th><%= Alchemy::Page.human_attribute_name(:page_type) %></th>
-      <th><%= Alchemy::Page.human_attribute_name(:tag_list) %></th>
-      <th>
-        <%= sort_link [:alchemy, @query],
-          :updated_at,
-          Alchemy::Page.human_attribute_name(:updated_at),
-          default_order: "desc" %>
-      </th>
-      <th class="status right"><%= Alchemy::Page.human_attribute_name(:status) %></th>
-      <th class="tools"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render partial: "table_row", collection: @pages, as: "page" %>
-  </tbody>
-</table>
+<%= render Alchemy::Admin::Resource::Table.new(@pages, query: @query, search_filter_params: search_filter_params) do |table| %>
+  <% table.column :icon, label: "" do |page| %>
+    <% if can?(:edit_content, page) %>
+      <% if page.locked? %>
+        <sl-tooltip class="like-hint-tooltip" content="<%= Alchemy.t("This page is locked", name: page.locker_name) %>" placement="bottom-start">
+          <%= render_icon "file-edit", size: "xl" %>
+        </sl-tooltip>
+      <% else %>
+        <%= render_icon "file-edit", size: "xl" %>
+      <% end %>
+    <% else %>
+      <sl-tooltip class="like-hint-tooltip" content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" placement="bottom-start">
+        <%= render_icon "file-forbid", size: "xl" %>
+      </sl-tooltip>
+    <% end %>
+  <% end %>
+  <% table.column :name, sortable: true do |page| %>
+    <%= link_to_if(
+          can?(:edit_content, page),
+          page.name,
+          alchemy.edit_admin_page_path(page),
+          title: Alchemy.t(:edit_page),
+        ) { content_tag(:span, page.name) } -%>
+  <% end %>
+  <% table.column :url_path, label: Alchemy::Page.human_attribute_name(:urlname) %>
+  <% table.column :page_type do |page| %>
+    <%= Alchemy.t(page.page_layout, scope: "page_layout_names", default: page.page_layout.to_s.humanize) %>
+  <% end %>
+  <% table.column :tag_list do |page| %>
+    <% page.tag_list.each do |tag| %>
+      <%= content_tag(:span, tag, class: "tag") %>
+    <% end %>
+  <% end %>
+  <% table.column :updated_at, sortable: true %>
+  <% table.column :status, alignment: :right do |page| %>
+    <% if page.locked? %>
+      <span class="page_status locked">
+        <%= render_icon(:edit, size: "1x") %>
+        <%= page.status_title(:locked) %>
+      </span>
+    <% end %>
+    <% if page.restricted? %>
+      <span class="page_status">
+        <%= render_icon(:lock, size: "1x") %>
+        <%= page.status_title(:restricted) %>
+      </span>
+    <% end %>
+    <% unless page.public? %>
+      <span class="page_status">
+        <%= render_icon("cloud-off", size: "1x") %>
+        <%= page.status_title(:public) %>
+      </span>
+    <% end %>
+  <% end %>
+
+  <% table.button :info, tooltip: Alchemy.t(:page_infos) do |page| %>
+    <%= link_to_dialog(
+          render_icon('info-circle'),
+          alchemy.info_admin_page_path(page),
+          {
+            title: Alchemy.t(:page_infos),
+            size: '520x290'
+          },
+          class: "icon_button"
+        ) %>
+  <% end %>
+  <% table.button :configure, tooltip: Alchemy.t(:edit_page_properties) do |page| %>
+    <%= link_to_dialog(
+          render_icon(:cog),
+          alchemy.configure_admin_page_path(page),
+          {
+            title: Alchemy.t(:edit_page_properties),
+            size: '450x680'
+          },
+          class: "icon_button"
+        ) -%>
+  <% end %>
+  <% table.button :copy, tooltip: Alchemy.t(:copy_page) do |page| %>
+    <%= link_to(
+          render_icon(:copy),
+          alchemy.insert_admin_clipboard_path(
+            remarkable_type: :pages,
+            remarkable_id: page.id,
+          ),
+          remote: true,
+          method: :post,
+          class: "icon_button"
+        ) %>
+  <% end %>
+  <% table.delete_button tooltip: Alchemy.t(:delete_page), message: Alchemy.t(:confirm_to_delete_page) %>
+<% end %>
+
 
 <script type="text/javascript">
   $(function() {
