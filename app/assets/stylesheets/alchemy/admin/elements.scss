@@ -502,7 +502,7 @@ alchemy-publish-element-button {
 .ingredient_link_buttons {
   display: flex;
   position: absolute;
-  bottom: var(--spacing-2);
+  bottom: var(--spacing-1);
   right: 0;
 
   .icon_button {
@@ -909,6 +909,14 @@ select.long {
       }
     }
   }
+
+  .input-field {
+    position: relative;
+
+    .input-addon {
+      bottom: var(--spacing-1);
+    }
+  }
 }
 
 div.pictures_for_element {
@@ -1008,7 +1016,7 @@ label.ingredient-date--label,
   display: inline-flex;
   align-items: center;
   position: absolute;
-  bottom: var(--spacing-3);
+  bottom: var(--spacing-2);
   margin: 0 !important;
 }
 

@@ -3,18 +3,20 @@
   data: link_editor.data_attributes do %>
   <%= element_form.fields_for(:ingredients, link_editor.ingredient) do |f| %>
     <%= ingredient_label(link_editor) %>
-    <%= f.text_field :value,
-      class: "thin_border text_with_icon readonly",
-      id: link_editor.form_field_id,
-      "data-link-value": true,
-      readonly: true,
-      tabindex: -1
-    %>
-    <%= f.hidden_field :link_title, "data-link-title": true, id: nil %>
-    <%= f.hidden_field :link_class_name, "data-link-class": true, id: nil %>
-    <%= f.hidden_field :link_target, "data-link-target": true, id: nil %>
+    <div class="input-field">
+      <%= f.text_field :value,
+        class: "thin_border text_with_icon readonly",
+        id: link_editor.form_field_id,
+        "data-link-value": true,
+        readonly: true,
+        tabindex: -1
+      %>
+      <%= f.hidden_field :link_title, "data-link-title": true, id: nil %>
+      <%= f.hidden_field :link_class_name, "data-link-class": true, id: nil %>
+      <%= f.hidden_field :link_target, "data-link-target": true, id: nil %>
+      <%= render "alchemy/ingredients/shared/link_tools", ingredient_editor: link_editor, wrapper_class: "ingredient_link_buttons" %>
+    </div>
   <% end %>
-  <%= render "alchemy/ingredients/shared/link_tools", ingredient_editor: link_editor, wrapper_class: "ingredient_link_buttons" %>
 <% end %>
 
 <script>
