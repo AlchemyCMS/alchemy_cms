@@ -164,6 +164,7 @@ RSpec.describe Alchemy::Element do
     it "returns translated ingredient error messages" do
       expect(element.ingredient_error_messages).to eq([
         "Please enter a headline for all you can eat",
+        "Headline is too short",
         "Text is invalid"
       ])
     end

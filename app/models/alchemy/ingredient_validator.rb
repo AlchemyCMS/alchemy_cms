@@ -86,6 +86,16 @@ module Alchemy
       end
     end
 
+    def validate_length(opts = {})
+      value_length = ingredient.value.to_s.length
+      if value_length < opts[:minimum]
+        ingredient.errors.add(:value, :too_short, count: opts[:minimum])
+      end
+      if value_length > opts[:maximum]
+        ingredient.errors.add(:value, :too_long, count: opts[:maximum])
+      end
+    end
+
     def duplicates
       ingredient.class
         .joins(:element).merge(Alchemy::Element.published)
