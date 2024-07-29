@@ -39,7 +39,7 @@ group :development, :test do
     gem "bumpy"
     gem "yard"
     gem "redcarpet"
-    gem "pry-byebug"
+    gem "debug"
     gem "listen"
     gem "localeapp", "~> 3.0", require: false
     gem "dotenv", "~> 3.0"
