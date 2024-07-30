@@ -138,6 +138,8 @@
     - role: link
       type: Link
       hint: true
+      validate:
+        - presence
     - role: node
       type: Node
       hint: true

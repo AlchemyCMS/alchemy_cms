@@ -7,6 +7,7 @@
       <%= f.text_field :page_id,
         value: page_editor.page&.id,
         id: page_editor.form_field_id(:page_id),
+        required: page_editor.presence_validation?,
         class: 'full_width' %>
       <% end %>
     <% end %>

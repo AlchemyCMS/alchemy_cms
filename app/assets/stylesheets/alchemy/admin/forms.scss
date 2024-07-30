@@ -121,6 +121,10 @@ form {
     }
   }
 
+  input:invalid:focus {
+    @extend %field-with-error;
+  }
+
   small.error {
     color: $error_text_color;
     display: block;

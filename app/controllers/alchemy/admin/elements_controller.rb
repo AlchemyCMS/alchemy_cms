@@ -69,8 +69,12 @@ module Alchemy
           render json: {
             warning: @warning,
             errorMessage: Alchemy.t(:ingredient_validations_headline),
-            ingredientsWithErrors: @element.ingredients_with_errors.map(&:id),
-            errors: @element.ingredient_error_messages
+            ingredientsWithErrors: @element.ingredients_with_errors.map do |ingredient|
+              {
+                id: ingredient.id,
+                errorMessage: ingredient.errors.messages[:value].to_sentence
+              }
+            end
           }, status: :unprocessable_entity
         end
       end

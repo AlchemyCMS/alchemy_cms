@@ -147,29 +147,6 @@ RSpec.describe Alchemy::Element do
     end
   end
 
-  describe "#ingredient_error_messages" do
-    let(:element) { create(:alchemy_element, :with_ingredients, name: "all_you_can_eat") }
-
-    before do
-      element.update(
-        ingredients_attributes: {
-          "0": {
-            id: element.ingredients.first.id,
-            value: ""
-          }
-        }
-      )
-    end
-
-    it "returns translated ingredient error messages" do
-      expect(element.ingredient_error_messages).to eq([
-        "Please enter a headline for all you can eat",
-        "Headline is too short",
-        "Text is invalid"
-      ])
-    end
-  end
-
   describe "#richtext_ingredients_ids" do
     subject { element.richtext_ingredients_ids }
 

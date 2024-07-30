@@ -8,6 +8,10 @@
         class: "thin_border text_with_icon readonly",
         id: link_editor.form_field_id,
         "data-link-value": true,
+        minlength: link_editor.length_validation&.fetch(:minimum, nil),
+        maxlength: link_editor.length_validation&.fetch(:maximum, nil),
+        required: link_editor.presence_validation?,
+        pattern: link_editor.format_validation,
         readonly: true,
         tabindex: -1
       %>

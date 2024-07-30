@@ -24,7 +24,8 @@
       <%= f.select :value, options_tags, {}, {
         id: select_editor.form_field_id,
         class: ["ingredient-editor-select"],
-        is: "alchemy-select"
+        is: "alchemy-select",
+        required: select_editor.presence_validation?
       } %>
     <% end %>
   <% end %>

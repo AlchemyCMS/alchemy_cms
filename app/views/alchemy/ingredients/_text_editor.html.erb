@@ -9,6 +9,10 @@
       <%= f.text_field :value,
         class: text_editor.settings[:linkable] ? "text_with_icon" : "",
         id: text_editor.form_field_id,
+        minlength: text_editor.length_validation&.fetch(:minimum, nil),
+        maxlength: text_editor.length_validation&.fetch(:maximum, nil),
+        required: text_editor.presence_validation?,
+        pattern: text_editor.format_validation,
         type: text_editor.settings[:input_type] || "text" %>
       <% if text_editor.settings[:anchor] %>
         <%= render "alchemy/ingredients/shared/anchor", ingredient_editor: text_editor %>

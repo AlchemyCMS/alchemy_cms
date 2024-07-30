@@ -22,7 +22,6 @@ de:
       richtext: Dieser Inhaltstyp stellt formatierbaren Text dar
       select: Dieser Inhaltstyp stellt Werte dar aus denen der Redakteur wählen kann
       text: Dieser Inhaltstyp stellt eine einfache Zeile Text dar
-
   activerecord:
     attributes:
       alchemy/picture_description:

@@ -8,7 +8,12 @@
     <%= ingredient_label(headline_editor) %>
 
     <div class="input-field">
-      <%= f.text_field :value, id: headline_editor.form_field_id %>
+      <%= f.text_field :value,
+        minlength: headline_editor.length_validation&.fetch(:minimum, nil),
+        maxlength: headline_editor.length_validation&.fetch(:maximum, nil),
+        required: headline_editor.presence_validation?,
+        pattern: headline_editor.format_validation,
+        id: headline_editor.form_field_id %>
       <% if headline_editor.settings[:anchor] %>
         <%= render "alchemy/ingredients/shared/anchor", ingredient_editor: headline_editor %>
       <% end %>
