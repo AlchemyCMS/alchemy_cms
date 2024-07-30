@@ -46,64 +46,62 @@ zh-CN:
       article: 文章
       contactform: 联系表单
 
-    # == Translated names for contents in elements.
-    # Used for the content editor label inside the element editor view (The elements window)
+    # == Translated roles for ingredients in elements.
+    # Used for the ingredient editor label inside the element editor view (The elements window)
     #
-    # Tip: You can translate content names globally for all contents of this name, or specificly for an element.
-    # To do so, just place the content_name under the element name
+    # Tip: You can translate ingredient roles globally for all ingredients with this role, or specificly for an element.
+    # To do so, just place the ingredient_role under the element name
     #
     # Example:
     #
     # en:
     #  alchemy:
-    #    content_names:
+    #    ingredient_roles:
     #      headline: Headline
     #      news_article:
     #        headline: News Headline
     #      image_caption: Caption
     #      show_caption: Show Caption
     #
-    content_names:
+    ingredient_roles:
       headline: 标题
       news_article:
         headline: 新标题
       image_caption: 标题
       show_caption: 显示标题
 
-    # === Translations for content validations
-    # Used when a user did not enter (correct) values to the content field.
+    # === Translations for ingredient validations
+    # Used when a user did not enter (correct) values to the ingredient field.
     #
-    # Tip: You can define the validation messages translations different for each element and content
+    # Tip: You can define the validation messages translations different for each element and ingredient
     #
     # Example:
     #
     # en:
     #   alchemy:
-    #     content_validations:
+    #     ingredient_validations:
     #       contactform:
     #         success_page:
     #           blank: 'Please choose a follow up page.'
     #         mail_to:
     #           blank: 'Please provide an email address where the contact inquiries will be delivered to.'
     #
-    content_validations:
-      content_validations:
-        contactform:
-          success_page:
-            blank: "请选择一个跳转页面。"
-          mail_to:
-            blank: "请选择一个电子邮件地址已便所有咨询转发到这个地址。"
-
+    ingredient_validations:
+      contactform:
+        success_page:
+          blank: "请选择一个跳转页面。"
+        mail_to:
+          blank: "请选择一个电子邮件地址已便所有咨询转发到这个地址。"
       errors:
         blank: "%{field} 不能为空"
         invalid: "%{field} 格式出错"
         taken: "%{field} 已经被使用"
 
-    default_content_texts:
+    default_ingredient_texts:
       lorem: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
       corporate_lorem: "Appropriately enable sustainable growth strategies vis-a-vis holistic materials. Energistically orchestrate open-source e-tailers vis-a-vis plug-and-play best practices. Uniquely plagiarize client-centric opportunities whereas plug-and-play ideas. Distinctively reconceptualize backward-compatible partnerships vis-a-vis reliable total linkage. Interactively fabricate highly efficient networks for clicks-and-mortar content. Collaboratively reconceptualize holistic markets via 2.0 architectures."
 
-    essence_pictures:
+    picture_ingredients:
       css_classes:
         left: "文字左边"
         right: "文字右边"
@@ -313,7 +311,7 @@ zh-CN:
     "Attachment Preview": "预览附件"
     "Visit page": "访问页面"
     "Warning!": "警告！"
-    content_definition_missing: "警告： 在定义中没有内容。 请检查 elements.yml"
+    ingredient_definition_missing: "警告： 在定义中没有内容。 请检查 elements.yml"
     element_definition_missing: "警告! 没有元素定义。 请检查 elements.yml。"
     page_definition_missing: "警告! 没有页面布局定义。 请检查 page_layouts.yml 文件。"
     "Welcome to Alchemy": "欢迎来到Alchemy"
@@ -355,7 +353,7 @@ zh-CN:
     confirm_to_delete_page: "你确认要删除这个页面? 其中的所有元素 (甚至垃圾桶中的) 都回丢失！"
     content_essence_not_found: "无法找到内容"
     content_not_found: "针对内容的字段不存在"
-    content_validations_headline: "请检查如下字段"
+    ingredient_validations_headline: "请检查如下字段"
     copy: "复制"
     copy_element: "复制这个元素"
     copy_page: "复制页面"

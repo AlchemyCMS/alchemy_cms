@@ -44,52 +44,52 @@ nl:
     #
     element_names:
 
-    # == Translated names for contents in elements.
-    # Used for the content editor label inside the element editor view (The elements window)
+    # == Translated roles for ingredients in elements.
+    # Used for the ingredient editor label inside the element editor view (The elements window)
     #
-    # Tip: You can translate content names globally for all contents of this name, or specificly for an element.
-    # To do so, just place the content_name under the element name
+    # Tip: You can translate ingredient roles globally for all ingredients with this role, or specificly for an element.
+    # To do so, just place the ingredient_role under the element name
     #
     # Example:
     #
     # nl:
     #  alchemy:
-    #    content_names:
+    #    ingredient_roles:
     #      headline: Koptekst
     #      news_article:
     #        headline: Nieuws Koptekst
     #      image_caption: Onderschrift
     #      show_caption: Onderschrift weergeven
     #
-    content_names:
+    ingredient_roles:
 
-      # === Translations for content validations
-    # Used when a user did not enter (correct) values to the content field.
+      # === Translations for ingredient validations
+    # Used when a user did not enter (correct) values to the ingredient field.
     #
-    # Tip: You can define the validation messages translations different for each element and content
+    # Tip: You can define the validation messages translations different for each element and ingredient
     #
     # Example:
     #
     # nl:
     #   alchemy:
-    #     content_validations:
+    #     ingredient_validations:
     #       contactform:
     #         success_page:
     #           blank: 'Kies een Opvolgpagina.'
     #         mail_to:
     #           blank: 'Kies een Emailadres.'
     #
-    content_validations:
+    ingredient_validations:
       errors:
         blank: "%{field} mag niet leeg zijn"
         invalid: "%{field} heeft een verkeerd formaat"
         taken: "%{field} is al in gebruik"
 
-    default_content_texts:
+    default_ingredient_texts:
       lorem: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
       corporate_lorem: "Appropriately enable sustainable growth strategies vis-a-vis holistic materials. Energistically orchestrate open-source e-tailers vis-a-vis plug-and-play best practices. Uniquely plagiarize client-centric opportunities whereas plug-and-play ideas. Distinctively reconceptualize backward-compatible partnerships vis-a-vis reliable total linkage. Interactively fabricate highly efficient networks for clicks-and-mortar content. Collaboratively reconceptualize holistic markets via 2.0 architectures."
 
-    essence_pictures:
+    picture_ingredients:
       css_classes:
         left: "Links van de tekst"
         right: "Rechts van de tekst"
@@ -295,7 +295,7 @@ nl:
     "View File": "Bestand weergeven"
     "Visit page": "Pagina bezoeken"
     "Warning!": "Waarschuwing!"
-    content_definition_missing: "Waarschuwing: content mist een beschrijving. Controleer elements.yml"
+    ingredient_definition_missing: "Waarschuwing: content mist een beschrijving. Controleer elements.yml"
     element_definition_missing: "Waarschuwing: Er is geen beschijving gevonden voor dit element. Controleer elements.yml"
     "Welcome to Alchemy": "Welkom bij Alchemy"
     "Who else is online": "Wie is ook online"
@@ -337,7 +337,7 @@ nl:
     confirm_to_delete_page: "Deze pagina verwijderen? Alle inhoud gaat verloren."
     content_essence_not_found: "Content essence is niet gevonden"
     content_not_found: "Veld voor content is niet aanwezig"
-    content_validations_headline: "Controleer de gemarkeerde velden"
+    ingredient_validations_headline: "Controleer de gemarkeerde velden"
     copy: "kopiëren"
     copy_element: "Dit element kopiëren"
     copy_page: "Pagina kopiëren"
