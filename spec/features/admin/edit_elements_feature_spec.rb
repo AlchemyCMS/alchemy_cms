@@ -149,6 +149,37 @@ RSpec.describe "The edit elements feature", type: :system do
     end
   end
 
+  describe "Updating an element", :js do
+    context "with valid data" do
+      let!(:element) { create(:alchemy_element, page_version: a_page.draft_version) }
+
+      scenario "shows success notice" do
+        visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
+        expect(page).to have_button("Save")
+        click_button("Save")
+        within "#flash_notices" do
+          expect(page).to have_content(/Saved element/)
+        end
+      end
+    end
+
+    context "with invalid data" do
+      let!(:element) { create(:alchemy_element, name: "all_you_can_eat", page_version: a_page.draft_version) }
+
+      scenario "shows error notice" do
+        visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
+        expect(page).to have_button("Save")
+        click_button("Save")
+        within "#flash_notices" do
+          expect(page).to have_content(/Validation failed/)
+        end
+        within ".error-messages" do
+          expect(page).to have_content(/Please enter a headline/)
+        end
+      end
+    end
+  end
+
   describe "With an element that has ingredient groups" do
     let(:element) do
       create(

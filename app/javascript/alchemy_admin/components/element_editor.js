@@ -19,7 +19,7 @@ export class ElementEditor extends HTMLElement {
     // Triggered by child elements
     this.addEventListener("alchemy:element-update-title", this)
     // We use of @rails/ujs for Rails remote forms
-    this.addEventListener("ajax:success", this)
+    this.addEventListener("ajax:complete", this)
     // Dirty observer
     this.addEventListener("change", this)
 
@@ -57,11 +57,11 @@ export class ElementEditor extends HTMLElement {
           this.onClickElement()
         }
         break
-      case "ajax:success":
+      case "ajax:complete":
         if (event.target === this.body) {
-          const responseJSON = event.detail[0]
+          const xhr = event.detail[0]
           event.stopPropagation()
-          this.onSaveElement(responseJSON)
+          this.onSaveElement(xhr)
         }
         break
       case "alchemy:element-update-title":
@@ -116,9 +116,10 @@ export class ElementEditor extends HTMLElement {
    * Sets the element to saved state
    * Updates title
    * Shows error messages if ingredient validations fail
-   * @argument {JSON} data
+   * @argument {XMLHttpRequest} xhr
    */
-  onSaveElement(data) {
+  onSaveElement(xhr) {
+    const data = JSON.parse(xhr.responseText)
     // JS event bubbling will also update the parents element quote.
     this.setClean()
     // Reset errors that might be visible from last save attempt
@@ -128,7 +129,7 @@ export class ElementEditor extends HTMLElement {
       .querySelectorAll(".ingredient-editor")
       .forEach((el) => el.classList.remove("validation_failed"))
     // If validation failed
-    if (data.errors) {
+    if (xhr.status === 422) {
       const warning = data.warning
       // Create error messages
       data.errors.forEach((message) => {
