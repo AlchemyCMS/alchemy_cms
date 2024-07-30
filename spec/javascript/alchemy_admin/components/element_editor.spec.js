@@ -251,12 +251,17 @@ describe("alchemy-element-editor", () => {
     })
   })
 
-  describe("on ajax:success", () => {
+  describe("on ajax:complete", () => {
     describe("if event was triggered on this element", () => {
       it("sets element to saved state", () => {
-        const event = new CustomEvent("ajax:success", {
+        const event = new CustomEvent("ajax:complete", {
           bubbles: true,
-          detail: [{ ingredientAnchors: [] }]
+          detail: [
+            {
+              status: 200,
+              responseText: JSON.stringify({ ingredientAnchors: [] })
+            }
+          ]
         })
         editor.dirty = true
         editor.body.dispatchEvent(event)
@@ -287,9 +292,17 @@ describe("alchemy-element-editor", () => {
             </div>
           </alchemy-element-editor>
         `)
-        const event = new CustomEvent("ajax:success", {
+        const event = new CustomEvent("ajax:complete", {
           bubbles: true,
-          detail: [{ previewText: "Child Element", ingredientAnchors: [] }]
+          detail: [
+            {
+              status: 200,
+              responseText: JSON.stringify({
+                previewText: "Child Element",
+                ingredientAnchors: []
+              })
+            }
+          ]
         })
         const childElement = editor.querySelector("#element_789")
         childElement.dirty = true
@@ -410,8 +423,11 @@ describe("alchemy-element-editor", () => {
           </alchemy-element-editor>
         `)
         const data = {
-          notice: "Element saved",
-          ingredientAnchors: [{ ingredientId: 55, active: true }]
+          status: 200,
+          responseText: JSON.stringify({
+            notice: "Element saved",
+            ingredientAnchors: [{ ingredientId: 55, active: true }]
+          })
         }
         editor.dirty = true
         editor.onSaveElement(data)
@@ -463,9 +479,12 @@ describe("alchemy-element-editor", () => {
           </alchemy-element-editor>
         `)
         const data = {
-          warning: "Something is not right",
-          errors: ["Please enter a value"],
-          ingredientsWithErrors: [666]
+          status: 422,
+          responseText: JSON.stringify({
+            warning: "Something is not right",
+            errors: ["Please enter a value"],
+            ingredientsWithErrors: [666]
+          })
         }
         editor.onSaveElement(data)
       })
