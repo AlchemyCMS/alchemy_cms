@@ -61,23 +61,23 @@ ru:
     #
     content_names:
 
-    # === Translations for content validations
-    # Used when a user did not enter (correct) values to the content field.
+    # === Translations for ingredient validations
+    # Used when a user did not enter (correct) values to the ingredient field.
     #
-    # Tip: You can define the validation messages translations different for each element and content
+    # Tip: You can define the validation messages translations different for each element and ingredient
     #
     # Example:
     #
     # en:
     #   alchemy:
-    #     content_validations:
+    #     ingredient_validations:
     #       contactform:
     #         success_page:
     #           blank: 'Please choose a follow up page.'
     #         mail_to:
     #           blank: 'Please provide an email address where the contact inquiries will be delivered to.'
     #
-    content_validations:
+    ingredient_validations:
       errors:
         blank: "%{field} не может быть пустым"
         invalid: "%{field} имеет неверный формат"
@@ -335,7 +335,7 @@ ru:
     confirm_to_delete_page: "Вы действительно хотите удалить эту страницу? Все её элементы будут безвозвратно потеряны!"
     content_essence_not_found: "Эссенция контента не найдена"
     content_not_found: "Поле неактуально для контента."
-    content_validations_headline: "Пожалуйста, проверьте отмеченные ниже поля"
+    ingredient_validations_headline: "Пожалуйста, проверьте отмеченные ниже поля"
     copy: "копировать"
     copy_element: "Копировать этот элемент"
     copy_page: "Копировать страницу"

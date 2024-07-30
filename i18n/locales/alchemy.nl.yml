@@ -63,23 +63,23 @@ nl:
     #
     content_names:
 
-      # === Translations for content validations
-    # Used when a user did not enter (correct) values to the content field.
+      # === Translations for ingredient validations
+    # Used when a user did not enter (correct) values to the ingredient field.
     #
-    # Tip: You can define the validation messages translations different for each element and content
+    # Tip: You can define the validation messages translations different for each element and ingredient
     #
     # Example:
     #
     # nl:
     #   alchemy:
-    #     content_validations:
+    #     ingredient_validations:
     #       contactform:
     #         success_page:
     #           blank: 'Kies een Opvolgpagina.'
     #         mail_to:
     #           blank: 'Kies een Emailadres.'
     #
-    content_validations:
+    ingredient_validations:
       errors:
         blank: "%{field} mag niet leeg zijn"
         invalid: "%{field} heeft een verkeerd formaat"
@@ -337,7 +337,7 @@ nl:
     confirm_to_delete_page: "Deze pagina verwijderen? Alle inhoud gaat verloren."
     content_essence_not_found: "Content essence is niet gevonden"
     content_not_found: "Veld voor content is niet aanwezig"
-    content_validations_headline: "Controleer de gemarkeerde velden"
+    ingredient_validations_headline: "Controleer de gemarkeerde velden"
     copy: "kopiëren"
     copy_element: "Dit element kopiëren"
     copy_page: "Pagina kopiëren"

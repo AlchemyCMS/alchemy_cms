@@ -368,11 +368,11 @@ nb-NO:
     content_essence_not_found: Innholdsessens ikke funnet
     content_names:
     content_not_found: Felt for innhold mangler
-    content_validations:
+    ingredient_validations:
       contactform:
         success_page:
           blank:
-      content_validations:
+      ingredient_validations:
         contactform:
           mail_to:
             blank:
@@ -382,7 +382,7 @@ nb-NO:
         blank: "%{field} kan ikke være blankt"
         invalid: "%{field} har feil format"
         taken: "%{field} er allerede i bruk"
-    content_validations_headline: Vennligst sjekk markerte felt under
+    ingredient_validations_headline: Vennligst sjekk markerte felt under
     copy: kopier
     copy_element: Kopier dette elementet
     copy_language_tree_heading: Kopier sidetre

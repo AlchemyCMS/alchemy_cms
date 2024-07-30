@@ -72,14 +72,14 @@ it:
     #
     # en:
     #   alchemy:
-    #     content_validations:
+    #     ingredient_validations:
     #       contactform:
     #         success_page:
     #           blank: 'Please choose a follow up page.'
     #         mail_to:
     #           blank: 'Please provide an email address where the contact inquiries will be delivered to.'
     #
-    content_validations:
+    ingredient_validations:
       errors:
         blank: "%{field} non può essere vuoto"
         invalid: "%{field} ha un formato errato"
@@ -341,7 +341,7 @@ it:
     confirm_to_delete_page: "Vuoi eliminare veramente questa pagina? I suoi elementi andranno persi!"
     content_essence_not_found: "Essenza del contenuto non trovata"
     content_not_found: "Campo per il contenuto non trovato."
-    content_validations_headline: "Controlla i campi segnati qui sotto"
+    ingredient_validations_headline: "Controlla i campi segnati qui sotto"
     copy: "copia"
     copy_element: "Copia questo elemento"
     copy_page: "Copia pagina"

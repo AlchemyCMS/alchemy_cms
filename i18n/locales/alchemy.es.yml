@@ -70,23 +70,23 @@ es:
       text: Texto
       picture: Imagen
 
-    # === Translations for content validations
-    # Used when a user did not enter (correct) values to the content field.
+    # === Translations for ingredient validations
+    # Used when a user did not enter (correct) values to the ingredient field.
     #
-    # Tip: You can define the validation messages translations different for each element and content
+    # Tip: You can define the validation messages translations different for each element and ingredient
     #
     # Example:
     #
     # es:
     #   alchemy:
-    #     content_validations:
+    #     ingredient_validations:
     #       contactform:
     #         success_page:
     #           blank: 'Por favor elige una página para mostrar.'
     #         mail_to:
     #           blank: 'Por favor proporciona una dirección de correo donde entregar las consultas de contacto.'
     #
-    content_validations:
+    ingredient_validations:
       errors:
         blank: "%{field} no puede estar en blanco"
         invalid: '%{field} tiene un formato incorrecto '
@@ -360,7 +360,7 @@ es:
     confirm_to_delete_page: "¿Realmente desea eliminar esta página? ¡Todos los elementos se perderán!"
     content_essence_not_found: "Esencia del contenido no encontrada"
     content_not_found: "Campo para el contenido no presente."
-    content_validations_headline: "Por favor compruebe los campos marcados abajo"
+    ingredient_validations_headline: "Por favor compruebe los campos marcados abajo"
     copy: "copiar"
     copy_element: "Copiar este elemento"
     copy_page: "Copiar página"

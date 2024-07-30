@@ -68,23 +68,23 @@ de:
       text: Text
       picture: Bild
 
-    # === Translations for content validations
-    # Used when a user did not enter (correct) values to the content field.
+    # === Translations for ingredient validations
+    # Used when a user did not enter (correct) values to the ingredient field.
     #
-    # Tip: You can define the validation messages translations different for each element and content
+    # Tip: You can define the validation messages translations different for each element and ingredient
     #
     # Example:
     #
     # de:
     #   alchemy:
-    #     content_validations:
+    #     ingredient_validations:
     #       contactform:
     #         success_page:
     #           blank: 'Bitte wählen Sie eine Folgeseite.'
     #         mail_to:
     #           blank: 'Bitte geben Sie eine E-Mail Adresse an zu der das Kontaktformular sendet.'
     #
-    content_validations:
+    ingredient_validations:
       errors:
         blank: "%{field} darf nicht leer sein"
         invalid: "%{field} hat das falsche Format"
@@ -107,7 +107,7 @@ de:
     element_hints:
       article: "Dies ist ein Hinweistext für das Artikel Element. Dieser Text kann in der `config/locales/alchemy.de.yml` Datei angepasst werden."
 
-    essence_pictures:
+    picture_ingredients:
       css_classes:
         left: "Links vom Text"
         right: "Rechts vom Text"
@@ -415,7 +415,7 @@ de:
     confirm_to_delete_page: "Wollen Sie diese Seite wirklich löschen? Alle Inhalte (auch die aus dem Papierkorb) gehen dabei unwiderruflich verloren!"
     content_essence_not_found: "Essenz wurde nicht gefunden"
     content_not_found: "Das Feld für diesen Inhalt ist nicht vorhanden."
-    content_validations_headline: "Bitte überprüfen Sie die markierten Felder."
+    ingredient_validations_headline: "Bitte überprüfen Sie die markierten Felder."
     copy: "kopieren"
     copy_element: "Element kopieren"
     copy_page: "Seite kopieren"

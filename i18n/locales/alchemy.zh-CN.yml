@@ -70,30 +70,28 @@ zh-CN:
       image_caption: 标题
       show_caption: 显示标题
 
-    # === Translations for content validations
-    # Used when a user did not enter (correct) values to the content field.
+    # === Translations for ingredient validations
+    # Used when a user did not enter (correct) values to the ingredient field.
     #
-    # Tip: You can define the validation messages translations different for each element and content
+    # Tip: You can define the validation messages translations different for each element and ingredient
     #
     # Example:
     #
     # en:
     #   alchemy:
-    #     content_validations:
+    #     ingredient_validations:
     #       contactform:
     #         success_page:
     #           blank: 'Please choose a follow up page.'
     #         mail_to:
     #           blank: 'Please provide an email address where the contact inquiries will be delivered to.'
     #
-    content_validations:
-      content_validations:
-        contactform:
-          success_page:
-            blank: "请选择一个跳转页面。"
-          mail_to:
-            blank: "请选择一个电子邮件地址已便所有咨询转发到这个地址。"
-
+    ingredient_validations:
+      contactform:
+        success_page:
+          blank: "请选择一个跳转页面。"
+        mail_to:
+          blank: "请选择一个电子邮件地址已便所有咨询转发到这个地址。"
       errors:
         blank: "%{field} 不能为空"
         invalid: "%{field} 格式出错"
@@ -355,7 +353,7 @@ zh-CN:
     confirm_to_delete_page: "你确认要删除这个页面? 其中的所有元素 (甚至垃圾桶中的) 都回丢失！"
     content_essence_not_found: "无法找到内容"
     content_not_found: "针对内容的字段不存在"
-    content_validations_headline: "请检查如下字段"
+    ingredient_validations_headline: "请检查如下字段"
     copy: "复制"
     copy_element: "复制这个元素"
     copy_page: "复制页面"

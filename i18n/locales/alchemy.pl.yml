@@ -61,23 +61,23 @@ pl:
     #
     content_names:
 
-    # === Translations for content validations
-    # Used when a user did not enter (correct) values to the content field.
+    # === Translations for ingredient validations
+    # Used when a user did not enter (correct) values to the ingredient field.
     #
-    # Tip: You can define the validation messages translations different for each element and content
+    # Tip: You can define the validation messages translations different for each element and ingredient
     #
     # Example:
     #
     # en:
     #   alchemy:
-    #     content_validations:
+    #     ingredient_validations:
     #       contactform:
     #         success_page:
     #           blank: 'Please choose a follow up page.'
     #         mail_to:
     #           blank: 'Please provide an email address where the contact inquiries will be delivered to.'
     #
-    content_validations:
+    ingredient_validations:
       errors:
         blank: "%{field} can't be blank"
         invalid: "%{field} has wrong format"
@@ -338,7 +338,7 @@ pl:
     confirm_to_delete_page: "Do you really want to delete this page? All its elements (even trashed ones) will get lost!"
     content_essence_not_found: "Content essence not found"
     content_not_found: "Field for content not present."
-    content_validations_headline: "Please check marked fields below"
+    ingredient_validations_headline: "Please check marked fields below"
     copy: "copy"
     copy_element: "Copy this element"
     copy_page: "Copy page"

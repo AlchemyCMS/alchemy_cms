@@ -89,9 +89,9 @@ fr:
       contactform:
         success_page: "Page suivante"
 
-    # Translations for content validations
+    # Translations for ingredient validations
     #
-    content_validations:
+    ingredient_validations:
       contactform:
         success_page:
           blank: "sélectionnez la page suivante s’il vous plait"
@@ -359,7 +359,7 @@ fr:
     contactform_body: "Modèle de message"
     content_essence_not_found: "Essence n’a pas été trouvé"
     content_not_found: "Le champ de ce contenu n’est pas disponible."
-    content_validations_headline: "S’il vous plaît vérifier les champs en surbrillance."
+    ingredient_validations_headline: "S’il vous plaît vérifier les champs en surbrillance."
     copy: "Copier"
     copy_element: "Copier élément"
     copy_page: "Copier page"
