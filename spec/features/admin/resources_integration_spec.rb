@@ -105,6 +105,21 @@ RSpec.describe "Resources", type: :system do
               expect(page).to_not have_content("today 1")
             end
           end
+
+          it "can combine filters and pagination", :js do
+            stub_alchemy_config(:items_per_page, 1)
+
+            visit "/admin/events?filter[start]=starting_today"
+
+            select("4", from: "per_page")
+
+            within "div#archive_all table.list tbody" do
+              expect(page).to have_selector("tr", count: 2)
+              expect(page).to have_content("today 1")
+              expect(page).to have_content("today 2")
+              expect(page).not_to have_content("yesterday")
+            end
+          end
         end
       end
 
