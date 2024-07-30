@@ -44,24 +44,24 @@ it:
     #
     element_names:
 
-    # == Translated names for contents in elements.
-    # Used for the content editor label inside the element editor view (The elements window)
+    # == Translated roles for ingredients in elements.
+    # Used for the ingredient editor label inside the element editor view (The elements window)
     #
-    # Tip: You can translate content names globally for all contents of this name, or specificly for an element.
-    # To do so, just place the content_name under the element name
+    # Tip: You can translate ingredient roles globally for all ingredients with this role, or specificly for an element.
+    # To do so, just place the ingredient_role under the element name
     #
     # Example:
     #
     # en:
     #  alchemy:
-    #    content_names:
+    #    ingredient_roles:
     #      headline: Headline
     #      news_article:
     #        headline: News Headline
     #      image_caption: Caption
     #      show_caption: Show Caption
     #
-    content_names:
+    ingredient_roles:
 
     # === Translations for content validations
     # Used when a user did not enter (correct) values to the content field.
@@ -85,11 +85,11 @@ it:
         invalid: "%{field} ha un formato errato"
         taken: "%{field} è già stato preso"
 
-    default_content_texts:
+    default_ingredient_texts:
       lorem: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
       corporate_lorem: "Appropriately enable sustainable growth strategies vis-a-vis holistic materials. Energistically orchestrate open-source e-tailers vis-a-vis plug-and-play best practices. Uniquely plagiarize client-centric opportunities whereas plug-and-play ideas. Distinctively reconceptualize backward-compatible partnerships vis-a-vis reliable total linkage. Interactively fabricate highly efficient networks for clicks-and-mortar content. Collaboratively reconceptualize holistic markets via 2.0 architectures."
 
-    essence_pictures:
+    picture_ingredients:
       css_classes:
         left: "Alla sinistra del testo"
         right: "Alla destra del testo"
@@ -298,7 +298,7 @@ it:
     "View File": "Mostra File"
     "Visit page": "Visita pagina"
     "Warning!": "Attenzione!"
-    content_definition_missing: "Attenzione: Manca la definizione del contenuto. Controlla il file elements.yml"
+    ingredient_definition_missing: "Attenzione: Manca la definizione del contenuto. Controlla il file elements.yml"
     element_definition_missing: "ATTENZIONE! Manca la definizione dell'elemento. Controlla il file elements.yml."
     page_definition_missing: "ATTENZIONE! Manca la definizione del layout della pagina. Controlla il file page_layouts.yml."
     "Welcome to Alchemy": "Benvenuto su Alchemy"

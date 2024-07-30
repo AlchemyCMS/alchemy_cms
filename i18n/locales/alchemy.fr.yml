@@ -64,12 +64,12 @@ fr:
       searchresult: "detail de recherche"
       contactform: "Formulaire de contact"
 
-    # == Translated names for contents in elements.
-    # Used for the content editor label inside the element editor view (The elements window)
+    # == Translated roles for ingredients in elements.
+    # Used for the ingredient editor label inside the element editor view (The elements window)
     #
-    # Tip: You can translate content names globally for all contents of this name, or specificly for an element.
-    # To do so, just place the content_name under the element name
-    content_names:
+    # Tip: You can translate ingredient roles globally for all ingredients with this role, or specificly for an element.
+    # To do so, just place the ingredient_role under the element name
+    ingredient_roles:
       text: "Texte"
       date: "Date"
       body: "Contenu"
@@ -100,11 +100,11 @@ fr:
         invalid: "%{field} A le mauvais format"
         taken: "%{field} Déja utilisé"
 
-    default_content_texts:
+    default_ingredient_texts:
       lorem: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
       corporate_lorem: "Appropriately enable sustainable growth strategies vis-a-vis holistic materials. Energistically orchestrate open-source e-tailers vis-a-vis plug-and-play best practices. Uniquely plagiarize client-centric opportunities whereas plug-and-play ideas. Distinctively reconceptualize backward-compatible partnerships vis-a-vis reliable total linkage. Interactively fabricate highly efficient networks for clicks-and-mortar content. Collaboratively reconceptualize holistic markets via 2.0 architectures."
 
-    essence_pictures:
+    picture_ingredients:
       css_classes:
         left: "À gauche du texte"
         right: "À droite du texte"
@@ -316,7 +316,7 @@ fr:
     "View File": "Montrer Dossier"
     "Visit page": "Allerà la page"
     "Warning!": "Attention !"
-    content_definition_missing: "Avertissement : Pour ce contenu le modèle n’a pas été trouvé. S’il vous plaît vérifier le fichier elements.yml."
+    ingredient_definition_missing: "Avertissement : Pour ce contenu le modèle n’a pas été trouvé. S’il vous plaît vérifier le fichier elements.yml."
     element_definition_missing: "AVERTISSEMENT ! Pour cet élément, le modèle ne peut pas être trouvé. S’il vous plaît vérifier le fichier elements.yml."
     "Welcome to Alchemy": "Bienvenue sur Alchemy"
     "Who else is online": "Qui d’autre est en ligne"

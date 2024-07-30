@@ -46,24 +46,24 @@ de:
     element_names:
       article: Artikel
 
-    # == Translated names for contents in elements.
-    # Used for the content editor label inside the element editor view (The elements window)
+    # == Translated roles for ingredients in elements.
+    # Used for the ingredient editor label inside the element editor view (The elements window)
     #
-    # Tip: You can translate content names globally for all contents of this name, or specificly for an element.
-    # To do so, just place the content_name under the element name
+    # Tip: You can translate ingredient roles globally for all ingredients with this role, or specificly for an element.
+    # To do so, just place the ingredient_role under the element name
     #
     # Example:
     #
     # de:
     #  alchemy:
-    #    content_names:
+    #    ingredient_roles:
     #      headline: Überschrift
     #      news_article:
     #        headline: News Überschrift
     #      image_caption: Bildunterschrift
     #      show_caption: Zeige Bildunterschrift
     #
-    content_names:
+    ingredient_roles:
       headline: Überschrift
       text: Text
       picture: Bild
@@ -90,14 +90,14 @@ de:
         invalid: "%{field} hat das falsche Format"
         taken: "%{field} wurde schon benutzt"
 
-    # Hint texts for contents
-    content_hints:
+    # Hint texts for ingredients
+    ingredient_hints:
       headline: "Dies ist ein einzeiliger unformatierter Text"
       picture: "Bilder werden in der Bibliothek gespeichert. Ein Bild kann mehrfach einem Element zugewiesen werden. Auch ein Bildauswahlwerkzeug ist in Alchemy integriert."
       text: "Dies ist ein formatierbarer Textblock. Die Einstellungen des Editors können angepasst werden. Siehe http://guides.alchemy-cms.com/stable/customize_tinymce.html"
 
-    # Default texts for new contents created
-    default_content_texts:
+    # Default texts for new ingredients created
+    default_ingredient_texts:
       article_headline: "Willkommen auf Ihrer Alchemy Seite"
       article_text: '<p>Als erstes sollte man sich mit der Struktur von Alchemy vertraut machen. <a class="external" href="http://guides.alchemy-cms.com/stable/alchemy_approach.html" target="_blank" data-link-target="blank">Mehr dazu in den Guidelines</a>.</p><p>Die wichtigsten beiden Dinge die man über Alchemy wissen muss sind Elemente und Seitentypen.</p><p><span style="text-decoration: underline;"><strong>Elemente:</strong></span></p><p>Mit Alchemy kann man eine Seite in Inhaltsbereiche aufteilen, Elemente. Diese Elemente werden aus verschiedenen Grundtypen (Essenzen) zusammengesetzt. Die Essenzen sind:</p><ul><li>EssenceText - <em>Eine Zeile Text</em></li><li>EssenceRichtext - <em>Ein TinyMCE basierter formatierter Textblock</em></li><li>EssencePicture - <em>Ein Verweis auf ein Bild</em></li><li>EssenceHtml - <em>HTML Code</em></li><li>EssenceSelect - <em>Eine Auswahl an Werten</em></li><li>EssenceBoolean - <em>Eine Checkbox</em></li></ul><p>Elemente werden in einer YAML Datei definiert: <strong>config/alchemy/elements.yml</strong></p><p><a class="external" href="http://guides.alchemy-cms.com/stable/elements.html" target="_blank" data-link-target="blank">Mehr über Elemente und wie sie definiert werden, kann in den Guidelines nachgelesen werden.</a></p><p><span style="text-decoration: underline;"><strong>Seitentypen:</strong></span></p><p>Es können verschiedene Seitentypen definiert werden. Diesen können Elemente zugewiesen und ihr Verhalten definiert werden.</p><p>Seitentypen werden ein einer YAML Datei definiert: <strong>config/alchemy/page_layouts.yml</strong></p><p><a class="external" href="http://guides.alchemy-cms.com/stable/page_layouts.html" target="_blank" data-link-target="blank">Mehr über das Erstellen von Seitentypen kann in den Guidelines nachgelesen werden.</a></p>'
       lorem: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -266,7 +266,6 @@ de:
     "Delete element": "Element löschen"
     "Do you really want to clear the clipboard?": "Wollen Sie die Zwischenablage wirklich leeren?"
     "Do you really want to clear the trash?": "Wollen Sie den Papierkorb wirklich leeren?"
-    "Do you really want to delete this content?": "Wollen Sie diesen Inhalt wirklich löschen?"
     "Drag an element over to the element window to restore it": "Ziehen Sie ein Element mit der Maus in das Elemente Fenster, um es wieder herzustellen."
     "Edit Picturemask": "Bildmaske bearbeiten"
     "Edit image": "Bild bearbeiten"
@@ -371,7 +370,7 @@ de:
     "Attachment Preview": "Dateivorschau"
     "Visit page": "zur Seite gehen"
     "Warning!": "Achtung!"
-    content_definition_missing: "Warnung: Für diesen Content konnte die Vorlage nicht gefunden werden. Bitte überprüfen Sie die elements.yml Datei."
+    ingredient_definition_missing: "Warnung: Für diesen Content konnte die Vorlage nicht gefunden werden. Bitte überprüfen Sie die elements.yml Datei."
     element_definition_missing: "Warnung! Für dieses Element konnte die Vorlage nicht gefunden werden. Bitte überprüfen Sie die elements.yml Datei."
     page_definition_missing: "Warnung! Für diese Seite konnte die Vorlage nicht gefunden werden. Bitte überprüfen Sie die page_layouts.yml Datei."
     "Welcome to Alchemy": "Willkommen in Alchemy"

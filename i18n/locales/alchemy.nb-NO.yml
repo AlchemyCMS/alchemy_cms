@@ -364,9 +364,9 @@ nb-NO:
       messages:
         success: Din beskjed ble levert
     contactform_body:
-    content_definition_missing: "Advarsel: Innhold mangler definisjon. Vennligst sjekk elements.yml"
+    ingredient_definition_missing: "Advarsel: Innhold mangler definisjon. Vennligst sjekk elements.yml"
     content_essence_not_found: Innholdsessens ikke funnet
-    content_names:
+    ingredient_roles:
     content_not_found: Felt for innhold mangler
     ingredient_validations:
       contactform:
@@ -397,7 +397,7 @@ nb-NO:
     currently_edited_by: Denne siden er låst av
     cut_element: Klipp ut dette elementet.
     dashboard: Kontrollpanel
-    default_content_texts:
+    default_ingredient_texts:
       corporate_lorem: Appropriately enable sustainable growth strategies vis-a-vis holistic materials. Energistically orchestrate open-source e-tailers vis-a-vis plug-and-play best practices. Uniquely plagiarize client-centric opportunities whereas plug-and-play ideas. Distinctively reconceptualize backward-compatible partnerships vis-a-vis reliable total linkage. Interactively fabricate highly efficient networks for clicks-and-mortar content. Collaboratively reconceptualize holistic markets via 2.0 architectures.
       lorem: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     delete_file: Slett denne filen fra serveren.
@@ -426,7 +426,7 @@ nb-NO:
     element_of_type: Element
     element_saved: Lagret element.
     enter_external_link: Vennligst skriv inn URL du ønsker å lenke til
-    essence_pictures:
+    picture_ingredients:
       css_classes:
         left: Venstre fra tekst
         no_float: Over tekst
