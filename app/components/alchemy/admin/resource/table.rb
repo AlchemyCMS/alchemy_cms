@@ -29,8 +29,7 @@ module Alchemy
       #   the same page of the table
       #
       class Table < ViewComponent::Base
-        delegate :can?,
-          :sort_link,
+        delegate :sort_link,
           :render_attribute,
           :resource_path,
           :render_icon,
@@ -46,6 +45,10 @@ module Alchemy
           :query,
           :nothing_found_label,
           :search_filter_params
+
+        renders_many :actions, ->(name, tooltip, &block) do
+          Action.new(name, tooltip, &block)
+        end
 
         erb_template <<~ERB
           <% if collection.any? %>
@@ -64,31 +67,23 @@ module Alchemy
                       <% end %>
                     </th>
                   <% end %>
-                  <% if buttons.present? %>
+                  <% if actions? %>
                     <th class="tools"></th>
                   <% end %>
                 </tr>
               </thead>
               <tbody>
-                <% collection.each do |row| %>
+                <% collection.each do |resource| %>
                   <tr class="<%= cycle('even', 'odd') %>">
                     <% columns.each do |column| %>
                       <td class="<%= column.css_classes %>">
-                        <%= view_context.capture(row, &column.block) %>
+                        <%= view_context.capture(resource, &column.block) %>
                       </td>
                     <% end %>
-                    <% if buttons.present? %>
+                    <% if actions? %>
                       <td class="tools">
-                        <% buttons.each do |button| %>
-                          <% if button.name.nil? || can?(button.name, row) %>
-                            <% if button.tooltip.present? %>
-                              <sl-tooltip content="<%= button.tooltip %>">
-                                <%= view_context.capture(row, &button.block) %>
-                              </sl-tooltip>
-                            <% else %>
-                              <%= view_context.capture(row, &button.block) %>
-                            <% end %>
-                          <% end %>
+                        <% actions.each do |action| %>
+                          <%= render action.resource(resource) %>
                         <% end %>
                       </td>
                     <% end %>
@@ -109,7 +104,6 @@ module Alchemy
           @nothing_found_label = nothing_found_label
           @search_filter_params = search_filter_params
           @columns = []
-          @buttons = []
         end
 
         def column(name, label: nil, sortable: false, type: nil, alignment: nil, &block)
@@ -128,17 +122,17 @@ module Alchemy
         end
 
         def button(name = nil, tooltip: nil, &block)
-          @buttons << Button.new(name, tooltip: tooltip, &block)
+          with_action name, tooltip, &block
         end
 
         def delete_button(tooltip: Alchemy.t("Delete"), message: Alchemy.t("Are you sure?"))
-          button(:destroy, tooltip: tooltip) do |row|
+          with_action(:destroy, tooltip) do |row|
             helpers.delete_button(resource_path(row, search_filter_params), {message: message})
           end
         end
 
         def edit_button(tooltip: Alchemy.t("Edit"), title: Alchemy.t("Edit"), size: resource_window_size)
-          button(:edit, tooltip: tooltip) do |row|
+          with_action(:edit, tooltip) do |row|
             link_to_dialog render_icon(:edit),
               edit_resource_path(row, search_filter_params),
               {
@@ -157,7 +151,7 @@ module Alchemy
         # default attributes of the given resource
         def before_render
           content
-          if columns.empty? && buttons.empty?
+          if columns.empty? && !actions?
             resource_handler.sorted_attributes.each do |attribute|
               column(attribute[:name], sortable: true)
             end
@@ -176,16 +170,6 @@ module Alchemy
             @block = block
             @type = type
             @css_classes = [name, type, alignment].compact.join(" ")
-          end
-        end
-
-        class Button
-          attr_reader :name, :tooltip, :block
-
-          def initialize(name = nil, tooltip: nil, &block)
-            @name = name
-            @tooltip = tooltip
-            @block = block
           end
         end
       end
