@@ -91,6 +91,9 @@
       hint: true
       validate:
         - presence
+        - length:
+            minimum: 3
+            maximum: 50
     - role: text
       type: Text
       hint: true
