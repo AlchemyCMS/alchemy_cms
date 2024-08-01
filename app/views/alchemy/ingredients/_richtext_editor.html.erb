@@ -6,7 +6,11 @@
 
     <%- custom_tinymce_config = richtext_editor.custom_tinymce_config.inject({}) { |obj, (k, v)| obj[k.to_s.dasherize] = v.to_json; obj} %>
     <%= content_tag("alchemy-tinymce", custom_tinymce_config) do %>
-      <%= f.text_area :value, id: richtext_editor.form_field_id(:value) %>
+      <%= f.text_area :value,
+        minlength: richtext_editor.length_validation&.fetch(:minimum, nil),
+        maxlength: richtext_editor.length_validation&.fetch(:maximum, nil),
+        required: richtext_editor.presence_validation?,
+        id: richtext_editor.form_field_id(:value) %>
     <% end %>
   <% end %>
 <% end %>

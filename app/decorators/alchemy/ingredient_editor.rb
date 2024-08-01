@@ -153,6 +153,23 @@ module Alchemy
       end
     end
 
+    def validations
+      definition.fetch(:validate, [])
+    end
+
+    def format_validation
+      validations.select { _1.is_a?(Hash) }.find { _1[:format] }&.fetch(:format)
+    end
+
+    def length_validation
+      validations.select { _1.is_a?(Hash) }.find { _1[:length] }&.fetch(:length)
+    end
+
+    def presence_validation?
+      validations.include?("presence") ||
+        validations.any? { _1.is_a?(Hash) && _1[:presence] == true }
+    end
+
     private
 
     def form_field_counter

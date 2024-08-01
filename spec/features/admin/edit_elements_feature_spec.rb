@@ -168,13 +168,17 @@ RSpec.describe "The edit elements feature", type: :system do
 
       scenario "shows error notice" do
         visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
+        fill_in "Headline", with: "123"
         expect(page).to have_button("Save")
         click_button("Save")
         within "#flash_notices" do
           expect(page).to have_content(/Validation failed/)
         end
-        within ".error-messages" do
-          expect(page).to have_content(/Please enter a headline/)
+        within ".element_errors" do
+          expect(page).to have_content(/Please check marked fields below/)
+        end
+        within first("small.error", minimum: 1) do
+          expect(page).to have_content(/is invalid/)
         end
       end
     end

@@ -502,7 +502,7 @@ alchemy-publish-element-button {
 .ingredient_link_buttons {
   display: flex;
   position: absolute;
-  bottom: var(--spacing-2);
+  bottom: var(--spacing-1);
   right: 0;
 
   .icon_button {
@@ -909,6 +909,19 @@ select.long {
       }
     }
   }
+
+  .input-field {
+    position: relative;
+
+    .input-addon {
+      bottom: var(--spacing-1);
+    }
+  }
+
+  .validation-hint {
+    display: block;
+    text-align: right;
+  }
 }
 
 div.pictures_for_element {
@@ -934,11 +947,12 @@ textarea.has_tinymce {
 }
 
 .element_errors {
+  display: flex;
+  gap: var(--spacing-1);
   margin-top: var(--spacing-2);
   margin-bottom: var(--spacing-2);
   background-color: $error_background_color;
   padding: var(--spacing-2);
-  list-style-type: none;
   border-radius: $default-border-radius;
   color: $error_text_color;
   border: 1px solid $error_border_color;
@@ -946,6 +960,10 @@ textarea.has_tinymce {
   p {
     margin: 0;
     line-height: 24px;
+  }
+
+  .icon {
+    fill: currentColor;
   }
 }
 
@@ -1008,7 +1026,7 @@ label.ingredient-date--label,
   display: inline-flex;
   align-items: center;
   position: absolute;
-  bottom: var(--spacing-3);
+  bottom: var(--spacing-2);
   margin: 0 !important;
 }
 

@@ -29,9 +29,8 @@
       html: {id: "element_#{element.id}_form".html_safe, class: 'element-body'} do |f| %>
 
       <div id="element_<%= element.id %>_errors" class="element_errors hidden">
-        <h2><%= Alchemy.t("Validation failed") %></h2>
+        <alchemy-icon name="alert"></alchemy-icon>
         <p><%= Alchemy.t(:ingredient_validations_headline) %></p>
-        <ul class="error-messages"></ul>
       </div>
 
       <!-- Ingredients -->
