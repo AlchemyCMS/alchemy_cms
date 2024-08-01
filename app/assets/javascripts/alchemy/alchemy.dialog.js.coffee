@@ -98,6 +98,15 @@ class window.Alchemy.Dialog
   # Initializes the Dialog body
   init: ->
     Alchemy.GUI.init(@dialog_body)
+    turbo_frame = @dialog_body[0].querySelector("turbo-frame")
+    if turbo_frame
+      # Need to redirect to the new location if the frame is missing
+      # because of a redirect to a new page from server
+      turbo_frame.addEventListener "turbo:frame-missing", (event) =>
+        if event.detail.response.redirected
+          event.detail.visit(event.detail.response.url)
+          event.preventDefault()
+        return
     @watch_remote_forms()
 
   # Watches ajax requests inside of dialog body and replaces the content accordingly
