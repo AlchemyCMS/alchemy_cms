@@ -200,10 +200,7 @@ module Alchemy
       def common_search_filter_includes
         search_filters = [
           {
-            q: [
-              resource_handler.search_field_name,
-              :s
-            ]
+            q: [:s] + permitted_ransack_search_fields
           },
           :tagged_with,
           :page,
@@ -217,6 +214,12 @@ module Alchemy
         end
 
         search_filters
+      end
+
+      def permitted_ransack_search_fields
+        [
+          resource_handler.search_field_name
+        ]
       end
 
       def items_per_page

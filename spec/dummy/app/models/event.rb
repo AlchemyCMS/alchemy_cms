@@ -18,6 +18,12 @@ class Event < ActiveRecord::Base
   scope :future, -> { where("starts_at > ?", Date.tomorrow.at_midnight) }
   scope :by_location_name, ->(name) { joins(:location).where(locations: { name: name }) }
 
+  def self.ransackable_attributes(*)
+    [
+      "name"
+    ]
+  end
+
   def self.alchemy_resource_relations
     {
       location: { attr_method: "name", attr_type: "string" },
