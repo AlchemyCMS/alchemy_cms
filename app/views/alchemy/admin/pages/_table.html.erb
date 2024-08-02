@@ -53,7 +53,7 @@
     <% end %>
   <% end %>
 
-  <% table.button :info, tooltip: Alchemy.t(:page_infos) do |page| %>
+  <% table.with_action :info, Alchemy.t(:page_infos) do |page| %>
     <%= link_to_dialog(
           render_icon('info-circle'),
           alchemy.info_admin_page_path(page),
@@ -64,7 +64,7 @@
           class: "icon_button"
         ) %>
   <% end %>
-  <% table.button :configure, tooltip: Alchemy.t(:edit_page_properties) do |page| %>
+  <% table.with_action :configure, Alchemy.t(:edit_page_properties) do |page| %>
     <%= link_to_dialog(
           render_icon(:cog),
           alchemy.configure_admin_page_path(page),
@@ -75,7 +75,7 @@
           class: "icon_button"
         ) -%>
   <% end %>
-  <% table.button :copy, tooltip: Alchemy.t(:copy_page) do |page| %>
+  <% table.with_action :copy, Alchemy.t(:copy_page) do |page| %>
     <%= link_to(
           render_icon(:copy),
           alchemy.insert_admin_clipboard_path(

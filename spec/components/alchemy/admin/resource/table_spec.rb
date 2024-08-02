@@ -123,7 +123,7 @@ RSpec.describe Alchemy::Admin::Resource::Table, type: :component do
       end
     end
 
-    context "buttons" do
+    context "actions" do
       let(:name) { nil }
       let(:tooltip) { nil }
 
@@ -131,7 +131,7 @@ RSpec.describe Alchemy::Admin::Resource::Table, type: :component do
         with_controller_class(Admin::EventsController) do
           render_inline(component) do |table|
             table.column(:name)
-            table.button(name, tooltip: tooltip) { |row| "Foo" }
+            table.with_action(name, tooltip) { |row| "Foo" }
           end
         end
       end

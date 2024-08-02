@@ -48,7 +48,7 @@ module Alchemy
           Cell.new(css_classes, &block)
         end
 
-        renders_many :actions, ->(name, tooltip, &block) do
+        renders_many :actions, ->(name, tooltip = nil, &block) do
           Action.new(name, tooltip, &block)
         end
 
@@ -114,24 +114,17 @@ module Alchemy
           end
         end
 
-        def button(name = nil, tooltip: nil, &block)
-          with_action name, tooltip, &block
-        end
-
         def delete_button(tooltip: Alchemy.t("Delete"), message: Alchemy.t("Are you sure?"))
           with_action(:destroy, tooltip) do |row|
             helpers.delete_button(resource_path(row, search_filter_params), {message: message})
           end
         end
 
-        def edit_button(tooltip: Alchemy.t("Edit"), title: Alchemy.t("Edit"), size: resource_window_size)
+        def edit_button(tooltip: Alchemy.t("Edit"), size: resource_window_size)
           with_action(:edit, tooltip) do |row|
             helpers.link_to_dialog render_icon(:edit),
               edit_resource_path(row, search_filter_params),
-              {
-                title: title,
-                size: size
-              },
+              {size: size},
               class: "icon_button"
           end
         end
