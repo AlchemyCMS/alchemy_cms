@@ -30,8 +30,7 @@ module Alchemy
       # @param [String] :icon (nil)
       #   a default icon, if the table is auto generated
       class Table < ViewComponent::Base
-        delegate :sort_link,
-          :render_attribute,
+        delegate :render_attribute,
           :resource_path,
           :render_icon,
           :edit_resource_path,
@@ -39,12 +38,15 @@ module Alchemy
           :resource_window_size,
           to: :helpers
 
-        attr_reader :buttons,
-          :columns,
-          :collection,
-          :query,
+        attr_reader :collection,
           :nothing_found_label,
           :search_filter_params
+
+        renders_many :headers, Header
+
+        renders_many :cells, ->(css_classes, &block) do
+          Cell.new(css_classes, &block)
+        end
 
         renders_many :actions, ->(name, tooltip, &block) do
           Action.new(name, tooltip, &block)
@@ -55,17 +57,8 @@ module Alchemy
             <table class="list">
               <thead>
                 <tr>
-                  <% columns.each do |column| %>
-                    <th class="<%= column.css_classes %>">
-                      <% if column.sortable %>
-                        <%= sort_link query,
-                            column.name,
-                            column.label,
-                            default_order: column.type.to_s =~ /date|time/ ? 'desc' : 'asc' %>
-                      <% else %>
-                        <%= column.label %>
-                      <% end %>
-                    </th>
+                  <% headers.each do |header| %>
+                    <%= header %>
                   <% end %>
                   <% if actions? %>
                     <th class="tools"></th>
@@ -75,15 +68,13 @@ module Alchemy
               <tbody>
                 <% collection.each do |resource| %>
                   <tr class="<%= cycle('even', 'odd') %>">
-                    <% columns.each do |column| %>
-                      <td class="<%= column.css_classes %>">
-                        <%= view_context.capture(resource, &column.block) %>
-                      </td>
+                    <% cells.each do |cell| %>
+                       <%= render cell.with_resource(resource) %>
                     <% end %>
                     <% if actions? %>
                       <td class="tools">
                         <% actions.each do |action| %>
-                          <%= render action.resource(resource) %>
+                          <%= render action.with_resource(resource) %>
                         <% end %>
                       </td>
                     <% end %>
@@ -103,7 +94,6 @@ module Alchemy
           @query = query
           @nothing_found_label = nothing_found_label
           @search_filter_params = search_filter_params
-          @columns = []
           @icon = icon
         end
 
@@ -113,12 +103,14 @@ module Alchemy
           attribute = resource_handler.attributes.find { |item| item[:name] == name.to_s } || {name: name, type: type}
           block ||= lambda { |item| render_attribute(item, attribute) }
 
-          @columns << Attribute.new(name, label: label, sortable: sortable, type: type, alignment: class_name, &block)
+          css_classes = [name, type, class_name].compact.join(" ")
+          with_header(name, @query, css_classes: css_classes, label: label, type: type, sortable: sortable)
+          with_cell(css_classes, &block)
         end
 
         def icon_column(icon = nil, style: nil)
-          @columns << Attribute.new(:icon, label: "") do |row|
-            render_icon(icon || yield(row), size: "xl", style: style)
+          column(:icon, label: "") do |resource|
+            render_icon(icon || yield(resource), size: "xl", style: style)
           end
         end
 
@@ -147,31 +139,16 @@ module Alchemy
         private
 
         ##
-        # the before_render - method is necessary to force ViewComponent to evaluate the column - calls
-        # if no columns or buttons are available the resource_helper will be used, to generate the
+        # if no cells are available the resource_helper will be used, to generate the
         # default attributes of the given resource
         def before_render
-          content
-          if columns.empty? && !actions?
+          unless cells?
             icon_column(@icon) if @icon.present?
             resource_handler.sorted_attributes.each do |attribute|
               column(attribute[:name], sortable: true)
             end
             delete_button
             edit_button
-          end
-        end
-
-        class Attribute
-          attr_reader :block, :label, :name, :sortable, :type, :css_classes
-
-          def initialize(name, sortable: false, label: nil, type: :string, alignment: nil, &block)
-            @name = name
-            @label = label || name
-            @sortable = sortable
-            @block = block
-            @type = type
-            @css_classes = [name, type, alignment].compact.join(" ")
           end
         end
       end

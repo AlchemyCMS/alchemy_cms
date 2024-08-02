@@ -130,6 +130,7 @@ RSpec.describe Alchemy::Admin::Resource::Table, type: :component do
       subject(:render) do
         with_controller_class(Admin::EventsController) do
           render_inline(component) do |table|
+            table.column(:name)
             table.button(name, tooltip: tooltip) { |row| "Foo" }
           end
         end
