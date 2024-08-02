@@ -35,7 +35,7 @@
     <% end %>
     <% table.column :created_at, sortable: true %>
 
-    <% table.button(:show, tooltip: Alchemy.t('Attachment Preview')) do |attachment| %>
+    <% table.with_action(:show, Alchemy.t('Attachment Preview')) do |attachment| %>
       <%= link_to_dialog(
             render_icon(:information),
             alchemy.admin_attachment_path(attachment),
@@ -46,7 +46,7 @@
             class: "icon_button"
           ) %>
     <% end %>
-    <% table.button(:download) do |attachment| %>
+    <% table.with_action(:download) do |attachment| %>
       <sl-tooltip content="<%= Alchemy.t("download_file", filename: attachment.file_name) %>">
         <%= link_to render_icon(:download),
           alchemy.download_admin_attachment_path(attachment),
@@ -54,13 +54,13 @@
           class: "icon_button" %>
       </sl-tooltip>
     <% end %>
-    <% table.button(:edit, tooltip: Alchemy.t(:replace_file)) do |attachment| %>
+    <% table.with_action(:edit, Alchemy.t(:replace_file)) do |attachment| %>
       <%= render 'alchemy/admin/attachments/replace_button',
         redirect_url: alchemy.admin_attachments_path,
         object: attachment,
         file_attribute: 'file' %>
     <% end %>
-    <% table.button(:destroy, tooltip: Alchemy.t(:delete_file)) do |attachment| %>
+    <% table.with_action(:destroy, Alchemy.t(:delete_file)) do |attachment| %>
       <%= link_to_confirm_dialog render_icon(:minus),
         Alchemy.t(:confirm_to_delete_file),
         alchemy.admin_attachment_path(
@@ -71,7 +71,7 @@
         ),
         class: "icon_button" %>
     <% end %>
-    <% table.button(:edit, tooltip: Alchemy.t(:rename_file)) do |attachment| %>
+    <% table.with_action(:edit, Alchemy.t(:rename_file)) do |attachment| %>
       <%= link_to_dialog render_icon(:edit),
         alchemy.edit_admin_attachment_path(attachment, q: search_filter_params[:q], page: params[:page]),
         {
