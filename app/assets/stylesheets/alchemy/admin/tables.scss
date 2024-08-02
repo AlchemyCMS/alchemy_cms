@@ -195,11 +195,15 @@ td,
   }
 }
 
-th.count,
-td.count {
+th.taggings_count,
+td.taggings_count {
   width: 10%;
   text-align: right;
   padding-right: var(--spacing-4);
+}
+
+td.taggings_types {
+  width: 15%;
 }
 
 .list .login_status {

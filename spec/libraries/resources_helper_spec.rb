@@ -240,6 +240,33 @@ describe Alchemy::ResourcesHelper do
         end
       end
     end
+
+    context "format of boolean values" do
+      let(:attributes) do
+        {
+          name: :foo,
+          type: :boolean
+        }
+      end
+
+      let(:enabled) { true }
+
+      before do
+        allow(resource_item).to receive(:foo) { enabled }
+      end
+
+      it "should respond with a check icon" do
+        expect(subject).to eq("<alchemy-icon name=\"check\"></alchemy-icon>")
+      end
+
+      context "disabled attribute" do
+        let(:enabled) { false }
+
+        it "should show nothing" do
+          expect(subject).to eq("")
+        end
+      end
+    end
   end
 
   describe "#render_resources" do
