@@ -18,7 +18,7 @@ module Alchemy
             mountpoint = ask("- At which path do you want to mount Alchemy CMS at?", default: mountpoint)
           end
 
-          inject_into_file "./config/routes.rb", "\n  mount Alchemy::Engine => '#{mountpoint}'\n",
+          inject_into_file "./config/routes.rb", "\n  mount Alchemy::Engine, at: '#{mountpoint}'\n",
             {after: SENTINEL, verbose: true}
         end
 

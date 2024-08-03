@@ -31,7 +31,7 @@ RSpec.describe Alchemy::Install::Tasks do
           subject
           expect(tasks).to have_received(:inject_into_file).with(
             "./config/routes.rb",
-            "\n  mount Alchemy::Engine => '/'\n",
+            "\n  mount Alchemy::Engine, at: '/'\n",
             {
               after: Alchemy::Install::Tasks::SENTINEL,
               verbose: true
@@ -64,7 +64,7 @@ RSpec.describe Alchemy::Install::Tasks do
           subject
           expect(tasks).to have_received(:inject_into_file).with(
             "./config/routes.rb",
-            "\n  mount Alchemy::Engine => '/cms'\n",
+            "\n  mount Alchemy::Engine, at: '/cms'\n",
             {
               after: Alchemy::Install::Tasks::SENTINEL,
               verbose: true
