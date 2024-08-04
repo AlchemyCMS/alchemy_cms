@@ -11,19 +11,21 @@ select {
     $color: $form-field-text-color,
     $margin: 0
   );
-  height: $form-field-height;
-  max-width: 100%;
-  width: auto;
-  font-weight: normal;
-  vertical-align: middle;
 
-  background-image: var(
-    --select-background-image,
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='hsla(224deg, 23%, 26%, 0.75)' viewBox='0 0 24 24'%3E%3Cpath d='M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z'%3E%3C/path%3E%3C/svg%3E")
-  );
-  background-position: right 0.75em center;
-  background-repeat: no-repeat;
-  background-size: 1em;
+  & {
+    height: $form-field-height;
+    max-width: 100%;
+    width: auto;
+    font-weight: normal;
+    vertical-align: middle;
+    background-image: var(
+      --select-background-image,
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='hsla(224deg, 23%, 26%, 0.75)' viewBox='0 0 24 24'%3E%3Cpath d='M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z'%3E%3C/path%3E%3C/svg%3E")
+    );
+    background-position: right 0.75em center;
+    background-repeat: no-repeat;
+    background-size: 1em;
+  }
 
   &.tiny {
     padding-right: 0.6em;
@@ -53,12 +55,15 @@ select {
         $color: $form-field-text-color,
         $margin: 0
       );
-      background-image: none;
-      display: flex;
-      gap: var(--spacing-2);
-      align-items: center;
-      font-weight: normal;
-      text-align: left;
+
+      & {
+        background-image: none;
+        display: flex;
+        gap: var(--spacing-2);
+        align-items: center;
+        font-weight: normal;
+        text-align: left;
+      }
 
       .select2-chosen {
         flex-grow: 1;
