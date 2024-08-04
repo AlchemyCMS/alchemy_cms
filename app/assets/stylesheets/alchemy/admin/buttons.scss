@@ -2,8 +2,8 @@ button,
 input[type="submit"],
 a.button,
 input.button {
-  @include button-defaults;
   position: relative;
+  @include button-defaults;
 
   &.secondary {
     background-color: $secondary-button-bg-color;

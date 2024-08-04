@@ -105,6 +105,9 @@
   margin: var(--spacing-3) 0;
   position: relative;
   transition: background-color $transition-duration;
+  --sitemap-status-width: calc(
+    var(--sitemap-status-width-base) * var(--sitemap-status-length)
+  );
 
   &.highlight {
     background-color: $sitemap-highlight-color;
@@ -122,10 +125,6 @@
   &:has(.page_infos :nth-child(3)) {
     --sitemap-status-length: 3;
   }
-
-  --sitemap-status-width: calc(
-    var(--sitemap-status-width-base) * var(--sitemap-status-length)
-  );
 }
 
 .sitemap_left_images {
