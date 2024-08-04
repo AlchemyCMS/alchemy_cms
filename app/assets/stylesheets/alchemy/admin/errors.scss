@@ -44,6 +44,10 @@ body.error {
     max-height: 100%;
     overflow-y: scroll;
   }
+
+  alchemy-message[type="error"] {
+    margin: 0;
+  }
 }
 
 .turbo-frame-error {

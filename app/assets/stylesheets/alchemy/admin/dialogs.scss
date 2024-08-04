@@ -82,13 +82,15 @@ $dialog-transition-duration: 150ms;
     }
 
     form,
-    .info.message {
+    .info.message,
+    alchemy-message[type="info"] {
       position: absolute;
       right: var(--spacing-2);
       width: 256px;
     }
 
-    .info.message {
+    .info.message,
+    alchemy-message[type="info"] {
       top: var(--spacing-2);
       margin: 0 0 0 var(--spacing-2);
       padding: 0 var(--spacing-2) 0 var(--spacing-8);
@@ -158,14 +160,16 @@ $dialog-transition-duration: 150ms;
   position: relative;
   color: var(--color-text);
 
-  .message {
+  .message,
+  alchemy-message {
     margin: var(--spacing-2);
   }
 
   &.padded {
     padding: var(--spacing-4);
 
-    .message {
+    .message,
+    alchemy-message {
       margin: 0 0 var(--spacing-2) 0;
     }
   }
