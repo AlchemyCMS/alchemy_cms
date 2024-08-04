@@ -82,13 +82,15 @@ $dialog-transition-duration: 150ms;
     }
 
     form,
-    .info.message {
+    .info.message,
+    alchemy-message[type="info"] {
       position: absolute;
       right: 2 * $default-padding;
       width: 256px;
     }
 
-    .info.message {
+    .info.message,
+    alchemy-message[type="info"] {
       top: 2 * $default-padding;
       margin: 0 0 0 8px;
       padding: 0 8px 0 32px;
@@ -158,14 +160,16 @@ $dialog-transition-duration: 150ms;
   position: relative;
   color: $text-color;
 
-  .message {
+  .message,
+  alchemy-message {
     margin: 8px;
   }
 
   &.padded {
     padding: 4 * $default-padding;
 
-    .message {
+    .message,
+    alchemy-message {
       margin: 0 0 8px 0;
     }
   }
