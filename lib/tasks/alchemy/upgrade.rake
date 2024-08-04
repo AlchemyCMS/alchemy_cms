@@ -7,7 +7,8 @@ namespace :alchemy do
   desc "Upgrades your app to AlchemyCMS v#{Alchemy::VERSION}."
   task upgrade: [
     "alchemy:upgrade:prepare",
-    "alchemy:upgrade:7.0:run"
+    "alchemy:upgrade:7.0:run",
+    "alchemy:upgrade:7.3:run"
   ] do
     Alchemy::Upgrader.display_todos
   end
@@ -47,6 +48,31 @@ namespace :alchemy do
       task remove_admin_entrypoint: [:environment] do
         puts "removing npm_package..."
         Alchemy::Upgrader::SevenPointZero.remove_admin_entrypoint
+      end
+    end
+
+    desc "Upgrade Alchemy to v7.3"
+    task "7.3" => [
+      "alchemy:upgrade:prepare",
+      "alchemy:upgrade:7.3:run"
+    ] do
+      Alchemy::Upgrader.display_todos
+    end
+
+    namespace "7.3" do
+      task "run" => [
+        "alchemy:upgrade:7.3:migrate_pictures_to_active_storage",
+        "alchemy:upgrade:7.3:migrate_attachments_to_active_storage"
+      ]
+
+      desc "Migrate pictures to active_storage"
+      task migrate_pictures_to_active_storage: [:environment] do
+        Alchemy::Upgrader::SevenPointThree.migrate_pictures_to_active_storage
+      end
+
+      desc "Migrate attachments to active_storage"
+      task migrate_attachments_to_active_storage: [:environment] do
+        Alchemy::Upgrader::SevenPointThree.migrate_attachments_to_active_storage
       end
     end
   end

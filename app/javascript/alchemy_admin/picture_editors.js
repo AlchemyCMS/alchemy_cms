@@ -8,7 +8,7 @@ const UPDATE_DELAY = 125
 const IMAGE_PLACEHOLDER = '<alchemy-icon name="image"></alchemy-icon>'
 const THUMBNAIL_SIZE = "160x120"
 
-class PictureEditor {
+export class PictureEditor {
   constructor(container) {
     this.container = container
     this.cropFromField = container.querySelector("[data-crop-from]")
@@ -132,10 +132,10 @@ class PictureEditor {
     if (!this.imageCropperEnabled) return []
 
     const mask = this.targetSize.split("x").map((n) => parseInt(n))
-    const zoom = max([
+    const zoom = max(
       mask[0] / this.imageFileWidth,
       mask[1] / this.imageFileHeight
-    ])
+    )
 
     return [Math.round(mask[0] / zoom), Math.round(mask[1] / zoom)]
   }

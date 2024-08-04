@@ -19,6 +19,8 @@ gem "alchemy_i18n", git: "https://github.com/AlchemyCMS/alchemy_i18n.git", branc
 
 gem "sprockets-rails", "< 3.5.0"
 
+gem "ruby-vips"
+
 group :development, :test do
   gem "execjs", "~> 2.9.1"
   gem "rubocop", require: false

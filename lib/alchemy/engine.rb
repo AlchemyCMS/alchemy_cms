@@ -73,6 +73,17 @@ module Alchemy
           down_arrow: '<alchemy-icon name="arrow-down" size="1x"></alchemy-icon>'
         }
       end
+
+      ActiveSupport.on_load(:active_storage_blob) do
+        ActiveStorage::Blob.define_singleton_method(:ransackable_attributes) do |_auth_object|
+          %w[filename]
+        end
+      end
+    end
+
+    initializer "alchemy.active_storage" do |app|
+      app.config.active_storage.web_image_content_types += %w[image/webp]
+      app.config.active_storage.content_types_allowed_inline += %w[image/webp]
     end
 
     config.after_initialize do
@@ -87,17 +98,6 @@ module Alchemy
         require "alchemy/dev_support/live_reload_watcher"
 
         Alchemy::LiveReloadWatcher.init
-      end
-    end
-
-    initializer "alchemy.webp-mime_type" do
-      # Rails does not know anything about webp even in 2022
-      unless Mime::Type.lookup_by_extension(:webp)
-        Mime::Type.register("image/webp", :webp)
-      end
-      # Dragonfly uses Rack to read the mime type and guess what
-      unless Rack::Mime::MIME_TYPES[".webp"]
-        Rack::Mime::MIME_TYPES[".webp"] = "image/webp"
       end
     end
   end

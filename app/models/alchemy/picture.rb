@@ -28,8 +28,6 @@ module Alchemy
       large: "240x180"
     }.with_indifferent_access.freeze
 
-    CONVERTIBLE_FILE_FORMATS = %w[gif jpg jpeg png webp].freeze
-
     TRANSFORMATION_OPTIONS = [
       :crop,
       :crop_from,
@@ -45,7 +43,6 @@ module Alchemy
     include Alchemy::NameConversions
     include Alchemy::Taggable
     include Alchemy::TouchElements
-    include Calculations
 
     has_many :picture_ingredients,
       class_name: "Alchemy::Ingredients::Picture",
@@ -54,7 +51,6 @@ module Alchemy
 
     has_many :elements, through: :picture_ingredients
     has_many :pages, through: :elements
-    has_many :thumbs, class_name: "Alchemy::PictureThumb", dependent: :destroy
     has_many :descriptions, class_name: "Alchemy::PictureDescription", dependent: :destroy
 
     accepts_nested_attributes_for :descriptions, allow_destroy: true, reject_if: ->(attr) { attr[:text].blank? }
@@ -63,8 +59,8 @@ module Alchemy
     #
     # === CAUTION
     #
-    # This HAS to be placed for Dragonfly's class methods,
-    # to ensure this runs before Dragonfly's before_destroy callback.
+    # This HAS to be placed for ActiveStorage class methods,
+    # to ensure this runs before ActiveStorage before_destroy callback.
     #
     before_destroy unless: :deletable? do
       raise PictureInUseError, Alchemy.t(:cannot_delete_picture_notice) % {name: name}
@@ -84,33 +80,32 @@ module Alchemy
       @_preprocessor_class = klass
     end
 
-    # Enables Dragonfly image processing
-    dragonfly_accessor :image_file, app: :alchemy_pictures do
-      # Preprocess after uploading the picture
-      after_assign do |image|
-        if has_convertible_format?
-          self.class.preprocessor_class.new(image).call
-        end
-      end
+    # Legacy Dragonfly image attachments
+    extend Dragonfly::Model
+    dragonfly_accessor :legacy_image_file, app: :alchemy_pictures
+    DEPRECATED_COLUMNS = %i[
+      legacy_image_file
+      legacy_image_file_format
+      legacy_image_file_height
+      legacy_image_file_name
+      legacy_image_file_size
+      legacy_image_file_uid
+      legacy_image_file_width
+    ].each do |column|
+      deprecate column, deprecator: Alchemy::Deprecation
+      deprecate :"#{column}=", deprecator: Alchemy::Deprecation
     end
 
-    # Create important thumbnails upfront
-    after_create -> { PictureThumb.generate_thumbs!(self) if has_convertible_format? }
-
-    # We need to define this method here to have it available in the validations below.
-    class << self
-      def allowed_filetypes
-        Config.get(:uploader).fetch("allowed_filetypes", {}).fetch("alchemy/pictures", [])
-      end
+    # Use ActiveStorage image processing
+    has_one_attached :image_file, service: :alchemy_cms do |attachable|
+      # Only works in Rails 7.1
+      preprocessor_class.new(attachable).call
+      Preprocessor.generate_thumbs!(attachable)
     end
 
     validates_presence_of :image_file
-    validates_size_of :image_file, maximum: Config.get(:uploader)["file_size_limit"].megabytes
-    validates_property :format,
-      of: :image_file,
-      in: allowed_filetypes,
-      case_sensitive: false,
-      message: Alchemy.t("not a valid image")
+    validate :image_file_type_allowed, :image_file_not_too_big,
+      if: -> { image_file.present? }
 
     stampable stamper_class_name: Alchemy.user_class.name
 
@@ -121,7 +116,10 @@ module Alchemy
         where("#{table_name}.id NOT IN (SELECT related_object_id FROM alchemy_ingredients WHERE related_object_type = 'Alchemy::Picture')")
       }
     scope :without_tag, -> { left_outer_joins(:taggings).where(gutentag_taggings: {id: nil}) }
-    scope :by_file_format, ->(format) { where(image_file_format: format) }
+    scope :by_file_format,
+      ->(file_format) {
+        with_attached_image_file.joins(:image_file_blob).where(active_storage_blobs: {content_type: file_format})
+      }
 
     # Class methods
 
@@ -141,11 +139,10 @@ module Alchemy
       end
 
       def alchemy_resource_filters
-        @_file_formats ||= distinct.pluck(:image_file_format).compact.presence || []
         [
           {
             name: :by_file_format,
-            values: @_file_formats
+            values: file_formats
           },
           {
             name: :misc,
@@ -154,8 +151,17 @@ module Alchemy
         ]
       end
 
+      # Used by Alchemy::Resource#search_field_name to build the search query
       def searchable_alchemy_resource_attributes
-        %w[name image_file_name]
+        %w[name image_file_blob_filename]
+      end
+
+      def ransackable_attributes(_auth_object = nil)
+        %w[name]
+      end
+
+      def ransackable_associations(_auth_object = nil)
+        %w[image_file_blob]
       end
 
       def last_upload
@@ -164,33 +170,30 @@ module Alchemy
 
         Picture.where(upload_hash: last_picture.upload_hash)
       end
+
+      private
+
+      def file_formats
+        ActiveStorage::Blob.joins(:attachments).merge(
+          ActiveStorage::Attachment.where(record_type: name)
+        ).distinct.pluck(:content_type)
+      end
     end
 
     # Instance methods
 
     # Returns an url (or relative path) to a processed image for use inside an image_tag helper.
     #
-    # Any additional options are passed to the url method, so you can add params to your url.
-    #
     # Example:
     #
     #   <%= image_tag picture.url(size: '320x200', format: 'png') %>
     #
-    # @see Alchemy::PictureVariant#call for transformation options
-    # @see Alchemy::Picture::Url#call for url options
     # @return [String|Nil]
     def url(options = {})
       return unless image_file
 
-      variant = PictureVariant.new(self, options.slice(*TRANSFORMATION_OPTIONS))
-      self.class.url_class.new(variant).call(
-        options.except(*TRANSFORMATION_OPTIONS).merge(
-          basename: name,
-          ext: variant.render_format,
-          name: name
-        )
-      )
-    rescue ::Dragonfly::Job::Fetch::NotFound => e
+      self.class.url_class.new(self).call(options)
+    rescue ::ActiveStorage::Error => e
       log_warning(e.message)
       nil
     end
@@ -205,7 +208,7 @@ module Alchemy
 
       url(
         flatten: true,
-        format: image_file_format || "jpg",
+        format: image_file_extension || "jpg",
         size: size
       )
     end
@@ -239,18 +242,12 @@ module Alchemy
       end
     end
 
-    # Returns the suffix of the filename.
-    #
-    def suffix
-      image_file.ext
-    end
-
     # Returns a humanized, readable name from image filename.
     #
     def humanized_name
       return "" if image_file_name.blank?
 
-      convert_to_humanized_name(image_file_name, suffix)
+      convert_to_humanized_name(image_file_name, image_file_extension)
     end
 
     # Returns the format the image should be rendered with
@@ -262,7 +259,7 @@ module Alchemy
       if convertible?
         Config.get(:image_output_format)
       else
-        image_file_format
+        image_file_extension
       end
     end
 
@@ -280,7 +277,7 @@ module Alchemy
     # Returns true if the image can be converted into other formats
     #
     def has_convertible_format?
-      image_file_format.in?(CONVERTIBLE_FILE_FORMATS)
+      image_file&.variable?
     end
 
     # Checks if the picture is restricted.
@@ -301,6 +298,33 @@ module Alchemy
       picture_ingredients.empty?
     end
 
+    def image_file_name
+      image_file&.filename&.to_s
+    end
+
+    def image_file_format
+      image_file&.content_type
+    end
+
+    def image_file_size
+      image_file&.byte_size
+    end
+
+    def image_file_width
+      image_file&.metadata&.fetch(:width, nil)
+    end
+
+    def image_file_height
+      image_file&.metadata&.fetch(:height, nil)
+    end
+
+    def image_file_extension
+      image_file&.filename&.extension&.downcase
+    end
+
+    alias_method :suffix, :image_file_extension
+    deprecate suffix: :image_file_extension, deprecator: Alchemy::Deprecation
+
     # A size String from original image file values.
     #
     # == Example
@@ -309,6 +333,26 @@ module Alchemy
     #
     def image_file_dimensions
       "#{image_file_width}x#{image_file_height}"
+    end
+
+    private
+
+    def image_file_type_allowed
+      allowed_filetypes = Config
+        .get(:uploader)
+        .dig("allowed_filetypes", "alchemy/pictures") || []
+      unless image_file_extension&.in?(allowed_filetypes)
+        errors.add(:image_file, Alchemy.t("not a valid image"))
+      end
+    end
+
+    def image_file_not_too_big
+      maximum = Config.get(:uploader)["file_size_limit"]&.megabytes
+      return true unless maximum
+
+      if image_file_size > maximum
+        errors.add(:file, :too_big)
+      end
     end
   end
 end
