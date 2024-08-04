@@ -5,6 +5,8 @@ require "thor"
 module Alchemy
   module Install
     class Tasks < Thor
+      SENTINEL = /\.routes\.draw do(?:\s*\|map\|)?\s*$/
+
       include Thor::Actions
 
       no_tasks do
@@ -15,8 +17,9 @@ module Alchemy
           unless auto_accept
             mountpoint = ask("- At which path do you want to mount Alchemy CMS at?", default: mountpoint)
           end
-          sentinel = /\.routes\.draw do(?:\s*\|map\|)?\s*$/
-          inject_into_file "./config/routes.rb", "\n  mount Alchemy::Engine => '#{mountpoint}'\n", {after: sentinel, verbose: true}
+
+          inject_into_file "./config/routes.rb", "\n  mount Alchemy::Engine, at: '#{mountpoint}'\n",
+            {after: SENTINEL, verbose: true}
         end
 
         def set_primary_language(code: "en", name: "English", auto_accept: false)
