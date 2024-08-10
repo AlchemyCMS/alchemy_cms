@@ -14,6 +14,8 @@ end
 FileUtils.chdir GEM_ROOT do
   system! "gem install bundler --conservative"
   system("bundle check") || system!("bundle install")
+  system("bun -v &> /dev/null") || system!("curl -fsSL https://bun.sh/install | bash")
+  system!("bun install")
 end
 
 FileUtils.chdir APP_ROOT do
