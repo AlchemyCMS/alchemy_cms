@@ -1,5 +1,16 @@
 # Changelog
 
+## 7.2.4 (2024-08-10)
+
+- [7.2-stable] Fix margin of alchemy-message in alchemy-dialog [#2993](https://github.com/AlchemyCMS/alchemy_cms/pull/2993) ([tvdeyen](https://github.com/tvdeyen))
+- [7.2-stable] fix PictureEditor defaultCropSize [#2992](https://github.com/AlchemyCMS/alchemy_cms/pull/2992) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.2] Resource Controller: Allow additional Ransack filters [#2985](https://github.com/AlchemyCMS/alchemy_cms/pull/2985) ([mamhoff](https://github.com/mamhoff))
+- [7.2-stable] Fix combining search filters and pagination [#2982](https://github.com/AlchemyCMS/alchemy_cms/pull/2982) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.2-stable] Clear current language when switching sites [#2974](https://github.com/AlchemyCMS/alchemy_cms/pull/2974) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.2-stable] Update _autocomplete_tag_list.html.erb [#2966](https://github.com/AlchemyCMS/alchemy_cms/pull/2966) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.2-stable] Remove call to missing content_positions task [#2963](https://github.com/AlchemyCMS/alchemy_cms/pull/2963) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.2-stable] Fix re-render of layoutpages form if validation fails [#2954](https://github.com/AlchemyCMS/alchemy_cms/pull/2954) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.2.3 (2024-06-27)
 
 - [7.2-stable] Disable Turbo Prefetch in Admin [#2947](https://github.com/AlchemyCMS/alchemy_cms/pull/2947) ([tvdeyen](https://github.com/tvdeyen))
