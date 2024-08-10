@@ -157,6 +157,14 @@
 - Add nodes to page dialog [#2699](https://github.com/AlchemyCMS/alchemy_cms/pull/2699) ([sascha-karnatz](https://github.com/sascha-karnatz))
 - Fixes language switching to default language [#2689](https://github.com/AlchemyCMS/alchemy_cms/pull/2689) ([robinboening](https://github.com/robinboening))
 
+## 7.1.11 (2024-08-10)
+
+- [7.1-stable] fix PictureEditor defaultCropSize [#2991](https://github.com/AlchemyCMS/alchemy_cms/pull/2991) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] Fix combining search filters and pagination [#2981](https://github.com/AlchemyCMS/alchemy_cms/pull/2981) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] Clear current language when switching sites [#2973](https://github.com/AlchemyCMS/alchemy_cms/pull/2973) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] Remove call to missing content_positions task [#2962](https://github.com/AlchemyCMS/alchemy_cms/pull/2962) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] Fix re-render of layoutpages form if validation fails [#2953](https://github.com/AlchemyCMS/alchemy_cms/pull/2953) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.1.10 (2024-06-27)
 
 - [7.1-stable] Prevent Javascript error if the page will be unlocked [#2945](https://github.com/AlchemyCMS/alchemy_cms/pull/2945) ([alchemycms-bot](https://github.com/alchemycms-bot))
