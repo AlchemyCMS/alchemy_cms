@@ -36,8 +36,11 @@
 
       a {
         @include tag-base;
-        text-decoration: none;
-        display: flex;
+
+        & {
+          display: flex;
+          text-decoration: none;
+        }
       }
 
       &:hover {
@@ -59,12 +62,12 @@
 }
 
 .tag {
+  pointer-events: none;
+  font-size: $small-font-size;
   @include tag-base(
     $margin: var(--spacing-0) 0,
     $padding: var(--spacing-1) var(--spacing-2) var(--spacing-1)
   );
-  pointer-events: none;
-  font-size: $small-font-size;
 }
 
 .tags .list .tag {
