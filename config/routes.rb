@@ -5,15 +5,15 @@ require "alchemy/routing_constraints"
 Alchemy::Engine.routes.draw do
   root to: "pages#index"
 
-  get "/sitemap.xml" => "pages#sitemap", :format => "xml"
+  get "/sitemap.xml", to: "pages#sitemap", format: "xml"
 
   scope Alchemy.admin_path, {constraints: Alchemy.admin_constraints} do
-    get "/" => redirect("#{Alchemy.admin_path}/dashboard"), :as => :admin
-    get "/dashboard" => "admin/dashboard#index", :as => :admin_dashboard
-    get "/dashboard/info" => "admin/dashboard#info", :as => :dashboard_info
-    get "/help" => "admin/dashboard#help", :as => :help
-    get "/dashboard/update_check" => "admin/dashboard#update_check", :as => :update_check
-    get "/leave" => "admin/base#leave", :as => :leave_admin
+    get "/", to: redirect("#{Alchemy.admin_path}/dashboard"), as: :admin
+    get "/dashboard", to: "admin/dashboard#index", as: :admin_dashboard
+    get "/dashboard/info", to: "admin/dashboard#info", as: :dashboard_info
+    get "/help", to: "admin/dashboard#help", as: :help
+    get "/dashboard/update_check", to: "admin/dashboard#update_check", as: :update_check
+    get "/leave", to: "admin/base#leave", as: :leave_admin
   end
 
   namespace :admin, {path: Alchemy.admin_path, constraints: Alchemy.admin_constraints} do
@@ -105,13 +105,13 @@ Alchemy::Engine.routes.draw do
 
     resources :sites
 
-    get "/styleguide" => "styleguide#index"
+    get "/styleguide", to: "styleguide#index"
   end
 
-  get "/attachment/:id/download(/:name)" => "attachments#download",
-    :as => :download_attachment
-  get "/attachment/:id/show(/:name)" => "attachments#show",
-    :as => :show_attachment
+  get "/attachment/:id/download(/:name)", to: "attachments#download",
+    as: :download_attachment
+  get "/attachment/:id/show(/:name)", to: "attachments#show",
+    as: :show_attachment
 
   resources :messages, only: [:index, :new, :create]
   resources :elements, only: :show
@@ -123,8 +123,8 @@ Alchemy::Engine.routes.draw do
     resources :elements, only: [:index, :show]
 
     resources :pages, only: [:index] do
-      get "elements" => "elements#index", :as => "elements"
-      get "elements/:named" => "elements#index", :as => "named_elements"
+      get "elements", to: "elements#index", as: "elements"
+      get "elements/:named", to: "elements#index", as: "named_elements"
       collection do
         get :nested
       end
@@ -133,8 +133,8 @@ Alchemy::Engine.routes.draw do
       end
     end
 
-    get "/pages/*urlname(.:format)" => "pages#show", :as => "page"
-    get "/admin/pages/:id(.:format)" => "pages#show", :as => "preview_page"
+    get "/pages/*urlname(.:format)", to: "pages#show", as: "page"
+    get "/admin/pages/:id(.:format)", to: "pages#show", as: "preview_page"
 
     resources :nodes, only: [:index] do
       member do
@@ -144,14 +144,14 @@ Alchemy::Engine.routes.draw do
     end
   end
 
-  get "/:locale" => "pages#index",
-    :constraints => {locale: Alchemy::RoutingConstraints::LOCALE_REGEXP},
-    :as => :show_language_root
+  get "/:locale", to: "pages#index",
+    constraints: {locale: Alchemy::RoutingConstraints::LOCALE_REGEXP},
+    as: :show_language_root
 
   # The page show action has to be last route
   constraints(locale: Alchemy::RoutingConstraints::LOCALE_REGEXP) do
-    get "(/:locale)/*urlname(.:format)" => "pages#show",
-      :constraints => Alchemy::RoutingConstraints.new,
-      :as => :show_page
+    get "(/:locale)/*urlname(.:format)", to: "pages#show",
+      constraints: Alchemy::RoutingConstraints.new,
+      as: :show_page
   end
 end
