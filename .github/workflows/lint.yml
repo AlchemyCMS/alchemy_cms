@@ -25,38 +25,34 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "18"
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
       - name: Restore node_modules cache
         uses: actions/cache@v4
         with:
           path: node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('package.json') }}
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('bun.lockdb') }}
           restore-keys: |
             ${{ runner.os }}-node-modules
       - name: Install dependencies
-        run: yarn install
+        run: bun install
       - name: Lint code
-        run: yarn eslint
+        run: bun run --bun eslint
   Prettier:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "18"
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
       - name: Restore node_modules cache
         uses: actions/cache@v4
         with:
           path: node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('package.json') }}
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('bun.lockdb') }}
           restore-keys: |
             ${{ runner.os }}-node-modules
       - name: Install dependencies
-        run: yarn install
+        run: bun install
       - name: Lint code
-        run: yarn lint
+        run: bun run --bun lint

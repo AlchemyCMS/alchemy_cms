@@ -14,51 +14,49 @@ on:
   pull_request:
 
 jobs:
-  check_yarn_lock:
+  check_bun_lock:
     runs-on: ubuntu-latest
-    name: Check yarn.lock
+    name: Check bun.lockdb
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Fetch all history
       - name: Get changed files
-        id: changed-yarn-lock
+        id: changed-bun-lock
         uses: tj-actions/changed-files@v41
         with:
-          files: yarn.lock
+          files: bun.lockdb
     outputs:
-      yarn_lock_changed: ${{ steps.changed-yarn-lock.outputs.any_changed }}
+      bun_lock_changed: ${{ steps.changed-bun-lock.outputs.any_changed }}
 
   build_javascript:
     runs-on: ubuntu-latest
     name: Build JS packages
-    needs: check_yarn_lock
-    if: needs.check_yarn_lock.outputs.yarn_lock_changed == 'true'
+    needs: check_bun_lock
+    if: needs.check_bun_lock.outputs.bun_lock_changed == 'true'
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          cache: "yarn"
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
       - name: Restore node_modules cache
         uses: actions/cache@v4
         with:
           path: node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('bun.lockdb') }}
           restore-keys: |
             ${{ runner.os }}-node-modules
       - name: Install dependencies
-        run: yarn install
-      - name: YARN build
-        run: yarn build
+        run: bun install
+      - name: bun build
+        run: bun run --bun build
       - uses: actions/upload-artifact@v4
         with:
           name: javascript-bundles
           path: vendor/javascript
 
   RSpec:
-    needs: [check_yarn_lock, build_javascript]
-    if: ${{ success('check_yarn_lock') && !failure('build_javascript') }}
+    needs: [check_bun_lock, build_javascript]
+    if: ${{ success('check_bun_lock') && !failure('build_javascript') }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -141,7 +139,7 @@ jobs:
           sudo apt install -qq --fix-missing libmysqlclient-dev -o dir::cache::archives="/home/runner/apt/cache"
           sudo chown -R runner /home/runner/apt/cache
       - uses: actions/download-artifact@v4
-        if: needs.check_yarn_lock.outputs.yarn_lock_changed == 'true'
+        if: needs.check_bun_lock.outputs.bun_lock_changed == 'true'
         with:
           name: javascript-bundles
           path: vendor/javascript
@@ -165,7 +163,7 @@ jobs:
 
   PushJavascript:
     runs-on: ubuntu-latest
-    needs: [check_yarn_lock, RSpec]
+    needs: [check_bun_lock, RSpec]
     if: github.event_name == 'pull_request'
     steps:
       - uses: actions/checkout@v4
@@ -174,7 +172,7 @@ jobs:
           persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of our personal access token.
           fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
       - uses: actions/download-artifact@v4
-        if: needs.check_yarn_lock.outputs.yarn_lock_changed == 'true'
+        if: needs.check_bun_lock.outputs.bun_lock_changed == 'true'
         with:
           name: javascript-bundles
           path: vendor/javascript
@@ -201,14 +199,16 @@ jobs:
       NODE_ENV: test
     steps:
       - uses: actions/checkout@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
       - name: Restore node modules cache
         uses: actions/cache@v4
         with:
           path: node_modules
-          key: ${{ runner.os }}-yarn-${{ hashFiles('./package.json') }}
+          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lockdb') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
-      - name: Install yarn
-        run: yarn install
+            ${{ runner.os }}-bun-
+      - name: Install dependencies
+        run: bun install
       - name: Run jest
-        run: yarn jest --verbose
+        run: bun run jest --verbose
