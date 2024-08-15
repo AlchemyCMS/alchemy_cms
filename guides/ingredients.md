@@ -162,6 +162,10 @@ See the [rendering images](render_images) guide for further information on the p
 
   A list of screen sizes the image sources should be used for. Best used with the `srcset` setting for implementing responsive images.
 
+* **linkable** `Boolean`
+
+  If set to `false`, the user cannot add a link to the picture.
+
 ## Date
 
 Use this to store a `DateTime` value. Renders a datepicker in the editor partial.
