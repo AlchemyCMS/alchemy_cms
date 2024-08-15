@@ -28,7 +28,7 @@ When defining ingredients, you need to provide a `role` and `type`. You can set 
 - name: article
   ingredients:
     - role: headline
-      type: Text
+      type: Headline
       hint: This is the headline
     - role: color
       type: Text
@@ -102,6 +102,39 @@ Use this for a headline, or a product name. The editor is renderd as a single li
   type: Text
   settings:
     linkable: true
+~~~
+
+## Headline
+
+Stores headline text of 255 chars max.
+
+Use this for HTML headings. The editor is renderd as a single lined input field with level and optional size selects. The view output will be a heading element.
+
+### Settings
+
+* **anchor** `Boolean` or the `String` `from_value`
+
+  If set to `true`, the user can add a custom anchor to the headline.
+  If set to `from_value` the anchor will be created from the value.
+  The anchor will be added as `id` to the heading tag.
+
+* **levels** `Array` of `Integer`s
+
+  Set the available [heading levels](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements) that the editor can choose from.
+  By default it is 1 to 6.
+
+* **sizes** `Array` of `Integer`s
+
+  Optionally add a listy of sizes that the editor can choose a heading css size. Added as class (`.h2`) to the heading element. Use this of 
+
+### Example
+
+~~~ yaml
+- name: headline
+  type: Headline
+  settings:
+    levels: [2, 3]
+    sizes: [1, 2]
 ~~~
 
 ## Richtext
