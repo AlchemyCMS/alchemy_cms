@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.1.10 (2024-08-21)
+
+- [6.1-stable] Fix combining search filters and pagination [#2983](https://github.com/AlchemyCMS/alchemy_cms/pull/2983) ([tvdeyen](https://github.com/tvdeyen))
+- [6.1-stable] Merge pull request #2556 from mamhoff/fix-nan-ratio-error [#2581](https://github.com/AlchemyCMS/alchemy_cms/pull/2581) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 6.1.9 (2023-08-29)
 
 - [6.1-stable] Merge pull request #2571 from tvdeyen/fix-non-stupid-digest-assets [#2573](https://github.com/AlchemyCMS/alchemy_cms/pull/2573) ([github-actions](https://github.com/apps/github-actions))
