@@ -47,7 +47,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency "originator", ["~> 3.1"]
   gem.add_runtime_dependency "ransack", [">= 1.8", "< 5.0"]
   gem.add_runtime_dependency "simple_form", [">= 4.0", "< 6"]
-  gem.add_runtime_dependency "sprockets", [">= 3.0", "< 5"]
+  gem.add_runtime_dependency "sprockets-rails", [">= 3.5", "< 4"]
   gem.add_runtime_dependency "turbo-rails", [">= 1.4", "< 2.1"]
   gem.add_runtime_dependency "view_component", ["~> 3.0"]
 
