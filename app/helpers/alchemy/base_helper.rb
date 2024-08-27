@@ -42,8 +42,8 @@ module Alchemy
     #     <p>Caution! This is a warning!</p>
     #   <% end %>
     #
-    def render_message(type = :info, msg = nil, &blk)
-      render Alchemy::Admin::Message.new(msg || capture(&blk), type: type)
+    def render_message(type = :info, msg = nil, &)
+      render Alchemy::Admin::Message.new(msg || capture(&), type: type)
     end
 
     # Checks if the given argument is a String or a Page object.

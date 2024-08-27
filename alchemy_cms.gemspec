@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
   gem.summary = "A powerful, userfriendly and flexible CMS for Rails"
   gem.description = "Alchemy is a powerful, userfriendly and flexible Rails CMS."
   gem.requirements << "ImageMagick (libmagick), v6.6 or greater."
-  gem.required_ruby_version = ">= 3.0.0"
+  gem.required_ruby_version = ">= 3.1.0"
   gem.license = "BSD-3-Clause"
   gem.files = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^spec/|bun\.lockdb|package\.json|^\.}) }
   gem.require_paths = ["lib"]

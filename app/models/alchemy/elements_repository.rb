@@ -115,8 +115,8 @@ module Alchemy
       self.class.new(select { |e| e.parent_element_id == parent.id })
     end
 
-    def each(&blk)
-      elements.each(&blk)
+    def each(&)
+      elements.each(&)
     end
 
     private
