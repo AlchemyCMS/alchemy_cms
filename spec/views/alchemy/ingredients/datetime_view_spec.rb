@@ -10,7 +10,7 @@ describe "alchemy/ingredients/_datetime_view" do
     context "without date_format passed" do
       it "translates the date value with default format" do
         render ingredient, options: options
-        expect(rendered).to have_content("Sun, 27 Oct 2013 20:14:16 +0000")
+        expect(rendered).to have_content("10.27.2013 21:14")
       end
     end
 
