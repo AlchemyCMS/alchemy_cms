@@ -19,7 +19,7 @@ describe "alchemy/ingredients/_datetime_view" do
 
       it "renders the date rfc822 conform" do
         render ingredient, options: options
-        expect(rendered).to have_content("Sun, 27 Oct 2013 20:14:16 +0000")
+        expect(rendered).to have_content("Sun, 27 Oct 2013 21:14:16 +0100")
       end
     end
   end
