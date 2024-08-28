@@ -12,7 +12,7 @@ module Alchemy
 
       def call
         if date_format == "rfc822"
-          ingredient.value.to_s(:rfc822)
+          ingredient.value.to_fs(:rfc822)
         else
           ::I18n.l(ingredient.value, format: date_format)
         end.html_safe
