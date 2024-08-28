@@ -167,6 +167,8 @@
     - role: datetime
       type: Datetime
       hint: true
+      settings:
+        input_type: datetime
     - role: file
       type: File
       hint: true
