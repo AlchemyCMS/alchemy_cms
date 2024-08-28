@@ -3,14 +3,24 @@
 require "rails_helper"
 
 describe "alchemy/ingredients/_datetime_view" do
-  let(:ingredient) { Alchemy::Ingredients::Datetime.new(value: "2013-10-27 21:14:16 +0100") }
+  around do |example|
+    time_zone = Rails.application.config.time_zone
+    Rails.application.config.time_zone = "Berlin"
+    example.run
+    Rails.application.config.time_zone = time_zone
+  end
+
+  let(:ingredient) do
+    Alchemy::Ingredients::Datetime.new(value: "2024-08-29T10:00:00.000Z")
+  end
+
   let(:options) { {} }
 
   context "with date value" do
     context "without date_format passed" do
       it "translates the date value with default format" do
         render ingredient, options: options
-        expect(rendered).to have_content("10.27.2013 20:14")
+        expect(rendered).to have_content("08.29.2024 12:00")
       end
     end
 
@@ -19,7 +29,7 @@ describe "alchemy/ingredients/_datetime_view" do
 
       it "renders the date rfc822 conform" do
         render ingredient, options: options
-        expect(rendered).to have_content("Sun, 27 Oct 2013 20:14:16 +0000")
+        expect(rendered).to have_content("Thu, 29 Aug 2024 12:00:00 +0200")
       end
     end
   end
