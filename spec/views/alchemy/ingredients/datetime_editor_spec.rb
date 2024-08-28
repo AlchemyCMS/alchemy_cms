@@ -17,6 +17,6 @@ RSpec.describe "alchemy/ingredients/_datetime_editor" do
 
   it "renders a datepicker" do
     render element_editor
-    expect(rendered).to have_css('alchemy-datepicker[input-type="date"] input[type="text"].date')
+    expect(rendered).to have_css('alchemy-datepicker[input-type="datetime"] input[type="text"].datetime')
   end
 end
