@@ -11,10 +11,11 @@ module Alchemy
       end
 
       def call
+        datetime = ingredient.value.in_time_zone(Rails.application.config.time_zone)
         if date_format == "rfc822"
-          ingredient.value.to_s(:rfc822)
+          datetime.try(:to_fs, :rfc822) || datetime.to_s(:rfc822)
         else
-          ::I18n.l(ingredient.value, format: date_format)
+          ::I18n.l(datetime, format: date_format)
         end.html_safe
       end
     end
