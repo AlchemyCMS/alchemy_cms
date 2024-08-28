@@ -199,7 +199,7 @@ See the [rendering images](render_images) guide for further information on the p
 
   If set to `false`, the user cannot add a link to the picture.
 
-## Date
+## Datetime
 
 Use this to store a `DateTime` value. Renders a datepicker in the editor partial.
 
