@@ -97,19 +97,19 @@ module Alchemy
           @icon = icon
         end
 
-        def column(name, label: nil, sortable: false, type: nil, class_name: nil, &block)
-          label ||= resource_handler.model.human_attribute_name(name)
+        def column(name, header: nil, sortable: false, type: nil, class_name: nil, &block)
+          header ||= resource_handler.model.human_attribute_name(name)
           type ||= resource_handler.model.columns_hash[name.to_s]&.type
           attribute = resource_handler.attributes.find { |item| item[:name] == name.to_s } || {name: name, type: type}
           block ||= lambda { |item| render_attribute(item, attribute) }
 
           css_classes = [name, type, class_name].compact.join(" ")
-          with_header(name, @query, css_classes: css_classes, label: label, type: type, sortable: sortable)
+          with_header(name, @query, css_classes: css_classes, text: header, type: type, sortable: sortable)
           with_cell(css_classes, &block)
         end
 
         def icon_column(icon = nil, style: nil)
-          column(:icon, label: "") do |resource|
+          column(:icon, header: "") do |resource|
             render_icon(icon || yield(resource), size: "xl", style: style)
           end
         end

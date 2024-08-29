@@ -1,5 +1,5 @@
 <%= render Alchemy::Admin::Resource::Table.new(@pages, query: @query, search_filter_params: search_filter_params) do |table| %>
-  <% table.column :icon, label: "" do |page| %>
+  <% table.column :icon, header: "" do |page| %>
     <% if can?(:edit_content, page) %>
       <% if page.locked? %>
         <sl-tooltip class="like-hint-tooltip" content="<%= Alchemy.t("This page is locked", name: page.locker_name) %>" placement="bottom-start">
@@ -22,7 +22,7 @@
           title: Alchemy.t(:edit_page),
         ) { content_tag(:span, page.name) } -%>
   <% end %>
-  <% table.column :url_path, label: Alchemy::Page.human_attribute_name(:urlname) %>
+  <% table.column :url_path, header: Alchemy::Page.human_attribute_name(:urlname) %>
   <% table.column :page_type do |page| %>
     <%= Alchemy.t(page.page_layout, scope: "page_layout_names", default: page.page_layout.to_s.humanize) %>
   <% end %>

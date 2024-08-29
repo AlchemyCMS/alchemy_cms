@@ -47,16 +47,16 @@ RSpec.describe Alchemy::Admin::Resource::Table, type: :component do
       end
     end
 
-    context "columns with custom label" do
+    context "columns with custom header" do
       subject(:render) do
         with_controller_class(Admin::EventsController) do
           render_inline(component) do |component|
-            component.column(:name, label: "Awesome Name")
+            component.column(:name, header: "Awesome Name")
           end
         end
       end
 
-      it "renders a table header with custom label" do
+      it "renders a table header with custom header" do
         render
         expect(page).to have_selector("table th", text: "Awesome Name")
       end

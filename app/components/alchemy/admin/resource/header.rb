@@ -25,14 +25,14 @@ module Alchemy
         erb_template <<~ERB
           <th class="<%= @css_classes %>">
             <% if @sortable %>
-              <%= sort_link @query, @name, @label, default_order: @default_order %>
+              <%= sort_link @query, @name, @text, default_order: @default_order %>
             <% else %>
-              <%= @label %>
+              <%= @text %>
             <% end %>
           </th>
         ERB
 
-        def initialize(name, query, css_classes: "", label: nil, type: :string, sortable: false)
+        def initialize(name, query, css_classes: "", text: nil, type: :string, sortable: false)
           @name = name
           @query = query
           @text = text || name

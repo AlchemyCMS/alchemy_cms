@@ -5,12 +5,12 @@ require "rails_helper"
 RSpec.describe Alchemy::Admin::Resource::Header, type: :component do
   let(:name) { :name }
   let(:query) { nil }
-  let(:label) { nil }
+  let(:text) { nil }
   let(:type) { :string }
   let(:sortable) { false }
   let(:css_classes) { "foo bar" }
 
-  let(:component) { described_class.new(name, query, label: label, type: type, sortable: sortable, css_classes: css_classes) }
+  let(:component) { described_class.new(name, query, text: text, type: type, sortable: sortable, css_classes: css_classes) }
 
   subject(:render) do
     with_controller_class(Admin::EventsController) do
@@ -29,8 +29,8 @@ RSpec.describe Alchemy::Admin::Resource::Header, type: :component do
     expect(page).to have_selector("th.bar")
   end
 
-  context "with label" do
-    let(:label) { "Foo" }
+  context "with text" do
+    let(:text) { "Foo" }
 
     it "should render header" do
       render
