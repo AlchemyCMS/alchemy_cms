@@ -8,7 +8,8 @@
         datetime_editor, :value, {
           name: datetime_editor.form_field_name,
           id: datetime_editor.form_field_id,
-          value: datetime_editor.value
+          value: datetime_editor.value,
+          type: datetime_editor.settings[:input_type]
         }
       ) %>
       <label for="<%= datetime_editor.form_field_id %>" class="ingredient-date--label">
