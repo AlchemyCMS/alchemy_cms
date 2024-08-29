@@ -1,44 +1,18 @@
-<%- if @languages.any? -%>
-<table class="list" id="languages_list">
-  <thead>
-    <tr>
-      <th class="icon"></th>
-      <th>
-        <%= sort_link @query, :name %>
-      </th>
-      <th>
-        <%= sort_link @query, :language_code %>
-      </th>
-      <th>
-        <%= sort_link @query, :country_code %>
-      </th>
-      <th>
-        <%= Alchemy::Language.human_attribute_name(:code) %>
-      </th>
-      <th>
-        <%= Alchemy::Language.human_attribute_name(:locale) %>
-      </th>
-      <th>
-        <%= Alchemy::Language.human_attribute_name(:frontpage_name) %>
-      </th>
-      <th>
-        <%= Alchemy::Language.human_attribute_name(:page_layout) %>
-      </th>
-      <th class="center">
-        <%= Alchemy::Language.human_attribute_name(:public) %>
-      </th>
-      <th class="center">
-        <%= Alchemy::Language.human_attribute_name(:default) %>
-      </th>
-      <th class="tools"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render_resources %>
-  </tbody>
-</table>
-<%- elsif search_filter_params[:q].present? -%>
-<p><%= Alchemy.t('Nothing found') %></p>
-<%- end -%>
+<%= render Alchemy::Admin::Resource::Table.new(@languages, query: @query, search_filter_params: search_filter_params) do |table| %>
+  <% table.icon_column "translate-2", style: false %>
+  <% table.column :name, sortable: true %>
+  <% table.column :language_code, sortable: true %>
+  <% table.column :country_code %>
+  <% table.column :code %>
+  <% table.column :locale %>
+  <% table.column :frontpage_name %>
+  <% table.column :page_layout do |row| %>
+    <%= Alchemy::Page.human_layout_name(row.page_layout) %>
+  <% end %>
+  <% table.column :public %>
+  <% table.column :default %>
+  <% table.delete_button %>
+  <% table.edit_button %>
+<% end %>
 
 <%= paginate @languages, theme: 'alchemy' %>

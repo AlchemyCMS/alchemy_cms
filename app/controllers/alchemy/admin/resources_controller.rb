@@ -170,7 +170,7 @@ module Alchemy
       end
 
       def alchemy_module
-        @alchemy_module ||= module_definition_for(controller: params[:controller], action: "index")
+        @alchemy_module ||= module_definition_for(controller: controller_path, action: "index")
       end
 
       def load_resource
