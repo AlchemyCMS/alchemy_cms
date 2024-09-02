@@ -11,44 +11,60 @@ module Alchemy
     let(:expected_wrapper_tag) { "div.#{element.name}##{element.dom_id}" }
 
     describe "#element_view_for" do
-      it "should yield an instance of ElementViewHelper" do
+      it "should yield an instance of ElementViewHelper", :silence_deprecations do
         expect { |b| element_view_for(element, &b) }
           .to yield_with_args(ElementsBlockHelper::ElementViewHelper)
       end
 
-      it "should wrap its output in a DOM element" do
+      it "should wrap its output in a DOM element", :silence_deprecations do
         expect(element_view_for(element))
           .to have_css expected_wrapper_tag
       end
 
-      it "should change the wrapping DOM element according to parameters" do
-        expect(element_view_for(element, tag: "span", class: "some_class", id: "some_id"))
-          .to have_css "span.some_class#some_id"
+      context "when id and class options are given" do
+        it "should change the wrapping DOM element according to parameters" do
+          expect(element_view_for(element, tag: "span", class: "some_class", id: "some_id"))
+            .to have_css "span.some_class#some_id"
+        end
       end
 
-      it "should include the element's tags in the wrapper DOM element" do
+      context "when no id option is given" do
+        it "should warn about deprecation" do
+          expect(Alchemy::Deprecation).to receive(:warn).twice
+          element_view_for(element)
+        end
+      end
+
+      context "when no class option is given" do
+        it "should warn about deprecation" do
+          expect(Alchemy::Deprecation).to receive(:warn).twice
+          element_view_for(element)
+        end
+      end
+
+      it "should include the element's tags in the wrapper DOM element", :silence_deprecations do
         expect(element_view_for(element))
           .to have_css "#{expected_wrapper_tag}[data-element-tags='foo bar']"
       end
 
-      it "should use the provided tags formatter to format tags" do
+      it "should use the provided tags formatter to format tags", :silence_deprecations do
         expect(element_view_for(element, tags_formatter: lambda { |tags| tags.join ", " }))
           .to have_css "#{expected_wrapper_tag}[data-element-tags='foo, bar']"
       end
 
-      it "should include the ingredients rendered by the block passed to it" do
+      it "should include the ingredients rendered by the block passed to it", :silence_deprecations do
         expect(element_view_for(element) do
           "view"
         end).to have_content "view"
       end
 
-      context "when/if preview mode is not active" do
+      context "when/if preview mode is not active", :silence_deprecations do
         subject { element_view_for(element) }
         it { is_expected.to have_css expected_wrapper_tag }
         it { is_expected.not_to have_css "#{expected_wrapper_tag}[data-alchemy-element]" }
       end
 
-      context "when/if preview mode is active" do
+      context "when/if preview mode is active", :silence_deprecations do
         include_context "in preview mode"
 
         subject { helper.element_view_for(element) }
