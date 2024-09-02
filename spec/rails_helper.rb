@@ -80,6 +80,12 @@ RSpec.configure do |config|
     ::I18n.locale = :en
   end
 
+  config.around(:each, silence_deprecations: true) do |example|
+    Alchemy::Deprecation.silence do
+      example.run
+    end
+  end
+
   config.before(:each, type: :system) do
     driven_by :rack_test
   end
