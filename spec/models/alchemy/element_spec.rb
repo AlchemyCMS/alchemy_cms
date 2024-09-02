@@ -127,8 +127,13 @@ module Alchemy
     end
 
     describe ".dom_id_class" do
-      it "defaults to Alchemy::Element::DomId" do
+      it "defaults to Alchemy::Element::DomId", :silence_deprecations do
         expect(described_class.dom_id_class).to eq(Alchemy::Element::DomId)
+      end
+
+      it "warns about deprecation" do
+        expect(Alchemy::Deprecation).to receive(:warn)
+        described_class.dom_id_class
       end
     end
 
@@ -136,14 +141,21 @@ module Alchemy
       let(:dummy_dom_id) { Class.new }
 
       around do |example|
-        default_class = described_class.dom_id_class
-        described_class.dom_id_class = dummy_dom_id
-        example.run
-        described_class.dom_id_class = default_class
+        Alchemy::Deprecation.silence do
+          default_class = described_class.dom_id_class
+          described_class.dom_id_class = dummy_dom_id
+          example.run
+          described_class.dom_id_class = default_class
+        end
       end
 
       it "sets the dom id class" do
         expect(described_class.dom_id_class).to eq(dummy_dom_id)
+      end
+
+      it "warns about deprecation" do
+        expect(Alchemy::Deprecation).to receive(:warn)
+        described_class.dom_id_class
       end
     end
 
@@ -473,8 +485,13 @@ module Alchemy
     describe "#dom_id" do
       let(:element) { build_stubbed(:alchemy_element, position: 1) }
 
-      it "calls dom id class" do
+      it "calls dom id class", :silence_deprecations do
         expect(Alchemy::Element.dom_id_class).to receive(:new).with(element).and_call_original
+        element.dom_id
+      end
+
+      it "warns about deprecation" do
+        expect(Alchemy::Deprecation).to receive(:warn)
         element.dom_id
       end
     end

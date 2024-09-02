@@ -79,8 +79,11 @@ module Alchemy
       end
 
       # Returns a dom id used for elements html id tag.
-      #
+      # @deprecated
       def dom_id
+        if caller.none? { |l| l =~ Regexp.new("alchemy/elements_block_helper.rb:117:in `element_view_for'") }
+          Alchemy::Deprecation.warn("dom_id is deprecated and will be removed from Alchemy 8.0. Please pass an id to the element_view_for helper instead.")
+        end
         self.class.dom_id_class.new(self).call
       end
 
