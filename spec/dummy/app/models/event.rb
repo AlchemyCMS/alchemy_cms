@@ -7,7 +7,7 @@ class Event < ActiveRecord::Base
   validates_presence_of :name
   belongs_to :location
 
-  enum event_type: {
+  enum :event_type, {
     expo: 0,
     workshop: 1,
   }
