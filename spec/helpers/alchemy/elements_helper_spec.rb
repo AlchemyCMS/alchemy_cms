@@ -75,9 +75,30 @@ module Alchemy
       context "without any options" do
         let(:options) { {} }
 
-        it "should render all elements from current pages public version." do
-          is_expected.to have_selector("##{element.dom_id}")
-          is_expected.to have_selector("##{another_element.dom_id}")
+        context "with Current.page set" do
+          before { Current.page = page }
+
+          it "should render all elements from current pages public version." do
+            is_expected.to have_selector("##{element.dom_id}")
+            is_expected.to have_selector("##{another_element.dom_id}")
+          end
+        end
+
+        context "with Current.page not set" do
+          before { Current.page = nil }
+
+          it "should not render any elements." do
+            is_expected.to be_empty
+          end
+
+          context "but with @page set" do
+            before { helper.instance_variable_set(:@page, page) }
+
+            it "should render all elements from current pages public version." do
+              is_expected.to have_selector("##{element.dom_id}")
+              is_expected.to have_selector("##{another_element.dom_id}")
+            end
+          end
         end
 
         context "in preview_mode" do
