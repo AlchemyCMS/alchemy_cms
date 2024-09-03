@@ -24,11 +24,6 @@ module Alchemy
           FileUtils.rm_f "bin/webpack"
           FileUtils.rm_f "bin/webpack-dev-server"
         end
-        if File.exist? "vendor/assets/stylesheets/alchemy/admin/all.css"
-          FileUtils.mv "vendor/assets/stylesheets/alchemy/admin/all.css", "vendor/assets/stylesheets/alchemy/admin/all.scss"
-        end
-        task.append_file "vendor/assets/stylesheets/alchemy/admin/all.scss", "@use \"alchemy/admin\";\n"
-        task.run "bin/rails dartsass:install"
       end
 
       private
