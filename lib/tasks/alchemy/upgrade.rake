@@ -61,12 +61,18 @@ namespace :alchemy do
 
     namespace "7.3" do
       task "run" => [
-        "alchemy:upgrade:7.3:remove_admin_stylesheets"
+        "alchemy:upgrade:7.3:remove_admin_stylesheets",
+        "alchemy:upgrade:7.3:generate_custom_css_entrypoint"
       ]
 
       desc "Remove alchemy admin stylesheets"
       task remove_admin_stylesheets: [:environment] do
         Alchemy::Upgrader::SevenPointThree.remove_admin_stylesheets
+      end
+
+      desc "Generate custom css entrypoint"
+      task generate_custom_css_entrypoint: [:environment] do
+        Alchemy::Upgrader::SevenPointThree.generate_custom_css_entrypoint
       end
     end
   end

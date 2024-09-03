@@ -4,3 +4,4 @@
 //= link_tree ../images
 //= link tinymce/langs/de.js
 //= link_tree ../builds
+//= link alchemy/admin/custom.css
