@@ -22,8 +22,8 @@ module Alchemy
       context "with a YAML file including a symbol" do
         let(:yaml) { "name: :symbol" }
         before do
-          expect(File).to receive(:exist?).and_return(true)
-          expect(File).to receive(:read).and_return(yaml)
+          allow(File).to receive(:exist?).and_return(true)
+          allow(File).to receive(:read).and_return(yaml)
         end
 
         it "returns the definition without error" do
