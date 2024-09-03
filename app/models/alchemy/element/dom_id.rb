@@ -11,6 +11,7 @@ module Alchemy
   #
   #  Alchemy::Element.dom_id_class = MyDomIdClass
   #
+  # @deprecated Use a headline ingredient with anchor setting instead.
   class Element < BaseRecord
     class DomId
       def initialize(element)
