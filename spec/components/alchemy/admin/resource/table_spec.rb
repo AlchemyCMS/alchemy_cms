@@ -2,8 +2,6 @@
 
 require "rails_helper"
 
-CustomResource = Struct.new(:name, :description)
-
 RSpec.describe Alchemy::Admin::Resource::Table, type: :component do
   let(:collection) { [] }
   let(:component) { described_class.new(collection) }
@@ -15,10 +13,12 @@ RSpec.describe Alchemy::Admin::Resource::Table, type: :component do
   end
 
   context "with data" do
+    let(:custom_resource) { Struct.new(:name, :description) }
+
     let(:collection) {
       [
-        CustomResource.new("Foo", "Awesome description"),
-        CustomResource.new("Bar", "Another description")
+        custom_resource.new("Foo", "Awesome description"),
+        custom_resource.new("Bar", "Another description")
       ]
     }
 

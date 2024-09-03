@@ -2,12 +2,11 @@
 
 require "rails_helper"
 
-CustomResource = Struct.new(:name, :description)
-
 RSpec.describe Alchemy::Admin::Resource::Cell, type: :component do
   let(:css_classes) { "foo bar" }
   let(:block) { lambda { |item| "Foo" } }
-  let(:resource) { CustomResource.new("Foo", "Bar") }
+  let(:custom_resource) { Struct.new(:name, :description) }
+  let(:resource) { custom_resource.new("Foo", "Bar") }
   let(:component) { described_class.new(css_classes, &block) }
 
   subject(:render) do
