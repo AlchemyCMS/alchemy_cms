@@ -56,6 +56,11 @@ module Alchemy
           it "should render 'alchemy/pages/show' template" do
             expect(subject).to render_template("alchemy/pages/show")
           end
+
+          it "assigns Alchemy::Page.current" do
+            expect(Alchemy::Current).to receive(:page=).with(page)
+            subject
+          end
         end
 
         context "succeeded" do

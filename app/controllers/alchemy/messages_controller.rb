@@ -66,6 +66,7 @@ module Alchemy
         MessagesMailer.contact_form_mail(@message, mail_to, mail_from, subject).deliver
         redirect_to_success_page
       else
+        Current.page = @page
         render template: "alchemy/pages/show"
       end
     end
