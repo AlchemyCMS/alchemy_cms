@@ -182,15 +182,12 @@ td,
   }
 
   &.tags {
-    width: 180px;
+    width: 220px;
+    padding: var(--spacing-1) var(--spacing-3);
 
     .tag {
-      margin: 0;
-      padding: 0 calc(2 + var(--spacing-1));
-
-      &:before {
-        padding-right: var(--spacing-1);
-      }
+      margin: var(--spacing-1) 0;
+      padding: var(--spacing-1) var(--spacing-2);
     }
   }
 }
