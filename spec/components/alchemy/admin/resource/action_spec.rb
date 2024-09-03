@@ -2,13 +2,12 @@
 
 require "rails_helper"
 
-CustomResource = Struct.new(:name, :description)
-
 RSpec.describe Alchemy::Admin::Resource::Action, type: :component do
   let(:name) { nil }
   let(:tooltip) { nil }
   let(:block) { lambda { |item| "Foo" } }
-  let(:resource) { CustomResource.new("Foo", "Bar") }
+  let(:custom_resource) { Struct.new(:name, :description) }
+  let(:resource) { custom_resource.new("Foo", "Bar") }
   let(:component) { described_class.new(name, tooltip, &block) }
 
   subject(:render) do

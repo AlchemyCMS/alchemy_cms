@@ -63,8 +63,8 @@ module Alchemy
 
       private
 
-      def within_entire_page(&block)
-        within(:xpath, "//body", &block)
+      def within_entire_page(&)
+        within(:xpath, "//body", &)
       end
 
       def find_label_by_text(text)

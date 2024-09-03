@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
   gem.summary = "A powerful, userfriendly and flexible CMS for Rails"
   gem.description = "Alchemy is a powerful, userfriendly and flexible Rails CMS."
   gem.requirements << "ImageMagick (libmagick), v6.6 or greater."
-  gem.required_ruby_version = ">= 3.0.0"
+  gem.required_ruby_version = ">= 3.1.0"
   gem.license = "BSD-3-Clause"
   gem.files = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^spec/|bun\.lockdb|package\.json|^\.}) }
   gem.require_paths = ["lib"]
@@ -29,14 +29,15 @@ Gem::Specification.new do |gem|
     activesupport
     railties
   ].each do |rails_gem|
-    gem.add_runtime_dependency rails_gem, [">= 7.0", "< 7.2"]
+    gem.add_runtime_dependency rails_gem, [">= 7.0", "< 7.3"]
   end
 
   gem.add_runtime_dependency "active_model_serializers", ["~> 0.10.14"]
   gem.add_runtime_dependency "acts_as_list", [">= 0.3", "< 2"]
-  gem.add_runtime_dependency "awesome_nested_set", ["~> 3.1"]
+  gem.add_runtime_dependency "awesome_nested_set", ["~> 3.1", ">= 3.7.0"]
   gem.add_runtime_dependency "cancancan", [">= 2.1", "< 4.0"]
   gem.add_runtime_dependency "coffee-rails", [">= 4.0", "< 6.0"]
+  gem.add_runtime_dependency "csv", ["~> 3.3"]
   gem.add_runtime_dependency "dragonfly", ["~> 1.4"]
   gem.add_runtime_dependency "dragonfly_svg", ["~> 0.0.4"]
   gem.add_runtime_dependency "gutentag", ["~> 2.2", ">= 2.2.1"]
@@ -58,7 +59,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "puma", ["~> 6.0"]
   gem.add_development_dependency "rails-controller-testing", ["~> 1.0"]
   gem.add_development_dependency "rspec-activemodel-mocks", ["~> 1.0"]
-  gem.add_development_dependency "rspec-rails", [">= 4.0.0.beta2"]
+  gem.add_development_dependency "rspec-rails", ["~> 6.1"]
   gem.add_development_dependency "simplecov", ["~> 0.20"]
   gem.add_development_dependency "selenium-webdriver", ["~> 4.10"]
   gem.add_development_dependency "webmock", ["~> 3.3"]
