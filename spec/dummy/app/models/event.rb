@@ -9,14 +9,14 @@ class Event < ActiveRecord::Base
 
   enum :event_type, {
     expo: 0,
-    workshop: 1,
+    workshop: 1
   }
 
   before_destroy :abort_if_name_is_undestructible
 
   scope :starting_today, -> { where(starts_at: Time.current.at_midnight..Date.tomorrow.at_midnight) }
   scope :future, -> { where("starts_at > ?", Date.tomorrow.at_midnight) }
-  scope :by_location_name, ->(name) { joins(:location).where(locations: { name: name }) }
+  scope :by_location_name, ->(name) { joins(:location).where(locations: {name: name}) }
 
   def self.ransackable_attributes(*)
     [
@@ -26,7 +26,7 @@ class Event < ActiveRecord::Base
 
   def self.alchemy_resource_relations
     {
-      location: { attr_method: "name", attr_type: "string" },
+      location: {attr_method: "name", attr_type: "string"}
     }
   end
 
@@ -34,12 +34,12 @@ class Event < ActiveRecord::Base
     [
       {
         name: :start,
-        values: %w(starting_today future),
+        values: %w[starting_today future]
       },
       {
         name: :by_location_name,
-        values: Location.distinct.pluck(:name),
-      },
+        values: Location.distinct.pluck(:name)
+      }
     ]
   end
 
