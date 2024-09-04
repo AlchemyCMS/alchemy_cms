@@ -16,6 +16,12 @@ RSpec.describe Alchemy::Ingredients::Datetime do
     )
   end
 
+  describe ".allowed_settings" do
+    it "sets allowed_settings" do
+      expect(described_class.allowed_settings).to eq([:date_format, :input_type])
+    end
+  end
+
   describe "value" do
     subject { datetime_ingredient.value }
 
