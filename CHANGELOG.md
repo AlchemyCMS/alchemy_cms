@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.1.12 (2024-09-04)
+
+- [7.1-stable] Render Datetime ingredient in local time zone [#3018](https://github.com/AlchemyCMS/alchemy_cms/pull/3018) ([tvdeyen](https://github.com/tvdeyen))
+- [7.1-stable] Allow to set input_type on Datetime ingredient editor [#3015](https://github.com/AlchemyCMS/alchemy_cms/pull/3015) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.1.11 (2024-08-10)
 
 - [7.1-stable] fix PictureEditor defaultCropSize [#2991](https://github.com/AlchemyCMS/alchemy_cms/pull/2991) ([alchemycms-bot](https://github.com/alchemycms-bot))
