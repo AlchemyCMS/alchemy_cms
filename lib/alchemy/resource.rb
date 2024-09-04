@@ -101,7 +101,7 @@ module Alchemy
     attr_accessor :resource_relations, :model_associations
     attr_reader :model
 
-    DEFAULT_SKIPPED_ATTRIBUTES = %w[id created_at creator_id]
+    DEFAULT_SKIPPED_ATTRIBUTES = %w[id created_at updated_at creator_id]
     DEFAULT_SKIPPED_ASSOCIATIONS = %w[creator]
     SEARCHABLE_COLUMN_TYPES = [:string, :text]
 
