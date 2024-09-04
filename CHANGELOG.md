@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.2.6 (2024-09-04)
+
+- [7.2-stable] Set Alchemy::Page.current in Messages Controller [#3021](https://github.com/AlchemyCMS/alchemy_cms/pull/3021) ([tvdeyen](https://github.com/tvdeyen))
+- [7.2-stable] Fallback to @page var if no Current.page is set [#3020](https://github.com/AlchemyCMS/alchemy_cms/pull/3020) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.2.5 (2024-09-04)
 
 - [7.2-stable] Render Datetime ingredient in local time zone [#3019](https://github.com/AlchemyCMS/alchemy_cms/pull/3019) ([tvdeyen](https://github.com/tvdeyen))
