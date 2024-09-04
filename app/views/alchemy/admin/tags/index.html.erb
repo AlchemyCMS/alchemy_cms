@@ -33,7 +33,7 @@
       <% end %>
       <% table.column :taggings_count, sortable: true, class_name: "count" %>
 
-      <% table.delete_button tooltip: Alchemy.t(:delete_tag), message: Alchemy.t(:do_you_really_want_to_delete_this_tag?) %>
+      <% table.delete_button tooltip: Alchemy.t(:delete_tag), confirm_message: Alchemy.t(:do_you_really_want_to_delete_this_tag?) %>
       <% table.edit_button tooltip: Alchemy.t(:edit_tag) %>
     <% end %>
 
