@@ -142,13 +142,16 @@ td,
     width: 80px;
   }
 
-  &.date,
-  &.datetime {
+  &.date {
     width: 150px;
   }
 
+  &.datetime {
+    width: 180px;
+  }
+
   &.login {
-    width: 100px;
+    width: 150px;
   }
 
   &.email {
