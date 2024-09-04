@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.2.5 (2024-09-04)
+
+- [7.2-stable] Render Datetime ingredient in local time zone [#3019](https://github.com/AlchemyCMS/alchemy_cms/pull/3019) ([tvdeyen](https://github.com/tvdeyen))
+- [7.2-stable] Allow to set input_type on Datetime ingredient editor [#3016](https://github.com/AlchemyCMS/alchemy_cms/pull/3016) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.2.4 (2024-08-10)
 
 - [7.2-stable] Fix margin of alchemy-message in alchemy-dialog [#2993](https://github.com/AlchemyCMS/alchemy_cms/pull/2993) ([tvdeyen](https://github.com/tvdeyen))
