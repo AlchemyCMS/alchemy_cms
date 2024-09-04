@@ -120,11 +120,11 @@ module Alchemy
           end
         end
 
-        def edit_button(tooltip: Alchemy.t("Edit"), size: resource_window_size)
+        def edit_button(tooltip: Alchemy.t("Edit"), dialog_size: resource_window_size)
           with_action(:edit, tooltip) do |row|
             helpers.link_to_dialog render_icon(:edit),
               edit_resource_path(row, search_filter_params),
-              {size: size},
+              {size: dialog_size},
               class: "icon_button"
           end
         end
