@@ -1,5 +1,14 @@
 # Changelog
 
+## 7.0.15 (2024-09-04)
+
+- [7.0-stable] Render Datetime ingredient in local time zone [#3017](https://github.com/AlchemyCMS/alchemy_cms/pull/3017) ([tvdeyen](https://github.com/tvdeyen))
+- [7.0-stable] Allow to set input_type on Datetime ingredient editor [#3014](https://github.com/AlchemyCMS/alchemy_cms/pull/3014) ([tvdeyen](https://github.com/tvdeyen))
+- [7.0-stable] Fix combining search filters and pagination [#2980](https://github.com/AlchemyCMS/alchemy_cms/pull/2980) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.0-stable] Remove call to missing content_positions task [#2961](https://github.com/AlchemyCMS/alchemy_cms/pull/2961) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.0-stable] Fix re-render of layoutpages form if validation fails [#2952](https://github.com/AlchemyCMS/alchemy_cms/pull/2952) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.0-stable] fix(ContactMessages): Use alchemy route proxy [#2927](https://github.com/AlchemyCMS/alchemy_cms/pull/2927) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.0.14 (2024-06-04)
 
 - [7.0-stable] fix(RoutingConstraints): Allow Turbo Stream requests [#2914](https://github.com/AlchemyCMS/alchemy_cms/pull/2914) ([alchemycms-bot](https://github.com/alchemycms-bot))
