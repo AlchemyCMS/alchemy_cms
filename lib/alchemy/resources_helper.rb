@@ -10,7 +10,7 @@ module Alchemy
     #
 
     def resource_window_size
-      @resource_window_size ||= "420x#{100 + resource_handler.attributes.length * 40}"
+      @resource_window_size ||= "480x#{100 + resource_handler.attributes.length * 40}"
     end
 
     def resource_instance_variable
