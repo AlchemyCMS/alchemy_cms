@@ -1,0 +1,34 @@
+<%= render Alchemy::Admin::Resource::Table.new(@users, query: @query) do |table| %>
+  <% table.icon_column do |user| %>
+    <%= render_icon(:user, style: user.logged_in? ? "solid" : "regular") %>
+  <% end %>
+  <% table.column :login, sortable: true do |user| %>
+    <% if can?(:edit, user) %>
+      <%= link_to_dialog user.login,
+        alchemy.edit_admin_user_path(user), {
+          title: Alchemy.t(:edit_user),
+          overflow: true,
+          size: "430x560"
+        },
+        title: Alchemy.t(:edit_user) %>
+    <% else %>
+      <%= user.login %>
+    <% end %>
+  <% end %>
+  <% table.column :firstname, class_name: "name", sortable: true %>
+  <% table.column :lastname, sortable: true %>
+  <% table.column :email, sortable: true %>
+  <% table.column :language do |user| %>
+    <%= Alchemy.t(user.language, scope: :translations, default: Alchemy.t(:unknown)) %>
+  <% end %>
+  <% table.column :last_sign_in_at, sortable: true do |user| %>
+    <%= user.last_sign_in_at.present? ? l(user.last_sign_in_at, format: :"alchemy.default") : Alchemy.t(:unknown) %>
+  <% end %>
+  <% table.column :role, header: Alchemy::User.human_attribute_name(:alchemy_roles) do |user| %>
+    <%= user.human_roles_string %>
+  <% end %>
+  <% table.delete_button tooltip: Alchemy.t(:delete_user), confirm_message: Alchemy.t(:confirm_to_delete_user) %>
+  <% table.edit_button tooltip: Alchemy.t(:edit_user), dialog_size: "430x560" %>
+<% end %>
+
+<%= paginate @users, theme: "alchemy" %>
