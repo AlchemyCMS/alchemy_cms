@@ -63,7 +63,9 @@ namespace :alchemy do
       task "run" => [
         "alchemy:upgrade:7.3:remove_admin_stylesheets",
         "alchemy:upgrade:7.3:generate_custom_css_entrypoint"
-      ]
+      ] do
+        Alchemy::Upgrader::SevenPointThree.show_resource_table_notice
+      end
 
       desc "Remove alchemy admin stylesheets"
       task remove_admin_stylesheets: [:environment] do

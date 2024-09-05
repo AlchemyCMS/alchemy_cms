@@ -114,17 +114,20 @@ module Alchemy
           end
         end
 
-        def delete_button(tooltip: Alchemy.t("Delete"), message: Alchemy.t("Are you sure?"))
+        def delete_button(tooltip: Alchemy.t("Delete"), confirm_message: Alchemy.t("Are you sure?"))
           with_action(:destroy, tooltip) do |row|
-            helpers.delete_button(resource_path(row, search_filter_params), {message: message})
+            helpers.delete_button(resource_path(row, search_filter_params), {message: confirm_message})
           end
         end
 
-        def edit_button(tooltip: Alchemy.t("Edit"), size: resource_window_size)
+        def edit_button(tooltip: Alchemy.t("Edit"), dialog_title: tooltip, dialog_size: resource_window_size)
           with_action(:edit, tooltip) do |row|
             helpers.link_to_dialog render_icon(:edit),
               edit_resource_path(row, search_filter_params),
-              {size: size},
+              {
+                size: dialog_size,
+                title: dialog_title
+              },
               class: "icon_button"
           end
         end

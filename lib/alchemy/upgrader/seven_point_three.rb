@@ -30,6 +30,18 @@ module Alchemy
         end
       end
 
+      def show_resource_table_notice
+        custom_modules = Alchemy::Modules.alchemy_modules.reject { _1["engine_name"] == "alchemy" }
+        return if custom_modules.none?
+
+        todo(<<~TODO, "Resource templates have been updated.")
+          We updated the resource templates to use the newly introduced
+          `Alchemy::Admin::Resource::Table` view component.
+
+          Please update your resource templates accordingly.
+        TODO
+      end
+
       private
 
       def task
