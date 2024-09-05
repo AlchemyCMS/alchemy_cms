@@ -245,6 +245,7 @@ de:
     back: "zurück"
     create_tree_as_new_language: "%{language} als neuen Sprachbaum anlegen"
     locked_pages: "Aktive Seiten"
+    "Add a page": "Eine Seite hinzufügen"
     "Add global page": "Neue globale Seite"
     "Add page link": "Verweis hinzufügen"
     "Alchemy is open software and itself uses open software and free resources:": "Alchemy ist offene Software und benutzt selbst offene Software und freie Ressourcen:"
@@ -281,6 +282,7 @@ de:
     "Flush picture cache": "Bildercache löschen"
     "Global shortcuts": "Globale Tastaturbefehle"
     "Hide childpages": "Unterseiten ausblenden"
+    "Hierarchical": "Als Seitenbaum anzeigen"
     hide_elements: "Elemente ausblenden"
     hide_element: "Element ausblenden"
     "Image missing": "Bild fehlt"
@@ -352,6 +354,7 @@ de:
     "Site successfully removed": "Website wurde erfolgreich gelöscht."
     "Site successfully updated": "Website wurde erfolgreich aktualisiert."
     "Size": "Größe"
+    "Sortable List": "Als Liste anzeigen"
     "Sort pages": "Seiten sortieren"
     "Successfully added content": "%{content} wurde hinzugefügt"
     "Successfully deleted content": "%{content} wurde gelöscht"
@@ -645,6 +648,15 @@ de:
         created: erstellt
         updated: aktualisiert
         removed: gelöscht
+      attachment:
+        filters:
+          all: Alle
+      page:
+        filters:
+          all: Alle
+      picture:
+        filters:
+          all: Alle
       relation_select:
         blank: "- ohne -"
     right: "rechts"
@@ -891,6 +903,9 @@ de:
       alchemy/picture:
         one: Bild
         other: Bilder
+      alchemy/picture_description:
+        one: Bildbeschreibung
+        other: Bildbeschreibungen
       alchemy/user:
         one: Benutzer
         other: Benutzer
@@ -989,6 +1004,8 @@ de:
         image_file_size: "Dateigröße"
         name: "Name"
         tag_list: Tags
+      alchemy/picture_description:
+        text: "Beschreibung"
       alchemy/site:
         name: "Bezeichnung"
         host: "primäre Domain"
