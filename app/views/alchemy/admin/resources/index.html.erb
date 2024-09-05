@@ -29,7 +29,7 @@
 
 <div id="archive_all" class="resources-table-wrapper<%= ' with_tag_filter' if resource_has_tags || resource_has_filters %>">
   <%= render 'alchemy/admin/resources/table_header' %>
-  <%= render 'table' %>
+  <%= render 'resource_table' %>
 
   <% if resource_has_tags || resource_has_filters %>
     <div id="library_sidebar">
