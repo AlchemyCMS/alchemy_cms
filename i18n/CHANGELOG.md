@@ -1,5 +1,22 @@
 # Changelog
 
+## [v4.2.2](https://github.com/AlchemyCMS/alchemy_i18n/tree/v4.2.2) (2024-09-06)
+
+[Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v4.2.1...v4.2.2)
+
+**Merged pull requests:**
+
+- Add some missing German translations [\#67](https://github.com/AlchemyCMS/alchemy_i18n/pull/67) ([tvdeyen](https://github.com/tvdeyen))
+- Update alchemy.es.yml \(modules.menus\) [\#66](https://github.com/AlchemyCMS/alchemy_i18n/pull/66) ([HatsuMora](https://github.com/HatsuMora))
+
+## [v4.2.1](https://github.com/AlchemyCMS/alchemy_i18n/tree/v4.2.1) (2024-07-30)
+
+[Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v4.2.0...v4.2.1)
+
+**Merged pull requests:**
+
+- Fix element validation error messages [\#65](https://github.com/AlchemyCMS/alchemy_i18n/pull/65) ([tvdeyen](https://github.com/tvdeyen))
+
 ## [v4.2.0](https://github.com/AlchemyCMS/alchemy_i18n/tree/v4.2.0) (2024-05-31)
 
 [Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v4.1.3...v4.2.0)
