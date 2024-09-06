@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.3.0 (2024-09-06)
+
+- Use new resource_table component for user list [#213](https://github.com/AlchemyCMS/alchemy-devise/pull/213) ([tvdeyen](https://github.com/tvdeyen))
+- Compile CSS into Gem [#211](https://github.com/AlchemyCMS/alchemy-devise/pull/211) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.2.0 (2024-06-07)
 
 - Update Devise config for Turbo [#209](https://github.com/AlchemyCMS/alchemy-devise/pull/209) ([tvdeyen](https://github.com/tvdeyen))
