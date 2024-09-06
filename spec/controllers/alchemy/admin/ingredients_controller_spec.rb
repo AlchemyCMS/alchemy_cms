@@ -84,6 +84,28 @@ RSpec.describe Alchemy::Admin::IngredientsController do
           expect(ingredient.size).to eq "3"
           expect(ingredient.dom_id).to eq "se-id"
         end
+
+        context "with a picture ingredient having empty css class" do
+          let(:ingredient) do
+            stub_model(
+              Alchemy::Ingredients::Picture,
+              type: "Alchemy::Ingredients::Picture",
+              element: element,
+              role: "picture",
+              data: {
+                css_class: ""
+              }
+            )
+          end
+
+          render_views
+
+          it "does not raise I18n ArgumentError" do
+            expect {
+              patch :update, params: params, format: :turbo_stream
+            }.to_not raise_error
+          end
+        end
       end
 
       context "with unpermitted attributes" do
