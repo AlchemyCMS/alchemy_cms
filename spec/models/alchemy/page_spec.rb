@@ -1890,7 +1890,7 @@ module Alchemy
         end
       end
 
-      context "with user class having a name accessor" do
+      context "with user class having a alchemy_display_name accessor" do
         let(:user) { build(:alchemy_dummy_user, name: "Paul Page") }
 
         describe "#creator_name" do
@@ -1918,7 +1918,7 @@ module Alchemy
         end
       end
 
-      context "with user class returning nil for name" do
+      context "with user class returning nil for alchemy_display_name" do
         let(:user) { Alchemy.user_class.new }
 
         describe "#creator_name" do
@@ -1946,11 +1946,11 @@ module Alchemy
         end
       end
 
-      context "with user class not responding to name" do
+      context "with user class not responding to alchemy_display_name" do
         let(:user) { Alchemy.user_class.new }
 
         before do
-          expect(user).to receive(:respond_to?).with(:name) { false }
+          expect(user).to receive(:respond_to?).with(:alchemy_display_name) { false }
         end
 
         describe "#creator_name" do
