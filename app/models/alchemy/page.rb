@@ -546,7 +546,7 @@ module Alchemy
     # does not respond to +#name+ it returns +'unknown'+
     #
     def creator_name
-      creator.try(:name) || Alchemy.t("unknown")
+      creator.try(:alchemy_display_name) || Alchemy.t("unknown")
     end
 
     # Returns the name of the last updater of this page.
@@ -555,7 +555,7 @@ module Alchemy
     # does not respond to +#name+ it returns +'unknown'+
     #
     def updater_name
-      updater.try(:name) || Alchemy.t("unknown")
+      updater.try(:alchemy_display_name) || Alchemy.t("unknown")
     end
 
     # Returns the name of the user currently editing this page.
@@ -564,7 +564,7 @@ module Alchemy
     # does not respond to +#name+ it returns +'unknown'+
     #
     def locker_name
-      locker.try(:name) || Alchemy.t("unknown")
+      locker.try(:alchemy_display_name) || Alchemy.t("unknown")
     end
 
     # Key hint translations by page layout, rather than the default name.

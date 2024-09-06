@@ -13,11 +13,15 @@ class DummyUser < ActiveRecord::Base
   end
 
   def alchemy_roles
-    @alchemy_roles || %w(admin)
+    @alchemy_roles || %w[admin]
   end
 
   def name
     @name || email
+  end
+
+  def alchemy_display_name
+    name
   end
 
   def human_roles_string
