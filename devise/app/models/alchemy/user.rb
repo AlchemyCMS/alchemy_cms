@@ -47,6 +47,10 @@ module Alchemy
         ]
       end
 
+      def ransortable_attributes(_auth_object = nil)
+        %w[last_sign_in_at]
+      end
+
       alias_method :searchable_alchemy_resource_attributes, :ransackable_attributes
 
       def ransackable_associations(_auth_object = nil)

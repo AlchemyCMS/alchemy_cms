@@ -8,8 +8,6 @@ gem "rails", "~> #{rails_version}.0"
 gem "listen", "~> 3.8"
 gem "puma", "~> 6.0"
 
-gem "sprockets-rails", "< 3.5.0"
-
 # Specify your gem's dependencies in alchemy-solidus.gemspec
 gemspec
 
