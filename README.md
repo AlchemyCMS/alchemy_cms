@@ -17,7 +17,7 @@ Alchemy is an open source CMS engine written in Ruby on Rails.
 
 Read more about Alchemy on the [website](https://alchemy-cms.com) and in the [guidelines](https://guides.alchemy-cms.com).
 
-**CAUTION: This main branch is a development branch that *can* contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms), or the [latest stable branch (7.0-stable)](https://github.com/AlchemyCMS/alchemy_cms/tree/7.0-stable).**
+**CAUTION: This main branch is a development branch that *can* contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms), or the [latest stable branch (7.3-stable)](https://github.com/AlchemyCMS/alchemy_cms/tree/7.3-stable).**
 
 ## 🏆 Main sponsor
 
@@ -50,7 +50,7 @@ Visit the existing demo at https://alchemy-demo.fly.dev/
 
 ## 🚂 Rails Version
 
-**This version of AlchemyCMS runs with Rails 7.0 and 7.1**
+**This version of AlchemyCMS runs with >= Rails 7.0**
 
 * For a Rails 6.1 compatible version use the [`7.0-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/7.0-stable).
 * For a Rails 6.0 compatible version use the [`6.1-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/6.1-stable).
@@ -66,7 +66,9 @@ Visit the existing demo at https://alchemy-demo.fly.dev/
 
 ## 💎 Ruby Version
 
-Alchemy runs with Ruby >= 2.5.0.
+Alchemy runs with Ruby >= 3.1.0.
+
+For a Ruby 3.0 compatible version use the [`7.2-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/7.2-stable).
 
 For a Ruby 2.4 compatible version use the [`5.2-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/5.2-stable).
 
