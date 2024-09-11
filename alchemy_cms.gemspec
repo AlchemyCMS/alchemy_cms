@@ -84,7 +84,6 @@ Gem::Specification.new do |gem|
     Need help? Try:
 
     * https://stackoverflow.com/questions/tagged/alchemy-cms
-    * https://slackin.alchemy-cms.com
     -------------------------------------------------------------
 
   MSG
