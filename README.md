@@ -43,7 +43,7 @@ Read more about Alchemy on the [website](https://alchemy-cms.com) and in the [gu
 
 ## 🎮 Demo
 
-Visit the existing demo at https://alchemy-demo.fly.dev/
+Visit the existing demo at https://demo.alchemy-cms.com/
 
 - Login: `demo`
 - Password: `demo123`
