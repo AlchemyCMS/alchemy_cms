@@ -134,10 +134,10 @@
 
   /* Font sizes */
   --sl-font-size-2x-small: 0.625rem; /* 10px */
-  --sl-font-size-x-small: 0.75rem; /* 12px */
-  --sl-font-size-small: var(--font-size_small); /* 14px */
-  --sl-font-size-medium: var(--font-size_medium); /* 16px */
-  --sl-font-size-large: var(--font-size_large); /* 20px */
+  --sl-font-size-x-small: var(--font-size_small); /* 12px */
+  --sl-font-size-small: var(--font-size_medium); /* 14px */
+  --sl-font-size-medium: var(--font-size_large); /* 16px */
+  --sl-font-size-large: 1.25rem; /* 20px */
   --sl-font-size-x-large: 1.5rem; /* 24px */
   --sl-font-size-2x-large: 2.25rem; /* 36px */
   --sl-font-size-3x-large: 3rem; /* 48px */
