@@ -28,7 +28,7 @@ $mono-font-family: Menlo, Monaco, "Bitstream Vera Sans Mono", "Lucida Console",
   Terminal, monospace !default;
 $base-font-size: 12px !default;
 $default-font-size: 1em !default;
-$small-font-size: 0.9em !default;
+$small-font-size: var(--font-size_small) !default;
 $default-font-style: $default-font-size $default-font-family !default;
 
 $default-padding: 4px !default;

@@ -63,7 +63,7 @@
 
 .tag {
   pointer-events: none;
-  font-size: $small-font-size;
+  font-size: var(--font-size_small);
   @include tag-base(
     $margin: var(--spacing-0) 0,
     $padding: var(--spacing-1) var(--spacing-2) var(--spacing-1)

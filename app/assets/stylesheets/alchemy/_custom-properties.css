@@ -25,8 +25,8 @@
     "Lucida Sans", Verdana, Tahoma, sans-serif;
 
   /* Font Size - at the moment only in Pixel, because the base font size is 12px */
-  --font-size_small: 12px; /* 0.875rem */
-  --font-size_medium: 14px; /* 1rem */
+  --font-size_small: 10px; /* 0.875rem */
+  --font-size_medium: 12px; /* 1rem */
   --font-size_large: 16px; /* 1.25 rem */
 
   --font-weigth_normal: 500;

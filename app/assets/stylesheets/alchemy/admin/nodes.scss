@@ -50,7 +50,7 @@
     white-space: nowrap;
     background-color: $sitemap-info-background-color;
     line-height: $sitemap-line-height;
-    font-size: $small-font-size;
+    font-size: var(--font-size_small);
     @include border-right-radius($default-border-radius);
   }
 
