@@ -109,7 +109,7 @@
   $background-color: var(--color-yellow_light),
   $border-color: var(--color-grey_light)
 ) {
-  font-size: $small-font-size;
+  font-size: var(--font-size_small);
   line-height: 1.5em;
   padding: var(--spacing-1);
   background-color: $background-color;
