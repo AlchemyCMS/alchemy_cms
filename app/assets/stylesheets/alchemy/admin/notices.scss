@@ -16,7 +16,7 @@ alchemy-message {
   }
 
   &[type="footnote"] {
-    font-size: $small-font-size;
+    font-size: var(--font-size_small);
     margin: var(--spacing-4);
   }
 

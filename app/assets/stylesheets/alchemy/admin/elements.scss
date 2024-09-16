@@ -83,13 +83,13 @@ alchemy-tinymce {
   }
 
   .preview_text_quote {
-    font-size: $small-font-size;
+    font-size: var(--font-size_small);
     margin-left: var(--spacing-0);
   }
 }
 
 .preview_text_element_name {
-  font-size: $small-font-size;
+  font-size: var(--font-size_small);
   font-weight: bold;
   line-height: 15px;
 }
@@ -162,7 +162,7 @@ alchemy-tinymce {
 
       .element-hidden-label {
         line-height: 1;
-        font-size: $small-font-size;
+        font-size: var(--font-size_small);
       }
     }
   }
@@ -352,7 +352,7 @@ alchemy-tinymce {
     float: left;
     margin-top: var(--spacing-2);
     margin-bottom: var(--spacing-1);
-    font-size: $small-font-size;
+    font-size: var(--font-size_small);
     text-align: left;
   }
 
@@ -370,7 +370,7 @@ alchemy-tinymce {
     padding: var(--spacing-1) 0;
 
     label {
-      font-size: $small-font-size;
+      font-size: var(--font-size_small);
     }
 
     .select2-container {
@@ -646,7 +646,7 @@ alchemy-publish-element-button {
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
     color: var(--color-white);
     padding: var(--spacing-1) var(--spacing-2);
-    font-size: $small-font-size;
+    font-size: var(--font-size_small);
     overflow: hidden;
     max-width: 100%;
     text-overflow: ellipsis;
@@ -732,7 +732,7 @@ alchemy-publish-element-button {
     align-items: center;
     white-space: nowrap;
     overflow: hidden;
-    font-size: $small-font-size;
+    font-size: var(--font-size_small);
     text-overflow: ellipsis;
     padding: var(--spacing-1);
   }
@@ -875,7 +875,7 @@ select.long {
   label {
     display: flex;
     margin: var(--spacing-1) 0;
-    font-size: $small-font-size;
+    font-size: var(--font-size_small);
     line-height: 15px;
     text-indent: 1px;
 

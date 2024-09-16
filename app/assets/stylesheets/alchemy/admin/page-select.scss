@@ -27,7 +27,7 @@
 }
 
 .page-select--bottom {
-  font-size: $small-font-size;
+  font-size: var(--font-size_small);
   padding-left: var(--spacing-0);
 }
 
@@ -58,7 +58,7 @@
   margin-left: auto;
   padding: var(--spacing-1) 0 var(--spacing-1) var(--spacing-2);
   color: var(--color-grey_dark);
-  font-size: $small-font-size;
+  font-size: var(--font-size_small);
 
   .select2-highlighted & {
     color: var(--color-white);

@@ -166,7 +166,7 @@
   display: none;
   background-color: $sitemap-info-background-color;
   line-height: $sitemap-line-height - 2px;
-  font-size: $small-font-size;
+  font-size: var(--font-size_small);
   padding: 0 var(--spacing-2);
   white-space: nowrap;
   overflow: hidden;
