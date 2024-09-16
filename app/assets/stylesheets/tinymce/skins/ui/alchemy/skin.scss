@@ -3252,7 +3252,7 @@ body.tox-dialog__disable-scroll {
   color: var(--color-text_muted);
   display: flex;
   flex: 0 0 auto;
-  font-size: $small-font-size;
+  font-size: var(--font-size_small);
   font-weight: 400;
   height: 18px;
   overflow: hidden;
