@@ -12,7 +12,9 @@ module Alchemy
       end
 
       def call
-        content_tag("alchemy-page-select", content, attributes)
+        content_tag("alchemy-page-select", attributes) do
+          stylesheet_link_tag("alchemy/admin/page-select") + content
+        end
       end
 
       private
