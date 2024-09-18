@@ -37,17 +37,6 @@ module Alchemy
       end
     end
 
-    describe "#toolbar_button" do
-      it "renders alchemy toolbar button component" do
-        expect(helper).to receive(:render).with(
-          an_instance_of(Alchemy::Admin::ToolbarButton)
-        )
-        Alchemy::Deprecation.silence do
-          helper.toolbar_button(url: admin_dashboard_path, icon: "info", label: "Show Info")
-        end
-      end
-    end
-
     describe "#translations_for_select" do
       it "should return an Array of Arrays with available locales" do
         allow(Alchemy::I18n).to receive(:available_locales).and_return(%i[de en cz it])

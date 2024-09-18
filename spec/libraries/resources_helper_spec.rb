@@ -269,18 +269,6 @@ describe Alchemy::ResourcesHelper do
     end
   end
 
-  describe "#render_resources" do
-    it "renders a resource collection" do
-      expect(controller).to receive(:render).with(collection: [resource_item], partial: "my_resource", locals: {icon: nil})
-      controller.render_resources
-    end
-
-    it "allows to pass an icon" do
-      expect(controller).to receive(:render).with(collection: [resource_item], partial: "my_resource", locals: {icon: "global"})
-      controller.render_resources(icon: "global")
-    end
-  end
-
   describe "#resource_attribute_field_options" do
     subject { controller.resource_attribute_field_options(attribute) }
 

@@ -80,36 +80,6 @@ module Alchemy
         end
       end
 
-      # Returns a javascript driven live filter for lists.
-      #
-      # The items must have a html +name+ attribute that holds the filterable value.
-      #
-      # == Example
-      #
-      # Given a list of items:
-      #
-      #   <%= js_filter_field('#products .product') %>
-      #
-      #   <ul id="products">
-      #     <li class="product" name="kat litter">Kat Litter</li>
-      #     <li class="product" name="milk">Milk</li>
-      #   </ul>
-      #
-      # @param [String] items
-      #   A jquery compatible selector string that represents the items to filter
-      # @param [Hash] options
-      #   HTML options passed to the input field
-      #
-      # @option options [String] :class ('js_filter_field')
-      #   The css class of the <input> tag
-      # @option options [String or Hash] :data ({'alchemy-list-filter' => items})
-      #   A HTML data attribute that holds the jQuery selector that represents the list to be filtered
-      # @deprecated render Alchemy::Admin::ListFilter.new(items) instead
-      def js_filter_field(items, _options = {})
-        render Alchemy::Admin::ListFilter.new(items)
-      end
-      deprecate js_filter_field: "render Alchemy::Admin::ListFilter.new(items) instead", deprecator: Alchemy::Deprecation
-
       # Returns a link that opens a modal confirmation to delete window.
       #
       # === Example:
@@ -219,49 +189,6 @@ module Alchemy
         end
         "Alchemy CMS - #{title}"
       end
-
-      # Renders a toolbar button for the Alchemy toolbar
-      #
-      # == Example
-      #
-      #   <%= toolbar_button(
-      #     icon: :plus,
-      #     label: 'Create',
-      #     url: new_resource_path,
-      #     title: 'Create Resource',
-      #     hotkey: 'alt+n',
-      #     dialog_options: {
-      #       title: 'Create Resource',
-      #       size: "430x400"
-      #     },
-      #     if_permitted_to: [:create, resource_model]
-      #   ) %>
-      #
-      # @option options [String] :icon
-      #   Icon class. See +app/assets/stylesheets/alchemy/icons.css.sccs+ for available icons, or make your own.
-      # @option options [String] :label
-      #   Text for button label.
-      # @option options [String] :url
-      #   Url for link.
-      # @option options [String] :title
-      #   Text for title tag.
-      # @option options [String] :hotkey
-      #   Keyboard shortcut for this button. I.E +alt-n+
-      # @option options [Boolean] :dialog (true)
-      #   Open the link in a modal dialog.
-      # @option options [Hash] :dialog_options
-      #   Overlay options. See link_to_dialog helper.
-      # @option options [Array] :if_permitted_to ([:action, :controller])
-      #   Check permission for button. Exactly how you defined the permission in your +authorization_rules.rb+. Defaults to controller and action from button url.
-      # @option options [Boolean] :skip_permission_check (false)
-      #   Skip the permission check. NOT RECOMMENDED!
-      # @option options [Boolean] :loading_indicator (true)
-      #   Shows the please wait dialog while loading. Only for buttons not opening an dialog.
-      # @deprecated render Alchemy::Admin::ToolbarButton.new instead
-      def toolbar_button(options = {})
-        render Alchemy::Admin::ToolbarButton.new(**options)
-      end
-      deprecate toolbar_button: "render Alchemy::Admin::ToolbarButton.new instead", deprecator: Alchemy::Deprecation
 
       # Renders a textfield ready to display a datepicker
       #
