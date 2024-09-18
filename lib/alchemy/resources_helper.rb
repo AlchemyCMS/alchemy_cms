@@ -130,7 +130,7 @@ module Alchemy
     # Returns the attribute's column for sorting
     #
     # If the attribute contains a resource_relation, then the table and column for related model will be returned.
-    #
+    # @deprecated
     def sortable_resource_header_column(attribute)
       if (relation = attribute[:relation])
         "#{relation[:model_association].name}_#{relation[:attr_method]}"
@@ -138,6 +138,7 @@ module Alchemy
         attribute[:name]
       end
     end
+    deprecate sortable_resource_header_column: "Please `render Alchemy::Admin::Resource::Table instead`", deprecator: Alchemy::Deprecation
 
     # Renders the row for a resource record in the resources table.
     #
@@ -156,12 +157,13 @@ module Alchemy
     #   </tr>
     #
     # NOTE: Alchemy gives you a local variable named like your resource
-    #
+    # @deprecated
     def render_resources(icon: nil)
       render partial: resource_name, collection: resources_instance_variable, locals: {icon: icon}
     rescue ActionView::MissingTemplate
       render partial: "resource", collection: resources_instance_variable, locals: {icon: icon}
     end
+    deprecate render_resources: "Please `render Alchemy::Admin::Resource::Table instead`", deprecator: Alchemy::Deprecation
 
     def resource_has_tags
       resource_model.respond_to?(:tag_counts) && resource_model.tag_counts.any?

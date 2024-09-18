@@ -1,3 +1,5 @@
+<% Alchemy::Deprecation.warn "The `alchemy/admin/resources/_resource` partial is deprecated. Please `render 'alchemy/admin/resources/_resource_table'` instead and update it to your needs." %>
+
 <tr class="<%= cycle('even', 'odd') %>">
   <% if local_assigns[:icon] %>
     <td class="icon"><%= render_icon(local_assigns[:icon], size: "xl") %></td>
