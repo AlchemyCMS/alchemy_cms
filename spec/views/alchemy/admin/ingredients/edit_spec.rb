@@ -8,12 +8,6 @@ RSpec.describe "alchemy/admin/ingredients/edit.html.erb" do
     view.instance_variable_set(:@ingredient, ingredient)
   end
 
-  around do |example|
-    Alchemy::Deprecation.silence do
-      example.run
-    end
-  end
-
   context "for a picture ingredient" do
     let(:image) do
       fixture_file_upload(
