@@ -134,24 +134,6 @@ module Alchemy
         super(element_definition.merge(element_attributes).except(*FORBIDDEN_DEFINITION_ATTRIBUTES))
       end
 
-      # The class responsible for the +dom_id+ of elements.
-      # Defaults to +Alchemy::Element::DomId+.
-      # @deprecated
-      def dom_id_class
-        if caller.none? { |l| l =~ Regexp.new("alchemy/element/presenters.rb:87:in `dom_id'") }
-          Alchemy::Deprecation.warn("dom_id_class is deprecated and will be removed from Alchemy 8.0. Please pass an id to the element_view_for helper instead.")
-        end
-        @_dom_id_class || DomId
-      end
-
-      # Register a custom +DomId+ class responsible for the +dom_id+ of elements.
-      # Defaults to +Alchemy::Element::DomId+.
-      # @deprecated
-      def dom_id_class=(klass)
-        @_dom_id_class = klass
-      end
-      deprecate :dom_id_class=, deprecator: Alchemy::Deprecation
-
       # This methods does a copy of source and all its ingredients.
       #
       # == Options

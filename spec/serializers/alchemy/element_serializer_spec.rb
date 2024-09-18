@@ -12,7 +12,6 @@ RSpec.describe Alchemy::ElementSerializer do
     expect(json).to eq(
       "created_at" => element.created_at.strftime("%FT%T.%LZ"),
       "display_name" => element.display_name_with_preview_text,
-      "dom_id" => element.dom_id,
       "id" => element.id,
       "ingredients" => [],
       "name" => element.name,

@@ -10,7 +10,6 @@ module Alchemy
       :tag_list,
       :created_at,
       :updated_at,
-      :dom_id,
       :display_name
 
     has_many :nested_elements

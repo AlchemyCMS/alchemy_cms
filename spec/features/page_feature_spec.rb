@@ -45,7 +45,7 @@ RSpec.describe "Show page feature:", type: :system do
 
     it "should include all its elements and ingredients" do
       visit "/#{public_page.urlname}"
-      within("div#content div.article div.intro") do
+      within("div#content") do
         expect(page).to have_content("Welcome to Peters Petshop")
       end
     end
