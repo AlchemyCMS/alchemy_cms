@@ -71,20 +71,6 @@ module Alchemy
         on_site(Current.site)
       end
 
-      # Store the current language in the current thread.
-      # @deprecated Use {Alchemy::Current#language=} instead.
-      def current=(language)
-        Current.language = language
-      end
-      deprecate "current=": :"Alchemy::Current.language=", deprecator: Alchemy::Deprecation
-
-      # Current language from current thread or default.
-      # @deprecated Use {Alchemy::Current#language} instead.
-      def current
-        Current.language
-      end
-      deprecate current: :"Alchemy::Current.language", deprecator: Alchemy::Deprecation
-
       # The root page of the current language.
       def current_root_page
         Current.language&.pages&.language_roots&.first
