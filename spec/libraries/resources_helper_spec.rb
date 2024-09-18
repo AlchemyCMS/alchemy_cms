@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "../../lib/alchemy/i18n"
-require_relative "../../lib/alchemy/resource"
-require_relative "../../lib/alchemy/resources_helper"
+require "rails_helper"
 
 module Namespace
   class MyResource
@@ -269,7 +267,7 @@ describe Alchemy::ResourcesHelper do
     end
   end
 
-  describe "#render_resources" do
+  describe "#render_resources", :silence_deprecations do
     it "renders a resource collection" do
       expect(controller).to receive(:render).with(collection: [resource_item], partial: "my_resource", locals: {icon: nil})
       controller.render_resources
