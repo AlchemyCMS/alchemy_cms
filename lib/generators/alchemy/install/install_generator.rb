@@ -69,6 +69,10 @@ module Alchemy
         append_to_file Rails.root.join("app/assets/config/manifest.js"), "//= link alchemy/admin/custom.css\n"
       end
 
+      def install_active_storage
+        rake "active_storage:install:migrations"
+      end
+
       def set_active_storage_service
         insert_into_file app_config_path.join("storage.yml"), <<-YAML.strip_heredoc
 
