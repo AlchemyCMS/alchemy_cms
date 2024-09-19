@@ -14,7 +14,9 @@ function displayNodeFolders() {
     }
 
     if (list.children.length > 0 || node.folded) {
-      leftIconArea.innerHTML = HandlebarsTemplates.node_folder({ node: node })
+      leftIconArea.innerHTML = Handlebars.templates["node_folder.hbs"]({
+        node: node
+      })
     } else {
       leftIconArea.innerHTML = "&nbsp;"
     }
