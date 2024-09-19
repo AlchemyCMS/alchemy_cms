@@ -60,6 +60,12 @@ export default [
       name: "tinymce",
       format: "esm"
     },
-    plugins: [resolve(), commonjs(), terser()]
+    plugins: [
+      resolve({
+        modulePaths: ["app/javascript"]
+      }),
+      commonjs(),
+      terser()
+    ]
   }
 ]

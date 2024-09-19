@@ -30,7 +30,6 @@ module Alchemy
 
       it "returns all plugins without default plugins" do
         is_expected.to eq %w[
-          alchemy_link
           foo
         ]
       end
