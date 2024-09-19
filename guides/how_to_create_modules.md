@@ -178,3 +178,90 @@ de:
     modules:
       products: Produkte
 ~~~
+
+## Customizing the built in views
+
+Alchemy makes use of Rails templates and partials to render your model's resource views. You can overwrite each of them in your app or engine.
+
+Just place a file with the same name in your `app/views/admin/plural-name-of-your-resource/` folder and Rails will pick that up instead of the Alchemy one.
+
+You can find the list of all templates and partials Alchemy provides [on GitHub](https://github.com/AlchemyCMS/alchemy_cms/tree/7.2-stable/app/views/alchemy/admin/resources).
+
+### The resource form
+
+Alchemy uses [a `_form` partial](https://github.com/AlchemyCMS/alchemy_cms/blob/7.2-stable/app/views/alchemy/admin/resources/_form.html.erb) to render the fields for your resource's edit view.
+
+It looks like this
+
+```erb
+<%= alchemy_form_for resource_instance_variable, url: resource_path(resource_instance_variable, search_filter_params) do |f| %>
+  <% resource_handler.editable_attributes.each do |attribute| %>
+    <% if relation = attribute[:relation] %>
+      <%= f.association relation[:name].to_sym,
+        collection: relation[:collection],
+        label_method: relation[:attr_method],
+        include_blank: Alchemy.t(:blank, scope: 'resources.relation_select'),
+        input_html: {is: 'alchemy-select'} %>
+    <% elsif attribute[:type].in? %i[date time datetime] %>
+      <%= f.datepicker attribute[:name], resource_attribute_field_options(attribute) %>
+    <% elsif attribute[:enum].present? %>
+      <%= f.input attribute[:name],
+        collection: attribute[:enum],
+        include_blank: Alchemy.t(:blank, scope: 'resources.relation_select'),
+        input_html: {is: 'alchemy-select'} %>
+    <% else %>
+      <%= f.input attribute[:name], resource_attribute_field_options(attribute) %>
+    <% end %>
+  <% end %>
+  <% if f.object.respond_to?(:tag_list) %>
+    <%= render Alchemy::Admin::TagsAutocomplete.new do %>
+      <%= f.input :tag_list, input_html: { value: f.object.tag_list.join(",") } %>
+    <% end %>
+  <% end %>
+  <%= f.submit Alchemy.t(:save) %>
+<% end %>
+```
+
+To customize the form place a file with the same content into your apps view folder and adjust it to your needs.
+
+### The resource table
+
+Alchemy uses [a `_table` partial](https://github.com/AlchemyCMS/alchemy_cms/blob/7.2-stable/app/views/alchemy/admin/resources/_table.html.erb) to render the table for your resource's index view.
+
+The default table looks like this
+
+```erb
+<% if resources_instance_variable.any? %>
+<table class="list" id="<%= resource_handler.resources_name %>_list">
+  <thead>
+    <tr>
+    <% if local_assigns[:icon] %>
+      <th class="icon"></th>
+    <% end %>
+    <% resource_handler.sorted_attributes.each do |attribute| %>
+      <th class="<%= attribute[:type] %> <%= attribute[:name] %>">
+        <%= sort_link [:resource_url_proxy, @query],
+          sortable_resource_header_column(attribute),
+          resource_handler.model.human_attribute_name(attribute[:name]),
+          default_order: attribute[:type].to_s =~ /date|time/ ? 'desc' : 'asc' %>
+      </th>
+    <% end %>
+      <th class="tools"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render_resources(icon: local_assigns[:icon]) %>
+  </tbody>
+</table>
+<% elsif search_filter_params[:q].present? %>
+<p><%= Alchemy.t('Nothing found') %></p>
+<% end %>
+
+<%= paginate resources_instance_variable, scope: resource_url_proxy, theme: 'alchemy' %>
+```
+
+You can customize it by adding a `_table.html.erb` partial into your resources view folder of your app or engine and adjust it accordingly.
+
+### Examples
+
+Alchemy dogfeeds it's own resource views to render it's admin interface. You can take them as example as starting point.
