@@ -66,7 +66,11 @@ module Alchemy
       def install_assets
         copy_file "all.js", app_vendor_assets_path.join("javascripts", "alchemy", "admin", "all.js")
         copy_file "custom.css", app_assets_path.join("stylesheets/alchemy/admin/custom.css")
-        append_to_file Rails.root.join("app/assets/config/manifest.js"), "//= link alchemy/admin/custom.css\n"
+        if File.exist?(Rails.root.join("app/assets/config/manifest.js"))
+          append_to_file Rails.root.join("app/assets/config/manifest.js"), "//= link alchemy/admin/custom.css\n"
+        else
+          create_file Rails.root.join("app/assets/config/manifest.js"), "//= link alchemy/admin/custom.css\n"
+        end
       end
 
       def copy_demo_views

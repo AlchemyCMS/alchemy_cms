@@ -4,11 +4,15 @@ source "https://rubygems.org"
 
 gemspec
 
-rails_version = ENV.fetch("RAILS_VERSION", "7.2")
-gem "rails", "~> #{rails_version}.0"
+rails_version = ENV.fetch("RAILS_VERSION", "main")
+if rails_version == "main"
+  gem "rails", github: "rails/rails", branch: "main"
+else
+  gem "rails", "~> #{rails_version}.0"
+end
 
 if ENV["DB"].nil? || ENV["DB"] == "sqlite"
-  gem "sqlite3", "~> 1.7.0"
+  gem "sqlite3", "~> 2.0.0"
 end
 if ENV["DB"] == "mysql" || ENV["DB"] == "mariadb"
   gem "mysql2", "~> 0.5.1"
