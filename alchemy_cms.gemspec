@@ -19,6 +19,10 @@ Gem::Specification.new do |gem|
   gem.files = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^spec/|bun\.lockdb|package\.json|^\.}) }
   gem.require_paths = ["lib"]
 
+  gem.metadata["homepage_uri"] = gem.homepage
+  gem.metadata["source_code_uri"] = "https://github.com/AlchemyCMS/alchemy_cms"
+  gem.metadata["changelog_uri"] = "https://github.com/AlchemyCMS/alchemy_cms/blob/main/CHANGELOG.md"
+
   %w[
     actionmailer
     actionpack
