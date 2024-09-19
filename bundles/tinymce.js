@@ -3,6 +3,7 @@ import tinymce from "tinymce"
 
 /* Default icons are required. After that, import custom icons if applicable */
 import "tinymce/icons/default"
+import "tinymce/icons/remixicons"
 
 /* Required TinyMCE components */
 import "tinymce/themes/silver"
@@ -16,5 +17,6 @@ import "tinymce/plugins/directionality"
 import "tinymce/plugins/fullscreen"
 import "tinymce/plugins/link"
 import "tinymce/plugins/lists"
+import "tinymce/plugins/alchemy_link"
 
 export default tinymce
