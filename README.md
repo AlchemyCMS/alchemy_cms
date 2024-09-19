@@ -392,7 +392,12 @@ $ bundle exec rake release
 ## ✍️ Authors
 
 * Thomas von Deyen: <https://github.com/tvdeyen>
+* Martin Meyerhoff: <https://github.com/mamhoff>
+* Sascha Karnatz: <https://github.com/sascha-karnatz>
 * Robin Böning: <https://github.com/robinboening>
+
+### Alumni
+
 * Marc Schettke: <https://github.com/masche842>
 * Hendrik Mans: <https://github.com/hmans>
 * Carsten Fregin: <https://github.com/cfregin>
