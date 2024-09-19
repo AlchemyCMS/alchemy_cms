@@ -100,22 +100,8 @@ module Alchemy
     #   A lambda used for formatting the element's tags (see Alchemy::ElementsHelper::element_tags_attributes). Set to +false+ to not include tags in the wrapper element.
     #
     def element_view_for(element, options = {})
-      if options[:id].nil?
-        Alchemy::Deprecation.warn <<~WARN
-          Relying on an implicit DOM id in `element_view_for` is deprecated. Please provide an explicit `id` if you actually want to render an `id` attribute on the #{element.name} element wrapper tag.
-        WARN
-      end
-
-      if options[:class].nil?
-        Alchemy::Deprecation.warn <<~WARN
-          Relying on an implicit CSS class in `element_view_for` is deprecated. Please provide an explicit `class` for the #{element.name} element wrapper tag.
-        WARN
-      end
-
       options = {
         tag: :div,
-        id: (!!options[:id]) ? options[:id] : element.dom_id,
-        class: element.name,
         tags_formatter: ->(tags) { tags.join(" ") }
       }.merge(options)
 

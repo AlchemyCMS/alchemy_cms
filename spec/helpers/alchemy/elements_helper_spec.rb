@@ -28,7 +28,7 @@ module Alchemy
         end
 
         it "renders the element's view partial" do
-          is_expected.to have_selector("##{element.dom_id}")
+          is_expected.to have_selector("h1")
         end
 
         context "with element view partial not found" do
@@ -69,8 +69,18 @@ module Alchemy
       subject { helper.render_elements(options) }
 
       let(:page) { create(:alchemy_page, :public) }
-      let!(:element) { create(:alchemy_element, name: "headline", page_version: page.public_version) }
-      let!(:another_element) { create(:alchemy_element, page_version: page.public_version) }
+
+      let!(:element) do
+        create(:alchemy_element, name: "headline", page_version: page.public_version).tap do |element|
+          Alchemy::Ingredients::Headline.create!(element: element, role: "headline", value: "Hello Headline")
+        end
+      end
+
+      let!(:another_element) do
+        create(:alchemy_element, name: "article", page_version: page.public_version).tap do |element|
+          Alchemy::Ingredients::Text.create!(element: element, role: "intro", value: "Hello Intro")
+        end
+      end
 
       context "without any options" do
         let(:options) { {} }
@@ -79,8 +89,8 @@ module Alchemy
           before { Current.page = page }
 
           it "should render all elements from current pages public version." do
-            is_expected.to have_selector("##{element.dom_id}")
-            is_expected.to have_selector("##{another_element.dom_id}")
+            is_expected.to have_selector("h1", text: "Hello Headline")
+            is_expected.to have_selector(".intro", text: "Hello Intro")
           end
         end
 
@@ -95,19 +105,23 @@ module Alchemy
             before { helper.instance_variable_set(:@page, page) }
 
             it "should render all elements from current pages public version." do
-              is_expected.to have_selector("##{element.dom_id}")
-              is_expected.to have_selector("##{another_element.dom_id}")
+              is_expected.to have_selector("h1", text: "Hello Headline")
+              is_expected.to have_selector(".intro", text: "Hello Intro")
             end
           end
         end
 
         context "in preview_mode" do
-          let!(:draft_element) { create(:alchemy_element, name: "headline", page_version: page.draft_version) }
+          let!(:draft_element) do
+            create(:alchemy_element, name: "headline", page_version: page.draft_version).tap do |element|
+              Alchemy::Ingredients::Headline.create!(element: element, role: "headline", value: "Hello Draft Headline")
+            end
+          end
 
           include_context "in preview mode"
 
           it "page draft version is used" do
-            is_expected.to have_selector("##{draft_element.dom_id}")
+            is_expected.to have_selector("h1", text: "Hello Draft Headline")
           end
         end
       end
@@ -133,21 +147,36 @@ module Alchemy
             {from_page: another_page}
           end
 
-          let!(:element) { create(:alchemy_element, name: "headline", page: another_page, page_version: another_page.public_version) }
-          let!(:another_element) { create(:alchemy_element, page: another_page, page_version: another_page.public_version) }
+          let!(:element) do
+            create(:alchemy_element, name: "headline", page_version: another_page.public_version).tap do |element|
+              Alchemy::Ingredients::Headline.create!(element: element, role: "headline", value: "Hello Headline")
+            end
+          end
+
+          let!(:another_element) do
+            create(:alchemy_element, name: "article", page_version: another_page.public_version).tap do |element|
+              Alchemy::Ingredients::Text.create!(element: element, role: "intro", value: "Hello Intro")
+            end
+          end
 
           it "should render all elements from that page." do
-            is_expected.to have_selector("##{element.dom_id}")
-            is_expected.to have_selector("##{another_element.dom_id}")
+            is_expected.to have_selector("h1", text: "Hello Headline")
+            is_expected.to have_selector(".intro", text: "Hello Intro")
           end
 
           context "in preview_mode" do
-            let!(:draft_element) { create(:alchemy_element, name: "headline", page_version: another_page.draft_version) }
+            let!(:draft_element) do
+              create(:alchemy_element, name: "headline", page_version: another_page.draft_version).tap do |element|
+                Alchemy::Ingredients::Headline.create!(element: element, role: "headline", value: "Hello Draft Headline")
+              end
+            end
 
-            include_context "in preview mode"
+            include_context "in preview mode" do
+              let(:page) { another_page }
+            end
 
             it "page draft version is used" do
-              is_expected.to have_selector("##{draft_element.dom_id}")
+              is_expected.to have_selector("h1", text: "Hello Draft Headline")
             end
           end
         end
@@ -175,7 +204,8 @@ module Alchemy
         end
 
         it "uses that to load elements to render" do
-          is_expected.to have_selector("#news-1")
+          is_expected.to have_selector("h2", text: "Breaking News")
+          is_expected.to have_selector(".body p", text: "This is a breaking news story.")
         end
       end
 

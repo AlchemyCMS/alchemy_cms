@@ -127,42 +127,6 @@ module Alchemy
       resource_handler.resource_relations.collect { |_k, v| v[:name].to_sym }
     end
 
-    # Returns the attribute's column for sorting
-    #
-    # If the attribute contains a resource_relation, then the table and column for related model will be returned.
-    #
-    def sortable_resource_header_column(attribute)
-      if (relation = attribute[:relation])
-        "#{relation[:model_association].name}_#{relation[:attr_method]}"
-      else
-        attribute[:name]
-      end
-    end
-
-    # Renders the row for a resource record in the resources table.
-    #
-    # This helper has a nice fallback. If you create a partial for your record then this partial will be rendered.
-    #
-    # Otherwise the default +app/views/alchemy/admin/resources/_resource.html.erb+ partial gets rendered.
-    #
-    # == Example
-    #
-    # For a resource named +Comment+ you can create a partial named +_comment.html.erb+
-    #
-    #   # app/views/admin/comments/_comment.html.erb
-    #   <tr>
-    #     <td><%= comment.title %></td>
-    #     <td><%= comment.body %></td>
-    #   </tr>
-    #
-    # NOTE: Alchemy gives you a local variable named like your resource
-    #
-    def render_resources(icon: nil)
-      render partial: resource_name, collection: resources_instance_variable, locals: {icon: icon}
-    rescue ActionView::MissingTemplate
-      render partial: "resource", collection: resources_instance_variable, locals: {icon: icon}
-    end
-
     def resource_has_tags
       resource_model.respond_to?(:tag_counts) && resource_model.tag_counts.any?
     end

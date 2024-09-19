@@ -1,18 +1,5 @@
-<% css_classes = ingredient.settings[:css_classes] %>
-
 <%= f.input :link_text %>
 <%= f.input :title %>
-<%- if css_classes.present? -%>
-  <%= f.input :css_class,
-    collection: css_classes,
-    include_blank: Alchemy.t('None') %>
-<%- else -%>
-  <% Alchemy::Deprecation.warn %(Float positioning in File ingredients is deprecated. If you rely on them, please use `css_classes` in your "#{ingredient.role}" settings instead.) %>
-  <%= f.input :css_class,
-    label: Alchemy.t(:position_in_text),
-    collection: [
-      [Alchemy.t(:above), "no_float"],
-      [Alchemy.t(:left), "left"],
-      [Alchemy.t(:right), "right"]
-    ], include_blank: Alchemy.t('Layout default') %>
-<%- end -%>
+<%= f.input :css_class,
+  collection: ingredient.settings[:css_classes],
+  include_blank: Alchemy.t('None') %>

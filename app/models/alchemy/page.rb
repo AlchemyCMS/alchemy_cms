@@ -200,20 +200,6 @@ module Alchemy
         %w[name urlname title]
       end
 
-      # Used to store the current page previewed in the edit page template.
-      # @deprecated Use {Alchemy::Current#preview_page=} instead.
-      def current_preview=(page)
-        Current.preview_page = page
-      end
-      deprecate "current_preview=": :"Alchemy::Current.preview_page=", deprecator: Alchemy::Deprecation
-
-      # Returns the current page previewed in the edit page template.
-      # @deprecated Use {Alchemy::Current#preview_page} instead.
-      def current_preview
-        Current.preview_page
-      end
-      deprecate current_preview: :"Alchemy::Current.preview_page", deprecator: Alchemy::Deprecation
-
       # @return the language root page for given language id.
       # @param language_id [Fixnum]
       #
