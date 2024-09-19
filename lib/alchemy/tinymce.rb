@@ -5,6 +5,7 @@ module Alchemy
     mattr_accessor :languages, :plugins
 
     DEFAULT_PLUGINS = %w[
+      alchemy_link
       anchor
       charmap
       code
@@ -14,7 +15,7 @@ module Alchemy
       lists
     ]
 
-    @@plugins = DEFAULT_PLUGINS + %w[alchemy_link]
+    @@plugins = DEFAULT_PLUGINS
     @@init = {
       skin: "alchemy",
       content_css: "/assets/tinymce/skins/content/alchemy/content.min.css",
