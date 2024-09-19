@@ -74,5 +74,13 @@ export default [
       commonjs(),
       terser()
     ]
+  },
+  {
+    input: "app/javascript/preview.js",
+    output: {
+      file: "app/assets/builds/alchemy/preview.min.js"
+    },
+    context: "window",
+    plugins: [terser()]
   }
 ]
