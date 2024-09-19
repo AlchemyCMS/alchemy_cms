@@ -1,3 +1,4 @@
+import "handlebars"
 import "@ungap/custom-elements"
 import "@hotwired/turbo-rails"
 
@@ -25,6 +26,9 @@ import {
 
 // Web Components
 import "alchemy_admin/components"
+
+// Handlebars Templates
+import "alchemy_admin/templates/compiled"
 
 // Shoelace Setup
 import "alchemy_admin/shoelace_theme"
