@@ -8,9 +8,10 @@ on:
   push:
     branches:
       - main
+      - 7.3-stable
+      - 7.2-stable
       - 7.1-stable
       - 7.0-stable
-      - 6.1-stable
   pull_request:
 
 jobs:
