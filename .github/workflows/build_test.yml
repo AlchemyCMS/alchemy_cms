@@ -71,7 +71,7 @@ jobs:
           - "3.2"
           - "3.3"
         database:
-          - mysql
+          - sqlite
           - postgresql
           - mariadb
     env:
@@ -91,15 +91,6 @@ jobs:
           POSTGRES_DB: alchemy_cms_dummy_test
         ports: ["5432:5432"]
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-      mysql:
-        image: mysql:latest
-        ports: ["3306:3306"]
-        env:
-          MYSQL_USER: alchemy_user
-          MYSQL_PASSWORD: password
-          MYSQL_DATABASE: alchemy_cms_dummy_test
-          MYSQL_ROOT_PASSWORD: password
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
       mariadb:
         image: mariadb:latest
         ports: ["3307:3306"]
@@ -132,8 +123,8 @@ jobs:
           sudo apt update -qq
           sudo apt install -qq --fix-missing libpq-dev -o dir::cache::archives="/home/runner/apt/cache"
           sudo chown -R runner /home/runner/apt/cache
-      - name: Install MySQL headers
-        if: matrix.database == 'mysql' || matrix.database == 'mariadb'
+      - name: Install MariaDB headers
+        if: matrix.database == 'mariadb'
         run: |
           mkdir -p /home/runner/apt/cache
           sudo apt update -qq
