@@ -7,7 +7,7 @@
     name: Home
     controller: "/alchemy/admin/dashboard"
     action: index
-    icon: home-2-line
+    icon: home-2
 
 - name: pages
   engine_name: alchemy
@@ -16,7 +16,7 @@
     name: "modules.pages"
     controller: "/alchemy/admin/pages"
     action: index
-    icon: pages-line
+    icon: pages
     sub_navigation:
       - name: "modules.pages"
         controller: "/alchemy/admin/pages"
@@ -35,7 +35,7 @@
     name: "modules.menus"
     controller: "/alchemy/admin/nodes"
     action: index
-    icon: menu-2-line
+    icon: menu-2
 
 - name: languages
   engine_name: alchemy
@@ -45,6 +45,7 @@
     controller: "/alchemy/admin/languages"
     action: index
     icon: translate-2
+    icon-style: none
 
 - name: sites
   engine_name: alchemy
@@ -53,7 +54,7 @@
     name: "modules.sites"
     controller: "/alchemy/admin/sites"
     action: index
-    icon: global-line
+    icon: global
 
 - name: tags
   engine_name: alchemy
@@ -62,7 +63,7 @@
     name: "modules.tags"
     controller: "/alchemy/admin/tags"
     action: index
-    icon: price-tag-3-line
+    icon: price-tag-3
 
 - name: archive
   engine_name: alchemy
@@ -71,7 +72,7 @@
     controller: "/alchemy/admin/pictures"
     action: index
     name: "modules.library"
-    icon: archive-drawer-line
+    icon: archive-drawer
     sub_navigation:
       - name: "modules.pictures"
         controller: "/alchemy/admin/pictures"
