@@ -11,6 +11,14 @@ export default [
     context: "window"
   },
   {
+    input: "node_modules/cropperjs/dist/cropper.esm.js",
+    output: {
+      file: "vendor/javascript/cropperjs.min.js"
+    },
+    plugins: [terser()],
+    context: "window"
+  },
+  {
     input: "node_modules/flatpickr/dist/esm/index.js",
     output: {
       file: "vendor/javascript/flatpickr.min.js"
