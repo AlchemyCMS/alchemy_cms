@@ -89,7 +89,7 @@
     <div id="main_content">
       <%= yield %>
     </div>
-    <script>
+    <script type="module">
       // Setting the correct locale for select2 dropdown replacement.
       $.extend($.fn.select2.defaults, $.fn.select2.locales['<%= ::I18n.locale %>']);
     </script>

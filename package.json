@@ -21,6 +21,7 @@
     "flatpickr": "^4.6.13",
     "handlebars": "^4.7.8",
     "keymaster": "^1.6.2",
+    "select2": "github:select2/select2#3.5.4",
     "sortablejs": "^1.15.2",
     "tinymce": "^7.3.0"
   },
