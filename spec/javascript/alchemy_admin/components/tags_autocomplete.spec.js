@@ -6,7 +6,7 @@ globalThis.$ = jQuery
 globalThis.jQuery = jQuery
 
 import "alchemy_admin/components/tags_autocomplete"
-import("assets/jquery_plugins/select2")
+import("select2")
 
 describe("alchemy-tags-autocomplete", () => {
   /**
