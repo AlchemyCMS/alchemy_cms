@@ -20,8 +20,7 @@ module Alchemy
       {
         min_size: large_enough? ? min_size : false,
         ratio: ratio,
-        default_box: default_box,
-        image_size: [image_width, image_height]
+        default_box: default_box
       }.freeze
     end
 
@@ -79,8 +78,8 @@ module Alchemy
       [
         default_crop_from[0],
         default_crop_from[1],
-        default_crop_from[0] + default_crop_size[0],
-        default_crop_from[1] + default_crop_size[1]
+        default_crop_size[0],
+        default_crop_size[1]
       ]
     end
   end
