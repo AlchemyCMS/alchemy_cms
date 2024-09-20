@@ -10,7 +10,6 @@ import Dirty from "alchemy_admin/dirty"
 import * as FixedElements from "alchemy_admin/fixed_elements"
 import { growl } from "alchemy_admin/growler"
 import ImageLoader from "alchemy_admin/image_loader"
-import ImageCropper from "alchemy_admin/image_cropper"
 import Initializer from "alchemy_admin/initializer"
 import { LinkDialog } from "alchemy_admin/link_dialog"
 import pictureSelector from "alchemy_admin/picture_selector"
@@ -46,7 +45,6 @@ Object.assign(Alchemy, {
   FixedElements,
   growl,
   ImageLoader: ImageLoader.init,
-  ImageCropper,
   LinkDialog,
   pictureSelector,
   pleaseWaitOverlay,

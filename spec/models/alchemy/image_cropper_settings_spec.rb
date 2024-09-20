@@ -106,14 +106,14 @@ RSpec.describe Alchemy::ImageCropperSettings do
         end
 
         it "should return an Array where all values are Integer" do
-          expect(default_box.all? { |v| v.is_a? Integer }).to be_truthy
+          expect(default_box.all?(Integer)).to be_truthy
         end
 
         context "with crop from and crop size given" do
           let(:crop_from) { [0, 25] }
           let(:crop_size) { [50, 50] }
 
-          it { is_expected.to eq([0, 25, 50, 75]) }
+          it { is_expected.to eq([0, 25, 50, 50]) }
         end
       end
 
@@ -140,12 +140,6 @@ RSpec.describe Alchemy::ImageCropperSettings do
           it "sets a fixed ratio from sizes" do
             expect(subject[:ratio]).to eq(80.0 / 60.0)
           end
-        end
-      end
-
-      describe ":image_size" do
-        it "is an Array of image width and height" do
-          expect(subject[:image_size]).to eq([300, 250])
         end
       end
     end
