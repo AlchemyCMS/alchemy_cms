@@ -21,9 +21,11 @@
 <script type="module">
   const select = document.querySelector("#language_id")
 
-  select.addEventListener("change", () => {
-    const url = new URL(select.dataset.url)
-    url.searchParams.set("language_id", select.value)
-    Turbo.visit(url, { frame: "picture_descriptions" })
-  })
+  if (select) {
+    select.addEventListener("change", () => {
+      const url = new URL(select.dataset.url)
+      url.searchParams.set("language_id", select.value)
+      Turbo.visit(url, { frame: "picture_descriptions" })
+    })
+  }
 </script>

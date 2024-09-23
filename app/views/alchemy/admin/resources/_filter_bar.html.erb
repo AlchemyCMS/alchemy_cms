@@ -2,7 +2,7 @@
   <%= render partial: "filter", collection: resource_filters_for_select %>
 </div>
 
-<script type="text/javascript">
+<script type="module">
   $(function() {
     $('select', '#filter_bar').on('change', function(e) {
       var $this = $(this);
