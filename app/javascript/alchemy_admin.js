@@ -1,4 +1,6 @@
+// We still use jQuery in some places (ie. select2)
 import "handlebars"
+import "jquery"
 import "@ungap/custom-elements"
 import "@hotwired/turbo-rails"
 import "select2"

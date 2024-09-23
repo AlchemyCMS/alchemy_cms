@@ -34,6 +34,13 @@ export default [
     context: "window"
   },
   {
+    input: "node_modules/jquery/dist/jquery.min.js",
+    output: {
+      file: "vendor/javascript/jquery.min.js"
+    },
+    context: "window"
+  },
+  {
     input: "node_modules/keymaster/keymaster.js",
     output: {
       file: "vendor/javascript/keymaster.min.js"
