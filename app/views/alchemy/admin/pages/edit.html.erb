@@ -144,7 +144,7 @@
 <% end %>
 
 <% content_for :javascripts do %>
-<script type="text/javascript" charset="utf-8">
+<script type="module">
   $(document).one('turbo:load', function() {
     $('#unlock_page_form, #publish_page_form').on('submit', function(event) {
       var not_dirty = Alchemy.checkPageDirtyness(this);
