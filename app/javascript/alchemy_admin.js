@@ -7,7 +7,6 @@ import "select2"
 
 import Rails from "@rails/ujs"
 
-import GUI from "alchemy_admin/gui"
 import { translate } from "alchemy_admin/i18n"
 import { currentDialog, closeCurrentDialog } from "alchemy_admin/dialog"
 import Dirty from "alchemy_admin/dirty"
@@ -45,7 +44,6 @@ Object.assign(Alchemy, {
   closeCurrentDialog,
   currentDialog,
   ...Dirty,
-  GUI,
   t: translate, // Global utility method for translating a given string
   FixedElements,
   growl,
