@@ -1,9 +1,4 @@
-import {
-  confirmToDeleteDialog,
-  openConfirmDialog
-} from "alchemy_admin/confirm_dialog"
-
-import pleaseWaitOverlay from "alchemy_admin/please_wait_overlay"
+import Hotkeys from "alchemy_admin/hotkeys"
 import Spinner from "alchemy_admin/spinner"
 
 // Collection of all current dialog instances
@@ -132,7 +127,7 @@ export class Dialog {
 
   // Initializes the Dialog body
   init() {
-    Alchemy.GUI.init(this.dialog_body)
+    Hotkeys(this.dialog_body)
     this.watch_remote_forms()
   }
 
@@ -317,42 +312,4 @@ export function openDialog(url, options) {
   }
   const dialog = new Dialog(url, options)
   dialog.open()
-}
-
-// Watches elements for Alchemy Dialogs
-//
-// Links having a data-alchemy-confirm-delete
-// and input/buttons having a data-alchemy-confirm attribute get watched.
-//
-// You can pass a scope so that only elements inside this scope are queried.
-//
-// The href attribute of the link is the url for the overlay window.
-//
-// See Dialog for further options you can add to the data attribute.
-//
-export function watchForDialogs(scope) {
-  if (scope == null) {
-    scope = "#alchemy"
-  }
-  $(scope).on("click", "[data-alchemy-confirm-delete]", function (event) {
-    const $this = $(this)
-    const options = $this.data("alchemy-confirm-delete")
-    confirmToDeleteDialog($this.attr("href"), options)
-    event.preventDefault()
-  })
-  $(scope).on("click", "[data-alchemy-confirm]", function (event) {
-    const options = $(this).data("alchemy-confirm")
-    openConfirmDialog(
-      options.message,
-      $.extend(options, {
-        ok_label: options.ok_label,
-        cancel_label: options.cancel_label,
-        on_ok: () => {
-          pleaseWaitOverlay()
-          this.form.submit()
-        }
-      })
-    )
-    event.preventDefault()
-  })
 }
