@@ -1,2 +1,0 @@
-// Alchemy CMS Sprockets Manifest
-// ------------------------------
