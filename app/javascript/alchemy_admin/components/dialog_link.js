@@ -1,4 +1,4 @@
-import { DEFAULTS, Dialog } from "alchemy_admin/dialog"
+import { Dialog } from "alchemy_admin/dialog"
 
 export class DialogLink extends HTMLAnchorElement {
   constructor() {
@@ -22,10 +22,7 @@ export class DialogLink extends HTMLAnchorElement {
     const options = this.dataset.dialogOptions
       ? JSON.parse(this.dataset.dialogOptions)
       : {}
-    return {
-      ...DEFAULTS,
-      ...options
-    }
+    return options
   }
 
   get disabled() {

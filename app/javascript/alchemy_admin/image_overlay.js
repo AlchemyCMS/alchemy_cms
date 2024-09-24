@@ -2,8 +2,8 @@ import ImageLoader from "alchemy_admin/image_loader"
 import { Dialog } from "alchemy_admin/dialog"
 
 export default class ImageOverlay extends Dialog {
-  constructor(url) {
-    super(url)
+  constructor(url, options = {}) {
+    super(url, options)
   }
 
   init() {
@@ -22,21 +22,7 @@ export default class ImageOverlay extends Dialog {
     })
     this.$previous = $(".previous-picture")
     this.$next = $(".next-picture")
-    this.$document.keydown((e) => {
-      if (e.target.nodeName === "INPUT" || e.target.nodeName === "TEXTAREA") {
-        return true
-      }
-      switch (e.which) {
-        case 37:
-          this.previous()
-          return false
-        case 39:
-          this.next()
-          return false
-        default:
-          return true
-      }
-    })
+    this.#initKeyboardNavigation()
     super.init()
   }
 
@@ -65,5 +51,23 @@ export default class ImageOverlay extends Dialog {
     this.overlay = $('<div class="alchemy-image-overlay" />')
     this.$body.append(this.overlay)
     this.$body.append(this.dialog_container)
+  }
+
+  #initKeyboardNavigation() {
+    this.$document.keydown((e) => {
+      if (e.target.nodeName === "INPUT" || e.target.nodeName === "TEXTAREA") {
+        return true
+      }
+      switch (e.which) {
+        case 37:
+          this.previous()
+          return false
+        case 39:
+          this.next()
+          return false
+        default:
+          return true
+      }
+    })
   }
 }

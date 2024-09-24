@@ -1,5 +1,5 @@
 import "alchemy_admin/components/dialog_link"
-import { Dialog, DEFAULTS } from "alchemy_admin/dialog"
+import { Dialog } from "alchemy_admin/dialog"
 import { renderComponent } from "./component.helper"
 
 // import jquery and append it to the window object
@@ -25,7 +25,7 @@ describe("alchemy-dialog-link", () => {
     `
     const dialogLink = renderComponent("alchemy-dialog-link", html)
 
-    expect(dialogLink.dialogOptions).toEqual(DEFAULTS)
+    expect(dialogLink.dialogOptions).toEqual({})
   })
 
   it("parses dialogOptions from dataset", () => {
