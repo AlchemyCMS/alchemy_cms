@@ -16,7 +16,7 @@ module Alchemy
       def alchemy_form_for(object, *args, &block)
         options = args.extract_options!
         options[:builder] = Alchemy::Forms::Builder
-        options[:remote] = request.xhr?
+        options[:remote] = options.key?(:remote) ? options[:remote] : request.xhr?
         options[:html] = {
           id: options.delete(:id),
           class: ["alchemy", options.delete(:class)].compact.join(" ")
