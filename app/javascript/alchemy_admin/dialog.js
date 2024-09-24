@@ -4,7 +4,7 @@ import Spinner from "alchemy_admin/spinner"
 // Collection of all current dialog instances
 const currentDialogs = []
 
-export const DEFAULTS = {
+const DEFAULTS = {
   header_height: 36,
   size: "400x300",
   padding: true,
@@ -21,13 +21,9 @@ export class Dialog {
   //  - options: A object holding options
   //    - size: The maximum size of the Dialog
   //    - title: The title of the Dialog
-  constructor(url, options) {
+  constructor(url, options = {}) {
     this.url = url
-    if (options == null) {
-      options = {}
-    }
-    this.options = options
-    this.options = $.extend({}, DEFAULTS, this.options)
+    this.options = { ...DEFAULTS, ...options }
     this.$document = $(document)
     this.$window = $(window)
     this.$body = $("body")
@@ -35,6 +31,7 @@ export class Dialog {
     this.width = parseInt(size[0], 10)
     this.height = parseInt(size[1], 10)
     this.build()
+    this.resize()
   }
 
   // Opens the Dialog and loads the content via ajax.
@@ -154,14 +151,31 @@ export class Dialog {
   }
 
   // Displays an error message
-  show_error(xhr, status_message, $container) {
+  show_error(xhr, statusText) {
+    if (xhr.status === 422) {
+      this.dialog_body.html(xhr.responseText)
+      this.init()
+      return
+    }
+
+    const { error_body, error_header, error_type } = this.error_messages(
+      xhr,
+      statusText
+    )
+
+    const $errorDiv = $(`<alchemy-message type="${error_type}">
+      <h1>${error_header}</h1>
+      <p>${error_body}</p>
+    </alchemy-message>`)
+
+    this.dialog_body.html($errorDiv)
+  }
+
+  // Returns error message based on xhr status
+  error_messages(xhr, statusText) {
     let error_body,
       error_header,
       error_type = "warning"
-
-    if ($container == null) {
-      $container = this.dialog_body
-    }
 
     switch (xhr.status) {
       case 0:
@@ -172,14 +186,10 @@ export class Dialog {
         error_header = "You are not authorized!"
         error_body = "Please close this window."
         break
-      case 422:
-        this.dialog_body.html(xhr.responseText)
-        this.init()
-        return
       default:
         error_type = "error"
-        if (status_message) {
-          error_header = status_message
+        if (statusText) {
+          error_header = statusText
           console.error(xhr.responseText)
         } else {
           error_header = `${xhr.statusText} (${xhr.status})`
@@ -187,12 +197,7 @@ export class Dialog {
         error_body = "Please check log and try again."
     }
 
-    const $errorDiv = $(`<alchemy-message type="${error_type}">
-      <h1>${error_header}</h1>
-      <p>${error_body}</p>
-    </alchemy-message>`)
-
-    $container.html($errorDiv)
+    return { error_header, error_body, error_type }
   }
 
   // Binds close events on:
@@ -247,40 +252,49 @@ export class Dialog {
       this.$body.append(this.overlay)
     }
     this.$body.append(this.dialog_container)
-    this.resize()
   }
 
   // Sets the correct size of the dialog
   // It normalizes the given size, so that it never acceeds the window size.
   resize() {
-    const padding = 16
-    const $doc_width = this.$window.width()
-    const $doc_height = this.$window.height()
-    if (this.options.size === "fullscreen") {
-      ;[this.width, this.height] = Array.from([$doc_width, $doc_height])
-    }
-    if (this.width >= $doc_width) {
-      this.width = $doc_width - padding
-    }
-    if (this.height >= $doc_height) {
-      this.height = $doc_height - padding - DEFAULTS.header_height
-    }
+    const { width, height } = this.getSize()
+
     this.dialog.css({
-      width: this.width,
-      "min-height": this.height,
+      width: width,
+      "min-height": height,
       overflow: this.options.overflow
     })
+
     if (this.options.overflow === "hidden") {
       this.dialog_body.css({
-        height: this.height,
+        height: height,
         overflow: "auto"
       })
     } else {
       this.dialog_body.css({
-        "min-height": this.height,
+        "min-height": height,
         overflow: "visible"
       })
     }
+  }
+
+  getSize() {
+    const padding = this.options.padding ? 16 : 0
+    const doc_width = this.$window.width()
+    const doc_height = this.$window.height()
+
+    let width = this.width
+    let height = this.height
+
+    if (width >= doc_width) {
+      width = doc_width - padding
+    }
+
+    if (height >= doc_height) {
+      height = doc_height - padding - DEFAULTS.header_height
+    }
+
+    return { width, height }
   }
 }
 

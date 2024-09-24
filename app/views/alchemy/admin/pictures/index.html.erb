@@ -94,7 +94,10 @@
     pictureSelector();
     on("click", "#picture_archive", ".thumbnail_background", (event) => {
       const url = event.target.closest("a")?.href;
-      const overlay = new ImageOverlay(url);
+      const overlay = new ImageOverlay(url, {
+        size: `${window.innerWidth}x${window.innerHeight}`,
+        padding: false
+      });
       overlay.open();
       event.preventDefault();
     });
