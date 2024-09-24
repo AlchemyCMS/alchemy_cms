@@ -1,4 +1,5 @@
 import "keymaster"
+import { openDialog } from "alchemy_admin/dialog"
 
 const bindedHotkeys = []
 
@@ -7,7 +8,7 @@ function showHelp(evt) {
     !$(evt.target).is("input, textarea") &&
     String.fromCharCode(evt.which) === "?"
   ) {
-    Alchemy.openDialog("/admin/help", {
+    openDialog("/admin/help", {
       title: Alchemy.t("help"),
       size: "400x492"
     })
@@ -18,7 +19,7 @@ function showHelp(evt) {
 }
 
 export default function (scope = document) {
-  // The scope can be a jQuery object because we still use jQuery in Alchemy.Dialog.
+  // The scope can be a jQuery object because we still use jQuery in alchemy_admin/dialog.js.
   if (scope instanceof jQuery) {
     scope = scope[0]
   }

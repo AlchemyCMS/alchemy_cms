@@ -1,8 +1,9 @@
+import { watchForDialogs } from "alchemy_admin/dialog"
 import Hotkeys from "alchemy_admin/hotkeys"
 
-function init(scope) {
+export function init(scope) {
   if (!scope) {
-    Alchemy.watchForDialogs()
+    watchForDialogs()
   }
   Hotkeys(scope)
 }

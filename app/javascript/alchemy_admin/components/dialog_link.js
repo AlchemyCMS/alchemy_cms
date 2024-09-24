@@ -1,13 +1,4 @@
-export const DEFAULTS = {
-  header_height: 36,
-  size: "400x300",
-  padding: true,
-  title: "",
-  modal: true,
-  overflow: "visible",
-  ready: () => {},
-  closed: () => {}
-}
+import { DEFAULTS, Dialog } from "alchemy_admin/dialog"
 
 export class DialogLink extends HTMLAnchorElement {
   constructor() {
@@ -23,10 +14,7 @@ export class DialogLink extends HTMLAnchorElement {
   }
 
   openDialog() {
-    this.dialog = new Alchemy.Dialog(
-      this.getAttribute("href"),
-      this.dialogOptions
-    )
+    this.dialog = new Dialog(this.getAttribute("href"), this.dialogOptions)
     this.dialog.open()
   }
 
