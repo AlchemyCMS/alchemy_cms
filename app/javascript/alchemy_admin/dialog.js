@@ -125,43 +125,37 @@ export class Dialog {
   // Initializes the Dialog body
   init() {
     Hotkeys(this.dialog_body)
-    this.watch_remote_forms()
+    this.watch_turbo_frames()
   }
 
   // Watches ajax requests inside of dialog body and replaces the content accordingly
-  watch_remote_forms() {
-    const $form = $('[data-remote="true"]', this.dialog_body)
+  watch_turbo_frames() {
+    const frame = $('turbo-frame[id="alchemy-form"]', this.dialog_body)
 
-    $form.on("ajax:success", (event) => {
-      const xhr = event.detail[2]
-      const content_type = xhr.getResponseHeader("Content-Type")
-      if (content_type.match(/javascript/)) {
-        return
-      } else {
-        this.dialog_body.html(xhr.responseText)
-        this.init()
+    frame?.on("turbo:before-fetch-response", async (event) => {
+      const response = event.detail.fetchResponse
+      event.preventDefault()
+      switch (response.statusCode) {
+        case 200:
+          if (response.redirected) {
+            this.options.closed = () => Turbo.visit(response.location)
+          }
+          this.close()
+          break
+        case 422:
+          this.dialog_body.html(await response.responseHTML)
+          this.init()
+          break
+        case 500:
+          this.show_error(response)
       }
-    })
-
-    $form.on("ajax:error", (event) => {
-      const statusText = event.detail[1]
-      const xhr = event.detail[2]
-      this.show_error(xhr, statusText)
     })
   }
 
   // Displays an error message
-  show_error(xhr, statusText) {
-    if (xhr.status === 422) {
-      this.dialog_body.html(xhr.responseText)
-      this.init()
-      return
-    }
-
-    const { error_body, error_header, error_type } = this.error_messages(
-      xhr,
-      statusText
-    )
+  show_error(response) {
+    const { error_body, error_header, error_type } =
+      this.error_messages(response)
 
     const $errorDiv = $(`<alchemy-message type="${error_type}">
       <h1>${error_header}</h1>
@@ -172,12 +166,12 @@ export class Dialog {
   }
 
   // Returns error message based on xhr status
-  error_messages(xhr, statusText) {
+  error_messages(response) {
     let error_body,
       error_header,
       error_type = "warning"
 
-    switch (xhr.status) {
+    switch (response.statusCode) {
       case 0:
         error_header = "The server does not respond."
         error_body = "Please check server and try again."
@@ -188,11 +182,10 @@ export class Dialog {
         break
       default:
         error_type = "error"
-        if (statusText) {
-          error_header = statusText
-          console.error(xhr.responseText)
+        if (response.response) {
+          error_header = `${response.response.statusText} (${response.statusCode})`
         } else {
-          error_header = `${xhr.statusText} (${xhr.status})`
+          error_header = response.statusCode
         }
         error_body = "Please check log and try again."
     }
