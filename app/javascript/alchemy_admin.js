@@ -15,7 +15,6 @@ import { growl } from "alchemy_admin/growler"
 import ImageLoader from "alchemy_admin/image_loader"
 import Initializer from "alchemy_admin/initializer"
 import { LinkDialog } from "alchemy_admin/link_dialog"
-import pictureSelector from "alchemy_admin/picture_selector"
 import pleaseWaitOverlay from "alchemy_admin/please_wait_overlay"
 import Sitemap from "alchemy_admin/sitemap"
 import Spinner from "alchemy_admin/spinner"
@@ -49,7 +48,6 @@ Object.assign(Alchemy, {
   growl,
   ImageLoader: ImageLoader.init,
   LinkDialog,
-  pictureSelector,
   pleaseWaitOverlay,
   Sitemap,
   Spinner,
