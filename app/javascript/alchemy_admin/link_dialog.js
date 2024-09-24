@@ -1,9 +1,10 @@
 import { translate } from "alchemy_admin/i18n"
+import { Dialog } from "alchemy_admin/dialog"
 
 // Represents the link Dialog that appears, if a user clicks the link buttons
 // in TinyMCE or on an Ingredient that has links enabled (e.g. Picture)
 //
-export class LinkDialog extends Alchemy.Dialog {
+export class LinkDialog extends Dialog {
   #onCreateLink
 
   constructor(link) {

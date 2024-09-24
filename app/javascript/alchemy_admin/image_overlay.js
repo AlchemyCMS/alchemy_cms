@@ -1,6 +1,7 @@
 import ImageLoader from "alchemy_admin/image_loader"
+import { Dialog } from "alchemy_admin/dialog"
 
-export default class ImageOverlay extends Alchemy.Dialog {
+export default class ImageOverlay extends Dialog {
   constructor(url) {
     super(url)
   }

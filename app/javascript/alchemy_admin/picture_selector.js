@@ -1,4 +1,5 @@
 import { on } from "alchemy_admin/utils/events"
+import { openDialog } from "alchemy_admin/dialog"
 
 function toggleCheckboxes(state) {
   document
@@ -58,7 +59,7 @@ export default function PictureSelector() {
 
     const url = editMultiplePicturesUrl(event.target.href)
 
-    Alchemy.openDialog(url, {
+    openDialog(url, {
       title: event.target.title,
       size: "400x295"
     })
