@@ -147,7 +147,7 @@ module Alchemy
 
         it "should create an element from clipboard" do
           post :create, params: {paste_from_clipboard: element_in_clipboard.id, element: {page_version_id: page_version.id}}, xhr: true
-          expect(response.status).to eq(200)
+          expect(response.status).to eq(201)
           expect(response.body).to match(/Successfully added new element/)
         end
 
