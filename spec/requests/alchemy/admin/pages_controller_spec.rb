@@ -319,6 +319,34 @@ module Alchemy
         end
       end
 
+      describe "#update" do
+        let(:page) { create(:alchemy_page) }
+
+        before do
+          allow_any_instance_of(ActionDispatch::Request).to receive(:referer) do
+            "/admin/pages/edit/#{page.id}"
+          end
+        end
+
+        context "with valid params" do
+          let(:page_params) do
+            {
+              name: "New Name"
+            }
+          end
+
+          context "in list view" do
+            subject! do
+              patch admin_page_path(page, page: page_params, view: "list", format: :turbo_stream)
+            end
+
+            it "sets a flash notice" do
+              expect(flash[:notice]).to eq("New Name saved")
+            end
+          end
+        end
+      end
+
       describe "#create" do
         subject { post admin_pages_path(page: page_params) }
 

@@ -22,6 +22,7 @@ module Alchemy
         @page = Page.find(params[:id])
         if @page.update(page_params)
           @notice = Alchemy.t("Page saved", name: @page.name)
+          @while_page_edit = request.referer.include?("edit")
           render "alchemy/admin/pages/update"
         else
           render :edit, status: :unprocessable_entity
