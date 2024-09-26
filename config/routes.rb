@@ -114,7 +114,6 @@ Alchemy::Engine.routes.draw do
     as: :show_attachment
 
   resources :messages, only: [:index, :new, :create]
-  resources :elements, only: :show
 
   namespace :api, defaults: {format: "json"} do
     resources :attachments, only: [:index]
