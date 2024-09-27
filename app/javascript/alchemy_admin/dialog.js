@@ -124,19 +124,7 @@ export class Dialog {
 
   // Initializes the Dialog body
   init() {
-    const turbo_frame = this.dialog_body[0].querySelector("turbo-frame")
-
     Hotkeys(this.dialog_body)
-
-    // Re-render dialog body if turbo frame render returned error
-    if (turbo_frame) {
-      turbo_frame.addEventListener("turbo:frame-render", (event) => {
-        if (!event.detail.fetchResponse.ok) {
-          this.watch_remote_forms()
-        }
-      })
-    }
-
     this.watch_remote_forms()
   }
 
