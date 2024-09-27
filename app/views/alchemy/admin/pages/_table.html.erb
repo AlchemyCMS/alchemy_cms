@@ -67,7 +67,7 @@
   <% table.with_action :configure, Alchemy.t(:edit_page_properties) do |page| %>
     <%= link_to_dialog(
           render_icon(:cog),
-          alchemy.configure_admin_page_path(page),
+          alchemy.configure_admin_page_path(page, view: "list"),
           {
             title: Alchemy.t(:edit_page_properties),
             size: '450x680'

@@ -1,55 +1,58 @@
-<%= alchemy_form_for [:admin, @page], class: 'edit_page' do |f| %>
-  <% unless @page.language_root? || @page.layoutpage %>
-    <%= render Alchemy::Admin::PageSelect.new(@page.parent) do %>
-      <%= f.input :parent_id, required: true %>
-    <% end %>
-  <% end %>
-
-  <div class="input check_boxes">
-    <label class="control-label"><%= Alchemy.t(:page_status) %></label>
-    <div class="control_group">
-      <%= render 'alchemy/admin/pages/publication_fields' %>
-      <%= page_status_checkbox(@page, :restricted) %>
-      <% if configuration(:sitemap)['show_flag'] %>
-        <%= page_status_checkbox(@page, :sitemap) %>
+<%= turbo_frame_tag @page do %>
+  <%= alchemy_form_for [:admin, @page], class: 'edit_page', remote: false do |f| %>
+    <% unless @page.language_root? || @page.layoutpage %>
+      <%= render Alchemy::Admin::PageSelect.new(@page.parent) do %>
+        <%= f.input :parent_id, required: true %>
       <% end %>
-    </div>
-  </div>
+    <% end %>
 
-  <%= f.input :name, autofocus: true %>
-  <%= f.input :urlname, as: 'string', input_html: {value: @page.slug}, label: Alchemy::Page.human_attribute_name(:slug) %>
-  <alchemy-char-counter max-chars="60">
-    <%= f.input :title %>
-  </alchemy-char-counter>
-
-  <% if Alchemy.enable_searchable %>
     <div class="input check_boxes">
-      <label class="control-label"><%= Alchemy.t(:fulltext_search) %></label>
+      <label class="control-label"><%= Alchemy.t(:page_status) %></label>
       <div class="control_group">
-        <%= page_status_checkbox(@page, :searchable) %>
+        <%= render 'alchemy/admin/pages/publication_fields' %>
+        <%= page_status_checkbox(@page, :restricted) %>
+        <% if configuration(:sitemap)['show_flag'] %>
+          <%= page_status_checkbox(@page, :sitemap) %>
+        <% end %>
       </div>
     </div>
-  <% end %>
 
-  <div class="input check_boxes">
-    <label class="control-label"><%= Alchemy.t(:search_engines) %></label>
-    <div class="control_group">
-      <%= page_status_checkbox(@page, :robot_index) %>
-      <%= page_status_checkbox(@page, :robot_follow) %>
+    <%= f.input :name, autofocus: true %>
+    <%= f.input :urlname, as: 'string', input_html: {value: @page.slug}, label: Alchemy::Page.human_attribute_name(:slug) %>
+    <alchemy-char-counter max-chars="60">
+      <%= f.input :title %>
+    </alchemy-char-counter>
+
+    <% if Alchemy.enable_searchable %>
+      <div class="input check_boxes">
+        <label class="control-label"><%= Alchemy.t(:fulltext_search) %></label>
+        <div class="control_group">
+          <%= page_status_checkbox(@page, :searchable) %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="input check_boxes">
+      <label class="control-label"><%= Alchemy.t(:search_engines) %></label>
+      <div class="control_group">
+        <%= page_status_checkbox(@page, :robot_index) %>
+        <%= page_status_checkbox(@page, :robot_follow) %>
+      </div>
     </div>
-  </div>
 
-  <alchemy-char-counter max-chars="160">
-    <%= f.input :meta_description, as: 'text' %>
-  </alchemy-char-counter>
+    <alchemy-char-counter max-chars="160">
+      <%= f.input :meta_description, as: 'text' %>
+    </alchemy-char-counter>
 
-  <%= f.input :meta_keywords,
-    as: 'text',
-    hint: Alchemy.t('pages.update.comma_seperated') %>
+    <%= f.input :meta_keywords,
+      as: 'text',
+      hint: Alchemy.t('pages.update.comma_seperated') %>
 
-  <%= render Alchemy::Admin::TagsAutocomplete.new do %>
-    <%= f.input :tag_list, input_html: { value: f.object.tag_list.join(",") } %>
+    <%= render Alchemy::Admin::TagsAutocomplete.new do %>
+      <%= f.input :tag_list, input_html: { value: f.object.tag_list.join(",") } %>
+    <% end %>
+
+    <%= hidden_field_tag :view, params[:view] %>
+    <%= f.submit Alchemy.t(:save) %>
   <% end %>
-
-  <%= f.submit Alchemy.t(:save) %>
 <% end %>
