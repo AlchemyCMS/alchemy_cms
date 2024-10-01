@@ -73,6 +73,20 @@ module Alchemy
 
         it { expect(page).to_not be_valid }
       end
+      context "a page must have a unique name within the same parent" do
+        let!(:homepage) { create(:alchemy_page, :language_root) }
+        let!(:existing_page) { create(:alchemy_page, parent: homepage, name: "Unique Name") }
+        it {
+          expect {
+            create(:alchemy_page, name: existing_page.name, parent: homepage)
+          }.to raise_error(ActiveRecord::RecordInvalid, /has already been taken/)
+        }
+        it {
+          expect {
+            create(:alchemy_page, name: existing_page.name.upcase, parent: homepage)
+          }.to raise_error(ActiveRecord::RecordInvalid, /has already been taken/)
+        }
+      end
     end
 
     # Callbacks
