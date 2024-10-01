@@ -13,7 +13,7 @@ module Alchemy
           unless: -> { name.blank? }
 
         validates :name,
-          presence: true
+          presence: true, uniqueness: {scope: [:parent_id], case_sensitive: false, unless: -> { parent_id.nil? }}
         validates :urlname,
           uniqueness: {scope: [:language_id, :layoutpage], if: -> { urlname.present? }, case_sensitive: false},
           exclusion: {in: RESERVED_URLNAMES},
