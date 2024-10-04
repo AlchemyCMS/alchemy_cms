@@ -22,6 +22,19 @@ RSpec.describe "Page creation", type: :system do
         expect(page).to_not have_css("#s2id_page_parent_id")
       end
     end
+    context "with same name " do
+      let!(:existing_page) { create(:alchemy_page, parent: homepage, name: "Unique Name") }
+      it "doesn't create a page with the same name" do
+        visit admin_pages_path
+
+        find(%(a.icon_button[href="/admin/pages/new?parent_id=#{homepage.id}"]), visible: true, match: :first).click
+        select2 "Standard", from: "Type"
+        fill_in "Name", with: "Unique Name"
+        click_button "create"
+
+        expect(page).to have_css("div.alchemy-dialog-body form small.error", text: "has already been taken")
+      end
+    end
   end
 
   describe "overlay GUI" do
