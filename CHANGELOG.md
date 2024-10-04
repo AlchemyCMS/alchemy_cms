@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.3.1 (2024-10-04)
+
+- [7.3-stable] Add tinymce skin files to Sprockets manifest [#3063](https://github.com/AlchemyCMS/alchemy_cms/pull/3063) ([tvdeyen](https://github.com/tvdeyen))
+- [7.3] Deprecate resources helpers [#3040](https://github.com/AlchemyCMS/alchemy_cms/pull/3040) ([tvdeyen](https://github.com/tvdeyen))
+- [7.3-stable] Make page select portable [#3038](https://github.com/AlchemyCMS/alchemy_cms/pull/3038) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.3.0 (2024-09-11)
 
 - fix(Ingredient::Picture): Do not try to localize CSS class if empty [#3031](https://github.com/AlchemyCMS/alchemy_cms/pull/3031) ([tvdeyen](https://github.com/tvdeyen))
