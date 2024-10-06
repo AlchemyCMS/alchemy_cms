@@ -1,6 +1,6 @@
-@import "alchemy/custom-properties";
-@import "alchemy/variables";
-@import "alchemy/fonts";
+@import "./custom-properties";
+@import "./variables";
+@import "./fonts";
 
 body {
   background-color: $main-menu-bg-color;
