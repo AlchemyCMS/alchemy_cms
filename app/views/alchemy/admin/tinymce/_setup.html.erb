@@ -1,20 +1,20 @@
-<% asset_host = ActionController::Base.config.asset_host %>
+<% tinymce_base_path = "#{Rails.application.config.assets.prefix}/tinymce" %>
 
-<link rel="preload" href="<%= asset_host %><%= assets_prefix %>/tinymce/skins/ui/alchemy/skin.min.css" as="style" />
+<link rel="preload" href="<%= asset_path("#{tinymce_base_path}/skins/ui/alchemy/skin.min.css") %>" as="style" />
 <% if Alchemy::Tinymce.init[:content_css] %>
-  <link rel="preload" href="<%= asset_host %><%= Alchemy::Tinymce.init[:content_css] %>" as="style" />
+  <link rel="preload" href="<%= asset_path(Alchemy::Tinymce.init[:content_css]) %>" as="style" />
 <% end %>
 <% Alchemy::Tinymce.preloadable_plugins.each do |plugin| %>
-  <link rel="preload" href="<%= asset_host %><%= assets_prefix %>/tinymce/plugins/<%= plugin %>/plugin.min.js" as="script">
+  <link rel="preload" href="<%= asset_path("#{tinymce_base_path}/plugins/#{plugin}/plugin.min.js") %>" as="script">
 <% end %>
 
 <script>
   // Setting TinyMCE path.
   var tinyMCEPreInit = {
-    <% if ActionController::Base.config.asset_host_set? %>
-    base: '<%= asset_url(assets_prefix + '/tinymce') %>',
+    <% if ActionController::Base.config.asset_host %>
+    base: '<%= asset_url(tinymce_base_path, host: ActionController::Base.config.asset_host) %>',
     <% else %>
-    base: '<%= asset_path(assets_prefix + '/tinymce') %>',
+    base: '<%= tinymce_base_path %>',
     <% end %>
     suffix: '.min'
   };

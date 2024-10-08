@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "spec_helper"
+require "sprockets"
 require "non_stupid_digest_assets"
 
 RSpec.describe NonStupidDigestAssets do

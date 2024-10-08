@@ -90,18 +90,6 @@ RSpec.configure do |config|
     driven_by :rack_test
   end
 
-  config.when_first_matching_example_defined(type: :system) do
-    config.before :suite do
-      # Preload assets
-      # This should avoid capybara timeouts, and avoid counting asset compilation
-      # towards the timing of the first feature spec.
-      start = Time.now
-      puts "Preloading assets."
-      Rails.application.precompiled_assets
-      puts "Done in #{(Time.now - start).round(2)}s"
-    end
-  end
-
   config.before(:each, type: :system, js: true) do |example|
     screen_size = example.metadata[:screen_size] || [1280, 800]
     driven_by(:selenium, using: :headless_chrome, screen_size: screen_size) do |capabilities|

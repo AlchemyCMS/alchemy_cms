@@ -22,7 +22,6 @@
     </script>
     <%= render 'alchemy/admin/tinymce/setup' %>
     <%= render 'alchemy/admin/partials/routes' %>
-    <%= javascript_include_tag('alchemy/admin/all', 'data-turbo-track' => true) %>
     <%= javascript_importmap_tags("alchemy_admin", importmap: Alchemy.importmap) %>
     <% Alchemy.admin_js_imports.each do |path| %>
       <script type="module">

@@ -16,8 +16,22 @@ module Alchemy
       end
     end
 
-    initializer "alchemy.non_digest_assets" do
-      NonStupidDigestAssets.whitelist += [/^tinymce\//]
+    initializer "alchemy.assets" do
+      if defined?(Sprockets)
+        require_relative "../non_stupid_digest_assets"
+        NonStupidDigestAssets.whitelist += [/^tinymce\//]
+        Rails.application.config.assets.precompile << "alchemy_manifest.js"
+      end
+    end
+
+    initializer "alchemy.propshaft" do |app|
+      if defined?(Propshaft)
+        if app.config.assets.server
+          # Monkey-patch Propshaft::Asset to enable access
+          # of TinyMCE assets without a hash digest.
+          require_relative "propshaft/tinymce_asset"
+        end
+      end
     end
 
     initializer "alchemy.importmap" do |app|

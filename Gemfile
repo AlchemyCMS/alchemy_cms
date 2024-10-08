@@ -22,6 +22,9 @@ group :development, :test do
   gem "rubocop", require: false
   gem "standard", "~> 1.25", require: false
 
+  # Still need Sprockets for tests
+  gem "sprockets", "~> 4.2", ">= 4.2.1", require: false
+
   if ENV["GITHUB_ACTIONS"]
     gem "simplecov-cobertura", "~> 2.1"
     # Necessary because GH Actions gem cache does not have this "Bundled with Ruby" gem installed
@@ -60,3 +63,5 @@ gem "web-console", "~> 4.2", group: :development
 gem "rails_live_reload", "~> 0.3.5"
 
 gem "dartsass-rails", "~> 0.5.0"
+
+gem "propshaft", "~> 1.0"
