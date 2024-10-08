@@ -1,7 +1,9 @@
 <%- cache(article) do -%>
-  <%= element_view_for(article, tag: 'article') do |el| -%>
-    <h2><%= el.render :headline %></h2>
-    <%= el.render :picture, size: '1200x600' %>
-    <%= el.render :text %>
+  <%= element_view_for(article, tag: "article", class: "w-full max-w-xl mx-auto bg-slate-100 shadow my-8 px-8 py-4 rounded") do |el| -%>
+    <%= el.render :headline, {}, class: "text-2xl font-bold my-4" %>
+    <%= el.render :picture %>
+    <div class="[&>p]:my-2 [&>h2]:font-bold [&>h2]:text-xl [&>h2]:my-4 [&>h3]:font-bold [&>h3]:my-2 [&>ul]:list-disc [&>ul]:ml-4 [&>p>a]:underline [&>p>code]:text-sm [&>p>code]:bg-gray-50 [&>p>code]:p-1 [&>p>code]:whitespace-nowrap">
+      <%= el.render :text %>
+    </div>
   <%- end -%>
 <%- end -%>

@@ -65,22 +65,16 @@ module Alchemy
 
       def install_assets
         copy_file "custom.css", app_assets_path.join("stylesheets/alchemy/admin/custom.css")
-        append_to_file Rails.root.join("app/assets/config/manifest.js"), "//= link alchemy/admin/custom.css\n"
+        sprockets_manifest = Rails.root.join("app/assets/config/manifest.js")
+        if File.exist?(sprockets_manifest)
+          append_to_file sprockets_manifest, "//= link alchemy/admin/custom.css\n"
+        end
       end
 
       def copy_demo_views
         return if options[:skip_demo_files]
 
         copy_file "application.html.erb", app_views_path.join("layouts", "application.html.erb")
-        copy_file "article.css", app_assets_path.join("stylesheets", "alchemy", "elements", "_article.css")
-
-        stylesheet_require = %(@import "alchemy/elements/article";\n)
-        if File.exist?(app_assets_path.join("stylesheets", "application.css"))
-          prepend_file app_assets_path.join("stylesheets", "application.css"), stylesheet_require
-        else
-          create_file app_assets_path.join("stylesheets", "application.css"), stylesheet_require
-        end
-
         copy_file "_article.html.erb", app_views_path.join("alchemy", "elements", "_article.html.erb")
         copy_file "_standard.html.erb", app_views_path.join("alchemy", "page_layouts", "_standard.html.erb")
         copy_file "alchemy.en.yml", app_config_path.join("locales", "alchemy.en.yml")

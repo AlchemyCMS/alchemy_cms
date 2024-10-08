@@ -8,12 +8,14 @@
   unique: true
   ingredients:
     - role: headline
-      type: Text
+      type: Headline
       default: :article_headline
       hint: true
     - role: picture
       type: Picture
       hint: true
+      settings:
+        size: 1200x600
     - role: text
       type: Richtext
       default: :article_text
