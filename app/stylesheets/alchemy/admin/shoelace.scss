@@ -363,7 +363,7 @@ sl-dialog {
   }
 
   &::part(title) {
-    --sl-font-size-large: var(--font-size_small);
+    --sl-font-size-large: var(--font-size_medium);
     color: var(--color-white);
   }
 
