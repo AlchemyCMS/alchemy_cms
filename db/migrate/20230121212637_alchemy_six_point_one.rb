@@ -219,15 +219,6 @@ class AlchemySixPointOne < ActiveRecord::Migration[ActiveRecord::Migration.curre
         t.index ["updater_id"], name: "index_alchemy_pictures_on_updater_id"
       end
     end
-
-    unless table_exists?("alchemy_picture_thumbs")
-      create_table "alchemy_picture_thumbs" do |t|
-        t.references "picture", null: false, foreign_key: {to_table: :alchemy_pictures}
-        t.string "signature", null: false
-        t.text "uid", null: false
-        t.index ["signature"], name: "index_alchemy_picture_thumbs_on_signature", unique: true
-      end
-    end
   end
 
   def down
@@ -241,7 +232,6 @@ class AlchemySixPointOne < ActiveRecord::Migration[ActiveRecord::Migration.curre
     drop_table "alchemy_nodes" if table_exists?("alchemy_nodes")
     drop_table "alchemy_page_versions" if table_exists?("alchemy_page_versions")
     drop_table "alchemy_pages" if table_exists?("alchemy_pages")
-    drop_table "alchemy_picture_thumbs" if table_exists?("alchemy_picture_thumbs")
     drop_table "alchemy_pictures" if table_exists?("alchemy_pictures")
     drop_table "alchemy_sites" if table_exists?("alchemy_sites")
   end
