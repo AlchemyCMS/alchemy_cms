@@ -6,7 +6,8 @@ require "alchemy/version"
 namespace :alchemy do
   desc "Upgrades your app to AlchemyCMS v#{Alchemy::VERSION}."
   task upgrade: [
-    "alchemy:upgrade:prepare"
+    "alchemy:upgrade:prepare",
+    "alchemy:upgrade:8.0:run"
   ] do
     Alchemy::Upgrader.display_todos
   end
@@ -14,9 +15,32 @@ namespace :alchemy do
   namespace :upgrade do
     desc "Alchemy Upgrader: Prepares the database and updates Alchemys configuration file."
     task prepare: [
+      "alchemy:upgrade:ensure_dragonfly_gems",
       "alchemy:upgrade:database",
       "alchemy:upgrade:config"
     ]
+
+    task :ensure_dragonfly_gems do
+      require "dragonfly"
+      require "dragonfly_svg"
+    rescue LoadError
+      abort <<~WARN
+
+        == Alchemy Upgrader ==
+
+        Please make sure you have `dragonfly` and `dragonfly_svg` gems installed in order to migrate Alchemy.
+
+        Add these to your Gemfile:
+
+          gem "dragonfly", "~> 1.4", require: false
+          gem "dragonfly_svg", "~> 0.0.4", require: false
+
+        and run `bundle install`.
+
+        Then try again, please!
+
+      WARN
+    end
 
     desc "Alchemy Upgrader: Prepares the database."
     task database: [
@@ -27,6 +51,29 @@ namespace :alchemy do
     desc "Alchemy Upgrader: Copy configuration file."
     task config: [:environment] do
       Alchemy::Upgrader.copy_new_config_file
+    end
+
+    namespace "8.0" do
+      task "run" => [
+        "alchemy:upgrade:8.0:install_active_storage",
+        "alchemy:upgrade:8.0:migrate_pictures_to_active_storage",
+        "alchemy:upgrade:8.0:migrate_attachments_to_active_storage"
+      ]
+
+      desc "Install active_storage"
+      task install_active_storage: [:environment] do
+        Alchemy::Upgrader::EightZero.install_active_storage
+      end
+
+      desc "Migrate pictures to active_storage"
+      task migrate_pictures_to_active_storage: [:environment] do
+        Alchemy::Upgrader::EightZero.migrate_pictures_to_active_storage
+      end
+
+      desc "Migrate attachments to active_storage"
+      task migrate_attachments_to_active_storage: [:environment] do
+        Alchemy::Upgrader::EightZero.migrate_attachments_to_active_storage
+      end
     end
   end
 end

@@ -3,50 +3,50 @@
 module Alchemy
   class Picture < BaseRecord
     class Url
-      attr_reader :variant, :thumb
+      attr_reader :picture, :image_file
 
-      # @param [Alchemy::PictureVariant]
+      # @param [Alchemy::Picture]
       #
-      def initialize(variant)
-        raise ArgumentError, "Variant missing!" if variant.nil?
-
-        @variant = variant
+      def initialize(picture)
+        @picture = picture
+        @image_file = picture.image_file
       end
 
       # The URL to a variant of a picture
       #
       # @return [String]
       #
-      def call(params = {})
-        return variant.image.url(params) unless processible_image?
+      def call(options = {})
+        variant_options = DragonflyToImageProcessing.call(options)
+        variant_options[:format] = options[:format] || default_output_format
+        variant = image_file&.variant(variant_options)
+        return unless variant
 
-        "/#{uid}"
+        Rails.application.routes.url_helpers.rails_blob_path(
+          variant,
+          {
+            filename: filename(options),
+            format: variant_options[:format],
+            only_path: true
+          }
+        )
       end
 
       private
 
-      def processible_image?
-        variant.image.is_a?(::Dragonfly::Job)
-      end
-
-      def uid
-        signature = PictureThumb::Signature.call(variant)
-        if find_thumb_by(signature)
-          thumb.uid
+      def filename(options = {})
+        if picture.name.presence
+          picture.name.to_param
         else
-          uid = PictureThumb::Uid.call(signature, variant)
-          ActiveRecord::Base.connected_to(role: ActiveRecord.writing_role) do
-            PictureThumb::Create.call(variant, signature, uid)
-          end
-          uid
+          picture.image_file_name
         end
       end
 
-      def find_thumb_by(signature)
-        @thumb = if variant.picture.thumbs.loaded?
-          variant.picture.thumbs.find { |t| t.signature == signature }
+      def default_output_format
+        if Alchemy::Config.get(:image_output_format) == "original"
+          picture.image_file_extension
         else
-          variant.picture.thumbs.find_by(signature: signature)
+          Alchemy::Config.get(:image_output_format)
         end
       end
     end

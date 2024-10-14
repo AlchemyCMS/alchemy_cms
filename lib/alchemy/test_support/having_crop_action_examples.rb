@@ -30,8 +30,8 @@ RSpec.shared_examples_for "having crop action" do |args|
       let(:settings) { {} }
 
       before do
-        picture.image_file_width = 300
-        picture.image_file_height = 250
+        allow(picture).to receive(:image_file_width) { 300 }
+        allow(picture).to receive(:image_file_height) { 250 }
         allow(croppable_resource).to receive(:settings) { settings }
         expect(Alchemy::Picture).to receive(:find_by) { picture }
       end
