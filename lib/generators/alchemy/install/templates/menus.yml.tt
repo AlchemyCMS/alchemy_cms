@@ -1,6 +1,7 @@
 # == In this configuration, you set up Alchemy's menu names.
 #
-# For further information please see http://guides.alchemy-cms.com/stable/menus.html
+# TODO: Ensure there is a working link with explanation on how menu's are constructed. Link below is broken.
+# For further information please see http://guides.alchemy-cms.com/menus.html
 
 <%- unless @options[:skip_demo_files] -%>
 - main_menu
