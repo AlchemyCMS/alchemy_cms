@@ -97,7 +97,7 @@ RSpec.describe "Resources", type: :system do
           end
 
           it "can combine multiple filters" do
-            visit "/admin/events?filter[start]=starting_today&filter[by_location_name]=#{location.name}"
+            visit "/admin/events?filter[start]=starting_today&filter[by_location_id]=#{location.id}"
 
             within "div#archive_all table.list tbody" do
               expect(page).to have_selector("tr", count: 1)
@@ -134,6 +134,25 @@ RSpec.describe "Resources", type: :system do
               expect(page).to have_content("today 1")
               expect(page).to have_content("today 2")
               expect(page).not_to have_content("yesterday")
+            end
+          end
+
+          context "selecting a associated model by it's id" do
+            it "should filter the list to only show matching items", :js do
+              visit "/admin/events"
+
+              within "div#archive_all table.list tbody" do
+                expect(page).to have_selector("tr", count: 3)
+              end
+
+              within "#library_sidebar #filter_bar" do
+                select2(location.name, from: "Location")
+              end
+
+              within "div#archive_all table.list tbody" do
+                expect(page).to have_selector("tr", count: 1)
+                expect(page).to have_content("today 2")
+              end
             end
           end
         end
