@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.3.2 (2024-10-15)
+
+- [7.3-stable] Fix filtering associated models by id [#3068](https://github.com/AlchemyCMS/alchemy_cms/pull/3068) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.3-stable] fix new page form [#3064](https://github.com/AlchemyCMS/alchemy_cms/pull/3064) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.3.1 (2024-10-04)
 
 - [7.3-stable] Add tinymce skin files to Sprockets manifest [#3063](https://github.com/AlchemyCMS/alchemy_cms/pull/3063) ([tvdeyen](https://github.com/tvdeyen))
