@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.2.7 (2024-10-15)
+
+- [7.2-stable] Fix filtering associated models by id [#3069](https://github.com/AlchemyCMS/alchemy_cms/pull/3069) ([tvdeyen](https://github.com/tvdeyen))
+- [7.2-stable] Use alchemy_display_name for page actor names [#3030](https://github.com/AlchemyCMS/alchemy_cms/pull/3030) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.2.6 (2024-09-04)
 
 - [7.2-stable] Set Alchemy::Page.current in Messages Controller [#3021](https://github.com/AlchemyCMS/alchemy_cms/pull/3021) ([tvdeyen](https://github.com/tvdeyen))
