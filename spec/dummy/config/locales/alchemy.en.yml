@@ -4,7 +4,7 @@ en:
       event:
         start:
           name: Start
-        by_location_name:
+        by_location_id:
           name: Location
     element_names:
       gallery_picture: Gallery picture

@@ -138,7 +138,7 @@ module Alchemy
       end
 
       def eligible_resource_filter_values
-        resource_filters.map(&:values).flatten
+        resource_filters.map(&:values).flatten!.map!(&:to_s)
       end
 
       # Returns a translated +flash[:notice]+ for current controller action.
