@@ -1,5 +1,20 @@
 # Changelog
 
+## 7.3.3 (2024-10-15)
+
+- [7.3-stable] Fix loading custom properties into Tinymce skin [#3070](https://github.com/AlchemyCMS/alchemy_cms/pull/3070) ([tvdeyen](https://github.com/tvdeyen))
+
+## 7.3.2 (2024-10-15)
+
+- [7.3-stable] Fix filtering associated models by id [#3068](https://github.com/AlchemyCMS/alchemy_cms/pull/3068) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.3-stable] fix new page form [#3064](https://github.com/AlchemyCMS/alchemy_cms/pull/3064) ([tvdeyen](https://github.com/tvdeyen))
+
+## 7.3.1 (2024-10-04)
+
+- [7.3-stable] Add tinymce skin files to Sprockets manifest [#3063](https://github.com/AlchemyCMS/alchemy_cms/pull/3063) ([tvdeyen](https://github.com/tvdeyen))
+- [7.3] Deprecate resources helpers [#3040](https://github.com/AlchemyCMS/alchemy_cms/pull/3040) ([tvdeyen](https://github.com/tvdeyen))
+- [7.3-stable] Make page select portable [#3038](https://github.com/AlchemyCMS/alchemy_cms/pull/3038) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.3.0 (2024-09-11)
 
 - fix(Ingredient::Picture): Do not try to localize CSS class if empty [#3031](https://github.com/AlchemyCMS/alchemy_cms/pull/3031) ([tvdeyen](https://github.com/tvdeyen))
@@ -72,16 +87,6 @@
 - fix Ingredient Audio and Video boolean type casting [#2909](https://github.com/AlchemyCMS/alchemy_cms/pull/2909) ([tvdeyen](https://github.com/tvdeyen))
 - Precompile CSS files into Gem [#2886](https://github.com/AlchemyCMS/alchemy_cms/pull/2886) ([tvdeyen](https://github.com/tvdeyen))
 - Return 422 on validation error [#2869](https://github.com/AlchemyCMS/alchemy_cms/pull/2869) ([tvdeyen](https://github.com/tvdeyen))
-
-## 7.2.6 (2024-09-04)
-
-- [7.2-stable] Set Alchemy::Page.current in Messages Controller [#3021](https://github.com/AlchemyCMS/alchemy_cms/pull/3021) ([tvdeyen](https://github.com/tvdeyen))
-- [7.2-stable] Fallback to @page var if no Current.page is set [#3020](https://github.com/AlchemyCMS/alchemy_cms/pull/3020) ([tvdeyen](https://github.com/tvdeyen))
-
-## 7.2.5 (2024-09-04)
-
-- [7.2-stable] Render Datetime ingredient in local time zone [#3019](https://github.com/AlchemyCMS/alchemy_cms/pull/3019) ([tvdeyen](https://github.com/tvdeyen))
-- [7.2-stable] Allow to set input_type on Datetime ingredient editor [#3016](https://github.com/AlchemyCMS/alchemy_cms/pull/3016) ([tvdeyen](https://github.com/tvdeyen))
 
 ## 7.2.4 (2024-08-10)
 
@@ -250,11 +255,6 @@
 - Use Rails' CurrentAttributes to store globals [#2701](https://github.com/AlchemyCMS/alchemy_cms/pull/2701) ([tvdeyen](https://github.com/tvdeyen))
 - Add nodes to page dialog [#2699](https://github.com/AlchemyCMS/alchemy_cms/pull/2699) ([sascha-karnatz](https://github.com/sascha-karnatz))
 - Fixes language switching to default language [#2689](https://github.com/AlchemyCMS/alchemy_cms/pull/2689) ([robinboening](https://github.com/robinboening))
-
-## 7.1.12 (2024-09-04)
-
-- [7.1-stable] Render Datetime ingredient in local time zone [#3018](https://github.com/AlchemyCMS/alchemy_cms/pull/3018) ([tvdeyen](https://github.com/tvdeyen))
-- [7.1-stable] Allow to set input_type on Datetime ingredient editor [#3015](https://github.com/AlchemyCMS/alchemy_cms/pull/3015) ([tvdeyen](https://github.com/tvdeyen))
 
 ## 7.1.11 (2024-08-10)
 
@@ -465,26 +465,6 @@
 - convert Initializer from Coffeescript to Javascript [#2513](https://github.com/AlchemyCMS/alchemy_cms/pull/2513) ([sascha-karnatz](https://github.com/sascha-karnatz))
 - Convert Dirty from Coffeescript to Javascript [#2510](https://github.com/AlchemyCMS/alchemy_cms/pull/2510) ([sascha-karnatz](https://github.com/sascha-karnatz))
 - Convert buttons.js.coffee to buttons.js [#2509](https://github.com/AlchemyCMS/alchemy_cms/pull/2509) ([sascha-karnatz](https://github.com/sascha-karnatz))
-
-## 7.0.15 (2024-09-04)
-
-- [7.0-stable] Render Datetime ingredient in local time zone [#3017](https://github.com/AlchemyCMS/alchemy_cms/pull/3017) ([tvdeyen](https://github.com/tvdeyen))
-- [7.0-stable] Allow to set input_type on Datetime ingredient editor [#3014](https://github.com/AlchemyCMS/alchemy_cms/pull/3014) ([tvdeyen](https://github.com/tvdeyen))
-- [7.0-stable] Fix combining search filters and pagination [#2980](https://github.com/AlchemyCMS/alchemy_cms/pull/2980) ([alchemycms-bot](https://github.com/alchemycms-bot))
-- [7.0-stable] Remove call to missing content_positions task [#2961](https://github.com/AlchemyCMS/alchemy_cms/pull/2961) ([alchemycms-bot](https://github.com/alchemycms-bot))
-- [7.0-stable] Fix re-render of layoutpages form if validation fails [#2952](https://github.com/AlchemyCMS/alchemy_cms/pull/2952) ([alchemycms-bot](https://github.com/alchemycms-bot))
-- [7.0-stable] fix(ContactMessages): Use alchemy route proxy [#2927](https://github.com/AlchemyCMS/alchemy_cms/pull/2927) ([alchemycms-bot](https://github.com/alchemycms-bot))
-
-## 7.0.14 (2024-06-04)
-
-- [7.0-stable] fix(RoutingConstraints): Allow Turbo Stream requests [#2914](https://github.com/AlchemyCMS/alchemy_cms/pull/2914) ([alchemycms-bot](https://github.com/alchemycms-bot))
-- [7.0-stable] fix Ingredient Audio and Video boolean type casting [#2910](https://github.com/AlchemyCMS/alchemy_cms/pull/2910) ([alchemycms-bot](https://github.com/alchemycms-bot))
-
-## 7.0.13 (2024-05-29)
-
-- [7.0-stable] Fix preview window width for smaller viewports [#2889](https://github.com/AlchemyCMS/alchemy_cms/pull/2889) ([alchemycms-bot](https://github.com/alchemycms-bot))
-- [7.0-stable] Fix Preview Window width [#2880](https://github.com/AlchemyCMS/alchemy_cms/pull/2880) ([alchemycms-bot](https://github.com/alchemycms-bot))
-- [7.0-stable] Fix preview window resize transition [#2871](https://github.com/AlchemyCMS/alchemy_cms/pull/2871) ([alchemycms-bot](https://github.com/alchemycms-bot))
 
 ## 7.0.12 (2024-04-12)
 
