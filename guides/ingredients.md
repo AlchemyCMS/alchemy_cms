@@ -125,7 +125,7 @@ Use this for HTML headings. The editor is renderd as a single lined input field 
 
 * **sizes** `Array` of `Integer`s
 
-  Optionally add a listy of sizes that the editor can choose a heading css size. Added as class (`.h2`) to the heading element. Use this of 
+  Optionally add a listy of sizes that the editor can choose a heading css size. Added as class (`.h2`) to the heading element. Use this of
 
 ### Example
 
@@ -162,7 +162,7 @@ You can customize the Tinymce editor of a single element instance.
 ~~~
 
 ::: tip INFO
-See the [Tinymce customization guide](customize_tinymce) for all available options
+See the [Tinymce customization guide](how_to_customize_tinymce) for all available options
 :::
 
 ## Picture

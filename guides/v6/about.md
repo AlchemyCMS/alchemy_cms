@@ -28,7 +28,7 @@ AlchemyCMS comes with six core modules:
 5. Tags
 6. Library (Pictures & Attachments)
 
-The core modules can be extended by own modules. A module should be a Rails engine that registers itself at Alchemy. Read more about [creating own modules](create_modules).
+The core modules can be extended by own modules. A module should be a Rails engine that registers itself at Alchemy. Read more about [creating own modules](how_to_create_modules).
 
 ## Storing architecture
 
@@ -83,4 +83,4 @@ Alchemy can also be your Rails admin for your own custom models and controllers.
 
 The standard templates for the backend views are also rendered. They can be overwritten in your app, just use the expected filenames and variables.
 
-Read more details about the resources controller in the [module development](create_modules) guide.
+Read more details about the resources controller in the [module development](how_to_create_modules) guide.

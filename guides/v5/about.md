@@ -57,9 +57,9 @@ When working with AlchemyCMS the very first thing you should do is identify the 
 
 Every page which is structurally different to another, should have its own page layout. A page layout is a HTML template with specified properties. [More about pages and their layouts »](pages.html#defining-page-layouts)
 
-After that you should identify fixed areas on the layout and define cells for sidebars, heroes and other groups of content. Cells render on page layouts and are acting as fixed containers for element groups. [More about cells »](cells)
+After that you should identify fixed areas on the layout and define them for sidebars, heroes and other groups of content. Fixed elements render on page layouts and are acting as containers for element groups.
 
-In any case you should split the layout into elements. That means grouping small parts of the websites content into reusable containers. Elements are rendered on page layouts or in cells and are the key component of Alchemy. [More about elements »](elements)
+In any case you should split the layout into elements. That means grouping small parts of the websites content into reusable containers. Elements are rendered on page layouts and are the key component of Alchemy. [More about elements »](elements)
 
 An essence is the smallest part of content in Alchemy and represents a headline, an image, paragraphs and other values of content. [More about essences »](essences)
 
@@ -73,7 +73,7 @@ Images are stored as master images in the picture library. The editor just assig
 
 ## Caching
 
-If not deactivated in the [configuration](configuration), Alchemy uses Rails "Russian Doll Caching" for fast content delivering. This will cache all [page layout](pages) partials where [cells](cells) and [elements](elements) are rendered on.
+If not deactivated in the [configuration](configuration), Alchemy uses Rails "Russian Doll Caching" for fast content delivering. This will cache all [page layout](pages) partials where [elements](elements) are rendered on.
 
 With every page request Alchemy sends cache headers that are used by CDNs, proxies and your vistors browser to cache the page body.
 

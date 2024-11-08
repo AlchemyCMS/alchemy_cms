@@ -13,7 +13,7 @@ Pages have a unique friendly url and are organized as nested tree and represent 
 
 Beside a language, a page has attributes for name, title, visibility, published and restriction status and all SEO relevant attributes like meta tags and meta descriptions.
 
-Every page has a [layout](#defining-page-layouts) which defines additional properties like caching, uniqueness and it defines [elements](elements) and [cells](cells) that can be placed on that Page.
+Every page has a [layout](#defining-page-layouts) which defines additional properties like caching, uniqueness and it defines [elements](elements) that can be placed on that Page.
 
 ## Defining page layouts
 
