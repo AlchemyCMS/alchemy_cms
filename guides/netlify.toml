@@ -1,2 +1,3 @@
 [build]
   command = "./build.sh"
+  publish = "guides/.vitepress/dist"

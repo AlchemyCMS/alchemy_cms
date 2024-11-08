@@ -2,7 +2,7 @@
 
 # The AlchemyCMS Guides
 
-The guides are created with [VuePress](https://v2.vuepress.vuejs.org) and are written in [Markdown](https://daringfireball.net/projects/markdown/syntax).
+The guides are created with [VitePress](https://vitepress.dev/) and are written in [Markdown](https://daringfireball.net/projects/markdown/syntax).
 
 [![Deploys by Netlify](https://www.netlify.com/img/global/badges/netlify-color-bg.svg)](https://www.netlify.com)
 
@@ -15,15 +15,15 @@ The actual guides sourcefiles live in the `/guides` folder.
 Run
 
 ```bash
-yarn install
+bun install
 ```
 
-to install [VuePress](https://v2.vuepress.vuejs.org).
+to install [VitePress](https://vitepress.dev/).
 
 To run a local preview server, run
 
 ```bash
-yarn guides:preview
+bun run guides:preview
 ```
 
 The server will be available at [http://localhost:8080](http://localhost:8080).
@@ -33,12 +33,12 @@ The server will be available at [http://localhost:8080](http://localhost:8080).
 Build the guides html files with:
 
 ```bash
-yarn guides:build
+bun run guides:build
 ```
 
 ## Deployment
 
-Deployment is done automatically via [netlify](https://www.netlify.com) whenever a change is merged into the master branch.
+Deployment is done automatically via [netlify](https://www.netlify.com) whenever a change is merged into the main branch.
 
 ## Contributing
 

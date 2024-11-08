@@ -1,4 +1,4 @@
 #!/bin/sh
 
-yarn guides:build
-cp guides/_redirects guides/.vuepress/dist/_redirects
+bun run guides:build
+cp guides/_redirects guides/.vitepress/dist/_redirects
