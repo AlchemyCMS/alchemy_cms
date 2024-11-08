@@ -377,4 +377,5 @@ export default defineConfig({
     },
   },
   lastUpdated: true,
+  ignoreDeadLinks: "localhostLinks",
 })

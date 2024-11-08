@@ -13,7 +13,7 @@ Alchemy uses Rails [Single Table Inheritance](https://guides.rubyonrails.org/ass
 
 Alchemy comes with a lot of predefined ingredients for the regular needs of a website project. Combine them like a chemestry kit into [elements](elements).
 
-Ingredients are Rails models. It is pretty easy to [add your own ingredient class](custom_ingredients) as well.
+Ingredients are Rails models. It is pretty easy to [add your own ingredient class](how_to_create_custom_ingredients) as well.
 
 ## Definition
 
@@ -129,7 +129,7 @@ You can customize the Tinymce editor of a single element instance.
 ~~~
 
 ::: tip INFO
-See the [Tinymce customization guide](customize_tinymce) for all available options
+See the [Tinymce customization guide](how_to_customize_tinymce) for all available options
 :::
 
 ## Picture
@@ -208,7 +208,7 @@ Useful for letting your user select from a limited set of choices.
 ~~~
 
 ::: tip
-If you need dynamic values (ie, a from a product catalogue), please [create a custom ingredient class](custom_ingredients) that provides the values.
+If you need dynamic values (ie, a from a product catalogue), please [create a custom ingredient class](how_to_create_custom_ingredients) that provides the values.
 :::
 
 ## Link
