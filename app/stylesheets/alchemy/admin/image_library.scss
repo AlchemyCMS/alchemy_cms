@@ -1,6 +1,9 @@
+@use "../mixins";
+@use "../variables" as vars;
+
 $picture-overlay-handle-width: 24px;
 $image-overlay-form-width: 350px - $picture-overlay-handle-width;
-$image-overlay-transition-duration: $transition-duration;
+$image-overlay-transition-duration: vars.$transition-duration;
 $image-overlay-transition-easing: ease-in;
 
 .alchemy-image-overlay {
@@ -167,7 +170,7 @@ $image-overlay-transition-easing: ease-in;
     max-width: 100%;
     max-height: 100%;
     box-shadow: 0 0 var(--spacing-2) var(--color-text);
-    background: $thumbnail-background;
+    background: vars.$thumbnail-background;
     vertical-align: middle;
     cursor: default;
   }
@@ -261,11 +264,11 @@ $image-overlay-transition-easing: ease-in;
 
   .previous-picture {
     left: 0;
-    @include border-right-radius($default-border-radius);
+    @include mixins.border-right-radius(vars.$default-border-radius);
   }
 
   .next-picture {
     right: $image-overlay-form-width + $picture-overlay-handle-width;
-    @include border-left-radius($default-border-radius);
+    @include mixins.border-left-radius(vars.$default-border-radius);
   }
 }

@@ -1,3 +1,5 @@
+@use "../variables" as vars;
+
 #errorExplanation {
   background: #ffdfdf;
   padding: var(--spacing-2);
@@ -5,7 +7,7 @@
   margin-bottom: var(--spacing-2);
   border: 1px solid #d08f91;
   color: #690001;
-  border-radius: $default-border-radius;
+  border-radius: vars.$default-border-radius;
 
   h2 {
     font-size: 1.2em;
@@ -22,10 +24,10 @@ div.errors {
   padding: var(--spacing-2) var(--spacing-2) var(--spacing-1) var(--spacing-7);
   border-width: 1px;
   border-style: solid;
-  border-radius: $default-border-radius;
-  border-color: $error_border_color;
-  color: $error_text_color;
-  background-color: $error_background_color;
+  border-radius: vars.$default-border-radius;
+  border-color: vars.$error_border_color;
+  color: vars.$error_text_color;
+  background-color: vars.$error_background_color;
   display: none;
 
   ul {

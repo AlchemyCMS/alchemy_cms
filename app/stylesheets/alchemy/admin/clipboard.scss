@@ -1,3 +1,5 @@
+@use "../variables" as vars;
+
 #clipboard_items {
   ul {
     list-style-type: none;
@@ -12,9 +14,9 @@
       align-items: center;
       gap: var(--spacing-2);
       padding: var(--spacing-2);
-      border: $default-border;
+      border: vars.$default-border;
       background-color: white;
-      border-radius: $default-border-radius;
+      border-radius: vars.$default-border-radius;
 
       &.elements {
         background-color: var(--color-grey_light);

@@ -1,16 +1,20 @@
+@use "base";
+@use "../mixins";
+@use "../variables" as vars;
+
 #top_menu {
   position: fixed;
   top: 0;
-  margin-left: $collapsed-main-menu-width;
-  padding-right: $collapsed-main-menu-width;
+  margin-left: vars.$collapsed-main-menu-width;
+  padding-right: vars.$collapsed-main-menu-width;
   z-index: 20;
   width: 100%;
   @extend .disable-user-select;
 
-  @media screen and (min-width: $large-screen-break-point) {
+  @media screen and (min-width: vars.$large-screen-break-point) {
     body:not(.collapsed-menu) & {
-      margin-left: $main-menu-width;
-      padding-right: $main-menu-width;
+      margin-left: vars.$main-menu-width;
+      padding-right: vars.$main-menu-width;
     }
   }
 }
@@ -21,13 +25,13 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: $collapsed-main-menu-width;
-  background-color: $main-menu-bg-color;
+  width: vars.$collapsed-main-menu-width;
+  background-color: vars.$main-menu-bg-color;
   @extend .disable-user-select;
 
-  @media screen and (min-width: $large-screen-break-point) {
+  @media screen and (min-width: vars.$large-screen-break-point) {
     body:not(.collapsed-menu) & {
-      width: $main-menu-width;
+      width: vars.$main-menu-width;
     }
   }
 }
@@ -37,7 +41,7 @@
   padding-top: var(--spacing-7);
   padding-bottom: 80px;
 
-  @media screen and (max-width: $medium-screen-break-point) {
+  @media screen and (max-width: vars.$medium-screen-break-point) {
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
@@ -50,32 +54,32 @@
   line-height: 46px;
   margin-bottom: var(--spacing-3);
   background-color: transparent;
-  transition: background-color $transition-duration $transition-easing;
+  transition: background-color vars.$transition-duration vars.$transition-easing;
 
   &:hover {
-    background-color: $main-menu-active-bg-color;
+    background-color: vars.$main-menu-active-bg-color;
 
     .sub_navigation {
       visibility: visible;
       opacity: 1;
-      background-color: $main-menu-active-bg-color;
+      background-color: vars.$main-menu-active-bg-color;
     }
   }
 
   &.active,
   &:hover {
-    background-color: $main-menu-active-bg-color;
+    background-color: vars.$main-menu-active-bg-color;
     cursor: default;
 
     a,
     .icon {
-      color: $main-menu-active-text-color;
+      color: vars.$main-menu-active-text-color;
       text-decoration: none;
       text-shadow: none;
 
       &:focus {
-        @include default-focus-style(
-          $box-shadow: inset 0 0 0 2px $main-menu-active-text-color,
+        @include mixins.default-focus-style(
+          $box-shadow: inset 0 0 0 2px vars.$main-menu-active-text-color,
           $border-radius: 0
         );
       }
@@ -85,23 +89,26 @@
   label {
     position: absolute;
     top: 0;
-    left: $collapsed-main-menu-width - 1;
+    left: vars.$collapsed-main-menu-width - 1;
     width: auto;
     padding-left: var(--spacing-4);
     padding-right: var(--spacing-4);
     visibility: hidden;
     opacity: 0;
-    background-color: $main-menu-active-bg-color;
-    transition: opacity $transition-duration $transition-easing;
+    background-color: vars.$main-menu-active-bg-color;
+    transition: opacity vars.$transition-duration vars.$transition-easing;
     vertical-align: middle;
     cursor: pointer;
-    @include truncate($collapsed-main-menu-entry-max-width, $wrap: nowrap);
+    @include mixins.truncate(
+      vars.$collapsed-main-menu-entry-max-width,
+      $wrap: nowrap
+    );
 
-    @media screen and (min-width: $large-screen-break-point) {
+    @media screen and (min-width: vars.$large-screen-break-point) {
       body:not(.collapsed-menu) & {
         position: static;
         visibility: visible;
-        max-width: $main-menu-entry-max-width;
+        max-width: vars.$main-menu-entry-max-width;
         opacity: 1;
         padding-left: var(--spacing-2);
         background-color: transparent;
@@ -112,7 +119,7 @@
   &.has_sub_navigation label {
     display: none;
 
-    @media screen and (min-width: $large-screen-break-point) {
+    @media screen and (min-width: vars.$large-screen-break-point) {
       body:not(.collapsed-menu) & {
         display: inline-block;
       }
@@ -126,7 +133,7 @@
 
   svg {
     fill: currentColor;
-    transition: fill $transition-duration $transition-easing;
+    transition: fill vars.$transition-duration vars.$transition-easing;
   }
 
   img,
@@ -150,13 +157,13 @@
     height: 46px;
     padding-left: 14px;
     font-weight: bold;
-    color: $main-menu-text-color;
-    transition: color $transition-duration $transition-easing;
-    @include antialiased-font-smoothing;
+    color: vars.$main-menu-text-color;
+    transition: color vars.$transition-duration vars.$transition-easing;
+    @include mixins.antialiased-font-smoothing;
 
     &:focus {
-      @include default-focus-style(
-        $box-shadow: inset 0 0 0 2px $focus-color,
+      @include mixins.default-focus-style(
+        $box-shadow: inset 0 0 0 2px vars.$focus-color,
         $border-radius: 0
       );
     }
@@ -166,16 +173,16 @@
 .sub_navigation {
   position: absolute;
   width: auto;
-  left: $collapsed-main-menu-width;
+  left: vars.$collapsed-main-menu-width;
   top: 0;
   visibility: hidden;
   opacity: 0;
-  transition: opacity $transition-duration $transition-easing;
+  transition: opacity vars.$transition-duration vars.$transition-easing;
 }
 
 .subnavi_tab {
   &:first-of-type {
-    border-left: 1px solid $main-menu-active-bg-color;
+    border-left: 1px solid vars.$main-menu-active-bg-color;
     margin-left: -1px;
   }
 
@@ -183,8 +190,13 @@
     padding-left: var(--spacing-4);
     padding-right: var(--spacing-4);
     background-color: transparent;
-    transition: background-color $transition-duration $transition-easing;
-    @include truncate($main-menu-width, $display: block, $wrap: nowrap);
+    transition: background-color vars.$transition-duration
+      vars.$transition-easing;
+    @include mixins.truncate(
+      vars.$main-menu-width,
+      $display: block,
+      $wrap: nowrap
+    );
   }
 
   &.active a,
@@ -193,10 +205,10 @@
   }
 }
 
-@media screen and (min-width: $large-screen-break-point) {
+@media screen and (min-width: vars.$large-screen-break-point) {
   body:not(.collapsed-menu) {
     .sub_navigation {
-      left: $main-menu-width;
+      left: vars.$main-menu-width;
     }
 
     .main_navi_entry.active {
@@ -222,7 +234,7 @@
   display: flex;
   flex-grow: 1;
   flex-wrap: nowrap;
-  height: $header-height + 1px;
+  height: vars.$header-height + 1px;
 
   label {
     float: left;
@@ -247,8 +259,8 @@
   align-items: center;
   flex-wrap: nowrap;
   color: #444;
-  border-right: $default-border;
-  border-bottom: $default-border;
+  border-right: vars.$default-border;
+  border-bottom: vars.$default-border;
 
   form {
     align-self: center;
@@ -269,18 +281,20 @@
     padding: var(--spacing-1) var(--spacing-2);
 
     &:focus {
-      @include default-focus-style($box-shadow: inset 0 0 0 2px $focus-color);
+      @include mixins.default-focus-style(
+        $box-shadow: inset 0 0 0 2px vars.$focus-color
+      );
     }
   }
 
   .icon.close {
     vertical-align: text-bottom;
-    text-shadow: $text-shadow-light;
+    text-shadow: vars.$text-shadow-light;
   }
 
   .page_name {
     margin-right: var(--spacing-1);
-    text-shadow: $text-shadow-light;
+    text-shadow: vars.$text-shadow-light;
   }
 
   .page_language,

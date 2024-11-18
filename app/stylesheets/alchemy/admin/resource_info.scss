@@ -1,15 +1,19 @@
+@use "base";
+@use "../mixins";
+@use "../variables" as vars;
+
 .resource_info {
   .value {
     position: relative;
-    @include clearfix;
+    @include mixins.clearfix;
 
     > label {
-      @include form-label;
+      @include mixins.form-label;
     }
 
     > p {
-      @include form-value-display;
-      @include truncate($form-right-width);
+      @include mixins.form-value-display;
+      @include mixins.truncate(vars.$form-right-width);
     }
 
     &.with-icon {
@@ -27,7 +31,7 @@
     position: absolute;
     right: 0;
     top: var(--spacing-1);
-    height: $form-field-height;
+    height: vars.$form-field-height;
     background-color: var(--color-grey_light);
     padding: 0 var(--spacing-2);
     transition: background-color 0.3s;

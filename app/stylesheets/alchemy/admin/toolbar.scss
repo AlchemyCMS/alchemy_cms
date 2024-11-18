@@ -1,3 +1,6 @@
+@use "../extends";
+@use "../variables" as vars;
+
 #toolbar {
   display: flex;
   align-items: center;
@@ -5,7 +8,7 @@
   z-index: 10;
   @extend %gradiated-toolbar;
   margin-right: 0px;
-  border-bottom: $default-border;
+  border-bottom: vars.$default-border;
   position: relative;
 
   .toolbar_button {
@@ -31,7 +34,7 @@
   overflow-y: visible;
   -webkit-overflow-scrolling: touch;
 
-  @media screen and (min-width: $medium-screen-break-point) {
+  @media screen and (min-width: vars.$medium-screen-break-point) {
     overflow: visible;
   }
 
@@ -74,14 +77,14 @@
   height: 29px;
   border-right-style: solid;
   border-right-width: 1px;
-  border-right-color: $default-border-color;
+  border-right-color: vars.$default-border-color;
   margin-right: var(--spacing-1);
   margin-left: var(--spacing-1);
 }
 
 #overlay_toolbar {
   @extend %gradiated-toolbar;
-  border-bottom: $default-border;
+  border-bottom: vars.$default-border;
 }
 
 .button_group {

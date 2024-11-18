@@ -1,7 +1,10 @@
+@use "../mixins";
+@use "../variables" as vars;
+
 html {
   box-sizing: border-box;
   height: 100%;
-  font-size: $base-font-size;
+  font-size: vars.$base-font-size;
 
   &.turbo-progress-bar::before,
   .turbo-progress-bar {
@@ -24,9 +27,9 @@ noscript {
   width: 100%;
   text-align: center;
   line-height: 1em;
-  border-bottom: 1px solid $warning_border_color;
-  color: $warning_text_color;
-  background-color: $warning_background_color;
+  border-bottom: 1px solid vars.$warning_border_color;
+  color: vars.$warning_text_color;
+  background-color: vars.$warning_background_color;
 
   h1,
   p {
@@ -38,8 +41,8 @@ body {
   margin: 0;
   padding: 0;
   color: var(--color-text);
-  font: $default-font-style;
-  background-color: $body-background-color;
+  font: vars.$default-font-style;
+  background-color: vars.$body-background-color;
   height: 100%;
   cursor: default;
 
@@ -56,7 +59,7 @@ body {
 a {
   color: inherit;
   text-decoration: none;
-  transition: $transition-duration;
+  transition: vars.$transition-duration;
 
   &:hover {
     text-decoration: underline;
@@ -70,7 +73,7 @@ a {
 
 a:focus,
 [tabindex]:focus {
-  @include default-focus-style;
+  @include mixins.default-focus-style;
 }
 
 form {
@@ -105,19 +108,19 @@ hr {
 }
 
 .top-rounded-border {
-  @include border-top-radius($default-border-radius);
+  @include mixins.border-top-radius(vars.$default-border-radius);
 }
 
 .left-rounded-border {
-  @include border-left-radius($default-border-radius);
+  @include mixins.border-left-radius(vars.$default-border-radius);
 }
 
 .right-rounded-border {
-  @include border-right-radius($default-border-radius);
+  @include mixins.border-right-radius(vars.$default-border-radius);
 }
 
 .bottom-rounded-border {
-  @include border-bottom-radius($default-border-radius);
+  @include mixins.border-bottom-radius(vars.$default-border-radius);
 }
 
 .bottom-left-rounded-border {

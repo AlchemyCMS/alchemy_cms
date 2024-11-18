@@ -1,3 +1,6 @@
+@use "../mixins";
+@use "../variables" as vars;
+
 .nodes_tree.list {
   margin: 2em 0;
 
@@ -48,10 +51,10 @@
     align-items: center;
     padding: 0 var(--spacing-2);
     white-space: nowrap;
-    background-color: $sitemap-info-background-color;
-    line-height: $sitemap-line-height;
+    background-color: vars.$sitemap-info-background-color;
+    line-height: vars.$sitemap-line-height;
     font-size: var(--font-size_small);
-    @include border-right-radius($default-border-radius);
+    @include mixins.border-right-radius(vars.$default-border-radius);
   }
 
   .node_folder {
@@ -69,11 +72,11 @@
   }
 
   li {
-    line-height: $sitemap-line-height;
+    line-height: vars.$sitemap-line-height;
     padding-left: var(--spacing-1);
 
     li {
-      padding-left: $sitemap-line-height;
+      padding-left: vars.$sitemap-line-height;
     }
   }
 }
@@ -86,12 +89,12 @@
 .sitemap_node {
   display: flex;
   align-items: center;
-  height: $sitemap-line-height;
+  height: vars.$sitemap-line-height;
   margin: var(--spacing-3) 0;
-  transition: background-color $transition-duration;
+  transition: background-color vars.$transition-duration;
 
   &.highlight {
-    background-color: $sitemap-highlight-color;
+    background-color: vars.$sitemap-highlight-color;
   }
 
   &.no-match .sitemap_pagename_link {
@@ -99,25 +102,25 @@
   }
 
   &:hover {
-    background-color: $sitemap-page-hover-color;
-    border-radius: $default-border-radius;
+    background-color: vars.$sitemap-page-hover-color;
+    border-radius: vars.$default-border-radius;
   }
 
   .node_name {
     display: flex;
-    height: $sitemap-line-height;
+    height: vars.$sitemap-line-height;
     flex: 1;
     justify-content: space-between;
-    @include border-left-radius($default-border-radius);
+    @include mixins.border-left-radius(vars.$default-border-radius);
     padding: 0 0 0 10px;
     margin: var(--spacing-0);
     text-decoration: none;
     overflow: hidden;
-    background-color: $sitemap-page-background-color;
+    background-color: vars.$sitemap-page-background-color;
     cursor: move;
 
     &.without-status {
-      @include border-right-radius($default-border-radius);
+      @include mixins.border-right-radius(vars.$default-border-radius);
     }
 
     &.inactive {
@@ -132,20 +135,20 @@
   align-items: center;
   position: relative;
   width: 32px;
-  height: $sitemap-line-height;
+  height: vars.$sitemap-line-height;
   padding: 0 var(--spacing-2);
 }
 
 .nodes_tree-right_tools {
   display: flex;
-  height: $sitemap-line-height;
+  height: vars.$sitemap-line-height;
   padding: 0 var(--spacing-2);
   align-items: center;
 
   > a {
     display: inline-flex;
-    width: $sitemap-line-height;
-    height: $sitemap-line-height;
+    width: vars.$sitemap-line-height;
+    height: vars.$sitemap-line-height;
     align-items: center;
     text-decoration: none;
     margin: 0;

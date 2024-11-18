@@ -1,3 +1,7 @@
+@use "sass:color";
+@use "mixins";
+@use "variables" as vars;
+
 %text-overflow {
   white-space: nowrap;
   overflow: hidden;
@@ -8,39 +12,41 @@
 }
 
 %field-with-error {
-  border-color: $error_border_color;
-  color: $error_text_color;
-  background-color: lighten($error_background_color, 8%);
-  box-shadow: inset 0px 0 1px rgba($error_border_color, 0.5);
+  border-color: vars.$error_border_color;
+  color: vars.$error_text_color;
+  background-color: color.adjust(vars.$error_background_color, $lightness: 8%);
+  box-shadow: inset 0px 0 1px rgba(vars.$error_border_color, 0.5);
 }
 
 %default-input-style {
-  border-radius: $default-border-radius;
-  box-shadow: $form-field-box-shadow;
-  font: $default-font-style;
-  color: $form-field-text-color;
-  padding: $form-field-padding;
-  margin: $form-field-margin;
-  background: $form-field-background-color;
-  border-width: $form-field-border-width;
-  border-style: $form-field-border-style;
-  border-color: $form-field-border-color;
-  height: $form-field-height;
+  border-radius: vars.$default-border-radius;
+  box-shadow: vars.$form-field-box-shadow;
+  font: vars.$default-font-style;
+  color: vars.$form-field-text-color;
+  padding: vars.$form-field-padding;
+  margin: vars.$form-field-margin;
+  background: vars.$form-field-background-color;
+  border-width: vars.$form-field-border-width;
+  border-style: vars.$form-field-border-style;
+  border-color: vars.$form-field-border-color;
+  height: vars.$form-field-height;
   width: 100%;
-  font-size: $form-field-font-size;
-  line-height: $form-field-line-height;
-  transition: $transition-duration;
+  font-size: vars.$form-field-font-size;
+  line-height: vars.$form-field-line-height;
+  transition: vars.$transition-duration;
 
   &:focus:not(.readonly) {
-    @include default-focus-style($box-shadow: 0 0 0 1px $focus-color);
+    @include mixins.default-focus-style(
+      $box-shadow: 0 0 0 1px vars.$focus-color
+    );
   }
 
   &[disabled],
   &.disabled,
   &:not(.flatpickr-input)[readonly],
   &:not(.flatpickr-input).readonly {
-    color: $form-field-disabled-text-color;
-    background-color: $form-field-disabled-bg-color;
+    color: vars.$form-field-disabled-text-color;
+    background-color: vars.$form-field-disabled-bg-color;
     cursor: default;
   }
 
@@ -56,7 +62,7 @@
 }
 
 %gradiated-toolbar {
-  background: $toolbar-bg-color;
+  background: vars.$toolbar-bg-color;
   padding: var(--spacing-2) var(--spacing-1);
-  height: $toolbar-height;
+  height: vars.$toolbar-height;
 }

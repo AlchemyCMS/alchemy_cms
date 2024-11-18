@@ -1,18 +1,22 @@
+@use "base";
+@use "../mixins";
+@use "../variables" as vars;
+
 :root {
   --sitemap-url-width: 420px;
   --sitemap-url-header-offset: 0;
   --sitemap-status-width-base: 90px;
   --sitemap-status-length: 2;
 
-  @media screen and (min-width: $large-screen-break-point) {
+  @media screen and (min-width: vars.$large-screen-break-point) {
     --sitemap-url-width: 520px;
   }
 
-  @media screen and (min-width: $xlarge-screen-break-point) {
+  @media screen and (min-width: vars.$xlarge-screen-break-point) {
     --sitemap-url-width: 620px;
   }
 
-  @media screen and (min-width: $xxlarge-screen-break-point) {
+  @media screen and (min-width: vars.$xxlarge-screen-break-point) {
     --sitemap-url-width: 820px;
   }
 }
@@ -32,7 +36,7 @@
     padding-left: var(--spacing-1);
     width: calc(var(--sitemap-url-width) - 60px);
 
-    @media screen and (min-width: $large-screen-break-point) {
+    @media screen and (min-width: vars.$large-screen-break-point) {
       display: block;
     }
   }
@@ -43,11 +47,11 @@
     margin-right: 190px;
     margin-left: auto;
 
-    @media screen and (min-width: $medium-screen-break-point) {
+    @media screen and (min-width: vars.$medium-screen-break-point) {
       display: block;
     }
 
-    @media screen and (min-width: $large-screen-break-point) {
+    @media screen and (min-width: vars.$large-screen-break-point) {
       margin-left: initial;
     }
   }
@@ -71,10 +75,10 @@
 
   .page_folder {
     position: absolute;
-    left: -$sitemap-line-height;
+    left: -1 * vars.$sitemap-line-height;
     top: 0;
-    width: $sitemap-line-height;
-    height: $sitemap-line-height;
+    width: vars.$sitemap-line-height;
+    height: vars.$sitemap-line-height;
   }
 
   .placeholder {
@@ -92,7 +96,7 @@
     padding-left: 0;
 
     li {
-      padding-left: $sitemap-line-height;
+      padding-left: vars.$sitemap-line-height;
       padding-right: 0;
     }
   }
@@ -101,16 +105,16 @@
 .sitemap_page {
   display: flex;
   align-items: center;
-  height: $sitemap-line-height;
+  height: vars.$sitemap-line-height;
   margin: var(--spacing-3) 0;
   position: relative;
-  transition: background-color $transition-duration;
+  transition: background-color vars.$transition-duration;
   --sitemap-status-width: calc(
     var(--sitemap-status-width-base) * var(--sitemap-status-length)
   );
 
   &.highlight {
-    background-color: $sitemap-highlight-color;
+    background-color: vars.$sitemap-highlight-color;
   }
 
   &.no-match .sitemap_pagename_link {
@@ -118,8 +122,8 @@
   }
 
   &:hover {
-    background-color: $sitemap-page-hover-color;
-    border-radius: $default-border-radius;
+    background-color: vars.$sitemap-page-hover-color;
+    border-radius: vars.$default-border-radius;
   }
 
   &:has(.page_infos :nth-child(3)) {
@@ -134,18 +138,18 @@
   align-items: center;
   flex-shrink: 0;
   width: 32px;
-  height: $sitemap-line-height;
+  height: vars.$sitemap-line-height;
 }
 
 .sitemap_sitename {
   flex-grow: 1;
-  @include border-left-radius($default-border-radius);
-  line-height: $sitemap-line-height - 4;
+  @include mixins.border-left-radius(vars.$default-border-radius);
+  line-height: vars.$sitemap-line-height - 4;
   overflow: hidden;
-  background-color: $sitemap-page-background-color;
+  background-color: vars.$sitemap-page-background-color;
 
   &.without-status {
-    @include border-right-radius($default-border-radius);
+    @include mixins.border-right-radius(vars.$default-border-radius);
   }
 
   .sitemap_pagename_link {
@@ -164,30 +168,30 @@
 
 .sitemap_url {
   display: none;
-  background-color: $sitemap-info-background-color;
-  line-height: $sitemap-line-height - 2px;
+  background-color: vars.$sitemap-info-background-color;
+  line-height: vars.$sitemap-line-height - 2px;
   font-size: var(--font-size_small);
   padding: 0 var(--spacing-2);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  border: 1px solid $sitemap-page-background-color;
+  border: 1px solid vars.$sitemap-page-background-color;
   width: calc(var(--sitemap-url-width) - var(--sitemap-status-width));
 
-  @media screen and (min-width: $large-screen-break-point) {
+  @media screen and (min-width: vars.$large-screen-break-point) {
     display: block;
   }
 }
 
 .page_infos {
   @extend .right-rounded-border;
-  background-color: $sitemap-page-background-color;
+  background-color: vars.$sitemap-page-background-color;
   border-left: 1px solid var(--color-grey_very_light);
   display: none;
   justify-content: end;
   width: var(--sitemap-status-width);
-  height: $sitemap-line-height;
-  line-height: $sitemap-line-height;
+  height: vars.$sitemap-line-height;
+  line-height: vars.$sitemap-line-height;
 
   .page_status {
     margin: 0 var(--spacing-1);
@@ -195,7 +199,7 @@
     white-space: nowrap;
   }
 
-  @media screen and (min-width: $medium-screen-break-point) {
+  @media screen and (min-width: vars.$medium-screen-break-point) {
     display: flex;
   }
 }
@@ -204,17 +208,17 @@
   display: none;
   align-items: center;
   gap: var(--spacing-1);
-  height: $sitemap-line-height;
+  height: vars.$sitemap-line-height;
   padding: 0 var(--spacing-2);
 
-  @media screen and (min-width: $small-screen-break-point) {
+  @media screen and (min-width: vars.$small-screen-break-point) {
     display: flex;
   }
 
   .sitemap_tool {
-    width: $sitemap-line-height;
-    height: $sitemap-line-height;
-    line-height: $sitemap-line-height;
+    width: vars.$sitemap-line-height;
+    height: vars.$sitemap-line-height;
+    line-height: vars.$sitemap-line-height;
     text-align: center;
     margin: 0;
 

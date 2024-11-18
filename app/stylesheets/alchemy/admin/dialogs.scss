@@ -1,3 +1,6 @@
+@use "../mixins";
+@use "../variables" as vars;
+
 $dialog-transition-duration: 150ms;
 
 .alchemy-image-overlay-container,
@@ -51,7 +54,10 @@ $dialog-transition-duration: 150ms;
 
 .alchemy-dialog-overlay {
   &.open {
-    background-color: rgba($dialog-overlay-color, $dialog-overlay-opacity);
+    background-color: rgba(
+      vars.$dialog-overlay-color,
+      vars.$dialog-overlay-opacity
+    );
   }
 }
 
@@ -67,9 +73,9 @@ $dialog-transition-duration: 150ms;
 .alchemy-dialog {
   white-space: normal;
   margin: var(--spacing-2);
-  @include border-top-radius($default-border-radius);
-  box-shadow: $dialog-box-shadow;
-  background-color: $dialog-background-color;
+  @include mixins.border-top-radius(vars.$default-border-radius);
+  box-shadow: vars.$dialog-box-shadow;
+  background-color: vars.$dialog-background-color;
   transition: min-height $dialog-transition-duration ease-in-out;
 
   div#jscropper {
@@ -127,13 +133,13 @@ $dialog-transition-duration: 150ms;
   align-items: center;
   gap: var(--spacing-1);
   position: relative;
-  height: $dialog-header-height;
-  padding: $dialog-header-padding;
-  background: $dialog-header-color;
-  color: $dialog-header-text-color;
+  height: vars.$dialog-header-height;
+  padding: vars.$dialog-header-padding;
+  background: vars.$dialog-header-color;
+  color: vars.$dialog-header-text-color;
   font-weight: normal;
-  font-size: $dialog-header-font-size;
-  @include border-top-radius($default-border-radius);
+  font-size: vars.$dialog-header-font-size;
+  @include mixins.border-top-radius(vars.$default-border-radius);
 }
 
 .alchemy-dialog-title {
@@ -143,7 +149,7 @@ $dialog-transition-duration: 150ms;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  @include antialiased-font-smoothing;
+  @include mixins.antialiased-font-smoothing;
 }
 
 .alchemy-image-overlay-close,
