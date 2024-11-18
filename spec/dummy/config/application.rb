@@ -22,7 +22,7 @@ module Dummy
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     if config.respond_to?(:load_defaults)
-      config.load_defaults ENV["RAILS_VERSION"] || 7.2
+      config.load_defaults ENV["RAILS_VERSION"] == "8.0.0.beta1" ? 8.0 : ENV.fetch("RAILS_VERSION", 7.2)
     end
 
     # Settings in config/environments/* take precedence over those specified here.
