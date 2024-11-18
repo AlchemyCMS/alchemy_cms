@@ -63,11 +63,16 @@ namespace :alchemy do
       changes = `git rev-list v#{ENV["PREVIOUS_VERSION"]}..HEAD | bundle exec github_fast_changelog AlchemyCMS/alchemy_cms`.split("\n")
       changelog = File.read(original_file)
       File.open(new_file, "w") do |file|
+        file.puts "# Changelog"
+        file.puts ""
+        file.puts "## Unreleased"
+        file.puts ""
         changes.each do |change|
           next if changelog.include?(change)
           file.puts change
         end
         File.foreach(original_file) do |line|
+          next if line.include?("# Changelog")
           file.puts line
         end
         file.puts ""
@@ -76,5 +81,20 @@ namespace :alchemy do
       File.rename(new_file, original_file)
       File.delete(backup)
     end
+  end
+
+  desc "Release a new version of Alchemy to rubygems.org"
+  task :release do
+    require_relative "lib/alchemy/version"
+    ENV["PREVIOUS_VERSION"] = Alchemy::VERSION
+    system("bundle exec gem bump --version #{ENV.fetch("VERSION", "patch")}")
+    load "./lib/alchemy/version.rb"
+    new_version = Alchemy::VERSION
+    Rake::Task["alchemy:changelog:update"].invoke
+    changelog = File.read("CHANGELOG.md").gsub(/(##) Unreleased/, "## #{new_version} (#{Time.now.strftime("%Y-%m-%d")})")
+    File.open("CHANGELOG.md", "w") { |file| file.puts changelog }
+    system("git add CHANGELOG.md")
+    system("git commit --amend --no-edit")
+    Rake::Task["release"].invoke
   end
 end

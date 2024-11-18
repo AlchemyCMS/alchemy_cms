@@ -339,24 +339,45 @@ $ bin/start
 
 ## 📦 Releasing
 
-### Bump version
+### 🤖 Automated (recommended)
+
+There is a Rake task that helps you to release a new version of Alchemy.
+
+```bash
+$ bundle exec rake alchemy:release
+```
+
+> [!NOTE]
+> This will release a new patch level
+
+If you want to release a new minor or major version you can do so by setting the `VERSION` environment variable accordingly.
+
+```bash
+$ bundle exec rake alchemy:release VERSION=X.Y.Z
+```
+
+### 👷🏽‍♀️ Manual
+
+If something goes wrong with the automated release task you can still release a new version manually.
+
+#### 1. Bump version
 
 Bump the version number in `lib/alchemy/version.rb`.
 
-### Update the changelog
+#### 2. Update the changelog
 
 ```bash
 $ export GITHUB_ACCESS_TOKEN=...
 $ PREVIOUS_VERSION=4.1.0 bundle exec rake alchemy:changelog:update
 ```
 
-### Commit version bump
+#### 3. Commit version bump
 
 ```bash
 $ git commit -am "Bump version to vX.Y.Z"
 ```
 
-### Release a new version
+#### 4. Release a new version
 
 This task will publish the ruby gem.
 It also tags the latest commit.
