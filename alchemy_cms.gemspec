@@ -51,7 +51,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency "ransack", [">= 1.8", "< 5.0"]
   gem.add_runtime_dependency "simple_form", [">= 4.0", "< 6"]
   gem.add_runtime_dependency "turbo-rails", [">= 1.4", "< 2.1"]
-  gem.add_runtime_dependency "view_component", ["~> 3.0"]
+  gem.add_runtime_dependency "view_component", ["3.20.0"]
 
   gem.add_development_dependency "capybara", ["~> 3.0"]
   gem.add_development_dependency "capybara-screenshot", ["~> 1.0"]
