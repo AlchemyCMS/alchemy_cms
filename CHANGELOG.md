@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.3.4 (2024-11-18)
+
+- [7.3-stable] chore: Fix rubocop styling issues [#3080](https://github.com/AlchemyCMS/alchemy_cms/pull/3080) ([tvdeyen](https://github.com/tvdeyen))
+- [7.3] Fix welcome screen stylesheet [#3078](https://github.com/AlchemyCMS/alchemy_cms/pull/3078) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.3.3 (2024-10-15)
 
 - [7.3-stable] Fix loading custom properties into Tinymce skin [#3070](https://github.com/AlchemyCMS/alchemy_cms/pull/3070) ([tvdeyen](https://github.com/tvdeyen))
@@ -1906,3 +1911,4 @@ No changes
 ## 3.0.0 (2014-07-03)
 
 [Release Notes](https://github.com/AlchemyCMS/alchemy_cms/releases/tag/v3.0.0)
+
