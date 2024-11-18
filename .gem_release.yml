@@ -1,0 +1,2 @@
+bump:
+  file: lib/alchemy/version.rb

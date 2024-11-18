@@ -65,3 +65,5 @@ gem "rails_live_reload", "~> 0.3.5"
 gem "dartsass-rails", "~> 0.5.0"
 
 gem "propshaft", "~> 1.0"
+
+gem "gem-release", "~> 2.2"
