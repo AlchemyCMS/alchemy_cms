@@ -95,6 +95,8 @@ namespace :alchemy do
     File.open("CHANGELOG.md", "w") { |file| file.puts changelog }
     system("git add CHANGELOG.md")
     system("git commit --amend --no-edit")
+    system("gem tag")
     Rake::Task["release"].invoke
+    system("git push --follow-tags")
   end
 end
