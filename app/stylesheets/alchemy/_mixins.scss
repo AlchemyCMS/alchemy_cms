@@ -1,7 +1,10 @@
+@use "sass:color";
+@use "variables" as vars;
+
 @mixin default-focus-style(
-  $border-color: $focus-color,
-  $box-shadow: 0 0 0 2px $focus-color,
-  $border-radius: $default-border-radius
+  $border-color: vars.$focus-color,
+  $box-shadow: 0 0 0 2px vars.$focus-color,
+  $border-radius: vars.$default-border-radius
 ) {
   border-color: $border-color;
   border-radius: $border-radius;
@@ -15,25 +18,25 @@
 }
 
 @mixin button-defaults(
-  $background-color: $button-bg-color,
-  $hover-color: $button-hover-bg-color,
-  $hover-border-color: $button-hover-border-color,
-  $border-radius: $button-border-radius,
-  $border: $button-border-width solid $button-border-color,
-  $box-shadow: $button-box-shadow,
-  $padding: $button-padding,
-  $margin: $button-margin,
-  $color: $button-text-color,
-  $line-height: $form-field-line-height,
-  $focus-border-color: $button-focus-border-color,
-  $focus-box-shadow: $button-focus-box-shadow
+  $background-color: vars.$button-bg-color,
+  $hover-color: vars.$button-hover-bg-color,
+  $hover-border-color: vars.$button-hover-border-color,
+  $border-radius: vars.$button-border-radius,
+  $border: vars.$button-border-width solid vars.$button-border-color,
+  $box-shadow: vars.$button-box-shadow,
+  $padding: vars.$button-padding,
+  $margin: vars.$button-margin,
+  $color: vars.$button-text-color,
+  $line-height: vars.$form-field-line-height,
+  $focus-border-color: vars.$button-focus-border-color,
+  $focus-box-shadow: vars.$button-focus-box-shadow
 ) {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: $default-font-family;
-  font-size: $default-font-size;
-  font-weight: $button-font-weight;
+  font-family: vars.$default-font-family;
+  font-size: vars.$default-font-size;
+  font-weight: vars.$button-font-weight;
   height: 30px;
   padding: $padding;
   cursor: pointer;
@@ -44,7 +47,7 @@
   color: $color;
   margin: $margin;
   -webkit-appearance: none;
-  transition: all $transition-duration;
+  transition: all vars.$transition-duration;
   @include antialiased-font-smoothing;
 
   &:hover {
@@ -55,7 +58,7 @@
 
   &:active,
   &.active {
-    box-shadow: inset $button-box-shadow;
+    box-shadow: inset vars.$button-box-shadow;
   }
 
   &:focus {
@@ -83,7 +86,7 @@
 }
 
 @mixin form-label {
-  width: $form-left-width;
+  width: vars.$form-left-width;
   padding-right: var(--spacing-2);
   padding-top: 0.6em;
   margin-top: var(--spacing-1);
@@ -91,18 +94,18 @@
   word-break: normal;
   float: left;
   text-align: right;
-  font-size: $default-font-size;
+  font-size: vars.$default-font-size;
 }
 
 @mixin form-value-display {
   float: right;
-  width: $form-right-width;
-  margin: $form-field-margin;
+  width: vars.$form-right-width;
+  margin: vars.$form-field-margin;
   padding: var(--spacing-1) var(--spacing-2);
   line-height: 21px;
-  min-height: $form-field-height;
+  min-height: vars.$form-field-height;
   background: white;
-  border-radius: $default-border-radius;
+  border-radius: vars.$default-border-radius;
 }
 
 @mixin form-hint(
@@ -116,7 +119,7 @@
   border: 1px solid $border-color;
   display: block;
   clear: both;
-  border-radius: $default-border-radius;
+  border-radius: vars.$default-border-radius;
 }
 
 @mixin animate-left {
@@ -159,7 +162,7 @@
   background-color: var(--color-grey_light);
   overflow: hidden;
   position: relative;
-  border-radius: $default-border-radius;
+  border-radius: vars.$default-border-radius;
   color: var(--color-text);
 }
 
@@ -178,21 +181,24 @@
   }
 
   &:focus {
-    @include default-focus-style($box-shadow: inset 0 0 0 2px $focus-color);
+    @include default-focus-style(
+      $box-shadow: inset 0 0 0 2px vars.$focus-color
+    );
   }
 }
 
 @mixin linked-button(
-  $border-radius: $default-border-radius,
-  $line-height: $form-field-line-height,
+  $border-radius: vars.$default-border-radius,
+  $line-height: vars.$form-field-line-height,
   $padding: 3px
 ) {
   @include button-defaults(
     $line-height: $line-height,
-    $background-color: $linked-button-color,
-    $hover-color: darken($linked-button-color, 10%),
-    $border: 1px solid $linked-border-color,
-    $hover-border-color: darken($linked-border-color, 10%),
+    $background-color: vars.$linked-button-color,
+    $hover-color: color.adjust(vars.$linked-button-color, $lightness: -10%),
+    $border: 1px solid vars.$linked-border-color,
+    $hover-border-color:
+      color.adjust(vars.$linked-border-color, $lightness: -10%),
     $border-radius: $border-radius,
     $box-shadow: none,
     $padding: $padding,

@@ -1,3 +1,7 @@
+@use "../extends";
+@use "../mixins";
+@use "../variables" as vars;
+
 .resources-header {
   padding: 0 var(--spacing-2);
 }
@@ -5,8 +9,8 @@
 .applied-filter {
   display: inline-block;
   padding: 2px 6px;
-  border-radius: $default-border-radius;
-  border: 1px solid $default-border-color;
+  border-radius: vars.$default-border-radius;
+  border: 1px solid vars.$default-border-color;
   white-space: nowrap;
   font-weight: normal;
 
@@ -27,7 +31,7 @@
 
 .selected_item_tools {
   margin: calc(-1 * var(--spacing-2));
-  border-bottom: 1px solid $default-border-color;
+  border-bottom: 1px solid vars.$default-border-color;
   margin-bottom: var(--spacing-4);
   padding: var(--spacing-4);
 
@@ -41,7 +45,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 1px 1px $default-border-color;
+  box-shadow: 0 0 1px 1px vars.$default-border-color;
 
   &:hover {
     text-decoration: none;
@@ -59,7 +63,7 @@
   border-radius: var(--picture-thumbnail-border-radius);
   padding: var(--spacing-2);
   padding-bottom: 2.5em;
-  transition: all $transition-duration;
+  transition: all vars.$transition-duration;
 
   img,
   .thumbnail_background {
@@ -71,7 +75,7 @@
     max-height: 100%;
 
     &:not([src*="alchemy/missing-image"]) {
-      background: $thumbnail-background;
+      background: vars.$thumbnail-background;
     }
 
     &[src*=".svg"]:not([src*="alchemy/missing-image"]) {
@@ -105,7 +109,7 @@
   &:hover,
   &:focus-within,
   &.active {
-    box-shadow: 0 0 4px 2px $default-border-color;
+    box-shadow: 0 0 4px 2px vars.$default-border-color;
 
     .picture_tool.select {
       visibility: visible;
@@ -149,7 +153,7 @@
 
 #pictures {
   .thumbnail_background {
-    @include zoom-in;
+    @include mixins.zoom-in;
   }
 }
 
@@ -174,7 +178,7 @@ div.assign_image_list_image {
   top: var(--spacing-1);
   padding: var(--spacing-0);
   z-index: 10;
-  border-radius: $default-border-radius;
+  border-radius: vars.$default-border-radius;
   box-shadow: 0 0 1px var(--color-grey_dark);
 
   &:hover {
@@ -230,7 +234,7 @@ div.assign_image_list_image {
   pointer-events: none;
 
   .tag {
-    box-shadow: 0 0 2px 2px $default-border-color;
+    box-shadow: 0 0 2px 2px vars.$default-border-color;
   }
 }
 
@@ -238,20 +242,20 @@ div.assign_image_list_image {
 .picture_tool {
   visibility: hidden;
   opacity: 0;
-  transition: opacity $transition-duration;
+  transition: opacity vars.$transition-duration;
 }
 
 div#library_sidebar {
   display: flex;
   flex-direction: column;
   position: fixed;
-  border-left: 1px solid $default-border-color;
+  border-left: 1px solid vars.$default-border-color;
   top: 0;
   right: 0;
   width: 232px;
 
-  padding: calc(#{$top-menu-height} + var(--spacing-2)) var(--spacing-4)
-    calc(#{$pagination-height} + var(--spacing-2)) var(--spacing-4);
+  padding: calc(#{vars.$top-menu-height} + var(--spacing-2)) var(--spacing-4)
+    calc(#{vars.$pagination-height} + var(--spacing-2)) var(--spacing-4);
   height: 100%;
   z-index: 3;
   background-color: var(--color-grey_very_light);
@@ -300,7 +304,7 @@ div#filter_bar {
     box-shadow: none;
 
     .thumbnail_background {
-      box-shadow: 0 0 4px 4px $default-border-color;
+      box-shadow: 0 0 4px 4px vars.$default-border-color;
     }
   }
 }
@@ -337,5 +341,5 @@ div#filter_bar {
 }
 
 #all_files td.name a {
-  @include zoom-in;
+  @include mixins.zoom-in;
 }

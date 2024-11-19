@@ -1,3 +1,6 @@
+@use "base";
+@use "../variables" as vars;
+
 table {
   border-style: none;
   border-spacing: 0 var(--spacing-1);
@@ -38,7 +41,7 @@ table {
   vertical-align: top;
   line-height: 22px;
   border-right: 1px solid var(--color-grey_light);
-  transition: background-color $transition-duration;
+  transition: background-color vars.$transition-duration;
 
   &:last-child {
     border-right: 0 none;
@@ -74,12 +77,12 @@ th,
 
 tr.even td,
 .table .row.even .col {
-  background-color: $table-row-even-background-color;
+  background-color: vars.$table-row-even-background-color;
 }
 
 tr.odd td,
 .table .row.odd .col {
-  background-color: $table-row-odd-background-color;
+  background-color: vars.$table-row-odd-background-color;
 }
 
 .list tr .tools,
@@ -112,7 +115,7 @@ td.heading {
 
 .list tr:hover td,
 .table .row:hover .col {
-  background-color: $table-row-hover-color;
+  background-color: vars.$table-row-hover-color;
 }
 
 td,

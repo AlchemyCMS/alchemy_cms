@@ -1,8 +1,10 @@
+@use "../variables" as vars;
+
 alchemy-message {
   display: block;
-  border-width: $default-border-width;
-  border-style: $default-border-style;
-  border-radius: $default-border-radius;
+  border-width: vars.$default-border-width;
+  border-style: vars.$default-border-style;
+  border-radius: vars.$default-border-radius;
   position: relative;
   padding: var(--spacing-2) var(--spacing-4) var(--spacing-2) var(--spacing-8);
   margin-bottom: var(--spacing-2);
@@ -21,35 +23,35 @@ alchemy-message {
   }
 
   &[type="notice"] {
-    border-color: $success_border_color;
-    color: $success_text_color;
-    background-color: $success_background_color;
+    border-color: vars.$success_border_color;
+    color: vars.$success_text_color;
+    background-color: vars.$success_background_color;
   }
 
   &[type="hint"] {
-    background-color: $hint-background-color;
-    border-color: $hint-background-color;
-    color: $hint-text-color;
+    background-color: vars.$hint-background-color;
+    border-color: vars.$hint-background-color;
+    color: vars.$hint-text-color;
   }
 
   &[type="info"] {
-    background-color: $info_background_color;
-    border-color: $info_border_color;
-    color: $info_text_color;
+    background-color: vars.$info_background_color;
+    border-color: vars.$info_border_color;
+    color: vars.$info_text_color;
   }
 
   &[type="error"] {
-    background-color: $error_background_color;
-    border-color: $error_border_color;
-    color: $error_text_color;
+    background-color: vars.$error_background_color;
+    border-color: vars.$error_border_color;
+    color: vars.$error_text_color;
   }
 
   &[type="warning"],
   &[type="warn"],
   &[type="alert"] {
-    background-color: $warning_background_color;
-    border-color: $warning_border_color;
-    color: $warning_text_color;
+    background-color: vars.$warning_background_color;
+    border-color: vars.$warning_border_color;
+    color: vars.$warning_text_color;
   }
 
   alchemy-icon {

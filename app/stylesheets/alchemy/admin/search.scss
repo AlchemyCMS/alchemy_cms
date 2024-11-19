@@ -1,3 +1,6 @@
+@use "../mixins";
+@use "../variables" as vars;
+
 .search_field {
   position: relative;
   margin-bottom: var(--spacing-1);
@@ -58,8 +61,8 @@
     border: none;
     background-color: hsla(0deg, 0%, 100%, 0.75);
     transition:
-      width $transition-duration ease-in-out,
-      background-color $transition-duration linear;
+      width vars.$transition-duration ease-in-out,
+      background-color vars.$transition-duration linear;
     border-radius: 0;
     padding: var(--spacing-2) var(--spacing-4) var(--spacing-2) var(--spacing-8);
     margin: 0;
@@ -67,16 +70,16 @@
     box-shadow: none;
     -webkit-appearance: none;
 
-    @media screen and (min-width: $medium-screen-break-point) {
+    @media screen and (min-width: vars.$medium-screen-break-point) {
       width: 150px;
     }
 
     &:focus {
       width: 250px;
-      background-color: $form-field-background-color;
+      background-color: vars.$form-field-background-color;
 
-      @include default-focus-style(
-        $box-shadow: inset 0 0 0 2px $focus-color,
+      @include mixins.default-focus-style(
+        $box-shadow: inset 0 0 0 2px vars.$focus-color,
         $border-radius: 0
       );
     }

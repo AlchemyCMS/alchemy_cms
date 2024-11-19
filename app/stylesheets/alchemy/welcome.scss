@@ -1,11 +1,11 @@
-@import "./custom-properties";
-@import "./variables";
-@import "./fonts";
+@use "custom-properties";
+@use "variables" as vars;
+@use "fonts";
 
 body {
-  background-color: $main-menu-bg-color;
+  background-color: vars.$main-menu-bg-color;
   color: var(--color-white);
-  font-family: $default-font-family;
+  font-family: vars.$default-font-family;
   font-weight: normal;
   font-size: 15px;
   line-height: 22px;

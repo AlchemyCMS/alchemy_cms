@@ -1,3 +1,6 @@
+@use "../mixins";
+@use "../variables" as vars;
+
 .tag-list {
   display: flex;
   flex-direction: column;
@@ -35,7 +38,7 @@
       }
 
       a {
-        @include tag-base;
+        @include mixins.tag-base;
 
         & {
           display: flex;
@@ -64,7 +67,7 @@
 .tag {
   pointer-events: none;
   font-size: var(--font-size_small);
-  @include tag-base(
+  @include mixins.tag-base(
     $margin: var(--spacing-0) 0,
     $padding: var(--spacing-1) var(--spacing-2) var(--spacing-1)
   );
@@ -117,7 +120,7 @@
       padding: var(--spacing-1);
       margin: 0 0 var(--spacing-1) 0;
       position: relative;
-      border-radius: $default-border-radius;
+      border-radius: vars.$default-border-radius;
 
       &.odd {
         background-color: #eaf3f9;

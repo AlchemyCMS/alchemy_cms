@@ -1,27 +1,32 @@
+@use "../variables" as vars;
+
 #alchemy_preview_window {
   position: absolute;
-  left: $main-menu-width;
+  left: vars.$main-menu-width;
   top: 75px;
-  width: calc(100vw - #{$main-menu-width - $default-border-width});
-  height: calc(100vh - #{$top-menu-height});
+  width: calc(100vw - #{vars.$main-menu-width - vars.$default-border-width});
+  height: calc(100vh - #{vars.$top-menu-height});
   border: 0 none;
   background: #fff;
-  border-right: $default-border;
-  transition: width $transition-duration ease-in-out;
+  border-right: vars.$default-border;
+  transition: width vars.$transition-duration ease-in-out;
 
   .collapsed-menu & {
-    left: $collapsed-main-menu-width;
-    width: calc(100vw - #{$collapsed-main-menu-width - $default-border-width});
+    left: vars.$collapsed-main-menu-width;
+    width: calc(
+      100vw - #{vars.$collapsed-main-menu-width - vars.$default-border-width}
+    );
   }
 
   .collapsed-menu.elements-window-visible & {
     width: calc(
-      100vw - #{$collapsed-main-menu-width - $default-border-width} - #{$elements-window-min-width}
+      100vw - #{vars.$collapsed-main-menu-width - vars.$default-border-width} - #{vars.$elements-window-min-width}
     );
 
     @media screen and (min-width: 1777px) {
       width: calc(
-        100vw - #{$collapsed-main-menu-width - $default-border-width} - #{$elements-window-width}
+        100vw - #{vars.$collapsed-main-menu-width - vars.$default-border-width} -
+          #{vars.$elements-window-width}
       );
     }
   }

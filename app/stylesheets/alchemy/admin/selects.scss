@@ -1,19 +1,24 @@
-@import "alchemy_admin/select2";
+@use "sass:color";
+@use "alchemy_admin/select2";
+@use "../extends";
+@use "../mixins";
+@use "../variables" as vars;
 
 select {
-  @include button-defaults(
-    $background-color: $form-field-background-color,
-    $hover-color: $form-field-background-color,
-    $hover-border-color: darken($default-border-color, 10%),
+  @include mixins.button-defaults(
+    $background-color: vars.$form-field-background-color,
+    $hover-color: vars.$form-field-background-color,
+    $hover-border-color:
+      color.adjust(vars.$default-border-color, $lightness: -10%),
     $padding: var(--spacing-1) 26px var(--spacing-1) var(--spacing-2),
-    $border: 1px solid $default-border-color,
+    $border: 1px solid vars.$default-border-color,
     $box-shadow: none,
-    $color: $form-field-text-color,
+    $color: vars.$form-field-text-color,
     $margin: 0
   );
 
   & {
-    height: $form-field-height;
+    height: vars.$form-field-height;
     max-width: 100%;
     width: auto;
     font-weight: normal;
@@ -32,11 +37,11 @@ select {
   }
 
   &.medium {
-    width: $medium-select-box-width;
+    width: vars.$medium-select-box-width;
   }
 
   &.large {
-    width: $large-select-box-width;
+    width: vars.$large-select-box-width;
   }
 }
 
@@ -44,15 +49,16 @@ select {
   &.alchemy_selectbox {
     .select2-choice {
       width: 100%;
-      height: $form-field-height;
-      @include button-defaults(
-        $background-color: $form-field-background-color,
-        $hover-color: $form-field-background-color,
-        $hover-border-color: darken($default-border-color, 10%),
-        $padding: $form-field-padding,
-        $border: 1px solid $default-border-color,
+      height: vars.$form-field-height;
+      @include mixins.button-defaults(
+        $background-color: vars.$form-field-background-color,
+        $hover-color: vars.$form-field-background-color,
+        $hover-border-color:
+          color.adjust(vars.$default-border-color, $lightness: -10%),
+        $padding: vars.$form-field-padding,
+        $border: 1px solid vars.$default-border-color,
         $box-shadow: none,
-        $color: $form-field-text-color,
+        $color: vars.$form-field-text-color,
         $margin: 0
       );
 
@@ -102,17 +108,19 @@ select {
     }
 
     &.medium {
-      width: $medium-select-box-width;
+      width: vars.$medium-select-box-width;
     }
 
     &.large {
-      width: $large-select-box-width;
+      width: vars.$large-select-box-width;
     }
 
     &.select2-container-active {
       .select2-choice,
       .select2-choices {
-        @include default-focus-style($box-shadow: 0 0 0 1px $focus-color);
+        @include mixins.default-focus-style(
+          $box-shadow: 0 0 0 1px vars.$focus-color
+        );
       }
     }
 
@@ -122,14 +130,14 @@ select {
         background-image: none;
         background-color: var(--color-grey_very_light);
         box-shadow: none;
-        border-color: $border-inset-color;
+        border-color: vars.$border-inset-color;
         cursor: not-allowed;
 
         .select2-arrow {
-          border-color: $border-inset-color;
+          border-color: vars.$border-inset-color;
 
           b {
-            color: $border-inset-color;
+            color: vars.$border-inset-color;
           }
         }
       }
@@ -165,7 +173,9 @@ select {
 
     &.select2-container-active {
       .select2-choices {
-        @include default-focus-style($box-shadow: 0 0 0 1px $focus-color);
+        @include mixins.default-focus-style(
+          $box-shadow: 0 0 0 1px vars.$focus-color
+        );
       }
     }
 
@@ -188,7 +198,7 @@ select {
         height: 29px;
 
         input {
-          color: $form-field-text-color;
+          color: vars.$form-field-text-color;
           padding: 3px 6px;
           margin: 0;
         }
@@ -207,7 +217,7 @@ select {
   }
 
   &.select2-with-searchbox .select2-results > .select2-result:first-child {
-    @include border-top-radius(0);
+    @include mixins.border-top-radius(0);
   }
 
   .select2-results {
@@ -215,11 +225,11 @@ select {
     margin: 0;
 
     > .select2-result:first-child {
-      @include border-top-radius($default-border-radius);
+      @include mixins.border-top-radius(vars.$default-border-radius);
     }
 
     &:last-child {
-      @include border-bottom-radius($default-border-radius);
+      @include mixins.border-bottom-radius(vars.$default-border-radius);
     }
 
     .select2-result {
@@ -227,8 +237,8 @@ select {
       padding: var(--spacing-1) 0;
 
       &.select2-highlighted {
-        background: $select-hover-bg-color;
-        color: $select-hover-text-color;
+        background: vars.$select-hover-bg-color;
+        color: vars.$select-hover-text-color;
       }
 
       &.select2-result-with-children {
@@ -252,8 +262,8 @@ select {
   }
 
   &.select2-drop-active {
-    border-radius: $default-border-radius;
-    border: $default-border;
+    border-radius: vars.$default-border-radius;
+    border: vars.$default-border;
   }
 
   .select2-more-results,
