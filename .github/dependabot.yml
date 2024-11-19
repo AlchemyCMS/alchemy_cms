@@ -29,3 +29,36 @@ updates:
             - "minor"
             - "patch"
       versioning-strategy: increase-if-necessary
+  - package-ecosystem: "bundler"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    groups:
+      dev-dependencies:
+        dependency-type: "development"
+        patterns:
+          - "capybara*"
+          - "bootsnap"
+          - "listen"
+          - "factory*"
+          - "puma"
+          - "rails-controller-testing"
+          - "rspec-*"
+          - "simplecov"
+          - "selenium-webdriver"
+          - "shoulda-matchers"
+          - "timecop"
+          - "webmock"
+          - "web-console"
+        update-types:
+          - "minor"
+          - "patch"
+      rails:
+        dependency-type: "production"
+        patterns:
+          - "action*"
+          - "active*"
+          - "rails"
+          - "railties"
+        update-types:
+          - "patch"
