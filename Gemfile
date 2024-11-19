@@ -27,8 +27,6 @@ group :development, :test do
 
   if ENV["GITHUB_ACTIONS"]
     gem "simplecov-cobertura", "~> 2.1"
-    # Necessary because GH Actions gem cache does not have this "Bundled with Ruby" gem installed
-    gem "rexml", "~> 3.2.4"
 
     # https://github.com/hotwired/turbo-rails/issues/512
     if rails_version == "7.1"
