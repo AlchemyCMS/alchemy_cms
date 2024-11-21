@@ -127,7 +127,7 @@ module Alchemy
       #
       def route_from_engine_or_main_app(engine_name, url_options)
         if engine_name.present?
-          eval(engine_name).url_for(url_options) # rubocop:disable Security/Eval
+          send(engine_name).url_for(url_options)
         else
           main_app.url_for(url_options)
         end
