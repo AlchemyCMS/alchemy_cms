@@ -94,6 +94,8 @@ jobs:
 
   Lint:
     runs-on: ubuntu-latest
+    env:
+      ALCHEMY_BRANCH: 7.3-stable
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
