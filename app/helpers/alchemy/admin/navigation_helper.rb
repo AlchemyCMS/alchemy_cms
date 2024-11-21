@@ -11,6 +11,7 @@ module Alchemy
       #   The Hash representing a Alchemy module
       #
       def alchemy_main_navigation_entry(alchemy_module)
+        validate_controller_existence!(alchemy_module)
         render(
           "alchemy/admin/partials/main_navigation_entry",
           alchemy_module: alchemy_module,
@@ -139,6 +140,26 @@ module Alchemy
       #
       def url_options_for_module(alchemy_module)
         url_options_for_navigation_entry(alchemy_module["navigation"] || {})
+      end
+
+      # Validates the existence of a given controller configuration.
+      #
+      # @param String
+      #   The controller name
+      def validate_controller_existence!(definition_hash)
+        controllers = [definition_hash["navigation"]["controller"]]
+
+        if definition_hash["navigation"]["sub_navigation"].is_a?(Array)
+          controllers.concat(definition_hash["navigation"]["sub_navigation"].map { |x| x["controller"] })
+        end
+
+        controllers.each do |controller|
+          controller_const_name = "#{controller.camelize}Controller"
+          controller_const_name.constantize
+        rescue NameError
+          raise "Error in AlchemyCMS module definition: '#{definition_hash["name"]}'. Could not find the " \
+            "matching controller class #{controller_const_name} for the specified controller: '#{controller}'"
+        end
       end
 
       # Returns a url options hash for given navigation entry.
