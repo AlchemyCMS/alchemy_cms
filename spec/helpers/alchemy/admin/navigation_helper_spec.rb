@@ -104,6 +104,46 @@ describe Alchemy::Admin::NavigationHelper do
           expect(helper.alchemy_main_navigation_entry(alchemy_module))
             .to have_selector ".main_navi_entry .sub_navigation"
         end
+
+        context "with a bad controller name" do
+          let(:alchemy_module) do
+            {
+              "name" => "bad_module_name",
+              "navigation" => {
+                "controller" => "admin/events",
+                "action" => "index",
+                "sub_navigation" => [{
+                  "controller" => "bad",
+                  "action" => "index"
+                }]
+              }
+            }
+          end
+
+          it "raises an understandable error" do
+            expect { helper.alchemy_main_navigation_entry(alchemy_module) }.to raise_error(
+              "Error in AlchemyCMS module definition: 'bad_module_name'. Could not find the matching controller class BadController for the specified controller: 'bad'"
+            )
+          end
+        end
+      end
+
+      context "with a bad controller name" do
+        let(:alchemy_module) do
+          {
+            "name" => "bad_module_name",
+            "navigation" => {
+              "controller" => "bad",
+              "action" => "index"
+            }
+          }
+        end
+
+        it "raises an understandable error" do
+          expect { helper.alchemy_main_navigation_entry(alchemy_module) }.to raise_error(
+            "Error in AlchemyCMS module definition: 'bad_module_name'. Could not find the matching controller class BadController for the specified controller: 'bad'"
+          )
+        end
       end
     end
 
