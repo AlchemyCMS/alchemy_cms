@@ -30,10 +30,14 @@ describe "Admin users feature." do
     describe "users list" do
       let!(:users) { create_list(:alchemy_user, 2) }
 
-      it "lists existing users" do
+      it "lists existing users", :aggregate_failures do
         visit admin_users_path
 
-        expect(page).to have_selector "table#user_list"
+        within "table.list" do
+          users.each do |user|
+            expect(page).to have_text user.email
+          end
+        end
       end
 
       it "is searchable" do
