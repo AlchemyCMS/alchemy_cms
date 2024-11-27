@@ -10,6 +10,7 @@
   </span>
   <span class="element-title">
     <span class="preview_text_element_name"><%= element.display_name %></span>
+    <%= render_hint_for(element, size: "1x", fixed_width: false) %>
     <span class="preview_text_quote">
       <%= sanitize(element.preview_text.presence || '&nbsp;') %>
     </span>
