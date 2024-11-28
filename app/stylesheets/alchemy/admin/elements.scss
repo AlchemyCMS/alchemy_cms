@@ -77,19 +77,17 @@ alchemy-tinymce {
 }
 
 .element-title {
+  display: inline-flex;
+  align-items: center;
   flex-grow: 1;
-  overflow: hidden;
   white-space: nowrap;
-  text-overflow: ellipsis;
   transition: color vars.$transition-duration;
   line-height: 1;
   max-width: 85%;
 
-  .element-hidden > & {
-    max-width: 65%;
-  }
-
   .preview_text_quote {
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-size: var(--font-size_small);
     margin-left: var(--spacing-0);
   }
@@ -99,6 +97,7 @@ alchemy-tinymce {
   font-size: var(--font-size_small);
   font-weight: bold;
   line-height: 15px;
+  margin-right: var(--spacing-0);
 }
 
 .element-handle {
@@ -159,6 +158,14 @@ alchemy-tinymce {
 
     > .element-header {
       background-color: transparent;
+
+      .element-title {
+        max-width: 65%;
+      }
+
+      .element-toggle {
+        margin-left: var(--spacing-1);
+      }
 
       .element-hidden-icon {
         display: inline-flex;
