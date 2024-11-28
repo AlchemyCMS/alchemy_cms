@@ -21,7 +21,7 @@
   }
 
   // Fix for Tinymce fullscreen window positioning issues (GH#1511)
-  .mce-fullscreen & {
+  .tox-fullscreen & {
     width: calc(
       100vw - #{vars.$collapsed-main-menu-width - vars.$default-border-width}
     );
