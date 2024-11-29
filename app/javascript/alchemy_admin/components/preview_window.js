@@ -1,5 +1,3 @@
-const MIN_WIDTH = 240
-
 class PreviewWindow extends HTMLIFrameElement {
   #afterLoad
   #reloadIcon
@@ -38,9 +36,6 @@ class PreviewWindow extends HTMLIFrameElement {
   }
 
   resize(width) {
-    if (width < MIN_WIDTH) {
-      width = MIN_WIDTH
-    }
     this.style.width = `${width}px`
   }
 
@@ -56,6 +51,11 @@ class PreviewWindow extends HTMLIFrameElement {
     return new Promise((resolve) => {
       this.#afterLoad = resolve
     })
+  }
+
+  set isDragged(dragged) {
+    this.style.transitionProperty = dragged ? "none" : null
+    this.style.pointerEvents = dragged ? "none" : null
   }
 
   #attachEvents() {

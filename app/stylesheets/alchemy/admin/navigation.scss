@@ -205,6 +205,14 @@
   }
 }
 
+:root {
+  --main-menu-width: #{vars.$main-menu-width};
+}
+
+.collapsed-menu {
+  --main-menu-width: #{vars.$collapsed-main-menu-width};
+}
+
 @media screen and (min-width: vars.$large-screen-break-point) {
   body:not(.collapsed-menu) {
     .sub_navigation {
