@@ -20,6 +20,7 @@ class ElementsWindow extends HTMLElement {
         ?.trigger("FocusElementEditor.Alchemy")
     }
     SortableElements()
+    this.resize()
   }
 
   collapseAllElements() {
@@ -39,6 +40,7 @@ class ElementsWindow extends HTMLElement {
     this.toggleButton
       .querySelector("alchemy-icon")
       .setAttribute("name", "menu-unfold")
+    this.resize()
   }
 
   hide() {
@@ -52,7 +54,14 @@ class ElementsWindow extends HTMLElement {
   }
 
   resize(width) {
-    document.body.style.setProperty("--elements-window-width", `${width}px`)
+    if (width === undefined) {
+      width = this.widthFromCookie
+    }
+
+    if (width) {
+      document.body.style.setProperty("--elements-window-width", `${width}px`)
+      document.cookie = `alchemy-elements-window-width=${width}; SameSite=Lax; Path=/;`
+    }
   }
 
   get collapseButton() {
@@ -72,6 +81,13 @@ class ElementsWindow extends HTMLElement {
       this.#turboFrame = this.closest("turbo-frame")
     }
     return this.#turboFrame
+  }
+
+  get widthFromCookie() {
+    return document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("alchemy-elements-window-width="))
+      ?.split("=")[1]
   }
 
   set isDragged(dragged) {

@@ -31,7 +31,9 @@
     <% end %>
     <%= yield :javascript_includes %>
   </head>
-  <%= content_tag :body, id: 'alchemy', class: alchemy_body_class + ["alchemy-light"] do %>
+  <%= content_tag :body, id: 'alchemy',
+    class: alchemy_body_class + ["alchemy-light"],
+    style: cookies["alchemy-elements-window-width"] && "--elements-window-width: #{cookies["alchemy-elements-window-width"]}px" do %>
     <noscript>
       <h1><%= Alchemy.t(:javascript_disabled_headline) %></h1>
       <p><%= Alchemy.t(:javascript_disabled_text) %></p>
