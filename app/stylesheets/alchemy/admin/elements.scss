@@ -3,13 +3,23 @@
 @use "../mixins";
 @use "../variables" as vars;
 
+:root {
+  --elements-window-width: 0px;
+  --elements-window-min-width: #{vars.$elements-window-min-width};
+}
+
 #alchemy_elements_window {
+  --width: var(--elements-window-width, 100vw);
   position: absolute;
   right: 0;
   top: vars.$top-menu-height;
   z-index: 20;
   display: block;
-  width: calc(100vw - #{vars.$collapsed-main-menu-width});
+  width: var(--width);
+  min-width: var(--elements-window-min-width);
+  max-width: calc(
+    100vw - var(--main-menu-width) - var(--preview-window-min-width)
+  );
   height: calc(100vh - #{vars.$top-menu-height});
   border-left: vars.$default-border;
   background-color: var(--color-grey_very_light);
@@ -19,17 +29,41 @@
   .elements-window-visible & {
     transform: translate3d(0, 0, 0);
   }
+}
 
-  // Fix for Tinymce fullscreen window positioning issues (GH#1511)
-  .mce-fullscreen & {
-    width: calc(
-      100vw - #{vars.$collapsed-main-menu-width - vars.$default-border-width}
-    );
-  }
+.elements-window-visible {
+  --elements-window-width: calc(100vw - var(--main-menu-width));
 
   @media screen and (min-width: vars.$large-screen-break-point) {
-    width: vars.$elements-window-width;
-    min-width: vars.$elements-window-min-width;
+    --elements-window-width: var(--elements-window-min-width);
+  }
+
+  @media screen and (min-width: vars.$xlarge-screen-break-point) {
+    --elements-window-min-width: 475px;
+  }
+
+  // 1778px * 0.225 = 400px (the min width of the elements window)
+  @media screen and (min-width: 1778px) {
+    --elements-window-width: #{vars.$elements-window-width};
+  }
+}
+
+alchemy-elements-window-handle {
+  --width: var(--spacing-1);
+  position: absolute;
+  left: calc(-1 * var(--width) / 2);
+  top: 0;
+  z-index: 1500; // tinymce .tox-fullscreen has 1200
+  height: inherit;
+  width: var(--width);
+  transition-duration: vars.$transition-duration;
+  transition-property: background-color width left;
+  transition-timing-function: ease-in-out;
+
+  &:hover,
+  &.is-dragged {
+    background: var(--color-blue_dark);
+    cursor: ew-resize;
   }
 }
 

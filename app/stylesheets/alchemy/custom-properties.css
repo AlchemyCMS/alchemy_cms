@@ -32,8 +32,9 @@
   --font-weigth_normal: 500;
   --font-weigth_bold: 700;
 
-  /* border-radius */
+  /* Borders */
   --border-radius_medium: 3px;
+  --border-width_small: 1px;
 
   /* Colors */
   --color-blue_very_light: hsl(203deg, 32%, 97%);
