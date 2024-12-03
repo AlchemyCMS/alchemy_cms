@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "dragonfly"
+
 # AlchemyCMS Dragonfly configuration.
 #
 # Consider using some kind of caching solution for image processing.

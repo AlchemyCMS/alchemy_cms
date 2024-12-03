@@ -405,7 +405,7 @@ module Alchemy
 
     describe "#convertible?" do
       let(:picture) do
-        Picture.new(image_file_format: "image/png")
+        build(:alchemy_picture, image_file: image_file)
       end
 
       subject { picture.convertible? }

@@ -8,7 +8,7 @@ RSpec.describe Alchemy::Ingredients::VideoView, type: :component do
   end
 
   let(:attachment) do
-    build_stubbed(:alchemy_attachment, file: file, name: "a movie", file_name: "image with spaces.png")
+    build_stubbed(:alchemy_attachment, file: file)
   end
 
   let(:ingredient) do

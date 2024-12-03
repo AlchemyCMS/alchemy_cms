@@ -17,11 +17,7 @@ RSpec.describe "alchemy/admin/ingredients/edit.html.erb" do
     end
 
     let(:picture) do
-      create(:alchemy_picture, {
-        image_file: image,
-        name: "img",
-        image_file_name: "img.png"
-      })
+      create(:alchemy_picture, image_file: image)
     end
 
     let(:ingredient) { Alchemy::Ingredients::Picture.new(id: 1, picture: picture) }

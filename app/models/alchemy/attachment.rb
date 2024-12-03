@@ -24,6 +24,19 @@ module Alchemy
     include Alchemy::Taggable
     include Alchemy::TouchElements
 
+    attr_readonly(
+      :legacy_image_file_name,
+      :legacy_image_file_size,
+      :legacy_image_file_uid
+    )
+
+    deprecate(
+      :legacy_image_file_name,
+      :legacy_image_file_size,
+      :legacy_image_file_uid,
+      deprecator: Alchemy::Deprecation
+    )
+
     # Use ActiveStorage file attachments
     has_one_attached :file, service: :alchemy_cms
 
