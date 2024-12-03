@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_06_11_151253) do
+ActiveRecord::Schema[8.0].define(version: 2024_06_11_152554) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -41,16 +41,16 @@ ActiveRecord::Schema[8.0].define(version: 2024_06_11_151253) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
-    t.string "file_name"
+    t.string "legacy_file_name"
     t.string "file_mime_type"
-    t.integer "file_size"
+    t.integer "legacy_file_size"
     t.integer "creator_id"
     t.integer "updater_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "file_uid"
+    t.string "legacy_file_uid"
     t.index ["creator_id"], name: "index_alchemy_attachments_on_creator_id"
-    t.index ["file_uid"], name: "index_alchemy_attachments_on_file_uid"
+    t.index ["legacy_file_uid"], name: "index_alchemy_attachments_on_legacy_file_uid"
     t.index ["updater_id"], name: "index_alchemy_attachments_on_updater_id"
   end
 
@@ -234,19 +234,19 @@ ActiveRecord::Schema[8.0].define(version: 2024_06_11_151253) do
 
   create_table "alchemy_pictures", force: :cascade do |t|
     t.string "name"
-    t.string "image_file_name"
-    t.integer "image_file_width"
-    t.integer "image_file_height"
+    t.string "legacy_image_file_name"
+    t.integer "legacy_image_file_width"
+    t.integer "legacy_image_file_height"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "creator_id"
     t.integer "updater_id"
     t.string "upload_hash"
-    t.string "image_file_uid"
-    t.integer "image_file_size"
-    t.string "image_file_format"
+    t.string "legacy_image_file_uid"
+    t.integer "legacy_image_file_size"
+    t.string "legacy_image_file_format"
     t.index ["creator_id"], name: "index_alchemy_pictures_on_creator_id"
-    t.index ["image_file_name"], name: "index_alchemy_pictures_on_image_file_name"
+    t.index ["legacy_image_file_name"], name: "index_alchemy_pictures_on_legacy_image_file_name"
     t.index ["name"], name: "index_alchemy_pictures_on_name"
     t.index ["updater_id"], name: "index_alchemy_pictures_on_updater_id"
   end
