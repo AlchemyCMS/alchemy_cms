@@ -80,6 +80,25 @@ module Alchemy
       @_preprocessor_class = klass
     end
 
+    attr_readonly(
+      :legacy_image_file_format,
+      :legacy_image_file_height,
+      :legacy_image_file_name,
+      :legacy_image_file_size,
+      :legacy_image_file_uid,
+      :legacy_image_file_width
+    )
+
+    deprecate(
+      :legacy_image_file_format,
+      :legacy_image_file_height,
+      :legacy_image_file_name,
+      :legacy_image_file_size,
+      :legacy_image_file_uid,
+      :legacy_image_file_width,
+      deprecator: Alchemy::Deprecation
+    )
+
     # Use ActiveStorage image processing
     has_one_attached :image_file, service: :alchemy_cms do |attachable|
       # Only works in Rails 7.1

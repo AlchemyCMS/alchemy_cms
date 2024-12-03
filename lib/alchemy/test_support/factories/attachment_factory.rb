@@ -20,6 +20,5 @@ FactoryBot.define do
     end
 
     name { "image" }
-    file_name { "image.png" }
   end
 end
