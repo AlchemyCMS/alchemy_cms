@@ -100,7 +100,7 @@ module Alchemy
     )
 
     # Use ActiveStorage image processing
-    has_one_attached :image_file, service: :alchemy_cms do |attachable|
+    has_one_attached :image_file do |attachable|
       # Only works in Rails 7.1
       preprocessor_class.new(attachable).call
       Preprocessor.generate_thumbs!(attachable)

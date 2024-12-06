@@ -71,15 +71,6 @@ module Alchemy
         rake "active_storage:install:migrations"
       end
 
-      def set_active_storage_service
-        insert_into_file app_config_path.join("storage.yml"), <<-YAML.strip_heredoc
-
-          alchemy_cms:
-            service: Disk
-            root: <%= Rails.root.join("storage") %>
-        YAML
-      end
-
       def copy_demo_views
         return if options[:skip_demo_files]
 
