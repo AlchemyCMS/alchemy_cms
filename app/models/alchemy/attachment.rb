@@ -38,7 +38,7 @@ module Alchemy
     )
 
     # Use ActiveStorage file attachments
-    has_one_attached :file, service: :alchemy_cms
+    has_one_attached :file
 
     stampable stamper_class_name: Alchemy.user_class.name
 
