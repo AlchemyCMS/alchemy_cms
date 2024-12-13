@@ -76,6 +76,10 @@ module Alchemy
         copy_file "alchemy.en.yml", app_config_path.join("locales", "alchemy.en.yml")
       end
 
+      def install_active_storage
+        rake "active_storage:install:migrations"
+      end
+
       def install_gutentag_migrations
         rake "gutentag:install:migrations"
       end

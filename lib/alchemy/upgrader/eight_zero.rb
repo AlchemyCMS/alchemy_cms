@@ -9,6 +9,17 @@ module Alchemy
           Then you can safely remove the `config/alchemy/config.yml` file.
         TEXT
       end
+
+      def install_active_storage
+        Rake::Task["active_storage:install"].invoke
+        Rake::Task["db:migrate"].invoke
+      end
+
+      def set_dragonfly_storage_adapter
+        task.prepend_to_file "config/initializers/alchemy.rb", <<~RUBY
+          config.storage_adapter = :dragonfly
+        RUBY
+      end
     end
   end
 end

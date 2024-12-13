@@ -130,6 +130,12 @@ en:
           name: File Type
           values:
             <<: *mime_types
+            gif: GIF Image
+            jpeg: JPG Image
+            png: PNG Image
+            svg: SVG Image
+            tiff: TIFF Image
+            webp: WebP Image
         last_upload:
           name: Last upload only
         recent:

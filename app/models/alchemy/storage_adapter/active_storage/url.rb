@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 module Alchemy
-  class Picture < BaseRecord
-    class Url
+  class StorageAdapter
+    # Returns the URL to a variant of a picture using ActiveStorage
+    class ActiveStorage::Url
       attr_reader :picture, :image_file
 
       # @param [Alchemy::Picture]
@@ -43,10 +44,10 @@ module Alchemy
       end
 
       def default_output_format
-        if Alchemy::Config.get(:image_output_format) == "original"
+        if Alchemy.config.image_output_format == "original"
           picture.image_file_extension
         else
-          Alchemy::Config.get(:image_output_format)
+          Alchemy.config.image_output_format
         end
       end
     end

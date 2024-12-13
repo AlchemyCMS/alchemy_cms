@@ -42,4 +42,21 @@ namespace :alchemy do
       end
     end
   end
+
+  namespace "8.0" do
+    task "run" => [
+      "alchemy:upgrade:8.0:install_active_storage",
+      "alchemy:upgrade:8.0:set_dragonfly_storage_adapter"
+    ]
+
+    desc "Install active_storage"
+    task :install_active_storage do
+      Alchemy::Upgrader::EightZero.install_active_storage
+    end
+
+    desc "Set Dragonfly storage adapter"
+    task :set_dragonfly_storage_adapter do
+      Alchemy::Upgrader::EightZero.set_dragonfly_storage_adapter
+    end
+  end
 end
