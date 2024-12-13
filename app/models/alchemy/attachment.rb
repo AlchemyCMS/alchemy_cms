@@ -114,9 +114,7 @@ module Alchemy
       private
 
       def file_types
-        ActiveStorage::Blob.joins(:attachments).merge(
-          ActiveStorage::Attachment.where(record_type: name)
-        ).distinct.pluck(:content_type)
+        Alchemy.storage_adapter.file_formats(name)
       end
     end
 

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "alchemy/admin/preview_url"
+require "alchemy/storage_adapter"
 require "importmap-rails"
 
 module Alchemy
@@ -187,5 +188,17 @@ module Alchemy
       Alchemy::Admin::LinkDialog::ExternalTab,
       Alchemy::Admin::LinkDialog::FileTab
     ])
+  end
+
+  # Tthe storage adapter for Pictures and Attachments
+  def self.storage_adapter
+    @_storage_adapter ||= Alchemy::StorageAdapter.new(:dragonfly)
+  end
+
+  # Configure the storage adapter for Pictures and Attachments
+  # Supported adapters are :dragonfly and :active_storage
+  # Defaults to :dragonfly
+  def self.storage_adapter=(name)
+    @_storage_adapter = Alchemy::StorageAdapter.new(name)
   end
 end
