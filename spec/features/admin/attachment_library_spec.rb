@@ -11,11 +11,11 @@ RSpec.describe "Attachment Library", type: :system do
 
   describe "Filter by format" do
     let!(:attachment1) do
-      create(:alchemy_attachment, name: "Pee Dee Eff", file_name: "file.pdf", file_mime_type: "application/pdf")
+      create(:alchemy_attachment, name: "Pee Dee Eff", file: fixture_file_upload("file.pdf"))
     end
 
     let!(:attachment2) do
-      create(:alchemy_attachment, name: "Zip File", file_name: "archive.zip", file_mime_type: "application/zip")
+      create(:alchemy_attachment, name: "Zip File", file: fixture_file_upload("archive.zip"))
     end
 
     scenario "it's possible to filter attachments by type.", :js do

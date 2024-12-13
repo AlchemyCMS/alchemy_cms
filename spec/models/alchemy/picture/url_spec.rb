@@ -2,20 +2,29 @@
 
 require "rails_helper"
 
-RSpec.describe Alchemy::Picture::Url do
-  let(:image) { File.new(File.expand_path("../../../fixtures/image.png", __dir__)) }
+RSpec.describe Alchemy::Picture::Url, if: Alchemy.storage_adapter == :dragonfly do
+  let(:image) { fixture_file_upload("image.png") }
   let(:picture) { create(:alchemy_picture, image_file: image) }
 
   subject { described_class.new(picture).call(options) }
 
   let(:options) { {} }
 
-  it "returns the proxy url to the image" do
-    is_expected.to match(/\/rails\/active_storage\/representations\/redirect\/.+\/image\.png/)
+  it "returns the url to the image" do
+    is_expected.to match(/\/pictures\/[a-zA-Z\d]+\/image\.png/)
   end
 
-  it "adds image name and format to url" do
-    is_expected.to match(/\/image\.png$/)
+  context "when params are passed" do
+    let(:options) do
+      {
+        page: 1,
+        per_page: 10
+      }
+    end
+
+    it "passes them to the URL" do
+      is_expected.to match(/page=1/)
+    end
   end
 
   context "with a processed variant" do
@@ -23,15 +32,13 @@ RSpec.describe Alchemy::Picture::Url do
       {size: "10x10"}
     end
 
-    it "uses converted options for image_processing" do
-      expect(picture.image_file).to receive(:variant).with(
-        {
-          resize_to_limit: [10, 10, {sharpen: false}],
-          saver: {quality: 85},
-          format: "png",
-          loader: {n: -1}
-        }
-      )
+    it "returns the url to the thumbnail" do
+      is_expected.to match(/\/pictures\/\d+\/.+\/image\.png/)
+    end
+
+    it "connects to writing database" do
+      writing_role = ActiveRecord.writing_role
+      expect(ActiveRecord::Base).to receive(:connected_to).with(role: writing_role)
       subject
     end
   end

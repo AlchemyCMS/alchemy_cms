@@ -4,10 +4,7 @@ require "rails_helper"
 
 describe "alchemy/admin/pictures/show.html.erb" do
   let(:image) do
-    fixture_file_upload(
-      File.expand_path("../../../fixtures/animated.gif", __dir__),
-      "image/gif"
-    )
+    fixture_file_upload("animated.gif")
   end
 
   let(:picture) do

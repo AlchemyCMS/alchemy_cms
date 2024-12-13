@@ -5,7 +5,9 @@ require "rails_helper"
 module Alchemy
   describe Picture do
     let :image_file do
-      Alchemy::Engine.root.join("lib", "alchemy", "test_support", "fixtures", "image.png")
+      File.new(
+        Alchemy::Engine.root.join("lib", "alchemy", "test_support", "fixtures", "image.png")
+      )
     end
 
     let(:picture) { build(:alchemy_picture, image_file: image_file) }
@@ -20,20 +22,18 @@ module Alchemy
     end
 
     it "is not valid with an invalid image file" do
-      picture = build(:alchemy_picture, image_file_format: "pdf")
+      picture = build(:alchemy_picture, image_file: fixture_file_upload("file.pdf"))
       expect(picture).to_not be_valid
       expect(picture.errors[:image_file]).to include("This is not an valid image.")
     end
 
     it "is valid with capitalized image file extension" do
-      image_file = File.open(File.expand_path("../../fixtures/image2.PNG", __dir__))
-      picture = build(:alchemy_picture, image_file: image_file)
+      picture = build(:alchemy_picture, image_file: fixture_file_upload("image2.PNG"))
       expect(picture).to be_valid
     end
 
     it "is valid with jpeg image file extension" do
-      image_file = File.open(File.expand_path("../../fixtures/image3.jpeg", __dir__))
-      picture = build(:alchemy_picture, image_file: image_file)
+      picture = build(:alchemy_picture, image_file: fixture_file_upload("image3.jpeg"))
       expect(picture).to be_valid
     end
 
@@ -69,10 +69,9 @@ module Alchemy
     end
 
     describe ".searchable_alchemy_resource_attributes" do
-      subject { described_class.searchable_alchemy_resource_attributes }
-
-      it "returns an array of attributes for the search field query" do
-        is_expected.to eq(%w[name image_file_blob_filename])
+      it "delegates to storage adapter" do
+        expect(Alchemy.storage_adapter).to receive(:searchable_alchemy_resource_attributes).with("Alchemy::Picture")
+        described_class.searchable_alchemy_resource_attributes
       end
     end
 
@@ -85,10 +84,9 @@ module Alchemy
     end
 
     describe ".ransackable_associations" do
-      subject { described_class.ransackable_associations }
-
-      it "returns an array of ransackable associations" do
-        is_expected.to eq(%w[image_file_blob])
+      it "delegates to storage adapter" do
+        expect(Alchemy.storage_adapter).to receive(:ransackable_associations).with("Alchemy::Picture")
+        described_class.ransackable_associations
       end
     end
 
@@ -125,17 +123,9 @@ module Alchemy
     end
 
     describe ".file_formats" do
-      let!(:picture1) { create(:alchemy_picture, name: "Ping", image_file_format: "png") }
-      let!(:picture2) { create(:alchemy_picture, name: "Jay Peg", image_file_format: "jpeg") }
-
-      it "should return all picture file formats" do
-        expect(Picture.file_formats).to match_array(%w[jpeg png])
-      end
-
-      context "with a scope" do
-        it "should only return scoped picture file formats" do
-          expect(Picture.file_formats(Picture.where(name: "Jay Peg"))).to eq(["jpeg"])
-        end
+      it "deligates to storage adapter" do
+        expect(Alchemy.storage_adapter).to receive(:file_formats).with(described_class.name, scope: described_class.all)
+        described_class.file_formats
       end
     end
 
@@ -152,9 +142,8 @@ module Alchemy
 
     describe "#image_file_dimensions" do
       before do
-        expect(picture.image_file).to receive(:metadata).twice do
-          {width: 1, height: 1}
-        end
+        allow(Alchemy.storage_adapter).to receive(:image_file_width).and_return(1)
+        allow(Alchemy.storage_adapter).to receive(:image_file_height).and_return(1)
       end
 
       it "should return the width and height in the format of '1024x768'" do
@@ -191,10 +180,7 @@ module Alchemy
       subject(:url) { picture.url(options) }
 
       let(:image) do
-        fixture_file_upload(
-          File.expand_path("../../fixtures/500x500.png", __dir__),
-          "image/png"
-        )
+        fixture_file_upload("500x500.png")
       end
 
       let(:picture) do
@@ -220,7 +206,7 @@ module Alchemy
       context "when the image can not be fetched" do
         before do
           expect_any_instance_of(described_class.url_class).to receive(:call) do
-            raise(::ActiveStorage::FileNotFoundError)
+            raise(Alchemy.storage_adapter.rescuable_errors)
           end
         end
 
@@ -241,7 +227,11 @@ module Alchemy
           end
 
           it "returns the url to the thumbnail" do
-            is_expected.to match(/\/rails\/active_storage\/representations\/redirect\/.+\/square\.png/)
+            if Alchemy.storage_adapter == :active_storage
+              is_expected.to match(/\/rails\/active_storage\/representations\/redirect\/.+\/square\.png/)
+            else
+              is_expected.to match(/\/pictures\/\d+\/[a-z\d]+\/500x500\.png/)
+            end
           end
         end
       end
@@ -262,10 +252,7 @@ module Alchemy
 
       context "with image file present" do
         let(:image) do
-          fixture_file_upload(
-            File.expand_path("../../fixtures/500x500.png", __dir__),
-            "image/png"
-          )
+          fixture_file_upload("500x500.png")
         end
 
         it "returns the url to the thumbnail" do

@@ -3,8 +3,8 @@
 module Alchemy
   class Picture < BaseRecord
     class Preprocessor
-      def initialize(attachable)
-        @attachable = attachable
+      def initialize(image_file)
+        @image_file = image_file
       end
 
       # Preprocess images after upload
@@ -15,28 +15,14 @@ module Alchemy
       #
       def call
         max_image_size = Alchemy.config.get(:preprocess_image_resize)
-        if max_image_size.present?
-          self.class.process_thumb(attachable, size: max_image_size)
-        end
+        image_file.thumb!(max_image_size) if max_image_size.present?
+        # Auto orient the image so EXIF orientation data is taken into account
+        image_file.auto_orient!
       end
 
-      attr_reader :attachable
+      private
 
-      class << self
-        def generate_thumbs!(attachable)
-          Alchemy::Picture::THUMBNAIL_SIZES.values.each do |size|
-            process_thumb(attachable, size: size, flatten: true)
-          end
-        end
-
-        private
-
-        def process_thumb(attachable, options = {})
-          attachable.variant :thumb,
-            **Alchemy::DragonflyToImageProcessing.call(options),
-            preprocessed: true
-        end
-      end
+      attr_reader :image_file
     end
   end
 end
