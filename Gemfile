@@ -4,11 +4,11 @@ source "https://rubygems.org"
 
 gemspec
 
-rails_version = ENV.fetch("RAILS_VERSION", "7.2")
+rails_version = ENV.fetch("RAILS_VERSION", "8.0")
 gem "rails", "~> #{rails_version}.0"
 
 if ENV["DB"].nil? || ENV["DB"] == "sqlite"
-  gem "sqlite3", (rails_version == "7.0") ? "~> 1.7.0" : "~> 2.0.0"
+  gem "sqlite3", (rails_version == "7.0") ? "~> 1.7" : "~> 2.0"
 end
 if ENV["DB"] == "mysql" || ENV["DB"] == "mariadb"
   gem "mysql2", "~> 0.5.1"
@@ -65,3 +65,6 @@ gem "dartsass-rails", "~> 0.5.0"
 gem "propshaft", "~> 1.0"
 
 gem "gem-release", "~> 2.2"
+
+# Necessary for Rails 7.0 and Ruby 3.4
+gem "mutex_m", "~> 0.3"
