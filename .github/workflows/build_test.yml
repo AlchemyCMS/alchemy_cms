@@ -76,6 +76,16 @@ jobs:
           - sqlite
           - postgresql
           - mariadb
+        exclude:
+          - rails: "8.0"
+            ruby: "3.1"
+            database: sqlite
+          - rails: "8.0"
+            ruby: "3.1"
+            database: postgresql
+          - rails: "8.0"
+            ruby: "3.1"
+            database: mariadb
     env:
       DB: ${{ matrix.database }}
       DB_USER: alchemy_user
