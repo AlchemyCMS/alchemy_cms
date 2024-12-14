@@ -90,7 +90,6 @@ Alchemy::Engine.routes.draw do
 
     resource :clipboard, only: :index, controller: "clipboard" do
       collection do
-        get :index
         delete :clear
         delete :remove
         post :insert
