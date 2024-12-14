@@ -65,3 +65,6 @@ gem "dartsass-rails", "~> 0.5.0"
 gem "propshaft", "~> 1.0"
 
 gem "gem-release", "~> 2.2"
+
+# Necessary for Rails 7.0 and Ruby 3.4
+gem "mutex_m", "~> 0.3"
