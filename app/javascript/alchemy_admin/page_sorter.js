@@ -44,7 +44,7 @@ export function displayPageFolders() {
     }
 
     if (list.children.length > 0 || page.folded) {
-      pageFolderEl.outerHTML = HandlebarsTemplates.page_folder({ page })
+      pageFolderEl.outerHTML = Handlebars.templates["page_folder.hbs"]({ page })
     } else {
       pageFolderEl.innerHTML = ""
     }

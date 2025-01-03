@@ -6,7 +6,8 @@
     "eslint": "eslint app/javascript/**/*.js",
     "build:js": "rollup -c",
     "build:css": "sass --style=compressed --source-map --load-path app/assets/stylesheets --load-path vendor/assets/stylesheets app/assets/stylesheets/alchemy/admin.scss:app/assets/builds/alchemy/admin.css app/assets/stylesheets/alchemy/admin/print.scss:app/assets/builds/alchemy/admin/print.css app/assets/stylesheets/alchemy/welcome.scss:app/assets/builds/alchemy/welcome.css app/assets/stylesheets/tinymce/skins/content/alchemy/content.scss:app/assets/builds/tinymce/skins/content/alchemy/content.min.css app/assets/stylesheets/tinymce/skins/ui/alchemy/skin.scss:app/assets/builds/tinymce/skins/ui/alchemy/skin.min.css app/assets/stylesheets/alchemy/admin/page-select.scss:app/assets/builds/alchemy/admin/page-select.css app/assets/stylesheets/alchemy/custom-properties.css:app/assets/builds/alchemy/custom-properties.css",
-    "build": "bun run --bun build:js && bun run --bun build:css"
+    "handlebars:compile": "handlebars app/javascript/alchemy_admin/templates/*.hbs -f app/javascript/alchemy_admin/templates/compiled.js -o -m",
+    "build": "bun run --bun build:js && bun run --bun build:css && bun run --bun handlebars:compile"
   },
   "keywords": [],
   "author": "Thomas von Deyen",
@@ -17,6 +18,7 @@
     "@ungap/custom-elements": "^1.3.0",
     "clipboard": "^2.0.11",
     "flatpickr": "^4.6.13",
+    "handlebars": "^4.7.8",
     "keymaster": "^1.6.2",
     "sortablejs": "^1.15.2",
     "tinymce": "^7.3.0"

@@ -19,6 +19,13 @@ export default [
     context: "window"
   },
   {
+    input: "node_modules/handlebars/dist/handlebars.min.js",
+    output: {
+      file: "vendor/javascript/handlebars.min.js"
+    },
+    context: "window"
+  },
+  {
     input: "node_modules/keymaster/keymaster.js",
     output: {
       file: "vendor/javascript/keymaster.min.js"
