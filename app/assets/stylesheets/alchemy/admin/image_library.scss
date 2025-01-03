@@ -17,6 +17,10 @@
   --image-overlay-form-width: calc(350px - var(--picture-overlay-handle-width));
   --image-overlay-transition-duration: 250ms;
   --image-overlay-transition-easing: ease-in;
+
+  &.open {
+    overflow: hidden;
+  }
 }
 
 .alchemy-image-overlay-dialog {
@@ -253,6 +257,10 @@
         transition: fill var(--image-overlay-transition-duration) linear;
       }
     }
+  }
+
+  .next-picture {
+    transition-property: background-color, right;
   }
 
   .icon {
