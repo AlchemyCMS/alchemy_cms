@@ -1,3 +1,5 @@
+require "dragonfly"
+require "dragonfly_svg"
 # frozen_string_literal: true
 
 # AlchemyCMS Dragonfly configuration.
