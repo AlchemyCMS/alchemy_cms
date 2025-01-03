@@ -562,8 +562,8 @@ RSpec.shared_examples_for "having picture thumbnails" do
         context "size 200x50" do
           let(:size) { "200x50" }
 
-          it "default box should be [0, 25, 200, 75]" do
-            expect(subject[:default_box]).to eq([0, 25, 200, 75])
+          it "default box should be [0, 25, 200, 50]" do
+            expect(subject[:default_box]).to eq([0, 25, 200, 50])
           end
         end
 
@@ -578,16 +578,16 @@ RSpec.shared_examples_for "having picture thumbnails" do
         context "size 50x100" do
           let(:size) { "50x100" }
 
-          it "the hash should be {x1: 75, y1: 0, x2: 125, y2: 100}" do
-            expect(subject[:default_box]).to eq([75, 0, 125, 100])
+          it "the hash should be {x1: 75, y1: 0, x2: 50, y2: 100}" do
+            expect(subject[:default_box]).to eq([75, 0, 50, 100])
           end
         end
 
         context "size 50x50" do
           let(:size) { "50x50" }
 
-          it "the hash should be {x1: 50, y1: 0, x2: 150, y2: 100}" do
-            expect(subject[:default_box]).to eq([50, 0, 150, 100])
+          it "the hash should be {x1: 50, y1: 0, x2: 100, y2: 100}" do
+            expect(subject[:default_box]).to eq([50, 0, 100, 100])
           end
         end
 
@@ -602,16 +602,16 @@ RSpec.shared_examples_for "having picture thumbnails" do
         context "size 400x100" do
           let(:size) { "400x100" }
 
-          it "the hash should be {x1: 0, y1: 25, x2: 200, y2: 75}" do
-            expect(subject[:default_box]).to eq([0, 25, 200, 75])
+          it "the hash should be {x1: 0, y1: 25, x2: 200, y2: 50}" do
+            expect(subject[:default_box]).to eq([0, 25, 200, 50])
           end
         end
 
         context "size 200x200" do
           let(:size) { "200x200" }
 
-          it "the hash should be {x1: 50, y1: 0, x2: 150, y2: 100}" do
-            expect(subject[:default_box]).to eq([50, 0, 150, 100])
+          it "the hash should be {x1: 50, y1: 0, x2: 100, y2: 100}" do
+            expect(subject[:default_box]).to eq([50, 0, 100, 100])
           end
         end
       end
