@@ -24,7 +24,7 @@ jobs:
       )
     steps:
       - name: Backport pull request
-        uses: sorenlouv/backport-github-action@v9.3.1
+        uses: sorenlouv/backport-github-action@v9.5.1
         with:
           github_token: ${{ secrets.ALCHEMY_CI_BOT_ACCESS_TOKEN }}
           auto_backport_label_prefix: backport-to-
