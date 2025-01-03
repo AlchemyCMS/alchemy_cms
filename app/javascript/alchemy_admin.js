@@ -1,6 +1,7 @@
 import "handlebars"
 import "@ungap/custom-elements"
 import "@hotwired/turbo-rails"
+import "select2"
 
 import Rails from "@rails/ujs"
 

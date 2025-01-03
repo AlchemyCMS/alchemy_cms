@@ -49,6 +49,13 @@ export default [
     plugins: [terser()]
   },
   {
+    input: "node_modules/select2/select2.min.js",
+    output: {
+      file: "vendor/javascript/select2.min.js"
+    },
+    context: "window"
+  },
+  {
     input: "node_modules/@ungap/custom-elements/min.js",
     output: {
       file: "vendor/javascript/ungap-custom-elements.min.js"
