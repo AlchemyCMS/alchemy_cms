@@ -100,7 +100,7 @@ RSpec.describe Alchemy::Forms::Builder, type: :controller do
         "Template",
         controller: controller,
         label: "<label>",
-        text_area: "<textarea>",
+        textarea: "<textarea>",
         content_tag: "<alchemy-tinymce>"
       )
     end
@@ -108,7 +108,7 @@ RSpec.describe Alchemy::Forms::Builder, type: :controller do
     subject { builder.richtext(attribute) }
 
     it "uses a alchemy-tinymce" do
-      expect(template).to receive(:text_area).with(
+      expect(template).to receive(:textarea).with(
         "Ding",
         :foo,
         hash_including(
