@@ -19,7 +19,7 @@
   </label>
 </div>
 
-<script type="text/javascript">
+<script type="module">
   $(function() {
     $("#page_layout").on("change", function(e) {
       var url = "<%= alchemy.admin_pages_path(search_filter_params.except(:page_layout, :page).merge(view: "list")) %>";
