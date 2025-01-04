@@ -12,20 +12,7 @@
         },
         if_permitted_to: [:create, Alchemy::Element]
       ) %>
-      <%= render Alchemy::Admin::ToolbarButton.new(
-        url: alchemy.admin_clipboard_path(remarkable_type: "elements"),
-        label: Alchemy.t("Show clipboard"),
-        icon: :clipboard,
-        icon_style: clipboard_empty?("elements") ? "line" : "fill",
-        dialog_options: {
-          title: Alchemy.t("Clipboard"),
-          size: "400x305"
-        },
-        link_options: {
-          id: "clipboard_button"
-        },
-        if_permitted_to: [:index, :alchemy_admin_clipboard]
-      ) %>
+      <%= render "alchemy/admin/elements/clipboard_button" %>
       <sl-tooltip content="<%= Alchemy.t("Collapse all elements") %>" placement="top-end" class="right">
         <button id="collapse-all-elements-button" class="icon_button">
           <alchemy-icon name="contract-up-down"></alchemy-icon>
@@ -53,7 +40,7 @@
           <%= render @elements.map { |element| Alchemy::ElementEditor.new(element) } %>
         </sl-tab-panel>
         <% @fixed_elements.each do |element| %>
-          <sl-tab-panel name="fixed-element-<%= element.id %>" style="--padding: 0" class="scrollable-elements">
+          <sl-tab-panel id="fixed_element_<%= element.id %>" name="fixed-element-<%= element.id %>" style="--padding: 0" class="scrollable-elements">
             <%= render Alchemy::ElementEditor.new(element) %>
           </sl-tab-panel>
         <% end %>

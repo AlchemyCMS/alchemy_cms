@@ -3,18 +3,20 @@
     <%= Alchemy.t(:no_more_elements_to_add) %>
   <% end %>
 <%- else -%>
-  <%= alchemy_form_for [:admin, @element] do |form| %>
-    <%= form.hidden_field :page_version_id %>
-    <%= form.input :name,
-      label: Alchemy.t(:element_of_type),
-      collection: elements_for_select(@elements),
-      prompt: Alchemy.t(:select_element),
-      selected: (@elements.first if @elements.count == 1),
-      input_html: {is: 'alchemy-select', autofocus: true} %>
-    <% if @elements.count == 1 %>
-      <%= form.hidden_field :name, value: @elements.first[:name] %>
-    <% end %>
-    <%= form.hidden_field :parent_element_id, value: @parent_element.try(:id) %>
-    <%= form.submit Alchemy.t(:add) %>
+  <%= turbo_frame_tag @element do %>
+    <%= alchemy_form_for [:admin, @element], remote: false do |form| %>
+      <%= form.hidden_field :page_version_id %>
+      <%= form.input :name,
+        label: Alchemy.t(:element_of_type),
+        collection: elements_for_select(@elements),
+        prompt: Alchemy.t(:select_element),
+        selected: (@elements.first if @elements.count == 1),
+        input_html: {is: 'alchemy-select', autofocus: true} %>
+      <% if @elements.count == 1 %>
+        <%= form.hidden_field :name, value: @elements.first[:name] %>
+      <% end %>
+      <%= form.hidden_field :parent_element_id, value: @parent_element.try(:id) %>
+      <%= form.submit Alchemy.t(:add) %>
+    <%- end -%>
   <%- end -%>
 <%- end -%>

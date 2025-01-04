@@ -1,0 +1,14 @@
+<%= render Alchemy::Admin::ToolbarButton.new(
+  url: alchemy.admin_clipboard_path(remarkable_type: "elements"),
+  label: Alchemy.t("Show clipboard"),
+  icon: :clipboard,
+  icon_style: clipboard_empty?("elements") ? "line" : "fill",
+  dialog_options: {
+    title: Alchemy.t("Clipboard"),
+    size: "400x305"
+  },
+  link_options: {
+    id: "clipboard_button"
+  },
+  if_permitted_to: [:index, :alchemy_admin_clipboard]
+) %>

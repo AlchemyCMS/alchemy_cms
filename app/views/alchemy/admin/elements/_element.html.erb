@@ -4,6 +4,7 @@
   data-element-name="<%= element.name %>"
   class="<%= element.css_classes.join(" ") %>"
   <%= element.compact? ? "compact" : nil %>
+  <%= local_assigns[:created] ? "created" : nil %>
   <%= element.fixed? ? "fixed" : nil %>
 >
   <% unless element.fixed? %>
@@ -68,6 +69,7 @@
   <% if element.nestable_elements.any? %>
     <div class="nestable-elements">
       <%= content_tag :div,
+        id: "element_#{element.id}_nested_elements",
         class: "nested-elements", data: {
           'droppable-elements' => element.nestable_elements.join(' '),
           'element-name' => element.name

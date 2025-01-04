@@ -3,14 +3,15 @@
     (nestable_element = element.nestable_elements.first) &&
     Alchemy::Element.all_from_clipboard_for_parent_element(get_clipboard("elements"), element).none?
   %>
-    <%= form_for [:admin, Alchemy::Element.new(name: nestable_element)],
-      remote: true, html: { class: 'add-nested-element-form', id: nil } do |f| %>
-      <%= f.hidden_field :name %>
-      <%= f.hidden_field :page_version_id, value: element.page_version_id %>
-      <%= f.hidden_field :parent_element_id, value: element.id %>
-      <button class="add-nestable-element-button" is="alchemy-button" data-turbo="false">
-        <%= Alchemy.t(:add_nested_element, name: Alchemy.t(nestable_element.to_sym, scope: 'element_names')) %>
-      </button>
+    <%= turbo_frame_tag("new_nested_element_#{element.id}") do %>
+      <%= form_for [:admin, Alchemy::Element.new(name: nestable_element)], html: { class: 'add-nested-element-form', id: nil } do |f| %>
+        <%= f.hidden_field :name %>
+        <%= f.hidden_field :page_version_id, value: element.page_version_id %>
+        <%= f.hidden_field :parent_element_id, value: element.id %>
+        <button class="add-nestable-element-button" is="alchemy-button">
+          <%= Alchemy.t(:add_nested_element, name: Alchemy.t(nestable_element.to_sym, scope: 'element_names')) %>
+        </button>
+      <% end %>
     <% end %>
   <% else %>
     <%= link_to_dialog (nestable_element ? Alchemy.t(:add_nested_element, name: Alchemy.t(nestable_element.to_sym, scope: 'element_names')) : Alchemy.t("New Element")),
