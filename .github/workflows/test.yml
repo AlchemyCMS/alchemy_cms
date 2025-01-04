@@ -105,7 +105,9 @@ jobs:
         if: failure()
         with:
           name: Screenshots
-          path: spec/dummy/tmp/screenshots
+          path: |
+            spec/dummy/tmp/capybara
+            spec/dummy/tmp/screenshots
   Jest:
     runs-on: ubuntu-22.04
     env:
