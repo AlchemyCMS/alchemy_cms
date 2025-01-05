@@ -9,7 +9,7 @@ on:
 
 jobs:
   check_yarn_lock:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     name: Check yarn.lock
     steps:
       - uses: actions/checkout@v4
@@ -23,7 +23,7 @@ jobs:
     outputs:
       yarn_lock_changed: ${{ steps.changed-yarn-lock.outputs.any_changed }}
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     name: Build JS packages
     needs: check_yarn_lock
     if: ${{ needs.check_yarn_lock.outputs.yarn_lock_changed }}
