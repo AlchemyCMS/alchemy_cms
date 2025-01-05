@@ -11,6 +11,12 @@ module Alchemy
     let(:restricted_page) { create(:alchemy_page, :public, restricted: true) }
     let(:restricted_element) { create(:alchemy_element, page: restricted_page, name: "download") }
 
+    around do |example|
+      Deprecation.silence do
+        example.run
+      end
+    end
+
     describe "#show" do
       it "should render available elements" do
         get :show, params: {id: element.id}
