@@ -15,7 +15,7 @@ on:
 
 jobs:
   check_bun_lock:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     name: Check bun.lockdb
     steps:
       - uses: actions/checkout@v4
@@ -30,7 +30,7 @@ jobs:
       bun_lock_changed: ${{ steps.changed-bun-lock.outputs.any_changed }}
 
   build_javascript:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     name: Build JS packages
     needs: check_bun_lock
     if: needs.check_bun_lock.outputs.bun_lock_changed == 'true'
@@ -57,7 +57,7 @@ jobs:
   RSpec:
     needs: [check_bun_lock, build_javascript]
     if: ${{ success('check_bun_lock') && !failure('build_javascript') }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
@@ -159,10 +159,12 @@ jobs:
         if: failure()
         with:
           name: Screenshots
-          path: spec/dummy/tmp/screenshots
+          path: |
+            spec/dummy/tmp/capybara
+            spec/dummy/tmp/screenshots
 
   PushJavascript:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: [check_bun_lock, RSpec]
     if: github.event_name == 'pull_request'
     steps:
@@ -194,7 +196,7 @@ jobs:
           branch: ${{ github.head_ref }}
 
   Jest:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     env:
       NODE_ENV: test
     steps:
