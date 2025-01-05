@@ -14,6 +14,10 @@ module Alchemy
         @ingredients_view_path = "app/views/alchemy/ingredients"
       end
 
+      def create_view_component
+        template "view_component.rb.tt", "app/components/alchemy/ingredients/#{file_name}_view.rb"
+      end
+
       def create_model
         template "model.rb.tt", "app/models/alchemy/ingredients/#{file_name}.rb"
       end
@@ -21,6 +25,7 @@ module Alchemy
       def copy_templates
         @ingredient_editor_local = "#{file_name}_editor"
         @ingredient_view_local = "#{file_name}_view"
+        @ingredient_view_component_class = "#{@class_name}View"
         template "view.html.erb", "#{@ingredients_view_path}/_#{file_name}_view.html.erb"
         template "editor.html.erb", "#{@ingredients_view_path}/_#{file_name}_editor.html.erb"
       end

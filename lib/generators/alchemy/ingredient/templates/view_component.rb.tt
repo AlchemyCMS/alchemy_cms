@@ -1,0 +1,10 @@
+module Alchemy
+  module Ingredients
+    class <%= @class_name %>View < BaseView
+      
+      def call
+        content_tag(:div, ingredient.value)
+      end
+    end
+  end
+end
