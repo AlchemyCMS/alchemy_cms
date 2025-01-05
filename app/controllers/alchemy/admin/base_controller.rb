@@ -31,6 +31,21 @@ module Alchemy
 
       private
 
+      def safe_redirect_path(path = params[:redirect_to], fallback: admin_path)
+        if is_safe_redirect_path?(path)
+          path
+        elsif is_safe_redirect_path?(fallback)
+          fallback
+        else
+          admin_path
+        end
+      end
+
+      def is_safe_redirect_path?(path)
+        mount_path = alchemy.root_path
+        path.to_s.match? %r{^#{mount_path}admin/}
+      end
+
       # Disable layout rendering for xhr requests.
       def set_layout
         (request.xhr? || turbo_frame_request?) ? false : "alchemy/admin"
