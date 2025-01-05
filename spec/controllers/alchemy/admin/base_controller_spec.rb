@@ -118,4 +118,132 @@ describe Alchemy::Admin::BaseController do
       end
     end
   end
+
+  describe "#safe_redirect_path" do
+    subject { controller.send(:safe_redirect_path) }
+
+    context "when params[:redirect_to] is present" do
+      before do
+        allow(controller).to receive(:params) { {redirect_to: redirect_url} }
+      end
+
+      context "and it is not an external URL" do
+        let(:redirect_url) { "/admin/pages" }
+
+        it "redirects to given path" do
+          is_expected.to eq("/admin/pages")
+        end
+      end
+
+      context "and it is an external URL" do
+        let(:redirect_url) { "https://evil.com" }
+
+        context "and no fallback is given" do
+          it "redirects to default fallback path" do
+            is_expected.to eq("/admin")
+          end
+        end
+
+        context "and a fallback is given" do
+          subject { controller.send(:safe_redirect_path, fallback: "/admin/pages") }
+
+          context "which is a safe path" do
+            it "redirects to given fallback path" do
+              is_expected.to eq("/admin/pages")
+            end
+          end
+
+          context "which is not a safe path" do
+            subject { controller.send(:safe_redirect_path, fallback: "evil.com") }
+
+            it "redirects to default fallback path" do
+              is_expected.to eq("/admin")
+            end
+          end
+        end
+      end
+    end
+
+    context "when params[:redirect_to] is not present" do
+      context "and another path is given" do
+        subject { controller.send(:safe_redirect_path, redirect_path) }
+
+        context "which is a safe path" do
+          let(:redirect_path) { "/admin/pages" }
+
+          it "redirects to given path" do
+            is_expected.to eq("/admin/pages")
+          end
+        end
+
+        context "which is not a safe path" do
+          let(:redirect_path) { "evil.com" }
+
+          it "redirects to default fallback path" do
+            is_expected.to eq("/admin")
+          end
+        end
+      end
+
+      context "and no fallback is given" do
+        it "redirects to default fallback path" do
+          is_expected.to eq("/admin")
+        end
+      end
+
+      context "and a fallback is given" do
+        subject { controller.send(:safe_redirect_path, fallback: "/admin/pages") }
+
+        context "which is a safe path" do
+          it "redirects to given fallback path" do
+            is_expected.to eq("/admin/pages")
+          end
+        end
+
+        context "which is not a safe path" do
+          subject { controller.send(:safe_redirect_path, fallback: "evil.com") }
+
+          it "redirects to default fallback path" do
+            is_expected.to eq("/admin")
+          end
+        end
+      end
+    end
+  end
+
+  describe "#is_safe_redirect_path?" do
+    subject { controller.send(:is_safe_redirect_path?, path) }
+
+    context "path is not an external URL" do
+      let(:path) { "/admin/pages" }
+
+      it { is_expected.to be(true) }
+    end
+
+    context "path is an external URL" do
+      let(:path) { "https://evil.com" }
+
+      it { is_expected.to be(false) }
+    end
+
+    context "alchemy is mounted under a path" do
+      before do
+        allow(controller).to receive(:alchemy) do
+          double(root_path: "/cms/")
+        end
+      end
+
+      context "path is not an external URL" do
+        let(:path) { "/cms/admin/pages" }
+
+        it { is_expected.to be(true) }
+      end
+
+      context "path is an external URL" do
+        let(:path) { "https://evil.com" }
+
+        it { is_expected.to be(false) }
+      end
+    end
+  end
 end
