@@ -78,7 +78,7 @@ module Alchemy
           flash[:error] = resource_instance_variable.errors.full_messages.join(", ")
         end
         flash_notice_for_resource_action
-        do_redirect_to resource_url_proxy.url_for(search_filter_params.merge(action: "index"))
+        do_redirect_to resource_url_proxy.url_for(search_filter_params.merge(action: "index", only_path: true))
       end
 
       def resource_handler
