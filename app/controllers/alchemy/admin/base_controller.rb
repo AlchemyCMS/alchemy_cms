@@ -46,6 +46,12 @@ module Alchemy
         path.to_s.match? %r{^#{mount_path}admin/}
       end
 
+      def relative_referer_path(referer = request.referer)
+        return unless referer
+
+        URI(referer).path
+      end
+
       # Disable layout rendering for xhr requests.
       def set_layout
         request.xhr? ? false : "alchemy/admin"
@@ -121,13 +127,16 @@ module Alchemy
 
       # Does redirects for html and js requests
       #
+      # Makes sure that the redirect path is safe.
+      #
       def do_redirect_to(url_or_path)
+        redirect_path = safe_redirect_path(url_or_path)
         respond_to do |format|
           format.js {
-            @redirect_url = url_or_path
+            @redirect_url = redirect_path
             render :redirect
           }
-          format.html { redirect_to url_or_path }
+          format.html { redirect_to redirect_path }
         end
       end
 
