@@ -69,7 +69,15 @@ module Alchemy
       let(:page) { create(:alchemy_page, :layoutpage) }
 
       context "with passing validations" do
-        subject { put :update, params: {id: page.id, page: {name: "New Name"}}, format: :js }
+        subject do
+          put :update, params: {id: page.id, page: {name: "New Name"}}, format: :turbo_stream
+        end
+
+        before do
+          allow_any_instance_of(ActionDispatch::Request).to receive(:referer) do
+            "/admin/pages/edit/#{page.id}"
+          end
+        end
 
         it "renders update template" do
           is_expected.to render_template("alchemy/admin/pages/update")

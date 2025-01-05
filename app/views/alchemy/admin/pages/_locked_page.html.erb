@@ -1,4 +1,4 @@
-<% if @page == locked_page %>
+<% if action_name == "edit" && @page == locked_page %>
   <%= render 'alchemy/admin/pages/current_page', current_page: @page %>
 <% else %>
   <div class="locked_page wide" id="locked_page_<%= locked_page.id %>">
