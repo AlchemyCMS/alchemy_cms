@@ -40,7 +40,7 @@ module Alchemy
       def switch
         @language = set_alchemy_language(params[:language_id])
         session[:alchemy_language_id] = @language.id
-        do_redirect_to request.referer || alchemy.admin_dashboard_path
+        do_redirect_to relative_referer_path || alchemy.admin_dashboard_path
       end
 
       private
