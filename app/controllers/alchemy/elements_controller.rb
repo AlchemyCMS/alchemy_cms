@@ -16,7 +16,10 @@ module Alchemy
     # * html
     # * js (Tries to replace a given +container_id+ with the elements view partial content via jQuery.)
     #
+    # @deprecated This controller action will be removed in Alchemy 8.0.
     def show
+      Alchemy::Deprecation.warn "The elements#show controller action is deprecated and will be removed in Alchemy 8.0."
+
       @page = @element.page
       @options = params[:options]
 
