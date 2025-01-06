@@ -302,6 +302,14 @@ If you want to contribute to Alchemy ([and we encourage you to do so](CONTRIBUTI
 
 ### Preparation
 
+Install ImageMagick (libmagick), v6.6 or greater
+https://imagemagick.org/script/download.php
+
+```bash
+brew install imagemagick # macOS
+apt install imagemagick  # ubuntu / debian
+```
+
 First of all you need to clone your fork to your local development machine. Then you need to install the dependencies with bundler.
 
 ```bash
