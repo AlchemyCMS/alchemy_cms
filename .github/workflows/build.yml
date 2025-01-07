@@ -5,7 +5,7 @@ on:
     types: [opened, synchronize]
   push:
     branches:
-      - main
+      - 7.1-stable
 
 jobs:
   check_yarn_lock:
