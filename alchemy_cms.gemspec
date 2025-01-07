@@ -29,7 +29,7 @@ Gem::Specification.new do |gem|
     activesupport
     railties
   ].each do |rails_gem|
-    gem.add_runtime_dependency rails_gem, [">= 7.0", "< 7.3"]
+    gem.add_runtime_dependency rails_gem, [">= 7.0", "< 8.1"]
   end
 
   gem.add_runtime_dependency "active_model_serializers", ["~> 0.10.14"]

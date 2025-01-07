@@ -88,7 +88,7 @@ Alchemy::Engine.routes.draw do
       end
     end
 
-    resource :clipboard, only: :index, controller: "clipboard" do
+    resource :clipboard, only: [], controller: "clipboard" do
       collection do
         get :index
         delete :clear
