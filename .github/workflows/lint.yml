@@ -2,6 +2,13 @@ name: Lint
 
 on: [pull_request]
 
+concurrency:
+  group: lint-${{ github.ref_name }}
+  cancel-in-progress: ${{ github.ref_name != 'main' }}
+
+permissions:
+  contents: read
+
 jobs:
   Standard:
     runs-on: ubuntu-22.04

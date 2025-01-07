@@ -9,6 +9,8 @@ on:
 
 jobs:
   check_yarn_lock:
+    permissions:
+      contents: read
     runs-on: ubuntu-22.04
     name: Check yarn.lock
     steps:
