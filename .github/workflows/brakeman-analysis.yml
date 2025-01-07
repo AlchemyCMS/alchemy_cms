@@ -9,12 +9,12 @@ concurrency:
 
 on:
   push:
-    branches: [main]
+    branches:
+      - 7.2-stable
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [main]
-  schedule:
-    - cron: "40 4 * * 2"
+    branches:
+      - 7.2-stable
 
 jobs:
   brakeman-scan:
