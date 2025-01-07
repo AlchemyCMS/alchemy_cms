@@ -15,6 +15,8 @@ on:
 
 jobs:
   check_bun_lock:
+    permissions:
+      contents: read
     runs-on: ubuntu-22.04
     name: Check bun.lockdb
     steps:
@@ -30,6 +32,8 @@ jobs:
       bun_lock_changed: ${{ steps.changed-bun-lock.outputs.any_changed }}
 
   build_javascript:
+    permissions:
+      contents: read
     runs-on: ubuntu-22.04
     name: Build JS packages
     needs: check_bun_lock
@@ -55,6 +59,8 @@ jobs:
           path: vendor/javascript
 
   RSpec:
+    permissions:
+      contents: read
     needs: [check_bun_lock, build_javascript]
     if: ${{ success('check_bun_lock') && !failure('build_javascript') }}
     runs-on: ubuntu-22.04
@@ -164,6 +170,8 @@ jobs:
             spec/dummy/tmp/screenshots
 
   PushJavascript:
+    permissions:
+      contents: write
     runs-on: ubuntu-22.04
     needs: [check_bun_lock, RSpec]
     if: github.event_name == 'pull_request'
@@ -196,6 +204,8 @@ jobs:
           branch: ${{ github.head_ref }}
 
   Jest:
+    permissions:
+      contents: read
     runs-on: ubuntu-22.04
     env:
       NODE_ENV: test
