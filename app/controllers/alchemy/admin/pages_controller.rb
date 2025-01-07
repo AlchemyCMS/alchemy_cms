@@ -183,12 +183,13 @@ module Alchemy
         respond_to do |format|
           format.js
           format.html do
-            redirect_to(
-              params[:redirect_to].presence || admin_pages_path,
-              allow_other_host: true
-            )
+            redirect_to(unlock_redirect_path, allow_other_host: true)
           end
         end
+      end
+
+      def unlock_redirect_path
+        safe_redirect_path(fallback: admin_pages_path)
       end
 
       # Sets the page public and updates the published_at attribute that is used as cache_key
