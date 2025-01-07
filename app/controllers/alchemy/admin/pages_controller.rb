@@ -189,11 +189,7 @@ module Alchemy
       end
 
       def unlock_redirect_path
-        if params[:redirect_to].to_s.match?(/\A\/admin\/(layout_)?pages/)
-          params[:redirect_to]
-        else
-          admin_pages_path
-        end
+        safe_redirect_path(fallback: admin_pages_path)
       end
 
       # Sets the page public and updates the published_at attribute that is used as cache_key
