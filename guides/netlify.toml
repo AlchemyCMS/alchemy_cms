@@ -1,3 +1,7 @@
 [build]
   command = "./build.sh"
   publish = "guides/.vitepress/dist"
+[[redirects]]
+  from = "/stable/elements.html"
+  to = "/elements.html"
+  status = 301
