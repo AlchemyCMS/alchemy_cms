@@ -302,6 +302,13 @@ If you want to contribute to Alchemy ([and we encourage you to do so](CONTRIBUTI
 
 ### Preparation
 
+Please follow the prerequisites here https://guides.alchemy-cms.com/getting_started.html#prerequisites
+and install all relevant dependencies first
+
+Additional requirements for developing and contributing
+
+- chromedriver
+
 First of all you need to clone your fork to your local development machine. Then you need to install the dependencies with bundler.
 
 ```bash
