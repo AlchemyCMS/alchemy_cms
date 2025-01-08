@@ -5,3 +5,15 @@
   from = "/stable/elements.html"
   to = "/elements.html"
   status = 301
+[[redirects]]
+  from = "/stable"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/stable/menus.html"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/stable/page_layouts.html"
+  to = "/pages"
+  status = 301
