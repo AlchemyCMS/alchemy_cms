@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "CHANGELOG.md", "README.md"]
 
-  s.add_dependency "alchemy_cms", [">= 7.0", "<= 8.1"]
+  s.add_dependency "alchemy_cms", ["~> 7.0"]
   s.add_dependency "devise", ["~> 4.9"]
 
   s.add_development_dependency "capybara"
