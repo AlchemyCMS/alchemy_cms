@@ -6,6 +6,9 @@ on:
       - 7.1-stable
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   RSpec:
     runs-on: ubuntu-22.04
