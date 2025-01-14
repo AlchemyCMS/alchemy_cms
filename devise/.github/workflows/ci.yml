@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   RSpec:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
@@ -106,7 +106,7 @@ jobs:
           path: spec/dummy/tmp/screenshots
 
   Lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     env:
       ALCHEMY_BRANCH: 7.3-stable
     steps:
