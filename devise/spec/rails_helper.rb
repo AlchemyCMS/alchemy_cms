@@ -27,8 +27,6 @@ Capybara.default_selector = :css
 Capybara.ignore_hidden_elements = false
 ActiveJob::Base.queue_adapter = :test
 
-ActiveSupport::Deprecation.silenced = true
-
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.use_transactional_fixtures = true
