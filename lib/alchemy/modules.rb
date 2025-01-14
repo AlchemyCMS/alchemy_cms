@@ -27,34 +27,7 @@ module Alchemy
       def register_module(module_definition)
         definition_hash = module_definition.deep_stringify_keys
 
-        ### Validate controller(s) existence
-        if definition_hash["navigation"].is_a?(Hash)
-          defined_controllers = [definition_hash["navigation"]["controller"]]
-
-          if definition_hash["navigation"]["sub_navigation"].is_a?(Array)
-            defined_controllers.concat(definition_hash["navigation"]["sub_navigation"].map { |x| x["controller"] })
-          end
-
-          validate_controllers_existence(defined_controllers, definition_hash)
-        end
-
         @@alchemy_modules |= [definition_hash]
-      end
-
-      private
-
-      def validate_controllers_existence(controllers, definition_hash)
-        controllers.each do |controller_val|
-          next if controller_val.blank?
-
-          controller_name = "#{controller_val.camelize}Controller"
-
-          begin
-            controller_name.constantize
-          rescue NameError
-            raise "Error in AlchemyCMS module definition: '#{definition_hash["name"]}'. Could not find the matching controller class #{controller_name.sub(/^::/, "")} for the specified controller: '#{controller_val}'"
-          end
-        end
       end
     end
 
