@@ -65,21 +65,21 @@ Describe a new Element with this options inside your `elements.yml` file:
 ~~~ yaml
 - name: contactform
   ingredients:
-    - rolw: mail_from
+    - role: mail_from
       type: Text
       validate:
         - presence
         - format: email
-    - rolw: mail_to
+    - role: mail_to
       type: Text
       validate:
         - presence
         - format: email
-    - rolw: subject
+    - role: subject
       type: Text
       validate:
         - presence
-    - rolw: success_page
+    - role: success_page
       type: Page
       validate:
         - presence
