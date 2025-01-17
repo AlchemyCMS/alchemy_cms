@@ -1,11 +1,11 @@
 # AlchemyCMS
 
-[![Build Status](https://github.com/AlchemyCMS/alchemy_cms/workflows/CI/badge.svg?branch=main)](https://github.com/AlchemyCMS/alchemy_cms/actions)
+[![Build & Test](https://github.com/AlchemyCMS/alchemy_cms/actions/workflows/build_test.yml/badge.svg)](https://github.com/AlchemyCMS/alchemy_cms/actions/workflows/build_test.yml)
 [![Brakeman Scan](https://github.com/AlchemyCMS/alchemy_cms/actions/workflows/brakeman-analysis.yml/badge.svg)](https://github.com/AlchemyCMS/alchemy_cms/actions/workflows/brakeman-analysis.yml)
+[![Lint](https://github.com/AlchemyCMS/alchemy_cms/actions/workflows/lint.yml/badge.svg)](https://github.com/AlchemyCMS/alchemy_cms/actions/workflows/lint.yml)
 
 [![Gem Version](https://badge.fury.io/rb/alchemy_cms.svg)](https://badge.fury.io/rb/alchemy_cms)
 [![codecov](https://codecov.io/gh/AlchemyCMS/alchemy_cms/graph/badge.svg?token=uUHQGfB2xe)](https://codecov.io/gh/AlchemyCMS/alchemy_cms)
-[![Lint](https://github.com/AlchemyCMS/alchemy_cms/actions/workflows/lint.yml/badge.svg)](https://github.com/AlchemyCMS/alchemy_cms/actions/workflows/lint.yml)
 [![Depfu](https://badges.depfu.com/badges/ebe56d2dd7b7044a8ae700cc81212a8e/overview.svg)](https://depfu.com/github/AlchemyCMS/alchemy_cms?project_id=4600)
 
 [![Backers on Open Collective](https://opencollective.com/alchemy_cms/backers/badge.svg?color=blue)](#backers)
