@@ -314,19 +314,24 @@ module Alchemy
     describe "#sorted_attributes" do
       subject { resource.sorted_attributes }
 
+      let(:random_attrs) do
+        20.times.map do
+          double(:column, {name: "some_title", type: :string})
+        end
+      end
+
       let(:columns) do
-        [
-          double(:column, {name: "title", type: :string}),
+        random_attrs + [
           double(:column, {name: "name", type: :string}),
           double(:column, {name: "updated_at", type: :datetime}),
           double(:column, {name: "public", type: :boolean})
         ]
       end
 
-      it "sorts by name, and updated_at" do
-        is_expected.to eq([
+      it "sorts by name, booleans and updated_at" do
+        expect(subject.uniq!).to eq([
           {name: "name", type: :string},
-          {name: "title", type: :string},
+          {name: "some_title", type: :string},
           {name: "public", type: :boolean},
           {name: "updated_at", type: :datetime}
         ])
