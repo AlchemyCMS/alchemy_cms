@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.4.0 (2025-01-21)
+
+- Extend test matrix [#219](https://github.com/AlchemyCMS/alchemy-devise/pull/219) ([mamhoff](https://github.com/mamhoff))
+- Allow Alchemy 8.x [#218](https://github.com/AlchemyCMS/alchemy-devise/pull/218) ([mamhoff](https://github.com/mamhoff))
+- test: Fix admin users feature spec [#217](https://github.com/AlchemyCMS/alchemy-devise/pull/217) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.3.0 (2024-09-06)
 
 - Use new resource_table component for user list [#213](https://github.com/AlchemyCMS/alchemy-devise/pull/213) ([tvdeyen](https://github.com/tvdeyen))
