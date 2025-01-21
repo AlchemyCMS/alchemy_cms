@@ -188,11 +188,21 @@ module Alchemy
       end
     end
 
+    # Returns a sorted array of attributes.
+    #
+    # Attribute called "name" comes first.
+    # Attribute called "updated_at" comes last.
+    # Boolean type attributes come after non-boolean attributes but before "updated_at".
+    #
     def sorted_attributes
-      @_sorted_attributes ||= attributes
-        .sort_by { |attr| (attr[:name] == "name") ? 0 : 1 }
-        .sort_by! { |attr| (attr[:type] == :boolean) ? 1 : 0 }
-        .sort_by! { |attr| (attr[:name] == "updated_at") ? 1 : 0 }
+      @_sorted_attributes ||= attributes.sort_by! do |attr|
+        [
+          (attr[:name] == "name") ? 0 : 1,
+          (attr[:name] == "updated_at") ? 3 : 2,
+          (attr[:type] == :boolean) ? 2 : 1,
+          attr[:name]
+        ]
+      end
     end
 
     def editable_attributes
