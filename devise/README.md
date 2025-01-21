@@ -1,6 +1,6 @@
 ## Devise based authentication for AlchemyCMS
 
-[![Build Status](https://github.com/AlchemyCMS/alchemy-devise/workflows/CI/badge.svg?branch=main)](https://github.com/AlchemyCMS/alchemy-devise/actions)
+[![CI](https://github.com/AlchemyCMS/alchemy-devise/actions/workflows/ci.yml/badge.svg)](https://github.com/AlchemyCMS/alchemy-devise/actions/workflows/ci.yml)
 [![Brakeman Scan](https://github.com/AlchemyCMS/alchemy-devise/actions/workflows/brakeman-analysis.yml/badge.svg)](https://github.com/AlchemyCMS/alchemy-devise/actions/workflows/brakeman-analysis.yml)
 
 [![Gem Version](https://badge.fury.io/rb/alchemy-devise.svg)](http://badge.fury.io/rb/alchemy-devise) [![Test Coverage](https://codeclimate.com/github/AlchemyCMS/alchemy-devise/badges/coverage.svg)](https://codeclimate.com/github/AlchemyCMS/alchemy-devise/coverage) [![Code Climate](https://codeclimate.com/github/AlchemyCMS/alchemy-devise/badges/gpa.svg)](https://codeclimate.com/github/AlchemyCMS/alchemy-devise)
