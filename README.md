@@ -10,6 +10,7 @@
 
 [![Backers on Open Collective](https://opencollective.com/alchemy_cms/backers/badge.svg?color=blue)](#backers)
 [![Sponsors on Open Collective](https://opencollective.com/alchemy_cms/sponsors/badge.svg?color=blue)](#sponsors)
+[![Open Source Helpers](https://www.codetriage.com/alchemycms/alchemy_cms/badges/users.svg)](https://www.codetriage.com/alchemycms/alchemy_cms)
 
 <img src="./app/assets/images/alchemy/alchemy-logo.svg" width=300>
 
