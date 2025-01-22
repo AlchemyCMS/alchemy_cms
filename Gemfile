@@ -32,6 +32,13 @@ group :development, :test do
     if rails_version == "7.1"
       gem "actioncable", "~> #{rails_version}.0"
     end
+
+    # concurrent-ruby v1.3.5 has removed the dependency on logger,
+    # effecting Rails 6.1 up to including 7.0.
+    # https://github.com/rails/rails/pull/54264
+    if ("6.1".to_f.."7.0".to_f).cover?(rails_version.to_f)
+      gem "concurrent-ruby", "< 1.3.5"
+    end
   else
     gem "launchy"
     gem "annotate"
