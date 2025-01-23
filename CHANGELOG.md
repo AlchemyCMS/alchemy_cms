@@ -1,5 +1,14 @@
 # Changelog
 
+## 7.0.16 (2025-01-23)
+
+- [7.0-stable] Allow redirecting to other host in site redirect [#3160](https://github.com/AlchemyCMS/alchemy_cms/pull/3160) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.0-stable] fix missing logger issue in github actions [#3155](https://github.com/AlchemyCMS/alchemy_cms/pull/3155) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.0-stable] CI: Set workflow permissions [#3144](https://github.com/AlchemyCMS/alchemy_cms/pull/3144) ([tvdeyen](https://github.com/tvdeyen))
+- [7.0-stable] Use safe redirect paths in admin redirects [#3134](https://github.com/AlchemyCMS/alchemy_cms/pull/3134) ([tvdeyen](https://github.com/tvdeyen))
+- [7.0-stable] CI: Run actions on ubuntu-22.04 [#3127](https://github.com/AlchemyCMS/alchemy_cms/pull/3127) ([tvdeyen](https://github.com/tvdeyen))
+- [7.0-stable] Use alchemy_display_name for page actor names [#3028](https://github.com/AlchemyCMS/alchemy_cms/pull/3028) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.0.15 (2024-09-04)
 
 - [7.0-stable] Render Datetime ingredient in local time zone [#3017](https://github.com/AlchemyCMS/alchemy_cms/pull/3017) ([tvdeyen](https://github.com/tvdeyen))
