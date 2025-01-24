@@ -1,0 +1,28 @@
+version: 2
+updates:
+  - package-ecosystem: "bundler"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      dev-dependencies:
+        dependency-type: "development"
+        patterns:
+          - "capybara*"
+          - "listen"
+          - "factory*"
+          - "puma"
+          - "rails-controller-testing"
+          - "rspec-*"
+          - "simplecov"
+        update-types:
+          - "minor"
+          - "patch"
+      lint:
+        dependency-type: "development"
+        patterns:
+          - "standardrb"
+          - "rubocop"
+        update-types:
+          - "minor"
+          - "patch"
