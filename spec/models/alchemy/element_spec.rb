@@ -491,7 +491,7 @@ module Alchemy
       end
 
       it "warns about deprecation" do
-        expect(Alchemy::Deprecation).to receive(:warn)
+        expect(Alchemy::Deprecation).to receive(:warn).at_least(:once)
         element.dom_id
       end
     end
