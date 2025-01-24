@@ -13,7 +13,7 @@ gemspec
 
 group :test do
   if ENV["DB"].nil? || ENV["DB"] == "sqlite"
-    gem "sqlite3", "~> 1.4"
+    gem "sqlite3", "~> 2.5"
   end
   gem "mysql2" if ENV["DB"] == "mysql"
   gem "pg", "~> 1.0" if ENV["DB"] == "postgresql"
