@@ -6,8 +6,8 @@ class Icon extends HTMLElement {
   constructor() {
     super()
     this.spriteUrl = document
-      .querySelector('meta[name="alchemy-icon-sprite"]')
-      .getAttribute("content")
+      .querySelector('link[rel="preload"][as="image"]')
+      .getAttribute("href")
   }
 
   connectedCallback() {

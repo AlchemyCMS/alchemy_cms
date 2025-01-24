@@ -43,8 +43,8 @@ setDefaultAnimation("dialog.hide", {
 })
 
 const spriteUrl = document
-  .querySelector('meta[name="alchemy-icon-sprite"]')
-  .getAttribute("content")
+  .querySelector('link[rel="preload"][as="image"]')
+  .getAttribute("href")
 
 const iconMap = {
   "x-lg": "close"
