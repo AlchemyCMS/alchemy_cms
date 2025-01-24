@@ -1,5 +1,15 @@
 # Changelog
 
+## 7.1.13 (2025-01-24)
+
+- [7.1-stable] fix attribute sorting across Ruby versions [#3161](https://github.com/AlchemyCMS/alchemy_cms/pull/3161) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] fix missing logger issue in github actions [#3156](https://github.com/AlchemyCMS/alchemy_cms/pull/3156) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.1-stable] CI: Set workflow permissions [#3143](https://github.com/AlchemyCMS/alchemy_cms/pull/3143) ([tvdeyen](https://github.com/tvdeyen))
+- [7.1-stable] Use safe redirect paths in admin redirects [#3135](https://github.com/AlchemyCMS/alchemy_cms/pull/3135) ([tvdeyen](https://github.com/tvdeyen))
+- [7.1-stable] CI: Run actions on ubuntu-22.04 [#3126](https://github.com/AlchemyCMS/alchemy_cms/pull/3126) ([tvdeyen](https://github.com/tvdeyen))
+- Fix tinymce fullscreen mode [#3102](https://github.com/AlchemyCMS/alchemy_cms/pull/3102) ([tvdeyen](https://github.com/tvdeyen))
+- [7.1-stable] Use alchemy_display_name for page actor names [#3029](https://github.com/AlchemyCMS/alchemy_cms/pull/3029) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.1.12 (2024-09-04)
 
 - [7.1-stable] Render Datetime ingredient in local time zone [#3018](https://github.com/AlchemyCMS/alchemy_cms/pull/3018) ([tvdeyen](https://github.com/tvdeyen))
