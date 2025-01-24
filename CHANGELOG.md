@@ -1,5 +1,14 @@
 # Changelog
 
+## 7.2.8 (2025-01-24)
+
+- [7.2-stable] fix attribute sorting across Ruby versions [#3162](https://github.com/AlchemyCMS/alchemy_cms/pull/3162) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.2-stable] fix missing logger issue in github actions [#3157](https://github.com/AlchemyCMS/alchemy_cms/pull/3157) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.2-stable] CI: Set workflow permissions [#3142](https://github.com/AlchemyCMS/alchemy_cms/pull/3142) ([tvdeyen](https://github.com/tvdeyen))
+- [7.2-stable] Use safe redirect paths in admin redirects [#3136](https://github.com/AlchemyCMS/alchemy_cms/pull/3136) ([tvdeyen](https://github.com/tvdeyen))
+- [7.2-stable] CI: Run actions on ubuntu-22.04 [#3125](https://github.com/AlchemyCMS/alchemy_cms/pull/3125) ([tvdeyen](https://github.com/tvdeyen))
+- Fix tinymce fullscreen mode [#3101](https://github.com/AlchemyCMS/alchemy_cms/pull/3101) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.2.7 (2024-10-15)
 
 - [7.2-stable] Fix filtering associated models by id [#3069](https://github.com/AlchemyCMS/alchemy_cms/pull/3069) ([tvdeyen](https://github.com/tvdeyen))
