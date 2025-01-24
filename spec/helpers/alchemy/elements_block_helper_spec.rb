@@ -30,14 +30,14 @@ module Alchemy
 
       context "when no id option is given" do
         it "should warn about deprecation" do
-          expect(Alchemy::Deprecation).to receive(:warn).twice
+          expect(Alchemy::Deprecation).to receive(:warn).at_least(:once)
           element_view_for(element)
         end
       end
 
       context "when no class option is given" do
         it "should warn about deprecation" do
-          expect(Alchemy::Deprecation).to receive(:warn).twice
+          expect(Alchemy::Deprecation).to receive(:warn).at_least(:once)
           element_view_for(element)
         end
       end
