@@ -1,5 +1,14 @@
 # Changelog
 
+## [v4.3.0](https://github.com/AlchemyCMS/alchemy_i18n/tree/v4.3.0) (2025-01-25)
+
+[Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v4.2.2...v4.3.0)
+
+**Merged pull requests:**
+
+- Load select2 locales via importmap [\#68](https://github.com/AlchemyCMS/alchemy_i18n/pull/68) ([tvdeyen](https://github.com/tvdeyen))
+- Download flatpickr locales [\#64](https://github.com/AlchemyCMS/alchemy_i18n/pull/64) ([tvdeyen](https://github.com/tvdeyen))
+
 ## [v4.2.2](https://github.com/AlchemyCMS/alchemy_i18n/tree/v4.2.2) (2024-09-06)
 
 [Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v4.2.1...v4.2.2)
