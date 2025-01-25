@@ -1,6 +1,8 @@
 module Alchemy
   module Ingredients
     class LinkView < BaseView
+      include LinkTarget
+
       attr_reader :link_text
 
       # @param ingredient [Alchemy::Ingredient]
@@ -12,7 +14,11 @@ module Alchemy
       end
 
       def call
-        link_to(link_text, value, {target: ingredient.link_target.presence}.merge(html_options)).html_safe
+        target = ingredient.link_target.presence
+        link_to(link_text, value, {
+          target: link_target_value(target),
+          rel: link_rel_value(target)
+        }.merge(html_options)).html_safe
       end
     end
   end

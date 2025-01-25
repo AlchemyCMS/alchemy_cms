@@ -45,4 +45,30 @@ RSpec.describe "alchemy/ingredients/_link_view" do
       expect(rendered).to eq('<a class="foo" href="http://google.com">http://google.com</a>')
     end
   end
+
+  context "with link target set to '_blank'" do
+    let(:ingredient) do
+      Alchemy::Ingredients::Link.new(value: "http://google.com", link_target: "_blank")
+    end
+
+    it "adds rel noopener noreferrer" do
+      render ingredient
+      expect(rendered).to eq(
+        '<a target="_blank" rel="noopener noreferrer" href="http://google.com">http://google.com</a>'
+      )
+    end
+  end
+
+  context "with link target set to 'blank'" do
+    let(:ingredient) do
+      Alchemy::Ingredients::Link.new(value: "http://google.com", link_target: "blank")
+    end
+
+    it "sets target '_blank' and adds rel noopener noreferrer" do
+      render ingredient
+      expect(rendered).to eq(
+        '<a target="_blank" rel="noopener noreferrer" href="http://google.com">http://google.com</a>'
+      )
+    end
+  end
 end
