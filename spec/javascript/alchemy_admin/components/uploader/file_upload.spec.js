@@ -23,11 +23,19 @@ describe("alchemy-file-upload", () => {
 
   const testFile = new File(["a".repeat(1100)], "foo.txt")
 
-  const mockXMLHttpRequest = (status = 200, response = {}) => {
+  const mockXMLHttpRequest = (
+    status = 200,
+    response = {},
+    reason = "Created"
+  ) => {
+    const body =
+      typeof response === "string" ? response : JSON.stringify(response)
+
     mock.setup()
     mock.post("/admin/pictures", {
       status,
-      body: JSON.stringify(response)
+      reason,
+      body
     })
 
     let request = new XMLHttpRequest()
@@ -203,26 +211,54 @@ describe("alchemy-file-upload", () => {
       })
 
       describe("failed server response", () => {
-        beforeEach(() => {
-          const xhrMock = mockXMLHttpRequest(400, {
-            message: "Error: Foo Bar"
+        describe("with a JSON response", () => {
+          beforeEach(() => {
+            const xhrMock = mockXMLHttpRequest(400, {
+              message: "Error: Foo Bar"
+            })
+            renderComponent(testFile, xhrMock)
+            component.request.open("post", "/admin/pictures")
+            component.request.send()
           })
-          renderComponent(testFile, xhrMock)
-          component.request.open("post", "/admin/pictures")
-          component.request.send()
+
+          it("should call the growl method", () => {
+            expect(growl).toHaveBeenCalledWith("Error: Foo Bar", "error")
+            expect(growl).toHaveBeenCalledTimes(1)
+          })
+
+          it("should mark as failed", () => {
+            expect(component.className).toEqual("failed")
+          })
+
+          it("should have an error message", () => {
+            expect(component.errorMessage).toEqual("Error: Foo Bar")
+          })
         })
 
-        it("should call the growl method", () => {
-          expect(growl).toHaveBeenCalledWith("Error: Foo Bar", "error")
-          expect(growl).toHaveBeenCalledTimes(1)
-        })
+        describe("without a JSON response", () => {
+          beforeEach(() => {
+            const xhrMock = mockXMLHttpRequest(
+              502,
+              "<h1>Error</h1><p>Foo Bar</p>",
+              "Bad Gateway"
+            )
+            renderComponent(testFile, xhrMock)
+            component.request.open("post", "/admin/pictures")
+            component.request.send()
+          })
 
-        it("should mark as failed", () => {
-          expect(component.className).toEqual("failed")
-        })
+          it("should call the growl method", () => {
+            expect(growl).toHaveBeenCalledWith("502: Bad Gateway", "error")
+            expect(growl).toHaveBeenCalledTimes(1)
+          })
 
-        it("should have an error message", () => {
-          expect(component.errorMessage).toEqual("Error: Foo Bar")
+          it("should mark as failed", () => {
+            expect(component.className).toEqual("failed")
+          })
+
+          it("should have an error message", () => {
+            expect(component.errorMessage).toEqual("502: Bad Gateway")
+          })
         })
       })
     })
