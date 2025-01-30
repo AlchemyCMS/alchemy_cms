@@ -4,6 +4,7 @@ require "active_support"
 require "active_support/core_ext/string"
 
 require "alchemy/configuration/class_option"
+require "alchemy/configuration/class_set_option"
 require "alchemy/configuration/integer_option"
 
 module Alchemy
