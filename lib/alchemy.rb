@@ -98,6 +98,20 @@ module Alchemy
     }])
   end
 
+  # Additional stylesheets to be included in the Alchemy admin UI
+  #
+  # == Example
+  #
+  #    # lib/alchemy/devise/engine.rb
+  #    initializer "alchemy.devise.stylesheets", before: "alchemy.admin_stylesheets" do
+  #      Alchemy.admin_stylesheets << "alchemy/devise/admin.css"
+  #    end
+  #
+  # @return [Set<String>]
+  def self.admin_stylesheets
+    @_admin_stylesheets ||= Set.new(["alchemy/admin/custom.css"])
+  end
+
   # Define page publish targets
   #
   # A publish target is a ActiveJob that gets performed

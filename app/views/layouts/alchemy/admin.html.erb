@@ -13,7 +13,9 @@
     <%= stylesheet_link_tag('alchemy/custom-properties', media: 'screen', 'data-turbo-track' => true) %>
     <%= stylesheet_link_tag('alchemy/admin', media: 'screen', 'data-turbo-track' => true) %>
     <%= stylesheet_link_tag('alchemy/admin/print', media: 'print', 'data-turbo-track' => true) %>
-    <%= stylesheet_link_tag('alchemy/admin/custom', 'data-turbo-track' => true) %>
+    <% Alchemy.admin_stylesheets.each do |stylesheet| %>
+      <%= stylesheet_link_tag(stylesheet, 'data-turbo-track' => true) %>
+    <% end %>
     <%= yield :stylesheets %>
     <script>
       // Global Alchemy JavaScript object.

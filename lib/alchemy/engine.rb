@@ -20,6 +20,12 @@ module Alchemy
       NonStupidDigestAssets.whitelist += [/^tinymce\//]
     end
 
+    initializer "alchemy.admin_stylesheets" do |app|
+      Alchemy.admin_stylesheets.each do |stylesheet|
+        app.config.assets.precompile << stylesheet
+      end
+    end
+
     initializer "alchemy.importmap" do |app|
       watch_paths = []
 
