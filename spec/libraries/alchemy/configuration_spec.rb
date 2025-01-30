@@ -107,4 +107,22 @@ RSpec.describe Alchemy::Configuration do
       end.to raise_exception(TypeError, 'page_preview_sizes must be an Array of integers, given ["1"]')
     end
   end
+
+  describe "string lists" do
+    let(:configuration) do
+      Class.new(described_class) do
+        option :link_target_options, :string_list, default: ["blank"]
+      end.new
+    end
+
+    it "returns the string list" do
+      expect(configuration.link_target_options).to eq(["blank"])
+    end
+
+    it "can only be set with an Array of strings" do
+      expect do
+        configuration.link_target_options = [:blank]
+      end.to raise_exception(TypeError, "link_target_options must be an Array of strings, given [:blank]")
+    end
+  end
 end
