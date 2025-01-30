@@ -143,4 +143,22 @@ RSpec.describe Alchemy::Configuration do
       end.to raise_exception(TypeError, "mail_success_page must be set as a String, given :thanks")
     end
   end
+
+  describe "regexp options" do
+    let(:configuration) do
+      Class.new(described_class) do
+        option :email, :regexp, default: /\A.*\z/
+      end.new
+    end
+
+    it "returns the regexp" do
+      expect(configuration.email).to eq(/\A.*\z/)
+    end
+
+    it "can only be set with a regexp" do
+      expect do
+        configuration.email = '/\A.*\z/'
+      end.to raise_exception(TypeError, /email must be set as a Regexp, given .*/)
+    end
+  end
 end
