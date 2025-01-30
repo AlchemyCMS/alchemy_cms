@@ -33,6 +33,16 @@ module Alchemy
       get(key) || default
     end
 
+    def set_from_yaml(file)
+      set(
+        YAML.safe_load(
+          ERB.new(File.read(file)).result,
+          permitted_classes: YAML_PERMITTED_CLASSES,
+          aliases: true
+        ) || {}
+      )
+    end
+
     class << self
       def configuration(name, configuration_class)
         define_method(name) do
