@@ -89,4 +89,22 @@ RSpec.describe Alchemy::Configuration do
       end.to raise_exception(TypeError, "cache_pages must be a Boolean, given \"true\"")
     end
   end
+
+  describe "integer lists" do
+    let(:configuration) do
+      Class.new(described_class) do
+        option :page_preview_sizes, :integer_list, default: [1, 2]
+      end.new
+    end
+
+    it "returns the integer list" do
+      expect(configuration.page_preview_sizes).to eq([1, 2])
+    end
+
+    it "can only be set with an integer list" do
+      expect do
+        configuration.page_preview_sizes = ["1"]
+      end.to raise_exception(TypeError, 'page_preview_sizes must be an Array of integers, given ["1"]')
+    end
+  end
 end

@@ -4,9 +4,10 @@ require "active_support"
 require "active_support/core_ext/string"
 
 require "alchemy/configuration/boolean_option"
-require "alchemy/configuration/integer_option"
 require "alchemy/configuration/class_option"
 require "alchemy/configuration/class_set_option"
+require "alchemy/configuration/integer_option"
+require "alchemy/configuration/integer_list_option"
 
 module Alchemy
   class Configuration
