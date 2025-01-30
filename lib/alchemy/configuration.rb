@@ -9,6 +9,7 @@ require "alchemy/configuration/class_set_option"
 require "alchemy/configuration/integer_option"
 require "alchemy/configuration/integer_list_option"
 require "alchemy/configuration/string_list_option"
+require "alchemy/configuration/string_option"
 
 module Alchemy
   class Configuration

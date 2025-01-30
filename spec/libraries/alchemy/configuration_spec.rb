@@ -125,4 +125,22 @@ RSpec.describe Alchemy::Configuration do
       end.to raise_exception(TypeError, "link_target_options must be an Array of strings, given [:blank]")
     end
   end
+
+  describe "string options" do
+    let(:configuration) do
+      Class.new(described_class) do
+        option :mail_success_page, :string, default: "thanks"
+      end.new
+    end
+
+    it "returns the string list" do
+      expect(configuration.mail_success_page).to eq("thanks")
+    end
+
+    it "can only be set with an Array of strings" do
+      expect do
+        configuration.mail_success_page = :thanks
+      end.to raise_exception(TypeError, "mail_success_page must be set as a String, given :thanks")
+    end
+  end
 end
