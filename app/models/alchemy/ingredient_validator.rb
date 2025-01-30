@@ -80,8 +80,12 @@ module Alchemy
     end
 
     def validate_format(format)
-      matcher = Alchemy::Config.get("format_matchers")[format] || format
-      if !ingredient.value.to_s.match?(Regexp.new(matcher))
+      matcher = if format.is_a?(String) || format.is_a?(Symbol)
+        Alchemy::Config.get("format_matchers").get(format)
+      else
+        format
+      end
+      if !ingredient.value.to_s.match?(matcher)
         ingredient.errors.add(:value, :invalid)
       end
     end

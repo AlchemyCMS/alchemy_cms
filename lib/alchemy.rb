@@ -15,6 +15,7 @@ module Alchemy
     yield config
   end
 
+  Config = Alchemy::Configurations::Main.new
   # Define page preview sources
   #
   # A preview source is a Ruby class returning an URL

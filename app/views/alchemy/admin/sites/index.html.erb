@@ -30,7 +30,11 @@
       <%= render_message do %>
         <%== Alchemy.t('alchemy/site', scope: :no_resource_found) %>
       <% end %>
-      <%= render 'form', site: Alchemy::Site.new(Alchemy::Config.get(:default_site).merge(public: true)) %>
+      <%= render 'form', site: Alchemy::Site.new(
+          name: Alchemy::Config.default_site.name,
+          host: Alchemy::Config.default_site.host,
+          public: true
+        ) %>
     </div>
   <% end %>
 </div>

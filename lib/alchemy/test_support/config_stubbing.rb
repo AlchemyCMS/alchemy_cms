@@ -17,13 +17,7 @@ module Alchemy
       # @param value [Object] The value you want to return instead of the original one
       #
       def stub_alchemy_config(key, value)
-        allow(Alchemy::Config).to receive(:get) do |arg|
-          if arg == key
-            value
-          else
-            Alchemy::Config.show[arg.to_s]
-          end
-        end
+        allow(Alchemy::Config).to receive(key).and_return(value)
       end
     end
   end
