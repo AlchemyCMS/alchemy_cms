@@ -1,12 +1,15 @@
 # frozen_string_literal: true
 
 require "alchemy/configuration/base_option"
+
 module Alchemy
   class Configuration
-    class IntegerOption < BaseOption
+    class ClassOption < BaseOption
       def self.value_class
-        Integer
+        String
       end
+
+      def value = @value.constantize
     end
   end
 end
