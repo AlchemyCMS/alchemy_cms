@@ -11,11 +11,14 @@ module Alchemy
         klass = "Alchemy::Configuration::#{type.to_s.camelize}Option".constantize
 
         define_method(name) do
-          (instance_variable_get(:"@#{name}") || klass.new(value: default, **args)).value
+          unless instance_variable_defined?(:"@#{name}")
+            send(:"#{name}=", default)
+          end
+          instance_variable_get(:"@#{name}").value
         end
 
         define_method(:"#{name}=") do |value|
-          instance_variable_set(:"@#{name}", klass.new(value:, **args))
+          instance_variable_set(:"@#{name}", klass.new(value:, name:, **args))
         end
       end
     end
