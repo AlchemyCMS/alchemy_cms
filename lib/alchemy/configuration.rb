@@ -34,6 +34,23 @@ module Alchemy
     end
 
     class << self
+      def configuration(name, configuration_class)
+        define_method(name) do
+          unless instance_variable_get(:"@#{name}")
+            send(:"#{name}=", configuration_class.new)
+          end
+          instance_variable_get(:"@#{name}")
+        end
+
+        define_method(:"#{name}=") do |value|
+          if value.is_a?(configuration_class)
+            instance_variable_set(:"@#{name}", value)
+          else
+            send(name).set(value)
+          end
+        end
+      end
+
       def option(name, type, default: nil, **args)
         klass = "Alchemy::Configuration::#{type.to_s.camelize}Option".constantize
 

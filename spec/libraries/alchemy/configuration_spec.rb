@@ -229,4 +229,32 @@ RSpec.describe Alchemy::Configuration do
 
     it { is_expected.to eq("thanks") }
   end
+
+  describe "nested configurations" do
+    let(:configuration) do
+      uploader_configuration_class = Class.new(described_class) do
+        option :file_size_limit, :integer, default: 100
+        option :upload_limit, :integer, default: 50
+      end
+
+      Class.new(described_class) do
+        configuration :uploader, uploader_configuration_class
+      end.new
+    end
+
+    it "can be accessed as methods" do
+      expect(configuration.uploader.upload_limit).to eq(50)
+    end
+
+    it "can be accessed with []" do
+      expect(configuration[:uploader][:upload_limit]).to eq(50)
+    end
+
+    it "can be set using a nested hash" do
+      configuration.set(uploader: {upload_limit: 30})
+      configuration.set(uploader: {file_size_limit: 80})
+      expect(configuration.uploader.upload_limit).to eq(30)
+      expect(configuration.uploader.file_size_limit).to eq(80)
+    end
+  end
 end
