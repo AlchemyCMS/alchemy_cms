@@ -14,6 +14,25 @@ require "alchemy/configuration/string_option"
 
 module Alchemy
   class Configuration
+    def initialize(configuration_hash = {})
+      set(configuration_hash)
+    end
+
+    def set(configuration_hash)
+      configuration_hash.each do |key, value|
+        send(:"#{key}=", value)
+      end
+    end
+
+    alias_method :get, :send
+    alias_method :[], :get
+
+    def show = self
+
+    def fetch(key, default = nil)
+      get(key) || default
+    end
+
     class << self
       def option(name, type, default: nil, **args)
         klass = "Alchemy::Configuration::#{type.to_s.camelize}Option".constantize

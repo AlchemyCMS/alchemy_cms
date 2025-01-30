@@ -22,6 +22,16 @@ RSpec.describe Alchemy::Configuration do
     end.to change { configuration.auto_logout_time }.from(30).to(nil)
   end
 
+  it "has several getters" do
+    expect(configuration["auto_logout_time"]).to eq(30)
+    expect(configuration.auto_logout_time).to eq(30)
+    expect(configuration.get(:auto_logout_time)).to eq(30)
+  end
+
+  it "returns self when #show is called" do
+    expect(configuration.show).to eq(configuration)
+  end
+
   context "without a default value" do
     let(:configuration) do
       Class.new(described_class) do
@@ -31,6 +41,14 @@ RSpec.describe Alchemy::Configuration do
 
     it "defaults to nil" do
       expect(configuration.auto_logout_time).to be nil
+    end
+
+    describe "#fetch" do
+      it "allows getting data but setting a default, like Hash" do
+        expect(configuration.fetch("auto_logout_time", 20)).to eq(20)
+        configuration.auto_logout_time = 40
+        expect(configuration.fetch("auto_logout_time", 20)).to eq(40)
+      end
     end
   end
 
@@ -160,5 +178,55 @@ RSpec.describe Alchemy::Configuration do
         configuration.email = '/\A.*\z/'
       end.to raise_exception(TypeError, /email must be set as a Regexp, given .*/)
     end
+  end
+
+  describe "initializing with a hash" do
+    let(:configuration_class) do
+      Class.new(described_class) do
+        option :mail_success_page, :string, default: "thanks"
+        option :link_target_options, :string_list, default: ["blank"]
+      end
+    end
+
+    let(:configuration) do
+      configuration_class.new(mail_success_page: "verymuchthankyou", link_target_options: ["top"])
+    end
+
+    it "takes the values from the hash" do
+      expect(configuration.mail_success_page).to eq("verymuchthankyou")
+      expect(configuration.link_target_options).to eq(["top"])
+    end
+  end
+
+  describe "#set" do
+    let(:configuration_class) do
+      Class.new(described_class) do
+        option :mail_success_page, :string, default: "thanks"
+        option :link_target_options, :string_list, default: ["blank"]
+      end
+    end
+
+    let(:configuration) do
+      configuration_class.new
+    end
+
+    it "takes the values from the hash" do
+      configuration.set(mail_success_page: "verymuchthankyou", link_target_options: ["top"])
+      expect(configuration.mail_success_page).to eq("verymuchthankyou")
+      expect(configuration.link_target_options).to eq(["top"])
+    end
+  end
+
+  describe "get" do
+    let(:configuration) do
+      Class.new(described_class) do
+        option :mail_success_page, :string, default: "thanks"
+        option :link_target_options, :string_list, default: ["blank"]
+      end.new
+    end
+
+    subject { configuration.get(:mail_success_page) }
+
+    it { is_expected.to eq("thanks") }
   end
 end
