@@ -71,4 +71,22 @@ RSpec.describe Alchemy::Configuration do
       expect(configuration.preview_sources.to_a).to eq([Alchemy::Admin::PreviewUrl])
     end
   end
+
+  describe "Boolean options" do
+    let(:configuration) do
+      Class.new(described_class) do
+        option :cache_pages, :boolean, default: true
+      end.new
+    end
+
+    it "returns the boolean" do
+      expect(configuration.cache_pages).to be true
+    end
+
+    it "can only be set with a Boolean" do
+      expect do
+        configuration.cache_pages = "true"
+      end.to raise_exception(TypeError, "cache_pages must be a Boolean, given \"true\"")
+    end
+  end
 end
