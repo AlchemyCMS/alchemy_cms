@@ -23,10 +23,5 @@ namespace :alchemy do
       "alchemy:install:migrations",
       "db:migrate"
     ]
-
-    desc "Alchemy Upgrader: Copy configuration file."
-    task config: [:environment] do
-      Alchemy::Upgrader.copy_new_config_file
-    end
   end
 end
