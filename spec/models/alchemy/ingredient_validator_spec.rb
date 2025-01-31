@@ -56,6 +56,23 @@ RSpec.describe Alchemy::IngredientValidator do
 
       it { expect(ingredient.errors).to be_present }
     end
+
+    context "an element with email format validation" do
+      let(:element) { create(:alchemy_element, :with_ingredients, name: "contactform") }
+      let(:ingredient) { element.ingredient_by_role(:mail_from) }
+
+      context "and the value is matching" do
+        let(:value) { "my_email@example.com" }
+
+        it { expect(ingredient.errors).to be_blank }
+      end
+
+      context "and the value is not matching" do
+        let(:value) { "my_email@example" }
+
+        it { expect(ingredient.errors).to be_present }
+      end
+    end
   end
 
   context "an element with url format validation" do
