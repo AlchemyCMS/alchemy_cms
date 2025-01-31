@@ -97,6 +97,16 @@ module Alchemy
       end
     end
 
+    initializer "alchemy.config_yml" do |app|
+      config_directory = Rails.root.join("config", "alchemy")
+      Alchemy::Config.set_from_yaml(
+        config_directory.join("config.yml")
+      )
+      Alchemy::Config.set_from_yaml(
+        config_directory.join("#{Rails.env}.config.yml")
+      )
+    end
+
     config.after_initialize do
       if Alchemy.user_class
         ActiveSupport.on_load(:active_record) do
