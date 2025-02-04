@@ -58,6 +58,28 @@ RSpec.describe Alchemy::IngredientValidator do
     end
   end
 
+  context "an element with url format validation" do
+    let(:element) { create(:alchemy_element, :with_ingredients, name: "element_with_url") }
+    let(:ingredient) { element.ingredient_by_role(:url) }
+
+    before do
+      expect(ingredient).to receive(:value).at_least(:once) { value }
+      validate
+    end
+
+    context "with a slash" do
+      let(:value) { "www.example.com:80/about" }
+
+      it { expect(ingredient.errors).to be_blank }
+    end
+
+    context "and the value is not matching" do
+      let(:value) { 'www.example.com:80\/about' }
+
+      it { expect(ingredient.errors).to be_present }
+    end
+  end
+
   context "with an ingredient having length validation" do
     let(:element) { create(:alchemy_element, :with_ingredients, name: "all_you_can_eat") }
     let(:ingredient) { element.ingredient_by_role(:headline) }
