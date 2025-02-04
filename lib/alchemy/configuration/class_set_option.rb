@@ -33,6 +33,8 @@ module Alchemy
         end
       end
 
+      def as_json = @value
+
       private
 
       def validate(value)

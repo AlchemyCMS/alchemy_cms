@@ -228,6 +228,13 @@ RSpec.describe Alchemy::Configuration do
     subject { configuration.get(:mail_success_page) }
 
     it { is_expected.to eq("thanks") }
+
+    it "can be converted to a Hash" do
+      expect(configuration.to_h).to eq(
+        mail_success_page: "thanks",
+        link_target_options: ["blank"]
+      )
+    end
   end
 
   describe "nested configurations" do
@@ -255,6 +262,12 @@ RSpec.describe Alchemy::Configuration do
       configuration.set(uploader: {file_size_limit: 80})
       expect(configuration.uploader.upload_limit).to eq(30)
       expect(configuration.uploader.file_size_limit).to eq(80)
+    end
+
+    it "can be converted to a Hash" do
+      expect(configuration.to_h).to eq(
+        uploader: {file_size_limit: 100, upload_limit: 50}
+      )
     end
   end
 end

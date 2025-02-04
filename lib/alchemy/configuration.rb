@@ -43,8 +43,33 @@ module Alchemy
       )
     end
 
+    def to_h
+      self.class.defined_options.map do |option|
+        [option, send(option)]
+      end.concat(
+        self.class.defined_configurations.map do |configuration|
+          [configuration, send(configuration).to_h]
+        end
+      ).to_h
+    end
+
     class << self
+      def defined_configurations = []
+
+      def defined_options = []
+
       def configuration(name, configuration_class)
+        # The defined configurations on a class are all those defined directly on
+        # that class as well as those defined on ancestors.
+        # We store these as a class instance variable on each class which has a
+        # configuration. super() collects configurations defined on ancestors.
+        singleton_configurations = (@defined_singleton_configurations ||= [])
+        singleton_configurations << name.to_sym
+
+        define_singleton_method :defined_configurations do
+          super() + singleton_configurations
+        end
+
         define_method(name) do
           unless instance_variable_get(:"@#{name}")
             send(:"#{name}=", configuration_class.new)
@@ -63,6 +88,16 @@ module Alchemy
 
       def option(name, type, default: nil, **args)
         klass = "Alchemy::Configuration::#{type.to_s.camelize}Option".constantize
+        # The defined options on a class are all those defined directly on
+        # that class as well as those defined on ancestors.
+        # We store these as a class instance variable on each class which has a
+        # option. super() collects options defined on ancestors.
+        singleton_options = (@defined_singleton_options ||= [])
+        singleton_options << name.to_sym
+
+        define_singleton_method :defined_options do
+          super() + singleton_options
+        end
 
         define_method(name) do
           unless instance_variable_defined?(:"@#{name}")
