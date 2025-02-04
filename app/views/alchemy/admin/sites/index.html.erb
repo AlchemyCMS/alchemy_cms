@@ -31,8 +31,8 @@
         <%== Alchemy.t('alchemy/site', scope: :no_resource_found) %>
       <% end %>
       <%= render 'form', site: Alchemy::Site.new(
-          name: Alchemy::Config.default_site.name,
-          host: Alchemy::Config.default_site.host,
+          name: Alchemy.config.default_site.name,
+          host: Alchemy.config.default_site.host,
           public: true
         ) %>
     </div>

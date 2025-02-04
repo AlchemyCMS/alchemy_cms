@@ -17,7 +17,7 @@ module Alchemy
     include ActiveModel::Model
 
     def self.config
-      Alchemy::Config.get(:mailer)
+      Alchemy.config.get(:mailer)
     end
 
     attr_accessor :contact_form_id, :ip
@@ -32,7 +32,7 @@ module Alchemy
       case field.to_sym
       when /email/
         validates_format_of field,
-          with: Alchemy::Config.get("format_matchers")["email"],
+          with: Alchemy.config.get("format_matchers")["email"],
           if: -> { send(field).present? }
       when :email_confirmation
         validates_confirmation_of :email

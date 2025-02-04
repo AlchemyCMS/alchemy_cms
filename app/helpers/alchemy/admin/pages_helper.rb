@@ -10,7 +10,7 @@ module Alchemy
       # You can configure the screen sizes in your +config/alchemy/config.yml+.
       #
       def preview_sizes_for_select
-        Alchemy::Config.get(:page_preview_sizes).map do |size|
+        Alchemy.config.get(:page_preview_sizes).map do |size|
           [Alchemy.t(size, scope: "preview_sizes"), size]
         end
       end

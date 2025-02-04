@@ -74,7 +74,7 @@ module Alchemy
     private
 
     def mailer_config
-      Alchemy::Config.get(:mailer)
+      Alchemy.config.get(:mailer)
     end
 
     def mail_to

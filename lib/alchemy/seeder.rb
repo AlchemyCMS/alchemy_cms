@@ -116,7 +116,7 @@ module Alchemy
       # If no languages are present, create a default language based
       # on the host app's Alchemy configuration.
       def create_default_language!
-        default_language = Alchemy::Config.get(:default_language)
+        default_language = Alchemy.config.get(:default_language)
         if default_language
           Alchemy::Language.create!(
             name: default_language["name"],
@@ -134,7 +134,7 @@ module Alchemy
       end
 
       def create_default_site!
-        default_site = Alchemy::Config.get(:default_site)
+        default_site = Alchemy.config.get(:default_site)
         if default_site
           Alchemy::Site.create!(name: default_site["name"], host: default_site["host"])
         else

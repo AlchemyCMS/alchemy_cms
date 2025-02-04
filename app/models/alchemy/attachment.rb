@@ -83,12 +83,12 @@ module Alchemy
       end
 
       def allowed_filetypes
-        Config.get(:uploader).fetch("allowed_filetypes", {}).fetch("alchemy/attachments", [])
+        Alchemy.config.get(:uploader).fetch("allowed_filetypes", {}).fetch("alchemy/attachments", [])
       end
     end
 
     validates_presence_of :file
-    validates_size_of :file, maximum: Config.get(:uploader)["file_size_limit"].megabytes
+    validates_size_of :file, maximum: Alchemy.config.get(:uploader)["file_size_limit"].megabytes
     validates_property :ext,
       of: :file,
       in: allowed_filetypes,

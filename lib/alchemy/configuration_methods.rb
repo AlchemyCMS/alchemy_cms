@@ -13,7 +13,7 @@ module Alchemy
     # Config file is in +config/alchemy/config.yml+
     #
     def configuration(name)
-      Config.get(name)
+      Alchemy.config.get(name)
     end
 
     # Returns true if more than one language is published on current site.

@@ -3,7 +3,7 @@
 # For further information please see https://guides.alchemy-cms.com/pages.html
 
 <%- unless @options[:skip_demo_files] -%>
-- name: <%= Alchemy::Config.get(:default_language)['page_layout'] %>
+- name: <%= Alchemy.config.get(:default_language)['page_layout'] %>
   unique: true
   elements: [article]
   autogenerate: [article]

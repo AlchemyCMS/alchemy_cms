@@ -31,10 +31,10 @@
         <%== Alchemy.t('alchemy/language', scope: :no_resource_found) %>
       <% end %>
       <%= render 'form', language: Alchemy::Language.new(
-          name: Alchemy::Config.default_language.name,
-          code: Alchemy::Config.default_language.code,
-          page_layout: Alchemy::Config.default_language.page_layout,
-          frontpage_name: Alchemy::Config.default_language.frontpage_name,
+          name: Alchemy.config.default_language.name,
+          code: Alchemy.config.default_language.code,
+          page_layout: Alchemy.config.default_language.page_layout,
+          frontpage_name: Alchemy.config.default_language.frontpage_name,
           site: Alchemy::Current.site,
           default: true,
           public: true

@@ -6,6 +6,8 @@ module Alchemy
   end
 
   class BaseRecord < ActiveRecord::Base
+    include ConfigMissing
+    extend ConfigMissing
     extend Alchemy::SearchableResource
 
     self.abstract_class = true

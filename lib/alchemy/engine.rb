@@ -102,10 +102,10 @@ module Alchemy
       main_config = config_directory.join("config.yml")
       env_specific_config = config_directory.join("#{Rails.env}.config.yml")
       if File.exist?(main_config)
-        Alchemy::Config.set_from_yaml(main_config)
+        Alchemy.config.set_from_yaml(main_config)
       end
       if File.exist?(env_specific_config)
-        Alchemy::Config.set_from_yaml(env_specific_config)
+        Alchemy.config.set_from_yaml(env_specific_config)
       end
     end
 

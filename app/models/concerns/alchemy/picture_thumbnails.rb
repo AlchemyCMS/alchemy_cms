@@ -28,7 +28,7 @@ module Alchemy
     #
     # @option options format [String]
     #   The format the picture should be rendered in.
-    #   Defaults to the +image_output_format+ from the +Alchemy::Config+.
+    #   Defaults to the +image_output_format+ from the +Alchemy.config+.
     #
     # @option options crop [Boolean]
     #   If set to true the picture will be cropped to fit the size value.

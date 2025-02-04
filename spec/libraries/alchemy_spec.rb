@@ -44,7 +44,7 @@ RSpec.describe Alchemy do
     end
 
     it "has the auto_logout_time from config.yml" do
-      expect(subject.auto_logout_time).to eq(30)
+      expect(subject.auto_logout_time).to eq(40)
     end
 
     it "has the output_image_quality from test.config.yml" do
@@ -98,6 +98,15 @@ RSpec.describe Alchemy do
 
     it "yields the config object" do
       expect { subject }.to change(Alchemy.config, :auto_logout_time).to(500)
+    end
+  end
+
+  describe "deprecated: Config" do
+    subject { Alchemy::Config }
+
+    it "is the same as Alchemy.config, but deprecated" do
+      expect(Alchemy::Deprecation).to receive(:warn)
+      expect(Alchemy::Config).to eq(Alchemy.config)
     end
   end
 end

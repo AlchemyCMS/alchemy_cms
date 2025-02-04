@@ -153,7 +153,7 @@ module Alchemy
       private
 
       def caching_enabled?
-        Alchemy::Config.get(:cache_pages) &&
+        Alchemy.config.get(:cache_pages) &&
           Rails.application.config.action_controller.perform_caching
       end
     end

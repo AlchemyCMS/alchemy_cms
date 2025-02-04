@@ -185,7 +185,7 @@ module Alchemy
       #
       # == Example:
       #
-      #   validates_format_of :url, with: Alchemy::Config.get('format_matchers')['url']
+      #   validates_format_of :url, with: Alchemy.config.get('format_matchers')['url']
       #
       configuration :format_matchers, FormatMatchers
 

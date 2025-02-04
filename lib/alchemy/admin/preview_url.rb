@@ -59,7 +59,7 @@ module Alchemy
       attr_reader :routes
 
       def preview_config_for(page)
-        preview_config = Alchemy::Config.preview
+        preview_config = Alchemy.config.preview
         return unless preview_config
 
         preview_config.for_site(page.site) || preview_config
