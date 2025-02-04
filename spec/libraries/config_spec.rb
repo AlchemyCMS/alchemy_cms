@@ -178,5 +178,32 @@ module Alchemy
         end
       end
     end
+
+    describe "format matchers" do
+      describe "email" do
+        subject { Alchemy::Config.get("format_matchers")["email"] }
+
+        it { is_expected.to match("hello@gmail.com") }
+        it { is_expected.not_to match("stulli@gmx") }
+      end
+
+      describe "url" do
+        subject { Alchemy::Config.get("format_matchers")["url"] }
+
+        it { is_expected.to match("www.example.com:80/about") }
+        it { is_expected.not_to match('www.example.com:80\/about') }
+      end
+
+      describe "link_url" do
+        subject { Alchemy::Config.get("format_matchers")["link_url"] }
+
+        it { is_expected.to match("tel:12345") }
+        it { is_expected.to match("mailto:stulli@gmx.de") }
+        it { is_expected.to match("/home") }
+        it { is_expected.to match("https://example.com/home") }
+        it { is_expected.not_to match('\/brehmstierleben') }
+        it { is_expected.not_to match('https:\/\/example.com/home') }
+      end
+    end
   end
 end

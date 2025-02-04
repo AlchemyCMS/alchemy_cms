@@ -22,6 +22,7 @@ RSpec.describe Alchemy::Tasks::Usage do
         {"name" => "contactform", "count" => 0},
         {"name" => "download", "count" => 0},
         {"name" => "element_with_ingredient_groups", "count" => 0},
+        {"name" => "element_with_url", "count" => 0},
         {"name" => "element_with_warning", "count" => 0},
         {"name" => "erb_cell", "count" => 0},
         {"name" => "erb_element", "count" => 0},
