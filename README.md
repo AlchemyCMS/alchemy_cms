@@ -246,7 +246,7 @@ $ bin/rake alchemy:upgrade
 Alchemy will print out useful information after running the automated tasks that help a smooth upgrade path.
 So please **take your time and read them**.
 
-Always be sure to keep an eye on the `config/alchemy/config.yml.defaults` file and update your `config/alchemy/config.yml` accordingly.
+Always be sure to keep an eye on the output of your Rails app when starting. There will probably be useful information about deprecations.
 
 Also, `git diff` is your friend.
 

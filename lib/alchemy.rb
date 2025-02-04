@@ -2,9 +2,18 @@
 
 require "alchemy/admin/preview_url"
 require "importmap-rails"
+require "alchemy/configurations/main"
 
 module Alchemy
   YAML_PERMITTED_CLASSES = %w[Symbol Date Regexp]
+
+  def self.config
+    @_config ||= Alchemy::Configurations::Main.new
+  end
+
+  def self.configure(&blk)
+    yield config
+  end
 
   # Define page preview sources
   #
