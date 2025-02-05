@@ -7,7 +7,6 @@ namespace :alchemy do
   desc "Upgrades your app to AlchemyCMS v#{Alchemy::VERSION}."
   task upgrade: [
     "alchemy:upgrade:prepare",
-    "alchemy:upgrade:7.0:run",
     "alchemy:upgrade:7.3:run"
   ] do
     Alchemy::Upgrader.display_todos
@@ -31,32 +30,12 @@ namespace :alchemy do
       Alchemy::Upgrader.copy_new_config_file
     end
 
-    desc "Upgrade Alchemy to v7.0"
-    task "7.0" => [
-      "alchemy:upgrade:prepare",
-      "alchemy:upgrade:7.0:run"
-    ] do
-      Alchemy::Upgrader.display_todos
-    end
-
     desc "Upgrade Alchemy to v7.3"
     task "7.3" => [
       "alchemy:upgrade:prepare",
       "alchemy:upgrade:7.3:run"
     ] do
       Alchemy::Upgrader.display_todos
-    end
-
-    namespace "7.0" do
-      task "run" => [
-        "alchemy:upgrade:7.0:remove_admin_entrypoint"
-      ]
-
-      desc "Remove alchemy admin entrypoint"
-      task remove_admin_entrypoint: [:environment] do
-        puts "removing npm_package..."
-        Alchemy::Upgrader::SevenPointZero.remove_admin_entrypoint
-      end
     end
 
     namespace "7.3" do
