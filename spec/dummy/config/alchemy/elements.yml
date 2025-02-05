@@ -263,3 +263,10 @@
 
 - name: element_with_warning
   warning: "Do not use this element!"
+
+- name: element_with_url
+  ingredients:
+    - role: url
+      type: Text
+      validate:
+      - format: url
