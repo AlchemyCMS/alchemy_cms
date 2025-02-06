@@ -169,6 +169,32 @@ RSpec.describe Alchemy::Ingredients::PictureView, type: :component do
       expect(page).to have_selector('a[href="/home"] img')
     end
 
+    context "with link target set to '_blank'" do
+      before do
+        ingredient.link_target = "_blank"
+      end
+
+      it "adds rel noopener noreferrer" do
+        render_view
+        expect(page).to have_selector(
+          'a[href="/home"][target="_blank"][rel="noopener noreferrer"] img'
+        )
+      end
+    end
+
+    context "with link target set to 'blank'" do
+      before do
+        ingredient.link_target = "blank"
+      end
+
+      it "sets target '_blank' and adds rel noopener noreferrer" do
+        render_view
+        expect(page).to have_selector(
+          'a[href="/home"][target="_blank"][rel="noopener noreferrer"] img'
+        )
+      end
+    end
+
     context "but disabled link option" do
       before do
         options[:disable_link] = true

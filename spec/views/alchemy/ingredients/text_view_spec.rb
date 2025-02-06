@@ -50,6 +50,24 @@ describe "alchemy/ingredients/_text_view" do
       expect(rendered).to have_selector('a[title="Foo"][target="_blank"][href="http://google.com"]')
     end
 
+    context "with link target set to '_blank'" do
+      it "adds rel noopener noreferrer" do
+        render ingredient
+        expect(rendered).to have_selector(
+          'a[title="Foo"][target="_blank"][href="http://google.com"][rel="noopener noreferrer"]'
+        )
+      end
+    end
+
+    context "with link target set to 'blank'" do
+      it "sets target '_blank' and adds rel noopener noreferrer" do
+        render ingredient
+        expect(rendered).to have_selector(
+          'a[title="Foo"][target="_blank"][href="http://google.com"][rel="noopener noreferrer"]'
+        )
+      end
+    end
+
     context "with html_options given" do
       it "renders the linked with these options" do
         render ingredient, html_options: {title: "Bar", class: "blue"}
