@@ -65,10 +65,6 @@ module Alchemy
 
       def install_assets
         copy_file "custom.css", app_assets_path.join("stylesheets/alchemy/admin/custom.css")
-        sprockets_manifest = Rails.root.join("app/assets/config/manifest.js")
-        if File.exist?(sprockets_manifest)
-          append_to_file sprockets_manifest, "//= link alchemy/admin/custom.css\n"
-        end
       end
 
       def copy_demo_views

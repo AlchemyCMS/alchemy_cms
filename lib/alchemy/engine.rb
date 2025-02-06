@@ -16,11 +16,19 @@ module Alchemy
       end
     end
 
-    initializer "alchemy.assets" do
+    initializer "alchemy.assets" do |app|
       if defined?(Sprockets)
         require_relative "../non_stupid_digest_assets"
         NonStupidDigestAssets.whitelist += [/^tinymce\//]
-        Rails.application.config.assets.precompile << "alchemy_manifest.js"
+        app.config.assets.precompile << "alchemy_manifest.js"
+      end
+    end
+
+    initializer "alchemy.admin_stylesheets" do |app|
+      if defined?(Sprockets)
+        Alchemy.admin_stylesheets.each do |stylesheet|
+          app.config.assets.precompile << stylesheet
+        end
       end
     end
 
