@@ -1,6 +1,8 @@
 module Alchemy
   module Ingredients
     class TextView < BaseView
+      include LinkTarget
+
       attr_reader :disable_link
 
       delegate :dom_id, :link, :link_title, :link_target,
@@ -21,7 +23,8 @@ module Alchemy
           link_to(value, url_for(link), {
             id: dom_id.presence,
             title: link_title,
-            target: link_target
+            target: link_target_value(link_target),
+            rel: link_rel_value(link_target)
           }.merge(html_options))
         end.html_safe
       end

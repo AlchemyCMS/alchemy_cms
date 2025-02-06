@@ -4,6 +4,8 @@ module Alchemy
   module Ingredients
     # Renders a picture ingredient view
     class PictureView < BaseView
+      include LinkTarget
+
       attr_reader :ingredient,
         :show_caption,
         :disable_link,
@@ -46,10 +48,11 @@ module Alchemy
         output = caption ? img_tag + caption : img_tag
 
         if is_linked?
+          target = ingredient.link_target.presence
           output = link_to(output, url_for(ingredient.link), {
             title: ingredient.link_title.presence,
-            target: (ingredient.link_target == "blank") ? "_blank" : nil,
-            data: {link_target: ingredient.link_target.presence}
+            rel: link_rel_value(target),
+            target: link_target_value(target)
           })
         end
 
