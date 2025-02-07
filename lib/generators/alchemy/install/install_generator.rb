@@ -67,6 +67,10 @@ module Alchemy
         copy_file "custom.css", app_assets_path.join("stylesheets/alchemy/admin/custom.css")
       end
 
+      def install_active_storage
+        rake "active_storage:install:migrations"
+      end
+
       def copy_demo_views
         return if options[:skip_demo_files]
 
@@ -74,14 +78,6 @@ module Alchemy
         copy_file "_article.html.erb", app_views_path.join("alchemy", "elements", "_article.html.erb")
         copy_file "_standard.html.erb", app_views_path.join("alchemy", "page_layouts", "_standard.html.erb")
         copy_file "alchemy.en.yml", app_config_path.join("locales", "alchemy.en.yml")
-      end
-
-      def copy_dragonfly_config
-        template(
-          "#{__dir__}/templates/dragonfly.rb.tt",
-          app_config_path.join("initializers", "dragonfly.rb"),
-          skip: options[:auto_accept]
-        )
       end
 
       def install_gutentag_migrations

@@ -24,9 +24,21 @@ module Alchemy
     include Alchemy::Taggable
     include Alchemy::TouchElements
 
-    dragonfly_accessor :file, app: :alchemy_attachments do
-      after_assign { |f| write_attribute(:file_mime_type, f.mime_type) }
-    end
+    attr_readonly(
+      :legacy_image_file_name,
+      :legacy_image_file_size,
+      :legacy_image_file_uid
+    )
+
+    deprecate(
+      :legacy_image_file_name,
+      :legacy_image_file_size,
+      :legacy_image_file_uid,
+      deprecator: Alchemy::Deprecation
+    )
+
+    # Use ActiveStorage file attachments
+    has_one_attached :file
 
     stampable stamper_class_name: Alchemy.user_class.name
 
@@ -38,7 +50,11 @@ module Alchemy
     has_many :elements, through: :file_ingredients
     has_many :pages, through: :elements
 
-    scope :by_file_type, ->(file_type) { where(file_mime_type: file_type) }
+    scope :by_file_type,
+      ->(file_type) {
+        with_attached_file.joins(:file_blob).where(active_storage_blobs: {content_type: file_type})
+      }
+
     scope :recent, -> { where("#{table_name}.created_at > ?", Time.current - 24.hours).order(:created_at) }
     scope :without_tag, -> { left_outer_joins(:taggings).where(gutentag_taggings: {id: nil}) }
 
@@ -62,7 +78,7 @@ module Alchemy
         [
           {
             name: :by_file_type,
-            values: distinct.pluck(:file_mime_type).map { |type| [Alchemy.t(type, scope: "mime_types"), type] }.sort_by(&:first)
+            values: file_types
           },
           {
             name: :misc,
@@ -78,32 +94,46 @@ module Alchemy
         where(id: last_id)
       end
 
+      # Used by Alchemy::Resource#search_field_name to build the search query
       def searchable_alchemy_resource_attributes
-        %w[name file_name]
+        %w[name file_blob_filename]
+      end
+
+      def ransackable_attributes(_auth_object = nil)
+        %w[name]
+      end
+
+      def ransackable_associations(_auth_object = nil)
+        %w[file_blob]
       end
 
       def allowed_filetypes
         Config.get(:uploader).fetch("allowed_filetypes", {}).fetch("alchemy/attachments", [])
       end
+
+      private
+
+      def file_types
+        Alchemy.storage_adapter.file_formats(name)
+      end
     end
 
     validates_presence_of :file
-    validates_size_of :file, maximum: Config.get(:uploader)["file_size_limit"].megabytes
-    validates_property :ext,
-      of: :file,
-      in: allowed_filetypes,
-      case_sensitive: false,
-      message: Alchemy.t("not a valid file"),
-      unless: -> { self.class.allowed_filetypes.include?("*") }
 
-    before_save :set_name, if: :file_name_changed?
+    validate :file_not_too_big, if: -> { file.present? }
+
+    validate :file_type_allowed,
+      unless: -> { self.class.allowed_filetypes.include?("*") },
+      if: -> { file.present? }
+
+    before_save :set_name, if: -> { file.changed? }
 
     scope :with_file_type, ->(file_type) { where(file_mime_type: file_type) }
 
     # Instance methods
 
     def url(options = {})
-      if file
+      if file.present?
         self.class.url_class.new(self).call(options)
       end
     end
@@ -118,9 +148,23 @@ module Alchemy
       pages.any? && pages.not_restricted.blank?
     end
 
+    # File name
+    def file_name
+      file&.filename&.to_s
+    end
+
+    # File size
+    def file_size
+      file&.byte_size
+    end
+
+    def file_mime_type
+      super || file&.content_type
+    end
+
     # File format suffix
     def extension
-      file_name.split(".").last
+      file&.filename&.extension
     end
 
     alias_method :suffix, :extension
@@ -156,8 +200,23 @@ module Alchemy
 
     private
 
+    def file_type_allowed
+      unless extension&.in?(self.class.allowed_filetypes)
+        errors.add(:file, Alchemy.t("not a valid file"))
+      end
+    end
+
+    def file_not_too_big
+      maximum = Config.get(:uploader)["file_size_limit"]&.megabytes
+      return true unless maximum
+
+      if file_size > maximum
+        errors.add(:file, :too_big)
+      end
+    end
+
     def set_name
-      self.name = convert_to_humanized_name(file_name, file.ext)
+      self.name = convert_to_humanized_name(file_name, extension)
     end
   end
 end
