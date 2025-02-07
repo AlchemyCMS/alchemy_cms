@@ -341,6 +341,9 @@ const sidebar = VERSIONS.reduce((obj, version) => {
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "AlchemyCMS",
+  head: [
+    ['link', { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+  ],
   description:
     "Alchemy is the Open Source Rails CMS framework for the component based web that can be used as classic server side rendered or headless CMS.",
   // https://vitepress.dev/reference/default-theme-config
