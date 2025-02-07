@@ -56,6 +56,17 @@
 - Make page select portable [#3037](https://github.com/AlchemyCMS/alchemy_cms/pull/3037) ([tvdeyen](https://github.com/tvdeyen))
 - Allow Rails 8.0 [#3032](https://github.com/AlchemyCMS/alchemy_cms/pull/3032) ([tvdeyen](https://github.com/tvdeyen))
 
+## 7.3.5 (2025-01-24)
+
+- [7.3-stable] Prevent redefining 'alchemy-menubar' custom element when using Turbo [#3166](https://github.com/AlchemyCMS/alchemy_cms/pull/3166) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.3-stable] fix attribute sorting across Ruby versions [#3163](https://github.com/AlchemyCMS/alchemy_cms/pull/3163) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.3-stable] fix missing logger issue in github actions [#3158](https://github.com/AlchemyCMS/alchemy_cms/pull/3158) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.3-stable] CI: Set workflow permissions [#3140](https://github.com/AlchemyCMS/alchemy_cms/pull/3140) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.3-stable] Use safe redirect paths in admin redirects [#3137](https://github.com/AlchemyCMS/alchemy_cms/pull/3137) ([tvdeyen](https://github.com/tvdeyen))
+- [7.3-stable] CI: Run actions on ubuntu-22.04 [#3124](https://github.com/AlchemyCMS/alchemy_cms/pull/3124) ([tvdeyen](https://github.com/tvdeyen))
+- [7.3-stable] Fix image_overlay hidden form style [#3111](https://github.com/AlchemyCMS/alchemy_cms/pull/3111) ([tvdeyen](https://github.com/tvdeyen))
+- Fix tinymce fullscreen mode [#3100](https://github.com/AlchemyCMS/alchemy_cms/pull/3100) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.3.4 (2024-11-18)
 
 - [7.3-stable] chore: Fix rubocop styling issues [#3080](https://github.com/AlchemyCMS/alchemy_cms/pull/3080) ([tvdeyen](https://github.com/tvdeyen))
