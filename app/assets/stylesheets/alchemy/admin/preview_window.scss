@@ -1,28 +1,33 @@
+:root {
+  --preview-window-min-width: 0px;
+
+  @media screen and (min-width: $large-screen-break-point) {
+    --preview-window-min-width: 240px;
+  }
+}
+
 #alchemy_preview_window {
   position: absolute;
-  left: $main-menu-width;
+  left: var(--main-menu-width);
   top: 75px;
-  width: calc(100vw - #{$main-menu-width - $default-border-width});
+  width: calc(
+    100vw - var(--main-menu-width) - var(--elements-window-width) +
+      var(--border-width_small)
+  );
+  min-width: var(--preview-window-min-width);
+  max-width: calc(100vw - var(--main-menu-width));
   height: calc(100vh - #{$top-menu-height});
   border: 0 none;
   background: #fff;
   border-right: $default-border;
-  transition: width $transition-duration ease-in-out;
+  transition-duration: $transition-duration;
+  transition-timing-function: ease-in-out;
+  transition-property: width max-width;
 
-  .collapsed-menu & {
-    left: $collapsed-main-menu-width;
-    width: calc(100vw - #{$collapsed-main-menu-width - $default-border-width});
-  }
-
-  .collapsed-menu.elements-window-visible & {
-    width: calc(
-      100vw - #{$collapsed-main-menu-width - $default-border-width} - #{$elements-window-min-width}
+  .elements-window-visible & {
+    max-width: calc(
+      100vw - var(--main-menu-width) - var(--elements-window-min-width) +
+        var(--border-width_small)
     );
-
-    @media screen and (min-width: 1777px) {
-      width: calc(
-        100vw - #{$collapsed-main-menu-width - $default-border-width} - #{$elements-window-width}
-      );
-    }
   }
 }
