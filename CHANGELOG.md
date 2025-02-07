@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+- Add specs for format matchers [#3182](https://github.com/AlchemyCMS/alchemy_cms/pull/3182) ([mamhoff](https://github.com/mamhoff))
+- Allow additional stylesheets to be included in the admin UI [#3179](https://github.com/AlchemyCMS/alchemy_cms/pull/3179) ([tvdeyen](https://github.com/tvdeyen))
+- fix(Uploader): Handle HTML Errors during upload [#3176](https://github.com/AlchemyCMS/alchemy_cms/pull/3176) ([tvdeyen](https://github.com/tvdeyen))
+- Add rel="noopener noreferrer" to external links [#3175](https://github.com/AlchemyCMS/alchemy_cms/pull/3175) ([tvdeyen](https://github.com/tvdeyen))
+- Remove coffee-rails dependency [#3172](https://github.com/AlchemyCMS/alchemy_cms/pull/3172) ([tvdeyen](https://github.com/tvdeyen))
+- fix missing logger issue in github actions [#3154](https://github.com/AlchemyCMS/alchemy_cms/pull/3154) ([robinboening](https://github.com/robinboening))
+- fix attribute sorting across Ruby versions [#3153](https://github.com/AlchemyCMS/alchemy_cms/pull/3153) ([robinboening](https://github.com/robinboening))
+- Fix Alchemy Guides links [#3148](https://github.com/AlchemyCMS/alchemy_cms/pull/3148) ([zirni](https://github.com/zirni))
+- Correct element guides link in elements.yml.tt [#3146](https://github.com/AlchemyCMS/alchemy_cms/pull/3146) ([zirni](https://github.com/zirni))
+- CI: Brakeman needs security-events: write permissions [#3145](https://github.com/AlchemyCMS/alchemy_cms/pull/3145) ([tvdeyen](https://github.com/tvdeyen))
+- CI: Set workflow permissions [#3139](https://github.com/AlchemyCMS/alchemy_cms/pull/3139) ([tvdeyen](https://github.com/tvdeyen))
+- Use safe redirect paths in admin redirects [#3129](https://github.com/AlchemyCMS/alchemy_cms/pull/3129) ([tvdeyen](https://github.com/tvdeyen))
+- CI: Run actions on ubuntu-22.04 [#3122](https://github.com/AlchemyCMS/alchemy_cms/pull/3122) ([tvdeyen](https://github.com/tvdeyen))
 - Fix image_overlay hidden form style [#3110](https://github.com/AlchemyCMS/alchemy_cms/pull/3110) ([tvdeyen](https://github.com/tvdeyen))
 - [js] Update all development npm dependencies (2024-12-26) [#3109](https://github.com/AlchemyCMS/alchemy_cms/pull/3109) ([depfu](https://github.com/apps/depfu))
 - [ruby - main] Update rails_live_reload to version 0.4.0 [#3105](https://github.com/AlchemyCMS/alchemy_cms/pull/3105) ([depfu](https://github.com/apps/depfu))
@@ -41,6 +54,7 @@
 - Remove 7.x deprecations [#3041](https://github.com/AlchemyCMS/alchemy_cms/pull/3041) ([tvdeyen](https://github.com/tvdeyen))
 - Remove 7.x upgraders [#3039](https://github.com/AlchemyCMS/alchemy_cms/pull/3039) ([tvdeyen](https://github.com/tvdeyen))
 - Make page select portable [#3037](https://github.com/AlchemyCMS/alchemy_cms/pull/3037) ([tvdeyen](https://github.com/tvdeyen))
+- Allow Rails 8.0 [#3032](https://github.com/AlchemyCMS/alchemy_cms/pull/3032) ([tvdeyen](https://github.com/tvdeyen))
 
 ## 7.3.4 (2024-11-18)
 
@@ -1953,4 +1967,3 @@ No changes
 ## 3.0.0 (2014-07-03)
 
 [Release Notes](https://github.com/AlchemyCMS/alchemy_cms/releases/tag/v3.0.0)
-
