@@ -35,4 +35,78 @@ RSpec.describe Alchemy do
       end
     end
   end
+
+  describe ".config" do
+    subject { Alchemy.config }
+
+    it "is a config object" do
+      expect(subject).to be_a(Alchemy::Configurations::Main)
+    end
+
+    it "has the auto_logout_time from config.yml" do
+      expect(subject.auto_logout_time).to eq(40)
+    end
+
+    it "has the output_image_quality from test.config.yml" do
+      expect(subject.output_image_quality).to eq(85)
+    end
+
+    it "has the default image output format" do
+      expect(subject.image_output_format).to eq("original")
+    end
+
+    describe "format matchers" do
+      describe "email" do
+        subject { Alchemy.config.get("format_matchers")["email"] }
+
+        it { is_expected.to match("hello@gmail.com") }
+        it { is_expected.not_to match("stulli@gmx") }
+      end
+
+      describe "url" do
+        subject { Alchemy.config.get("format_matchers")["url"] }
+
+        it { is_expected.to match("www.example.com:80/about") }
+        it { is_expected.not_to match('www.example.com:80\/about') }
+      end
+
+      describe "link_url" do
+        subject { Alchemy.config.get("format_matchers")["link_url"] }
+
+        it { is_expected.to match("tel:12345") }
+        it { is_expected.to match("mailto:stulli@gmx.de") }
+        it { is_expected.to match("/home") }
+        it { is_expected.to match("https://example.com/home") }
+        it { is_expected.not_to match('\/brehmstierleben') }
+        it { is_expected.not_to match('https:\/\/example.com/home') }
+      end
+    end
+  end
+
+  describe ".configure" do
+    subject do
+      Alchemy.configure do |config|
+        config.auto_logout_time = 500
+      end
+    end
+
+    around do |example|
+      old_auto_logout_time = Alchemy.config.auto_logout_time
+      example.run
+      Alchemy.config.auto_logout_time = old_auto_logout_time
+    end
+
+    it "yields the config object" do
+      expect { subject }.to change(Alchemy.config, :auto_logout_time).to(500)
+    end
+  end
+
+  describe "deprecated: Config" do
+    subject { Alchemy::Config }
+
+    it "is the same as Alchemy.config, but deprecated" do
+      expect(Alchemy::Deprecation).to receive(:warn)
+      expect(Alchemy::Config).to eq(Alchemy.config)
+    end
+  end
 end

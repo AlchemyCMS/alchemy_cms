@@ -6,7 +6,7 @@ FactoryBot.define do
     code { ::I18n.available_locales.first.to_s }
     default { true }
     frontpage_name { "Intro" }
-    page_layout { Alchemy::Config.get(:default_language)["page_layout"] }
+    page_layout { Alchemy.config.get(:default_language)["page_layout"] }
 
     public { true }
 

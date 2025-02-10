@@ -296,9 +296,7 @@ module Alchemy
 
         context "when layout is set to custom" do
           before do
-            allow(Alchemy::Config).to receive(:get) do |arg|
-              (arg == :admin_page_preview_layout) ? "custom" : Alchemy::Config.parameter(arg)
-            end
+            stub_alchemy_config(:admin_page_preview_layout, "custom")
           end
 
           it "it renders custom layout instead" do

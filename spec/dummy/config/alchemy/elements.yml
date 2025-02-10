@@ -67,7 +67,7 @@
     - role: mail_from
       type: Text
       validate:
-        - presence
+        - format: email
     - role: mail_to
       type: Text
       validate:

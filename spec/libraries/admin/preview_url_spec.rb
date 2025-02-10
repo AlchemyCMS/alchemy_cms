@@ -21,9 +21,9 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
     context "with preview configured" do
       context "without protocol" do
         before do
-          stub_alchemy_config(:preview, {
+          stub_alchemy_config(:preview, Alchemy::Configurations::Preview.new({
             "host" => "www.example.com"
-          })
+          }))
         end
 
         it "raises error" do
@@ -33,9 +33,9 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
 
       context "as http url" do
         before do
-          stub_alchemy_config(:preview, {
+          stub_alchemy_config(:preview, Alchemy::Configurations::Preview.new({
             "host" => "http://www.example.com"
-          })
+          }))
         end
 
         it "returns the configured preview url" do
@@ -45,9 +45,9 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
 
       context "as https url" do
         before do
-          stub_alchemy_config(:preview, {
+          stub_alchemy_config(:preview, Alchemy::Configurations::Preview.new({
             "host" => "https://www.example.com"
-          })
+          }))
         end
 
         it "returns the configured preview url with https" do
@@ -57,13 +57,13 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
 
       context "and with basic auth configured" do
         before do
-          stub_alchemy_config(:preview, {
+          stub_alchemy_config(:preview, Alchemy::Configurations::Preview.new({
             "host" => "https://www.example.com",
             "auth" => {
               "username" => "foo",
               "password" => "baz"
             }
-          })
+          }))
         end
 
         it "returns the configured preview url with userinfo" do
@@ -73,9 +73,9 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
 
       context "with a port configured" do
         before do
-          stub_alchemy_config(:preview, {
+          stub_alchemy_config(:preview, Alchemy::Configurations::Preview.new({
             "host" => "https://www.example.com:8080"
-          })
+          }))
         end
 
         it "returns the configured preview url with userinfo" do
@@ -90,11 +90,11 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
 
         context "that matches the pages site name" do
           let(:config) do
-            {
+            Alchemy::Configurations::Preview.new({
               page.site.name => {
                 "host" => "http://new.example.com"
               }
-            }
+            })
           end
 
           it "returns the configured preview url for that site" do
@@ -105,12 +105,12 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
         context "that does not match the pages site name" do
           context "with a default configured" do
             let(:config) do
-              {
+              Alchemy::Configurations::Preview.new({
                 "Not matching site name" => {
                   "host" => "http://new.example.com"
                 },
                 "host" => "http://www.example.com"
-              }
+              })
             end
 
             it "returns the default configured preview url" do
@@ -120,11 +120,11 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
 
           context "without a default configured" do
             let(:config) do
-              {
+              Alchemy::Configurations::Preview.new({
                 "Not matching site name" => {
                   "host" => "http://new.example.com"
                 }
-              }
+              })
             end
 
             it "returns the internal preview url" do
@@ -138,9 +138,9 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
         let(:page) { create(:alchemy_page, :language_root) }
 
         before do
-          stub_alchemy_config(:preview, {
+          stub_alchemy_config(:preview, Alchemy::Configurations::Preview.new({
             "host" => "https://www.example.com"
-          })
+          }))
         end
 
         it "returns the preview url without urlname" do

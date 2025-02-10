@@ -53,14 +53,14 @@ module Alchemy
         install_tasks.inject_routes(options[:auto_accept])
       end
 
-      def copy_config
-        copy_file "#{gem_config_path}/config.yml", app_config_path.join("alchemy", "config.yml")
-      end
-
       def copy_yml_files
         %w[elements page_layouts menus].each do |file|
           template "#{__dir__}/templates/#{file}.yml.tt", app_config_path.join("alchemy", "#{file}.yml")
         end
+      end
+
+      def copy_config_rb
+        template "#{__dir__}/templates/alchemy.rb.tt", app_config_path.join("initializers", "alchemy.rb")
       end
 
       def install_assets

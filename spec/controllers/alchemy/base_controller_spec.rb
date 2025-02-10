@@ -29,7 +29,7 @@ module Alchemy
 
     describe "#configuration" do
       it "returns certain configuration options" do
-        allow(Config).to receive(:show).and_return({"some_option" => true})
+        allow(Config).to receive(:some_option).and_return(true)
         expect(controller.configuration(:some_option)).to eq(true)
       end
     end

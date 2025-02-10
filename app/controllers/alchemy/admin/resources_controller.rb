@@ -224,11 +224,11 @@ module Alchemy
 
       def items_per_page
         cookies[:alchemy_items_per_page] =
-          params[:per_page] || cookies[:alchemy_items_per_page] || Alchemy::Config.get(:items_per_page)
+          params[:per_page] || cookies[:alchemy_items_per_page] || Alchemy.config.get(:items_per_page)
       end
 
       def items_per_page_options
-        per_page = Alchemy::Config.get(:items_per_page)
+        per_page = Alchemy.config.get(:items_per_page)
         [per_page, per_page * 2, per_page * 4]
       end
 

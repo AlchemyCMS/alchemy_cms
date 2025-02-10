@@ -31,12 +31,15 @@
         <%== Alchemy.t('alchemy/language', scope: :no_resource_found) %>
       <% end %>
       <%= render 'form', language: Alchemy::Language.new(
-        Alchemy::Config.get(:default_language).merge(
+          name: Alchemy.config.default_language.name,
+          code: Alchemy.config.default_language.code,
+          page_layout: Alchemy.config.default_language.page_layout,
+          frontpage_name: Alchemy.config.default_language.frontpage_name,
           site: Alchemy::Current.site,
           default: true,
           public: true
         )
-      ) %>
+       %>
     </div>
   <% end %>
 </div>
