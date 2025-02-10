@@ -194,6 +194,18 @@ module Alchemy
 
       # The sizes for the preview size select in the page editor.
       option :page_preview_sizes, :integer_list, default: [360, 640, 768, 1024, 1280, 1440]
+
+      # Enable full text search configuration
+      #
+      # It enables a searchable checkbox in the page form to toggle
+      # the searchable field. These information can used in a search
+      # plugin (e.g. https://github.com/AlchemyCMS/alchemy-pg_search).
+      #
+      # == Example
+      #
+      #     # config/initializers/alchemy.rb
+      #     Alchemy.config.page_searchable_checkbox = true
+      option :show_page_searchable_checkbox, :boolean, default: false
     end
   end
 end

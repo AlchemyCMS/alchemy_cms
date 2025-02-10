@@ -11,19 +11,6 @@ module Alchemy
 
   YAML_PERMITTED_CLASSES = %w[Symbol Date Regexp]
 
-  # Enable full text search configuration
-  #
-  # It enables a searchable checkbox in the page form to toggle
-  # the searchable field. These information can used in a search
-  # plugin (e.g. https://github.com/AlchemyCMS/alchemy-pg_search).
-  #
-  # == Example
-  #
-  #     # config/initializers/alchemy.rb
-  #     Alchemy.enable_searchable = true
-  #
-  mattr_accessor :enable_searchable, default: false
-
   # JS Importmap instance
   singleton_class.attr_accessor :importmap
   self.importmap = Importmap::Map.new
@@ -36,6 +23,15 @@ module Alchemy
     def configure(&blk)
       yield config
     end
+
+    enable_searchable_deprecation_msg = "Use `Alchemy.config.show_page_searchable_checkbox` instead."
+    def enable_searchable = config.show_page_searchable_checkbox
+    deprecate :enable_searchable= => enable_searchable_deprecation_msg, :deprecator => Alchemy::Deprecation
+
+    def enable_searchable=(other)
+      config.show_page_searchable_checkbox = other
+    end
+    deprecate enable_searchable: enable_searchable_deprecation_msg, deprecator: Alchemy::Deprecation
 
     # Define page preview sources
     #
