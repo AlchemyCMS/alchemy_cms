@@ -9,7 +9,7 @@ module Alchemy
 
       def initialize(value:, name:, **args)
         @name = name
-        @value = validate(value) if value
+        @value = validate(value) unless value.nil?
       end
       attr_reader :name, :value
 
