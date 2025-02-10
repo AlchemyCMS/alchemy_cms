@@ -109,4 +109,21 @@ RSpec.describe Alchemy do
       expect(Alchemy::Config).to eq(Alchemy.config)
     end
   end
+
+  describe "legacy configuration methods" do
+    around do |example|
+      Alchemy::Deprecation.silence { example.run }
+    end
+    describe ".enable_searchable" do
+      it "forwards to config.page_searchable_checkbox" do
+        expect do
+          Alchemy.enable_searchable = true
+        end.to change(Alchemy.config, :show_page_searchable_checkbox).to(true)
+        # Reset
+        expect do
+          Alchemy.enable_searchable = false
+        end.to change(Alchemy, :enable_searchable).to(false)
+      end
+    end
+  end
 end

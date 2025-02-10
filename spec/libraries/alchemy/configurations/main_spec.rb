@@ -33,4 +33,13 @@ RSpec.describe Alchemy::Configurations::Main do
       end.to change { subject.output_image_quality }.from(85).to(90)
     end
   end
+
+  describe "default values" do
+    let(:configuration) { described_class.new }
+
+    describe "#page_searchable_checkbox" do
+      subject { configuration.show_page_searchable_checkbox }
+      it { is_expected.to be false }
+    end
+  end
 end
