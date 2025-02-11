@@ -28,4 +28,21 @@ RSpec.describe Alchemy::Configuration::CollectionOption do
       it { is_expected.to contain_exactly("foo", "bar") }
     end
   end
+
+  context "with an array of configurations" do
+    let(:collection_class) { Array }
+    let(:item_class) { Alchemy::Configurations::Sitemap }
+    let(:value) do
+      [
+        Alchemy::Configurations::Sitemap.new(
+          show_root: true,
+          show_flag: false
+        )
+      ]
+    end
+
+    it "contains configurations" do
+      expect(subject.value.first.show_root).to be true
+    end
+  end
 end
