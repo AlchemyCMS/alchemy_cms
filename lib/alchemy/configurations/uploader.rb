@@ -4,8 +4,8 @@ module Alchemy
   module Configurations
     class Uploader < Alchemy::Configuration
       class AllowedFileTypes < Alchemy::Configuration
-        option :alchemy_attachments, :string_list, default: ["*"]
-        option :alchemy_pictures, :string_list, default: %w[jpg jpeg gif png svg webp]
+        option :alchemy_attachments, :collection, item_class: String, default: ["*"]
+        option :alchemy_pictures, :collection, item_class: String, default: %w[jpg jpeg gif png svg webp]
 
         def set(configuration_hash)
           super(configuration_hash.transform_keys { transform_key(_1) })
