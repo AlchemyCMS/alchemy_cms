@@ -3,6 +3,16 @@
 Rails.application.config.to_prepare do
   require "alchemy/devise/ability"
 
+  alchemy_7_4 = Gem::Version.new("7.4.0.a")
+
+  icon = if Alchemy.gem_version.between? Gem::Version.new("7.1.0-b1"), alchemy_7_4
+    "group-line"
+  elsif Alchemy.gem_version > alchemy_7_4
+    "group"
+  else
+    "users"
+  end
+
   Alchemy.register_ability(Alchemy::Devise::Ability)
 
   Alchemy::Modules.register_module({
@@ -13,7 +23,7 @@ Rails.application.config.to_prepare do
       name: "modules.users",
       controller: "/alchemy/admin/users",
       action: "index",
-      icon: (Alchemy.gem_version > Gem::Version.new("7.1.0-b1")) ? "group-line" : "users"
+      icon: icon
     }
   })
 
