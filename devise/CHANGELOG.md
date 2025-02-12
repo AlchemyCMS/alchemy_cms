@@ -1,5 +1,12 @@
 # Changelog
 
+## 7.4.1 (2025-02-12)
+
+- Fix module icon for Alchemy 7.4 [#224](https://github.com/AlchemyCMS/alchemy-devise/pull/224) ([tvdeyen](https://github.com/tvdeyen))
+- Update sqlite3 requirement from ~> 1.4 to ~> 2.5 [#223](https://github.com/AlchemyCMS/alchemy-devise/pull/223) ([dependabot](https://github.com/apps/dependabot))
+- Update rspec-rails requirement from ~> 6.0 to ~> 7.1 [#222](https://github.com/AlchemyCMS/alchemy-devise/pull/222) ([dependabot](https://github.com/apps/dependabot))
+- Enable dependabot version updates [#221](https://github.com/AlchemyCMS/alchemy-devise/pull/221) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.4.0 (2025-01-21)
 
 - Extend test matrix [#219](https://github.com/AlchemyCMS/alchemy-devise/pull/219) ([mamhoff](https://github.com/mamhoff))

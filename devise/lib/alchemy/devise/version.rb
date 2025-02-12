@@ -1,5 +1,5 @@
 module Alchemy
   module Devise
-    VERSION = "7.4.0"
+    VERSION = "7.4.1"
   end
 end
