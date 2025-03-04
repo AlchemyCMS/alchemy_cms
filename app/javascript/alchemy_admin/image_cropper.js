@@ -22,9 +22,11 @@ export default class ImageCropper {
     this.#cropSizeField = document.getElementById(formFieldIds[1])
     this.elementId = elementId
     this.dialog = Alchemy.currentDialog()
-    this.dialog.options.closed = () => this.destroy()
+    if (this.dialog) {
+      this.dialog.options.closed = () => this.destroy()
+      this.bind()
+    }
     this.init()
-    this.bind()
   }
 
   get cropperOptions() {
@@ -32,6 +34,8 @@ export default class ImageCropper {
       aspectRatio: this.aspectRatio,
       viewMode: 1,
       zoomable: false,
+      checkCrossOrigin: false, // Prevent CORS issues
+      checkOrientation: false, // Prevent loading the image via AJAX which can cause CORS issues
       minCropBoxWidth: this.minSize && this.minSize[0],
       minCropBoxHeight: this.minSize && this.minSize[1],
       ready: (event) => {
