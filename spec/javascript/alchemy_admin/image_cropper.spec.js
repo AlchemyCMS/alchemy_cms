@@ -12,6 +12,36 @@ describe("ImageCropper", () => {
       Alchemy.currentDialog = jest.fn()
     })
 
+    it("is sets initial data", () => {
+      const image = new Image()
+      const cropper = new ImageCropper(
+        image,
+        {},
+        1,
+        ["crop_from", "crop_size"],
+        "element_id"
+      )
+      expect(cropper.cropperOptions["data"]).toEqual({
+        height: 480,
+        width: 1200,
+        x: 0,
+        y: 423
+      })
+    })
+
+    it("does not set min crop size", () => {
+      const image = new Image()
+      const cropper = new ImageCropper(
+        image,
+        {},
+        1,
+        ["crop_from", "crop_size"],
+        "element_id"
+      )
+      expect(cropper.cropperOptions["minCropBoxWidth"]).toBeUndefined()
+      expect(cropper.cropperOptions["minCropBoxHeight"]).toBeUndefined()
+    })
+
     it("prevents CORS issues", () => {
       const image = new Image()
       const cropper = new ImageCropper(
