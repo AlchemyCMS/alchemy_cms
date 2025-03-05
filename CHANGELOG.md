@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 7.4.1 (2025-03-05)
+
+- [7.4-stable] Fix image cropper [#3193](https://github.com/AlchemyCMS/alchemy_cms/pull/3193) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
+## 7.4.0 (2025-02-07)
+
 - Add specs for format matchers [#3182](https://github.com/AlchemyCMS/alchemy_cms/pull/3182) ([mamhoff](https://github.com/mamhoff))
 - Allow additional stylesheets to be included in the admin UI [#3179](https://github.com/AlchemyCMS/alchemy_cms/pull/3179) ([tvdeyen](https://github.com/tvdeyen))
 - fix(Uploader): Handle HTML Errors during upload [#3176](https://github.com/AlchemyCMS/alchemy_cms/pull/3176) ([tvdeyen](https://github.com/tvdeyen))

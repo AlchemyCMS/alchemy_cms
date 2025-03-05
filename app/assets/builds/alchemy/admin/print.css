@@ -1,1 +1,17 @@
-div#main_menu,div#top_menu,div#corner,div#flash_notices,div.pagination span,div.pagination a{display:none}div#archive_all{padding:0}span.icon.true:before{content:"x"}div.pagination{text-align:right}div.pagination em.current{border:none;text-shadow:none}div.pagination em:before{content:"Page "}/*# sourceMappingURL=print.css.map */
+/* Error: Can't find stylesheet to import.
+ *   ,
+ * 1 | @use "../defaults";
+ *   | ^^^^^^^^^^^^^^^^^^
+ *   '
+ *   app/stylesheets/alchemy/admin/print.scss 1:1  root stylesheet */
+
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Can't find stylesheet to import.\a   \2577 \a 1 \2502  @use \"../defaults\";\a   \2502  ^^^^^^^^^^^^^^^^^^\a   \2575 \a   app/stylesheets/alchemy/admin/print.scss 1:1  root stylesheet";
+}
