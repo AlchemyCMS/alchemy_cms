@@ -6,25 +6,19 @@ export default class ImageCropper {
   #cropFromField = null
   #cropSizeField = null
 
-  constructor(
-    image,
-    minSize,
-    defaultBox,
-    aspectRatio,
-    formFieldIds,
-    elementId
-  ) {
+  constructor(image, defaultBox, aspectRatio, formFieldIds, elementId) {
     this.image = image
-    this.minSize = minSize
     this.defaultBox = defaultBox
     this.aspectRatio = aspectRatio
     this.#cropFromField = document.getElementById(formFieldIds[0])
     this.#cropSizeField = document.getElementById(formFieldIds[1])
     this.elementId = elementId
     this.dialog = Alchemy.currentDialog()
-    this.dialog.options.closed = () => this.destroy()
+    if (this.dialog) {
+      this.dialog.options.closed = () => this.destroy()
+      this.bind()
+    }
     this.init()
-    this.bind()
   }
 
   get cropperOptions() {
@@ -32,12 +26,9 @@ export default class ImageCropper {
       aspectRatio: this.aspectRatio,
       viewMode: 1,
       zoomable: false,
-      minCropBoxWidth: this.minSize && this.minSize[0],
-      minCropBoxHeight: this.minSize && this.minSize[1],
-      ready: (event) => {
-        const cropper = event.target.cropper
-        cropper.setData(this.box)
-      },
+      checkCrossOrigin: false, // Prevent CORS issues
+      checkOrientation: false, // Prevent loading the image via AJAX which can cause CORS issues
+      data: this.box,
       cropend: () => {
         const data = this.#cropper.getData(true)
         this.update(data)
