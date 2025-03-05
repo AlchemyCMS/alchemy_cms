@@ -6,16 +6,8 @@ export default class ImageCropper {
   #cropFromField = null
   #cropSizeField = null
 
-  constructor(
-    image,
-    minSize,
-    defaultBox,
-    aspectRatio,
-    formFieldIds,
-    elementId
-  ) {
+  constructor(image, defaultBox, aspectRatio, formFieldIds, elementId) {
     this.image = image
-    this.minSize = minSize
     this.defaultBox = defaultBox
     this.aspectRatio = aspectRatio
     this.#cropFromField = document.getElementById(formFieldIds[0])
@@ -36,12 +28,7 @@ export default class ImageCropper {
       zoomable: false,
       checkCrossOrigin: false, // Prevent CORS issues
       checkOrientation: false, // Prevent loading the image via AJAX which can cause CORS issues
-      minCropBoxWidth: this.minSize && this.minSize[0],
-      minCropBoxHeight: this.minSize && this.minSize[1],
-      ready: (event) => {
-        const cropper = event.target.cropper
-        cropper.setData(this.box)
-      },
+      data: this.box,
       cropend: () => {
         const data = this.#cropper.getData(true)
         this.update(data)
