@@ -16,6 +16,10 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,locales,lib,vendor}/**/*", "CHANGELOG.md", "LICENSE", "README.md"]
 
+  s.metadata["homepage_uri"] = gem.homepage
+  s.metadata["source_code_uri"] = "https://github.com/AlchemyCMS/alchemy_i18n"
+  s.metadata["changelog_uri"] = "https://github.com/AlchemyCMS/alchemy_i18n/blob/main/CHANGELOG.md"
+
   s.add_dependency "alchemy_cms", [">= 7.1.0", "< 9"]
   s.add_dependency "rails-i18n"
 
