@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,locales,lib,vendor}/**/*", "CHANGELOG.md", "LICENSE", "README.md"]
 
-  s.metadata["homepage_uri"] = gem.homepage
+  s.metadata["homepage_uri"] = s.homepage
   s.metadata["source_code_uri"] = "https://github.com/AlchemyCMS/alchemy_i18n"
   s.metadata["changelog_uri"] = "https://github.com/AlchemyCMS/alchemy_i18n/blob/main/CHANGELOG.md"
 
