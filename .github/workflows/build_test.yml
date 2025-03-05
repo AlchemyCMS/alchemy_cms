@@ -34,7 +34,6 @@ jobs:
     runs-on: ubuntu-22.04
     name: Build JS packages
     needs: check_bun_lock
-    if: needs.check_bun_lock.outputs.bun_lock_changed == 'true'
     steps:
       - uses: actions/checkout@v4
       - name: Setup Bun
@@ -49,8 +48,10 @@ jobs:
       - name: Install dependencies
         run: bun install
       - name: bun build
+        if: needs.check_bun_lock.outputs.bun_lock_changed == 'true'
         run: bun run --bun build
       - uses: actions/upload-artifact@v4
+        if: needs.check_bun_lock.outputs.bun_lock_changed == 'true'
         with:
           name: javascript-bundles
           path: vendor/javascript
@@ -59,7 +60,6 @@ jobs:
     permissions:
       contents: read
     needs: [check_bun_lock, build_javascript]
-    if: ${{ success('check_bun_lock') && !failure('build_javascript') }}
     runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
