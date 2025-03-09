@@ -111,7 +111,7 @@ RSpec.describe Alchemy::Configuration do
   describe "integer lists" do
     let(:configuration) do
       Class.new(described_class) do
-        option :page_preview_sizes, :integer_list, default: [1, 2]
+        option :page_preview_sizes, :collection, item_class: Integer, default: [1, 2]
       end.new
     end
 
@@ -122,14 +122,14 @@ RSpec.describe Alchemy::Configuration do
     it "can only be set with an integer list" do
       expect do
         configuration.page_preview_sizes = ["1"]
-      end.to raise_exception(TypeError, 'page_preview_sizes must be an Array of integers, given ["1"]')
+      end.to raise_exception(TypeError, 'page_preview_sizes must be a Array of integers, given ["1"]')
     end
   end
 
   describe "string lists" do
     let(:configuration) do
       Class.new(described_class) do
-        option :link_target_options, :string_list, default: ["blank"]
+        option :link_target_options, :collection, item_class: String, default: ["blank"]
       end.new
     end
 
@@ -140,7 +140,7 @@ RSpec.describe Alchemy::Configuration do
     it "can only be set with an Array of strings" do
       expect do
         configuration.link_target_options = [:blank]
-      end.to raise_exception(TypeError, "link_target_options must be an Array of strings, given [:blank]")
+      end.to raise_exception(TypeError, "link_target_options must be a Array of strings, given [:blank]")
     end
   end
 
@@ -184,7 +184,7 @@ RSpec.describe Alchemy::Configuration do
     let(:configuration_class) do
       Class.new(described_class) do
         option :mail_success_page, :string, default: "thanks"
-        option :link_target_options, :string_list, default: ["blank"]
+        option :link_target_options, :collection, item_class: String, default: ["blank"]
       end
     end
 
@@ -202,7 +202,7 @@ RSpec.describe Alchemy::Configuration do
     let(:configuration_class) do
       Class.new(described_class) do
         option :mail_success_page, :string, default: "thanks"
-        option :link_target_options, :string_list, default: ["blank"]
+        option :link_target_options, :collection, item_class: String, default: ["blank"]
       end
     end
 
@@ -221,7 +221,7 @@ RSpec.describe Alchemy::Configuration do
     let(:configuration) do
       Class.new(described_class) do
         option :mail_success_page, :string, default: "thanks"
-        option :link_target_options, :string_list, default: ["blank"]
+        option :link_target_options, :collection, item_class: String, default: ["blank"]
       end.new
     end
 
