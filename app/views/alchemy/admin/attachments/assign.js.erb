@@ -6,6 +6,9 @@
   $form_field.parent().find("> .file_icon").html("<%= j render_icon(@attachment.icon_css_class) %>")
   $form_field.parent().find("> .remove_file_link").removeClass("hidden")
   Alchemy.closeCurrentDialog(function() {
-    $form_field[0].closest("alchemy-element-editor").setDirty()
+    var elementEditor = $form_field[0].closest("alchemy-element-editor")
+    if (elementEditor) {
+      elementEditor.setDirty()
+    }
   })
 })()

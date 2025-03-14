@@ -5,6 +5,9 @@
   $form_field.attr("data-image-file-width", <%= @picture.image_file_width %>)
   $form_field.attr("data-image-file-height", <%= @picture.image_file_height %>)
   Alchemy.closeCurrentDialog(function() {
-    $form_field[0].closest("alchemy-element-editor").setDirty()
+    var elementEditor = $form_field[0].closest("alchemy-element-editor")
+    if (elementEditor) {
+      elementEditor.setDirty()
+    }
   })
 })()
