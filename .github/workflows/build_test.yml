@@ -22,9 +22,14 @@ jobs:
           fetch-depth: 0 # Fetch all history
       - name: Get changed files
         id: changed-bun-lock
-        uses: tj-actions/changed-files@v41
-        with:
-          files: bun.lockdb
+        run: |
+          git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} > changed_files
+          cat changed_files
+          if grep -q bun.lockdb changed_files; then
+            echo "any_changed=true" > $GITHUB_OUTPUT
+          else
+            echo "any_changed=false" > $GITHUB_OUTPUT
+          fi
     outputs:
       bun_lock_changed: ${{ steps.changed-bun-lock.outputs.any_changed }}
 
