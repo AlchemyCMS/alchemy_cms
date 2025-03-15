@@ -2470,7 +2470,7 @@ body.tox-dialog__disable-scroll {
   overscroll-behavior: none;
   padding: 0;
   touch-action: pinch-zoom;
-  width: 100%;
+  width: 100% !important;
 }
 
 .tox.tox-tinymce.tox-fullscreen .tox-statusbar__resize-handle {
