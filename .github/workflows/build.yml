@@ -17,11 +17,16 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Get all changed markdown files
+      - name: Get changed files
         id: changed-yarn-lock
-        uses: tj-actions/changed-files@v41
-        with:
-          files: yarn.lock
+        run: |
+          git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} > changed_files
+          cat changed_files
+          if grep -q yarn.lock changed_files; then
+            echo "any_changed=true" > $GITHUB_OUTPUT
+          else
+            echo "any_changed=false" > $GITHUB_OUTPUT
+          fi
     outputs:
       yarn_lock_changed: ${{ steps.changed-yarn-lock.outputs.any_changed }}
   build:
