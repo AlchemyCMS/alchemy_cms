@@ -181,13 +181,15 @@ alchemy-tinymce {
   }
 
   &.element-hidden {
-    display: block;
     border-style: dashed;
-    opacity: 0.7;
-    transition: opacity vars.$transition-duration;
 
-    &:hover {
-      opacity: 1;
+    &.folded {
+      opacity: 0.7;
+      transition: opacity vars.$transition-duration;
+
+      &:hover {
+        opacity: 1;
+      }
     }
 
     > .element-header {
