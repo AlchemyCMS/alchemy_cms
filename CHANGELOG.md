@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.2.9 (2025-03-17)
+
+- [7.2-stable] Fix link dialog for links with url scheme mailto [#3205](https://github.com/AlchemyCMS/alchemy_cms/pull/3205) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.2-stable] CI: Use own script to check changes files [#3201](https://github.com/AlchemyCMS/alchemy_cms/pull/3201) ([tvdeyen](https://github.com/tvdeyen))
+- [7.2-stable] Add rel="noopener noreferrer" to external links [#3184](https://github.com/AlchemyCMS/alchemy_cms/pull/3184) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.2.8 (2025-01-24)
 
 - [7.2-stable] fix attribute sorting across Ruby versions [#3162](https://github.com/AlchemyCMS/alchemy_cms/pull/3162) ([alchemycms-bot](https://github.com/alchemycms-bot))
