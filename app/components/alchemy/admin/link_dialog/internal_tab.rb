@@ -49,7 +49,8 @@ module Alchemy
         end
 
         def page_attributes
-          locale, urlname, _fragment = uri.path.match(PAGE_URL_PATTERN)&.captures
+          # uri.path might be nil if the protocol is mailto: or a similar scheme that cannot have paths
+          locale, urlname, _fragment = uri.path&.match(PAGE_URL_PATTERN)&.captures
 
           if locale && urlname.present?
             {language_code: locale, urlname: urlname}
