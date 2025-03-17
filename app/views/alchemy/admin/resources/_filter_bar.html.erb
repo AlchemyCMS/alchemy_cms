@@ -1,5 +1,7 @@
 <div id="filter_bar">
-  <%= render partial: "filter", collection: resource_filters_for_select %>
+  <% resource_filters_for_select.each do |filter| %>
+    <%= render filter.to_partial_path, filter: %>
+  <% end %>
 </div>
 
 <script type="module">

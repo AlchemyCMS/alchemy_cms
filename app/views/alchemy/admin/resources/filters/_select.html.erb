@@ -1,11 +1,11 @@
 <label>
-  <h3><%= Alchemy.t("name", scope: ["filters", resource_name, filter.name]) || Alchemy.t('Filter') %></h3>
+  <h3><%= Alchemy.t("name", scope: ["filters", filter.resource_name, filter.name]) || Alchemy.t('Filter') %></h3>
   <%= select_tag(
     filter.name,
     options_for_select(
       filter.options_for_select, search_filter_params.dig(:filter, filter.name)
     ),
-    include_blank: Alchemy.t(:all, scope: ['resources', resource_name, 'filters']),
+    include_blank: Alchemy.t(:all, scope: ['resources', filter.resource_name, 'filters']),
     data: { remote: !!request.xhr? },
     is: 'alchemy-select'
   ) %>

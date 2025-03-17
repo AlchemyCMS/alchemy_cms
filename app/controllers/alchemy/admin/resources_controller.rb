@@ -101,7 +101,7 @@ module Alchemy
 
       def resource_filters_for_select
         resource_filters.map do |filter|
-          ResourceFilter.new(filter, resource_handler.resource_name)
+          ResourceFilters.build(filter, resource_handler.resource_name)
         end
       end
 

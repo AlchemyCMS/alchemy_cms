@@ -1,0 +1,4 @@
+<label>
+  <h3><%= Alchemy.t("name", scope: ["filters", filter.resource_name, filter.name]) || Alchemy.t('Filter') %></h3>
+  <%= text_field_tag(filter.name) %>
+</label>
