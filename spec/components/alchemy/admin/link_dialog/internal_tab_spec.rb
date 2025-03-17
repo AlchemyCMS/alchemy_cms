@@ -94,4 +94,12 @@ RSpec.describe Alchemy::Admin::LinkDialog::InternalTab, type: :component do
       expect(page.find(:css, "select[name=element_anchor]").value).to be_empty
     end
   end
+
+  context "with url being mailto" do
+    let(:url) { "mailto:foo@example.com" }
+
+    it do
+      expect { page }.to_not raise_error
+    end
+  end
 end
