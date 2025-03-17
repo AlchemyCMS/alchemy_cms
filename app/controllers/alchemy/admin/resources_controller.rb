@@ -3,7 +3,6 @@
 require "csv"
 require "alchemy/resource"
 require "alchemy/resources_helper"
-require "alchemy/resource_filter"
 
 module Alchemy
   module Admin

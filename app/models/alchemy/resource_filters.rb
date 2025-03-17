@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "alchemy/resource_filters/select"
-
 module Alchemy
   module ResourceFilters
     def self.build(filter, resource_name)
