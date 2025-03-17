@@ -1,5 +1,12 @@
 # Changelog
 
+## 7.3.6 (2025-03-17)
+
+- [7.3-stable] Fix link dialog for links with url scheme mailto [#3206](https://github.com/AlchemyCMS/alchemy_cms/pull/3206) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.3-stable] CI: Use own script to check changes files [#3199](https://github.com/AlchemyCMS/alchemy_cms/pull/3199) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.3-stable] Add rel="noopener noreferrer" to external links [#3185](https://github.com/AlchemyCMS/alchemy_cms/pull/3185) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.3-stable] Fix locked pages tab height [#3169](https://github.com/AlchemyCMS/alchemy_cms/pull/3169) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.3.5 (2025-01-24)
 
 - [7.3-stable] Prevent redefining 'alchemy-menubar' custom element when using Turbo [#3166](https://github.com/AlchemyCMS/alchemy_cms/pull/3166) ([alchemycms-bot](https://github.com/alchemycms-bot))
