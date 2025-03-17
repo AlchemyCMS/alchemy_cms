@@ -119,6 +119,17 @@ RSpec.describe Alchemy::Admin::ResourcesController do
         expect(subject.status).to eq 422
       end
     end
+
+    describe "params security" do
+      subject { put :update, params: {id: peter.id, event: {name: "Fox", foo: "bar"}} }
+
+      it "only accepts editable attributes" do
+        expect_any_instance_of(Event).to receive(:update).with(
+          ActionController::Parameters.new(name: "Fox").permit!
+        )
+        subject
+      end
+    end
   end
 
   describe "#create" do
@@ -140,6 +151,17 @@ RSpec.describe Alchemy::Admin::ResourcesController do
       it "redirects to index, keeping the current location parameters" do
         post :create, params: {series: {name: "Hans"}}.merge(params)
         expect(response.redirect_url).to eq("http://test.host/admin/series?page=6&q%5Bname_cont%5D=some_query")
+      end
+    end
+
+    describe "params security" do
+      subject { post :create, params: {event: {name: "Fox", foo: "bar"}} }
+
+      it "only accepts editable attributes" do
+        expect(Event).to receive(:new).with(
+          ActionController::Parameters.new(name: "Fox").permit!
+        ).and_call_original
+        subject
       end
     end
   end

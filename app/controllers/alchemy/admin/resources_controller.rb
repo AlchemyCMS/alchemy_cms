@@ -181,16 +181,15 @@ module Alchemy
         authorize!(action_name.to_sym, resource_instance_variable || resource_handler.model)
       end
 
-      # Permits all parameters as default!
+      # Permits all editable resource attributes as default.
       #
-      # THIS IS INSECURE! Although only signed in admin users can send requests anyway, but we should change this.
+      # Define this method in your inheriting controller if you want to permit additional attributes.
       #
-      # Please define this method in your inheriting controller and set the parameters you want to permit.
-      #
-      # TODO: Hook this into authorization provider.
-      #
+      # @see Alchemy::Resource#editable_attributes
       def resource_params
-        params.require(resource_handler.namespaced_resource_name).permit!
+        params.require(resource_handler.namespaced_resource_name).permit(
+          resource_handler.editable_attributes.map { _1[:name] }
+        )
       end
 
       def search_filter_params
