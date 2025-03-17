@@ -94,6 +94,10 @@ RSpec.describe "Resources", type: :system do
               expect(page).to have_content("today 2")
               expect(page).to_not have_content("yesterday")
             end
+
+            within "#toolbar" do
+              expect(page).to have_link(href: %r{/admin/events\.csv\?filter%5Bstart%5D=starting_today})
+            end
           end
 
           it "can combine multiple filters" do
