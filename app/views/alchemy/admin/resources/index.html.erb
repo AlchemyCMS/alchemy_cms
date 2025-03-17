@@ -17,7 +17,7 @@
     ) %>
     <%= render Alchemy::Admin::ToolbarButton.new(
       icon: :download,
-      url: resource_url_proxy.url_for(action: 'index', format: 'csv', q: search_filter_params[:q], sort: params[:sort]),
+      url: resource_url_proxy.url_for(action: 'index', format: 'csv', **search_filter_params),
       label: Alchemy.t(:download_csv),
       title: Alchemy.t(:download_csv),
       dialog: false,
