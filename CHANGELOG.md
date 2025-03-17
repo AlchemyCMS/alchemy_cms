@@ -1,5 +1,12 @@
 # Changelog
 
+## 7.4.2 (2025-03-17)
+
+- [7.4-stable] Fix link dialog for links with url scheme mailto [#3207](https://github.com/AlchemyCMS/alchemy_cms/pull/3207) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.4-stable] CI: Use own script to check changes files [#3200](https://github.com/AlchemyCMS/alchemy_cms/pull/3200) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.4-stable] Prevent content overflowing in tinymce editor fullscreen mode [#3197](https://github.com/AlchemyCMS/alchemy_cms/pull/3197) ([tvdeyen](https://github.com/tvdeyen))
+- [7.4-stable] Only set elementEditor dirty if present during assignment [#3196](https://github.com/AlchemyCMS/alchemy_cms/pull/3196) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.4.1 (2025-03-05)
 
 - [7.4-stable] Fix image cropper [#3193](https://github.com/AlchemyCMS/alchemy_cms/pull/3193) ([alchemycms-bot](https://github.com/alchemycms-bot))
