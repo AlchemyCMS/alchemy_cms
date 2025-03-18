@@ -1,11 +1,9 @@
 # encoding: UTF-8
 
 es:
-
   # = Alchemy Translations
   # All translations used in Alchemy CMS are inside this alchemy namespace.
   alchemy:
-
     # == Translations for menu names
     # Just use the menu name like defined inside the config/alchemy/menus.yml file and translate it.
     # We're providing main and footer menu here as a convenience.
@@ -89,61 +87,79 @@ es:
     ingredient_validations:
       errors:
         blank: "%{field} no puede estar en blanco"
-        invalid: '%{field} tiene un formato incorrecto '
-        taken: '%{field} ya está en uso'
+        invalid: "%{field} tiene un formato incorrecto "
+        taken: "%{field} ya está en uso"
 
     # Hint texts for ingredients
     ingredient_hints:
       headline: "Esta es una sencilla linea de texto sin formato"
       picture: "Las imágenes se almacenan en la librería. Puedes asignar una imagen varias veces en tu sitio. Alchemy tiene una herramienta de recorte de imagen integrada."
-      text: "Este es un bloque de texto enriquecido mediante el editor TinyMCE. Puedes cambiar la configuración del editor. Ver http://guides.alchemy-cms.com/stable/customize_tinymce.html"
+      text: "Este es un bloque de texto enriquecido mediante el editor TinyMCE. Puedes cambiar la configuración del editor. Ver https://guides.alchemy-cms.com/how_to_customize_tinymce"
 
     # Default texts for new ingredients created
     default_ingredient_texts:
       article_headline: "Bienvenido a tu primera página de Alchemy CMS"
-      article_text: '<p><strong>Como empezar.</strong></p><p>Lo primero de todo deberías leer sobre Alchemy y su arquitectura en las <a class="external" href="http://guides.alchemy-cms.com/stable/alchemy_approach.html" target="_blank" data-link-target="blank">guías</a>.</p><p>Las cosas más importantes que debes saber sobre Alchemy son elementos (<i>elements</i>) y disposiciones de página (<i>page layouts</i>).</p><p><span style="text-decoration: underline;"><strong>Elementos:</strong></span></p><p>Con Alchemy puedes dividir las páginas en partes de contenido, elementos. Estos elementos se pueden definir mediante varios tipos de contenido básicos: esencias (<i>essences</i>). Las esencias básicas son:</p><ul><li>EssenceText - <em>Un única línea de texto</em></li><li>EssenceRichtext - <em>Un bloque de texto formateado mediante TinyMCE</em></li><li>EssencePicture - <em>Una referencia a una imagen</em></li><li>EssenceHtml - <em>Código HTML empotrado</em></li><li>EssenceSelect - <em>Una selección de valores</em></li><li>EssenceBoolean - <em>Una casilla de verificación</em></li></ul><p>Los elementos se definen en el fichero YAML <strong>config/alchemy/elements.yml</strong></p><p><a class="external" href="http://guides.alchemy-cms.com/stable/elements.html" target="_blank" data-link-target="blank">Lee más sobre elementos y cómo definirlos en las guías.</a></p><p><span style="text-decoration: underline;"><strong>Tipos de página:</strong></span></p><p>Puedes definir varios tipos de páginas, llamados disposiciones de páginas (<i>page layouts</i>). Puedes asignar elementos a las disposiciones de páginas y controlar cómo se comportan los elementos y una página con una disposición concreta.</p><p>Las disposiciones de páginas se definen en el fichero YAML <strong>config/alchemy/page_layouts.yml</strong></p><p><a class="external" href="http://guides.alchemy-cms.com/stable/page_layouts.html" target="_blank" data-link-target="blank">Lee más sobre definir disposiciones de páginas en las guías.</a></p>'
+      article_text: |
+        <p><strong>Como empezar.</strong></p>
+        <p>Lo primero de todo deberías leer sobre Alchemy y su arquitectura en las <a class="external" href="https://guides.alchemy-cms.com/about" target="_blank" data-link-target="blank">guías</a>.</p>
+        <p>Las cosas más importantes que debes saber sobre Alchemy son elementos (<i>elements</i>) y disposiciones de página (<i>page layouts</i>).</p><p><span style="text-decoration: underline;"><strong>Elementos:</strong></span></p>
+        <p>Con Alchemy puedes dividir las páginas en partes de contenido, elementos. Estos elementos se pueden definir mediante varios tipos de contenido básicos: ingredientes (<i>ingredients</i>). Las esencias básicas son:</p>
+        <ul>
+          <li>Text - <em>Un única línea de texto</em></li>
+          <li>Richtext - <em>Un bloque de texto formateado mediante TinyMCE</em></li>
+          <li>Picture - <em>Una referencia a una imagen</em></li>
+          <li>Html - <em>Código HTML empotrado</em></li>
+          <li>Select - <em>Una selección de valores</em></li>
+          <li>Boolean - <em>Una casilla de verificación</em></li>
+        </ul>
+        <p>Los elementos se definen en el fichero YAML <strong>config/alchemy/elements.yml</strong></p>
+        <p><a class="external" href="https://guides.alchemy-cms.com/elements" target="_blank" data-link-target="blank">Lee más sobre elementos y cómo definirlos en las guías.</a></p>
+        <p><span style="text-decoration: underline;"><strong>Tipos de página:</strong></span></p>
+        <p>Puedes definir varios tipos de páginas, llamados disposiciones de páginas (<i>page layouts</i>). Puedes asignar elementos a las disposiciones de páginas y controlar cómo se comportan los elementos y una página con una disposición concreta.</p>
+        <p>Las disposiciones de páginas se definen en el fichero YAML <strong>config/alchemy/page_layouts.yml</strong></p>
+        <p><a class="external" href="https://guides.alchemy-cms.com/pages" target="_blank" data-link-target="blank">Lee más sobre definir disposiciones de páginas en las guías.</a></p>
       lorem: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
       corporate_lorem: "Appropriately enable sustainable growth strategies vis-a-vis holistic materials. Energistically orchestrate open-source e-tailers vis-a-vis plug-and-play best practices. Uniquely plagiarize client-centric opportunities whereas plug-and-play ideas. Distinctively reconceptualize backward-compatible partnerships vis-a-vis reliable total linkage. Interactively fabricate highly efficient networks for clicks-and-mortar content. Collaboratively reconceptualize holistic markets via 2.0 architectures."
 
     # Hint texts for elements
     element_hints:
-      article: "Este es el texto de ayuda del elemento artículo. Puedes cambiar este texto en `config/locales/alchemy.en.yml`. Siéntete libre de cambiarlo a tu gusto, es tuyo."
+      article: "Este es el texto de ayuda del elemento artículo. Puedes cambiar este texto en `config/locales/alchemy.es.yml`. Siéntete libre de cambiarlo a tu gusto, es tuyo."
 
     picture_ingredients:
       css_classes:
-        left: 'A la izquierda'
-        right: 'A la derecha'
-        no_float: 'Encima'
+        left: "A la izquierda"
+        right: "A la derecha"
+        no_float: "Encima"
 
     # == Contactform translations
     contactform:
       labels:
-        salutation: 'Tratamiento'
-        choose: 'Por favor elige'
-        mr: 'Sr.'
-        mrs: 'Sra.'
-        firstname: 'Nombre'
-        lastname: 'Apellido'
-        address: 'Calle / Nº'
-        zip: 'Código Postal / Ciudad'
-        phone: 'Teléfono'
-        email: 'Correo'
-        message: 'Mensaje'
-        send: 'Enviar'
-        mandatory_fields: '* Campo obligatorio.'
+        salutation: "Tratamiento"
+        choose: "Por favor elige"
+        mr: "Sr."
+        mrs: "Sra."
+        firstname: "Nombre"
+        lastname: "Apellido"
+        address: "Calle / Nº"
+        zip: "Código Postal / Ciudad"
+        phone: "Teléfono"
+        email: "Correo"
+        message: "Mensaje"
+        send: "Enviar"
+        mandatory_fields: "* Campo obligatorio."
       # The flash message shown after successfully sending the message.
       messages:
-        success: 'Su mensaje se ha enviado con éxito.'
+        success: "Su mensaje se ha enviado con éxito."
 
     # == Translated language names for translation select
     translations:
-      de: 'DE'
-      en: 'EN'
-      es: 'ES'
-      it: 'IT'
-      fr: 'FR'
-      nl: 'NL'
-      ru: 'RU'
+      de: "DE"
+      en: "EN"
+      es: "ES"
+      it: "IT"
+      fr: "FR"
+      nl: "NL"
+      ru: "RU"
 
     # == User roles translations
     user_roles:
@@ -156,31 +172,31 @@ es:
     # == Mime Types translations
     # These are human readable mime types used for the document-type row in archive files.
     mime_types:
-      audio/mp4: 'Audio MP4'
-      application/msword: 'Documento de Word'
-      application/rtf: 'Documento RTF'
-      audio/mpeg: 'Audio MP3'
-      text/plain: 'Documento de texto'
-      video/mp4: 'Video MP4'
-      video/mpeg: 'Video MPEG'
-      application/pdf: 'Documento PDF'
-      application/x-flash-video: 'Video de Flash'
-      video/x-flv: 'Video de Flash'
-      application/x-shockwave-flash: 'Video de Flash'
-      application/zip: 'Archivo ZIP'
-      application/x-rar: 'Archivo RAR'
+      audio/mp4: "Audio MP4"
+      application/msword: "Documento de Word"
+      application/rtf: "Documento RTF"
+      audio/mpeg: "Audio MP3"
+      text/plain: "Documento de texto"
+      video/mp4: "Video MP4"
+      video/mpeg: "Video MPEG"
+      application/pdf: "Documento PDF"
+      application/x-flash-video: "Video de Flash"
+      video/x-flv: "Video de Flash"
+      application/x-shockwave-flash: "Video de Flash"
+      application/zip: "Archivo ZIP"
+      application/x-rar: "Archivo RAR"
       application/vnd:
-        ms-excel: 'Documento Excel'
-      video/quicktime: 'Video de Quicktime'
-      image/x-psd: 'Archivo de Photoshop'
-      image/gif: 'Imagen GIF'
-      image/png: 'Imagen PNG'
-      image/jpeg: 'Imagen JPG'
-      video/x-msvideo: 'Video AVI'
-      video/x-ms-wmv: 'Windows Media Video'
-      image/tiff: 'Imagen TIFF'
-      'text/x-vcard': 'vCard'
-      application/vcard: 'vCard'
+        ms-excel: "Documento Excel"
+      video/quicktime: "Video de Quicktime"
+      image/x-psd: "Archivo de Photoshop"
+      image/gif: "Imagen GIF"
+      image/png: "Imagen PNG"
+      image/jpeg: "Imagen JPG"
+      video/x-msvideo: "Video AVI"
+      video/x-ms-wmv: "Windows Media Video"
+      image/tiff: "Imagen TIFF"
+      "text/x-vcard": "vCard"
+      application/vcard: "vCard"
 
     link_target_options:
       default: Misma ventana
@@ -192,16 +208,16 @@ es:
         aliases: Por favor separa con espacios o en una nueva línea los dominios adicionales.
 
     add_nested_element: "Add %{name}"
-    anchor: 'Ancla'
+    anchor: "Ancla"
     attribute_fixed: Este atributo no se puede cambiar
-    back: 'Atras'
+    back: "Atras"
     create_tree_as_new_language: "Crear %{language} como nuevo árbol de idioma"
     locked_pages: "Páginas activas"
     "Add global page": "Añadir página global"
     "Add page link": "Añadir redirección"
     "Alchemy is open software and itself uses open software and free resources:": "Alchemy es un software abierto que utiliza software abierto y recursos libres:"
-    "Alchemy is up to date": 'Alchemy está actualizado'
-    'An error happened': 'Ha ocurrido un error'
+    "Alchemy is up to date": "Alchemy está actualizado"
+    "An error happened": "Ha ocurrido un error"
     "Change password": "Cambiar contraseña"
     "Choose page": "Elige una página"
     "Cleared trash": "Papelera vacíada"
@@ -366,7 +382,7 @@ es:
     copy_page: "Copiar página"
     "Could not delete Pictures": "No se puede eliminar las imágenes"
     copy_language_tree_heading: "Copiar árbol de páginas"
-    country_code_placeholder: 'i.e. ES (opcional)'
+    country_code_placeholder: "i.e. ES (opcional)"
     country_code_foot_note: "Solo es necesario establecer un código de país si desea establecer cada país con su idioma."
     create: "Crear"
     "Create language": "Crear un nuevo idioma"
@@ -379,7 +395,7 @@ es:
     delete_image: "Eliminar esta imagen"
     delete_language: "Eliminar este idioma"
     delete_page: "Eliminar esta página"
-    delete_tag: 'Eliminar etiqueta'
+    delete_tag: "Eliminar etiqueta"
     document: "Archivo"
     download_csv: "Descargar CSV"
     download_file: "Descargar archivo '%{filename}'"
@@ -390,7 +406,7 @@ es:
     edit_language: "Editar idioma"
     edit_page: "Editar página"
     edit_page_properties: "Editar propiedades de la página"
-    edit_tag: 'Editar etiquetas'
+    edit_tag: "Editar etiquetas"
     edit_selected_pictures: "Editar imágenes seleccionadas"
     element_editor_not_found: "Error dentro de este elemento"
     element_of_type: "Elemento"
@@ -435,7 +451,7 @@ es:
     "item removed from clipboard": "%{name} ha sido eliminado del portapapeles"
     javascript_disabled_headline: "¡Javascript está deshabilitado!"
     javascript_disabled_text: "Alchemy necesita Javascript para funcionar correctamente. Por favor habilítalo en las opciones de tu navegador."
-    language_code_placeholder: 'i.e. es'
+    language_code_placeholder: "i.e. es"
     language_does_not_exist: "Este árbol de idioma no existe"
     language_pages_copied: "El árbol de idioma fue copiado correctamente."
     last_upload_only: "Solo última subida"
@@ -485,12 +501,12 @@ es:
     no_more_elements_to_add: "No hay más elementos disponibles."
     no_search_results: "Tu búsqueda no produjo ningún resultado."
     "not a valid image": "no es una imagen válida."
-    "or": 'o'
-    or_replace_it_with_an_existing_tag: 'O reemplázala con una etiqueta existente'
+    "or": "o"
+    or_replace_it_with_an_existing_tag: "O reemplázala con una etiqueta existente"
     "Page created": "Página: '%{name}' creada."
     page_for_links:
       choose_page: "Elige %{name}"
-    page_infos: 'Información de la página'
+    page_infos: "Información de la página"
     page_layout_changed_notice: "La página tipo ha cambiado. Los elementos no permitidos en el nuevo tipo han sido movidos a la papelera."
     page_properties: "Propiedades de la página"
     page_public: "publicada"
@@ -530,7 +546,7 @@ es:
         comma_seperated: "Separado por comas"
     password: "Contraseña"
     paste: "Pegar"
-    picture_gallery_editor: 'Imágenes'
+    picture_gallery_editor: "Imágenes"
     picture_library:
       filter:
         last_upload: "desde la última subida"
@@ -545,20 +561,20 @@ es:
     position_in_text: "Posición"
     preview_size: "Tamaño de vista previa"
     preview_sizes:
-      '240': '240px (teléfono pequeño)'
-      '320': '320px (iPhone)'
-      '480': '480px (tablet pequeña)'
-      '768': '768px (iPad - Vertical)'
-      '1024': '1024px (iPad - Horizontal)'
-      '1280': '1280px (Escritorio)'
-    recently_uploaded_only: 'Sólo subido recientemente'
+      "240": "240px (teléfono pequeño)"
+      "320": "320px (iPhone)"
+      "480": "480px (tablet pequeña)"
+      "768": "768px (iPad - Vertical)"
+      "1024": "1024px (iPad - Horizontal)"
+      "1280": "1280px (Escritorio)"
+    recently_uploaded_only: "Sólo subido recientemente"
     "regular method": "Método regular"
     remove: "Eliminar"
     rename_file: "Renombrar este archivo."
     rename: "Renombrar"
     replace: Reemplazar
     replace_file: Reemplazar el archivo
-    'Replaced Tag': "La etiqueta '%{old_tag}' fue reemplazada por '%{new_tag}'"
+    "Replaced Tag": "La etiqueta '%{old_tag}' fue reemplazada por '%{new_tag}'"
     "%{resource_name} successfully %{action}": "%{resource_name} %{action} con éxito."
     resources:
       actions:
@@ -566,7 +582,7 @@ es:
         updated: actualizado
         removed: eliminado
       relation_select:
-        blank: '- nada -'
+        blank: "- nada -"
     right: "Derecha"
     robot_follow: "robot puede seguir enlaces."
     robot_index: "permitir indexar al robot."
@@ -582,7 +598,7 @@ es:
     show_eq: "Mostrar EQ"
     show_navigation: "Mostrar en navegación"
     show_page_in_sitemap: "Mostar página en mapa del sitio."
-    signup_mail_delivery_error: 'El correo de registro no se pudo enviar. Por favor revisa tu configuración de correo.'
+    signup_mail_delivery_error: "El correo de registro no se pudo enviar. Por favor revisa tu configuración de correo."
     small_thumbnails: "Miniaturas pequeñas"
     subject: "Asunto"
     successfully_added_element: "Nuevo elemento añadido correctamente."
@@ -593,7 +609,7 @@ es:
     swap_image: "Cambiar imagen"
     insert_image: "Insertar imagen"
     tag_list: Etiquetas
-    tags_get_created_if_used_the_first_time: 'Se crearán las etiquetas usadas por primera vez.'
+    tags_get_created_if_used_the_first_time: "Se crearán las etiquetas usadas por primera vez."
     this_picture_is_used_on_these_pages: "Esta imagen se utiliza en las siguientes páginas"
     title: "Título"
     to_alchemy: "Ir a Alchemy"
@@ -637,9 +653,9 @@ es:
     "Successfully updated": "Actualizado correctamente"
     "Successfully removed": "Eliminado correctamente"
     "Nothing found": "No se encontró nada."
-    complete: 'Completado'
-    "Update available": 'Actualización disponible'
-    "Update status unavailable": 'Estado de actualización no disponible'
+    complete: "Completado"
+    "Update available": "Actualización disponible"
+    "Update status unavailable": "Estado de actualización no disponible"
     "Uploading": "Subiendo"
     cannot_signup_more_then_once: "You can't signup more then once."
     confirm_to_delete_user: "¿Deseas realmente borrar este usuario?"
@@ -675,11 +691,11 @@ es:
       alchemy:
         datepicker: "%d/%m/%Y"
         datetimepicker: "%d/%m/%Y %H:%M"
-        default: '%d de %B de %Y %H:%M'
+        default: "%d de %B de %Y %H:%M"
         essence_date: "%d/%m/%Y"
         page_status: "%d/%m/%Y %H:%M"
-        short_datetime: '%d de %b %H:%M'
-        time: '%H:%M'
+        short_datetime: "%d de %b %H:%M"
+        time: "%H:%M"
         timepicker: "%H:%M"
 
   # Translations for error messages.
@@ -688,9 +704,9 @@ es:
       alchemy/content:
         attributes:
           name:
-            taken: 'ya está en uso en este elemento.'
+            taken: "ya está en uso en este elemento."
           essence:
-            validation_failed: 'La validación falló.'
+            validation_failed: "La validación falló."
       alchemy/element:
         attributes:
           name:
@@ -698,8 +714,8 @@ es:
       alchemy/language:
         attributes:
           language_code:
-            invalid: '^El formato del código de lenguaje no es válido. Por favor usa exactamente 2 letras minúsculas.'
-            taken: 'ya está en uso para este código de país.'
+            invalid: "^El formato del código de lenguaje no es válido. Por favor usa exactamente 2 letras minúsculas."
+            taken: "ya está en uso para este código de país."
           locale:
             missing_file: Localización no encontrado para el código de idioma dado. Por favor, elige uno de los existentes.
       alchemy/page:
@@ -731,15 +747,15 @@ es:
         other: Mensajes
     attributes:
       alchemy/message:
-        salutation: 'Saludo'
-        firstname: 'Nombre'
-        lastname: 'Apellido'
-        address: 'Calle / Nº'
-        zip: 'Código Postal'
+        salutation: "Saludo"
+        firstname: "Nombre"
+        lastname: "Apellido"
+        address: "Calle / Nº"
+        zip: "Código Postal"
         city: Ciudad
-        phone: 'Teléfono'
-        email: 'Correo'
-        message: 'Mensaje'
+        phone: "Teléfono"
+        email: "Correo"
+        message: "Mensaje"
 
   # Translations for Alchemy database models
   activerecord:
@@ -869,9 +885,9 @@ es:
         alchemy/content:
           attributes:
             name:
-              taken: 'ya está en uso en este elemento.'
+              taken: "ya está en uso en este elemento."
             essence:
-              validation_failed: 'La validación falló.'
+              validation_failed: "La validación falló."
         alchemy/element:
           attributes:
             name:
@@ -879,8 +895,8 @@ es:
         alchemy/language:
           attributes:
             language_code:
-              invalid: '^El formato del código de lenguaje no es válido. Por favor usa exactamente 2 letras minúsculas.'
-              taken: 'ya está en uso para este código de país.'
+              invalid: "^El formato del código de lenguaje no es válido. Por favor usa exactamente 2 letras minúsculas."
+              taken: "ya está en uso para este código de país."
             locale:
               missing_file: Localización no encontrado para el código de idioma dado. Por favor, elige uno de los existentes.
         alchemy/page:
