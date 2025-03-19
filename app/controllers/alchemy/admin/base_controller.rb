@@ -43,7 +43,7 @@ module Alchemy
 
       def is_safe_redirect_path?(path)
         mount_path = alchemy.root_path
-        path.to_s.match? %r{^#{mount_path}admin/}
+        path.to_s.match? %r{^#{mount_path}#{Alchemy.admin_path}/}
       end
 
       def relative_referer_path(referer = request.referer)
