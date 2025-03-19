@@ -338,5 +338,57 @@ describe Alchemy::Admin::BaseController do
         it { is_expected.to be(false) }
       end
     end
+
+    context "admin path is customized" do
+      before(:all) do
+        Alchemy.admin_path = "backend"
+        Rails.application.reload_routes!
+      end
+
+      context "path is not an external URL" do
+        let(:path) { "/backend/pages" }
+
+        it { is_expected.to be(true) }
+      end
+
+      context "path is an external URL" do
+        let(:path) { "https://evil.com" }
+
+        it { is_expected.to be(false) }
+      end
+
+      after(:all) do
+        Alchemy.admin_path = "admin"
+        Rails.application.reload_routes!
+      end
+    end
+
+    context "admin path is customized and alchemy is mounted under a path" do
+      before do
+        Alchemy.admin_path = "backend"
+        Rails.application.reload_routes!
+
+        allow(controller).to receive(:alchemy) do
+          double(root_path: "/cms/")
+        end
+      end
+
+      context "path is not an external URL" do
+        let(:path) { "/cms/backend/pages" }
+
+        it { is_expected.to be(true) }
+      end
+
+      context "path is an external URL" do
+        let(:path) { "https://evil.com" }
+
+        it { is_expected.to be(false) }
+      end
+
+      after do
+        Alchemy.admin_path = "admin"
+        Rails.application.reload_routes!
+      end
+    end
   end
 end
