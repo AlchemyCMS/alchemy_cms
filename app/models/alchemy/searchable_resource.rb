@@ -21,6 +21,21 @@ module Alchemy
       searchable_alchemy_resource_associations
     end
 
+    # Allow all scopes used in resource filters to be used with Ransack
+    def ransackable_scopes(_auth_object = nil)
+      if respond_to?(:alchemy_resource_filters)
+        alchemy_resource_filters.flat_map do |filter_set|
+          if respond_to?(filter_set[:name])
+            filter_set[:name].to_s
+          else
+            filter_set[:values].map(&:to_s)
+          end
+        end
+      else
+        []
+      end
+    end
+
     protected
 
     def searchable_alchemy_resource_attributes
