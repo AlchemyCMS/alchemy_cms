@@ -112,27 +112,27 @@ RSpec.describe "Page editing feature", type: :system do
           end
         end
 
-        context "enable_searchable" do
+        describe "the searchable checkbox" do
           before do
-            Alchemy.enable_searchable = searchable
+            Alchemy.config.show_page_searchable_checkbox = searchable
             visit alchemy.configure_admin_page_path(a_page)
           end
 
           # reset default value
-          after { Alchemy.enable_searchable = false }
+          after { Alchemy.config.show_page_searchable_checkbox = false }
 
-          context "is enabled" do
+          context "when enabled" do
             let(:searchable) { true }
 
-            it "should show searchable checkbox" do
+            it "should be visible" do
               expect(page).to have_selector('input[type="checkbox"]#page_searchable')
             end
           end
 
-          context "is disabled" do
+          context "when disabled" do
             let(:searchable) { false }
 
-            it "should not show searchable checkbox" do
+            it "should not be visible" do
               visit alchemy.configure_admin_page_path(a_page)
               expect(page).to_not have_selector('input[type="checkbox"]#page_searchable')
             end
