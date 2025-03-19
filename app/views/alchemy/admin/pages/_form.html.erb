@@ -23,7 +23,7 @@
       <%= f.input :title %>
     </alchemy-char-counter>
 
-    <% if Alchemy.enable_searchable %>
+    <% if Alchemy.config.show_page_searchable_checkbox %>
       <div class="input check_boxes">
         <label class="control-label"><%= Alchemy.t(:fulltext_search) %></label>
         <div class="control_group">
