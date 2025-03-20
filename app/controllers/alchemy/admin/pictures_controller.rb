@@ -169,7 +169,7 @@ module Alchemy
 
       def set_alchemy_filters
         add_alchemy_filter :by_file_format, type: :select, options: ->(query) do
-          query.result.distinct.pluck(:image_file_format).compact.presence || []
+          query.result.reorder(nil).distinct.pluck(:image_file_format).compact.presence || []
         end
         add_alchemy_filter :recent, type: :checkbox
         add_alchemy_filter :last_upload, type: :checkbox

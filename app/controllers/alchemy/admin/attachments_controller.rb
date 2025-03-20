@@ -8,7 +8,7 @@ module Alchemy
 
       before_action do
         add_alchemy_filter :by_file_type, type: :select, options: ->(query) do
-          query.result.distinct.pluck(:file_mime_type)
+          query.result.reorder(nil).distinct.pluck(:file_mime_type)
             .map { |type| [Alchemy.t(type, scope: "mime_types"), type] }
             .sort_by(&:first)
         end
