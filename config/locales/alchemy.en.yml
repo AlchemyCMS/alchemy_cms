@@ -111,6 +111,12 @@ en:
             not_public: Unpublished
             published: Published
             restricted: Restricted
+        not_public:
+          name: Unpublished
+        published:
+          name: Published
+        restricted:
+          name: Restricted
       picture:
         by_file_format:
           name: File Type
