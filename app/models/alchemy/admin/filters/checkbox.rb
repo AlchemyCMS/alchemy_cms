@@ -11,6 +11,13 @@ module Alchemy
         def input_component(params, _query)
           Alchemy::Admin::Resource::CheckboxFilter.new(name:, label: translated_name, search_form:, params:)
         end
+
+        def applied_filter_component(search_filter_params:, resource_url_proxy:, query:)
+          Alchemy::Admin::Resource::AppliedFilter.new(
+            link: dismiss_filter_url(search_filter_params, resource_url_proxy),
+            applied_filter_label: translated_name
+          )
+        end
       end
     end
   end

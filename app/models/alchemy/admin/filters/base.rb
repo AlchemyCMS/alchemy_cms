@@ -12,18 +12,7 @@ module Alchemy
           @search_form = search_form
         end
 
-        def applied_filter_component(search_filter_params:, resource_url_proxy:, query:)
-          Alchemy::Admin::Resource::AppliedFilter.new(
-            link: dismiss_filter_url(search_filter_params, resource_url_proxy),
-            label: applied_filter_label(search_filter_params[:q][name], query)
-          )
-        end
-
         private
-
-        def applied_filter_label(_value, _query)
-          translated_name
-        end
 
         def translated_name
           Alchemy.t(:name, scope: [:filters, resource_name, name], default: name.to_s.humanize)

@@ -22,7 +22,8 @@ RSpec.describe Alchemy::Admin::Filters::Select do
     it "returns a dismiss filter component" do
       expect(applied_filter_component).to be_a(Alchemy::Admin::Resource::AppliedFilter)
       expect(applied_filter_component.link).to eq("/admin/pages")
-      expect(applied_filter_component.label).to eq("Page Type: Standard")
+      expect(applied_filter_component.applied_filter_label).to eq("Page Type")
+      expect(applied_filter_component.applied_filter_value).to eq("Standard")
     end
   end
 

@@ -8,7 +8,7 @@ module Alchemy
 
         erb_template <<~ERB
           <div class="filter-input">
-            <%= label_tag select_name, label %></h3>
+            <%= label_tag select_name, label %>
             <%= select_tag(
               select_name,
               options_for_select(options, selected),

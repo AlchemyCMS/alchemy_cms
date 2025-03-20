@@ -47,6 +47,10 @@ div#filter_bar {
   white-space: nowrap;
   font-weight: normal;
 
+  .applied-filter-label {
+    font-weight: var(--font-weigth_bold);
+  }
+
   .dismiss-filter {
     display: inline-flex;
     justify-content: center;
