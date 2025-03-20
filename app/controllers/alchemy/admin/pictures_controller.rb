@@ -20,6 +20,14 @@ module Alchemy
         @picture = Picture.find(params[:id])
       end
 
+      add_alchemy_filter :by_file_format, type: :select, options: ->(query) do
+        query.result.reorder(nil).distinct.pluck(:image_file_format).compact.presence || []
+      end
+      add_alchemy_filter :recent, type: :checkbox
+      add_alchemy_filter :last_upload, type: :checkbox
+      add_alchemy_filter :without_tag, type: :checkbox
+      add_alchemy_filter :deletable, type: :checkbox
+
       def index
         @query = Picture.ransack(search_filter_params[:q])
         @pictures = filtered_pictures.includes(:thumbs)

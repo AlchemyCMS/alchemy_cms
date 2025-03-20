@@ -140,20 +140,6 @@ module Alchemy
         @_url_class = klass
       end
 
-      def alchemy_resource_filters
-        @_file_formats ||= distinct.pluck(:image_file_format).compact.presence || []
-        [
-          {
-            name: :by_file_format,
-            values: @_file_formats
-          },
-          {
-            name: :misc,
-            values: %w[recent last_upload without_tag deletable]
-          }
-        ]
-      end
-
       def searchable_alchemy_resource_attributes
         %w[name image_file_name]
       end
@@ -163,6 +149,10 @@ module Alchemy
         return Picture.all unless last_picture
 
         Picture.where(upload_hash: last_picture.upload_hash)
+      end
+
+      def ransackable_scopes(_auth_object = nil)
+        [:by_file_format, :recent, :last_upload, :without_tag, :deletable]
       end
     end
 
