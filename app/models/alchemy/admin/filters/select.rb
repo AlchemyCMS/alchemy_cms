@@ -67,7 +67,7 @@ module Alchemy
         end
 
         def translated_value(value, query)
-          get_options_for_select(query).detect { |option| option[1].to_s == value }.first
+          get_options_for_select(query).detect { |option| option[1].to_s == value }&.first
         end
       end
     end

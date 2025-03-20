@@ -1,26 +1,13 @@
 <div id="filter_bar">
-  <%= render partial: "filter", collection: resource_filters_for_select %>
+  <% alchemy_filters.each do |filter| %>
+    <%= render filter.input_component(params, @query) %>
+  <% end %>
 </div>
 
 <script type="module">
   $(function() {
-    $('select', '#filter_bar').on('change', function(e) {
-      var $this = $(this);
-      var filter_param = 'filter['+$this.attr('name')+']';
-      var path = '<%= resources_path(resource_handler.namespaced_resources_name) %>';
-      var params = new URLSearchParams('<%= raw search_filter_params.to_query %>');
-
-      if ($this.val() === "") {
-        params.delete(filter_param);
-      } else {
-        params.set(filter_param, $this.val());
-      }
-
-      if ($this.data('remote') === true) {
-        $.get(path, params.toString(), null, 'script');
-      } else {
-        Turbo.visit(path + '?' + params.toString());
-      }
+    $('input, select', '#filter_bar').on('change', function(e) {
+      this.form.submit();
       return false;
     });
   });

@@ -52,7 +52,7 @@ RSpec.describe "Resources", type: :system do
     end
 
     describe "filters" do
-      let(:filter_count) { Event.alchemy_resource_filters.size }
+      let(:filter_count) { 2 }
 
       context "resource model has alchemy_resource_filters defined" do
         it "should show selectboxes for the filters" do
@@ -60,7 +60,7 @@ RSpec.describe "Resources", type: :system do
 
           within "#library_sidebar #filter_bar" do
             expect(page).to have_selector("select", count: filter_count)
-            expect(page).to have_selector("label", text: "Start")
+            expect(page).to have_selector("label", text: "By Timeframe")
             expect(page).to have_selector("label", text: "Location")
           end
         end
@@ -85,7 +85,7 @@ RSpec.describe "Resources", type: :system do
             end
 
             within "#library_sidebar #filter_bar" do
-              select2("Starting today", from: "Start")
+              select2("Starting today", from: "By Timeframe")
             end
 
             within "div#archive_all table.list tbody" do
@@ -96,12 +96,12 @@ RSpec.describe "Resources", type: :system do
             end
 
             within "#toolbar" do
-              expect(page).to have_link(href: %r{/admin/events\.csv\?filter%5Bstart%5D=starting_today})
+              expect(page).to have_link(href: %r{q%5Bby_timeframe%5D=starting_today})
             end
           end
 
           it "can combine multiple filters" do
-            visit "/admin/events?filter[start]=starting_today&filter[by_location_id]=#{location.id}"
+            visit "/admin/events?q[by_timeframe]=starting_today&q[by_location_id]=#{location.id}"
 
             within "div#archive_all table.list tbody" do
               expect(page).to have_selector("tr", count: 1)
@@ -113,7 +113,7 @@ RSpec.describe "Resources", type: :system do
           it "can combine filters and pagination", :js do
             stub_alchemy_config(:items_per_page, 1)
 
-            visit "/admin/events?filter[start]=starting_today"
+            visit "/admin/events?q[by_timeframe]=starting_today"
 
             select("4", from: "per_page")
 
@@ -377,27 +377,27 @@ RSpec.describe "Resources", type: :system do
     it "lets the user filter by the defined scopes", aggregate_failures: true do
       visit "/admin/events"
       within "#library_sidebar" do
-        expect(page).to have_content("Starting today")
+        expect(page).to have_content("Starting Today")
         expect(page).to have_content("Future")
       end
 
       # Here we visit the pages manually, as we don't want to test the JS here.
-      visit "/admin/events?filter[start]=starting_today"
+      visit "/admin/events?q[by_timeframe]=starting_today"
       expect(page).to have_content("Car Expo")
       expect(page).to_not have_content("Hovercar Expo")
       expect(page).to_not have_content("Horse Expo")
 
-      visit "/admin/events?filter[start]=future"
+      visit "/admin/events?q[by_timeframe]=future"
       expect(page).to have_content("Hovercar Expo")
       expect(page).to_not have_content("Car Expo")
       expect(page).to_not have_content("Horse Expo")
 
       # Keep the filter when editing an event
-      expect(page).to have_link(nil, href: "/admin/events/#{future_event.id}/edit?filter%5Bstart%5D=future")
+      expect(page).to have_link(nil, href: "/admin/events/#{future_event.id}/edit?q%5Bby_timeframe%5D=future")
     end
 
     it "does not work with undefined scopes" do
-      visit "/admin/events?filter[start]=undefined_scope"
+      visit "/admin/events?q[by_timeframe]=undefined_scope"
       expect(page).to have_content("Car Expo")
       expect(page).to have_content("Hovercar Expo")
       expect(page).to have_content("Horse Expo")
@@ -405,7 +405,7 @@ RSpec.describe "Resources", type: :system do
 
     context "full text search" do
       it "should respect filters" do
-        visit "/admin/events?filter[start]=future"
+        visit "/admin/events?q[by_timeframe]=future"
 
         expect(page).to have_content("Hovercar Expo")
         expect(page).to_not have_content("Car Expo")

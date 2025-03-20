@@ -5,9 +5,8 @@ require "rails_helper"
 RSpec.shared_examples :redirecting_to_picture_library do
   let(:params) do
     {
-      filter: {misc: "last_upload"},
       page: 2,
-      q: {name_or_image_file_name_cont: "kitten"},
+      q: {name_or_image_file_name_cont: "kitten", last_upload: true},
       size: "small",
       tagged_with: "cat"
     }
@@ -45,7 +44,7 @@ module Alchemy
         let!(:picture_2) { create(:alchemy_picture, tag_list: %w[kitten]) }
 
         it "assigns @pictures with filtered pictures" do
-          get :index, params: {filter: {misc: "without_tag"}}
+          get :index, params: {q: {without_tag: true}}
 
           expect(assigns(:pictures)).to include(picture_1)
           expect(assigns(:pictures)).to_not include(picture_2)
