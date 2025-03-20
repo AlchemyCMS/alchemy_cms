@@ -37,6 +37,11 @@ module Alchemy
         if: :run_on_page_layout_callbacks?,
         only: [:show]
 
+      add_alchemy_filter :by_page_layout, type: :select, options: PageLayout.all.map { |p| [Alchemy.t(p["name"], scope: "page_layout_names"), p["name"]] }
+      add_alchemy_filter :published, type: :checkbox
+      add_alchemy_filter :not_public, type: :checkbox
+      add_alchemy_filter :restricted, type: :checkbox
+
       def index
         @query = @current_language.pages.contentpages.ransack(search_filter_params[:q])
 

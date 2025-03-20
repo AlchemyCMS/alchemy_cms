@@ -183,19 +183,6 @@ module Alchemy
         @_url_path_class = klass
       end
 
-      def alchemy_resource_filters
-        [
-          {
-            name: :by_page_layout,
-            values: PageLayout.all.map { |p| [Alchemy.t(p["name"], scope: "page_layout_names"), p["name"]] }
-          },
-          {
-            name: :status,
-            values: %w[published not_public restricted]
-          }
-        ]
-      end
-
       def searchable_alchemy_resource_attributes
         %w[name urlname title]
       end
