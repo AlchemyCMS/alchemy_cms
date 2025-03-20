@@ -1,5 +1,16 @@
 de:
   alchemy:
+    filters:
+      event:
+        start:
+          name: Start
+        by_location_id:
+          name: Ort
+        by_timeframe:
+          name: Zeitpunkt
+          values:
+            starting_today: Heute startend
+            future: Zukünftig
     ingredient_roles:
       boolean: Boolean
       datetime: Date/Time

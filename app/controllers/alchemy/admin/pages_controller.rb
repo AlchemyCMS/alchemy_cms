@@ -48,10 +48,6 @@ module Alchemy
             items = items.tagged_with(search_filter_params[:tagged_with])
           end
 
-          if search_filter_params[:filter].present?
-            items = apply_filters(items)
-          end
-
           items = items.page(params[:page] || 1).per(items_per_page)
           @pages = items
         end

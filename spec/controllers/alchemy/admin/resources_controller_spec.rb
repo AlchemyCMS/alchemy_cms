@@ -199,6 +199,7 @@ RSpec.describe Alchemy::Admin::ResourcesController do
   describe "#common_search_filter_includes" do
     before do
       allow(controller).to receive(:alchemy_module) { {name: "events"} }
+      controller.send(:initialize_alchemy_filters)
     end
 
     it "should not be frozen" do

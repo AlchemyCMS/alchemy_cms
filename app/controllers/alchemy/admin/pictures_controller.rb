@@ -138,10 +138,6 @@ module Alchemy
           pictures = pictures.tagged_with(params[:tagged_with])
         end
 
-        if search_filter_params[:filter].present?
-          pictures = apply_filters(pictures)
-        end
-
         pictures = pictures.page(params[:page] || 1).per(items_per_page)
 
         pictures.order(:name)

@@ -5,15 +5,12 @@ require "csv"
 module Alchemy
   module Admin
     class ResourcesController < Alchemy::Admin::BaseController
-      COMMON_SEARCH_FILTER_EXCLUDES = %i[id utf8 _method _ format].freeze
-
       include Alchemy::ResourcesHelper
       extend Alchemy::Admin::ResourceName
+      include Alchemy::Admin::ResourceFilter
 
       helper Alchemy::ResourcesHelper, TagsHelper
-      helper_method :resource_handler, :search_filter_params,
-        :items_per_page, :items_per_page_options, :resource_has_filters,
-        :resource_filters_for_select
+      helper_method :resource_handler, :items_per_page, :items_per_page_options
 
       before_action :load_resource,
         only: %i[show edit update destroy]
@@ -27,7 +24,6 @@ module Alchemy
 
         items = items.includes(*resource_relations_names) if contains_relations?
         items = items.tagged_with(search_filter_params[:tagged_with]) if search_filter_params[:tagged_with].present?
-        items = apply_filters(items) if search_filter_params[:filter].present?
 
         respond_to do |format|
           format.html do
@@ -83,61 +79,7 @@ module Alchemy
         @_resource_handler ||= Alchemy::Resource.new(controller_path, alchemy_module)
       end
 
-      def resource_has_filters
-        resource_model.respond_to?(:alchemy_resource_filters)
-      end
-
-      def resource_has_deprecated_filters
-        resource_model.alchemy_resource_filters.any? { |f| !f.is_a?(Hash) }
-      end
-
-      def resource_filters
-        return unless resource_has_filters
-
-        @_resource_filters ||= resource_model.alchemy_resource_filters
-      end
-
-      def resource_filters_for_select
-        resource_filters.map do |filter|
-          ResourceFilter.new(filter, resource_name)
-        end
-      end
-
       protected
-
-      def apply_filters(items)
-        sanitize_filter_params!
-
-        search_filter_params[:filter].each do |filter|
-          if argument_scope_filter?(filter)
-            items = items.public_send(filter[0], filter[1])
-          elsif simple_scope_filter?(filter)
-            items = items.public_send(filter[1])
-          else
-            raise "Can't apply filter #{filter[0]}. Either the name or the values must be defined as class methods / scopes on the model."
-          end
-        end
-
-        items
-      end
-
-      def simple_scope_filter?(filter)
-        resource_model.respond_to?(filter[1])
-      end
-
-      def argument_scope_filter?(filter)
-        resource_model.respond_to?(filter[0])
-      end
-
-      def sanitize_filter_params!
-        search_filter_params[:filter].reject! do |_, v|
-          eligible_resource_filter_values.exclude?(v)
-        end
-      end
-
-      def eligible_resource_filter_values
-        resource_filters.map(&:values).flatten!.map!(&:to_s)
-      end
 
       # Returns a translated +flash[:notice]+ for current controller action.
       def flash_notice_for_resource_action(action = action_name)
@@ -188,35 +130,6 @@ module Alchemy
         params.require(resource_handler.namespaced_resource_name).permit(
           resource_handler.editable_attributes.map { _1[:name] }
         )
-      end
-
-      def search_filter_params
-        @_search_filter_params ||= params.except(*COMMON_SEARCH_FILTER_EXCLUDES).permit(*common_search_filter_includes).to_h
-      end
-
-      def common_search_filter_includes
-        search_filters = [
-          {
-            q: [:s] + permitted_ransack_search_fields
-          },
-          :tagged_with,
-          :page,
-          :per_page
-        ]
-
-        if resource_has_filters
-          search_filters << {
-            filter: resource_filters.map { |f| f[:name] }
-          }
-        end
-
-        search_filters
-      end
-
-      def permitted_ransack_search_fields
-        [
-          resource_handler.search_field_name
-        ]
       end
 
       def items_per_page

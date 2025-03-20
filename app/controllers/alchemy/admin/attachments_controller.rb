@@ -21,10 +21,6 @@ module Alchemy
           @attachments = @attachments.tagged_with(search_filter_params[:tagged_with])
         end
 
-        if search_filter_params[:filter].present?
-          @attachments = apply_filters(@attachments)
-        end
-
         @attachments = @attachments
           .page(params[:page] || 1)
           .per(items_per_page)
