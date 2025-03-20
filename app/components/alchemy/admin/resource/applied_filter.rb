@@ -10,7 +10,7 @@ module Alchemy
           <div class="applied-filter">
             <%= label %>
             <%= link_to link, class: 'dismiss-filter' do %>
-              <%= render Alchemy::Admin::Icon.new(:times, size: :xs) %>
+              <%= render Alchemy::Admin::Icon.new(:times, size: "1x") %>
             <% end %>
           </div>
         ERB

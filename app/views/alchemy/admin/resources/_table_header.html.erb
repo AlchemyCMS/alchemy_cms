@@ -1,8 +1,7 @@
 <div class="resources-header">
-  <%= render "alchemy/admin/partials/applied_filters" %>
-
   <h2>
     <%= resources_instance_variable.total_count %>
     <%= resource_model.model_name.human(count: resources_instance_variable.total_count) %>
   </h2>
+  <%= render "alchemy/admin/resources/applied_filters" %>
 </div>

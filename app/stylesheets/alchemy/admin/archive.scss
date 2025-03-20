@@ -6,20 +6,6 @@
   padding: 0 var(--spacing-2);
 }
 
-.applied-filter {
-  display: inline-block;
-  padding: 2px 6px;
-  border-radius: vars.$default-border-radius;
-  border: 1px solid vars.$default-border-color;
-  white-space: nowrap;
-  font-weight: normal;
-
-  .dismiss-filter {
-    position: relative;
-    top: -1px;
-  }
-}
-
 .resources-table-wrapper {
   padding-bottom: 60px;
 
@@ -265,18 +251,12 @@ div#library_sidebar {
   }
 
   h3 {
-    margin: 2em 0 1em;
+    margin: 1.5em 0 1em;
   }
 }
 
 .alchemy-dialog #library_sidebar {
   position: absolute;
-}
-
-div#filter_bar {
-  .selectboxit {
-    width: 194px;
-  }
 }
 
 .alchemy-dialog-body {

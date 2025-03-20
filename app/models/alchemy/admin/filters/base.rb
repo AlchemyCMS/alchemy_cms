@@ -26,7 +26,7 @@ module Alchemy
         end
 
         def translated_name
-          Alchemy.t(:name, scope: [:filters, resource_name, name])
+          Alchemy.t(:name, scope: [:filters, resource_name, name], default: name.to_s.humanize)
         end
 
         def dismiss_filter_url(search_filter_params, resource_url_proxy)
