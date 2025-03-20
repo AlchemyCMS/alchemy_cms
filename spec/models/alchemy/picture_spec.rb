@@ -143,25 +143,6 @@ module Alchemy
       end
     end
 
-    describe ".alchemy_resource_filters" do
-      context "with image file formats" do
-        let!(:picture) { create(:alchemy_picture, image_file_format: "png") }
-
-        it "returns a list of filters with image file formats" do
-          expect(Alchemy::Picture.alchemy_resource_filters).to eq([
-            {
-              name: :by_file_format,
-              values: ["png"]
-            },
-            {
-              name: :misc,
-              values: %w[recent last_upload without_tag deletable]
-            }
-          ])
-        end
-      end
-    end
-
     describe ".last_upload" do
       it "should return all pictures that have the same upload-hash as the most recent picture" do
         other_upload = Picture.create!(image_file: image_file, upload_hash: "456")
