@@ -7,7 +7,10 @@
 <script type="module">
   $(function() {
     $('input, select', '#filter_bar').on('change', function(e) {
-      this.form.submit();
+      // We need to dispatch a submit event, so that Turbo that listens
+      // to it submits the search form us.
+      const event = new Event("submit", { bubbles: true, cancelable: true });
+      this.form.dispatchEvent(event);
       return false;
     });
   });
