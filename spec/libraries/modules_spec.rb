@@ -2,23 +2,15 @@
 
 require "rails_helper"
 
-class ::RegisterModuleDummyController
-  ### mock the existence of the controller
-end
+class ::RegisterModuleDummyController; end
 
 module Alchemy
-  class ModulesTestController < ApplicationController
-    include Modules
-  end
-
   describe Modules do
-    let(:controller) { ModulesTestController.new }
-
     describe "#module_definition_for" do
-      subject { controller.module_definition_for(params_or_name) }
+      subject { described_class.module_definition_for(params_or_name) }
 
       before do
-        allow(controller).to receive(:alchemy_modules) { [dashboard_module] }
+        allow(described_class).to receive(:alchemy_modules) { [dashboard_module] }
       end
 
       let(:dashboard_module) do
