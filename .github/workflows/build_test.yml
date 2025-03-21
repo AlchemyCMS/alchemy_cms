@@ -74,7 +74,6 @@ jobs:
       fail-fast: false
       matrix:
         rails:
-          - "7.0"
           - "7.1"
           - "7.2"
           - "8.0"
@@ -90,8 +89,7 @@ jobs:
         exclude:
           - rails: "8.0"
             ruby: "3.1"
-          - rails: "7.0"
-            ruby: "3.4"
+
     env:
       DB: ${{ matrix.database }}
       DB_USER: alchemy_user
