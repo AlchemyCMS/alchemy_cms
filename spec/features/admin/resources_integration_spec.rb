@@ -219,7 +219,9 @@ RSpec.describe "Resources", type: :system do
       end
 
       it "displays date values" do
-        visit "/admin/bookings"
+        Alchemy::Deprecation.silence do
+          visit "/admin/bookings"
+        end
         expect(page).to have_content(yesterday)
         expect(page).to have_content(tomorrow)
       end
