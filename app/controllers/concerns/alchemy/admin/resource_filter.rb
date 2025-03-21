@@ -39,7 +39,11 @@ module Alchemy
       def initialize_alchemy_filters
         return if alchemy_filters.any?
         return unless resource_model.respond_to?(:alchemy_resource_filters)
-
+        Alchemy::Deprecation.warn(
+          "The `alchemy_resource_filters` method is deprecated and will be removed in Alchemy 8.1. " \
+          "Please use `add_alchemy_filter` in your controller instead. Make sure to safelist the scopes " \
+          "you want to use in the `ransackable_scopes` method of your model."
+        )
         resource_model.alchemy_resource_filters.each do |filter_config|
           if resource_model.respond_to?(filter_config[:name])
             self.class.add_alchemy_filter filter_config[:name], type: :select, options: filter_config[:values]
