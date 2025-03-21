@@ -8,43 +8,48 @@ module Alchemy
 
       included do
         prepend_before_action :initialize_alchemy_filters
-        attr_reader :alchemy_filters
         helper_method :alchemy_filters, :search_form_name, :applied_filters, :search_filter_params, :resource_has_filters
       end
+
+      class_methods do
+        # Adds a filter to the resource.
+        # @param name [String, Symbol] The name of the filter.
+        # @param type [Symbol] The type of the filter. Can currently be `:select` or `:checkbox`.
+        # @param args [Hash] Additional arguments for the filter.
+        # @example
+        #   add_alchemy_filter :by_location, type: :select, options: ->(query) { Location.pluck(:name, :id) }
+        #   add_alchemy_filter :future, type: :checkbox
+        #   add_alchemy_filter :by_timeframe, type: :select, options: ["today", "tomorrow"]
+        def add_alchemy_filter(name, type:, **args)
+          alchemy_filters << "Alchemy::Admin::Filters::#{type.to_s.camelize}".constantize.new(
+            name:,
+            resource_name: resource_handler.resource_name,
+            search_form: resource_handler.search_form_name,
+            **args
+          )
+        end
+
+        def alchemy_filters
+          @alchemy_filters ||= []
+        end
+      end
+      delegate :alchemy_filters, to: :class
 
       private
 
       def initialize_alchemy_filters
-        @alchemy_filters = []
+        return if alchemy_filters.any?
         return unless resource_model.respond_to?(:alchemy_resource_filters)
 
         resource_model.alchemy_resource_filters.each do |filter_config|
           if resource_model.respond_to?(filter_config[:name])
-            add_alchemy_filter filter_config[:name], type: :select, options: filter_config[:values]
+            self.class.add_alchemy_filter filter_config[:name], type: :select, options: filter_config[:values]
           else
             filter_config[:values].each do |scope|
-              add_alchemy_filter scope, type: :checkbox
+              self.class.add_alchemy_filter scope, type: :checkbox
             end
           end
         end
-      end
-
-      # Adds a filter to the resource.
-      # @param name [String, Symbol] The name of the filter.
-      # @param type [Symbol] The type of the filter. Can currently be `:select` or `:checkbox`.
-      # @param args [Hash] Additional arguments for the filter.
-      # @example
-      #   add_alchemy_filter :by_location, type: :select, options: ->(query) { Location.pluck(:name, :id) }
-      #   add_alchemy_filter :future, type: :checkbox
-      #   add_alchemy_filter :by_timeframe, type: :select, options: ["today", "tomorrow"]
-      def add_alchemy_filter(name, type:, **args)
-        alchemy_filters << "Alchemy::Admin::Filters::#{type.to_s.camelize}".constantize.new(
-          name:, resource_name:, search_form:, **args
-        )
-      end
-
-      def search_form
-        resource_model.name.underscore + "_search"
       end
 
       def search_filter_params

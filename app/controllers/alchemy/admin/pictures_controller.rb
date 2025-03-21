@@ -14,13 +14,19 @@ module Alchemy
 
       before_action :set_size, only: [:index, :show, :edit_multiple, :update]
 
-      before_action :set_alchemy_filters
-
       authorize_resource class: Alchemy::Picture
 
       before_action(only: :assign) do
         @picture = Picture.find(params[:id])
       end
+
+      add_alchemy_filter :by_file_format, type: :select, options: ->(query) do
+        query.result.reorder(nil).distinct.pluck(:image_file_format).compact.presence || []
+      end
+      add_alchemy_filter :recent, type: :checkbox
+      add_alchemy_filter :last_upload, type: :checkbox
+      add_alchemy_filter :without_tag, type: :checkbox
+      add_alchemy_filter :deletable, type: :checkbox
 
       def index
         @query = Picture.ransack(search_filter_params[:q])
@@ -166,16 +172,6 @@ module Alchemy
       end
 
       private
-
-      def set_alchemy_filters
-        add_alchemy_filter :by_file_format, type: :select, options: ->(query) do
-          query.result.reorder(nil).distinct.pluck(:image_file_format).compact.presence || []
-        end
-        add_alchemy_filter :recent, type: :checkbox
-        add_alchemy_filter :last_upload, type: :checkbox
-        add_alchemy_filter :without_tag, type: :checkbox
-        add_alchemy_filter :deletable, type: :checkbox
-      end
 
       def set_size
         @size = params[:size] || session[:alchemy_pictures_size] || "medium"
