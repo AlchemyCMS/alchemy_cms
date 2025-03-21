@@ -42,6 +42,11 @@ class Event < ActiveRecord::Base
     %i[by_location_id by_timeframe]
   end
 
+  # See https://github.com/activerecord-hackery/ransack/issues/1232
+  def self.ransackable_scopes_skip_sanitize_args(_auth_object = nil)
+    [:by_location_id]
+  end
+
   private
 
   def abort_if_name_is_undestructible
