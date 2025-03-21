@@ -226,10 +226,6 @@ module Alchemy
 
       private
 
-      def resource_handler
-        @_resource_handler ||= Alchemy::Resource.new(controller_path, alchemy_module, Alchemy::Page)
-      end
-
       def set_view
         @view = params[:view] || session[:alchemy_pages_view] || "tree"
         session[:alchemy_pages_view] = @view

@@ -71,8 +71,12 @@ RSpec.describe Alchemy::Admin::ResourcesController do
           let!(:booking2) { Booking.create!(from: 1.weeks.from_now) }
 
           controller(::Alchemy::Admin::ResourcesController) do
-            def resource_handler
-              @_resource_handler ||= Alchemy::Resource.new(controller_path, alchemy_module, Booking)
+            def self.resource_handler
+              @_resource_handler ||= Alchemy::Resource.new(
+                controller_path,
+                Alchemy::Modules.module_definition_for(controller: controller_path, action: :index),
+                Booking
+              )
             end
           end
 

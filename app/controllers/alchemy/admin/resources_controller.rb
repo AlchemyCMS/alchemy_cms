@@ -13,6 +13,15 @@ module Alchemy
       helper Alchemy::ResourcesHelper, TagsHelper
       helper_method :resource_handler, :items_per_page, :items_per_page_options
 
+      class << self
+        def resource_handler
+          @resource_handler ||= Alchemy::Resource.new(
+            controller_path,
+            Alchemy::Modules.module_definition_for(controller: controller_path, action: "index")
+          )
+        end
+      end
+
       before_action :load_resource,
         only: %i[show edit update destroy]
 
@@ -76,9 +85,7 @@ module Alchemy
         do_redirect_to resource_url_proxy.url_for(search_filter_params.merge(action: "index", only_path: true))
       end
 
-      def resource_handler
-        @_resource_handler ||= Alchemy::Resource.new(controller_path, alchemy_module)
-      end
+      delegate :resource_handler, to: :class
 
       protected
 
@@ -108,10 +115,6 @@ module Alchemy
 
       def is_alchemy_module?
         !alchemy_module.nil? && !alchemy_module["engine_name"].nil?
-      end
-
-      def alchemy_module
-        @alchemy_module ||= module_definition_for(controller: controller_path, action: "index")
       end
 
       def load_resource
