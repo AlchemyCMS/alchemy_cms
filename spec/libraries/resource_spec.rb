@@ -73,45 +73,6 @@ module Alchemy
           expect(resource.instance_variable_get(:@module_definition)).to eq(module_definition)
         end
       end
-
-      context "when initialized with a custom model" do
-        it "sets @model to custom model" do
-          resource = Resource.new("admin/parties", nil, CustomParty)
-          expect(resource.instance_variable_get(:@model)).to eq(CustomParty)
-        end
-      end
-
-      context "when initialized without custom model" do
-        it "guesses the model by the controller_path" do
-          resource = Resource.new("admin/parties", nil, nil)
-          expect(resource.instance_variable_get(:@model)).to eq(Party)
-        end
-      end
-
-      context "when model has alchemy_resource_relations defined" do
-        before do
-          allow(Party).to receive(:alchemy_resource_relations) do
-            {location: {attr_method: "name", type: "string"}}
-          end
-        end
-
-        context ", but not an ActiveRecord association" do
-          before do
-            allow(Party).to receive(:respond_to?) do |arg|
-              case arg
-              when :reflect_on_all_associations
-                false
-              when :alchemy_resource_relations
-                true
-              end
-            end
-          end
-
-          it "should raise error." do
-            expect { Resource.new("admin/parties") }.to raise_error(MissingActiveRecordAssociation)
-          end
-        end
-      end
     end
 
     describe "#resource_array" do
@@ -126,8 +87,20 @@ module Alchemy
     end
 
     describe "#model" do
-      it "returns the @model instance variable" do
-        expect(resource.model).to eq(resource.instance_variable_get(:@model))
+      subject { resource.model }
+
+      context "when initialized with a custom model" do
+        let(:resource) { Resource.new("admin/parties", nil, CustomParty) }
+        it "sets @model to custom model" do
+          expect(subject).to eq(CustomParty)
+        end
+      end
+
+      context "when initialized without custom model" do
+        let(:resource) { Resource.new("admin/parties") }
+        it "guesses the model by the controller_path" do
+          expect(subject).to eq(Party)
+        end
       end
     end
 
@@ -388,6 +361,32 @@ module Alchemy
       end
 
       describe "#model_associations" do
+        let(:resource) { Resource.new("admin/parties") }
+
+        context "when model has alchemy_resource_relations defined" do
+          before do
+            allow(Party).to receive(:alchemy_resource_relations) do
+              {location: {attr_method: "name", type: "string"}}
+            end
+          end
+
+          context ", but not an ActiveRecord association" do
+            before do
+              allow(Party).to receive(:respond_to?) do |arg|
+                case arg
+                when :reflect_on_all_associations
+                  false
+                when :alchemy_resource_relations
+                  true
+                end
+              end
+            end
+
+            it "should raise error." do
+              expect { resource.model_associations }.to raise_error(MissingActiveRecordAssociation)
+            end
+          end
+        end
         it "skip default alchemy model associations" do
           expect(resource.model_associations.collect(&:name)).not_to include(*resource.class.const_get(:DEFAULT_SKIPPED_ASSOCIATIONS).map(&:to_sym))
         end

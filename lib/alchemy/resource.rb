@@ -98,9 +98,6 @@ module Alchemy
   #     resource = Resource.new('/admin/tags', {"engine_name"=>"alchemy"}, Gutentag::Tag)
   #
   class Resource
-    attr_accessor :resource_relations, :model_associations
-    attr_reader :model
-
     DEFAULT_SKIPPED_ATTRIBUTES = %w[id created_at creator_id]
     DEFAULT_SKIPPED_ASSOCIATIONS = %w[creator]
     SEARCHABLE_COLUMN_TYPES = [:string, :text]
@@ -108,15 +105,19 @@ module Alchemy
     def initialize(controller_path, module_definition = nil, custom_model = nil)
       @controller_path = controller_path
       @module_definition = module_definition
-      @model = custom_model || guess_model_from_controller_path
-      if model.respond_to?(:alchemy_resource_relations)
-        if !model.respond_to?(:reflect_on_all_associations)
-          raise MissingActiveRecordAssociation
-        end
+      @model = custom_model
+    end
 
-        store_model_associations
-        map_relations
-      end
+    def model
+      @model ||= guess_model_from_controller_path
+    end
+
+    def model_associations
+      @model_associations ||= get_model_associations
+    end
+
+    def resource_relations
+      @resource_relations ||= map_relations
     end
 
     def resource_array
@@ -326,23 +327,36 @@ module Alchemy
 
     # Expands the resource_relations hash with matching activerecord associations data.
     def map_relations
-      self.resource_relations = {}
-      model.alchemy_resource_relations.each do |name, options|
-        relation_name = name.to_s.gsub(/_id$/, "") # ensure that we don't have an id
+      return {} unless check_model_association_presence
+
+      model.alchemy_resource_relations.each_with_object({}) do |model_relation, relation_map|
+        relation_name = model_relation[0].to_s.gsub(/_id$/, "") # ensure that we don't have an id
         association = association_from_relation_name(relation_name)
         foreign_key = association.options[:foreign_key] || :"#{association.name}_id"
-        collection = options[:collection] || resource_relation_class(association).all
-        resource_relations[foreign_key] = options.merge(
+        collection = model_relation[1][:collection] || resource_relation_class(association).all
+        relation_map[foreign_key] = model_relation[1].merge(
           model_association: association,
           name: relation_name,
           collection: collection
         )
+        relation_map
       end
     end
 
-    # Stores all activerecord associations in model_associations attribute
-    def store_model_associations
-      self.model_associations = model.reflect_on_all_associations.delete_if { |a| DEFAULT_SKIPPED_ASSOCIATIONS.include?(a.name.to_s) }
+    # Retrieves activerecord associations to be stored in #model_associations
+    def get_model_associations
+      return [] unless check_model_association_presence
+      model.reflect_on_all_associations.delete_if { |a| DEFAULT_SKIPPED_ASSOCIATIONS.include?(a.name.to_s) }
+    end
+
+    def check_model_association_presence
+      return false unless model.respond_to?(:alchemy_resource_relations)
+
+      if !model.respond_to?(:reflect_on_all_associations)
+        raise MissingActiveRecordAssociation
+      end
+
+      true
     end
 
     # Returns activerecord association that has the given name
