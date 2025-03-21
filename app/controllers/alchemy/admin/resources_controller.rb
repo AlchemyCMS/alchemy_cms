@@ -85,7 +85,12 @@ module Alchemy
         do_redirect_to resource_url_proxy.url_for(search_filter_params.merge(action: "index", only_path: true))
       end
 
-      delegate :resource_handler, to: :class
+      def resource_handler
+        @resource_handler ||= Alchemy::Resource.new(
+          controller_path,
+          Alchemy::Modules.module_definition_for(controller: controller_path, action: "index")
+        )
+      end
 
       protected
 

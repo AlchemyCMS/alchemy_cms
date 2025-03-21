@@ -78,6 +78,14 @@ RSpec.describe Alchemy::Admin::ResourcesController do
                 Booking
               )
             end
+
+            def resource_handler
+              @_resource_handler ||= Alchemy::Resource.new(
+                controller_path,
+                Alchemy::Modules.module_definition_for(controller: controller_path, action: :index),
+                Booking
+              )
+            end
           end
 
           it "returns records sorted by first attribute" do
