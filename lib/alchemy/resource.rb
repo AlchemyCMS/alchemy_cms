@@ -230,6 +230,10 @@ module Alchemy
       searchable_attribute_names.join("_or_") + "_cont"
     end
 
+    def search_form_name
+      (resource_array[..-2] + [resource_name]).join("/") + "_search"
+    end
+
     def in_engine?
       !engine_name.nil?
     end

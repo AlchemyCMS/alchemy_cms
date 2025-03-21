@@ -110,6 +110,29 @@ module Alchemy
       end
     end
 
+    describe "#search_form_name" do
+      let(:resource) { Resource.new(controller_name) }
+      subject { resource.search_form_name }
+
+      context "with an alchemy admin controller" do
+        let(:controller_name) { "alchemy/admin/pages" }
+
+        it { is_expected.to eq("alchemy/page_search") }
+      end
+
+      context "with a custom admin controller" do
+        let(:controller_name) { "admin/events" }
+
+        it { is_expected.to eq("event_search") }
+      end
+
+      context "with a another admin controller" do
+        let(:controller_name) { "spree/admin/orders" }
+
+        it { is_expected.to eq("spree/order_search") }
+      end
+    end
+
     describe "#resource_name" do
       it "returns the resources name as singular" do
         expect(resource.resource_name).to eq("party")
