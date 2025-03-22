@@ -24,7 +24,6 @@ module Alchemy
           alchemy_filters << "Alchemy::Admin::Filters::#{type.to_s.camelize}".constantize.new(
             name:,
             resource_name: resource_handler.resource_name,
-            search_form: resource_handler.search_form_name,
             **args
           )
         end

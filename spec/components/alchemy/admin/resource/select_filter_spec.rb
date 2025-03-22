@@ -7,11 +7,10 @@ RSpec.describe Alchemy::Admin::Resource::SelectFilter, type: :component do
   let(:options) { [["Published", "published"], ["Draft", "draft"], ["Archived", "archived"]] }
   let(:resource_name) { "page" }
   let(:params) { {q: {status: "published"}.with_indifferent_access} }
-  let(:search_form) { "page_search" }
   let(:label) { "Status" }
   let(:include_blank) { "All" }
   let(:component) do
-    described_class.new(name:, resource_name:, search_form:, include_blank:, label:, options:, params:)
+    described_class.new(name:, resource_name:, include_blank:, label:, options:, params:)
   end
 
   before do

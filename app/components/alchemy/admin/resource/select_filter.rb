@@ -4,7 +4,7 @@ module Alchemy
   module Admin
     module Resource
       class SelectFilter < ViewComponent::Base
-        attr_reader :name, :resource_name, :search_form, :label, :include_blank, :options, :selected
+        attr_reader :name, :resource_name, :label, :include_blank, :options, :selected
 
         erb_template <<~ERB
           <div class="filter-input">
@@ -13,16 +13,15 @@ module Alchemy
               select_name,
               options_for_select(options, selected),
               include_blank: include_blank,
-              form: search_form,
+              form: "resource_search",
               is: 'alchemy-select'
             ) %>
           </div>
         ERB
 
-        def initialize(name:, resource_name:, search_form:, label:, include_blank:, options:, params:)
+        def initialize(name:, resource_name:, label:, include_blank:, options:, params:)
           @name = name
           @options = options
-          @search_form = search_form
           @label = label
           @include_blank = include_blank
           @resource_name = resource_name

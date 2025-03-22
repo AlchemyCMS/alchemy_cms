@@ -5,9 +5,8 @@ require "rails_helper"
 RSpec.describe Alchemy::Admin::Filters::Checkbox do
   let(:name) { "published" }
   let(:resource_name) { "page" }
-  let(:search_form) { "page_search" }
 
-  let(:checkbox) { described_class.new(name:, resource_name:, search_form:) }
+  let(:checkbox) { described_class.new(name:, resource_name:) }
 
   describe "#applied_filter_component" do
     let(:search_filter_params) { {q: {published: true}}.with_indifferent_access }
@@ -37,7 +36,6 @@ RSpec.describe Alchemy::Admin::Filters::Checkbox do
       expect(component).to be_a(Alchemy::Admin::Resource::CheckboxFilter)
       expect(component.name).to eq(name)
       expect(component.label).to eq("Published")
-      expect(component.search_form).to eq("page_search")
       expect(component.checked).to be true
     end
   end

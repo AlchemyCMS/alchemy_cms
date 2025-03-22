@@ -5,10 +5,9 @@ require "rails_helper"
 RSpec.describe Alchemy::Admin::Filters::Select do
   let(:name) { "by_page_layout" }
   let(:resource_name) { "page" }
-  let(:search_form) { "page_search" }
   let(:options) { Alchemy::PageLayout.all.map { |p| [Alchemy.t(p["name"], scope: "page_layout_names"), p["name"]] } }
 
-  let(:checkbox) { described_class.new(name:, resource_name:, search_form:, options:) }
+  let(:checkbox) { described_class.new(name:, resource_name:, options:) }
 
   describe "#applied_filter_component" do
     let(:search_filter_params) { {q: {by_page_layout: "standard"}}.with_indifferent_access }
@@ -39,7 +38,6 @@ RSpec.describe Alchemy::Admin::Filters::Select do
       expect(component).to be_a(Alchemy::Admin::Resource::SelectFilter)
       expect(component.name).to eq(name)
       expect(component.label).to eq("Page Type")
-      expect(component.search_form).to eq("page_search")
       expect(component.selected).to eq("standard")
     end
 
@@ -53,7 +51,6 @@ RSpec.describe Alchemy::Admin::Filters::Select do
         expect(component.name).to eq(name)
         expect(component.label).to eq("Page Type")
         expect(component.options).to eq(options.call(query))
-        expect(component.search_form).to eq("page_search")
         expect(component.selected).to eq("standard")
       end
     end
@@ -70,7 +67,6 @@ RSpec.describe Alchemy::Admin::Filters::Select do
         expect(component.name).to eq(name)
         expect(component.label).to eq("File Type")
         expect(component.options).to eq([["JPG Image", "jpeg"], ["PNG Image", "png"], ["GIF Image", "gif"]])
-        expect(component.search_form).to eq("picture_search")
         expect(component.selected).to eq("jpeg")
       end
     end

@@ -9,16 +9,15 @@ module Alchemy
         erb_template <<~ERB
           <div class="filter-input">
             <label>
-              <%= check_box_tag checkbox_name, form: search_form, checked: checked %>
+              <%= check_box_tag checkbox_name, form: "resource_search", checked: checked %>
               <%= label %>
             </label>
           </div>
         ERB
 
-        def initialize(name:, label:, search_form:, params:)
+        def initialize(name:, label:, params:)
           @name = name
           @label = label
-          @search_form = search_form
           @checked = get_checked_from(params)
         end
 

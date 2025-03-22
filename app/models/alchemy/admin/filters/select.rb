@@ -10,8 +10,8 @@ module Alchemy
         # @param name [String] The name of the filter.
         # @param resource_name [String] The name of the resource.
         # @param options [Proc, Array] A proc that returns the options for the select, or an array of options.
-        def initialize(name:, resource_name:, search_form:, options:)
-          super(name:, resource_name:, search_form:)
+        def initialize(name:, resource_name:, options:)
+          super(name:, resource_name:)
           @options = options_to_proc(options)
         end
 
@@ -25,7 +25,6 @@ module Alchemy
             resource_name:,
             label: translated_name,
             include_blank:,
-            search_form:,
             options: get_options_for_select(query),
             params:
           )

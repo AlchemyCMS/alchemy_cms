@@ -4,9 +4,8 @@ RSpec.describe Alchemy::Admin::Resource::CheckboxFilter, type: :component do
   let(:name) { "published" }
   let(:label) { "Published" }
   let(:params) { {q: {published: true}.with_indifferent_access} }
-  let(:search_form) { "page_search" }
 
-  let(:component) { described_class.new(name:, label:, search_form:, params:) }
+  let(:component) { described_class.new(name:, label:, params:) }
 
   before do
     render
@@ -17,7 +16,7 @@ RSpec.describe Alchemy::Admin::Resource::CheckboxFilter, type: :component do
   end
 
   it "renders a checkbox input" do
-    expect(page).to have_selector('input[type="checkbox"][name="q[published]"][form="page_search"]')
+    expect(page).to have_selector('input[type="checkbox"][name="q[published]"][form="resource_search"]')
   end
 
   it "renders the correct label" do

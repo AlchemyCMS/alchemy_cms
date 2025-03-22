@@ -4,12 +4,11 @@ module Alchemy
   module Admin
     module Filters
       class Base
-        attr_reader :name, :resource_name, :search_form
+        attr_reader :name, :resource_name
 
-        def initialize(name:, resource_name:, search_form:)
+        def initialize(name:, resource_name:)
           @name = name
           @resource_name = resource_name
-          @search_form = search_form
         end
 
         private
