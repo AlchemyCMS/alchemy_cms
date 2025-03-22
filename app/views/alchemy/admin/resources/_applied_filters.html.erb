@@ -1,0 +1,8 @@
+<% if applied_filters.present? %>
+  <div class="applied-filters">
+    <b><%= Alchemy.t("filtered_by") %></b>
+    <% applied_filters.each do |filter| %>
+      <%= render filter.applied_filter_component(search_filter_params:, resource_url_proxy:, query: @query) %>
+    <% end %>
+  </div>
+<% end %>

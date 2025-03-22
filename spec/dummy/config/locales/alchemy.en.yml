@@ -6,6 +6,11 @@ en:
           name: Start
         by_location_id:
           name: Location
+        by_timeframe:
+          name: By Timeframe
+          values:
+            starting_today: Starting Today
+            future: Future
     element_names:
       gallery_picture: Gallery picture
     ingredient_roles:
@@ -18,6 +23,8 @@ en:
       richtext: Richtext
       select: Select
       text: Text
+    page_layout_names:
+      standard: Standard
     element_hints:
       all_you_can_eat: This element shows all ingredient types and settings of an Element Alchemy comes with in a default installation.
     ingredient_hints:

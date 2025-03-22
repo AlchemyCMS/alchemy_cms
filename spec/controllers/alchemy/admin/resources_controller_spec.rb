@@ -71,13 +71,27 @@ RSpec.describe Alchemy::Admin::ResourcesController do
           let!(:booking2) { Booking.create!(from: 1.weeks.from_now) }
 
           controller(::Alchemy::Admin::ResourcesController) do
+            def self.resource_handler
+              @_resource_handler ||= Alchemy::Resource.new(
+                controller_path,
+                Alchemy::Modules.module_definition_for(controller: controller_path, action: :index),
+                Booking
+              )
+            end
+
             def resource_handler
-              @_resource_handler ||= Alchemy::Resource.new(controller_path, alchemy_module, Booking)
+              @_resource_handler ||= Alchemy::Resource.new(
+                controller_path,
+                Alchemy::Modules.module_definition_for(controller: controller_path, action: :index),
+                Booking
+              )
             end
           end
 
           it "returns records sorted by first attribute" do
-            get :index
+            Alchemy::Deprecation.silence do
+              get :index
+            end
             expect(assigns(:resources)).to eq([booking2, booking1])
           end
         end
@@ -199,10 +213,29 @@ RSpec.describe Alchemy::Admin::ResourcesController do
   describe "#common_search_filter_includes" do
     before do
       allow(controller).to receive(:alchemy_module) { {name: "events"} }
+      controller.send(:initialize_alchemy_filters)
     end
 
     it "should not be frozen" do
       expect(controller.send(:common_search_filter_includes)).to_not be_frozen
+    end
+  end
+
+  describe "legacy filters" do
+    let(:model) { Booking }
+    let(:controller_class) { Admin::BookingsController }
+    let(:controller) { controller_class.new }
+    let(:resource_handler) { controller_class.resource_handler }
+
+    before do
+      allow(controller).to receive(:alchemy_module) { {name: "bookings"} }
+      Alchemy::Deprecation.silence do
+        controller.send(:initialize_alchemy_filters)
+      end
+    end
+
+    it "should add filters from model" do
+      expect(controller_class.alchemy_filters.map(&:name)).to contain_exactly(:by_date, :future, :starting_today)
     end
   end
 end

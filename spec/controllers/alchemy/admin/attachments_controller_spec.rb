@@ -58,7 +58,7 @@ module Alchemy
         end
 
         it "loads only attachments with matching content type" do
-          get :index, params: {filter: {by_file_type: "image/jpeg"}}
+          get :index, params: {q: {by_file_type: "image/jpeg"}}
           expect(assigns(:attachments).to_a).to eq([jpg])
           expect(assigns(:attachments).to_a).to_not eq([png])
         end
@@ -150,9 +150,8 @@ module Alchemy
         context "with search params" do
           let(:search_filter_params) do
             {
-              q: {name_or_file_name_cont: "kitten"},
+              q: {name_or_file_name_cont: "kitten", by_file_type: "pdf"},
               tagged_with: "cute",
-              filter: {by_file_type: "pdf"},
               page: 2
             }
           end
@@ -198,9 +197,8 @@ module Alchemy
       context "with search params" do
         let(:search_filter_params) do
           {
-            q: {name_or_file_name_cont: "kitten"},
+            q: {name_or_file_name_cont: "kitten", by_file_type: "pdf"},
             tagged_with: "cute",
-            filter: {by_file_type: "pdf"},
             page: 2
           }
         end
