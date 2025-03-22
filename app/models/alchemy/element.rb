@@ -55,7 +55,7 @@ module Alchemy
     #
     acts_as_list scope: [:page_version_id, :fixed, :parent_element_id]
 
-    stampable stamper_class_name: Alchemy.user_class.name
+    stampable stamper_class_name: Alchemy.user_class_name
 
     before_destroy :delete_all_nested_elements
 

@@ -7,7 +7,7 @@ module Alchemy
     before_destroy :check_if_related_node_ingredients_present
 
     acts_as_nested_set scope: "language_id", touch: true
-    stampable stamper_class_name: Alchemy.user_class.name
+    stampable stamper_class_name: Alchemy.user_class_name
 
     belongs_to :language, class_name: "Alchemy::Language"
     belongs_to :page, class_name: "Alchemy::Page", optional: true, inverse_of: :nodes

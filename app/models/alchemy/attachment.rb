@@ -28,7 +28,7 @@ module Alchemy
       after_assign { |f| write_attribute(:file_mime_type, f.mime_type) }
     end
 
-    stampable stamper_class_name: Alchemy.user_class.name
+    stampable stamper_class_name: Alchemy.user_class_name
 
     has_many :file_ingredients,
       class_name: "Alchemy::Ingredients::File",
