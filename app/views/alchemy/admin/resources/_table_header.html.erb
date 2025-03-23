@@ -8,7 +8,7 @@
                                 { action: 'index' }.merge(tmp_params.except(:page))
                               ) -%>
       <div class="applied-filter">
-        <%= Alchemy.t("filters.#{resource_handler.resource_name}.#{k}.values.#{v}", default: v) %>
+        <%= Alchemy.t("filters.#{resource_name}.#{k}.values.#{v}", default: v) %>
         <%= link_to render_icon(:times, size: 'xs'), dismiss_filter_url, class: 'dismiss-filter' %>
       </div>
     <% end %>

@@ -11,10 +11,13 @@ module EngineResource
 end
 
 class ResourcesController
+  def controller_path
+    "admin/namespace/my_resources"
+  end
   include Alchemy::ResourcesHelper
 
   def resource_handler
-    @resource_handler ||= Alchemy::Resource.new("admin/namespace/my_resources")
+    @resource_handler ||= Alchemy::Resource.new(controller_path)
   end
 end
 

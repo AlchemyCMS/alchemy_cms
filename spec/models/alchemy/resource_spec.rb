@@ -63,83 +63,28 @@ module Alchemy
     end
 
     describe "#initialize" do
-      it "sets an instance variable that holds the controller path" do
-        resource = Resource.new("admin/parties")
-        expect(resource.instance_variable_get(:@controller_path)).to eq("admin/parties")
-      end
-
       context "when initialized with a module definition" do
         it "sets an instance variable that holds the module definition" do
           expect(resource.instance_variable_get(:@module_definition)).to eq(module_definition)
         end
       end
-
-      context "when initialized with a custom model" do
-        it "sets @model to custom model" do
-          resource = Resource.new("admin/parties", nil, CustomParty)
-          expect(resource.instance_variable_get(:@model)).to eq(CustomParty)
-        end
-      end
-
-      context "when initialized without custom model" do
-        it "guesses the model by the controller_path" do
-          resource = Resource.new("admin/parties", nil, nil)
-          expect(resource.instance_variable_get(:@model)).to eq(Party)
-        end
-      end
-
-      context "when model has alchemy_resource_relations defined" do
-        before do
-          allow(Party).to receive(:alchemy_resource_relations) do
-            {location: {attr_method: "name", type: "string"}}
-          end
-        end
-
-        context ", but not an ActiveRecord association" do
-          before do
-            allow(Party).to receive(:respond_to?) do |arg|
-              case arg
-              when :reflect_on_all_associations
-                false
-              when :alchemy_resource_relations
-                true
-              end
-            end
-          end
-
-          it "should raise error." do
-            expect { Resource.new("admin/parties") }.to raise_error(MissingActiveRecordAssociation)
-          end
-        end
-      end
     end
 
-    describe "#resource_array" do
-      it "splits the controller_path and returns it as array." do
-        resource = Resource.new("namespace1/namespace2/parties")
-        expect(resource.resource_array).to eql(%w[namespace1 namespace2 parties])
-      end
-
-      it "deletes 'admin' if found hence our model isn't in the admin-namespace by convention" do
-        expect(resource.resource_array).to eql(%w[parties])
-      end
+    it "has a controller path accessor" do
+      resource = Resource.new("admin/parties")
+      expect(resource.controller_path).to eq("admin/parties")
     end
 
     describe "#model" do
       it "returns the @model instance variable" do
-        expect(resource.model).to eq(resource.instance_variable_get(:@model))
+        expect(resource.model).to eq(Party)
       end
-    end
 
-    describe "#resources_name" do
-      it "returns plural name (like parties for model Party)" do
-        expect(resource.resources_name).to eq("parties")
-      end
-    end
-
-    describe "#resource_name" do
-      it "returns the resources name as singular" do
-        expect(resource.resource_name).to eq("party")
+      context "when initialized with a custom model" do
+        it "sets @model to custom model" do
+          resource = Resource.new("admin/parties", nil, CustomParty)
+          expect(resource.model).to eq(CustomParty)
+        end
       end
     end
 
@@ -346,6 +291,23 @@ module Alchemy
           {
             location: {attr_method: "name", attr_type: :string}
           }
+        end
+      end
+
+      context ", but not an ActiveRecord association" do
+        before do
+          allow(Event).to receive(:respond_to?) do |arg|
+            case arg
+            when :reflect_on_all_associations
+              false
+            when :alchemy_resource_relations
+              true
+            end
+          end
+        end
+
+        it "should raise error." do
+          expect { resource.resource_relations }.to raise_error(MissingActiveRecordAssociation)
         end
       end
 
