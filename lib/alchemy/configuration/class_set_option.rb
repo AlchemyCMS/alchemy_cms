@@ -38,7 +38,7 @@ module Alchemy
       private
 
       def validate(value)
-        raise TypeError, "each #{name} must be set as a String" unless value.all? { _1.is_a?(String) }
+        raise ConfigurationError.new(name, value.first, String) unless value.all? { _1.is_a?(String) }
         value
       end
     end

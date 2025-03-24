@@ -13,7 +13,7 @@ module Alchemy
 
       def validate(value)
         unless value.is_a?(Array) && value.all? { _1.is_a?(self.class.item_class) }
-          raise TypeError, "#{@name} must be an Array of #{self.class.item_class.name.downcase.pluralize}, given #{value.inspect}"
+          raise ConfigurationError.new(@name, value.first, self.class.item_class)
         end
         value
       end
