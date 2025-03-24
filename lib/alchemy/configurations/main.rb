@@ -218,6 +218,37 @@ module Alchemy
       # The storage adapter for Pictures and Attachments
       #
       option :storage_adapter, :string, default: "dragonfly"
+
+      # Define page preview sources
+      #
+      # A preview source is a Ruby class returning an URL
+      # that is used as source for the preview frame in the
+      # admin UI.
+      #
+      # == Example
+      #
+      #     # lib/acme/preview_source.rb
+      #     class Acme::PreviewSource < Alchemy::Admin::PreviewUrl
+      #       def url_for(page)
+      #         if page.site.name == "Next"
+      #           "https://user:#{ENV['PREVIEW_HTTP_PASS']}@next.acme.com"
+      #         else
+      #           "https://www.acme.com"
+      #         end
+      #       end
+      #     end
+      #
+      #     # config/initializers/alchemy.rb
+      #     require "acme/preview_source"
+      #     Alchemy.config.preview_sources << "Acme::PreviewSource"
+      #
+      #     # config/locales/de.yml
+      #     de:
+      #       activemodel:
+      #         models:
+      #           acme/preview_source: Acme Vorschau
+      #
+      option :preview_sources, :collection, item_type: :class, collection_class: Set, default: ["Alchemy::Admin::PreviewUrl"]
     end
   end
 end

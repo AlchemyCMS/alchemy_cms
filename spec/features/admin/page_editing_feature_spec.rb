@@ -30,10 +30,8 @@ RSpec.describe "Page editing feature", type: :system do
     end
 
     describe "multiple preview sources", :js do
-      around do |example|
-        Alchemy.preview_sources << FooPreviewSource
-        example.run
-        Alchemy.instance_variable_set(:@_preview_sources, nil)
+      before do |example|
+        stub_alchemy_config(:preview_sources, ["Alchemy::Admin::PreviewUrl", "FooPreviewSource"])
       end
 
       it "show as select" do
