@@ -64,6 +64,20 @@ RSpec.describe "Picture Library", type: :system do
     end
   end
 
+  describe "Filter by format" do
+    let!(:picture1) { create(:alchemy_picture, name: "Ping", image_file_format: "png") }
+    let!(:picture2) { create(:alchemy_picture, name: "Jay Peg", image_file_format: "jpeg") }
+
+    scenario "it's possible to filter pictures by format.", :js do
+      visit alchemy.admin_pictures_path
+      select2 "PNG", from: "File Type"
+      within "#pictures" do
+        expect(page).to have_content("Ping")
+        expect(page).to_not have_content("Jay Peg")
+      end
+    end
+  end
+
   describe "Picture descriptions", :js do
     let!(:picture) { create(:alchemy_picture) }
 

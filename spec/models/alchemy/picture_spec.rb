@@ -175,6 +175,21 @@ module Alchemy
       end
     end
 
+    describe ".file_formats" do
+      let!(:picture1) { create(:alchemy_picture, name: "Ping", image_file_format: "png") }
+      let!(:picture2) { create(:alchemy_picture, name: "Jay Peg", image_file_format: "jpeg") }
+
+      it "should return all picture file formats" do
+        expect(Picture.file_formats).to match_array(%w[jpeg png])
+      end
+
+      context "with a scope" do
+        it "should only return scoped picture file formats" do
+          expect(Picture.file_formats(Picture.where(name: "Jay Peg"))).to eq(["jpeg"])
+        end
+      end
+    end
+
     describe "#destroy" do
       context "a picture that is assigned to an ingredient" do
         let(:picture) { create(:alchemy_picture) }

@@ -21,7 +21,7 @@ module Alchemy
       end
 
       add_alchemy_filter :by_file_format, type: :select, options: ->(query) do
-        query.result.reorder(nil).distinct.pluck(:image_file_format).compact.presence || []
+        Alchemy::Picture.file_formats(query.result)
       end
       add_alchemy_filter :recent, type: :checkbox
       add_alchemy_filter :last_upload, type: :checkbox

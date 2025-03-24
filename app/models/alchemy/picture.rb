@@ -154,6 +154,10 @@ module Alchemy
       def ransackable_scopes(_auth_object = nil)
         [:by_file_format, :recent, :last_upload, :without_tag, :deletable]
       end
+
+      def file_formats(scope = all)
+        scope.reorder(:image_file_format).distinct.pluck(:image_file_format).compact.presence || []
+      end
     end
 
     # Instance methods
