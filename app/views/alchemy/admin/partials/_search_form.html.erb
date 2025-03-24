@@ -1,6 +1,6 @@
 <%- url ||= resource_url_proxy.url_for({ action: 'index' }.merge(search_filter_params.except(:q, :page))) -%>
 
-<%= search_form_for @query, url: url, class: 'search_form' do |f| %>
+<%= search_form_for @query, url: url, id: "resource_search", class: 'search_form' do |f| %>
   <div class="search_field">
     <button type="submit">
       <%= render_icon('search') %>
