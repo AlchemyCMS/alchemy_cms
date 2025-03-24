@@ -174,7 +174,7 @@ jobs:
       contents: write
     runs-on: ubuntu-22.04
     needs: [check_bun_lock, RSpec]
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' && needs.check_bun_lock.outputs.bun_lock_changed == 'true'
     steps:
       - uses: actions/checkout@v4
         with:
@@ -182,7 +182,6 @@ jobs:
           persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of our personal access token.
           fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
       - uses: actions/download-artifact@v4
-        if: needs.check_bun_lock.outputs.bun_lock_changed == 'true'
         with:
           name: javascript-bundles
           path: vendor/javascript
