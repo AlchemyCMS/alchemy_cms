@@ -2,6 +2,8 @@
 
 module Alchemy
   module ResourcesHelper
+    include Alchemy::Admin::ResourceName
+
     # = Alchemy::ResourceHelper
     #
     # Used to DRY up resource like structures in Alchemy's admin backend in combination with Alchemy::Resource
@@ -14,11 +16,11 @@ module Alchemy
     end
 
     def resource_instance_variable
-      instance_variable_get(:"@#{resource_handler.resource_name}")
+      instance_variable_get(:"@#{resource_name}")
     end
 
     def resources_instance_variable
-      instance_variable_get(:"@#{resource_handler.resources_name}")
+      instance_variable_get(:"@#{resources_name}")
     end
 
     def resource_url_proxy
@@ -46,12 +48,8 @@ module Alchemy
     end
 
     def edit_resource_path(resource = nil, options = {})
-      path_segments = resource_scope + [resource] || resource_handler.resource_array
+      path_segments = resource_scope + [resource] || resource_array
       edit_polymorphic_path path_segments, options
-    end
-
-    def resource_name
-      resource_handler.resource_name
     end
 
     def resource_model

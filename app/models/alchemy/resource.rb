@@ -98,8 +98,10 @@ module Alchemy
   #     resource = Resource.new('/admin/tags', {"engine_name"=>"alchemy"}, Gutentag::Tag)
   #
   class Resource
+    include Alchemy::Admin::ResourceName
+
     attr_accessor :resource_relations, :model_associations
-    attr_reader :model
+    attr_reader :model, :controller_path
 
     DEFAULT_SKIPPED_ATTRIBUTES = %w[id created_at creator_id]
     DEFAULT_SKIPPED_ASSOCIATIONS = %w[creator]
@@ -117,18 +119,6 @@ module Alchemy
         store_model_associations
         map_relations
       end
-    end
-
-    def resource_array
-      @_resource_array ||= controller_path_array.reject { |el| el == "admin" }
-    end
-
-    def resources_name
-      @_resources_name ||= resource_array.last
-    end
-
-    def resource_name
-      @_resource_name ||= resources_name.singularize
     end
 
     def namespaced_resource_name
@@ -296,11 +286,7 @@ module Alchemy
     end
 
     def guess_model_from_controller_path
-      resource_array.join("/").classify.constantize
-    end
-
-    def controller_path_array
-      @controller_path.split("/")
+      resource_model_name.classify.constantize
     end
 
     def namespace_diff

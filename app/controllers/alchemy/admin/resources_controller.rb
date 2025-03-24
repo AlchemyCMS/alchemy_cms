@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 require "csv"
-require "alchemy/resource"
-require "alchemy/resources_helper"
-require "alchemy/resource_filter"
 
 module Alchemy
   module Admin
@@ -11,6 +8,7 @@ module Alchemy
       COMMON_SEARCH_FILTER_EXCLUDES = %i[id utf8 _method _ format].freeze
 
       include Alchemy::ResourcesHelper
+      extend Alchemy::Admin::ResourceName
 
       helper Alchemy::ResourcesHelper, TagsHelper
       helper_method :resource_handler, :search_filter_params,
@@ -34,16 +32,16 @@ module Alchemy
         respond_to do |format|
           format.html do
             items = items.page(params[:page] || 1).per(items_per_page)
-            instance_variable_set(:"@#{resource_handler.resources_name}", items)
+            instance_variable_set(:"@#{resources_name}", items)
           end
           format.csv do
-            instance_variable_set(:"@#{resource_handler.resources_name}", items)
+            instance_variable_set(:"@#{resources_name}", items)
           end
         end
       end
 
       def new
-        instance_variable_set(:"@#{resource_handler.resource_name}", resource_handler.model.new)
+        instance_variable_set(:"@#{resource_name}", resource_handler.model.new)
       end
 
       def show
@@ -54,7 +52,7 @@ module Alchemy
       end
 
       def create
-        instance_variable_set(:"@#{resource_handler.resource_name}", resource_handler.model.new(resource_params))
+        instance_variable_set(:"@#{resource_name}", resource_handler.model.new(resource_params))
         resource_instance_variable.save
         render_errors_or_redirect(
           resource_instance_variable,
@@ -101,7 +99,7 @@ module Alchemy
 
       def resource_filters_for_select
         resource_filters.map do |filter|
-          ResourceFilter.new(filter, resource_handler.resource_name)
+          ResourceFilter.new(filter, resource_name)
         end
       end
 
@@ -174,7 +172,7 @@ module Alchemy
       end
 
       def load_resource
-        instance_variable_set(:"@#{resource_handler.resource_name}", resource_handler.model.find(params[:id]))
+        instance_variable_set(:"@#{resource_name}", resource_handler.model.find(params[:id]))
       end
 
       def authorize_resource
