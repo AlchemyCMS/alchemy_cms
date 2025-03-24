@@ -17,6 +17,14 @@ class Event < ActiveRecord::Base
   scope :starting_today, -> { where(starts_at: Time.current.at_midnight..Date.tomorrow.at_midnight) }
   scope :future, -> { where("starts_at > ?", Date.tomorrow.at_midnight) }
   scope :by_location_id, ->(id) { where(location_id: id) }
+  scope :by_timeframe, ->(timeframe) {
+    case timeframe
+    when "starting_today" then starting_today
+    when "future" then future
+    else
+      all
+    end
+  }
 
   def self.ransackable_attributes(*)
     [
@@ -30,17 +38,13 @@ class Event < ActiveRecord::Base
     }
   end
 
-  def self.alchemy_resource_filters
-    [
-      {
-        name: :start,
-        values: %w[starting_today future]
-      },
-      {
-        name: :by_location_id,
-        values: Location.all.map { |l| [l.name, l.id] }
-      }
-    ]
+  def self.ransackable_scopes(_auth_object = nil)
+    %i[by_location_id by_timeframe]
+  end
+
+  # See https://github.com/activerecord-hackery/ransack/issues/1232
+  def self.ransackable_scopes_skip_sanitize_args(_auth_object = nil)
+    [:by_location_id]
   end
 
   private

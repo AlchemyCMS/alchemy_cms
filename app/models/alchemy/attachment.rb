@@ -58,19 +58,6 @@ module Alchemy
         @_url_class = klass
       end
 
-      def alchemy_resource_filters
-        [
-          {
-            name: :by_file_type,
-            values: distinct.pluck(:file_mime_type).map { |type| [Alchemy.t(type, scope: "mime_types"), type] }.sort_by(&:first)
-          },
-          {
-            name: :misc,
-            values: %w[recent last_upload without_tag]
-          }
-        ]
-      end
-
       def last_upload
         last_id = Attachment.maximum(:id)
         return Attachment.all unless last_id
@@ -82,8 +69,18 @@ module Alchemy
         %w[name file_name]
       end
 
+      def file_types(scope = all)
+        scope.reorder(:file_mime_type).distinct.pluck(:file_mime_type)
+          .map { [Alchemy.t(_1, scope: "mime_types"), _1] }
+          .sort_by(&:first)
+      end
+
       def allowed_filetypes
         Alchemy.config.get(:uploader).fetch("allowed_filetypes", {}).fetch("alchemy/attachments", [])
+      end
+
+      def ransackable_scopes(_auth_object = nil)
+        %i[by_file_type recent last_upload without_tag]
       end
     end
 

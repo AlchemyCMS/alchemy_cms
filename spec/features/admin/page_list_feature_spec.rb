@@ -68,7 +68,7 @@ RSpec.describe "Admin page list", type: :system do
 
     specify "can filter table of pages by status", :js do
       visit admin_pages_path(view: "list")
-      select2("Published", from: "Status")
+      check("Published")
       expect(page).to have_content("Filtered by")
       within("table.list") do
         expect(page.find("tr:nth-child(1) td.name", text: "Intro")).to be

@@ -1,21 +1,7 @@
 <div class="resources-header">
-  <% if search_filter_params[:filter].present? %>
-    <b><%= Alchemy.t("filtered_by") %></b>
-    <% search_filter_params[:filter].each do |k, v| %>
-      <%- tmp_params = search_filter_params.dup -%>
-      <%- tmp_params[:filter] = tmp_params[:filter].except(k) -%>
-      <%- dismiss_filter_url = resource_url_proxy.url_for(
-                                { action: 'index' }.merge(tmp_params.except(:page))
-                              ) -%>
-      <div class="applied-filter">
-        <%= Alchemy.t("filters.#{resource_name}.#{k}.values.#{v}", default: v) %>
-        <%= link_to render_icon(:times, size: 'xs'), dismiss_filter_url, class: 'dismiss-filter' %>
-      </div>
-    <% end %>
-  <% end %>
-
   <h2>
     <%= resources_instance_variable.total_count %>
     <%= resource_model.model_name.human(count: resources_instance_variable.total_count) %>
   </h2>
+  <%= render "alchemy/admin/resources/applied_filters" %>
 </div>

@@ -111,6 +111,12 @@ en:
             not_public: Unpublished
             published: Published
             restricted: Restricted
+        not_public:
+          name: Unpublished
+        published:
+          name: Published
+        restricted:
+          name: Restricted
       picture:
         by_file_format:
           name: File Type
@@ -121,24 +127,25 @@ en:
             svg: SVG Image
             tiff: TIFF Image
             webp: WebP Image
-        misc:
-          name: Miscellaneous
-          values:
-            last_upload: Last upload only
-            recent: Recently uploaded only
-            without_tag: Without tag
-            deletable: Not linked by file content
+        last_upload:
+          name: Last upload only
+        recent:
+          name: Recently uploaded only
+        without_tag:
+          name: Without tag
+        deletable:
+          name: Not linked by file content
       attachment:
         by_file_type:
           name: File Type
           values:
             <<: *mime_types
-        misc:
-          name: Miscellaneous
-          values:
-            last_upload: Last upload only
-            recent: Recently uploaded only
-            without_tag: Without tag
+        last_upload:
+          name: Last upload only
+        recent:
+          name: Recently uploaded only
+        without_tag:
+          name: Without tag
 
     default_ingredient_texts:
       lorem: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."

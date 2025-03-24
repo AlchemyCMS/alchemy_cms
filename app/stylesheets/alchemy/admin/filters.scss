@@ -1,0 +1,60 @@
+@use "../variables" as vars;
+
+div#filter_bar {
+  padding-top: var(--spacing-3);
+}
+
+.filter-input {
+  margin: var(--spacing-2) 0;
+
+  label:not(:has(input[type="checkbox"])) {
+    display: block;
+    font-weight: bold;
+    font-size: 1.125rem;
+    margin-bottom: var(--spacing-2);
+  }
+
+  label:has(input[type="checkbox"]) {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-1);
+    cursor: pointer;
+  }
+
+  &:has(select) {
+    margin-bottom: var(--spacing-4);
+  }
+}
+
+.applied-filters {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin: var(--spacing-2) 0 var(--spacing-4) 0;
+}
+
+.applied-filter {
+  --background-color: var(--color-grey_light);
+  --color: var(--color-text);
+  display: inline-flex;
+  justify-content: space-between;
+  gap: var(--spacing-1);
+  padding: var(--spacing-1) var(--spacing-1) var(--spacing-1) var(--spacing-2);
+  border-radius: var(--border-radius_medium);
+  border: 1px solid vars.$default-border-color;
+  background-color: var(--background-color);
+  color: var(--color);
+  white-space: nowrap;
+  font-weight: normal;
+
+  .applied-filter-label {
+    font-weight: var(--font-weigth_bold);
+  }
+
+  .dismiss-filter {
+    display: inline-flex;
+    justify-content: center;
+    width: var(--spacing-4);
+    color: var(--color-icon);
+  }
+}

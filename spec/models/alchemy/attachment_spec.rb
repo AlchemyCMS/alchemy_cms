@@ -49,6 +49,31 @@ module Alchemy
       end
     end
 
+    describe ".file_types" do
+      let!(:attachment1) do
+        create(:alchemy_attachment, name: "Pee Dee Eff", file_name: "file.pdf", file_mime_type: "application/pdf")
+      end
+
+      let!(:attachment2) do
+        create(:alchemy_attachment, name: "Zip File", file_name: "archive.zip", file_mime_type: "application/zip")
+      end
+
+      it "should return all attachment file formats" do
+        expect(Attachment.file_types).to match_array [
+          ["PDF Document", "application/pdf"],
+          ["ZIP Archive", "application/zip"]
+        ]
+      end
+
+      context "with a scope" do
+        it "should only return scoped attachment file formats" do
+          expect(Attachment.file_types(Attachment.where(name: "file"))).to eq [
+            ["PDF Document", "application/pdf"]
+          ]
+        end
+      end
+    end
+
     describe "#url" do
       subject { attachment.url }
 

@@ -37,6 +37,11 @@ module Alchemy
         if: :run_on_page_layout_callbacks?,
         only: [:show]
 
+      add_alchemy_filter :by_page_layout, type: :select, options: PageLayout.all.map { |p| [Alchemy.t(p["name"], scope: "page_layout_names"), p["name"]] }
+      add_alchemy_filter :published, type: :checkbox
+      add_alchemy_filter :not_public, type: :checkbox
+      add_alchemy_filter :restricted, type: :checkbox
+
       def index
         @query = @current_language.pages.contentpages.ransack(search_filter_params[:q])
 
@@ -46,10 +51,6 @@ module Alchemy
 
           if search_filter_params[:tagged_with].present?
             items = items.tagged_with(search_filter_params[:tagged_with])
-          end
-
-          if search_filter_params[:filter].present?
-            items = apply_filters(items)
           end
 
           items = items.page(params[:page] || 1).per(items_per_page)

@@ -20,6 +20,14 @@ module Alchemy
         @picture = Picture.find(params[:id])
       end
 
+      add_alchemy_filter :by_file_format, type: :select, options: ->(query) do
+        Alchemy::Picture.file_formats(query.result)
+      end
+      add_alchemy_filter :recent, type: :checkbox
+      add_alchemy_filter :last_upload, type: :checkbox
+      add_alchemy_filter :without_tag, type: :checkbox
+      add_alchemy_filter :deletable, type: :checkbox
+
       def index
         @query = Picture.ransack(search_filter_params[:q])
         @pictures = filtered_pictures.includes(:thumbs)
@@ -136,10 +144,6 @@ module Alchemy
 
         if params[:tagged_with].present?
           pictures = pictures.tagged_with(params[:tagged_with])
-        end
-
-        if search_filter_params[:filter].present?
-          pictures = apply_filters(pictures)
         end
 
         pictures = pictures.page(params[:page] || 1).per(items_per_page)
