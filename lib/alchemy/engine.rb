@@ -113,7 +113,7 @@ module Alchemy
       if Alchemy.user_class
         ActiveSupport.on_load(:active_record) do
           Alchemy.user_class.model_stamper
-          Alchemy.user_class.stampable(stamper_class_name: Alchemy.user_class.name)
+          Alchemy.user_class.stampable(stamper_class_name: Alchemy.user_class_name)
         end
       end
 
