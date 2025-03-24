@@ -14,6 +14,17 @@ require "alchemy/configuration/string_option"
 
 module Alchemy
   class Configuration
+    class ConfigurationError < StandardError
+      attr_reader :name, :value, :expected_type
+
+      def initialize(name, value, expected_type)
+        @name = name
+        @value = value
+        @expected_type = expected_type
+        super("Invalid configuration value for #{name}: #{value.inspect} (expected #{expected_type})")
+      end
+    end
+
     def initialize(configuration_hash = {})
       set(configuration_hash)
     end

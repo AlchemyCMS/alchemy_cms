@@ -56,7 +56,10 @@ RSpec.describe Alchemy::Configuration do
     it "raises an error" do
       expect do
         configuration.auto_logout_time = "14"
-      end.to raise_exception(TypeError, 'auto_logout_time must be set as a Integer, given "14"')
+      end.to raise_exception(
+        Alchemy::Configuration::ConfigurationError,
+        'Invalid configuration value for auto_logout_time: "14" (expected Integer)'
+      )
     end
   end
 
@@ -74,7 +77,10 @@ RSpec.describe Alchemy::Configuration do
     it "can only be set using a string" do
       expect do
         configuration.picture_thumb_storage_class = String
-      end.to raise_exception(TypeError, "picture_thumb_storage_class must be set as a String, given String")
+      end.to raise_exception(
+        Alchemy::Configuration::ConfigurationError,
+        "Invalid configuration value for picture_thumb_storage_class: String (expected String)"
+      )
     end
   end
 
@@ -104,7 +110,10 @@ RSpec.describe Alchemy::Configuration do
     it "can only be set with a Boolean" do
       expect do
         configuration.cache_pages = "true"
-      end.to raise_exception(TypeError, "cache_pages must be a Boolean, given \"true\"")
+      end.to raise_exception(
+        Alchemy::Configuration::ConfigurationError,
+        'Invalid configuration value for cache_pages: "true" (expected Boolean)'
+      )
     end
   end
 
@@ -122,7 +131,10 @@ RSpec.describe Alchemy::Configuration do
     it "can only be set with an integer list" do
       expect do
         configuration.page_preview_sizes = ["1"]
-      end.to raise_exception(TypeError, 'page_preview_sizes must be an Array of integers, given ["1"]')
+      end.to raise_exception(
+        Alchemy::Configuration::ConfigurationError,
+        "Invalid configuration value for page_preview_sizes: \"1\" (expected Integer)"
+      )
     end
   end
 
@@ -140,7 +152,10 @@ RSpec.describe Alchemy::Configuration do
     it "can only be set with an Array of strings" do
       expect do
         configuration.link_target_options = [:blank]
-      end.to raise_exception(TypeError, "link_target_options must be an Array of strings, given [:blank]")
+      end.to raise_exception(
+        Alchemy::Configuration::ConfigurationError,
+        "Invalid configuration value for link_target_options: :blank (expected String)"
+      )
     end
   end
 
@@ -158,7 +173,10 @@ RSpec.describe Alchemy::Configuration do
     it "can only be set with an Array of strings" do
       expect do
         configuration.mail_success_page = :thanks
-      end.to raise_exception(TypeError, "mail_success_page must be set as a String, given :thanks")
+      end.to raise_exception(
+        Alchemy::Configuration::ConfigurationError,
+        "Invalid configuration value for mail_success_page: :thanks (expected String)"
+      )
     end
   end
 
@@ -176,7 +194,10 @@ RSpec.describe Alchemy::Configuration do
     it "can only be set with a regexp" do
       expect do
         configuration.email = '/\A.*\z/'
-      end.to raise_exception(TypeError, /email must be set as a Regexp, given .*/)
+      end.to raise_exception(
+        Alchemy::Configuration::ConfigurationError,
+        "Invalid configuration value for email: #{'/\A.*\z/'.inspect} (expected Regexp)"
+      )
     end
   end
 
@@ -267,6 +288,40 @@ RSpec.describe Alchemy::Configuration do
     it "can be converted to a Hash" do
       expect(configuration.to_h).to eq(
         uploader: {file_size_limit: 100, upload_limit: 50}
+      )
+    end
+  end
+
+  describe "#preview_sources" do
+    let(:configuration) do
+      Class.new(described_class) do
+        option :preview_sources, :class_set, default: ["Alchemy::Admin::PreviewUrl"]
+      end.new
+    end
+
+    it "returns an Enumerable that returns all classes as constants" do
+      expect(configuration.preview_sources.to_a).to eq([Alchemy::Admin::PreviewUrl])
+    end
+  end
+
+  describe "#preview_sources=" do
+    let(:configuration) do
+      Class.new(described_class) do
+        option :preview_sources, :class_set, default: ["Alchemy::Admin::PreviewUrl"]
+      end.new
+    end
+
+    it "sets the classes" do
+      configuration.preview_sources = ["Alchemy::Admin::PreviewUrl", "Alchemy::Admin::PreviewUrl"]
+      expect(configuration.preview_sources.to_a).to eq([Alchemy::Admin::PreviewUrl, Alchemy::Admin::PreviewUrl])
+    end
+
+    it "raises an error if the classes are not strings" do
+      expect do
+        configuration.preview_sources = [Alchemy::Admin::PreviewUrl, Alchemy::Admin::PreviewUrl]
+      end.to raise_exception(
+        Alchemy::Configuration::ConfigurationError,
+        "Invalid configuration value for preview_sources: Alchemy::Admin::PreviewUrl (expected String)"
       )
     end
   end
