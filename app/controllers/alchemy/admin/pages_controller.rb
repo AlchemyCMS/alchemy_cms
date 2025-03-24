@@ -114,7 +114,7 @@ module Alchemy
         elsif page_needs_lock?
           @page.lock_to!(current_alchemy_user)
         end
-        @preview_urls = Alchemy.preview_sources.map do |klass|
+        @preview_urls = Alchemy.config.preview_sources.map do |klass|
           [
             klass.model_name.human,
             klass.new(routes: Alchemy::Engine.routes).url_for(@page)
