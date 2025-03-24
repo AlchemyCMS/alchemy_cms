@@ -6,11 +6,8 @@ module Alchemy
       include UploaderResponses
       include ArchiveOverlay
 
-      add_alchemy_filter :by_file_type, type: :select, options: ->(query) do
-        query.result.distinct.pluck(:file_mime_type)
-          .map { |type| [Alchemy.t(type, scope: "mime_types"), type] }
-          .sort_by(&:first)
-      end
+      add_alchemy_filter :by_file_type, type: :select,
+        options: -> { Alchemy::Attachment.file_types(_1.result) }
       add_alchemy_filter :recent, type: :checkbox
       add_alchemy_filter :last_upload, type: :checkbox
       add_alchemy_filter :without_tag, type: :checkbox

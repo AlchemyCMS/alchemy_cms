@@ -69,6 +69,12 @@ module Alchemy
         %w[name file_name]
       end
 
+      def file_types(scope = all)
+        scope.reorder(:file_mime_type).distinct.pluck(:file_mime_type)
+          .map { [Alchemy.t(_1, scope: "mime_types"), _1] }
+          .sort_by(&:first)
+      end
+
       def allowed_filetypes
         Alchemy.config.get(:uploader).fetch("allowed_filetypes", {}).fetch("alchemy/attachments", [])
       end
