@@ -75,7 +75,7 @@ module Alchemy
 
       context "with > geometry string" do
         before do
-          allow(Config).to receive(:get) do |arg|
+          allow(Alchemy.config).to receive(:get) do |arg|
             if arg == :preprocess_image_resize
               "10x10>"
             end
@@ -90,7 +90,7 @@ module Alchemy
 
       context "without > geometry string" do
         before do
-          allow(Config).to receive(:get) do |arg|
+          allow(Alchemy.config).to receive(:get) do |arg|
             if arg == :preprocess_image_resize
               "10x10"
             end
