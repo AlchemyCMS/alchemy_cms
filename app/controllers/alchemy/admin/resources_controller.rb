@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "csv"
-require "alchemy/resource_filter"
 
 module Alchemy
   module Admin
