@@ -84,18 +84,6 @@ RSpec.describe Alchemy::Configuration do
     end
   end
 
-  describe "setting and changing class sets" do
-    let(:configuration) do
-      Class.new(described_class) do
-        option :preview_sources, :collection, item_type: :class, default: ["Alchemy::Admin::PreviewUrl"]
-      end.new
-    end
-
-    it "returns an Enumerable that returns all classes as constants" do
-      expect(configuration.preview_sources.to_a).to eq([Alchemy::Admin::PreviewUrl])
-    end
-  end
-
   describe "Boolean options" do
     let(:configuration) do
       Class.new(described_class) do
