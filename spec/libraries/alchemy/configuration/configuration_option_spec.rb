@@ -40,4 +40,19 @@ RSpec.describe Alchemy::Configuration::ConfigurationOption do
       end
     end
   end
+
+  describe "Using within a set" do
+    let(:value) { {show_root: true, show_flag: false} }
+    let(:option_2) { described_class.new(value: value, name: :my_config, config_class: Alchemy::Configurations::Sitemap) }
+
+    it "should have the same hash value" do
+      expect(option.hash).to eq(option_2.hash)
+    end
+
+    it "should be able to add the option to a set" do
+      expect(option).to eql(option_2)
+      expect(Set.new([option, option_2])).to include(option)
+      expect(Set.new([option, option_2]).length).to eq(1)
+    end
+  end
 end
