@@ -41,7 +41,7 @@ RSpec.describe Alchemy do
 
     it "returns a Set of preview sources" do
       Alchemy::Deprecation.silence do
-        is_expected.to be_a(Set)
+        is_expected.to be_a(Alchemy::Configuration::CollectionOption)
       end
     end
   end
