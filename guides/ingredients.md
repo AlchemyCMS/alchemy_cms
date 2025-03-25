@@ -256,6 +256,23 @@ Stores a url in the database. Useful for linking things, where the editor should
 If you want the linked text to be editable by the editor use the [**Text**](#text) with `linkable: true` option instead.
 :::
 
+## Number
+
+Stores a number in the database. Useful for slider durations, price, lengths, etc. The number value gets translated via Rails' [`number_to_human`](https://api.rubyonrails.org/classes/ActionView/Helpers/NumberHelper.html#method-i-number_to_human) helper.
+
+### Settings
+
+* **input_type** `String|Symbol`
+  The input type to render the editor with. Defaults to `number`. Can be set to `range` instead.
+* **step** `Integer|Decimal`
+  The step on the editor input.
+* **min** `Integer|Decimal`
+  The minimum number allowed on the editor input.
+* **max** `Integer|Decimal`
+  The maximum number allowed on the editor input.
+* **unit** `String`
+  The unit displayed on the editor input addon. Also used as `unit` for the `number_to_human` helper.
+
 ## Page
 
 References an [Alchemy::Page](pages).
