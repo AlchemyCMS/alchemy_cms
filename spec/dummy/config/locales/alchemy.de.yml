@@ -29,6 +29,7 @@ de:
       file: Dieser Inhaltstyp stellt eine herunterladbare Datei dar
       html: Dieser Inhaltstyp stellt reine HTML Ausgabe dar
       link: Dieser Inhaltstyp stellt einen Link dar
+      number: Dieser Inhaltstyp stellt eine Nummer dar
       picture: Dieser Inhaltstyp stellt ein Bild dar
       richtext: Dieser Inhaltstyp stellt formatierbaren Text dar
       select: Dieser Inhaltstyp stellt Werte dar aus denen der Redakteur wählen kann

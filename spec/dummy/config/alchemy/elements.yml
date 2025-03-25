@@ -125,6 +125,16 @@
       type: Boolean
       hint: true
       default: true
+    - role: number
+      type: Number
+      hint: true
+      default: 0.6
+      settings:
+        min: 0
+        max: 10
+        step: 0.1
+        unit: "cm"
+        input_type: number
     - role: datetime
       type: Datetime
       hint: true
@@ -269,4 +279,4 @@
     - role: url
       type: Text
       validate:
-      - format: url
+        - format: url

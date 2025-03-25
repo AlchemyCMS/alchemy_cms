@@ -33,6 +33,7 @@ en:
       file: This ingredient type represents a downloadable file
       html: This ingredient type represents raw HTML output
       link: This ingredient type represents a link
+      number: This ingredient type represents a number
       picture: This ingredient type represents a picture
       richtext: This ingredient type represents richtext
       select: This ingredient type represents values the editor can choose from

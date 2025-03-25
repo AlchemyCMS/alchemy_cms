@@ -144,7 +144,11 @@ form {
   }
 
   .input-addon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: vars.$form-field-addon-width;
+    height: vars.$form-field-height;
     position: absolute;
     bottom: var(--spacing-2);
     --select-background-image: none;
