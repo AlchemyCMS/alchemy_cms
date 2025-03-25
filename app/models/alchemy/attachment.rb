@@ -86,11 +86,7 @@ module Alchemy
 
     validates_presence_of :file
     validates_size_of :file, maximum: Alchemy.config.get(:uploader)["file_size_limit"].megabytes
-    validates_property :ext,
-      of: :file,
-      in: allowed_filetypes,
-      case_sensitive: false,
-      message: Alchemy.t("not a valid file"),
+    validate :file_type_allowed,
       unless: -> { self.class.allowed_filetypes.include?("*") }
 
     before_save :set_name, if: :file_name_changed?
@@ -152,6 +148,13 @@ module Alchemy
     end
 
     private
+
+    def file_type_allowed
+      symbol = Mime::Type.lookup(file_mime_type)&.symbol&.to_s.presence
+      unless symbol&.in?(self.class.allowed_filetypes)
+        errors.add(:image_file, Alchemy.t("not a valid file"))
+      end
+    end
 
     def set_name
       self.name = convert_to_humanized_name(file_name, file.ext)
