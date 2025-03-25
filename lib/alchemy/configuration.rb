@@ -4,12 +4,10 @@ require "active_support"
 require "active_support/core_ext/string"
 
 require "alchemy/configuration/boolean_option"
+require "alchemy/configuration/collection_option"
 require "alchemy/configuration/class_option"
-require "alchemy/configuration/class_set_option"
 require "alchemy/configuration/integer_option"
-require "alchemy/configuration/integer_list_option"
 require "alchemy/configuration/regexp_option"
-require "alchemy/configuration/string_list_option"
 require "alchemy/configuration/string_option"
 
 module Alchemy
@@ -56,7 +54,8 @@ module Alchemy
 
     def to_h
       self.class.defined_options.map do |option|
-        [option, send(option)]
+        value = send(option)
+        [option, value.respond_to?(:to_a) ? value.to_a : value]
       end.concat(
         self.class.defined_configurations.map do |configuration|
           [configuration, send(configuration).to_h]
