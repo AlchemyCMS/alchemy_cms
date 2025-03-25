@@ -11,16 +11,17 @@ module Alchemy
         Enumerable
       end
 
-      attr_reader :collection_class, :item_class
+      attr_reader :collection_class, :item_class, :item_args
 
       def initialize(value:, name:, item_type:, collection_class: Array, **args)
         @collection_class = collection_class
         @item_class = get_item_class(item_type)
+        @item_args = args
         value = [] if value.nil?
         collection = @collection_class.new(value.map { |value| to_item(value) })
         super(value: collection, name: name)
       rescue ConfigurationError => configuration_error
-        raise ConfigurationError.new(name, configuration_error.value, configuration_error.expected_type)
+        raise ConfigurationError.new(name, configuration_error.value, configuration_error.allowed_classes)
       end
 
       def value
@@ -31,10 +32,6 @@ module Alchemy
         @value << to_item(value)
       end
       alias_method(:add, :<<)
-
-      def [](index)
-        to_a[index]
-      end
 
       def concat(values)
         values.each do |value|
@@ -52,10 +49,16 @@ module Alchemy
         end
       end
 
+      def to_serializable_array
+        to_a.map do |item|
+          item.respond_to?(:to_h) ? item.to_h : item
+        end
+      end
+
       private
 
       def to_item(value)
-        @item_class.new(value: value, name: "#{name}_item")
+        @item_class.new(value: value, name: "#{name}_item", **item_args)
       end
 
       def get_item_class(item_type)

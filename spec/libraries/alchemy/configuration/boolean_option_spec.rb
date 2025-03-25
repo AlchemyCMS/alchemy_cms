@@ -26,7 +26,7 @@ RSpec.describe Alchemy::Configuration::BooleanOption do
     it "raises exception" do
       expect { subject }.to raise_exception(
         Alchemy::Configuration::ConfigurationError,
-        "Invalid configuration value for my_option: :something (expected Boolean)"
+        "Invalid configuration value for my_option: :something (expected TrueClass or FalseClass)"
       )
     end
   end
