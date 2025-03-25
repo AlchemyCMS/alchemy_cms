@@ -87,7 +87,7 @@ RSpec.describe Alchemy::Configuration do
   describe "setting and changing class sets" do
     let(:configuration) do
       Class.new(described_class) do
-        option :preview_sources, :class_set, default: ["Alchemy::Admin::PreviewUrl"]
+        option :preview_sources, :collection, item_type: :class, default: ["Alchemy::Admin::PreviewUrl"]
       end.new
     end
 
@@ -120,12 +120,12 @@ RSpec.describe Alchemy::Configuration do
   describe "integer lists" do
     let(:configuration) do
       Class.new(described_class) do
-        option :page_preview_sizes, :integer_list, default: [1, 2]
+        option :page_preview_sizes, :collection, item_type: :integer, default: [1, 2]
       end.new
     end
 
     it "returns the integer list" do
-      expect(configuration.page_preview_sizes).to eq([1, 2])
+      expect(configuration.page_preview_sizes.to_a).to eq([1, 2])
     end
 
     it "can only be set with an integer list" do
@@ -133,7 +133,7 @@ RSpec.describe Alchemy::Configuration do
         configuration.page_preview_sizes = ["1"]
       end.to raise_exception(
         Alchemy::Configuration::ConfigurationError,
-        "Invalid configuration value for page_preview_sizes: \"1\" (expected Integer)"
+        'Invalid configuration value for page_preview_sizes: "1" (expected Integer)'
       )
     end
   end
@@ -141,12 +141,12 @@ RSpec.describe Alchemy::Configuration do
   describe "string lists" do
     let(:configuration) do
       Class.new(described_class) do
-        option :link_target_options, :string_list, default: ["blank"]
+        option :link_target_options, :collection, item_type: :string, default: ["blank"]
       end.new
     end
 
     it "returns the string list" do
-      expect(configuration.link_target_options).to eq(["blank"])
+      expect(configuration.link_target_options.to_a).to eq(["blank"])
     end
 
     it "can only be set with an Array of strings" do
@@ -205,7 +205,7 @@ RSpec.describe Alchemy::Configuration do
     let(:configuration_class) do
       Class.new(described_class) do
         option :mail_success_page, :string, default: "thanks"
-        option :link_target_options, :string_list, default: ["blank"]
+        option :link_target_options, :collection, item_type: :string, default: ["blank"]
       end
     end
 
@@ -215,7 +215,7 @@ RSpec.describe Alchemy::Configuration do
 
     it "takes the values from the hash" do
       expect(configuration.mail_success_page).to eq("verymuchthankyou")
-      expect(configuration.link_target_options).to eq(["top"])
+      expect(configuration.link_target_options.to_a).to eq(["top"])
     end
   end
 
@@ -223,7 +223,7 @@ RSpec.describe Alchemy::Configuration do
     let(:configuration_class) do
       Class.new(described_class) do
         option :mail_success_page, :string, default: "thanks"
-        option :link_target_options, :string_list, default: ["blank"]
+        option :link_target_options, :collection, item_type: :string, default: ["blank"]
       end
     end
 
@@ -234,7 +234,7 @@ RSpec.describe Alchemy::Configuration do
     it "takes the values from the hash" do
       configuration.set(mail_success_page: "verymuchthankyou", link_target_options: ["top"])
       expect(configuration.mail_success_page).to eq("verymuchthankyou")
-      expect(configuration.link_target_options).to eq(["top"])
+      expect(configuration.link_target_options.to_a).to eq(["top"])
     end
   end
 
@@ -242,7 +242,7 @@ RSpec.describe Alchemy::Configuration do
     let(:configuration) do
       Class.new(described_class) do
         option :mail_success_page, :string, default: "thanks"
-        option :link_target_options, :string_list, default: ["blank"]
+        option :link_target_options, :collection, item_type: :string, default: ["blank"]
       end.new
     end
 
@@ -295,7 +295,7 @@ RSpec.describe Alchemy::Configuration do
   describe "#preview_sources" do
     let(:configuration) do
       Class.new(described_class) do
-        option :preview_sources, :class_set, default: ["Alchemy::Admin::PreviewUrl"]
+        option :preview_sources, :collection, item_type: :class, default: ["Alchemy::Admin::PreviewUrl"]
       end.new
     end
 
@@ -307,7 +307,7 @@ RSpec.describe Alchemy::Configuration do
   describe "#preview_sources=" do
     let(:configuration) do
       Class.new(described_class) do
-        option :preview_sources, :class_set, default: ["Alchemy::Admin::PreviewUrl"]
+        option :preview_sources, :collection, item_type: :class, default: ["Alchemy::Admin::PreviewUrl"]
       end.new
     end
 

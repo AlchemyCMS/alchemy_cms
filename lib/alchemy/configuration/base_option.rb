@@ -17,6 +17,14 @@ module Alchemy
       def validate(value)
         raise ConfigurationError.new(name, value, self.class.value_class.name) unless value.is_a?(self.class.value_class)
       end
+
+      def eql?(other)
+        self.class == other.class && value == other.value
+      end
+
+      def hash
+        [self.class, value].hash
+      end
     end
   end
 end
