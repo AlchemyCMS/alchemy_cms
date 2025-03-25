@@ -315,17 +315,18 @@ RSpec.describe Alchemy::Configuration do
   end
 
   describe "configuration colletions" do
-    let(:configuration) do
+    let(:configuration_klass) do
       Class.new(described_class) do
         option :sitemap_configs,
           :collection,
           item_type: :configuration,
           config_class: Alchemy::Configurations::Sitemap,
           default: [{show_root: true, show_flag: false}]
-      end.new
+      end
     end
-
+    let(:configuration) { configuration_klass.new }
     it "returns a list of configurations" do
+      expect(configuration.sitemap_configs).to be_a(Alchemy::Configuration::CollectionOption)
       expect(configuration.sitemap_configs.to_a).to be_a(Array)
       expect(configuration.sitemap_configs.first).to be_a(Alchemy::Configurations::Sitemap)
     end

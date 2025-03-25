@@ -70,6 +70,10 @@ module Alchemy
 
       def defined_options = []
 
+      def defined_values
+        defined_options + defined_configurations
+      end
+
       def configuration(name, configuration_class)
         # The defined configurations on a class are all those defined directly on
         # that class as well as those defined on ancestors.
@@ -123,5 +127,18 @@ module Alchemy
         end
       end
     end
+
+    def hash
+      self.class.defined_values.map do |ivar|
+        [ivar, send(ivar).hash]
+      end.hash
+    end
+
+    def ==(other)
+      equal?(other) || self.class == other.class && self.class.defined_values.all? do |var|
+        send(var) == other.send(var)
+      end
+    end
+    alias_method :eql?, :==
   end
 end
