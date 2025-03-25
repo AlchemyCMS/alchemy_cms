@@ -162,7 +162,7 @@ module Alchemy
       #     user_roles:
       #       rolename: Name of the role
       #
-      option :user_roles, :string_list, default: %w[member author editor admin]
+      option :user_roles, :collection, item_type: :string, default: %w[member author editor admin]
 
       # === Uploader Settings
       #
@@ -184,7 +184,7 @@ module Alchemy
       #
       #   jQuery(a[data-link-target="overlay"]).dialog();
       #
-      option :link_target_options, :string_list, default: %w[blank]
+      option :link_target_options, :collection, item_type: :string, default: %w[blank]
 
       # === Format matchers
       #
@@ -201,7 +201,7 @@ module Alchemy
       option :admin_page_preview_layout, :string, default: "application"
 
       # The sizes for the preview size select in the page editor.
-      option :page_preview_sizes, :integer_list, default: [360, 640, 768, 1024, 1280, 1440]
+      option :page_preview_sizes, :collection, item_type: :integer, default: [360, 640, 768, 1024, 1280, 1440]
 
       # Enable full text search configuration
       #

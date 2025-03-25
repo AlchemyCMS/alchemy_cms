@@ -9,8 +9,8 @@ module Alchemy
       option :mail_from, :string, default: "your.mail@your-domain.com"
       option :mail_to, :string, default: "your.mail@your-domain.com"
       option :subject, :string, default: "A new contact form message"
-      option :fields, :string_list, default: %w[salutation firstname lastname address zip city phone email message]
-      option :validate_fields, :string_list, default: %w[lastname email]
+      option :fields, :collection, item_type: :string, default: %w[salutation firstname lastname address zip city phone email message]
+      option :validate_fields, :collection, item_type: :string, default: %w[lastname email]
     end
   end
 end
