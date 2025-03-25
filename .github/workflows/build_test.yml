@@ -71,7 +71,7 @@ jobs:
     needs: [check_bun_lock, build_javascript]
     runs-on: ubuntu-22.04
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         rails:
           - "7.1"
@@ -162,7 +162,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: Screenshots
+          name: Screenshots-${{ matrix.database }}-${{ matrix.ruby }}-${{ matrix.rails }}
           path: |
             spec/dummy/tmp/capybara
             spec/dummy/tmp/screenshots

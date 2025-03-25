@@ -757,6 +757,31 @@ alchemy-publish-element-button {
   }
 }
 
+.ingredient-editor.number {
+  input[type="number"] {
+    padding-right: vars.$form-field-addon-width;
+  }
+
+  .input-field:has(input[type="range"]) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-0);
+  }
+
+  input[type="range"] {
+    height: vars.$form-field-height;
+    flex-grow: 1;
+    margin: 0;
+    margin-right: var(--spacing-2);
+
+    ~ .input-addon {
+      position: static;
+      width: auto;
+    }
+  }
+}
+
 .ingredient-editor.audio,
 .ingredient-editor.file,
 .ingredient-editor.video {
