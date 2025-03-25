@@ -22,9 +22,10 @@ module Alchemy
         [self.class.value_class]
       end
 
-      def eql?(other)
+      def ==(other)
         self.class == other.class && value == other.value
       end
+      alias_method :eql?, :==
 
       def hash
         [self.class, value].hash
