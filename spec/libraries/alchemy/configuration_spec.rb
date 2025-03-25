@@ -100,7 +100,7 @@ RSpec.describe Alchemy::Configuration do
         configuration.cache_pages = "true"
       end.to raise_exception(
         Alchemy::Configuration::ConfigurationError,
-        'Invalid configuration value for cache_pages: "true" (expected Boolean)'
+        'Invalid configuration value for cache_pages: "true" (expected TrueClass or FalseClass)'
       )
     end
   end
@@ -310,6 +310,29 @@ RSpec.describe Alchemy::Configuration do
       end.to raise_exception(
         Alchemy::Configuration::ConfigurationError,
         "Invalid configuration value for preview_sources: Alchemy::Admin::PreviewUrl (expected String)"
+      )
+    end
+  end
+
+  describe "configuration colletions" do
+    let(:configuration) do
+      Class.new(described_class) do
+        option :sitemap_configs,
+          :collection,
+          item_type: :configuration,
+          config_class: Alchemy::Configurations::Sitemap,
+          default: [{show_root: true, show_flag: false}]
+      end.new
+    end
+
+    it "returns a list of configurations" do
+      expect(configuration.sitemap_configs.to_a).to be_a(Array)
+      expect(configuration.sitemap_configs.first).to be_a(Alchemy::Configurations::Sitemap)
+    end
+
+    it "can be converted to a Hash" do
+      expect(configuration.to_h).to eq(
+        sitemap_configs: [{show_root: true, show_flag: false}]
       )
     end
   end
