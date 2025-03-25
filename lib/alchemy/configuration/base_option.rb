@@ -15,7 +15,11 @@ module Alchemy
       attr_reader :name, :value
 
       def validate(value)
-        raise ConfigurationError.new(name, value, self.class.value_class.name) unless value.is_a?(self.class.value_class)
+        raise ConfigurationError.new(name, value, allowed_classes) unless allowed_classes.any? { value.is_a?(_1) }
+      end
+
+      def allowed_classes
+        [self.class.value_class]
       end
 
       def eql?(other)

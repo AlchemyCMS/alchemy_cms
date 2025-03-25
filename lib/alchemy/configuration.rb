@@ -5,6 +5,7 @@ require "active_support/core_ext/string"
 
 require "alchemy/configuration/boolean_option"
 require "alchemy/configuration/collection_option"
+require "alchemy/configuration/configuration_option"
 require "alchemy/configuration/class_option"
 require "alchemy/configuration/integer_option"
 require "alchemy/configuration/regexp_option"
@@ -13,13 +14,14 @@ require "alchemy/configuration/string_option"
 module Alchemy
   class Configuration
     class ConfigurationError < StandardError
-      attr_reader :name, :value, :expected_type
+      attr_reader :name, :value, :allowed_classes
 
-      def initialize(name, value, expected_type)
+      def initialize(name, value, allowed_classes)
         @name = name
         @value = value
-        @expected_type = expected_type
-        super("Invalid configuration value for #{name}: #{value.inspect} (expected #{expected_type})")
+        @allowed_classes = allowed_classes
+        expected_classes_message = allowed_classes.map(&:name).to_sentence(two_words_connector: " or ", last_word_connector: ", or ")
+        super("Invalid configuration value for #{name}: #{value.inspect} (expected #{expected_classes_message})")
       end
     end
 
@@ -55,7 +57,7 @@ module Alchemy
     def to_h
       self.class.defined_options.map do |option|
         value = send(option)
-        [option, value.respond_to?(:to_a) ? value.to_a : value]
+        [option, value.respond_to?(:to_serializable_array) ? value.to_serializable_array : value]
       end.concat(
         self.class.defined_configurations.map do |configuration|
           [configuration, send(configuration).to_h]
