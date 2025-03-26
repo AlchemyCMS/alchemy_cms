@@ -11,6 +11,10 @@ html {
     background-color: var(--color-blue_medium) !important;
     z-index: 400001;
   }
+
+  &.loading-custom-elements body {
+    opacity: 0;
+  }
 }
 
 *,
@@ -45,6 +49,8 @@ body {
   background-color: vars.$body-background-color;
   height: 100%;
   cursor: default;
+  opacity: 1;
+  transition: opacity vars.$transition-duration;
 
   // Fix for strange element window offset
   &.pages.edit {
