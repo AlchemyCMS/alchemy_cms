@@ -56,6 +56,12 @@ module Alchemy
       expect(picture).not_to be_valid
     end
 
+    it "is not valid with an invalid image file" do
+      picture = build(:alchemy_picture, image_file_format: "pdf")
+      expect(picture).to_not be_valid
+      expect(picture.errors[:image_file]).to include("This is not an valid image.")
+    end
+
     it "is valid with capitalized image file extension" do
       image_file = File.new(File.expand_path("../../fixtures/image2.PNG", __dir__))
       picture = Picture.new(image_file: image_file)
