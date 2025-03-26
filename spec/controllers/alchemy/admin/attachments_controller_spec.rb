@@ -140,6 +140,18 @@ module Alchemy
             expect { subject }.to change { attachment.reload.file_uid }
           end
         end
+
+        context "with failing validations" do
+          include_context "with invalid file"
+
+          let(:params) do
+            {
+              id: attachment.id, attachment: {file: invalid_file}
+            }
+          end
+
+          it_behaves_like "having a json uploader error message"
+        end
       end
 
       context "with passing validations" do
@@ -165,18 +177,6 @@ module Alchemy
           it "passes them along" do
             is_expected.to redirect_to admin_attachments_path(search_filter_params)
           end
-        end
-      end
-
-      context "with failing validations" do
-        include_context "with invalid file"
-
-        it "renders edit form" do
-          is_expected.to render_template(:edit)
-        end
-
-        it "sets 422 status" do
-          expect(subject.status).to eq 422
         end
       end
     end
