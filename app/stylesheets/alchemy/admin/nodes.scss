@@ -25,6 +25,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    gap: var(--spacing-0);
 
     > a {
       overflow: hidden;
