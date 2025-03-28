@@ -10,7 +10,7 @@ Rails.application.config.to_prepare do
       name: "Events",
       controller: "/admin/events",
       action: "index",
-      icon: "calendar-event",
+      icon: "calendar",
       sub_navigation: [{
         name: "Events",
         controller: "/admin/events",
