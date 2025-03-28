@@ -1,8 +1,10 @@
-<%= search_form_for @query, url: url_for({
-      action: 'index',
-      size: @size,
-    }.merge(search_filter_params.except(:q))
-  ), remote: true, html: {class: 'search_form', id: nil} do |f| %>
+<%- url ||= url_for({ action: 'index' }.merge(
+  q: search_filter_params[:q]&.except(resource_handler.search_field_name),
+  form_field_id: @form_field_id,
+  size: @size
+)) -%>
+
+<%= search_form_for @query, url: url_for(action: 'index', size: @size), remote: true, html: {class: 'search_form', id: "resource_search"} do |f| %>
   <%= hidden_field_tag :form_field_id, @form_field_id %>
   <div class="search_field">
     <button type="submit">
@@ -12,15 +14,10 @@
       placeholder: Alchemy.t(:search),
       class: 'search_input_field',
       id: nil %>
-    <%= link_to render_icon(:times, size: '1x'), url_for({
-        action: 'index',
-        form_field_id: @form_field_id,
-        size: @size,
-        overlay: true
-      }.merge(search_filter_params.except(:q))),
+    <%= link_to render_icon(:times, size: '1x'), url,
       remote: true,
       class: 'search_field_clear',
       title: Alchemy.t(:click_to_show_all),
-      style: search_filter_params[:q].blank? ? 'visibility: hidden' : 'visibility: visible' %>
+      style: search_filter_params.fetch(:q, {}).fetch(resource_handler.search_field_name, '').present? ? 'visibility: visible' : 'visibility: hidden' %>
   </div>
 <% end %>
