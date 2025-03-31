@@ -9,37 +9,17 @@ jobs:
       fail-fast: false
       matrix:
         alchemy_branch:
-          - "7.1-stable"
-          - "7.2-stable"
-          - "7.3-stable"
-          - "7.4-stable"
           - "main"
         ruby:
           - "3.2"
           - "3.3"
           - "3.4"
         rails:
-          - "7.1"
           - "7.2"
         database:
           - mysql
           - postgresql
           - sqlite
-        exclude:
-          - alchemy_branch: "7.1-stable"
-            rails: "7.2"
-          - alchemy_branch: "7.2-stable"
-            rails: "7.2"
-          - alchemy_branch: "7.1-stable"
-            ruby: "3.4"
-          - alchemy_branch: "7.2-stable"
-            ruby: "3.4"
-          - alchemy_branch: "main"
-            ruby: "3.2"
-          - alchemy_branch: "main"
-            rails: "7.1"
-          - rails: "7.1"
-            ruby: "3.4"
 
     env:
       DB: ${{ matrix.database }}
@@ -112,8 +92,6 @@ jobs:
 
   Lint:
     runs-on: ubuntu-22.04
-    env:
-      ALCHEMY_BRANCH: 7.3-stable
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
