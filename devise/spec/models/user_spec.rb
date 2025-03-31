@@ -214,7 +214,7 @@ module Alchemy
     describe "#logged_in?" do
       let(:user) { build(:alchemy_user) }
 
-      before { allow(Config).to receive(:get).and_return 60 }
+      before { stub_alchemy_config(:auto_logout_time, 60) }
 
       it "should return logged in status" do
         user.last_request_at = 30.minutes.ago
@@ -226,7 +226,7 @@ module Alchemy
     describe "#logged_out?" do
       let(:user) { build(:alchemy_user) }
 
-      before { allow(Config).to receive(:get).and_return 60 }
+      before { stub_alchemy_config(:auto_logout_time, 60) }
 
       it "should return logged in status" do
         user.last_request_at = 2.hours.ago
