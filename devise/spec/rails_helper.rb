@@ -12,6 +12,7 @@ require "rspec/active_model/mocks"
 require "capybara/rails"
 require "factory_bot_rails"
 require "alchemy/test_support/integration_helpers"
+require "alchemy/test_support/config_stubbing"
 
 require "alchemy/test_support"
 FactoryBot.definition_file_paths.append(Alchemy::TestSupport.factories_path)
@@ -32,6 +33,7 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.include Devise::TestHelpers, type: :controller
   config.include Alchemy::Engine.routes.url_helpers
+  config.include Alchemy::TestSupport::ConfigStubbing
   config.include FactoryBot::Syntax::Methods
   config.include ActiveJob::TestHelper
   [:controller, :feature, :request].each do |type|

@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-alchemy_branch = ENV.fetch("ALCHEMY_BRANCH", "7.4-stable")
+alchemy_branch = ENV.fetch("ALCHEMY_BRANCH", "main")
 gem "alchemy_cms", github: "AlchemyCMS/alchemy_cms", branch: alchemy_branch
 
 rails_version = ENV.fetch("RAILS_VERSION", "7.2")
@@ -22,3 +22,5 @@ end
 gem "github_fast_changelog", require: false
 
 gem "standardrb", "~> 1.0", require: false
+
+gem "propshaft", "~> 1.1"

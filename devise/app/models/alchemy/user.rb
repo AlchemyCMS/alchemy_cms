@@ -35,7 +35,7 @@ module Alchemy
     scope :logged_in, -> { where("last_request_at > ?", logged_in_timeout.seconds.ago) }
     scope :logged_out, -> { where("last_request_at is NULL or last_request_at <= ?", logged_in_timeout.seconds.ago) }
 
-    ROLES = Config.get(:user_roles)
+    ROLES = Alchemy.config.user_roles
 
     class << self
       def ransackable_attributes(_auth_object = nil)
@@ -65,7 +65,7 @@ module Alchemy
       end
 
       def logged_in_timeout
-        Config.get(:auto_logout_time).minutes.to_i
+        Alchemy.config.get(:auto_logout_time).minutes.to_i
       end
     end
 

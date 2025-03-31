@@ -1,6 +1,6 @@
 module Alchemy
   class Notifications < ActionMailer::Base
-    default(from: Config.get(:mailer)["mail_from"])
+    default(from: Alchemy.config.get(:mailer)["mail_from"])
 
     def member_created(user)
       @user = user

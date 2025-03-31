@@ -3,7 +3,7 @@
 <% end %>
 
 <%= content_for :toolbar do %>
-  <%= toolbar_button(
+  <%= render Alchemy::Admin::ToolbarButton.new(
     icon: :plus,
     label: Alchemy.t(:create_user),
     url: alchemy.new_admin_user_path,
