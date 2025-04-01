@@ -1,4 +1,3 @@
-//= link alchemy/admin/all.js
 //= link_tree ../builds/alchemy/
 //= link_tree ../builds/tinymce/
 //= link_tree ../images/alchemy/
