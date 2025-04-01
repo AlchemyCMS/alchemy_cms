@@ -5,4 +5,5 @@ class Admin::EventsController < Alchemy::Admin::ResourcesController
   add_alchemy_filter :by_location_id,
     type: :select,
     options: ->(query) { Location.joins(:events).merge(query.result.reorder(nil)).distinct.map { |l| [l.name, l.id] } }
+  add_alchemy_filter :starts_at_lteq, type: :datepicker
 end
