@@ -28,7 +28,8 @@ class Event < ActiveRecord::Base
 
   def self.ransackable_attributes(*)
     [
-      "name"
+      "name",
+      "starts_at"
     ]
   end
 

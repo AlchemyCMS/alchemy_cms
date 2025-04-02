@@ -117,6 +117,10 @@ en:
           name: Published
         restricted:
           name: Restricted
+        updated_at_lteq:
+          name: Updated before
+        updated_at_gteq:
+          name: Updated after
       picture:
         by_file_format:
           name: File Type
@@ -688,7 +692,7 @@ en:
   time:
     formats:
       alchemy:
-        default: "%m.%d.%Y %H:%M"
+        default: "%Y-%m-%d %H:%M"
         ingredient_date: "%Y-%m-%d"
         page_status: "%m.%d.%Y %H:%M"
         short_datetime: "%d %b %H:%M"

@@ -11,6 +11,14 @@ module Alchemy
           @resource_name = resource_name
         end
 
+        def applied_filter_component(search_filter_params:, resource_url_proxy:, query:)
+          Alchemy::Admin::Resource::AppliedFilter.new(
+            link: dismiss_filter_url(search_filter_params, resource_url_proxy),
+            applied_filter_label: translated_name,
+            applied_filter_value: translated_value(search_filter_params[:q][name], query)
+          )
+        end
+
         private
 
         def translated_name

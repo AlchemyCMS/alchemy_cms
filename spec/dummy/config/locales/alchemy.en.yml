@@ -4,6 +4,10 @@ en:
       event:
         start:
           name: Start
+        created_at_lt:
+          name: Created before
+        starts_at_gteq:
+          name: Starts after
         by_location_id:
           name: Location
         by_timeframe:
