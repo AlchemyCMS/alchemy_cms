@@ -25,12 +25,18 @@
     </script>
     <%= render 'alchemy/admin/tinymce/setup' %>
     <%= render 'alchemy/admin/partials/routes' %>
-    <%= javascript_importmap_tags("alchemy_admin", importmap: Alchemy.importmap) %>
-    <% Alchemy.admin_js_imports.each do |path| %>
-      <script type="module">
+    <%= javascript_inline_importmap_tag(Alchemy.importmap.to_json(resolver: self)) %>
+    <%= javascript_importmap_module_preload_tags(Alchemy.importmap, entry_point: "alchemy_admin") %>
+    <script type="module">
+      // We still use jQuery in some places (ie. select2)
+      import "jquery"
+      import "select2"
+
+      import "alchemy_admin"
+      <% Alchemy.admin_js_imports.each do |path| %>
         import "<%= path %>"
-      </script>
-    <% end %>
+      <% end %>
+    </script>
     <%= yield :javascript_includes %>
   </head>
   <%= content_tag :body, id: 'alchemy',
