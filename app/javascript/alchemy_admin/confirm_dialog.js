@@ -3,18 +3,19 @@ import pleaseWaitOverlay from "alchemy_admin/please_wait_overlay"
 import { createHtmlElement } from "alchemy_admin/utils/dom_helpers"
 import { translate } from "alchemy_admin/i18n"
 
-const DEFAULTS = {
+const getDefaults = () => ({
+  // The default size of the dialog
   size: "300x100",
   title: translate("Please confirm"),
   ok_label: translate("Yes"),
   cancel_label: translate("No"),
   on_ok() {}
-}
+})
 
 class ConfirmDialog {
   constructor(message, options = {}) {
     this.message = message
-    this.options = { ...DEFAULTS, ...options }
+    this.options = { ...getDefaults(), ...options }
     this.#build()
     this.#bindEvents()
   }
