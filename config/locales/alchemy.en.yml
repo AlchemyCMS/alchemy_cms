@@ -117,6 +117,10 @@ en:
           name: Published
         restricted:
           name: Restricted
+        updated_at_lteq:
+          name: Updated before
+        updated_at_gteq:
+          name: Updated after
       picture:
         by_file_format:
           name: File Type

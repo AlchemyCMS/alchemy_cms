@@ -253,6 +253,11 @@ module Alchemy
         end
         options
       end
+
+      # Allow all string and text attributes to be searchable by Ransack.
+      def ransackable_attributes(_auth_object = nil)
+        searchable_alchemy_resource_attributes + ["updated_at"]
+      end
     end
 
     # Instance methods
