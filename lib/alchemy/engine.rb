@@ -97,7 +97,12 @@ module Alchemy
       end
     end
 
-    initializer "alchemy.config_yml" do |app|
+    # Load Alchemy configuration from YAML files
+    # in config/alchemy/config.yml and config/alchemy/#{Rails.env}.config.yml
+    # if they exist.
+    # This has to be done before any app initializers are loaded, so that
+    # the configuration is available in all initializers.
+    initializer "alchemy.config_yml", before: :load_config_initializers do |app|
       config_directory = Rails.root.join("config", "alchemy")
       main_config = config_directory.join("config.yml")
       env_specific_config = config_directory.join("#{Rails.env}.config.yml")
