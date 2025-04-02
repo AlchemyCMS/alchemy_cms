@@ -22,6 +22,8 @@
       var Alchemy = {};
       // Store regular expression for external link url matching.
       Alchemy.link_url_regexp = <%= link_url_regexp.inspect %>;
+      // JS translations
+      <%= alchemy_admin_js_translations %>
     </script>
     <%= render 'alchemy/admin/tinymce/setup' %>
     <%= render 'alchemy/admin/partials/routes' %>

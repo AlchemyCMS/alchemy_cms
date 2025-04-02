@@ -73,6 +73,13 @@ module Alchemy
         end
       end
 
+      def alchemy_admin_js_translations(locale = ::I18n.locale)
+        render partial: "alchemy/admin/translations/#{locale}", formats: [:js]
+      rescue ActionView::MissingTemplate
+        # Fallback to default translations
+        render partial: "alchemy/admin/translations/en", formats: [:js]
+      end
+
       # Used for site selector in Alchemy cockpit.
       def sites_for_select
         Alchemy::Site.all.map do |site|
