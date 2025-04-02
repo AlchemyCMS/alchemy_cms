@@ -688,7 +688,7 @@ en:
   time:
     formats:
       alchemy:
-        default: "%m.%d.%Y %H:%M"
+        default: "%Y-%m-%d %H:%M"
         ingredient_date: "%Y-%m-%d"
         page_status: "%m.%d.%Y %H:%M"
         short_datetime: "%d %b %H:%M"
