@@ -5,8 +5,8 @@ FactoryBot.define do
     name { "My Event" }
     hidden_name { "not shown" }
     location
-    starts_at { Time.local(2012, 0o3, 0o2, 8, 15) }
-    ends_at { Time.local(2012, 0o3, 0o2, 19, 30) }
+    starts_at { Date.current }
+    ends_at { Date.current + 1.day }
     lunch_starts_at { Time.local(2012, 0o3, 0o2, 12, 15) }
     lunch_ends_at { Time.local(2012, 0o3, 0o2, 13, 45) }
     description { "something\nfancy" }

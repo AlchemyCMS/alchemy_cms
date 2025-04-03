@@ -1,6 +1,6 @@
 <div id="filter_bar">
   <% alchemy_filters.each do |filter| %>
-    <%= render filter.input_component(params, @query) %>
+    <%= render filter.input_component(search_filter_params, @query) %>
   <% end %>
 </div>
 
