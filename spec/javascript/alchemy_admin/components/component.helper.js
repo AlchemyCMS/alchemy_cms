@@ -1,3 +1,5 @@
+import { setupTranslations } from "../translations.helper"
+
 /**
  * render component helper
  * @param {string} name
@@ -11,4 +13,5 @@ export const renderComponent = (name, html) => {
 
 export const setupLanguage = () => {
   document.documentElement.lang = "en"
+  setupTranslations()
 }

@@ -76,8 +76,10 @@ class Tinymce extends AlchemyHTMLElement {
         this.getElementsByTagName("alchemy-spinner")[0].remove()
 
         // event listener to mark the editor as dirty
-        editor.on("dirty", () => this.elementEditor.setDirty())
-        editor.on("click", () => this.elementEditor.onClickElement(false))
+        if (this.elementEditor) {
+          editor.on("dirty", () => this.elementEditor.setDirty())
+          editor.on("click", () => this.elementEditor.onClickElement(false))
+        }
       })
     })
   }
