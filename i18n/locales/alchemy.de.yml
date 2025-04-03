@@ -214,6 +214,16 @@ de:
             not_public: Unveröffentlicht
             published: Veröffentlicht
             restricted: Geschützt
+        not_public:
+          name: Unveröffentlicht
+        published:
+          name: Veröffentlicht
+        restricted:
+          name: Geschützt
+        updated_at_lteq:
+          name: Aktualisiert vor
+        updated_at_gteq:
+          name: Aktualisiert nach
       picture:
         by_file_format:
           name: Dateityp
@@ -231,6 +241,14 @@ de:
             recent: Küzlich hochgeladen
             without_tag: Ohne Tag
             deletable: Nicht auf Seiten benutzt
+        last_upload:
+          name: Zuletzt hochgeladen
+        recent:
+          name: Küzlich hochgeladen
+        without_tag:
+          name: Ohne Tag
+        deletable:
+          name: Nicht auf Seiten benutzt
       attachment:
         by_file_type:
           name: Dateityp
@@ -242,6 +260,12 @@ de:
             last_upload: Zuletzt hochgeladen
             recent: Küzlich hochgeladen
             without_tag: Ohne Tag
+        last_upload:
+          name: Zuletzt hochgeladen
+        recent:
+          name: Küzlich hochgeladen
+        without_tag:
+          name: Ohne Tag
 
     link_target_options:
       default: gleichem Fenster
