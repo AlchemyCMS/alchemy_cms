@@ -1,5 +1,9 @@
+import { setupSelectLocale } from "alchemy_admin/i18n"
+
 class TagsAutocomplete extends HTMLElement {
-  connectedCallback() {
+  async connectedCallback() {
+    await setupSelectLocale()
+
     this.classList.add("autocomplete_tag_list")
     $(this.input).select2(this.select2Config)
   }
