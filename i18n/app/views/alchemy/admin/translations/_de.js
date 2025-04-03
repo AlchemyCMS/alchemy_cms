@@ -1,5 +1,4 @@
-Alchemy.translations = Alchemy.translations || {}
-Alchemy.translations.de = {
+Alchemy.translations = {
   allowed_chars: "von %{count} Zeichen",
   cancel: "Abbrechen",
   cancelled: "Abgebrochen",

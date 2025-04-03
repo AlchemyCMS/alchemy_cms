@@ -1,5 +1,4 @@
-Alchemy.translations = Alchemy.translations || {};
-Alchemy.translations['zh-CN'] = {
+Alchemy.translations = {
   allowed_chars: '%{count} 个字符',
   cancel: '取消',
   cancelled: '已取消',
