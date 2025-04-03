@@ -1,4 +1,5 @@
 import { AlchemyHTMLElement } from "alchemy_admin/components/alchemy_html_element"
+import { setupSelectLocale } from "alchemy_admin/i18n"
 
 export class RemoteSelect extends AlchemyHTMLElement {
   static properties = {
@@ -9,7 +10,9 @@ export class RemoteSelect extends AlchemyHTMLElement {
     url: { default: "" }
   }
 
-  connected() {
+  async connected() {
+    await setupSelectLocale()
+
     this.input.classList.add("alchemy_selectbox")
 
     $(this.input)

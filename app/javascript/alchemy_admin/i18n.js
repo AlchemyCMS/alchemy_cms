@@ -1,19 +1,4 @@
-import { en } from "alchemy_admin/locales/en"
-
-Alchemy.translations = Object.assign(Alchemy.translations || {}, { en })
-
 const KEY_SEPARATOR = /\./
-
-function getTranslations() {
-  const locale = currentLocale()
-  const translations = Alchemy.translations && Alchemy.translations[locale]
-
-  if (translations) {
-    return translations
-  }
-  console.warn(`Translations for locale ${locale} not found!`)
-  return {}
-}
 
 function nestedTranslation(translations, key) {
   const keys = key.split(KEY_SEPARATOR)
@@ -25,7 +10,13 @@ function nestedTranslation(translations, key) {
 }
 
 function getTranslation(key) {
-  const translations = getTranslations()
+  const locale = currentLocale()
+  const translations = Alchemy.translations
+
+  if (!translations) {
+    console.warn(`Translations for locale ${locale} not found!`)
+    return key
+  }
 
   if (KEY_SEPARATOR.test(key)) {
     return nestedTranslation(translations, key)
@@ -47,4 +38,12 @@ export function translate(key, replacement = undefined) {
     return translation.replace(/%\{.+\}/, replacement)
   }
   return translation
+}
+
+export async function setupSelectLocale() {
+  const locale = currentLocale()
+  if (locale === "en") return
+
+  await import(`select2/${locale}.js`)
+  $.extend($.fn.select2.defaults, $.fn.select2.locales[locale])
 }

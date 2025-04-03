@@ -26,7 +26,7 @@ export class AlchemyHTMLElement extends HTMLElement {
    * this is a default function
    * @link https://developer.mozilla.org/en-US/docs/Web/API/Web_Components#reference
    */
-  connectedCallback() {
+  async connectedCallback() {
     // parse the properties object and register property with the default values
     Object.keys(this.constructor.properties).forEach((name) => {
       // if the options was given via the constructor, they should be prefer (e.g. new <WebComponentName>({title: "Foo"}))
@@ -39,7 +39,7 @@ export class AlchemyHTMLElement extends HTMLElement {
 
     // render the component
     this._updateComponent()
-    this.connected()
+    await this.connected()
   }
 
   /**
@@ -64,7 +64,7 @@ export class AlchemyHTMLElement extends HTMLElement {
   /**
    * a connected method to make it easier to overwrite the connection callback
    */
-  connected() {}
+  async connected() {}
 
   /**
    * a disconnected method to make it easier to overwrite the disconnection callback

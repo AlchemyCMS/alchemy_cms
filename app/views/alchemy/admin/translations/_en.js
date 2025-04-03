@@ -1,4 +1,4 @@
-export const en = {
+Alchemy.translations = {
   allowed_chars: "of %{count} chars",
   cancel: "Cancel",
   cancelled: "Cancelled",

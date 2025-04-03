@@ -2,6 +2,8 @@ import { AlchemyHTMLElement } from "alchemy_admin/components/alchemy_html_elemen
 import { translate, currentLocale } from "alchemy_admin/i18n"
 import flatpickr from "flatpickr"
 
+const locale = currentLocale()
+
 class Datepicker extends AlchemyHTMLElement {
   static properties = {
     inputType: { default: "date" }
@@ -12,7 +14,13 @@ class Datepicker extends AlchemyHTMLElement {
     this.flatpickr = undefined
   }
 
-  afterRender() {
+  // Load the locales for flatpickr before setting it up.
+  async connected() {
+    // English is the default locale for flatpickr, so we don't need to load it
+    if (locale !== "en") {
+      await import(`flatpickr/${locale}.js`)
+    }
+
     this.flatpickr = flatpickr(
       this.getElementsByTagName("input")[0],
       this.flatpickrOptions
@@ -27,7 +35,7 @@ class Datepicker extends AlchemyHTMLElement {
     const enableTime = /time/.test(this.inputType)
     const options = {
       // alchemy_i18n supports `zh_CN` etc., but flatpickr only has two-letter codes (`zh`)
-      locale: currentLocale().slice(0, 2),
+      locale: locale.slice(0, 2),
       altInput: true,
       altFormat: translate(`formats.${this.inputType}`),
       altInputClass: "flatpickr-input",

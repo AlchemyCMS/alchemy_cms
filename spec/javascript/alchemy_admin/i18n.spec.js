@@ -1,6 +1,11 @@
 import { translate, currentLocale } from "alchemy_admin/i18n"
+import { setupTranslations } from "./translations.helper.js"
 
 describe("i18n", () => {
+  beforeEach(() => {
+    setupTranslations()
+  })
+
   describe("currentLocale", () => {
     afterEach(() => {
       document.documentElement.lang = ""
@@ -66,27 +71,20 @@ describe("i18n", () => {
       })
     })
 
-    describe("if lang is set to a unknown locale", () => {
-      beforeEach(() => {
-        document.documentElement.lang = "kl"
-      })
-
-      it("Returns passed string and logs a warning", () => {
-        const spy = jest.spyOn(console, "warn").mockImplementation(() => {})
-        expect(translate("help")).toEqual("help")
-        expect(spy.mock.calls).toEqual([
-          ["Translations for locale kl not found!"]
-        ])
-        spy.mockRestore()
-      })
-    })
-
     describe("if Alchemy.translations is not set", () => {
+      beforeEach(() => {
+        Alchemy.translations = undefined
+      })
+
+      afterEach(() => {
+        setupTranslations()
+      })
+
       it("Returns passed string and logs a warning", () => {
         const spy = jest.spyOn(console, "warn").mockImplementation(() => {})
         expect(translate("help")).toEqual("help")
         expect(spy.mock.calls).toEqual([
-          ["Translations for locale kl not found!"]
+          ["Translations for locale en not found!"]
         ])
         spy.mockRestore()
       })

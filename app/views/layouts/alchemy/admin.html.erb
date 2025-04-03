@@ -22,6 +22,8 @@
       var Alchemy = {};
       // Store regular expression for external link url matching.
       Alchemy.link_url_regexp = <%= link_url_regexp.inspect %>;
+      // JS translations
+      <%= alchemy_admin_js_translations %>
     </script>
     <%= render 'alchemy/admin/tinymce/setup' %>
     <%= render 'alchemy/admin/partials/routes' %>
@@ -92,10 +94,6 @@
     <div id="main_content">
       <%= yield %>
     </div>
-    <script type="module">
-      // Setting the correct locale for select2 dropdown replacement.
-      $.extend($.fn.select2.defaults, $.fn.select2.locales['<%= ::I18n.locale %>']);
-    </script>
     <%= render 'alchemy/admin/uploader/setup' %>
     <%= yield(:javascripts) %>
   <% end %>
