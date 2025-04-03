@@ -8,7 +8,7 @@
         in_dialog: true,
         redirect_url: alchemy.admin_pictures_path(
           size: search_filter_params[:size],
-          filter: { misc: 'last_upload' },
+          q: { last_upload: true },
           form_field_id: @form_field_id
         ) %>
     </div>
