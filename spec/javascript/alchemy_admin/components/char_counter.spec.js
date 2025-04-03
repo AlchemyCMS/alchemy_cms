@@ -4,7 +4,7 @@ import { setupTranslations } from "../translations.helper.js"
 
 describe("alchemy-char-counter", () => {
   beforeEach(() => {
-    setupTranslations()
+    setupLanguage()
   })
 
   /**
@@ -22,8 +22,6 @@ describe("alchemy-char-counter", () => {
   }
 
   beforeEach(() => {
-    setupLanguage()
-
     const html = `
       <alchemy-char-counter>
         <input type="text">
