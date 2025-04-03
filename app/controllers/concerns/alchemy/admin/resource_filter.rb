@@ -81,10 +81,10 @@ module Alchemy
       end
 
       def applied_filters
-        return [] unless params[:q]
+        return [] unless search_filter_params[:q]
 
         alchemy_filters.select do |alchemy_filter|
-          params[:q][alchemy_filter.name].present?
+          search_filter_params[:q][alchemy_filter.name].present?
         end
       end
     end

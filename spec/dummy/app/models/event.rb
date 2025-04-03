@@ -15,7 +15,7 @@ class Event < ActiveRecord::Base
   before_destroy :abort_if_name_is_undestructible
 
   scope :starting_today, -> { where(starts_at: Time.current.at_midnight..Date.tomorrow.at_midnight) }
-  scope :future, -> { where("starts_at > ?", Date.tomorrow.at_midnight) }
+  scope :future, -> { where("starts_at >= ?", Date.today.at_midnight) }
   scope :by_location_id, ->(id) { where(location_id: id) }
   scope :by_timeframe, ->(timeframe) {
     case timeframe

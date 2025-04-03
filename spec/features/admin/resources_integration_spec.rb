@@ -54,7 +54,7 @@ RSpec.describe "Resources", type: :system do
     describe "filters" do
       let(:filter_count) { 2 }
 
-      context "resource model has alchemy_resource_filters defined" do
+      context "resource controller has add_alchemy_filter defined" do
         it "should show selectboxes for the filters" do
           visit "/admin/events"
 
@@ -62,6 +62,25 @@ RSpec.describe "Resources", type: :system do
             expect(page).to have_selector("select", count: filter_count)
             expect(page).to have_selector("label", text: "By Timeframe")
             expect(page).to have_selector("label", text: "Location")
+          end
+        end
+
+        context "with pre configured filter value" do
+          before do
+            create(:event, name: "today 1", starts_at: Time.current)
+            create(:event, name: "today 2", starts_at: Time.current)
+            create(:event, name: "yesterday", starts_at: Time.current - 1.day)
+          end
+
+          it "only shows the selected resources and shows selected filter" do
+            visit "/admin/events"
+
+            within "div#archive_all table.list tbody" do
+              expect(page).to have_selector("tr", count: 2)
+              expect(page).to have_content("today 1")
+              expect(page).to have_content("today 2")
+              expect(page).to_not have_content("yesterday")
+            end
           end
         end
 
@@ -76,13 +95,6 @@ RSpec.describe "Resources", type: :system do
 
           it "should filter the list to only show matching items", js: true do
             visit "/admin/events"
-
-            within "div#archive_all table.list tbody" do
-              expect(page).to have_selector("tr", count: 3)
-              expect(page).to have_content("today 1")
-              expect(page).to have_content("today 2")
-              expect(page).to have_content("yesterday")
-            end
 
             within "#library_sidebar #filter_bar" do
               select2("Starting today", from: "By Timeframe")
@@ -146,7 +158,7 @@ RSpec.describe "Resources", type: :system do
               visit "/admin/events"
 
               within "div#archive_all table.list tbody" do
-                expect(page).to have_selector("tr", count: 3)
+                expect(page).to have_selector("tr", count: 2)
               end
 
               within "#library_sidebar #filter_bar" do
@@ -366,7 +378,8 @@ RSpec.describe "Resources", type: :system do
         click_link "Matinee"
         expect(page).to have_content("Casablanca")
         expect(page).to_not have_content("Die Hard IX")
-        expect(page).to have_link(nil, href: "/admin/events/#{event.id}/edit?tagged_with=Matinee")
+        expect(page).to have_link(nil,
+          href: "/admin/events/#{event.id}/edit?q%5Bby_timeframe%5D=future&tagged_with=Matinee")
       end
     end
   end
@@ -391,7 +404,7 @@ RSpec.describe "Resources", type: :system do
 
       visit "/admin/events?q[by_timeframe]=future"
       expect(page).to have_content("Hovercar Expo")
-      expect(page).to_not have_content("Car Expo")
+      expect(page).to have_content("Car Expo")
       expect(page).to_not have_content("Horse Expo")
 
       # Keep the filter when editing an event
@@ -410,7 +423,7 @@ RSpec.describe "Resources", type: :system do
         visit "/admin/events?q[by_timeframe]=future"
 
         expect(page).to have_content("Hovercar Expo")
-        expect(page).to_not have_content("Car Expo")
+        expect(page).to have_content("Car Expo")
         expect(page).to_not have_content("Horse Expo")
 
         page.find(".search_input_field").set("Horse")
