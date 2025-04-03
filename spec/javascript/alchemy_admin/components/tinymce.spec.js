@@ -14,7 +14,33 @@ describe("alchemy-tinymce", () => {
 
   const textareaId = "tinymce-textarea"
 
-  beforeAll(() => setupLanguage())
+  beforeAll(() => {
+    setupLanguage()
+    // The tinymce configuration is set in the global Alchemy object
+    // because we translate the configuration from the Rails backend
+    // into the JS world.
+    Alchemy.TinymceDefaults = {
+      skin: "alchemy",
+      content_css: "/assets/tinymce/skins/content/alchemy/content.min.css",
+      icons: "remixicons",
+      width: "auto",
+      resize: true,
+      min_height: 250,
+      menubar: false,
+      statusbar: true,
+      toolbar: [
+        "bold italic underline | strikethrough subscript superscript | numlist bullist indent outdent | removeformat | fullscreen",
+        "pastetext charmap hr | undo redo | alchemy_link unlink anchor | code"
+      ],
+      fix_list_elements: true,
+      convert_urls: false,
+      entity_encoding: "raw",
+      paste_as_text: true,
+      element_format: "html",
+      branding: false,
+      license_key: "gpl"
+    }
+  })
 
   describe("render", () => {
     beforeEach(() => {
@@ -32,9 +58,10 @@ describe("alchemy-tinymce", () => {
       )
     })
 
-    it.skip("should have an tinymce container after the intersection observer triggered", () => {
+    it("should have an tinymce container after the intersection observer triggered", async () => {
       expect(component.getElementsByClassName("tox-tinymce").length).toEqual(0)
       intersectionObserver.enterNode(component)
+      await new Promise(process.nextTick)
       expect(component.getElementsByClassName("tox-tinymce").length).toEqual(1)
     })
 
@@ -51,30 +78,7 @@ describe("alchemy-tinymce", () => {
       <alchemy-tinymce toolbar="bold italic" foo-bar="bar | foo">
         <textarea id="${textareaId}"></textarea>
       </alchemy-tinymce>
-    `
-      // The tinymce configuration is set in the global Alchemy object
-      // because we translate the configuration from the Rails backend
-      // into the JS world.
-      Alchemy.TinymceDefaults = {
-        skin: "alchemy",
-        content_css: "/assets/tinymce/skins/content/alchemy/content.min.css",
-        icons: "remixicons",
-        width: "auto",
-        resize: true,
-        min_height: 250,
-        menubar: false,
-        statusbar: true,
-        toolbar: [
-          "bold italic underline | strikethrough subscript superscript | numlist bullist indent outdent | removeformat | fullscreen",
-          "pastetext charmap hr | undo redo | alchemy_link unlink anchor | code"
-        ],
-        fix_list_elements: true,
-        convert_urls: false,
-        entity_encoding: "raw",
-        paste_as_text: true,
-        element_format: "html",
-        branding: false
-      }
+      `
       component = renderComponent("alchemy-tinymce", html)
     })
 
