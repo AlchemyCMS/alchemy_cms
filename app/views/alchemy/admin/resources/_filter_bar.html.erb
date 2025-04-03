@@ -5,13 +5,13 @@
 </div>
 
 <script type="module">
-  $(function() {
-    $('input, select', '#filter_bar').on('change', function(e) {
-      // We need to dispatch a submit event, so that Turbo that listens
-      // to it submits the search form us.
-      const event = new Event("submit", { bubbles: true, cancelable: true });
-      this.form.dispatchEvent(event);
-      return false;
-    });
+  // Still using jQuery here, because select2 does emit the event from
+  // the correct element.
+  $('#filter_bar').on('change', function(event) {
+    // We need to dispatch a submit event, so that Turbo that listens
+    // to it submits the search form us.
+    const submitEvent = new Event("submit", { bubbles: true, cancelable: true });
+    event.target.form.dispatchEvent(submitEvent);
+    return false;
   });
 </script>
