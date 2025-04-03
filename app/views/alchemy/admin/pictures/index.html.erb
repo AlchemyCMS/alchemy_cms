@@ -7,7 +7,7 @@
           file_attribute: 'image_file',
           redirect_url: alchemy.admin_pictures_path(
             size: @size,
-            filter: { misc: 'last_upload' }
+            q: { last_upload: true }
           ) %>
       </div>
       <div class="toolbar_spacer"></div>
