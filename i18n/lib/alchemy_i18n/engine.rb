@@ -10,8 +10,6 @@ module AlchemyI18n
       locales.each do |locale|
         Alchemy.importmap.pin "flatpickr/#{locale}.js", to: "flatpickr/#{locale}.js"
         Alchemy.importmap.pin "select2/#{locale}.js", to: "select2_locale_#{locale}.js"
-        Alchemy.admin_js_imports << "flatpickr/#{locale}.js"
-        Alchemy.admin_js_imports << "select2/#{locale}.js"
       end
     end
   end
