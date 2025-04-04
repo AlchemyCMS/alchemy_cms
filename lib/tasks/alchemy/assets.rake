@@ -1,4 +1,4 @@
-if Rake::Task.task_defined?("assets:precompile")
+if Rake::Task.task_defined?("assets:precompile") && defined?(Propshaft)
   Rake::Task["assets:precompile"].enhance do
     manifest_path = Rails.application.config.assets.manifest_path
     assets_path = Rails.root.join("public#{Rails.application.config.assets.prefix}")
