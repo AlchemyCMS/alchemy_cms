@@ -1,4 +1,3 @@
-@use "sass:color";
 @use "variables" as vars;
 
 @mixin default-focus-style(
@@ -18,26 +17,26 @@
 }
 
 @mixin button-defaults(
-  $background-color: vars.$button-bg-color,
-  $hover-color: vars.$button-hover-bg-color,
-  $hover-border-color: vars.$button-hover-border-color,
-  $border-radius: vars.$button-border-radius,
-  $border: vars.$button-border-width solid vars.$button-border-color,
-  $box-shadow: vars.$button-box-shadow,
-  $padding: vars.$button-padding,
-  $margin: vars.$button-margin,
-  $color: vars.$button-text-color,
-  $line-height: vars.$form-field-line-height,
-  $focus-border-color: vars.$button-focus-border-color,
-  $focus-box-shadow: vars.$button-focus-box-shadow
+  $background-color: var(--button-bg-color),
+  $hover-color: var(--button-hover-bg-color),
+  $hover-border-color: var(--button-hover-border-color),
+  $border-radius: var(--button-border-radius),
+  $border: var(--button-border),
+  $box-shadow: var(--button-box-shadow),
+  $padding: var(--button-padding),
+  $margin: var(--button-margin),
+  $color: var(--button-text-color),
+  $line-height: var(--button-line-height),
+  $focus-border-color: var(--button-focus-border-color),
+  $focus-box-shadow: var(--button-focus-box-shadow)
 ) {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: vars.$default-font-family;
-  font-size: vars.$default-font-size;
-  font-weight: vars.$button-font-weight;
-  height: 30px;
+  font-family: var(--font-sans);
+  font-size: var(--button-font-size);
+  font-weight: var(--button-font-weight);
+  height: var(--button-height);
   padding: $padding;
   cursor: pointer;
   border-radius: $border-radius;
@@ -58,7 +57,7 @@
 
   &:active,
   &.active {
-    box-shadow: inset vars.$button-box-shadow;
+    box-shadow: inset var(--button-box-shadow);
   }
 
   &:focus {
@@ -185,25 +184,6 @@
       $box-shadow: inset 0 0 0 2px vars.$focus-color
     );
   }
-}
-
-@mixin linked-button(
-  $border-radius: vars.$default-border-radius,
-  $line-height: vars.$form-field-line-height,
-  $padding: 3px
-) {
-  @include button-defaults(
-    $line-height: $line-height,
-    $background-color: vars.$linked-button-color,
-    $hover-color: color.adjust(vars.$linked-button-color, $lightness: -10%),
-    $border: 1px solid vars.$linked-border-color,
-    $hover-border-color:
-      color.adjust(vars.$linked-border-color, $lightness: -10%),
-    $border-radius: $border-radius,
-    $box-shadow: none,
-    $padding: $padding,
-    $margin: 0
-  );
 }
 
 @mixin zoom-in {
