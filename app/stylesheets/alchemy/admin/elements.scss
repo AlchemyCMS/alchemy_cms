@@ -485,8 +485,8 @@ alchemy-tinymce {
   }
 
   .icon_button {
-    width: vars.$icon-button-medium-width;
-    height: vars.$icon-button-medium-height;
+    width: var(--icon-button-medium-width);
+    height: var(--icon-button-medium-height);
   }
 }
 
@@ -622,8 +622,8 @@ alchemy-publish-element-button {
   border-bottom-right-radius: vars.$default-border-radius;
 
   .icon_button {
-    width: vars.$icon-button-medium-width;
-    height: vars.$icon-button-medium-height;
+    width: var(--icon-button-medium-width);
+    height: var(--icon-button-medium-height);
   }
 
   alchemy-link-buttons {
