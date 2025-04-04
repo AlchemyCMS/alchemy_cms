@@ -1,27 +1,37 @@
-function buildPromise(xhr) {
-  return new Promise((resolve, reject) => {
-    xhr.onload = () => {
-      if (xhr.status >= 200 && xhr.status < 400) {
-        try {
-          resolve({
-            data: JSON.parse(xhr.responseText),
-            status: xhr.status
-          })
-        } catch (error) {
-          reject(error)
-        }
-      } else {
-        try {
-          reject(JSON.parse(xhr.responseText))
-        } catch (error) {
-          reject(error)
-        }
-      }
-    }
-    xhr.onerror = () => {
-      reject(new Error("An error occurred during the transaction"))
-    }
-  })
+const JSON_CONTENT_TYPE = "application/json"
+
+function isGetRequest(method) {
+  return method.toLowerCase() === "get"
+}
+
+function prepareURL(path, data, method) {
+  const url = new URL(window.location.origin + path)
+
+  if (data && isGetRequest(method)) {
+    url.search = new URLSearchParams(data).toString()
+  }
+
+  return url.toString()
+}
+
+function prepareHeaders(accept) {
+  return {
+    "Content-Type": "application/json; charset=utf-8",
+    Accept: accept,
+    "X-Requested-With": "XMLHttpRequest",
+    "X-CSRF-Token": getToken()
+  }
+}
+
+function prepareOptions(method, data, accept) {
+  const headers = prepareHeaders(accept)
+  const options = { method, headers }
+
+  if (data && !isGetRequest(method)) {
+    options.body = JSON.stringify(data)
+  }
+
+  return options
 }
 
 export function getToken() {
@@ -37,30 +47,27 @@ export function patch(url, data) {
   return ajax("PATCH", url, data)
 }
 
-export function post(url, data, accept = "application/json") {
+export function post(url, data, accept = JSON_CONTENT_TYPE) {
   return ajax("POST", url, data, accept)
 }
 
-export default function ajax(method, path, data, accept = "application/json") {
-  const xhr = new XMLHttpRequest()
-  const promise = buildPromise(xhr)
-  const url = new URL(window.location.origin + path)
+export default async function ajax(
+  method,
+  path,
+  data,
+  accept = JSON_CONTENT_TYPE
+) {
+  const response = await fetch(
+    prepareURL(path, data, method),
+    prepareOptions(method, data, accept)
+  )
+  const contentType = response.headers.get("content-type")
+  const isJson = contentType?.includes(JSON_CONTENT_TYPE)
+  const responseData = isJson ? await response.json() : null
 
-  if (data && method.toLowerCase() === "get") {
-    url.search = new URLSearchParams(data).toString()
-  }
-
-  xhr.open(method, url.toString())
-  xhr.setRequestHeader("Content-type", "application/json; charset=utf-8")
-  xhr.setRequestHeader("Accept", accept)
-  xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest")
-  xhr.setRequestHeader("X-CSRF-Token", getToken())
-
-  if (data && method.toLowerCase() !== "get") {
-    xhr.send(JSON.stringify(data))
+  if (response.ok) {
+    return { data: responseData, status: response.status }
   } else {
-    xhr.send()
+    throw responseData || new Error("An error occurred during the transaction")
   }
-
-  return promise
 }

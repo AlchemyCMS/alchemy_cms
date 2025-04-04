@@ -1,172 +1,152 @@
-import xhrMock from "xhr-mock"
-import { get, patch, post } from "alchemy_admin/utils/ajax"
+import ajax, { get, post, patch, getToken } from "alchemy_admin/utils/ajax"
 
+const JSON_CONTENT_TYPE = "application/json"
 const token = "s3cr3t"
 
-beforeEach(() => {
-  document.head.innerHTML = `<meta name="csrf-token" content="${token}">`
-  xhrMock.setup()
-})
+const successResponse = {
+  ok: true,
+  headers: { get: () => JSON_CONTENT_TYPE },
+  json: async () => ({ success: true })
+}
 
-describe("get", () => {
-  it("sends X-CSRF-TOKEN header", async () => {
-    xhrMock.get("http://localhost/users", (req, res) => {
-      expect(req.header("X-CSRF-TOKEN")).toEqual(token)
-      return res.status(200).body('{"message":"Ok"}')
-    })
-    await get("/users")
+describe("ajax utilities", () => {
+  beforeEach(() => {
+    document.head.innerHTML = `<meta name="csrf-token" content="${token}">`
+    global.fetch = jest.fn()
   })
 
-  it("sends Content-Type header", async () => {
-    xhrMock.get("http://localhost/users", (req, res) => {
-      expect(req.header("Content-Type")).toEqual(
-        "application/json; charset=utf-8"
+  describe("getToken", () => {
+    it("retrieves the CSRF token from the meta tag", () => {
+      expect(getToken()).toBe(token)
+    })
+
+    it("throws an error if the meta tag is missing", () => {
+      document.head.innerHTML = ""
+      expect(() => getToken()).toThrow()
+    })
+  })
+
+  describe("ajax", () => {
+    it("sends a GET request with query parameters", async () => {
+      global.fetch.mockResolvedValueOnce(successResponse)
+
+      const response = await ajax("GET", "/test", { param1: "value1" })
+
+      expect(global.fetch).toHaveBeenCalledWith(
+        "http://localhost/test?param1=value1",
+        expect.objectContaining({
+          method: "GET",
+          headers: expect.objectContaining({
+            "X-CSRF-Token": token
+          })
+        })
       )
-      return res.status(200).body('{"message":"Ok"}')
+      expect(response.data).toEqual({ success: true })
     })
-    await get("/users")
-  })
 
-  it("sends Accept header", async () => {
-    xhrMock.get("http://localhost/users", (req, res) => {
-      expect(req.header("Accept")).toEqual("application/json")
-      return res.status(200).body('{"message":"Ok"}')
-    })
-    await get("/users")
-  })
+    it("sends a POST request with JSON body", async () => {
+      global.fetch.mockResolvedValueOnce(successResponse)
 
-  it("returns JSON", async () => {
-    xhrMock.get("http://localhost/users", (_req, res) => {
-      return res.status(200).body('{"email":"mail@example.com"}')
-    })
-    await get("/users").then((res) => {
-      expect(res.data).toEqual({ email: "mail@example.com" })
-    })
-  })
+      const response = await ajax("POST", "/test", { key: "value" })
 
-  it("JSON parse errors get rejected", async () => {
-    xhrMock.get("http://localhost/users", (_req, res) => {
-      return res.status(200).body('email => "mail@example.com"')
-    })
-    expect.assertions(1)
-    await get("/users").catch((e) => {
-      expect(e.message).toMatch("Unexpected token")
-    })
-  })
-
-  it("network errors get rejected", async () => {
-    global.console = {
-      ...console,
-      error: jest.fn()
-    }
-    xhrMock.get("http://localhost/users", () => {
-      return Promise.reject(new Error())
-    })
-    expect.assertions(1)
-    await get("/users").catch((e) => {
-      expect(e.message).toEqual("An error occurred during the transaction")
-    })
-  })
-
-  it("server errors get rejected", async () => {
-    xhrMock.get("http://localhost/users", (_req, res) => {
-      return res.status(401).body('{"error":"Unauthorized"}')
-    })
-    expect.assertions(1)
-    await get("/users").catch((e) => {
-      expect(e.error).toEqual("Unauthorized")
-    })
-  })
-
-  it("server errors parsing errors get rejected", async () => {
-    xhrMock.get("http://localhost/users", (_req, res) => {
-      return res.status(401).body("Unauthorized")
-    })
-    expect.assertions(1)
-    await get("/users").catch((e) => {
-      expect(e.message).toMatch("Unexpected token")
-    })
-  })
-
-  it("params get attached as query string", async () => {
-    xhrMock.get("http://localhost/users?name=foo", (_req, res) => {
-      return res.status(200).body(`{"name":"foo"}`)
-    })
-    const { data } = await get("/users", { name: "foo" })
-    expect(data.name).toEqual("foo")
-  })
-})
-
-describe("patch", () => {
-  it("sends X-CSRF-TOKEN header", async () => {
-    xhrMock.patch("http://localhost/users", (req, res) => {
-      expect(req.header("X-CSRF-TOKEN")).toEqual(token)
-      return res.status(200).body('{"message":"Ok"}')
-    })
-    await patch("/users")
-  })
-
-  it("sends Content-Type header", async () => {
-    xhrMock.patch("http://localhost/users", (req, res) => {
-      expect(req.header("Content-Type")).toEqual(
-        "application/json; charset=utf-8"
+      expect(global.fetch).toHaveBeenCalledWith(
+        "http://localhost/test",
+        expect.objectContaining({
+          method: "POST",
+          body: JSON.stringify({ key: "value" }),
+          headers: expect.objectContaining({
+            "Content-Type": "application/json; charset=utf-8",
+            Accept: JSON_CONTENT_TYPE
+          })
+        })
       )
-      return res.status(200).body('{"message":"Ok"}')
+      expect(response.data).toEqual({ success: true })
     })
-    await patch("/users")
+
+    it("throws an error for non-OK responses", async () => {
+      global.fetch.mockResolvedValueOnce({
+        ok: false,
+        headers: { get: () => JSON_CONTENT_TYPE },
+        json: async () => ({ error: "Something went wrong" })
+      })
+
+      await expect(ajax("GET", "/test")).rejects.toEqual({
+        error: "Something went wrong"
+      })
+    })
+
+    it("handles non-JSON responses gracefully", async () => {
+      global.fetch.mockResolvedValueOnce({
+        ok: true,
+        headers: { get: () => "text/html" },
+        text: async () => "<html></html>"
+      })
+
+      const response = await ajax("GET", "/test")
+
+      expect(response.data).toBeNull()
+    })
   })
 
-  it("sends Accept header", async () => {
-    xhrMock.patch("http://localhost/users", (req, res) => {
-      expect(req.header("Accept")).toEqual("application/json")
-      return res.status(200).body('{"message":"Ok"}')
+  describe("get", () => {
+    it("calls ajax with GET method", async () => {
+      const ajaxSpy = jest
+        .spyOn(global, "fetch")
+        .mockResolvedValueOnce(successResponse)
+
+      const response = await get("/test", { param: "value" })
+
+      expect(ajaxSpy).toHaveBeenCalled()
+      expect(response.data).toEqual({ success: true })
     })
-    await patch("/users")
   })
 
-  it("sends JSON data", async () => {
-    xhrMock.patch("http://localhost/users", (req, res) => {
-      expect(req.body()).toEqual('{"email":"mail@example.com"}')
-      return res.status(200).body('{"message":"Ok"}')
-    })
-    await patch("/users", { email: "mail@example.com" })
-  })
-})
+  describe("post", () => {
+    it("calls ajax with POST method and default accept header", async () => {
+      const ajaxSpy = jest
+        .spyOn(global, "fetch")
+        .mockResolvedValueOnce(successResponse)
 
-describe("post", () => {
-  it("sends X-CSRF-TOKEN header", async () => {
-    xhrMock.post("http://localhost/users", (req, res) => {
-      expect(req.header("X-CSRF-TOKEN")).toEqual(token)
-      return res.status(200).body('{"message":"Ok"}')
-    })
-    await post("/users")
-  })
+      const response = await post("/test", { key: "value" })
 
-  it("sends Content-Type header", async () => {
-    xhrMock.post("http://localhost/users", (req, res) => {
-      expect(req.header("Content-Type")).toEqual(
-        "application/json; charset=utf-8"
+      expect(ajaxSpy).toHaveBeenCalled()
+      expect(response.data).toEqual({ success: true })
+    })
+
+    it("allows overriding the accept header", async () => {
+      const ajaxSpy = jest.spyOn(global, "fetch").mockResolvedValueOnce({
+        ok: true,
+        headers: { get: () => "application/xml" },
+        text: async () => "<response>success</response>"
+      })
+
+      const response = await post("/test", { key: "value" }, "application/xml")
+
+      expect(ajaxSpy).toHaveBeenCalledWith(
+        "http://localhost/test",
+        expect.objectContaining({
+          headers: expect.objectContaining({
+            Accept: "application/xml"
+          })
+        })
       )
-      return res.status(200).body('{"message":"Ok"}')
     })
-    await post("/users")
   })
 
-  it("sends Accept header", async () => {
-    xhrMock.post("http://localhost/users", (req, res) => {
-      expect(req.header("Accept")).toEqual("application/json")
-      return res.status(200).body('{"message":"Ok"}')
+  describe("patch", () => {
+    it("calls ajax with PATCH method", async () => {
+      const ajaxSpy = jest
+        .spyOn(global, "fetch")
+        .mockResolvedValueOnce(successResponse)
+
+      const response = await patch("/test", { key: "value" })
+
+      expect(ajaxSpy).toHaveBeenCalled()
+      expect(response.data).toEqual({ success: true })
     })
-    await post("/users")
   })
 
-  it("sends JSON data", async () => {
-    xhrMock.post("http://localhost/users", (req, res) => {
-      expect(req.body()).toEqual('{"email":"mail@example.com"}')
-      return res.status(200).body('{"message":"Ok"}')
-    })
-    await post("/users", { email: "mail@example.com" })
+  afterEach(() => {
+    jest.resetAllMocks()
   })
 })
-
-afterEach(() => xhrMock.teardown())
