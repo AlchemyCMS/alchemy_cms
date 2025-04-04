@@ -55,7 +55,7 @@
     background-color: vars.$sitemap-info-background-color;
     line-height: vars.$sitemap-line-height;
     font-size: var(--font-size_small);
-    @include mixins.border-right-radius(vars.$default-border-radius);
+    @include mixins.border-right-radius(var(--border-radius_medium));
   }
 
   .node_folder {
@@ -104,7 +104,7 @@
 
   &:hover {
     background-color: vars.$sitemap-page-hover-color;
-    border-radius: vars.$default-border-radius;
+    border-radius: var(--border-radius_medium);
   }
 
   .node_name {
@@ -112,7 +112,7 @@
     height: vars.$sitemap-line-height;
     flex: 1;
     justify-content: space-between;
-    @include mixins.border-left-radius(vars.$default-border-radius);
+    @include mixins.border-left-radius(var(--border-radius_medium));
     padding: 0 0 0 10px;
     margin: var(--spacing-0);
     text-decoration: none;
@@ -121,7 +121,7 @@
     cursor: move;
 
     &.without-status {
-      @include mixins.border-right-radius(vars.$default-border-radius);
+      @include mixins.border-right-radius(var(--border-radius_medium));
     }
 
     &.inactive {

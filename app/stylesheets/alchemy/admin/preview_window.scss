@@ -21,7 +21,7 @@
   height: calc(100vh - #{vars.$top-menu-height});
   border: 0 none;
   background: #fff;
-  border-right: vars.$default-border;
+  border-right: var(--border-default);
   transition-duration: vars.$transition-duration;
   transition-timing-function: vars.$transition-duration;
   transition-property: width max-width;

@@ -15,7 +15,7 @@
   --size-3: var(--spacing-2, 8px);
   --small-font-size: var(--font-size_small, 10px);
   --grey: var(--color-grey_light, hsl(0deg, 0%, 94%));
-  --color: var(--color-text, hsla(224deg, 23%, 26%, 0.8));
+  --color: var(--text-color, hsla(224deg, 23%, 26%, 0.8));
   --highlight-color: var(--grey);
 
   display: flex;
@@ -48,7 +48,7 @@
 }
 
 .page-select--page-urlname {
-  color: var(--color-text_muted, hsla(224deg, 23%, 26%, 0.5));
+  color: var(--text-color-muted, hsla(224deg, 23%, 26%, 0.5));
   padding-right: var(--size-2);
 
   .select2-highlighted & {

@@ -17,7 +17,7 @@
 
 .selected_item_tools {
   margin: calc(-1 * var(--spacing-2));
-  border-bottom: 1px solid vars.$default-border-color;
+  border-bottom: 1px solid var(--border-color);
   margin-bottom: var(--spacing-4);
   padding: var(--spacing-4);
 
@@ -31,7 +31,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 1px 1px vars.$default-border-color;
+  box-shadow: 0 0 1px 1px var(--border-color);
 
   &:hover {
     text-decoration: none;
@@ -95,7 +95,7 @@
   &:hover,
   &:focus-within,
   &.active {
-    box-shadow: 0 0 4px 2px vars.$default-border-color;
+    box-shadow: 0 0 4px 2px var(--border-color);
 
     .picture_tool.select {
       visibility: visible;
@@ -164,7 +164,7 @@ div.assign_image_list_image {
   top: var(--spacing-1);
   padding: var(--spacing-0);
   z-index: 10;
-  border-radius: vars.$default-border-radius;
+  border-radius: var(--border-radius_medium);
   box-shadow: 0 0 1px var(--color-grey_dark);
 
   &:hover {
@@ -220,7 +220,7 @@ div.assign_image_list_image {
   pointer-events: none;
 
   .tag {
-    box-shadow: 0 0 2px 2px vars.$default-border-color;
+    box-shadow: 0 0 2px 2px var(--border-color);
   }
 }
 
@@ -235,7 +235,7 @@ div#library_sidebar {
   display: flex;
   flex-direction: column;
   position: fixed;
-  border-left: 1px solid vars.$default-border-color;
+  border-left: 1px solid var(--border-color);
   top: 0;
   right: 0;
   width: 232px;
@@ -284,7 +284,7 @@ div#library_sidebar {
     box-shadow: none;
 
     .thumbnail_background {
-      box-shadow: 0 0 4px 4px vars.$default-border-color;
+      box-shadow: 0 0 4px 4px var(--border-color);
     }
   }
 }

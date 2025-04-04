@@ -21,7 +21,7 @@
     100vw - var(--main-menu-width) - var(--preview-window-min-width)
   );
   height: calc(100vh - #{vars.$top-menu-height});
-  border-left: vars.$default-border;
+  border-left: var(--border-default);
   background-color: var(--color-grey_very_light);
   transition: vars.$transition-duration ease-in-out;
   transform: translate3d(100%, 0, 0);
@@ -69,9 +69,7 @@ alchemy-elements-window-handle {
 
 .elements-window-toolbar {
   @extend %gradiated-toolbar;
-  display: flex;
   padding: var(--spacing-2);
-  border-bottom: vars.$default-border;
 
   .right {
     display: inline-block;
@@ -94,13 +92,16 @@ alchemy-tinymce {
 }
 
 #main-content-elements {
-  --scrollable-elements-offset: #{vars.$top-menu-height + vars.$toolbar-height};
+  --scrollable-elements-offset: calc(
+    #{vars.$top-menu-height} + var(--toolbar-height)
+  );
   padding: var(--spacing-2) var(--spacing-1) 2px;
 }
 
 #fixed-elements sl-tab-panel {
-  --scrollable-elements-offset: #{vars.$top-menu-height + vars.$toolbar-height +
-    vars.$tab-bar-height};
+  --scrollable-elements-offset: calc(
+    #{vars.$top-menu-height} + var(--toolbar-height) + 51px
+  );
 }
 
 .scrollable-elements {
@@ -156,7 +157,7 @@ alchemy-tinymce {
 
   &:hover {
     &:not(:focus):not(:active) {
-      background-color: vars.$default-border-color;
+      background-color: var(--border-color);
       border-color: transparent;
       cursor: pointer;
     }
@@ -169,8 +170,8 @@ alchemy-tinymce {
 
 .element-editor {
   position: relative;
-  border: 1px solid vars.$default-border-color;
-  border-radius: vars.$default-border-radius;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius_medium);
   background-color: var(--color-grey_very_light);
   margin: var(--spacing-2) 0;
   transition: box-shadow vars.$transition-duration;
@@ -321,7 +322,7 @@ alchemy-tinymce {
       height: 35px;
       opacity: 0;
       z-index: 1;
-      box-shadow: 0 1px 1px vars.$default-border-color;
+      box-shadow: 0 1px 1px var(--border-color);
       background-color: var(--color-grey_very_light);
       transition: all vars.$transition-duration;
 
@@ -452,7 +453,7 @@ alchemy-tinymce {
   background-color: vars.$element-header-bg-color;
   @extend .disable-user-select;
   cursor: pointer;
-  border-radius: vars.$default-border-radius;
+  border-radius: var(--border-radius_medium);
   transition: background-color vars.$transition-duration;
 
   .expanded & {
@@ -476,7 +477,7 @@ alchemy-tinymce {
   width: 100%;
   padding: var(--spacing-1);
   gap: var(--spacing-1);
-  height: vars.$element-toolbar-height;
+  height: 37px;
   border-top: 1px solid var(--color-grey_light);
   border-bottom: 1px solid var(--color-grey_light);
 
@@ -485,8 +486,8 @@ alchemy-tinymce {
   }
 
   .icon_button {
-    width: vars.$icon-button-medium-width;
-    height: vars.$icon-button-medium-height;
+    width: var(--icon-button-medium-width);
+    height: var(--icon-button-medium-height);
   }
 }
 
@@ -558,7 +559,7 @@ alchemy-publish-element-button {
   .icon_button {
     &:not(.linked) {
       background-color: var(--color-grey_light);
-      border-color: vars.$default-border-color;
+      border-color: var(--border-color);
       border-width: vars.$form-field-border-width;
       border-style: vars.$form-field-border-style;
       box-shadow: none;
@@ -595,13 +596,13 @@ alchemy-publish-element-button {
       border-color: rgba(187, 162, 102, 0.5);
 
       &[is="alchemy-unlink-button"] {
-        border-radius: 0 vars.$default-border-radius vars.$default-border-radius
+        border-radius: 0 var(--border-radius_medium) var(--border-radius_medium)
           0;
         border-left-width: 0;
 
         &:focus {
-          border-radius: 0 vars.$default-border-radius
-            vars.$default-border-radius 0;
+          border-radius: 0 var(--border-radius_medium)
+            var(--border-radius_medium) 0;
         }
       }
     }
@@ -618,12 +619,12 @@ alchemy-publish-element-button {
   width: 100%;
   padding: var(--spacing-1);
   background-color: #fff;
-  border-bottom-left-radius: vars.$default-border-radius;
-  border-bottom-right-radius: vars.$default-border-radius;
+  border-bottom-left-radius: var(--border-radius_medium);
+  border-bottom-right-radius: var(--border-radius_medium);
 
   .icon_button {
-    width: vars.$icon-button-medium-width;
-    height: vars.$icon-button-medium-height;
+    width: var(--icon-button-medium-width);
+    height: var(--icon-button-medium-height);
   }
 
   alchemy-link-buttons {
@@ -651,7 +652,7 @@ alchemy-publish-element-button {
     margin: var(--spacing-1) 0;
     padding: 0;
     padding-bottom: 34px;
-    box-shadow: 0 0 1px 1px vars.$default-border-color;
+    box-shadow: 0 0 1px 1px var(--border-color);
 
     .picture_image {
       overflow: hidden;
@@ -791,9 +792,9 @@ alchemy-publish-element-button {
     gap: var(--spacing-1);
     margin: 6px 0 var(--spacing-1);
     padding: 0 var(--spacing-1) 0 var(--spacing-2);
-    border: vars.$default-border;
+    border: var(--border-default);
     background-color: var(--color-white);
-    border-radius: vars.$default-border-radius;
+    border-radius: var(--border-radius_medium);
     height: vars.$form-field-height;
 
     .validation_failed & {
@@ -825,7 +826,7 @@ alchemy-publish-element-button {
   gap: var(--spacing-1);
   align-items: center;
   background-color: white;
-  border-radius: 0 vars.$default-border-radius vars.$default-border-radius 0;
+  border-radius: 0 var(--border-radius_medium) var(--border-radius_medium) 0;
 
   a {
     display: inline-flex;
@@ -934,7 +935,7 @@ select.long {
   }
 
   &.deprecated {
-    border-radius: vars.$default-border-radius;
+    border-radius: var(--border-radius_medium);
     background-color: vars.$element-header-deprecated-bg-color;
     background-image: linear-gradient(
       45deg,
@@ -1032,7 +1033,7 @@ textarea.has_tinymce {
   margin-bottom: var(--spacing-2);
   background-color: vars.$error_background_color;
   padding: var(--spacing-2);
-  border-radius: vars.$default-border-radius;
+  border-radius: var(--border-radius_medium);
   color: vars.$error_text_color;
   border: 1px solid vars.$error_border_color;
 

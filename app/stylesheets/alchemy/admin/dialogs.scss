@@ -54,10 +54,7 @@ $dialog-transition-duration: 150ms;
 
 .alchemy-dialog-overlay {
   &.open {
-    background-color: rgba(
-      vars.$dialog-overlay-color,
-      vars.$dialog-overlay-opacity
-    );
+    background-color: vars.$dialog-overlay-color;
   }
 }
 
@@ -73,7 +70,7 @@ $dialog-transition-duration: 150ms;
 .alchemy-dialog {
   white-space: normal;
   margin: var(--spacing-2);
-  @include mixins.border-top-radius(vars.$default-border-radius);
+  @include mixins.border-top-radius(var(--border-radius_medium));
   box-shadow: vars.$dialog-box-shadow;
   background-color: vars.$dialog-background-color;
   transition: min-height $dialog-transition-duration ease-in-out;
@@ -139,7 +136,7 @@ $dialog-transition-duration: 150ms;
   color: vars.$dialog-header-text-color;
   font-weight: normal;
   font-size: vars.$dialog-header-font-size;
-  @include mixins.border-top-radius(vars.$default-border-radius);
+  @include mixins.border-top-radius(var(--border-radius_medium));
 }
 
 .alchemy-dialog-title {
@@ -164,7 +161,7 @@ $dialog-transition-duration: 150ms;
 
 .alchemy-dialog-body {
   position: relative;
-  color: var(--color-text);
+  color: var(--text-color);
 
   .message,
   alchemy-message {
