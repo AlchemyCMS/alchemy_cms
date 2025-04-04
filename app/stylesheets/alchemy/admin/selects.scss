@@ -2,23 +2,21 @@
 @use "alchemy_admin/select2";
 @use "../extends";
 @use "../mixins";
-@use "../variables" as vars;
 
 select {
   @include mixins.button-defaults(
-    $background-color: vars.$form-field-background-color,
-    $hover-color: vars.$form-field-background-color,
-    $hover-border-color:
-      color.adjust(vars.$default-border-color, $lightness: -10%),
+    $background-color: var(--form-field-background-color),
+    $hover-color: var(--form-field-background-color),
+    $hover-border-color: var(--button-hover-border-color),
     $padding: var(--spacing-1) 26px var(--spacing-1) var(--spacing-2),
-    $border: 1px solid vars.$default-border-color,
+    $border: 1px solid var(--button-border-color),
     $box-shadow: none,
-    $color: vars.$form-field-text-color,
+    $color: var(--form-field-text-color),
     $margin: 0
   );
 
   & {
-    height: vars.$form-field-height;
+    height: var(--form-field-height);
     max-width: 100%;
     width: auto;
     font-weight: normal;
@@ -37,11 +35,11 @@ select {
   }
 
   &.medium {
-    width: vars.$medium-select-box-width;
+    width: var(--select-medium-width);
   }
 
   &.large {
-    width: vars.$large-select-box-width;
+    width: var(--select-large-width);
   }
 }
 
@@ -49,16 +47,15 @@ select {
   &.alchemy_selectbox {
     .select2-choice {
       width: 100%;
-      height: vars.$form-field-height;
+      height: var(--form-field-height);
       @include mixins.button-defaults(
-        $background-color: vars.$form-field-background-color,
-        $hover-color: vars.$form-field-background-color,
-        $hover-border-color:
-          color.adjust(vars.$default-border-color, $lightness: -10%),
-        $padding: vars.$form-field-padding,
-        $border: 1px solid vars.$default-border-color,
+        $background-color: var(--form-field-background-color),
+        $hover-color: var(--form-field-background-color),
+        $hover-border-color: var(--button-hover-border-color),
+        $padding: var(--form-field-padding),
+        $border: 1px solid var(--button-border-color),
         $box-shadow: none,
-        $color: vars.$form-field-text-color,
+        $color: var(--form-field-text-color),
         $margin: 0
       );
 
@@ -86,7 +83,7 @@ select {
           align-items: center;
           justify-content: center;
           background-image: none;
-          color: var(--color-icon);
+          color: var(--icon-color);
 
           &:before {
             display: inline-block;
@@ -108,18 +105,18 @@ select {
     }
 
     &.medium {
-      width: vars.$medium-select-box-width;
+      width: var(--select-medium-width);
     }
 
     &.large {
-      width: vars.$large-select-box-width;
+      width: var(--select-large-width);
     }
 
     &.select2-container-active {
       .select2-choice,
       .select2-choices {
         @include mixins.default-focus-style(
-          $box-shadow: 0 0 0 1px vars.$focus-color
+          $box-shadow: 0 0 0 1px var(--focus-color)
         );
       }
     }
@@ -130,14 +127,14 @@ select {
         background-image: none;
         background-color: var(--color-grey_very_light);
         box-shadow: none;
-        border-color: vars.$border-inset-color;
+        border-color: var(border-inset-color);
         cursor: not-allowed;
 
         .select2-arrow {
-          border-color: vars.$border-inset-color;
+          border-color: var(border-inset-color);
 
           b {
-            color: vars.$border-inset-color;
+            color: var(border-inset-color);
           }
         }
       }
@@ -163,7 +160,7 @@ select {
       }
 
       &:hover {
-        color: var(--color-icon);
+        color: var(--icon-color);
       }
     }
   }
@@ -174,7 +171,7 @@ select {
     &.select2-container-active {
       .select2-choices {
         @include mixins.default-focus-style(
-          $box-shadow: 0 0 0 1px vars.$focus-color
+          $box-shadow: 0 0 0 1px var(--focus-color)
         );
       }
     }
@@ -191,14 +188,14 @@ select {
         background-image: none;
         border: 0 none;
         box-shadow: none;
-        color: var(--color-text);
+        color: var(--text-color);
       }
 
       .select2-search-field {
         height: 29px;
 
         input {
-          color: vars.$form-field-text-color;
+          color: var(--form-field-text-color);
           padding: 3px 6px;
           margin: 0;
         }
@@ -225,11 +222,11 @@ select {
     margin: 0;
 
     > .select2-result:first-child {
-      @include mixins.border-top-radius(vars.$default-border-radius);
+      @include mixins.border-top-radius(var(--border-radius_medium));
     }
 
-    &:last-child {
-      @include mixins.border-bottom-radius(vars.$default-border-radius);
+    > .select2-result:last-child {
+      @include mixins.border-bottom-radius(var(--border-radius_medium));
     }
 
     .select2-result {
@@ -237,8 +234,8 @@ select {
       padding: var(--spacing-1) 0;
 
       &.select2-highlighted {
-        background: vars.$select-hover-bg-color;
-        color: vars.$select-hover-text-color;
+        background: var(--select-hover-bg-color);
+        color: var(--select-hover-text-color);
       }
 
       &.select2-result-with-children {
@@ -262,8 +259,8 @@ select {
   }
 
   &.select2-drop-active {
-    border-radius: vars.$default-border-radius;
-    border: vars.$default-border;
+    border-radius: var(--border-radius_medium);
+    border: var(--border-default);
   }
 
   .select2-more-results,

@@ -1,5 +1,5 @@
+@use "sass:color";
 @use "../mixins";
-@use "../variables" as vars;
 
 button,
 input[type="submit"],
@@ -9,26 +9,31 @@ input.button {
   @include mixins.button-defaults;
 
   &.secondary {
-    background-color: vars.$secondary-button-bg-color;
-    color: vars.$secondary-button-text-color;
-    border-color: vars.$secondary-button-border-color;
+    background-color: var(--button-secondary-bg-color);
+    color: var(--button-secondary-text-color);
+    border-color: var(--button-secondary-border-color);
 
     &:focus {
       @include mixins.default-focus-style(
-        $border-color: vars.$button-focus-border-color,
-        $box-shadow: vars.$button-focus-box-shadow
+        $border-color: var(--button-focus-border-color),
+        $box-shadow: var(--button-focus-box-shadow)
       );
+    }
+
+    &:hover {
+      background-color: var(--button-hover-bg-color);
+      border-color: var(--button-hover-border-color);
     }
 
     &:active,
     &:active:focus {
-      border-color: vars.$button-hover-border-color;
+      border-color: var(--button-hover-border-color);
       box-shadow: none;
     }
   }
 
   &.small {
-    padding: vars.$small-button-padding;
+    padding: var(--button-small-padding);
     line-height: var(--spacing-4);
     font-size: inherit;
   }
@@ -55,16 +60,16 @@ input.button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: vars.$icon-button-width;
-  height: vars.$icon-button-height;
+  width: var(--icon-button-width);
+  height: var(--icon-button-height);
   margin: 0;
   padding: 0;
   text-shadow: none;
-  border-radius: vars.$default-border-radius;
+  border-radius: var(--border-radius_medium);
 
   &.small {
-    width: vars.$icon-button-small-width;
-    height: vars.$icon-button-small-height;
+    width: var(--icon-button-small-width);
+    height: var(--icon-button-small-height);
     background: none;
     border: none;
     padding: 0; // button.small has padding
@@ -74,7 +79,7 @@ input.button {
   &:active,
   &:hover:not([disabled]):not(.disabled):not(.linked) {
     text-decoration: none;
-    background-color: vars.$default-border-color;
+    background-color: var(--border-color);
     cursor: pointer;
   }
 
@@ -97,7 +102,15 @@ input.button {
   }
 
   &.linked {
-    @include mixins.linked-button;
+    @include mixins.button-defaults(
+      $background-color: var(--icon-button-linked-color),
+      $hover-color: var(--icon-button-linked-hover-color),
+      $border: 1px solid var(--icon-button-linked-border-color),
+      $hover-border-color: var(--icon-button-linked-hover-border-color),
+      $box-shadow: none,
+      $padding: 3px,
+      $margin: 0
+    );
   }
 
   &:focus:not(.disabled):not([disabled]) {

@@ -1,6 +1,5 @@
 @use "../extends";
 @use "../mixins";
-@use "../variables" as vars;
 
 textarea,
 input[type="url"],
@@ -19,13 +18,13 @@ input[type="search"],
 }
 
 input[type="checkbox"] {
-  transition: vars.$transition-duration;
+  transition: var(--transition-duration);
 
   &:focus {
     @include mixins.default-focus-style(
       $box-shadow: (
-        inset 0 0 0 1px vars.$focus-color,
-        0 0 0 1px vars.$focus-color
+        inset 0 0 0 1px var(--focus-color),
+        0 0 0 1px var(--focus-color)
       )
     );
   }
@@ -52,7 +51,7 @@ textarea {
   text-align: right;
 
   &.too-long {
-    color: vars.$error_text_color;
+    color: var(--notice-error-text-color);
   }
 }
 
@@ -70,7 +69,7 @@ fieldset {
 
 ::-webkit-input-placeholder {
   line-height: 1.5;
-  color: vars.$default-border-color;
+  color: var(--border-color);
 }
 
 .page-publication-date-fields {

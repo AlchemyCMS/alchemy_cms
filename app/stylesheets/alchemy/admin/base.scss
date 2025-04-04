@@ -1,10 +1,9 @@
 @use "../mixins";
-@use "../variables" as vars;
 
 html {
   box-sizing: border-box;
   height: 100%;
-  font-size: vars.$base-font-size;
+  font-size: var(--font-size_medium);
 
   &.turbo-progress-bar::before,
   .turbo-progress-bar {
@@ -31,9 +30,9 @@ noscript {
   width: 100%;
   text-align: center;
   line-height: 1em;
-  border-bottom: 1px solid vars.$warning_border_color;
-  color: vars.$warning_text_color;
-  background-color: vars.$warning_background_color;
+  border-bottom: 1px solid var(--notice-warning-border-color);
+  color: var(--notice-warning-text-color);
+  background-color: var(--notice-warning-background-color);
 
   h1,
   p {
@@ -44,13 +43,13 @@ noscript {
 body {
   margin: 0;
   padding: 0;
-  color: var(--color-text);
-  font: vars.$default-font-style;
-  background-color: vars.$body-background-color;
+  color: var(--text-color);
+  font: var(--font-default);
+  background-color: var(--body-background-color);
   height: 100%;
   cursor: default;
   opacity: 1;
-  transition: opacity vars.$transition-duration;
+  transition: opacity var(--transition-duration);
 
   // Fix for strange element window offset
   &.pages.edit {
@@ -65,7 +64,7 @@ body {
 a {
   color: inherit;
   text-decoration: none;
-  transition: vars.$transition-duration;
+  transition: var(--transition-duration);
 
   &:hover {
     text-decoration: underline;
@@ -114,19 +113,19 @@ hr {
 }
 
 .top-rounded-border {
-  @include mixins.border-top-radius(vars.$default-border-radius);
+  @include mixins.border-top-radius(var(--border-radius_medium));
 }
 
 .left-rounded-border {
-  @include mixins.border-left-radius(vars.$default-border-radius);
+  @include mixins.border-left-radius(var(--border-radius_medium));
 }
 
 .right-rounded-border {
-  @include mixins.border-right-radius(vars.$default-border-radius);
+  @include mixins.border-right-radius(var(--border-radius_medium));
 }
 
 .bottom-rounded-border {
-  @include mixins.border-bottom-radius(vars.$default-border-radius);
+  @include mixins.border-bottom-radius(var(--border-radius_medium));
 }
 
 .bottom-left-rounded-border {

@@ -1,7 +1,8 @@
 @use "../mixins";
-@use "../variables" as vars;
 
-$dialog-transition-duration: 150ms;
+:root {
+  --dialog-transition-duration: 150ms;
+}
 
 .alchemy-image-overlay-container,
 .alchemy-dialog-container {
@@ -17,7 +18,7 @@ $dialog-transition-duration: 150ms;
   opacity: 0;
   transform: scale(0.98);
   transition-property: transform, opacity;
-  transition-duration: $dialog-transition-duration;
+  transition-duration: var(--dialog-transition-duration);
   transition-timing-function: ease-in;
 
   // vertical aligment
@@ -45,7 +46,7 @@ $dialog-transition-duration: 150ms;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0);
-  transition: background-color $dialog-transition-duration linear;
+  transition: background-color var(--dialog-transition-duration) linear;
 
   &.closable {
     cursor: pointer;
@@ -54,10 +55,7 @@ $dialog-transition-duration: 150ms;
 
 .alchemy-dialog-overlay {
   &.open {
-    background-color: rgba(
-      vars.$dialog-overlay-color,
-      vars.$dialog-overlay-opacity
-    );
+    background-color: var(--dialog-overlay-color);
   }
 }
 
@@ -73,10 +71,10 @@ $dialog-transition-duration: 150ms;
 .alchemy-dialog {
   white-space: normal;
   margin: var(--spacing-2);
-  @include mixins.border-top-radius(vars.$default-border-radius);
-  box-shadow: vars.$dialog-box-shadow;
-  background-color: vars.$dialog-background-color;
-  transition: min-height $dialog-transition-duration ease-in-out;
+  @include mixins.border-top-radius(var(--border-radius_medium));
+  box-shadow: var(--dialog-box-shadow);
+  background-color: var(--dialog-background-color);
+  transition: min-height var(--dialog-transition-duration) ease-in-out;
 
   div#jscropper {
     padding: var(--spacing-2);
@@ -133,13 +131,13 @@ $dialog-transition-duration: 150ms;
   align-items: center;
   gap: var(--spacing-1);
   position: relative;
-  height: vars.$dialog-header-height;
-  padding: vars.$dialog-header-padding;
-  background: vars.$dialog-header-color;
-  color: vars.$dialog-header-text-color;
+  height: var(--dialog-header-height);
+  padding: var(--dialog-header-padding);
+  background: var(--dialog-header-color);
+  color: var(--dialog-header-text-color);
   font-weight: normal;
-  font-size: vars.$dialog-header-font-size;
-  @include mixins.border-top-radius(vars.$default-border-radius);
+  font-size: var(--dialog-header-font-size);
+  @include mixins.border-top-radius(var(--border-radius_medium));
 }
 
 .alchemy-dialog-title {
@@ -164,7 +162,7 @@ $dialog-transition-duration: 150ms;
 
 .alchemy-dialog-body {
   position: relative;
-  color: var(--color-text);
+  color: var(--text-color);
 
   .message,
   alchemy-message {

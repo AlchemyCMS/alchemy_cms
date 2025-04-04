@@ -1,5 +1,3 @@
-@use "../variables" as vars;
-
 ul,
 ol {
   padding-left: var(--spacing-4);
@@ -29,16 +27,16 @@ ul.list {
       margin-bottom: var(--spacing-2);
 
       .list-secondary {
-        color: var(--color-text);
+        color: var(--text-color);
       }
     }
 
     &.even {
-      background-color: vars.$table-row-even-background-color;
+      background-color: var(--table-row-even-background-color);
     }
 
     &.odd {
-      background-color: vars.$table-row-odd-background-color;
+      background-color: var(--table-row-odd-background-color);
     }
   }
 

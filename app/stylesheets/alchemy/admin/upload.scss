@@ -1,5 +1,4 @@
 @use "../extends";
-@use "../variables" as vars;
 
 .upload-button {
   display: inline-block;
@@ -59,7 +58,7 @@ alchemy-upload-progress {
   opacity: 0;
   padding: var(--spacing-4);
   position: fixed;
-  transition: vars.$transition-duration ease-in-out;
+  transition: var(--transition-duration) ease-in-out;
   width: 100%;
   z-index: 150;
 
@@ -134,7 +133,7 @@ alchemy-upload-progress {
         margin-left: auto; // right align button
         &:hover,
         &:active {
-          background-color: vars.$default-border-color;
+          background-color: var(--border-color);
         }
       }
 

@@ -1,8 +1,6 @@
-@use "../variables" as vars;
-
 img {
   opacity: 1;
-  transition: opacity vars.$transition-duration;
+  transition: opacity var(--transition-duration);
 
   &.loading {
     opacity: 0;

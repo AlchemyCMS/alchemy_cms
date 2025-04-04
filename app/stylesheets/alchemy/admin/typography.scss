@@ -1,5 +1,3 @@
-@use "../variables" as vars;
-
 h1,
 .h1,
 h2,
@@ -57,13 +55,13 @@ p {
   white-space: normal;
 
   a {
-    color: vars.$anchor-color;
+    color: var(--text-link-color);
   }
 }
 
 kbd,
 code {
-  border: vars.$default-border;
+  border: var(--border-default);
   border-radius: var(--border-radius_medium);
   font-family: Courier, monospaced;
   margin: 0 0.25ex;

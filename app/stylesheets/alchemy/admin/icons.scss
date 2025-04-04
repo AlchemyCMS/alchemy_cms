@@ -17,7 +17,7 @@ alchemy-icon {
 }
 
 .icon {
-  fill: var(--color-icon, currentColor);
+  fill: var(--icon-color, currentColor);
   width: var(--icon-size, var(--icon-size-md));
   height: var(--icon-size, var(--icon-size-md));
 

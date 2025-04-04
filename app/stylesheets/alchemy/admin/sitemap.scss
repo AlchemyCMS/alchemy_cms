@@ -75,10 +75,10 @@
 
   .page_folder {
     position: absolute;
-    left: -1 * vars.$sitemap-line-height;
+    left: calc(-1 * var(--spacing-8));
     top: 0;
-    width: vars.$sitemap-line-height;
-    height: vars.$sitemap-line-height;
+    width: var(--sitemap-line-height);
+    height: var(--sitemap-line-height);
   }
 
   .placeholder {
@@ -96,7 +96,7 @@
     padding-left: 0;
 
     li {
-      padding-left: vars.$sitemap-line-height;
+      padding-left: var(--sitemap-line-height);
       padding-right: 0;
     }
   }
@@ -105,16 +105,16 @@
 .sitemap_page {
   display: flex;
   align-items: center;
-  height: vars.$sitemap-line-height;
+  height: var(--sitemap-line-height);
   margin: var(--spacing-3) 0;
   position: relative;
-  transition: background-color vars.$transition-duration;
+  transition: background-color var(--transition-duration);
   --sitemap-status-width: calc(
     var(--sitemap-status-width-base) * var(--sitemap-status-length)
   );
 
   &.highlight {
-    background-color: vars.$sitemap-highlight-color;
+    background-color: var(--sitemap-highlight-color);
   }
 
   &.no-match .sitemap_pagename_link {
@@ -122,8 +122,8 @@
   }
 
   &:hover {
-    background-color: vars.$sitemap-page-hover-color;
-    border-radius: vars.$default-border-radius;
+    background-color: var(--sitemap-page-hover-color);
+    border-radius: var(--border-radius_medium);
   }
 
   &:has(.page_infos :nth-child(3)) {
@@ -138,18 +138,18 @@
   align-items: center;
   flex-shrink: 0;
   width: 32px;
-  height: vars.$sitemap-line-height;
+  height: var(--sitemap-line-height);
 }
 
 .sitemap_sitename {
   flex-grow: 1;
-  @include mixins.border-left-radius(vars.$default-border-radius);
-  line-height: vars.$sitemap-line-height - 4;
+  @include mixins.border-left-radius(var(--border-radius_medium));
+  line-height: calc(var(--sitemap-line-height) - 4px);
   overflow: hidden;
-  background-color: vars.$sitemap-page-background-color;
+  background-color: var(--sitemap-page-background-color);
 
   &.without-status {
-    @include mixins.border-right-radius(vars.$default-border-radius);
+    @include mixins.border-right-radius(var(--border-radius_medium));
   }
 
   .sitemap_pagename_link {
@@ -168,14 +168,14 @@
 
 .sitemap_url {
   display: none;
-  background-color: vars.$sitemap-info-background-color;
-  line-height: vars.$sitemap-line-height - 2px;
+  background-color: var(--sitemap-info-background-color);
+  line-height: calc(var(--sitemap-line-height) - 2px);
   font-size: var(--font-size_small);
   padding: 0 var(--spacing-2);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  border: 1px solid vars.$sitemap-page-background-color;
+  border: 1px solid var(--sitemap-page-background-color);
   width: calc(var(--sitemap-url-width) - var(--sitemap-status-width));
 
   @media screen and (min-width: vars.$large-screen-break-point) {
@@ -185,13 +185,13 @@
 
 .page_infos {
   @extend .right-rounded-border;
-  background-color: vars.$sitemap-page-background-color;
+  background-color: var(--sitemap-page-background-color);
   border-left: 1px solid var(--color-grey_very_light);
   display: none;
   justify-content: end;
   width: var(--sitemap-status-width);
-  height: vars.$sitemap-line-height;
-  line-height: vars.$sitemap-line-height;
+  height: var(--sitemap-line-height);
+  line-height: var(--sitemap-line-height);
 
   .page_status {
     margin: 0 var(--spacing-1);
@@ -208,7 +208,7 @@
   display: none;
   align-items: center;
   gap: var(--spacing-1);
-  height: vars.$sitemap-line-height;
+  height: var(--sitemap-line-height);
   padding: 0 var(--spacing-2);
 
   @media screen and (min-width: vars.$small-screen-break-point) {
@@ -216,9 +216,9 @@
   }
 
   .sitemap_tool {
-    width: vars.$sitemap-line-height;
-    height: vars.$sitemap-line-height;
-    line-height: vars.$sitemap-line-height;
+    width: var(--spacing-8);
+    height: var(--spacing-8);
+    line-height: var(--sitemap-line-height);
     text-align: center;
     margin: 0;
 
