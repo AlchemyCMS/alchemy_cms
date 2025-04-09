@@ -33,7 +33,7 @@ module Alchemy
         private
 
         def include_blank
-          Alchemy.t(:all, scope: [:resources, resource_name, :filters])
+          Alchemy.t(:all, scope: [:filters, resource_name, name])
         end
 
         def options_to_proc(options)

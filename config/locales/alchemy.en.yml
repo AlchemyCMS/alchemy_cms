@@ -104,8 +104,10 @@ en:
     filters:
       page:
         by_page_layout:
+          all: All page types
           name: Page Type
         status:
+          all: Do not filter
           name: Status
           values:
             not_public: Unpublished
@@ -123,6 +125,7 @@ en:
           name: Updated after
       picture:
         by_file_format:
+          all: Show all file types
           name: File Type
           values:
             gif: GIF Image
@@ -144,6 +147,7 @@ en:
           name: File Type
           values:
             <<: *mime_types
+          all: Show all file types
         last_upload:
           name: Last upload only
         recent:
