@@ -207,8 +207,10 @@ de:
     filters:
       page:
         by_page_layout:
+          all: Alle Seitentypen
           name: Seitentyp
         status:
+          all: Alle anzeigen
           name: Status
           values:
             not_public: Unveröffentlicht
@@ -225,6 +227,7 @@ de:
         updated_at_gteq:
           name: Aktualisiert nach
       picture:
+        all: Alle Dateitypen
         by_file_format:
           name: Dateityp
           values:
@@ -250,6 +253,7 @@ de:
         deletable:
           name: Nicht auf Seiten benutzt
       attachment:
+        all: Alle Dateitypen
         by_file_type:
           name: Dateityp
           values:
