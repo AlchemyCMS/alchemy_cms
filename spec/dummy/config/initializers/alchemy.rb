@@ -30,4 +30,14 @@ Rails.application.config.to_prepare do
       }]
     }
   )
+  Alchemy::Modules.register_module(
+    name: "styleguide",
+    engine_name: "alchemy",
+    navigation: {
+      name: "Styleguide",
+      controller: "/alchemy/admin/styleguide",
+      action: "index",
+      icon: "palette"
+    }
+  )
 end

@@ -33,6 +33,7 @@ const icons = [
   "Design/crop-line",
   "Design/edit-line",
   "Design/eraser-line",
+  "Design/palette-line",
   "Design/pencil-ruler-2-line",
   "Design/scissors-cut-line",
   "Design/table-line",
