@@ -134,7 +134,7 @@ alchemy-upload-progress {
         margin-left: auto; // right align button
         &:hover,
         &:active {
-          background-color: vars.$default-border-color;
+          background-color: var(--border-color);
         }
       }
 

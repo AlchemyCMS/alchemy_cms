@@ -70,7 +70,7 @@ fieldset {
 
 ::-webkit-input-placeholder {
   line-height: 1.5;
-  color: vars.$default-border-color;
+  color: var(--border-color);
 }
 
 .page-publication-date-fields {

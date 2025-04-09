@@ -1,19 +1,37 @@
 @use "deprecation";
 
-@include deprecation.alchemy-deprecated-variable("$default-padding", "var(--spacing-1)");
-@include deprecation.alchemy-deprecated-variable("$default-margin", "var(--spacing-1)");
-@include deprecation.alchemy-deprecated-variable("$text-color", "var(--color-text)");
+@include deprecation.alchemy-deprecated-variable(
+  "$default-padding",
+  "var(--spacing-1)"
+);
+@include deprecation.alchemy-deprecated-variable(
+  "$default-margin",
+  "var(--spacing-1)"
+);
+@include deprecation.alchemy-deprecated-variable(
+  "$text-color",
+  "var(--text-color)"
+);
 @include deprecation.alchemy-deprecated-variable(
   "$muted-text-color",
-  "var(--color-text_muted)"
+  "var(--text-color-muted)"
 );
-@include deprecation.alchemy-deprecated-variable("$icon-color", "var(--color-icon)");
+@include deprecation.alchemy-deprecated-variable(
+  "$icon-color",
+  "var(--icon-color)"
+);
 @include deprecation.alchemy-deprecated-variable(
   "$light-gray",
   "var(--color-grey_very_light)"
 );
-@include deprecation.alchemy-deprecated-variable("$medium-gray", "var(--color-grey_light)");
-@include deprecation.alchemy-deprecated-variable("$dark-gray", "var(--color-grey_dark)");
+@include deprecation.alchemy-deprecated-variable(
+  "$medium-gray",
+  "var(--color-grey_light)"
+);
+@include deprecation.alchemy-deprecated-variable(
+  "$dark-gray",
+  "var(--color-grey_dark)"
+);
 @include deprecation.alchemy-deprecated-variable(
   "$very-dark-gray",
   "var(--color-grey_very_dark)"
@@ -22,7 +40,10 @@
   "$light_yellow",
   "var(--color-yellow_light)"
 );
-@include deprecation.alchemy-deprecated-variable("$orange", "var(--color-orange_medium)");
+@include deprecation.alchemy-deprecated-variable(
+  "$orange",
+  "var(--color-orange_medium)"
+);
 @include deprecation.alchemy-deprecated-variable(
   "$dark-orange",
   "var(--color-orange_dark)"
@@ -35,10 +56,22 @@
   "$very-light-blue",
   "var(--color-blue_very_light)"
 );
-@include deprecation.alchemy-deprecated-variable("$light-blue", "var(--color-blue_light)");
-@include deprecation.alchemy-deprecated-variable("$blue", "var(--color-blue_medium)");
-@include deprecation.alchemy-deprecated-variable("$dark-blue", "var(--color-blue_dark)");
-@include deprecation.alchemy-deprecated-variable("$white", "var(--color-white)");
+@include deprecation.alchemy-deprecated-variable(
+  "$light-blue",
+  "var(--color-blue_light)"
+);
+@include deprecation.alchemy-deprecated-variable(
+  "$blue",
+  "var(--color-blue_medium)"
+);
+@include deprecation.alchemy-deprecated-variable(
+  "$dark-blue",
+  "var(--color-blue_dark)"
+);
+@include deprecation.alchemy-deprecated-variable(
+  "$white",
+  "var(--color-white)"
+);
 @include deprecation.alchemy-deprecated-variable(
   "$small-font-size",
   "var(--font-size_small)"

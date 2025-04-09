@@ -43,7 +43,7 @@ form {
     .select2-container,
     .autocomplete_tag_list,
     .tinymce_container {
-      width: vars.$form-right-width;
+      width: var(--form-right-column-width);
       float: right;
     }
 
@@ -73,7 +73,7 @@ form {
     }
 
     &.boolean {
-      margin-left: vars.$form-left-width;
+      margin-left: var(--form-left-column-width);
 
       label {
         width: 100%;
@@ -136,7 +136,7 @@ form {
   small.error {
     color: vars.$error_text_color;
     display: block;
-    margin-left: vars.$form-left-width;
+    margin-left: var(--form-left-column-width);
     line-height: 1.5em;
     clear: both;
     text-align: right;
@@ -201,11 +201,11 @@ form {
     }
 
     .left-column {
-      width: vars.$form-right-width;
+      width: var(--form-right-column-width);
     }
 
     .right-column {
-      width: vars.$form-left-width;
+      width: var(--form-left-column-width);
     }
 
     button,
@@ -220,7 +220,7 @@ form {
   }
 
   .control_group {
-    width: vars.$form-right-width;
+    width: var(--form-right-column-width);
     padding-top: var(--spacing-1);
     float: right;
   }
@@ -231,7 +231,7 @@ form {
 
   .input .hint {
     @include mixins.form-hint;
-    margin-left: vars.$form-left-width;
+    margin-left: var(--form-left-column-width);
 
     a[href] {
       color: var(--color-grey_very_dark);

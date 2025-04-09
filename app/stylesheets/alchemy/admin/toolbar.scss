@@ -2,13 +2,11 @@
 @use "../variables" as vars;
 
 #toolbar {
-  display: flex;
+  @extend %gradiated-toolbar;
   align-items: center;
   gap: var(--spacing-2);
   z-index: 10;
-  @extend %gradiated-toolbar;
   margin-right: 0px;
-  border-bottom: vars.$default-border;
   position: relative;
 
   .toolbar_button {
@@ -77,14 +75,13 @@
   height: 29px;
   border-right-style: solid;
   border-right-width: 1px;
-  border-right-color: vars.$default-border-color;
+  border-right-color: var(--border-color);
   margin-right: var(--spacing-1);
   margin-left: var(--spacing-1);
 }
 
 #overlay_toolbar {
   @extend %gradiated-toolbar;
-  border-bottom: vars.$default-border;
 }
 
 .button_group {

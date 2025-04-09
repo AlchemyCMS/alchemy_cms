@@ -13,7 +13,7 @@
 
     > p {
       @include mixins.form-value-display;
-      @include mixins.truncate(vars.$form-right-width);
+      @include mixins.truncate(var(--form-right-column-width));
     }
 
     &.with-icon {

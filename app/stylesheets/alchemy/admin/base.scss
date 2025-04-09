@@ -44,7 +44,7 @@ noscript {
 body {
   margin: 0;
   padding: 0;
-  color: var(--color-text);
+  color: var(--text-color);
   font: vars.$default-font-style;
   background-color: vars.$body-background-color;
   height: 100%;
@@ -114,19 +114,19 @@ hr {
 }
 
 .top-rounded-border {
-  @include mixins.border-top-radius(vars.$default-border-radius);
+  @include mixins.border-top-radius(var(--border-radius_medium));
 }
 
 .left-rounded-border {
-  @include mixins.border-left-radius(vars.$default-border-radius);
+  @include mixins.border-left-radius(var(--border-radius_medium));
 }
 
 .right-rounded-border {
-  @include mixins.border-right-radius(vars.$default-border-radius);
+  @include mixins.border-right-radius(var(--border-radius_medium));
 }
 
 .bottom-rounded-border {
-  @include mixins.border-bottom-radius(vars.$default-border-radius);
+  @include mixins.border-bottom-radius(var(--border-radius_medium));
 }
 
 .bottom-left-rounded-border {

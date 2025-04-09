@@ -2,6 +2,6 @@
 
 .like-hint-tooltip {
   cursor: help;
-  --sl-tooltip-background-color: #{vars.$hint-background-color};
-  --sl-tooltip-color: #{vars.$hint-text-color};
+  --sl-tooltip-background-color: var(--hint-background-color);
+  --sl-tooltip-color: var(--hint-text-color);
 }
