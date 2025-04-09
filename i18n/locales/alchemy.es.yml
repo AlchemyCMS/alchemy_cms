@@ -131,6 +131,75 @@ es:
         right: "A la derecha"
         no_float: "Encima"
 
+    # === Translations for filter names and values
+    # Used in the right filter column in case the controller has `alchemy_filters` defined.
+    #
+    filters:
+      page:
+        by_page_layout:
+          all: Todos tipos
+          name: Tipo de página
+        status:
+          all: Mostrar todos
+          name: Estado
+          values:
+            not_public: No publicado
+            published: Publicado
+            restricted: Protegido
+        not_public:
+          name: No publicado
+        published:
+          name: Publicado
+        restricted:
+          name: Protegido
+        updated_at_lteq:
+          name: Actualizado antes
+        updated_at_gteq:
+          name: Actualizado después
+      picture:
+        all: Todos tipos
+        by_file_format:
+          name: Tipo de archivo
+          values:
+            gif: GIF
+            jpeg: JPG
+            png: PNG
+            tiff: TIFF
+            webp: WebP
+            svg: SVG
+        misc:
+          name: Otros
+          values:
+            last_upload: Su última subida
+            recent: Subido recientemente
+            without_tag: Sin etiqueta
+            deletable: Sin uso en páginas
+        last_upload:
+          name: Su última subida
+        recent:
+          name: Subido recientemente
+        without_tag:
+          name: Sin etiqueta
+        deletable:
+          name: Sin uso en páginas
+      attachment:
+        all: Todos los tipos
+        by_file_type:
+          name: Tipo de archivo
+          values:
+            <<: *mime_types
+        misc:
+          name: Otros
+          values:
+            last_upload: Su última subida
+            recent: Subido recientemente
+            without_tag: Sin etiqueta
+        last_upload:
+          name: Su última subida
+        recent:
+          name: Subido recientemente
+        without_tag:
+          name: Sin etiqueta
     # == Contactform translations
     contactform:
       labels:
