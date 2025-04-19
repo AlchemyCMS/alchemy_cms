@@ -21,8 +21,8 @@
   --font-size_medium: 12px; /* 1rem */
   --font-size_large: 16px; /* 1.25 rem */
 
-  --font-weigth_normal: 500;
-  --font-weigth_bold: 700;
+  --font-weight_normal: 500;
+  --font-weight_bold: 700;
 
   --font-default: var(--font-size_medium) var(--font-sans);
 
