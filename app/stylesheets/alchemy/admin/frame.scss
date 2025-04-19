@@ -1,6 +1,11 @@
 @use "base";
 @use "navigation";
 
+:root {
+  --header-height: 29px;
+  --header-border-bottom: var(--border-default);
+}
+
 alchemy-overlay {
   visibility: hidden;
   position: fixed;

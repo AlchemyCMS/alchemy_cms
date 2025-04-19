@@ -1,6 +1,11 @@
 @use "../extends";
 @use "../mixins";
 
+:root {
+  --form-left-column-width: 35%;
+  --form-right-column-width: 65%;
+}
+
 form {
   #main_content > &.alchemy {
     max-width: 600px;

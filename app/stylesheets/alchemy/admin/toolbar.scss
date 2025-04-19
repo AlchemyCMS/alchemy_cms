@@ -1,6 +1,12 @@
 @use "../extends";
 @use "../variables" as vars;
 
+:root {
+  --toolbar-height: 46px;
+  --toolbar-padding: var(--spacing-2) var(--spacing-1);
+  --toolbar-border-bottom: var(--border-default);
+}
+
 #toolbar {
   @extend %gradiated-toolbar;
   align-items: center;

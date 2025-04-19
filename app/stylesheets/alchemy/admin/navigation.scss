@@ -2,6 +2,11 @@
 @use "../mixins";
 @use "../variables" as vars;
 
+:root {
+  --top-menu-height: 75px;
+  --main-menu-entry-max-width: 110px;
+}
+
 #top_menu {
   position: fixed;
   top: 0;
@@ -9,6 +14,7 @@
   padding-right: var(--main-menu-width);
   z-index: 20;
   width: 100%;
+  height: var(--top-menu-height);
   @extend .disable-user-select;
 }
 
