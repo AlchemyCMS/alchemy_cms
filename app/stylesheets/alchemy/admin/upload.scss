@@ -74,7 +74,7 @@ alchemy-upload-progress {
   }
 
   .value-text {
-    color: var(--font-color_default);
+    color: var(--file-upload-text-color);
     font-size: var(--font-size_large);
     font-weight: var(--font-weigth_bold);
     min-width: 100px;
@@ -126,7 +126,7 @@ alchemy-upload-progress {
       }
 
       .error-message {
-        color: var(--font-color_failed);
+        color: var(--file-upload-failed-text-color);
       }
 
       button {
