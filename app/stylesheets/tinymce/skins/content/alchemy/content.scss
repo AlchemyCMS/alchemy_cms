@@ -15,11 +15,11 @@ body {
   font-family: var(--font-sans);
   line-height: 1.4;
   margin: 1em;
-  color: var(--text-color);
+  color: #333;
 }
 
 a {
-  color: var(--color-blue_dark);
+  color: #000;
 }
 
 table {
@@ -28,7 +28,7 @@ table {
 
 table td,
 table th {
-  border: 1px solid var(--border-color);
+  border: 1px solid #666;
   padding: 0.4rem;
 }
 
@@ -38,32 +38,32 @@ figure {
 }
 
 figure figcaption {
-  color: var(--color-grey_dark);
+  color: #333;
   display: block;
   margin-top: 0.25rem;
   text-align: center;
 }
 
 hr {
-  border-color: var(--border-color);
+  border-color: #666;
   border-style: solid;
   border-width: 1px 0 0 0;
 }
 
 code {
-  background-color: var(--color-grey_very_light);
+  background-color: #999;
   border-radius: var(--border-radius_medium);
   padding: 0.1rem 0.2rem;
 }
 
 .mce-content-body:not([dir="rtl"]) blockquote {
-  border-left: 2px solid var(--border-color);
+  border-left: 2px solid #666;
   margin-left: 1.5rem;
   padding-left: 1rem;
 }
 
 .mce-content-body[dir="rtl"] blockquote {
-  border-right: 2px solid var(--border-color);
+  border-right: 2px solid #666;
   margin-right: 1.5rem;
   padding-right: 1rem;
 }
