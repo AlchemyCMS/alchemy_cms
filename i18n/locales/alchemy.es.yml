@@ -131,6 +131,73 @@ es:
         right: "A la derecha"
         no_float: "Encima"
 
+    # == Contactform translations
+    contactform:
+      labels:
+        salutation: "Tratamiento"
+        choose: "Por favor elige"
+        mr: "Sr."
+        mrs: "Sra."
+        firstname: "Nombre"
+        lastname: "Apellido"
+        address: "Calle / Nº"
+        zip: "Código Postal / Ciudad"
+        phone: "Teléfono"
+        email: "Correo"
+        message: "Mensaje"
+        send: "Enviar"
+        mandatory_fields: "* Campo obligatorio."
+      # The flash message shown after successfully sending the message.
+      messages:
+        success: "Su mensaje se ha enviado con éxito."
+
+    # == Translated language names for translation select
+    translations:
+      de: "DE"
+      en: "EN"
+      es: "ES"
+      it: "IT"
+      fr: "FR"
+      nl: "NL"
+      ru: "RU"
+
+    # == User roles translations
+    user_roles:
+      registered: "Registrado"
+      member: "Miembro"
+      author: "Autor"
+      editor: "Editor"
+      admin: "Administrador"
+
+    # == Mime Types translations
+    # These are human readable mime types used for the document-type row in archive files.
+    mime_types: &mime_types
+      audio/mp4: "Audio MP4"
+      application/msword: "Documento de Word"
+      application/rtf: "Documento RTF"
+      audio/mpeg: "Audio MP3"
+      text/plain: "Documento de texto"
+      video/mp4: "Video MP4"
+      video/mpeg: "Video MPEG"
+      application/pdf: "Documento PDF"
+      application/x-flash-video: "Video de Flash"
+      video/x-flv: "Video de Flash"
+      application/x-shockwave-flash: "Video de Flash"
+      application/zip: "Archivo ZIP"
+      application/x-rar: "Archivo RAR"
+      application/vnd:
+        ms-excel: "Documento Excel"
+      video/quicktime: "Video de Quicktime"
+      image/x-psd: "Archivo de Photoshop"
+      image/gif: "Imagen GIF"
+      image/png: "Imagen PNG"
+      image/jpeg: "Imagen JPG"
+      video/x-msvideo: "Video AVI"
+      video/x-ms-wmv: "Windows Media Video"
+      image/tiff: "Imagen TIFF"
+      "text/x-vcard": "vCard"
+      application/vcard: "vCard"
+
     # === Translations for filter names and values
     # Used in the right filter column in case the controller has `alchemy_filters` defined.
     #
@@ -200,72 +267,6 @@ es:
           name: Subido recientemente
         without_tag:
           name: Sin etiqueta
-    # == Contactform translations
-    contactform:
-      labels:
-        salutation: "Tratamiento"
-        choose: "Por favor elige"
-        mr: "Sr."
-        mrs: "Sra."
-        firstname: "Nombre"
-        lastname: "Apellido"
-        address: "Calle / Nº"
-        zip: "Código Postal / Ciudad"
-        phone: "Teléfono"
-        email: "Correo"
-        message: "Mensaje"
-        send: "Enviar"
-        mandatory_fields: "* Campo obligatorio."
-      # The flash message shown after successfully sending the message.
-      messages:
-        success: "Su mensaje se ha enviado con éxito."
-
-    # == Translated language names for translation select
-    translations:
-      de: "DE"
-      en: "EN"
-      es: "ES"
-      it: "IT"
-      fr: "FR"
-      nl: "NL"
-      ru: "RU"
-
-    # == User roles translations
-    user_roles:
-      registered: "Registrado"
-      member: "Miembro"
-      author: "Autor"
-      editor: "Editor"
-      admin: "Administrador"
-
-    # == Mime Types translations
-    # These are human readable mime types used for the document-type row in archive files.
-    mime_types: &mime_types
-      audio/mp4: "Audio MP4"
-      application/msword: "Documento de Word"
-      application/rtf: "Documento RTF"
-      audio/mpeg: "Audio MP3"
-      text/plain: "Documento de texto"
-      video/mp4: "Video MP4"
-      video/mpeg: "Video MPEG"
-      application/pdf: "Documento PDF"
-      application/x-flash-video: "Video de Flash"
-      video/x-flv: "Video de Flash"
-      application/x-shockwave-flash: "Video de Flash"
-      application/zip: "Archivo ZIP"
-      application/x-rar: "Archivo RAR"
-      application/vnd:
-        ms-excel: "Documento Excel"
-      video/quicktime: "Video de Quicktime"
-      image/x-psd: "Archivo de Photoshop"
-      image/gif: "Imagen GIF"
-      image/png: "Imagen PNG"
-      image/jpeg: "Imagen JPG"
-      video/x-msvideo: "Video AVI"
-      video/x-ms-wmv: "Windows Media Video"
-      image/tiff: "Imagen TIFF"
-      "text/x-vcard": "vCard"
-      application/vcard: "vCard"
 
     link_target_options:
       default: Misma ventana
