@@ -240,7 +240,7 @@ es:
 
     # == Mime Types translations
     # These are human readable mime types used for the document-type row in archive files.
-    mime_types:
+    mime_types: &mime_types
       audio/mp4: "Audio MP4"
       application/msword: "Documento de Word"
       application/rtf: "Documento RTF"
