@@ -37,7 +37,10 @@ module Alchemy
         if: :run_on_page_layout_callbacks?,
         only: [:show]
 
-      add_alchemy_filter :by_page_layout, type: :select, options: PageLayout.all.map { |p| [Alchemy.t(p["name"], scope: "page_layout_names"), p["name"]] }
+      add_alchemy_filter :by_page_layout, type: :select, options: ->(_q) do
+        PageLayout.all.map { |p| [Alchemy.t(p[:name], scope: "page_layout_names"), p[:name]] }
+      end
+
       add_alchemy_filter :updated_at_gteq, type: :datepicker
       add_alchemy_filter :updated_at_lteq, type: :datepicker
       add_alchemy_filter :published, type: :checkbox
