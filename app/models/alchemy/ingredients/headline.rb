@@ -42,7 +42,7 @@ module Alchemy
       private
 
       def levels
-        settings.fetch(:levels, (1..6))
+        settings.fetch(:levels, 1..6)
       end
 
       def sizes
