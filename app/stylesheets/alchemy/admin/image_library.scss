@@ -1,5 +1,4 @@
 @use "../mixins";
-@use "../variables" as vars;
 
 .alchemy-image-overlay {
   &.open {
@@ -83,7 +82,7 @@
   .icon {
     font-size: 2em;
     color: var(--color-grey_light);
-    text-shadow: 0 0 4px var(--color-text);
+    text-shadow: 0 0 4px var(--text-color);
     transition: color var(--image-overlay-transition-duration) linear;
 
     &:hover {
@@ -97,7 +96,7 @@
   position: absolute;
   top: 0;
   background-color: var(--color-grey_light);
-  box-shadow: -2px 0 4px -2px var(--color-text);
+  box-shadow: -2px 0 4px -2px var(--text-color);
   transition: right var(--image-overlay-transition-duration)
     var(--image-overlay-transition-easing);
 }
@@ -138,7 +137,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 1.2em;
-    color: var(--color-icon);
+    color: var(--icon-color);
     transition: transform var(--image-overlay-transition-duration)
       var(--image-overlay-transition-easing);
   }
@@ -177,8 +176,8 @@
     height: auto;
     max-width: 100%;
     max-height: 100%;
-    box-shadow: 0 0 var(--spacing-2) var(--color-text);
-    background: vars.$thumbnail-background;
+    box-shadow: 0 0 var(--spacing-2) var(--text-color);
+    background: var(--thumbnail-background);
     vertical-align: middle;
     cursor: default;
   }
@@ -269,20 +268,20 @@
   .icon {
     --icon-size: 4em;
     fill: var(--color-grey_light);
-    filter: drop-shadow(0 0 4px var(--color-icon));
+    filter: drop-shadow(0 0 4px var(--icon-color));
     transition: all var(--image-overlay-transition-duration) linear;
     vertical-align: middle;
   }
 
   .previous-picture {
     left: 0;
-    @include mixins.border-right-radius(vars.$default-border-radius);
+    @include mixins.border-right-radius(var(--border-radius_medium));
   }
 
   .next-picture {
     right: calc(
       var(--image-overlay-form-width) + var(--picture-overlay-handle-width)
     );
-    @include mixins.border-left-radius(vars.$default-border-radius);
+    @include mixins.border-left-radius(var(--border-radius_medium));
   }
 }

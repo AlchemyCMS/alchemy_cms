@@ -1,6 +1,10 @@
 @use "base";
 @use "navigation";
-@use "../variables" as vars;
+
+:root {
+  --header-height: 29px;
+  --header-border-bottom: var(--border-default);
+}
 
 alchemy-overlay {
   visibility: hidden;
@@ -11,7 +15,7 @@ alchemy-overlay {
   height: 100%;
   z-index: 400000;
   background-color: transparent;
-  transition: all vars.$transition-duration vars.$transition-easing;
+  transition: all var(--transition-duration) var(--transition-easing);
   transition-delay: 0;
 
   &.visible {
@@ -49,15 +53,15 @@ div#overlay_text_box {
   margin-bottom: 0;
 
   &:not(:hover) {
-    background-color: vars.$main-menu-bg-color;
+    background-color: var(--main-menu-bg-color);
   }
 }
 
 #header {
   display: flex;
-  height: vars.$header-height;
-  background: vars.$header-background;
-  border-bottom: vars.$default-border;
+  height: var(--header-height);
+  background: var(--header-background);
+  border-bottom: var(--header-border-bottom);
   position: relative;
 
   a:hover {
@@ -68,11 +72,11 @@ div#overlay_text_box {
     align-items: center;
     padding: var(--spacing-1) var(--spacing-2);
     background-color: var(--color-grey_light);
-    text-shadow: vars.$text-shadow-light;
+    text-shadow: var(--text-shadow-light);
     @extend .disable-user-select;
     @extend .locked_page;
     cursor: default;
-    border-bottom-color: vars.$toolbar-bg-color;
+    border-bottom-color: var(--toolbar-bg-color);
   }
 
   .page_name {
@@ -87,30 +91,26 @@ div#overlay_text_box {
   padding-top: 84px;
   padding-right: var(--spacing-2);
   padding-bottom: var(--spacing-2);
-  padding-left: calc(#{vars.$collapsed-main-menu-width} + var(--spacing-2));
+  padding-left: calc(var(--main-menu-width) + var(--spacing-2));
   z-index: 0;
   width: 100%;
   height: 100%;
-
-  @media screen and (min-width: vars.$large-screen-break-point) {
-    padding-left: calc(#{vars.$main-menu-width} + var(--spacing-2));
-  }
 }
 
 #user_info {
   display: flex;
   align-items: center;
-  height: vars.$header-height;
+  height: var(--header-height);
   padding-left: var(--spacing-2);
   margin-left: auto;
-  border-bottom: vars.$default-border;
-  background-color: vars.$header-background;
+  border-bottom: var(--border-default);
+  background-color: var(--header-background);
 
   select {
     background-color: transparent;
     border: none;
     border-radius: 0;
-    border-left: vars.$default-border;
+    border-left: var(--border-default);
   }
 
   .current-user-name {

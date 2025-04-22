@@ -5,14 +5,12 @@
 * For commercial licenses see https://www.tiny.cloud/
 */
 
-@use "../../../../alchemy/variables" as vars;
-
 .tox {
   box-shadow: none;
   box-sizing: content-box;
   color: #000;
   cursor: auto;
-  font-family: vars.$default-font-family;
+  font-family: var(--font-default);
   font-size: 13px;
   font-style: normal;
   font-weight: 400;
@@ -69,13 +67,13 @@
 }
 
 .tox-tinymce {
-  border: vars.$default-border;
-  border-radius: vars.$default-border-radius;
+  border: var(--border-default);
+  border-radius: var(--border-radius_medium);
   box-shadow: none;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  font-family: vars.$default-font-family;
+  font-family: var(--font-default);
   overflow: hidden;
   position: relative;
   visibility: inherit !important;
@@ -88,13 +86,13 @@
 
 .tox-tinymce-inline .tox-editor-header {
   background-color: transparent;
-  border: vars.$default-border;
-  border-radius: vars.$default-border-radius;
+  border: var(--border-default);
+  border-radius: var(--border-radius_medium);
   box-shadow: none;
 }
 
 .tox-tinymce-aux {
-  font-family: vars.$default-font-family;
+  font-family: var(--font-default);
   z-index: 1300;
 }
 
@@ -119,8 +117,8 @@ button::-moz-focus-inner {
 
 .tox .accessibility-issue__description {
   align-items: stretch;
-  border: vars.$default-border;
-  border-radius: vars.$default-border-radius;
+  border: var(--border-default);
+  border-radius: var(--border-radius_medium);
   display: flex;
   justify-content: space-between;
 }
@@ -338,28 +336,28 @@ button::-moz-focus-inner {
 }
 
 .tox .tox-button {
-  background-color: vars.$button-bg-color;
+  background-color: var(--button-bg-color);
   background-image: none;
   background-position: 0 0;
   background-repeat: repeat;
-  border-color: vars.$button-border-color;
-  border-radius: vars.$button-border-radius;
+  border-color: var(--button-border-color);
+  border-radius: var(--button-border-radius);
   border-style: solid;
-  border-width: vars.$button-border-width;
-  box-shadow: vars.$button-box-shadow;
+  border-width: var(--button-border-width);
+  box-shadow: var(--button-box-shadow);
   box-sizing: border-box;
-  color: vars.$button-text-color;
+  color: var(--button-text-color);
   cursor: pointer;
   display: inline-block;
-  font-family: vars.$default-font-family;
-  font-size: vars.$base-font-size;
+  font-family: var(--font-default);
+  font-size: var(--button-font-size);
   font-style: normal;
-  font-weight: vars.$button-font-weight;
+  font-weight: var(--button-font-weight);
   letter-spacing: normal;
-  line-height: 24px;
-  margin: 0;
+  height: var(--button-height);
+  margin: var(--button-margin);
   outline: 0;
-  padding: vars.$button-padding;
+  padding: var(--button-padding);
   text-align: center;
   text-decoration: none;
   text-transform: none;
@@ -384,38 +382,38 @@ button::-moz-focus-inner {
 }
 
 .tox .tox-button:hover:not(:disabled) {
-  background-color: vars.$button-hover-bg-color;
+  background-color: var(--button-hover-bg-color);
   background-image: none;
-  border-color: vars.$button-hover-border-color;
+  border-color: var(--button-hover-border-color);
   box-shadow: none;
-  color: vars.$button-text-color;
+  color: var(--button-text-color);
 }
 
 .tox .tox-button:active:not(:disabled) {
-  background-color: vars.$button-hover-bg-color;
+  background-color: var(--button-hover-bg-color);
   background-image: none;
-  border-color: vars.$button-hover-border-color;
+  border-color: var(--button-hover-border-color);
   box-shadow: none;
-  color: vars.$button-text-color;
+  color: var(--button-text-color);
 }
 
 .tox .tox-button--secondary {
-  background-color: vars.$secondary-button-bg-color;
+  background-color: var(--button-secondary-bg-color);
   background-image: none;
   background-position: 0 0;
   background-repeat: repeat;
-  border-color: vars.$secondary-button-border-color;
-  border-radius: vars.$default-border-radius;
+  border-color: var(--button-secondary-border-color);
+  border-radius: var(--border-radius_medium);
   border-style: solid;
-  border-width: vars.$button-border-width;
+  border-width: var(--button-border-width);
   box-shadow: none;
-  color: vars.$secondary-button-text-color;
-  font-size: vars.$default-font-size;
+  color: var(--button-secondary-text-color);
+  font-size: var(--button-font-size);
   font-style: normal;
-  font-weight: vars.$button-font-weight;
+  font-weight: var(--button-font-weight);
   letter-spacing: normal;
   outline: 0;
-  padding: vars.$button-padding;
+  padding: var(--button-padding);
   text-decoration: none;
   text-transform: none;
 }
@@ -471,7 +469,7 @@ button::-moz-focus-inner {
   box-sizing: border-box;
   cursor: pointer;
   display: inline-block;
-  font-family: vars.$default-font-family;
+  font-family: var(--font-default);
   font-size: 13px;
   font-weight: 400;
   line-height: 1.3;
@@ -481,7 +479,7 @@ button::-moz-focus-inner {
 }
 
 .tox .tox-button-link--sm {
-  font-size: vars.$base-font-size;
+  font-size: var(--font-size_medium);
 }
 
 .tox .tox-button--naked {
@@ -529,7 +527,7 @@ button::-moz-focus-inner {
 
 .tox .tox-checkbox {
   align-items: center;
-  border-radius: vars.$default-border-radius;
+  border-radius: var(--border-radius_medium);
   cursor: pointer;
   display: flex;
   height: 36px;
@@ -546,7 +544,7 @@ button::-moz-focus-inner {
 
 .tox .tox-checkbox__icons {
   align-items: center;
-  border-radius: vars.$default-border-radius;
+  border-radius: var(--border-radius_medium);
   box-shadow: 0 0 0 2px transparent;
   box-sizing: content-box;
   display: flex;
@@ -633,7 +631,7 @@ button::-moz-focus-inner {
 }
 
 .tox input.tox-checkbox__input:focus + .tox-checkbox__icons {
-  border-radius: vars.$default-border-radius;
+  border-radius: var(--border-radius_medium);
   box-shadow: inset 0 0 0 1px #2d5a8d;
   padding: calc(3.25px - 1px);
 }
@@ -723,23 +721,23 @@ button::-moz-focus-inner {
 }
 
 .tox .tox-collection--toolbar .tox-collection__item {
-  border-radius: vars.$default-border-radius;
+  border-radius: var(--border-radius_medium);
   padding: 3.25px;
 }
 
 .tox .tox-collection--grid .tox-collection__item {
-  border-radius: vars.$default-border-radius;
+  border-radius: var(--border-radius_medium);
   padding: 3.25px;
 }
 
 .tox .tox-collection--list .tox-collection__item--enabled {
   background-color: rgba(175, 175, 175, 0.25);
-  color: var(--color-text);
+  color: var(--text-color);
 }
 
 .tox .tox-collection--toolbar .tox-collection__item--enabled {
   background-color: rgba(175, 175, 175, 0.5);
-  color: var(--color-text);
+  color: var(--text-color);
 }
 
 .tox .tox-collection--toolbar .tox-collection__item--active {
@@ -748,44 +746,44 @@ button::-moz-focus-inner {
 
 .tox .tox-collection--grid .tox-collection__item--enabled {
   background-color: rgba(175, 175, 175, 0.5);
-  color: var(--color-text);
+  color: var(--text-color);
 }
 
 .tox
   .tox-collection--grid
   .tox-collection__item--active:not(.tox-collection__item--state-disabled) {
   background-color: rgba(175, 175, 175, 0.25);
-  color: var(--color-text);
+  color: var(--text-color);
   outline: none;
 }
 
 .tox
   .tox-collection--list
   .tox-collection__item--active:not(.tox-collection__item--state-disabled) {
-  background-color: vars.$select-hover-bg-color;
-  color: vars.$select-hover-text-color;
+  background-color: var(--select-hover-bg-color);
+  color: var(--select-hover-text-color);
 
   .tox-collection__item-caret svg {
-    fill: vars.$select-hover-text-color;
+    fill: var(--select-hover-text-color);
   }
   .tox-collection__item-accessory {
-    color: vars.$select-hover-text-color;
+    color: var(--select-hover-text-color);
   }
 }
 
 .tox
   .tox-collection--toolbar
   .tox-collection__item--active:not(.tox-collection__item--state-disabled) {
-  color: var(--color-text);
+  color: var(--text-color);
 }
 
 .tox .tox-collection__item-checkmark,
 .tox .tox-collection__item-icon {
   align-items: center;
   display: flex;
-  height: vars.$icon-button-medium-height;
+  height: var(--icon-button-medium-height);
   justify-content: center;
-  width: vars.$icon-button-medium-width;
+  width: var(--icon-button-medium-width);
   font-size: 14px;
 }
 
@@ -804,7 +802,7 @@ button::-moz-focus-inner {
   display: inline-block;
   flex: 1;
   -ms-flex-preferred-size: auto;
-  font-size: vars.$base-font-size;
+  font-size: var(--font-size_medium);
   font-style: normal;
   font-weight: 400;
   line-height: 24px;
@@ -820,7 +818,7 @@ button::-moz-focus-inner {
 .tox .tox-collection__item-accessory {
   color: rgba(0, 0, 0, 0.7);
   display: inline-block;
-  font-size: vars.$base-font-size;
+  font-size: var(--font-size_medium);
   height: 24px;
   line-height: 24px;
   text-transform: none;
@@ -870,8 +868,8 @@ button::-moz-focus-inner {
 
 .tox .tox-collection--horizontal {
   background-color: #fff;
-  border: vars.$default-border;
-  border-radius: vars.$default-border-radius;
+  border: var(--border-default);
+  border-radius: var(--border-radius_medium);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
   display: flex;
   flex: 0 0 auto;
@@ -978,7 +976,7 @@ button::-moz-focus-inner {
 .tox:not([dir="rtl"])
   .tox-collection--horizontal
   .tox-collection__group:not(:last-of-type) {
-  border-right: vars.$default-border;
+  border-right: var(--border-default);
 }
 
 .tox:not([dir="rtl"])
@@ -1007,7 +1005,7 @@ button::-moz-focus-inner {
 .tox[dir="rtl"]
   .tox-collection--horizontal
   .tox-collection__group:not(:last-of-type) {
-  border-left: vars.$default-border;
+  border-left: var(--border-default);
 }
 
 .tox[dir="rtl"]
@@ -1258,8 +1256,8 @@ button::-moz-focus-inner {
 
 .tox .tox-comment {
   background: #fff;
-  border: vars.$default-border;
-  border-radius: vars.$default-border-radius;
+  border: var(--border-default);
+  border-radius: var(--border-radius_medium);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
   padding: 6.5px 6.5px 13px 6.5px;
   position: relative;
@@ -1279,7 +1277,7 @@ button::-moz-focus-inner {
 
 .tox .tox-comment__body {
   color: #000;
-  font-size: vars.$base-font-size;
+  font-size: var(--font-size_medium);
   font-style: normal;
   font-weight: 400;
   line-height: 1.3;
@@ -1300,7 +1298,7 @@ button::-moz-focus-inner {
 
 .tox .tox-comment__expander p {
   color: rgba(0, 0, 0, 0.7);
-  font-size: vars.$base-font-size;
+  font-size: var(--font-size_medium);
   font-style: normal;
 }
 
@@ -1387,7 +1385,7 @@ button::-moz-focus-inner {
 .tox .tox-comment__overlaytext {
   bottom: 0;
   flex-direction: column;
-  font-size: vars.$base-font-size;
+  font-size: var(--font-size_medium);
   left: 0;
   padding: 1em;
   position: absolute;
@@ -1497,8 +1495,7 @@ button::-moz-focus-inner {
 }
 
 .tox .tox-dialog-wrap__backdrop {
-  background-color: vars.$dialog-overlay-color;
-  opacity: vars.$dialog-overlay-opacity;
+  background-color: var(--dialog-overlay-color);
   bottom: 0;
   left: 0;
   position: absolute;
@@ -1508,16 +1505,16 @@ button::-moz-focus-inner {
 }
 
 .tox .tox-dialog-wrap__backdrop--opaque {
-  background-color: vars.$dialog-overlay-color;
+  background-color: var(--dialog-overlay-color);
 }
 
 .tox .tox-dialog {
-  background-color: vars.$dialog-background-color;
+  background-color: var(--dialog-background-color);
   border-color: transparent;
-  border-radius: vars.$default-border-radius;
+  border-radius: var(--border-radius_medium);
   border-style: solid;
   border-width: 0;
-  box-shadow: vars.$dialog-box-shadow;
+  box-shadow: var(--dialog-box-shadow);
   display: flex;
   flex-direction: column;
   max-height: 100%;
@@ -1541,15 +1538,15 @@ button::-moz-focus-inner {
 }
 
 .tox .tox-dialog__header {
-  height: vars.$dialog-header-height;
+  height: var(--dialog-header-height);
   align-items: center;
-  background-color: vars.$dialog-header-color;
+  background-color: var(--dialog-header-color);
   border-bottom: none;
-  color: vars.$dialog-header-text-color;
+  color: var(--dialog-header-text-color);
   display: flex;
-  font-size: vars.$dialog-header-font-size;
+  font-size: var(--dialog-header-font-size);
   justify-content: space-between;
-  padding: vars.$dialog-header-padding;
+  padding: var(--dialog-header-padding);
   position: relative;
 }
 
@@ -1578,7 +1575,7 @@ button::-moz-focus-inner {
 }
 
 .tox .tox-dialog__title {
-  font-family: vars.$default-font-family;
+  font-family: var(--font-default);
   font-size: 1em;
   font-style: normal;
   font-weight: bold;
@@ -1617,7 +1614,7 @@ button::-moz-focus-inner {
   border-bottom: 2px solid transparent;
   color: var(--sl-color-neutral-600);
   display: inline-block;
-  font-size: vars.$base-font-size;
+  font-size: var(--font-size_medium);
   line-height: 1.3;
   padding: var(--spacing-4) 15px;
   text-decoration: none;
@@ -1761,7 +1758,7 @@ button::-moz-focus-inner {
 
 .tox .tox-dialog__footer {
   align-items: center;
-  background-color: vars.$dialog-background-color;
+  background-color: var(--dialog-background-color);
   border-top: none;
   display: flex;
   justify-content: space-between;
@@ -1797,7 +1794,7 @@ button::-moz-focus-inner {
 }
 
 .tox .tox-dialog__table tbody tr {
-  border-bottom: vars.$default-border;
+  border-bottom: var(--border-default);
 }
 
 .tox .tox-dialog__table tbody tr:last-child {
@@ -2080,7 +2077,7 @@ body.tox-dialog__disable-scroll {
 
 .tox .tox-color-input span {
   border-color: rgba(0, 0, 0, 0.2);
-  border-radius: vars.$default-border-radius;
+  border-radius: var(--border-radius_medium);
   border-style: solid;
   border-width: 1px;
   box-shadow: none;
@@ -2113,7 +2110,7 @@ body.tox-dialog__disable-scroll {
     -5px -1px;
   background-size: 8px 8px;
   border: 1px solid #fff;
-  border-radius: vars.$default-border-radius;
+  border-radius: var(--border-radius_medium);
   box-sizing: border-box;
   content: "";
   height: 24px;
@@ -2148,7 +2145,7 @@ body.tox-dialog__disable-scroll {
 .tox .tox-toolbar-label {
   color: rgba(0, 0, 0, 0.7);
   display: block;
-  font-size: vars.$base-font-size;
+  font-size: var(--font-size_medium);
   font-style: normal;
   font-weight: 400;
   line-height: 1.3;
@@ -2271,22 +2268,22 @@ body.tox-dialog__disable-scroll {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-color: vars.$form-field-background-color;
+  background-color: var(--form-field-background-color);
   background-image: none; // If nested in Solidus we need to override the background image
-  border-color: vars.$form-field-border-color;
-  border-radius: vars.$default-border-radius;
-  border-style: vars.$form-field-border-style;
-  border-width: vars.$form-field-border-width;
+  border-color: var(--form-field-border-color);
+  border-radius: var(--border-radius_medium);
+  border-style: var(--form-field-border-style);
+  border-width: var(--form-field-border-width);
   box-shadow: none;
   box-sizing: border-box;
-  color: vars.$form-field-text-color;
-  font-family: vars.$default-font-family;
-  font-size: vars.$form-field-font-size;
-  line-height: vars.$form-field-line-height;
+  color: var(--form-field-text-color);
+  font-family: var(--font-default);
+  font-size: var(--form-field-font-size);
+  line-height: var(--form-field-line-height);
   margin: 0;
-  min-height: vars.$form-field-height;
+  min-height: var(--form-field-height);
   outline: 0;
-  padding: vars.$form-field-padding;
+  padding: var(--form-field-padding);
   resize: none;
   width: 100%;
 
@@ -2308,7 +2305,7 @@ body.tox-dialog__disable-scroll {
 .tox .tox-textfield:focus {
   border-color: transparent;
   box-shadow: none;
-  outline: 1px solid vars.$focus-color !important; // Need to force the outline if used in Solidus
+  outline: 1px solid var(--focus-color) !important; // Need to force the outline if used in Solidus
 }
 
 .tox .tox-toolbar-textfield {
@@ -2395,13 +2392,13 @@ body.tox-dialog__disable-scroll {
   appearance: none;
   background-color: #fff;
   border-color: rgba(175, 175, 175, 0.5);
-  border-radius: vars.$default-border-radius;
+  border-radius: var(--border-radius_medium);
   border-style: solid;
   border-width: 1px;
   box-shadow: none;
   box-sizing: border-box;
   color: #000;
-  font-family: vars.$default-font-family;
+  font-family: var(--font-default);
   font-size: 13px;
   line-height: 24px;
   margin: 0;
@@ -2638,7 +2635,7 @@ body.tox-dialog__disable-scroll {
 .tox .tox-insert-table-picker__label {
   color: rgba(0, 0, 0, 0.7);
   display: block;
-  font-size: vars.$base-font-size;
+  font-size: var(--font-size_medium);
   padding: 3.25px;
   text-align: center;
   width: 100%;
@@ -2654,8 +2651,8 @@ body.tox-dialog__disable-scroll {
 
 .tox .tox-menu {
   background-color: #fff;
-  border: vars.$default-border;
-  border-radius: vars.$default-border-radius;
+  border: var(--border-default);
+  border-radius: var(--border-radius_medium);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
   display: inline-block;
   overflow: hidden;
@@ -2701,19 +2698,19 @@ body.tox-dialog__disable-scroll {
 .tox.tox-tinymce:not(.tox-tinymce-inline)
   .tox-editor-header:not(:first-child)
   .tox-menubar {
-  border-top: vars.$default-border;
+  border-top: var(--border-default);
 }
 
 .tox .tox-mbtn {
   align-items: center;
   background: 0 0;
   border: 0;
-  border-radius: vars.$default-border-radius;
+  border-radius: var(--border-radius_medium);
   box-shadow: none;
-  color: var(--color-icon);
+  color: var(--icon-color);
   display: flex;
   flex: 0 0 auto;
-  font-size: vars.$base-font-size;
+  font-size: var(--font-size_medium);
   font-style: normal;
   font-weight: 400;
   height: 34px;
@@ -2774,14 +2771,14 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox .tox-notification {
-  border-radius: vars.$default-border-radius;
+  border-radius: var(--border-radius_medium);
   border-style: solid;
   border-width: 1px;
   box-shadow: none;
   box-sizing: border-box;
   display: -ms-grid;
   display: grid;
-  font-size: vars.$base-font-size;
+  font-size: var(--font-size_medium);
   font-weight: 400;
   -ms-grid-columns: minmax(40px, 1fr) auto minmax(40px, 1fr);
   grid-template-columns: minmax(40px, 1fr) auto minmax(40px, 1fr);
@@ -2794,7 +2791,7 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox .tox-notification p {
-  font-size: vars.$base-font-size;
+  font-size: var(--font-size_medium);
   font-weight: 400;
 }
 
@@ -2986,8 +2983,8 @@ body.tox-dialog__disable-scroll {
 
 .tox .tox-pop__dialog {
   background-color: #fff;
-  border: vars.$default-border;
-  border-radius: vars.$default-border-radius;
+  border: var(--border-default);
+  border-radius: var(--border-radius_medium);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
   min-width: 0;
   overflow: hidden;
@@ -3181,8 +3178,8 @@ body.tox-dialog__disable-scroll {
 
 .tox .tox-slider__rail {
   background-color: transparent;
-  border: vars.$default-border;
-  border-radius: vars.$default-border-radius;
+  border: var(--border-default);
+  border-radius: var(--border-radius_medium);
   height: 10px;
   min-width: 120px;
   width: 100%;
@@ -3191,7 +3188,7 @@ body.tox-dialog__disable-scroll {
 .tox .tox-slider__handle {
   background-color: #2d5a8d;
   border: 2px solid #214166;
-  border-radius: vars.$default-border-radius;
+  border-radius: var(--border-radius_medium);
   box-shadow: none;
   height: 24px;
   left: 50%;
@@ -3248,8 +3245,8 @@ body.tox-dialog__disable-scroll {
 .tox .tox-statusbar {
   align-items: center;
   background-color: var(--color-grey_very_light);
-  border-top: vars.$default-border;
-  color: var(--color-text_muted);
+  border-top: var(--border-default);
+  color: var(--text-color-muted);
   display: flex;
   flex: 0 0 auto;
   font-size: var(--font-size_small);
@@ -3289,7 +3286,7 @@ body.tox-dialog__disable-scroll {
 .tox .tox-statusbar a,
 .tox .tox-statusbar__path-item,
 .tox .tox-statusbar__wordcount {
-  color: var(--color-text);
+  color: var(--text-color);
   text-decoration: none;
 }
 
@@ -3318,7 +3315,7 @@ body.tox-dialog__disable-scroll {
 
 .tox .tox-statusbar__resize-handle svg {
   display: block;
-  fill: var(--color-icon);
+  fill: var(--icon-color);
 }
 
 .tox .tox-statusbar__resize-handle:focus svg {
@@ -3363,27 +3360,27 @@ body.tox-dialog__disable-scroll {
   align-items: center;
   background: 0 0;
   border: 0;
-  border-radius: vars.$default-border-radius;
+  border-radius: var(--border-radius_medium);
   box-shadow: none;
-  color: var(--color-icon);
+  color: var(--icon-color);
   display: flex;
   flex: 0 0 auto;
-  font-size: vars.$base-font-size;
+  font-size: var(--font-size_medium);
   font-style: normal;
   font-weight: 400;
-  height: vars.$icon-button-medium-height;
+  height: var(--icon-button-medium-height);
   justify-content: center;
   margin: var(--spacing-1) 1px;
   outline: 0;
   overflow: hidden;
   padding: 0;
   text-transform: none;
-  width: vars.$icon-button-medium-width;
+  width: var(--icon-button-medium-width);
 }
 
 .tox .tox-tbtn svg {
   display: block;
-  fill: var(--color-icon);
+  fill: var(--icon-color);
 }
 
 .tox .tox-tbtn.tox-tbtn-more {
@@ -3532,7 +3529,7 @@ body.tox-dialog__disable-scroll {
 
 .tox .tox-split-button {
   border: 0;
-  border-radius: vars.$default-border-radius;
+  border-radius: var(--border-radius_medium);
   box-sizing: border-box;
   display: flex;
   margin: 2px 0 3px 0;
@@ -3621,7 +3618,7 @@ body.tox-dialog__disable-scroll {
 
 .tox .tox-menubar + .tox-toolbar,
 .tox .tox-menubar + .tox-toolbar-overlord .tox-toolbar__primary {
-  border-top: vars.$default-border;
+  border-top: var(--border-default);
   margin-top: -1px;
 }
 
@@ -3645,13 +3642,13 @@ body.tox-dialog__disable-scroll {
 .tox-tinymce:not(.tox-tinymce-inline)
   .tox-editor-header:not(:first-child)
   .tox-toolbar:first-child {
-  border-top: vars.$default-border;
+  border-top: var(--border-default);
 }
 
 .tox.tox-tinymce-aux .tox-toolbar__overflow {
   background-color: #fff;
-  border: vars.$default-border;
-  border-radius: vars.$default-border-radius;
+  border: var(--border-default);
+  border-radius: var(--border-radius_medium);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
 
@@ -3673,11 +3670,11 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox:not([dir="rtl"]) .tox-toolbar__group:not(:last-of-type) {
-  border-right: vars.$default-border;
+  border-right: var(--border-default);
 }
 
 .tox[dir="rtl"] .tox-toolbar__group:not(:last-of-type) {
-  border-left: vars.$default-border;
+  border-left: var(--border-default);
 }
 
 .tox .tox-tooltip {
@@ -3688,10 +3685,10 @@ body.tox-dialog__disable-scroll {
 
 .tox .tox-tooltip__body {
   background-color: #000;
-  border-radius: vars.$default-border-radius;
+  border-radius: var(--border-radius_medium);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   color: rgba(255, 255, 255, 0.75);
-  font-size: vars.$base-font-size;
+  font-size: var(--font-size_medium);
   font-style: normal;
   font-weight: 400;
   padding: 3.25px 6.5px;
@@ -3743,8 +3740,8 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox .tox-well {
-  border: vars.$default-border;
-  border-radius: vars.$default-border-radius;
+  border: var(--border-default);
+  border-radius: var(--border-radius_medium);
   padding: 6.5px;
   width: 100%;
 }
@@ -3762,8 +3759,8 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox .tox-custom-editor {
-  border: vars.$default-border;
-  border-radius: vars.$default-border-radius;
+  border: var(--border-default);
+  border-radius: var(--border-radius_medium);
   display: flex;
   flex: 1;
   position: relative;

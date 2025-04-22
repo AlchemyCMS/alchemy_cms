@@ -5,14 +5,14 @@
 
 :root {
   --elements-window-width: 0px;
-  --elements-window-min-width: #{vars.$elements-window-min-width};
+  --elements-window-min-width: 400px;
 }
 
 #alchemy_elements_window {
   --width: var(--elements-window-width, 100vw);
   position: absolute;
   right: 0;
-  top: vars.$top-menu-height;
+  top: var(--top-menu-height);
   z-index: 20;
   display: block;
   width: var(--width);
@@ -20,10 +20,10 @@
   max-width: calc(
     100vw - var(--main-menu-width) - var(--preview-window-min-width)
   );
-  height: calc(100vh - #{vars.$top-menu-height});
-  border-left: vars.$default-border;
+  height: calc(100vh - var(--top-menu-height));
+  border-left: var(--border-default);
   background-color: var(--color-grey_very_light);
-  transition: vars.$transition-duration ease-in-out;
+  transition: var(--transition-duration) ease-in-out;
   transform: translate3d(100%, 0, 0);
 
   .elements-window-visible & {
@@ -44,7 +44,7 @@
 
   // 1778px * 0.225 = 400px (the min width of the elements window)
   @media screen and (min-width: 1778px) {
-    --elements-window-width: #{vars.$elements-window-width};
+    --elements-window-width: 22.5vw;
   }
 }
 
@@ -56,8 +56,8 @@ alchemy-elements-window-handle {
   z-index: 1500; // tinymce .tox-fullscreen has 1200
   height: inherit;
   width: var(--width);
-  transition-duration: vars.$transition-duration;
-  transition-property: background-color width left;
+  transition-duration: var(--transition-duration);
+  transition-property: background-color, width, left;
   transition-timing-function: ease-in-out;
 
   &:hover,
@@ -69,9 +69,7 @@ alchemy-elements-window-handle {
 
 .elements-window-toolbar {
   @extend %gradiated-toolbar;
-  display: flex;
   padding: var(--spacing-2);
-  border-bottom: vars.$default-border;
 
   .right {
     display: inline-block;
@@ -94,13 +92,16 @@ alchemy-tinymce {
 }
 
 #main-content-elements {
-  --scrollable-elements-offset: #{vars.$top-menu-height + vars.$toolbar-height};
+  --scrollable-elements-offset: calc(
+    var(--top-menu-height) + var(--toolbar-height)
+  );
   padding: var(--spacing-2) var(--spacing-1) 2px;
 }
 
 #fixed-elements sl-tab-panel {
-  --scrollable-elements-offset: #{vars.$top-menu-height + vars.$toolbar-height +
-    vars.$tab-bar-height};
+  --scrollable-elements-offset: calc(
+    var(--top-menu-height) + var(--toolbar-height) + 51px
+  );
 }
 
 .scrollable-elements {
@@ -115,7 +116,7 @@ alchemy-tinymce {
   align-items: center;
   flex-grow: 1;
   white-space: nowrap;
-  transition: color vars.$transition-duration;
+  transition: color var(--transition-duration);
   line-height: 1;
   max-width: 85%;
 
@@ -156,7 +157,7 @@ alchemy-tinymce {
 
   &:hover {
     &:not(:focus):not(:active) {
-      background-color: vars.$default-border-color;
+      background-color: var(--border-color);
       border-color: transparent;
       cursor: pointer;
     }
@@ -169,11 +170,11 @@ alchemy-tinymce {
 
 .element-editor {
   position: relative;
-  border: 1px solid vars.$default-border-color;
-  border-radius: vars.$default-border-radius;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius_medium);
   background-color: var(--color-grey_very_light);
   margin: var(--spacing-2) 0;
-  transition: box-shadow vars.$transition-duration;
+  transition: box-shadow var(--transition-duration);
   scroll-margin: var(--spacing-2);
 
   &:first-child {
@@ -185,7 +186,7 @@ alchemy-tinymce {
 
     &.folded {
       opacity: 0.7;
-      transition: opacity vars.$transition-duration;
+      transition: opacity var(--transition-duration);
 
       &:hover {
         opacity: 1;
@@ -239,19 +240,19 @@ alchemy-tinymce {
   }
 
   &.deprecated {
-    border-color: vars.$element-deprecated-border-color;
+    border-color: var(--element-deprecated-border-color);
 
     > .element-header {
-      background-color: vars.$element-header-deprecated-bg-color;
+      background-color: var(--element-header-deprecated-bg-color);
       background-image: linear-gradient(
         45deg,
-        vars.$element-header-deprecated-bg-color 25%,
-        vars.$element-header-bg-color 25%,
-        vars.$element-header-bg-color 50%,
-        vars.$element-header-deprecated-bg-color 50%,
-        vars.$element-header-deprecated-bg-color 75%,
-        vars.$element-header-bg-color 75%,
-        vars.$element-header-bg-color 100%
+        var(--element-header-deprecated-bg-color) 25%,
+        var(--element-header-bg-color) 25%,
+        var(--element-header-bg-color) 50%,
+        var(--element-header-deprecated-bg-color) 50%,
+        var(--element-header-deprecated-bg-color) 75%,
+        var(--element-header-bg-color) 75%,
+        var(--element-header-bg-color) 100%
       );
       background-size: 28.28px 28.28px;
     }
@@ -268,8 +269,8 @@ alchemy-tinymce {
       .deprecated
     ) {
     > .element-header {
-      background-color: vars.$element-header-active-bg-color;
-      color: vars.$element-header-active-color;
+      background-color: var(--element-header-active-bg-color);
+      color: var(--element-header-active-color);
     }
   }
 
@@ -321,9 +322,9 @@ alchemy-tinymce {
       height: 35px;
       opacity: 0;
       z-index: 1;
-      box-shadow: 0 1px 1px vars.$default-border-color;
+      box-shadow: 0 1px 1px var(--border-color);
       background-color: var(--color-grey_very_light);
-      transition: all vars.$transition-duration;
+      transition: all var(--transition-duration);
 
       sl-switch::part(label) {
         display: none;
@@ -341,7 +342,7 @@ alchemy-tinymce {
       border-top: 0;
 
       .button {
-        padding: vars.$small-button-padding;
+        padding: var(--button-small-padding);
       }
     }
 
@@ -390,7 +391,7 @@ alchemy-tinymce {
     transform: scale(0);
     transform-origin: top center;
     transition:
-      opacity vars.$transition-duration ease-out,
+      opacity var(--transition-duration) ease-out,
       transform 1s ease-in;
   }
 
@@ -449,11 +450,12 @@ alchemy-tinymce {
   gap: var(--spacing-1);
   align-items: center;
   padding: var(--spacing-2);
-  background-color: vars.$element-header-bg-color;
+  background-color: var(--element-header-bg-color);
   @extend .disable-user-select;
   cursor: pointer;
-  border-radius: vars.$default-border-radius;
-  transition: background-color vars.$transition-duration;
+  border-radius: var(--border-radius_medium);
+  transition-duration: var(--transition-duration);
+  transition-property: background-color, color;
 
   .expanded & {
     border-bottom-left-radius: 0;
@@ -462,7 +464,7 @@ alchemy-tinymce {
 
   .icon {
     fill: currentColor;
-    transition: fill vars.$transition-duration;
+    transition: fill var(--transition-duration);
   }
 }
 
@@ -476,7 +478,7 @@ alchemy-tinymce {
   width: 100%;
   padding: var(--spacing-1);
   gap: var(--spacing-1);
-  height: vars.$element-toolbar-height;
+  height: 37px;
   border-top: 1px solid var(--color-grey_light);
   border-bottom: 1px solid var(--color-grey_light);
 
@@ -485,8 +487,8 @@ alchemy-tinymce {
   }
 
   .icon_button {
-    width: vars.$icon-button-medium-width;
-    height: vars.$icon-button-medium-height;
+    width: var(--icon-button-medium-width);
+    height: var(--icon-button-medium-height);
   }
 }
 
@@ -558,23 +560,23 @@ alchemy-publish-element-button {
   .icon_button {
     &:not(.linked) {
       background-color: var(--color-grey_light);
-      border-color: vars.$default-border-color;
-      border-width: vars.$form-field-border-width;
-      border-style: vars.$form-field-border-style;
+      border-color: var(--border-color);
+      border-width: var(--form-field-border-width);
+      border-style: var(--form-field-border-style);
       box-shadow: none;
       padding: 0;
       margin: 0;
       border-radius: 0;
-      width: vars.$form-field-addon-width;
-      height: vars.$form-field-height;
+      width: var(--form-field-addon-width);
+      height: var(--form-field-height);
 
       &:hover {
         border-color: #c0c0c0;
       }
 
       &:focus {
-        box-shadow: 0 0 0 2px vars.$focus-color;
-        border-color: vars.$focus-color;
+        box-shadow: 0 0 0 2px var(--focus-color);
+        border-color: var(--focus-color);
       }
 
       &[is="alchemy-unlink-button"] {
@@ -584,7 +586,7 @@ alchemy-publish-element-button {
 
       &.disabled,
       &.disabled:hover {
-        background-color: vars.$form-field-disabled-bg-color;
+        background-color: var(--form-field-disabled-bg-color);
       }
     }
 
@@ -595,13 +597,13 @@ alchemy-publish-element-button {
       border-color: rgba(187, 162, 102, 0.5);
 
       &[is="alchemy-unlink-button"] {
-        border-radius: 0 vars.$default-border-radius vars.$default-border-radius
+        border-radius: 0 var(--border-radius_medium) var(--border-radius_medium)
           0;
         border-left-width: 0;
 
         &:focus {
-          border-radius: 0 vars.$default-border-radius
-            vars.$default-border-radius 0;
+          border-radius: 0 var(--border-radius_medium)
+            var(--border-radius_medium) 0;
         }
       }
     }
@@ -618,12 +620,12 @@ alchemy-publish-element-button {
   width: 100%;
   padding: var(--spacing-1);
   background-color: #fff;
-  border-bottom-left-radius: vars.$default-border-radius;
-  border-bottom-right-radius: vars.$default-border-radius;
+  border-bottom-left-radius: var(--border-radius_medium);
+  border-bottom-right-radius: var(--border-radius_medium);
 
   .icon_button {
-    width: vars.$icon-button-medium-width;
-    height: vars.$icon-button-medium-height;
+    width: var(--icon-button-medium-width);
+    height: var(--icon-button-medium-height);
   }
 
   alchemy-link-buttons {
@@ -651,7 +653,7 @@ alchemy-publish-element-button {
     margin: var(--spacing-1) 0;
     padding: 0;
     padding-bottom: 34px;
-    box-shadow: 0 0 1px 1px vars.$default-border-color;
+    box-shadow: 0 0 1px 1px var(--border-color);
 
     .picture_image {
       overflow: hidden;
@@ -669,7 +671,7 @@ alchemy-publish-element-button {
   }
 
   &.validation_failed .picture_thumbnail {
-    border-color: vars.$error_border_color;
+    border-color: var(--notice-error-border-color);
   }
 
   .thumbnail_background {
@@ -713,13 +715,13 @@ alchemy-publish-element-button {
 .ingredient-editor.headline {
   &.with-level-select {
     input[type="text"] {
-      padding-right: calc(#{vars.$form-field-addon-width} + var(--spacing-2));
+      padding-right: calc(var(--form-field-addon-width) + var(--spacing-2));
     }
 
     &.with-anchor {
       input[type="text"] {
         padding-right: calc(
-          22px + #{vars.$form-field-addon-width} + var(--spacing-1)
+          22px + var(--form-field-addon-width) + var(--spacing-1)
         );
       }
     }
@@ -727,13 +729,13 @@ alchemy-publish-element-button {
 
   &.with-size-select {
     input[type="text"] {
-      padding-right: calc(#{vars.$form-field-addon-width} + var(--spacing-2));
+      padding-right: calc(var(--form-field-addon-width) + var(--spacing-2));
     }
 
     &.with-anchor {
       input[type="text"] {
         padding-right: calc(
-          22px + #{vars.$form-field-addon-width} + var(--spacing-1)
+          22px + var(--form-field-addon-width) + var(--spacing-1)
         );
       }
     }
@@ -741,7 +743,7 @@ alchemy-publish-element-button {
     &.with-level-select {
       input[type="text"] {
         padding-right: calc(
-          2 * (#{vars.$form-field-addon-width} + var(--spacing-1))
+          2 * (var(--form-field-addon-width) + var(--spacing-1))
         );
       }
 
@@ -749,7 +751,7 @@ alchemy-publish-element-button {
         input[type="text"] {
           padding-right: calc(
             var(--spacing-4) + 2 *
-              (#{vars.$form-field-addon-width} + var(--spacing-1))
+              (var(--form-field-addon-width) + var(--spacing-1))
           );
         }
       }
@@ -759,7 +761,7 @@ alchemy-publish-element-button {
 
 .ingredient-editor.number {
   input[type="number"] {
-    padding-right: vars.$form-field-addon-width;
+    padding-right: var(--form-field-addon-width);
   }
 
   .input-field:has(input[type="range"]) {
@@ -770,7 +772,7 @@ alchemy-publish-element-button {
   }
 
   input[type="range"] {
-    height: vars.$form-field-height;
+    height: var(--form-field-height);
     flex-grow: 1;
     margin: 0;
     margin-right: var(--spacing-2);
@@ -791,14 +793,14 @@ alchemy-publish-element-button {
     gap: var(--spacing-1);
     margin: 6px 0 var(--spacing-1);
     padding: 0 var(--spacing-1) 0 var(--spacing-2);
-    border: vars.$default-border;
+    border: var(--border-default);
     background-color: var(--color-white);
-    border-radius: vars.$default-border-radius;
-    height: vars.$form-field-height;
+    border-radius: var(--border-radius_medium);
+    height: var(--form-field-height);
 
     .validation_failed & {
-      color: vars.$error_text_color;
-      border-color: vars.$error_border_color;
+      color: var(--notice-error-text-color);
+      border-color: var(--notice-error-border-color);
     }
   }
 
@@ -825,7 +827,7 @@ alchemy-publish-element-button {
   gap: var(--spacing-1);
   align-items: center;
   background-color: white;
-  border-radius: 0 vars.$default-border-radius vars.$default-border-radius 0;
+  border-radius: 0 var(--border-radius_medium) var(--border-radius_medium) 0;
 
   a {
     display: inline-flex;
@@ -870,14 +872,14 @@ select.long {
   &.linkable {
     input[type="text"] {
       padding-right: calc(
-        2 * (#{vars.$form-field-addon-width} + var(--spacing-1))
+        2 * (var(--form-field-addon-width) + var(--spacing-1))
       );
     }
 
     &.with-anchor {
       input[type="text"] {
         padding-right: calc(
-          26px + 2 * (#{vars.$form-field-addon-width} + var(--spacing-1))
+          26px + 2 * (var(--form-field-addon-width) + var(--spacing-1))
         );
       }
     }
@@ -921,7 +923,7 @@ select.long {
 
   &.validation_failed {
     > label {
-      color: vars.$error_text_color;
+      color: var(--notice-error-text-color);
     }
 
     input {
@@ -929,22 +931,22 @@ select.long {
     }
 
     .tinymce_container {
-      outline: 1px solid vars.$error_border_color;
+      outline: 1px solid var(--notice-error-border-color);
     }
   }
 
   &.deprecated {
-    border-radius: vars.$default-border-radius;
-    background-color: vars.$element-header-deprecated-bg-color;
+    border-radius: var(--border-radius_medium);
+    background-color: var(--element-header-deprecated-bg-color);
     background-image: linear-gradient(
       45deg,
-      vars.$element-header-deprecated-bg-color 25%,
-      vars.$element-header-bg-color 25%,
-      vars.$element-header-bg-color 50%,
-      vars.$element-header-deprecated-bg-color 50%,
-      vars.$element-header-deprecated-bg-color 75%,
-      vars.$element-header-bg-color 75%,
-      vars.$element-header-bg-color 100%
+      var(--element-header-deprecated-bg-color) 25%,
+      var(--element-header-bg-color) 25%,
+      var(--element-header-bg-color) 50%,
+      var(--element-header-deprecated-bg-color) 50%,
+      var(--element-header-deprecated-bg-color) 75%,
+      var(--element-header-bg-color) 75%,
+      var(--element-header-bg-color) 100%
     );
     background-size: 28.28px 28.28px;
     padding-left: 2px;
@@ -1013,9 +1015,9 @@ textarea.has_tinymce {
 }
 
 .ingredient-editor.html textarea {
-  font-family: vars.$mono-font-family;
+  font-family: var(--font-mono);
   resize: vertical;
-  font-size: vars.$form-field-font-size;
+  font-size: var(--form-field-font-size);
 }
 
 .text_short_float_left {
@@ -1030,11 +1032,11 @@ textarea.has_tinymce {
   gap: var(--spacing-1);
   margin-top: var(--spacing-2);
   margin-bottom: var(--spacing-2);
-  background-color: vars.$error_background_color;
+  background-color: var(--notice-error-background-color);
   padding: var(--spacing-2);
-  border-radius: vars.$default-border-radius;
-  color: vars.$error_text_color;
-  border: 1px solid vars.$error_border_color;
+  border-radius: var(--border-radius_medium);
+  color: var(--notice-error-text-color);
+  border: 1px solid var(--notice-error-border-color);
 
   p {
     margin: 0;
@@ -1124,19 +1126,19 @@ label.ingredient-date--label {
   }
 
   .linkable & {
-    right: calc(2 * #{vars.$form-field-addon-width} + var(--spacing-1));
+    right: calc(2 * var(--form-field-addon-width) + var(--spacing-1));
   }
 
   .with-size-select & {
-    right: calc(#{vars.$form-field-addon-width} + var(--spacing-1));
+    right: calc(var(--form-field-addon-width) + var(--spacing-1));
   }
 
   .with-level-select & {
-    right: calc(#{vars.$form-field-addon-width} + var(--spacing-1));
+    right: calc(var(--form-field-addon-width) + var(--spacing-1));
   }
 
   .with-level-select.with-size-select & {
-    right: calc(2 * #{vars.$form-field-addon-width} + var(--spacing-1));
+    right: calc(2 * var(--form-field-addon-width) + var(--spacing-1));
   }
 }
 

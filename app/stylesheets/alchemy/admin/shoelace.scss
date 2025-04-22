@@ -1,8 +1,4 @@
-:root,
-:host,
 .alchemy-light {
-  color-scheme: light;
-
   /*
    * Theme Tokens
    */
@@ -352,7 +348,7 @@ sl-dialog {
   }
 
   &::part(header) {
-    --header-spacing: var(--spacing-3);
+    --header-spacing: 9.5px var(--spacing-3);
     background-color: var(--color-blue_dark);
     border-top-left-radius: var(--border-radius_medium);
     border-top-right-radius: var(--border-radius_medium);
@@ -365,6 +361,9 @@ sl-dialog {
   &::part(title) {
     --sl-font-size-large: var(--font-size_medium);
     color: var(--color-white);
+    font-weight: var(--font-weight_bold);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   &::part(close-button) {

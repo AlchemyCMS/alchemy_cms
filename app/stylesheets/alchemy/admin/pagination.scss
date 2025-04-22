@@ -1,35 +1,37 @@
-@use "../variables" as vars;
+:root {
+  --pagination-height: 52px;
+}
 
 .pagination {
   position: fixed;
   display: flex;
   align-items: center;
-  background: vars.$light_gray;
+  background: var(--pagination-background-color);
   bottom: 0;
   right: 0;
   width: 100%;
   left: 0px;
-  height: vars.$pagination-height;
+  height: var(--pagination-height);
   padding: var(--spacing-2);
-  padding-left: vars.$main-menu-width + 10px;
+  padding-left: calc(var(--main-menu-width) + 10px);
   text-align: left;
-  border-top: vars.$default-border;
+  border-top: var(--border-default);
   z-index: 10;
 
   a,
   span,
   em {
-    font-size: vars.$default-font-size;
+    font-size: var(--font-size_medium);
     font-weight: bold;
-    color: var(--color-icon);
+    color: var(--icon-color);
     padding: var(--spacing-1);
     margin: 0 var(--spacing-0);
-    border-radius: vars.$default-border-radius;
+    border-radius: var(--border-radius_medium);
   }
 
   a:hover {
-    color: var(--color-text);
-    background-color: vars.$default-border-color;
+    color: var(--text-color);
+    background-color: var(--border-color);
     text-decoration: none;
   }
 
@@ -42,8 +44,8 @@
   }
 
   .current {
-    color: var(--color-text);
-    background-color: vars.$default-border-color;
+    color: var(--text-color);
+    background-color: var(--border-color);
     cursor: default;
   }
 

@@ -1,5 +1,4 @@
 @use "../extends";
-@use "../variables" as vars;
 
 .upload-button {
   display: inline-block;
@@ -59,7 +58,7 @@ alchemy-upload-progress {
   opacity: 0;
   padding: var(--spacing-4);
   position: fixed;
-  transition: vars.$transition-duration ease-in-out;
+  transition: var(--transition-duration) ease-in-out;
   width: 100%;
   z-index: 150;
 
@@ -75,9 +74,9 @@ alchemy-upload-progress {
   }
 
   .value-text {
-    color: var(--font-color_default);
+    color: var(--file-upload-text-color);
     font-size: var(--font-size_large);
-    font-weight: var(--font-weigth_bold);
+    font-weight: var(--font-weight_bold);
     min-width: 100px;
   }
 
@@ -127,14 +126,14 @@ alchemy-upload-progress {
       }
 
       .error-message {
-        color: var(--font-color_failed);
+        color: var(--file-upload-failed-text-color);
       }
 
       button {
         margin-left: auto; // right align button
         &:hover,
         &:active {
-          background-color: vars.$default-border-color;
+          background-color: var(--border-color);
         }
       }
 

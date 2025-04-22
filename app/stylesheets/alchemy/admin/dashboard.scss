@@ -1,5 +1,3 @@
-@use "../variables" as vars;
-
 #dashboard {
   overflow: auto;
   padding: var(--spacing-4) 0;
@@ -75,15 +73,15 @@
   }
 
   #up_to_date {
-    color: vars.$success_text_color;
+    color: var(--notice-success-text-color);
   }
 
   #error {
-    color: vars.$error_text_color;
+    color: var(--notice-error-text-color);
   }
 
   #update_available {
-    color: vars.$warning_text_color;
+    color: var(--notice-warning-text-color);
   }
 }
 

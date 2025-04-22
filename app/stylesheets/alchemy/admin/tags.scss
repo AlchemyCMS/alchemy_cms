@@ -1,5 +1,4 @@
 @use "../mixins";
-@use "../variables" as vars;
 
 .tag-list {
   display: flex;
@@ -120,7 +119,7 @@
       padding: var(--spacing-1);
       margin: 0 0 var(--spacing-1) 0;
       position: relative;
-      border-radius: vars.$default-border-radius;
+      border-radius: var(--border-radius_medium);
 
       &.odd {
         background-color: #eaf3f9;

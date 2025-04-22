@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= ::I18n.locale %>" class="no-js loading-custom-elements">
+<html lang="<%= ::I18n.locale %>" class="no-js loading-custom-elements alchemy-light">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,7 +10,6 @@
     <meta name="robots" content="noindex">
     <meta name="turbo-prefetch" content="false">
     <meta name="turbo-cache-control" content="no-cache">
-    <%= stylesheet_link_tag('alchemy/custom-properties', media: 'screen', 'data-turbo-track' => true) %>
     <%= stylesheet_link_tag('alchemy/admin', media: 'screen', 'data-turbo-track' => true) %>
     <%= stylesheet_link_tag('alchemy/admin/print', media: 'print', 'data-turbo-track' => true) %>
     <% Alchemy.admin_stylesheets.each do |stylesheet| %>
@@ -36,7 +35,7 @@
     <%= yield :javascript_includes %>
   </head>
   <%= content_tag :body, id: 'alchemy',
-    class: alchemy_body_class + ["alchemy-light"],
+    class: alchemy_body_class,
     style: cookies["alchemy-elements-window-width"] && "--elements-window-width: #{cookies["alchemy-elements-window-width"]}px" do %>
     <noscript>
       <h1><%= Alchemy.t(:javascript_disabled_headline) %></h1>

@@ -1,6 +1,5 @@
 @use "base";
 @use "../mixins";
-@use "../variables" as vars;
 
 .resource_info {
   .value {
@@ -13,7 +12,7 @@
 
     > p {
       @include mixins.form-value-display;
-      @include mixins.truncate(vars.$form-right-width);
+      @include mixins.truncate(var(--form-right-column-width));
     }
 
     &.with-icon {
@@ -31,7 +30,7 @@
     position: absolute;
     right: 0;
     top: var(--spacing-1);
-    height: vars.$form-field-height;
+    height: var(--form-field-height);
     background-color: var(--color-grey_light);
     padding: 0 var(--spacing-2);
     transition: background-color 0.3s;

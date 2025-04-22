@@ -1,5 +1,3 @@
-@use "../variables" as vars;
-
 div#filter_bar {
   padding-top: var(--spacing-3);
 }
@@ -35,26 +33,26 @@ div#filter_bar {
 
 .applied-filter {
   --background-color: var(--color-grey_light);
-  --color: var(--color-text);
+  --color: var(--text-color);
   display: inline-flex;
   justify-content: space-between;
   gap: var(--spacing-1);
   padding: var(--spacing-1) var(--spacing-1) var(--spacing-1) var(--spacing-2);
   border-radius: var(--border-radius_medium);
-  border: 1px solid vars.$default-border-color;
+  border: 1px solid var(--border-color);
   background-color: var(--background-color);
   color: var(--color);
   white-space: nowrap;
   font-weight: normal;
 
   .applied-filter-label {
-    font-weight: var(--font-weigth_bold);
+    font-weight: var(--font-weight_bold);
   }
 
   .dismiss-filter {
     display: inline-flex;
     justify-content: center;
     width: var(--spacing-4);
-    color: var(--color-icon);
+    color: var(--icon-color);
   }
 }

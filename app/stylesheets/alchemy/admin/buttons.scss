@@ -1,5 +1,26 @@
+@use "sass:color";
 @use "../mixins";
-@use "../variables" as vars;
+
+:root {
+  --button-border-radius: var(--border-radius_medium);
+  --button-border-style: var(--border-style);
+  --button-border-width: var(--border-width_small);
+  --button-border: var(--button-border-width) var(--button-border-style)
+    var(--button-border-color);
+  --button-font-size: var(--font-size_medium);
+  --button-font-weight: var(--font-weight_bold);
+  --button-height: 30px;
+  --button-line-height: var(--form-field-line-height);
+  --button-margin: var(--form-field-margin);
+  --button-padding: var(--spacing-1) var(--spacing-5);
+  --button-small-padding: 0.4em 0.8em;
+  --icon-button-height: 30px;
+  --icon-button-width: 30px;
+  --icon-button-medium-height: 26px;
+  --icon-button-medium-width: 26px;
+  --icon-button-small-height: 15px;
+  --icon-button-small-width: 15px;
+}
 
 button,
 input[type="submit"],
@@ -9,26 +30,31 @@ input.button {
   @include mixins.button-defaults;
 
   &.secondary {
-    background-color: vars.$secondary-button-bg-color;
-    color: vars.$secondary-button-text-color;
-    border-color: vars.$secondary-button-border-color;
+    background-color: var(--button-secondary-bg-color);
+    color: var(--button-secondary-text-color);
+    border-color: var(--button-secondary-border-color);
 
     &:focus {
       @include mixins.default-focus-style(
-        $border-color: vars.$button-focus-border-color,
-        $box-shadow: vars.$button-focus-box-shadow
+        $border-color: var(--button-focus-border-color),
+        $box-shadow: var(--button-focus-box-shadow)
       );
+    }
+
+    &:hover {
+      background-color: var(--button-hover-bg-color);
+      border-color: var(--button-hover-border-color);
     }
 
     &:active,
     &:active:focus {
-      border-color: vars.$button-hover-border-color;
+      border-color: var(--button-hover-border-color);
       box-shadow: none;
     }
   }
 
   &.small {
-    padding: vars.$small-button-padding;
+    padding: var(--button-small-padding);
     line-height: var(--spacing-4);
     font-size: inherit;
   }
@@ -55,16 +81,16 @@ input.button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: vars.$icon-button-width;
-  height: vars.$icon-button-height;
+  width: var(--icon-button-width);
+  height: var(--icon-button-height);
   margin: 0;
   padding: 0;
   text-shadow: none;
-  border-radius: vars.$default-border-radius;
+  border-radius: var(--border-radius_medium);
 
   &.small {
-    width: vars.$icon-button-small-width;
-    height: vars.$icon-button-small-height;
+    width: var(--icon-button-small-width);
+    height: var(--icon-button-small-height);
     background: none;
     border: none;
     padding: 0; // button.small has padding
@@ -74,7 +100,7 @@ input.button {
   &:active,
   &:hover:not([disabled]):not(.disabled):not(.linked) {
     text-decoration: none;
-    background-color: vars.$default-border-color;
+    background-color: var(--border-color);
     cursor: pointer;
   }
 
@@ -97,7 +123,15 @@ input.button {
   }
 
   &.linked {
-    @include mixins.linked-button;
+    @include mixins.button-defaults(
+      $background-color: var(--icon-button-linked-color),
+      $hover-color: var(--icon-button-linked-hover-color),
+      $border: 1px solid var(--icon-button-linked-border-color),
+      $hover-border-color: var(--icon-button-linked-hover-border-color),
+      $box-shadow: none,
+      $padding: 3px,
+      $margin: 0
+    );
   }
 
   &:focus:not(.disabled):not([disabled]) {

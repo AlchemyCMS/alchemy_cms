@@ -1,6 +1,10 @@
 @use "../extends";
 @use "../mixins";
-@use "../variables" as vars;
+
+:root {
+  --form-left-column-width: 35%;
+  --form-right-column-width: 65%;
+}
 
 form {
   #main_content > &.alchemy {
@@ -43,7 +47,7 @@ form {
     .select2-container,
     .autocomplete_tag_list,
     .tinymce_container {
-      width: vars.$form-right-width;
+      width: var(--form-right-column-width);
       float: right;
     }
 
@@ -73,7 +77,7 @@ form {
     }
 
     &.boolean {
-      margin-left: vars.$form-left-width;
+      margin-left: var(--form-left-column-width);
 
       label {
         width: 100%;
@@ -97,8 +101,8 @@ form {
 
     &.language_locale small.error {
       @include mixins.form-hint(
-        $background-color: vars.$error_background_color,
-        $border-color: vars.$error_border_color
+        $background-color: var(--notice-error-background-color),
+        $border-color: var(--notice-error-border-color)
       );
       text-align: left;
     }
@@ -115,8 +119,8 @@ form {
 
     .select2-choice,
     .select2-choices {
-      border-color: vars.$error_border_color;
-      color: vars.$error_text_color;
+      border-color: var(--notice-error-border-color);
+      color: var(--notice-error-text-color);
       margin-bottom: var(--spacing-1);
 
       input[type="text"] {
@@ -125,7 +129,7 @@ form {
     }
 
     label {
-      color: vars.$error_text_color;
+      color: var(--notice-error-text-color);
     }
   }
 
@@ -134,9 +138,9 @@ form {
   }
 
   small.error {
-    color: vars.$error_text_color;
+    color: var(--notice-error-text-color);
     display: block;
-    margin-left: vars.$form-left-width;
+    margin-left: var(--form-left-column-width);
     line-height: 1.5em;
     clear: both;
     text-align: right;
@@ -147,8 +151,8 @@ form {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: vars.$form-field-addon-width;
-    height: vars.$form-field-height;
+    width: var(--form-field-addon-width);
+    height: var(--form-field-height);
     position: absolute;
     bottom: var(--spacing-2);
     --select-background-image: none;
@@ -179,7 +183,7 @@ form {
 
       &.second {
         left: unset;
-        right: vars.$form-field-addon-width;
+        right: var(--form-field-addon-width);
 
         select {
           border-right-width: 0;
@@ -201,11 +205,11 @@ form {
     }
 
     .left-column {
-      width: vars.$form-right-width;
+      width: var(--form-right-column-width);
     }
 
     .right-column {
-      width: vars.$form-left-width;
+      width: var(--form-left-column-width);
     }
 
     button,
@@ -220,7 +224,7 @@ form {
   }
 
   .control_group {
-    width: vars.$form-right-width;
+    width: var(--form-right-column-width);
     padding-top: var(--spacing-1);
     float: right;
   }
@@ -231,7 +235,7 @@ form {
 
   .input .hint {
     @include mixins.form-hint;
-    margin-left: vars.$form-left-width;
+    margin-left: var(--form-left-column-width);
 
     a[href] {
       color: var(--color-grey_very_dark);

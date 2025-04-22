@@ -18,13 +18,13 @@
   );
   min-width: var(--preview-window-min-width);
   max-width: calc(100vw - var(--main-menu-width));
-  height: calc(100vh - #{vars.$top-menu-height});
+  height: calc(100vh - var(--top-menu-height));
   border: 0 none;
   background: #fff;
-  border-right: vars.$default-border;
-  transition-duration: vars.$transition-duration;
-  transition-timing-function: vars.$transition-duration;
-  transition-property: width max-width;
+  border-right: var(--border-default);
+  transition-duration: var(--transition-duration);
+  transition-timing-function: var(--transition-duration);
+  transition-property: width, max-width;
 
   .elements-window-visible & {
     max-width: calc(
