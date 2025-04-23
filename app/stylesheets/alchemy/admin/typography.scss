@@ -61,14 +61,11 @@ p {
 
 kbd,
 code {
-  border: var(--border-default);
+  border: 1px solid var(--code-border-color);
   border-radius: var(--border-radius_medium);
+  background: var(--code-background-color);
   font-family: Courier, monospaced;
   margin: 0 0.25ex;
   padding: 0.25em 0.5em;
   vertical-align: baseline;
-}
-
-code {
-  background: var(--color-grey_light);
 }

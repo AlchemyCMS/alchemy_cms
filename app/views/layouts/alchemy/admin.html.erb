@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
     <title><%= render_alchemy_title %></title>
     <link rel="shortcut icon" href="<%= asset_path('alchemy/favicon.ico') %>">
     <link rel="preload" href="<%= asset_path("alchemy/icons-sprite.svg") %>" as="image" type="<%= Mime::Type.lookup_by_extension(:svg) %>" crossorigin>
@@ -49,23 +50,34 @@
         <% end %>
         <%= yield(:alchemy_main_navigation) %>
       </div>
-      <div id="logout" class="main_navi_entry">
-        <% if current_alchemy_user %>
-          <%= link_to_dialog(
-            %(
-              #{render_icon('logout-box-r', class: 'module')}
-              <label>#{Alchemy.t(:leave)}</label>
-            ).html_safe,
-            alchemy.leave_admin_path, {
-              size: "300x155",
-              title: Alchemy.t("Leave Alchemy")
-          }, {'data-alchemy-hotkey' => 'alt+q'}) %>
-        <% else %>
-          <%= link_to(alchemy.root_path) do %>
-            <%= render_icon "logout-box-r", size: "lg" %>
-            <label><%= Alchemy.t(:leave) %></label>
+
+      <div id="logout">
+        <alchemy-theme-toggle>
+          <alchemy-icon name="sun"></alchemy-icon>
+          <sl-tooltip content="Toogle Theme">
+            <sl-switch name="dark-mode" size="large">
+              <alchemy-icon name="moon"></alchemy-icon>
+            </sl-switch>
+          </sl-tooltip>
+        </alchemy-theme-toggle>
+        <div class="main_navi_entry">
+          <% if current_alchemy_user %>
+            <%= link_to_dialog(
+              %(
+                #{render_icon('logout-box-r', class: 'module')}
+                <label>#{Alchemy.t(:leave)}</label>
+              ).html_safe,
+              alchemy.leave_admin_path, {
+                size: "300x155",
+                title: Alchemy.t("Leave Alchemy")
+            }, {'data-alchemy-hotkey' => 'alt+q'}) %>
+          <% else %>
+            <%= link_to(alchemy.root_path) do %>
+              <%= render_icon "logout-box-r", size: "lg" %>
+              <label><%= Alchemy.t(:leave) %></label>
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
       </div>
     </div>
     <% if current_alchemy_user %>
