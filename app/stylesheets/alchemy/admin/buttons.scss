@@ -34,20 +34,19 @@ input.button {
     color: var(--button-secondary-text-color);
     border-color: var(--button-secondary-border-color);
 
-    &:focus {
+    &:focus:not([disabled]):not(.disabled) {
       @include mixins.default-focus-style(
         $border-color: var(--button-focus-border-color),
         $box-shadow: var(--button-focus-box-shadow)
       );
     }
 
-    &:hover {
+    &:hover:not([disabled]):not(.disabled) {
       background-color: var(--button-hover-bg-color);
       border-color: var(--button-hover-border-color);
     }
 
-    &:active,
-    &:active:focus {
+    &:active:not([disabled]):not(.disabled) {
       border-color: var(--button-hover-border-color);
       box-shadow: none;
     }
@@ -69,10 +68,6 @@ input.button {
       margin-right: var(--spacing-1);
       fill: currentColor;
     }
-  }
-
-  &[disabled] {
-    cursor: not-allowed;
   }
 }
 

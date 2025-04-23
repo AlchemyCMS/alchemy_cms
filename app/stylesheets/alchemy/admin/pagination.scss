@@ -18,7 +18,7 @@
   height: var(--pagination-height);
   padding-left: var(--main-menu-width);
   text-align: left;
-  border-top: var(--border-default);
+  border-top: 1px solid var(--pagination-border-color, --border-color);
   z-index: 10;
 }
 
