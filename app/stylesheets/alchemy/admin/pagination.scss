@@ -2,9 +2,6 @@
 
 :root {
   --pagination-height: 52px;
-  --pagination-disabled-text-color: #c0c0c0;
-  --pagination-active-bg-color: var(--color-blue_dark);
-  --pagination-active-text-color: var(--color-white);
 }
 
 .pagination-wrapper {
@@ -18,7 +15,7 @@
   height: var(--pagination-height);
   padding-left: var(--main-menu-width);
   text-align: left;
-  border-top: var(--border-default);
+  border-top: 1px solid var(--pagination-border-color, --border-color);
   z-index: 10;
 }
 
