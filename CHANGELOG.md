@@ -1,5 +1,12 @@
 # Changelog
 
+## 7.4.3 (2025-04-23)
+
+- [7.4-stable] Hide body while custom elements load [#3232](https://github.com/AlchemyCMS/alchemy_cms/pull/3232) ([tvdeyen](https://github.com/tvdeyen))
+- [7.4-stable] Skip PushJavaScript Job for PRs without changed bun lock [#3222](https://github.com/AlchemyCMS/alchemy_cms/pull/3222) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.4-stable] Allow is_safe_redirect_path to recognize customized admin path [#3213](https://github.com/AlchemyCMS/alchemy_cms/pull/3213) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.4-stable] Resource "Download CSV" link: Use all filter params [#3211](https://github.com/AlchemyCMS/alchemy_cms/pull/3211) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.4.2 (2025-03-17)
 
 - [7.4-stable] Fix link dialog for links with url scheme mailto [#3207](https://github.com/AlchemyCMS/alchemy_cms/pull/3207) ([alchemycms-bot](https://github.com/alchemycms-bot))
