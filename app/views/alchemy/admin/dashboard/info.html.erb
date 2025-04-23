@@ -7,38 +7,24 @@
     Ruby v<%= RUBY_VERSION %>, Rails v<%= Rails.version %>
   </small>
 </h2>
-<% if can? :update_check, :alchemy_admin_dashboard %>
-<p class="center" id="update_check">
-  <span id="update_available" class="hidden">
-    <%= render_icon(:exclamation) %>
-    <%= Alchemy.t 'Update available' %>
-  </span>
-  <span id="up_to_date" class="hidden">
-    <%= render_icon(:check) %>
-    <%= Alchemy.t 'Alchemy is up to date' %>
-  </span>
-  <span id="error" class="hidden">
-    <%= render_icon(:exclamation) %>
-    <%= Alchemy.t 'Update status unavailable' %>
-  </span>
-</p>
-<script type="module">
-  var el = $('#update_check');
-  var spinner = new Alchemy.Spinner('small')
-  spinner.spin(el[0])
-  $.get('<%= alchemy.update_check_path %>', function(data, textStatus, jqXHR) {
-    if (data == 'true') {
-      $('#update_available').removeClass("hidden")
-    } else {
-      $('#up_to_date').removeClass("hidden")
-    }
-  }).fail(function(jqXHR, textStatus, errorThrown) {
-    $('#error').removeClass("hidden")
-  }).always(function() {
-    spinner.stop()
-  })
-</script>
+
+<% if can?(:update_check, :alchemy_admin_dashboard) %>
+  <alchemy-update-check url="<%= alchemy.update_check_path %>">
+    <span class="update_available hidden">
+      <%= render_icon(:exclamation) %>
+      <%= Alchemy.t('Update available') %>
+    </span>
+    <span class="up_to_date hidden">
+      <%= render_icon(:check) %>
+      <%= Alchemy.t('Alchemy is up to date') %>
+    </span>
+    <span class="error hidden">
+      <%= render_icon(:exclamation) %>
+      <%= Alchemy.t('Update status unavailable') %>
+    </span>
+  </alchemy-update-check>
 <% end %>
+
 <%= render_message do %>
   <p><%= Alchemy.t('Alchemy is open software and itself uses open software and free resources:') %></p>
   <ul>

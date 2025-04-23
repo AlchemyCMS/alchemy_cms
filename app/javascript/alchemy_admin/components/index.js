@@ -24,6 +24,7 @@ import "alchemy_admin/components/select"
 import "alchemy_admin/components/spinner"
 import "alchemy_admin/components/tags_autocomplete"
 import "alchemy_admin/components/tinymce"
+import "alchemy_admin/components/update_check"
 
 await Promise.race([
   // Load all global custom elements

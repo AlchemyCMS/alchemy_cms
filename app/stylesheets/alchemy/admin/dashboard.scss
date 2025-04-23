@@ -47,16 +47,13 @@
   }
 }
 
-#update_check {
+alchemy-update-check {
+  display: flex;
   position: relative;
   height: 16px;
   margin-bottom: 2em;
-
-  img#load_info {
-    width: 16px;
-    height: 16px;
-    display: none;
-  }
+  text-align: center;
+  justify-content: center;
 
   > span {
     display: inline-flex;
@@ -70,18 +67,18 @@
     .icon {
       fill: currentColor;
     }
-  }
 
-  #up_to_date {
-    color: var(--notice-success-text-color);
-  }
+    &.up_to_date {
+      color: var(--notice-success-text-color);
+    }
 
-  #error {
-    color: var(--notice-error-text-color);
-  }
+    &.error {
+      color: var(--notice-error-text-color);
+    }
 
-  #update_available {
-    color: var(--notice-warning-text-color);
+    &.update_available {
+      color: var(--notice-warning-text-color);
+    }
   }
 }
 
