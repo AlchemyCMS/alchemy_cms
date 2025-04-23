@@ -20,7 +20,8 @@
   max-width: calc(100vw - var(--main-menu-width));
   height: calc(100vh - var(--top-menu-height));
   border: 0 none;
-  background: #fff;
+  background-color: white;
+  color-scheme: light;
   border-right: var(--border-default);
   transition-duration: var(--transition-duration);
   transition-timing-function: var(--transition-duration);
