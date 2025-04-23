@@ -107,7 +107,9 @@ const icons = [
   "User & Faces/group-line",
   "User & Faces/user-fill",
   "User & Faces/user-line",
-  "User & Faces/robot-2-line"
+  "User & Faces/robot-2-line",
+  "Weather/moon-line",
+  "Weather/sun-line"
 ]
 
 const config = {
