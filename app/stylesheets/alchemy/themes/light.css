@@ -1,202 +1,260 @@
-.alchemy-light {
-  --body-background-color: var(--color-grey_very_light);
+@media (prefers-color-scheme: light) {
+  html {
+    --body-background-color: var(--color-grey_very_light);
 
-  /* Borders */
-  --border-color: hsla(0deg, 0%, 69%, 0.5);
-  --border-inset-color: hsla(0deg, 0%, 79%, 0.5);
+    /* Borders */
+    --border-color: hsla(0deg, 0%, 69%, 0.5);
+    --border-inset-color: hsla(0deg, 0%, 79%, 0.5);
 
-  /* Buttons */
-  --button-bg-color: var(--color-white);
-  --button-border-color: var(--border-color);
-  --button-box-shadow: 0 1px 1px -1px hsl(0deg, 0%, 20%);
-  --button-focus-border-color: var(--color-orange_dark);
-  --button-focus-box-shadow: 0 1px 1px 0 var(--button-focus-border-color);
-  --button-hover-bg-color: transparent;
-  --button-hover-border-color: hsla(0deg, 0%, 59%, 0.5);
-  --button-text-color: var(--text-color);
-  --button-text-shadow: none;
-  --button-secondary-bg-color: transparent;
-  --button-secondary-border-color: var(--border-color);
-  --button-secondary-text-color: var(--text-color);
+    /* Buttons */
+    --button-bg-color: var(--color-white);
+    --button-border-color: var(--border-color);
+    --button-box-shadow: 0 1px 1px -1px hsl(0deg, 0%, 20%);
+    --button-focus-border-color: var(--color-orange_dark);
+    --button-focus-box-shadow: 0 1px 1px 0 var(--button-focus-border-color);
+    --button-hover-bg-color: transparent;
+    --button-hover-border-color: hsla(0deg, 0%, 59%, 0.5);
+    --button-text-color: var(--text-color);
+    --button-text-shadow: none;
+    --button-disabled-bg-color: hsla(0deg, 0%, 100%, 0.5);
+    --button-disabled-border-color: var(--button-border-color);
+    --button-secondary-bg-color: transparent;
+    --button-secondary-border-color: var(--border-color);
+    --button-secondary-text-color: var(--text-color);
 
-  /* Colors */
-  --color-blue_very_light: hsl(203deg, 32%, 97%);
-  --color-blue_light: hsl(203deg, 32%, 85%);
-  --color-blue_medium: hsl(212deg, 52%, 36%);
-  --color-blue_dark: hsl(212deg, 52%, 26%);
+    --code-background-color: var(--color-grey_light);
+    --code-border-color: var(--border-color);
 
-  --color-green_very_light: hsl(88deg, 47%, 88%);
-  --color-green_light: hsl(127deg, 25%, 69%);
-  --color-green_medium: hsl(127deg, 25%, 48%);
-  --color-green_dark: hsl(128deg, 32%, 26%);
+    /* Datepicker */
+    --datepicker-bg-color: var(--color-white);
+    --datepicker-border-color: var(--border-color);
+    --datepicker-box-shadow: var(--select-dropdown-box-shadow);
+    --datepicker-text-color: var(--text-color);
+    --datepicker-weekday-text-color: rgba(0, 0, 0, 0.54);
+    --datepicker-text-hover-color: var(--color-orange_dark);
+    --datepicker-day-hover-bg: var(--color-grey_light);
+    --datepicker-today-border-color: var(--color-grey_dark);
+    --datepicker-today-hover-bg-color: var(--color-grey_dark);
+    --datepicker-today-hover-text-color: var(--color-white);
+    --datepicker-selected-bg-color: var(--color-blue_medium);
+    --datepicker-selected-text-color: var(--color-white);
 
-  --color-yellow_light: hsl(60deg, 81%, 92%);
-  --color-yellow_medium: hsl(56deg, 68%, 85%);
-  --color-yellow_dark: hsl(56deg, 53%, 29%);
+    /* Dialogs */
+    --dialog-header-color: var(--color-blue_dark);
+    --dialog-header-text-color: var(--color-white);
+    --dialog-box-shadow: 0 var(--spacing-2) var(--spacing-4)
+      hsla(0deg, 0%, 14%, 0.5);
+    --dialog-overlay-color: hsla(0deg, 0%, 39%, 0.4);
+    --dialog-background-color: var(--color-grey_very_light);
 
-  --color-orange_medium: hsl(42deg, 100%, 74%);
-  --color-orange_dark: hsl(28deg, 77%, 68%);
-  --color-orange_very_dark: hsl(28deg, 77%, 48%);
+    /* Elements */
+    --element-editor-background-color: var(--color-grey_very_light);
+    --element-header-bg-color: transparent;
+    --element-header-active-bg-color: var(--color-blue_dark);
+    --element-header-active-color: var(--color-white);
+    --element-header-deprecated-bg-color: hsla(29deg, 95%, 84%, 0.25);
+    --element-deprecated-border-color: hsl(29deg, 95%, 84%);
+    --element-toolbar-border-color: var(--color-grey_light);
+    --element-dirty-border-color: hsl(56deg, 67%, 52%);
+    --element-dirty-header-color: hsl(56deg, 100%, 93%);
 
-  --color-red_very_light: hsl(0deg, 47%, 88%);
-  --color-red_light: hsl(0deg, 25%, 69%);
-  --color-red_medium: hsl(0deg, 51%, 42%);
-  --color-red_dark: hsl(0deg, 51%, 25%);
+    /* Focus Status */
+    --focus-color: hsla(28deg, 77%, 68%, 0.75);
 
-  --color-grey_very_light: hsl(0deg, 0%, 97%);
-  --color-grey_light: hsl(0deg, 0%, 94%);
-  --color-grey_medium: hsl(0deg, 0%, 78%);
-  --color-grey_dark: hsl(0deg, 0%, 40%);
-  --color-grey_very_dark: hsl(0deg, 0%, 20%);
+    /* Form Fields */
+    --form-field-addon-background-color: var(--color-grey_light);
+    --form-field-background-color: var(--color-white);
+    --form-field-border-color: var(--border-color) var(--border-color)
+      var(--border-inset-color) var(--border-inset-color);
+    --form-field-box-shadow: inset 0 0 1px var(--color-grey_light);
+    --form-field-label-color: var(--text-color);
+    --form-field-text-color: var(--text-color);
+    --form-field-disabled-text-color: hsl(0deg, 0%, 53%);
+    --form-field-disabled-bg-color: hsla(0deg, 0%, 100%, 0.5);
+    --form-field-error-bg-color: hsl(0deg, 47%, 96%);
+    --form-field-error-box-shadow: inset 0 0 1px hsla(0deg, 25%, 69%, 0.5);
 
-  --color-white: hsl(0deg, 0%, 100%);
+    /* Header */
+    --header-background: hsl(0deg, 0%, 85%);
 
-  /* Datepicker */
-  --datepicker-bg-color: var(--color-white);
-  --datepicker-box-shadow: 1px 0 0 var(--color-grey_light),
-    -1px 0 0 var(--color-grey_light), 0 1px 0 var(--color-grey_light),
-    0 -1px 0 var(--color-grey_light), 0 3px 13px rgba(0, 0, 0, 0.08);
-  --datepicker-text-color: var(--text-color);
-  --datepicker-text-hover-color: var(--color-orange_dark);
-  --datepicker-day-hover-bg: var(--color-grey_light);
-  --datepicker-today-border-color: var(--color-grey_dark);
-  --datepicker-today-hover-bg-color: var(--color-grey_dark);
-  --datepicker-today-hover-text-color: var(--color-white);
-  --datepicker-selected-bg-color: var(--color-blue_medium);
-  --datepicker-selected-text-color: var(--color-white);
+    /* Hints */
+    --hint-background-color: var(--color-yellow_light);
+    --hint-border-color: var(--color-grey_light);
+    --hint-text-color: hsl(49deg, 18%, 30%);
 
-  /* Dialogs */
-  --dialog-header-color: var(--color-blue_dark);
-  --dialog-header-text-color: var(--color-white);
-  --dialog-box-shadow: 0 var(--spacing-2) var(--spacing-4)
-    hsla(0deg, 0%, 14%, 0.5);
-  --dialog-overlay-color: hsla(0deg, 0%, 39%, 0.4);
-  --dialog-background-color: var(--color-grey_very_light);
+    /* Icon Buttons */
+    --icon-button-linked-color: hsla(42deg, 100%, 74%, 0.75);
+    --icon-button-linked-hover-color: hsla(42deg, 100%, 64%, 0.75);
+    --icon-button-linked-border-color: hsl(42deg, 100%, 64%);
+    --icon-button-linked-hover-border-color: hsl(42deg, 100%, 54%);
+    --icon-button-hover-bg-color: hsla(0deg, 0%, 69%, 0.5);
 
-  /* Elements */
-  --element-header-bg-color: transparent;
-  --element-header-active-bg-color: var(--color-blue_dark);
-  --element-header-active-color: var(--color-white);
-  --element-header-deprecated-bg-color: hsla(29deg, 95%, 84%, 0.25);
-  --element-deprecated-border-color: hsl(29deg, 95%, 84%);
+    /* Icons */
+    --icon-color: hsla(224deg, 23%, 26%, 0.75);
 
-  /* Focus Status */
-  --focus-color: hsla(28deg, 77%, 68%, 0.75);
+    --image-overlay-box-shadow: -4px 0 4px 0px var(--text-color);
+    --image-overlay-hover-bg-color: var(--color-grey_light);
 
-  /* Form Fields */
-  --form-field-background-color: var(--color-white);
-  --form-field-border-color: var(--border-color) var(--border-color)
-    var(--border-inset-color) var(--border-inset-color);
-  --form-field-box-shadow: inset 0 0 1px var(--color-grey_light);
-  --form-field-text-color: var(--text-color);
-  --form-field-disabled-text-color: hsl(0deg, 0%, 53%);
-  --form-field-disabled-bg-color: hsla(0deg, 0%, 100%, 0.5);
-  --form-field-error-bg-color: hsl(0deg, 47%, 96%);
-  --form-field-error-box-shadow: inset 0 0 1px hsla(0deg, 25%, 69%, 0.5);
+    --list-filter-background-color: hsla(0deg, 0%, 100%, 0.25);
+    --list-filter-focus-background-color: var(--color-white);
 
-  /* Header */
-  --header-background: hsl(0deg, 0%, 85%);
+    /* Main Menu */
+    --main-menu-bg-color: var(--color-blue_dark);
+    --main-menu-active-bg-color: var(--color-orange_dark);
+    --main-menu-active-text-color: var(--color-blue_dark);
+    --main-menu-text-color: var(--color-white);
+    --main-menu-icon-color: var(--color-white);
 
-  /* Hints */
-  --hint-background-color: var(--color-yellow_light);
-  --hint-text-color: hsl(49deg, 18%, 30%);
+    /* Notices */
+    --notice-success-background-color: hsl(88deg, 47%, 88%);
+    --notice-success-border-color: hsl(127deg, 25%, 69%);
+    --notice-success-text-color: hsl(128deg, 32%, 26%);
 
-  /* Icon Buttons */
-  --icon-button-linked-color: hsla(42deg, 100%, 74%, 0.75);
-  --icon-button-linked-hover-color: hsla(42deg, 100%, 64%, 0.75);
-  --icon-button-linked-border-color: hsl(42deg, 100%, 64%);
-  --icon-button-linked-hover-border-color: hsl(42deg, 100%, 54%);
+    --notice-info-background-color: hsl(215deg, 63%, 87%);
+    --notice-info-border-color: hsl(222deg, 25%, 61%);
+    --notice-info-text-color: hsl(225deg, 53%, 29%);
 
-  /* Icons */
-  --icon-color: hsla(224deg, 23%, 26%, 0.75);
+    --notice-warning-background-color: hsl(56deg, 68%, 85%);
+    --notice-warning-border-color: hsl(55deg, 25%, 69%);
+    --notice-warning-text-color: hsl(56deg, 53%, 29%);
 
-  /* Main Menu */
-  --main-menu-bg-color: var(--color-blue_dark);
-  --main-menu-active-bg-color: var(--color-orange_dark);
-  --main-menu-active-text-color: var(--color-blue_dark);
-  --main-menu-text-color: var(--color-white);
-  --main-menu-icon-color: var(--color-white);
+    --notice-error-background-color: hsl(0deg, 47%, 88%);
+    --notice-error-border-color: hsl(0deg, 25%, 69%);
+    --notice-error-text-color: hsl(0deg, 51%, 42%);
 
-  /* Notices */
-  --notice-success-background-color: hsl(88deg, 47%, 88%);
-  --notice-success-border-color: hsl(127deg, 25%, 69%);
-  --notice-success-text-color: hsl(128deg, 32%, 26%);
+    /* Pagination */
+    --pagination-background-color: var(--color-grey_very_light);
+    --pagination-border-color: var(--border-color);
+    --pagination-active-bg-color: var(--color-blue_dark);
+    --pagination-active-text-color: var(--color-white);
+    --pagination-disabled-text-color: #c0c0c0;
 
-  --notice-info-background-color: hsl(215deg, 63%, 87%);
-  --notice-info-border-color: hsl(222deg, 25%, 61%);
-  --notice-info-text-color: hsl(225deg, 53%, 29%);
+    /* Panels */
+    --panel-background-color: var(--color-grey_light);
 
-  --notice-warning-background-color: hsl(56deg, 68%, 85%);
-  --notice-warning-border-color: hsl(55deg, 25%, 69%);
-  --notice-warning-text-color: hsl(56deg, 53%, 29%);
+    --picture-tool-background-color: var(--color-white);
 
-  --notice-error-background-color: hsl(0deg, 47%, 88%);
-  --notice-error-border-color: hsl(0deg, 25%, 69%);
-  --notice-error-text-color: hsl(0deg, 51%, 42%);
+    --search-field-background-color: var(--color-grey_very_light);
 
-  /* Pagination */
-  --pagination-background-color: var(--color-grey_very_light);
+    /* Selects */
+    --select-background-color: var(--form-field-background-color);
+    --select-border-color: var(--button-border-color);
+    --select-text-color: var(--form-field-text-color);
+    --select-hover-bg-color: var(--color-blue_dark);
+    --select-hover-border-color: var(--button-hover-border-color);
+    --select-hover-text-color: var(--color-white);
+    --select-background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="hsla(224deg, 23%, 26%, 0.75)"><path d="M11.9999 13.1714L16.9497 8.22168L18.3639 9.63589L11.9999 15.9999L5.63599 9.63589L7.0502 8.22168L11.9999 13.1714Z"></path></svg>');
+    --select-close-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="hsla(224deg, 23%, 26%, 0.75)"><path d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"></path></svg>');
+    --select-disabled-background-color: var(--color-grey_very_light);
+    --select-disabled-border-color: var(--border-inset-color);
+    --select-dropdown-background-color: var(--color-white);
+    --select-dropdown-box-shadow: 0 var(--spacing-2) var(--spacing-2)
+      hsla(0deg, 0%, 0%, 0.15);
+    --select-dropdown-border-color: var(--color-grey_very_light);
 
-  /* Selects */
-  --select-hover-bg-color: var(--color-blue_dark);
-  --select-hover-text-color: var(--color-white);
+    /* Sidebar */
+    --sidebar-background-color: var(--color-grey_very_light);
 
-  /* Sitemap */
-  --sitemap-page-background-color: hsla(0deg, 0%, 100%, 0.75);
-  --sitemap-page-hover-color: hsla(60deg, 81%, 92%, 0.5);
-  --sitemap-info-background-color: hsla(0deg, 0%, 100%, 0.5);
-  --sitemap-highlight-color: hsla(57deg, 100%, 82%, 0.5);
+    /* Sitemap */
+    --sitemap-page-background-color: hsla(0deg, 0%, 100%, 0.75);
+    --sitemap-page-hover-color: hsla(60deg, 81%, 92%, 0.5);
+    --sitemap-info-background-color: hsla(0deg, 0%, 100%, 0.5);
+    --sitemap-highlight-color: hsla(57deg, 100%, 82%, 0.5);
 
-  /* Tables */
-  --table-row-even-background-color: var(--color-white);
-  --table-row-odd-background-color: hsla(0deg, 0%, 100%, 0.5);
-  --table-row-hover-color: hsla(60deg, 81%, 92%, 0.5);
+    /* Tables */
+    --table-border-color: var(--color-grey_light);
+    --table-row-even-background-color: var(--color-white);
+    --table-row-odd-background-color: hsla(0deg, 0%, 100%, 0.5);
+    --table-row-hover-color: hsla(60deg, 81%, 92%, 0.5);
 
-  /* Text */
-  --text-color: hsla(224deg, 23%, 26%, 0.8);
-  --text-color-muted: hsla(224deg, 23%, 26%, 0.5);
-  --text-link-color: var(--color-orange_very_dark);
-  --text-shadow-light: 0 0 var(--spacing-1) hsla(0deg, 0%, 100%, 0.5);
+    /* Tags */
+    --tag-background-color: var(--color-grey_light);
+    --tag-background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="hsla(224deg, 23%, 26%, 0.75)"><path d="M10.9042 2.10025L20.8037 3.51446L22.2179 13.414L13.0255 22.6063C12.635 22.9969 12.0019 22.9969 11.6113 22.6063L1.71184 12.7069C1.32131 12.3163 1.32131 11.6832 1.71184 11.2926L10.9042 2.10025ZM11.6113 4.22157L3.83316 11.9997L12.3184 20.485L20.0966 12.7069L19.036 5.28223L11.6113 4.22157ZM13.7327 10.5855C12.9516 9.80448 12.9516 8.53815 13.7327 7.7571C14.5137 6.97606 15.78 6.97606 16.5611 7.7571C17.3421 8.53815 17.3421 9.80448 16.5611 10.5855C15.78 11.3666 14.5137 11.3666 13.7327 10.5855Z"></path></svg>');
+    --tag-hover-background-color: var(--color-grey_medium);
+    --tag-active-background-color: var(--color-grey_dark);
+    --tag-active-text-color: var(--color-grey_very_light);
+    --tag-active-background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(255, 255, 255, 0.95)"><path d="M10.9042 2.10025L20.8037 3.51446L22.2179 13.414L13.0255 22.6063C12.635 22.9969 12.0019 22.9969 11.6113 22.6063L1.71184 12.7069C1.32131 12.3163 1.32131 11.6832 1.71184 11.2926L10.9042 2.10025ZM11.6113 4.22157L3.83316 11.9997L12.3184 20.485L20.0966 12.7069L19.036 5.28223L11.6113 4.22157ZM13.7327 10.5855C12.9516 9.80448 12.9516 8.53815 13.7327 7.7571C14.5137 6.97606 15.78 6.97606 16.5611 7.7571C17.3421 8.53815 17.3421 9.80448 16.5611 10.5855C15.78 11.3666 14.5137 11.3666 13.7327 10.5855Z"></path></svg>');
 
-  /* Thumbnails */
-  --thumbnail-background: linear-gradient(
-        45deg,
-        var(--color-grey_light) 25%,
-        transparent 25%
-      )
-      0.5em 0.5em/1em 1em,
-    linear-gradient(-45deg, var(--color-grey_light) 25%, transparent 25%) -0.5em
-      0/1em 1em,
-    linear-gradient(45deg, transparent 75%, var(--color-grey_light) 75%) 0 0/1em
-      1em,
-    linear-gradient(-45deg, transparent 75%, var(--color-grey_light) 75%) 0
-      0.5em/1em 1em var(--color-grey_medium);
+    /* Text */
+    --text-color: hsla(224deg, 23%, 26%, 0.8);
+    --text-color-muted: hsla(224deg, 23%, 26%, 0.5);
+    --text-link-color: var(--color-orange_very_dark);
+    --text-shadow-light: 0 0 var(--spacing-1) hsla(0deg, 0%, 100%, 0.5);
 
-  /* Toolbar */
-  --toolbar-bg-color: var(--color-grey_light);
+    /* Thumbnails */
+    --thumbnail-background: linear-gradient(
+          45deg,
+          var(--color-grey_light) 25%,
+          transparent 25%
+        )
+        0.5em 0.5em/1em 1em,
+      linear-gradient(-45deg, var(--color-grey_light) 25%, transparent 25%) -0.5em
+        0/1em 1em,
+      linear-gradient(45deg, transparent 75%, var(--color-grey_light) 75%) 0 0/1em
+        1em,
+      linear-gradient(-45deg, transparent 75%, var(--color-grey_light) 75%) 0
+        0.5em/1em 1em var(--color-grey_medium);
 
-  /* Tooltips */
-  --tooltip-background-color: var(--color-blue_dark);
+    /* Toolbar */
+    --toolbar-bg-color: var(--color-grey_light);
+    --toolbar-border-bottom: var(--border-default);
 
-  /* Shoelace */
-  --tabs_indicator-color: var(--color-orange_dark);
-  --tabs_track-color: var(--color-grey_light);
-  --sl-input-label-color: var(--text-color);
+    /* Tooltips */
+    --tooltip-background-color: var(--color-blue_dark);
+    --tooltip-box-shadow: 0 0 var(--spacing-1) var(--color-grey_light);
 
-  /* File Upload */
-  --file-upload-failed-text-color: var(--color-red_medium);
-  --file-upload-text-color: var(--text-color);
-  --file-upload_background-color: hsla(0deg, 0%, 80%, 0.8);
-  --file-upload_single-upload-background-color: var(--color-grey_light);
-  --file-upload_progress-track-color: var(--color-blue_very_light);
-  --file-upload_progress-indicator-color: var(--color-blue_dark);
-  --file-upload_progress-indicator-color-canceled: hsla(0deg, 0%, 60%, 0.8);
-  --file-upload_progress-indicator-color-failed: var(--color-red_medium);
-  --file-upload_progress-indicator-color-invalid: var(--color-red_medium);
-  --file-upload_progress-indicator-color-successful: var(--color-green_medium);
-  --file-upload_progress-indicator-color-upload-finished: var(
-    --color-blue_dark
-  );
+    /* Shoelace */
+    --tabs_indicator-color: var(--color-orange_dark);
+    --tabs_track-color: var(--color-grey_light);
+    --sl-input-label-color: var(--text-color);
 
-  color-scheme: light;
+    /* File Upload */
+    --file-upload-failed-text-color: var(--color-red_medium);
+    --file-upload-text-color: var(--text-color);
+    --file-upload_background-color: hsla(0deg, 0%, 80%, 0.8);
+    --file-upload_single-upload-background-color: var(--color-grey_light);
+    --file-upload_progress-track-color: var(--color-blue_very_light);
+    --file-upload_progress-indicator-color: var(--color-blue_dark);
+    --file-upload_progress-indicator-color-canceled: hsla(0deg, 0%, 60%, 0.8);
+    --file-upload_progress-indicator-color-failed: var(--color-red_medium);
+    --file-upload_progress-indicator-color-invalid: var(--color-red_medium);
+    --file-upload_progress-indicator-color-successful: var(
+      --color-green_medium
+    );
+    --file-upload_progress-indicator-color-upload-finished: var(
+      --color-blue_dark
+    );
+
+    /*
+   * Shoelace Theme Tokens
+   */
+
+    /* Primary */
+    --sl-color-primary-50: var(--color-blue_very_light);
+    --sl-color-primary-100: var(--color-blue_very_light);
+    --sl-color-primary-200: var(--color-blue_light);
+    --sl-color-primary-300: var(--color-blue_light);
+    --sl-color-primary-400: var(--color-blue_medium);
+    --sl-color-primary-500: var(--color-blue_medium);
+    --sl-color-primary-600: var(--color-blue_dark);
+    --sl-color-primary-700: var(--color-blue_dark);
+    --sl-color-primary-800: var(--color-blue_dark);
+    --sl-color-primary-900: var(--color-blue_dark);
+    --sl-color-primary-950: var(--color-blue_dark);
+
+    /* Neutral */
+    --sl-color-neutral-50: var(--color-grey_very_light);
+    --sl-color-neutral-100: var(--color-grey_very_light);
+    --sl-color-neutral-200: var(--color-grey_light);
+    --sl-color-neutral-300: var(--color-grey_light);
+    --sl-color-neutral-400: var(--color-grey_medium);
+    --sl-color-neutral-500: var(--color-grey_medium);
+    --sl-color-neutral-600: var(--color-grey_dark);
+    --sl-color-neutral-700: var(--color-grey_dark);
+    --sl-color-neutral-800: var(--color-grey_very_dark);
+    --sl-color-neutral-900: var(--color-grey_very_dark);
+    --sl-color-neutral-950: var(--color-grey_very_dark);
+
+    color-scheme: light;
+  }
 }

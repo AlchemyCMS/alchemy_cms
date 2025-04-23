@@ -37,6 +37,13 @@
       </select>
     </div>
 
+    <div class="input select">
+      <label class="select control-label" for="select">Disabled Select</label>
+      <select class="select" id="disabled-select" is="alchemy-select" disabled>
+        <option value="">Cannot choose</option>
+      </select>
+    </div>
+
     <div class="input">
       <label class="control-label" for="datetime_picker">Date Time Picker</label>
       <alchemy-datepicker input-type="datetime">
@@ -123,6 +130,59 @@
   </form>
 </div>
 
+<h2>Buttons</h2>
+
+<p>
+  <button class="secondary" disabled>Disabled Secondary</button>
+  <button type="submit" is="alchemy-button" disabled>Disabled Primary</button>
+</p>
+
+<h2>Selects</h2>
+
+<div style="display: flex; gap: 1em;">
+  <div style="width: 25%">
+    <h3>Select with Search</h3>
+    <select is="alchemy-select" class="full_width">
+      <option value="1">Option 1</option>
+      <option value="2">Option 2</option>
+      <option value="3">Option 3</option>
+      <option value="4">Option 4</option>
+      <option value="5">Option 5</option>
+      <option value="6">Option 6</option>
+      <option value="7">Option 7</option>
+    </select>
+  </div>
+
+  <div style="width: 25%">
+    <h3>Page Select</h3>
+    <%= render Alchemy::Admin::PageSelect.new do %>
+      <input name="page" class="full_width" />
+    <% end %>
+  </div>
+
+  <div style="width: 25%">
+    <h3>Node Select</h3>
+    <%= render Alchemy::Admin::NodeSelect.new do %>
+      <input name="node" class="full_width" />
+    <% end %>
+  </div>
+
+  <div style="width: 25%">
+    <h3>Attachment Select</h3>
+    <%= render Alchemy::Admin::AttachmentSelect.new do %>
+      <input name="attachment" class="full_width" />
+    <% end %>
+  </div>
+</div>
+
+<h3>Tags Autocomplete</h3>
+
+<div style="width: 25%">
+  <alchemy-tags-autocomplete>
+    <input type="text" class="full_width" />
+  </alchemy-tags-autocomplete>
+</div>
+
 <h2>Typography</h2>
 
 <h1>Heading 1</h1>
@@ -152,14 +212,6 @@
 <%= render_message :error do %>
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 <% end %>
-
-<h3>Tags Autocomplete</h3>
-
-<div>
-  <alchemy-tags-autocomplete>
-    <input type="text" class="full_width" />
-  </alchemy-tags-autocomplete>
-</div>
 
 <h3>Growl Messages</h3>
 

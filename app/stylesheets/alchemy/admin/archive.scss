@@ -30,6 +30,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: var(--picture-thumbnail-background-color, transparent);
   box-shadow: 0 0 1px 1px var(--border-color);
 
   &:hover {
@@ -154,20 +155,22 @@ div.assign_image_list_image {
 
 .picture_tool {
   display: flex;
-  width: 20px;
-  height: 20px;
+  width: var(--spacing-6);
+  height: var(--spacing-6);
   align-items: center;
   justify-content: center;
   position: absolute;
-  background-color: white;
+  background-color: var(--picture-tool-background-color);
   top: var(--spacing-1);
-  padding: var(--spacing-0);
+  padding: var(--spacing-1);
   z-index: 10;
   border-radius: var(--border-radius_medium);
   box-shadow: 0 0 1px var(--color-grey_dark);
 
   &:hover {
     text-decoration: none;
+    background-color: var(--picture-tool-hover-background-color);
+    transition: background-color var(--transition-duration);
   }
 
   &.visible {
@@ -243,7 +246,7 @@ div#library_sidebar {
     calc(var(--pagination-height) + var(--spacing-2)) var(--spacing-4);
   height: 100%;
   z-index: 3;
-  background-color: var(--color-grey_very_light);
+  background-color: var(--sidebar-background-color);
 
   h2 {
     margin-top: var(--spacing-4);
@@ -299,7 +302,7 @@ div#library_sidebar {
     word-break: break-all;
 
     &:hover {
-      background-color: var(--color-yellow_light);
+      background-color: var(--table-row-hover-color);
     }
   }
 
