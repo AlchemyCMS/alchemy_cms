@@ -6,8 +6,16 @@ class Select extends HTMLSelectElement {
 
     this.#select2Element = $(this).select2({
       minimumResultsForSearch: 5,
-      dropdownAutoWidth: true
+      dropdownAutoWidth: true,
+      allowClear: !!this.allowClear
     })
+
+    if (!this.allowClear) {
+      this.#select2Element
+        .prev(".select2-container")
+        .find(".select2-search-choice-close")
+        .remove()
+    }
   }
 
   enable() {
@@ -42,6 +50,10 @@ class Select extends HTMLSelectElement {
    */
   #updateSelect2() {
     this.#select2Element.trigger("change")
+  }
+
+  get allowClear() {
+    return this.dataset.hasOwnProperty("allowClear")
   }
 }
 

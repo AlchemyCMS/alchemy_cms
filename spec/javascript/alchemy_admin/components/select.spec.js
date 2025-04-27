@@ -120,4 +120,28 @@ describe("alchemy-select", () => {
       expect(component.hasAttribute("disabled")).toBeTruthy()
     })
   })
+
+  describe("with data-allow-clear set", () => {
+    it("adds clear button", () => {
+      const html = `<select is="alchemy-select" data-allow-clear>
+        <option value="">Please Select</option>
+        <option value="1">First</option>
+        <option value="2">Second</option>
+      </select>`
+
+      component = renderComponent("alchemy-select", html)
+      select2Component = document.querySelector(".select2-container")
+      expect(
+        select2Component.querySelector(".select2-search-choice-close")
+      ).toBeTruthy()
+    })
+  })
+
+  describe("without data-allow-clear set", () => {
+    it("removes clear button", () => {
+      expect(
+        select2Component.querySelector(".select2-search-choice-close")
+      ).toBeFalsy()
+    })
+  })
 })
