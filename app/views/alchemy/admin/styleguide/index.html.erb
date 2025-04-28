@@ -19,71 +19,6 @@
 
 <h1>AlchemyCMS Styleguide</h1>
 
-<h2>Typography</h2>
-
-<h1>Heading 1</h1>
-<h2>Heading 2</h2>
-<h3>Heading 3</h3>
-<h4>Heading 4</h4>
-<h5>Heading 5</h5>
-
-<p>This is a paragraph, with <a href="#">a link</a>, a <kbd>keyboard shortcut</kbd> and an <code>inline code snippet</code>.</p>
-
-<h2>Messages</h2>
-
-<h3>Info Message</h3>
-
-<%= render_message do %>
-  <p>Lorem ipsum <strong>dolor</strong> sit amet, consectetur adipiscing elit.</p>
-<% end %>
-
-<h3>Warning Message</h3>
-
-<%= render_message :warning do %>
-  <p>Lorem ipsum dolor sit amet, <a href="">consectetur</a> adipiscing elit.</p>
-<% end %>
-
-<h3>Error Message</h3>
-
-<%= render_message :error do %>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-<% end %>
-
-<h3>Tags Autocomplete</h3>
-
-<div>
-  <alchemy-tags-autocomplete>
-    <input type="text" class="full_width" />
-  </alchemy-tags-autocomplete>
-</div>
-
-<h3>Growl Messages</h3>
-
-<%= link_to render_icon(:check), 'javascript:Alchemy.growl("Success message")', class: "icon_button" %>
-<%= link_to render_icon(:info), 'javascript:Alchemy.growl("Info message", "info")', class: "icon_button" %>
-<%= link_to render_icon(:alert), 'javascript:Alchemy.growl("Warning message", "warn")', class: "icon_button" %>
-<%= link_to render_icon(:bug), 'javascript:Alchemy.growl("Error message", "error")', class: "icon_button" %>
-
-<h2>Dialog Links</h2>
-
-<sl-tooltip content="Open in Dialog">
-  <a
-    href="/admin/styleguide"
-    is="alchemy-dialog-link"
-    class="icon_button"
-    data-dialog-options="{&quot;size&quot;:&quot;800x600&quot;,&quot;title&quot;:&quot;Styleguide in Dialog&quot;}"
-  >
-    <%= render_icon "window" %>
-  </a>
-</sl-tooltip>
-<a
-  href="#"
-  is="alchemy-dialog-link"
-  class="icon_button disabled"
->
-  <%= render_icon "window" %>
-</a>
-
 <h2>Forms</h2>
 
 <div class="panel">
@@ -187,6 +122,71 @@
     </div>
   </form>
 </div>
+
+<h2>Typography</h2>
+
+<h1>Heading 1</h1>
+<h2>Heading 2</h2>
+<h3>Heading 3</h3>
+<h4>Heading 4</h4>
+<h5>Heading 5</h5>
+
+<p>This is a paragraph, with <a href="#">a link</a>, a <kbd>keyboard shortcut</kbd> and an <code>inline code snippet</code>.</p>
+
+<h2>Messages</h2>
+
+<h3>Info Message</h3>
+
+<%= render_message do %>
+  <p>Lorem ipsum <strong>dolor</strong> sit amet, consectetur adipiscing elit.</p>
+<% end %>
+
+<h3>Warning Message</h3>
+
+<%= render_message :warning do %>
+  <p>Lorem ipsum dolor sit amet, <a href="">consectetur</a> adipiscing elit.</p>
+<% end %>
+
+<h3>Error Message</h3>
+
+<%= render_message :error do %>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+<% end %>
+
+<h3>Tags Autocomplete</h3>
+
+<div>
+  <alchemy-tags-autocomplete>
+    <input type="text" class="full_width" />
+  </alchemy-tags-autocomplete>
+</div>
+
+<h3>Growl Messages</h3>
+
+<%= link_to render_icon(:check), 'javascript:Alchemy.growl("Success message")', class: "icon_button" %>
+<%= link_to render_icon(:info), 'javascript:Alchemy.growl("Info message", "info")', class: "icon_button" %>
+<%= link_to render_icon(:alert), 'javascript:Alchemy.growl("Warning message", "warn")', class: "icon_button" %>
+<%= link_to render_icon(:bug), 'javascript:Alchemy.growl("Error message", "error")', class: "icon_button" %>
+
+<h2>Dialog Links</h2>
+
+<sl-tooltip content="Open in Dialog">
+  <a
+    href="/admin/styleguide"
+    is="alchemy-dialog-link"
+    class="icon_button"
+    data-dialog-options="{&quot;size&quot;:&quot;800x600&quot;,&quot;title&quot;:&quot;Styleguide in Dialog&quot;}"
+  >
+    <%= render_icon "window" %>
+  </a>
+</sl-tooltip>
+<a
+  href="#"
+  is="alchemy-dialog-link"
+  class="icon_button disabled"
+>
+  <%= render_icon "window" %>
+</a>
 
 <h2>Tables</h2>
 
