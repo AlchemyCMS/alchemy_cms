@@ -15,7 +15,7 @@ if ENV["DB"] == "mysql" || ENV["DB"] == "mariadb"
 end
 gem "pg", "~> 1.0" if ENV["DB"] == "postgresql"
 
-gem "alchemy_i18n", git: "https://github.com/AlchemyCMS/alchemy_i18n.git", branch: "main"
+gem "alchemy_i18n", git: "https://github.com/AlchemyCMS/alchemy_i18n.git", branch: "4.2-stable"
 
 group :development, :test do
   gem "execjs", "~> 2.9.1"
