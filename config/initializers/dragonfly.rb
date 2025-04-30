@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
-require "dragonfly_svg"
+Dragonfly::App.register_plugin(:svg) do
+  ->(*) {
+    Alchemy::Deprecation.warn <<~WARN
+      The Dragonfly svg plugin is not necessary anymore! Please remove `plugin :svg` from your `config/initializers/dragonfly.rb`.
+    WARN
+  }
+end
+
 require "alchemy/dragonfly/processors/crop_resize"
 require "alchemy/dragonfly/processors/auto_orient"
 require "alchemy/dragonfly/processors/thumbnail"
