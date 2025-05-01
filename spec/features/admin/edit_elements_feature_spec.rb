@@ -98,7 +98,8 @@ RSpec.describe "The edit elements feature", type: :system do
           page.find(".add-nestable-element-button").click
           new_element = Alchemy::Element.last
           page.find("#element_#{new_element.id} .element-header").hover
-          page.first("a[href^='/admin/clipboard/insert?remarkable_id=#{new_element.id}&remarkable_type=elements']").click
+          page.first("form[action^='/admin/clipboard/insert?remarkable_id=#{new_element.id}&remarkable_type=elements'] button").click
+          expect(page).to have_content("Copied Slide: to clipboard")
         end
 
         scenario "the add button now opens add element form with the clipboard tab" do

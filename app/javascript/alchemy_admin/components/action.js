@@ -1,4 +1,5 @@
 import { reloadPreview } from "alchemy_admin/components/preview_window"
+import { removeTab } from "alchemy_admin/fixed_elements"
 import { closeCurrentDialog } from "alchemy_admin/dialog"
 import IngredientAnchorLink from "alchemy_admin/ingredient_anchor_link"
 
@@ -13,6 +14,7 @@ class Action extends HTMLElement {
       // we don't have to implicitly close the dialog
       closeCurrentDialog,
       reloadPreview,
+      removeFixedElement: removeTab,
       updateAnchorIcon: IngredientAnchorLink.updateIcon
     }
   }

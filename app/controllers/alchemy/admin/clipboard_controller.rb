@@ -8,6 +8,8 @@ module Alchemy
       authorize_resource class: :alchemy_admin_clipboard
       before_action :set_clipboard
 
+      helper_method :remarkable_type
+
       def index
         @clipboard_items = model_class.all_from_clipboard(@clipboard)
         respond_to do |format|
@@ -23,17 +25,11 @@ module Alchemy
             "action" => params[:remove] ? "cut" : "copy"
           }
         end
-        respond_to do |format|
-          format.js
-        end
       end
 
       def remove
         @item = model_class.find(remarkable_params[:remarkable_id])
         @clipboard.delete_if { |item| item["id"] == remarkable_params[:remarkable_id] }
-        respond_to do |format|
-          format.js
-        end
       end
 
       def clear
