@@ -202,7 +202,7 @@
     linear-gradient(45deg, transparent 75%, var(--color-grey_light) 75%) 0 0/1em
       1em,
     linear-gradient(-45deg, transparent 75%, var(--color-grey_light) 75%) 0
-      0.5em/1em 1em var(--color-white);
+      0.5em/1em 1em var(--color-grey_medium);
 
   /* Toolbar */
   --toolbar-bg-color: var(--color-grey_light);
