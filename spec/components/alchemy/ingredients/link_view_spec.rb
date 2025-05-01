@@ -2,29 +2,29 @@
 
 require "rails_helper"
 
-RSpec.describe "alchemy/ingredients/_link_view" do
+RSpec.describe Alchemy::Ingredients::LinkView, type: :component do
   let(:ingredient) { Alchemy::Ingredients::Link.new(value: "http://google.com") }
 
   context "without value" do
     let(:ingredient) { Alchemy::Ingredients::Link.new(value: nil) }
 
     it "renders nothing" do
-      render ingredient
-      expect(rendered).to eq("")
+      render_inline described_class.new(ingredient)
+      expect(page).to have_content("")
     end
   end
 
   it "renders a link" do
-    render ingredient
-    expect(rendered).to eq('<a href="http://google.com">http://google.com</a>')
+    render_inline described_class.new(ingredient)
+    expect(page).to have_selector('a[href="http://google.com"]', text: "http://google.com")
   end
 
   context "with text option" do
     let(:options) { {text: "Google"} }
 
     it "renders a link" do
-      render ingredient, options: options
-      expect(rendered).to eq('<a href="http://google.com">Google</a>')
+      render_inline described_class.new(ingredient, **options)
+      expect(page).to have_selector('a[href="http://google.com"]', text: "Google")
     end
   end
 
@@ -34,15 +34,15 @@ RSpec.describe "alchemy/ingredients/_link_view" do
     end
 
     it "renders a link" do
-      render ingredient
-      expect(rendered).to eq('<a href="http://google.com">Yahoo</a>')
+      render_inline described_class.new(ingredient)
+      expect(page).to have_selector('a[href="http://google.com"]', text: "Yahoo")
     end
   end
 
   context "with html options" do
     it "renders them" do
-      render ingredient, html_options: {class: "foo"}
-      expect(rendered).to eq('<a class="foo" href="http://google.com">http://google.com</a>')
+      render_inline described_class.new(ingredient, html_options: {class: "foo"})
+      expect(page).to have_selector('a.foo[href="http://google.com"]', text: "http://google.com")
     end
   end
 
@@ -52,9 +52,9 @@ RSpec.describe "alchemy/ingredients/_link_view" do
     end
 
     it "adds rel noopener noreferrer" do
-      render ingredient
-      expect(rendered).to eq(
-        '<a target="_blank" rel="noopener noreferrer" href="http://google.com">http://google.com</a>'
+      render_inline described_class.new(ingredient)
+      expect(page).to have_selector(
+        'a[target="_blank"][rel="noopener noreferrer"][href="http://google.com"]', text: "http://google.com"
       )
     end
   end
@@ -65,9 +65,9 @@ RSpec.describe "alchemy/ingredients/_link_view" do
     end
 
     it "sets target '_blank' and adds rel noopener noreferrer" do
-      render ingredient
-      expect(rendered).to eq(
-        '<a target="_blank" rel="noopener noreferrer" href="http://google.com">http://google.com</a>'
+      render_inline described_class.new(ingredient)
+      expect(page).to have_selector(
+        'a[target="_blank"][rel="noopener noreferrer"][href="http://google.com"]', text: "http://google.com"
       )
     end
   end

@@ -94,16 +94,6 @@ RSpec.describe Alchemy::Ingredient do
     end
   end
 
-  describe "#to_partial_path" do
-    let(:ingredient) { Alchemy::Ingredients::Richtext.new(role: "text", element: element) }
-
-    subject { ingredient.to_partial_path }
-
-    it "returns the path to the view partial" do
-      is_expected.to eq "alchemy/ingredients/richtext_view"
-    end
-  end
-
   describe "#has_validations?" do
     let(:ingredient) { Alchemy::Ingredients::Text.new(role: "headline", element: element) }
 

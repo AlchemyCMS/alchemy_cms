@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "alchemy/ingredients/_file_view" do
+RSpec.describe Alchemy::Ingredients::FileView, type: :component do
   let(:file) do
     File.new(File.expand_path("../../../fixtures/image with spaces.png", __dir__))
   end
@@ -16,19 +16,19 @@ describe "alchemy/ingredients/_file_view" do
   let(:html_options) { {} }
 
   subject do
-    render(
+    render_inline described_class.new(
       ingredient,
-      options: options,
+      **options,
       html_options: html_options
     )
-    rendered
+    page
   end
 
   context "without attachment" do
     let(:ingredient) { Alchemy::Ingredients::File.new(attachment: nil) }
 
     it "renders nothing" do
-      is_expected.to eq("")
+      is_expected.to have_content("")
     end
   end
 

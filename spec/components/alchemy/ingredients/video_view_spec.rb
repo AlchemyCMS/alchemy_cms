@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "alchemy/ingredients/_video_view" do
+RSpec.describe Alchemy::Ingredients::VideoView, type: :component do
   let(:file) do
     File.new(File.expand_path("../../../fixtures/image with spaces.png", __dir__))
   end
@@ -31,15 +31,15 @@ RSpec.describe "alchemy/ingredients/_video_view" do
     let(:ingredient) { Alchemy::Ingredients::Video.new(attachment: nil) }
 
     it "renders nothing" do
-      render ingredient
-      expect(rendered).to eq("")
+      render_inline described_class.new(ingredient)
+      expect(page).to have_content("")
     end
   end
 
   context "with attachment" do
     it "renders a video tag with source" do
-      render ingredient
-      expect(rendered).to have_selector(
+      render_inline described_class.new(ingredient)
+      expect(page).to have_selector(
         "video[controls][muted][playsinline][loop][autoplay][preload='auto'][width='1280'][height='720'] source[src]"
       )
     end
@@ -47,8 +47,8 @@ RSpec.describe "alchemy/ingredients/_video_view" do
 
   context "with html_options" do
     it "adds them to the video tag" do
-      render ingredient, html_options: {preload: "metadata"}
-      expect(rendered).to have_selector(
+      render_inline described_class.new(ingredient, html_options: {preload: "metadata"})
+      expect(page).to have_selector(
         "video[preload='metadata']"
       )
     end

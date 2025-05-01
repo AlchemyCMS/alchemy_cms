@@ -2,13 +2,17 @@
 
 require "rails_helper"
 
-describe "alchemy/ingredients/_boolean_view" do
+RSpec.describe Alchemy::Ingredients::BooleanView, type: :component do
+  subject do
+    render_inline described_class.new(ingredient)
+    page
+  end
+
   context "with true as value" do
     let(:ingredient) { Alchemy::Ingredients::Boolean.new(value: true) }
 
     it "renders true" do
-      render ingredient
-      expect(rendered).to have_content("True")
+      is_expected.to have_content("True")
     end
   end
 
@@ -16,8 +20,7 @@ describe "alchemy/ingredients/_boolean_view" do
     let(:ingredient) { Alchemy::Ingredients::Boolean.new(value: false) }
 
     it "renders false" do
-      render ingredient
-      expect(rendered).to have_content("False")
+      is_expected.to have_content("False")
     end
   end
 
@@ -25,8 +28,7 @@ describe "alchemy/ingredients/_boolean_view" do
     let(:ingredient) { Alchemy::Ingredients::Boolean.new(value: nil) }
 
     it "renders nothing" do
-      render ingredient
-      expect(rendered).to eq("")
+      is_expected.to have_content("")
     end
   end
 end

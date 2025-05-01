@@ -2,14 +2,14 @@
 
 require "rails_helper"
 
-RSpec.describe "alchemy/ingredients/_richtext_view" do
+RSpec.describe Alchemy::Ingredients::RichtextView, type: :component do
   let(:element) { build(:alchemy_element, name: "all_you_can_eat") }
   let(:ingredient) { Alchemy::Ingredients::Richtext.new(role: "richtext", value: "<h1>Lorem ipsum dolor sit amet</h1> <p>consectetur adipiscing elit.</p>", data: {stripped_body: "Lorem ipsum dolor sit amet consectetur adipiscing elit."}, element: element) }
   let(:options) { {} }
 
   subject do
-    render ingredient, options: options
-    rendered
+    render_inline described_class.new(ingredient, **options)
+    page
   end
 
   it "renders the html body" do
