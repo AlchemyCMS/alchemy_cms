@@ -79,6 +79,7 @@ const icons = [
   "System/add-line",
   "System/alert-line",
   "System/check-line",
+  "System/checkbox-multiple-line",
   "System/close-line",
   "System/delete-bin-2-line",
   "System/download-2-line",
