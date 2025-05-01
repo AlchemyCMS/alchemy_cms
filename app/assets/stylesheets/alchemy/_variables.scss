@@ -192,7 +192,7 @@ $thumbnail-background:
   linear-gradient(45deg, transparent 75%, var(--color-grey_light) 75%) 0 0/1em
     1em,
   linear-gradient(-45deg, transparent 75%, var(--color-grey_light) 75%) 0 0.5em/1em
-    1em var(--color-white) !default;
+    1em var(--color-grey_medium) !default;
 
 $small-screen-break-point: 500px;
 $medium-screen-break-point: 700px;
