@@ -63,9 +63,12 @@ RSpec.describe "Legacy page url management", type: :system, js: true do
     end
 
     it "lets a user remove a page link" do
-      page.accept_alert do
-        click_link_with_tooltip("Remove")
+      click_link_with_tooltip("Remove")
+
+      within "sl-dialog[open]" do
+        click_button "Yes"
       end
+
       within "#legacy_page_urls" do
         expect(page).to_not have_content("a-page-link")
         expect(page).to have_content(Alchemy.t("No page links for this page found"))

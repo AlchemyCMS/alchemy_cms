@@ -231,7 +231,7 @@ export class ElementEditor extends HTMLElement {
   setDirty() {
     if (this.hasEditors) {
       this.dirty = true
-      window.onbeforeunload = () => Alchemy.t("page_dirty_notice")
+      window.onbeforeunload = (event) => event.preventDefault()
     }
   }
 

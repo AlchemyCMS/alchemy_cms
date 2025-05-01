@@ -37,6 +37,16 @@ module Alchemy
       end
     end
 
+    describe "#link_to_confirm_dialog" do
+      subject { link_to_confirm_dialog("Delete", "Sure?", "/delete/me", class: "button") }
+
+      it "renders a link tag with a data attribute for confirm dialog" do
+        is_expected.to have_selector(
+          "a.button[data-turbo-method='delete'][data-turbo-confirm='Sure?'][href='/delete/me']", text: "Delete"
+        )
+      end
+    end
+
     describe "#translations_for_select" do
       it "should return an Array of Arrays with available locales" do
         allow(Alchemy::I18n).to receive(:available_locales).and_return(%i[de en cz it])
@@ -81,7 +91,7 @@ module Alchemy
       subject { button_with_confirm }
 
       it "renders a button tag with a data attribute for confirm dialog" do
-        is_expected.to have_selector("button[data-alchemy-confirm]")
+        is_expected.to have_selector("button[data-turbo-confirm]")
       end
     end
 

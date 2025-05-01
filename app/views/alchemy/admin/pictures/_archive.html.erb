@@ -19,12 +19,9 @@
       id: 'edit_multiple_pictures',
       style: 'float: none'
     ) %>
-    <%= button_tag render_icon("delete-bin-2", size: '1x') + Alchemy.t("Delete"), 'data-alchemy-confirm' => {
-      title: Alchemy.t(:please_confirm),
-      message: Alchemy.t(:confirm_to_delete_images_from_server),
-      ok_label: Alchemy.t("Yes"),
-      cancel_label: Alchemy.t("No")
-    }.to_json, class: 'button with_icon' %>
+    <%= button_tag render_icon("delete-bin-2", size: '1x') + Alchemy.t("Delete"),
+      'data-turbo-confirm': Alchemy.t(:confirm_to_delete_images_from_server),
+      class: 'button with_icon' %>
     &nbsp;<%= Alchemy.t(:or) %>&nbsp;
     <%= link_to(
       render_icon(:close) + Alchemy.t("Clear selection"),
