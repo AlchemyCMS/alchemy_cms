@@ -42,7 +42,6 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency "cancancan", [">= 2.1", "< 4.0"]
   gem.add_runtime_dependency "csv", ["~> 3.3"]
   gem.add_runtime_dependency "dragonfly", ["~> 1.4"]
-  gem.add_runtime_dependency "dragonfly_svg", ["~> 0.0.4"]
   gem.add_runtime_dependency "gutentag", ["~> 2.2", ">= 2.2.1"]
   gem.add_runtime_dependency "importmap-rails", ["~> 2.0"]
   gem.add_runtime_dependency "kaminari", ["~> 1.1"]
