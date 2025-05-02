@@ -2,13 +2,13 @@
 
 require "rails_helper"
 
-RSpec.describe "alchemy/ingredients/_node_view" do
+RSpec.describe Alchemy::Ingredients::NodeView, type: :component do
   context "without node" do
     let(:ingredient) { Alchemy::Ingredients::Node.new }
 
     it "renders nothing" do
-      render ingredient
-      expect(rendered.strip).to be_empty
+      render_inline described_class.new(ingredient)
+      expect(page).to have_content("")
     end
   end
 
@@ -17,8 +17,8 @@ RSpec.describe "alchemy/ingredients/_node_view" do
     let(:ingredient) { Alchemy::Ingredients::Node.new(node: node) }
 
     it "renders the node" do
-      render ingredient
-      expect(rendered).to have_selector("a[href='https://example.com']")
+      render_inline described_class.new(ingredient)
+      expect(page).to have_selector("a[href='https://example.com']")
     end
   end
 end

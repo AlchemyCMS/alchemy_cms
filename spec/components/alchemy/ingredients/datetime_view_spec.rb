@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "alchemy/ingredients/_datetime_view" do
+RSpec.describe Alchemy::Ingredients::DatetimeView, type: :component do
   around do |example|
     time_zone = Rails.application.config.time_zone
     Rails.application.config.time_zone = "Berlin"
@@ -16,11 +16,15 @@ describe "alchemy/ingredients/_datetime_view" do
 
   let(:options) { {} }
 
+  subject do
+    render_inline described_class.new(ingredient, **options)
+    page
+  end
+
   context "with date value" do
     context "without date_format passed" do
       it "translates the date value with default format" do
-        render ingredient, options: options
-        expect(rendered).to have_content("2024-08-29 12:00")
+        is_expected.to have_content("2024-08-29 12:00")
       end
     end
 
@@ -28,8 +32,7 @@ describe "alchemy/ingredients/_datetime_view" do
       let(:options) { {date_format: "rfc822"} }
 
       it "renders the date rfc822 conform" do
-        render ingredient, options: options
-        expect(rendered).to have_content("Thu, 29 Aug 2024 12:00:00 +0200")
+        is_expected.to have_content("Thu, 29 Aug 2024 12:00:00 +0200")
       end
     end
   end
@@ -38,8 +41,7 @@ describe "alchemy/ingredients/_datetime_view" do
     let(:ingredient) { Alchemy::Ingredients::Datetime.new(value: nil) }
 
     it "renders nothing" do
-      render ingredient, options: options
-      expect(rendered).to eq("")
+      is_expected.to have_content("")
     end
   end
 end

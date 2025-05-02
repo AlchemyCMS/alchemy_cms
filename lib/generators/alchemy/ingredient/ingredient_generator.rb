@@ -24,9 +24,6 @@ module Alchemy
 
       def copy_templates
         @ingredient_editor_local = "#{file_name}_editor"
-        @ingredient_view_local = "#{file_name}_view"
-        @ingredient_view_component_class = "#{@class_name}View"
-        template "view.html.erb", "#{@ingredients_view_path}/_#{file_name}_view.html.erb"
         template "editor.html.erb", "#{@ingredients_view_path}/_#{file_name}_editor.html.erb"
       end
 

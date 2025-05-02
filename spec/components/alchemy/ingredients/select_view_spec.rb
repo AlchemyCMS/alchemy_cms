@@ -2,20 +2,20 @@
 
 require "rails_helper"
 
-RSpec.describe "alchemy/ingredients/_select_view" do
+RSpec.describe Alchemy::Ingredients::SelectView, type: :component do
   let(:ingredient) { Alchemy::Ingredients::Select.new(value: "blue") }
 
   it "renders the ingredients value" do
-    render ingredient
-    expect(rendered).to have_content("blue")
+    render_inline described_class.new(ingredient)
+    expect(page).to have_content("blue")
   end
 
   context "without value" do
     let(:ingredient) { Alchemy::Ingredients::Select.new(value: "") }
 
     it "does not render" do
-      render ingredient
-      expect(rendered).to have_content("")
+      render_inline described_class.new(ingredient)
+      expect(page).to have_content("")
     end
   end
 end

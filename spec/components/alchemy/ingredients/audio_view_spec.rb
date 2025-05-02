@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "alchemy/ingredients/_audio_view" do
+RSpec.describe Alchemy::Ingredients::AudioView, type: :component do
   let(:file) do
     File.new(File.expand_path("../../../fixtures/image with spaces.png", __dir__))
   end
@@ -22,19 +22,22 @@ RSpec.describe "alchemy/ingredients/_audio_view" do
     )
   end
 
+  subject do
+    render_inline described_class.new(ingredient)
+    page
+  end
+
   context "without attachment" do
     let(:ingredient) { Alchemy::Ingredients::Audio.new(attachment: nil) }
 
     it "renders nothing" do
-      render ingredient
-      expect(rendered).to eq("")
+      is_expected.to have_content("")
     end
   end
 
   context "with attachment" do
     it "renders a audio tag with source" do
-      render ingredient
-      expect(rendered).to have_selector(
+      is_expected.to have_selector(
         "audio[controls][muted][loop][autoplay] source[src]"
       )
     end
