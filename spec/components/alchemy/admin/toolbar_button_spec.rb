@@ -19,6 +19,22 @@ RSpec.describe Alchemy::Admin::ToolbarButton, type: :component do
       expect(page).to have_css %(sl-tooltip a.icon_button[href="#{admin_dashboard_path}"])
     end
 
+    context "with id option set" do
+      let(:component) do
+        described_class.new(
+          url: admin_dashboard_path,
+          icon: "info",
+          label: "Show Info",
+          id: "my-button"
+        )
+      end
+
+      it "renders a normal link" do
+        render_inline component
+        expect(page).to have_css("#my-button.toolbar_button")
+      end
+    end
+
     context "with dialog option set to false" do
       let(:component) do
         described_class.new(
