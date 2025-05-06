@@ -49,4 +49,4 @@ Object.assign(Alchemy, {
 
 Rails.start()
 Turbo.config.forms.confirm = openConfirmDialog
-$(document).on("turbo:load", Initializer)
+document.addEventListener("turbo:load", Initializer)
