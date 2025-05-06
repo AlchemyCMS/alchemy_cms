@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.4.4 (2025-05-06)
+
+- [7.4-stable] Fix Icons [#3257](https://github.com/AlchemyCMS/alchemy_cms/pull/3257) ([tvdeyen](https://github.com/tvdeyen))
+- [7.4-stable] fix(alchemy-select): Remove clear button of select2 [#3253](https://github.com/AlchemyCMS/alchemy_cms/pull/3253) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.4] Fix thumbnail bg pattern [#3250](https://github.com/AlchemyCMS/alchemy_cms/pull/3250) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.4.3 (2025-04-23)
 
 - [7.4-stable] Hide body while custom elements load [#3232](https://github.com/AlchemyCMS/alchemy_cms/pull/3232) ([tvdeyen](https://github.com/tvdeyen))
