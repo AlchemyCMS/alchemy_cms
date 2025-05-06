@@ -98,14 +98,13 @@
       {{/if}}
       {{#if permissions.copy}}
       <sl-tooltip content="<%= Alchemy.t(:copy_page) %>">
-        <%= link_to(
+        <%= button_to(
           render_icon("file-copy"),
           alchemy.insert_admin_clipboard_path(
             remarkable_type: :pages,
             remarkable_id: "__ID__",
           ),
-          remote: true,
-          method: :post,
+          "data-turbo-method": :post,
           class: "icon_button"
         ) %>
       </sl-tooltip>

@@ -1,0 +1,11 @@
+<%# Update add nested element forms for any elements that accept ONLY this as a nested element %>
+<% if @item.class == Alchemy::Element %>
+  <%
+    @item.page.draft_version.elements.expanded.select do |element|
+      element.definition["nestable_elements"] == [@item.name]
+    end.each do |element|
+  %>
+    <%= turbo_stream.replace_all ".add-nested-element[data-element-id='#{element.id}']",
+      partial: "alchemy/admin/elements/add_nested_element_form", locals: {element: element} %>
+  <% end %>
+<% end %>

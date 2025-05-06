@@ -15,18 +15,7 @@
     tooltip_placement: "top-start",
     if_permitted_to: [:create, Alchemy::Page]
   ) %>
-  <%= render Alchemy::Admin::ToolbarButton.new(
-    icon: clipboard_empty?('pages') ? 'clipboard' : 'paste',
-    url: alchemy.admin_clipboard_path(remarkable_type: 'pages'),
-    dialog_options: {
-      title: Alchemy.t('Clipboard'),
-      size: '380x270'
-    },
-    title: Alchemy.t('Show clipboard'),
-    link_options: {id: "clipboard_button"},
-    label: Alchemy.t('Show clipboard'),
-    if_permitted_to: [:create, Alchemy::Page]
-  ) %>
+  <%= render "alchemy/admin/clipboard/button", remarkable_type: "pages" %>
 </div>
 <% end %>
 

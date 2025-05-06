@@ -1,0 +1,9 @@
+<% if @clipboard.blank? %>
+  <%= render template: "alchemy/admin/clipboard/clear" %>
+<% else %>
+  <%= turbo_stream.remove "clipboard_item_#{@item.id}" %>
+  <%= render "update_nested_element_button" %>
+  <alchemy-growl>
+    <%= Alchemy.t("item removed from clipboard", name: @item.class.to_s == "Element" ? @item.display_name_with_preview_text : @item.name) %>
+  </alchemy-growl>
+<% end %>

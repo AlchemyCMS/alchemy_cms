@@ -1,0 +1,18 @@
+<% if @item.class.name == 'Alchemy::Element' && params[:remove] -%>
+  <% if @item.fixed? -%>
+    <alchemy-action name="removeFixedElement" params="[<%= @item.id %>]" />
+  <% else -%>
+    <%= turbo_stream.remove "element_#{@item.id}" %>
+  <% end -%>
+  <alchemy-growl>
+    <%= Alchemy.t("item moved to clipboard", name: @item.display_name_with_preview_text) %>
+  </alchemy-growl>
+<% else -%>
+  <alchemy-growl>
+    <%= Alchemy.t("item copied to clipboard", name: @item.class.name == "Alchemy::Element" ? @item.display_name_with_preview_text : @item.name) %>
+  </alchemy-growl>
+<% end -%>
+
+<%= turbo_stream.replace "clipboard_button", partial: "button" %>
+
+<%= render "update_nested_element_button" %>

@@ -33,7 +33,7 @@ module Alchemy
     #
     class ToolbarButton < ViewComponent::Base
       erb_template <<-ERB
-        <div class="toolbar_button">
+        <div class="toolbar_button" id="<%= id %>">
           <sl-tooltip content="<%= label %>" placement="<%= tooltip_placement %>">
             <%= link_to(render_icon(icon, style: icon_style), url, {
               class: css_classes,
@@ -57,6 +57,7 @@ module Alchemy
         :if_permitted_to,
         :active,
         :link_options,
+        :id,
         :icon_style,
         :tooltip_placement
 
@@ -72,6 +73,7 @@ module Alchemy
         if_permitted_to: [],
         active: false,
         link_options: {},
+        id: nil,
         icon_style: "line",
         tooltip_placement: "top-start"
       )
@@ -85,6 +87,7 @@ module Alchemy
         @if_permitted_to = if_permitted_to
         @active = active
         @link_options = link_options
+        @id = id
         @icon_style = icon_style
         @tooltip_placement = tooltip_placement
       end
@@ -100,7 +103,7 @@ module Alchemy
       def permission_options = if_permitted_to.presence || permissions_from_url
 
       def permissions_from_url
-        action_controller = url.gsub(/\A\//, "").split("/")
+        action_controller = url.delete_prefix("/").split("/")
         [
           action_controller.last.to_sym,
           action_controller[0..action_controller.length - 2].join("_").to_sym

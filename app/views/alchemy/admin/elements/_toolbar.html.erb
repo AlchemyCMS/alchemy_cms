@@ -1,20 +1,18 @@
 <% remarkable_type = "elements" %>
 <div class="element-toolbar">
   <sl-tooltip placement="top-start" content="<%= Alchemy.t(:copy_element) %>">
-    <%= link_to(
+    <%= button_to(
       render_icon("file-copy"),
       alchemy.insert_admin_clipboard_path(remarkable_type: remarkable_type, remarkable_id: element.id),
-      remote: true,
-      method: :post,
+      "data-turbo-method": :post,
       class: "icon_button"
     ) %>
   </sl-tooltip>
   <sl-tooltip content="<%= Alchemy.t(:cut_element) %>">
-    <%= link_to(
+    <%= button_to(
       render_icon("scissors-cut"),
       alchemy.insert_admin_clipboard_path(remarkable_type: remarkable_type, remarkable_id: element.id, remove: true),
-      remote: true,
-      method: :post,
+      "data-turbo-method": :post,
       class: "icon_button"
     ) %>
   </sl-tooltip>

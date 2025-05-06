@@ -25,7 +25,8 @@
 <% end %>
 
 <%= turbo_stream.replace "clipboard_button",
-  partial: "alchemy/admin/elements/clipboard_button" %>
+  partial: "alchemy/admin/clipboard/button",
+  locals: {remarkable_type: "elements"} %>
 
 <alchemy-growl>
   <%= Alchemy.t(:successfully_added_element) %>
