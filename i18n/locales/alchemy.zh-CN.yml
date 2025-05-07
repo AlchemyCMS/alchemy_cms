@@ -346,6 +346,7 @@ zh-CN:
     "clear clipboard": "清空剪贴板"
     "clear trash": "清空垃圾箱"
     click_to_show_all: "单击再次显示所有的"
+    confirm_to_delete_element: "你确认要删除这个元素？"
     confirm_to_delete_file: "你确认要从服务器上删除这些文件？"
     confirm_to_delete_image: "你确认要从服务器上删除这些图片？"
     confirm_to_delete_image_from_server: "你确认要从服务器上删除这些图片？"

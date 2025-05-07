@@ -328,6 +328,7 @@ nl:
     "clear clipboard": "Klembord leegmaken"
     "clear trash": "Prullenbak leegmaken"
     click_to_show_all: "Klik om alles nogmaals weer te geven."
+    confirm_to_delete_element: "Element zeker verwijderen?"
     confirm_to_delete_file: "Bestand van de server verwijderen?"
     confirm_to_delete_image: "Afbeelding van de server verwijderen?"
     confirm_to_delete_image_from_server: "Afbeelding van de server verwijderen?"

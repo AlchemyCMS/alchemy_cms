@@ -332,6 +332,7 @@ it:
     "clear clipboard": "svuota appunti"
     "clear trash": "svuota cestino"
     click_to_show_all: "Clicca per tornare a mostrare tutto."
+    confirm_to_delete_element: "Vuoi veramente eliminare questo elemento?"
     confirm_to_delete_file: "Vuoi veramente eliminare questo file dal server?"
     confirm_to_delete_image: "Vuoi veramente eliminare questa immagine dal server?"
     confirm_to_delete_image_from_server: "Vuoi veramente eliminare questa immagine dal server?"

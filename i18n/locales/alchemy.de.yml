@@ -454,6 +454,7 @@ de:
     "clear trash": "Papierkorb leeren"
     click_to_show_all: "wieder alles anzeigen"
     "Collapse all elements": "Alle Elemente einklappen"
+    confirm_to_delete_element: "Wollen Sie dieses Element wirklich löschen?"
     confirm_to_delete_file: "Wollen Sie diese Datei wirklich vom Server löschen?"
     confirm_to_delete_image: "Wollen Sie dieses Bild wirklich löschen?"
     confirm_to_delete_image_from_server: "Wollen Sie dieses Bild wirklich vom Server löschen?"

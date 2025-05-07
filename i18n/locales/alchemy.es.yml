@@ -439,6 +439,7 @@ es:
     "clear clipboard": "vaciar portapapeles"
     "clear trash": "vaciar papelera"
     click_to_show_all: "Pulsa para mostrar todo de nuevo."
+    confirm_to_delete_element: "¿Realmente deseas eliminar este elemento?"
     confirm_to_delete_file: "¿Realmente desea eliminar este archivo del servidor?"
     confirm_to_delete_image: "¿Realmente desea eliminar esta imagen del servidor?"
     confirm_to_delete_image_from_server: "¿Realmente desea eliminar esta imagen del servidor?"

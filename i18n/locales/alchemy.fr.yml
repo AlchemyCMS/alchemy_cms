@@ -350,6 +350,7 @@ fr:
     "clear clipboard": "Vider le presse papier"
     "clear trash": "Vider la corbeille"
     click_to_show_all: "Visualiser tout"
+    confirm_to_delete_element: "Voulez-vous vraiment supprimer cet élément ?"
     confirm_to_delete_file: "Voulez-vous vraiment supprimer ce fichier à partir du serveur ?"
     confirm_to_delete_image: "Voulez-vous vraiment supprimer l’image ?"
     confirm_to_delete_image_from_server: "Voulez-vous vraiment supprimer l’image du serveur ?"
