@@ -10,13 +10,13 @@
 
 select {
   @include mixins.button-defaults(
-    $background-color: var(--form-field-background-color),
-    $hover-color: var(--form-field-background-color),
-    $hover-border-color: var(--button-hover-border-color),
+    $background-color: var(--select-background-color),
+    $hover-color: var(--select-background-color),
+    $hover-border-color: var(--select-hover-border-color),
     $padding: var(--spacing-1) 26px var(--spacing-1) var(--spacing-2),
-    $border: 1px solid var(--button-border-color),
+    $border: 1px solid var(--select-border-color),
     $box-shadow: none,
-    $color: var(--form-field-text-color),
+    $color: var(--select-text-color),
     $margin: 0
   );
 
@@ -26,10 +26,7 @@ select {
     width: auto;
     font-weight: normal;
     vertical-align: middle;
-    background-image: var(
-      --select-background-image,
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='hsla(224deg, 23%, 26%, 0.75)' viewBox='0 0 24 24'%3E%3Cpath d='M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z'%3E%3C/path%3E%3C/svg%3E")
-    );
+    background-image: var(--select-background-image);
     background-position: right 0.75em center;
     background-repeat: no-repeat;
     background-size: 1em;
@@ -54,13 +51,13 @@ select {
       width: 100%;
       height: var(--form-field-height);
       @include mixins.button-defaults(
-        $background-color: var(--form-field-background-color),
-        $hover-color: var(--form-field-background-color),
-        $hover-border-color: var(--button-hover-border-color),
+        $background-color: var(--select-background-color),
+        $hover-color: var(--select-background-color),
+        $hover-border-color: var(--select-hover-border-color),
         $padding: var(--form-field-padding),
-        $border: 1px solid var(--button-border-color),
+        $border: 1px solid var(--select-border-color),
         $box-shadow: none,
-        $color: var(--form-field-text-color),
+        $color: var(--select-text-color),
         $margin: 0
       );
 
@@ -95,8 +92,7 @@ select {
             content: "";
             width: 1rem;
             height: 1rem;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="hsla(224deg, 23%, 26%, 0.75)"><path d="M11.9999 13.1714L16.9497 8.22168L18.3639 9.63589L11.9999 15.9999L5.63599 9.63589L7.0502 8.22168L11.9999 13.1714Z"></path></svg>')
-              no-repeat;
+            background: var(--select-background-image) no-repeat;
           }
         }
       }
@@ -130,16 +126,17 @@ select {
       .select2-choice,
       .select2-choice:hover {
         background-image: none;
-        background-color: var(--color-grey_very_light);
+        background-color: var(--select-disabled-background-color);
         box-shadow: none;
-        border-color: var(border-inset-color);
+        border-color: var(--select-disabled-border-color);
         cursor: not-allowed;
+        color: var(--select-disabled-text-color);
 
         .select2-arrow {
-          border-color: var(border-inset-color);
+          border-color: var(--select-disabled-border-color);
 
           b {
-            color: var(border-inset-color);
+            color: var(--text-color-muted);
           }
         }
       }
@@ -160,8 +157,7 @@ select {
         display: inline-flex;
         width: 12px;
         height: 12px;
-        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="hsla(224deg, 23%, 26%, 0.75)"><path d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"></path></svg>')
-          no-repeat;
+        background: var(--select-close-icon) no-repeat;
       }
 
       &:hover {
@@ -203,6 +199,10 @@ select {
           color: var(--form-field-text-color);
           padding: 3px 6px;
           margin: 0;
+
+          &.select2-active {
+            background: var(--form-field-background-color) !important;
+          }
         }
       }
     }
@@ -210,11 +210,28 @@ select {
 }
 
 .select2-drop {
+  background: var(--select-dropdown-background-color);
+  box-shadow: var(--select-dropdown-box-shadow);
+  color: var(--select-dropdown-text-color, var(--text-color));
+  margin-top: 1px;
+
+  &.select2-drop-above {
+    margin-top: -1px;
+
+    &.select2-drop-active {
+      border-top-color: var(--select-dropdown-border-color);
+    }
+  }
+
   .select2-search {
     margin: var(--spacing-1) 0;
 
     .select2-input {
       width: inherit;
+
+      &.select2-active {
+        background: var(--form-field-background-color) !important;
+      }
     }
   }
 
@@ -239,8 +256,8 @@ select {
       padding: var(--spacing-1) 0;
 
       &.select2-highlighted {
-        background: var(--select-hover-bg-color);
-        color: var(--select-hover-text-color);
+        background: var(--select-hover-bg-color, var(--color-blue_dark));
+        color: var(--select-hover-text-color, var(--color-white));
       }
 
       &.select2-result-with-children {
@@ -252,6 +269,7 @@ select {
     .select2-searching {
       padding: var(--spacing-2);
       margin: 0;
+      background: var(--select-dropdown-background-color);
     }
 
     .select2-result-label {
@@ -265,13 +283,15 @@ select {
 
   &.select2-drop-active {
     border-radius: var(--border-radius_medium);
-    border: var(--border-default);
+    border: 1px solid var(--select-dropdown-border-color);
   }
 
   .select2-more-results,
   .select2-ajax-error {
     padding: var(--spacing-2);
     margin-bottom: 0;
+    background: var(--notice-error-background-color);
+    color: var(--notice-error-text-color);
   }
 }
 

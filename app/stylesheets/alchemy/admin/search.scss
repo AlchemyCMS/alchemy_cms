@@ -59,7 +59,7 @@
     width: 0;
     height: 100%;
     border: none;
-    background-color: hsla(0deg, 0%, 100%, 0.75);
+    background-color: var(--search-field-background-color);
     transition:
       width var(--transition-duration) ease-in-out,
       background-color var(--transition-duration) linear;

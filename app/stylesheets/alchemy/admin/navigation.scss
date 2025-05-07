@@ -258,7 +258,6 @@
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
-  color: #444;
   border-right: var(--border-default);
   border-bottom: var(--border-default);
 
@@ -308,4 +307,12 @@
   .page_language {
     text-transform: uppercase;
   }
+}
+
+alchemy-theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-4) var(--spacing-4);
+  color: var(--main-menu-text-color);
 }

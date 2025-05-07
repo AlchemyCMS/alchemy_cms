@@ -23,6 +23,7 @@ import "alchemy_admin/components/preview_window"
 import "alchemy_admin/components/select"
 import "alchemy_admin/components/spinner"
 import "alchemy_admin/components/tags_autocomplete"
+import "alchemy_admin/components/theme_toggle"
 import "alchemy_admin/components/tinymce"
 import "alchemy_admin/components/update_check"
 
