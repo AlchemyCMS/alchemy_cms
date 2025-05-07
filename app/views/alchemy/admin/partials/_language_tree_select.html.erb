@@ -3,16 +3,16 @@
 <div class="toolbar_button">
   <sl-tooltip content="<%= Alchemy.t("Language tree") %>">
     <%= form_tag switch_admin_languages_path, method: 'get' do %>
-      <%= select_tag(
-        'language_id',
-        options_for_select(
-          languages.map { |l| [l.name, l.id] },
-          Alchemy::Current.language.id
-        ),
-        class: 'short',
-        is: 'alchemy-select',
-        data: {'auto-submit' => true}
-      ) %>
+      <alchemy-auto-submit>
+        <%= select_tag(
+          :language_id,
+          options_for_select(
+            languages.map { |l| [l.name, l.id] },
+            Alchemy::Current.language.id
+          ),
+          class: "short"
+        ) %>
+      </alchemy-auto-submit>
     <% end %>
   </sl-tooltip>
 </div>
