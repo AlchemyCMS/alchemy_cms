@@ -13,6 +13,7 @@ Alchemy.translations = {
     "Sie haben ungesicherte Änderungen auf der Seite. Diese gehen verloren, wenn Sie fortfahren.",
   page_found: "Seite gefunden",
   pages_found: "Seiten gefunden",
+  "Please confirm": "Bitte bestätigen",
   "Search page": "Seite wählen",
   url_validation_failed: "Die URL hat kein gültiges Format.",
   warning: "Achtung!",
@@ -30,4 +31,6 @@ Alchemy.translations = {
     time: "H:i",
     time_24hr: true,
   },
+  Yes: "Ja",
+  No: "Nein",
 }
