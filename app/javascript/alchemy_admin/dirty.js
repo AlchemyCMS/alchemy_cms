@@ -27,8 +27,9 @@ function checkPageDirtyness(element) {
     openConfirmDialog(translate("page_dirty_notice"), {
       title: translate("warning"),
       ok_label: translate("ok"),
-      cancel_label: translate("cancel"),
-      on_ok: function () {
+      cancel_label: translate("cancel")
+    }).then((proceed) => {
+      if (proceed) {
         window.onbeforeunload = void 0
         callback()
       }

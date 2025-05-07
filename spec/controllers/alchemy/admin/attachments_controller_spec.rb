@@ -186,12 +186,11 @@ module Alchemy
         expect(Attachment).to receive(:find).and_return(attachment)
       end
 
-      it "destroys the attachment and sets a success message" do
+      it "destroys the attachment, sets a success message and redirects" do
         expect(attachment).to receive(:destroy)
-        delete :destroy, params: {id: 1}, xhr: true
-        expect(assigns(:attachment)).to eq(attachment)
-        expect(assigns(:url)).not_to be_blank
-        expect(flash[:notice]).not_to be_blank
+        delete :destroy, params: {id: 1}
+        expect(flash[:notice]).to eq("image has been deleted")
+        expect(response).to redirect_to admin_attachments_path
       end
 
       context "with search params" do
@@ -206,7 +205,7 @@ module Alchemy
         it "passes them along" do
           expect(attachment).to receive(:destroy) { true }
           delete :destroy, params: {id: 1}.merge(search_filter_params), xhr: true
-          expect(assigns(:url)).to eq admin_attachments_url(search_filter_params.merge(host: "test.host"))
+          expect(response).to redirect_to admin_attachments_url(search_filter_params.merge(host: "test.host"))
         end
       end
     end

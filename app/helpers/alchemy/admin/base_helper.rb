@@ -114,12 +114,10 @@ module Alchemy
       def link_to_confirm_dialog(link_string = "", message = "", url = "", html_options = {})
         link_to(link_string, url,
           html_options.merge(
-            "data-alchemy-confirm-delete" => {
-              title: Alchemy.t(:please_confirm),
-              message: message,
-              ok_label: Alchemy.t("Yes"),
-              cancel_label: Alchemy.t("No")
-            }.to_json
+            data: {
+              "turbo-method": :delete,
+              "turbo-confirm": message
+            }
           ))
       end
 
@@ -145,12 +143,10 @@ module Alchemy
       def button_with_confirm(value = "", url = "", options = {}, html_options = {})
         options = {
           message: Alchemy.t(:confirm_to_proceed),
-          ok_label: Alchemy.t("Yes"),
-          title: Alchemy.t(:please_confirm),
-          cancel_label: Alchemy.t("No")
+          title: Alchemy.t(:please_confirm)
         }.merge(options)
         form_tag url, {method: html_options.delete(:method), class: "button-with-confirm"} do
-          button_tag value, html_options.merge("data-alchemy-confirm" => options.to_json)
+          button_tag value, html_options.merge("data-turbo-confirm" => options[:message])
         end
       end
 

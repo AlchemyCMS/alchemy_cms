@@ -12,6 +12,7 @@ Alchemy.translations = {
     "You have unsaved changes on this page. They will be lost if you continue.",
   page_found: "Page found",
   pages_found: "Pages found",
+  "Please confirm": "Please confirm",
   url_validation_failed: "The url has no valid format.",
   warning: "Warning!",
   "File is too large": "File is too large",
@@ -30,5 +31,7 @@ Alchemy.translations = {
     date: "Y-m-d",
     time: "H:i",
     time_24hr: false
-  }
+  },
+  Yes: "Yes",
+  No: "No"
 }

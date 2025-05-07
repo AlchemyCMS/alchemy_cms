@@ -1,5 +1,3 @@
-import { growl } from "alchemy_admin/growler"
-import pleaseWaitOverlay from "alchemy_admin/please_wait_overlay"
 import { createHtmlElement } from "alchemy_admin/utils/dom_helpers"
 import { translate } from "alchemy_admin/i18n"
 
@@ -45,6 +43,7 @@ class ConfirmDialog {
   #bindEvents() {
     this.cancelButton.addEventListener("click", (evt) => {
       evt.preventDefault()
+      this.options.on_cancel()
       this.dialog.hide()
     })
     this.okButton.addEventListener("click", (evt) => {
@@ -55,6 +54,7 @@ class ConfirmDialog {
     // Prevent the dialog from closing when the user clicks on the overlay
     this.dialog.addEventListener("sl-request-close", (event) => {
       if (event.detail.source === "overlay") {
+        this.options.on_cancel()
         event.preventDefault()
       }
     })
@@ -73,60 +73,29 @@ class ConfirmDialog {
   }
 }
 
-// Opens a confirm dialog
-//
-// Arguments:
-//
-// message - The message that will be displayed to the user (String)
-//
-// Options:
-//
-//   title: ''         - The title of the overlay window (String)
-//   cancel_label: ''   - The label of the cancel button (String)
-//   ok_label: ''       - The label of the ok button (String)
-//   on_ok: null  - The function to invoke on confirmation (Function)
-//
+/* Opens a confirm dialog
+ *
+ * @param {string} message - The message that will be displayed to the user
+ * @param {Object} [options={}] - Configuration options for the dialog
+ * @param {string} [options.title="Please confirm"] - The title of the overlay window
+ * @param {string} [options.cancel_label="No"] - The label of the cancel button
+ * @param {string} [options.ok_label="Yes"] - The label of the ok button
+ *
+ * @returns {Promise<void>} A promise that resolves to true when the OK button is clicked and
+ *   resolves to false when the cancel button is clicked. Works as confirm dialog replacement
+ *   for Turbo.confirm.
+ */
 export function openConfirmDialog(message, options = {}) {
-  const dialog = new ConfirmDialog(message, options)
-  dialog.open()
-  return dialog
-}
-
-// Opens a confirm to delete dialog
-//
-// Arguments:
-//
-//   url  - The url to the server delete action. Uses DELETE as HTTP method. (String)
-//   opts - An options object (Object)
-//
-// Options:
-//
-//   title: ''        - The title of the confirmation window (String)
-//   message: ''      - The message that will be displayed to the user (String)
-//   ok_label: ''      - The label for the ok button (String)
-//   cancel_label: ''  - The label for the cancel button (String)
-//
-export function confirmToDeleteDialog(url, opts = {}) {
-  return new Promise((resolve, reject) => {
-    const options = {
+  return new Promise((resolve) => {
+    const dialog = new ConfirmDialog(message, {
+      ...options,
       on_ok() {
-        pleaseWaitOverlay()
-        $.ajax({
-          url,
-          type: "DELETE",
-          error(xhr, _status, error) {
-            const type = xhr.status === 403 ? "warning" : "error"
-            growl(xhr.responseText || error, type)
-            reject(error)
-          },
-          complete(response) {
-            pleaseWaitOverlay(false)
-            resolve(response)
-          }
-        })
+        resolve(true)
+      },
+      on_cancel() {
+        resolve(false)
       }
-    }
-
-    openConfirmDialog(opts.message, { ...options, ...opts })
+    })
+    dialog.open()
   })
 }

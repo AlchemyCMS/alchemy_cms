@@ -60,10 +60,9 @@ module Alchemy
       end
 
       def destroy
-        name = @attachment.name
         @attachment.destroy
-        @url = admin_attachments_url(search_filter_params)
-        flash[:notice] = Alchemy.t("File deleted successfully", name: name)
+        flash[:notice] = Alchemy.t("File deleted successfully", name: @attachment.name)
+        redirect_to alchemy.admin_attachments_path(**search_filter_params)
       end
 
       def download
