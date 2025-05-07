@@ -331,6 +331,7 @@ pl:
     "clear clipboard": "clear clipboard"
     "clear trash": "clear trash"
     click_to_show_all: "Click to show all again."
+    confirm_to_delete_element: "Do you really want to delete this element? It cannot be restored!"
     confirm_to_delete_file: "Do you really want to delete this file from the server?"
     confirm_to_delete_image: "Do you really want to delete this image from server?"
     confirm_to_delete_image_from_server: "Do you really want to delete this image from the server?"

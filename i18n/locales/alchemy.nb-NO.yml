@@ -339,6 +339,7 @@ nb-NO:
     clear trash: Tøm søppel
     click_to_show_all: Klikk for å vise alle igjen.
     complete: Fullført
+    confirm_to_delete_element: Vil du virkelig slette dette elementet?
     confirm_to_delete_file: Vil du virkelig slette denne filen fra serveren?
     confirm_to_delete_image: Vil du virkelig slette dette bildet fra serveren?
     confirm_to_delete_image_from_server: Vil du virkelig slette dette bildet fra serveren?
