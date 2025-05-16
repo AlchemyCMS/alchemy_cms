@@ -37,7 +37,7 @@
       <% table.edit_button tooltip: Alchemy.t(:edit_tag), dialog_size: "360x410" %>
     <% end %>
 
-  <%= paginate @tags, theme: 'alchemy' %>
+    <%= render "alchemy/admin/resources/pagination", resources: @tags %>
 
   <% else %>
 

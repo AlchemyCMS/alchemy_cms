@@ -237,7 +237,7 @@ div#library_sidebar {
   border-left: 1px solid var(--border-color);
   top: 0;
   right: 0;
-  width: 232px;
+  width: var(--sidebar-width);
 
   padding: calc(var(--top-menu-height) + var(--spacing-2)) var(--spacing-4)
     calc(var(--pagination-height) + var(--spacing-2)) var(--spacing-4);
@@ -289,6 +289,10 @@ div#library_sidebar {
 }
 
 #overlay_file_list {
+  max-height: 100%;
+  overflow-y: auto;
+  padding-bottom: var(--pagination-height);
+
   .assign_file_file {
     display: block;
     margin-bottom: var(--spacing-1);

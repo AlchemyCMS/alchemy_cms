@@ -21,7 +21,8 @@
       <%= render partial: 'picture_to_assign',
         collection: @pictures,
         locals: {size: @size} %>
-      <%= paginate @pictures, theme: 'alchemy', remote: true, hide_per_page_select: true %>
+
+      <%= render "alchemy/admin/resources/pagination", resources: @pictures, remote: true, hide_per_page_select: true %>
     </div>
   <% end %>
 </div>

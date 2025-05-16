@@ -1,0 +1,6 @@
+<div class="pagination-wrapper">
+  <%= paginate resources, theme: "alchemy", remote: local_assigns[:remote] %>
+  <% unless local_assigns[:hide_per_page_select] %>
+    <%= render "alchemy/admin/resources/per_page_select" %>
+  <% end %>
+</div>

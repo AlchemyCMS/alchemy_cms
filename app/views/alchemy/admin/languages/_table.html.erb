@@ -15,4 +15,4 @@
   <% table.edit_button tooltip: Alchemy.t(:edit_language), dialog_size: "430x415" %>
 <% end %>
 
-<%= paginate @languages, theme: 'alchemy' %>
+<%= render "alchemy/admin/resources/pagination", resources: @languages %>

@@ -11,7 +11,9 @@
     <%= render_icon("arrow-right-s") %>
   </span>
 <% else -%>
-  <%= link_to url, rel: 'next', remote: remote, title: Alchemy.t(:next_page, scope: 'pagination'), class: 'next_page' do %>
-    <%= render_icon("arrow-right-s") %>
-  <% end %>
+  <sl-tooltip content="<%= Alchemy.t(:next_page, scope: 'pagination') %>" placement="top-end">
+    <%= link_to url, rel: 'next', remote: remote, class: 'next_page' do %>
+      <%= render_icon("arrow-right-s") %>
+    <% end %>
+  </sl-tooltip>
 <% end -%>
