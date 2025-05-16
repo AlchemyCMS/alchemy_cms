@@ -12,6 +12,7 @@ const icons = [
   "Arrows/arrow-right-s-line",
   "Arrows/arrow-right-wide-line",
   "Arrows/arrow-up-line",
+  "Arrows/contract-right-line",
   "Arrows/contract-up-down-line",
   "Arrows/expand-left-line",
   "Arrows/expand-right-line",
