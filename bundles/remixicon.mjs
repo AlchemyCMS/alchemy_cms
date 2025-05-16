@@ -92,6 +92,7 @@ const icons = [
   "System/menu-add-line",
   "System/menu-fold-line",
   "System/menu-unfold-line",
+  "System/more-line",
   "System/more-2-line",
   "System/prohibited-line",
   "System/question-line",
