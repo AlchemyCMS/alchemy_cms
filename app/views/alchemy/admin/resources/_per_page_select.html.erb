@@ -1,4 +1,4 @@
-<%= form_tag url_for, method: :get, class: 'per-page-select-form' do |f| %>
+<%= form_tag url_for, method: :get, remote: true, class: 'per-page-select-form' do |f| %>
   <% search_filter_params.reject { |k, _| k == 'page' || k == 'per_page' }.each do |key, value| %>
     <% if value.respond_to?(:keys) %>
       <% value.each do |k, v| %>
@@ -9,7 +9,9 @@
     <% end %>
   <% end %>
   <label>
-    <%= Alchemy.t(:items_per_page, model_name: resource_model.model_name.human(count: 2)) %>
+    <span>
+      <%= Alchemy.t(:items_per_page, model_name: resource_model.model_name.human(count: 2)) %>
+    </span>
     <%= select_tag :per_page,
       options_for_select(
         items_per_page_options,

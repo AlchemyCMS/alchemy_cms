@@ -17,7 +17,7 @@
       <%= render partial: "create_language_form" %>
     <% end %>
 
-    <%= paginate @pages, scope: alchemy, theme: "alchemy" %>
+    <%= render "alchemy/admin/resources/pagination", resources: @pages %>
 
     <div id="library_sidebar">
       <%= render "filter_bar" if resource_has_filters %>

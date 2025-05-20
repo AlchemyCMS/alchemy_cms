@@ -82,5 +82,5 @@
     <% end %>
   <% end %>
 
-  <%= paginate @attachments, theme: 'alchemy' %>
+  <%= render "alchemy/admin/resources/pagination", resources: @attachments %>
 <% end %>

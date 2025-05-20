@@ -1,31 +1,42 @@
+@use "../variables" as vars;
+
 :root {
   --pagination-height: 52px;
+  --pagination-disabled-text-color: #c0c0c0;
+  --pagination-active-bg-color: var(--color-blue_dark);
+  --pagination-active-text-color: var(--color-white);
 }
 
-.pagination {
-  position: fixed;
+.pagination-wrapper {
   display: flex;
-  align-items: center;
+  position: fixed;
   background: var(--pagination-background-color);
   bottom: 0;
   right: 0;
   width: 100%;
   left: 0px;
   height: var(--pagination-height);
-  padding: var(--spacing-2);
-  padding-left: calc(var(--main-menu-width) + 10px);
+  padding-left: var(--main-menu-width);
   text-align: left;
   border-top: var(--border-default);
   z-index: 10;
+}
+
+.pagination {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-2);
 
   a,
   span,
   em {
     font-size: var(--font-size_medium);
-    font-weight: bold;
+    font-weight: var(--font-weight_normal);
     color: var(--icon-color);
     padding: var(--spacing-1);
-    margin: 0 var(--spacing-0);
+    margin: var(--spacing-0);
     border-radius: var(--border-radius_medium);
   }
 
@@ -39,13 +50,32 @@
     padding: 0;
   }
 
+  .arrows {
+    display: inline-flex;
+    flex-wrap: nowrap;
+  }
+
+  .pages {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: auto;
+    overflow-y: visible;
+    max-width: 75%;
+
+    @media screen and (max-width: vars.$large-screen-break-point) {
+      max-width: 60vw;
+    }
+  }
+
   .page {
     padding: var(--spacing-1) var(--spacing-2);
+    text-align: center;
   }
 
   .current {
-    color: var(--text-color);
-    background-color: var(--border-color);
+    color: var(--pagination-active-text-color);
+    background-color: var(--pagination-active-bg-color);
     cursor: default;
   }
 
@@ -57,9 +87,8 @@
     margin-left: var(--spacing-2);
   }
 
-  .disabled,
-  span {
-    color: #c0c0c0;
+  .disabled {
+    color: var(--pagination-disabled-text-color);
   }
 
   .gap {
@@ -67,6 +96,7 @@
     background: transparent;
     cursor: default;
     margin: 0;
+    color: var(--pagination-disabled-text-color);
   }
 
   .next_page,
@@ -85,12 +115,29 @@
 }
 
 .per-page-select-form {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  justify-content: end;
+  width: var(--sidebar-width);
   margin-left: auto;
-  display: inline;
+  padding: var(--spacing-2);
+
+  @media screen and (max-width: vars.$large-screen-break-point) {
+    label span {
+      display: none;
+    }
+    --sidebar-width: auto;
+  }
+
+  @media screen and (max-width: vars.$medium-screen-break-point) {
+    display: none;
+  }
 }
 
-#assign_image_list .pagination,
-#assign_file_list .pagination {
+#assign_image_list .pagination-wrapper,
+#assign_file_list .pagination-wrapper {
   position: absolute;
-  padding-left: var(--spacing-2);
+  padding-left: 0;
+  padding-right: 0;
 }

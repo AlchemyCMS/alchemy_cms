@@ -173,6 +173,10 @@
   --select-hover-bg-color: var(--color-blue_dark);
   --select-hover-text-color: var(--color-white);
 
+
+  /* Sidebar */
+  --sidebar-width: 232px;
+
   /* Sitemap */
   --sitemap-page-background-color: hsla(0deg, 0%, 100%, 0.75);
   --sitemap-page-hover-color: hsla(60deg, 81%, 92%, 0.5);
