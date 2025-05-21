@@ -32,16 +32,14 @@ div#filter_bar {
 }
 
 .applied-filter {
-  --background-color: var(--color-grey_light);
-  --color: var(--text-color);
   display: inline-flex;
   justify-content: space-between;
   gap: var(--spacing-1);
   padding: var(--spacing-1) var(--spacing-1) var(--spacing-1) var(--spacing-2);
   border-radius: var(--border-radius_medium);
   border: 1px solid var(--border-color);
-  background-color: var(--background-color);
-  color: var(--color);
+  background-color: var(--tag-active-background-color);
+  color: var(--tag-active-text-color);
   white-space: nowrap;
   font-weight: normal;
 
@@ -53,6 +51,6 @@ div#filter_bar {
     display: inline-flex;
     justify-content: center;
     width: var(--spacing-4);
-    color: var(--icon-color);
+    color: var(--tag-active-text-color);
   }
 }

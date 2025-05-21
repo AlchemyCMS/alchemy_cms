@@ -106,7 +106,9 @@ const icons = [
   "System/zoom-out-line",
   "User & Faces/group-line",
   "User & Faces/user-fill",
-  "User & Faces/user-line"
+  "User & Faces/user-line",
+  "Weather/moon-line",
+  "Weather/sun-line"
 ]
 
 const config = {
