@@ -18,5 +18,5 @@
     </li>
     <%= render partial: 'file_to_assign', collection: @attachments %>
   </ul>
-  <%= paginate @attachments, theme: 'alchemy', remote: true %>
+  <%= paginate @attachments, theme: 'alchemy', remote: true, hide_per_page_select: true %>
 <% end %>

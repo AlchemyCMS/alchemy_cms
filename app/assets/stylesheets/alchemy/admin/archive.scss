@@ -306,6 +306,10 @@ div#filter_bar {
 }
 
 #overlay_file_list {
+  max-height: 100%;
+  overflow-y: auto;
+  padding-bottom: $pagination-height;
+
   .assign_file_file {
     display: block;
     margin-bottom: var(--spacing-1);
