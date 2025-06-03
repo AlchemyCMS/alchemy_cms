@@ -34,7 +34,7 @@ RSpec.describe Alchemy::PagesController, "OnPageLayout mixin", type: :controller
       context "for index action" do
         %w[standard news].each do |page_layout|
           it "runs callback on #{page_layout} layout" do
-            create(:alchemy_page, :language_root, page_layout: page_layout)
+            create(:alchemy_page, :public, :language_root, page_layout: page_layout)
 
             get :index
             expect(assigns(:on_all_layouts)).to eq(page_layout)
@@ -63,7 +63,7 @@ RSpec.describe Alchemy::PagesController, "OnPageLayout mixin", type: :controller
         end
 
         context "for index action" do
-          let!(:page) { create(:alchemy_page, :language_root, page_layout: "standard") }
+          let!(:page) { create(:alchemy_page, :public, :language_root, page_layout: "standard") }
 
           it "runs the callback" do
             get :index
@@ -132,7 +132,7 @@ RSpec.describe Alchemy::PagesController, "OnPageLayout mixin", type: :controller
 
         %w[standard news].each do |page_layout|
           it "runs both callbacks on #{page_layout} layout" do
-            create(:alchemy_page, :language_root, page_layout: page_layout)
+            create(:alchemy_page, :public, :language_root, page_layout: page_layout)
 
             get :index
             expect(assigns(:page_layout)).to eq(page_layout)
@@ -163,7 +163,7 @@ RSpec.describe Alchemy::PagesController, "OnPageLayout mixin", type: :controller
       end
 
       context "for index action" do
-        let!(:page) { create(:alchemy_page, :language_root, page_layout: "standard") }
+        let!(:page) { create(:alchemy_page, :public, :language_root, page_layout: "standard") }
 
         it "runs both callbacks" do
           get :index
@@ -190,7 +190,7 @@ RSpec.describe Alchemy::PagesController, "OnPageLayout mixin", type: :controller
       end
 
       context "for index action" do
-        let!(:page) { create(:alchemy_page, :language_root, page_layout: "standard") }
+        let!(:page) { create(:alchemy_page, :public, :language_root, page_layout: "standard") }
 
         it "evaluates the given block" do
           get :index
@@ -218,7 +218,7 @@ RSpec.describe Alchemy::PagesController, "OnPageLayout mixin", type: :controller
       end
 
       context "for index action" do
-        let!(:page) { create(:alchemy_page, :language_root, page_layout: "standard") }
+        let!(:page) { create(:alchemy_page, :public, :language_root, page_layout: "standard") }
 
         it "runs the given callback method" do
           get :index
@@ -257,7 +257,7 @@ RSpec.describe Alchemy::PagesController, "OnPageLayout mixin", type: :controller
 
       %w[standard news].each do |page_layout|
         it "evaluates the given callback on both page_layouts for index action" do
-          create(:alchemy_page, :language_root, page_layout: page_layout)
+          create(:alchemy_page, :public, :language_root, page_layout: page_layout)
 
           get :index
           expect(assigns(:successful)).to eq(page_layout)

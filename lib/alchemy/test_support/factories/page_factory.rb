@@ -12,7 +12,7 @@ FactoryBot.define do
 
     parent do
       Alchemy::Page.find_by(language_root: true, language: language) ||
-        FactoryBot.create(:alchemy_page, :language_root, language: language)
+        FactoryBot.create(:alchemy_page, :public, :language_root, language: language)
     end
 
     # This speeds up creating of pages dramatically.
@@ -23,7 +23,6 @@ FactoryBot.define do
       name { language&.frontpage_name || "Intro" }
       page_layout { language&.page_layout || "index" }
       language_root { true }
-      public_on { Time.current }
       parent { nil }
     end
 
