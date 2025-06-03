@@ -10,7 +10,7 @@ module Alchemy
     let(:default_language) { create(:alchemy_language) }
 
     let(:default_language_root) do
-      create(:alchemy_page, :language_root, language: default_language, name: "Home")
+      create(:alchemy_page, :public, :language_root, language: default_language, name: "Home")
     end
 
     let(:page) do
@@ -29,11 +29,8 @@ module Alchemy
 
     describe "#index" do
       context "without a site or language present" do
-        it "returns a 404" do
-          expect { get(:index) }.to raise_exception(
-            ActionController::RoutingError,
-            'Alchemy::Page not found "/"'
-          )
+        it "returns a no_index page" do
+          expect(get(:index)).to render_template("alchemy/no_index")
         end
       end
 
@@ -57,10 +54,8 @@ module Alchemy
               create(:alchemy_page, :language_root, public_on: nil, language: default_language, name: "Home")
             end
 
-            it "raises routing error (404)" do
-              expect {
-                get :index
-              }.to raise_error(ActionController::RoutingError)
+            it "returns a no_index page" do
+              expect(get(:index)).to render_template("alchemy/no_index")
             end
 
             context "when a page layout callback is set" do
@@ -71,10 +66,8 @@ module Alchemy
                 end
               end
 
-              it 'raises routing error (404) and no "undefined method for nil" error' do
-                expect {
-                  get :index
-                }.to raise_error(ActionController::RoutingError)
+              it 'does not raise "undefined method for nil" error' do
+                expect { get :index }.to_not raise_error
               end
             end
           end

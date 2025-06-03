@@ -106,7 +106,12 @@ module Alchemy
     def load_index_page
       @page ||= Language.current_root_page
       Current.page = @page
-      render template: "alchemy/welcome", layout: false if signup_required?
+
+      if signup_required? && @page.nil?
+        render template: "alchemy/welcome", layout: false
+      elsif !@page&.public?
+        render template: "alchemy/no_index", layout: false
+      end
     end
 
     # == Loads page by urlname
@@ -192,7 +197,7 @@ module Alchemy
 
     def signup_required?
       if Alchemy.user_class.respond_to?(:admins)
-        Alchemy.user_class.admins.empty? && @page.nil?
+        Alchemy.user_class.admins.empty?
       end
     end
 

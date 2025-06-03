@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= Alchemy.t("Welcome to Alchemy") %></title>
+    <%= stylesheet_link_tag("alchemy/welcome", media: "all") %>
+  </head>
+  <body>
+    <div class="container">
+      <%= image_tag("alchemy/alchemy-logo.svg") %>
+      <% if @page.nil? %>
+        <h3>
+          <%= Alchemy.t("There are no pages yet") %>
+        </h3>
+        <p>
+          <%= link_to Alchemy.t("Create your first page"),
+            alchemy.admin_pages_path, class: "button" %>
+        </p>
+      <% else %>
+        <h3>
+          <%= Alchemy.t("There are no published pages yet") %>
+        </h3>
+        <p>
+          <%= link_to Alchemy.t("Publish your homepage"),
+            alchemy.edit_admin_page_path(@page), class: "button" %>
+        </p>
+      <% end %>
+    </div>
+  </body>
+</html>
