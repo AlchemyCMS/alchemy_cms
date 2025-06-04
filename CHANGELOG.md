@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.4.5 (2025-06-04)
+
+- [7.4] Fix attachment overlay list overflow [#3261](https://github.com/AlchemyCMS/alchemy_cms/pull/3261) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.4.4 (2025-05-06)
 
 - [7.4-stable] Fix Icons [#3257](https://github.com/AlchemyCMS/alchemy_cms/pull/3257) ([tvdeyen](https://github.com/tvdeyen))
