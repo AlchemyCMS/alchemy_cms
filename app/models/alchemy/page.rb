@@ -238,7 +238,7 @@ module Alchemy
 
         clipboard_pages = all_from_clipboard(clipboard)
         allowed_page_layouts = Alchemy::Page.selectable_layouts(language_id, layoutpages: layoutpages)
-        allowed_page_layout_names = allowed_page_layouts.collect { |p| p["name"] }
+        allowed_page_layout_names = allowed_page_layouts.collect(&:name)
         clipboard_pages.select { |cp| allowed_page_layout_names.include?(cp.page_layout) }
       end
 

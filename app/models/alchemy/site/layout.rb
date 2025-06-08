@@ -41,8 +41,8 @@ module Alchemy
     #
     def page_layout_names(layoutpages: false)
       page_layout_definitions.select do |layout|
-        !!layout["layoutpage"] && layoutpages || !layout["layoutpage"] && !layoutpages
-      end.collect { |layout| layout["name"] }
+        !!layout.layoutpage && layoutpages || !layout.layoutpage && !layoutpages
+      end.tap { _1.collect!(&:name) }
     end
 
     # Returns sites page layout definitions
@@ -52,7 +52,7 @@ module Alchemy
     def page_layout_definitions
       if definition["page_layouts"].presence
         Alchemy::PageLayout.all.select do |layout|
-          layout["name"].in?(definition["page_layouts"])
+          layout.name.in?(definition["page_layouts"])
         end
       else
         Alchemy::PageLayout.all

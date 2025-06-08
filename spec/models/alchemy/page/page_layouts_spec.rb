@@ -18,12 +18,12 @@ RSpec.describe Alchemy::Page::PageLayouts do
 
     context "with already taken layouts" do
       before do
-        allow(Alchemy::PageLayout).to receive(:all).and_return([{"unique" => true}])
+        allow(Alchemy::PageLayout).to receive(:all).and_return([Alchemy::PageLayout.new(unique: true)])
         allow(Alchemy::Page).to receive(:where).and_return double(pluck: [1])
       end
 
       it "should not include unique layouts" do
-        subject.each { |l| expect(l["unique"]).not_to eq(true) }
+        subject.each { expect(_1.unique).not_to eq(true) }
       end
     end
 
@@ -46,15 +46,13 @@ RSpec.describe Alchemy::Page::PageLayouts do
       subject { Alchemy::Page.selectable_layouts(language.id, layoutpages: true) }
 
       it "should only return layoutpages" do
-        subject.each { |l| expect(l["layoutpage"]).to eq(true) }
+        subject.each { expect(_1.layoutpage).to eq(true) }
       end
     end
   end
 
   describe ".human_layout_name" do
-    let(:layout) { {"name" => "contact"} }
-
-    subject { Alchemy::Page.human_layout_name(layout["name"]) }
+    subject { Alchemy::Page.human_layout_name("contact") }
 
     context "with no translation present" do
       it "returns the name capitalized" do

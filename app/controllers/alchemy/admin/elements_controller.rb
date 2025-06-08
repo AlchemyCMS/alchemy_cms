@@ -35,7 +35,7 @@ module Alchemy
           else
             Element.new(create_element_params)
           end
-          if @page.definition["insert_elements_at"] == "top"
+          if @page.definition.insert_elements_at == "top"
             @insert_at_top = true
             @element.position = 1
           end

@@ -112,11 +112,13 @@ module Alchemy
 
         context "on a page with a setting for insert_elements_at of top" do
           before do
-            expect(PageLayout).to receive(:get).at_least(:once).and_return({
-              "name" => "news",
-              "elements" => ["news"],
-              "insert_elements_at" => "top"
-            })
+            expect(PageLayout).to receive(:get).at_least(:once) do
+              PageLayout.new(
+                name: "news",
+                elements: ["news"],
+                insert_elements_at: "top"
+              )
+            end
           end
 
           it "should insert the element at top of list" do

@@ -3,21 +3,19 @@
 require "rails_helper"
 
 RSpec.describe Alchemy::Page::FixedAttributes do
-  let(:page) { Alchemy::Page.new }
+  let(:page) { Alchemy::Page.new(page_layout: "foo") }
 
   let(:definition_with_fixed_attributes) do
-    {
-      "name" => "foo",
-      "fixed_attributes" => {
+    Alchemy::PageLayout.new(
+      name: "foo",
+      fixed_attributes: {
         name: "Home"
       }
-    }
+    )
   end
 
   let(:definition_without_fixed_attributes) do
-    {
-      "name" => "foo"
-    }
+    Alchemy::PageLayout.new(name: "foo")
   end
 
   describe "#all" do

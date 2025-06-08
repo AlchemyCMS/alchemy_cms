@@ -3,7 +3,29 @@
 require "rails_helper"
 
 module Alchemy
-  describe PageLayout do
+  RSpec.describe PageLayout, type: :model do
+    describe "#attributes" do
+      let(:definition) { described_class.new(name: "standard") }
+
+      subject { definition.attributes }
+
+      it { is_expected.to have_key(:name) }
+      it { is_expected.to have_key(:elements) }
+      it { is_expected.to have_key(:autogenerate) }
+      it { is_expected.to have_key(:layoutpage) }
+      it { is_expected.to have_key(:unique) }
+      it { is_expected.to have_key(:cache) }
+      it { is_expected.to have_key(:searchable) }
+      it { is_expected.to have_key(:searchresults) }
+      it { is_expected.to have_key(:hide) }
+      it { is_expected.to have_key(:editable_by) }
+      it { is_expected.to have_key(:hint) }
+    end
+
+    describe "validations" do
+      it { is_expected.to validate_presence_of(:name) }
+    end
+
     describe ".all" do
       # skip memoization
       before { PageLayout.instance_variable_set(:@definitions, nil) }
@@ -12,11 +34,12 @@ module Alchemy
 
       it "should return all page_layouts" do
         is_expected.to be_instance_of(Array)
-        expect(subject.collect { |l| l["name"] }).to include("standard")
+        expect(subject).to all be_an(Alchemy::PageLayout)
+        expect(subject.map(&:name)).to include("standard")
       end
 
       it "should allow erb generated layouts" do
-        expect(subject.collect { |l| l["name"] }).to include("erb_layout")
+        expect(subject.map(&:name)).to include("erb_layout")
       end
 
       context "with a YAML file including a symbol" do
@@ -51,20 +74,18 @@ module Alchemy
     describe ".add" do
       it "adds a definition to all definitions" do
         PageLayout.add({"name" => "foo"})
-        expect(PageLayout.all).to include({"name" => "foo"})
+        expect(PageLayout.map(&:name)).to include("foo")
       end
 
       it "adds a array of definitions to all definitions" do
         PageLayout.add([{"name" => "foo"}, {"name" => "bar"}])
-        expect(PageLayout.all).to include({"name" => "foo"})
-        expect(PageLayout.all).to include({"name" => "bar"})
+        expect(PageLayout.map(&:name)).to include("foo", "bar")
       end
     end
 
     describe ".get" do
       it "should return the page_layout definition found by given name" do
-        allow(PageLayout).to receive(:all).and_return([{"name" => "default"}, {"name" => "contact"}])
-        expect(PageLayout.get("default")).to eq({"name" => "default"})
+        expect(PageLayout.get("standard").name).to eq("standard")
       end
     end
 

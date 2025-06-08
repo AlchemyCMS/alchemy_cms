@@ -40,7 +40,7 @@ FactoryBot.define do
       end
       after(:create) do |page|
         if page.autogenerate_elements
-          page.definition["autogenerate"].each do |name|
+          page.definition.autogenerate.each do |name|
             create(
               :alchemy_element,
               name: name,

@@ -62,18 +62,18 @@ module Alchemy
       end
     end
 
-    initializer "alchemy.watch_definition_changes" do |app|
-      elements_reloader = app.config.file_watcher.new([ElementDefinition.definitions_file_path]) do
+    config.to_prepare do
+      elements_reloader = Rails.application.config.file_watcher.new([ElementDefinition.definitions_file_path]) do
         Rails.logger.info "[#{engine_name}] Reloading Element Definitions."
         ElementDefinition.reset!
       end
-      page_layouts_reloader = app.config.file_watcher.new([PageLayout.layouts_file_path]) do
+      page_layouts_reloader = Rails.application.config.file_watcher.new([PageLayout.layouts_file_path]) do
         Rails.logger.info "[#{engine_name}] Reloading Page Layouts."
         PageLayout.reset!
       end
       [elements_reloader, page_layouts_reloader].each do |reloader|
-        app.reloaders << reloader
-        app.reloader.to_run do
+        Rails.application.reloaders << reloader
+        Rails.application.reloader.to_run do
           reloader.execute_if_updated
         end
       end

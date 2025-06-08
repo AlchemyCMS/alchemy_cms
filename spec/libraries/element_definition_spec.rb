@@ -12,7 +12,7 @@ module Alchemy
 
       it "should return all element definitions" do
         is_expected.to be_instance_of(Array)
-        expect(subject.collect { |l| l["name"] }).to include("slider")
+        expect(subject.collect { _1["name"] }).to include("slider")
       end
     end
 
