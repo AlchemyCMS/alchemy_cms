@@ -6,7 +6,7 @@ RSpec.describe Alchemy::Page::FixedAttributes do
   let(:page) { Alchemy::Page.new(page_layout: "foo") }
 
   let(:definition_with_fixed_attributes) do
-    Alchemy::PageLayout.new(
+    Alchemy::PageDefinition.new(
       name: "foo",
       fixed_attributes: {
         name: "Home"
@@ -15,7 +15,7 @@ RSpec.describe Alchemy::Page::FixedAttributes do
   end
 
   let(:definition_without_fixed_attributes) do
-    Alchemy::PageLayout.new(name: "foo")
+    Alchemy::PageDefinition.new(name: "foo")
   end
 
   describe "#all" do

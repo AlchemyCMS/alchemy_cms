@@ -143,7 +143,7 @@ module Alchemy
 
     describe "#page_layout_names" do
       before do
-        Alchemy::PageLayout.instance_variable_set(:@definitions, nil)
+        Alchemy::PageDefinition.instance_variable_set(:@definitions, nil)
       end
 
       context "if site has a layout definition file" do
@@ -184,7 +184,7 @@ module Alchemy
 
     describe "#page_layout_definitions" do
       before do
-        Alchemy::PageLayout.instance_variable_set(:@definitions, nil)
+        Alchemy::PageDefinition.instance_variable_set(:@definitions, nil)
       end
 
       context "if site has a layout definition file" do

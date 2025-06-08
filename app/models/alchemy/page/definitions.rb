@@ -4,13 +4,13 @@ module Alchemy
   class Page < BaseRecord
     # Module concerning page layouts
     #
-    module PageLayouts
+    module Definitions
       extend ActiveSupport::Concern
 
       module ClassMethods
         # Register a custom page layouts repository
         #
-        # The default repository is Alchemy::PageLayout
+        # The default repository is Alchemy::PageDefinition
         #
         def layouts_repository=(klass)
           @_layouts_repository = klass
@@ -64,7 +64,7 @@ module Alchemy
         private
 
         def layouts_repository
-          @_layouts_repository ||= PageLayout
+          @_layouts_repository ||= PageDefinition
         end
 
         # Returns true if the given layout is unique and not already taken or it should be hidden.

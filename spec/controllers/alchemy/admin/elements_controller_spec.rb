@@ -112,8 +112,8 @@ module Alchemy
 
         context "on a page with a setting for insert_elements_at of top" do
           before do
-            expect(PageLayout).to receive(:get).at_least(:once) do
-              PageLayout.new(
+            expect(PageDefinition).to receive(:get).at_least(:once) do
+              PageDefinition.new(
                 name: "news",
                 elements: ["news"],
                 insert_elements_at: "top"

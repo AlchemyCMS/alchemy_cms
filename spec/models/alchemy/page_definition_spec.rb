@@ -3,7 +3,7 @@
 require "rails_helper"
 
 module Alchemy
-  RSpec.describe PageLayout, type: :model do
+  RSpec.describe PageDefinition, type: :model do
     describe "#attributes" do
       let(:definition) { described_class.new(name: "standard") }
 
@@ -28,13 +28,13 @@ module Alchemy
 
     describe ".all" do
       # skip memoization
-      before { PageLayout.instance_variable_set(:@definitions, nil) }
+      before { PageDefinition.instance_variable_set(:@definitions, nil) }
 
-      subject { PageLayout.all }
+      subject { PageDefinition.all }
 
       it "should return all page_layouts" do
         is_expected.to be_instance_of(Array)
-        expect(subject).to all be_an(Alchemy::PageLayout)
+        expect(subject).to all be_an(Alchemy::PageDefinition)
         expect(subject.map(&:name)).to include("standard")
       end
 
@@ -73,27 +73,27 @@ module Alchemy
 
     describe ".add" do
       it "adds a definition to all definitions" do
-        PageLayout.add({"name" => "foo"})
-        expect(PageLayout.map(&:name)).to include("foo")
+        PageDefinition.add({"name" => "foo"})
+        expect(PageDefinition.map(&:name)).to include("foo")
       end
 
       it "adds a array of definitions to all definitions" do
-        PageLayout.add([{"name" => "foo"}, {"name" => "bar"}])
-        expect(PageLayout.map(&:name)).to include("foo", "bar")
+        PageDefinition.add([{"name" => "foo"}, {"name" => "bar"}])
+        expect(PageDefinition.map(&:name)).to include("foo", "bar")
       end
     end
 
     describe ".get" do
       it "should return the page_layout definition found by given name" do
-        expect(PageLayout.get("standard").name).to eq("standard")
+        expect(PageDefinition.get("standard").name).to eq("standard")
       end
     end
 
     describe ".reset!" do
       it "sets @definitions to nil" do
-        PageLayout.all
-        PageLayout.reset!
-        expect(PageLayout.instance_variable_get(:@definitions)).to be_nil
+        PageDefinition.all
+        PageDefinition.reset!
+        expect(PageDefinition.instance_variable_get(:@definitions)).to be_nil
       end
     end
   end

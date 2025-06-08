@@ -9,7 +9,7 @@ module Alchemy
   # Pass a block or method name in which you have the +@page+ object available and can do
   # everything as if you were in a normal controller action.
   #
-  # You can pass a +Alchemy::PageLayout+ name, an array of names, or +:all+ to
+  # You can pass a +Alchemy::PageDefinition+ name, an array of names, or +:all+ to
   # evaluate the callback on either some specific or all the pages.
   #
   # == Example:
@@ -56,7 +56,7 @@ module Alchemy
     # Pass a block or method name in which you have the +@page+ object available and can do
     # everything as if you were in a normal controller action.
     #
-    # Pass a +Alchemy::PageLayout+ name, an array of names, or +:all+ to
+    # Pass a +Alchemy::PageDefinition+ name, an array of names, or +:all+ to
     # evaluate the callback on either some specific or all the pages.
     #
     def on_page_layout(page_layouts, callback = nil, &block)

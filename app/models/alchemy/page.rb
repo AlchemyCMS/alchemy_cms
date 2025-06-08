@@ -36,7 +36,7 @@
 #
 
 require_dependency "alchemy/page/fixed_attributes"
-require_dependency "alchemy/page/page_layouts"
+require_dependency "alchemy/page/definitions"
 require_dependency "alchemy/page/page_scopes"
 require_dependency "alchemy/page/page_natures"
 require_dependency "alchemy/page/page_naming"
@@ -156,7 +156,7 @@ module Alchemy
     after_update :touch_nodes
 
     # Concerns
-    include PageLayouts
+    include Definitions
     include PageScopes
     include PageNatures
     include PageNaming

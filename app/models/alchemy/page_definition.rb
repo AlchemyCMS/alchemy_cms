@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Alchemy
-  class PageLayout
+  class PageDefinition
     include ActiveModel::Model
     include ActiveModel::Attributes
 
@@ -49,7 +49,7 @@ module Alchemy
       #
       # === Usage Example
       #
-      #   Call +Alchemy::PageLayout.add(your_definition)+ in your engine.rb file.
+      #   Call +Alchemy::PageDefinition.add(your_definition)+ in your engine.rb file.
       #
       # @param [Array || Hash]
       #   You can pass a single layout definition as Hash, or a collection of page layouts as Array.

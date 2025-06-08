@@ -51,11 +51,11 @@ module Alchemy
     #
     def page_layout_definitions
       if definition["page_layouts"].presence
-        Alchemy::PageLayout.all.select do |layout|
+        Alchemy::PageDefinition.all.select do |layout|
           layout.name.in?(definition["page_layouts"])
         end
       else
-        Alchemy::PageLayout.all
+        Alchemy::PageDefinition.all
       end
     end
 

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Alchemy::Page::PageLayouts do
+RSpec.describe Alchemy::Page::Definitions do
   describe ".selectable_layouts" do
     let(:site) { create(:alchemy_site) }
     let!(:language) { create(:alchemy_language, code: :de) }
@@ -18,7 +18,7 @@ RSpec.describe Alchemy::Page::PageLayouts do
 
     context "with already taken layouts" do
       before do
-        allow(Alchemy::PageLayout).to receive(:all).and_return([Alchemy::PageLayout.new(unique: true)])
+        allow(Alchemy::PageDefinition).to receive(:all).and_return([Alchemy::PageDefinition.new(unique: true)])
         allow(Alchemy::Page).to receive(:where).and_return double(pluck: [1])
       end
 

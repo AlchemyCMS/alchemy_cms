@@ -23,7 +23,7 @@ module Alchemy
           .group(:page_layout)
           .order("count DESC, page_layout ASC")
           .map { |p| {"page_layout" => p.page_layout, "count" => p.count} }
-        Alchemy::PageLayout.all.reject { |page_layout| res.map { |p| p["page_layout"] }.include?(page_layout.name) }.sort_by(&:name).each do |page_layout|
+        Alchemy::PageDefinition.all.reject { |page_layout| res.map { |p| p["page_layout"] }.include?(page_layout.name) }.sort_by(&:name).each do |page_layout|
           res << {"page_layout" => page_layout.name, "count" => 0}
         end
         res
