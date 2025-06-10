@@ -1,15 +1,47 @@
 # frozen_string_literal: true
 
 module Alchemy
-  class PageLayout
+  class PageDefinition
+    include ActiveModel::Model
+    include ActiveModel::Attributes
+
+    extend ActiveModel::Translation
+
+    attribute :name, :string
+    attribute :elements, default: []
+    attribute :autogenerate, default: []
+    attribute :layoutpage, :boolean, default: false
+    attribute :unique, :boolean, default: false
+    attribute :cache, :boolean, default: true
+    attribute :insert_elements_at, :string, default: "bottom"
+    attribute :fixed_attributes, default: {}
+    attribute :searchable, :boolean, default: true
+    attribute :searchresults, :boolean, default: false
+    attribute :hide, :boolean, default: false
+    attribute :editable_by
+    attribute :hint
+
+    validates :name,
+      presence: true,
+      format: {
+        with: /\A[a-z_-]+\z/
+      }
+
+    delegate :[], to: :attributes
+
     class << self
       # Returns all page layouts.
       #
       # They are defined in +config/alchemy/page_layout.yml+ file.
       #
       def all
-        @definitions ||= read_definitions_file.map(&:with_indifferent_access)
+        @definitions ||= read_definitions_file.map { new(**_1) }
       end
+
+      def map(...)
+        all.map(...)
+      end
+      alias_method :collect, :map
 
       # Add additional page definitions to collection.
       #
@@ -17,28 +49,22 @@ module Alchemy
       #
       # === Usage Example
       #
-      #   Call +Alchemy::PageLayout.add(your_definition)+ in your engine.rb file.
+      #   Call +Alchemy::PageDefinition.add(your_definition)+ in your engine.rb file.
       #
       # @param [Array || Hash]
       #   You can pass a single layout definition as Hash, or a collection of page layouts as Array.
       #
-      def add(page_layout)
+      def add(definition)
         all
-        if page_layout.is_a?(Array)
-          @definitions += page_layout
-        elsif page_layout.is_a?(Hash)
-          @definitions << page_layout
-        else
-          raise TypeError
-        end
+        @definitions += Array.wrap(definition).map { new(**_1) }
       end
 
       # Returns one page definition by given name.
       #
       def get(name)
-        return {} if name.blank?
+        return new if name.blank?
 
-        all.detect { |a| a["name"].casecmp(name).zero? }
+        all.detect { _1.name.casecmp(name).zero? }
       end
 
       def reset!
@@ -68,6 +94,14 @@ module Alchemy
           raise LoadError, "Could not find page_layouts.yml file! Please run `rails generate alchemy:install`"
         end
       end
+    end
+
+    def human_name
+      Alchemy::Page.human_layout_name(name)
+    end
+
+    def attributes
+      super.with_indifferent_access
     end
   end
 end

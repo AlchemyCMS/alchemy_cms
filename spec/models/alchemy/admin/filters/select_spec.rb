@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe Alchemy::Admin::Filters::Select do
   let(:name) { "by_page_layout" }
   let(:resource_name) { "page" }
-  let(:options) { Alchemy::PageLayout.all.map { |p| [Alchemy.t(p["name"], scope: "page_layout_names"), p["name"]] } }
+  let(:options) { Alchemy::PageDefinition.all.map { |p| [Alchemy.t(p["name"], scope: "page_layout_names"), p["name"]] } }
 
   let(:checkbox) { described_class.new(name:, resource_name:, options:) }
 
@@ -43,7 +43,7 @@ RSpec.describe Alchemy::Admin::Filters::Select do
 
     context "when the options are given as a nested array" do
       let(:options) do
-        ->(_) { Alchemy::PageLayout.all.map { |p| [Alchemy.t(p["name"], scope: "page_layout_names"), p["name"]] } }
+        ->(_) { Alchemy::PageDefinition.all.map { |p| [Alchemy.t(p["name"], scope: "page_layout_names"), p["name"]] } }
       end
 
       it "returns a select filter input component with given options" do

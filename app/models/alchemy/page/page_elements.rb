@@ -81,8 +81,8 @@ module Alchemy
       #
       def available_element_definitions(only_element_named = nil)
         @_available_element_definitions ||= if only_element_named
-          definition = Element.definition_by_name(only_element_named)
-          element_definitions_by_name(definition["nestable_elements"])
+          element_definition = Element.definition_by_name(only_element_named)
+          element_definitions_by_name(element_definition["nestable_elements"])
         else
           element_definitions.dup
         end
@@ -132,7 +132,7 @@ module Alchemy
         definitions.select { |d| d.key?("nestable_elements") }.each do |d|
           definitions += element_definitions_by_name(d["nestable_elements"])
         end
-        definitions.uniq { |d| d["name"] }
+        definitions.uniq { _1["name"] }
       end
 
       # All names of elements that are defined in the page definition.
@@ -145,7 +145,7 @@ module Alchemy
       #     elements: [headline, contactform]
       #
       def element_definition_names
-        definition["elements"] || []
+        definition.elements || []
       end
 
       # Element definitions with given name(s)
@@ -181,7 +181,7 @@ module Alchemy
       # And if so, it generates them.
       #
       def generate_elements
-        definition.fetch("autogenerate", []).each do |element_name|
+        definition.autogenerate&.each do |element_name|
           Element.create(page: self, page_version: draft_version, name: element_name)
         end
       end

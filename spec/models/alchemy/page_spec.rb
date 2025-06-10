@@ -649,12 +649,12 @@ module Alchemy
               }
             ]
           end
-          allow(PageLayout).to receive(:get) do
-            {
+          allow(PageDefinition).to receive(:get) do
+            Alchemy::PageDefinition.new(
               "name" => "columns",
               "elements" => ["column_headline", "unique_headline"],
               "autogenerate" => ["unique_headline", "column_headline", "column_headline", "column_headline"]
-            }
+            )
           end
         end
 
@@ -1046,7 +1046,7 @@ module Alchemy
 
       context "with elements assigned in page definition" do
         let(:page_definition) do
-          {"elements" => %w[article]}
+          Alchemy::PageDefinition.new(name: "foo", elements: %w[article])
         end
 
         it "returns an array of the page's element names" do
@@ -1055,7 +1055,7 @@ module Alchemy
       end
 
       context "without elements assigned in page definition" do
-        let(:page_definition) { {} }
+        let(:page_definition) { Alchemy::PageDefinition.new }
 
         it { is_expected.to eq([]) }
       end
@@ -1220,13 +1220,14 @@ module Alchemy
         end
 
         it "it returns empty hash." do
-          expect(page.definition).to eq({})
+          expect(page.definition).to be_an(Alchemy::PageDefinition)
+          expect(page.definition.name).to eq("notexisting")
         end
       end
 
       context "for a language root page" do
         it "it returns the page layout definition as hash." do
-          expect(language_root.definition["name"]).to eq("index")
+          expect(language_root.definition.name).to eq("index")
         end
       end
     end
@@ -1363,7 +1364,9 @@ module Alchemy
 
       context "template defines one alchemy role" do
         before do
-          allow(page).to receive(:definition).and_return({"editable_by" => ["freelancer"]})
+          allow(page).to receive(:definition) do
+            PageDefinition.new(name: "limited", editable_by: ["freelancer"])
+          end
         end
 
         context "user has matching alchemy role" do
@@ -1384,7 +1387,9 @@ module Alchemy
 
       context "template defines multiple alchemy roles" do
         before do
-          allow(page).to receive(:definition).and_return({"editable_by" => ["freelancer", "admin"]})
+          allow(page).to receive(:definition) do
+            PageDefinition.new(name: "limited", editable_by: ["freelancer", "admin"])
+          end
         end
 
         context "user has matching alchemy role" do
@@ -1405,7 +1410,7 @@ module Alchemy
 
       context "template has no alchemy role defined" do
         before do
-          allow(page).to receive(:definition).and_return({})
+          allow(page).to receive(:definition).and_return(PageDefinition.new)
         end
 
         context "user has matching alchemy role" do
@@ -1714,16 +1719,16 @@ module Alchemy
       end
 
       it "returns false when the page layout is set to cache = false" do
-        page_layout = PageLayout.get("news")
-        page_layout["cache"] = false
-        allow(PageLayout).to receive(:get).with("news").and_return(page_layout)
+        page_layout = PageDefinition.get("news")
+        page_layout.cache = false
+        allow(PageDefinition).to receive(:get).with("news").and_return(page_layout)
         expect(subject).to be false
       end
 
       it "returns false when the page layout is set to searchresults = true" do
-        page_layout = PageLayout.get("news")
-        page_layout["searchresults"] = true
-        allow(PageLayout).to receive(:get).with("news").and_return(page_layout)
+        page_layout = PageDefinition.get("news")
+        page_layout.searchresults = true
+        allow(PageDefinition).to receive(:get).with("news").and_return(page_layout)
         expect(subject).to be false
       end
     end

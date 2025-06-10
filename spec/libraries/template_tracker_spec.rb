@@ -10,7 +10,15 @@ module Alchemy
       describe "#dependencies" do
         context "with alchemy/pages/show given as template name" do
           let(:name) { "alchemy/pages/show" }
-          before { allow(PageLayout).to receive(:all).and_return([{"name" => "intro"}, {"name" => "contact"}]) }
+
+          before do
+            allow(PageDefinition).to receive(:all) do
+              [
+                PageDefinition.new(name: "intro"),
+                PageDefinition.new(name: "contact")
+              ]
+            end
+          end
 
           it "returns all page layout view partial names" do
             is_expected.to include("alchemy/page_layouts/_intro", "alchemy/page_layouts/_contact")
@@ -19,8 +27,9 @@ module Alchemy
 
         context "with a page layout given as template name" do
           let(:name) { "alchemy/page_layouts/_intro" }
-          let(:page_layout) { {"name" => "intro", "elements" => ["text"]} }
-          before { allow(PageLayout).to receive(:get).and_return(page_layout) }
+          let(:page_layout) { PageDefinition.new(name: "intro", elements: ["text"]) }
+
+          before { allow(PageDefinition).to receive(:get).and_return(page_layout) }
 
           it "returns all element layout view partial names for that layout" do
             is_expected.to include("alchemy/elements/_text")

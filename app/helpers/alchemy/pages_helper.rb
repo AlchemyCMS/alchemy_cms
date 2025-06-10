@@ -46,7 +46,7 @@ module Alchemy
     def render_page_layout
       render @page, page: @page
     rescue ActionView::MissingTemplate
-      warning("PageLayout: '#{@page.page_layout}' not found. Rendering standard page_layout.")
+      warning("[alchemy]: '#{@page.page_layout}' page layout not found. Rendering 'standard' page layout.")
       render "alchemy/page_layouts/standard", page: @page
     end
 

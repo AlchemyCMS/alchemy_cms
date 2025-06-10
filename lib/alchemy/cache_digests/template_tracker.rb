@@ -14,15 +14,12 @@ module Alchemy
       def dependencies
         case @name.to_s
         when /^alchemy\/pages\/show/
-          PageLayout.all.map { |p| "alchemy/page_layouts/_#{p["name"]}" }
+          PageDefinition.all.map { "alchemy/page_layouts/_#{_1.name}" }
         when /^alchemy\/page_layouts\/_(\w+)/
-          page_layout = PageLayout.get($1)
-          layout_elements = page_layout.fetch("elements", [])
-          layout_elements.map { |name| "alchemy/elements/_#{name}" }
+          page_definition = PageDefinition.get($1)
+          page_definition.elements.map { "alchemy/elements/_#{_1}" }
         when /^alchemy\/elements\/_(\w+)/
-          ingredient_types($1).map { |type|
-            "alchemy/ingredients/_#{type.underscore}_view"
-          }.uniq
+          ingredient_types($1).map { "alchemy/ingredients/_#{_1.underscore}_view" }.tap(&:uniq!)
         else
           ActionView::DependencyTracker::ERBTracker.call(@name, @template)
         end
@@ -31,10 +28,10 @@ module Alchemy
       private
 
       def ingredient_types(name)
-        element = Element.definitions.detect { |e| e["name"] == name }
+        element = Element.definitions.detect { _1["name"] == name }
         return [] unless element
 
-        element.fetch("ingredients", []).collect { |c| c["type"] }
+        element.fetch("ingredients", []).map { _1["type"] }
       end
     end
   end

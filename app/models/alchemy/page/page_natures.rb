@@ -38,13 +38,13 @@ module Alchemy
       # @returns Array
       #
       def has_limited_editors?
-        definition["editable_by"].present?
+        definition.editable_by.present?
       end
 
       def editor_roles
         return unless has_limited_editors?
 
-        definition["editable_by"]
+        definition.editable_by
       end
 
       # True if page locked_at timestamp and locked_by id are set
@@ -80,10 +80,10 @@ module Alchemy
 
       # Returns the self#page_layout definition from config/alchemy/page_layouts.yml file.
       def definition
-        definition = PageLayout.get(page_layout)
+        definition = PageDefinition.get(page_layout)
         if definition.nil?
           log_warning "Page definition for `#{page_layout}` not found. Please check `page_layouts.yml` file."
-          return {}
+          return PageDefinition.new(name: page_layout)
         end
         definition
       end
@@ -146,8 +146,8 @@ module Alchemy
       def cache_page?
         return false unless caching_enabled?
 
-        page_layout = PageLayout.get(self.page_layout)
-        page_layout["cache"] != false && page_layout["searchresults"] != true
+        page_layout = PageDefinition.get(self.page_layout)
+        page_layout.cache != false && page_layout.searchresults != true
       end
 
       private
