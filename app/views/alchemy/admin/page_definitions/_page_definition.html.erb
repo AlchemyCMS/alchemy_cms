@@ -29,6 +29,11 @@
       <% end %>
     </div>
   <% end %>
+  <% if page_definition.image %>
+    <div class="image">
+      <%= image_tag page_definition.image %>
+    </div>
+  <% end %>
   <% if page_definition.has_hint? %>
     <p class="description"><%= page_definition.hint %></p>
   <% end %>
