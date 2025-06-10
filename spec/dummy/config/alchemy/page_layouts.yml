@@ -19,6 +19,8 @@
     meta_description: ~
 
 - name: standard
+  image: header.png
+  hint: The standard layout is used for most pages.
   elements: [article, header, slider, download]
   autogenerate: [header, article, download]
   cache: 60
@@ -40,6 +42,8 @@
   autogenerate: [all_you_can_eat, right_column, left_column]
 
 - name: news
+  image: grid-lists.png
+  hint: The news layout is used to display a list of news articles.
   unique: true
   insert_elements_at: top
   elements: [headline, news]
