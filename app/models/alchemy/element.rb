@@ -106,7 +106,7 @@ module Alchemy
     scope :not_nested, -> { where(parent_element_id: nil) }
 
     delegate :restricted?, to: :page, allow_nil: true
-    delegate :has_hint?, :hint, to: :definition
+    delegate :deprecation_notice, :has_hint?, :hint, to: :definition
 
     # Concerns
     include Definitions

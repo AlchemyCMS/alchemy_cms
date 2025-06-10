@@ -77,49 +77,6 @@ module Alchemy
       super
     end
 
-    # Returns a deprecation notice for elements marked deprecated
-    #
-    # You can either use localizations or pass a String as notice
-    # in the element definition.
-    #
-    # == Custom deprecation notices
-    #
-    # Use general element deprecation notice
-    #
-    #     - name: old_element
-    #       deprecated: true
-    #
-    # Add a translation to your locale file for a per element notice.
-    #
-    #     en:
-    #       alchemy:
-    #         element_deprecation_notices:
-    #           old_element: Foo baz widget is deprecated
-    #
-    # or use the global translation that apply to all deprecated elements.
-    #
-    #     en:
-    #       alchemy:
-    #         element_deprecation_notice: Foo baz widget is deprecated
-    #
-    # or pass string as deprecation notice.
-    #
-    #     - name: old_element
-    #       deprecated: This element will be removed soon.
-    #
-    def deprecation_notice
-      case definition.deprecated
-      when String
-        definition.deprecated
-      when TrueClass
-        Alchemy.t(
-          name,
-          scope: :element_deprecation_notices,
-          default: Alchemy.t(:element_deprecated)
-        )
-      end
-    end
-
     private
 
     def find_or_create_ingredient(definition)

@@ -46,6 +46,41 @@ module Alchemy
       end
     end
 
+    describe "#deprecation_notice" do
+      subject { definition.deprecation_notice }
+
+      context "when element is not deprecated" do
+        let(:definition) { described_class.new(name: "article") }
+
+        it { is_expected.to be_nil }
+      end
+
+      context "when element is deprecated" do
+        let(:definition) { described_class.new(name: "old", deprecated: true) }
+
+        context "with custom element translation" do
+          it { is_expected.to eq("Old element is deprecated") }
+        end
+
+        context "without custom element translation" do
+          let(:definition) { described_class.new(name: "old_too", deprecated: true) }
+
+          it do
+            is_expected.to eq(
+              "WARNING! This element is deprecated and will be removed soon. " \
+              "Please do not use it anymore."
+            )
+          end
+        end
+
+        context "with String as deprecation" do
+          let(:definition) { described_class.new(name: "old_string", deprecated: "Foo baz widget") }
+
+          it { is_expected.to eq("Foo baz widget") }
+        end
+      end
+    end
+
     describe ".all" do
       # skip memoization
       before { ElementDefinition.instance_variable_set(:@definitions, nil) }
