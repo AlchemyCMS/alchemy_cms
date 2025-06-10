@@ -83,7 +83,7 @@ module Alchemy
         definition = PageDefinition.get(page_layout)
         if definition.nil?
           log_warning "Page definition for `#{page_layout}` not found. Please check `page_layouts.yml` file."
-          return PageDefinition.new(name: page_layout)
+          return PageDefinition.new
         end
         definition
       end

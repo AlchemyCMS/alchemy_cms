@@ -28,6 +28,7 @@ module Alchemy
       }
 
     delegate :[], to: :attributes
+    delegate :blank?, to: :name
 
     class << self
       # Returns all page layouts.

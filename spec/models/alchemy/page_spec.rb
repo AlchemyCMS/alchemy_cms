@@ -1214,20 +1214,22 @@ module Alchemy
       context "if the page layout could not be found in the definition file" do
         let(:page) { build_stubbed(:alchemy_page, page_layout: "notexisting") }
 
-        it "it loggs a warning." do
+        it "it logs a warning." do
           expect(Alchemy::Logger).to receive(:warn)
           page.definition
         end
 
-        it "it returns empty hash." do
+        it "it returns empty definition." do
           expect(page.definition).to be_an(Alchemy::PageDefinition)
-          expect(page.definition.name).to eq("notexisting")
+          expect(page.definition.name).to be_nil
         end
       end
 
-      context "for a language root page" do
-        it "it returns the page layout definition as hash." do
-          expect(language_root.definition.name).to eq("index")
+      context "for a page with existing definition" do
+        let(:page) { build_stubbed(:alchemy_page) }
+
+        it "it returns the page layout definition." do
+          expect(page.definition.name).to eq("standard")
         end
       end
     end
