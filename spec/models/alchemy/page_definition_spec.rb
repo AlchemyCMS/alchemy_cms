@@ -10,6 +10,7 @@ module Alchemy
       subject { definition.attributes }
 
       it { is_expected.to have_key(:name) }
+      it { is_expected.to have_key(:image) }
       it { is_expected.to have_key(:elements) }
       it { is_expected.to have_key(:autogenerate) }
       it { is_expected.to have_key(:layoutpage) }

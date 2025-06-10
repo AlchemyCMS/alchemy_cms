@@ -145,6 +145,7 @@
 
     > alchemy-message,
     > .labels,
+    > .image,
     > .elements,
     > p {
       display: block;
@@ -156,6 +157,13 @@
       margin-bottom: var(--spacing-4);
       padding-left: var(--spacing-1);
       font-weight: var(--font-weight_normal);
+    }
+
+    .image img {
+      width: auto;
+      max-width: 100%;
+      max-height: 160px;
+      border-radius: var(--border-radius_medium);
     }
 
     .elements {
