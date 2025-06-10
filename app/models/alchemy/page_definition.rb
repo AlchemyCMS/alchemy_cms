@@ -9,6 +9,7 @@ module Alchemy
     extend ActiveModel::Translation
 
     attribute :name, :string
+    attribute :image, :string
     attribute :elements, default: []
     attribute :autogenerate, default: []
     attribute :layoutpage, :boolean, default: false
