@@ -11,6 +11,9 @@
       <% end %>
     </small>
   </h2>
+  <% if page_definition.image %>
+    <%= image_tag page_definition.image %>
+  <% end %>
   <% if page_definition.has_hint? %>
     <p><%= page_definition.hint %></p>
   <% end %>
