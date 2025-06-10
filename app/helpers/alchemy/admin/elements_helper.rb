@@ -13,12 +13,12 @@ module Alchemy
       def elements_for_select(elements)
         return [] if elements.nil?
 
-        elements.collect do |e|
+        elements.map do |e|
           [
-            Element.display_name_for(e["name"]),
-            e["name"]
+            Element.display_name_for(e.name),
+            e.name
           ]
-        end.sort
+        end.tap(&:sort!)
       end
     end
   end

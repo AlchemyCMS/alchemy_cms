@@ -11,8 +11,8 @@ module Alchemy
           .group(:name)
           .order("count DESC, name ASC")
           .map { |e| {"name" => e.name, "count" => e.count} }
-        Alchemy::Element.definitions.reject { |definition| res.map { |e| e["name"] }.include?(definition["name"]) }.sort_by { _1["name"] }.each do |definition|
-          res << {"name" => definition["name"], "count" => 0}
+        Alchemy::Element.definitions.reject { |definition| res.map { |e| e["name"] }.include?(definition.name) }.sort_by(&:name).each do |definition|
+          res << {"name" => definition.name, "count" => 0}
         end
         res
       end

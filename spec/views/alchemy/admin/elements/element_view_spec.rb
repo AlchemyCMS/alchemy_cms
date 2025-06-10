@@ -8,10 +8,10 @@ describe "alchemy/admin/elements/_element" do
   end
 
   let(:definition) do
-    {
+    Alchemy::ElementDefinition.new(
       name: "with_message",
       message: "One nice message"
-    }.with_indifferent_access
+    )
   end
 
   subject do
@@ -28,10 +28,10 @@ describe "alchemy/admin/elements/_element" do
 
     context "that contains HTML" do
       let(:definition) do
-        {
+        Alchemy::ElementDefinition.new(
           name: "with_message",
           message: "<h1>One nice message</h1>"
-        }.with_indifferent_access
+        )
       end
 
       it "renders the HTML message" do
@@ -44,10 +44,10 @@ describe "alchemy/admin/elements/_element" do
     let(:element) { create(:alchemy_element, name: "with_warning") }
 
     let(:definition) do
-      {
+      Alchemy::ElementDefinition.new(
         name: "with_warning",
         warning: "One nice warning"
-      }.with_indifferent_access
+      )
     end
 
     it "renders the warning" do
@@ -56,10 +56,10 @@ describe "alchemy/admin/elements/_element" do
 
     context "that contains HTML" do
       let(:definition) do
-        {
+        Alchemy::ElementDefinition.new(
           name: "with_warning",
           warning: "<h1>One nice warning</h1>"
-        }.with_indifferent_access
+        )
       end
 
       it "renders the HTML warning" do

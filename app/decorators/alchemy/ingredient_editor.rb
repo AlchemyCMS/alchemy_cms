@@ -173,7 +173,7 @@ module Alchemy
     private
 
     def form_field_counter
-      element.definition.fetch(:ingredients, []).index { |i| i[:role] == role }
+      element.ingredient_definitions.index { |i| i[:role] == role }
     end
   end
 end

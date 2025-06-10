@@ -82,10 +82,12 @@ module Alchemy
           end
 
           before do
-            expect(Alchemy::ElementDefinition).to receive(:all).at_least(:once) do
-              [
-                {"name" => "slider", "nestable_elements" => ["foo"], "autogenerate" => ["bar"]}
-              ]
+            allow(ElementDefinition).to receive(:get).with("slider") do
+              ElementDefinition.new(
+                name: "slider",
+                nestable_elements: ["foo"],
+                autogenerate: ["bar"]
+              )
             end
           end
 
@@ -204,62 +206,85 @@ module Alchemy
     end
 
     describe ".definitions" do
+      subject(:definitions) { Element.definitions }
+
       it "should allow erb generated elements" do
-        expect(Element.definitions.collect { |el| el["name"] }).to include("erb_element")
+        expect(Element.definitions.map(&:name)).to include("erb_element")
       end
 
-      context "with a YAML file including a symbol" do
-        let(:yaml) { "- name: :symbol" }
-
+      describe "with a YAML file" do
         before do
-          allow(File).to receive(:exist?).and_return(true)
-          allow(File).to receive(:read).and_return(yaml)
+          allow(ElementDefinition).to receive(:definitions_file_exist?) { true }
+          allow(ElementDefinition).to receive(:definitions_file) { yaml }
         end
 
-        it "returns the definition without error" do
-          expect { Element.definitions }.to_not raise_error
-        end
-      end
+        context "including a symbol" do
+          let(:yaml) do
+            <<~YAML
+              - name: article
+                ingredients:
+                  - role: text
+                    type: Text
+                    default: :lorem_ipsum
+            YAML
+          end
 
-      context "with a YAML file including a Date" do
-        let(:yaml) { "- default: 2017-12-24" }
-
-        before do
-          allow(File).to receive(:exist?).and_return(true)
-          allow(File).to receive(:read).and_return(yaml)
-        end
-
-        it "returns the definition without error" do
-          expect { Element.definitions }.to_not raise_error
-        end
-      end
-
-      context "with a YAML file including a Regex" do
-        let(:yaml) { "- format: !ruby/regexp '/\A[^@\s]+@([^@\s]+.)+[^@\s]+\z/'" }
-
-        before do
-          allow(File).to receive(:exist?).and_return(true)
-          allow(File).to receive(:read).and_return(yaml)
+          it "returns the definition without error" do
+            expect { definitions }.to_not raise_error
+          end
         end
 
-        it "returns the definition without error" do
-          expect { Element.definitions }.to_not raise_error
+        context "including a Date" do
+          let(:yaml) do
+            <<~YAML
+              - name: article
+                ingredients:
+                  - role: date
+                    type: Datetime
+                    default: 2017-12-24
+            YAML
+          end
+
+          it "returns the definition without error" do
+            expect { definitions }.to_not raise_error
+          end
+        end
+
+        context "including a Regex" do
+          let(:yaml) do
+            <<~YAML
+              - name: article
+                ingredients:
+                  - role: email
+                    type: Text
+                    validate:
+                      - format: !ruby/regexp '/\A[^@\s]+@([^@\s]+.)+[^@\s]+\z/'
+            YAML
+          end
+
+          it "returns the definition without error" do
+            expect { definitions }.to_not raise_error
+          end
         end
       end
 
       context "without existing yml files" do
-        before { allow(File).to receive(:exist?).and_return(false) }
+        before do
+          allow(ElementDefinition).to receive(:definitions_file_exist?) { false }
+        end
 
         it "should raise an error" do
-          expect { Element.definitions }.to raise_error(LoadError)
+          expect { definitions }.to raise_error(LoadError)
         end
       end
 
       context "without any definitions in elements.yml" do
-        before { expect(YAML).to receive(:safe_load).and_return(false) }
+        before do
+          allow(ElementDefinition).to receive(:definitions_file) { "" }
+        end
 
         it "should return an empty array" do
-          expect(Element.definitions).to eq([])
+          expect(definitions).to eq([])
         end
       end
     end
@@ -430,6 +455,30 @@ module Alchemy
     end
 
     # InstanceMethods
+
+    describe "#definition" do
+      context "if the element name could not be found in the definition file" do
+        let(:element) { build_stubbed(:alchemy_element, name: "notexisting") }
+
+        it "it logs a warning." do
+          expect(Alchemy::Logger).to receive(:warn)
+          element.definition
+        end
+
+        it "it returns empty definition." do
+          expect(element.definition).to be_an(Alchemy::ElementDefinition)
+          expect(element.definition.name).to be_nil
+        end
+      end
+
+      context "if the element name exists in definition file" do
+        let(:element) { build_stubbed(:alchemy_element) }
+
+        it "it returns the element definition." do
+          expect(element.definition.name).to eq("article")
+        end
+      end
+    end
 
     describe "#display_name" do
       let(:element) { Element.new(name: "article") }
@@ -623,30 +672,34 @@ module Alchemy
 
       context "definition has 'taggable' key with true value" do
         it "should return true" do
-          expect(element).to receive(:definition).and_return({
-            "name" => "article",
-            "taggable" => true
-          })
-          expect(element.taggable?).to be_truthy
+          expect(element).to receive(:definition) do
+            ElementDefinition.new(
+              name: "article",
+              taggable: true
+            )
+          end
+          expect(element.taggable?).to be(true)
         end
       end
 
       context "definition has 'taggable' key with foo value" do
         it "should return false" do
-          expect(element).to receive(:definition).and_return({
-            "name" => "article",
-            "taggable" => "foo"
-          })
-          expect(element.taggable?).to be_falsey
+          expect(element).to receive(:definition) do
+            ElementDefinition.new(
+              name: "article",
+              taggable: "foo"
+            )
+          end
+          expect(element.taggable?).to be(true)
         end
       end
 
       context "definition has no 'taggable' key" do
         it "should return false" do
-          expect(element).to receive(:definition).and_return({
-            "name" => "article"
-          })
-          expect(element.taggable?).to be_falsey
+          expect(element).to receive(:definition) do
+            ElementDefinition.new(name: "article")
+          end
+          expect(element.taggable?).to be(false)
         end
       end
     end
@@ -661,17 +714,17 @@ module Alchemy
       end
 
       context "definition has 'compact' key with true value" do
-        let(:definition) { {"compact" => true} }
+        let(:definition) { ElementDefinition.new(compact: true) }
         it { is_expected.to be(true) }
       end
 
       context "definition has 'compact' key with foo value" do
-        let(:definition) { {"compact" => "foo"} }
-        it { is_expected.to be(false) }
+        let(:definition) { ElementDefinition.new(compact: "foo") }
+        it { is_expected.to be(true) }
       end
 
       context "definition has no 'compact' key" do
-        let(:definition) { {"name" => "article"} }
+        let(:definition) { ElementDefinition.new(name: "article") }
         it { is_expected.to be(false) }
       end
     end
@@ -686,17 +739,17 @@ module Alchemy
       end
 
       context "definition has 'deprecated' key with true value" do
-        let(:definition) { {"deprecated" => true} }
+        let(:definition) { ElementDefinition.new(deprecated: true) }
         it { is_expected.to be(true) }
       end
 
       context "definition has 'deprecated' key with foo value" do
-        let(:definition) { {"deprecated" => "This is deprecated"} }
+        let(:definition) { ElementDefinition.new(deprecated: "This is deprecated") }
         it { is_expected.to be(true) }
       end
 
       context "definition has no 'deprecated' key" do
-        let(:definition) { {"name" => "article"} }
+        let(:definition) { ElementDefinition.new(name: "article") }
         it { is_expected.to be(false) }
       end
     end
@@ -708,6 +761,7 @@ module Alchemy
     end
 
     it_behaves_like "having a hint" do
+      let(:definition_class) { ElementDefinition }
       let(:subject) { Element.new }
     end
 
@@ -719,9 +773,9 @@ module Alchemy
       context "with nestable_elements defined" do
         before do
           allow(element).to receive(:definition) do
-            {
-              "nestable_elements" => %w[news article]
-            }
+            ElementDefinition.new(
+              nestable_elements: %w[news article]
+            )
           end
         end
 
@@ -733,7 +787,7 @@ module Alchemy
       context "without nestable_elements defined" do
         before do
           allow(element).to receive(:definition) do
-            {}
+            ElementDefinition.new
           end
         end
 

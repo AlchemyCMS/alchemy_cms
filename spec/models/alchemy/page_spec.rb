@@ -594,21 +594,21 @@ module Alchemy
 
       it "returns all element definitions of available elements" do
         expect(subject).to be_an(Array)
-        expect(subject.collect { |e| e["name"] }).to include("header")
+        expect(subject.map(&:name)).to include("header")
       end
 
       context "with unique elements already on page" do
         let!(:element) { create(:alchemy_element, :unique, page: page, page_version: page.draft_version) }
 
         it "does not return unique element definitions" do
-          expect(subject.collect { |e| e["name"] }).to include("article")
-          expect(subject.collect { |e| e["name"] }).not_to include("header")
+          expect(subject.map(&:name)).to include("article")
+          expect(subject.map(&:name)).not_to include("header")
         end
 
         it "does not mutate the element_definitions collection" do
-          expect(page.element_definitions.collect { |e| e["name"] }).to include("header")
+          expect(page.element_definitions.map(&:name)).to include("header")
           subject
-          expect(page.element_definitions.collect { |e| e["name"] }).to include("header")
+          expect(page.element_definitions.map(&:name)).to include("header")
         end
       end
 
@@ -626,27 +626,27 @@ module Alchemy
         before do
           allow(Element).to receive(:definitions) do
             [
-              {
-                "name" => "column_headline",
-                "amount" => 3,
-                "ingredients" => [
+              ElementDefinition.new(
+                name: "column_headline",
+                amount: 3,
+                ingredients: [
                   {
-                    "role" => "headline",
-                    "type" => "Text"
+                    role: "headline",
+                    type: "Text"
                   }
                 ]
-              },
-              {
-                "name" => "unique_headline",
-                "unique" => true,
-                "amount" => 3,
-                "ingredients" => [
+              ),
+              ElementDefinition.new(
+                name: "unique_headline",
+                unique: true,
+                amount: 3,
+                ingredients: [
                   {
-                    "role" => "headline",
-                    "type" => "Text"
+                    role: "headline",
+                    type: "Text"
                   }
                 ]
-              }
+              )
             ]
           end
           allow(PageDefinition).to receive(:get) do
@@ -660,21 +660,21 @@ module Alchemy
 
         it "should be readable" do
           element = page.element_definitions_by_name("column_headline").first
-          expect(element["amount"]).to be 3
+          expect(element.amount).to be 3
         end
 
         it "should limit elements" do
-          expect(subject.collect { |e| e["name"] }).not_to include("column_headline")
+          expect(subject.map(&:name)).not_to include("column_headline")
         end
 
         it "should be ignored if unique" do
-          expect(subject.collect { |e| e["name"] }).not_to include("unique_headline")
+          expect(subject.map(&:name)).not_to include("unique_headline")
         end
 
         it "does not mutate the element_definitions collection" do
-          expect(page.element_definitions.collect { |e| e["name"] }).to include("column_headline")
+          expect(page.element_definitions.map(&:name)).to include("column_headline")
           subject
-          expect(page.element_definitions.collect { |e| e["name"] }).to include("column_headline")
+          expect(page.element_definitions.map(&:name)).to include("column_headline")
         end
       end
 
@@ -715,7 +715,7 @@ module Alchemy
 
       context "When unique element has not be nested" do
         it "returns available elements" do
-          expect(currently_available_elements.collect { |e| e["name"] }).to include("slide")
+          expect(currently_available_elements.map(&:name)).to include("slide")
         end
       end
     end
@@ -971,12 +971,20 @@ module Alchemy
 
     describe "#element_definitions" do
       let(:page) { build_stubbed(:alchemy_page) }
-      subject { page.element_definitions }
-      before { expect(Element).to receive(:definitions).and_return([{"name" => "article"}, {"name" => "header"}]) }
+
+      subject { page.element_definitions.map(&:name) }
+
+      before do
+        expect(Element).to receive(:definitions) do
+          [
+            ElementDefinition.new(name: "article"),
+            ElementDefinition.new(name: "header")
+          ]
+        end
+      end
 
       it "returns all element definitions that could be placed on current page" do
-        is_expected.to include({"name" => "article"})
-        is_expected.to include({"name" => "header"})
+        is_expected.to match_array(["article", "header"])
       end
     end
 
@@ -985,9 +993,9 @@ module Alchemy
 
       subject(:descendent_element_definitions) { page.descendent_element_definitions }
 
-      it "returns all element definitions including the nestable element definitions" do
-        is_expected.to include(Alchemy::Element.definition_by_name("slider"))
-        is_expected.to include(Alchemy::Element.definition_by_name("slide"))
+      it "returns all element definitions from nestable element definitions" do
+        definitions = descendent_element_definitions.map(&:name)
+        expect(definitions).to eq(["slide"])
       end
 
       context "with nestable element being defined on multiple elements" do
@@ -997,16 +1005,16 @@ module Alchemy
           end
           expect(Element).to receive(:definitions).at_least(:once) do
             [
-              {"name" => "slider", "nestable_elements" => %w[slide]},
-              {"name" => "gallery", "nestable_elements" => %w[slide]},
-              {"name" => "slide"}
+              ElementDefinition.new(name: "slider", nestable_elements: %w[slide]),
+              ElementDefinition.new(name: "gallery", nestable_elements: %w[slide]),
+              ElementDefinition.new(name: "slide")
             ]
           end
         end
 
         it "only includes the definition once" do
-          slide_definitions = descendent_element_definitions.select { |d| d["name"] == "slide" }
-          expect(slide_definitions.length).to eq(1)
+          definitions = descendent_element_definitions.map(&:name)
+          expect(definitions).to eq(["slide"])
         end
       end
     end
@@ -1936,6 +1944,7 @@ module Alchemy
     end
 
     it_behaves_like "having a hint" do
+      let(:definition_class) { PageDefinition }
       let(:subject) { Page.new }
     end
 

@@ -30,7 +30,6 @@ module Alchemy
 
     include Alchemy::Logger
     include Alchemy::Taggable
-    include Alchemy::Hints
 
     FORBIDDEN_DEFINITION_ATTRIBUTES = [
       "amount",
@@ -107,6 +106,7 @@ module Alchemy
     scope :not_nested, -> { where(parent_element_id: nil) }
 
     delegate :restricted?, to: :page, allow_nil: true
+    delegate :has_hint?, :hint, to: :definition
 
     # Concerns
     include Definitions
@@ -131,7 +131,7 @@ module Alchemy
           raise(ElementDefinitionError, attributes)
         end
 
-        super(element_definition.merge(element_attributes).except(*FORBIDDEN_DEFINITION_ATTRIBUTES))
+        super(element_definition.attributes.merge(element_attributes).except(*FORBIDDEN_DEFINITION_ATTRIBUTES))
       end
 
       # This methods does a copy of source and all its ingredients.
@@ -167,7 +167,7 @@ module Alchemy
       def all_from_clipboard_for_parent_element(clipboard, parent_element)
         return none if clipboard.nil? || parent_element.nil?
 
-        all_from_clipboard(clipboard).where(name: parent_element.definition["nestable_elements"])
+        all_from_clipboard(clipboard).where(name: parent_element.definition.nestable_elements)
       end
     end
 
@@ -211,7 +211,7 @@ module Alchemy
 
     # Returns true if the definition of this element has a taggable true value.
     def taggable?
-      definition["taggable"] == true
+      definition.taggable == true
     end
 
     # The opposite of folded?
@@ -221,7 +221,7 @@ module Alchemy
 
     # Defined as compact element?
     def compact?
-      definition["compact"] == true
+      definition.compact
     end
 
     # Defined as deprecated element?
@@ -253,7 +253,7 @@ module Alchemy
     #
     # @return Boolean
     def deprecated?
-      !!definition["deprecated"]
+      !!definition.deprecated
     end
 
     # The element's view partial is dependent from its name
@@ -276,13 +276,13 @@ module Alchemy
 
     # A collection of element names that can be nested inside this element.
     def nestable_elements
-      definition.fetch("nestable_elements", [])
+      definition.nestable_elements
     end
 
     private
 
     def generate_nested_elements
-      definition.fetch("autogenerate", []).each do |nestable_element|
+      definition.autogenerate.each do |nestable_element|
         if nestable_elements.include?(nestable_element)
           Element.create(page_version: page_version, parent_element_id: id, name: nestable_element)
         else

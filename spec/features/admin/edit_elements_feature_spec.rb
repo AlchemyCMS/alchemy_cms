@@ -64,7 +64,10 @@ RSpec.describe "The edit elements feature", type: :system do
       before do
         allow_any_instance_of(Alchemy::Admin::ElementsController).to receive(:get_clipboard) do
           [
-            {"id" => create(:alchemy_element, name: element.definition["nestable_elements"].first).id, "action" => "copy"}
+            {
+              "id" => create(:alchemy_element, name: element.definition.nestable_elements.first).id,
+              "action" => "copy"
+            }
           ]
         end
       end

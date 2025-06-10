@@ -82,7 +82,7 @@ module Alchemy
       def available_element_definitions(only_element_named = nil)
         @_available_element_definitions ||= if only_element_named
           element_definition = Element.definition_by_name(only_element_named)
-          element_definitions_by_name(element_definition["nestable_elements"])
+          element_definitions_by_name(element_definition.nestable_elements)
         else
           element_definitions.dup
         end
@@ -100,7 +100,7 @@ module Alchemy
       # All names of elements that can actually be placed on current page.
       #
       def available_element_names
-        @_available_element_names ||= available_element_definitions.map { |e| e["name"] }
+        @_available_element_names ||= available_element_definitions.map(&:name)
       end
 
       # Available element definitions excluding nested unique elements.
@@ -109,7 +109,7 @@ module Alchemy
         @_available_elements = if parent
           parents_unique_nested_elements = parent.nested_elements.where(unique: true).pluck(:name)
           available_element_definitions(parent.name).reject do |e|
-            parents_unique_nested_elements.include? e["name"]
+            parents_unique_nested_elements.include?(e.name)
           end
         else
           available_element_definitions
@@ -129,10 +129,9 @@ module Alchemy
       #
       def descendent_element_definitions
         definitions = element_definitions_by_name(element_definition_names)
-        definitions.select { |d| d.key?("nestable_elements") }.each do |d|
-          definitions += element_definitions_by_name(d["nestable_elements"])
-        end
-        definitions.uniq { _1["name"] }
+        definitions.select { _1.nestable_elements.any? }.flat_map do |d|
+          element_definitions_by_name(d.nestable_elements)
+        end.uniq(&:name)
       end
 
       # All names of elements that are defined in the page definition.
@@ -161,7 +160,7 @@ module Alchemy
         if names.to_s == "all"
           Element.definitions
         else
-          Element.definitions.select { |e| names.include? e["name"] }
+          Element.definitions.select { names.include?(_1.name) }
         end
       end
 
@@ -190,7 +189,7 @@ module Alchemy
       #
       def delete_unique_element_definitions!
         @_available_element_definitions.delete_if do |element|
-          element["unique"] && @_existing_element_names.include?(element["name"])
+          element.unique && @_existing_element_names.include?(element.name)
         end
       end
 
@@ -198,8 +197,8 @@ module Alchemy
       #
       def delete_outnumbered_element_definitions!
         @_available_element_definitions.delete_if do |element|
-          outnumbered = @_existing_element_names.select { |name| name == element["name"] }
-          element["amount"] && outnumbered.count >= element["amount"].to_i
+          outnumbered = @_existing_element_names.select { |name| name == element.name }
+          element.amount && outnumbered.count >= element.amount
         end
       end
     end

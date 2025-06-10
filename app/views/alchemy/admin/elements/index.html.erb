@@ -20,7 +20,7 @@
         </button>
       </sl-tooltip>
     </div>
-    <% if @page.element_definitions.any? { |el| el["fixed"] } %>
+    <% if @page.element_definitions.any?(&:fixed) %>
       <sl-tab-group id="fixed-elements">
         <sl-tab slot="nav" panel="main-content-elements">
           <%= Alchemy.t(:main_content) %>

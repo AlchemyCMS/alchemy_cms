@@ -30,7 +30,7 @@ RSpec.describe Alchemy::ElementEditor do
 
       before do
         expect(element).to receive(:definition).at_least(:once) do
-          {
+          Alchemy::ElementDefinition.new(
             name: "headline",
             ingredients: [
               {
@@ -38,7 +38,7 @@ RSpec.describe Alchemy::ElementEditor do
                 type: "Headline"
               }
             ]
-          }.with_indifferent_access
+          )
         end
       end
 
@@ -207,10 +207,10 @@ RSpec.describe Alchemy::ElementEditor do
 
         before do
           allow(element).to receive(:definition) do
-            {
-              "name" => "old_too",
-              "deprecated" => true
-            }
+            Alchemy::ElementDefinition.new(
+              name: "old_too",
+              deprecated: true
+            )
           end
         end
 
@@ -223,12 +223,14 @@ RSpec.describe Alchemy::ElementEditor do
       end
 
       context "with String as deprecation" do
+        let(:element) { build(:alchemy_element, name: "old_string") }
+
         before do
           allow(element).to receive(:definition) do
-            {
-              "name" => "old",
-              "deprecated" => "Foo baz widget"
-            }
+            Alchemy::ElementDefinition.new(
+              name: "old_string",
+              deprecated: "Foo baz widget"
+            )
           end
         end
 

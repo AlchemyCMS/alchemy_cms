@@ -14,7 +14,7 @@ module Alchemy
     #
     # @return Array<Alchemy::IngredientEditor>
     def ingredients
-      element.definition.fetch(:ingredients, []).map do |ingredient|
+      ingredient_definitions.map do |ingredient|
         Alchemy::IngredientEditor.new(find_or_create_ingredient(ingredient))
       end
     end
@@ -22,7 +22,7 @@ module Alchemy
     # Are any ingredients defined?
     # @return [Boolean]
     def has_ingredients_defined?
-      element.definition.fetch(:ingredients, []).any?
+      ingredient_definitions.any?
     end
 
     # Returns the translated ingredient group for displaying in admin editor group headings
@@ -108,9 +108,9 @@ module Alchemy
     #       deprecated: This element will be removed soon.
     #
     def deprecation_notice
-      case definition["deprecated"]
+      case definition.deprecated
       when String
-        definition["deprecated"]
+        definition.deprecated
       when TrueClass
         Alchemy.t(
           name,

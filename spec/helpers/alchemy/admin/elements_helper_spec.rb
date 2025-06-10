@@ -21,10 +21,11 @@ module Alchemy
 
       context "passing a hash with element definitions" do
         let(:element_definitions) do
-          [{
-            "name" => "headline",
-            "ingredients" => []
-          }]
+          [
+            ElementDefinition.new(
+              "name" => "headline"
+            )
+          ]
         end
 
         subject { helper.elements_for_select(element_definitions) }
