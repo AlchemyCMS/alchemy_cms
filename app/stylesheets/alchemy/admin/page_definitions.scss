@@ -116,6 +116,12 @@
     background-color: var(--sidebar-background-color);
     border-radius: var(--border-radius_medium);
 
+    > img {
+      width: auto;
+      max-width: 100%;
+      max-height: 160px;
+    }
+
     p {
       margin: var(--spacing-4) 0;
     }
