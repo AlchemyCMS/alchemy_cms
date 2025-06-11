@@ -32,6 +32,15 @@ module Alchemy
       it { is_expected.to_not allow_value("Spree::Product").for(:type) }
     end
 
+    it_behaves_like "having a hint" do
+      let(:translation_key) { "text" }
+      let(:translation_scope) { :ingredient_hints }
+
+      let(:subject) do
+        described_class.new(role: "text", **hint)
+      end
+    end
+
     describe "#deprecation_notice" do
       subject { definition.deprecation_notice(element_name: element&.name) }
 

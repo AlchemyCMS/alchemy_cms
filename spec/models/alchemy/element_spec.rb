@@ -760,11 +760,6 @@ module Alchemy
       end
     end
 
-    it_behaves_like "having a hint" do
-      let(:definition_class) { ElementDefinition }
-      let(:subject) { Element.new }
-    end
-
     describe "#nestable_elements" do
       let(:element) { Element.new }
 
