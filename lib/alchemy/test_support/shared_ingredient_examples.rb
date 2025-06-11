@@ -29,11 +29,11 @@ RSpec.shared_examples_for "an alchemy ingredient" do
     context "with element" do
       before do
         expect(element).to receive(:ingredient_definition_for).at_least(:once) do
-          {
+          Alchemy::IngredientDefinition.new(
             settings: {
               linkable: true
             }
-          }.with_indifferent_access
+          )
         end
       end
 
@@ -47,19 +47,19 @@ RSpec.shared_examples_for "an alchemy ingredient" do
     context "without element" do
       let(:element) { nil }
 
-      it { is_expected.to eq({}) }
+      it { is_expected.to be_a(Alchemy::IngredientDefinition) }
     end
 
     context "with element" do
       let(:definition) do
-        {
+        Alchemy::IngredientDefinition.new(
           role: "headline",
           type: "Text",
           default: "Hello World",
           settings: {
             linkable: true
           }
-        }.with_indifferent_access
+        )
       end
 
       before do
