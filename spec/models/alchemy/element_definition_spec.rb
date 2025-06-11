@@ -10,6 +10,7 @@ module Alchemy
       subject { definition.attributes }
 
       it { is_expected.to have_key(:name) }
+      it { is_expected.to have_key(:icon) }
       it { is_expected.to have_key(:unique) }
       it { is_expected.to have_key(:amount) }
       it { is_expected.to have_key(:taggable) }
@@ -28,6 +29,14 @@ module Alchemy
       it { is_expected.to validate_presence_of(:name) }
       it { is_expected.to allow_value("article").for(:name) }
       it { is_expected.to_not allow_value("Article Element").for(:name) }
+
+      it { is_expected.to allow_value(true).for(:icon) }
+      it { is_expected.to allow_value("article").for(:icon) }
+      it { is_expected.to allow_value("Article_2").for(:icon) }
+      it { is_expected.to allow_value("article2-line").for(:icon) }
+      it { is_expected.to_not allow_value("Article Icon").for(:icon) }
+      it { is_expected.to_not allow_value("article.svg").for(:icon) }
+      it { is_expected.to_not allow_value("Article.png").for(:icon) }
     end
 
     it_behaves_like "having a hint" do
@@ -87,6 +96,54 @@ module Alchemy
 
           it { is_expected.to eq("Foo baz widget") }
         end
+      end
+    end
+
+    describe "#icon_name" do
+      subject(:icon_name) { definition.icon_name }
+
+      context "with icon attribute being true" do
+        let(:definition) { described_class.new(name: "article", icon: true) }
+
+        it "returns the name attribute" do
+          expect(icon_name).to eq("article")
+        end
+      end
+
+      context "with icon attribute being a string" do
+        let(:definition) { described_class.new(icon: "article-line") }
+
+        it "returns the icon attribute" do
+          expect(icon_name).to eq("article-line")
+        end
+      end
+
+      context "without icon attribute" do
+        let(:definition) { described_class.new }
+
+        it "returns the default icon" do
+          expect(icon_name).to eq("default")
+        end
+      end
+    end
+
+    describe "#icon_file_name" do
+      subject(:icon_file_name) { definition.icon_file_name }
+
+      let(:definition) { described_class.new }
+
+      it "is a svg" do
+        expect(icon_file_name).to match(/\.svg\z/)
+      end
+    end
+
+    describe "#icon_file" do
+      subject(:icon_file) { definition.icon_file }
+
+      let(:definition) { described_class.new }
+
+      it "is a svg file" do
+        expect(icon_file).to match(/<svg/)
       end
     end
 
