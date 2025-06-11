@@ -5,7 +5,13 @@
     <% elsif element.deprecated? %>
       <%= hint_with_tooltip element.deprecation_notice %>
     <% else %>
-      <%= render_icon('draggable', style: false, class: 'element', fixed_width: false) %>
+      <% if element.definition.icon %>
+        <span class="icon element">
+          <%= element.definition.icon_file %>
+        </span>
+      <% else %>
+        <%= render_icon('draggable', style: false, class: 'element', fixed_width: false) %>
+      <% end %>
     <% end %>
   </span>
   <span class="element-title">
