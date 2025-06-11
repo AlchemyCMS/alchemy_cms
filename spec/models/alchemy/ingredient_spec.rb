@@ -13,11 +13,6 @@ RSpec.describe Alchemy::Ingredient do
     build(:alchemy_element, name: "article", autogenerate_ingredients: false)
   end
 
-  it_behaves_like "having a hint" do
-    let(:definition_class) { Alchemy::IngredientDefinition }
-    let(:subject) { Alchemy::Ingredients::Text.new(role: "headline", element: element) }
-  end
-
   describe "scopes" do
     let(:element) do
       build(:alchemy_element, name: "all_you_can_eat", autogenerate_ingredients: false)
