@@ -49,6 +49,7 @@
   searchresults: true
 
 - name: contact
+  hint: The contact page provides a contactform.
   unique: true
   cache: false
   elements: [headline, text, contactform]

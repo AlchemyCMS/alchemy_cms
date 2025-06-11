@@ -1,0 +1,63 @@
+<% element = Alchemy::ElementDefinition.get(element_name) %>
+<% if element %>
+  <details <%= "open" if @query && nested_element_matches?(element_name, @query) %>>
+    <summary>
+      <header>
+        <span class="icon element">
+          <%= element.icon_file %>
+        </span>
+        <span><%= highlight(Alchemy::Element.display_name_for(element.name), @query) %></span>
+        <% count = @element_counts_by_page_layout.fetch([page_layout, element.name], 0) %>
+        <% total = @element_counts[element.name] %>
+        <sl-tooltip content="<%= Alchemy.t(:element_usage, scope: "admin.page_definitions", count: count, total: total) %>">
+          <small class="label usage">
+            <%= count %> / <%= total %>
+          </small>
+        </sl-tooltip>
+      </header>
+    </summary>
+    <div>
+      <% if element.unique %>
+        <sl-tooltip content="<%= Alchemy.t(:unique, scope: ["admin", "hints", Alchemy::ElementDefinition.model_name.i18n_key]) %>">
+          <small class="label">
+            <%= Alchemy::Element.human_attribute_name(:unique) %>
+          </small>
+        </sl-tooltip>
+      <% end %>
+      <% if element.fixed %>
+        <sl-tooltip content="<%= Alchemy.t(:fixed, scope: ["admin", "hints", Alchemy::ElementDefinition.model_name.i18n_key]) %>">
+          <small class="label">
+            <%= Alchemy::Element.human_attribute_name(:fixed) %>
+          </small>
+        </sl-tooltip>
+      <% end %>
+      <% if element.deprecated %>
+        <alchemy-message type="info">
+          <%= element.deprecation_notice %>
+        </alchemy-message>
+      <% end %>
+      <% if element.has_hint? %>
+        <p class="description"><%= element.hint %></p>
+      <% end %>
+      <% if element.ingredients.any? %>
+        <ol>
+          <%= render collection: element.ingredients.select { !_1.group }, partial: "ingredient_definition", locals: {element_name: element_name} %>
+
+          <% element.ingredients.select { _1.group }.group_by { _1.group }.each do |group, ingredients| %>
+            <h3>
+              <%= Alchemy.t(
+                group,
+                scope: "element_groups.#{element.name}",
+                default: Alchemy.t("element_groups.#{group}", default: group.humanize)
+              ) %>
+            </h3>
+            <ol>
+              <%= render collection: ingredients, partial: "ingredient_definition", locals: {element_name: element_name} %>
+            </ol>
+          <% end %>
+        </ol>
+      <% end %>
+      <%= render collection: element.nestable_elements, partial: "element_definition", as: "element_name", locals: {page_layout: page_layout} %>
+    </div>
+  </details>
+<% end %>
