@@ -1,0 +1,20 @@
+<div class="page-definition" name="<%= page_definition.name %>">
+  <h2 id="<%= page_definition.name %>">
+    <%= page_definition.human_name %>
+    <% count = Alchemy::Page.where(page_layout: page_definition.name).count %>
+    <small>
+      <% if count.positive? %>
+        <%= link_to Alchemy.t(:show_pages, scope: "admin.page_definitions") % {model_name: Alchemy::Page.model_name.human(count: count), count: count},
+          alchemy.admin_pages_path(view: "list", q: {by_page_layout: page_definition.name}) %>
+      <% else %>
+        <%= Alchemy.t(:zero_pages, scope: "admin.page_definitions") %>
+      <% end %>
+    </small>
+  </h2>
+  <% if page_definition.has_hint? %>
+    <p><%= page_definition.hint %></p>
+  <% end %>
+  <% if page_definition.elements.any? %>
+    <%= render collection: page_definition.elements, partial: "element", as: "element_name" %>
+  <% end %>
+</div>

@@ -1,0 +1,33 @@
+<%= content_for :toolbar do %>
+  <div class="search_form">
+    <style>
+      #toolbar {
+        alchemy-list-filter {
+          height: 100%;
+
+          input[type=search] {
+            height: 100%;
+            border: 0;
+            border-radius: 0;
+          }
+        }
+      }
+    </style>
+    <%= render Alchemy::Admin::ListFilter.new('aside li, .page-definition') %>
+  </div>
+<% end %>
+
+<div class="page-definitions">
+  <aside>
+    <ol>
+      <% @page_definitions.each do |page_layout| %>
+        <li name="<%= page_layout.name %>">
+          <%= link_to page_layout.human_name, "##{page_layout.name}" %>
+        </li>
+      <% end %>
+    </ol>
+  </aside>
+  <div>
+    <%= render collection: @page_definitions, partial: "page_definition" %>
+  </div>
+</div>
