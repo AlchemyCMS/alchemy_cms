@@ -89,7 +89,8 @@ module Alchemy
           :alchemy_admin_pages,
           :alchemy_admin_pictures,
           :alchemy_admin_tags,
-          :alchemy_admin_users
+          :alchemy_admin_users,
+          :alchemy_admin_page_definitions
         ]
 
         # Controller actions
@@ -108,6 +109,7 @@ module Alchemy
         can :manage, Alchemy::Node
         can [:read, :url], Alchemy::Picture
         can [:read, :autocomplete], Alchemy::Tag
+        can :read, Alchemy::PageDefinition
         can :edit_content, Alchemy::Page, Alchemy::Page.all do |page|
           page.editable_by?(@user)
         end

@@ -21,9 +21,9 @@ module Alchemy
     class ListFilter < ViewComponent::Base
       erb_template <<~ERB
         <alchemy-list-filter items-selector="<%= items_selector %>" name-attribute="<%= name_attribute %>">
-          <input type="text" class="js_filter_field" />
+          <input type="search" class="js_filter_field" />
           <alchemy-icon name="search"></alchemy-icon>
-          <button type="button" class="js_filter_field_clear icon_button">
+          <button type="reset" class="js_filter_field_clear icon_button">
             <alchemy-icon name="close" size="1x"></alchemy-icon>
           </button>
         </alchemy-list-filter>

@@ -49,11 +49,11 @@ class ListFilter extends HTMLElement {
   }
 
   get clearButton() {
-    return this.querySelector('button[type="button"]')
+    return this.querySelector('button[type="reset"]')
   }
 
   get filterField() {
-    return this.querySelector('input[type="text"]')
+    return this.querySelector('input[type="search"]')
   }
 
   get items() {

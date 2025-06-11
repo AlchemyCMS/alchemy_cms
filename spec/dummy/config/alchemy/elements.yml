@@ -217,6 +217,7 @@
 
 - name: slide
   icon: image-2-line
+  hint: "A single slide for the slider element."
   compact: true
   ingredients:
     - role: picture

@@ -9,6 +9,7 @@ alchemy-list-filter {
     transform: translateY(-50%);
   }
 
+  input[type="search"],
   .js_filter_field {
     width: 100%;
     padding-left: var(--spacing-7);
@@ -21,6 +22,7 @@ alchemy-list-filter {
     }
   }
 
+  button[type="reset"],
   .js_filter_field_clear {
     display: flex;
     visibility: hidden;
