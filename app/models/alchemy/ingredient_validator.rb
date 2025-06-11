@@ -64,7 +64,7 @@ module Alchemy
     attr_reader :ingredient
 
     def validations
-      ingredient.definition.fetch(:validate, [])
+      ingredient.definition.validate
     end
 
     def validate_presence(*)

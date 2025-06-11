@@ -31,7 +31,7 @@ module Alchemy
         element = Element.definitions.detect { _1.name == name }
         return [] unless element
 
-        element.ingredients.map { _1["type"] }
+        element.ingredients.map(&:type)
       end
     end
   end

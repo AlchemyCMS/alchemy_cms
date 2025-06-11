@@ -104,8 +104,8 @@ module Alchemy
       def first_ingredient_by_definition
         return if ingredient_definitions.empty?
 
-        role = ingredient_definitions.first["role"]
-        ingredients.detect { |ingredient| ingredient.role == role }
+        role = ingredient_definitions.first.role
+        ingredients.detect { _1.role == role }
       end
     end
   end

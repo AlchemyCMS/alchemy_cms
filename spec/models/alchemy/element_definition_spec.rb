@@ -81,6 +81,16 @@ module Alchemy
       end
     end
 
+    describe "#ingredients" do
+      let(:definition) { described_class.new }
+
+      subject { definition.ingredients }
+
+      it "returns ingredient definitions" do
+        is_expected.to all is_a? IngredientDefinition
+      end
+    end
+
     describe ".all" do
       # skip memoization
       before { ElementDefinition.instance_variable_set(:@definitions, nil) }

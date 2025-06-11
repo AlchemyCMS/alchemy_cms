@@ -25,7 +25,7 @@ describe Alchemy::Admin::IngredientsHelper do
     context "with a hint" do
       before do
         expect(ingredient).to receive(:definition).at_least(:once) do
-          {hint: "This is a hint"}
+          Alchemy::IngredientDefinition.new(hint: "This is a hint")
         end
       end
 
@@ -78,7 +78,11 @@ describe Alchemy::Admin::IngredientsHelper do
       let(:ingredient) do
         mock_model "Alchemy::Ingredients::Text",
           role: "intro",
-          definition: {name: "intro", type: "Text", deprecated: true},
+          definition: Alchemy::IngredientDefinition.new(
+            role: "intro",
+            type: "Text",
+            deprecated: true
+          ),
           translated_role: "Intro",
           has_validations?: false,
           deprecated?: true,

@@ -33,10 +33,10 @@
       <!-- Ingredients -->
       <% if element.has_ingredients_defined? %>
         <div class="element-ingredient-editors">
-          <%= render element.ingredients.select { |i| !i.definition[:group] }, element_form: f %>
+          <%= render element.ingredients.select { !_1.definition.group }, element_form: f %>
 
           <!-- Each ingredient group -->
-          <% element.ingredients.select { |i| i.definition[:group] }.group_by { |i| i.definition[:group] }.each do |group, ingredients| %>
+          <% element.ingredients.select { _1.definition.group }.group_by { _1.definition.group }.each do |group, ingredients| %>
             <%= content_tag :details, class: "ingredient-group", id: "element_#{element.id}_ingredient_group_#{group.parameterize.underscore}", is: "alchemy-ingredient-group" do %>
               <summary>
                 <%= element.translated_group group %>

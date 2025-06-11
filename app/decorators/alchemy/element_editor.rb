@@ -80,10 +80,10 @@ module Alchemy
     private
 
     def find_or_create_ingredient(definition)
-      element.ingredients.detect { |i| i.role == definition[:role] } ||
+      element.ingredients.detect { _1.role == definition.role } ||
         element.ingredients.create!(
-          role: definition[:role],
-          type: Alchemy::Ingredient.normalize_type(definition[:type])
+          role: definition.role,
+          type: Alchemy::Ingredient.normalize_type(definition.type)
         )
     end
   end

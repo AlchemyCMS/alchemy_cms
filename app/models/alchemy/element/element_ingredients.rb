@@ -59,10 +59,10 @@ module Alchemy
       # Returns the definition for given ingredient role
       def ingredient_definition_for(role)
         if ingredient_definitions.blank?
-          log_warning "Element #{name} is missing the ingredient definition for #{role}"
           nil
         else
-          ingredient_definitions.find { |d| d[:role] == role.to_s }
+          ingredient_definitions.find { _1.role == role.to_s } ||
+            log_warning("Element #{name} is missing the ingredient definition for #{role}")
         end
       end
 
@@ -99,10 +99,10 @@ module Alchemy
 
       # Builds ingredients for this element as described in the +elements.yml+
       def build_ingredients
-        ingredient_definitions.each do |attributes|
+        ingredient_definitions.each do |definition|
           ingredients.build(
-            role: attributes[:role],
-            type: Alchemy::Ingredient.normalize_type(attributes[:type])
+            role: definition.role,
+            type: Alchemy::Ingredient.normalize_type(definition.type)
           )
         end
       end
