@@ -37,6 +37,7 @@ module Alchemy
       "compact",
       "deprecated",
       "hint",
+      "icon",
       "ingredients",
       "message",
       "nestable_elements",
