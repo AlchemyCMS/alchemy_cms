@@ -1,0 +1,123 @@
+.page-definitions {
+  align-items: self-start;
+  position: relative;
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: var(--spacing-2);
+  grid-template-rows: auto;
+
+  h2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0;
+
+    small {
+      font-weight: normal;
+      font-size: var(--font-size_medium);
+    }
+  }
+
+  aside {
+    position: sticky;
+    top: calc(var(--top-menu-height) + var(--spacing-2));
+    background-color: var(--sidebar-background-color);
+    border-radius: var(--border-radius_medium);
+    padding: var(--spacing-4);
+    margin-bottom: var(--spacing-2);
+
+    ol {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-2);
+      list-style-position: outside;
+      margin-left: var(--spacing-1);
+    }
+
+    li {
+      padding: var(--spacing-1);
+      font-weight: bold;
+    }
+  }
+
+  details {
+    padding: var(--spacing-2);
+    margin: var(--spacing-2) 0;
+    background-color: var(--element-header-bg-color);
+    border-radius: var(--border-radius_medium);
+
+    summary {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      padding: var(--spacing-1) 0;
+      font-weight: bold;
+      gap: var(--spacing-1);
+
+      header {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--spacing-1);
+
+        .label {
+          padding: var(--spacing-0) var(--spacing-2);
+          background-color: hsla(0, 0%, 45%, 0.15);
+          margin-left: auto;
+          font-weight: normal;
+
+          &.usage:before {
+            content: "x";
+          }
+        }
+      }
+
+      &:before {
+        content: "▸";
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: var(--spacing-4);
+        height: var(--spacing-4);
+      }
+    }
+
+    &[open] > summary:before {
+      content: "▾";
+    }
+
+    > div {
+      padding: var(--spacing-1) 0 var(--spacing-1) var(--spacing-5);
+    }
+
+    ol {
+      list-style-type: none;
+      padding-left: 0;
+
+      li {
+        margin: var(--spacing-4) 0;
+
+        header {
+          gap: var(--spacing-2);
+        }
+      }
+    }
+
+    details {
+      padding-left: var(--spacing-1);
+      background-color: hsla(0, 0%, 45%, 0.05);
+    }
+  }
+
+  .page-definition {
+    padding: var(--spacing-4);
+    margin-bottom: var(--spacing-2);
+    background-color: var(--sidebar-background-color);
+    border-radius: var(--border-radius_medium);
+
+    p {
+      margin: var(--spacing-4) 0;
+    }
+  }
+}
