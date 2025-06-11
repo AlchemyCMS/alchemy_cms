@@ -38,6 +38,7 @@ const icons = [
   "Design/layout-bottom-2-line",
   "Design/palette-line",
   "Design/pencil-ruler-2-line",
+  "Design/ruler-2-line",
   "Design/scissors-cut-line",
   "Design/table-line",
   "Development/bug-line",
