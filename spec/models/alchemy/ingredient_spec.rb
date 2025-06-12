@@ -13,10 +13,6 @@ RSpec.describe Alchemy::Ingredient do
     build(:alchemy_element, name: "article", autogenerate_ingredients: false)
   end
 
-  it_behaves_like "having a hint" do
-    let(:subject) { Alchemy::Ingredients::Text.new(role: "headline", element: element) }
-  end
-
   describe "scopes" do
     let(:element) do
       build(:alchemy_element, name: "all_you_can_eat", autogenerate_ingredients: false)
@@ -105,9 +101,11 @@ RSpec.describe Alchemy::Ingredient do
 
     context "defined with validations" do
       before do
-        expect(ingredient).to receive(:definition).at_least(:once).and_return({
-          validate: {presence: true}
-        })
+        allow(ingredient).to receive(:definition) do
+          Alchemy::IngredientDefinition.new(
+            validate: {presence: true}
+          )
+        end
       end
 
       it { is_expected.to be true }
@@ -125,9 +123,11 @@ RSpec.describe Alchemy::Ingredient do
 
     context "defined with hint" do
       before do
-        expect(ingredient).to receive(:definition).at_least(:once).and_return({
-          hint: true
-        })
+        allow(ingredient).to receive(:definition) do
+          Alchemy::IngredientDefinition.new(
+            hint: true
+          )
+        end
       end
 
       it { is_expected.to be true }
@@ -145,9 +145,11 @@ RSpec.describe Alchemy::Ingredient do
 
     context "defined as deprecated" do
       before do
-        expect(ingredient).to receive(:definition).at_least(:once).and_return({
-          deprecated: true
-        })
+        allow(ingredient).to receive(:definition) do
+          Alchemy::IngredientDefinition.new(
+            deprecated: true
+          )
+        end
       end
 
       it { is_expected.to be true }
@@ -155,9 +157,11 @@ RSpec.describe Alchemy::Ingredient do
 
     context "defined as deprecated per String" do
       before do
-        expect(ingredient).to receive(:definition).at_least(:once).and_return({
-          deprecated: "This ingredient is deprecated"
-        })
+        allow(ingredient).to receive(:definition) do
+          Alchemy::IngredientDefinition.new(
+            deprecated: "This ingredient is deprecated"
+          )
+        end
       end
 
       it { is_expected.to be true }
@@ -175,9 +179,11 @@ RSpec.describe Alchemy::Ingredient do
 
     context "defined as as_element_title" do
       before do
-        expect(ingredient).to receive(:definition).at_least(:once).and_return({
-          as_element_title: true
-        })
+        allow(ingredient).to receive(:definition) do
+          Alchemy::IngredientDefinition.new(
+            as_element_title: true
+          )
+        end
       end
 
       it { is_expected.to be true }

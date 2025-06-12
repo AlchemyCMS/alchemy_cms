@@ -4,6 +4,7 @@ module Alchemy
   class PageDefinition
     include ActiveModel::Model
     include ActiveModel::Attributes
+    include Alchemy::Hints
 
     extend ActiveModel::Translation
 
@@ -103,6 +104,12 @@ module Alchemy
 
     def attributes
       super.with_indifferent_access
+    end
+
+    private
+
+    def hint_translation_scope
+      :page_hints
     end
   end
 end

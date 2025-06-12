@@ -4,8 +4,6 @@ module Alchemy
   class Ingredient < BaseRecord
     class DefinitionError < StandardError; end
 
-    include Hints
-
     self.table_name = "alchemy_ingredients"
 
     attribute :data, :json
@@ -16,7 +14,7 @@ module Alchemy
     has_one :page, through: :element, class_name: "Alchemy::Page"
 
     after_initialize :set_default_value,
-      if: -> { definition.key?(:default) && value.nil? }
+      if: -> { definition.default && value.nil? }
 
     validates :type, presence: true
     validates :role, presence: true, uniqueness: {scope: :element_id, case_sensitive: false}
@@ -37,6 +35,8 @@ module Alchemy
     scope :selects, -> { where(type: "Alchemy::Ingredients::Select") }
     scope :texts, -> { where(type: "Alchemy::Ingredients::Text") }
     scope :videos, -> { where(type: "Alchemy::Ingredients::Video") }
+
+    delegate :has_hint?, :hint, to: :definition
 
     class << self
       # Defines getter and setter method aliases for related object
@@ -97,15 +97,15 @@ module Alchemy
 
     # Settings for this ingredient from the +elements.yml+ definition.
     def settings
-      definition[:settings] || {}
+      definition.settings
     end
 
     # Definition hash for this ingredient from +elements.yml+ file.
     #
     def definition
-      return {} unless element
+      return IngredientDefinition.new unless element
 
-      element.ingredient_definition_for(role) || {}
+      element.ingredient_definition_for(role) || IngredientDefinition.new
     end
 
     # The first 30 characters of the value
@@ -126,17 +126,12 @@ module Alchemy
 
     # @return [Boolean]
     def has_validations?
-      !!definition[:validate]
-    end
-
-    # @return [Boolean]
-    def has_hint?
-      !!definition[:hint]
+      definition.validate.any?
     end
 
     # @return [Boolean]
     def deprecated?
-      !!definition[:deprecated]
+      !!definition.deprecated
     end
 
     # @return [Boolean]
@@ -146,7 +141,7 @@ module Alchemy
 
     # @return [Boolean]
     def preview_ingredient?
-      !!definition[:as_element_title]
+      !!definition.as_element_title
     end
 
     # The view component of the ingredient with mapped options.
@@ -163,30 +158,8 @@ module Alchemy
       @_view_component_class ||= "#{self.class.name}View".constantize
     end
 
-    def hint_translation_attribute
-      role
-    end
-
-    def hint_translation_scope
-      "ingredient_hints"
-    end
-
     def set_default_value
-      self.value = default_value
-    end
-
-    # Returns the default value from ingredient definition
-    #
-    # If the value is a symbol it gets passed through i18n
-    # inside the +alchemy.default_ingredient_texts+ scope
-    def default_value
-      default = definition[:default]
-      case default
-      when Symbol
-        Alchemy.t(default, scope: :default_ingredient_texts)
-      else
-        default
-      end
+      self.value = definition.default_value
     end
   end
 end

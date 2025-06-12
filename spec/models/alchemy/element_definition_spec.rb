@@ -30,6 +30,15 @@ module Alchemy
       it { is_expected.to_not allow_value("Article Element").for(:name) }
     end
 
+    it_behaves_like "having a hint" do
+      let(:translation_key) { "article" }
+      let(:translation_scope) { :element_hints }
+
+      let(:subject) do
+        described_class.new(name: "article", **hint)
+      end
+    end
+
     describe "#blank?" do
       subject { definition.blank? }
 
@@ -78,6 +87,16 @@ module Alchemy
 
           it { is_expected.to eq("Foo baz widget") }
         end
+      end
+    end
+
+    describe "#ingredients" do
+      let(:definition) { described_class.new }
+
+      subject { definition.ingredients }
+
+      it "returns ingredient definitions" do
+        is_expected.to all is_a? IngredientDefinition
       end
     end
 

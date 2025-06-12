@@ -99,62 +99,12 @@ module Alchemy
         Logger.warn("ingredient #{role} is missing its definition", caller(1..1))
         Alchemy.t(:ingredient_definition_missing)
       else
-        deprecation_notice
-      end
-    end
-
-    # Returns a deprecation notice for ingredients marked deprecated
-    #
-    # You can either use localizations or pass a String as notice
-    # in the ingredient definition.
-    #
-    # == Custom deprecation notices
-    #
-    # Use general ingredient deprecation notice
-    #
-    #     - name: element_name
-    #       ingredients:
-    #         - role: old_ingredient
-    #           type: Text
-    #           deprecated: true
-    #
-    # Add a translation to your locale file for a per ingredient notice.
-    #
-    #     en:
-    #       alchemy:
-    #         ingredient_deprecation_notices:
-    #           element_name:
-    #             old_ingredient: Foo baz widget is deprecated
-    #
-    # or use the global translation that apply to all deprecated ingredients.
-    #
-    #     en:
-    #       alchemy:
-    #         ingredient_deprecation_notice: Foo baz widget is deprecated
-    #
-    # or pass string as deprecation notice.
-    #
-    #     - name: element_name
-    #       ingredients:
-    #         - role: old_ingredient
-    #           type: Text
-    #           deprecated: This ingredient will be removed soon.
-    #
-    def deprecation_notice
-      case definition[:deprecated]
-      when String
-        definition[:deprecated]
-      when TrueClass
-        Alchemy.t(
-          role,
-          scope: [:ingredient_deprecation_notices, element.name],
-          default: Alchemy.t(:ingredient_deprecated)
-        )
+        definition.deprecation_notice(element_name: element&.name)
       end
     end
 
     def validations
-      definition.fetch(:validate, [])
+      definition.validate
     end
 
     def format_validation
@@ -173,7 +123,7 @@ module Alchemy
     private
 
     def form_field_counter
-      element.ingredient_definitions.index { |i| i[:role] == role }
+      element.ingredient_definitions.index { _1.role == role }
     end
   end
 end

@@ -103,10 +103,9 @@ module Alchemy
     def attributes
       super.with_indifferent_access
     end
-    alias_method :definition, :attributes
 
     def ingredients
-      super.map(&:with_indifferent_access)
+      super.map { IngredientDefinition.new(**_1) }
     end
 
     # Returns a deprecation notice for elements marked deprecated
