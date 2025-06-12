@@ -68,14 +68,14 @@ RSpec.describe Alchemy::Ingredients::Headline do
 
     before do
       expect(element).to receive(:ingredient_definition_for).at_least(:once) do
-        {
+        Alchemy::IngredientDefinition.new(
           role: "headline",
           type: "Headline",
           settings: {
             sizes: [3],
             levels: [2, 3]
           }
-        }
+        )
       end
     end
 

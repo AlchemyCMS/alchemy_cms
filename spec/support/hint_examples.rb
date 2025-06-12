@@ -5,16 +5,6 @@ require "rails_helper"
 module Alchemy
   shared_examples_for "having a hint" do
     describe "#hint" do
-      before do
-        expect(subject).to receive(:definition) do
-          if defined?(definition_class)
-            definition_class.new(**hint)
-          else
-            Hash(hint)
-          end
-        end
-      end
-
       context "with hint as text" do
         let(:hint) { {hint: "The hint"} }
 
@@ -27,7 +17,9 @@ module Alchemy
         let(:hint) { {hint: true} }
 
         before do
-          expect(Alchemy).to receive(:t).and_return("The translated hint")
+          expect(Alchemy).to receive(:t).with(translation_key, {scope: translation_scope}) do
+            "The translated hint"
+          end
         end
 
         it "returns the hint from translation" do

@@ -136,7 +136,11 @@ RSpec.describe Alchemy::IngredientEditor do
 
     context "when ingredient is deprecated" do
       let(:ingredient) do
-        mock_model("Alchemy::Ingredients::Text", definition: {deprecated: true}, deprecated?: true)
+        mock_model(
+          "Alchemy::Ingredients::Text",
+          definition: Alchemy::IngredientDefinition.new(deprecated: true),
+          deprecated?: true
+        )
       end
 
       it { is_expected.to be(true) }
@@ -144,7 +148,10 @@ RSpec.describe Alchemy::IngredientEditor do
 
     context "when ingredient is missing its definition" do
       let(:ingredient) do
-        mock_model("Alchemy::Ingredients::Text", definition: {})
+        mock_model(
+          "Alchemy::Ingredients::Text",
+          definition: Alchemy::IngredientDefinition.new
+        )
       end
 
       it { is_expected.to be(true) }
@@ -160,7 +167,11 @@ RSpec.describe Alchemy::IngredientEditor do
 
     context "when ingredient is missing its definition" do
       let(:ingredient) do
-        mock_model("Alchemy::Ingredients::Text", definition: {})
+        mock_model(
+          "Alchemy::Ingredients::Text",
+          definition: Alchemy::IngredientDefinition.new,
+          element: nil
+        )
       end
 
       it { is_expected.to eq Alchemy.t(:ingredient_definition_missing) }
@@ -175,72 +186,17 @@ RSpec.describe Alchemy::IngredientEditor do
       let(:ingredient) do
         mock_model(
           "Alchemy::Ingredients::Text",
-          definition: {
+          definition: Alchemy::IngredientDefinition.new(
             role: "foo",
             deprecated: "Deprecated"
-          }, deprecated?: true
+          ),
+          deprecated?: true,
+          element: nil
         )
       end
 
       it "returns a deprecation notice" do
         is_expected.to eq("Deprecated")
-      end
-    end
-  end
-
-  describe "#deprecation_notice" do
-    subject { ingredient_editor.deprecation_notice }
-
-    context "when ingredient is not deprecated" do
-      it { is_expected.to be_nil }
-    end
-
-    context "when ingredient is deprecated" do
-      context "with String as deprecation" do
-        let(:ingredient) do
-          mock_model(
-            "Alchemy::Ingredients::Text",
-            definition: {
-              role: "foo",
-              deprecated: "Ingredient is deprecated"
-            }, deprecated?: true
-          )
-        end
-
-        it { is_expected.to eq("Ingredient is deprecated") }
-      end
-
-      context "without custom ingredient translation" do
-        let(:ingredient) do
-          mock_model(
-            "Alchemy::Ingredients::Text",
-            definition: {
-              role: "foo",
-              deprecated: true
-            }, deprecated?: true,
-            element: element
-          )
-        end
-
-        it do
-          is_expected.to eq(
-            "WARNING! This field is deprecated and will be removed soon. " \
-            "Please do not use it anymore."
-          )
-        end
-      end
-
-      context "with custom ingredient translation" do
-        let(:element) { build(:alchemy_element, name: "all_you_can_eat") }
-
-        let(:ingredient) do
-          Alchemy::Ingredients::Html.new(
-            role: "html",
-            element: element
-          )
-        end
-
-        it { is_expected.to eq("Old ingredient is deprecated") }
       end
     end
   end
@@ -256,14 +212,14 @@ RSpec.describe Alchemy::IngredientEditor do
       let(:ingredient) do
         mock_model(
           "Alchemy::Ingredients::Text",
-          definition: {
+          definition: Alchemy::IngredientDefinition.new(
             role: "foo",
             validate: [{format: /\A[a-z]+\z/}]
-          }
+          )
         )
       end
 
-      it { is_expected.to eq([{format: /\A[a-z]+\z/}]) }
+      it { is_expected.to include({format: /\A[a-z]+\z/}) }
     end
   end
 
@@ -278,10 +234,10 @@ RSpec.describe Alchemy::IngredientEditor do
       let(:ingredient) do
         mock_model(
           "Alchemy::Ingredients::Text",
-          definition: {
+          definition: Alchemy::IngredientDefinition.new(
             role: "foo",
             validate: [{format: /\A[a-z]+\z/}]
-          }
+          )
         )
       end
 
@@ -300,14 +256,14 @@ RSpec.describe Alchemy::IngredientEditor do
       let(:ingredient) do
         mock_model(
           "Alchemy::Ingredients::Text",
-          definition: {
+          definition: Alchemy::IngredientDefinition.new(
             role: "foo",
             validate: [{length: {minimum: 5}}]
-          }
+          )
         )
       end
 
-      it { is_expected.to eq({minimum: 5}) }
+      it { is_expected.to eq({minimum: 5}.with_indifferent_access) }
     end
   end
 
@@ -322,10 +278,10 @@ RSpec.describe Alchemy::IngredientEditor do
       let(:ingredient) do
         mock_model(
           "Alchemy::Ingredients::Text",
-          definition: {
+          definition: Alchemy::IngredientDefinition.new(
             role: "foo",
             validate: ["presence"]
-          }
+          )
         )
       end
 
@@ -336,10 +292,10 @@ RSpec.describe Alchemy::IngredientEditor do
       let(:ingredient) do
         mock_model(
           "Alchemy::Ingredients::Text",
-          definition: {
+          definition: Alchemy::IngredientDefinition.new(
             role: "foo",
             validate: [{presence: true}]
-          }
+          )
         )
       end
 

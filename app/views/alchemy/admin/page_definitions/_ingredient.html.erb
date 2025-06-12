@@ -1,0 +1,9 @@
+<li>
+  <header>
+    <strong><%= Alchemy::Ingredient.translated_label_for(ingredient.role, element_name) %></strong>
+    <small><%= Alchemy::Ingredient.normalize_type(ingredient.type).constantize.model_name.human %></small>
+  </header>
+  <% if ingredient.has_hint? %>
+    <p><%== ingredient.hint %></p>
+  <% end %>
+</li>

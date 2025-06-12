@@ -38,6 +38,15 @@ module Alchemy
       end
     end
 
+    it_behaves_like "having a hint" do
+      let(:translation_key) { "standard" }
+      let(:translation_scope) { :page_hints }
+
+      let(:subject) do
+        described_class.new(name: "standard", **hint)
+      end
+    end
+
     describe "validations" do
       it { is_expected.to validate_presence_of(:name) }
       it { is_expected.to allow_value("standard").for(:name) }

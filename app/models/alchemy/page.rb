@@ -44,7 +44,6 @@ require_dependency "alchemy/page/page_elements"
 
 module Alchemy
   class Page < BaseRecord
-    include Alchemy::Hints
     include Alchemy::Logger
     include Alchemy::Taggable
 
@@ -164,6 +163,7 @@ module Alchemy
 
     # site_name accessor
     delegate :name, to: :site, prefix: true, allow_nil: true
+    delegate :has_hint?, :hint, to: :definition
 
     # Class methods
     #

@@ -4,10 +4,12 @@ module Alchemy
   class PageDefinition
     include ActiveModel::Model
     include ActiveModel::Attributes
+    include Alchemy::Hints
 
     extend ActiveModel::Translation
 
     attribute :name, :string
+    attribute :image, :string
     attribute :elements, default: []
     attribute :autogenerate, default: []
     attribute :layoutpage, :boolean, default: false
@@ -103,6 +105,12 @@ module Alchemy
 
     def attributes
       super.with_indifferent_access
+    end
+
+    private
+
+    def hint_translation_scope
+      :page_hints
     end
   end
 end

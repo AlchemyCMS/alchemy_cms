@@ -21,12 +21,17 @@ module Alchemy
     attribute :message
     attribute :warning
     attribute :hint
+    attribute :icon
 
     validates :name,
       presence: true,
       format: {
         with: /\A[a-z_-]+\z/
       }
+
+    validates :icon,
+      format: {with: /\A[\w-]+\z/i},
+      if: -> { icon.is_a?(String) }
 
     delegate :blank?, to: :name
 
@@ -103,10 +108,9 @@ module Alchemy
     def attributes
       super.with_indifferent_access
     end
-    alias_method :definition, :attributes
 
     def ingredients
-      super.map(&:with_indifferent_access)
+      super.map { IngredientDefinition.new(**_1) }
     end
 
     # Returns a deprecation notice for elements marked deprecated
@@ -152,7 +156,19 @@ module Alchemy
       end
     end
 
+    def icon_file
+      @_icon_file ||= File.read(icons_root_path.join("#{icon_name}.svg")).html_safe
+    end
+
+    def icon_name
+      (icon == true) ? name : icon
+    end
+
     private
+
+    def icons_root_path
+      Rails.root.join("app", "assets", "images", "alchemy", "element_icons")
+    end
 
     def hint_translation_scope
       :element_hints
