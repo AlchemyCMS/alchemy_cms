@@ -22,8 +22,26 @@ module Alchemy
       it { is_expected.to have_key(:hint) }
     end
 
+    describe "#blank?" do
+      subject { definition.blank? }
+
+      context "with name given" do
+        let(:definition) { described_class.new(name: "standard") }
+
+        it { is_expected.to be(false) }
+      end
+
+      context "without name given" do
+        let(:definition) { described_class.new }
+
+        it { is_expected.to be(true) }
+      end
+    end
+
     describe "validations" do
       it { is_expected.to validate_presence_of(:name) }
+      it { is_expected.to allow_value("standard").for(:name) }
+      it { is_expected.to_not allow_value("Standard Page").for(:name) }
     end
 
     describe ".all" do

@@ -13,11 +13,11 @@
 
   <%= render 'alchemy/admin/elements/toolbar', element: element %>
 
-  <% element.definition[:message].tap do |message| %>
+  <% element.definition.message.tap do |message| %>
     <%= render_message(:info, sanitize(message)) if message %>
   <% end %>
 
-  <% element.definition[:warning].tap do |warning| %>
+  <% element.definition.warning.tap do |warning| %>
     <%= render_message(:warning, sanitize(warning)) if warning %>
   <% end %>
 

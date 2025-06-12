@@ -46,7 +46,7 @@ module Alchemy
         else
           log_warning "Could not find element definition for #{name}. " \
                       "Please check your elements.yml file!"
-          {}
+          ElementDefinition.new
         end
       end
     end

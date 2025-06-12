@@ -41,7 +41,7 @@ module Alchemy
 
           let(:elements) do
             [
-              {
+              ElementDefinition.new(
                 "name" => "text",
                 "ingredients" => [
                   {
@@ -49,7 +49,7 @@ module Alchemy
                     "type" => "Text"
                   }
                 ]
-              }
+              )
             ]
           end
 
@@ -72,7 +72,16 @@ module Alchemy
 
         context "with an element editor given as name" do
           let(:name) { "alchemy/elements/_text_editor" }
-          let(:elements) { [{"name" => "text", "ingredients" => [{"type" => "Text"}]}] }
+          let(:elements) do
+            [
+              ElementDefinition.new(
+                "name" => "text",
+                "ingredients" => [
+                  {"type" => "Text"}
+                ]
+              )
+            ]
+          end
 
           it do
             is_expected.to be_empty
@@ -81,7 +90,14 @@ module Alchemy
 
         context "with an element given as name" do
           let(:name) { "alchemy/elements/_text" }
-          let(:elements) { [{"name" => "text", "ingredients" => [{"type" => "Text"}]}] }
+          let(:elements) do
+            [
+              ElementDefinition.new(
+                "name" => "text",
+                "ingredients" => [{"type" => "Text"}]
+              )
+            ]
+          end
 
           context "that is having a definition" do
             before { allow(Element).to receive(:definitions).and_return(elements) }

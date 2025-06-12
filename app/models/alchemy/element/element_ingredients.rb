@@ -53,7 +53,7 @@ module Alchemy
 
       # Returns all element ingredient definitions from the +elements.yml+ file
       def ingredient_definitions
-        definition.fetch(:ingredients, [])
+        definition.ingredients
       end
 
       # Returns the definition for given ingredient role

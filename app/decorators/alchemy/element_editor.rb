@@ -14,7 +14,7 @@ module Alchemy
     #
     # @return Array<Alchemy::IngredientEditor>
     def ingredients
-      element.definition.fetch(:ingredients, []).map do |ingredient|
+      ingredient_definitions.map do |ingredient|
         Alchemy::IngredientEditor.new(find_or_create_ingredient(ingredient))
       end
     end
@@ -22,7 +22,7 @@ module Alchemy
     # Are any ingredients defined?
     # @return [Boolean]
     def has_ingredients_defined?
-      element.definition.fetch(:ingredients, []).any?
+      ingredient_definitions.any?
     end
 
     # Returns the translated ingredient group for displaying in admin editor group headings
@@ -75,49 +75,6 @@ module Alchemy
       return false if method_name == :to_model
 
       super
-    end
-
-    # Returns a deprecation notice for elements marked deprecated
-    #
-    # You can either use localizations or pass a String as notice
-    # in the element definition.
-    #
-    # == Custom deprecation notices
-    #
-    # Use general element deprecation notice
-    #
-    #     - name: old_element
-    #       deprecated: true
-    #
-    # Add a translation to your locale file for a per element notice.
-    #
-    #     en:
-    #       alchemy:
-    #         element_deprecation_notices:
-    #           old_element: Foo baz widget is deprecated
-    #
-    # or use the global translation that apply to all deprecated elements.
-    #
-    #     en:
-    #       alchemy:
-    #         element_deprecation_notice: Foo baz widget is deprecated
-    #
-    # or pass string as deprecation notice.
-    #
-    #     - name: old_element
-    #       deprecated: This element will be removed soon.
-    #
-    def deprecation_notice
-      case definition["deprecated"]
-      when String
-        definition["deprecated"]
-      when TrueClass
-        Alchemy.t(
-          name,
-          scope: :element_deprecation_notices,
-          default: Alchemy.t(:element_deprecated)
-        )
-      end
     end
 
     private

@@ -28,10 +28,10 @@ module Alchemy
       private
 
       def ingredient_types(name)
-        element = Element.definitions.detect { _1["name"] == name }
+        element = Element.definitions.detect { _1.name == name }
         return [] unless element
 
-        element.fetch("ingredients", []).map { _1["type"] }
+        element.ingredients.map { _1["type"] }
       end
     end
   end
