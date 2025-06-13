@@ -27,10 +27,7 @@ namespace :alchemy do
 
     namespace "8.0" do
       task "run" => [
-        "alchemy:upgrade:8.0:install_active_storage",
-        "alchemy:upgrade:8.0:prepare_dragonfly_config",
-        "alchemy:upgrade:8.0:migrate_pictures_to_active_storage",
-        "alchemy:upgrade:8.0:migrate_attachments_to_active_storage"
+        "alchemy:upgrade:8.0:install_active_storage"
       ]
 
       desc "Install active_storage"
@@ -38,19 +35,28 @@ namespace :alchemy do
         Alchemy::Upgrader::EightZero.install_active_storage
       end
 
-      desc "Prepare Dragonfly config"
-      task :prepare_dragonfly_config do
-        Alchemy::Upgrader::EightZero.prepare_dragonfly_config
+      desc "Migrate to active_storage"
+      task :migrate_to_active_storage, [:service_name] => :environment do
+        require "alchemy/storage_migration/active_storage_migration"
+        Alchemy::StorageMigration::ActiveStorageMigration.start!(
+          service_name: args[:service_name]
+        )
       end
 
       desc "Migrate pictures to active_storage"
-      task :migrate_pictures_to_active_storage do
-        Alchemy::Upgrader::EightZero.migrate_pictures_to_active_storage
+      task :migrate_pictures_to_active_storage, [:service_name] => :environment do
+        require "alchemy/storage_migration/active_storage_migration"
+        Alchemy::StorageMigration::ActiveStorageMigration.migrate_pictures(
+          service_name: args[:service_name]
+        )
       end
 
       desc "Migrate attachments to active_storage"
-      task :migrate_attachments_to_active_storage do
-        Alchemy::Upgrader::EightZero.migrate_attachments_to_active_storage
+      task :migrate_attachments_to_active_storage, [:service_name] => :environment do
+        require "alchemy/storage_migration/active_storage_migration"
+        Alchemy::StorageMigration::ActiveStorageMigration.migrate_attachments(
+          service_name: args[:service_name]
+        )
       end
     end
   end
