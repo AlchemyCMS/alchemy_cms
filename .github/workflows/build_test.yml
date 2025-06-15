@@ -71,20 +71,37 @@ jobs:
     needs: [check_bun_lock, build_javascript]
     runs-on: ubuntu-22.04
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
-        rails:
-          - "7.1"
-          - "7.2"
-          - "8.0"
-        ruby:
-          - "3.2"
-          - "3.3"
-          - "3.4"
-        database:
-          - sqlite
-          - postgresql
-          - mariadb
+        include:
+          - rails: "7.1"
+            ruby: "3.1"
+            database: postgresql
+            storage: active_storage
+          - rails: "7.1"
+            ruby: "3.2"
+            database: mariadb
+            storage: dragonfly
+          - rails: "7.2"
+            ruby: "3.3"
+            database: postgresql
+            storage: active_storage
+          - rails: "7.2"
+            ruby: "3.4"
+            database: mariadb
+            storage: dragonfly
+          - rails: "8.0"
+            ruby: "3.4"
+            database: postgresql
+            storage: active_storage
+          - rails: "8.0"
+            ruby: "3.4"
+            database: mariadb
+            storage: dragonfly
+          - rails: "8.0"
+            ruby: "3.4"
+            database: sqlite
+            storage: active_storage
 
     env:
       DB: ${{ matrix.database }}
@@ -93,6 +110,7 @@ jobs:
       DB_HOST: "127.0.0.1"
       RAILS_ENV: test
       RAILS_VERSION: ${{ matrix.rails }}
+      ALCHEMY_STORAGE_ADAPTER: ${{ matrix.storage }}
       RUBY_YJIT_ENABLE: "1"
     services:
       postgres:
@@ -142,6 +160,10 @@ jobs:
           sudo apt update -qq
           sudo apt install -qq --fix-missing libmysqlclient-dev -o dir::cache::archives="/home/runner/apt/cache"
           sudo chown -R runner /home/runner/apt/cache
+      - name: Install libvips
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: sudo apt install --fix-missing libvips -o dir::cache::archives="/home/runner/apt/cache"
       - uses: actions/download-artifact@v4
         if: needs.check_bun_lock.outputs.bun_lock_changed == 'true'
         with:
@@ -154,11 +176,13 @@ jobs:
         run: |
           bundle exec rspec
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
+        if: matrix.rails == '8.0' && matrix.ruby == '3.4' && matrix.database == 'postgresql' && matrix.storage == 'active_storage'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: AlchemyCMS/alchemy_cms
-          file: ./coverage/coverage.xml
+          disable_search: true
+          files: ./coverage/coverage.xml
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

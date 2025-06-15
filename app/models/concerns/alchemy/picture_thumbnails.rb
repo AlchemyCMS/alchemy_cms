@@ -84,7 +84,7 @@ module Alchemy
         crop_from: crop && crop_from.presence || default_crop_from&.join("x"),
         crop_size: crop && crop_size.presence || default_crop_size&.join("x"),
         flatten: true,
-        format: picture&.image_file_format || "jpg"
+        format: picture&.image_file_extension || "jpg"
       }
     end
 
@@ -102,13 +102,22 @@ module Alchemy
 
     # Show image cropping link for ingredient
     def allow_image_cropping?
-      settings[:crop] && picture&.can_be_cropped_to?(
-        settings[:size],
-        settings[:upsample]
-      ) && !!picture.image_file
+      settings[:crop] && picture &&
+        Alchemy.storage_adapter.image_file_present?(picture) &&
+        can_be_cropped_to?
     end
 
     private
+
+    # An Image smaller than dimensions
+    # can not be cropped to given size - unless upsample is true.
+    #
+    def can_be_cropped_to?
+      return true if settings[:upsample]
+
+      dimensions = inferred_dimensions_from_string(settings[:size])
+      picture.image_file_width > dimensions[0] && picture.image_file_height > dimensions[1]
+    end
 
     def default_crop_size
       return nil unless settings[:crop] && settings[:size]

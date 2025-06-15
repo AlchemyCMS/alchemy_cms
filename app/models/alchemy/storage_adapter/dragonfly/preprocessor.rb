@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Alchemy
-  class Picture < BaseRecord
-    class Preprocessor
+  class StorageAdapter
+    class Dragonfly::Preprocessor
       def initialize(image_file)
         @image_file = image_file
       end
