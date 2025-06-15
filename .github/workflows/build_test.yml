@@ -154,11 +154,13 @@ jobs:
         run: |
           bundle exec rspec
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
+        if: matrix.rails == '8.0' && matrix.ruby == '3.4' && matrix.database == 'postgresql'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: AlchemyCMS/alchemy_cms
-          file: ./coverage/coverage.xml
+          disable_search: true
+          files: ./coverage/coverage.xml
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
