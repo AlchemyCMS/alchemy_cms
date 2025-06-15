@@ -71,20 +71,30 @@ jobs:
     needs: [check_bun_lock, build_javascript]
     runs-on: ubuntu-22.04
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
-        rails:
-          - "7.1"
-          - "7.2"
-          - "8.0"
-        ruby:
-          - "3.2"
-          - "3.3"
-          - "3.4"
-        database:
-          - sqlite
-          - postgresql
-          - mariadb
+        include:
+          - rails: "7.1"
+            ruby: "3.1"
+            database: postgresql
+          - rails: "7.2"
+            ruby: "3.2"
+            database: mariadb
+          - rails: "7.2"
+            ruby: "3.3"
+            database: postgresql
+          - rails: "7.2"
+            ruby: "3.4"
+            database: sqlite
+          - rails: "8.0"
+            ruby: "3.4"
+            database: postgresql
+          - rails: "8.0"
+            ruby: "3.4"
+            database: mariadb
+          - rails: "8.0"
+            ruby: "3.4"
+            database: sqlite
 
     env:
       DB: ${{ matrix.database }}
@@ -154,11 +164,13 @@ jobs:
         run: |
           bundle exec rspec
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
+        if: matrix.rails == '8.0' && matrix.ruby == '3.4' && matrix.database == 'postgresql'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: AlchemyCMS/alchemy_cms
-          file: ./coverage/coverage.xml
+          disable_search: true
+          files: ./coverage/coverage.xml
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
