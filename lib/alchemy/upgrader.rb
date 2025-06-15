@@ -27,5 +27,17 @@ module Alchemy
 
       template("templates/alchemy.rb.tt", "config/initializers/alchemy.rb")
     end
+
+    def run_migrations
+      ActiveRecord::Migration.check_all_pending!
+    rescue ActiveRecord::PendingMigrationError
+      desc "Pending Database migrations."
+      if yes?("Run database migrations now? (y/N)")
+        log "Migrating Database..."
+        Rake::Task["db:migrate"].invoke
+      else
+        log "Don't forget to run database migrations later with rake `db:migrate`.", :skip
+      end
+    end
   end
 end

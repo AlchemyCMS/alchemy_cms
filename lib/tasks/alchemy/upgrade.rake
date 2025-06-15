@@ -11,6 +11,7 @@ namespace :alchemy do
     "alchemy:upgrade:prepare",
     "alchemy:upgrade:8.0:run"
   ] do
+    Upgrader.run_migrations
     Upgrader.display_todos
   end
 
@@ -23,8 +24,7 @@ namespace :alchemy do
 
     desc "Alchemy Upgrader: Prepares the database."
     task database: [
-      "alchemy:install:migrations",
-      "db:migrate"
+      "alchemy:install:migrations"
     ]
 
     desc "Alchemy Upgrader: Update configuration file."
