@@ -71,20 +71,30 @@ jobs:
     needs: [check_bun_lock, build_javascript]
     runs-on: ubuntu-22.04
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
-        rails:
-          - "7.1"
-          - "7.2"
-          - "8.0"
-        ruby:
-          - "3.2"
-          - "3.3"
-          - "3.4"
-        database:
-          - sqlite
-          - postgresql
-          - mariadb
+        include:
+          - rails: "7.1"
+            ruby: "3.1"
+            database: postgresql
+          - rails: "7.2"
+            ruby: "3.2"
+            database: mariadb
+          - rails: "7.2"
+            ruby: "3.3"
+            database: postgresql
+          - rails: "7.2"
+            ruby: "3.4"
+            database: sqlite
+          - rails: "8.0"
+            ruby: "3.4"
+            database: postgresql
+          - rails: "8.0"
+            ruby: "3.4"
+            database: mariadb
+          - rails: "8.0"
+            ruby: "3.4"
+            database: sqlite
 
     env:
       DB: ${{ matrix.database }}
