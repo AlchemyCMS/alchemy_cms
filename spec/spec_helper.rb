@@ -10,6 +10,7 @@ SimpleCov.start "rails" do
   add_filter "/lib/alchemy/upgrader"
   add_filter "/lib/alchemy/version"
   add_filter "/lib/generators"
+  add_filter "/lib/alchemy/test_support"
   case ENV.fetch("ALCHEMY_STORAGE_ADAPTER", "active_storage")
   when "active_storage"
     add_filter %r{dragonfly}
