@@ -1,5 +1,4 @@
 Alchemy.configure do |config|
-  <% default_config = Alchemy::Configurations::Main.new %>
   # == This is the global Alchemy configuration file
   #
 
@@ -9,7 +8,7 @@ Alchemy.configure do |config|
   #
   # NOTE: This is only active in production environments
   #
-  # config.auto_logout_time = <%= default_config.auto_logout_time.inspect %>
+  # config.auto_logout_time = <%= @default_config.auto_logout_time.inspect %>
 
   # === Page caching
   #
@@ -17,7 +16,7 @@ Alchemy.configure do |config|
   #
   # NOTE: You can enable/disable page caching for single Alchemy::Definitions in the page_layout.yml file.
   #
-  # config.cache_pages = <%= default_config.cache_pages.inspect %>
+  # config.cache_pages = <%= @default_config.cache_pages.inspect %>
 
   # === Sitemap
   #
@@ -31,14 +30,14 @@ Alchemy.configure do |config|
   #   show_flag [Boolean] # Enables the Checkbox in Page#update overlay. So your customer can set the visibility of pages in the sitemap.
   #
   # config.sitemap.tap do |sitemap|
-  #   sitemap.show_root = <%= default_config.sitemap.show_root.inspect %>
-  #   sitemap.show_flag = <%= default_config.sitemap.show_flag.inspect %>
+  #   sitemap.show_root = <%= @default_config.sitemap.show_root.inspect %>
+  #   sitemap.show_flag = <%= @default_config.sitemap.show_flag.inspect %>
   # end
 
   # === Default items per page in admin views
   #
   # In Alchemy's Admin, change how many items you would get shown per page by Kaminari
-  # config.items_per_page = <%= default_config.items_per_page %>
+  # config.items_per_page = <%= @default_config.items_per_page %>
 
   # === Preview window URL configuration
   #
@@ -87,22 +86,22 @@ Alchemy.configure do |config|
   #
   # NOTE: You can always override the output format in the settings of your ingredients in elements.yml, I.E. {format: 'gif'}
   #
-  # config.output_image_quality = <%= default_config.output_image_quality %>
-  # config.preprocess_image_resize = <%= default_config.preprocess_image_resize.inspect %>
-  # config.image_output_format = <%= default_config.image_output_format.inspect %>
+  # config.output_image_quality = <%= @default_config.output_image_quality %>
+  # config.preprocess_image_resize = <%= @default_config.preprocess_image_resize.inspect %>
+  # config.image_output_format = <%= @default_config.image_output_format.inspect %>
 
   # This is used by the seeder to create the default site.
   # config.default_site.tap do |default_site|
-  #   default_site.name = <%= default_config.default_site.name.inspect %>
-  #   default_site.host = <%= default_config.default_site.host.inspect %>
+  #   default_site.name = <%= @default_config.default_site.name.inspect %>
+  #   default_site.host = <%= @default_config.default_site.host.inspect %>
   # end
 
   # This is the default language when seeding.
   # config.default_language.tap do |default_language|
-  #   default_language.code = <%= default_config.default_language.code.inspect %>
-  #   default_language.name = <%= default_config.default_language.name.inspect %>
-  #   default_language.page_layout = <%= default_config.default_language.page_layout.inspect %>
-  #   default_language.frontpage_name = <%= default_config.default_language.frontpage_name.inspect %>
+  #   default_language.code = <%= @default_config.default_language.code.inspect %>
+  #   default_language.name = <%= @default_config.default_language.name.inspect %>
+  #   default_language.page_layout = <%= @default_config.default_language.page_layout.inspect %>
+  #   default_language.frontpage_name = <%= @default_config.default_language.frontpage_name.inspect %>
   # end
 
   # === Mailer Settings:
@@ -132,14 +131,14 @@ Alchemy.configure do |config|
   #           firstname: Vorname
   #
   # config.mailer.tap do |mailer|
-  #   mailer.page_layout_name = <%= default_config.mailer.page_layout_name.inspect %>
-  #   mailer.forward_to_page = <%= default_config.mailer.forward_to_page.inspect %>
-  #   mailer.mail_success_page = <%= default_config.mailer.mail_success_page.inspect %>
-  #   mailer.mail_from = <%= default_config.mailer.mail_from.inspect %>
-  #   mailer.mail_to = <%= default_config.mailer.mail_to.inspect %>
-  #   mailer.subject = <%= default_config.mailer.subject.inspect %>
-  #   mailer.fields = <%= default_config.mailer.fields.inspect %>
-  #   mailer.validate_fields = <%= default_config.mailer.validate_fields.inspect %>
+  #   mailer.page_layout_name = <%= @default_config.mailer.page_layout_name.inspect %>
+  #   mailer.forward_to_page = <%= @default_config.mailer.forward_to_page.inspect %>
+  #   mailer.mail_success_page = <%= @default_config.mailer.mail_success_page.inspect %>
+  #   mailer.mail_from = <%= @default_config.mailer.mail_from.inspect %>
+  #   mailer.mail_to = <%= @default_config.mailer.mail_to.inspect %>
+  #   mailer.subject = <%= @default_config.mailer.subject.inspect %>
+  #   mailer.fields = <%= @default_config.mailer.fields.inspect %>
+  #   mailer.validate_fields = <%= @default_config.mailer.validate_fields.inspect %>
   # end
 
   # === User roles
@@ -158,7 +157,7 @@ Alchemy.configure do |config|
   #     user_roles:
   #       rolename: Name of the role
   #
-  # config.user_roles = <%= default_config.user_roles.inspect %>
+  # config.user_roles = <%= @default_config.user_roles.inspect %>
 
   # === Uploader Settings
   #
@@ -168,11 +167,11 @@ Alchemy.configure do |config|
   # *) Allow filetypes to upload. Pass * to allow all kind of files.
   #
   # config.uploader.tap do |uploader|
-  #   uploader.upload_limit = <%= default_config.uploader.upload_limit.inspect %>
-  #   uploader.file_size_limit = <%= default_config.uploader.file_size_limit.inspect %>
+  #   uploader.upload_limit = <%= @default_config.uploader.upload_limit.inspect %>
+  #   uploader.file_size_limit = <%= @default_config.uploader.file_size_limit.inspect %>
   #   uploader.allowed_filetypes.tap do |file_types|
-  #     file_types.alchemy_attachments = <%= default_config.uploader.allowed_filetypes.alchemy_attachments.inspect %>
-  #     file_types.alchemy_pictures = <%= default_config.uploader.allowed_filetypes.alchemy_pictures.inspect %>
+  #     file_types.alchemy_attachments = <%= @default_config.uploader.allowed_filetypes.alchemy_attachments.inspect %>
+  #     file_types.alchemy_pictures = <%= @default_config.uploader.allowed_filetypes.alchemy_pictures.inspect %>
   #   end
   # end
 
@@ -187,11 +186,11 @@ Alchemy.configure do |config|
   #
   #   jQuery(a[data-link-target="overlay"]).dialog();
   #
-  # config.link_target_options = <%= default_config.link_target_options.inspect %>
+  # config.link_target_options = <%= @default_config.link_target_options.inspect %>
 
   # The layout used for rendering the +alchemy/admin/pages#show+ action.
-  # config.admin_page_preview_layout = <%= default_config.admin_page_preview_layout.inspect %>
+  # config.admin_page_preview_layout = <%= @default_config.admin_page_preview_layout.inspect %>
 
   # The sizes for the preview size select in the page editor.
-  # config.page_preview_sizes = <%= default_config.page_preview_sizes.inspect %>
+  # config.page_preview_sizes = <%= @default_config.page_preview_sizes.inspect %>
 end

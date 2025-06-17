@@ -24,7 +24,7 @@ module Alchemy
 
     def update_config
       desc "Copy configuration file."
-
+      @default_config = Alchemy::Configurations::Main.new
       template("templates/alchemy.rb.tt", "config/initializers/alchemy.rb")
     end
 
