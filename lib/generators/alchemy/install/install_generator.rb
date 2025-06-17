@@ -60,6 +60,7 @@ module Alchemy
       end
 
       def copy_config_rb
+        @default_config = Alchemy::Configurations::Main.new
         template "#{__dir__}/templates/alchemy.rb.tt", app_config_path.join("initializers", "alchemy.rb")
       end
 
