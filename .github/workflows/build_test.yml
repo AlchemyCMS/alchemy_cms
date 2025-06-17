@@ -177,7 +177,7 @@ jobs:
           bundle exec rspec
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
-        if: matrix.rails == '8.0' && matrix.ruby == '3.4' && matrix.database == 'postgresql'
+        if: matrix.rails == '8.0' && matrix.ruby == '3.4'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: AlchemyCMS/alchemy_cms
