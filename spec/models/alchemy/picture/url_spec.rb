@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe Alchemy::Picture::Url do
-  let(:image) { File.new(File.expand_path("../../../fixtures/image.png", __dir__)) }
+  let(:image) { fixture_file_upload("image.png") }
   let(:picture) { create(:alchemy_picture, image_file: image) }
   let(:variant) { Alchemy::PictureVariant.new(picture) }
 

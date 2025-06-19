@@ -3,8 +3,8 @@
 require "rails_helper"
 
 RSpec.describe Alchemy::PictureThumb::Uid do
-  let(:image) { File.new(File.expand_path("../../../fixtures/image2.PNG", __dir__)) }
-  let(:picture) { build_stubbed(:alchemy_picture, image_file: image) }
+  let(:image) { fixture_file_upload("image2.PNG") }
+  let(:picture) { build(:alchemy_picture, image_file: image) }
   let(:variant) { Alchemy::PictureVariant.new(picture) }
 
   subject { described_class.call("12345", variant) }
@@ -22,7 +22,9 @@ RSpec.describe Alchemy::PictureThumb::Uid do
   end
 
   context "with non word characters in filename" do
-    let(:picture) { build_stubbed(:alchemy_picture, image_file: image, image_file_name: "The +*&image).png") }
+    before do
+      allow(variant).to receive(:image_file_name).and_return("The +*&image).png")
+    end
 
     it "replaces them with underscore" do
       is_expected.to eq "pictures/#{picture.id}/12345/The_image_.png"
@@ -30,7 +32,9 @@ RSpec.describe Alchemy::PictureThumb::Uid do
   end
 
   context "with no image_file_name" do
-    let(:picture) { build_stubbed(:alchemy_picture, image_file: image, image_file_name: nil) }
+    before do
+      allow(variant).to receive(:image_file_name).and_return(nil)
+    end
 
     it "uses 'image' as default" do
       is_expected.to eq "pictures/#{picture.id}/12345/image.png"

@@ -10,10 +10,7 @@ RSpec.describe "alchemy/admin/ingredients/edit.html.erb" do
 
   context "for a picture ingredient" do
     let(:image) do
-      fixture_file_upload(
-        File.expand_path("../../../../fixtures/500x500.png", __dir__),
-        "image/png"
-      )
+      fixture_file_upload("500x500.png")
     end
 
     let(:picture) do

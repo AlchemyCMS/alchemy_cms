@@ -4,10 +4,10 @@ require "rails_helper"
 
 RSpec.describe Alchemy::PictureVariant do
   let(:image_file) do
-    File.new(File.expand_path("../../fixtures/500x500.png", __dir__))
+    fixture_file_upload("500x500.png")
   end
 
-  let(:alchemy_picture) { build_stubbed(:alchemy_picture, image_file: image_file) }
+  let(:alchemy_picture) { build(:alchemy_picture, image_file: image_file) }
 
   subject { described_class.new(alchemy_picture, options).image }
 
@@ -110,7 +110,7 @@ RSpec.describe Alchemy::PictureVariant do
 
       context "and crop set to true" do
         let(:image_file) do
-          File.new(File.expand_path("../../fixtures/80x60.png", __dir__))
+          fixture_file_upload("80x60.png")
         end
         let(:options) do
           {size: "17x", crop: true}
@@ -152,10 +152,7 @@ RSpec.describe Alchemy::PictureVariant do
 
     context "but image has not a convertible format (svg)" do
       let(:image_file) do
-        fixture_file_upload(
-          File.expand_path("../../fixtures/icon.svg", __dir__),
-          "image/svg+xml"
-        )
+        fixture_file_upload("icon.svg")
       end
 
       it "does not convert the picture format" do
@@ -169,10 +166,7 @@ RSpec.describe Alchemy::PictureVariant do
       end
 
       let(:image_file) do
-        fixture_file_upload(
-          File.expand_path("../../fixtures/animated.gif", __dir__),
-          "image/gif"
-        )
+        fixture_file_upload("animated.gif")
       end
 
       it "flattens the image." do
@@ -199,10 +193,7 @@ RSpec.describe Alchemy::PictureVariant do
         end
 
         let(:image_file) do
-          fixture_file_upload(
-            File.expand_path("../../fixtures/image4.jpg", __dir__),
-            "image/jpeg"
-          )
+          fixture_file_upload("image4.jpg")
         end
 
         it "does not add transparent background." do
@@ -218,10 +209,7 @@ RSpec.describe Alchemy::PictureVariant do
         end
 
         let(:image_file) do
-          fixture_file_upload(
-            File.expand_path("../../fixtures/animated.gif", __dir__),
-            "image/gif"
-          )
+          fixture_file_upload("animated.gif")
         end
 
         it "does not flatten the image." do
@@ -288,7 +276,7 @@ RSpec.describe Alchemy::PictureVariant do
 
       context "and image has jpg format" do
         let(:alchemy_picture) do
-          build_stubbed(:alchemy_picture, image_file: image_file, image_file_format: "jpg")
+          build(:alchemy_picture, image_file: fixture_file_upload("image4.jpg"))
         end
 
         it "does not convert the picture format" do
@@ -310,7 +298,7 @@ RSpec.describe Alchemy::PictureVariant do
 
       context "and image has jpeg format" do
         let(:alchemy_picture) do
-          build_stubbed(:alchemy_picture, image_file: image_file, image_file_format: "jpeg")
+          build(:alchemy_picture, image_file: fixture_file_upload("image3.jpeg"))
         end
 
         it "does not convert the picture format" do
@@ -332,11 +320,11 @@ RSpec.describe Alchemy::PictureVariant do
 
       context "and image has webp format" do
         let(:image_file) do
-          File.new(File.expand_path("../../fixtures/image5.webp", __dir__))
+          fixture_file_upload("image5.webp")
         end
 
         let(:alchemy_picture) do
-          build_stubbed(:alchemy_picture, image_file: image_file, image_file_format: "webp")
+          build(:alchemy_picture, image_file: image_file, image_file_format: "webp")
         end
 
         let(:options) do
@@ -391,11 +379,11 @@ RSpec.describe Alchemy::PictureVariant do
 
     context "and image already has webp format" do
       let(:image_file) do
-        File.new(File.expand_path("../../fixtures/image5.webp", __dir__))
+        fixture_file_upload("image5.webp")
       end
 
       let(:alchemy_picture) do
-        build_stubbed(:alchemy_picture, image_file: image_file, image_file_format: "webp")
+        build(:alchemy_picture, image_file: image_file, image_file_format: "webp")
       end
 
       it "does not convert the picture format" do
