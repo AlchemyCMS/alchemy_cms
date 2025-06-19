@@ -5,7 +5,7 @@ require_relative "../../../support/dragonfly_test_app"
 
 RSpec.describe Alchemy::Dragonfly::Processors::AutoOrient do
   let(:app) { dragonfly_test_app }
-  let(:file) { Pathname.new(File.expand_path("../../../fixtures/80x60.png", __dir__)) }
+  let(:file) { fixture_file_upload("80x60.png") }
   let(:image) { Dragonfly::Content.new(app, file) }
   let(:processor) { described_class.new }
 

@@ -6,7 +6,7 @@ module Alchemy
   describe AttachmentsController do
     routes { Alchemy::Engine.routes }
 
-    let(:attachment) { build_stubbed(:alchemy_attachment) }
+    let(:attachment) { build(:alchemy_attachment, id: 555) }
 
     it "should raise ActiveRecord::RecordNotFound for requesting not existing attachments" do
       expect { get :download, params: {id: 0} }.to raise_error(ActiveRecord::RecordNotFound)

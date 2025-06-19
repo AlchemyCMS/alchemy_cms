@@ -5,7 +5,7 @@ require_relative "../../../support/dragonfly_test_app"
 
 RSpec.describe Alchemy::Dragonfly::Processors::Thumbnail do
   let(:app) { dragonfly_test_app }
-  let(:file) { Pathname.new(File.expand_path("../../../fixtures/80x60.png", __dir__)) }
+  let(:file) { fixture_file_upload("80x60.png") }
   let(:image) { Dragonfly::Content.new(app, file) }
   let(:processor) { described_class.new }
   let(:geometry) { "40x30#" }
@@ -36,7 +36,7 @@ RSpec.describe Alchemy::Dragonfly::Processors::Thumbnail do
     end
 
     context "GIF" do
-      let(:file) { Pathname.new(File.expand_path("../../../fixtures/animated.gif", __dir__)) }
+      let(:file) { fixture_file_upload("animated.gif") }
 
       it "should have the coalesce and deconstruct argument" do
         expect(processor.args_for_geometry(geometry)).to include("coalesce", "deconstruct")

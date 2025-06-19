@@ -5,7 +5,7 @@ require "rails_helper"
 module Alchemy
   describe Picture do
     let :image_file do
-      File.new(File.expand_path("../../fixtures/image.png", __dir__))
+      fixture_file_upload("image.png")
     end
 
     let(:picture) { Picture.new }
@@ -24,7 +24,7 @@ module Alchemy
 
     context "with a svg file" do
       let :image_file do
-        File.new(File.expand_path("../../fixtures/icon.svg", __dir__))
+        fixture_file_upload("icon.svg")
       end
 
       it "does not generate any thumbnails" do
@@ -36,7 +36,7 @@ module Alchemy
 
     context "with a webp file" do
       let :image_file do
-        File.new(File.expand_path("../../fixtures/image5.webp", __dir__))
+        fixture_file_upload("image5.webp")
       end
 
       it "generates thumbnails after create" do
@@ -57,26 +57,26 @@ module Alchemy
     end
 
     it "is not valid with an invalid image file" do
-      picture = build(:alchemy_picture, image_file_format: "pdf")
+      picture = build(:alchemy_picture, image_file: fixture_file_upload("file.pdf"))
       expect(picture).to_not be_valid
       expect(picture.errors[:image_file]).to include("This is not an valid image.")
     end
 
     it "is valid with capitalized image file extension" do
-      image_file = File.new(File.expand_path("../../fixtures/image2.PNG", __dir__))
+      image_file = fixture_file_upload("image2.PNG")
       picture = Picture.new(image_file: image_file)
       expect(picture).to be_valid
     end
 
     it "is valid with jpeg image file extension" do
-      image_file = File.new(File.expand_path("../../fixtures/image3.jpeg", __dir__))
+      image_file = fixture_file_upload("image3.jpeg")
       picture = Picture.new(image_file: image_file)
       expect(picture).to be_valid
     end
 
     context "with enabled preprocess_image_resize config option" do
       let(:image_file) do
-        File.new(File.expand_path("../../fixtures/80x60.png", __dir__))
+        fixture_file_upload("80x60.png")
       end
 
       context "with > geometry string" do
@@ -182,8 +182,8 @@ module Alchemy
     end
 
     describe ".file_formats" do
-      let!(:picture1) { create(:alchemy_picture, name: "Ping", image_file_format: "png") }
-      let!(:picture2) { create(:alchemy_picture, name: "Jay Peg", image_file_format: "jpeg") }
+      let!(:picture1) { create(:alchemy_picture, name: "Ping", image_file: fixture_file_upload("image.png")) }
+      let!(:picture2) { create(:alchemy_picture, name: "Jay Peg", image_file: fixture_file_upload("image3.jpeg")) }
 
       it "should return all picture file formats" do
         expect(Picture.file_formats).to match_array(%w[jpeg png])
@@ -243,10 +243,7 @@ module Alchemy
       subject(:url) { picture.url(options) }
 
       let(:image) do
-        fixture_file_upload(
-          File.expand_path("../../fixtures/500x500.png", __dir__),
-          "image/png"
-        )
+        fixture_file_upload("500x500.png")
       end
 
       let(:picture) do
@@ -327,10 +324,7 @@ module Alchemy
 
       context "with image file present" do
         let(:image) do
-          fixture_file_upload(
-            File.expand_path("../../fixtures/500x500.png", __dir__),
-            "image/png"
-          )
+          fixture_file_upload("500x500.png")
         end
 
         it "returns the url to the thumbnail" do

@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Alchemy
   describe Attachment do
-    let(:file) { File.new(File.expand_path("../../fixtures/image with spaces.png", __dir__)) }
+    let(:file) { fixture_file_upload("image with spaces.png") }
     let(:attachment) { Attachment.new(file: file) }
 
     describe "after assign" do
@@ -51,11 +51,11 @@ module Alchemy
 
     describe ".file_types" do
       let!(:attachment1) do
-        create(:alchemy_attachment, name: "Pee Dee Eff", file_name: "file.pdf", file_mime_type: "application/pdf")
+        create(:alchemy_attachment, name: "Pee Dee Eff", file: fixture_file_upload("file.pdf"))
       end
 
       let!(:attachment2) do
-        create(:alchemy_attachment, name: "Zip File", file_name: "archive.zip", file_mime_type: "application/zip")
+        create(:alchemy_attachment, name: "Zip File", file: fixture_file_upload("archive.zip"))
       end
 
       it "should return all attachment file formats" do

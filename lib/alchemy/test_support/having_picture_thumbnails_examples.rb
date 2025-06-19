@@ -112,7 +112,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
   describe "#picture_url_options" do
     subject(:picture_url_options) { record.picture_url_options }
 
-    let(:picture) { build_stubbed(:alchemy_picture) }
+    let(:picture) { build(:alchemy_picture) }
 
     it { is_expected.to be_a(HashWithIndifferentAccess) }
 
@@ -418,7 +418,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
     end
 
     context "with picture assigned" do
-      let(:picture) { build_stubbed(:alchemy_picture) }
+      let(:picture) { build(:alchemy_picture) }
 
       let(:default_mask) do
         [
@@ -655,7 +655,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
           end
 
           context "if picture.image_file is present" do
-            let(:picture) { build_stubbed(:alchemy_picture) }
+            let(:picture) { build(:alchemy_picture) }
 
             it { is_expected.to be(true) }
           end

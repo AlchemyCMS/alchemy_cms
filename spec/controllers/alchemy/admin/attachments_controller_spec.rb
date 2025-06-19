@@ -6,13 +6,10 @@ module Alchemy
   describe Admin::AttachmentsController do
     routes { Alchemy::Engine.routes }
 
-    let(:attachment) { build_stubbed(:alchemy_attachment) }
+    let(:attachment) { build(:alchemy_attachment, id: 555) }
 
     let(:file) do
-      fixture_file_upload(
-        File.expand_path("../../../fixtures/500x500.png", __dir__),
-        "image/png"
-      )
+      fixture_file_upload("500x500.png")
     end
 
     before do
@@ -54,7 +51,7 @@ module Alchemy
 
         let!(:jpg) do
           create :alchemy_attachment,
-            file: File.new(File.expand_path("../../../fixtures/image3.jpeg", __dir__))
+            file: fixture_file_upload("image3.jpeg")
         end
 
         it "loads only attachments with matching content type" do
@@ -115,10 +112,7 @@ module Alchemy
 
       context "when file is passed" do
         let(:file) do
-          fixture_file_upload(
-            File.expand_path("../../../fixtures/image2.PNG", __dir__),
-            "image/png"
-          )
+          fixture_file_upload("image2.PNG")
         end
 
         context "with passing validations" do

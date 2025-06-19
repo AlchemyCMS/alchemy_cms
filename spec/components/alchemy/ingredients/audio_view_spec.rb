@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Alchemy::Ingredients::AudioView, type: :component do
   let(:file) do
-    File.new(File.expand_path("../../../fixtures/image with spaces.png", __dir__))
+    fixture_file_upload("image with spaces.png")
   end
 
   let(:attachment) do
