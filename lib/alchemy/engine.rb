@@ -95,6 +95,12 @@ module Alchemy
           down_arrow: '<alchemy-icon name="arrow-down" size="1x"></alchemy-icon>'
         }
       end
+
+      ActiveSupport.on_load(:active_storage_blob) do
+        ActiveStorage::Blob.define_singleton_method(:ransackable_attributes) do |_auth_object|
+          %w[filename]
+        end
+      end
     end
 
     # Load Alchemy configuration from YAML files

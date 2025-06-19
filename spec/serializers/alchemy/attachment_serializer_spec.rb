@@ -6,7 +6,7 @@ RSpec.describe Alchemy::AttachmentSerializer do
   subject { described_class.new(attachment).to_json }
 
   let(:file) do
-    Alchemy::Engine.root.join("lib", "alchemy", "test_support", "fixtures", "image.png")
+    fixture_file_upload("image.png")
   end
 
   let(:attachment) { create(:alchemy_attachment, file: file) }

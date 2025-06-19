@@ -4,18 +4,27 @@ FactoryBot.define do
   factory :alchemy_attachment, class: "Alchemy::Attachment" do
     transient do
       file do
-        Alchemy::Engine.root.join("lib", "alchemy", "test_support", "fixtures", "image.png")
+        Rack::Test::UploadedFile.new(
+          Alchemy::Engine.root.join("spec", "fixtures", "files", "image.png")
+        )
       end
     end
 
-    after(:build) do |picture, acc|
+    after(:build) do |attachment, acc|
       if acc.file
-        picture.file.attach(
-          io: File.open(acc.file),
-          filename: File.basename(acc.file),
-          content_type: MiniMime.lookup_by_extension(File.extname(acc.file).remove("."))&.content_type || "application/octet-stream",
-          identify: false
-        )
+        case Alchemy.storage_adapter.name
+        when :active_storage
+          attachment.file.attach(
+            io: acc.file,
+            filename: acc.file.original_filename,
+            content_type: MiniMime.lookup_by_extension(
+              File.extname(acc.file.original_filename).remove(".")
+            )&.content_type || "application/octet-stream",
+            identify: false
+          )
+        when :dragonfly
+          attachment.file = acc.file
+        end
       end
     end
 

@@ -9,7 +9,7 @@ module Alchemy
     let(:attachment) { create(:alchemy_attachment, file: file) }
 
     let(:file) do
-      File.expand_path("../../../fixtures/500x500.png", __dir__)
+      fixture_file_upload("500x500.png")
     end
 
     before do
@@ -51,7 +51,7 @@ module Alchemy
 
         let!(:jpg) do
           create :alchemy_attachment,
-            file: File.expand_path("../../../fixtures/image3.jpeg", __dir__)
+            file: fixture_file_upload("image3.jpeg")
         end
 
         it "loads only attachments with matching content type" do
@@ -78,10 +78,7 @@ module Alchemy
 
       context "with passing validations" do
         let(:file) do
-          fixture_file_upload(
-            File.expand_path("../../../fixtures/500x500.png", __dir__),
-            "image/png"
-          )
+          fixture_file_upload("500x500.png")
         end
 
         let(:params) { {attachment: {file: file}} }
@@ -119,10 +116,7 @@ module Alchemy
 
       context "when file is passed" do
         let(:file) do
-          fixture_file_upload(
-            File.expand_path("../../../fixtures/image2.PNG", __dir__),
-            "image/png"
-          )
+          fixture_file_upload("image2.PNG")
         end
 
         context "with passing validations" do
@@ -141,7 +135,13 @@ module Alchemy
           end
 
           it "replaces the file" do
-            expect { subject }.to change { attachment.reload.file_blob }
+            expect { subject }.to change {
+              if Alchemy.storage_adapter.active_storage?
+                attachment.reload.file_blob
+              else
+                attachment.reload.file_uid
+              end
+            }
           end
         end
 
@@ -165,8 +165,13 @@ module Alchemy
 
         context "with search params" do
           let(:search_filter_params) do
+            q = if Alchemy.storage_adapter.active_storage?
+              {name_or_file_blob_filename_cont: "kitten", by_file_type: "pdf"}
+            else
+              {name_or_file_name_cont: "kitten", by_file_type: "pdf"}
+            end
             {
-              q: {name_or_file_name_cont: "kitten", by_file_type: "pdf"},
+              q:,
               tagged_with: "cute",
               page: 2
             }
@@ -199,8 +204,13 @@ module Alchemy
 
       context "with search params" do
         let(:search_filter_params) do
+          q = if Alchemy.storage_adapter.active_storage?
+            {name_or_file_blob_filename_cont: "kitten", by_file_type: "pdf"}
+          else
+            {name_or_file_name_cont: "kitten", by_file_type: "pdf"}
+          end
           {
-            q: {name_or_file_name_cont: "kitten", by_file_type: "pdf"},
+            q:,
             tagged_with: "cute",
             page: 2
           }

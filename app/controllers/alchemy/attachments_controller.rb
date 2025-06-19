@@ -2,7 +2,9 @@
 
 module Alchemy
   class AttachmentsController < BaseController
-    include ActiveStorage::Streaming
+    if Alchemy.storage_adapter.active_storage?
+      include ActiveStorage::Streaming
+    end
 
     before_action :load_attachment
 
@@ -11,13 +13,22 @@ module Alchemy
     # sends file inline. i.e. for viewing pdfs/movies in browser
     def show
       authorize! :show, @attachment
-      send_blob disposition: :inline
+      if Alchemy.storage_adapter.dragonfly?
+        send_attachment_file(disposition: :inline)
+      else
+        send_attachment_blob(disposition: :inline)
+      end
     end
 
     # sends file as attachment. aka download
     def download
       authorize! :download, @attachment
-      send_blob disposition: :attachment
+
+      if Alchemy.storage_adapter.dragonfly?
+        send_attachment_file(disposition: :attachment)
+      else
+        send_attachment_blob(disposition: :attachment)
+      end
     end
 
     private
@@ -26,7 +37,20 @@ module Alchemy
       @attachment = Attachment.find(params[:id])
     end
 
-    def send_blob(disposition: :inline)
+    def send_attachment_file(disposition: :inline)
+      response.headers["Content-Length"] = @attachment.file.size.to_s
+
+      send_file(
+        @attachment.file.path,
+        {
+          filename: @attachment.file_name,
+          type: @attachment.file_mime_type,
+          disposition: disposition
+        }
+      )
+    end
+
+    def send_attachment_blob(disposition: :inline)
       @blob = @attachment.file.blob
 
       if request.headers["Range"].present?

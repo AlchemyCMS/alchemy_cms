@@ -28,19 +28,6 @@ module Alchemy
       large: "240x180"
     }.with_indifferent_access.freeze
 
-    CONVERTIBLE_FILE_FORMATS = %w[gif jpg jpeg png webp].freeze
-
-    TRANSFORMATION_OPTIONS = [
-      :crop,
-      :crop_from,
-      :crop_size,
-      :flatten,
-      :format,
-      :quality,
-      :size,
-      :upsample
-    ]
-
     include Alchemy::Logger
     include Alchemy::NameConversions
     include Alchemy::Taggable
@@ -71,7 +58,7 @@ module Alchemy
 
     # Image preprocessing class
     def self.preprocessor_class
-      @_preprocessor_class ||= Preprocessor
+      @_preprocessor_class ||= Alchemy.storage_adapter.preprocessor_class
     end
 
     # Set a image preprocessing class
@@ -83,8 +70,7 @@ module Alchemy
       @_preprocessor_class = klass
     end
 
-    # Use ActiveStorage image processing
-    has_one_attached :image_file, service: :alchemy_cms
+    include Alchemy.storage_adapter.picture_class_methods
 
     # We need to define this method here to have it available in the validations below.
     class << self
@@ -106,7 +92,9 @@ module Alchemy
         where("#{table_name}.id NOT IN (SELECT related_object_id FROM alchemy_ingredients WHERE related_object_type = 'Alchemy::Picture')")
       }
     scope :without_tag, -> { left_outer_joins(:taggings).where(gutentag_taggings: {id: nil}) }
-    scope :by_file_format, ->(format) { where(image_file_format: format) }
+    scope :by_file_format, ->(file_format) do
+      Alchemy.storage_adapter.by_file_format_scope(file_format)
+    end
 
     # Class methods
 
@@ -115,7 +103,7 @@ module Alchemy
       #
       # @see Alchemy::Picture::Url
       def url_class
-        @_url_class ||= Alchemy::Picture::Url
+        @_url_class ||= Alchemy.storage_adapter.url_class
       end
 
       # Set a different picture url class
@@ -126,7 +114,15 @@ module Alchemy
       end
 
       def searchable_alchemy_resource_attributes
-        %w[name image_file_name]
+        Alchemy.storage_adapter.searchable_alchemy_resource_attributes(name)
+      end
+
+      def ransackable_attributes(_auth_object = nil)
+        %w[name]
+      end
+
+      def ransackable_associations(_auth_object = nil)
+        Alchemy.storage_adapter.ransackable_associations(name)
       end
 
       def last_upload
@@ -141,7 +137,7 @@ module Alchemy
       end
 
       def file_formats(scope = all)
-        scope.with_attached_image_files.pluck(active_storage_blobs: :content_type).uniq.tap(&:compact!).presence || []
+        Alchemy.storage_adapter.file_formats(name, scope:)
       end
     end
 
@@ -158,7 +154,7 @@ module Alchemy
       return unless image_file
 
       self.class.url_class.new(self).call(options)
-    rescue ::ActiveStorage::Error => e
+    rescue Alchemy.storage_adapter.rescuable_errors => e
       log_warning(e.message)
       nil
     end
@@ -242,7 +238,7 @@ module Alchemy
     # Returns true if the image can be converted into other formats
     #
     def has_convertible_format?
-      image_file_format.in?(CONVERTIBLE_FILE_FORMATS)
+      Alchemy.storage_adapter.has_convertible_format?(self)
     end
 
     # Checks if the picture is restricted.
@@ -264,27 +260,27 @@ module Alchemy
     end
 
     def image_file_name
-      image_file&.filename&.to_s
+      Alchemy.storage_adapter.image_file_name(self)
     end
 
     def image_file_format
-      image_file&.content_type
+      Alchemy.storage_adapter.image_file_format(self)
     end
 
     def image_file_size
-      image_file&.byte_size
+      Alchemy.storage_adapter.image_file_size(self)
     end
 
     def image_file_width
-      image_file&.metadata&.fetch(:width, nil)
+      Alchemy.storage_adapter.image_file_width(self)
     end
 
     def image_file_height
-      image_file&.metadata&.fetch(:height, nil)
+      Alchemy.storage_adapter.image_file_height(self)
     end
 
     def image_file_extension
-      image_file&.filename&.extension&.downcase
+      Alchemy.storage_adapter.image_file_extension(self)
     end
 
     alias_method :suffix, :image_file_extension

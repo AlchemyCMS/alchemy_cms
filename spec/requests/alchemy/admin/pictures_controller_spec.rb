@@ -21,9 +21,17 @@ RSpec.describe "Alchemy::Admin::PicturesController" do
 
       it "returns the url to picture" do
         get alchemy.url_admin_picture_path(picture)
+
+        url = case Alchemy.storage_adapter.name
+        when :active_storage
+          /\/rails\/active_storage\/representations\/redirect\/.+\/image\.png/
+        when :dragonfly
+          /\/pictures\/[a-zA-Z\d]+\/image\.png/
+        end
+
         json = JSON.parse(response.body)
         expect(json).to match({
-          "url" => /\/rails\/active_storage\/representations\/proxy\/.+\/image\.png/,
+          "url" => url,
           "alt" => picture.name,
           "title" => Alchemy.t(:image_name, name: picture.name)
         })

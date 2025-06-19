@@ -24,8 +24,7 @@ module Alchemy
     include Alchemy::Taggable
     include Alchemy::TouchElements
 
-    # Use ActiveStorage file attachments
-    has_one_attached :file, service: :alchemy_cms
+    include Alchemy.storage_adapter.attachment_class_methods
 
     stampable stamper_class_name: Alchemy.user_class_name
 
@@ -37,10 +36,9 @@ module Alchemy
     has_many :elements, through: :file_ingredients
     has_many :pages, through: :elements
 
-    scope :by_file_type,
-      ->(file_type) {
-        with_attached_file.joins(:file_blob).where(active_storage_blobs: {content_type: file_type})
-      }
+    scope :by_file_type, ->(file_type) do
+      Alchemy.storage_adapter.by_file_type_scope(file_type)
+    end
 
     scope :recent, -> { where("#{table_name}.created_at > ?", Time.current - 24.hours).order(:created_at) }
     scope :without_tag, -> { left_outer_joins(:taggings).where(gutentag_taggings: {id: nil}) }
@@ -69,13 +67,19 @@ module Alchemy
       end
 
       def searchable_alchemy_resource_attributes
-        %w[name file_name]
+        Alchemy.storage_adapter.searchable_alchemy_resource_attributes(name)
+      end
+
+      def ransackable_attributes(_auth_object = nil)
+        %w[name]
+      end
+
+      def ransackable_associations(_auth_object = nil)
+        Alchemy.storage_adapter.ransackable_associations(name)
       end
 
       def file_types(scope = all)
-        scope.reorder(:file_mime_type).distinct.pluck(:file_mime_type)
-          .map { [Alchemy.t(_1, scope: "mime_types"), _1] }
-          .sort_by(&:first)
+        Alchemy.storage_adapter.file_formats(name, scope:)
       end
 
       def allowed_filetypes
@@ -92,7 +96,7 @@ module Alchemy
     validate :file_type_allowed,
       unless: -> { self.class.allowed_filetypes.include?("*") }
 
-    before_save :set_name, if: -> { file.changed? }
+    before_save :set_name, if: -> { Alchemy.storage_adapter.set_attachment_name?(self) }
 
     scope :with_file_type, ->(file_type) { where(file_mime_type: file_type) }
 
@@ -116,21 +120,21 @@ module Alchemy
 
     # File name
     def file_name
-      file&.filename&.to_s
+      Alchemy.storage_adapter.file_name(self)
     end
 
     # File size
     def file_size
-      file&.byte_size
+      Alchemy.storage_adapter.file_size(self)
     end
 
     def file_mime_type
-      super || file&.content_type
+      Alchemy.storage_adapter.file_mime_type(self)
     end
 
     # File format suffix
     def extension
-      file&.filename&.extension
+      Alchemy.storage_adapter.file_extension(self)
     end
 
     alias_method :suffix, :extension
@@ -168,12 +172,12 @@ module Alchemy
 
     def file_type_allowed
       unless extension&.in?(self.class.allowed_filetypes)
-        errors.add(:image_file, Alchemy.t("not a valid file"))
+        errors.add(:file, Alchemy.t("not a valid file"))
       end
     end
 
     def set_name
-      self.name = convert_to_humanized_name(file_name, extension)
+      self.name ||= convert_to_humanized_name(file_name, extension)
     end
   end
 end

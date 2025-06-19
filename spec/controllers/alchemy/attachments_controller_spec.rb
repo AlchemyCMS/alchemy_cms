@@ -40,6 +40,15 @@ module Alchemy
           expect(response.headers["Content-Length"]).to eq(attachment.file_size.to_s)
         end
       end
+
+      context "when Range header is present", if: Alchemy.storage_adapter.active_storage? do
+        it "returns partial content" do
+          request.headers["Range"] = "bytes=0-35"
+          get :download, params: {id: attachment.id}
+          expect(response.headers["Content-Range"]).to eq("bytes 0-35/70")
+          expect(response.status).to eq(206)
+        end
+      end
     end
 
     context "with restricted attachment" do

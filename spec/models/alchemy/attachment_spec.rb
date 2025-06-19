@@ -4,11 +4,36 @@ require "rails_helper"
 
 module Alchemy
   describe Attachment do
-    let(:file) { File.expand_path("../../fixtures/image with spaces.png", __dir__) }
-    let(:attachment) { build(:alchemy_attachment, file: file) }
+    let(:file) { fixture_file_upload("image with spaces.png") }
+
+    let(:attachment) do
+      build(:alchemy_attachment, file:, name: nil, file_name: nil)
+    end
 
     it "has file mime type accessor" do
       expect(attachment.file_mime_type).to eq("image/png")
+    end
+
+    describe ".searchable_alchemy_resource_attributes" do
+      it "delegates to storage adapter" do
+        expect(Alchemy.storage_adapter).to receive(:searchable_alchemy_resource_attributes).with("Alchemy::Attachment")
+        described_class.searchable_alchemy_resource_attributes
+      end
+    end
+
+    describe ".ransackable_attributes" do
+      subject { described_class.ransackable_attributes }
+
+      it "returns an array of ransackable attributes" do
+        is_expected.to eq(%w[name])
+      end
+    end
+
+    describe ".ransackable_associations" do
+      it "delegates to storage adapter" do
+        expect(Alchemy.storage_adapter).to receive(:ransackable_associations).with("Alchemy::Attachment")
+        described_class.ransackable_associations
+      end
     end
 
     describe "after save" do
@@ -47,27 +72,9 @@ module Alchemy
     end
 
     describe ".file_types" do
-      let!(:attachment1) do
-        create(:alchemy_attachment, name: "Pee Dee Eff", file_name: "file.pdf", file_mime_type: "application/pdf")
-      end
-
-      let!(:attachment2) do
-        create(:alchemy_attachment, name: "Zip File", file_name: "archive.zip", file_mime_type: "application/zip")
-      end
-
-      it "should return all attachment file formats" do
-        expect(Attachment.file_types).to match_array [
-          ["PDF Document", "application/pdf"],
-          ["ZIP Archive", "application/zip"]
-        ]
-      end
-
-      context "with a scope" do
-        it "should only return scoped attachment file formats" do
-          expect(Attachment.file_types(Attachment.where(name: "Pee Dee Eff"))).to eq [
-            ["PDF Document", "application/pdf"]
-          ]
-        end
+      it "deligates to storage adapter" do
+        expect(Alchemy.storage_adapter).to receive(:file_formats).with(described_class.name, scope: described_class.all)
+        described_class.file_types
       end
     end
 
@@ -192,7 +199,9 @@ module Alchemy
       end
 
       context "having a filename with special characters" do
-        let(:file) { File.expand_path("../../fixtures/my FileNämü.png", __dir__) }
+        let(:file) do
+          fixture_file_upload("my FileNämü.png")
+        end
 
         before do
           attachment.save
@@ -200,6 +209,10 @@ module Alchemy
 
         it "should be valid" do
           expect(attachment).to be_valid
+        end
+
+        it "should be the same" do
+          expect(attachment.file_name).to eq("my FileNämü.png")
         end
       end
     end

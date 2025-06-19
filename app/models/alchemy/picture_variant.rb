@@ -89,12 +89,12 @@ module Alchemy
       end
 
       options = {
-        flatten: !render_format.in?(ANIMATED_IMAGE_FORMATS) && picture.image_file_format == "gif"
+        flatten: !render_format.in?(ANIMATED_IMAGE_FORMATS) && picture.image_file_extension == "gif"
       }.with_indifferent_access.merge(options)
 
       encoding_options = []
 
-      convert_format = render_format.sub("jpeg", "jpg") != picture.image_file_format.sub("jpeg", "jpg")
+      convert_format = render_format.sub("jpeg", "jpg") != picture.image_file_extension.sub("jpeg", "jpg")
 
       if encodable_image? && (convert_format || options[:quality])
         quality = options[:quality] || Alchemy.config.get(:output_image_quality)
@@ -102,7 +102,7 @@ module Alchemy
       end
 
       if options[:flatten]
-        if render_format.in?(TRANSPARENT_IMAGE_FORMATS) && picture.image_file_format.in?(TRANSPARENT_IMAGE_FORMATS)
+        if render_format.in?(TRANSPARENT_IMAGE_FORMATS) && picture.image_file_extension.in?(TRANSPARENT_IMAGE_FORMATS)
           encoding_options << "-background transparent"
         end
         encoding_options << "-flatten"

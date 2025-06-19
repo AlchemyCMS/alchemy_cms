@@ -10,6 +10,13 @@ SimpleCov.start "rails" do
   add_filter "/lib/alchemy/upgrader"
   add_filter "/lib/alchemy/version"
   add_filter "/lib/generators"
+  case ENV.fetch("ALCHEMY_STORAGE_ADAPTER", "active_storage")
+  when "active_storage"
+    add_filter %r{dragonfly}
+    add_filter %r{picture(_thumb|_variant|/transformations)}
+  when "dragonfly"
+    add_filter %r{active_storage}
+  end
 end
 
 require "rspec/core"

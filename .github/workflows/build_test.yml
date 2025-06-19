@@ -77,24 +77,31 @@ jobs:
           - rails: "7.1"
             ruby: "3.1"
             database: postgresql
+            storage: active_storage
           - rails: "7.2"
             ruby: "3.2"
             database: mariadb
+            storage: dragonfly
           - rails: "7.2"
             ruby: "3.3"
             database: postgresql
+            storage: active_storage
           - rails: "7.2"
             ruby: "3.4"
             database: sqlite
+            storage: dragonfly
           - rails: "8.0"
             ruby: "3.4"
             database: postgresql
+            storage: active_storage
           - rails: "8.0"
             ruby: "3.4"
             database: mariadb
+            storage: dragonfly
           - rails: "8.0"
             ruby: "3.4"
             database: sqlite
+            storage: active_storage
 
     env:
       DB: ${{ matrix.database }}
@@ -103,6 +110,7 @@ jobs:
       DB_HOST: "127.0.0.1"
       RAILS_ENV: test
       RAILS_VERSION: ${{ matrix.rails }}
+      ALCHEMY_STORAGE_ADAPTER: ${{ matrix.storage }}
       RUBY_YJIT_ENABLE: "1"
     services:
       postgres:

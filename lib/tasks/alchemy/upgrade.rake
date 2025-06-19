@@ -34,11 +34,17 @@ namespace :alchemy do
 
     namespace "8.0" do
       task "run" => [
-        "alchemy:upgrade:8.0:mention_alchemy_config_initializer"
+        "alchemy:upgrade:8.0:mention_alchemy_config_initializer",
+        "alchemy:upgrade:8.0:install_active_storage"
       ]
 
       task :mention_alchemy_config_initializer do
         Upgrader.mention_alchemy_config_initializer
+      end
+
+      desc "Install active_storage"
+      task :install_active_storage do
+        Upgrader.install_active_storage
       end
     end
   end

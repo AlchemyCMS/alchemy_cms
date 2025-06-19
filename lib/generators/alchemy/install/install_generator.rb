@@ -77,12 +77,8 @@ module Alchemy
         copy_file "alchemy.en.yml", app_config_path.join("locales", "alchemy.en.yml")
       end
 
-      def copy_dragonfly_config
-        template(
-          "#{__dir__}/templates/dragonfly.rb.tt",
-          app_config_path.join("initializers", "dragonfly.rb"),
-          skip: options[:auto_accept]
-        )
+      def install_active_storage
+        rake "active_storage:install:migrations"
       end
 
       def install_gutentag_migrations

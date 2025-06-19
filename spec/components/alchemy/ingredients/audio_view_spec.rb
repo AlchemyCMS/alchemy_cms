@@ -3,12 +3,8 @@
 require "rails_helper"
 
 RSpec.describe Alchemy::Ingredients::AudioView, type: :component do
-  let(:file) do
-    File.new(File.expand_path("../../../fixtures/image with spaces.png", __dir__))
-  end
-
   let(:attachment) do
-    build_stubbed(:alchemy_attachment, file: file, name: "a podcast", file_name: "image with spaces.png")
+    build_stubbed(:alchemy_attachment)
   end
 
   let(:ingredient) do

@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Alchemy::Ingredients::PictureView, type: :component do
   let(:image) do
-    File.new(File.expand_path("../../../fixtures/image.png", __dir__))
+    fixture_file_upload("image.png")
   end
 
   let(:picture) do

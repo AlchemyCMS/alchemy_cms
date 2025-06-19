@@ -30,7 +30,7 @@ module Alchemy
 
       def index
         @query = Picture.ransack(search_filter_params[:q])
-        @pictures = filtered_pictures.includes(:thumbs)
+        @pictures = Alchemy.storage_adapter.preloaded_pictures(filtered_pictures)
 
         if in_overlay?
           archive_overlay

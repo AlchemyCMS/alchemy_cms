@@ -631,7 +631,11 @@ RSpec.shared_examples_for "having picture thumbnails" do
       context "and image smaller or equal to crop size" do
         context "if picture.image_file is nil" do
           before do
-            expect(picture.image_file).to receive(:attached?) { false }
+            if Alchemy.storage_adapter.active_storage?
+              expect(picture.image_file).to receive(:attached?) { false }
+            else
+              expect(picture).to receive(:image_file) { nil }
+            end
           end
 
           it { is_expected.to be_falsy }
@@ -639,7 +643,11 @@ RSpec.shared_examples_for "having picture thumbnails" do
 
         context "if picture.image_file is present" do
           before do
-            expect(picture.image_file).to receive(:attached?) { true }
+            if Alchemy.storage_adapter.active_storage?
+              expect(picture.image_file).to receive(:attached?) { true }
+            else
+              expect(picture).to receive(:image_file) { fixture_file_upload("image.png") }
+            end
           end
 
           it { is_expected.to be_falsy }
@@ -661,7 +669,11 @@ RSpec.shared_examples_for "having picture thumbnails" do
         context "with crop set to true" do
           context "if picture.image_file is nil" do
             before do
-              expect(picture.image_file).to receive(:attached?) { false }
+              if Alchemy.storage_adapter.active_storage?
+                expect(picture.image_file).to receive(:attached?) { false }
+              else
+                expect(picture).to receive(:image_file) { nil }
+              end
             end
 
             it { is_expected.to be_falsy }
@@ -669,7 +681,11 @@ RSpec.shared_examples_for "having picture thumbnails" do
 
           context "if picture.image_file is present" do
             before do
-              expect(picture.image_file).to receive(:attached?) { true }
+              if Alchemy.storage_adapter.active_storage?
+                expect(picture.image_file).to receive(:attached?) { true }
+              else
+                expect(picture).to receive(:image_file) { fixture_file_upload("image.png") }
+              end
             end
 
             it { is_expected.to be(true) }
