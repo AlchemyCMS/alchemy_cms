@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Alchemy::Picture::Url do
+RSpec.describe Alchemy::StorageAdapter::Dragonfly::PictureUrl, if: Alchemy.storage_adapter.dragonfly? do
   let(:image) { fixture_file_upload("image.png") }
   let(:picture) { create(:alchemy_picture, image_file: image) }
 
@@ -12,6 +12,19 @@ RSpec.describe Alchemy::Picture::Url do
 
   it "returns the url to the image" do
     is_expected.to match(/\/pictures\/.+\/image\.png\?name=image&sha=.+/)
+  end
+
+  context "when transformation options are passed" do
+    let(:options) do
+      {
+        crop: true,
+        size: "10x10"
+      }
+    end
+
+    it "does not pass them to the URL" do
+      is_expected.to_not match(/crop/)
+    end
   end
 
   context "when params are passed" do

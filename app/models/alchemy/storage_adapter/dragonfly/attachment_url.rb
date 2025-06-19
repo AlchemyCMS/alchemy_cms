@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
 module Alchemy
-  class Attachment < BaseRecord
-    # The class representing an URL to an attachment
+  class StorageAdapter
+    # The class representing an URL to an Dragonfly attachment
     #
-    # Set a different one
-    #
-    #     Alchemy::Attachment.url_class = MyRemoteUrlClass
-    #
-    class Url
+    class Dragonfly::AttachmentUrl
+      attr_reader :attachment
+
       def initialize(attachment)
         @attachment = attachment
       end
@@ -23,11 +21,13 @@ module Alchemy
       # @return [String]
       #
       def call(options = {})
-        options[:format] ||= @attachment.suffix
-        if options.delete(:download)
-          routes.download_attachment_path(@attachment, options)
-        else
-          routes.show_attachment_path(@attachment, options)
+        if attachment.file
+          options[:format] ||= attachment.suffix
+          if options.delete(:download)
+            routes.download_attachment_path(attachment, options)
+          else
+            routes.show_attachment_path(attachment, options)
+          end
         end
       end
 

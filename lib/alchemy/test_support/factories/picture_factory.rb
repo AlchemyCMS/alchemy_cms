@@ -13,6 +13,7 @@ FactoryBot.define do
     after(:build) do |picture, acc|
       if acc.image_file
         picture.image_file = acc.image_file
+        picture.image_file_size = acc.image_file.size
       end
     end
 

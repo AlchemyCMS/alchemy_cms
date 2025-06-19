@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Alchemy::PictureThumb::Uid do
+RSpec.describe Alchemy::PictureThumb::Uid, if: Alchemy.storage_adapter.dragonfly? do
   let(:image) { fixture_file_upload("image2.PNG") }
   let(:picture) { build(:alchemy_picture, image_file: image) }
   let(:variant) { Alchemy::PictureVariant.new(picture) }
