@@ -9,6 +9,10 @@ module Alchemy
           Then you can safely remove the `config/alchemy/config.yml` file.
         TEXT
       end
+
+      def install_active_storage
+        Rake::Task["active_storage:install"].invoke
+      end
     end
   end
 end

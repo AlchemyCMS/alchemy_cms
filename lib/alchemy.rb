@@ -199,4 +199,15 @@ module Alchemy
       ])
     end
   end
+
+  # The storage adapter for Pictures and Attachments
+  #
+  # Chose between 'active_storage' (default) or 'dragonfly' (legacy)
+  #
+  # Can be set via 'ALCHEMY_STORAGE_ADAPTER' env var.
+  def self.storage_adapter
+    @_storage_adapter ||= Alchemy::StorageAdapter.new(
+      Alchemy.config.storage_adapter
+    )
+  end
 end

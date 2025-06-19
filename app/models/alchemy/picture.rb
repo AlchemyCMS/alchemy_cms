@@ -28,24 +28,10 @@ module Alchemy
       large: "240x180"
     }.with_indifferent_access.freeze
 
-    CONVERTIBLE_FILE_FORMATS = %w[gif jpg jpeg png webp].freeze
-
-    TRANSFORMATION_OPTIONS = [
-      :crop,
-      :crop_from,
-      :crop_size,
-      :flatten,
-      :format,
-      :quality,
-      :size,
-      :upsample
-    ]
-
     include Alchemy::Logger
     include Alchemy::NameConversions
     include Alchemy::Taggable
     include Alchemy::TouchElements
-    include Calculations
 
     has_many :picture_ingredients,
       class_name: "Alchemy::Ingredients::Picture",
@@ -72,7 +58,7 @@ module Alchemy
 
     # Image preprocessing class
     def self.preprocessor_class
-      @_preprocessor_class ||= Preprocessor
+      @_preprocessor_class ||= Alchemy.storage_adapter.preprocessor_class
     end
 
     # Set a image preprocessing class
@@ -84,18 +70,7 @@ module Alchemy
       @_preprocessor_class = klass
     end
 
-    # Enables Dragonfly image processing
-    dragonfly_accessor :image_file, app: :alchemy_pictures do
-      # Preprocess after uploading the picture
-      after_assign do |image|
-        if has_convertible_format?
-          self.class.preprocessor_class.new(image).call
-        end
-      end
-    end
-
-    # Create important thumbnails upfront
-    after_create -> { PictureThumb.generate_thumbs!(self) if has_convertible_format? }
+    include Alchemy.storage_adapter.picture_class_methods
 
     # We need to define this method here to have it available in the validations below.
     class << self
@@ -117,7 +92,9 @@ module Alchemy
         where("#{table_name}.id NOT IN (SELECT related_object_id FROM alchemy_ingredients WHERE related_object_type = 'Alchemy::Picture')")
       }
     scope :without_tag, -> { left_outer_joins(:taggings).where(gutentag_taggings: {id: nil}) }
-    scope :by_file_format, ->(format) { where(image_file_format: format) }
+    scope :by_file_format, ->(file_format) do
+      Alchemy.storage_adapter.by_file_format_scope(file_format)
+    end
 
     # Class methods
 
@@ -126,7 +103,7 @@ module Alchemy
       #
       # @see Alchemy::Picture::Url
       def url_class
-        @_url_class ||= Alchemy::Picture::Url
+        @_url_class ||= Alchemy.storage_adapter.url_class
       end
 
       # Set a different picture url class
@@ -137,7 +114,15 @@ module Alchemy
       end
 
       def searchable_alchemy_resource_attributes
-        %w[name image_file_name]
+        Alchemy.storage_adapter.searchable_alchemy_resource_attributes(name)
+      end
+
+      def ransackable_attributes(_auth_object = nil)
+        %w[name]
+      end
+
+      def ransackable_associations(_auth_object = nil)
+        Alchemy.storage_adapter.ransackable_associations(name)
       end
 
       def last_upload
@@ -152,7 +137,7 @@ module Alchemy
       end
 
       def file_formats(scope = all)
-        scope.reorder(:image_file_format).distinct.pluck(:image_file_format).compact.presence || []
+        Alchemy.storage_adapter.file_formats(name, scope:)
       end
     end
 
@@ -160,27 +145,16 @@ module Alchemy
 
     # Returns an url (or relative path) to a processed image for use inside an image_tag helper.
     #
-    # Any additional options are passed to the url method, so you can add params to your url.
-    #
     # Example:
     #
     #   <%= image_tag picture.url(size: '320x200', format: 'png') %>
     #
-    # @see Alchemy::PictureVariant#call for transformation options
-    # @see Alchemy::Picture::Url#call for url options
     # @return [String|Nil]
     def url(options = {})
       return unless image_file
 
-      variant = PictureVariant.new(self, options.slice(*TRANSFORMATION_OPTIONS))
-      self.class.url_class.new(variant).call(
-        options.except(*TRANSFORMATION_OPTIONS).merge(
-          basename: name,
-          ext: variant.render_format,
-          name: name
-        )
-      )
-    rescue ::Dragonfly::Job::Fetch::NotFound => e
+      self.class.url_class.new(self).call(options)
+    rescue Alchemy.storage_adapter.rescuable_errors => e
       log_warning(e.message)
       nil
     end
@@ -195,7 +169,7 @@ module Alchemy
 
       url(
         flatten: true,
-        format: image_file_format || "jpg",
+        format: image_file_extension || "jpg",
         size: size
       )
     end
@@ -229,18 +203,12 @@ module Alchemy
       end
     end
 
-    # Returns the suffix of the filename.
-    #
-    def suffix
-      image_file.ext
-    end
-
     # Returns a humanized, readable name from image filename.
     #
     def humanized_name
       return "" if image_file_name.blank?
 
-      convert_to_humanized_name(image_file_name, suffix)
+      convert_to_humanized_name(image_file_name, image_file_extension)
     end
 
     # Returns the format the image should be rendered with
@@ -252,7 +220,7 @@ module Alchemy
       if convertible?
         Alchemy.config.get(:image_output_format)
       else
-        image_file_format
+        image_file_extension
       end
     end
 
@@ -270,7 +238,7 @@ module Alchemy
     # Returns true if the image can be converted into other formats
     #
     def has_convertible_format?
-      image_file_format.in?(CONVERTIBLE_FILE_FORMATS)
+      Alchemy.storage_adapter.has_convertible_format?(self)
     end
 
     # Checks if the picture is restricted.
@@ -291,6 +259,33 @@ module Alchemy
       picture_ingredients.empty?
     end
 
+    def image_file_name
+      Alchemy.storage_adapter.image_file_name(self)
+    end
+
+    def image_file_format
+      Alchemy.storage_adapter.image_file_format(self)
+    end
+
+    def image_file_size
+      Alchemy.storage_adapter.image_file_size(self)
+    end
+
+    def image_file_width
+      Alchemy.storage_adapter.image_file_width(self)
+    end
+
+    def image_file_height
+      Alchemy.storage_adapter.image_file_height(self)
+    end
+
+    def image_file_extension
+      Alchemy.storage_adapter.image_file_extension(self)
+    end
+
+    alias_method :suffix, :image_file_extension
+    deprecate suffix: :image_file_extension, deprecator: Alchemy::Deprecation
+
     # A size String from original image file values.
     #
     # == Example
@@ -304,8 +299,7 @@ module Alchemy
     private
 
     def image_file_type_allowed
-      symbol = Mime::Type.lookup_by_extension(image_file_format)&.symbol&.to_s.presence
-      unless symbol&.in?(self.class.allowed_filetypes)
+      unless image_file_extension&.in?(self.class.allowed_filetypes)
         errors.add(:image_file, Alchemy.t("not a valid image"))
       end
     end

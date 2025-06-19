@@ -27,7 +27,11 @@ RSpec.describe "Picture assignment overlay", type: :system do
     scenario "by name reduces the list" do
       visit alchemy.admin_pictures_path(form_field_id: "ingredients_#{ingredient.id}_picture_id")
       within "#resource_search" do
-        fill_in "q[name_or_image_file_name_cont]", with: "Blue"
+        if Alchemy.storage_adapter.active_storage?
+          fill_in "q[name_or_image_file_blob_filename_cont]", with: "Blue"
+        else
+          fill_in "q[name_or_image_file_name_cont]", with: "Blue"
+        end
         find("button[type='submit']").click
       end
       within "#assign_image_list" do

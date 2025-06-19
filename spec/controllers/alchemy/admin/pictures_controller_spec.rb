@@ -4,9 +4,14 @@ require "rails_helper"
 
 RSpec.shared_examples :redirecting_to_picture_library do
   let(:params) do
+    q = if Alchemy.storage_adapter.active_storage?
+      {name_or_image_file_blob_filename_cont: "kitten", last_upload: true}
+    else
+      {name_or_image_file_name_cont: "kitten", last_upload: true}
+    end
     {
       page: 2,
-      q: {name_or_image_file_name_cont: "kitten", last_upload: true},
+      q:,
       size: "small",
       tagged_with: "cat"
     }
@@ -33,7 +38,11 @@ module Alchemy
         let!(:picture_2) { create(:alchemy_picture, name: "nice beach") }
 
         it "assigns @pictures with filtered pictures" do
-          get :index, params: {q: {name_or_image_file_name_cont: "kitten"}}
+          if Alchemy.storage_adapter.active_storage?
+            get :index, params: {q: {name_or_image_file_blob_filename_cont: "kitten"}}
+          else
+            get :index, params: {q: {name_or_image_file_name_cont: "kitten"}}
+          end
           expect(assigns(:pictures)).to include(picture_1)
           expect(assigns(:pictures)).to_not include(picture_2)
         end

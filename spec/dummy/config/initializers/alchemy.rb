@@ -237,4 +237,10 @@ Alchemy.configure do |config|
 
   # The sizes for the preview size select in the page editor.
   # config.page_preview_sizes = [360, 640, 768, 1024, 1280, 1440]
+
+  # Configure the storage adapter for Pictures and Attachments
+  #
+  # Supported adapters are "dragonfly" and "active_storage"
+  #
+  config.storage_adapter = ENV.fetch("ALCHEMY_STORAGE_ADAPTER", "active_storage")
 end

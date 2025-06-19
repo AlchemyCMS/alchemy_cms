@@ -78,20 +78,6 @@ RSpec.shared_examples_for "having picture thumbnails" do
       end
     end
 
-    context "with other options" do
-      let(:options) { {foo: "baz"} }
-
-      context "and the image does not need to be processed" do
-        before do
-          allow(record).to receive(:settings) { {} }
-        end
-
-        it "adds them to the url" do
-          expect(picture_url).to match(/\?foo=baz/)
-        end
-      end
-    end
-
     context "without picture assigned" do
       let(:picture) { nil }
 
@@ -432,8 +418,8 @@ RSpec.shared_examples_for "having picture thumbnails" do
       let(:settings) { {} }
 
       before do
-        picture.image_file_width = 300
-        picture.image_file_height = 250
+        allow(picture).to receive(:image_file_width) { 300 }
+        allow(picture).to receive(:image_file_height) { 250 }
         allow(record).to receive(:settings) { settings }
       end
 
@@ -555,8 +541,8 @@ RSpec.shared_examples_for "having picture thumbnails" do
         let(:settings) { {crop: true, size: size} }
 
         before do
-          picture.image_file_width = 200
-          picture.image_file_height = 100
+          allow(picture).to receive(:image_file_width) { 200 }
+          allow(picture).to receive(:image_file_height) { 100 }
         end
 
         context "size 200x50" do
@@ -619,8 +605,18 @@ RSpec.shared_examples_for "having picture thumbnails" do
   end
 
   describe "#allow_image_cropping?" do
-    let(:picture) do
-      stub_model(Alchemy::Picture, image_file_width: 400, image_file_height: 300)
+    let(:picture) { Alchemy::Picture.new }
+    let(:image_file_width) { 400 }
+    let(:image_file_height) { 300 }
+    let(:crop_size) { "400x300" }
+    let(:upsample) { false }
+
+    before do
+      allow(picture).to receive(:image_file_width) { image_file_width }
+      allow(picture).to receive(:image_file_height) { image_file_height }
+      allow(record).to receive(:settings) do
+        {crop: true, size: crop_size, upsample: upsample}
+      end
     end
 
     subject { record.allow_image_cropping? }
@@ -632,30 +628,65 @@ RSpec.shared_examples_for "having picture thumbnails" do
         allow(record).to receive(:picture) { picture }
       end
 
-      it { is_expected.to be_falsy }
+      context "and image smaller or equal to crop size" do
+        context "if picture.image_file is nil" do
+          before do
+            if Alchemy.storage_adapter.active_storage?
+              expect(picture.image_file).to receive(:attached?) { false }
+            else
+              expect(picture).to receive(:image_file) { nil }
+            end
+          end
+
+          it { is_expected.to be_falsy }
+        end
+
+        context "if picture.image_file is present" do
+          before do
+            if Alchemy.storage_adapter.active_storage?
+              expect(picture.image_file).to receive(:attached?) { true }
+            else
+              expect(picture).to receive(:image_file) { fixture_file_upload("image.png") }
+            end
+          end
+
+          it { is_expected.to be_falsy }
+
+          context "but with upsample set to true" do
+            let(:upsample) { true }
+
+            it { is_expected.to be(true) }
+          end
+        end
+      end
 
       context "and with image larger than crop size" do
-        before do
-          allow(picture).to receive(:can_be_cropped_to?) { true }
-        end
+        let(:image_file_width) { 1201 }
+        let(:image_file_height) { 481 }
 
         it { is_expected.to be_falsy }
 
         context "with crop set to true" do
-          before do
-            allow(record).to receive(:settings) { {crop: true} }
-          end
-
           context "if picture.image_file is nil" do
             before do
-              expect(picture).to receive(:image_file) { nil }
+              if Alchemy.storage_adapter.active_storage?
+                expect(picture.image_file).to receive(:attached?) { false }
+              else
+                expect(picture).to receive(:image_file) { nil }
+              end
             end
 
             it { is_expected.to be_falsy }
           end
 
           context "if picture.image_file is present" do
-            let(:picture) { build_stubbed(:alchemy_picture) }
+            before do
+              if Alchemy.storage_adapter.active_storage?
+                expect(picture.image_file).to receive(:attached?) { true }
+              else
+                expect(picture).to receive(:image_file) { fixture_file_upload("image.png") }
+              end
+            end
 
             it { is_expected.to be(true) }
           end

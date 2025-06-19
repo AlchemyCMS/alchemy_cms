@@ -89,6 +89,7 @@ en:
       image/tiff: TIFF Image
       image/x-psd: Photoshop File
       image/svg+xml: SVG Image
+      image/webp: WebP Image
       text/plain: Plain Text Document
       text/x-vcard: vCard
       video/mp4: MPEG-4 Video
@@ -128,6 +129,7 @@ en:
           all: Show all file types
           name: File Type
           values:
+            <<: *mime_types
             gif: GIF Image
             jpeg: JPG Image
             png: PNG Image
