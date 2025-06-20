@@ -619,32 +619,63 @@ RSpec.shared_examples_for "having picture thumbnails" do
   end
 
   describe "#allow_image_cropping?" do
-    let(:picture) do
-      stub_model(Alchemy::Picture, image_file_width: 400, image_file_height: 300)
+    let(:picture) { Alchemy::Picture.new }
+    let(:image_file_width) { 400 }
+    let(:image_file_height) { 300 }
+    let(:crop) { false }
+    let(:size) { "400x300" }
+    let(:upsample) { false }
+
+    before do
+      allow(picture).to receive(:image_file_width) { image_file_width }
+      allow(picture).to receive(:image_file_height) { image_file_height }
+      allow(record).to receive(:settings) { {crop:, size:, upsample:} }
     end
 
     subject { record.allow_image_cropping? }
 
-    it { is_expected.to be_falsy }
-
-    context "with picture assigned" do
-      before do
-        allow(record).to receive(:picture) { picture }
-      end
+    context "with crop set to false" do
+      let(:crop) { false }
 
       it { is_expected.to be_falsy }
+    end
 
-      context "and with image larger than crop size" do
+    context "with crop set to true" do
+      let(:crop) { true }
+
+      context "with picture assigned" do
         before do
-          allow(picture).to receive(:can_be_cropped_to?) { true }
+          allow(record).to receive(:picture) { picture }
         end
 
-        it { is_expected.to be_falsy }
+        context "and image smaller or equal to crop size" do
+          let(:image_file_width) { 400 }
+          let(:image_file_height) { 300 }
 
-        context "with crop set to true" do
-          before do
-            allow(record).to receive(:settings) { {crop: true} }
+          it { is_expected.to be_falsy }
+
+          context "with upsample set to true" do
+            let(:upsample) { true }
+
+            context "but picture.image_file is nil" do
+              before do
+                expect(picture).to receive(:image_file) { nil }
+              end
+
+              it { is_expected.to be_falsy }
+            end
+
+            context "and picture.image_file is present" do
+              let(:picture) { build(:alchemy_picture) }
+
+              it { is_expected.to be(true) }
+            end
           end
+        end
+
+        context "and with image larger than crop size" do
+          let(:image_file_width) { 1201 }
+          let(:image_file_height) { 481 }
 
           context "if picture.image_file is nil" do
             before do
@@ -660,6 +691,14 @@ RSpec.shared_examples_for "having picture thumbnails" do
             it { is_expected.to be(true) }
           end
         end
+      end
+
+      context "without picture assigned" do
+        before do
+          allow(record).to receive(:picture) { nil }
+        end
+
+        it { is_expected.to be_falsey }
       end
     end
   end

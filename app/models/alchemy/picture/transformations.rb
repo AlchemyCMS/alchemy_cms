@@ -7,10 +7,6 @@ module Alchemy
   module Picture::Transformations
     extend ActiveSupport::Concern
 
-    included do
-      include Alchemy::Picture::Calculations
-    end
-
     # Returns the rendered cropped image. Tries to use the crop_from and crop_size
     # parameters. When they can't be parsed, it just crops from the center.
     #
@@ -75,6 +71,30 @@ module Alchemy
       end
 
       sizes
+    end
+
+    # Given a string with an x, this function returns a Hash with point
+    # :width and :height.
+    #
+    def sizes_from_string(string)
+      width, height = string.to_s.split("x", 2).map(&:to_i)
+
+      {
+        width: width,
+        height: height
+      }
+    end
+
+    # Returns true if both dimensions of the base image are bigger than the dimensions hash.
+    #
+    def is_bigger_than?(dimensions)
+      image_file_width > dimensions[:width] && image_file_height > dimensions[:height]
+    end
+
+    # Returns true is one dimension of the base image is smaller than the dimensions hash.
+    #
+    def is_smaller_than?(dimensions)
+      !is_bigger_than?(dimensions)
     end
 
     # Converts a dimensions hash to a string of from "20x20"

@@ -10,8 +10,6 @@ module Alchemy
 
     let(:picture) { Picture.new }
 
-    it_behaves_like "has image calculations"
-
     it { is_expected.to have_many(:thumbs).class_name("Alchemy::PictureThumb") }
 
     context "with a png file" do
