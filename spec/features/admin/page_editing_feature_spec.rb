@@ -92,7 +92,7 @@ RSpec.describe "Page editing feature", type: :system do
 
         context "with sitemaps show_flag config option set to true" do
           before do
-            stub_alchemy_config(:sitemap, {"show_flag" => true})
+            stub_alchemy_config(:sitemap, double(show_flag: true))
           end
 
           it "should show sitemap checkbox" do
@@ -103,7 +103,7 @@ RSpec.describe "Page editing feature", type: :system do
 
         context "with sitemaps show_flag config option set to false" do
           before do
-            stub_alchemy_config(:sitemap, {"show_flag" => false})
+            stub_alchemy_config(:sitemap, double(show_flag: false))
           end
 
           it "should not show sitemap checkbox" do

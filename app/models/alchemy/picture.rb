@@ -88,12 +88,12 @@ module Alchemy
     # We need to define this method here to have it available in the validations below.
     class << self
       def allowed_filetypes
-        Alchemy.config.get(:uploader).fetch("allowed_filetypes", {}).fetch("alchemy/pictures", [])
+        Alchemy.config.uploader.allowed_filetypes.alchemy_pictures
       end
     end
 
     validates_presence_of :image_file
-    validates_size_of :image_file, maximum: Alchemy.config.get(:uploader)["file_size_limit"].megabytes
+    validates_size_of :image_file, maximum: Alchemy.config.uploader.file_size_limit.megabytes
     validate :image_file_type_allowed, if: -> { image_file.present? }
 
     stampable stamper_class_name: Alchemy.user_class_name
@@ -221,7 +221,7 @@ module Alchemy
     #
     def default_render_format
       if convertible?
-        Alchemy.config.get(:image_output_format)
+        Alchemy.config.image_output_format
       else
         image_file_extension
       end
@@ -233,8 +233,8 @@ module Alchemy
     # image has not a convertible file format (i.e. SVG) this returns +false+
     #
     def convertible?
-      Alchemy.config.get(:image_output_format) &&
-        Alchemy.config.get(:image_output_format) != "original" &&
+      Alchemy.config.image_output_format &&
+        Alchemy.config.image_output_format != "original" &&
         has_convertible_format?
     end
 

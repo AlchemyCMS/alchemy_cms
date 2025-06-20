@@ -96,7 +96,7 @@ module Alchemy
       convert_format = render_format.sub("jpeg", "jpg") != picture.image_file_extension.sub("jpeg", "jpg")
 
       if encodable_image? && (convert_format || options[:quality])
-        quality = options[:quality] || Alchemy.config.get(:output_image_quality)
+        quality = options[:quality] || Alchemy.config.output_image_quality
         encoding_options << "-quality #{quality}"
       end
 
