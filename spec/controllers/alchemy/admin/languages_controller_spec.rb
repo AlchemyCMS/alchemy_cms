@@ -65,7 +65,7 @@ describe Alchemy::Admin::LanguagesController do
       it "has default language's page_layout set" do
         get :new
         expect(assigns(:language).page_layout)
-          .to eq(Alchemy.config.get(:default_language)["page_layout"])
+          .to eq(Alchemy.config.default_language.page_layout)
       end
     end
   end

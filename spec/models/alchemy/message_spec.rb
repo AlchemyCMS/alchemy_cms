@@ -7,12 +7,12 @@ RSpec.describe "Alchemy::Message" do
 
   describe ".config" do
     it "should return the mailer config" do
-      expect(Alchemy::Message.config).to eq(Alchemy.config.get(:mailer))
+      expect(Alchemy::Message.config).to eq(Alchemy.config.mailer)
     end
   end
 
   it "has attributes writers and getters for all fields defined in mailer config" do
-    Alchemy.config.get(:mailer)["fields"].each do |field|
+    Alchemy.config.mailer.fields.each do |field|
       expect(message).to respond_to(field)
       expect(message).to respond_to("#{field}=")
     end
@@ -21,7 +21,7 @@ RSpec.describe "Alchemy::Message" do
   context "validation of" do
     context "all fields defined in mailer config" do
       it "adds errors on that fields" do
-        Alchemy.config.get(:mailer)["validate_fields"].each do |field|
+        Alchemy.config.mailer.validate_fields.each do |field|
           expect(message).to_not be_valid
           expect(message.errors[field].size).to eq(1)
         end
@@ -30,10 +30,10 @@ RSpec.describe "Alchemy::Message" do
 
     context "field containing email in its name" do
       before do
-        stub_alchemy_config(:mailer, {
+        stub_alchemy_config(:mailer, double(
           fields: %w[email_of_my_boss],
           validate_fields: %w[email_of_my_boss]
-        }.with_indifferent_access)
+        ))
         Alchemy.send(:remove_const, :Message)
         load Alchemy::Engine.root.join("app/models/alchemy/message.rb")
       end

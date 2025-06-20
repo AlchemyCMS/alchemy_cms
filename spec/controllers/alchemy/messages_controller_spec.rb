@@ -265,7 +265,7 @@ module Alchemy
 
       context "when mailer_config['fields'] does not inlcude :contact_field_id" do
         it "should permit :contact_form_id" do
-          expect(Alchemy.config.get(:mailer)["fields"]).not_to include "contact_field_id"
+          expect(Alchemy.config.mailer.fields).not_to include "contact_field_id"
           msg_params = subject.send(:message_params)
 
           expect(msg_params).to include :contact_form_id
