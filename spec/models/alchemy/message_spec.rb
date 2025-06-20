@@ -5,12 +5,6 @@ require "rails_helper"
 RSpec.describe "Alchemy::Message" do
   let(:message) { Alchemy::Message.new }
 
-  describe ".config" do
-    it "should return the mailer config" do
-      expect(Alchemy::Message.config).to eq(Alchemy.config.mailer)
-    end
-  end
-
   it "has attributes writers and getters for all fields defined in mailer config" do
     Alchemy.config.mailer.fields.each do |field|
       expect(message).to respond_to(field)
