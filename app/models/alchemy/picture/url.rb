@@ -3,21 +3,37 @@
 module Alchemy
   class Picture < BaseRecord
     class Url
-      attr_reader :variant, :thumb
+      TRANSFORMATION_OPTIONS = [
+        :crop,
+        :crop_from,
+        :crop_size,
+        :flatten,
+        :format,
+        :quality,
+        :size,
+        :upsample
+      ]
 
-      # @param [Alchemy::PictureVariant]
+      attr_reader :picture, :variant, :thumb
+
+      # @param [Alchemy::Picture]
       #
-      def initialize(variant)
-        raise ArgumentError, "Variant missing!" if variant.nil?
-
-        @variant = variant
+      def initialize(picture)
+        @picture = picture
       end
 
       # The URL to a variant of a picture
       #
       # @return [String]
       #
-      def call(params = {})
+      def call(options = {})
+        @variant = PictureVariant.new(picture, options.slice(*TRANSFORMATION_OPTIONS))
+        params = {
+          basename: picture.name,
+          ext: variant.render_format,
+          name: picture.name
+        }
+
         return variant.image.url(params) unless processible_image?
 
         "/#{uid}"
@@ -43,10 +59,10 @@ module Alchemy
       end
 
       def find_thumb_by(signature)
-        @thumb = if variant.picture.thumbs.loaded?
-          variant.picture.thumbs.find { |t| t.signature == signature }
+        @thumb = if picture.thumbs.loaded?
+          picture.thumbs.find { |t| t.signature == signature }
         else
-          variant.picture.thumbs.find_by(signature: signature)
+          picture.thumbs.find_by(signature: signature)
         end
       end
     end
