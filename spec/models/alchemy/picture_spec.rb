@@ -294,8 +294,8 @@ module Alchemy
             }
           end
 
-          it "passes them to the URL" do
-            expect(url).to match(/page=1/)
+          it "are not passed to the URL" do
+            expect(url).to_not match(/page=1/)
           end
         end
       end

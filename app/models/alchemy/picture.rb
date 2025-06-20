@@ -30,17 +30,6 @@ module Alchemy
 
     CONVERTIBLE_FILE_FORMATS = %w[gif jpg jpeg png webp].freeze
 
-    TRANSFORMATION_OPTIONS = [
-      :crop,
-      :crop_from,
-      :crop_size,
-      :flatten,
-      :format,
-      :quality,
-      :size,
-      :upsample
-    ]
-
     include Alchemy::Logger
     include Alchemy::NameConversions
     include Alchemy::Taggable
@@ -160,26 +149,15 @@ module Alchemy
 
     # Returns an url (or relative path) to a processed image for use inside an image_tag helper.
     #
-    # Any additional options are passed to the url method, so you can add params to your url.
-    #
     # Example:
     #
     #   <%= image_tag picture.url(size: '320x200', format: 'png') %>
     #
-    # @see Alchemy::PictureVariant#call for transformation options
-    # @see Alchemy::Picture::Url#call for url options
     # @return [String|Nil]
     def url(options = {})
       return unless image_file
 
-      variant = PictureVariant.new(self, options.slice(*TRANSFORMATION_OPTIONS))
-      self.class.url_class.new(variant).call(
-        options.except(*TRANSFORMATION_OPTIONS).merge(
-          basename: name,
-          ext: variant.render_format,
-          name: name
-        )
-      )
+      self.class.url_class.new(self).call(options)
     rescue ::Dragonfly::Job::Fetch::NotFound => e
       log_warning(e.message)
       nil

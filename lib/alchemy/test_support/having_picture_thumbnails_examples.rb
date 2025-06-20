@@ -86,8 +86,8 @@ RSpec.shared_examples_for "having picture thumbnails" do
           allow(record).to receive(:settings) { {} }
         end
 
-        it "adds them to the url" do
-          expect(picture_url).to match(/\?foo=baz/)
+        it "does not add them to the url" do
+          expect(picture_url).to_not match(/\?foo=baz/)
         end
       end
     end
