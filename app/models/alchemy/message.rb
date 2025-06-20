@@ -16,10 +16,6 @@ module Alchemy
   class Message
     include ActiveModel::Model
 
-    def self.config
-      Alchemy.config.mailer
-    end
-
     attr_accessor :contact_form_id, :ip
 
     Alchemy.config.mailer.fields.each do |field|
