@@ -57,21 +57,21 @@ RSpec.describe Alchemy do
 
     describe "format matchers" do
       describe "email" do
-        subject { Alchemy.config.get("format_matchers")["email"] }
+        subject { Alchemy.config.format_matchers.email }
 
         it { is_expected.to match("hello@gmail.com") }
         it { is_expected.not_to match("stulli@gmx") }
       end
 
       describe "url" do
-        subject { Alchemy.config.get("format_matchers")["url"] }
+        subject { Alchemy.config.format_matchers.url }
 
         it { is_expected.to match("www.example.com:80/about") }
         it { is_expected.not_to match('www.example.com:80\/about') }
       end
 
       describe "link_url" do
-        subject { Alchemy.config.get("format_matchers")["link_url"] }
+        subject { Alchemy.config.format_matchers.link_url }
 
         it { is_expected.to match("tel:12345") }
         it { is_expected.to match("mailto:stulli@gmx.de") }

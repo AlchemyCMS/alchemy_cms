@@ -16,23 +16,19 @@ module Alchemy
   class Message
     include ActiveModel::Model
 
-    def self.config
-      Alchemy.config.get(:mailer)
-    end
-
     attr_accessor :contact_form_id, :ip
 
-    config["fields"].each do |field|
+    Alchemy.config.mailer.fields.each do |field|
       attr_accessor field.to_sym
     end
 
-    config["validate_fields"].each do |field|
+    Alchemy.config.mailer.validate_fields.each do |field|
       validates_presence_of field
 
       case field.to_sym
       when /email/
         validates_format_of field,
-          with: Alchemy.config.get("format_matchers")["email"],
+          with: Alchemy.config.format_matchers.email,
           if: -> { send(field).present? }
       when :email_confirmation
         validates_confirmation_of :email

@@ -1,4 +1,4 @@
-<% file_types = configuration(:uploader)['allowed_filetypes'][object.class.model_name.collection] || ['*'] %>
+<% file_types = Alchemy.config.uploader.allowed_filetypes[object.class.model_name.collection] || ['*'] %>
 <% accept = file_types == ["*"] ? false : file_types.map {|type| ".#{type}"}.join(", ") %>
 
 <alchemy-uploader dropzone="<%= local_assigns[:dropzone] || "#main_content" %>">

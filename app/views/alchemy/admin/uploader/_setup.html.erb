@@ -1,8 +1,8 @@
 <script>
   Alchemy.uploader_defaults = {
-    file_size_limit: <%= configuration(:uploader)['file_size_limit'] || 100 -%>,
-    upload_limit: <%= configuration(:uploader)['upload_limit'] || 50 -%>,
-    allowed_filetype_pictures: "<%= configuration(:uploader)['allowed_filetypes']['alchemy/pictures']&.join(", ") || '*' -%>", 
-    allowed_filetype_attachments: "<%= configuration(:uploader)['allowed_filetypes']['alchemy/attachments']&.join(", ") || '*' -%>", 
+    file_size_limit: <%= Alchemy.config.uploader.file_size_limit -%>,
+    upload_limit: <%= Alchemy.config.uploader.upload_limit -%>,
+    allowed_filetype_pictures: "<%= Alchemy.config.uploader.allowed_filetypes.alchemy_pictures.join(", ") -%>",
+    allowed_filetype_attachments: "<%= Alchemy.config.uploader.allowed_filetypes.alchemy_attachments.join(", ") -%>",
   }
 </script>

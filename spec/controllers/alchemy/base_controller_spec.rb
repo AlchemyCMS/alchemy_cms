@@ -29,8 +29,10 @@ module Alchemy
 
     describe "#configuration" do
       it "returns certain configuration options" do
-        allow(Alchemy.config).to receive(:some_option).and_return(true)
-        expect(controller.configuration(:some_option)).to eq(true)
+        Deprecation.silenced do
+          allow(Alchemy.config).to receive(:some_option).and_return(true)
+          expect(controller.configuration(:some_option)).to eq(true)
+        end
       end
     end
 
