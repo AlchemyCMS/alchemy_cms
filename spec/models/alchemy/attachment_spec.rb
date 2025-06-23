@@ -160,6 +160,7 @@ module Alchemy
 
         it "should not be valid" do
           expect(attachment).not_to be_valid
+          expect(attachment.errors[:file]).to eq(["not a valid file"])
         end
       end
 

@@ -153,7 +153,7 @@ module Alchemy
 
     def file_type_allowed
       unless extension&.in?(self.class.allowed_filetypes)
-        errors.add(:image_file, Alchemy.t("not a valid file"))
+        errors.add(:file, Alchemy.t("not a valid file"))
       end
     end
 
