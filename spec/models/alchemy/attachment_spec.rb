@@ -187,13 +187,10 @@ module Alchemy
       end
     end
 
-    context "PNG image" do
-      subject { stub_model(Attachment, file_name: "kitten.png") }
+    describe "#extension" do
+      subject { attachment.extension }
 
-      describe "#extension" do
-        subject { super().extension }
-        it { is_expected.to eq("png") }
-      end
+      it { is_expected.to eq("png") }
     end
 
     describe "#icon_css_class" do

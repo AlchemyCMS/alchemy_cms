@@ -113,7 +113,9 @@ module Alchemy
 
     # File format suffix
     def extension
-      file_name.split(".").last
+      return nil unless file_mime_type
+
+      MiniMime.lookup_by_content_type(file_mime_type)&.extension
     end
 
     alias_method :suffix, :extension
@@ -150,8 +152,7 @@ module Alchemy
     private
 
     def file_type_allowed
-      symbol = Mime::Type.lookup(file_mime_type)&.symbol&.to_s.presence
-      unless symbol&.in?(self.class.allowed_filetypes)
+      unless extension&.in?(self.class.allowed_filetypes)
         errors.add(:image_file, Alchemy.t("not a valid file"))
       end
     end
