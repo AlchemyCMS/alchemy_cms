@@ -454,7 +454,7 @@ module Alchemy
 
     describe "#convertible?" do
       let(:picture) do
-        Picture.new(image_file_format: "image/png")
+        Picture.new(image_file_format: "png")
       end
 
       subject { picture.convertible? }
@@ -473,16 +473,16 @@ module Alchemy
         end
 
         context "and the image has a convertible format" do
-          before do
-            expect(picture).to receive(:has_convertible_format?) { true }
+          let(:picture) do
+            Picture.new(image_file_format: "png")
           end
 
           it { is_expected.to be(true) }
         end
 
         context "but the image has no convertible format" do
-          before do
-            expect(picture).to receive(:has_convertible_format?) { false }
+          let(:picture) do
+            Picture.new(image_file_format: "svg")
           end
 
           it { is_expected.to be(false) }

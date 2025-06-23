@@ -263,7 +263,7 @@ module Alchemy
     end
 
     def image_file_extension
-      image_file&.ext&.downcase
+      read_attribute(:image_file_format)
     end
     alias_method :suffix, :image_file_extension
     deprecate suffix: :image_file_extension, deprecator: Alchemy::Deprecation
