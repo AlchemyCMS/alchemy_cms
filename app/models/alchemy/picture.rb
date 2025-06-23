@@ -281,8 +281,7 @@ module Alchemy
     private
 
     def image_file_type_allowed
-      symbol = Mime::Type.lookup_by_extension(image_file_format)&.symbol&.to_s.presence
-      unless symbol&.in?(self.class.allowed_filetypes)
+      unless image_file_extension&.in?(self.class.allowed_filetypes)
         errors.add(:image_file, Alchemy.t("not a valid image"))
       end
     end
