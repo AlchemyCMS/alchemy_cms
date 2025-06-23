@@ -1,15 +1,6 @@
-<div id="header">
-  <div id="header_image">
-    <%= render_elements(:only => 'header') %>
-  </div>
-  <%- claim = render_elements :only => ["claim"] -%>
-  <%- if !claim.blank? -%>
-  <div id="claim">
-    <%= claim %>
-  </div>
-  <%- end -%>
-</div>
-<div id="content">
-  <h1><%= t(:hello) %></h1>
-  <%= render_elements :except => ["claim", "header"] %>
-</div>
+<%= render Alchemy::PageView.new(@page) do |page_view| %>
+  <h1>
+    <%= render elements(only: "header") %>
+  </h1>
+  <%= render elements(except: "header") %>
+<% end %>
