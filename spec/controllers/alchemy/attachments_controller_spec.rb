@@ -6,7 +6,7 @@ module Alchemy
   describe AttachmentsController do
     routes { Alchemy::Engine.routes }
 
-    let(:attachment) { build(:alchemy_attachment, id: 555) }
+    let(:attachment) { create(:alchemy_attachment) }
 
     it "should raise ActiveRecord::RecordNotFound for requesting not existing attachments" do
       expect { get :download, params: {id: 0} }.to raise_error(ActiveRecord::RecordNotFound)
@@ -38,6 +38,15 @@ module Alchemy
         it "when showing attachment" do
           get :show, params: {id: attachment.id}
           expect(response.headers["Content-Length"]).to eq(attachment.file_size.to_s)
+        end
+      end
+
+      context "when Range header is present", if: Alchemy.storage_adapter.active_storage? do
+        it "returns partial content" do
+          request.headers["Range"] = "bytes=0-35"
+          get :download, params: {id: attachment.id}
+          expect(response.headers["Content-Range"]).to eq("bytes 0-35/70")
+          expect(response.status).to eq(206)
         end
       end
     end

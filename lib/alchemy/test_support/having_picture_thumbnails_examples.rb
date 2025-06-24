@@ -638,6 +638,8 @@ RSpec.shared_examples_for "having picture thumbnails" do
       before do
         if Alchemy.storage_adapter.dragonfly?
           expect(picture).to receive(:image_file) { fixture_file_upload("image.png") }
+        elsif Alchemy.storage_adapter.active_storage?
+          expect(picture.image_file).to receive(:attached?) { true }
         end
       end
     end
@@ -646,6 +648,8 @@ RSpec.shared_examples_for "having picture thumbnails" do
       before do
         if Alchemy.storage_adapter.dragonfly?
           expect(picture).to receive(:image_file) { nil }
+        elsif Alchemy.storage_adapter.active_storage?
+          expect(picture.image_file).to receive(:attached?) { false }
         end
       end
     end
