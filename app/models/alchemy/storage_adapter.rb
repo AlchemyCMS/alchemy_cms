@@ -41,6 +41,10 @@ module Alchemy
       name == other.to_sym
     end
 
+    def active_storage?
+      name == :active_storage
+    end
+
     def dragonfly?
       name == :dragonfly
     end
@@ -57,11 +61,13 @@ module Alchemy
 
     def adapter_class
       case name
+      when :active_storage
+        ActiveStorage
       when :dragonfly
         Dragonfly
       else
         raise UnknownAdapterError,
-          "Unknown storage adapter: #{name}. Please use :dragonfly"
+          "Unknown storage adapter: #{name}. Please use either 'active_storage' or 'dragonfly'."
       end
     end
   end
