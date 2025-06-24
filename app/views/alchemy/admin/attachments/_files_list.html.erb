@@ -49,7 +49,7 @@
     <% table.with_action(:download) do |attachment| %>
       <sl-tooltip content="<%= Alchemy.t("download_file", filename: attachment.file_name) %>">
         <%= link_to render_icon(:download),
-          alchemy.download_admin_attachment_path(attachment),
+          alchemy.download_attachment_path(attachment),
           target: "_blank",
           class: "icon_button" %>
       </sl-tooltip>

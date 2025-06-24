@@ -204,17 +204,6 @@ module Alchemy
       end
     end
 
-    describe "#download" do
-      before do
-        expect(Attachment).to receive(:find).and_return(attachment)
-      end
-
-      it "sends the file as download" do
-        get :download, params: {id: attachment.id}
-        expect(response.headers["Content-Disposition"]).to match(/attachment/)
-      end
-    end
-
     describe "#assign" do
       let(:attachment) { create(:alchemy_attachment) }
 
