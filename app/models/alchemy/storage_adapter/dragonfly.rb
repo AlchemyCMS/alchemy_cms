@@ -115,7 +115,7 @@ module Alchemy
       # @return [String]
       def file_extension(attachment)
         content_type = file_mime_type(attachment)
-        MiniMime.lookup_by_content_type(content_type)&.extension if content_type
+        Marcel::Magic.new(content_type).extensions.first if content_type
       end
 
       # @param [Alchemy::Picture]
@@ -134,7 +134,7 @@ module Alchemy
       # @return [String]
       def image_file_format(picture)
         ext = picture.read_attribute(:image_file_format)
-        MiniMime.lookup_by_extension(ext)&.content_type if ext
+        Marcel::MimeType.for(extension: ext) if ext
       end
 
       # @param [Alchemy::Picture]
