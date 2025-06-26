@@ -689,6 +689,12 @@ RSpec.shared_examples_for "having picture thumbnails" do
             let(:picture) { build(:alchemy_picture) }
 
             it { is_expected.to be(true) }
+
+            context "with size setting being nil" do
+              let(:size) { nil }
+
+              it { is_expected.to be_falsey }
+            end
           end
         end
       end
