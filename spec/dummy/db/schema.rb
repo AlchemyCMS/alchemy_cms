@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_04_11_155901) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_26_160417) do
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
     t.string "file_name"
@@ -193,6 +193,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_04_11_155901) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["language_id"], name: "index_alchemy_picture_descriptions_on_language_id"
+    t.index ["picture_id", "language_id"], name: "alchemy_picture_descriptions_on_picture_id_and_language_id", unique: true
     t.index ["picture_id"], name: "index_alchemy_picture_descriptions_on_picture_id"
   end
 
