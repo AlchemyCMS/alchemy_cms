@@ -69,11 +69,14 @@
   &[disabled],
   &.disabled:active,
   &[disabled]:active,
+  &.disabled:focus,
+  &[disabled]:focus,
   &.disabled:hover,
   &[disabled]:hover {
     background-color: hsla(0deg, 0%, 100%, 0.5);
     cursor: not-allowed;
     box-shadow: none;
+    outline: none;
   }
 
   &::-moz-focus-inner {
