@@ -3,6 +3,7 @@ import { growl } from "alchemy_admin/growler"
 class Growl extends HTMLElement {
   connectedCallback() {
     growl(this.message, this.getAttribute("type") || "notice")
+    this.remove()
   }
 
   get message() {
