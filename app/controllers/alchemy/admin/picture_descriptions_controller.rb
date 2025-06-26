@@ -1,8 +1,12 @@
 module Alchemy
   module Admin
     class PictureDescriptionsController < Alchemy::Admin::ResourcesController
+      include PictureDescriptionsFormHelper
+
       def edit
-        @picture_description = @picture.descriptions.find_or_initialize_by(language_id: params[:language_id])
+        @picture_description = @picture.descriptions.find_or_initialize_by(
+          language_id: params[:language_id]
+        )
       end
 
       private

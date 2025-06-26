@@ -6,6 +6,7 @@ module Alchemy
       include UploaderResponses
       include ArchiveOverlay
       include CurrentLanguage
+      include PictureDescriptionsFormHelper
 
       helper "alchemy/admin/tags"
 
