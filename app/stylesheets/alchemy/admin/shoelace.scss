@@ -1,20 +1,7 @@
-.alchemy-light {
+:root {
   /*
    * Theme Tokens
    */
-
-  /* Primary */
-  --sl-color-primary-50: var(--color-blue_very_light);
-  --sl-color-primary-100: var(--color-blue_very_light);
-  --sl-color-primary-200: var(--color-blue_light);
-  --sl-color-primary-300: var(--color-blue_light);
-  --sl-color-primary-400: var(--color-blue_medium);
-  --sl-color-primary-500: var(--color-blue_medium);
-  --sl-color-primary-600: var(--color-blue_dark);
-  --sl-color-primary-700: var(--color-blue_dark);
-  --sl-color-primary-800: var(--color-blue_dark);
-  --sl-color-primary-900: var(--color-blue_dark);
-  --sl-color-primary-950: var(--color-blue_dark);
 
   /* Success */
   --sl-color-success-50: var(--color-green_very_light);
@@ -54,19 +41,6 @@
   --sl-color-danger-800: var(--color-red_dark);
   --sl-color-danger-900: var(--color-red_dark);
   --sl-color-danger-950: var(--color-red_dark);
-
-  /* Neutral */
-  --sl-color-neutral-50: var(--color-grey_very_light);
-  --sl-color-neutral-100: var(--color-grey_very_light);
-  --sl-color-neutral-200: var(--color-grey_light);
-  --sl-color-neutral-300: var(--color-grey_light);
-  --sl-color-neutral-400: var(--color-grey_medium);
-  --sl-color-neutral-500: var(--color-grey_medium);
-  --sl-color-neutral-600: var(--color-grey_dark);
-  --sl-color-neutral-700: var(--color-grey_dark);
-  --sl-color-neutral-800: var(--color-grey_very_dark);
-  --sl-color-neutral-900: var(--color-grey-very_dark);
-  --sl-color-neutral-950: var(--color-grey-very_dark);
 
   /* Neutral one-offs */
   --sl-color-neutral-0: hsl(0, 0%, 100%);
@@ -130,8 +104,8 @@
 
   /* Font sizes */
   --sl-font-size-2x-small: 0.625rem; /* 10px */
-  --sl-font-size-x-small: var(--font-size_small); /* 12px */
-  --sl-font-size-small: var(--font-size_medium); /* 14px */
+  --sl-font-size-x-small: var(--font-size_small); /* 10px */
+  --sl-font-size-small: var(--font-size_medium); /* 12px */
   --sl-font-size-medium: var(--font-size_large); /* 16px */
   --sl-font-size-large: 1.25rem; /* 20px */
   --sl-font-size-x-large: 1.5rem; /* 24px */
@@ -141,9 +115,9 @@
 
   /* Font weights */
   --sl-font-weight-light: 300;
-  --sl-font-weight-normal: 400;
-  --sl-font-weight-semibold: 500;
-  --sl-font-weight-bold: 700;
+  --sl-font-weight-normal: var(--font-weight_normal);
+  --sl-font-weight-semibold: var(--font-weight_normal);
+  --sl-font-weight-bold: var(--font-weight_bold);
 
   /* Letter spacings */
   --sl-letter-spacing-denser: -0.03em;
@@ -160,7 +134,7 @@
   --sl-line-height-looser: 2.6;
 
   /* Focus rings */
-  --sl-focus-ring-color: var(--outline-color, --sl-color-primary-600);
+  --sl-focus-ring-color: var(--focus-color);
   --sl-focus-ring-style: solid;
   --sl-focus-ring-width: 2px;
   --sl-focus-ring: var(--sl-focus-ring-style) var(--sl-focus-ring-width)
@@ -181,11 +155,11 @@
   --sl-input-height-medium: 2.5rem; /* 40px */
   --sl-input-height-large: 3.125rem; /* 50px */
 
-  --sl-input-background-color: var(--sl-color-neutral-0);
+  --sl-input-background-color: var(--form-field-background-color);
   --sl-input-background-color-hover: var(--sl-input-background-color);
   --sl-input-background-color-focus: var(--sl-input-background-color);
-  --sl-input-background-color-disabled: var(--sl-color-neutral-100);
-  --sl-input-border-color: var(--sl-color-neutral-300);
+  --sl-input-background-color-disabled: var(--form-field-disabled-bg-color);
+  --sl-input-border-color: var(--form-field-border-color);
   --sl-input-border-color-hover: var(--sl-color-neutral-400);
   --sl-input-border-color-focus: var(--sl-color-primary-500);
   --sl-input-border-color-disabled: var(--sl-color-neutral-300);
@@ -205,10 +179,10 @@
   --sl-input-font-size-large: var(--sl-font-size-large);
   --sl-input-letter-spacing: var(--sl-letter-spacing-normal);
 
-  --sl-input-color: var(--sl-color-neutral-700);
+  --sl-input-color: var(--form-field-text-color);
   --sl-input-color-hover: var(--sl-color-neutral-700);
   --sl-input-color-focus: var(--sl-color-neutral-700);
-  --sl-input-color-disabled: var(--sl-color-neutral-900);
+  --sl-input-color-disabled: var(--form-field-disabled-text-color);
   --sl-input-icon-color: var(--sl-color-neutral-500);
   --sl-input-icon-color-hover: var(--sl-color-neutral-600);
   --sl-input-icon-color-focus: var(--sl-color-neutral-600);
@@ -218,7 +192,7 @@
   --sl-input-spacing-medium: var(--sl-spacing-medium);
   --sl-input-spacing-large: var(--sl-spacing-large);
 
-  --sl-input-focus-ring-color: hsl(198.6 88.7% 48.4% / 40%);
+  --sl-input-focus-ring-color: var(--focus-color);
   --sl-input-focus-ring-offset: 0;
 
   --sl-input-filled-background-color: var(--sl-color-neutral-100);
@@ -240,7 +214,7 @@
   --sl-input-help-text-font-size-small: var(--sl-font-size-x-small);
   --sl-input-help-text-font-size-medium: var(--sl-font-size-small);
   --sl-input-help-text-font-size-large: var(--sl-font-size-medium);
-  --sl-input-help-text-color: var(--sl-color-neutral-500);
+  --sl-input-help-text-color: var(--hint-text-color);
 
   /* Toggles (checkboxes, radios, switches) */
   --sl-toggle-size-small: 0.875rem; /* 14px */
@@ -251,7 +225,7 @@
    * Overlays
    */
 
-  --sl-overlay-background-color: hsl(0 0% 39.2% / 40%);
+  --sl-overlay-background-color: var(--dialog-overlay-color);
 
   /*
    * Panels
@@ -266,8 +240,8 @@
    */
 
   --sl-tooltip-border-radius: var(--sl-border-radius-medium);
-  --sl-tooltip-background-color: var(--sl-color-primary-800);
-  --sl-tooltip-color: var(--sl-color-neutral-0);
+  --sl-tooltip-background-color: var(--tooltip-background-color);
+  --sl-tooltip-color: hsla(0, 0%, 90%, 0.9);
   --sl-tooltip-font-family: var(--sl-font-sans);
   --sl-tooltip-font-weight: var(--sl-font-weight-normal);
   --sl-tooltip-font-size: var(--sl-font-size-small);
@@ -311,23 +285,18 @@
   }
 }
 
-.alchemy-light {
-  sl-tab-group {
-    --indicator-color: var(--tabs_indicator-color);
-    --track-color: var(--tabs_track-color);
-  }
+sl-tab-group {
+  --indicator-color: var(--tabs_indicator-color);
+  --track-color: var(--tabs_track-color);
+}
 
-  sl-tab-panel {
-    --padding: var(--spacing-4);
-  }
-
-  sl-tooltip {
-    --show-delay: 0.2s;
-  }
+sl-tab-panel {
+  --padding: var(--spacing-4);
 }
 
 sl-tooltip {
   --max-width: 200px;
+  --show-delay: 0.2s;
 
   &::part(body) {
     white-space: normal;
@@ -336,20 +305,21 @@ sl-tooltip {
 
   &::part(base__popup) {
     border-radius: var(--border-radius_medium);
-    box-shadow: 0 0 var(--spacing-1) var(--color-grey_light);
+    box-shadow: var(--tooltip-box-shadow);
   }
 }
 
 sl-dialog {
   &::part(panel) {
-    background-color: var(--color-grey_very_light);
+    background-color: var(--dialog-background-color);
     --body-spacing: var(--spacing-4) var(--spacing-3);
     --footer-spacing: var(--spacing-4) var(--spacing-3);
+    --sl-shadow-x-large: var(--dialog-box-shadow);
   }
 
   &::part(header) {
     --header-spacing: 9.5px var(--spacing-3);
-    background-color: var(--color-blue_dark);
+    background-color: var(--dialog-header-color);
     border-top-left-radius: var(--border-radius_medium);
     border-top-right-radius: var(--border-radius_medium);
   }
@@ -360,16 +330,16 @@ sl-dialog {
 
   &::part(title) {
     --sl-font-size-large: var(--font-size_medium);
-    color: var(--color-white);
+    color: var(--dialog-header-text-color);
     font-weight: var(--font-weight_bold);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   &::part(close-button) {
-    --sl-color-primary-600: var(--color-white);
-    --sl-color-primary-700: var(--color-white);
-    color: var(--color-white);
+    --sl-color-primary-600: var(--dialog-header-text-color);
+    --sl-color-primary-700: var(--dialog-header-text-color);
+    color: var(--dialog-header-text-color);
     fill: currentColor;
   }
 }

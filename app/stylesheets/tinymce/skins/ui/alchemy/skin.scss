@@ -365,30 +365,20 @@ button::-moz-focus-inner {
 }
 
 .tox .tox-button[disabled] {
-  background-color: #2d5a8d;
-  background-image: none;
-  border-color: #2d5a8d;
+  background-color: var(--button-disabled-bg-color);
+  border-color: var(--button-border-color);
   box-shadow: none;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--button-disabled-color);
   cursor: not-allowed;
 }
 
 .tox .tox-button:focus:not(:disabled) {
-  background-color: #274e7a;
-  background-image: none;
-  border-color: #274e7a;
-  box-shadow: none;
-  color: #fff;
+  background-color: var(--button-bg-color);
+  border-color: var(--button-focus-border-color);
+  box-shadow: var(--button-focus-box-shadow);
 }
 
-.tox .tox-button:hover:not(:disabled) {
-  background-color: var(--button-hover-bg-color);
-  background-image: none;
-  border-color: var(--button-hover-border-color);
-  box-shadow: none;
-  color: var(--button-text-color);
-}
-
+.tox .tox-button:hover:not(:disabled):not(:focus),
 .tox .tox-button:active:not(:disabled) {
   background-color: var(--button-hover-bg-color);
   background-image: none;
@@ -419,35 +409,26 @@ button::-moz-focus-inner {
 }
 
 .tox .tox-button--secondary[disabled] {
-  background-color: #f0f0f0;
-  background-image: none;
-  border-color: #f0f0f0;
+  background-color: var(--button-disabled-bg-color);
+  border-color: var(--button-secondary-border-color);
+  cursor: not-allowed;
   box-shadow: none;
-  color: rgba(0, 0, 0, 0.5);
+  color: var(--button-disabled-color);
 }
 
 .tox .tox-button--secondary:focus:not(:disabled) {
-  background-color: #e3e3e3;
-  background-image: none;
-  border-color: #e3e3e3;
-  box-shadow: none;
-  color: #000;
+  background-color: var(--button-secondary-bg-color);
+  border-color: var(--button-focus-border-color);
+  box-shadow: var(--button-focus-box-shadow);
 }
 
-.tox .tox-button--secondary:hover:not(:disabled) {
-  background-color: #e3e3e3;
-  background-image: none;
-  border-color: #e3e3e3;
-  box-shadow: none;
-  color: #000;
-}
-
+.tox .tox-button--secondary:hover:not(:disabled):not(:focus),
 .tox .tox-button--secondary:active:not(:disabled) {
-  background-color: #d6d6d6;
+  background-color: var(--button-hover-bg-color);
   background-image: none;
-  border-color: #d6d6d6;
+  border-color: var(--button-hover-border-color);
   box-shadow: none;
-  color: #000;
+  color: var(--button-secondary-text-color);
 }
 
 .tox .tox-button--icon,
