@@ -27,6 +27,8 @@ class Action extends HTMLElement {
     } else {
       console.error(`Unknown Alchemy action: ${this.name}`)
     }
+
+    this.remove()
   }
 
   get name() {
