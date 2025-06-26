@@ -56,17 +56,16 @@ input.button {
   &.small {
     padding: var(--button-small-padding);
     line-height: var(--spacing-4);
-    font-size: inherit;
+    font-size: var(--font-size_small);
   }
 
   &.with_icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: var(--spacing-1);
 
-    .icon {
-      font-weight: normal;
-      margin-right: var(--spacing-1);
+    alchemy-icon {
       fill: currentColor;
     }
   }
