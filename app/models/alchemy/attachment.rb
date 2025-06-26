@@ -76,7 +76,7 @@ module Alchemy
       end
 
       def allowed_filetypes
-        Alchemy.config.get(:uploader).fetch("allowed_filetypes", {}).fetch("alchemy/attachments", [])
+        Alchemy.config.uploader.allowed_filetypes.alchemy_attachments
       end
 
       def ransackable_scopes(_auth_object = nil)
@@ -85,7 +85,7 @@ module Alchemy
     end
 
     validates_presence_of :file
-    validates_size_of :file, maximum: Alchemy.config.get(:uploader)["file_size_limit"].megabytes
+    validates_size_of :file, maximum: Alchemy.config.uploader.file_size_limit.megabytes
     validate :file_type_allowed,
       unless: -> { self.class.allowed_filetypes.include?("*") }
 

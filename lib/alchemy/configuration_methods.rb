@@ -12,9 +12,11 @@ module Alchemy
     #
     # Config file is in +config/alchemy/config.yml+
     #
+    # @deprecated - Use Alchemy.config.get instead
     def configuration(name)
       Alchemy.config.get(name)
     end
+    deprecate configuration: "Alchemy.config.get", deprecator: Alchemy::Deprecation
 
     # Returns true if more than one language is published on current site.
     #

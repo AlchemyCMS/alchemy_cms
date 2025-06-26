@@ -153,8 +153,8 @@ module Alchemy
     describe "validations" do
       context "having a png, but only pdf allowed" do
         before do
-          allow(Alchemy.config).to receive(:get) do
-            {"allowed_filetypes" => {"alchemy/attachments" => ["pdf"]}}
+          allow(Alchemy.config.uploader.allowed_filetypes).to receive(:alchemy_attachments) do
+            ["pdf"]
           end
         end
 
@@ -166,8 +166,8 @@ module Alchemy
 
       context "having a png and everything allowed" do
         before do
-          allow(Alchemy.config).to receive(:get) do
-            {"allowed_filetypes" => {"alchemy/attachments" => ["*"]}}
+          allow(Alchemy.config.uploader.allowed_filetypes).to receive(:alchemy_attachments) do
+            ["*"]
           end
         end
 
