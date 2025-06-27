@@ -21,4 +21,13 @@ describe("alchemy-growl", () => {
     const message = document.querySelector("alchemy-message")
     expect(message.textContent).toMatch("Foo Bar")
   })
+
+  it("removes element from DOM after connect", () => {
+    const html = `
+      <div id="flash_notices"></div>
+      <alchemy-growl>Foo Bar</alchemy-growl>
+    `
+    renderComponent("alchemy-growl", html)
+    expect(document.querySelector("alchemy-growl")).toBeNull()
+  })
 })

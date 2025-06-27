@@ -53,4 +53,12 @@ describe("alchemy-action", () => {
     )
     expect(closeCurrentDialog).toBeCalled()
   })
+
+  it("removes the element from DOM after connected to the DOM", () => {
+    renderComponent(
+      "alchemy-action",
+      `<alchemy-action name="closeCurrentDialog"></alchemy-action>`
+    )
+    expect(document.querySelector("alchemy-action")).toBeNull()
+  })
 })
