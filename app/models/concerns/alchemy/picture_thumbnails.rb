@@ -114,7 +114,11 @@ module Alchemy
       return true if settings[:upsample]
 
       dimensions = inferred_dimensions_from_string(settings[:size])
-      picture.image_file_width > dimensions[0] && picture.image_file_height > dimensions[1]
+      if dimensions
+        picture.image_file_width > dimensions[0] && picture.image_file_height > dimensions[1]
+      else
+        false
+      end
     end
 
     def default_crop_size
