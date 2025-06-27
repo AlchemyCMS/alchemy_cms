@@ -29,6 +29,7 @@ describe "alchemy/admin/pictures/show.html.erb" do
     allow(view).to receive(:admin_picture_path).and_return("/path")
     allow(view).to receive(:edit_admin_page_path).and_return("/path")
     allow(view).to receive(:render_message)
+    allow(view).to receive(:description_field_name_prefix) { "prefix" }
     allow(view).to receive(:search_filter_params) { {} }
     view.extend Alchemy::Admin::FormHelper
     view.extend Alchemy::BaseHelper
