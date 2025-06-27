@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.4.6 (2025-27-06)
+
+- [7.4-stable] Fix multi language picture descriptions [#3293](https://github.com/AlchemyCMS/alchemy_cms/pull/3293) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.4-stable] Add server error turbo_stream template [#3292](https://github.com/AlchemyCMS/alchemy_cms/pull/3292) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.4-stable] Remove non visual custom elements after connect [#3291](https://github.com/AlchemyCMS/alchemy_cms/pull/3291) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.4.5 (2025-06-04)
 
 - [7.4] Fix attachment overlay list overflow [#3261](https://github.com/AlchemyCMS/alchemy_cms/pull/3261) ([tvdeyen](https://github.com/tvdeyen))
