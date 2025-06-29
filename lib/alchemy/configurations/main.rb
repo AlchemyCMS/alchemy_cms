@@ -206,6 +206,10 @@ module Alchemy
       #     # config/initializers/alchemy.rb
       #     Alchemy.config.page_searchable_checkbox = true
       option :show_page_searchable_checkbox, :boolean, default: false
+
+      # The storage adapter for Pictures and Attachments
+      #
+      option :storage_adapter, :string, default: "dragonfly"
     end
   end
 end

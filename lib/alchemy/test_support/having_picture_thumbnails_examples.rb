@@ -432,8 +432,8 @@ RSpec.shared_examples_for "having picture thumbnails" do
       let(:settings) { {} }
 
       before do
-        picture.image_file_width = 300
-        picture.image_file_height = 250
+        allow(picture).to receive(:image_file_width) { 300 }
+        allow(picture).to receive(:image_file_height) { 250 }
         allow(record).to receive(:settings) { settings }
       end
 
@@ -555,8 +555,8 @@ RSpec.shared_examples_for "having picture thumbnails" do
         let(:settings) { {crop: true, size: size} }
 
         before do
-          picture.image_file_width = 200
-          picture.image_file_height = 100
+          allow(picture).to receive(:image_file_width) { 200 }
+          allow(picture).to receive(:image_file_height) { 100 }
         end
 
         context "size 200x50" do
@@ -634,6 +634,22 @@ RSpec.shared_examples_for "having picture thumbnails" do
 
     subject { record.allow_image_cropping? }
 
+    shared_context "with image file" do
+      before do
+        if Alchemy.storage_adapter.dragonfly?
+          expect(picture).to receive(:image_file) { fixture_file_upload("image.png") }
+        end
+      end
+    end
+
+    shared_context "without image file" do
+      before do
+        if Alchemy.storage_adapter.dragonfly?
+          expect(picture).to receive(:image_file) { nil }
+        end
+      end
+    end
+
     context "with crop set to false" do
       let(:crop) { false }
 
@@ -649,24 +665,19 @@ RSpec.shared_examples_for "having picture thumbnails" do
         end
 
         context "and image smaller or equal to crop size" do
-          let(:image_file_width) { 400 }
-          let(:image_file_height) { 300 }
+          context "if picture.image_file is nil" do
+            include_context "without image file"
 
-          it { is_expected.to be_falsy }
+            it { is_expected.to be_falsy }
+          end
 
-          context "with upsample set to true" do
-            let(:upsample) { true }
+          context "if picture.image_file is present" do
+            include_context "with image file"
 
-            context "but picture.image_file is nil" do
-              before do
-                expect(picture).to receive(:image_file) { nil }
-              end
+            it { is_expected.to be_falsy }
 
-              it { is_expected.to be_falsy }
-            end
-
-            context "and picture.image_file is present" do
-              let(:picture) { build(:alchemy_picture) }
+            context "but with upsample set to true" do
+              let(:upsample) { true }
 
               it { is_expected.to be(true) }
             end
@@ -677,34 +688,28 @@ RSpec.shared_examples_for "having picture thumbnails" do
           let(:image_file_width) { 1201 }
           let(:image_file_height) { 481 }
 
-          context "if picture.image_file is nil" do
-            before do
-              expect(picture).to receive(:image_file) { nil }
+          it { is_expected.to be_falsy }
+
+          context "with crop set to true" do
+            context "if picture.image_file is nil" do
+              include_context "without image file"
+
+              it { is_expected.to be_falsy }
             end
 
-            it { is_expected.to be_falsy }
-          end
+            context "if picture.image_file is present" do
+              include_context "with image file"
 
-          context "if picture.image_file is present" do
-            let(:picture) { build(:alchemy_picture) }
+              it { is_expected.to be(true) }
 
-            it { is_expected.to be(true) }
+              context "with size setting being nil" do
+                let(:size) { nil }
 
-            context "with size setting being nil" do
-              let(:size) { nil }
-
-              it { is_expected.to be_falsey }
+                it { is_expected.to be_falsey }
+              end
             end
           end
         end
-      end
-
-      context "without picture assigned" do
-        before do
-          allow(record).to receive(:picture) { nil }
-        end
-
-        it { is_expected.to be_falsey }
       end
     end
   end

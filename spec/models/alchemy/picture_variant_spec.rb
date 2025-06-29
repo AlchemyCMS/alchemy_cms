@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Alchemy::PictureVariant do
+RSpec.describe Alchemy::PictureVariant, if: Alchemy.storage_adapter.dragonfly? do
   let(:image_file) do
     fixture_file_upload("500x500.png")
   end

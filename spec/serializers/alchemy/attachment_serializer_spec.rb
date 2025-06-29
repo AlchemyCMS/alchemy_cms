@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe Alchemy::AttachmentSerializer do
   subject { described_class.new(attachment).to_json }
 
-  let(:attachment) { build_stubbed(:alchemy_attachment) }
+  let(:attachment) { build(:alchemy_attachment, id: 555) }
 
   it "includes all attributes" do
     json = JSON.parse(subject)
@@ -19,7 +19,7 @@ RSpec.describe Alchemy::AttachmentSerializer do
       "tag_list" => attachment.tag_list,
       "created_at" => attachment.created_at.as_json,
       "updated_at" => attachment.updated_at.as_json,
-      "url" => "/attachment/#{attachment.id}/download/#{attachment.file_name}"
+      "url" => "/attachment/555/download/image.png"
     )
   end
 end

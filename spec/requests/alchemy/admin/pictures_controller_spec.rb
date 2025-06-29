@@ -17,23 +17,23 @@ RSpec.describe "Alchemy::Admin::PicturesController" do
       before do
         authorize_user(:as_author)
         create(:alchemy_language)
+        allow(Alchemy::Picture).to receive(:find) { picture }
+        allow(picture).to receive(:url).with(params) { "/pictures/image.png" }
       end
+
+      let(:params) { {} }
 
       it "returns the url to picture" do
         get alchemy.url_admin_picture_path(picture)
         json = JSON.parse(response.body)
         expect(json).to match({
-          "url" => /\/pictures\/.+\/image\.png/,
+          "url" => "/pictures/image.png",
           "alt" => picture.name,
           "title" => Alchemy.t(:image_name, name: picture.name)
         })
       end
 
       context "with rendering params" do
-        before do
-          expect(Alchemy::Picture).to receive(:find) { picture }
-        end
-
         let(:params) do
           {
             crop: true,

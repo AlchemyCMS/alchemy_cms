@@ -2,21 +2,6 @@
 
 require "rails_helper"
 
-RSpec.shared_examples :redirecting_to_picture_library do
-  let(:params) do
-    {
-      page: 2,
-      q: {name_or_image_file_name_cont: "kitten", last_upload: true},
-      size: "small",
-      tagged_with: "cat"
-    }
-  end
-
-  it "redirects to index keeping all query, filter and page params" do
-    is_expected.to redirect_to admin_pictures_path(params)
-  end
-end
-
 module Alchemy
   describe Admin::PicturesController do
     routes { Alchemy::Engine.routes }
@@ -27,13 +12,37 @@ module Alchemy
 
     let!(:language) { create(:alchemy_language) }
 
+    let(:search_params) do
+      if Alchemy.storage_adapter.dragonfly?
+        {
+          name_or_image_file_name_cont: "kitten",
+          last_upload: true
+        }
+      end
+    end
+
+    shared_examples :redirecting_to_picture_library do
+      let(:params) do
+        {
+          page: 2,
+          q: search_params,
+          size: "small",
+          tagged_with: "cat"
+        }
+      end
+
+      it "redirects to index keeping all query, filter and page params" do
+        is_expected.to redirect_to admin_pictures_path(params)
+      end
+    end
+
     describe "#index" do
       context "with search params" do
-        let!(:picture_1) { create(:alchemy_picture, name: "cute kitten") }
-        let!(:picture_2) { create(:alchemy_picture, name: "nice beach") }
+        let!(:picture_1) { create(:alchemy_picture, name: "cute kitten", upload_hash: "123") }
+        let!(:picture_2) { create(:alchemy_picture, name: "nice beach", upload_hash: "123") }
 
         it "assigns @pictures with filtered pictures" do
-          get :index, params: {q: {name_or_image_file_name_cont: "kitten"}}
+          get :index, params: {q: search_params}
           expect(assigns(:pictures)).to include(picture_1)
           expect(assigns(:pictures)).to_not include(picture_2)
         end

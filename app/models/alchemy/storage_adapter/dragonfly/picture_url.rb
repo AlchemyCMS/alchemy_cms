@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Alchemy
-  class Picture < BaseRecord
-    class Url
+  class StorageAdapter
+    class Dragonfly::PictureUrl
       TRANSFORMATION_OPTIONS = [
         :crop,
         :crop_from,

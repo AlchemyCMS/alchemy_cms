@@ -102,7 +102,9 @@ module Alchemy
 
     # Show image cropping link for ingredient
     def allow_image_cropping?
-      settings[:crop] && picture && can_be_cropped_to? && !!picture.image_file
+      settings[:crop] && picture &&
+        Alchemy.storage_adapter.image_file_present?(picture) &&
+        can_be_cropped_to?
     end
 
     private

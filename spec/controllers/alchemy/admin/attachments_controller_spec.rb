@@ -4,9 +4,28 @@ require "rails_helper"
 
 module Alchemy
   describe Admin::AttachmentsController do
+    shared_context "with search params" do
+      let(:q) do
+        if Alchemy.storage_adapter.dragonfly?
+          {
+            name_or_file_name_cont: "kitten",
+            by_file_type: "pdf"
+          }
+        end
+      end
+
+      let(:search_filter_params) do
+        {
+          q:,
+          tagged_with: "cute",
+          page: 2
+        }
+      end
+    end
+
     routes { Alchemy::Engine.routes }
 
-    let(:attachment) { build(:alchemy_attachment, id: 555) }
+    let(:attachment) { create(:alchemy_attachment, file: file) }
 
     let(:file) do
       fixture_file_upload("500x500.png")
@@ -131,7 +150,11 @@ module Alchemy
           end
 
           it "replaces the file" do
-            expect { subject }.to change { attachment.reload.file_uid }
+            expect { subject }.to change {
+              if Alchemy.storage_adapter.dragonfly?
+                attachment.reload.file_uid
+              end
+            }
           end
         end
 
@@ -154,13 +177,7 @@ module Alchemy
         end
 
         context "with search params" do
-          let(:search_filter_params) do
-            {
-              q: {name_or_file_name_cont: "kitten", by_file_type: "pdf"},
-              tagged_with: "cute",
-              page: 2
-            }
-          end
+          include_context "with search params"
 
           subject do
             put :update, params: {
@@ -188,13 +205,7 @@ module Alchemy
       end
 
       context "with search params" do
-        let(:search_filter_params) do
-          {
-            q: {name_or_file_name_cont: "kitten", by_file_type: "pdf"},
-            tagged_with: "cute",
-            page: 2
-          }
-        end
+        include_context "with search params"
 
         it "passes them along" do
           expect(attachment).to receive(:destroy) { true }
