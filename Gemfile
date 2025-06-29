@@ -17,6 +17,10 @@ gem "pg", "~> 1.0" if ENV["DB"] == "postgresql"
 
 gem "alchemy_i18n", github: "AlchemyCMS/alchemy_i18n", branch: "main"
 
+if ENV["ALCHEMY_STORAGE_ADAPTER"] == "active_storage"
+  gem "ruby-vips"
+end
+
 group :development, :test do
   gem "execjs", "~> 2.9.1"
   gem "rubocop", require: false

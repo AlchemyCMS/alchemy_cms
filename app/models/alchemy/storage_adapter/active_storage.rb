@@ -1,42 +1,24 @@
 module Alchemy
   class StorageAdapter
-    module Dragonfly
+    module ActiveStorage
       module PictureClassMethods
         def self.included(base)
-          base.class_eval do
-            dragonfly_accessor :image_file, app: :alchemy_pictures do
-              # Preprocess after uploading the picture
-              after_assign do |image|
-                if has_convertible_format?
-                  Alchemy.storage_adapter.preprocessor_class.new(image).call
-                end
-              end
-            end
-
-            has_many :thumbs, class_name: "Alchemy::PictureThumb", dependent: :destroy
-
-            # Create important thumbnails upfront
-            after_create -> { PictureThumb.generate_thumbs!(self) },
-              if: :has_convertible_format?
+          base.has_one_attached :image_file do |attachable|
+            # Only works in Rails 7.1+
+            # https://github.com/rails/rails/pull/47473
+            Alchemy.storage_adapter.preprocessor_class.new(attachable).call
+            Alchemy.storage_adapter.preprocessor_class.generate_thumbs!(attachable)
           end
         end
       end
 
       module AttachmentClassMethods
         def self.included(base)
-          base.class_eval do
-            dragonfly_accessor :file, app: :alchemy_attachments do
-              after_assign { |file|
-                write_attribute(:file_mime_type, file.mime_type)
-              }
-            end
-          end
+          base.has_one_attached :file
         end
       end
 
       extend self
-
-      CONVERTIBLE_FILE_FORMATS = %w[gif jpg jpeg png webp].freeze
 
       def attachment_url_class
         AttachmentUrl
@@ -51,12 +33,12 @@ module Alchemy
       end
 
       def file_formats(class_name, scope:)
-        mime_type_column = case class_name
-        when "Alchemy::Attachment" then :file_mime_type
-        when "Alchemy::Picture" then :image_file_format
+        attachment_scope = case class_name
+        when "Alchemy::Attachment" then scope.with_attached_file
+        when "Alchemy::Picture" then scope.with_attached_image_file
         end
 
-        scope.reorder(mime_type_column).distinct.pluck(mime_type_column).compact.presence || []
+        attachment_scope.pluck("active_storage_blobs.content_type").uniq.tap(&:compact!).presence || []
       end
 
       # @param [String]
@@ -64,119 +46,127 @@ module Alchemy
       def searchable_alchemy_resource_attributes(class_name)
         case class_name
         when "Alchemy::Attachment"
-          %w[name file_name]
+          %w[name file_blob_filename]
         when "Alchemy::Picture"
-          %w[name image_file_name]
+          %w[name image_file_blob_filename]
         end
       end
-      alias_method :ransackable_attributes, :searchable_alchemy_resource_attributes
 
       # @param [String]
       # @return [Array<String>]
-      def ransackable_associations(_class_name)
-        %w[]
+      def ransackable_attributes(_class_name)
+        %w[name]
+      end
+
+      # @param [String]
+      # @return [Array<String>]
+      def ransackable_associations(class_name)
+        case class_name
+        when "Alchemy::Attachment"
+          %w[file_blob]
+        when "Alchemy::Picture"
+          %w[image_file_blob]
+        end
       end
 
       def rescuable_errors
-        ::Dragonfly::Job::Fetch::NotFound
+        ::ActiveStorage::Error
       end
 
       # @param [String]
       # @return [Alchemy::Picture::ActiveRecord_Relation]
       def by_file_format_scope(file_format)
-        Picture.where(image_file_format: file_format)
+        Picture.with_attached_image_file.joins(:image_file_blob).where(active_storage_blobs: {content_type: file_format})
       end
 
       # @param [String]
-      # @return [Alchemy::Attachment::ActiveRecord_Relation]
+      # @return [Alchemy::Atachment::ActiveRecord_Relation]
       def by_file_type_scope(file_type)
-        Attachment.where(file_mime_type: file_type)
+        Attachment.with_attached_file.joins(:file_blob).where(active_storage_blobs: {content_type: file_type})
       end
 
       # @param [Alchemy::Attachment]
       # @return [String]
       def file_name(attachment)
-        attachment.read_attribute(:file_name)
+        attachment.file&.filename&.to_s
       end
 
       # @param [Alchemy::Attachment]
       # @return [Integer]
       def file_size(attachment)
-        attachment.read_attribute(:file_size)
+        attachment.file&.byte_size
       end
 
       # @param [Alchemy::Attachment]
       # @return [String]
       def file_mime_type(attachment)
-        attachment.read_attribute(:file_mime_type)
+        attachment.file&.content_type
       end
 
       # @param [Alchemy::Attachment]
       # @return [String]
       def file_extension(attachment)
-        content_type = file_mime_type(attachment)
-        Marcel::Magic.new(content_type).extensions.first if content_type
+        attachment.file&.filename&.extension
       end
 
       # @param [Alchemy::Picture]
       # @return [TrueClass, FalseClass]
       def has_convertible_format?(picture)
-        image_file_extension(picture).in?(CONVERTIBLE_FILE_FORMATS)
+        picture.image_file&.variable?
       end
 
       # @param [Alchemy::Picture]
       # @return [String]
       def image_file_name(picture)
-        picture.read_attribute(:image_file_name)
+        picture.image_file&.filename&.to_s
       end
 
       # @param [Alchemy::Picture]
       # @return [String]
       def image_file_format(picture)
-        ext = picture.read_attribute(:image_file_format)
-        Marcel::MimeType.for(extension: ext) if ext
+        picture.image_file&.content_type
       end
 
       # @param [Alchemy::Picture]
       # @return [Integer]
       def image_file_size(picture)
-        picture.read_attribute(:image_file_size)
+        picture.image_file&.byte_size
       end
 
       # @param [Alchemy::Picture]
       # @return [Integer]
       def image_file_width(picture)
-        picture.read_attribute(:image_file_width)
+        picture.image_file&.metadata&.fetch(:width, nil)
       end
 
       # @param [Alchemy::Picture]
       # @return [Integer]
       def image_file_height(picture)
-        picture.read_attribute(:image_file_height)
+        picture.image_file&.metadata&.fetch(:height, nil)
       end
 
       # @param [Alchemy::Picture]
-      # @return [String]
+      # @return [Integer]
       def image_file_extension(picture)
-        picture.read_attribute(:image_file_format)
+        picture.image_file&.filename&.extension&.downcase
       end
 
       # @param [Alchemy::Picture]
       # @return [TrueClass, FalseClass]
       def image_file_present?(picture)
-        !!picture.image_file
+        picture.image_file.attached?
       end
 
       # @param Alchemy::Picture::ActiveRecord_Relation
       # @return Alchemy::Picture::ActiveRecord_Relation
       def preloaded_pictures(pictures)
-        pictures.includes(:thumbs)
+        pictures.with_attached_image_file
       end
 
       # @param [Alchemy::Attachment]
       # @return [TrueClass, FalseClass]
       def set_attachment_name?(attachment)
-        attachment.file_name_changed?
+        attachment.file.changed?
       end
     end
   end
