@@ -1,13 +1,5 @@
 @media (prefers-color-scheme: dark) {
   html {
-    --a-lightest-grey: hsl(200deg, 5%, 90%);
-    --a-lighter-grey: hsl(200deg, 5%, 70%);
-    --a-light-grey: hsl(200deg, 5%, 35%);
-    --a-grey: hsl(200deg, 5%, 22.5%);
-    --a-dark-grey: hsl(200deg, 5%, 17.5%);
-    --a-darker-grey: hsl(200deg, 5%, 15%);
-    --a-darkest-grey: hsl(200deg, 5%, 12.5%);
-
     --body-background-color: var(--a-dark-grey);
 
     /* Borders */
