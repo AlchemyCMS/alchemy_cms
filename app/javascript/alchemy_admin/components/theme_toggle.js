@@ -6,15 +6,16 @@ class ThemeToggle extends HTMLElement {
     this.slSwitch.addEventListener("sl-change", this)
   }
 
-  handleEvent(event) {
+  async handleEvent(event) {
     if (event.target.checked) {
-      this.setDarkMode().then(() => {
-        localStorage.setItem("alchemy-theme", "dark")
-      })
+      await this.setDarkMode()
+      localStorage.setItem("alchemy-theme", "dark")
     } else {
-      this.setLightMode().then(() => {
-        localStorage.setItem("alchemy-theme", "light")
-      })
+      await this.setLightMode()
+      localStorage.setItem("alchemy-theme", "light")
+    }
+    if (document.querySelector("alchemy-tinymce")) {
+      window.location.reload()
     }
   }
 
