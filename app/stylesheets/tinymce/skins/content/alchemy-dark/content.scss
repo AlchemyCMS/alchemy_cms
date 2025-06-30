@@ -1,0 +1,71 @@
+/**
+* Copyright (c) Tiny Technologies, Inc. All rights reserved.
+* Licensed under the LGPL or a commercial license.
+* For LGPL see License.txt in the project root for license information.
+* For commercial licenses see https://www.tiny.cloud/
+*/
+
+@use "../../../../alchemy/custom-properties";
+@use "../../../../alchemy/colors";
+
+html {
+  font-size: 13px;
+}
+
+body {
+  font-family: var(--font-sans);
+  line-height: 1.4;
+  margin: 1em;
+  background-color: var(--a-darkest-grey);
+  color: var(--a-lighter-grey);
+}
+
+a {
+  color: var(--a-lightest-grey);
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table td,
+table th {
+  border: 1px solid var(--a-grey);
+  padding: 0.4rem;
+}
+
+figure {
+  display: table;
+  margin: 1rem auto;
+}
+
+figure figcaption {
+  color: var(--a-lighter-grey);
+  display: block;
+  margin-top: 0.25rem;
+  text-align: center;
+}
+
+hr {
+  border-color: var(--a-grey);
+  border-style: solid;
+  border-width: 1px 0 0 0;
+}
+
+code {
+  background-color: var(--a-darkest-grey);
+  border-radius: var(--border-radius_medium);
+  padding: 0.1rem 0.2rem;
+}
+
+.mce-content-body:not([dir="rtl"]) blockquote {
+  border-left: 2px solid var(--a-grey);
+  margin-left: 1.5rem;
+  padding-left: 1rem;
+}
+
+.mce-content-body[dir="rtl"] blockquote {
+  border-right: 2px solid var(--a-grey);
+  margin-right: 1.5rem;
+  padding-right: 1rem;
+}

@@ -21,7 +21,6 @@ describe("alchemy-tinymce", () => {
     // into the JS world.
     Alchemy.TinymceDefaults = {
       skin: "alchemy",
-      content_css: "/assets/tinymce/skins/content/alchemy/content.min.css",
       icons: "remixicons",
       width: "auto",
       resize: true,
