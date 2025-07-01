@@ -3,16 +3,19 @@ class ThemeToggle extends HTMLElement {
     super()
 
     this.detectColorScheme()
-    this.slSwitch.addEventListener("sl-change", this)
+    this.slSelect.addEventListener("sl-change", this)
   }
 
   async handleEvent(event) {
-    if (event.target.checked) {
-      await this.setDarkMode()
-      localStorage.setItem("alchemy-theme", "dark")
-    } else {
-      await this.setLightMode()
-      localStorage.setItem("alchemy-theme", "light")
+    switch (event.target.value) {
+      case "dark":
+        await this.setDarkMode()
+        localStorage.setItem("alchemy-theme", "dark")
+        break
+      case "light":
+        await this.setLightMode()
+        localStorage.setItem("alchemy-theme", "light")
+        break
     }
     if (document.querySelector("alchemy-tinymce")) {
       window.location.reload()
@@ -36,7 +39,8 @@ class ThemeToggle extends HTMLElement {
     return new Promise((resolve) => {
       document.documentElement.classList.add("alchemy-dark")
       document.documentElement.classList.remove("alchemy-light")
-      this.slSwitch.checked = true
+      this.slSelect.setAttribute("value", "dark")
+      this.icon.setAttribute("name", "moon")
       resolve()
     })
   }
@@ -45,7 +49,8 @@ class ThemeToggle extends HTMLElement {
     return new Promise((resolve) => {
       document.documentElement.classList.add("alchemy-light")
       document.documentElement.classList.remove("alchemy-dark")
-      this.slSwitch.checked = false
+      this.slSelect.setAttribute("value", "light")
+      this.icon.setAttribute("name", "sun")
       resolve()
     })
   }
@@ -69,8 +74,12 @@ class ThemeToggle extends HTMLElement {
     return localStorage.getItem("alchemy-theme")
   }
 
-  get slSwitch() {
-    return this.querySelector("sl-switch")
+  get slSelect() {
+    return this.querySelector("sl-select")
+  }
+
+  get icon() {
+    return this.querySelector("alchemy-icon")
   }
 }
 

@@ -174,9 +174,9 @@
 
   --sl-input-font-family: var(--sl-font-sans);
   --sl-input-font-weight: var(--sl-font-weight-normal);
-  --sl-input-font-size-small: var(--sl-font-size-small);
-  --sl-input-font-size-medium: var(--sl-font-size-medium);
-  --sl-input-font-size-large: var(--sl-font-size-large);
+  --sl-input-font-size-small: var(--font-size_small);
+  --sl-input-font-size-medium: var(--font-size_medium);
+  --sl-input-font-size-large: var(--font-size_large);
   --sl-input-letter-spacing: var(--sl-letter-spacing-normal);
 
   --sl-input-color: var(--form-field-text-color);
@@ -188,9 +188,9 @@
   --sl-input-icon-color-focus: var(--sl-color-neutral-600);
   --sl-input-placeholder-color: var(--sl-color-neutral-500);
   --sl-input-placeholder-color-disabled: var(--sl-color-neutral-600);
-  --sl-input-spacing-small: var(--sl-spacing-small);
-  --sl-input-spacing-medium: var(--sl-spacing-medium);
-  --sl-input-spacing-large: var(--sl-spacing-large);
+  --sl-input-spacing-small: var(--spacing-1);
+  --sl-input-spacing-medium: var(--spacing-2);
+  --sl-input-spacing-large: var(--spacing-3);
 
   --sl-input-focus-ring-color: var(--focus-color);
   --sl-input-focus-ring-offset: 0;
@@ -283,6 +283,11 @@
   &::part(base) {
     box-shadow: var(--sl-shadow-large);
   }
+}
+
+sl-select {
+  --sl-font-size-medium: var(--font-size_medium);
+  --sl-input-font-size-medium: var(--font-size_medium);
 }
 
 sl-tab-group {

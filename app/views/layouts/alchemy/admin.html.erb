@@ -53,11 +53,18 @@
 
       <div id="logout">
         <alchemy-theme-toggle>
-          <alchemy-icon name="sun"></alchemy-icon>
           <sl-tooltip content="Toogle Theme">
-            <sl-switch name="dark-mode" size="large">
-              <alchemy-icon name="moon"></alchemy-icon>
-            </sl-switch>
+            <sl-select name="theme" size="medium">
+              <alchemy-icon name="sun" slot="prefix"></alchemy-icon>
+              <sl-option value="dark">
+                <alchemy-icon name="moon" slot="prefix"></alchemy-icon>
+                Dark Mode
+              </sl-option>
+              <sl-option value="light">
+                <alchemy-icon name="sun" slot="prefix"></alchemy-icon>
+                Light Mode
+              </sl-option>
+            </sl-select>
           </sl-tooltip>
         </alchemy-theme-toggle>
         <div class="main_navi_entry">
