@@ -26,7 +26,7 @@
     "keymaster": "^1.6.2",
     "select2": "github:select2/select2#3.5.4",
     "sortablejs": "^1.15.2",
-    "tinymce": "^7.3.0"
+    "tinymce": "^7.9.1"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.0",
