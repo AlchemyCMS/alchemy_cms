@@ -7,27 +7,27 @@ updates:
     groups:
       babel:
         dependency-type: "development"
-          patterns:
-            - "@babel/*"
-          update-types:
-            - "minor"
-            - "patch"
+        patterns:
+          - "@babel/*"
+        update-types:
+          - "minor"
+          - "patch"
       jest:
         dependency-type: "development"
-          patterns:
-            - "jest*"
-            - "babel-jest"
-          update-types:
-            - "minor"
-            - "patch"
+        patterns:
+          - "jest*"
+          - "babel-jest"
+        update-types:
+          - "minor"
+          - "patch"
       rollup:
         dependency-type: "development"
-          patterns:
-            - "@rollup/*"
-            - "rollup"
-          update-types:
-            - "minor"
-            - "patch"
+        patterns:
+          - "@rollup/*"
+          - "rollup"
+        update-types:
+          - "minor"
+          - "patch"
       versioning-strategy: increase-if-necessary
   - package-ecosystem: "bundler"
     directory: "/"
