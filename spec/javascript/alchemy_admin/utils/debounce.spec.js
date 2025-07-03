@@ -1,3 +1,4 @@
+import { vi } from "vitest"
 import debounce from "alchemy_admin/utils/debounce.js"
 
 describe("debounce", () => {
@@ -5,13 +6,13 @@ describe("debounce", () => {
   let debouncedFunc
 
   beforeEach(() => {
-    jest.useFakeTimers()
-    mockFunc = jest.fn()
+    vi.useFakeTimers()
+    mockFunc = vi.fn()
     debouncedFunc = debounce(mockFunc, 1000)
   })
 
   afterEach(() => {
-    jest.clearAllTimers()
+    vi.clearAllTimers()
   })
 
   it("should debounce the function", () => {
@@ -21,7 +22,7 @@ describe("debounce", () => {
 
     expect(mockFunc).not.toBeCalled()
 
-    jest.runAllTimers()
+    vi.runAllTimers()
 
     expect(mockFunc).toBeCalled()
     expect(mockFunc).toHaveBeenCalledTimes(1)
@@ -29,14 +30,14 @@ describe("debounce", () => {
 
   it("should debounce the function with the specified delay", () => {
     debouncedFunc()
-    jest.advanceTimersByTime(500)
+    vi.advanceTimersByTime(500)
     debouncedFunc()
-    jest.advanceTimersByTime(500)
+    vi.advanceTimersByTime(500)
     debouncedFunc()
 
     expect(mockFunc).not.toBeCalled()
 
-    jest.runAllTimers()
+    vi.runAllTimers()
 
     expect(mockFunc).toBeCalled()
     expect(mockFunc).toHaveBeenCalledTimes(1)

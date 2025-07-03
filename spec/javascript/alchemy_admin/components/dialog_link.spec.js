@@ -1,17 +1,14 @@
+import { vi } from "vitest"
 import "alchemy_admin/components/dialog_link"
 import { Dialog } from "alchemy_admin/dialog"
 import { renderComponent } from "./component.helper"
-
-// import jquery and append it to the window object
-import jQuery from "jquery"
-globalThis.$ = jQuery
 
 describe("alchemy-dialog-link", () => {
   it("opens a dialog on click", () => {
     const html = `
       <a type="submit" is="alchemy-dialog-link">Open Dialog</a>
     `
-    const openSpy = jest.spyOn(Dialog.prototype, "open")
+    const openSpy = vi.spyOn(Dialog.prototype, "open")
     const dialogLink = renderComponent("alchemy-dialog-link", html)
     const click = new Event("click", { bubbles: true })
 

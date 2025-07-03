@@ -1,5 +1,6 @@
+import { vi } from "vitest"
 import "alchemy_admin/components/button"
-import { renderComponent } from "./component.helper"
+import { renderComponent } from "./component.helper.js"
 
 describe("alchemy-button", () => {
   it("disables button on form submit", () => {
@@ -24,7 +25,7 @@ describe("alchemy-button", () => {
   it("logs warning if no form found", () => {
     global.console = {
       ...console,
-      warn: jest.fn()
+      warn: vi.fn()
     }
 
     const html = `

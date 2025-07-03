@@ -1,7 +1,8 @@
+import { vi } from "vitest"
 import { on } from "alchemy_admin/utils/events"
 
 describe("on", () => {
-  const callback = jest.fn()
+  const callback = vi.fn()
 
   beforeEach(() => {
     document.body.innerHTML = `
@@ -14,7 +15,7 @@ describe("on", () => {
 
   it("adds event listener to base node", () => {
     const baseNode = document.querySelector(".list")
-    const spy = jest.spyOn(baseNode, "addEventListener")
+    const spy = vi.spyOn(baseNode, "addEventListener")
     on("click", ".list", ".item", callback)
     expect(spy).toHaveBeenCalledWith("click", expect.any(Function))
     spy.mockReset()

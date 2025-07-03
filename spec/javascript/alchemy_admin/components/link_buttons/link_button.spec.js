@@ -1,9 +1,10 @@
+import { vi } from "vitest"
 import "alchemy_admin/components/link_buttons/link_button"
 import { renderComponent } from "../component.helper"
 
 beforeEach(() => {
-  Alchemy.LinkDialog = jest.fn(() => ({
-    open: jest.fn(() => Promise.resolve({ data: {} }))
+  Alchemy.LinkDialog = vi.fn(() => ({
+    open: vi.fn(() => Promise.resolve({ data: {} }))
   }))
 })
 
