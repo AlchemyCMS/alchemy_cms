@@ -1,12 +1,6 @@
 import { renderComponent } from "./component.helper"
 
-// import jquery and append it to the window object
-import jQuery from "jquery"
-globalThis.$ = jQuery
-globalThis.jQuery = jQuery
-
 import "alchemy_admin/components/tags_autocomplete"
-import("select2")
 
 describe("alchemy-tags-autocomplete", () => {
   /**

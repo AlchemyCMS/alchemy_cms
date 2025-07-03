@@ -1,3 +1,4 @@
+import { vi } from "vitest"
 import "alchemy_admin/components/message"
 import { renderComponent } from "./component.helper"
 
@@ -11,7 +12,7 @@ describe("alchemy-message", () => {
           </alchemy-message>
         `
         const component = renderComponent("alchemy-message", html)
-        const spy = jest.spyOn(component, "dismiss")
+        const spy = vi.spyOn(component, "dismiss")
         component.dispatchEvent(new Event("click"))
         expect(spy).toHaveBeenCalled()
       })
@@ -24,7 +25,7 @@ describe("alchemy-message", () => {
             </alchemy-message>
           `
           const component = renderComponent("alchemy-message", html)
-          const spy = jest.spyOn(component, "dismiss")
+          const spy = vi.spyOn(component, "dismiss")
           setTimeout(() => {
             expect(spy).toHaveBeenCalled()
             resolve()
@@ -40,7 +41,7 @@ describe("alchemy-message", () => {
             </alchemy-message>
           `
           const component = renderComponent("alchemy-message", html)
-          const spy = jest.spyOn(component, "dismiss")
+          const spy = vi.spyOn(component, "dismiss")
           setTimeout(() => {
             expect(spy).not.toHaveBeenCalled()
             resolve()
@@ -57,7 +58,7 @@ describe("alchemy-message", () => {
           </alchemy-message>
         `
         const component = renderComponent("alchemy-message", html)
-        const spy = jest.spyOn(component, "dismiss")
+        const spy = vi.spyOn(component, "dismiss")
         component.dispatchEvent(new Event("click"))
         expect(spy).toHaveBeenCalled()
       })
@@ -71,7 +72,7 @@ describe("alchemy-message", () => {
           </alchemy-message>
         `
         const component = renderComponent("alchemy-message", html)
-        const spy = jest.spyOn(component, "dismiss")
+        const spy = vi.spyOn(component, "dismiss")
         component.dispatchEvent(new Event("click"))
         expect(spy).not.toHaveBeenCalled()
       })

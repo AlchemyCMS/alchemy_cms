@@ -212,7 +212,7 @@ jobs:
           github_token: ${{ secrets.ALCHEMY_CI_BOT_ACCESS_TOKEN }}
           branch: ${{ github.head_ref }}
 
-  Jest:
+  Vitest:
     permissions:
       contents: read
     runs-on: ubuntu-22.04
@@ -231,5 +231,5 @@ jobs:
             ${{ runner.os }}-bun-
       - name: Install dependencies
         run: bun install
-      - name: Run jest
-        run: bun run jest --verbose
+      - name: Run vitest
+        run: bun run test

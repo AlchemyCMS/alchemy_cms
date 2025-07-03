@@ -1,12 +1,5 @@
 import { renderComponent } from "./component.helper"
-
-// import jquery and append it to the window object
-import jQuery from "jquery"
-globalThis.$ = jQuery
-globalThis.jQuery = jQuery
-
 import "alchemy_admin/components/page_select"
-import("select2")
 
 describe("alchemy-page-select", () => {
   /**

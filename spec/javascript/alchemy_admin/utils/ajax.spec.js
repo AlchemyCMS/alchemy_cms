@@ -1,3 +1,4 @@
+import { vi } from "vitest"
 import ajax, { get, post, patch, getToken } from "alchemy_admin/utils/ajax"
 
 const JSON_CONTENT_TYPE = "application/json"
@@ -12,7 +13,7 @@ const successResponse = {
 describe("ajax utilities", () => {
   beforeEach(() => {
     document.head.innerHTML = `<meta name="csrf-token" content="${token}">`
-    global.fetch = jest.fn()
+    global.fetch = vi.fn()
   })
 
   describe("getToken", () => {
@@ -33,7 +34,7 @@ describe("ajax utilities", () => {
       const response = await ajax("GET", "/test", { param1: "value1" })
 
       expect(global.fetch).toHaveBeenCalledWith(
-        "http://localhost/test?param1=value1",
+        "http://localhost:3000/test?param1=value1",
         expect.objectContaining({
           method: "GET",
           headers: expect.objectContaining({
@@ -50,7 +51,7 @@ describe("ajax utilities", () => {
       const response = await ajax("POST", "/test", { key: "value" })
 
       expect(global.fetch).toHaveBeenCalledWith(
-        "http://localhost/test",
+        "http://localhost:3000/test",
         expect.objectContaining({
           method: "POST",
           body: JSON.stringify({ key: "value" }),
@@ -90,7 +91,7 @@ describe("ajax utilities", () => {
 
   describe("get", () => {
     it("calls ajax with GET method", async () => {
-      const ajaxSpy = jest
+      const ajaxSpy = vi
         .spyOn(global, "fetch")
         .mockResolvedValueOnce(successResponse)
 
@@ -103,7 +104,7 @@ describe("ajax utilities", () => {
 
   describe("post", () => {
     it("calls ajax with POST method and default accept header", async () => {
-      const ajaxSpy = jest
+      const ajaxSpy = vi
         .spyOn(global, "fetch")
         .mockResolvedValueOnce(successResponse)
 
@@ -114,7 +115,7 @@ describe("ajax utilities", () => {
     })
 
     it("allows overriding the accept header", async () => {
-      const ajaxSpy = jest.spyOn(global, "fetch").mockResolvedValueOnce({
+      const ajaxSpy = vi.spyOn(global, "fetch").mockResolvedValueOnce({
         ok: true,
         headers: { get: () => "application/xml" },
         text: async () => "<response>success</response>"
@@ -123,7 +124,7 @@ describe("ajax utilities", () => {
       const response = await post("/test", { key: "value" }, "application/xml")
 
       expect(ajaxSpy).toHaveBeenCalledWith(
-        "http://localhost/test",
+        "http://localhost:3000/test",
         expect.objectContaining({
           headers: expect.objectContaining({
             Accept: "application/xml"
@@ -135,7 +136,7 @@ describe("ajax utilities", () => {
 
   describe("patch", () => {
     it("calls ajax with PATCH method", async () => {
-      const ajaxSpy = jest
+      const ajaxSpy = vi
         .spyOn(global, "fetch")
         .mockResolvedValueOnce(successResponse)
 
@@ -147,6 +148,6 @@ describe("ajax utilities", () => {
   })
 
   afterEach(() => {
-    jest.resetAllMocks()
+    vi.resetAllMocks()
   })
 })

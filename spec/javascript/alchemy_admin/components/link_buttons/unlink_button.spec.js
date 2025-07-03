@@ -1,8 +1,9 @@
+import { vi } from "vitest"
 import "alchemy_admin/components/link_buttons/unlink_button"
 import { renderComponent } from "../component.helper"
 
 beforeEach(() => {
-  Alchemy.LinkDialog = jest.fn(() => ({ open: jest.fn() }))
+  Alchemy.LinkDialog = vi.fn(() => ({ open: vi.fn() }))
 })
 
 describe("alchemy-unlink-button", () => {
