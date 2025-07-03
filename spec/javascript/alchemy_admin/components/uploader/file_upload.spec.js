@@ -45,12 +45,13 @@ describe("alchemy-file-upload", () => {
   }
 
   /**
-   * initialize file progress component with the correct constructor
+   * initialize file progress component with the correct initialization
    * @param {File} file the default file has a size of 100 B
    * @param {XMLHttpRequest} request default request
    */
   const renderComponent = (file = testFile, request = mockXMLHttpRequest()) => {
-    component = new FileUpload(file, request)
+    component = new FileUpload()
+    component.initialize(file, request)
     document.body.innerHTML = "" // reset previous content to prevent raise conditions
     document.body.append(component)
 

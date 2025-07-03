@@ -68,7 +68,8 @@ export class Uploader extends AlchemyHTMLElement {
 
     const fileUploads = files.map((file) => {
       const request = new XMLHttpRequest()
-      const fileUpload = new FileUpload(file, request)
+      const fileUpload = new FileUpload()
+      fileUpload.initialize(file, request)
 
       if (Alchemy.uploader_defaults.upload_limit - 1 < fileUploadCount) {
         fileUpload.valid = false
@@ -110,7 +111,8 @@ export class Uploader extends AlchemyHTMLElement {
       this.uploadProgress.cancel()
       document.body.removeChild(this.uploadProgress)
     }
-    this.uploadProgress = new Progress(fileUploads)
+    this.uploadProgress = new Progress()
+    this.uploadProgress.initialize(fileUploads)
     this.uploadProgress.onComplete = (status) => {
       this.dispatchCustomEvent(`upload.${status}`)
     }

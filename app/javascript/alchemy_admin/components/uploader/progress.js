@@ -6,17 +6,23 @@ import { translate } from "alchemy_admin/i18n"
 export class Progress extends AlchemyHTMLElement {
   #visible = false
 
-  /**
-   * @param {FileUpload[]} fileUploads
-   */
-  constructor(fileUploads = []) {
+  constructor() {
     super()
     this.buttonLabel = translate("Cancel all uploads")
-    this.fileUploads = fileUploads
-    this.fileCount = fileUploads.length
+    this.fileUploads = []
+    this.fileCount = 0
     this.className = "in-progress"
     this.visible = true
     this.handleFileChange = () => this._updateView()
+  }
+
+  /**
+   * Initialize the component with file uploads
+   * @param {FileUpload[]} fileUploads
+   */
+  initialize(fileUploads = []) {
+    this.fileUploads = fileUploads
+    this.fileCount = fileUploads.length
   }
 
   /**
