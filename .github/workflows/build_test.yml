@@ -77,24 +77,31 @@ jobs:
           - rails: "7.1"
             ruby: "3.1"
             database: postgresql
+            storage: active_storage
           - rails: "7.2"
             ruby: "3.2"
             database: mariadb
+            storage: dragonfly
           - rails: "7.2"
             ruby: "3.3"
             database: postgresql
+            storage: active_storage
           - rails: "7.2"
             ruby: "3.4"
             database: sqlite
+            storage: dragonfly
           - rails: "8.0"
             ruby: "3.4"
             database: postgresql
+            storage: active_storage
           - rails: "8.0"
             ruby: "3.4"
             database: mariadb
+            storage: dragonfly
           - rails: "8.0"
             ruby: "3.4"
             database: sqlite
+            storage: active_storage
 
     env:
       DB: ${{ matrix.database }}
@@ -103,6 +110,7 @@ jobs:
       DB_HOST: "127.0.0.1"
       RAILS_ENV: test
       RAILS_VERSION: ${{ matrix.rails }}
+      ALCHEMY_STORAGE_ADAPTER: ${{ matrix.storage }}
       RUBY_YJIT_ENABLE: "1"
     services:
       postgres:
@@ -152,6 +160,15 @@ jobs:
           sudo apt update -qq
           sudo apt install -qq --fix-missing libmysqlclient-dev -o dir::cache::archives="/home/runner/apt/cache"
           sudo chown -R runner /home/runner/apt/cache
+      - name: Install libvips
+        if: matrix.storage == 'active_storage'
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          mkdir -p /home/runner/apt/cache
+          sudo apt update -qq
+          sudo apt install -qq --fix-missing libvips -o dir::cache::archives="/home/runner/apt/cache"
+          sudo chown -R runner /home/runner/apt/cache
       - uses: actions/download-artifact@v4
         if: needs.check_bun_lock.outputs.bun_lock_changed == 'true'
         with:
@@ -165,7 +182,7 @@ jobs:
           bundle exec rspec
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
-        if: matrix.rails == '8.0' && matrix.ruby == '3.4' && matrix.database == 'postgresql'
+        if: matrix.rails == '8.0' && matrix.ruby == '3.4'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: AlchemyCMS/alchemy_cms
