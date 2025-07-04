@@ -28,7 +28,6 @@ updates:
         update-types:
           - "minor"
           - "patch"
-      versioning-strategy: increase-if-necessary
   - package-ecosystem: "bundler"
     directory: "/"
     schedule:
