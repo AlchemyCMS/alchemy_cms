@@ -1,4 +1,8 @@
-import { translate, currentLocale } from "alchemy_admin/i18n"
+import { vi } from "vitest"
+import {
+  translate,
+  currentLocale
+} from "../../../app/javascript/alchemy_admin/i18n.js"
 import { setupTranslations } from "./translations.helper.js"
 
 describe("i18n", () => {
@@ -9,7 +13,7 @@ describe("i18n", () => {
   describe("currentLocale", () => {
     afterEach(() => {
       document.documentElement.lang = ""
-      jest.clearAllMocks()
+      vi.clearAllMocks()
     })
 
     it("should return 'en' as result, if nothing is set", () => {
@@ -24,7 +28,7 @@ describe("i18n", () => {
 
   describe("translate", () => {
     afterEach(() => {
-      jest.clearAllMocks()
+      vi.clearAllMocks()
     })
 
     describe("if lang is set to a known locale", () => {
@@ -81,7 +85,7 @@ describe("i18n", () => {
       })
 
       it("Returns passed string and logs a warning", () => {
-        const spy = jest.spyOn(console, "warn").mockImplementation(() => {})
+        const spy = vi.spyOn(console, "warn").mockImplementation(() => {})
         expect(translate("help")).toEqual("help")
         expect(spy.mock.calls).toEqual([
           ["Translations for locale en not found!"]

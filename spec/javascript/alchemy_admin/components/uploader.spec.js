@@ -1,16 +1,17 @@
+import { vi } from "vitest"
 import { growl } from "alchemy_admin/growler"
 import { Uploader } from "alchemy_admin/components/uploader"
 
-jest.mock("alchemy_admin/utils/ajax", () => {
+vi.mock("alchemy_admin/utils/ajax", () => {
   return {
     __esModule: true,
     getToken: () => "123"
   }
 })
 
-jest.mock("alchemy_admin/growler", () => {
+vi.mock("alchemy_admin/growler", () => {
   return {
-    growl: jest.fn()
+    growl: vi.fn()
   }
 })
 
@@ -55,13 +56,13 @@ describe("alchemy-uploader", () => {
     // ignore missing translation warnings
     global.console = {
       ...console,
-      warn: jest.fn()
+      warn: vi.fn()
     }
   })
 
   beforeEach(() => {
     Alchemy = {
-      growl: jest.fn(),
+      growl: vi.fn(),
       uploader_defaults: {
         file_size_limit: 100,
         upload_limit: 50,
@@ -73,17 +74,17 @@ describe("alchemy-uploader", () => {
     renderComponent()
 
     xhrMock = {
-      abort: jest.fn(),
-      open: jest.fn(),
-      setRequestHeader: jest.fn(),
-      send: jest.fn(),
+      abort: vi.fn(),
+      open: vi.fn(),
+      setRequestHeader: vi.fn(),
+      send: vi.fn(),
       status: 200,
       upload: {
-        addEventListener: jest.fn()
+        addEventListener: vi.fn()
       }
     }
     originalXHRObject = window.XMLHttpRequest
-    window.XMLHttpRequest = jest.fn(() => xhrMock)
+    window.XMLHttpRequest = vi.fn(() => xhrMock)
   })
 
   afterEach(() => {
@@ -92,7 +93,7 @@ describe("alchemy-uploader", () => {
 
   describe("input field", () => {
     it("should call the upload function if the file input changes", () => {
-      component._uploadFiles = jest.fn()
+      component._uploadFiles = vi.fn()
       input.dispatchEvent(new CustomEvent("change"))
       expect(component._uploadFiles).toHaveBeenCalledTimes(1)
     })
@@ -108,7 +109,7 @@ describe("alchemy-uploader", () => {
       component._uploadFiles([firstFile])
       expect(xhrMock.open).toHaveBeenCalledWith(
         "POST",
-        "http://localhost/admin/fake_upload_path"
+        "http://localhost:3000/admin/fake_upload_path"
       )
     })
 
@@ -175,7 +176,7 @@ describe("alchemy-uploader", () => {
 
       it("should cancel the previous process", () => {
         const uploadProgress = document.querySelector("alchemy-upload-progress")
-        uploadProgress.cancel = jest.fn()
+        uploadProgress.cancel = vi.fn()
         component._uploadFiles([firstFile])
         expect(uploadProgress.cancel).toBeCalled()
       })
@@ -231,7 +232,7 @@ describe("alchemy-uploader", () => {
 
   describe("on complete", () => {
     beforeEach(() => {
-      component.dispatchCustomEvent = jest.fn()
+      component.dispatchCustomEvent = vi.fn()
       component._uploadFiles([firstFile, secondFile])
     })
 

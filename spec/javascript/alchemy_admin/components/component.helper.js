@@ -1,4 +1,4 @@
-import { setupTranslations } from "../translations.helper"
+import { setupTranslations } from "../translations.helper.js"
 
 /**
  * render component helper

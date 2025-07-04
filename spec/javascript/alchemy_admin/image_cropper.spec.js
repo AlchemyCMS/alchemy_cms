@@ -1,3 +1,4 @@
+import { vi } from "vitest"
 import ImageCropper from "alchemy_admin/image_cropper"
 
 describe("ImageCropper", () => {
@@ -9,7 +10,7 @@ describe("ImageCropper", () => {
           <input id="crop_size" type="hidden" value="1200x480" />
         </div>
       `
-      Alchemy.currentDialog = jest.fn()
+      Alchemy.currentDialog = vi.fn()
     })
 
     it("is sets initial data", () => {
