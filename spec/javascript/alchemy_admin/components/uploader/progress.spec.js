@@ -42,16 +42,25 @@ describe("alchemy-upload-progress", () => {
   }
 
   /**
-   * initialize upload progress component with the correct constructor
+   * initialize upload progress component with the correct initialization
    * @param {FileUpload[]} fileUploads
    */
   const renderComponent = (
     fileUploads = [
-      new FileUpload(firstFile, mockXMLHttpRequest()),
-      new FileUpload(secondFile, mockXMLHttpRequest())
+      (() => {
+        const upload1 = new FileUpload()
+        upload1.initialize(firstFile, mockXMLHttpRequest())
+        return upload1
+      })(),
+      (() => {
+        const upload2 = new FileUpload()
+        upload2.initialize(secondFile, mockXMLHttpRequest())
+        return upload2
+      })()
     ]
   ) => {
-    component = new Progress(fileUploads)
+    component = new Progress()
+    component.initialize(fileUploads)
 
     document.body.append(component)
 
@@ -185,13 +194,14 @@ describe("alchemy-upload-progress", () => {
       })
 
       it("should marked progress as failed if one upload was not successful", async () => {
-        const failedUpload = new FileUpload(secondFile, mockXMLHttpRequest())
+        const failedUpload = new FileUpload()
+        failedUpload.initialize(secondFile, mockXMLHttpRequest())
         failedUpload.status = "failed"
 
-        renderComponent([
-          new FileUpload(firstFile, mockXMLHttpRequest()),
-          failedUpload
-        ])
+        const successfulUpload = new FileUpload()
+        successfulUpload.initialize(firstFile, mockXMLHttpRequest())
+
+        renderComponent([successfulUpload, failedUpload])
 
         expect(component.status).toEqual("failed")
       })
@@ -321,7 +331,8 @@ describe("alchemy-upload-progress", () => {
 
   describe("cancel", () => {
     it("should call the cancel - action file upload", () => {
-      const fileUpload = new FileUpload(firstFile, mockXMLHttpRequest())
+      const fileUpload = new FileUpload()
+      fileUpload.initialize(firstFile, mockXMLHttpRequest())
       fileUpload.cancel = jest.fn()
 
       renderComponent([fileUpload])
@@ -336,8 +347,10 @@ describe("alchemy-upload-progress", () => {
     })
 
     it("should call only active file uploads", () => {
-      const activeFileUpload = new FileUpload(firstFile, mockXMLHttpRequest())
-      const uploadedFileUpload = new FileUpload(firstFile, mockXMLHttpRequest())
+      const activeFileUpload = new FileUpload()
+      activeFileUpload.initialize(firstFile, mockXMLHttpRequest())
+      const uploadedFileUpload = new FileUpload()
+      uploadedFileUpload.initialize(firstFile, mockXMLHttpRequest())
       activeFileUpload.cancel = jest.fn()
       uploadedFileUpload.cancel = jest.fn()
       uploadedFileUpload.status = "canceled"

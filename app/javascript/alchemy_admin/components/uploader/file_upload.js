@@ -4,21 +4,28 @@ import { translate } from "alchemy_admin/i18n"
 import { growl } from "alchemy_admin/growler"
 
 export class FileUpload extends AlchemyHTMLElement {
-  /**
-   * @param {File} file
-   * @param {XMLHttpRequest} request
-   */
-  constructor(file, request) {
-    super({})
+  constructor() {
+    super()
 
-    this.file = file
-    this.request = request
+    this.file = null
+    this.request = null
 
     this.progressEventLoaded = 0
-    this.progressEventTotal = file ? file.size : 0
+    this.progressEventTotal = 0
     this.className = "in-progress"
     this.valid = true
     this.value = 0
+  }
+
+  /**
+   * Initialize the component with file and request
+   * @param {File} file
+   * @param {XMLHttpRequest} request
+   */
+  initialize(file, request) {
+    this.file = file
+    this.request = request
+    this.progressEventTotal = file ? file.size : 0
 
     this._validateFile()
     this._addRequestEventListener()
