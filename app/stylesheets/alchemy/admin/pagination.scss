@@ -124,10 +124,11 @@
   padding: var(--spacing-2);
 
   @media screen and (max-width: vars.$large-screen-break-point) {
+    --sidebar-width: auto;
+
     label span {
       display: none;
     }
-    --sidebar-width: auto;
   }
 
   @media screen and (max-width: vars.$medium-screen-break-point) {
