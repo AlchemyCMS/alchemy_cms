@@ -11,7 +11,14 @@
     }
 
     > p {
-      @include mixins.form-value-display;
+      float: right;
+      width: var(--form-right-column-width);
+      margin: var(--form-field-margin);
+      padding: var(--spacing-1) var(--spacing-2);
+      line-height: 21px;
+      min-height: var(--form-field-height);
+      background: var(--form-field-background-color);
+      border-radius: var(--border-radius_medium);
       @include mixins.truncate(var(--form-right-column-width));
     }
 

@@ -30,6 +30,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: var(--picture-thumbnail-background-color, transparent);
   box-shadow: 0 0 1px 1px var(--border-color);
 
   &:hover {
@@ -243,7 +244,7 @@ div#library_sidebar {
     calc(var(--pagination-height) + var(--spacing-2)) var(--spacing-4);
   height: 100%;
   z-index: 3;
-  background-color: var(--color-grey_very_light);
+  background-color: var(--sidebar-background-color);
 
   h2 {
     margin-top: var(--spacing-4);

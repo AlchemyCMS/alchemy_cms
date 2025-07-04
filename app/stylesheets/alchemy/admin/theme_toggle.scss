@@ -1,0 +1,25 @@
+@use "../mixins";
+
+alchemy-theme-toggle {
+  --sl-input-spacing-medium: 0;
+  --sl-input-color: var(--main-menu-text-color);
+  --sl-input-placeholder-color: var(--main-menu-text-color);
+
+  sl-select {
+    &::part(combobox) {
+      background-color: transparent;
+      gap: var(--spacing-2);
+    }
+
+    &::part(display-input) {
+      font-weight: var(--font-weight_bold);
+      @include mixins.antialiased-font-smoothing;
+      width: 100px;
+    }
+
+    alchemy-icon {
+      width: var(--icon-size-xxl);
+      height: var(--icon-size-xxl);
+    }
+  }
+}

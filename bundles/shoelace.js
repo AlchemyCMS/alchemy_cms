@@ -1,5 +1,7 @@
 // Used to bundle our own Shoelace build with Rollup
 import "@shoelace-style/shoelace/dist/utilities/animation-registry.js"
+import "@shoelace-style/shoelace/dist/components/option/option.js"
+import "@shoelace-style/shoelace/dist/components/select/select.js"
 import "@shoelace-style/shoelace/dist/components/switch/switch.js"
 import "@shoelace-style/shoelace/dist/components/tab/tab.js"
 import "@shoelace-style/shoelace/dist/components/tab-group/tab-group.js"

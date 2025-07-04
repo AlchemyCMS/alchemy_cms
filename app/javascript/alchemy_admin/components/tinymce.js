@@ -106,7 +106,9 @@ class Tinymce extends AlchemyHTMLElement {
       ...Alchemy.TinymceDefaults,
       ...customConfig,
       language: currentLocale(),
-      selector: `#${this.editorId}`
+      selector: `#${this.editorId}`,
+      content_css: this.contentCSS,
+      skin: this.skin
     }
 
     // Tinymce has a height of 400px by default
@@ -115,6 +117,18 @@ class Tinymce extends AlchemyHTMLElement {
     config.height = config.min_height
 
     return config
+  }
+
+  get skin() {
+    return document.documentElement.classList.contains("alchemy-dark")
+      ? "alchemy-dark"
+      : "alchemy"
+  }
+
+  get contentCSS() {
+    return document.documentElement.classList.contains("alchemy-dark")
+      ? "alchemy-dark"
+      : "alchemy"
   }
 
   get editorId() {
