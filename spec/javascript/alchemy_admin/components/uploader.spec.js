@@ -34,8 +34,6 @@ describe("alchemy-uploader", () => {
   let input = undefined
   let form = undefined
   let dropzone = undefined
-  let xhrMock = undefined
-  let originalXHRObject = undefined
 
   const renderComponent = () => {
     document.body.innerHTML = `
@@ -73,22 +71,8 @@ describe("alchemy-uploader", () => {
 
     renderComponent()
 
-    xhrMock = {
-      abort: vi.fn(),
-      open: vi.fn(),
-      setRequestHeader: vi.fn(),
-      send: vi.fn(),
-      status: 200,
-      upload: {
-        addEventListener: vi.fn()
-      }
-    }
-    originalXHRObject = window.XMLHttpRequest
-    window.XMLHttpRequest = vi.fn(() => xhrMock)
-  })
-
-  afterEach(() => {
-    window.XMLHttpRequest = originalXHRObject
+    // Reset the global XMLHttpRequest mock for each test
+    vi.clearAllMocks()
   })
 
   describe("input field", () => {
@@ -102,12 +86,13 @@ describe("alchemy-uploader", () => {
   describe("_uploadFiles", () => {
     it("should upload files", () => {
       component._uploadFiles([firstFile, secondFile])
-      expect(xhrMock.open).toHaveBeenCalledTimes(2)
+      expect(XMLHttpRequest).toHaveBeenCalledTimes(2)
     })
 
     it("should open the correct url", () => {
       component._uploadFiles([firstFile])
-      expect(xhrMock.open).toHaveBeenCalledWith(
+      const mockInstance = XMLHttpRequest.mock.results[0].value
+      expect(mockInstance.open).toHaveBeenCalledWith(
         "POST",
         "http://localhost:3000/admin/fake_upload_path"
       )
@@ -115,7 +100,8 @@ describe("alchemy-uploader", () => {
 
     it("should send the file form", () => {
       component._uploadFiles([firstFile])
-      expect(xhrMock.send).toHaveBeenCalledWith(new FormData(form))
+      const mockInstance = XMLHttpRequest.mock.results[0].value
+      expect(mockInstance.send).toHaveBeenCalledWith(new FormData(form))
     })
   })
 
@@ -139,27 +125,31 @@ describe("alchemy-uploader", () => {
 
     it("should not have any progress at the beginning", () => {
       const progress = new ProgressEvent("progress", { loaded: 50, total: 100 })
-      xhrMock.upload.onprogress(progress)
+      const mockInstance = XMLHttpRequest.mock.results[0].value
+      mockInstance.upload.onprogress(progress)
       expect(progressBar.value).toBe(50)
     })
 
     describe("request header", () => {
       it("sends a CSRF token", () => {
-        expect(xhrMock.setRequestHeader).toHaveBeenCalledWith(
+        const mockInstance = XMLHttpRequest.mock.results[0].value
+        expect(mockInstance.setRequestHeader).toHaveBeenCalledWith(
           "X-CSRF-Token",
           "123"
         )
       })
 
       it("should mark the request as XHR for Rails request handling", () => {
-        expect(xhrMock.setRequestHeader).toHaveBeenCalledWith(
+        const mockInstance = XMLHttpRequest.mock.results[0].value
+        expect(mockInstance.setRequestHeader).toHaveBeenCalledWith(
           "X-Requested-With",
           "XMLHttpRequest"
         )
       })
 
       it("should request json as answer", () => {
-        expect(xhrMock.setRequestHeader).toHaveBeenCalledWith(
+        const mockInstance = XMLHttpRequest.mock.results[0].value
+        expect(mockInstance.setRequestHeader).toHaveBeenCalledWith(
           "Accept",
           "application/json"
         )
@@ -186,12 +176,22 @@ describe("alchemy-uploader", () => {
   describe("Validate", () => {
     describe("upload limit", () => {
       beforeEach(() => {
+        vi.clearAllMocks() // Clear mocks before this specific test
         Alchemy.uploader_defaults.upload_limit = 2
         component._uploadFiles([firstFile, secondFile, new File([], "foo")])
       })
 
       it("should upload only two files", () => {
-        expect(xhrMock.open).toHaveBeenCalledTimes(2)
+        // XMLHttpRequest is created for all files, but only 2 are actually submitted
+        expect(XMLHttpRequest).toHaveBeenCalledTimes(3)
+        // Check that only 2 files were actually submitted by checking the mock instances
+        const mockInstances = XMLHttpRequest.mock.results.map(
+          (result) => result.value
+        )
+        const submittedFiles = mockInstances.filter(
+          (instance) => instance.send.mock.calls.length > 0
+        )
+        expect(submittedFiles).toHaveLength(2)
       })
 
       it("should call the growl method", () => {
@@ -213,6 +213,7 @@ describe("alchemy-uploader", () => {
 
   describe("file not valid", () => {
     beforeEach(() => {
+      vi.clearAllMocks() // Clear mocks before this specific test
       Alchemy.uploader_defaults.allowed_filetype_attachments = ["txt"]
       component._uploadFiles([
         new File([], "foo.pdf", { type: "application/pdf" }),
@@ -222,7 +223,16 @@ describe("alchemy-uploader", () => {
     })
 
     it("should upload only two files", () => {
-      expect(xhrMock.open).toHaveBeenCalledTimes(2)
+      // XMLHttpRequest is created for all files, then validation happens
+      expect(XMLHttpRequest).toHaveBeenCalledTimes(3)
+      // Check that only 2 files were actually submitted (the valid txt files)
+      const mockInstances = XMLHttpRequest.mock.results.map(
+        (result) => result.value
+      )
+      const submittedFiles = mockInstances.filter(
+        (instance) => instance.send.mock.calls.length > 0
+      )
+      expect(submittedFiles).toHaveLength(2)
     })
 
     it("should mark the last file as invalid", () => {
