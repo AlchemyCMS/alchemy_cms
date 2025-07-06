@@ -18,7 +18,7 @@ gem "pg", "~> 1.0" if ENV["DB"] == "postgresql"
 gem "alchemy_i18n", github: "AlchemyCMS/alchemy_i18n", branch: "main"
 
 group :development, :test do
-  gem "execjs", "~> 2.9.1"
+  gem "execjs", "~> 2.10.0"
   gem "rubocop", require: false
   gem "standard", "~> 1.25", require: false
 
