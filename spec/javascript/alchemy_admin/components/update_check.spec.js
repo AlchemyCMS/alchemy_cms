@@ -1,8 +1,9 @@
+import { vi } from "vitest"
 import { renderComponent } from "./component.helper"
 import "alchemy_admin/components/update_check"
 
 // Mock Spinner to avoid actual DOM manipulation
-jest.mock("alchemy_admin/spinner")
+vi.mock("alchemy_admin/spinner")
 
 describe("alchemy-update-check", () => {
   let component
@@ -16,14 +17,14 @@ describe("alchemy-update-check", () => {
 
   beforeEach(() => {
     // Mock fetch globally
-    global.fetch = jest.fn()
+    global.fetch = vi.fn()
 
-    jest.spyOn(console, "error").mockImplementation(() => {}) // Mock console.error
+    vi.spyOn(console, "error").mockImplementation(() => {}) // Mock console.error
   })
 
   afterEach(() => {
     document.body.innerHTML = ""
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it("shows update available when response is 'true'", async () => {

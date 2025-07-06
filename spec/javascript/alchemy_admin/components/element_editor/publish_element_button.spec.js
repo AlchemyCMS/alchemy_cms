@@ -1,10 +1,11 @@
+import { vi } from "vitest"
 import "alchemy_admin/components/element_editor/publish_element_button"
 import { renderComponent } from "../component.helper"
 import { growl } from "alchemy_admin/growler"
 
-const mockReloadPreview = jest.fn()
+const mockReloadPreview = vi.fn()
 
-jest.mock("alchemy_admin/components/preview_window", () => {
+vi.mock("alchemy_admin/components/preview_window", () => {
   return {
     reloadPreview: () => {
       mockReloadPreview()
@@ -12,13 +13,13 @@ jest.mock("alchemy_admin/components/preview_window", () => {
   }
 })
 
-jest.mock("alchemy_admin/growler", () => {
+vi.mock("alchemy_admin/growler", () => {
   return {
-    growl: jest.fn()
+    growl: vi.fn()
   }
 })
 
-jest.mock("alchemy_admin/utils/ajax", () => {
+vi.mock("alchemy_admin/utils/ajax", () => {
   return {
     __esModule: true,
     patch(url) {
@@ -63,7 +64,7 @@ describe("alchemy-publish-element-button", () => {
           return `/admin/elements/${id}/publish`
         }
       },
-      reloadPreview: jest.fn()
+      reloadPreview: vi.fn()
     }
 
     Alchemy.reloadPreview.mockClear()
@@ -73,7 +74,7 @@ describe("alchemy-publish-element-button", () => {
   describe("on change", () => {
     it("Publishes element editor", () => {
       const change = new CustomEvent("sl-change", { bubbles: true })
-      jest.spyOn(button, "elementId", "get").mockReturnValue("123")
+      vi.spyOn(button, "elementId", "get").mockReturnValue("123")
       button.dispatchEvent(change)
 
       return new Promise((resolve) => {
@@ -89,7 +90,7 @@ describe("alchemy-publish-element-button", () => {
   describe("on error", () => {
     it("Shows error", () => {
       const change = new CustomEvent("sl-change", { bubbles: true })
-      jest.spyOn(button, "elementId", "get").mockReturnValue("666")
+      vi.spyOn(button, "elementId", "get").mockReturnValue("666")
       button.dispatchEvent(change)
 
       return new Promise((resolve) => {

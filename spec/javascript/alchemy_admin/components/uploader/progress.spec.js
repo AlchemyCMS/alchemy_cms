@@ -1,11 +1,11 @@
-import mock from "xhr-mock"
+import { vi } from "vitest"
 
 import { Progress } from "alchemy_admin/components/uploader/progress"
 import { FileUpload } from "alchemy_admin/components/uploader/file_upload"
 
-jest.mock("alchemy_admin/growler", () => {
+vi.mock("alchemy_admin/growler", () => {
   return {
-    growl: jest.fn()
+    growl: vi.fn()
   }
 })
 
@@ -29,14 +29,29 @@ describe("alchemy-upload-progress", () => {
   let actionButton = undefined
 
   const mockXMLHttpRequest = (status = 200, response = {}) => {
-    mock.setup()
-    mock.post("/admin/pictures", {
-      status,
-      body: JSON.stringify(response)
-    })
+    const body = JSON.stringify(response)
 
-    let request = new XMLHttpRequest()
-    request.abort = jest.fn() // necessary to test abort mechanic
+    const request = {
+      status,
+      statusText: "OK",
+      responseText: body,
+      abort: vi.fn(),
+      open: vi.fn(),
+      send: vi.fn(),
+      upload: {
+        onprogress: null
+      },
+      onload: null,
+      onerror: null
+    }
+
+    // Simulate the request lifecycle
+    request.send = vi.fn(() => {
+      // Simulate async behavior but resolve immediately for tests
+      if (request.onload) {
+        request.onload()
+      }
+    })
 
     return request
   }
@@ -62,20 +77,28 @@ describe("alchemy-upload-progress", () => {
     component = new Progress()
     component.initialize(fileUploads)
 
+    document.body.innerHTML = "" // reset previous content to prevent race conditions
     document.body.append(component)
 
-    progressBar = document.querySelector("sl-progress-bar")
-    overallProgressValue = document.querySelector(
-      ".overall-progress-value span"
-    )
-    actionButton = document.querySelector(".icon_button")
-    overallUploadValue = document.querySelector(".overall-upload-value")
+    // Wait for the component to be connected and rendered
+    return new Promise((resolve) => {
+      // Use setTimeout to ensure the component has been fully rendered
+      setTimeout(() => {
+        progressBar = component.querySelector("sl-progress-bar")
+        overallProgressValue = component.querySelector(
+          ".overall-progress-value span"
+        )
+        actionButton = component.querySelector(".icon_button")
+        overallUploadValue = component.querySelector(".overall-upload-value")
 
-    const fileUploadComponents = document.querySelectorAll(
-      "alchemy-file-upload"
-    )
-    firstFileUpload = fileUploadComponents[0]
-    secondFileUpload = fileUploadComponents[1]
+        const fileUploadComponents = component.querySelectorAll(
+          "alchemy-file-upload"
+        )
+        firstFileUpload = fileUploadComponents[0]
+        secondFileUpload = fileUploadComponents[1]
+        resolve()
+      }, 0)
+    })
   }
 
   const progressEvent = (loaded = 0, total = 100) => {
@@ -86,7 +109,7 @@ describe("alchemy-upload-progress", () => {
     // ignore missing translation warnings
     global.console = {
       ...console,
-      warn: jest.fn()
+      warn: vi.fn()
     }
 
     Alchemy = {
@@ -100,12 +123,13 @@ describe("alchemy-upload-progress", () => {
   })
 
   afterEach(() => {
-    mock.teardown()
-    document.body.innerHTML = "" // reset previous content to prevent raise conditions
+    document.body.innerHTML = "" // reset previous content to prevent race conditions
   })
 
   describe("Initial State", () => {
-    beforeEach(renderComponent)
+    beforeEach(async () => {
+      await renderComponent()
+    })
 
     it("should render a progress bar", () => {
       expect(progressBar).toBeTruthy()
@@ -140,7 +164,9 @@ describe("alchemy-upload-progress", () => {
 
   describe("update", () => {
     describe("in progress upload", () => {
-      beforeEach(renderComponent)
+      beforeEach(async () => {
+        await renderComponent()
+      })
 
       it("increase the progress bar", () => {
         firstFileUpload.value = 50
@@ -159,15 +185,15 @@ describe("alchemy-upload-progress", () => {
     })
 
     describe("complete upload", () => {
-      it("should marked as upload-finished (the response from the server is missing)", () => {
-        renderComponent()
+      it("should marked as upload-finished (the response from the server is missing)", async () => {
+        await renderComponent()
         firstFileUpload.request.upload.onprogress(progressEvent(100))
         secondFileUpload.request.upload.onprogress(progressEvent(200, 200))
         expect(component.status).toEqual("upload-finished")
       })
 
-      it("should marked as successful", () => {
-        renderComponent()
+      it("should marked as successful", async () => {
+        await renderComponent()
         firstFileUpload.request.upload.onprogress(progressEvent(100))
         secondFileUpload.request.upload.onprogress(progressEvent(200, 200))
 
@@ -177,16 +203,16 @@ describe("alchemy-upload-progress", () => {
         expect(component.className).toEqual("successful")
       })
 
-      it("should set overall progress value", () => {
-        renderComponent()
+      it("should set overall progress value", async () => {
+        await renderComponent()
         firstFileUpload.request.upload.onprogress(progressEvent(100))
         secondFileUpload.request.upload.onprogress(progressEvent(200, 200))
 
         expect(overallProgressValue.textContent).toEqual("100% (2 / 2)")
       })
 
-      it("should prevent uploads higher than 100%", () => {
-        renderComponent()
+      it("should prevent uploads higher than 100%", async () => {
+        await renderComponent()
         firstFileUpload.request.upload.onprogress(progressEvent(100))
         secondFileUpload.request.upload.onprogress(progressEvent(220, 200))
 
@@ -201,7 +227,7 @@ describe("alchemy-upload-progress", () => {
         const successfulUpload = new FileUpload()
         successfulUpload.initialize(firstFile, mockXMLHttpRequest())
 
-        renderComponent([successfulUpload, failedUpload])
+        await renderComponent([successfulUpload, failedUpload])
 
         expect(component.status).toEqual("failed")
       })
@@ -209,7 +235,9 @@ describe("alchemy-upload-progress", () => {
   })
 
   describe("finished", () => {
-    beforeEach(renderComponent)
+    beforeEach(async () => {
+      await renderComponent()
+    })
 
     it("should not be finished if still in progress", () => {
       expect(component.finished).toBeFalsy()
@@ -223,7 +251,9 @@ describe("alchemy-upload-progress", () => {
   })
 
   describe("visible", () => {
-    beforeEach(renderComponent)
+    beforeEach(async () => {
+      await renderComponent()
+    })
 
     it("should be visible by default", () => {
       expect(component.visible).toBeTruthy()
@@ -238,10 +268,12 @@ describe("alchemy-upload-progress", () => {
   })
 
   describe("onComplete", () => {
-    beforeEach(renderComponent)
+    beforeEach(async () => {
+      await renderComponent()
+    })
 
     it("will be called, if all uploads are finished", () => {
-      component.onComplete = jest.fn()
+      component.onComplete = vi.fn()
       firstFileUpload.status = "successful"
       secondFileUpload.status = "successful"
       firstFileUpload.dispatchCustomEvent("FileUpload.Change")
@@ -249,7 +281,7 @@ describe("alchemy-upload-progress", () => {
     })
 
     it("is not called, before all uploads are finished", () => {
-      component.onComplete = jest.fn()
+      component.onComplete = vi.fn()
       firstFileUpload.status = "successful"
       firstFileUpload.dispatchCustomEvent("FileUpload.Change")
       expect(component.onComplete).not.toHaveBeenCalled()
@@ -257,16 +289,18 @@ describe("alchemy-upload-progress", () => {
   })
 
   describe("Action Button", () => {
-    beforeEach(renderComponent)
+    beforeEach(async () => {
+      await renderComponent()
+    })
 
     it("it cancel the requests, if the upload is active", () => {
-      component.cancel = jest.fn()
+      component.cancel = vi.fn()
       actionButton.click()
       expect(component.cancel).toBeCalled()
     })
 
     describe("after upload", () => {
-      beforeEach(() => {
+      beforeEach(async () => {
         firstFileUpload.status = "successful"
         secondFileUpload.status = "successful"
         firstFileUpload.dispatchCustomEvent("FileUpload.Change")
@@ -288,9 +322,11 @@ describe("alchemy-upload-progress", () => {
   })
 
   describe("cancel upload", () => {
-    beforeEach(renderComponent)
+    beforeEach(async () => {
+      await renderComponent()
+    })
 
-    beforeEach(() => {
+    beforeEach(async () => {
       firstFileUpload.cancel()
       secondFileUpload.request.upload.onprogress(progressEvent(50, 200))
     })
@@ -305,9 +341,11 @@ describe("alchemy-upload-progress", () => {
   })
 
   describe("file invalid", () => {
-    beforeEach(renderComponent)
+    beforeEach(async () => {
+      await renderComponent()
+    })
 
-    beforeEach(() => {
+    beforeEach(async () => {
       firstFileUpload.valid = false
       secondFileUpload.request.upload.onprogress(progressEvent(50, 200))
     })
@@ -322,40 +360,40 @@ describe("alchemy-upload-progress", () => {
   })
 
   describe("Initialization without arguments", () => {
-    it("should reset files based variables", () => {
-      renderComponent()
+    it("should reset files based variables", async () => {
+      await renderComponent()
       component = new Progress()
       expect(component.fileCount).toEqual(0)
     })
   })
 
   describe("cancel", () => {
-    it("should call the cancel - action file upload", () => {
+    it("should call the cancel - action file upload", async () => {
       const fileUpload = new FileUpload()
       fileUpload.initialize(firstFile, mockXMLHttpRequest())
-      fileUpload.cancel = jest.fn()
+      fileUpload.cancel = vi.fn()
 
-      renderComponent([fileUpload])
+      await renderComponent([fileUpload])
       component.cancel()
       expect(fileUpload.cancel).toBeCalled()
     })
 
-    it("should have the status canceled", () => {
-      renderComponent()
+    it("should have the status canceled", async () => {
+      await renderComponent()
       component.cancel()
       expect(component.status).toEqual("canceled")
     })
 
-    it("should call only active file uploads", () => {
+    it("should call only active file uploads", async () => {
       const activeFileUpload = new FileUpload()
       activeFileUpload.initialize(firstFile, mockXMLHttpRequest())
       const uploadedFileUpload = new FileUpload()
       uploadedFileUpload.initialize(firstFile, mockXMLHttpRequest())
-      activeFileUpload.cancel = jest.fn()
-      uploadedFileUpload.cancel = jest.fn()
+      activeFileUpload.cancel = vi.fn()
+      uploadedFileUpload.cancel = vi.fn()
       uploadedFileUpload.status = "canceled"
 
-      renderComponent([activeFileUpload, uploadedFileUpload])
+      await renderComponent([activeFileUpload, uploadedFileUpload])
       component.cancel()
       expect(activeFileUpload.cancel).toBeCalled()
       expect(uploadedFileUpload.cancel).not.toBeCalled()

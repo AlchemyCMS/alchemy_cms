@@ -1,9 +1,10 @@
+import { vi } from "vitest"
 import { PictureEditor } from "alchemy_admin/picture_editors"
 
-jest.mock("alchemy_admin/image_loader", () => ({
+vi.mock("alchemy_admin/image_loader", () => ({
   __esModule: true,
-  default: jest.fn().mockImplementation(() => ({
-    load: jest.fn()
+  default: vi.fn().mockImplementation(() => ({
+    load: vi.fn()
   }))
 }))
 

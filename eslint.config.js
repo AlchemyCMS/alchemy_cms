@@ -1,5 +1,6 @@
-module.exports = [
+export default [
   {
+    ignores: ["spec/**/*"],
     rules: {
       "no-restricted-imports": [
         "error",
