@@ -19,6 +19,7 @@
 @use "admin/frame";
 @use "admin/hints";
 @use "admin/icons";
+@use "admin/image_cropper";
 @use "admin/image_library";
 @use "admin/images";
 @use "admin/labels";
@@ -41,4 +42,3 @@
 @use "admin/toolbar";
 @use "admin/typography";
 @use "admin/upload";
-@use "cropper.min";

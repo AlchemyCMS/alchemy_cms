@@ -1,0 +1,17 @@
+cropper-canvas {
+  display: block;
+  width: 800px;
+  height: 600px;
+}
+
+cropper-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 800px;
+  max-height: 600px;
+
+  img {
+    object-fit: contain;
+  }
+}

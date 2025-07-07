@@ -1,4 +1,4 @@
-import Cropper from "cropperjs"
+import Cropper from "cropperjs.min"
 
 export default class ImageCropper {
   #initialized = false

@@ -28,6 +28,18 @@ module Alchemy
       to_h[key]
     end
 
+    # Given a point and a mask, this function returns the area on the
+    # underlying canvas as a Hash of two points
+    #
+    def default_box
+      [
+        default_crop_from[0],
+        default_crop_from[1],
+        default_crop_size[0],
+        default_crop_size[1]
+      ]
+    end
+
     private
 
     def ratio
@@ -69,18 +81,6 @@ module Alchemy
       else
         [(render_size[1] * ratio).to_i, render_size[1]]
       end
-    end
-
-    # Given a point and a mask, this function returns the area on the
-    # underlying canvas as a Hash of two points
-    #
-    def default_box
-      [
-        default_crop_from[0],
-        default_crop_from[1],
-        default_crop_size[0],
-        default_crop_size[1]
-      ]
     end
   end
 end

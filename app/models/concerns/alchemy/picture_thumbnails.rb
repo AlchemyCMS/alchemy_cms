@@ -97,7 +97,7 @@ module Alchemy
         fixed_ratio: settings[:fixed_ratio],
         image_width: picture&.image_file_width,
         image_height: picture&.image_file_height
-      ).to_h
+      )
     end
 
     # Show image cropping link for ingredient
