@@ -1,6 +1,34 @@
 # Changelog
 
-## Unreleased
+## 7.4.6 (2025-27-06)
+
+- [7.4-stable] Fix multi language picture descriptions [#3293](https://github.com/AlchemyCMS/alchemy_cms/pull/3293) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.4-stable] Add server error turbo_stream template [#3292](https://github.com/AlchemyCMS/alchemy_cms/pull/3292) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.4-stable] Remove non visual custom elements after connect [#3291](https://github.com/AlchemyCMS/alchemy_cms/pull/3291) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
+## 7.4.5 (2025-06-04)
+
+- [7.4] Fix attachment overlay list overflow [#3261](https://github.com/AlchemyCMS/alchemy_cms/pull/3261) ([tvdeyen](https://github.com/tvdeyen))
+
+## 7.4.4 (2025-05-06)
+
+- [7.4-stable] Fix Icons [#3257](https://github.com/AlchemyCMS/alchemy_cms/pull/3257) ([tvdeyen](https://github.com/tvdeyen))
+- [7.4-stable] fix(alchemy-select): Remove clear button of select2 [#3253](https://github.com/AlchemyCMS/alchemy_cms/pull/3253) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.4] Fix thumbnail bg pattern [#3250](https://github.com/AlchemyCMS/alchemy_cms/pull/3250) ([tvdeyen](https://github.com/tvdeyen))
+
+## 7.4.3 (2025-04-23)
+
+- [7.4-stable] Hide body while custom elements load [#3232](https://github.com/AlchemyCMS/alchemy_cms/pull/3232) ([tvdeyen](https://github.com/tvdeyen))
+- [7.4-stable] Skip PushJavaScript Job for PRs without changed bun lock [#3222](https://github.com/AlchemyCMS/alchemy_cms/pull/3222) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.4-stable] Allow is_safe_redirect_path to recognize customized admin path [#3213](https://github.com/AlchemyCMS/alchemy_cms/pull/3213) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.4-stable] Resource "Download CSV" link: Use all filter params [#3211](https://github.com/AlchemyCMS/alchemy_cms/pull/3211) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
+## 7.4.2 (2025-03-17)
+
+- [7.4-stable] Fix link dialog for links with url scheme mailto [#3207](https://github.com/AlchemyCMS/alchemy_cms/pull/3207) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.4-stable] CI: Use own script to check changes files [#3200](https://github.com/AlchemyCMS/alchemy_cms/pull/3200) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.4-stable] Prevent content overflowing in tinymce editor fullscreen mode [#3197](https://github.com/AlchemyCMS/alchemy_cms/pull/3197) ([tvdeyen](https://github.com/tvdeyen))
+- [7.4-stable] Only set elementEditor dirty if present during assignment [#3196](https://github.com/AlchemyCMS/alchemy_cms/pull/3196) ([alchemycms-bot](https://github.com/alchemycms-bot))
 
 ## 7.4.1 (2025-03-05)
 
