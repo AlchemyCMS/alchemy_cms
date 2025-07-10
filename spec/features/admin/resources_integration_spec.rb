@@ -435,4 +435,36 @@ RSpec.describe "Resources", type: :system do
       end
     end
   end
+
+  context "Editing resources with filters present" do
+    let(:office) { create(:location, name: "Office") }
+    let(:showroom) { create(:location, name: "Showroom") }
+    let!(:event_1) { create(:event, name: "Meeting 1", location: office) }
+    let!(:event_2) { create(:event, name: "Meeting 2", location: showroom) }
+    let!(:event_3) { create(:event, name: "Show", location: office) }
+
+    it "allows filtering the view and keeping filters while editing" do
+      visit admin_events_path(params: {
+        q: {
+          by_location_id: office.id,
+          name_or_hidden_name_or_description_or_location_name_cont: "Meeting"
+        }
+      })
+
+      expect(page).to have_content("Meeting 1")
+      expect(page).not_to have_content("Meeting 2")
+      expect(page).not_to have_content("Show")
+
+      # Edit an event
+      within("tr", text: "Meeting 1") do
+        click_link_with_tooltip("Edit")
+      end
+      fill_in "Name", with: "Updated Meeting 1"
+      click_button "Save"
+
+      expect(page).to have_content("Updated Meeting 1")
+      expect(page).not_to have_content("Meeting 2")
+      expect(page).not_to have_content("Show")
+    end
+  end
 end
