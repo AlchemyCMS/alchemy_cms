@@ -441,7 +441,7 @@ RSpec.describe "Resources", type: :system do
     let(:showroom) { create(:location, name: "Showroom") }
     let!(:event_1) { create(:event, name: "Meeting 1", location: office) }
     let!(:event_2) { create(:event, name: "Meeting 2", location: showroom) }
-    let!(:event_3) { create(:event, name: "Show", location: office) }
+    let!(:event_3) { create(:event, name: "Karaoke", location: office) }
 
     it "allows filtering the view and keeping filters while editing" do
       visit admin_events_path(params: {
@@ -450,10 +450,11 @@ RSpec.describe "Resources", type: :system do
           name_or_hidden_name_or_description_or_location_name_cont: "Meeting"
         }
       })
+      expect(page).to have_selector(".search_field input[value='Meeting']")
 
       expect(page).to have_content("Meeting 1")
       expect(page).not_to have_content("Meeting 2")
-      expect(page).not_to have_content("Show")
+      expect(page).not_to have_content("Karaoke")
 
       # Edit an event
       within("tr", text: "Meeting 1") do
@@ -464,7 +465,7 @@ RSpec.describe "Resources", type: :system do
 
       expect(page).to have_content("Updated Meeting 1")
       expect(page).not_to have_content("Meeting 2")
-      expect(page).not_to have_content("Show")
+      expect(page).not_to have_content("Karaoke")
     end
   end
 end
