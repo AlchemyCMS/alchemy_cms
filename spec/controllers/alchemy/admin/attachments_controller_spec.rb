@@ -11,6 +11,11 @@ module Alchemy
             name_or_file_name_cont: "kitten",
             by_file_type: "pdf"
           }
+        elsif Alchemy.storage_adapter.active_storage?
+          {
+            name_or_file_blob_filename_cont: "kitten",
+            by_file_type: "pdf"
+          }
         end
       end
 
@@ -153,6 +158,8 @@ module Alchemy
             expect { subject }.to change {
               if Alchemy.storage_adapter.dragonfly?
                 attachment.reload.file_uid
+              elsif Alchemy.storage_adapter.active_storage?
+                attachment.reload.file_blob
               end
             }
           end

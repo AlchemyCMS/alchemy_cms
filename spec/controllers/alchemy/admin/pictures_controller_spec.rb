@@ -18,6 +18,11 @@ module Alchemy
           name_or_image_file_name_cont: "kitten",
           last_upload: true
         }
+      elsif Alchemy.storage_adapter.active_storage?
+        {
+          name_or_image_file_blob_filename_cont: "kitten",
+          last_upload: true
+        }
       end
     end
 

@@ -2,6 +2,12 @@ require "rails_helper"
 
 RSpec.describe Alchemy::StorageAdapter do
   describe "#initialize" do
+    it "sets the name and adapter for :active_storage" do
+      adapter = described_class.new("active_storage")
+      expect(adapter.name).to eq(:active_storage)
+      expect(adapter.adapter).to eq(Alchemy::StorageAdapter::ActiveStorage)
+    end
+
     it "sets the name and adapter for :dragonfly" do
       adapter = described_class.new("dragonfly")
       expect(adapter.name).to eq(:dragonfly)
@@ -12,6 +18,16 @@ RSpec.describe Alchemy::StorageAdapter do
       expect {
         described_class.new(:unknown)
       }.to raise_error(Alchemy::StorageAdapter::UnknownAdapterError, /Unknown storage adapter: unknown/)
+    end
+  end
+
+  describe "#active_storage?" do
+    subject(:active_storage?) { adapter.active_storage? }
+
+    context "if active_storage adapter is used" do
+      let(:adapter) { described_class.new("active_storage") }
+
+      it { is_expected.to be(true) }
     end
   end
 
@@ -28,7 +44,7 @@ RSpec.describe Alchemy::StorageAdapter do
   describe "#==" do
     let(:adapter) { described_class.new(:dragonfly) }
 
-    it "returns true if the names match" do
+    it "returns true if the name matches" do
       expect(adapter == :dragonfly).to be true
       expect(adapter == "dragonfly").to be true
     end
