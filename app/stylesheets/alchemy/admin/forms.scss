@@ -102,7 +102,8 @@ form {
     &.language_locale small.error {
       @include mixins.form-hint(
         $background-color: var(--notice-error-background-color),
-        $border-color: var(--notice-error-border-color)
+        $border-color: var(--notice-error-border-color),
+        $color: var(--notice-error-text-color)
       );
       text-align: left;
     }
