@@ -8,6 +8,7 @@
       <%= render_icon('search') %>
     </button>
     <%= f.search_field resource_handler.search_field_name,
+      value: params.dig(:q, resource_handler.search_field_name),
       class: 'search_input_field',
       placeholder: Alchemy.t(:search) %>
     <%= link_to render_icon(:times, size: '1x'), url,
