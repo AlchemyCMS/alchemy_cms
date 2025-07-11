@@ -437,6 +437,7 @@ RSpec.describe "Resources", type: :system do
           by_location_id: office.id
         }
       })
+      expect(page).to have_selector(".search_field input[value='Meeting']")
 
       expect(page).to have_content("Meeting 1")
       expect(page).not_to have_content("Meeting 2")
