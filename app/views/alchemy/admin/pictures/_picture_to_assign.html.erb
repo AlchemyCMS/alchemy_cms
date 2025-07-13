@@ -1,20 +1,24 @@
 <div class="picture_thumbnail" name="<%= picture_to_assign.name %>" id="assignable_<%= picture_to_assign.id %>">
-  <sl-tooltip content="<%= Alchemy.t(:assign_image) %>">
-    <%= link_to(
-      image_tag(
-        picture_to_assign.thumbnail_url(size: preview_size(size)) || "alchemy/missing-image.svg",
-        alt: picture_to_assign.name
-      ),
-      alchemy.assign_admin_picture_path(
-        id: picture_to_assign.id,
-        form_field_id: @form_field_id
-      ),
-      remote: true,
-      onclick: '$(self).attr("href", "#").off("click"); return false',
-      method: 'put',
-      class: 'thumbnail_background'
-    ) %>
-  </sl-tooltip>
+  <% if picture_to_assign.image_file %>
+    <sl-tooltip content="<%= Alchemy.t(:assign_image) %>">
+      <%= link_to(
+        image_tag(
+          picture_to_assign.thumbnail_url(size: preview_size(size)),
+          alt: picture_to_assign.name
+        ),
+        alchemy.assign_admin_picture_path(
+          id: picture_to_assign.id,
+          form_field_id: @form_field_id
+        ),
+        remote: true,
+        onclick: '$(self).attr("href", "#").off("click"); return false',
+        method: 'put',
+        class: 'thumbnail_background'
+      ) %>
+    </sl-tooltip>
+  <% else %>
+    <alchemy-icon name="file-damage"></alchemy-icon>
+  <% end %>
   <div class="picture_name" title="<%= picture_to_assign.name %>">
     <%= picture_to_assign.name %>
   </div>

@@ -31,10 +31,19 @@
   align-items: center;
   justify-content: center;
   background-color: var(--picture-thumbnail-background-color, transparent);
-  box-shadow: 0 0 1px 1px var(--border-color);
+
+  &:not(:has(alchemy-icon)) {
+    box-shadow: 0 0 1px 1px var(--border-color);
+  }
 
   &:hover {
     text-decoration: none;
+  }
+
+  alchemy-icon {
+    display: flex;
+    width: var(--picture-width);
+    height: var(--picture-height);
   }
 }
 

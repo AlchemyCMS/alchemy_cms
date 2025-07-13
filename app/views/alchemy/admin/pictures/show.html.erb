@@ -1,5 +1,9 @@
 <div class="zoomed-picture-background">
-  <%= image_tag @picture.url || "alchemy/missing-image.svg" %>
+  <% if @picture.image_file %>
+    <%= image_tag @picture.url %>
+  <% else %>
+    <alchemy-icon name="file-damage"></alchemy-icon>
+  <% end %>
 </div>
 
 <div class="picture-overlay-navigation">
