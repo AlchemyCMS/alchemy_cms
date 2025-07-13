@@ -206,7 +206,7 @@ module Alchemy
   #
   # Can be set via 'ALCHEMY_STORAGE_ADAPTER' env var.
   def self.storage_adapter
-    @_storage_adapter ||= Alchemy::StorageAdapter.new(
+    Alchemy::StorageAdapter.new(
       ENV.fetch("ALCHEMY_STORAGE_ADAPTER", Alchemy.config.storage_adapter)
     )
   end
