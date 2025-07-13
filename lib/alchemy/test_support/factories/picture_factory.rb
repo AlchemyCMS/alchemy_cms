@@ -29,6 +29,7 @@ FactoryBot.define do
         when :dragonfly
           picture.image_file = acc.image_file
           picture.image_file_size = acc.image_file.size
+          picture.image_file_format = File.extname(acc.image_file_name).delete(".").downcase
         end
       end
     end
