@@ -16,9 +16,8 @@ Gem::Specification.new do |gem|
   gem.requirements << "ImageMagick (libmagick), v6.6 or greater."
   gem.required_ruby_version = ">= 3.1.0"
   gem.license = "BSD-3-Clause"
-  gem.files = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^spec/|bun\.lockdb|package\.json|^\.}) }
+  gem.files = `git archive --format=tar HEAD | tar -tf -`.split("\n")
   gem.require_paths = ["lib"]
-
   gem.metadata["homepage_uri"] = gem.homepage
   gem.metadata["source_code_uri"] = "https://github.com/AlchemyCMS/alchemy_cms"
   gem.metadata["changelog_uri"] = "https://github.com/AlchemyCMS/alchemy_cms/blob/main/CHANGELOG.md"

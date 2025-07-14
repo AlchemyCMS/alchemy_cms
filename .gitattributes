@@ -1,0 +1,11 @@
+# Exclude spec files
+spec/ export-ignore
+
+# Exclude bun.lockdb
+bun.lockdb export-ignore
+
+# Exclude package.json
+package.json export-ignore
+
+# Exclude all dotfiles (e.g. .gitignore, .rubocop.yml, etc.)
+.* export-ignore
