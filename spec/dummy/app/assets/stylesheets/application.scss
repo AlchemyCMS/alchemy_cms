@@ -1,1 +1,14 @@
 @import "alchemy/elements";
+
+body {
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    color-scheme: dark;
+    background-color: #333;
+    color: #e3e3e3;
+  }
+}

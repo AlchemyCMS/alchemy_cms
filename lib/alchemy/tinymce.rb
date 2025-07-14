@@ -18,7 +18,6 @@ module Alchemy
     @@plugins = DEFAULT_PLUGINS
     @@init = {
       skin: "alchemy",
-      content_css: "/assets/tinymce/skins/content/alchemy/content.min.css",
       icons: "remixicons",
       width: "auto",
       resize: true,

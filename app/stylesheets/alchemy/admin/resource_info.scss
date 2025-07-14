@@ -11,7 +11,14 @@
     }
 
     > p {
-      @include mixins.form-value-display;
+      float: right;
+      width: var(--form-right-column-width);
+      margin: var(--form-field-margin);
+      padding: var(--spacing-1) var(--spacing-2);
+      line-height: 21px;
+      min-height: var(--form-field-height);
+      background: var(--form-field-background-color);
+      border-radius: var(--border-radius_medium);
       @include mixins.truncate(var(--form-right-column-width));
     }
 
@@ -31,14 +38,14 @@
     right: 0;
     top: var(--spacing-1);
     height: var(--form-field-height);
-    background-color: var(--color-grey_light);
+    background-color: var(--form-field-addon-background-color);
     padding: 0 var(--spacing-2);
     transition: background-color 0.3s;
     @extend .right-rounded-border;
 
     &:hover {
       cursor: pointer;
-      background-color: hsl(0deg, 0%, 84%);
+      background-color: var(--icon-button-hover-bg-color);
       text-decoration: none;
     }
   }

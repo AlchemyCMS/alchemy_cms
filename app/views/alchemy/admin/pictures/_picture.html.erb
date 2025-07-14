@@ -3,7 +3,7 @@
     <%= check_box_tag "picture_ids[]", picture.id %>
   </span>
   <% if picture.deletable? && can?(:destroy, picture) %>
-  <span class="picture_tool delete">
+  <div class="picture_tool delete">
     <sl-tooltip content="<%= Alchemy.t('Delete image') %>">
       <%= link_to_confirm_dialog(
         render_icon("delete-bin-2"),
@@ -18,11 +18,11 @@
         )
       ) -%>
     </sl-tooltip>
-  </span>
+  </div>
   <% end %>
   <% picture_url = picture.thumbnail_url(size: preview_size(@size)) %>
-  <% image = image_tag(picture_url || "alchemy/missing-image.svg", alt: picture.name) %>
-  <% if can?(:edit, picture) && picture_url %>
+  <% image = picture_url ? image_tag(picture_url, alt: picture.name) : '<alchemy-icon name="file-damage"></alchemy-icon>'.html_safe %>
+  <% if can?(:edit, picture) %>
     <%= link_to(
       image,
       alchemy.admin_picture_path(

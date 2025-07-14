@@ -22,7 +22,10 @@
   );
   height: calc(100vh - var(--top-menu-height));
   border-left: var(--border-default);
-  background-color: var(--color-grey_very_light);
+  background-color: var(
+    --elements-window-background-color,
+    var(--dialog-background-color)
+  );
   transition: var(--transition-duration) ease-in-out;
   transform: translate3d(100%, 0, 0);
 
@@ -170,9 +173,12 @@ alchemy-tinymce {
 
 .element-editor {
   position: relative;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--element-editor-border-color, var(--border-color));
   border-radius: var(--border-radius_medium);
-  background-color: var(--color-grey_very_light);
+  background-color: var(
+    --element-editor-background-color,
+    --dialog-background-color
+  );
   margin: var(--spacing-2) 0;
   transition: box-shadow var(--transition-duration);
   scroll-margin: var(--spacing-2);
@@ -232,10 +238,10 @@ alchemy-tinymce {
   }
 
   &.dirty {
-    border-color: #d0c83d;
+    border-color: var(--element-dirty-border-color);
 
     > .element-header {
-      background-color: #fff8df;
+      background-color: var(--element-dirty-header-color);
     }
   }
 
@@ -261,7 +267,8 @@ alchemy-tinymce {
   &.selected:not(.is-fixed),
   &:hover:not(.is-fixed) {
     &:not(.element-hidden) {
-      box-shadow: 0 2px 8px rgba(#9b9b9b, 0.75);
+      box-shadow: 0 2px 8px
+        var(--element-editor-hover-box-shadow-color, hsla(0, 0%, 60%, 0.75));
     }
   }
 
@@ -479,8 +486,8 @@ alchemy-tinymce {
   padding: var(--spacing-1);
   gap: var(--spacing-1);
   height: 37px;
-  border-top: 1px solid var(--color-grey_light);
-  border-bottom: 1px solid var(--color-grey_light);
+  border-top: 1px solid var(--element-toolbar-border-color);
+  border-bottom: 1px solid var(--element-toolbar-border-color);
 
   .is-fixed & {
     border-top-width: 0;
@@ -506,7 +513,7 @@ alchemy-publish-element-button {
 }
 
 .element-footer {
-  border-top: 1px solid var(--color-grey_light);
+  border-top: 1px solid var(--element-toolbar-border-color);
   padding: var(--spacing-2);
   text-align: right;
 
@@ -519,7 +526,7 @@ alchemy-publish-element-button {
   width: 100%;
   padding: var(--spacing-1) 0;
   position: relative;
-  border-bottom: 1px solid var(--color-grey_light);
+  border-bottom: 1px solid var(--element-toolbar-border-color);
 
   &:last-child {
     border-bottom: none;
@@ -559,8 +566,8 @@ alchemy-publish-element-button {
 
   .icon_button {
     &:not(.linked) {
-      background-color: var(--color-grey_light);
-      border-color: var(--border-color);
+      background-color: var(--form-field-addon-background-color);
+      border-color: var(--form-field-border-color);
       border-width: var(--form-field-border-width);
       border-style: var(--form-field-border-style);
       box-shadow: none;
@@ -619,7 +626,7 @@ alchemy-publish-element-button {
   z-index: 0;
   width: 100%;
   padding: var(--spacing-1);
-  background-color: #fff;
+  background-color: var(--picture-thumbnail-toolbar-bg-color, #fff);
   border-bottom-left-radius: var(--border-radius_medium);
   border-bottom-right-radius: var(--border-radius_medium);
 
@@ -680,7 +687,7 @@ alchemy-publish-element-button {
 
     alchemy-icon {
       --icon-size: 3em;
-      color: var(--color-grey_dark);
+      color: var(--icon-color);
 
       &.error {
         --icon-size: var(--icon-size-md);
@@ -793,8 +800,10 @@ alchemy-publish-element-button {
     gap: var(--spacing-1);
     margin: 6px 0 var(--spacing-1);
     padding: 0 var(--spacing-1) 0 var(--spacing-2);
-    border: var(--border-default);
-    background-color: var(--color-white);
+    border-style: var(--border-style);
+    border-width: var(--border-width_small);
+    border-color: var(--form-field-border-color);
+    background-color: var(--form-field-background-color);
     border-radius: var(--border-radius_medium);
     height: var(--form-field-height);
 
@@ -826,7 +835,6 @@ alchemy-publish-element-button {
   display: flex;
   gap: var(--spacing-1);
   align-items: center;
-  background-color: white;
   border-radius: 0 var(--border-radius_medium) var(--border-radius_medium) 0;
 
   a {
@@ -959,6 +967,7 @@ select.long {
     font-size: var(--font-size_small);
     line-height: 15px;
     text-indent: 1px;
+    color: var(--form-field-label-color);
 
     span.warning.icon {
       position: relative;

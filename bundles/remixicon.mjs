@@ -48,6 +48,7 @@ const icons = [
   "Document/file-add-line",
   "Document/file-cloud-line",
   "Document/file-copy-line",
+  "Document/file-damage-line",
   "Document/file-edit-line",
   "Document/file-excel-2-line",
   "Document/file-forbid-line",

@@ -79,3 +79,19 @@
   padding: var(--size-2) 0 var(--size-2) var(--size-3);
   font-size: var(--small-font-size);
 }
+
+@media (prefers-color-scheme: dark) {
+  .page-select--page {
+    --grey: var(--a-dark-grey, hsl(200deg, 5%, 17.5%));
+    --color: var(--select-text-color, hsl(200deg, 5%, 70%));
+    --highlight-color: var(--select-hover-text-color, hsl(0deg, 0%, 100%));
+  }
+
+  .page-select--page-urlname {
+    color: var(--a-lighter-grey, hsl(200deg, 5%, 70%));
+  }
+
+  .page-select--language-code {
+    --highlight-bg-color: var(--bg-color);
+  }
+}
