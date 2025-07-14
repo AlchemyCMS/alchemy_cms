@@ -15,7 +15,7 @@
       then css_classes
     else
       css_classes.map do |klass|
-        [Alchemy.t(klass, scope: "picture_ingredients.css_classes", default: picture_editor.css_class.camelcase), klass]
+        [Alchemy.t(klass, scope: "picture_ingredients.css_classes", default: ingredient.css_class&.camelcase), klass]
       end
     end %>
   <%= f.input :css_class, collection: css_classes_collection, include_blank: false %>
