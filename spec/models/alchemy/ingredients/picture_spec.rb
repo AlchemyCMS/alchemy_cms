@@ -172,7 +172,7 @@ RSpec.describe Alchemy::Ingredients::Picture do
 
   it_behaves_like "having picture thumbnails" do
     let(:element) { build(:alchemy_element, name: "all_you_can_eat") }
-    let(:picture) { build(:alchemy_picture) }
+    let(:picture) { create(:alchemy_picture) }
 
     let(:record) do
       described_class.new(
