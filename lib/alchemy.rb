@@ -15,6 +15,8 @@ module Alchemy
   singleton_class.attr_accessor :importmap
   self.importmap = Importmap::Map.new
 
+  mattr_accessor :storage_adapter
+
   class << self
     def config
       @_config ||= Alchemy::Configurations::Main.new
@@ -198,16 +200,5 @@ module Alchemy
         Alchemy::Admin::LinkDialog::FileTab
       ])
     end
-  end
-
-  # The storage adapter for Pictures and Attachments
-  #
-  # Chose between 'active_storage' (default) or 'dragonfly' (legacy)
-  #
-  # Can be set via 'ALCHEMY_STORAGE_ADAPTER' env var.
-  def self.storage_adapter
-    Alchemy::StorageAdapter.new(
-      ENV.fetch("ALCHEMY_STORAGE_ADAPTER", Alchemy.config.storage_adapter)
-    )
   end
 end

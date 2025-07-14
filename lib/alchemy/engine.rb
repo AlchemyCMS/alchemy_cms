@@ -80,6 +80,15 @@ module Alchemy
         end
       end
 
+      # The storage adapter for Pictures and Attachments
+      #
+      # Chose between 'active_storage' (default) or 'dragonfly' (legacy)
+      #
+      # Can be set via 'ALCHEMY_STORAGE_ADAPTER' env var.
+      Alchemy.storage_adapter = Alchemy::StorageAdapter.new(
+        ENV.fetch("ALCHEMY_STORAGE_ADAPTER", Alchemy.config.storage_adapter)
+      )
+
       # Gutentag downcases all tags before save
       # and Gutentag validations are not case sensitive.
       # But we support having tags with uppercase characters.
