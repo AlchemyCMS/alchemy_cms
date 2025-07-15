@@ -22,11 +22,6 @@ input[type="search"],
 .thin_border,
 .input_field {
   @extend %default-input-style;
-
-  &.dirty {
-    background-color: var(--element-dirty-header-color);
-    outline: 1px solid var(--element-dirty-border-color);
-  }
 }
 
 input[type="checkbox"] {

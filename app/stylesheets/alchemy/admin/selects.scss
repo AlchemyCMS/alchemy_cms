@@ -46,6 +46,8 @@ select {
 }
 
 .select2-container {
+  border-radius: var(--border-radius_medium);
+
   &.alchemy_selectbox {
     .select2-choice {
       width: 100%;
