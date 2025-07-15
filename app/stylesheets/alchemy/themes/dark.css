@@ -48,16 +48,27 @@
     --dialog-background-color: var(--a-dark-grey);
 
     /* Elements */
+    --element-editor-background-color: var(--a-dark-grey);
     --element-editor-border-color: var(--a-darkest-grey);
+    --element-editor-dragged-background-color: var(--color-blue_medium);
+    --element-editor-dragged-border-color: var(--color-orange_dark);
     --element-editor-hover-box-shadow-color: var(--a-darkest-grey);
     --element-header-bg-color: transparent;
     --element-header-active-bg-color: var(--color-blue_medium);
     --element-header-active-color: var(--color-white);
     --element-header-deprecated-bg-color: hsla(29deg, 95%, 20%, 0.25);
     --element-deprecated-border-color: hsl(29deg, 95%, 30%);
+    --element-toolbar-background-color: var(--a-dark-grey);
     --element-toolbar-border-color: var(--a-darker-grey);
     --element-dirty-border-color: hsl(55deg, 67%, 45%);
     --element-dirty-header-color: hsl(55deg, 45%, 15%);
+
+    --elements-window-handle-dragged-background-color: var(--color-orange_dark);
+
+    --droppable-elements-background-color: var(--color-blue_dark);
+
+    --nestable-elements-background-color: var(--a-dark-grey);
+    --nestable-elements-box-shadow-color: var(--a-darkest-grey);
 
     /* Focus Status */
     --focus-color: var(--color-orange_dark);

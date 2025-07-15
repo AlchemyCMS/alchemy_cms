@@ -204,6 +204,9 @@
   ingredients:
     - role: picture
       type: Picture
+      settings:
+        size: 400x300
+        crop: true
     - role: caption
       type: Text
       as_element_title: true

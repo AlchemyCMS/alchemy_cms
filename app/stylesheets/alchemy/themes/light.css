@@ -54,6 +54,7 @@
     --element-header-active-color: var(--color-white);
     --element-header-deprecated-bg-color: hsla(29deg, 95%, 84%, 0.25);
     --element-deprecated-border-color: hsl(29deg, 95%, 84%);
+    --element-toolbar-background-color: var(--color-grey_very_light);
     --element-toolbar-border-color: var(--color-grey_light);
     --element-dirty-border-color: hsl(56deg, 67%, 52%);
     --element-dirty-header-color: hsl(56deg, 100%, 93%);
