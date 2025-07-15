@@ -1,6 +1,8 @@
 // Shows spinner while loading images and
 // fades the image after its been loaded
 
+import Spinner from "alchemy_admin/spinner"
+
 export default class ImageLoader {
   static init(scope = document) {
     if (typeof scope === "string") {
@@ -15,7 +17,7 @@ export default class ImageLoader {
   constructor(image) {
     this.image = image
     this.parent = image.parentNode
-    this.spinner = new Alchemy.Spinner("small")
+    this.spinner = new Spinner("small")
     this.bind()
   }
 
