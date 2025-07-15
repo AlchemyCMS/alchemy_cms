@@ -28,7 +28,7 @@ export default class ImageLoader {
     if (!force && this.image.complete) return
 
     this.image.classList.add("loading")
-    this.spinner.spin(this.image.parentElement)
+    this.spinner.spin(this.parent)
   }
 
   onLoaded() {
