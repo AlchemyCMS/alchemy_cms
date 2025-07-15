@@ -83,8 +83,6 @@ export class PictureEditor {
   }
 
   ensureImage() {
-    if (this.image) return
-
     const img = new Image()
     this.thumbnailBackground.replaceChildren(img)
     this.image = img
