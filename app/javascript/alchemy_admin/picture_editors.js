@@ -5,7 +5,7 @@ import { growl } from "alchemy_admin/growler"
 import ImageLoader from "alchemy_admin/image_loader"
 
 const UPDATE_DELAY = 125
-const IMAGE_PLACEHOLDER = '<alchemy-icon name="image"></alchemy-icon>'
+const IMAGE_PLACEHOLDER = '<alchemy-icon name="image" size="xl"></alchemy-icon>'
 const THUMBNAIL_SIZE = "160x120"
 
 export class PictureEditor {
