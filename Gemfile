@@ -30,7 +30,7 @@ group :development, :test do
   gem "sprockets", "~> 4.2", ">= 4.2.1", require: false
 
   if ENV["GITHUB_ACTIONS"]
-    gem "simplecov-cobertura", "~> 2.1"
+    gem "simplecov-cobertura", "~> 3.0"
 
     # https://github.com/hotwired/turbo-rails/issues/512
     if rails_version == "7.1"
