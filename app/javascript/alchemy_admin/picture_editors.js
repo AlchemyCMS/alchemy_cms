@@ -75,6 +75,7 @@ export class PictureEditor {
         this.image.src = data.url
         this.image.alt = data.alt
         this.image.title = data.title
+        this.setElementDirty()
       })
       .catch((error) => {
         console.error(error.message || error)
@@ -94,7 +95,11 @@ export class PictureEditor {
     this.pictureIdField.value = ""
     this.image = null
     this.cropLink.classList.add("disabled")
-    this.container.closest(".element-editor").setDirty()
+    this.setElementDirty()
+  }
+
+  setElementDirty() {
+    this.container.closest(".element-editor").setDirty(this.container)
   }
 
   updateCropLink() {

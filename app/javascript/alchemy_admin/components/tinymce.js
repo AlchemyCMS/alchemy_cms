@@ -98,7 +98,9 @@ class Tinymce extends AlchemyHTMLElement {
 
     // event listener to mark the editor as dirty
     if (this.elementEditor) {
-      editor.on("dirty", () => this.elementEditor.setDirty())
+      editor.on("dirty", (evt) => {
+        this.elementEditor.setDirty(evt.target.editorContainer)
+      })
       editor.on("click", () => this.elementEditor.onClickElement(false))
     }
   }

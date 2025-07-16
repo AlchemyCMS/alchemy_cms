@@ -20,8 +20,10 @@ export class ElementEditor extends HTMLElement {
     this.addEventListener("alchemy:element-update-title", this)
     // We use of @rails/ujs for Rails remote forms
     this.addEventListener("ajax:complete", this)
-    // Dirty observer
-    this.addEventListener("change", this)
+
+    // Dirty observer still needs to be jQuery
+    // in order to support select2.
+    $(this).on("change", this.onChange)
 
     this.header?.addEventListener("dblclick", () => {
       this.toggle()
@@ -78,18 +80,20 @@ export class ElementEditor extends HTMLElement {
           this.setTitle(event.detail.title)
         }
         break
-      case "change":
-        // SortableJS fires a native change event :/
-        // and we do not want to set the element editor dirty
-        // when this happens
-        if (event.target.classList.contains("nested-elements")) {
-          return
-        }
-        event.stopPropagation()
-        event.target.classList.add("dirty")
-        this.setDirty()
-        break
     }
+  }
+
+  onChange(event) {
+    const target = event.target
+    // SortableJS fires a native change event :/
+    // and we do not want to set the element editor dirty
+    // when this happens
+    if (target.classList.contains("nested-elements")) {
+      return
+    }
+    this.setDirty(target)
+    event.stopPropagation()
+    return false
   }
 
   /**
@@ -227,11 +231,17 @@ export class ElementEditor extends HTMLElement {
 
   /**
    * Sets the element into dirty (unsafed) state
+   * @param {HTMLElement} editor
    */
-  setDirty() {
+  setDirty(editor) {
     if (this.hasEditors) {
       this.dirty = true
-      window.onbeforeunload = (event) => event.preventDefault()
+
+      if (!window.onbeforeunload) {
+        window.onbeforeunload = (event) => event.preventDefault()
+      }
+
+      editor?.closest(".ingredient-editor")?.classList.add("dirty")
     }
   }
 

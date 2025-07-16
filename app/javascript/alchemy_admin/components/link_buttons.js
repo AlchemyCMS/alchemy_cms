@@ -27,7 +27,7 @@ class LinkButtons extends HTMLElement {
     this.linkTargetField.value = data.target
 
     this.unlinkButton.linked = true
-    this.elementEditor.setDirty()
+    this.setElementDirty()
   }
 
   removeLink() {
@@ -40,7 +40,11 @@ class LinkButtons extends HTMLElement {
     this.linkButton.classList.remove("linked")
     this.unlinkButton.linked = false
 
-    this.elementEditor.setDirty()
+    this.setElementDirty()
+  }
+
+  setElementDirty() {
+    this.elementEditor.setDirty(this)
   }
 
   get linkButton() {

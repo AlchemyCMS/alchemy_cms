@@ -622,7 +622,9 @@ describe("alchemy-element-editor", () => {
           <alchemy-element-editor id="element_123" class="expanded">
             <form class="element-body">
               <div class="element-ingredient-editors">
-                <input type="text">
+                <div class="ingredient-editor">
+                  <input type="text">
+                </div>
               </div>
             </form>
             <div class="nested-elements"></div>
@@ -638,6 +640,12 @@ describe("alchemy-element-editor", () => {
       it("sets beforeunload", () => {
         editor.setDirty()
         expect(window.onbeforeunload).toBeInstanceOf(Function)
+      })
+
+      it("sets ingredient editor dirty", () => {
+        const ingredientEditor = editor.querySelector(".ingredient-editor")
+        editor.setDirty(ingredientEditor)
+        expect(ingredientEditor.classList).toContain("dirty")
       })
     })
   })

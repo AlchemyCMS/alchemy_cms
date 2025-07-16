@@ -21,10 +21,7 @@ class Datepicker extends AlchemyHTMLElement {
       await import(`flatpickr/${locale}.js`)
     }
 
-    this.flatpickr = flatpickr(
-      this.getElementsByTagName("input")[0],
-      this.flatpickrOptions
-    )
+    this.flatpickr = flatpickr(this.inputField, this.flatpickrOptions)
   }
 
   disconnected() {
@@ -43,7 +40,9 @@ class Datepicker extends AlchemyHTMLElement {
       noCalendar: this.inputType === "time",
       time_24hr: translate("formats.time_24hr"),
       onValueUpdate(_selectedDates, _dateStr, instance) {
-        instance.element.closest("alchemy-element-editor")?.setDirty()
+        instance.element
+          .closest("alchemy-element-editor")
+          ?.setDirty(this.inputField)
       }
     }
 
@@ -52,6 +51,10 @@ class Datepicker extends AlchemyHTMLElement {
     }
 
     return options
+  }
+
+  get inputField() {
+    return this.querySelector("input")
   }
 }
 
