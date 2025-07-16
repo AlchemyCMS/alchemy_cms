@@ -51,9 +51,10 @@ select {
   &.alchemy_selectbox {
     .select2-choice {
       width: 100%;
-      height: var(--form-field-height);
+
       @include mixins.button-defaults(
         $background-color: var(--select-background-color),
+        $height: var(--form-field-height),
         $hover-color: var(--select-background-color),
         $hover-border-color: var(--select-hover-border-color),
         $padding: var(--form-field-padding),
@@ -209,6 +210,10 @@ select {
         }
       }
     }
+  }
+
+  .select2-default {
+    color: var(--text-color-muted) !important;
   }
 }
 

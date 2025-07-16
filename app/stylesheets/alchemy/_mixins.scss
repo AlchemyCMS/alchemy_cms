@@ -21,6 +21,7 @@
   $border-radius: var(--button-border-radius),
   $border: var(--button-border),
   $box-shadow: var(--button-box-shadow),
+  $height: var(--button-height),
   $padding: var(--button-padding),
   $margin: var(--button-margin),
   $color: var(--button-text-color),
@@ -34,7 +35,7 @@
   font-family: var(--font-sans);
   font-size: var(--button-font-size);
   font-weight: var(--button-font-weight);
-  height: var(--button-height);
+  height: $height;
   padding: $padding;
   cursor: pointer;
   border-radius: $border-radius;
