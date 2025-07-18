@@ -10,6 +10,10 @@ module Alchemy
       build(:alchemy_attachment, file:, name: nil, file_name: nil)
     end
 
+    it_behaves_like "a relatable resource",
+      resource_name: :attachment,
+      ingredient_type: :file
+
     it "has file mime type accessor" do
       expect(attachment.file_mime_type).to eq("image/png")
     end
