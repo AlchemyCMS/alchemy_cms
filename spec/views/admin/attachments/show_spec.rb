@@ -9,6 +9,7 @@ RSpec.describe "alchemy/admin/attachments/show.html.erb" do
 
   it "displays urls to file" do
     assign(:attachment, attachment)
+    assign(:assignments, attachment.related_ingredients.joins(element: :page))
     render
     aggregate_failures do
       expect(rendered).to have_selector("label:contains('URL') + p:contains('/attachment/#{attachment.id}/show')")

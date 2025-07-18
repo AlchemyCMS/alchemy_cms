@@ -12,12 +12,12 @@ module Alchemy
 
       def attachment_preview_size(attachment)
         case attachment.file_mime_type
-        when *IMAGE_FILE_TYPES then "600x475"
-        when *AUDIO_FILE_TYPES then "600x190"
-        when *VIDEO_FILE_TYPES then "600x485"
-        when "application/pdf" then "600x600"
+        when "application/pdf" then "850x600"
+        when *IMAGE_FILE_TYPES then "850x280"
+        when *AUDIO_FILE_TYPES then "850x190"
+        when *VIDEO_FILE_TYPES then "900x280"
         else
-          "600x145"
+          "500x165"
         end
       end
     end

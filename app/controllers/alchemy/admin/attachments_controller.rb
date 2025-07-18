@@ -39,6 +39,7 @@ module Alchemy
 
       # The resources controller renders the edit form as default for show actions.
       def show
+        @assignments = @attachment.related_ingredients.joins(element: :page)
         render :show
       end
 
