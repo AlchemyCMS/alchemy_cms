@@ -143,7 +143,7 @@ en:
         without_tag:
           name: Without tag
         deletable:
-          name: Not linked by file content
+          name: Not used
       attachment:
         by_file_type:
           name: File Type
