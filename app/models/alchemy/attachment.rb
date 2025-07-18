@@ -23,18 +23,11 @@ module Alchemy
     include Alchemy::NameConversions
     include Alchemy::Taggable
     include Alchemy::TouchElements
+    include Alchemy::RelatableResource
 
     include Alchemy.storage_adapter.attachment_class_methods
 
     stampable stamper_class_name: Alchemy.user_class_name
-
-    has_many :file_ingredients,
-      class_name: "Alchemy::Ingredients::File",
-      foreign_key: "related_object_id",
-      inverse_of: :related_object
-
-    has_many :elements, through: :file_ingredients
-    has_many :pages, through: :elements
 
     scope :by_file_type, ->(file_type) do
       Alchemy.storage_adapter.by_file_type_scope(file_type)

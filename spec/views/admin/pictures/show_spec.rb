@@ -58,7 +58,7 @@ describe "alchemy/admin/pictures/show.html.erb" do
     let!(:picture_ingredient) { create(:alchemy_ingredient_picture, picture: picture) }
 
     it "displays a list of ingredients using the picture" do
-      assign(:assignments, picture.picture_ingredients.joins(element: :page))
+      assign(:assignments, picture.related_ingredients.joins(element: :page))
 
       render
 

@@ -32,14 +32,8 @@ module Alchemy
     include Alchemy::NameConversions
     include Alchemy::Taggable
     include Alchemy::TouchElements
+    include Alchemy::RelatableResource
 
-    has_many :picture_ingredients,
-      class_name: "Alchemy::Ingredients::Picture",
-      foreign_key: "related_object_id",
-      inverse_of: :related_object
-
-    has_many :elements, through: :picture_ingredients
-    has_many :pages, through: :elements
     has_many :descriptions, class_name: "Alchemy::PictureDescription", dependent: :destroy
 
     accepts_nested_attributes_for :descriptions, allow_destroy: true, reject_if: ->(attr) { attr[:text].blank? }
@@ -86,12 +80,6 @@ module Alchemy
 
     scope :named, ->(name) { where("#{table_name}.name LIKE ?", "%#{name}%") }
     scope :recent, -> { where("#{table_name}.created_at > ?", Time.current - 24.hours).order(:created_at) }
-    scope :deletable, -> do
-      where(
-        "#{table_name}.id NOT IN (SELECT related_object_id FROM alchemy_ingredients WHERE related_object_id IS NOT NULL AND related_object_type = ?)",
-        name
-      )
-    end
     scope :without_tag, -> { left_outer_joins(:taggings).where(gutentag_taggings: {id: nil}) }
     scope :by_file_format, ->(file_format) do
       Alchemy.storage_adapter.by_file_format_scope(file_format)
@@ -251,12 +239,6 @@ module Alchemy
     #
     def restricted?
       pages.any? && pages.not_restricted.blank?
-    end
-
-    # Returns true if picture is not assigned to any Picture ingredient.
-    #
-    def deletable?
-      picture_ingredients.empty?
     end
 
     def image_file_name
