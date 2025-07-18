@@ -127,7 +127,7 @@ en:
             last_upload: Last upload only
             recent: Recently uploaded only
             without_tag: Without tag
-            deletable: Not linked by file content
+            deletable: Not used
       attachment:
         by_file_type:
           name: File Type
