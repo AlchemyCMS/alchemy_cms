@@ -38,11 +38,11 @@ RSpec.describe Alchemy::Ingredients::Node do
   end
 
   describe "#node_id=" do
-    let(:node) { Alchemy::Node.new(id: 111) }
+    let(:node_id) { 111 }
 
-    subject { node_ingredient.node_id = node.id }
+    subject! { node_ingredient.node_id = node_id }
 
-    it { is_expected.to be(111) }
+    it { expect(node_ingredient.related_object_id).to eq(111) }
     it { expect(node_ingredient.related_object_type).to eq("Alchemy::Node") }
   end
 

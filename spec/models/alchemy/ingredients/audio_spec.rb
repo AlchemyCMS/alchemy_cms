@@ -102,12 +102,20 @@ RSpec.describe Alchemy::Ingredients::Audio do
   end
 
   describe "#attachment_id=" do
-    let(:attachment) { Alchemy::Attachment.new(id: 111) }
+    let(:attachment_id) { 111 }
 
-    subject { audio_ingredient.attachment_id = attachment.id }
+    subject! { audio_ingredient.attachment_id = attachment_id }
 
-    it { is_expected.to be(111) }
+    it { expect(audio_ingredient.related_object_id).to eq(111) }
     it { expect(audio_ingredient.related_object_type).to eq("Alchemy::Attachment") }
+
+    context "with nil passed as id" do
+      let(:attachment_id) { nil }
+
+      it "nullifies related_object_type" do
+        expect(audio_ingredient.related_object_type).to be_nil
+      end
+    end
   end
 
   describe "#preview_text" do
