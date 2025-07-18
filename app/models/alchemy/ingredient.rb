@@ -54,7 +54,7 @@ module Alchemy
 
         define_method :"#{name}_id=" do |id|
           self.related_object_id = id
-          self.related_object_type = class_name
+          self.related_object_type = id.nil? ? nil : class_name
         end
       end
 
