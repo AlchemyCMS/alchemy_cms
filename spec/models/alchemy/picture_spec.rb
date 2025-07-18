@@ -126,6 +126,17 @@ module Alchemy
       end
     end
 
+    describe ".deletable" do
+      let!(:assigned_picture) { create(:alchemy_picture) }
+      let!(:unassigned_picture) { create(:alchemy_picture) }
+      let!(:ingredient1) { create(:alchemy_ingredient_picture, related_object_type: described_class) }
+      let!(:ingredient2) { create(:alchemy_ingredient_picture, related_object: assigned_picture) }
+
+      it "should return all pictures that are not assigned to an ingredient" do
+        expect(Picture.deletable).to eq [unassigned_picture]
+      end
+    end
+
     describe ".file_formats" do
       it "deligates to storage adapter" do
         expect(Alchemy.storage_adapter).to receive(:file_formats).with(described_class.name, scope: described_class.all)
