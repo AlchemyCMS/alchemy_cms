@@ -1,3 +1,6 @@
+"use strict"
+// ^ add support for top-level await in Terser
+
 import "alchemy_admin/components/action"
 import "alchemy_admin/components/attachment_select"
 import "alchemy_admin/components/button"
