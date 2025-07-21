@@ -1,0 +1,36 @@
+<div class="resource-usage-info">
+  <% if assignments.any? %>
+    <alchemy-message type="info">
+      <%= Alchemy.t(resource_name, scope: :used_on_these_pages) %>
+    </alchemy-message>
+    <ul class="resource_page_list">
+      <% assignments.group_by(&:page).each do |page, related_ingredients| %>
+        <% if page %>
+          <li>
+            <h3>
+              <%= render_icon 'file' %>
+              <p><%= link_to page.name, edit_admin_page_path(page) %></p>
+            </h3>
+            <ul class="list">
+              <% related_ingredients.group_by(&:element).each do |element, related_ingredients| %>
+                <li class="<%= cycle('even', 'odd') %>">
+                  <% page_link = link_to element.display_name_with_preview_text,
+                                  edit_admin_page_path(page, anchor: "element_#{element.id}") %>
+                  <% ingredients = related_ingredients.map { |p| Alchemy::IngredientEditor.new(p).translated_role }.to_sentence %>
+                  <%= render_icon(:draggable, style: false) %>
+                  <p>
+                    <%== Alchemy.t(:pictures_in_page, page: page_link, pictures: ingredients) %>
+                  </p>
+                </li>
+              <% end %>
+            </ul>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  <% else %>
+    <%= render_message do %>
+      <%= Alchemy.t(resource_name, scope: :not_in_use_yet) %>
+    <% end %>
+  <% end %>
+</div>

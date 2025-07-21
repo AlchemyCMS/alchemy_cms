@@ -1,6 +1,38 @@
 @use "base";
 @use "../mixins";
 
+.resource-details {
+  display: flex;
+  gap: var(--spacing-5);
+  --form-left-column-width: 30%;
+  --form-right-column-width: 70%;
+
+  > .resource-preview {
+    flex-grow: 0;
+    width: 50%;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  aside {
+    flex-grow: 1;
+  }
+
+  .resource_info {
+    margin-bottom: var(--spacing-4);
+  }
+}
+
+.resource-preview {
+  iframe {
+    width: 100%;
+    background-color: white;
+    min-height: 565px;
+  }
+}
+
 .resource_info {
   .value {
     position: relative;
@@ -47,6 +79,70 @@
       cursor: pointer;
       background-color: var(--icon-button-hover-bg-color);
       text-decoration: none;
+    }
+  }
+
+  &.file-infos .value {
+    label {
+      text-align: left;
+      width: 30%;
+    }
+
+    p {
+      max-width: 70%;
+      width: 70%;
+    }
+  }
+}
+
+.file-infos,
+.resource-usage-info {
+  margin-top: var(--spacing-4);
+
+  alchemy-message {
+    margin: var(--spacing-5) 0;
+  }
+
+  h3 {
+    font-size: 1rem;
+  }
+}
+
+.resource_page_list {
+  padding-left: 0;
+  list-style-type: none;
+
+  h3 {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-1);
+    padding: var(--spacing-1) var(--spacing-2) 0;
+    margin: 0;
+  }
+
+  .list {
+    margin: var(--spacing-2) 0;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-1);
+      padding: var(--spacing-2);
+      border-radius: var(--border-radius_medium);
+      white-space: normal;
+      margin-bottom: 1em;
+    }
+  }
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: var(--text-color);
+
+    &:hover {
+      color: var(--text-link-color);
     }
   }
 }
