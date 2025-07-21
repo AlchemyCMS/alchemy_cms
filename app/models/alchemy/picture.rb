@@ -116,10 +116,12 @@ module Alchemy
 
     scope :named, ->(name) { where("#{table_name}.name LIKE ?", "%#{name}%") }
     scope :recent, -> { where("#{table_name}.created_at > ?", Time.current - 24.hours).order(:created_at) }
-    scope :deletable,
-      -> {
-        where("#{table_name}.id NOT IN (SELECT related_object_id FROM alchemy_ingredients WHERE related_object_type = 'Alchemy::Picture')")
-      }
+    scope :deletable, -> do
+      where(
+        "#{table_name}.id NOT IN (SELECT related_object_id FROM alchemy_ingredients WHERE related_object_id IS NOT NULL AND related_object_type = ?)",
+        name
+      )
+    end
     scope :without_tag, -> { left_outer_joins(:taggings).where(gutentag_taggings: {id: nil}) }
     scope :by_file_format, ->(format) { where(image_file_format: format) }
 

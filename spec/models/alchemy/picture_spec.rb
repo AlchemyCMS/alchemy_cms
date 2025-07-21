@@ -194,6 +194,17 @@ module Alchemy
       end
     end
 
+    describe ".deletable" do
+      let!(:assigned_picture) { create(:alchemy_picture) }
+      let!(:unassigned_picture) { create(:alchemy_picture) }
+      let!(:ingredient1) { create(:alchemy_ingredient_picture, related_object_type: described_class) }
+      let!(:ingredient2) { create(:alchemy_ingredient_picture, related_object: assigned_picture) }
+
+      it "should return all pictures that are not assigned to an ingredient" do
+        expect(Picture.deletable).to eq [unassigned_picture]
+      end
+    end
+
     describe "#destroy" do
       context "a picture that is assigned to an ingredient" do
         let(:picture) { create(:alchemy_picture) }
