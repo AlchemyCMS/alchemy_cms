@@ -76,7 +76,7 @@
     --focus-color: var(--color-orange_dark);
 
     /* Form Fields */
-    --form-field-addon-background-color: var(--a-dark-grey);
+    --form-field-addon-background-color: var(--a-darker-grey);
     --form-field-background-color: var(--a-darkest-grey);
     --form-field-border-color: var(--border-inset-color);
     --form-field-box-shadow: inset 0 0 1px var(--a-dark-grey);
