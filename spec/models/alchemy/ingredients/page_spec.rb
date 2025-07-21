@@ -38,12 +38,20 @@ RSpec.describe Alchemy::Ingredients::Page do
   end
 
   describe "#page_id=" do
-    let(:page) { Alchemy::Page.new(id: 111) }
+    let(:page_id) { 111 }
 
-    subject { page_ingredient.page_id = page.id }
+    subject! { page_ingredient.page_id = page_id }
 
-    it { is_expected.to be(111) }
+    it { expect(page_ingredient.related_object_id).to be(111) }
     it { expect(page_ingredient.related_object_type).to eq("Alchemy::Page") }
+
+    context "with nil passed as id" do
+      let(:page_id) { nil }
+
+      it "nullifies related_object_type" do
+        expect(page_ingredient.related_object_type).to be_nil
+      end
+    end
   end
 
   describe "preview_text" do

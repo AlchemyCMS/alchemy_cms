@@ -126,12 +126,20 @@ RSpec.describe Alchemy::Ingredients::Picture do
   end
 
   describe "#picture_id=" do
-    let(:picture) { Alchemy::Picture.new(id: 111) }
+    let(:picture_id) { 111 }
 
-    subject { picture_ingredient.picture_id = picture.id }
+    subject! { picture_ingredient.picture_id = picture_id }
 
-    it { is_expected.to be(111) }
+    it { expect(picture_ingredient.related_object_id).to eq(111) }
     it { expect(picture_ingredient.related_object_type).to eq("Alchemy::Picture") }
+
+    context "with nil passed as id" do
+      let(:picture_id) { nil }
+
+      it "nullifies related_object_type" do
+        expect(picture_ingredient.related_object_type).to be_nil
+      end
+    end
   end
 
   describe "preview_text" do
