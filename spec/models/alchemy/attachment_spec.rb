@@ -10,6 +10,10 @@ module Alchemy
       build(:alchemy_attachment, file:, name: nil, file_name: nil)
     end
 
+    it_behaves_like "a relatable resource",
+      resource_name: :attachment,
+      ingredient_type: :file
+
     it "has file mime type accessor" do
       expect(attachment.file_mime_type).to eq("image/png")
     end
@@ -32,6 +36,12 @@ module Alchemy
       it "delegates to storage adapter" do
         expect(Alchemy.storage_adapter).to receive(:ransackable_associations).with("Alchemy::Attachment")
         described_class.ransackable_associations
+      end
+    end
+
+    describe ".ransackable_scopes" do
+      it "delegates to storage adapter" do
+        expect(described_class.ransackable_scopes).to eq %i[by_file_type recent last_upload without_tag deletable]
       end
     end
 

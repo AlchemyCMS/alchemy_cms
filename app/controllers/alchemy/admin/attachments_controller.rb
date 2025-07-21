@@ -11,6 +11,7 @@ module Alchemy
       add_alchemy_filter :recent, type: :checkbox
       add_alchemy_filter :last_upload, type: :checkbox
       add_alchemy_filter :without_tag, type: :checkbox
+      add_alchemy_filter :deletable, type: :checkbox
 
       helper "alchemy/admin/tags"
 
