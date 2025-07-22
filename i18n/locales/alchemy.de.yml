@@ -227,8 +227,8 @@ de:
         updated_at_gteq:
           name: Aktualisiert nach
       picture:
-        all: Alle Dateitypen
         by_file_format:
+          all: Alle Dateitypen
           name: Dateityp
           values:
             gif: GIF
@@ -253,8 +253,8 @@ de:
         deletable:
           name: Nicht auf Seiten benutzt
       attachment:
-        all: Alle Dateitypen
         by_file_type:
+          all: Alle Dateitypen
           name: Dateityp
           values:
             <<: *mime_types
