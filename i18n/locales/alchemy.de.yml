@@ -286,6 +286,9 @@ de:
       elements:
         toolbar:
           hide: ausblenden
+      page_definitions:
+        show_pages: Zeige %{count} %{model_name}
+        zero_pages: 0 Seiten
     anchor: "Sprungmarke"
     attribute_fixed: Dieser Wert ist für diesen Seitentyp nicht veränderbar
     back: "zurück"
@@ -586,6 +589,7 @@ de:
       library: "Bibliothek"
       menus: "Menüs"
       pages: "Seiten"
+      page_definitions: "Seitentypen"
       tags: "Tags"
       sites: "Websites"
       user_sessions: "Anmeldung"
@@ -887,6 +891,9 @@ de:
       alchemy/message:
         one: "Nachricht"
         other: "Nachrichten"
+      alchemy/page_definition:
+        one: "Seitentyp"
+        other: "Seitentypen"
     attributes:
       alchemy/message:
         salutation: Anrede
