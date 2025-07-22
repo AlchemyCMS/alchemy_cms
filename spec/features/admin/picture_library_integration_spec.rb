@@ -99,6 +99,9 @@ RSpec.describe "Picture Library", type: :system do
       select(language.language_code.upcase, from: "Language")
       expect(page).to have_field("Description", with: "This is an amazing image.")
 
+      # Make sure we have the latest records before making assumptions
+      picture.descriptions.reload
+
       expect(picture.descriptions.size).to eq(2)
       expect(picture.descriptions.find_by(language: german).text).to eq("Tolles Bild.")
       expect(picture.descriptions.find_by(language: language).text).to eq("This is an amazing image.")
