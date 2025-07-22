@@ -270,6 +270,8 @@ de:
           name: Kürzlich hochgeladen
         without_tag:
           name: Ohne Tag
+        deletable:
+          name: Nicht auf Seiten benutzt
 
     link_target_options:
       default: gleichem Fenster
