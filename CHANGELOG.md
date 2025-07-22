@@ -1,6 +1,18 @@
 # Changelog
 
-## 7.4.6 (2025-27-06)
+## 7.4.7 (2025-07-22)
+
+- [7.4-stable] Harden picture descriptions integration spec [#3342](https://github.com/AlchemyCMS/alchemy_cms/pull/3342) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.4] CI: Use unique screenshots name [#3341](https://github.com/AlchemyCMS/alchemy_cms/pull/3341) ([tvdeyen](https://github.com/tvdeyen))
+- [7.4-stable] Nullify related_object_type if related_object_id is set to nil [#3338](https://github.com/AlchemyCMS/alchemy_cms/pull/3338) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.4-stable] Add explicit strict mode in components index file [#3337](https://github.com/AlchemyCMS/alchemy_cms/pull/3337) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.4-stable] Fix Picture.deletable scope [#3336](https://github.com/AlchemyCMS/alchemy_cms/pull/3336) ([tvdeyen](https://github.com/tvdeyen))
+- [7.4-stable] fix(picture_fields): use correct local variable [#3321](https://github.com/AlchemyCMS/alchemy_cms/pull/3321) ([tvdeyen](https://github.com/tvdeyen))
+- [7.4-stable] Display current search string in resource search field [#3315](https://github.com/AlchemyCMS/alchemy_cms/pull/3315) ([mamhoff](https://github.com/mamhoff))
+- [7.4]: Resources Admin: Fix editing with filters [#3313](https://github.com/AlchemyCMS/alchemy_cms/pull/3313) ([mamhoff](https://github.com/mamhoff))
+- [7.4-stable] Tweak small button appearance [#3294](https://github.com/AlchemyCMS/alchemy_cms/pull/3294) ([tvdeyen](https://github.com/tvdeyen))
+
+## 7.4.6 (2025-06-27)
 
 - [7.4-stable] Fix multi language picture descriptions [#3293](https://github.com/AlchemyCMS/alchemy_cms/pull/3293) ([alchemycms-bot](https://github.com/alchemycms-bot))
 - [7.4-stable] Add server error turbo_stream template [#3292](https://github.com/AlchemyCMS/alchemy_cms/pull/3292) ([alchemycms-bot](https://github.com/alchemycms-bot))
