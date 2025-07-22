@@ -739,7 +739,12 @@ de:
     insert_image: "Bild einfügen"
     tag_list: Tags
     tags_get_created_if_used_the_first_time: "Ein Tag wird automatisch erstellt, sobald Sie es das erste mal verwenden."
-    this_picture_is_used_on_these_pages: "Dieses Bild wird auf folgenden Seiten benutzt"
+    used_on_these_pages:
+      attachment: "Diese Datei wird auf folgenden Seiten verwendet:"
+      picture: "Dieses Bild wird auf folgenden Seiten verwendet:"
+    not_in_use_yet:
+      attachment: "Diese Datei wird bisher nicht verwendet."
+      picture: "Dieses Bild wird bisher nicht verwendet."
     title: "Titel"
     to_alchemy: "Zu Alchemy"
     "trash element": "Element in den Papierkorb legen"
