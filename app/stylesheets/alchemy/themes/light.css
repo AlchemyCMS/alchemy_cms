@@ -82,6 +82,7 @@
     --hint-background-color: var(--color-yellow_light);
     --hint-border-color: var(--color-grey_light);
     --hint-text-color: hsl(49deg, 18%, 30%);
+    --hint-text-link-color: var(--color-grey_very_dark);
 
     /* Icon Buttons */
     --icon-button-linked-color: hsla(42deg, 100%, 74%, 0.75);

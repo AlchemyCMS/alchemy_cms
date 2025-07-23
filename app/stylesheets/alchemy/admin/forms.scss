@@ -239,8 +239,7 @@ form {
     margin-left: var(--form-left-column-width);
 
     a[href] {
-      color: var(--color-grey_very_dark);
-      text-decoration: underline;
+      color: var(--hint-text-link-color);
     }
   }
 

@@ -74,8 +74,9 @@ alchemy-message {
     margin-top: 0;
   }
 
-  a {
+  a[href] {
     text-decoration: underline;
+    color: var(--hint-text-link-color);
 
     &:hover {
       color: inherit;

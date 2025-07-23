@@ -113,7 +113,7 @@
     <div class="input text">
       <label class="text control-label" for="textarea">Textarea</label>
       <textarea class="text" id="textarea"></textarea>
-      <small class="hint">With hint</small>
+      <small class="hint">With hint and a <a href="/admin/styleguide">link</a> inside.</small>
     </div>
 
     <div class="input text tinymce_container">
@@ -198,7 +198,7 @@
 <h3>Info Message</h3>
 
 <%= render_message do %>
-  <p>Lorem ipsum <strong>dolor</strong> sit amet, consectetur adipiscing elit.</p>
+  <p>Lorem ipsum <strong>dolor</strong> sit amet, <a href="">consectetur</a> adipiscing elit.</p>
 <% end %>
 
 <h3>Warning Message</h3>
@@ -210,7 +210,7 @@
 <h3>Error Message</h3>
 
 <%= render_message :error do %>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  <p>Lorem ipsum dolor sit amet, <a href="">consectetur</a> adipiscing elit.</p>
 <% end %>
 
 <h3>Growl Messages</h3>
