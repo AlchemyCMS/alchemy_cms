@@ -141,8 +141,8 @@
     --pagination-disabled-text-color: var(--a-light-grey);
 
     /* Panels */
-    --panel-background-color: var(--a-dark-grey);
-    --panel-border-color: var(--border-color);
+    --panel-background-color: var(--a-darker-grey);
+    --panel-border-color: var(--a-grey);
 
     --picture-thumbnail-background-color: var(--a-dark-grey);
     --picture-thumbnail-toolbar-bg-color: var(--a-darker-grey);

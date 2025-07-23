@@ -132,6 +132,7 @@
 
     /* Panels */
     --panel-background-color: var(--color-grey_light);
+    --panel-border-color: var(--border-color);
 
     --picture-tool-background-color: var(--color-white);
 
