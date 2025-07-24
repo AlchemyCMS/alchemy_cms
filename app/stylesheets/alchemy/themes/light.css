@@ -136,6 +136,7 @@
     --panel-border-color: var(--border-color);
 
     --picture-tool-background-color: var(--color-white);
+    --picture-tool-hover-background-color: var(--color-grey_very_light);
 
     --search-field-background-color: var(--color-grey_very_light);
 
