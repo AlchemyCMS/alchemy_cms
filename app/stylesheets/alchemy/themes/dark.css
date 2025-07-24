@@ -20,6 +20,8 @@
     --button-disabled-border-color: var(--a-grey);
     --button-secondary-bg-color: var(--a-darker-grey);
     --button-secondary-border-color: var(--a-grey);
+    --button-secondary-hover-bg-color: var(--a-dark-grey);
+    --button-secondary-hover-border-color: var(--a-grey);
     --button-secondary-text-color: var(--color-white);
 
     --code-background-color: var(--a-darkest-grey);

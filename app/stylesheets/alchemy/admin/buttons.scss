@@ -42,8 +42,8 @@ input.button {
     }
 
     &:hover:not([disabled]):not(.disabled) {
-      background-color: var(--button-hover-bg-color);
-      border-color: var(--button-hover-border-color);
+      background-color: var(--button-secondary-hover-bg-color);
+      border-color: var(--button-secondary-hover-border-color);
     }
 
     &:active:not([disabled]):not(.disabled) {
