@@ -42,7 +42,7 @@ module Alchemy
         @query = Picture.ransack(params[:q])
         @previous = filtered_pictures.where("name < ?", @picture.name).last
         @next = filtered_pictures.where("name > ?", @picture.name).first
-        @assignments = @picture.picture_ingredients.joins(element: :page)
+        @assignments = @picture.related_ingredients.joins(element: :page)
         @picture_description = @picture.descriptions.find_or_initialize_by(
           language_id: Alchemy::Current.language.id
         )

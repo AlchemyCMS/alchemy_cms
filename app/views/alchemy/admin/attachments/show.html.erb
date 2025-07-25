@@ -1,45 +1,57 @@
-<div class="resource_info">
-  <div class="value">
-    <label>
-      <%= render_icon @attachment.icon_css_class %>
-    </label>
-    <p><%= @attachment.file_name %></p>
-  </div>
-  <div class="value with-icon">
-    <label><%= Alchemy::Attachment.human_attribute_name(:url) %></label>
-    <p><%= @attachment.url %></p>
-    <alchemy-clipboard-button
-      content="<%= @attachment.url %>"
-      success-text="<%= Alchemy.t("Copied to clipboard") %>"
-      class="icon_button--right"
-    ></alchemy-clipboard-button>
-  </div>
-  <div class="value with-icon">
-    <label><%= Alchemy::Attachment.human_attribute_name(:download_url) %></label>
-    <p><%= @attachment.url(download: true) %></p>
-    <alchemy-clipboard-button
-      content="<%= @attachment.url(download: true) %>"
-      success-text="<%= Alchemy.t("Copied to clipboard") %>"
-      class="icon_button--right"
-    ></alchemy-clipboard-button>
-  </div>
-</div>
+<div class="resource-details">
+  <aside>
+    <div class="resource_info">
+      <div class="value">
+        <label>
+          <%= render_icon @attachment.icon_css_class %>
+        </label>
+        <p><%= @attachment.file_name %></p>
+      </div>
+      <div class="value with-icon">
+        <label><%= Alchemy::Attachment.human_attribute_name(:url) %></label>
+        <p><%= @attachment.url %></p>
+        <alchemy-clipboard-button
+          content="<%= @attachment.url %>"
+          success-text="<%= Alchemy.t("Copied to clipboard") %>"
+          class="icon_button--right"
+        ></alchemy-clipboard-button>
+      </div>
+      <div class="value with-icon">
+        <label><%= Alchemy::Attachment.human_attribute_name(:download_url) %></label>
+        <p><%= @attachment.url(download: true) %></p>
+        <alchemy-clipboard-button
+          content="<%= @attachment.url(download: true) %>"
+          success-text="<%= Alchemy.t("Copied to clipboard") %>"
+          class="icon_button--right"
+        ></alchemy-clipboard-button>
+      </div>
+    </div>
 
-<% case @attachment.file_mime_type %>
-<% when *Alchemy::Filetypes::IMAGE_FILE_TYPES %>
-<div class="attachment_preview_container image-preview">
-  <%= image_tag(@attachment.url, class: "full_width") %>
+    <hr>
+
+    <%= render "alchemy/admin/resources/resource_usage_info",
+      assignments: @assignments,
+      resource_name: :attachment %>
+  </aside>
+
+  <%# We need to use the `tag` helper for the div to be really empty for
+      the CSS `:empty` selector to work in order to hide this div if there is no preview %>
+  <%= tag.div(class: "resource-preview") do %>
+    <% case @attachment.file_mime_type %>
+    <% when *Alchemy::Filetypes::IMAGE_FILE_TYPES %>
+    <div class="attachment_preview_container">
+      <%= image_tag(@attachment.url) %>
+    </div>
+    <% when *Alchemy::Filetypes::AUDIO_FILE_TYPES %>
+    <div class="attachment_preview_container">
+      <%= audio_tag(@attachment.url, preload: "metadata", controls: true) %>
+    </div>
+    <% when *Alchemy::Filetypes::VIDEO_FILE_TYPES %>
+    <div class="attachment_preview_container">
+      <%= video_tag(@attachment.url, preload: "metadata", controls: true) %>
+    </div>
+    <% when "application/pdf" %>
+    <iframe src="<%= @attachment.url %>" frameborder="0"></iframe>
+    <% end %>
+  <% end %>
 </div>
-<% when *Alchemy::Filetypes::AUDIO_FILE_TYPES %>
-<div class="attachment_preview_container player-preview">
-  <%= audio_tag(@attachment.url, preload: "none", controls: true, class: "full_width") %>
-</div>
-<% when *Alchemy::Filetypes::VIDEO_FILE_TYPES %>
-<div class="attachment_preview_container player-preview">
-  <%= video_tag(@attachment.url, preload: "metadata", controls: true, class: "full_width") %>
-</div>
-<% when "application/pdf" %>
-<iframe src="<%= @attachment.url %>" frameborder=0 class="full-iframe">
-  Your browser does not support frames.
-</iframe>
-<% end %>

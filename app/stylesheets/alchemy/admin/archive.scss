@@ -1,6 +1,10 @@
 @use "../extends";
 @use "../mixins";
 
+alchemy-uploader {
+  display: inline-block;
+}
+
 .resources-header {
   padding: 0 var(--spacing-2);
 }

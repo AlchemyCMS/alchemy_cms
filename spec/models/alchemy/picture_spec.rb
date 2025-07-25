@@ -10,6 +10,10 @@ module Alchemy
 
     let(:picture) { build(:alchemy_picture, image_file: image_file) }
 
+    it_behaves_like "a relatable resource",
+      resource_name: :picture,
+      ingredient_type: :picture
+
     it "is valid with valid attributes" do
       expect(picture).to be_valid
     end
@@ -123,17 +127,6 @@ module Alchemy
 
       it "should not return old pictures" do
         expect(Picture.recent).not_to include(@old_picture)
-      end
-    end
-
-    describe ".deletable" do
-      let!(:assigned_picture) { create(:alchemy_picture) }
-      let!(:unassigned_picture) { create(:alchemy_picture) }
-      let!(:ingredient1) { create(:alchemy_ingredient_picture, related_object_type: described_class) }
-      let!(:ingredient2) { create(:alchemy_ingredient_picture, related_object: assigned_picture) }
-
-      it "should return all pictures that are not assigned to an ingredient" do
-        expect(Picture.deletable).to eq [unassigned_picture]
       end
     end
 

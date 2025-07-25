@@ -11,6 +11,7 @@ module Alchemy
       add_alchemy_filter :recent, type: :checkbox
       add_alchemy_filter :last_upload, type: :checkbox
       add_alchemy_filter :without_tag, type: :checkbox
+      add_alchemy_filter :deletable, type: :checkbox
 
       helper "alchemy/admin/tags"
 
@@ -38,6 +39,7 @@ module Alchemy
 
       # The resources controller renders the edit form as default for show actions.
       def show
+        @assignments = @attachment.related_ingredients.joins(element: :page)
         render :show
       end
 

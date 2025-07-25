@@ -60,16 +60,26 @@
         object: attachment,
         file_attribute: 'file' %>
     <% end %>
-    <% table.with_action(:destroy, Alchemy.t(:delete_file)) do |attachment| %>
-      <%= link_to_confirm_dialog render_icon(:minus),
-        Alchemy.t(:confirm_to_delete_file),
-        alchemy.admin_attachment_path(
-          id: attachment,
-          q: search_filter_params[:q],
-          page: params[:page],
-          per_page: params[:per_page]
-        ),
-        class: "icon_button" %>
+    <% table.with_action(:destroy) do |attachment| %>
+      <% if attachment.deletable? %>
+        <sl-tooltip content="<%= Alchemy.t(:delete_file) %>">
+          <%= link_to_confirm_dialog render_icon(:minus),
+            Alchemy.t(:confirm_to_delete_file),
+            alchemy.admin_attachment_path(
+              id: attachment,
+              q: search_filter_params[:q],
+              page: params[:page],
+              per_page: params[:per_page]
+            ),
+            class: "icon_button" %>
+        </sl-tooltip>
+      <% else %>
+        <sl-tooltip content="<%= Alchemy.t(:in_use) %>">
+          <button class="icon_button disabled">
+            <%= render_icon(:minus) %>
+          </button>
+        </sl-tooltip>
+      <% end %>
     <% end %>
     <% table.with_action(:edit, Alchemy.t(:rename_file)) do |attachment| %>
       <%= link_to_dialog render_icon(:edit),

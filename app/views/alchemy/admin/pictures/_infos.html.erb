@@ -1,55 +1,20 @@
-<div class="resource_info">
-  <div class="picture-file-infos">
-    <div class="value">
-      <label><%= Alchemy::Picture.human_attribute_name(:image_file_name) %></label>
-      <p><%= @picture.image_file_name %></p>
-    </div>
-    <div class="value">
-      <label><%= Alchemy::Picture.human_attribute_name(:image_file_dimensions) %></label>
-      <p><%= @picture.image_file_dimensions %>px</p>
-    </div>
-    <div class="value">
-      <label><%= Alchemy::Picture.human_attribute_name(:image_file_size) %></label>
-      <p><%= number_to_human_size @picture.image_file_size %></p>
-    </div>
+<div class="resource_info file-infos">
+  <div class="value">
+    <label><%= Alchemy::Picture.human_attribute_name(:image_file_name) %></label>
+    <p><%= @picture.image_file_name %></p>
+  </div>
+  <div class="value">
+    <label><%= Alchemy::Picture.human_attribute_name(:image_file_dimensions) %></label>
+    <p><%= @picture.image_file_dimensions %>px</p>
+  </div>
+  <div class="value">
+    <label><%= Alchemy::Picture.human_attribute_name(:image_file_size) %></label>
+    <p><%= number_to_human_size @picture.image_file_size %></p>
   </div>
 </div>
 
-<div class="picture-usage-info resource_info">
-  <h3>
-    <%= Alchemy.t(:this_picture_is_used_on_these_pages) %>
-  </h3>
-  <div id="pictures_page_list">
-    <% if @assignments.any? %>
-      <ul>
-        <% @assignments.group_by(&:page).each do |page, picture_ingredients| %>
-          <% if page %>
-            <li>
-              <h3>
-                <%= render_icon 'file' %>
-                <p><%= link_to page.name, edit_admin_page_path(page) %></p>
-              </h3>
-              <ul class="list">
-                <% picture_ingredients.group_by(&:element).each do |element, picture_ingredients| %>
-                  <li class="<%= cycle('even', 'odd') %>">
-                    <% page_link = link_to element.display_name_with_preview_text,
-                                   edit_admin_page_path(page, anchor: "element_#{element.id}") %>
-                    <% ingredients = picture_ingredients.map { |p| Alchemy::IngredientEditor.new(p).translated_role }.to_sentence %>
-                    <%= render_icon('draggable', style: false) %>
-                    <p>
-                      <%== Alchemy.t(:pictures_in_page, page: page_link, pictures: ingredients) %>
-                    </p>
-                  </li>
-                <% end %>
-              </ul>
-            </li>
-          <% end %>
-        <% end %>
-      </ul>
-    <% else %>
-      <%= render_message do %>
-        <%= Alchemy.t(:picture_not_in_use_yet) %>
-      <% end %>
-    <% end %>
-  </div>
-</div>
+<hr>
+
+<%= render "alchemy/admin/resources/resource_usage_info",
+  assignments: @assignments,
+  resource_name: :picture %>

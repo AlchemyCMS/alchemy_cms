@@ -108,8 +108,7 @@
   padding: var(--spacing-2) var(--spacing-4) var(--spacing-2) var(--spacing-1);
   overflow: auto;
 
-  form .control-label,
-  .resource_info .value label {
+  form .control-label {
     text-align: left;
   }
 
@@ -119,8 +118,7 @@
 
   form .input .select2-container,
   form .input input[type="text"],
-  form .input textarea,
-  .resource_info .value p {
+  form .input textarea {
     width: 100%;
   }
 }
@@ -185,46 +183,8 @@
   }
 }
 
-.picture-file-infos,
-.picture-usage-info {
-  padding: var(--spacing-2) 0;
-
-  .message {
-    margin: var(--spacing-2) 0;
-  }
-}
-
-#pictures_page_list {
-  h3 {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-1);
-    padding: var(--spacing-1) var(--spacing-2) 0;
-    margin: 0;
-  }
-
-  ul {
-    padding-left: 0;
-    list-style-type: none;
-  }
-
-  .list {
-    margin: var(--spacing-2) 0;
-
-    li {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-1);
-      padding: var(--spacing-2);
-      border-radius: var(--border-radius_medium);
-      white-space: normal;
-      margin-bottom: 1em;
-    }
-  }
-
-  p {
-    margin: 0;
-  }
+.picture-form {
+  margin-bottom: var(--spacing-3);
 }
 
 .picture-overlay-navigation {

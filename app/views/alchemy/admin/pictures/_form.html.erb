@@ -1,5 +1,5 @@
 <%= turbo_frame_tag(@picture) do %>
-  <%= alchemy_form_for [alchemy, :admin, @picture] do |f| %>
+  <%= alchemy_form_for [alchemy, :admin, @picture], class: "picture-form" do |f| %>
     <%= f.input :name %>
     <%= render "alchemy/admin/pictures/picture_description_field", f: f %>
     <%= render Alchemy::Admin::TagsAutocomplete.new(additional_class: "input") do %>

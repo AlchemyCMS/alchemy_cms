@@ -1,40 +1,17 @@
 .attachment_preview_container {
-  background-color: var(--color-grey_light);
-  margin-top: var(--spacing-3);
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  height: 100%;
+  background-color: var(--panel-background-color);
+  margin-top: va r(--spacing-1);
 
+  img,
   audio,
   video {
     display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
   }
-
-  &.image-preview {
-    height: 300px;
-    text-align: center;
-    padding: var(--spacing-2);
-    white-space: nowrap;
-
-    &:before {
-      content: "";
-      display: inline-block;
-      height: 100%;
-      vertical-align: middle;
-      margin-right: -0.25em;
-    }
-
-    img.full_width {
-      display: inline-block;
-      width: auto;
-      height: auto;
-      max-width: 100%;
-      max-height: 100%;
-      vertical-align: middle;
-    }
-  }
-}
-
-.full-iframe {
-  width: 100%;
-  background-color: white;
-  min-height: 435px;
-  margin-top: var(--spacing-3);
 }
