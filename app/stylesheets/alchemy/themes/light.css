@@ -12,14 +12,16 @@
     --button-box-shadow: 0 1px 1px -1px hsl(0deg, 0%, 20%);
     --button-focus-border-color: var(--color-orange_dark);
     --button-focus-box-shadow: 0 1px 1px 0 var(--button-focus-border-color);
-    --button-hover-bg-color: transparent;
+    --button-hover-bg-color: var(--color-grey_very_light);
     --button-hover-border-color: hsla(0deg, 0%, 59%, 0.5);
     --button-text-color: var(--text-color);
     --button-text-shadow: none;
     --button-disabled-bg-color: hsla(0deg, 0%, 100%, 0.5);
     --button-disabled-border-color: var(--button-border-color);
-    --button-secondary-bg-color: transparent;
+    --button-secondary-bg-color: var(--color-grey_light);
     --button-secondary-border-color: var(--border-color);
+    --button-secondary-hover-bg-color: var(--color-white);
+    --button-secondary-hover-border-color: var(--color-grey_medium);
     --button-secondary-text-color: var(--text-color);
 
     --code-background-color: var(--color-grey_light);
@@ -82,6 +84,7 @@
     --hint-background-color: var(--color-yellow_light);
     --hint-border-color: var(--color-grey_light);
     --hint-text-color: hsl(49deg, 18%, 30%);
+    --hint-text-link-color: var(--color-grey_very_dark);
 
     /* Icon Buttons */
     --icon-button-linked-color: hsla(42deg, 100%, 74%, 0.75);
@@ -132,17 +135,19 @@
 
     /* Panels */
     --panel-background-color: var(--color-grey_light);
+    --panel-border-color: var(--border-color);
 
     --picture-tool-background-color: var(--color-white);
+    --picture-tool-hover-background-color: var(--color-grey_very_light);
 
     --search-field-background-color: var(--color-grey_very_light);
 
     /* Selects */
     --select-background-color: var(--form-field-background-color);
-    --select-border-color: var(--button-border-color);
+    --select-border-color: var(--border-inset-color);
     --select-text-color: var(--form-field-text-color);
     --select-hover-bg-color: var(--color-blue_dark);
-    --select-hover-border-color: var(--button-hover-border-color);
+    --select-hover-border-color: var(--border-color);
     --select-hover-text-color: var(--color-white);
     --select-background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="hsla(224deg, 23%, 26%, 0.75)"><path d="M11.9999 13.1714L16.9497 8.22168L18.3639 9.63589L11.9999 15.9999L5.63599 9.63589L7.0502 8.22168L11.9999 13.1714Z"></path></svg>');
     --select-close-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="hsla(224deg, 23%, 26%, 0.75)"><path d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"></path></svg>');

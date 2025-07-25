@@ -20,6 +20,8 @@
     --button-disabled-border-color: var(--a-grey);
     --button-secondary-bg-color: var(--a-darker-grey);
     --button-secondary-border-color: var(--a-grey);
+    --button-secondary-hover-bg-color: var(--a-dark-grey);
+    --button-secondary-hover-border-color: var(--a-grey);
     --button-secondary-text-color: var(--color-white);
 
     --code-background-color: var(--a-darkest-grey);
@@ -92,6 +94,7 @@
     --hint-background-color: hsl(55deg, 20%, 25%);
     --hint-border-color: hsla(55deg, 20%, 50%, 0.5);
     --hint-text-color: hsl(55deg, 20%, 75%);
+    --hint-text-link-color: hsla(0deg, 0%, 100%, 0.85);
 
     /* Icon Buttons */
     --icon-button-linked-color: hsla(42deg, 100%, 40%, 0.75);
@@ -141,8 +144,8 @@
     --pagination-disabled-text-color: var(--a-light-grey);
 
     /* Panels */
-    --panel-background-color: var(--a-dark-grey);
-    --panel-border-color: var(--border-color);
+    --panel-background-color: var(--a-darker-grey);
+    --panel-border-color: var(--a-grey);
 
     --picture-thumbnail-background-color: var(--a-dark-grey);
     --picture-thumbnail-toolbar-bg-color: var(--a-darker-grey);
