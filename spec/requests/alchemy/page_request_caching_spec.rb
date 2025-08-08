@@ -40,6 +40,21 @@ RSpec.describe "Page request caching" do
           end
         end
 
+        context "when stale_while_revalidate is enabled" do
+          before do
+            allow(Alchemy.config).to receive(:page_cache) do
+              double(stale_while_revalidate: 3600, max_age: 600)
+            end
+          end
+
+          it "sets cache-control header stale-while-revalidate" do
+            get "/#{page.urlname}"
+            expect(response.headers).to have_key("Cache-Control")
+            expect(response.headers["Cache-Control"]).to \
+              eq("max-age=60, public, stale-while-revalidate=3600")
+          end
+        end
+
         context "for page having expiration time configured" do
           before do
             allow_any_instance_of(Alchemy::Page).to receive(:expiration_time) { 3600 }

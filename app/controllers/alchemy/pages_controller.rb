@@ -191,7 +191,19 @@ module Alchemy
       if must_not_cache?
         expires_now
       else
-        expires_in @page.expiration_time, public: !@page.restricted, must_revalidate: true
+        expires_in @page.expiration_time, {public: !@page.restricted}.merge(caching_options)
+      end
+    end
+
+    def caching_options
+      if Alchemy.config.page_cache.stale_while_revalidate
+        {
+          stale_while_revalidate: Alchemy.config.page_cache.stale_while_revalidate
+        }
+      else
+        {
+          must_revalidate: true
+        }
       end
     end
 

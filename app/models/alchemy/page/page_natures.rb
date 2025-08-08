@@ -157,7 +157,6 @@ module Alchemy
       # @returns Boolean
       #
       def cache_page?
-        # debugger
         return false if !public? || restricted?
 
         definition.cache != false && definition.searchresults != true

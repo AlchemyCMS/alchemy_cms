@@ -170,7 +170,7 @@ module Alchemy
 
         it "returns all non 'layoutpage' page layout names" do
           allow(Site).to receive(:definitions).and_return([])
-          expect(site.page_layout_names).to eq(%w[index readonly standard everything news contact erb_layout])
+          expect(site.page_layout_names).to eq(%w[index readonly standard everything news search contact erb_layout])
         end
 
         context "when layoutpages are requested" do
@@ -210,7 +210,8 @@ module Alchemy
             "news",
             "contact",
             "footer",
-            "erb_layout"
+            "erb_layout",
+            "search"
           ])
         end
       end
