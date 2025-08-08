@@ -21,6 +21,7 @@
 - name: standard
   elements: [article, header, slider, download]
   autogenerate: [header, article, download]
+  cache: 60
 
 - name: everything
   hint: true
@@ -43,6 +44,9 @@
   insert_elements_at: top
   elements: [headline, news]
   autogenerate: [news]
+
+- name: search
+  searchresults: true
 
 - name: contact
   unique: true

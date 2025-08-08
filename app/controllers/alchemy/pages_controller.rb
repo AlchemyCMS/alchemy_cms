@@ -229,7 +229,12 @@ module Alchemy
 
     # don't cache pages if we have flash message to display or the page has caching disabled
     def must_not_cache?
-      flash.present? || !@page.cache_page?
+      !caching_enabled? || !@page.cache_page? || flash.present?
+    end
+
+    def caching_enabled?
+      Rails.application.config.action_controller.perform_caching &&
+        Alchemy.config.cache_pages
     end
 
     def page_not_found!
