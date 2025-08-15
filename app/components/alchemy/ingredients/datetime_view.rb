@@ -1,13 +1,15 @@
 module Alchemy
   module Ingredients
     class DatetimeView < BaseView
+      DEFAULT_DATE_FORMAT = :"alchemy.default"
+
       attr_reader :date_format
 
       # @param ingredient [Alchemy::Ingredient]
       # @param date_format [String] The date format to use. Use either a strftime format string, a I18n format symbol or "rfc822". Defaults to "time.formats.alchemy.default".
-      def initialize(ingredient, date_format: :"alchemy.default", html_options: {})
+      def initialize(ingredient, date_format: nil, html_options: {})
         super(ingredient)
-        @date_format = settings_value(:date_format, value: date_format)
+        @date_format = settings_value(:date_format, value: date_format) || DEFAULT_DATE_FORMAT
       end
 
       def call
