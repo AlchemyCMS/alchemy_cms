@@ -16,11 +16,35 @@ describe "alchemy/ingredients/_datetime_view" do
 
   let(:options) { {} }
 
+  subject do
+    render ingredient, options: options
+    rendered
+  end
+
   context "with date value" do
     context "without date_format passed" do
       it "translates the date value with default format" do
-        render ingredient, options: options
-        expect(rendered).to have_content("08.29.2024 12:00")
+        is_expected.to have_content("08.29.2024 12:00")
+      end
+    end
+
+    context "with date_format in settings" do
+      before do
+        allow(ingredient).to receive(:settings) do
+          {date_format: "%d.%m."}
+        end
+      end
+
+      it "translates the date value with format from settings" do
+        is_expected.to have_content("29.08.")
+      end
+
+      context "but with format passed as argument" do
+        let(:options) { {date_format: "%d.%m.%Y"} }
+
+        it "translates the date value with format from arguments" do
+          is_expected.to have_content("29.08.2024")
+        end
       end
     end
 
@@ -28,8 +52,7 @@ describe "alchemy/ingredients/_datetime_view" do
       let(:options) { {date_format: "rfc822"} }
 
       it "renders the date rfc822 conform" do
-        render ingredient, options: options
-        expect(rendered).to have_content("Thu, 29 Aug 2024 12:00:00 +0200")
+        is_expected.to have_content("Thu, 29 Aug 2024 12:00:00 +0200")
       end
     end
   end
@@ -38,8 +61,7 @@ describe "alchemy/ingredients/_datetime_view" do
     let(:ingredient) { Alchemy::Ingredients::Datetime.new(value: nil) }
 
     it "renders nothing" do
-      render ingredient, options: options
-      expect(rendered).to eq("")
+      is_expected.to eq("")
     end
   end
 end
