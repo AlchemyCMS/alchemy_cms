@@ -86,6 +86,10 @@
 - Deprecate `Alchemy.enable_searchable` for `Alchemy.config.show_page_searchable_checkbox` [#3188](https://github.com/AlchemyCMS/alchemy_cms/pull/3188) ([mamhoff](https://github.com/mamhoff))
 - Add Alchemy.config and DSL for type-safe configuration [#3178](https://github.com/AlchemyCMS/alchemy_cms/pull/3178) ([mamhoff](https://github.com/mamhoff))
 
+## 7.4.8 (2025-08-15)
+
+- [7.4-stable] fix(DatetimeView): Use settings value if present [#3350](https://github.com/AlchemyCMS/alchemy_cms/pull/3350) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.4.7 (2025-07-22)
 
 - [7.4-stable] Harden picture descriptions integration spec [#3342](https://github.com/AlchemyCMS/alchemy_cms/pull/3342) ([alchemycms-bot](https://github.com/alchemycms-bot))
@@ -187,6 +191,17 @@
 - Remove 7.x upgraders [#3039](https://github.com/AlchemyCMS/alchemy_cms/pull/3039) ([tvdeyen](https://github.com/tvdeyen))
 - Make page select portable [#3037](https://github.com/AlchemyCMS/alchemy_cms/pull/3037) ([tvdeyen](https://github.com/tvdeyen))
 - Allow Rails 8.0 [#3032](https://github.com/AlchemyCMS/alchemy_cms/pull/3032) ([tvdeyen](https://github.com/tvdeyen))
+
+## 7.3.7 (2025-08-15)
+
+- [7.3-stable] fix(DatetimeView): Use settings value if present [#3349](https://github.com/AlchemyCMS/alchemy_cms/pull/3349) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
+## 7.3.6 (2025-03-17)
+
+- [7.3-stable] Fix link dialog for links with url scheme mailto [#3206](https://github.com/AlchemyCMS/alchemy_cms/pull/3206) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.3-stable] CI: Use own script to check changes files [#3199](https://github.com/AlchemyCMS/alchemy_cms/pull/3199) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.3-stable] Add rel="noopener noreferrer" to external links [#3185](https://github.com/AlchemyCMS/alchemy_cms/pull/3185) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.3-stable] Fix locked pages tab height [#3169](https://github.com/AlchemyCMS/alchemy_cms/pull/3169) ([tvdeyen](https://github.com/tvdeyen))
 
 ## 7.3.5 (2025-01-24)
 
