@@ -28,6 +28,26 @@ RSpec.describe Alchemy::Ingredients::DatetimeView, type: :component do
       end
     end
 
+    context "with date_format in settings" do
+      before do
+        allow(ingredient).to receive(:settings) do
+          {date_format: "%d.%m."}
+        end
+      end
+
+      it "translates the date value with format from settings" do
+        is_expected.to have_content("29.08.")
+      end
+
+      context "but with format passed as argument" do
+        let(:options) { {date_format: "%d.%m.%Y"} }
+
+        it "translates the date value with format from arguments" do
+          is_expected.to have_content("29.08.2024")
+        end
+      end
+    end
+
     context "with option date_format set to rfc822" do
       let(:options) { {date_format: "rfc822"} }
 
