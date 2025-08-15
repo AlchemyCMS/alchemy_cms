@@ -191,7 +191,19 @@ module Alchemy
       if must_not_cache?
         expires_now
       else
-        expires_in @page.expiration_time, public: !@page.restricted, must_revalidate: true
+        expires_in @page.expiration_time, {public: !@page.restricted}.merge(caching_options)
+      end
+    end
+
+    def caching_options
+      if Alchemy.config.page_cache.stale_while_revalidate
+        {
+          stale_while_revalidate: Alchemy.config.page_cache.stale_while_revalidate
+        }
+      else
+        {
+          must_revalidate: true
+        }
       end
     end
 
@@ -229,7 +241,12 @@ module Alchemy
 
     # don't cache pages if we have flash message to display or the page has caching disabled
     def must_not_cache?
-      flash.present? || !@page.cache_page?
+      !caching_enabled? || !@page.cache_page? || flash.present?
+    end
+
+    def caching_enabled?
+      Rails.application.config.action_controller.perform_caching &&
+        Alchemy.config.cache_pages
     end
 
     def page_not_found!

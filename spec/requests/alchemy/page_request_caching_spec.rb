@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "Page request caching" do
-  let!(:page) { create(:alchemy_page, :public) }
+  let(:page) { create(:alchemy_page, :public) }
 
   context "when caching is disabled in app" do
     before do
@@ -32,46 +32,63 @@ RSpec.describe "Page request caching" do
           allow_any_instance_of(Alchemy::Page).to receive(:restricted) { false }
         end
 
-        context "for page not having expiration time" do
-          before do
-            allow_any_instance_of(Alchemy::Page).to receive(:expiration_time) { nil }
-          end
-
+        context "for page not having expiration time configured" do
           it "sets public cache control header" do
             get "/#{page.urlname}"
             expect(response.headers).to have_key("Cache-Control")
-            expect(response.headers["Cache-Control"]).to eq("public, must-revalidate")
+            expect(response.headers["Cache-Control"]).to eq("max-age=60, public, must-revalidate")
           end
         end
 
-        context "for page having expiration time" do
-          let!(:public_until) { 10.days.from_now }
-          let!(:now) { Time.current }
-          let!(:expiration_time) { public_until - now }
-
+        context "when stale_while_revalidate is enabled" do
           before do
-            allow(Time).to receive(:current) { now }
-            page.public_version.update(public_until: public_until)
+            allow(Alchemy.config).to receive(:page_cache) do
+              double(stale_while_revalidate: 3600, max_age: 600)
+            end
+          end
+
+          it "sets cache-control header stale-while-revalidate" do
+            get "/#{page.urlname}"
+            expect(response.headers).to have_key("Cache-Control")
+            expect(response.headers["Cache-Control"]).to \
+              eq("max-age=60, public, stale-while-revalidate=3600")
+          end
+        end
+
+        context "for page having expiration time configured" do
+          before do
+            allow_any_instance_of(Alchemy::Page).to receive(:expiration_time) { 3600 }
           end
 
           it "sets max-age cache control header" do
             get "/#{page.urlname}"
             expect(response.headers).to have_key("Cache-Control")
             expect(response.headers["Cache-Control"]).to \
-              eq("max-age=#{expiration_time.to_i}, public, must-revalidate")
+              eq("max-age=3600, public, must-revalidate")
           end
         end
       end
 
-      context "when page is restricted" do
+      context "when page must not be cached" do
         before do
-          allow_any_instance_of(Alchemy::Page).to receive(:restricted) { true }
+          allow_any_instance_of(Alchemy::Page).to receive(:cache_page?) { false }
         end
 
-        it "sets private cache control header" do
+        it "sets no-cache cache-control header" do
           get "/#{page.urlname}"
           expect(response.headers).to have_key("Cache-Control")
-          expect(response.headers["Cache-Control"]).to eq("private, must-revalidate")
+          expect(response.headers["Cache-Control"]).to eq("no-cache")
+        end
+      end
+
+      context "when caching is deactivated in the Alchemy config" do
+        before do
+          stub_alchemy_config(:cache_pages, false)
+        end
+
+        it "returns false" do
+          get "/#{page.urlname}"
+          expect(response.headers["cache-control"]).to eq("no-cache")
         end
       end
 

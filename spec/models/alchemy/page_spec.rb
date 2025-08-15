@@ -1708,38 +1708,62 @@ module Alchemy
     end
 
     describe "#cache_page?" do
-      let(:page) { Page.new(page_layout: "news") }
+      let(:page) { build(:alchemy_page, :public, page_layout: "news") }
+
       subject { page.cache_page? }
 
-      before { Rails.application.config.action_controller.perform_caching = true }
-      after { Rails.application.config.action_controller.perform_caching = false }
-
-      it "returns true when everthing is alright" do
-        expect(subject).to be true
+      it "returns true when page is public" do
+        expect(subject).to be(true)
       end
 
-      it "returns false when the Rails app does not perform caching" do
-        Rails.application.config.action_controller.perform_caching = false
-        expect(subject).to be false
+      context "when the page layout is set to cache = false" do
+        let(:page) { build(:alchemy_page, :public, page_layout: "contact") }
+
+        it "returns false" do
+          expect(subject).to be(false)
+        end
       end
 
-      it "returns false when caching is deactivated in the Alchemy config" do
-        stub_alchemy_config(:cache_pages, false)
-        expect(subject).to be false
+      context "when the page layout is set to searchresults = true" do
+        let(:page) { build(:alchemy_page, :public, page_layout: "contact") }
+
+        it "returns false" do
+          expect(subject).to be(false)
+        end
+      end
+    end
+
+    describe "#expiration_time" do
+      subject { page.expiration_time }
+
+      let(:page) { build(:alchemy_page, :public, page_layout: "standard") }
+
+      context "if cache is disabled" do
+        before do
+          allow(page).to receive(:cache_page?).and_return(false)
+        end
+
+        it "sets it to zero" do
+          is_expected.to eq(0)
+        end
       end
 
-      it "returns false when the page layout is set to cache = false" do
-        page_layout = PageDefinition.get("news")
-        page_layout.cache = false
-        allow(PageDefinition).to receive(:get).with("news").and_return(page_layout)
-        expect(subject).to be false
+      context "if cache is set to a number on page layout" do
+        it "uses this value" do
+          is_expected.to eq(60)
+        end
       end
 
-      it "returns false when the page layout is set to searchresults = true" do
-        page_layout = PageDefinition.get("news")
-        page_layout.searchresults = true
-        allow(PageDefinition).to receive(:get).with("news").and_return(page_layout)
-        expect(subject).to be false
+      context "if cache is left blank" do
+        let(:page) { build(:alchemy_page, :public, page_layout: "everything") }
+
+        before do
+          allow(Alchemy.config.page_cache).to receive(:max_age).and_return(3600)
+        end
+
+        it "uses configured value" do
+          is_expected.to eq(3600)
+        end
       end
     end
 
