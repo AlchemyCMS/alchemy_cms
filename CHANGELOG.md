@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.4.8 (2025-08-15)
+
+- [7.4-stable] fix(DatetimeView): Use settings value if present [#3350](https://github.com/AlchemyCMS/alchemy_cms/pull/3350) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.4.7 (2025-07-22)
 
 - [7.4-stable] Harden picture descriptions integration spec [#3342](https://github.com/AlchemyCMS/alchemy_cms/pull/3342) ([alchemycms-bot](https://github.com/alchemycms-bot))
