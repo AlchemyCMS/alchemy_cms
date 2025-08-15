@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.3.7 (2025-08-15)
+
+- [7.3-stable] fix(DatetimeView): Use settings value if present [#3349](https://github.com/AlchemyCMS/alchemy_cms/pull/3349) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.3.6 (2025-03-17)
 
 - [7.3-stable] Fix link dialog for links with url scheme mailto [#3206](https://github.com/AlchemyCMS/alchemy_cms/pull/3206) ([alchemycms-bot](https://github.com/alchemycms-bot))
