@@ -5,6 +5,7 @@ require "alchemy/configurations/default_language"
 require "alchemy/configurations/default_site"
 require "alchemy/configurations/format_matchers"
 require "alchemy/configurations/mailer"
+require "alchemy/configurations/page_cache"
 require "alchemy/configurations/preview"
 require "alchemy/configurations/sitemap"
 require "alchemy/configurations/uploader"
@@ -30,6 +31,12 @@ module Alchemy
       # NOTE: You can enable/disable page caching for single Alchemy::Definitions in the page_layout.yml file.
       #
       option :cache_pages, :boolean, default: true
+
+      # === Page caching max age
+      #
+      # max-age [Integer] # The duration in seconds for which the page is cached before revalidation.
+      # stale-while-revalidate [Boolean] # If true, enables the stale-while-revalidate caching strategy.
+      configuration :page_cache, PageCache
 
       # === Sitemap
       #
