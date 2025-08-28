@@ -1,3 +1,4 @@
+import ajax from "alchemy_admin/utils/ajax"
 import { removeTab } from "alchemy_admin/fixed_elements"
 import { growl } from "alchemy_admin/growler"
 import { reloadPreview } from "alchemy_admin/components/preview_window"
@@ -12,8 +13,8 @@ export class DeleteElementButton extends HTMLElement {
   async handleEvent() {
     const confirmed = await openConfirmDialog(this.message)
     if (confirmed) {
-      const response = await fetch(this.url, { method: "DELETE" })
-      this.#removeElement(await response.json())
+      const response = await ajax("DELETE", this.url)
+      this.#removeElement(response.data)
     }
   }
 
