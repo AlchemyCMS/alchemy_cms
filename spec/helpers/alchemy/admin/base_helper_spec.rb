@@ -21,17 +21,17 @@ module Alchemy
       end
 
       context "with title in html options" do
-        it "passes html title to sl-tooltip" do
+        it "passes html title to wa-tooltip" do
           link = helper.link_to_dialog("Open", admin_dashboard_path, {}, {title: "Open Me"})
-          expect(link).to have_css("sl-tooltip[content='Open Me']")
+          expect(link).to have_css("wa-tooltip[content='Open Me']")
           expect(link).to_not have_css("a[title='Open Me']")
         end
       end
 
       context "without title in html options" do
-        it "has no sl-toolip" do
+        it "has no wa-tooltip" do
           link = helper.link_to_dialog("Open", admin_dashboard_path, {}, {})
-          expect(link).to_not have_css("sl-tooltip")
+          expect(link).to_not have_css("wa-tooltip")
           expect(link).to_not have_css("a[title]")
         end
       end
@@ -104,8 +104,8 @@ module Alchemy
           delete_button("/admin/pages", {}, {title: "Open Me"})
         end
 
-        it "passes html title to sl-tooltip" do
-          expect(button).to have_css("sl-tooltip[content='Open Me']")
+        it "passes html title to wa-tooltip" do
+          expect(button).to have_css("wa-tooltip[content='Open Me']")
           expect(button).to_not have_css("button[title='Open Me']")
         end
       end
@@ -115,8 +115,8 @@ module Alchemy
           delete_button("/admin/pages", {}, {})
         end
 
-        it "has no sl-toolip" do
-          expect(button).to_not have_css("sl-tooltip")
+        it "has no wa-tooltip" do
+          expect(button).to_not have_css("wa-tooltip")
           expect(button).to_not have_css("button[title]")
         end
       end
@@ -208,7 +208,7 @@ module Alchemy
       subject { helper.hint_with_tooltip("My hint") }
 
       it "renders a warning icon with hint text wrapped in tooltip" do
-        is_expected.to have_css 'sl-tooltip.like-hint-tooltip[content="My hint"] alchemy-icon[name="alert"]'
+        is_expected.to have_css 'wa-tooltip.like-hint-tooltip[content="My hint"] alchemy-icon[name="alert"]'
       end
 
       context "with icon set to info" do

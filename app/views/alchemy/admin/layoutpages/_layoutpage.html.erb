@@ -4,9 +4,9 @@
     <% if layoutpage.definition.blank? %>
       <%= page_layout_missing_warning %>
     <% elsif layoutpage.locked? %>
-      <sl-tooltip class="like-hint-tooltip" content="<%= Alchemy.t("This page is locked", name: layoutpage.locker_name) %>">
+      <wa-tooltip class="like-hint-tooltip" content="<%= Alchemy.t("This page is locked", name: layoutpage.locker_name) %>">
         <%= render_icon "file-edit", size: "xl" %>
-      </sl-tooltip>
+      </wa-tooltip>
     <% else %>
       <%= render_icon "file-edit", size: "xl" %>
     <% end %>
@@ -29,7 +29,7 @@
     </div>
     <div class="sitemap_right_tools">
     <%- if can?(:configure, layoutpage) -%>
-      <sl-tooltip content="<%= Alchemy.t(:edit_page_properties) %>">
+      <wa-tooltip content="<%= Alchemy.t(:edit_page_properties) %>">
         <%= link_to_dialog(
           render_icon("settings-3"),
           alchemy.edit_admin_layoutpage_path(layoutpage),
@@ -39,10 +39,10 @@
           },
           class: "icon_button"
         ) -%>
-      </sl-tooltip>
+      </wa-tooltip>
     <%- end -%>
     <%- if can?(:copy, layoutpage) -%>
-      <sl-tooltip content="<%= Alchemy.t(:copy_page) %>">
+      <wa-tooltip content="<%= Alchemy.t(:copy_page) %>">
         <%= link_to(
           render_icon("file-copy"),
           alchemy.insert_admin_clipboard_path(
@@ -53,10 +53,10 @@
           method: 'post',
           class: "icon_button"
         ) %>
-      </sl-tooltip>
+      </wa-tooltip>
     <%- end -%>
     <%- if can?(:destroy, layoutpage) -%>
-      <sl-tooltip content="<%= Alchemy.t(:delete_page) %>">
+      <wa-tooltip content="<%= Alchemy.t(:delete_page) %>">
         <%= link_to_confirm_dialog(
           render_icon("delete-bin-2"),
           Alchemy.t(:confirm_to_delete_page),
@@ -67,7 +67,7 @@
           ),
           class: "icon_button"
         ) -%>
-      </sl-tooltip>
+      </wa-tooltip>
     <%- end -%>
     </div>
   </div>

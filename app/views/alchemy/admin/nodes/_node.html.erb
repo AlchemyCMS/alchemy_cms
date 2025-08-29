@@ -28,7 +28,7 @@
     </div>
     <span class="nodes_tree-right_tools">
       <% if can?(:edit, node) %>
-        <sl-tooltip content="<%= node.root? ? Alchemy.t(:edit_menu) : Alchemy.t(:edit_node) %>">
+        <wa-tooltip content="<%= node.root? ? Alchemy.t(:edit_menu) : Alchemy.t(:edit_node) %>">
           <%= link_to_dialog(
             render_icon(:edit),
             alchemy.edit_admin_node_path(node),
@@ -38,10 +38,10 @@
             },
             class: "icon_button"
           ) %>
-        </sl-tooltip>
+        </wa-tooltip>
       <% end %>
       <% if can?(:destroy, node) %>
-        <sl-tooltip content="<%= node.root? ? Alchemy.t(:delete_menu) : Alchemy.t(:delete_node) %>">
+        <wa-tooltip content="<%= node.root? ? Alchemy.t(:delete_menu) : Alchemy.t(:delete_node) %>">
           <%= link_to_confirm_dialog(
             render_icon("delete-bin-2"),
             node.root? ? Alchemy.t(:confirm_to_delete_menu) : Alchemy.t(:confirm_to_delete_node),
@@ -54,10 +54,10 @@
               class: "icon_button"
             },
           ) %>
-        </sl-tooltip>
+        </wa-tooltip>
       <% end %>
       <% if can?(:create, Alchemy::Node) %>
-        <sl-tooltip content="<%= Alchemy.t(:create_node) %>" placement="top-end">
+        <wa-tooltip content="<%= Alchemy.t(:create_node) %>" placement="top-end">
           <%= link_to_dialog(
             render_icon(:add),
             alchemy.new_admin_node_path(parent_id: node.id),
@@ -68,7 +68,7 @@
             },
             class: "icon_button"
           ) %>
-        </sl-tooltip>
+        </wa-tooltip>
       <% end %>
     </span>
   <% end %>

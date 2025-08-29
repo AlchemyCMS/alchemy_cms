@@ -56,7 +56,7 @@ RSpec.describe "Nodes management", type: :system, js: true do
     it "lets a user remove a menu node" do
       click_link_with_tooltip("Delete this menu node")
 
-      within "sl-dialog[open]" do
+      within "wa-dialog[open]" do
         expect(page).to have_content "Do you really want to delete this menu node?"
         click_button "Yes"
       end

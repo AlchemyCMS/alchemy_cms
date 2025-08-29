@@ -77,15 +77,15 @@ export class Progress extends AlchemyHTMLElement {
 
   render() {
     return `
-      <sl-progress-bar value="0"></sl-progress-bar>
+      <wa-progress-bar value="0"></wa-progress-bar>
       <div class="overall-progress-value">
         <span class="value-text"></span>
 
-        <sl-tooltip content="${this.buttonLabel}">
+        <wa-tooltip content="${this.buttonLabel}">
           <button class="icon_button" aria-label="${this.buttonLabel}">
             <alchemy-icon name="close"></alchemy-icon>
           </button>
-        </sl-tooltip>
+        </wa-tooltip>
       </div>
       <div class="single-uploads" style="--progress-columns: ${
         this.fileCount > 3 ? 3 : this.fileCount
@@ -193,7 +193,7 @@ export class Progress extends AlchemyHTMLElement {
    * @returns {HTMLProgressElement|undefined}
    */
   get progressElement() {
-    return this.querySelector("sl-progress-bar")
+    return this.querySelector("wa-progress-bar")
   }
 
   /**

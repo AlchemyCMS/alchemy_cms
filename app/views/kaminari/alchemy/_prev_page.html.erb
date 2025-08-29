@@ -11,9 +11,9 @@
     <%= render_icon("arrow-left-s") %>
   </span>
 <% else -%>
-  <sl-tooltip class="pagination-label" content="<%= Alchemy.t(:previous_page, scope: 'pagination') %>" placement="top-start">
+  <wa-tooltip class="pagination-label" content="<%= Alchemy.t(:previous_page, scope: 'pagination') %>" placement="top-start">
     <%= link_to url, rel: 'prev', remote: remote, class: 'previous_page' do %>
       <%= render_icon("arrow-left-s") %>
     <% end %>
-  </sl-tooltip>
+  </wa-tooltip>
 <% end -%>

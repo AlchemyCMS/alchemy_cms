@@ -13,15 +13,15 @@
     <% end %>
   </div>
   <div class="col tools">
-    <sl-tooltip content="<%= Alchemy.t(:save) %>">
+    <wa-tooltip content="<%= Alchemy.t(:save) %>">
       <%= button_tag type: "submit", form: dom_id(@legacy_page_url, :edit), class: "icon_button" do %>
         <%= render_icon :check %>
       <% end %>
-    </sl-tooltip>
-    <sl-tooltip content="<%= Alchemy.t(:cancel) %>">
+    </wa-tooltip>
+    <wa-tooltip content="<%= Alchemy.t(:cancel) %>">
       <%= link_to admin_legacy_page_url_path(@legacy_page_url, page_id: @legacy_page_url.page_id), class: "icon_button" do %>
         <%= render_icon :close %>
       <% end %>
-    </sl-tooltip>
+    </wa-tooltip>
   </div>
 <% end %>

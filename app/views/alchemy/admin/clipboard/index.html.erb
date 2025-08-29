@@ -19,13 +19,13 @@
             <%= render_icon(:draggable, style: false) %>
             <%= truncate(item.display_name_with_preview_text(50), length: 50) %>
           <% end %>
-          <sl-tooltip content="<%= Alchemy.t('Remove item from clipboard') %>">
+          <wa-tooltip content="<%= Alchemy.t('Remove item from clipboard') %>">
             <%= link_to render_icon(:close, size: '1x'),
               alchemy.remove_admin_clipboard_path(remarkable_type: item_class, remarkable_id: item.id),
               "data-turbo-method": :delete,
               class: "icon_button small"
             %>
-          </sl-tooltip>
+          </wa-tooltip>
         </li>
       <% end %>
     </ul>

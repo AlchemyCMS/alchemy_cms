@@ -14,23 +14,23 @@
         if_permitted_to: [:create, Alchemy::Element]
       ) %>
       <%= render "alchemy/admin/clipboard/button", remarkable_type: "elements" %>
-      <sl-tooltip content="<%= Alchemy.t("Collapse all elements") %>" placement="top-end" class="right">
+      <wa-tooltip content="<%= Alchemy.t("Collapse all elements") %>" placement="top-end" class="right">
         <button id="collapse-all-elements-button" class="icon_button">
           <alchemy-icon name="contract-up-down"></alchemy-icon>
         </button>
-      </sl-tooltip>
+      </wa-tooltip>
     </div>
     <% if @page.element_definitions.any?(&:fixed) %>
-      <sl-tab-group id="fixed-elements">
-        <sl-tab slot="nav" panel="main-content-elements">
+      <wa-tab-group id="fixed-elements">
+        <wa-tab slot="nav" panel="main-content-elements">
           <%= Alchemy.t(:main_content) %>
-        </sl-tab>
+        </wa-tab>
         <% @fixed_elements.each do |element| %>
-          <sl-tab slot="nav" panel="fixed-element-<%= element.id %>">
+          <wa-tab slot="nav" panel="fixed-element-<%= element.id %>">
             <%= element.display_name %>
-          </sl-tab>
+          </wa-tab>
         <% end %>
-        <sl-tab-panel
+        <wa-tab-panel
           name="main-content-elements"
           class="sortable-elements scrollable-elements"
           data-droppable-elements="<%= @page.element_definition_names.join(' ') %>"
@@ -39,13 +39,13 @@
           style="--padding: 0"
         >
           <%= render @elements.map { |element| Alchemy::ElementEditor.new(element) } %>
-        </sl-tab-panel>
+        </wa-tab-panel>
         <% @fixed_elements.each do |element| %>
-          <sl-tab-panel id="fixed_element_<%= element.id %>" name="fixed-element-<%= element.id %>" style="--padding: 0" class="scrollable-elements">
+          <wa-tab-panel id="fixed_element_<%= element.id %>" name="fixed-element-<%= element.id %>" style="--padding: 0" class="scrollable-elements">
             <%= render Alchemy::ElementEditor.new(element) %>
-          </sl-tab-panel>
+          </wa-tab-panel>
         <% end %>
-      </sl-tab-group>
+      </wa-tab-group>
     <% else %>
       <div
         id="main-content-elements"

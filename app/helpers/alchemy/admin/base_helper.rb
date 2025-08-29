@@ -60,7 +60,7 @@ module Alchemy
           :is => "alchemy-dialog-link"
         ))
         if tooltip
-          content_tag("sl-tooltip", anchor, content: tooltip)
+          content_tag("wa-tooltip", anchor, content: tooltip)
         else
           anchor
         end
@@ -170,7 +170,7 @@ module Alchemy
           }.merge(html_options)
         )
         if tooltip
-          content_tag("sl-tooltip", button, content: tooltip)
+          content_tag("wa-tooltip", button, content: tooltip)
         else
           button
         end
@@ -238,7 +238,7 @@ module Alchemy
       def render_hint_for(element, icon_options = {})
         return unless element.has_hint?
 
-        content_tag "sl-tooltip", class: "like-hint-tooltip", placement: "bottom-start" do
+        content_tag "wa-tooltip", class: "like-hint-tooltip", placement: "bottom-start" do
           render_icon("question", icon_options) +
             content_tag(:span, element.hint.html_safe, slot: "content")
         end
@@ -283,7 +283,7 @@ module Alchemy
       #
       # @return [String]
       def hint_with_tooltip(text, icon: "alert", icon_class: nil)
-        content_tag :"sl-tooltip", class: "like-hint-tooltip", content: text, placement: "bottom" do
+        content_tag :"wa-tooltip", class: "like-hint-tooltip", content: text, placement: "bottom" do
           render_icon(icon, class: icon_class)
         end
       end

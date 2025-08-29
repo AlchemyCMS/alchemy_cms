@@ -2,10 +2,10 @@
 
 <label class="checkbox">
 <% if @page.attribute_fixed?(:public_on) || @page.attribute_fixed?(:public_until) %>
-  <sl-tooltip class="like-hint-tooltip" content="<%= Alchemy.t(:attribute_fixed) %>" placement="bottom-start">
+  <wa-tooltip class="like-hint-tooltip" content="<%= Alchemy.t(:attribute_fixed) %>" placement="bottom-start">
     <%= checkbox %>
     <%= Alchemy::Page.human_attribute_name :public %>
-  </sl-tooltip>
+  </wa-tooltip>
 <% else %>
   <%= checkbox %>
   <%= Alchemy::Page.human_attribute_name :public %>

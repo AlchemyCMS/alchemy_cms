@@ -16,7 +16,7 @@ RSpec.describe Alchemy::Admin::ToolbarButton, type: :component do
 
     it "renders a toolbar button" do
       render_inline component
-      expect(page).to have_css %(sl-tooltip a.icon_button[href="#{admin_dashboard_path}"])
+      expect(page).to have_css %(wa-tooltip a.icon_button[href="#{admin_dashboard_path}"])
     end
 
     context "with id option set" do
@@ -115,7 +115,7 @@ RSpec.describe Alchemy::Admin::ToolbarButton, type: :component do
 
       it "passes it to the icon" do
         render_inline component
-        expect(page).to have_css('sl-tooltip[placement="bottom-center"]')
+        expect(page).to have_css('wa-tooltip[placement="bottom-center"]')
       end
     end
 
@@ -159,7 +159,7 @@ RSpec.describe Alchemy::Admin::ToolbarButton, type: :component do
 
     it "renders a toolbar button" do
       render_inline component
-      expect(page).to have_css %(sl-tooltip .icon_button[href="#{admin_dashboard_path}"])
+      expect(page).to have_css %(wa-tooltip .icon_button[href="#{admin_dashboard_path}"])
     end
   end
 
@@ -178,7 +178,7 @@ RSpec.describe Alchemy::Admin::ToolbarButton, type: :component do
     it "returns reads the permission from url" do
       expect(component).to receive(:permissions_from_url)
       render_inline component
-      expect(page).to have_css %(sl-tooltip .icon_button[href="#{admin_dashboard_path}"])
+      expect(page).to have_css %(wa-tooltip .icon_button[href="#{admin_dashboard_path}"])
     end
   end
 end

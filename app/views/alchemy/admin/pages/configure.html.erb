@@ -1,20 +1,20 @@
-<sl-tab-group id="overlay_tabs">
-  <sl-tab slot="nav" panel="page_properties">
+<wa-tab-group id="overlay_tabs">
+  <wa-tab slot="nav" panel="page_properties">
     <%= Alchemy.t('Properties') %>
-  </sl-tab>
-  <sl-tab slot="nav" panel="nodes">
+  </wa-tab>
+  <wa-tab slot="nav" panel="nodes">
     <%= render 'alchemy/admin/nodes/label', count: @page.nodes.size %>
-  </sl-tab>
-  <sl-tab slot="nav" panel="legacy_urls" id="legacy_urls_label">
+  </wa-tab>
+  <wa-tab slot="nav" panel="legacy_urls" id="legacy_urls_label">
     <%= render 'alchemy/admin/legacy_page_urls/label', count: @page.legacy_urls.size %>
-  </sl-tab>
-  <sl-tab-panel name="page_properties">
+  </wa-tab>
+  <wa-tab-panel name="page_properties">
     <%= render 'form' %>
-  </sl-tab-panel>
-  <sl-tab-panel name="nodes">
+  </wa-tab-panel>
+  <wa-tab-panel name="nodes">
     <%= render 'alchemy/admin/nodes/page_nodes' %>
-  </sl-tab-panel>
-  <sl-tab-panel name="legacy_urls">
+  </wa-tab-panel>
+  <wa-tab-panel name="legacy_urls">
     <%= render 'legacy_urls' %>
-  </sl-tab-panel>
-</sl-tab-group>
+  </wa-tab-panel>
+</wa-tab-group>

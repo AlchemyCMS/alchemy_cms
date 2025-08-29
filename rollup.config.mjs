@@ -76,11 +76,11 @@ export default [
     plugins: [terser()]
   },
   {
-    input: "bundles/shoelace.js",
+    input: "bundles/webawesome.js",
     output: {
-      file: "vendor/javascript/shoelace.min.js"
+      file: "vendor/javascript/webawesome.min.js"
     },
-    plugins: [resolve(), terser()]
+    plugins: [resolve({ browser: true }), terser()]
   },
   {
     input: "bundles/tinymce.js",

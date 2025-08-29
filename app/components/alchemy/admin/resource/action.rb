@@ -21,9 +21,9 @@ module Alchemy
         erb_template <<~ERB
           <% if name.nil? || can?(name, @resource) %>
             <% if tooltip.present? %>
-              <sl-tooltip content="<%= tooltip %>">
+              <wa-tooltip content="<%= tooltip %>">
                  <%= view_context.capture(@resource, &block) %>
-              </sl-tooltip>
+              </wa-tooltip>
             <% else %>
               <%= view_context.capture(@resource, &block) %>
             <% end %>

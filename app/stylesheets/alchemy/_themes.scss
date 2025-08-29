@@ -218,10 +218,10 @@
   --tooltip-background-color: var(--color-blue_dark);
   --tooltip-box-shadow: 0 0 var(--spacing-1) hsla(0deg, 0%, 0%, 0.5);
 
-  /* Shoelace */
+  /* WebAwesome */
   --tabs_indicator-color: var(--color-orange_dark);
   --tabs_track-color: var(--border-color);
-  --sl-input-label-color: var(--text-color);
+  --wa-input-label-color: var(--text-color);
 
   /* File Upload */
   --file-upload-failed-text-color: var(--notice-error-text-color);
@@ -245,34 +245,34 @@
   );
 
   /*
-  * Shoelace Theme Tokens
+  * WebAwesome Theme Tokens
   */
 
   /* Primary */
-  --sl-color-primary-50: var(--color-orange_medium);
-  --sl-color-primary-100: var(--color-orange_medium);
-  --sl-color-primary-200: var(--color-orange_medium);
-  --sl-color-primary-300: var(--color-orange_dark);
-  --sl-color-primary-400: var(--color-orange_dark);
-  --sl-color-primary-500: var(--color-orange_dark);
-  --sl-color-primary-600: var(--color-orange_dark);
-  --sl-color-primary-700: var(--color-orange_very_dark);
-  --sl-color-primary-800: var(--color-orange_very_dark);
-  --sl-color-primary-900: var(--color-orange_very_dark);
-  --sl-color-primary-950: var(--color-orange_very_dark);
+  --wa-color-primary-50: var(--color-orange_medium);
+  --wa-color-primary-100: var(--color-orange_medium);
+  --wa-color-primary-200: var(--color-orange_medium);
+  --wa-color-primary-300: var(--color-orange_dark);
+  --wa-color-primary-400: var(--color-orange_dark);
+  --wa-color-primary-500: var(--color-orange_dark);
+  --wa-color-primary-600: var(--color-orange_dark);
+  --wa-color-primary-700: var(--color-orange_very_dark);
+  --wa-color-primary-800: var(--color-orange_very_dark);
+  --wa-color-primary-900: var(--color-orange_very_dark);
+  --wa-color-primary-950: var(--color-orange_very_dark);
 
   /* Neutral */
-  --sl-color-neutral-50: var(--a-grey);
-  --sl-color-neutral-100: var(--a-grey);
-  --sl-color-neutral-200: var(--a-light-grey);
-  --sl-color-neutral-300: var(--a-light-grey);
-  --sl-color-neutral-400: var(--a-light-grey);
-  --sl-color-neutral-500: var(--a-lighter-grey);
-  --sl-color-neutral-600: var(--a-lighter-grey);
-  --sl-color-neutral-700: var(--a-lighter-grey);
-  --sl-color-neutral-800: var(--a-lightest-grey);
-  --sl-color-neutral-900: var(--a-lightest-grey);
-  --sl-color-neutral-950: var(--a-lightest-grey);
+  --wa-color-neutral-50: var(--a-grey);
+  --wa-color-neutral-100: var(--a-grey);
+  --wa-color-neutral-200: var(--a-light-grey);
+  --wa-color-neutral-300: var(--a-light-grey);
+  --wa-color-neutral-400: var(--a-light-grey);
+  --wa-color-neutral-500: var(--a-lighter-grey);
+  --wa-color-neutral-600: var(--a-lighter-grey);
+  --wa-color-neutral-700: var(--a-lighter-grey);
+  --wa-color-neutral-800: var(--a-lightest-grey);
+  --wa-color-neutral-900: var(--a-lightest-grey);
+  --wa-color-neutral-950: var(--a-lightest-grey);
 
   .select2-container.select2-container-multi
     .select2-search-choice-close:before,
@@ -488,10 +488,10 @@
   --tooltip-background-color: var(--color-blue_dark);
   --tooltip-box-shadow: 0 0 var(--spacing-1) var(--color-grey_light);
 
-  /* Shoelace */
+  /* WebAwesome */
   --tabs_indicator-color: var(--color-orange_dark);
   --tabs_track-color: var(--color-grey_light);
-  --sl-input-label-color: var(--text-color);
+  --wa-input-label-color: var(--text-color);
 
   /* File Upload */
   --file-upload-failed-text-color: var(--color-red_medium);
@@ -509,32 +509,32 @@
   );
 
   /*
-  * Shoelace Theme Tokens
+  * WebAwesome Theme Tokens
   */
 
   /* Primary */
-  --sl-color-primary-50: var(--color-blue_very_light);
-  --sl-color-primary-100: var(--color-blue_very_light);
-  --sl-color-primary-200: var(--color-blue_light);
-  --sl-color-primary-300: var(--color-blue_light);
-  --sl-color-primary-400: var(--color-blue_medium);
-  --sl-color-primary-500: var(--color-blue_medium);
-  --sl-color-primary-600: var(--color-blue_dark);
-  --sl-color-primary-700: var(--color-blue_dark);
-  --sl-color-primary-800: var(--color-blue_dark);
-  --sl-color-primary-900: var(--color-blue_dark);
-  --sl-color-primary-950: var(--color-blue_dark);
+  --wa-color-primary-50: var(--color-blue_very_light);
+  --wa-color-primary-100: var(--color-blue_very_light);
+  --wa-color-primary-200: var(--color-blue_light);
+  --wa-color-primary-300: var(--color-blue_light);
+  --wa-color-primary-400: var(--color-blue_medium);
+  --wa-color-primary-500: var(--color-blue_medium);
+  --wa-color-primary-600: var(--color-blue_dark);
+  --wa-color-primary-700: var(--color-blue_dark);
+  --wa-color-primary-800: var(--color-blue_dark);
+  --wa-color-primary-900: var(--color-blue_dark);
+  --wa-color-primary-950: var(--color-blue_dark);
 
   /* Neutral */
-  --sl-color-neutral-50: var(--color-grey_very_light);
-  --sl-color-neutral-100: var(--color-grey_very_light);
-  --sl-color-neutral-200: var(--color-grey_light);
-  --sl-color-neutral-300: var(--color-grey_light);
-  --sl-color-neutral-400: var(--color-grey_medium);
-  --sl-color-neutral-500: var(--color-grey_medium);
-  --sl-color-neutral-600: var(--color-grey_dark);
-  --sl-color-neutral-700: var(--color-grey_dark);
-  --sl-color-neutral-800: var(--color-grey_very_dark);
-  --sl-color-neutral-900: var(--color-grey_very_dark);
-  --sl-color-neutral-950: var(--color-grey_very_dark);
+  --wa-color-neutral-50: var(--color-grey_very_light);
+  --wa-color-neutral-100: var(--color-grey_very_light);
+  --wa-color-neutral-200: var(--color-grey_light);
+  --wa-color-neutral-300: var(--color-grey_light);
+  --wa-color-neutral-400: var(--color-grey_medium);
+  --wa-color-neutral-500: var(--color-grey_medium);
+  --wa-color-neutral-600: var(--color-grey_dark);
+  --wa-color-neutral-700: var(--color-grey_dark);
+  --wa-color-neutral-800: var(--color-grey_very_dark);
+  --wa-color-neutral-900: var(--color-grey_very_dark);
+  --wa-color-neutral-950: var(--color-grey_very_dark);
 }

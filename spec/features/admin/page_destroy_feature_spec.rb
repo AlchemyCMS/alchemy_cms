@@ -13,7 +13,7 @@ RSpec.describe "Page destroy feature", type: :system, js: true do
 
       page.find("a[href='#{admin_page_path(content_page.id)}']").click
 
-      within "sl-dialog" do
+      within "wa-dialog" do
         click_button "Yes"
       end
 
@@ -30,7 +30,7 @@ RSpec.describe "Page destroy feature", type: :system, js: true do
 
       page.find("a[href='#{admin_page_path(layout_page.id)}']").click
 
-      within "sl-dialog" do
+      within "wa-dialog" do
         click_button "Yes"
       end
 

@@ -1,13 +1,13 @@
 <%- if @clipboard_items.blank? -%>
   <%= render 'form' %>
 <%- else -%>
-<sl-tab-group id="overlay_tabs">
-  <sl-tab slot="nav" panel="create_element_tab"><%= Alchemy.t('New') %></sl-tab>
-  <sl-tab slot="nav" panel="paste_element_tab"><%= Alchemy.t('Paste from clipboard') %></sl-tab>
-  <sl-tab-panel name="create_element_tab">
+<wa-tab-group id="overlay_tabs">
+  <wa-tab slot="nav" panel="create_element_tab"><%= Alchemy.t('New') %></wa-tab>
+  <wa-tab slot="nav" panel="paste_element_tab"><%= Alchemy.t('Paste from clipboard') %></wa-tab>
+  <wa-tab-panel name="create_element_tab">
     <%= render 'form' %>
-  </sl-tab-panel>
-  <sl-tab-panel name="paste_element_tab">
+  </wa-tab-panel>
+  <wa-tab-panel name="paste_element_tab">
     <%= alchemy_form_for([:admin, @element]) do |f| %>
       <%= f.hidden_field :page_version_id %>
       <%= f.hidden_field :parent_element_id, value: @parent_element.try(:id) %>
@@ -19,6 +19,6 @@
       </div>
       <%= f.submit Alchemy.t(:paste) %>
     <% end %>
-  </sl-tab-panel>
-</sl-tab-group>
+  </wa-tab-panel>
+</wa-tab-group>
 <%- end -%>

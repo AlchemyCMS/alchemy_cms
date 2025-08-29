@@ -5,8 +5,8 @@ require "rails_helper"
 RSpec.shared_examples_for "a link dialog tab" do |name, title|
   context "default configuration" do
     it "should render a tab with a panel" do
-      expect(page).to have_selector("sl-tab[panel='overlay_tab_#{name}_link']")
-      expect(page).to have_selector("sl-tab-panel[name='overlay_tab_#{name}_link']")
+      expect(page).to have_selector("wa-tab[panel='overlay_tab_#{name}_link']")
+      expect(page).to have_selector("wa-tab-panel[name='overlay_tab_#{name}_link']")
     end
 
     it "should have a title" do
@@ -18,7 +18,7 @@ RSpec.shared_examples_for "a link dialog tab" do |name, title|
     end
 
     it "is not active" do
-      expect(page).to_not have_selector("sl-tab[active]")
+      expect(page).to_not have_selector("wa-tab[active]")
     end
   end
 
@@ -26,7 +26,7 @@ RSpec.shared_examples_for "a link dialog tab" do |name, title|
     let(:is_selected) { true }
 
     it "is active" do
-      expect(page).to have_selector("sl-tab[active]")
+      expect(page).to have_selector("wa-tab[active]")
     end
   end
 

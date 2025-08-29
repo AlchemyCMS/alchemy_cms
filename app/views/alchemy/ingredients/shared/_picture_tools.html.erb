@@ -1,7 +1,7 @@
 <% linkable = picture_editor.settings[:linkable] != false %>
 <% croppable = picture_editor.allow_image_cropping? %>
 
-<%= content_tag "sl-tooltip", content: Alchemy.t("Edit Picturemask"), placement: "top-start", disabled: !croppable do %>
+<%= content_tag "wa-tooltip", content: Alchemy.t("Edit Picturemask"), placement: "top-start", disabled: !croppable do %>
   <%= link_to_dialog render_icon(:crop),
     alchemy.crop_admin_ingredient_path(picture_editor.ingredient, {
       crop_from_form_field_id: picture_editor.form_field_id(:crop_from),
@@ -19,7 +19,7 @@
     } %>
 <% end %>
 
-<%= content_tag "sl-tooltip", content: picture_editor.picture ? Alchemy.t(:swap_image) : Alchemy.t(:insert_image) do %>
+<%= content_tag "wa-tooltip", content: picture_editor.picture ? Alchemy.t(:swap_image) : Alchemy.t(:insert_image) do %>
   <%= link_to_dialog render_icon("image-add"),
     alchemy.admin_pictures_path(
       form_field_id: picture_editor.form_field_id(:picture_id)
@@ -39,7 +39,7 @@
   <span class="icon_button disabled"><%= render_icon("link-unlink", style: "m") %></span>
 <% end %>
 
-<%= content_tag "sl-tooltip", content: Alchemy.t(:edit_image_properties), placement: "top-end" do %>
+<%= content_tag "wa-tooltip", content: Alchemy.t(:edit_image_properties), placement: "top-end" do %>
   <%= link_to_dialog render_icon(:edit),
     alchemy.edit_admin_ingredient_path(id: picture_editor.id, language_id: @page.language_id),
     {

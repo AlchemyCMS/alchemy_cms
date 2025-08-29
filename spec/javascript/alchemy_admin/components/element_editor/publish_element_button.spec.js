@@ -48,9 +48,9 @@ describe("alchemy-publish-element-button", () => {
   let html = `
     <alchemy-element-editor>
       <div class="element-toolbar">
-        <sl-tooltip content="Show element">
+        <wa-tooltip content="Show element">
           <alchemy-publish-element-button></alchemy-publish-element-button>
-        </sl-tooltip>
+        </wa-tooltip>
       </div>
     </alchemy-element-editor>
   `
@@ -73,7 +73,7 @@ describe("alchemy-publish-element-button", () => {
 
   describe("on change", () => {
     it("Publishes element editor", () => {
-      const change = new CustomEvent("sl-change", { bubbles: true })
+      const change = new CustomEvent("wa-change", { bubbles: true })
       vi.spyOn(button, "elementId", "get").mockReturnValue("123")
       button.dispatchEvent(change)
 
@@ -89,7 +89,7 @@ describe("alchemy-publish-element-button", () => {
 
   describe("on error", () => {
     it("Shows error", () => {
-      const change = new CustomEvent("sl-change", { bubbles: true })
+      const change = new CustomEvent("wa-change", { bubbles: true })
       vi.spyOn(button, "elementId", "get").mockReturnValue("666")
       button.dispatchEvent(change)
 

@@ -7,7 +7,7 @@
     "eslint": "eslint app/javascript/**/*.js",
     "build:js": "rollup -c",
     "build:icons": "bun run bundles/remixicon.mjs",
-    "build:css": "sass --style=compressed --no-source-map --load-path app/assets/stylesheets --load-path vendor/assets/stylesheets --load-path node_modules/cropperjs/dist app/stylesheets/alchemy/admin.scss:app/assets/builds/alchemy/admin.css app/stylesheets/alchemy/admin/print.scss:app/assets/builds/alchemy/admin/print.css app/stylesheets/alchemy/welcome.scss:app/assets/builds/alchemy/welcome.css app/stylesheets/tinymce/skins/content/alchemy/content.scss:app/assets/builds/tinymce/skins/content/alchemy/content.min.css app/stylesheets/tinymce/skins/content/alchemy-dark/content.scss:app/assets/builds/tinymce/skins/content/alchemy-dark/content.min.css app/stylesheets/tinymce/skins/ui/alchemy-dark/content.scss:app/assets/builds/tinymce/skins/ui/alchemy-dark/content.min.css app/stylesheets/tinymce/skins/ui/alchemy/content.scss:app/assets/builds/tinymce/skins/ui/alchemy/content.min.css app/stylesheets/tinymce/skins/ui/alchemy/skin.scss:app/assets/builds/tinymce/skins/ui/alchemy/skin.min.css app/stylesheets/tinymce/skins/ui/alchemy-dark/skin.scss:app/assets/builds/tinymce/skins/ui/alchemy-dark/skin.min.css app/stylesheets/alchemy/admin/page-select.scss:app/assets/builds/alchemy/admin/page-select.css app/stylesheets/alchemy/dark-theme.scss:app/assets/builds/alchemy/dark-theme.css app/stylesheets/alchemy/light-theme.scss:app/assets/builds/alchemy/light-theme.css app/stylesheets/alchemy/theme.scss:app/assets/builds/alchemy/theme.css",
+    "build:css": "sass --style=compressed --no-source-map --load-path app/assets/stylesheets --load-path vendor/assets/stylesheets --load-path node_modules app/stylesheets/alchemy/admin.scss:app/assets/builds/alchemy/admin.css app/stylesheets/alchemy/admin/print.scss:app/assets/builds/alchemy/admin/print.css app/stylesheets/alchemy/welcome.scss:app/assets/builds/alchemy/welcome.css app/stylesheets/tinymce/skins/content/alchemy/content.scss:app/assets/builds/tinymce/skins/content/alchemy/content.min.css app/stylesheets/tinymce/skins/content/alchemy-dark/content.scss:app/assets/builds/tinymce/skins/content/alchemy-dark/content.min.css app/stylesheets/tinymce/skins/ui/alchemy-dark/content.scss:app/assets/builds/tinymce/skins/ui/alchemy-dark/content.min.css app/stylesheets/tinymce/skins/ui/alchemy/content.scss:app/assets/builds/tinymce/skins/ui/alchemy/content.min.css app/stylesheets/tinymce/skins/ui/alchemy/skin.scss:app/assets/builds/tinymce/skins/ui/alchemy/skin.min.css app/stylesheets/tinymce/skins/ui/alchemy-dark/skin.scss:app/assets/builds/tinymce/skins/ui/alchemy-dark/skin.min.css app/stylesheets/alchemy/admin/page-select.scss:app/assets/builds/alchemy/admin/page-select.css app/stylesheets/alchemy/dark-theme.scss:app/assets/builds/alchemy/dark-theme.css app/stylesheets/alchemy/light-theme.scss:app/assets/builds/alchemy/light-theme.css app/stylesheets/alchemy/theme.scss:app/assets/builds/alchemy/theme.css",
     "handlebars:compile": "handlebars app/javascript/alchemy_admin/templates/*.hbs -f app/javascript/alchemy_admin/templates/compiled.js -o -m",
     "build": "bun run --bun build:js && bun run --bun build:css && bun run --bun handlebars:compile && bun run build:icons"
   },
@@ -15,8 +15,8 @@
   "author": "Thomas von Deyen",
   "license": "BSD-3-Clause",
   "dependencies": {
+    "@awesome.me/webawesome": "^3.0.0",
     "@rails/ujs": "^7.1.502",
-    "@shoelace-style/shoelace": "^2.20.1",
     "@ungap/custom-elements": "^1.3.0",
     "clipboard": "^2.0.11",
     "cropperjs": "^1.6.2",

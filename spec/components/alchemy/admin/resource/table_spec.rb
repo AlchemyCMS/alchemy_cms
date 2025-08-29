@@ -146,7 +146,7 @@ RSpec.describe Alchemy::Admin::Resource::Table, type: :component do
         end
 
         it "does not render a tooltip without tooltip config" do
-          expect(page).to_not have_selector("table td.tools sl-tooltip")
+          expect(page).to_not have_selector("table td.tools wa-tooltip")
         end
       end
 
@@ -154,7 +154,7 @@ RSpec.describe Alchemy::Admin::Resource::Table, type: :component do
         let(:tooltip) { "Bar" }
 
         it "does render a tooltip without tooltip config" do
-          expect(page).to have_selector("table td.tools sl-tooltip[content='Bar']")
+          expect(page).to have_selector("table td.tools wa-tooltip[content='Bar']")
         end
       end
 

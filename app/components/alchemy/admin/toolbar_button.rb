@@ -34,14 +34,14 @@ module Alchemy
     class ToolbarButton < ViewComponent::Base
       erb_template <<-ERB
         <div class="toolbar_button" id="<%= id %>">
-          <sl-tooltip content="<%= label %>" placement="<%= tooltip_placement %>">
+          <wa-tooltip content="<%= label %>" placement="<%= tooltip_placement %>">
             <%= link_to(render_icon(icon, style: icon_style), url, {
               class: css_classes,
               "data-dialog-options" => dialog ? dialog_options.to_json : nil,
               "data-alchemy-hotkey" => hotkey,
               :is => dialog ? "alchemy-dialog-link" : nil
             }.merge(link_options)) %>
-          </sl-tooltip>
+          </wa-tooltip>
         </div>
       ERB
 

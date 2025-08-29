@@ -354,14 +354,14 @@ describe("alchemy-element-editor", () => {
     describe("if tabs are present", () => {
       it("selects tab for element", async () => {
         editor = getComponent(`
-          <sl-tab-group id="fixed-elements">
-            <sl-tab slot="nav" panel="main-content-elements">
+          <wa-tab-group id="fixed-elements">
+            <wa-tab slot="nav" panel="main-content-elements">
               Main Content
-            </sl-tab>
-            <sl-tab-panel name="main-content-elements">
+            </wa-tab>
+            <wa-tab-panel name="main-content-elements">
               <alchemy-element-editor id="element_123"></alchemy-element-editor>
-            </sl-tab-panel>
-          </sl-tab-group>
+            </wa-tab-panel>
+          </wa-tab-group>
         `)
         const originalSelectTab = ElementEditor.prototype.selectTabForElement
         ElementEditor.prototype.selectTabForElement = vi.fn()
@@ -561,16 +561,16 @@ describe("alchemy-element-editor", () => {
     describe("if tabs are present", () => {
       it("selects tab", async () => {
         editor = getComponent(`
-          <sl-tab-group id="fixed-elements">
-            <sl-tab slot="nav" panel="main-content-elements">
+          <wa-tab-group id="fixed-elements">
+            <wa-tab slot="nav" panel="main-content-elements">
               Main Content
-            </sl-tab>
-            <sl-tab-panel name="main-content-elements">
+            </wa-tab>
+            <wa-tab-panel name="main-content-elements">
               <alchemy-element-editor id="element_123"></alchemy-element-editor>
-            </sl-tab-panel>
-          </sl-tab-group>
+            </wa-tab-panel>
+          </wa-tab-group>
         `)
-        const tabgroup = document.querySelector("sl-tab-group")
+        const tabgroup = document.querySelector("wa-tab-group")
         tabgroup.show = vi.fn()
         await editor.selectTabForElement().then(() => {
           expect(tabgroup.show).toHaveBeenCalledWith("main-content-elements")

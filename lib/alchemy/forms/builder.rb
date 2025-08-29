@@ -16,7 +16,7 @@ module Alchemy
           }
           template.content_tag(:div, class: "input") do
             label(attribute_name) +
-              template.content_tag("sl-tooltip", tooltip_options) do
+              template.content_tag("wa-tooltip", tooltip_options) do
                 input_field(attribute_name, disabled: true)
               end
           end

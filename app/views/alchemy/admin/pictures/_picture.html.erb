@@ -4,7 +4,7 @@
   </span>
   <% if picture.deletable? && can?(:destroy, picture) %>
   <div class="picture_tool delete">
-    <sl-tooltip content="<%= Alchemy.t('Delete image') %>">
+    <wa-tooltip content="<%= Alchemy.t('Delete image') %>">
       <%= link_to_confirm_dialog(
         render_icon("delete-bin-2"),
         Alchemy.t(:confirm_to_delete_image_from_server),
@@ -16,7 +16,7 @@
           ).to_h
         )
       ) -%>
-    </sl-tooltip>
+    </wa-tooltip>
   </div>
   <% end %>
   <% if can?(:edit, picture) %>
