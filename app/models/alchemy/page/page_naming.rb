@@ -16,8 +16,7 @@ module Alchemy
           presence: true, uniqueness: {scope: [:parent_id], case_sensitive: false, unless: -> { parent_id.nil? }}
         validates :urlname,
           uniqueness: {scope: [:language_id, :layoutpage], if: -> { urlname.present? }, case_sensitive: false},
-          exclusion: {in: RESERVED_URLNAMES},
-          length: {minimum: 3, if: -> { urlname.present? }}
+          exclusion: {in: RESERVED_URLNAMES}
 
         before_save :set_title,
           if: -> { title.blank? }
@@ -73,17 +72,10 @@ module Alchemy
         self[:title] = name
       end
 
-      # Converts the given name into an url friendly string.
+      # Returns the full nested urlname.
       #
-      # Names shorter than 3 will be filled up with dashes,
-      # so it does not collidate with the language code.
-      #
-      def converted_url_name
-        url_name = convert_to_urlname(slug.blank? ? name : slug)
-        url_name.rjust(3, "-")
-      end
-
       def nested_url_name
+        converted_url_name = convert_to_urlname(slug.blank? ? name : slug)
         if parent&.language_root?
           converted_url_name
         else
