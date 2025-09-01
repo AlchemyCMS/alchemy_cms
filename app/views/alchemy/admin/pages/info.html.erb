@@ -15,7 +15,7 @@
   </div>
   <div class="value">
     <label><%= Alchemy::Page.human_attribute_name(:urlname) %></label>
-    <p><%= "/#{@page.urlname}" %></p>
+    <p><%= @page.url_path %></p>
   </div>
   <div class="value">
     <label><%= Alchemy.t(:page_status) %></label>
