@@ -456,9 +456,9 @@ module Alchemy
           end
         end
 
-        it "should generate a three letter urlname from two letter name" do
+        it "should generate a two letter urlname from two letter name" do
           page = create(:alchemy_page, name: "Au", language: language, parent: language_root)
-          expect(page.urlname).to eq("-au")
+          expect(page.urlname).to eq("au")
         end
 
         it "should generate a three letter urlname from two letter name with umlaut" do
@@ -466,9 +466,9 @@ module Alchemy
           expect(page.urlname).to eq("aue")
         end
 
-        it "should generate a three letter urlname from one letter name" do
+        it "should generate a one letter urlname from one letter name" do
           page = create(:alchemy_page, name: "A", language: language, parent: language_root)
-          expect(page.urlname).to eq("--a")
+          expect(page.urlname).to eq("a")
         end
 
         it "should add a user stamper" do
