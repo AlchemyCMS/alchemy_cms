@@ -78,6 +78,30 @@ RSpec.describe "Picture Library", type: :system do
     end
   end
 
+  describe "Sorting pictures", :js do
+    let!(:picture_a) { create(:alchemy_picture, name: "A Picture", created_at: 2.days.ago) }
+    let!(:picture_b) { create(:alchemy_picture, name: "B Picture", created_at: 1.day.ago) }
+
+    scenario "it sorts pictures by latest by default." do
+      visit alchemy.admin_pictures_path
+
+      within "#pictures" do
+        expect(page).to have_css("div.picture_thumbnail:nth-child(1) .picture_name", text: "B Picture")
+        expect(page).to have_css("div.picture_thumbnail:nth-child(2) .picture_name", text: "A Picture")
+      end
+    end
+
+    scenario "it's possible to sort pictures by name." do
+      visit alchemy.admin_pictures_path
+
+      select "A-Z", from: "Sorting"
+      within "#pictures" do
+        expect(page).to have_css("div.picture_thumbnail:nth-child(1) .picture_name", text: "A Picture")
+        expect(page).to have_css("div.picture_thumbnail:nth-child(2) .picture_name", text: "B Picture")
+      end
+    end
+  end
+
   describe "Picture descriptions", :js do
     let!(:picture) { create(:alchemy_picture) }
 

@@ -1,5 +1,8 @@
 <div id="library_sidebar">
-  <%= render 'filter_bar' if resource_has_filters %>
+  <div id="filter_bar">
+    <%= render 'sorting_select' %>
+    <%= render 'filter_bar' if resource_has_filters %>
+  </div>
 
   <% if Alchemy::Picture.tag_counts.any? %>
     <div class="tag-list with_filter_bar<%= ' filtered' if search_filter_params[:tagged_with].present? %>">

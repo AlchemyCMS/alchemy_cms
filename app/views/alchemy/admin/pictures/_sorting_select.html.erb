@@ -1,0 +1,19 @@
+<div class="filter-input">
+  <%= label_tag "q[s]", t(".label") %>
+  <%= select_tag "q[s]", options_for_select([
+    [t(".by_latest"), "created_at desc"],
+    [t(".alphabetical"), "name asc"]
+  ], search_filter_params.dig(:q, :s)),
+  form: "resource_search",
+  class: "full_width" %>
+</div>
+
+<script type="module">
+  document.getElementById('q_s').addEventListener('change', (event) => {
+    // We need to dispatch a submit event, so that Turbo that listens
+    // to it submits the search form us.
+    const submitEvent = new Event("submit", { bubbles: true, cancelable: true });
+    event.target.form.dispatchEvent(submitEvent);
+    return false;
+  });
+</script>

@@ -172,7 +172,7 @@ module Alchemy
     end
 
     describe "#show" do
-      let(:picture) { create(:alchemy_picture, name: "kitten") }
+      let!(:picture) { create(:alchemy_picture, name: "kitten") }
 
       it "assigns @picture" do
         get :show, params: {id: picture.id}
@@ -194,8 +194,8 @@ module Alchemy
         let!(:previous) { create(:alchemy_picture, name: "abraham") }
 
         it "assigns @previous to previous picture" do
-          get :show, params: {id: picture.id}
-          expect(assigns(:previous).id).to eq(previous.id)
+          get :show, params: {id: :previous, page: 2}
+          expect(assigns(:previous)).to eq(1)
         end
       end
 
@@ -203,8 +203,8 @@ module Alchemy
         let!(:next_picture) { create(:alchemy_picture, name: "zebra") }
 
         it "assigns @next to next picture" do
-          get :show, params: {id: picture.id}
-          expect(assigns(:next).id).to eq(next_picture.id)
+          get :show, params: {id: :next, page: 1}
+          expect(assigns(:next)).to eq(2)
         end
       end
     end
