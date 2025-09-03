@@ -85,6 +85,11 @@ module Alchemy
       Alchemy.storage_adapter.by_file_format_scope(file_format)
     end
 
+    # Case insensitive Ransack searching and sorting for name attribute
+    ransacker :name, type: :string do
+      arel_table[:name].lower
+    end
+
     # Class methods
 
     class << self
