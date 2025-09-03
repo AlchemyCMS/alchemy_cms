@@ -7,6 +7,10 @@ alchemy-uploader {
 
 .resources-header {
   padding: 0 var(--spacing-2);
+
+  h2 {
+    margin: var(--spacing-3) 0;
+  }
 }
 
 .resources-table-wrapper {
