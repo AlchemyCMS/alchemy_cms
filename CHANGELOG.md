@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.3.8 (2025-09-04)
+
+- [7.3-stable] Alchemy TinyMCE: Remove frontend presence validation [#3360](https://github.com/AlchemyCMS/alchemy_cms/pull/3360) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.3.7 (2025-08-15)
 
 - [7.3-stable] fix(DatetimeView): Use settings value if present [#3349](https://github.com/AlchemyCMS/alchemy_cms/pull/3349) ([alchemycms-bot](https://github.com/alchemycms-bot))
