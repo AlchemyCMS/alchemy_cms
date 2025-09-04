@@ -1,15 +1,4 @@
-<div id="library_sidebar">
-  <div id="filter_bar">
-    <%= render 'sorting_select' %>
-    <%= render 'filter_bar' if resource_has_filters %>
-  </div>
-
-  <% if Alchemy::Picture.tag_counts.any? %>
-    <div class="tag-list with_filter_bar<%= ' filtered' if search_filter_params[:tagged_with].present? %>">
-      <%= render 'tag_list' %>
-    </div>
-  <% end %>
-</div>
+<%= render "library_sidebar" %>
 
 <%= form_tag delete_multiple_admin_pictures_path, method: :delete do %>
   <div class="selected_item_tools hidden">

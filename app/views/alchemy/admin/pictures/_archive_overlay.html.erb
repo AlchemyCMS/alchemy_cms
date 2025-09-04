@@ -2,15 +2,7 @@
   <%= render 'filter_and_size_bar' %>
 </div>
 <div id="assign_image_list" class="with_padding<%= search_filter_params[:tagged_with].present? ? ' filtered' : '' %>">
-  <div id="library_sidebar">
-    <div id="filter_bar">
-      <%= render 'sorting_select' %>
-      <%= render 'filter_bar' if resource_has_filters %>
-    </div>
-    <div class="tag-list">
-      <%= render 'tag_list' %>
-    </div>
-  </div>
+  <%= render "library_sidebar" %>
   <% if @pictures.empty? %>
     <%= render_message do %>
       <% if search_filter_params.empty? %>

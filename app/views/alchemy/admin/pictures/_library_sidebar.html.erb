@@ -1,0 +1,9 @@
+<div id="library_sidebar">
+  <div id="filter_bar">
+    <%= render "sorting_select" %>
+    <%= render "filter_bar" if resource_has_filters %>
+  </div>
+  <div class="tag-list">
+    <%= render "tag_list" %>
+  </div>
+</div>

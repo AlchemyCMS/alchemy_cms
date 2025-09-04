@@ -1,17 +1,7 @@
 <div id="filter_bar">
-  <% alchemy_filters.each do |filter| %>
-    <%= render filter.input_component(search_filter_params, @query) %>
-  <% end %>
+  <alchemy-auto-submit>
+    <% alchemy_filters.each do |filter| %>
+      <%= render filter.input_component(search_filter_params, @query) %>
+    <% end %>
+  </alchemy-auto-submit>
 </div>
-
-<script type="module">
-  // Still using jQuery here, because select2 does emit the event from
-  // the correct element.
-  $('#filter_bar').on('change', function(event) {
-    // We need to dispatch a submit event, so that Turbo that listens
-    // to it submits the search form us.
-    const submitEvent = new Event("submit", { bubbles: true, cancelable: true });
-    event.target.form.dispatchEvent(submitEvent);
-    return false;
-  });
-</script>
