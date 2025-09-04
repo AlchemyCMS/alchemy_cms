@@ -35,7 +35,7 @@
     "consola": "^3.4.2",
     "eslint": "^9.34.0",
     "jsdom": "^26.1.0",
-    "jsdom-testing-mocks": "^1.13.0",
+    "jsdom-testing-mocks": "^1.15.2",
     "prettier": "^3.6.2",
     "remixicon": "^4.6.0",
     "rollup": "^4.50.0",
