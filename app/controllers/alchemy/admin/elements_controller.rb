@@ -3,6 +3,8 @@
 module Alchemy
   module Admin
     class ElementsController < Alchemy::Admin::BaseController
+      helper Alchemy::Admin::IngredientsHelper
+
       before_action :load_element, only: [:update, :destroy, :collapse, :expand, :publish]
       authorize_resource class: Alchemy::Element
 

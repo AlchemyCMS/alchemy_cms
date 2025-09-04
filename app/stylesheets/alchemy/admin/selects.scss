@@ -282,6 +282,10 @@ select {
 
     .select2-result-label {
       padding: var(--spacing-1) var(--spacing-2);
+
+      em {
+        text-decoration: underline;
+      }
     }
 
     ul.select2-result-sub > li .select2-result-label {

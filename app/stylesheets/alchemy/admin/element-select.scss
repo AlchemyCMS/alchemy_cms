@@ -1,0 +1,11 @@
+.element-select-item {
+  display: flex;
+  align-items: center;
+
+  > svg {
+    width: auto;
+    height: var(--spacing-4);
+    fill: currentColor;
+    padding-right: var(--spacing-2);
+  }
+}

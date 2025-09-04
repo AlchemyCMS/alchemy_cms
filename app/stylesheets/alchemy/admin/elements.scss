@@ -143,7 +143,10 @@ alchemy-tinymce {
 }
 
 .element-handle {
+  position: relative;
   display: inline-flex;
+  width: var(--spacing-4);
+  height: var(--spacing-4);
   cursor: move;
   padding-right: var(--spacing-1);
 }
@@ -482,6 +485,34 @@ alchemy-tinymce {
   .icon {
     fill: currentColor;
     transition: fill var(--transition-duration);
+  }
+
+  > .element-handle {
+    alchemy-icon,
+    .icon {
+      position: absolute;
+      width: var(--spacing-4);
+      height: var(--spacing-4);
+      transition: opacity var(--transition-duration);
+    }
+
+    alchemy-icon {
+      opacity: 0;
+    }
+
+    .icon {
+      opacity: 1;
+    }
+  }
+
+  &:hover {
+    > .element-handle alchemy-icon {
+      opacity: 1;
+    }
+
+    > .element-handle .icon.element {
+      opacity: 0;
+    }
   }
 }
 

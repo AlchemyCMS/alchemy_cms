@@ -1,5 +1,6 @@
 - name: header
   unique: true
+  icon: font-size
   ingredients:
     - role: image
       type: Picture
@@ -12,6 +13,8 @@
       type: Headline
 
 - name: article
+  icon: true
+  hint: "Article element with a headline, image and text."
   taggable: true
   ingredients:
     - role: intro
@@ -31,6 +34,7 @@
       type: Richtext
 
 - name: text
+  icon: text-snippet
   ingredients:
     - role: text
       type: Richtext
@@ -43,6 +47,7 @@
   ingredients: []
 
 - name: news
+  icon: news-line
   ingredients:
     - role: date
       type: Datetime
@@ -52,6 +57,7 @@
       type: Richtext
 
 - name: download
+  icon: download-2-line
   ingredients:
     - role: file
       type: File
@@ -63,6 +69,8 @@
 
 - name: contactform
   unique: true
+  icon: mail-line
+  hint: "A contact form element with a mail to address and a success page."
   ingredients:
     - role: mail_from
       type: Text
@@ -83,6 +91,7 @@
         - presence
 
 - name: all_you_can_eat
+  icon: infinity-line
   hint: true
   taggable: true
   ingredients:
@@ -175,6 +184,7 @@
       type: Richtext
 
 - name: tinymce_custom
+  icon: text-block
   ingredients:
     - role: text
       type: Richtext
@@ -200,6 +210,7 @@
                   wrapper: true
 
 - name: slide
+  icon: image-2-line
   compact: true
   ingredients:
     - role: picture
@@ -212,16 +223,19 @@
       as_element_title: true
 
 - name: slider
+  icon: slideshow-view
   nestable_elements:
     - slide
   autogenerate:
     - slide
 
 - name: gallery
+  icon: gallery-view
   nestable_elements:
     - gallery_picture
 
 - name: gallery_picture
+  icon: image-2-line
   compact: true
   ingredients:
     - role: picture
@@ -231,6 +245,7 @@
         crop: true
 
 - name: right_column
+  icon: layout-column-line
   fixed: true
   unique: true
   ingredients:
@@ -239,6 +254,7 @@
   nestable_elements: [search, text]
 
 - name: left_column
+  icon: layout-column-line
   fixed: true
   unique: true
   nestable_elements: [text]

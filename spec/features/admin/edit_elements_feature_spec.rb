@@ -20,7 +20,7 @@ RSpec.describe "The edit elements feature", type: :system do
     context "with a page_version_id passed" do
       scenario "a form to select a new element for the page appears." do
         visit alchemy.new_admin_element_path(page_version_id: a_page.draft_version.id)
-        expect(page).to have_selector('select[name="element[name]"]')
+        expect(page).to have_selector('input[is="alchemy-element-select"][name="element[name]"]')
       end
     end
 
@@ -132,7 +132,7 @@ RSpec.describe "The edit elements feature", type: :system do
       button.click
       expect(page).to have_css(".alchemy-dialog")
       within ".alchemy-dialog" do
-        expect(page).to have_select("Element")
+        expect(page).to have_field("Element")
         select2("Text", from: "Element")
         click_button("Add")
       end

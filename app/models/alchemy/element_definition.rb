@@ -21,12 +21,17 @@ module Alchemy
     attribute :message
     attribute :warning
     attribute :hint
+    attribute :icon
 
     validates :name,
       presence: true,
       format: {
         with: /\A[a-z_-]+\z/
       }
+
+    validates :icon,
+      format: {with: /\A[\w-]+\z/i},
+      if: -> { icon.is_a?(String) }
 
     delegate :blank?, to: :name
 
@@ -151,7 +156,32 @@ module Alchemy
       end
     end
 
+    def icon_file
+      @_icon_file ||= File.read(icon_file_path).html_safe
+    end
+
+    def icon_file_name
+      "#{icon_name}.svg"
+    end
+
+    def icon_name
+      case icon
+      when TrueClass then name
+      when String then icon
+      else
+        "default"
+      end
+    end
+
     private
+
+    def icon_file_path
+      icons_root_path.join("app/assets/images/alchemy/element_icons", icon_file_name)
+    end
+
+    def icons_root_path
+      icon.nil? ? Alchemy::Engine.root : Rails.root
+    end
 
     def hint_translation_scope
       :element_hints
