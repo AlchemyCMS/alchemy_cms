@@ -39,7 +39,7 @@
     "prettier": "^3.3.3",
     "remixicon": "^4.6.0",
     "rollup": "^4.50.0",
-    "sass": "^1.77.8",
+    "sass": "^1.92.0",
     "svg-sprite": "^2.0.4",
     "vitest": "^3.2.4"
   }
