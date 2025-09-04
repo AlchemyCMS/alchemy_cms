@@ -151,7 +151,7 @@ alchemy-tinymce {
   padding-right: var(--spacing-1);
 }
 
-.element-toggle {
+button.element-toggle {
   width: 20px;
   height: 20px;
   display: flex;
@@ -166,9 +166,8 @@ alchemy-tinymce {
   margin: 0 0 0 auto;
 
   &:hover {
-    &:not(:focus):not(:active) {
+    &:not(:focus) {
       background-color: var(--border-color);
-      border-color: transparent;
       cursor: pointer;
     }
   }
@@ -302,7 +301,8 @@ alchemy-tinymce {
   &.expanded {
     &.not-fixed {
       .nestable-elements {
-        box-shadow: inset 0 4px 8px -2px var(--nestable-elements-box-shadow-color, hsl(0deg, 0%, 79%));
+        box-shadow: inset 0 4px 8px -2px
+          var(--nestable-elements-box-shadow-color, hsl(0deg, 0%, 79%));
         background-color: var(
           --nestable-elements-background-color,
           var(--color-grey_light)
