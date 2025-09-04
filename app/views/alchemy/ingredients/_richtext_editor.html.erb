@@ -9,7 +9,6 @@
       <%= f.text_area :value,
         minlength: richtext_editor.length_validation&.fetch(:minimum, nil),
         maxlength: richtext_editor.length_validation&.fetch(:maximum, nil),
-        required: richtext_editor.presence_validation?,
         id: richtext_editor.form_field_id(:value) %>
     <% end %>
   <% end %>
