@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.4.9 (2025-09-04)
+
+- [7.4-stable] Alchemy TinyMCE: Remove frontend presence validation [#3361](https://github.com/AlchemyCMS/alchemy_cms/pull/3361) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.4-stable] Fix page info url path display [#3355](https://github.com/AlchemyCMS/alchemy_cms/pull/3355) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.4.8 (2025-08-15)
 
 - [7.4-stable] fix(DatetimeView): Use settings value if present [#3350](https://github.com/AlchemyCMS/alchemy_cms/pull/3350) ([alchemycms-bot](https://github.com/alchemycms-bot))
