@@ -3,6 +3,7 @@
 
 import "alchemy_admin/components/action"
 import "alchemy_admin/components/attachment_select"
+import "alchemy_admin/components/auto_submit"
 import "alchemy_admin/components/button"
 import "alchemy_admin/components/char_counter"
 import "alchemy_admin/components/clipboard_button"
