@@ -27,9 +27,9 @@ alchemy-message {
   }
 
   &[type="hint"] {
-    background-color: var(--hint-background-notice-color);
-    border-color: var(--hint-background-notice-color);
-    color: var(--hint-text-notice-color);
+    background-color: var(--hint-background-color);
+    border-color: var(--hint-background-color);
+    color: var(--hint-text-color);
   }
 
   &[type="info"] {
