@@ -3,10 +3,14 @@
 .tag-list {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 0;
+  padding-top: var(--spacing-4);
 
-  .alchemy-dialog-body & {
-    max-height: 292px;
+  label {
+    display: block;
+    font-weight: bold;
+    font-size: var(--font-size_medium);
+    margin-bottom: var(--spacing-2);
   }
 
   alchemy-list-filter {
@@ -74,26 +78,6 @@
 
 .tags .list .tag {
   padding: 0;
-}
-
-#assign_image_list {
-  .tag-list ul {
-    height: 316px;
-  }
-
-  &.filtered .tag-list ul {
-    height: 292px;
-  }
-}
-
-#assign_file_list {
-  .tag-list ul {
-    height: 396px;
-  }
-
-  &.filtered .tag-list ul {
-    height: 372px;
-  }
 }
 
 #overlay_file_list.with_tag_list {

@@ -206,20 +206,16 @@
     align-items: center;
     text-decoration: none;
     transition: background-color var(--image-overlay-transition-duration) linear;
+    color: var(--color-white);
 
-    .icon {
+    alchemy-icon svg {
       width: 32px;
       height: 32px;
-      fill: var(--color-white);
       filter: drop-shadow(0 0 1px var(--color-grey_very_dark));
     }
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.3);
-
-      .icon {
-        transition: fill var(--image-overlay-transition-duration) linear;
-      }
     }
   }
 

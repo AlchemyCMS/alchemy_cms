@@ -226,6 +226,11 @@ en:
       elements:
         toolbar:
           hide: Hide
+      pictures:
+        sorting_select:
+          label: "Sorting"
+          by_latest: "Latest"
+          alphabetical: "A-Z"
     add_nested_element: "Add %{name}"
     anchor: "Anchor"
     anchor_link_headline: You can link to an anchor from the current page.

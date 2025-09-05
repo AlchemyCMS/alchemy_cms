@@ -11,7 +11,7 @@ module Alchemy
       helper "alchemy/admin/tags"
 
       before_action :load_resource,
-        only: [:show, :edit, :update, :url, :destroy]
+        only: [:edit, :update, :url, :destroy]
 
       before_action :set_size, only: [:index, :show, :edit_multiple, :update]
 
@@ -30,8 +30,7 @@ module Alchemy
       add_alchemy_filter :deletable, type: :checkbox
 
       def index
-        @query = Picture.ransack(search_filter_params[:q])
-        @pictures = Alchemy.storage_adapter.preloaded_pictures(filtered_pictures)
+        @pictures = filtered_pictures
 
         if in_overlay?
           archive_overlay
@@ -39,9 +38,11 @@ module Alchemy
       end
 
       def show
-        @query = Picture.ransack(params[:q])
-        @previous = filtered_pictures.where("name < ?", @picture.name).last
-        @next = filtered_pictures.where("name > ?", @picture.name).first
+        @pictures = filtered_pictures(per_page: 1)
+        @picture = @pictures.first
+        @previous = @pictures.prev_page
+        @next = @pictures.next_page
+
         @assignments = @picture.related_ingredients.joins(element: :page)
         @picture_description = @picture.descriptions.find_or_initialize_by(
           language_id: Alchemy::Current.language.id
@@ -140,16 +141,21 @@ module Alchemy
         redirect_to_index
       end
 
-      def filtered_pictures
+      def filtered_pictures(per_page: items_per_page)
+        @query = Picture.ransack(search_filter_params[:q])
+        @query.sorts = default_sort_order if @query.sorts.empty?
         pictures = @query.result
 
         if params[:tagged_with].present?
           pictures = pictures.tagged_with(params[:tagged_with])
         end
 
-        pictures = pictures.page(params[:page] || 1).per(items_per_page)
+        pictures = pictures.page(params[:page] || 1).per(per_page)
+        Alchemy.storage_adapter.preloaded_pictures(pictures)
+      end
 
-        pictures.order(:name)
+      def default_sort_order
+        "created_at desc"
       end
 
       def items_per_page
