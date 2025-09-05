@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_26_160417) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_05_140502) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -49,6 +49,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_26_160417) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "file_uid"
+    t.index ["created_at"], name: "index_alchemy_attachments_on_created_at"
     t.index ["creator_id"], name: "index_alchemy_attachments_on_creator_id"
     t.index ["file_uid"], name: "index_alchemy_attachments_on_file_uid"
     t.index ["updater_id"], name: "index_alchemy_attachments_on_updater_id"
@@ -246,6 +247,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_26_160417) do
     t.string "image_file_uid"
     t.integer "image_file_size"
     t.string "image_file_format"
+    t.index ["created_at"], name: "index_alchemy_pictures_on_created_at"
     t.index ["creator_id"], name: "index_alchemy_pictures_on_creator_id"
     t.index ["image_file_name"], name: "index_alchemy_pictures_on_image_file_name"
     t.index ["name"], name: "index_alchemy_pictures_on_name"
