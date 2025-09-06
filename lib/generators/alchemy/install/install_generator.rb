@@ -89,15 +89,6 @@ module Alchemy
         rake "gutentag:install:migrations"
       end
 
-      def set_primary_language
-        header
-        install_tasks.set_primary_language(
-          code: options[:default_language_code],
-          name: options[:default_language_name],
-          auto_accept: options[:auto_accept]
-        )
-      end
-
       def setup_database
         rake("db:create", abort_on_failure: true) unless options[:skip_db_create]
         # We can't invoke this rake task, because Rails will use wrong engine names otherwise
