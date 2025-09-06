@@ -22,18 +22,6 @@ module Alchemy
             {after: SENTINEL, verbose: true}
         end
 
-        def set_primary_language(code: "en", name: "English", auto_accept: false)
-          unless auto_accept
-            code = ask("- What is the language code of your site's primary language?", default: code)
-          end
-          unless auto_accept
-            name = ask("- What is the name of your site's primary language?", default: name)
-          end
-          gsub_file "./config/alchemy/config.yml", /default_language:\n\s\scode:\sen\n\s\sname:\sEnglish/m do
-            "default_language:\n  code: #{code}\n  name: #{name}"
-          end
-        end
-
         def inject_seeder
           seed_file = Rails.root.join("db", "seeds.rb")
           args = [seed_file, "Alchemy::Seeder.seed!\n"]
