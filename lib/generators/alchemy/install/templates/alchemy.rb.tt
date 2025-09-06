@@ -97,12 +97,12 @@ Alchemy.configure do |config|
   # end
 
   # This is the default language when seeding.
-  # config.default_language.tap do |default_language|
-  #   default_language.code = <%= @default_config.default_language.code.inspect %>
-  #   default_language.name = <%= @default_config.default_language.name.inspect %>
-  #   default_language.page_layout = <%= @default_config.default_language.page_layout.inspect %>
-  #   default_language.frontpage_name = <%= @default_config.default_language.frontpage_name.inspect %>
-  # end
+  config.default_language.tap do |default_language|
+    default_language.code = <%= @default_config.default_language.code.inspect %>
+    default_language.name = <%= @default_config.default_language.name.inspect %>
+    # default_language.page_layout = <%= @default_config.default_language.page_layout.inspect %>
+    # default_language.frontpage_name = <%= @default_config.default_language.frontpage_name.inspect %>
+  end
 
   # === Mailer Settings:
   #
