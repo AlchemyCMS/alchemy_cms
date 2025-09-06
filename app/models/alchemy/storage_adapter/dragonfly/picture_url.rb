@@ -26,8 +26,9 @@ module Alchemy
       #
       # @return [String]
       #
-      def call(options = {})
-        @variant = PictureVariant.new(picture, options.slice(*TRANSFORMATION_OPTIONS))
+      def call(variant_options = {})
+        set_variant(variant_options)
+
         params = {
           basename: picture.name,
           ext: variant.render_format,
@@ -40,6 +41,10 @@ module Alchemy
       end
 
       private
+
+      def set_variant(options = {})
+        @variant = PictureVariant.new(picture, options.slice(*TRANSFORMATION_OPTIONS))
+      end
 
       def processible_image?
         variant.image.is_a?(::Dragonfly::Job)

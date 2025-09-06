@@ -38,16 +38,30 @@ module Alchemy
 
       CONVERTIBLE_FILE_FORMATS = %w[gif jpg jpeg png webp].freeze
 
+      # Allows to set a custom Attachment Url class
+      def attachment_url_class=(klass)
+        @_attachment_url_class = klass
+      end
+
+      # Returns the class used to generate attachment urls
+      # @return [Class] - defaults to Alchemy::StorageAdapter::Dragonfly::AttachmentUrl
       def attachment_url_class
-        AttachmentUrl
+        @_attachment_url_class ||= AttachmentUrl
       end
 
       def preprocessor_class
         Preprocessor
       end
 
+      # Allows to set a custom Picture Url class
+      def picture_url_class=(klass)
+        @_picture_url_class = klass
+      end
+
+      # Returns the class used to generate picture urls
+      # @return [Class] - defaults to Alchemy::StorageAdapter::Dragonfly::PictureUrl
       def picture_url_class
-        PictureUrl
+        @_picture_url_class ||= PictureUrl
       end
 
       def file_formats(class_name, scope:)
