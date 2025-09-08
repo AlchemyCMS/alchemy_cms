@@ -71,6 +71,46 @@ RSpec.describe Alchemy::StorageAdapter::Dragonfly, if: Alchemy.storage_adapter.d
     end
   end
 
+  describe ".attachment_url_class" do
+    subject { described_class.attachment_url_class }
+
+    it { is_expected.to eq(Alchemy::StorageAdapter::Dragonfly::AttachmentUrl) }
+  end
+
+  describe ".attachment_url_class=" do
+    let(:custom_class) { Class.new }
+
+    subject { described_class.attachment_url_class }
+
+    around do |example|
+      described_class.attachment_url_class = custom_class
+      example.run
+      described_class.attachment_url_class = nil
+    end
+
+    it { is_expected.to eq(custom_class) }
+  end
+
+  describe ".picture_url_class" do
+    subject { described_class.picture_url_class }
+
+    it { is_expected.to eq(Alchemy::StorageAdapter::Dragonfly::PictureUrl) }
+  end
+
+  describe ".picture_url_class=" do
+    let(:custom_class) { Class.new }
+
+    subject { described_class.picture_url_class }
+
+    around do |example|
+      described_class.picture_url_class = custom_class
+      example.run
+      described_class.picture_url_class = nil
+    end
+
+    it { is_expected.to eq(custom_class) }
+  end
+
   describe ".file_formats" do
     subject(:file_formats) do
       described_class.file_formats(class_name, scope: scope)
