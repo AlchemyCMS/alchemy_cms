@@ -60,7 +60,17 @@ module Alchemy
       end
 
       def copy_config_rb
-        @default_config = Alchemy::Configurations::Main.new
+        @default_language = get_primary_language(
+          code: options[:default_language_code],
+          name: options[:default_language_name],
+          auto_accept: options[:auto_accept]
+        )
+        @default_config = Alchemy::Configurations::Main.new(
+          default_language: {
+            name: @default_language[:name],
+            code: @default_language[:code]
+          }
+        )
         template "#{__dir__}/templates/alchemy.rb.tt", app_config_path.join("initializers", "alchemy.rb")
       end
 
@@ -108,6 +118,16 @@ module Alchemy
       end
 
       private
+
+      def get_primary_language(code: "en", name: "English", auto_accept: false)
+        unless options[:auto_accept]
+          code = ask("- What is the language code of your site's primary language?", default: code)
+        end
+        unless options[:auto_accept]
+          name = ask("- What is the name of your site's primary language?", default: name)
+        end
+        {code:, name:}
+      end
 
       def header
         return if options[:auto_accept]
