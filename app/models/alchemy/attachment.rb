@@ -96,6 +96,7 @@ module Alchemy
       message: Alchemy.t("not a valid file"),
       unless: -> { self.class.allowed_filetypes.include?("*") }
 
+    before_save :sanitize_file_name
     before_save :set_name, if: :file_name_changed?
 
     scope :with_file_type, ->(file_type) { where(file_mime_type: file_type) }
@@ -155,6 +156,10 @@ module Alchemy
     end
 
     private
+
+    def sanitize_file_name
+      self.file_name = sanitized_filename(file_name)
+    end
 
     def set_name
       self.name = convert_to_humanized_name(file_name, file.ext)
