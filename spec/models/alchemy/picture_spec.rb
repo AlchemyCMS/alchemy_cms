@@ -12,6 +12,11 @@ module Alchemy
 
     it_behaves_like "has image calculations"
 
+    it_behaves_like "having file name sanitization" do
+      subject { Picture.new(image_file:) }
+      let(:file_name_attribute) { :image_file_name }
+    end
+
     it { is_expected.to have_many(:thumbs).class_name("Alchemy::PictureThumb") }
 
     context "with a png file" do

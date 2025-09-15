@@ -94,6 +94,7 @@ module Alchemy
       end
     end
 
+    before_save :sanitize_image_file_name
     # Create important thumbnails upfront
     after_create -> { PictureThumb.generate_thumbs!(self) if has_convertible_format? }
 
@@ -311,6 +312,10 @@ module Alchemy
     #
     def image_file_dimensions
       "#{image_file_width}x#{image_file_height}"
+    end
+
+    def sanitize_image_file_name
+      self.image_file_name = sanitized_filename(image_file_name)
     end
   end
 end

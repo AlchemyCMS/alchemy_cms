@@ -7,6 +7,11 @@ module Alchemy
     let(:file) { File.new(File.expand_path("../../fixtures/image with spaces.png", __dir__)) }
     let(:attachment) { Attachment.new(file: file) }
 
+    it_behaves_like "having file name sanitization" do
+      subject { Attachment.new(file:) }
+      let(:file_name_attribute) { :file_name }
+    end
+
     describe "after assign" do
       it "stores the file mime type into database" do
         attachment.update(file: file)
