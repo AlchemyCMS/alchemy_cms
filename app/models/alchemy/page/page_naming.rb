@@ -5,6 +5,7 @@ module Alchemy
     module PageNaming
       extend ActiveSupport::Concern
       include NameConversions
+
       RESERVED_URLNAMES = %w[admin messages new]
 
       included do

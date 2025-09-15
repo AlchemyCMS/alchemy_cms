@@ -163,7 +163,7 @@ module Alchemy
     end
 
     def meta_robots
-      "#{@page.robot_index? ? "" : "no"}index, #{@page.robot_follow? ? "" : "no"}follow"
+      "#{"no" unless @page.robot_index?}index, #{"no" unless @page.robot_follow?}follow"
     end
 
     private
