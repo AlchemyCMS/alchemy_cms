@@ -4,6 +4,7 @@ module Alchemy
   module Admin
     module ResourceFilter
       extend ActiveSupport::Concern
+
       COMMON_SEARCH_FILTER_EXCLUDES = %i[id utf8 _method _ format].freeze
 
       included do
