@@ -10,6 +10,13 @@ module Alchemy
 
     let(:picture) { build(:alchemy_picture, image_file: image_file) }
 
+    if Alchemy.storage_adapter.dragonfly?
+      it_behaves_like "having file name sanitization" do
+        subject { Picture.new(image_file:) }
+        let(:file_name_attribute) { :image_file_name }
+      end
+    end
+
     it_behaves_like "a relatable resource",
       resource_name: :picture,
       ingredient_type: :picture
