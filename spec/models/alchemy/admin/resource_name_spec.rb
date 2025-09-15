@@ -6,6 +6,7 @@ RSpec.describe Alchemy::Admin::ResourceName, type: :model do
   let(:klass) do
     Class.new do
       include Alchemy::Admin::ResourceName
+
       attr_reader :controller_path
 
       def initialize(controller_path)

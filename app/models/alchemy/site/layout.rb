@@ -3,6 +3,7 @@
 module Alchemy
   module Site::Layout
     extend ActiveSupport::Concern
+
     SITE_DEFINITIONS_FILE = Rails.root.join("config/alchemy/site_layouts.yml")
 
     module ClassMethods
