@@ -10,6 +10,13 @@ module Alchemy
       build(:alchemy_attachment, file:, name: nil, file_name: nil)
     end
 
+    if Alchemy.storage_adapter.dragonfly?
+      it_behaves_like "having file name sanitization" do
+        subject { Attachment.new(file:) }
+        let(:file_name_attribute) { :file_name }
+      end
+    end
+
     it_behaves_like "a relatable resource",
       resource_name: :attachment,
       ingredient_type: :file

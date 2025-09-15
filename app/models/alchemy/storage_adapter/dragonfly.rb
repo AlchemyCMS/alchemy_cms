@@ -15,6 +15,10 @@ module Alchemy
 
             has_many :thumbs, class_name: "Alchemy::PictureThumb", dependent: :destroy
 
+            before_save do
+              self.image_file_name = sanitized_filename(image_file_name)
+            end
+
             # Create important thumbnails upfront
             after_create -> { PictureThumb.generate_thumbs!(self) },
               if: :has_convertible_format?
@@ -29,6 +33,10 @@ module Alchemy
               after_assign { |file|
                 write_attribute(:file_mime_type, file.mime_type)
               }
+            end
+
+            before_save do
+              self.file_name = sanitized_filename(file_name)
             end
           end
         end
