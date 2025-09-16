@@ -34,7 +34,7 @@
     "@rollup/plugin-terser": "^0.4.4",
     "consola": "^3.4.2",
     "eslint": "^9.34.0",
-    "jsdom": "^26.1.0",
+    "jsdom": "^27.0.0",
     "jsdom-testing-mocks": "^1.15.2",
     "prettier": "^3.6.2",
     "remixicon": "^4.6.0",
