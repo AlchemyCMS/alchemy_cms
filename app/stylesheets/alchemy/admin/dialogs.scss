@@ -156,6 +156,23 @@
   }
 }
 
+.alchemy-dialog-close {
+  display: inline-flex;
+  width: var(--spacing-6);
+  height: var(--spacing-6);
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border-color: transparent;
+  border-radius: var(--border-radius_medium);
+  color: var(--color-white);
+  padding: 0;
+
+  &:hover {
+    background-color: var(--color-blue_medium);
+  }
+}
+
 .alchemy-dialog-body {
   position: relative;
   color: var(--text-color);

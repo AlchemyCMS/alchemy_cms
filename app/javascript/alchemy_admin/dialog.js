@@ -233,7 +233,7 @@ export class Dialog {
     this.dialog_header = $('<div class="alchemy-dialog-header" />')
     this.dialog_title = $('<div class="alchemy-dialog-title" />')
     this.close_button = $(
-      '<a class="alchemy-dialog-close"><alchemy-icon name="close"></alchemy-icon></a>'
+      '<button class="alchemy-dialog-close"><alchemy-icon name="close"></alchemy-icon></button>'
     )
     this.dialog_title.text(this.options.title)
     this.dialog_header.append(this.dialog_title)
