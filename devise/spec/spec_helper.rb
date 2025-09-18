@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 require "simplecov"
-if ENV["TRAVIS"]
-  require "codeclimate-test-reporter"
+if ENV["GITHUB_ACTIONS"]
+  require "simplecov-cobertura"
+  SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
 end
 SimpleCov.start "rails" do
   add_filter "/lib/alchemy/devise/version"
