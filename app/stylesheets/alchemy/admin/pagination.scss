@@ -1,9 +1,5 @@
 @use "../variables" as vars;
 
-:root {
-  --pagination-height: 52px;
-}
-
 .pagination-wrapper {
   display: flex;
   position: fixed;

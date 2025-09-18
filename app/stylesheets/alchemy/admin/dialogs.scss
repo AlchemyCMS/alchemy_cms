@@ -1,12 +1,5 @@
 @use "../mixins";
 
-:root {
-  --dialog-header-height: 36px;
-  --dialog-header-font-size: var(--font-size_medium);
-  --dialog-header-padding: 0 var(--spacing-2);
-  --dialog-transition-duration: 150ms;
-}
-
 .alchemy-image-overlay-container,
 .alchemy-dialog-container {
   position: fixed;

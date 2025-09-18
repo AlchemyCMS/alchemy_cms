@@ -3,11 +3,6 @@
 @use "../mixins";
 @use "../variables" as vars;
 
-:root {
-  --elements-window-width: 0px;
-  --elements-window-min-width: 400px;
-}
-
 #alchemy_elements_window {
   --width: var(--elements-window-width, 100vw);
   position: absolute;

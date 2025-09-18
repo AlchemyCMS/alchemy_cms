@@ -1,0 +1,162 @@
+:root {
+  /* Dark Colors */
+  --a-lightest-grey: hsl(200deg, 5%, 90%);
+  --a-lighter-grey: hsl(200deg, 5%, 70%);
+  --a-light-grey: hsl(200deg, 5%, 35%);
+  --a-grey: hsl(200deg, 5%, 22.5%);
+  --a-dark-grey: hsl(200deg, 5%, 17.5%);
+  --a-darker-grey: hsl(200deg, 5%, 15%);
+  --a-darkest-grey: hsl(200deg, 5%, 12.5%);
+
+  /* Light Colors */
+  --color-blue_very_light: hsl(203deg, 32%, 97%);
+  --color-blue_light: hsl(203deg, 32%, 85%);
+  --color-blue_medium: hsl(212deg, 52%, 36%);
+  --color-blue_dark: hsl(212deg, 52%, 26%);
+
+  --color-green_very_light: hsl(88deg, 47%, 88%);
+  --color-green_light: hsl(127deg, 25%, 69%);
+  --color-green_medium: hsl(127deg, 25%, 48%);
+  --color-green_dark: hsl(128deg, 32%, 26%);
+
+  --color-yellow_light: hsl(60deg, 81%, 92%);
+  --color-yellow_medium: hsl(56deg, 68%, 85%);
+  --color-yellow_dark: hsl(56deg, 53%, 29%);
+
+  --color-orange_medium: hsl(42deg, 100%, 74%);
+  --color-orange_dark: hsl(28deg, 77%, 68%);
+  --color-orange_very_dark: hsl(28deg, 77%, 48%);
+
+  --color-red_very_light: hsl(0deg, 47%, 88%);
+  --color-red_light: hsl(0deg, 25%, 69%);
+  --color-red_medium: hsl(0deg, 51%, 42%);
+  --color-red_dark: hsl(0deg, 51%, 25%);
+
+  --color-grey_very_light: hsl(0deg, 0%, 97%);
+  --color-grey_light: hsl(0deg, 0%, 94%);
+  --color-grey_medium: hsl(0deg, 0%, 78%);
+  --color-grey_dark: hsl(0deg, 0%, 40%);
+  --color-grey_very_dark: hsl(0deg, 0%, 20%);
+
+  --color-white: hsl(0deg, 0%, 100%);
+
+  /* Sizes */
+  --spacing-0: 2px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-7: 28px;
+  --spacing-8: 32px;
+
+  /* Font Families */
+  --font-mono:
+    Menlo, Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal,
+    monospace;
+  --font-sans:
+    "Open Sans", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana,
+    Tahoma, sans-serif;
+
+  /* Font Size - at the moment only in Pixel, because the base font size is 12px */
+  --font-size_small: 10px; /* 0.875rem */
+  --font-size_medium: 12px; /* 1rem */
+  --font-size_large: 16px; /* 1.25 rem */
+
+  --font-weight_normal: 500;
+  --font-weight_bold: 700;
+
+  --font-default: var(--font-size_medium) var(--font-sans);
+
+  /* Borders */
+  --border-radius_medium: 3px;
+  --border-width_small: 1px;
+  --border-style: solid;
+  --border-default: var(--border-width_small) var(--border-style)
+    var(--border-color);
+
+  /* Transitions */
+  --transition-duration: 250ms;
+  --transition-easing: linear;
+
+  /* Button */
+  --button-border-radius: var(--border-radius_medium);
+  --button-border-style: var(--border-style);
+  --button-border-width: var(--border-width_small);
+  --button-border: var(--button-border-width) var(--button-border-style)
+    var(--button-border-color);
+  --button-font-size: var(--font-size_medium);
+  --button-font-weight: var(--font-weight_bold);
+  --button-height: 30px;
+  --button-line-height: var(--form-field-line-height);
+  --button-margin: var(--form-field-margin);
+  --button-padding: var(--spacing-1) var(--spacing-5);
+  --button-small-padding: 0.4em 0.8em;
+
+  /* Date Picker */
+  --datepicker-font-size: var(--font-size_medium);
+
+  /* Dialog */
+  --dialog-header-height: 36px;
+  --dialog-header-font-size: var(--font-size_medium);
+  --dialog-header-padding: 0 var(--spacing-2);
+  --dialog-transition-duration: 150ms;
+
+  /* Elements */
+  --elements-window-width: 0px;
+  --elements-window-min-width: 400px;
+
+  /* Form */
+  --form-left-column-width: 35%;
+  --form-right-column-width: 65%;
+
+  /* Form Field */
+  --form-field-margin: var(--spacing-1) 0;
+  --form-field-height: 31px;
+  --form-field-addon-width: 30px;
+  --form-field-border-width: var(--border-width_small);
+  --form-field-border-style: var(--border-style);
+  --form-field-padding: var(--spacing-1) var(--spacing-2);
+  --form-field-font-size: var(--font-size_medium);
+  --form-field-line-height: 1.25;
+
+  /* Header */
+  --header-height: 29px;
+  --header-border-bottom: var(--border-default);
+
+  /* Icon Button */
+  --icon-button-height: 30px;
+  --icon-button-width: 30px;
+  --icon-button-medium-height: 26px;
+  --icon-button-medium-width: 26px;
+  --icon-button-small-height: 15px;
+  --icon-button-small-width: 15px;
+
+  /* Icons */
+  --icon-size-xs: 0.75rem;
+  --icon-size-sm: 0.875rem;
+  --icon-size-1x: 1rem;
+  --icon-size-md: 1.3rem;
+  --icon-size-xl: 1.5rem;
+  --icon-size-xxl: 1.6rem;
+
+  /* Navigation */
+  --main-menu-width: 150px;
+  --top-menu-height: 75px;
+  --main-menu-entry-max-width: 110px;
+
+  /* Pagination */
+  --pagination-height: 52px;
+
+  /* Select */
+  --select-medium-width: 90px;
+  --select-large-width: 120px;
+
+  /* Sidebar */
+  --sidebar-width: 232px;
+
+  /* Toolbar */
+  --toolbar-height: 46px;
+  --toolbar-padding: var(--spacing-2) var(--spacing-1);
+}

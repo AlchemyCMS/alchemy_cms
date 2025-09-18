@@ -2,11 +2,6 @@
 @use "../mixins";
 @use "../variables" as vars;
 
-:root {
-  --top-menu-height: 75px;
-  --main-menu-entry-max-width: 110px;
-}
-
 #top_menu {
   position: fixed;
   top: 0;
@@ -189,10 +184,6 @@
   a:hover {
     background-color: hsl(28deg, 77%, 63%);
   }
-}
-
-:root {
-  --main-menu-width: 150px;
 }
 
 .collapsed-menu {

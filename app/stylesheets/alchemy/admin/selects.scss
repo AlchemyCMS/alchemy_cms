@@ -3,11 +3,6 @@
 @use "../extends";
 @use "../mixins";
 
-:root {
-  --select-medium-width: 90px;
-  --select-large-width: 120px;
-}
-
 select {
   @include mixins.button-defaults(
     $background-color: var(--select-background-color),
