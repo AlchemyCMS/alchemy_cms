@@ -29,6 +29,9 @@ body.passwords {
   top: 50%;
   left: 50%;
   transform: translate(-60%, -50%);
+  --form-field-label-color: var(--color-white);
+  --button-secondary-bg-color: var(--color-blue_dark);
+  --button-secondary-hover-bg-color: var(--color-blue_medium);
 
   .no-js & {
     display: none;
