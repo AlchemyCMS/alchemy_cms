@@ -1,0 +1,5 @@
+@use "themes";
+
+html {
+  @include themes.dark-theme;
+}

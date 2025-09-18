@@ -1,17 +1,6 @@
 @use "../extends";
 @use "../mixins";
 
-:root {
-  --form-field-margin: var(--spacing-1) 0;
-  --form-field-height: 31px;
-  --form-field-addon-width: 30px;
-  --form-field-border-width: var(--border-width_small);
-  --form-field-border-style: var(--border-style);
-  --form-field-padding: var(--spacing-1) var(--spacing-2);
-  --form-field-font-size: var(--font-size_medium);
-  --form-field-line-height: 1.25;
-}
-
 textarea,
 input[type="url"],
 input[type="number"],

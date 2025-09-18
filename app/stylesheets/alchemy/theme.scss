@@ -1,0 +1,13 @@
+@use "themes";
+
+@media (prefers-color-scheme: dark) {
+  html {
+    @include themes.dark-theme;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  html {
+    @include themes.light-theme;
+  }
+}

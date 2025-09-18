@@ -11,6 +11,7 @@
     <meta name="robots" content="noindex">
     <meta name="turbo-prefetch" content="false">
     <meta name="turbo-cache-control" content="no-cache">
+    <%= stylesheet_link_tag('alchemy/theme', media: 'screen', 'data-turbo-track' => true) %>
     <%= stylesheet_link_tag('alchemy/admin', media: 'screen', 'data-turbo-track' => true) %>
     <%= stylesheet_link_tag('alchemy/admin/print', media: 'print', 'data-turbo-track' => true) %>
     <% Alchemy.admin_stylesheets.each do |stylesheet| %>
