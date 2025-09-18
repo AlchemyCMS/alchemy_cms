@@ -1,0 +1,46 @@
+<% element = Alchemy::ElementDefinition.get(element_name) %>
+<% if element %>
+  <details>
+    <summary>
+      <header>
+        <span class="icon element">
+          <%= element.icon_file %>
+        </span>
+        <%= Alchemy::Element.display_name_for(element.name) %>
+        <small class="label usage">
+          <%= Alchemy::Element.named(element.name).count %>
+        </small>
+      </header>
+    </summary>
+    <div>
+      <% if element.deprecated %>
+        <alchemy-message type="warning">
+          <%= element.deprecation_notice %>
+        </alchemy-message>
+      <% end %>
+      <% if element.has_hint? %>
+        <p><%= element.hint %></p>
+      <% end %>
+      <% if element.unique %>
+        <sl-tooltip content="This element can only be used once per page">
+          <small class="label">
+            <%= Alchemy::Element.human_attribute_name(:unique) %>
+          </small>
+        </sl-tooltip>
+      <% end %>
+      <% if element.fixed %>
+        <sl-tooltip content="This element has a fixed position one the page">
+          <small class="label">
+            <%= Alchemy::Element.human_attribute_name(:fixed) %>
+          </small>
+        </sl-tooltip>
+      <% end %>
+      <% if element.ingredients.any? %>
+        <ol>
+          <%= render collection: element.ingredients, partial: "ingredient", locals: {element_name: element_name} %>
+        </ol>
+      <% end %>
+      <%= render collection: element.nestable_elements, partial: "element", as: "element_name" %>
+    </div>
+  </details>
+<% end %>
