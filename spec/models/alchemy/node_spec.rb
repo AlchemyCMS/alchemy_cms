@@ -148,5 +148,121 @@ module Alchemy
         end
       end
     end
+
+    describe ".all_from_clipboard" do
+      let!(:node_1) { create(:alchemy_node) }
+      let!(:node_2) { create(:alchemy_node) }
+      let(:clipboard) { [{"id" => node_1.id.to_s}, {"id" => node_2.id.to_s}] }
+
+      it "returns all nodes from clipboard" do
+        expect(Node.all_from_clipboard(clipboard)).to contain_exactly(node_1, node_2)
+      end
+
+      context "with empty clipboard" do
+        let(:clipboard) { [] }
+
+        it "returns empty array" do
+          expect(Node.all_from_clipboard(clipboard)).to eq([])
+        end
+      end
+
+      context "with nil clipboard" do
+        let(:clipboard) { nil }
+
+        it "returns empty array" do
+          expect(Node.all_from_clipboard(clipboard)).to eq([])
+        end
+      end
+    end
+
+    describe ".copy_and_paste" do
+      let(:source) { create(:alchemy_node, name: "Source Node", url: "/source") }
+      let(:new_parent) { create(:alchemy_node) }
+      let(:node_name) { "Copied Node" }
+
+      subject { Node.copy_and_paste(source, new_parent, node_name) }
+
+      it "creates a copy of the source node with the given name under the new parent" do
+        expect(subject.name).to eq(node_name)
+        expect(subject.parent).to eq(new_parent)
+        expect(subject.language).to eq(new_parent.language)
+      end
+
+      it "copies the source node attributes" do
+        expect(subject.url).to eq(source.url)
+        expect(subject.menu_type).to eq(source.menu_type)
+      end
+
+      it "returns the copied node" do
+        expect(subject).to be_a(Alchemy::Node)
+        expect(subject).to be_persisted
+      end
+
+      context "when source node has children" do
+        let!(:child_node_1) { create(:alchemy_node, parent: source, name: "Child 1") }
+        let!(:child_node_2) { create(:alchemy_node, parent: source, name: "Child 2") }
+
+        it "also copies all descendant nodes" do
+          expect(subject.children.length).to eq(2)
+          expect(subject.children.map(&:name)).to contain_exactly("Child 1", "Child 2")
+        end
+
+        it "maintains the hierarchy structure" do
+          copied_child = subject.children.first
+          expect(copied_child.parent).to eq(subject)
+          expect(copied_child.language).to eq(subject.language)
+        end
+      end
+
+      context "with nested children" do
+        let!(:child_node) { create(:alchemy_node, parent: source, name: "Child") }
+        let!(:grandchild_node) { create(:alchemy_node, parent: child_node, name: "Grandchild") }
+
+        it "copies the entire nested structure" do
+          copied_child = subject.children.first
+          copied_grandchild = copied_child.children.first
+
+          expect(copied_grandchild.name).to eq("Grandchild")
+          expect(copied_grandchild.parent).to eq(copied_child)
+        end
+      end
+    end
+
+    describe "#display_name_with_preview_text" do
+      context "with a simple node name" do
+        let(:node) { create(:alchemy_node, name: "Test Node") }
+
+        it "returns the node name" do
+          expect(node.display_name_with_preview_text).to eq("Test Node")
+        end
+      end
+
+      context "when node is linked to a page" do
+        let(:page) { create(:alchemy_page, name: "Test Page") }
+        let(:node) { create(:alchemy_node, name: "Test Node", page: page) }
+
+        it "returns node name with page name" do
+          expect(node.display_name_with_preview_text).to eq("Test Node → Test Page")
+        end
+      end
+
+      context "when node has an external URL" do
+        let(:node) { create(:alchemy_node, name: "Test Node", url: "https://example.com") }
+
+        it "returns node name with URL" do
+          expect(node.display_name_with_preview_text(50)).to eq("Test Node → https://example.com")
+        end
+      end
+
+      context "with maxlength parameter" do
+        let(:node) { create(:alchemy_node, name: "A Very Long Node Name That Should Be Truncated") }
+
+        it "respects the maxlength parameter" do
+          result = node.display_name_with_preview_text(20)
+          expect(result.length).to be <= 20
+          expect(result).to end_with("...")
+        end
+      end
+    end
   end
 end

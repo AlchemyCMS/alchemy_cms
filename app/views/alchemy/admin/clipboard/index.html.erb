@@ -1,13 +1,20 @@
-<%= turbo_frame_tag :clipboard_items do %>
-  <% if @clipboard_items.blank? %>
-    <%= render_message do %>
-      <%= Alchemy.t('No items in your clipboard') %>
-    <% end %>
-  <% else %>
-    <%= render_message do %>
+<% if @clipboard_items.blank? %>
+  <%= render_message do %>
+    <%= Alchemy.t('No items in your clipboard') %>
+  <% end %>
+<% else %>
+  <%= render_message do %>
+    <% case params[:remarkable_type] %>
+    <% when 'pages' %>
+      <%= Alchemy.t('Add items from clipboard via "Add Page" button') %>
+    <% when 'nodes' %>
+      <%= Alchemy.t('Add items from clipboard via "Add Node" button') %>
+    <% else %>
       <%= Alchemy.t('Add items from clipboard via "Add Element" button') %>
     <% end %>
+  <% end %>
 
+  <div id="clipboard_items">
     <ul>
       <% @clipboard_items.each do |item| %>
         <% item_class = item.class.name.demodulize.underscore.pluralize %>
@@ -37,5 +44,5 @@
         "data-turbo-method": :delete,
         class: 'button' %>
     </p>
-  <% end %>
+  </div>
 <% end %>
