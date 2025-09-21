@@ -34,6 +34,25 @@ module Alchemy
       read_attribute(:name).presence || page&.name
     end
 
+    # Returns the display name with preview text for clipboard view
+    #
+    # Shows the node name with additional context like page name or URL
+    #
+    # @param maxlength [Integer] (30)
+    #   Length of characters after the text will be cut off.
+    #
+    def display_name_with_preview_text(maxlength = 30)
+      preview_parts = [name]
+
+      if page
+        preview_parts << "→ #{page.name}"
+      elsif url.present?
+        preview_parts << "→ #{url}"
+      end
+
+      preview_parts.join(" ").truncate(maxlength)
+    end
+
     class << self
       # Returns all root nodes for current language
       def language_root_nodes
@@ -44,6 +63,32 @@ module Alchemy
 
       def available_menu_names
         read_definitions_file
+      end
+
+      def all_from_clipboard(clipboard)
+        return [] if clipboard.blank?
+
+        where(id: clipboard.collect { |n| n["id"] })
+      end
+
+      def copy_and_paste(source, new_parent, new_name)
+        attributes = source.attributes.except(
+          "id", "created_at", "updated_at", "creator_id", "updater_id",
+          "lft", "rgt", "depth", "parent_id"
+        ).merge(
+          name: new_name,
+          parent: new_parent,
+          language: new_parent&.language || source.language
+        )
+
+        node = create!(attributes)
+
+        # Copy all descendants
+        source.children.each do |child|
+          copy_and_paste(child, node, child.name)
+        end
+
+        node
       end
 
       private
