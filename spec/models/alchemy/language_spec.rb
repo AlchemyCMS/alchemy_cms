@@ -300,7 +300,7 @@ module Alchemy
       context "without pages" do
         it "works" do
           subject
-          expect(language.errors[:pages]).to be_empty
+          expect(language.errors[:base]).to be_empty
         end
       end
 
@@ -309,7 +309,7 @@ module Alchemy
 
         it "must not work" do
           subject
-          expect(language.errors[:pages]).to_not be_empty
+          expect(language.errors[:base]).to include("There are still pages attached to this language. Please remove them first.")
         end
       end
     end

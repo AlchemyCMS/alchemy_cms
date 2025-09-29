@@ -790,8 +790,9 @@ en:
               still_present: "are still attached to this site. Please remove them first."
         alchemy/language:
           attributes:
-            pages:
-              still_present: "are still attached to this language. Please remove them first."
+            base:
+              restrict_dependent_destroy:
+                has_many: "There are still %{record} attached to this language. Please remove them first."
         alchemy/page:
           attributes:
             nodes:
@@ -882,6 +883,7 @@ en:
         public: "Public"
         locale: Localization
         code: ISO Code
+        nodes: Menu nodes
       alchemy/legacy_page_url:
         urlname: "URL-Path"
       alchemy/node:

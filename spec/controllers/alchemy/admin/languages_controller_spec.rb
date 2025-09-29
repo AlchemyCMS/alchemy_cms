@@ -108,7 +108,7 @@ describe Alchemy::Admin::LanguagesController do
         delete :destroy, params: {id: language.id}
         expect(response).to redirect_to admin_languages_path
         expect(flash[:warning]).to \
-          eq("Pages are still attached to this language. Please remove them first.")
+          eq("There are still pages attached to this language. Please remove them first.")
       end
     end
 
