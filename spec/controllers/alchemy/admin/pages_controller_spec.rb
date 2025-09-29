@@ -59,7 +59,7 @@ RSpec.describe Alchemy::Admin::PagesController do
         delete :destroy, params: {id: page.id, format: :js}
         expect(response).to redirect_to(admin_pages_path)
         expect(flash[:warning]).to \
-          eq("Nodes are still attached to this page. Please remove them first.")
+          eq("There are still menu nodes attached to this page. Please remove them first.")
       end
     end
 

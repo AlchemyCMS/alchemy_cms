@@ -796,8 +796,9 @@ en:
                 has_many: "There are still %{record} attached to this language. Please remove them first."
         alchemy/page:
           attributes:
-            nodes:
-              still_present: "are still attached to this page. Please remove them first."
+            base:
+              restrict_dependent_destroy:
+                has_many: "There are still %{record} attached to this page. Please remove them first."
     models:
       gutentag/tag:
         one: Tag
@@ -903,6 +904,7 @@ en:
         meta_description: "Description"
         meta_keywords: "Keywords"
         name: "Name"
+        nodes: "Menu nodes"
         page_layout: "Page type"
         public: "public"
         restricted: "restricted"
