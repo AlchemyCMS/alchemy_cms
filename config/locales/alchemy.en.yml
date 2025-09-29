@@ -786,8 +786,9 @@ en:
               node_ingredients_present: "This menu item is in use inside an Alchemy element on the following pages: %{page_names}."
         alchemy/site:
           attributes:
-            languages:
-              still_present: "are still attached to this site. Please remove them first."
+            base:
+              restrict_dependent_destroy:
+                has_many: "There are still %{record} attached to this site. Please remove them first."
         alchemy/language:
           attributes:
             base:
