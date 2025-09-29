@@ -112,6 +112,17 @@ describe Alchemy::Admin::LanguagesController do
       end
     end
 
+    context "with nodes attached" do
+      let!(:node) { create(:alchemy_node, language: language) }
+
+      it "returns with error message" do
+        delete :destroy, params: {id: language.id}
+        expect(response).to redirect_to admin_languages_path
+        expect(flash[:warning]).to \
+          eq("There are still menu nodes attached to this language. Please remove them first.")
+      end
+    end
+
     context "without pages" do
       it "removes the language" do
         delete :destroy, params: {id: language.id}

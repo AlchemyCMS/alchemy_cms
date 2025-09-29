@@ -26,7 +26,7 @@ module Alchemy
   class Language < BaseRecord
     belongs_to :site
     has_many :pages, inverse_of: :language, dependent: :restrict_with_error
-    has_many :nodes, inverse_of: :language
+    has_many :nodes, inverse_of: :language, dependent: :restrict_with_error
 
     before_validation :set_locale, if: -> { locale.blank? }
 
