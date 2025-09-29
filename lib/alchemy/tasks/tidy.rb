@@ -73,6 +73,24 @@ module Alchemy
         log "Deleted #{count} duplicate legacy URLs"
       end
 
+      def remove_legacy_essence_tables
+        puts "\n## Removing legacy essence tables"
+        matching_tables = ActiveRecord::Base.connection.tables.select do |table|
+          table.start_with?("alchemy_essence_")
+        end
+        if matching_tables.length.zero?
+          log "No legacy essence tables found", :skip
+          nil
+        else
+          matching_tables.each do |table|
+            ActiveRecord::Base.connection.drop_table(table, if_exists: true)
+            print "."
+          end
+          puts "\n"
+          log "Deleted #{matching_tables.length} legacy essence tables"
+        end
+      end
+
       private
 
       def destroy_orphaned_records(records, class_name)
