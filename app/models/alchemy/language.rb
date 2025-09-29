@@ -25,8 +25,8 @@ require_dependency "alchemy/site"
 module Alchemy
   class Language < BaseRecord
     belongs_to :site
-    has_many :pages, inverse_of: :language
-    has_many :nodes, inverse_of: :language
+    has_many :pages, inverse_of: :language, dependent: :restrict_with_error
+    has_many :nodes, inverse_of: :language, dependent: :restrict_with_error
 
     before_validation :set_locale, if: -> { locale.blank? }
 
@@ -53,11 +53,6 @@ module Alchemy
 
     after_update :set_pages_language,
       if: :should_set_pages_language?
-
-    before_destroy if: -> { pages.any? } do
-      errors.add(:pages, :still_present)
-      throw(:abort)
-    end
 
     scope :published, -> { where(public: true) }
     scope :with_root_page, -> { joins(:pages).where(Page.table_name => {language_root: true}) }
