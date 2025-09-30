@@ -17,10 +17,7 @@
         <%= link_to(
           render_icon('zoom-out'),
           alchemy.admin_pictures_path(
-            size: "small",
-            q: search_filter_params[:q],
-            filter: search_filter_params[:filter],
-            tagged_with: search_filter_params[:tagged_with]
+            search_filter_params.merge(size: "small").to_h
           ),
           class: "icon_button"
         ) %>
@@ -29,10 +26,7 @@
         <%= link_to(
           render_icon('search'),
           alchemy.admin_pictures_path(
-            size: "medium",
-            q: search_filter_params[:q],
-            filter: search_filter_params[:filter],
-            tagged_with: search_filter_params[:tagged_with]
+            search_filter_params.merge(size: "medium").to_h
           ),
           class: "icon_button"
         ) %>
@@ -41,10 +35,7 @@
         <%= link_to(
           render_icon('zoom-in'),
           alchemy.admin_pictures_path(
-            size: "large",
-            q: search_filter_params[:q],
-            filter: search_filter_params[:filter],
-            tagged_with: search_filter_params[:tagged_with]
+            search_filter_params.merge(size: "large").to_h
           ),
           class: "icon_button"
         ) %>
