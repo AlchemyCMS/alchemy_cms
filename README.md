@@ -64,6 +64,9 @@ Visit the existing demo at https://demo.alchemy-cms.com/
 * For a Rails 3.0 compatible version use the [`2.0-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/2.0-stable).
 * For a Rails 2.3 compatible version use the [`1.6-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/1.6-stable).
 
+> [!NOTE]
+> For Rails `>= 8`, use Alchemy version `>= 8.0.0a` which comes with propshaft support.
+> If you are on Rails `>= 8` with an older Alchemy version, you will need to [temporarily comment out](https://github.com/AlchemyCMS/alchemy_cms/issues/3330) the `propshaft` gem.
 
 ## 💎 Ruby Version
 
