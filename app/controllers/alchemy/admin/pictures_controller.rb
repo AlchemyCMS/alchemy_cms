@@ -102,32 +102,12 @@ module Alchemy
       end
 
       def delete_multiple
-        if request.delete? && params[:picture_ids].present?
-          pictures = Picture.find(params[:picture_ids])
-          names = []
-          not_deletable = []
-          pictures.each do |picture|
-            if picture.deletable?
-              names << picture.name
-              picture.destroy
-            else
-              not_deletable << picture.name
-            end
-          end
-          if not_deletable.any?
-            flash[:warn] = Alchemy.t(
-              "These pictures could not be deleted, because they were in use",
-              names: not_deletable.to_sentence
-            )
-          else
-            flash[:notice] = Alchemy.t("Pictures deleted successfully", names: names.to_sentence)
-          end
+        if params[:picture_ids].present?
+          params[:picture_ids].each { DeletePictureJob.perform_later(_1) }
+          flash[:notice] = Alchemy.t(:pictures_will_be_deleted_now)
         else
           flash[:warn] = Alchemy.t("Could not delete Pictures")
         end
-      rescue => e
-        flash[:error] = e.message
-      ensure
         redirect_to_index
       end
 

@@ -102,12 +102,8 @@ RSpec.describe "Picture Library", type: :system do
       end
 
       within "#flash_notices" do
-        expect(page).to have_content("Pictures deleted successfully")
+        expect(page).to have_content("Pictures will be deleted now")
       end
-
-      expect(page).to_not have_selector("#picture_#{picture_2.id}")
-      expect(page).to_not have_selector("#picture_#{picture_1.id}")
-      expect(page).to have_selector("#picture_#{picture_3.id}")
 
       # Keeps existing params
       within "#filter_bar" do
