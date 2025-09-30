@@ -9,6 +9,113 @@ RSpec.describe "Picture Library", type: :system do
 
   let!(:language) { create(:alchemy_language) }
 
+  describe "Editing multiple pictures" do
+    let!(:picture_1) { create(:alchemy_picture, name: "Picture 1") }
+    let!(:picture_2) { create(:alchemy_picture, name: "Picture 2") }
+    let!(:picture_3) { create(:alchemy_picture, name: "Picture 3") }
+
+    scenario "allows to select multiple pictures and edit them", :js do
+      visit alchemy.admin_pictures_path
+
+      find("#picture_#{picture_1.id}").hover
+      find("#picture_#{picture_1.id} .select > input[type='checkbox']").check
+      find("#picture_#{picture_2.id}").hover
+      find("#picture_#{picture_2.id} .select > input[type='checkbox']").check
+
+      expect(page).to have_css(".selected_item_tools", visible: true)
+
+      click_on "edit_multiple_pictures"
+
+      within ".alchemy-dialog" do
+        select2_search("newtag", from: "Tags")
+        click_button "Save"
+      end
+
+      within "#flash_notices" do
+        expect(page).to have_content("Pictures updated successfully")
+      end
+
+      [picture_1, picture_2].each do |picture|
+        find("#picture_#{picture.id}").hover
+        within "#picture_#{picture.id} .picture_tags" do
+          expect(page).to have_content("newtag")
+        end
+      end
+    end
+  end
+
+  describe "Editing multiple pictures" do
+    let!(:picture_1) { create(:alchemy_picture, name: "Picture 1") }
+    let!(:picture_2) { create(:alchemy_picture, name: "Picture 2") }
+    let!(:picture_3) { create(:alchemy_picture, name: "Picture 3") }
+
+    scenario "keeps existing params", :js do
+      visit alchemy.admin_pictures_path(size: "large", q: {without_tag: 1})
+
+      find("#picture_#{picture_1.id}").hover
+      find("#picture_#{picture_1.id} .select > input[type='checkbox']").check
+      find("#picture_#{picture_2.id}").hover
+      find("#picture_#{picture_2.id} .select > input[type='checkbox']").check
+
+      expect(page).to have_css(".selected_item_tools", visible: true)
+
+      click_on "edit_multiple_pictures"
+
+      within ".alchemy-dialog" do
+        select2_search("newtag", from: "Tags")
+        click_button "Save"
+      end
+
+      within "#flash_notices" do
+        expect(page).to have_content("Pictures updated successfully")
+      end
+
+      # Pictures 1 and 2 should not be visible because of the without_tag filter
+      expect(page).to_not have_selector("#picture_#{picture_2.id}")
+      expect(page).to_not have_selector("#picture_#{picture_1.id}")
+
+      expect(page).to have_selector("#picture_#{picture_3.id}")
+    end
+  end
+
+  describe "Deleting multiple pictures" do
+    let!(:picture_1) { create(:alchemy_picture, name: "Picture 1") }
+    let!(:picture_2) { create(:alchemy_picture, name: "Picture 2") }
+    let!(:picture_3) { create(:alchemy_picture, name: "Picture 3") }
+
+    scenario "keeps existing params", :js do
+      visit alchemy.admin_pictures_path(size: "large", q: {without_tag: 1})
+
+      find("#picture_#{picture_1.id}").hover
+      find("#picture_#{picture_1.id} .select > input[type='checkbox']").check
+      find("#picture_#{picture_2.id}").hover
+      find("#picture_#{picture_2.id} .select > input[type='checkbox']").check
+
+      expect(page).to have_css(".selected_item_tools", visible: true)
+
+      within ".selected_item_tools" do
+        click_button "Delete"
+      end
+
+      within "sl-dialog" do
+        click_button "Yes"
+      end
+
+      within "#flash_notices" do
+        expect(page).to have_content("Pictures deleted successfully")
+      end
+
+      expect(page).to_not have_selector("#picture_#{picture_2.id}")
+      expect(page).to_not have_selector("#picture_#{picture_1.id}")
+      expect(page).to have_selector("#picture_#{picture_3.id}")
+
+      # Keeps existing params
+      within "#filter_bar" do
+        expect(page).to have_checked_field("Without tag")
+      end
+    end
+  end
+
   describe "Tagging" do
     let!(:picture_1) { create(:alchemy_picture, tag_list: "tag1", name: "TaggedWith1") }
     let!(:picture_2) { create(:alchemy_picture, tag_list: "tag2", name: "TaggedWith2") }

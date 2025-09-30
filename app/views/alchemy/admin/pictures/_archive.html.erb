@@ -1,15 +1,19 @@
 <%= render "library_sidebar" %>
 
-<%= form_tag delete_multiple_admin_pictures_path, method: :delete do %>
+<% forwarded_params = search_filter_params.merge(
+  page: params[:page],
+  size: @size.presence
+).to_h %>
+
+<%= form_tag delete_multiple_admin_pictures_path(forwarded_params), method: :delete do %>
   <div class="selected_item_tools hidden">
     <h3><%= Alchemy.t(:edit_selected_pictures) %></h3>
     <%= link_to(
       render_icon(:edit, size: '1x') + Alchemy.t("Edit"),
-      edit_multiple_admin_pictures_path,
+      edit_multiple_admin_pictures_path(forwarded_params),
       class: 'button with_icon',
       title: Alchemy.t('Edit multiple pictures'),
-      id: 'edit_multiple_pictures',
-      style: 'float: none'
+      id: 'edit_multiple_pictures'
     ) %>
     <%= button_tag render_icon("delete-bin-2", size: '1x') + Alchemy.t("Delete"),
       'data-turbo-confirm': Alchemy.t(:confirm_to_delete_images_from_server),
@@ -17,21 +21,15 @@
     &nbsp;<%= Alchemy.t(:or) %>&nbsp;
     <%= link_to(
       render_icon(:close) + Alchemy.t("Clear selection"),
-      admin_pictures_path(
-        q: search_filter_params[:q],
-        tagged_with: search_filter_params[:tagged_with],
-        size: @size,
-        filter: search_filter_params[:filter]
-      ),
-      class: 'secondary button with_icon',
-      style: 'float: none'
+      admin_pictures_path(forwarded_params),
+      class: 'secondary button with_icon'
     ) %>
   </div>
-  <% if @pictures.blank? and @recent_pictures.blank? and search_filter_params[:q].blank? %>
+  <% if @pictures.blank? && @recent_pictures.blank? && search_filter_params[:q].blank? %>
     <%= render_message do %>
       <%= Alchemy.t(:no_images_in_archive) %>
     <% end %>
-  <% elsif @pictures.blank? and @recent_pictures.blank? %>
+  <% elsif @pictures.blank? && @recent_pictures.blank? %>
     <%= render_message do %>
       <%= Alchemy.t(:no_search_results) %>
     <% end %>
