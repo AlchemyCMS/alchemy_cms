@@ -67,7 +67,6 @@ Visit the existing demo at https://demo.alchemy-cms.com/
 > For Rails `>= 8`, use Alchemy version `>= 8.0.0a` which comes with propshaft support.
 > If you are on Rails `>= 8` with an older Alchemy version, you will need to [temporarily comment out](https://github.com/AlchemyCMS/alchemy_cms/issues/3330) the `propshaft` gem.
 
-
 ## 💎 Ruby Version
 
 Alchemy runs with Ruby >= 3.1.0.
