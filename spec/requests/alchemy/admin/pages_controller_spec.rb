@@ -12,6 +12,12 @@ module Alchemy
         get admin_pages_path
         expect(request).to redirect_to(Alchemy.login_path)
       end
+
+      it "can not access page preview of a public page" do
+        page = create(:alchemy_page, :public)
+        get admin_page_path(page)
+        expect(request).to redirect_to(Alchemy.login_path)
+      end
     end
 
     context "a member" do
@@ -20,6 +26,12 @@ module Alchemy
       it "can not access page tree" do
         get admin_pages_path
         expect(request).to redirect_to(root_path)
+      end
+
+      it "can not access page preview of a public page" do
+        page = create(:alchemy_page, :public)
+        get admin_page_path(page)
+        expect(request).to redirect_to("/")
       end
     end
 
@@ -273,6 +285,11 @@ module Alchemy
       describe "#show" do
         let(:language) { create(:alchemy_language, locale: "nl") }
         let!(:page) { create(:alchemy_page, language: language) }
+
+        it "can be accessed" do
+          get admin_page_path(page)
+          expect(response).to be_successful
+        end
 
         it "should assign @preview_mode with true" do
           get admin_page_path(page)
