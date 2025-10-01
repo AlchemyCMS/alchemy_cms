@@ -340,7 +340,6 @@ en:
     "Size": "Size"
     "Successfully deleted element": "Successfully deleted %{element}"
     "Tags": "Tags"
-    "These pictures could not be deleted, because they were in use": "These pictures could not be deleted, because they were in use: %{names}"
     "This page is locked": "This page is currently locked by %{name}"
     "Title": "Title"
     "Trash": "Trash"
@@ -568,6 +567,7 @@ en:
     password: "Password"
     paste: "paste"
     pictures_in_page: "%{page} in %{pictures}"
+    pictures_will_be_deleted_now: Pictures will be deleted now
     place_link: "Add link"
     player_version: "Flash Player version"
     "please enter subject and mail address": "Please enter recipient and subject."
