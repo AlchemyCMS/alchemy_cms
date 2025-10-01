@@ -1,9 +1,9 @@
 const formatItem = (object) => {
   const color = object.element[0].value
-  const style = color === "custom_color" ? null : `--color: ${color}`
+  const style = color === "custom_color" ? "" : `style="--color: ${color}"`
   return `
     <div class="select-color-option">
-      <span class="color-indicator" style="${style}"></span>
+      <span class="color-indicator" ${style}></span>
       <span>${object.text}</span>
     </div>`
 }
