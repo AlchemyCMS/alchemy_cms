@@ -597,8 +597,9 @@ alchemy-publish-element-button {
 
 alchemy-color-select {
   display: flex;
-  gap: var(--spacing-2);
+  gap: var(--spacing-1);
   justify-content: space-between;
+  align-items: center;
 
   > .select2-container {
     width: 100%;
@@ -608,6 +609,7 @@ alchemy-color-select {
     border: var(--border-default);
     border-radius: var(--border-radius_medium);
     height: var(--form-field-height);
+    background: var(--form-field-background-color);
     width: 100%;
 
     &[disabled] {
@@ -625,10 +627,8 @@ alchemy-color-select {
 // component
 .select-color-option {
   .color-indicator {
-    background: var(
-      --color,
-      linear-gradient(90deg, red 8%, yellow 50%, blue 95%)
-    );
+    --color: linear-gradient(90deg, red, orange, yellow, green, blue);
+    background: var(--color) 100% 100% no-repeat;
     border: var(--border-default);
     display: inline-block;
     height: var(--icon-size-md);
@@ -636,6 +636,7 @@ alchemy-color-select {
   }
 
   display: flex;
+  align-items: center;
   gap: var(--spacing-2);
 }
 
