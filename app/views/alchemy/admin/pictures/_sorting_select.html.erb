@@ -1,11 +1,13 @@
-<div class="filter-input">
-  <alchemy-auto-submit>
-    <%= label_tag "q[s]", t(".label") %>
-    <%= select_tag "q[s]", options_for_select([
-      [t(".by_latest"), "created_at desc"],
-      [t(".alphabetical"), "name asc"]
-    ], search_filter_params.dig(:q, :s)),
-    form: "resource_search",
-    class: "full_width" %>
-  </alchemy-auto-submit>
+<div id="sorting_select">
+  <div class="filter-input">
+    <alchemy-auto-submit>
+      <%= label_tag "q[s]", t(".label") %>
+      <%= select_tag "q[s]", options_for_select([
+        [t(".by_latest"), "created_at desc"],
+        [t(".alphabetical"), "name asc"]
+      ], search_filter_params.dig(:q, :s)),
+      form: "resource_search",
+      class: "full_width" %>
+    </alchemy-auto-submit>
+  </div>
 </div>
