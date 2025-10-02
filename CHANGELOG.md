@@ -86,6 +86,17 @@
 - Deprecate `Alchemy.enable_searchable` for `Alchemy.config.show_page_searchable_checkbox` [#3188](https://github.com/AlchemyCMS/alchemy_cms/pull/3188) ([mamhoff](https://github.com/mamhoff))
 - Add Alchemy.config and DSL for type-safe configuration [#3178](https://github.com/AlchemyCMS/alchemy_cms/pull/3178) ([mamhoff](https://github.com/mamhoff))
 
+## 7.4.10 (2025-10-02)
+
+- [7.4-stable] Fix admin page preview permissions [#3389](https://github.com/AlchemyCMS/alchemy_cms/pull/3389) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.4] Sanititze filenames before upload [#3375](https://github.com/AlchemyCMS/alchemy_cms/pull/3375) ([tvdeyen](https://github.com/tvdeyen))
+- [7.4] Allow importmap-rails v2.0 [#3374](https://github.com/AlchemyCMS/alchemy_cms/pull/3374) ([tvdeyen](https://github.com/tvdeyen))
+
+## 7.4.9 (2025-09-04)
+
+- [7.4-stable] Alchemy TinyMCE: Remove frontend presence validation [#3361](https://github.com/AlchemyCMS/alchemy_cms/pull/3361) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.4-stable] Fix page info url path display [#3355](https://github.com/AlchemyCMS/alchemy_cms/pull/3355) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.4.8 (2025-08-15)
 
 - [7.4-stable] fix(DatetimeView): Use settings value if present [#3350](https://github.com/AlchemyCMS/alchemy_cms/pull/3350) ([alchemycms-bot](https://github.com/alchemycms-bot))
