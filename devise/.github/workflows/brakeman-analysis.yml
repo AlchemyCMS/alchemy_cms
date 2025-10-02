@@ -25,13 +25,13 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.2"
+          ruby-version: "3.4"
 
       - name: Setup Brakeman
         env:
-          BRAKEMAN_VERSION: "6.2.1" # SARIF support is provided in Brakeman version 4.10+
+          BRAKEMAN_VERSION: "7.1.0" # SARIF support is provided in Brakeman version 4.10+
         run: |
-          gem install brakeman --version $BRAKEMAN_VERSION
+          gem install brakeman --version $BRAKEMAN_VERSION --no-document
 
       # Execute Brakeman CLI and generate a SARIF output with the security issues identified during the analysis
       - name: Scan
