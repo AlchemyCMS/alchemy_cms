@@ -31,7 +31,7 @@ ActiveJob::Base.queue_adapter = :test
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.use_transactional_fixtures = true
-  config.include Devise::TestHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Alchemy::Engine.routes.url_helpers
   config.include Alchemy::TestSupport::ConfigStubbing
   config.include FactoryBot::Syntax::Methods

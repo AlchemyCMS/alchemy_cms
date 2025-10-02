@@ -1,9 +1,12 @@
 require "alchemy_cms"
 require "devise"
+require "flickwerk"
 
 module Alchemy
   module Devise
     class Engine < ::Rails::Engine
+      include Flickwerk
+
       isolate_namespace Alchemy
       engine_name "alchemy_devise"
 
@@ -15,10 +18,6 @@ module Alchemy
         app.config.assets.precompile += [
           "alchemy-devise.css"
         ]
-      end
-
-      config.to_prepare do
-        require_relative "../../../app/controllers/alchemy/base_controller_extension"
       end
     end
   end
