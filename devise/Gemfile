@@ -6,7 +6,7 @@ gem "alchemy_cms", github: "AlchemyCMS/alchemy_cms", branch: alchemy_branch
 rails_version = ENV.fetch("RAILS_VERSION", "7.2")
 gem "rails", "~> #{rails_version}.0"
 gem "listen", "~> 3.8"
-gem "puma", "~> 6.0"
+gem "puma", "~> 7.0"
 
 # Specify your gem's dependencies in alchemy-solidus.gemspec
 gemspec
