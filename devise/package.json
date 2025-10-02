@@ -3,7 +3,7 @@
   "author": "Thomas von Deyen",
   "license": "BSD-3-Clause",
   "scripts": {
-    "build": "sass --style=compressed --source-map --load-path app/assets/stylesheets app/assets/stylesheets/alchemy-devise.scss:app/assets/builds/alchemy-devise.css"
+    "build": "sass --style=compressed --no-source-map --load-path app/assets/stylesheets app/assets/stylesheets/alchemy-devise.scss:app/assets/builds/alchemy-devise.css"
   },
   "devDependencies": {
     "sass": "^1.77.8"
