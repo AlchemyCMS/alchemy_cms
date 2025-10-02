@@ -14,7 +14,7 @@ Alchemy.configure do |config|
   #
   # Enable/Disable page caching globally.
   #
-  # NOTE: You can enable/disable page caching for single Alchemy::PageLayouts in the page_layout.yml file.
+  # NOTE: You can enable/disable page caching for single Alchemy::Definitions in the page_layout.yml file.
   #
   # config.cache_pages = true
 
@@ -97,12 +97,12 @@ Alchemy.configure do |config|
   # end
 
   # This is the default language when seeding.
-  # config.default_language.tap do |default_language|
-  #   default_language.code = "en"
-  #   default_language.name = "English"
-  #   default_language.page_layout = "index"
-  #   default_language.frontpage_name = "Index"
-  # end
+  config.default_language.tap do |default_language|
+    default_language.code = "en"
+    default_language.name = "English"
+    # default_language.page_layout = "index"
+    # default_language.frontpage_name = "Index"
+  end
 
   # === Mailer Settings:
   #
@@ -114,7 +114,7 @@ Alchemy.configure do |config|
   #
   # ==== Options:
   #
-  #   page_layout_name:           [String] # A +Alchemy::PageLayout+ name. Used to render the contactform on a page with this layout.
+  #   page_layout_name:           [String] # A +Alchemy::PageDefinition+ name. Used to render the contactform on a page with this layout.
   #   fields:                     [Array]  # An Array of fieldnames.
   #   validate_fields:            [Array]  # An Array of fieldnames to be validated on presence.
   #
@@ -193,4 +193,8 @@ Alchemy.configure do |config|
 
   # The sizes for the preview size select in the page editor.
   # config.page_preview_sizes = [360, 640, 768, 1024, 1280, 1440]
+
+  # The storage adapter for Pictures and Attachments
+  #
+  config.storage_adapter = "dragonfly"
 end

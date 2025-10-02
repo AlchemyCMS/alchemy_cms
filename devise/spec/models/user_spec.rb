@@ -239,8 +239,6 @@ module Alchemy
       let(:user) { create(:alchemy_admin_user) }
       let(:page) { create(:alchemy_page) }
 
-      before { allow(Alchemy::PageLayout).to receive(:get).and_return({}) }
-
       it "should return all pages that are locked by user" do
         user.save!
         page.lock_to!(user)

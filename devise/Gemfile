@@ -17,6 +17,9 @@ group :test do
   end
   gem "mysql2" if ENV["DB"] == "mysql"
   gem "pg", "~> 1.0" if ENV["DB"] == "postgresql"
+  if ENV["GITHUB_ACTIONS"]
+    gem "simplecov-cobertura", "~> 3.0"
+  end
 end
 
 gem "github_fast_changelog", require: false

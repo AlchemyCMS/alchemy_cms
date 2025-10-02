@@ -1,6 +1,10 @@
 name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
   RSpec:
@@ -78,12 +82,16 @@ jobs:
           sudo chown -R runner /home/runner/apt/cache
       - name: Prepare database
         run: bundle exec rake alchemy:spec:prepare
-      - name: Run tests & publish code coverage
-        uses: paambaati/codeclimate-action@v3.2.0
-        env:
-          CC_TEST_REPORTER_ID: 8908e9226a16b7c4537ed07da25d09b086dfc7135b4f4c583603e043401288e8
+      - name: Run tests
+        run: bundle exec rspec
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        if: matrix.rails == '7.2' && matrix.ruby == '3.4'
         with:
-          coverageCommand: bundle exec rspec
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: AlchemyCMS/alchemy-devise
+          disable_search: true
+          files: ./coverage/coverage.xml
       - uses: actions/upload-artifact@main
         if: failure()
         with:

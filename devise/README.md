@@ -3,7 +3,7 @@
 [![CI](https://github.com/AlchemyCMS/alchemy-devise/actions/workflows/ci.yml/badge.svg)](https://github.com/AlchemyCMS/alchemy-devise/actions/workflows/ci.yml)
 [![Brakeman Scan](https://github.com/AlchemyCMS/alchemy-devise/actions/workflows/brakeman-analysis.yml/badge.svg)](https://github.com/AlchemyCMS/alchemy-devise/actions/workflows/brakeman-analysis.yml)
 
-[![Gem Version](https://badge.fury.io/rb/alchemy-devise.svg)](http://badge.fury.io/rb/alchemy-devise) [![Test Coverage](https://codeclimate.com/github/AlchemyCMS/alchemy-devise/badges/coverage.svg)](https://codeclimate.com/github/AlchemyCMS/alchemy-devise/coverage) [![Code Climate](https://codeclimate.com/github/AlchemyCMS/alchemy-devise/badges/gpa.svg)](https://codeclimate.com/github/AlchemyCMS/alchemy-devise)
+[![Gem Version](https://badge.fury.io/rb/alchemy-devise.svg)](http://badge.fury.io/rb/alchemy-devise) [![codecov](https://codecov.io/gh/AlchemyCMS/alchemy-devise/graph/badge.svg?token=b47JTwIYJG)](https://codecov.io/gh/AlchemyCMS/alchemy-devise)
 
 AlchemyCMS has no authentication in its core. So it is possible to bring your own authentication and use it to authorize users in AlchemyCMS. If you don't have your own authentication, you can use this gem.
 
