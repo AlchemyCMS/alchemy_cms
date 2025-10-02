@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.4.10 (2025-10-02)
+
+- [7.4-stable] Fix admin page preview permissions [#3389](https://github.com/AlchemyCMS/alchemy_cms/pull/3389) ([alchemycms-bot](https://github.com/alchemycms-bot))
+- [7.4] Sanititze filenames before upload [#3375](https://github.com/AlchemyCMS/alchemy_cms/pull/3375) ([tvdeyen](https://github.com/tvdeyen))
+- [7.4] Allow importmap-rails v2.0 [#3374](https://github.com/AlchemyCMS/alchemy_cms/pull/3374) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 7.4.9 (2025-09-04)
 
 - [7.4-stable] Alchemy TinyMCE: Remove frontend presence validation [#3361](https://github.com/AlchemyCMS/alchemy_cms/pull/3361) ([alchemycms-bot](https://github.com/alchemycms-bot))
