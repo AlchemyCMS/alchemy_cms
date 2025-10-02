@@ -188,11 +188,39 @@ Alchemy.configure do |config|
   #
   # config.link_target_options = <%= @default_config.link_target_options.inspect %>
 
+  # === Format matchers
+  #
+  # Named aliases for regular expressions that can be used in various places.
+  # The most common use case is the format validation of ingredients, or attribute validations of your individual models.
+  #
+  # == Example:
+  #
+  #   validates_format_of :url, with: Alchemy.config.format_matchers.url
+  #
+  # config.format_matchers.tap do |format|
+  #   format.email = <%= @default_config.format_matchers.email.inspect %>
+  #   format.url = <%= @default_config.format_matchers.url.inspect %>
+  #   format.link_url = <%= @default_config.format_matchers.link_url.inspect %>
+  # end
+
   # The layout used for rendering the +alchemy/admin/pages#show+ action.
   # config.admin_page_preview_layout = <%= @default_config.admin_page_preview_layout.inspect %>
 
   # The sizes for the preview size select in the page editor.
   # config.page_preview_sizes = <%= @default_config.page_preview_sizes.inspect %>
+
+  # Enable full text search configuration
+  #
+  # It enables a searchable checkbox in the page form to toggle
+  # the searchable field. These information can used in a search
+  # plugin (e.g. https://github.com/AlchemyCMS/alchemy-pg_search).
+  #
+  # == Example
+  #
+  #     # config/initializers/alchemy.rb
+  #     Alchemy.config.page_searchable_checkbox = true
+  #
+  # config.show_page_searchable_checkbox = <%= @default_config.show_page_searchable_checkbox.inspect %>
 
   # The storage adapter for Pictures and Attachments
   #
