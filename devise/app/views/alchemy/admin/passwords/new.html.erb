@@ -3,10 +3,12 @@
 <% end %>
 
 <div class="login_signup_box">
-  <%= image_tag 'alchemy/alchemy-logo.svg', id: 'logo' %>
+  <%= render "alchemy/admin/user_sessions/logo" %>
 <% if @user.errors.blank? %>
   <%= render_message do %>
-    <h1><%= Alchemy.t('Password reset') %></h1>
+    <p>
+      <strong><%= Alchemy.t('Password reset') %></strong>
+    </p>
     <p><%= Alchemy.t('Please enter your email address') %></p>
   <% end %>
 <% else %>
@@ -18,11 +20,14 @@
     <%= f.input :email,
       autofocus: true,
       input_html: {value: params[:email]} %>
-    <div class="input link">
-      <small>
-        <%= link_to Alchemy.t(:back), alchemy.admin_login_path %>
-      </small>
+    <div class="submit">
+      <%= link_to alchemy.admin_login_path do %>
+        <%= render_icon("arrow-left-s", size: "1x") %>
+        <%= Alchemy.t(:login) %>
+      <% end %>
+      <button type="submit">
+        <%= Alchemy.t("Send reset instructions") %>
+      </button>
     </div>
-    <%= f.submit Alchemy.t("Send reset instructions"), input_html: {class: 'secondary'} %>
   <% end %>
 </div>

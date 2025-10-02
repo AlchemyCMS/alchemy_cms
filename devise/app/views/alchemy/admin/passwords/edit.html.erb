@@ -3,10 +3,12 @@
 <% end %>
 
 <div class="login_signup_box">
-  <%= image_tag 'alchemy/alchemy-logo.svg', id: 'logo' %>
+  <%= render "alchemy/admin/user_sessions/logo" %>
 <% if @user.errors.blank? %>
   <%= render_message do %>
-    <h1><%= Alchemy.t('Password reset') %></h1>
+    <p>
+      <strong><%= Alchemy.t('Password reset') %></strong>
+    </p>
     <p><%= Alchemy.t('Please enter a new password') %></p>
   <% end %>
 <% else %>
@@ -18,11 +20,14 @@
     <%= f.hidden_field :reset_password_token %>
     <%= f.input :password, autofocus: true, label: Alchemy.t("New password") %>
     <%= f.input :password_confirmation, label: Alchemy.t("Confirm new password") %>
-    <div class="input link">
-      <small>
-        <%= link_to Alchemy.t(:back), alchemy.admin_login_path %>
-      </small>
+    <div class="submit">
+      <%= link_to alchemy.admin_login_path do %>
+        <%= render_icon("arrow-left-s", size: "1x") %>
+        <%= Alchemy.t(:login) %>
+      <% end %>
+      <button type="submit">
+        <%= Alchemy.t("Change password") %>
+      </button>
     </div>
-    <%= f.submit Alchemy.t("Change password") %>
   <% end %>
 </div>
