@@ -1,12 +1,5 @@
 body.user_sessions,
 body.passwords {
-  background-color: var(--color-blue_dark);
-  color: var(--color-white);
-
-  a {
-    color: var(--color-white);
-  }
-
   #errors,
   .message.info {
     border-color: transparent;
@@ -17,21 +10,25 @@ body.passwords {
   }
 }
 
-#logo {
-  width: 275px;
-  height: auto;
-  margin: 0 0 1em 164px;
+.logo-box {
+  width: 250px;
+  margin: 0 10px 1.5em 200px;
+
+  svg {
+    width: 200px;
+    height: auto;
+  }
 }
 
 .login_signup_box {
   position: absolute;
-  width: 450px;
   top: 50%;
   left: 50%;
-  transform: translate(-60%, -50%);
-  --form-field-label-color: var(--color-white);
-  --button-secondary-bg-color: var(--color-blue_dark);
-  --button-secondary-hover-bg-color: var(--color-blue_medium);
+  transform: translate(-50%, -50%);
+
+  alchemy-message {
+    margin-left: var(--form-left-column-width);
+  }
 
   .no-js & {
     display: none;
@@ -41,12 +38,25 @@ body.passwords {
     margin-left: 157px;
   }
 
-  .link {
-    text-align: right;
-  }
+  .submit {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-4);
+    margin-left: var(--form-left-column-width);
+    padding-left: var(--spacing-0);
 
-  button.secondary {
-    color: var(--color-white);
-    border-color: var(--color-white);
+    > a {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-0);
+
+      &:hover {
+        alchemy-icon {
+          transform: translateX(-2px);
+          transition: transform var(--transition-duration);
+        }
+      }
+    }
   }
 }

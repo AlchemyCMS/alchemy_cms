@@ -3,17 +3,19 @@
 <% end %>
 
 <div class="login_signup_box">
-  <%= image_tag 'alchemy/alchemy-logo.svg', id: 'logo' %>
+  <%= render "alchemy/admin/user_sessions/logo" %>
+  <%= render_message do %>
+    <p>
+      <strong><%= Alchemy.t('modules.user_sessions') %></strong>
+    </p>
+    <p><%= Alchemy.t('welcome_please_identify_notice') %></p>
+  <% end %>
   <%= alchemy_form_for :user, url: {action: 'create'}, id: 'login', data: { turbo: false } do |f| %>
     <%= f.input Devise.authentication_keys.first, autofocus: true %>
     <%= f.input :password %>
-    <div class="input link">
-      <small>
-        <%= link_to Alchemy.t('Forgot your password?'), admin_new_password_path %>
-      </small>
-    </div>
     <div class="submit">
-      <button class="secondary"><%= Alchemy.t(:login) %></button>
+      <%= link_to Alchemy.t('Forgot your password?'), admin_new_password_path %>
+      <button type="submit"><%= Alchemy.t(:login) %></button>
     </div>
   <% end %>
 </div>
