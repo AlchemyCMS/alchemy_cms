@@ -75,6 +75,14 @@ module Alchemy
             post :create, params: {user: attributes_for(:alchemy_admin_user)}
           end
         end
+
+        context "with invalid params" do
+          it "re-renders form" do
+            post :create, params: {user: {firstname: "John"}}
+            expect(response).to render_template(:signup)
+            expect(response).to be_unprocessable
+          end
+        end
       end
 
       context "with send_credentials set to '1'" do
