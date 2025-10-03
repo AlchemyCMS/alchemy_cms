@@ -27,6 +27,7 @@ body.passwords {
   transform: translate(-50%, -50%);
 
   alchemy-message {
+    width: 300px;
     margin-left: var(--form-left-column-width);
   }
 
@@ -45,6 +46,14 @@ body.passwords {
     gap: var(--spacing-4);
     margin-left: var(--form-left-column-width);
     padding-left: var(--spacing-0);
+
+    > label {
+      text-align: start;
+
+      input[type="checkbox"] {
+        margin: 0 var(--spacing-0) 0 0;
+      }
+    }
 
     > a {
       display: inline-flex;

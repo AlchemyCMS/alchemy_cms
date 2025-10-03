@@ -3,9 +3,11 @@
 <% end %>
 
 <div class="login_signup_box">
-  <%= image_tag 'alchemy/alchemy-logo.svg', id: 'logo' %>
+  <%= render "alchemy/admin/user_sessions/logo" %>
   <%= render_message do %>
-    <h1><%= Alchemy.t('Welcome to Alchemy') %></h1>
+    <p>
+      <strong><%= Alchemy.t('Welcome to Alchemy') %></strong>
+    </p>
     <p><%= Alchemy.t("Please Signup") %></p>
   <% end %>
   <%= alchemy_form_for [:admin, @user] do |f| %>
