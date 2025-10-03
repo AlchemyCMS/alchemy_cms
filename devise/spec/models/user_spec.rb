@@ -12,6 +12,32 @@ module Alchemy
       expect(user.alchemy_roles).to include("member")
     end
 
+    describe "validations" do
+      context "with email required" do
+        before do
+          allow(user).to receive(:email_required?) { true }
+        end
+
+        it "should validate presence of email" do
+          user.email = ""
+          expect(user).not_to be_valid
+          expect(user.errors[:email]).not_to be_blank
+        end
+      end
+
+      context "with login required" do
+        before do
+          allow(user).to receive(:login_required?) { true }
+        end
+
+        it "should validate presence of login" do
+          user.login = ""
+          expect(user).not_to be_valid
+          expect(user.errors[:login]).not_to be_blank
+        end
+      end
+    end
+
     describe ".ransack" do
       subject do
         User.ransack(
@@ -208,6 +234,50 @@ module Alchemy
       it "should not add the given role twice" do
         user.add_role "member"
         expect(user.alchemy_roles).to eq(["member"])
+      end
+    end
+
+    describe "#email_required?" do
+      let(:user) { build(:alchemy_user) }
+
+      subject { user.email_required? }
+
+      context "when email is used as authentication key" do
+        before do
+          allow(::Devise).to receive(:authentication_keys) { [:email] }
+        end
+
+        it { is_expected.to be(true) }
+      end
+
+      context "when email is not used as authentication key" do
+        before do
+          allow(::Devise).to receive(:authentication_keys) { [:login] }
+        end
+
+        it { is_expected.to be(false) }
+      end
+    end
+
+    describe "#login_required?" do
+      let(:user) { build(:alchemy_user) }
+
+      subject { user.login_required? }
+
+      context "when login is used as authentication key" do
+        before do
+          allow(::Devise).to receive(:authentication_keys) { [:login] }
+        end
+
+        it { is_expected.to be(true) }
+      end
+
+      context "when login is not used as authentication key" do
+        before do
+          allow(::Devise).to receive(:authentication_keys) { [:email] }
+        end
+
+        it { is_expected.to be(false) }
       end
     end
 

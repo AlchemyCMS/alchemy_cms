@@ -25,7 +25,7 @@ module Alchemy
 
     has_many :folded_pages
 
-    validates_uniqueness_of :login
+    validates :login, uniqueness: {case_sensitive: false}, presence: :login_required?
     validates_presence_of :alchemy_roles
 
     # Unlock all locked pages before destroy.
@@ -139,6 +139,14 @@ module Alchemy
 
     alias_method :name, :fullname
     alias_method :alchemy_display_name, :fullname
+
+    def email_required?
+      ::Devise.authentication_keys.include?(:email)
+    end
+
+    def login_required?
+      ::Devise.authentication_keys.include?(:login)
+    end
 
     # Returns true if the last request not longer ago then the logged_in_time_out
     def logged_in?

@@ -151,7 +151,7 @@ module Alchemy
 
         context "with invalid user" do
           it "does not send an email notification" do
-            post :update, params: {id: user.id, user: {send_credentials: "1", email: ""}}
+            post :update, params: {id: user.id, user: {send_credentials: "1", login: ""}}
             expect(ActionMailer::Base.deliveries).to be_empty
           end
         end
