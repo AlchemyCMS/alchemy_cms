@@ -20,6 +20,7 @@ jobs:
           - "3.4"
         rails:
           - "7.2"
+          - "8.0"
         database:
           - mysql
           - postgresql
@@ -86,7 +87,7 @@ jobs:
         run: bundle exec rspec
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
-        if: matrix.rails == '7.2' && matrix.ruby == '3.4'
+        if: matrix.rails == '8.0' && matrix.ruby == '3.4'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: AlchemyCMS/alchemy-devise
@@ -106,7 +107,7 @@ jobs:
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.1"
+          ruby-version: "3.4"
           bundler-cache: true
       - name: Lint Ruby files
         run: bundle exec standardrb

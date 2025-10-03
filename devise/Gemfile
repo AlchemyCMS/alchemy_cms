@@ -3,7 +3,7 @@ source "https://rubygems.org"
 alchemy_branch = ENV.fetch("ALCHEMY_BRANCH", "main")
 gem "alchemy_cms", github: "AlchemyCMS/alchemy_cms", branch: alchemy_branch
 
-rails_version = ENV.fetch("RAILS_VERSION", "7.2")
+rails_version = ENV.fetch("RAILS_VERSION", "8.0")
 gem "rails", "~> #{rails_version}.0"
 gem "listen", "~> 3.8"
 gem "puma", "~> 7.0"

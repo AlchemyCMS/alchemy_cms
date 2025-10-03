@@ -39,4 +39,10 @@ RSpec.configure do |config|
   [:controller, :feature, :request].each do |type|
     config.include Alchemy::TestSupport::IntegrationHelpers, type: type
   end
+  # TODO Remove when Devise fixes https://github.com/heartcombo/devise/issues/5705
+  if Rails.application.respond_to?(:reload_routes_unless_loaded)
+    config.before(:each, type: :controller) do
+      Rails.application.reload_routes_unless_loaded
+    end
+  end
 end
