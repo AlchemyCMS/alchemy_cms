@@ -22,12 +22,7 @@
 <div id="archive_all" class="resources-table-wrapper">
 <% if @users.any? %>
   <%= render "alchemy/admin/resources/table_header" %>
-
-  <% if Alchemy::Admin.const_defined?(:Resource) %>
-    <%= render "resource_table" %>
-  <% else %>
-    <%= render "table" %>
-  <% end %>
+  <%= render "resource_table" %>
 
   <%= paginate @users, theme: 'alchemy' %>
 
