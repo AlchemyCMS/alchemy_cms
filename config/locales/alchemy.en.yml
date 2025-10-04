@@ -226,6 +226,9 @@ en:
       elements:
         toolbar:
           hide: Hide
+      page_definitions:
+        show_pages: "Show %{count} %{model_name}"
+        zero_pages: "0 Pages"
       pictures:
         sorting_select:
           label: "Sorting"
@@ -500,6 +503,7 @@ en:
     modules:
       attachments: "Files"
       dashboard: "Dashboard"
+      page_definitions: "Definitions"
       pictures: "Images"
       languages: "Languages"
       layoutpages: "Global Pages"
@@ -809,9 +813,57 @@ en:
       alchemy/element:
         one: "Element"
         other: "Elements"
+      alchemy/ingredients/audio:
+        one: Audiofile
+        other: Audiofiles
+      alchemy/ingredients/boolean:
+        one: True/False
+        other: True/False
+      alchemy/ingredients/datetime:
+        one: Date/Time
+        other: Dates/Times
+      alchemy/ingredients/file:
+        one: File
+        other: Files
       alchemy/ingredients/headline:
         one: Headline
         other: Headlines
+      alchemy/ingredients/html:
+        one: HTML
+        other: HTMLs
+      alchemy/ingredients/link:
+        one: Link
+        other: Link
+      alchemy/ingredients/node:
+        one: Menu Node
+        other: Menu Nodes
+      alchemy/ingredients/number:
+        one: Number
+        other: Numbers
+      alchemy/ingredients/page:
+        one: Page
+        other: Pages
+      alchemy/ingredients/picture:
+        one: Picture
+        other: Pictures
+      alchemy/ingredients/richtext:
+        one: Rich Text
+        other: Rich Texts
+      alchemy/ingredients/select:
+        one: Selection
+        other: Selections
+      alchemy/ingredients/spree_product:
+        one: Product
+        other: Products
+      alchemy/ingredients/spree_variant:
+        one: Variant
+        other: Variants
+      alchemy/ingredients/text:
+        one: Text
+        other: Texts
+      alchemy/ingredients/video:
+        one: Videofile
+        other: Videofiles
       alchemy/legacy_page_url:
         one: "Link"
         other: "Links"
