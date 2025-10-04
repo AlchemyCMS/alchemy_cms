@@ -37,7 +37,7 @@ describe Alchemy::Admin::SitesController do
         delete :destroy, params: {id: site.id}
         expect(response).to redirect_to admin_sites_path
         expect(flash[:warning]).to \
-          eq("Languages are still attached to this site. Please remove them first.")
+          eq("There are still languages attached to this site. Please remove them first.")
       end
     end
 

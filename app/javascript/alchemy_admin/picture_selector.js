@@ -15,13 +15,13 @@ function checkedInputs() {
 }
 
 function editMultiplePicturesUrl(href) {
-  const searchParameters = new URLSearchParams()
-  checkedInputs().forEach((entry) =>
-    searchParameters.append(entry.name, entry.value)
-  )
-  const url = href + "?" + searchParameters.toString()
+  const url = new URL(href)
 
-  return url
+  checkedInputs().forEach((entry) =>
+    url.searchParams.append(entry.name, entry.value)
+  )
+
+  return url.toString()
 }
 
 /**

@@ -309,7 +309,9 @@ module Alchemy
     end
 
     describe "#delete_multiple" do
-      subject { delete :delete_multiple, params: {picture_ids: picture_ids} }
+      subject do
+        delete :delete_multiple, params: {picture_ids: picture_ids}
+      end
 
       it_behaves_like :redirecting_to_picture_library do
         let(:subject) do
@@ -319,12 +321,8 @@ module Alchemy
         end
       end
 
-      let(:deletable_picture) do
-        mock_model("Picture", name: "pic of the pig", deletable?: true)
-      end
-
-      let(:not_deletable_picture) do
-        mock_model("Picture", name: "pic of the chick", deletable?: false)
+      let(:picture) do
+        build_stubbed(:alchemy_picture)
       end
 
       context "no picture_ids given" do
@@ -337,49 +335,12 @@ module Alchemy
       end
 
       context "picture_ids given" do
-        context "all are deletable" do
-          let(:picture_ids) { deletable_picture.id.to_s }
+        let(:picture_ids) { [picture.id] }
 
-          before do
-            allow(Picture).to receive(:find).and_return([deletable_picture])
-          end
-
-          it "should delete the pictures give a notice about deleting them" do
-            subject
-            expect(flash[:notice]).to match("successfully")
-          end
-        end
-
-        context "deletable and not deletable" do
-          let(:picture_ids) { "#{deletable_picture.id},#{not_deletable_picture.id}" }
-
-          before do
-            allow(Picture).to receive(:find).and_return([deletable_picture, not_deletable_picture])
-          end
-
-          it "should give a warning for the non deletable pictures and delete the others" do
-            expect(deletable_picture).to receive(:destroy)
-            subject
-            expect(flash[:warn]).to match("could not be deleted")
-          end
-        end
-
-        context "with error happening" do
-          let(:picture_ids) { deletable_picture.id.to_s }
-
-          before do
-            expect(Picture).to receive(:find).and_raise("yada")
-          end
-
-          it "sets error message" do
-            subject
-            expect(flash[:error]).not_to be_blank
-          end
-
-          it "redirects to index" do
-            subject
-            expect(response).to redirect_to admin_pictures_path
-          end
+        it "enqueues the picture delete job" do
+          subject
+          expect(DeletePictureJob).to have_been_enqueued.with(picture.id.to_s)
+          expect(flash[:notice]).to match("Pictures will be deleted now")
         end
       end
     end

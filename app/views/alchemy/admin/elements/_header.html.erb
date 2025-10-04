@@ -24,14 +24,13 @@
       <%= Alchemy.t(:element_hidden) %>
     </span>
   </span>
-  <%= button_tag({
-    title: Alchemy.t(element.folded? ? :show_element_content : :hide_element_content),
-    class: "element-toggle"
-  }) do %>
-    <% if element.compact? %>
-      <%= render_icon "more-2" %>
-    <% else %>
-      <%= render_icon element.folded? ? "arrow-left-s" : "arrow-down-s" %>
+  <sl-tooltip content="<%= Alchemy.t(element.folded? ? :show_element_content : :hide_element_content) %>">
+    <%= button_tag(class: "element-toggle") do %>
+      <% if element.compact? %>
+        <%= render_icon "more-2" %>
+      <% else %>
+        <%= render_icon element.folded? ? "arrow-left-s" : "arrow-down-s" %>
+      <% end %>
     <% end %>
-  <% end %>
+  </sl-tooltip>
 </div>

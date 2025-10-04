@@ -1,5 +1,6 @@
-div#filter_bar {
-  padding-top: var(--spacing-2);
+div#filter_bar,
+div#sorting_select {
+  margin-top: var(--spacing-2);
 }
 
 .filter-input {
@@ -19,7 +20,7 @@ div#filter_bar {
     cursor: pointer;
   }
 
-  &:has(select) {
+  &:has(select):not(:last-child) {
     margin-bottom: var(--spacing-4);
   }
 }

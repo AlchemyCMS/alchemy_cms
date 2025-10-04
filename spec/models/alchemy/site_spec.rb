@@ -245,7 +245,7 @@ module Alchemy
       context "without languages" do
         it "works" do
           subject
-          expect(site.errors[:languages]).to be_empty
+          expect(site.errors[:base]).to be_empty
         end
       end
 
@@ -254,7 +254,7 @@ module Alchemy
 
         it "must not work" do
           subject
-          expect(site.errors[:languages]).to_not be_empty
+          expect(site.errors[:base]).to include("There are still languages attached to this site. Please remove them first.")
         end
       end
     end

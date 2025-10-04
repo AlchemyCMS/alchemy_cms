@@ -76,3 +76,5 @@ gem "dartsass-rails", "~> 0.5.0"
 gem "propshaft", "~> 1.0"
 
 gem "gem-release", "~> 2.2"
+
+gem "i18n-debug", "~> 1.2", require: false # Set to `"i18n/debug"` if you want to debug missing translations

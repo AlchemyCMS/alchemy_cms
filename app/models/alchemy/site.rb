@@ -21,12 +21,7 @@ module Alchemy
     validates_uniqueness_of :host, case_sensitive: false
 
     # associations
-    has_many :languages
-
-    before_destroy if: -> { languages.any? } do
-      errors.add(:languages, :still_present)
-      throw(:abort)
-    end
+    has_many :languages, dependent: :restrict_with_error
 
     scope :published, -> { where(public: true) }
 

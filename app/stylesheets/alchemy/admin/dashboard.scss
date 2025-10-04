@@ -47,6 +47,19 @@
   }
 }
 
+.logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5em;
+
+  svg {
+    width: 200px;
+    height: auto;
+  }
+}
+
 alchemy-update-check {
   display: flex;
   position: relative;
