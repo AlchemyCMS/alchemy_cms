@@ -47,13 +47,6 @@ module Alchemy
       end
     end
 
-    describe "#translations_for_select" do
-      it "should return an Array of Arrays with available locales" do
-        allow(Alchemy::I18n).to receive(:available_locales).and_return(%i[de en cz it])
-        expect(helper.translations_for_select.size).to eq(4)
-      end
-    end
-
     describe "#clipboard_select_tag_options" do
       let(:page) { build_stubbed(:alchemy_page) }
 

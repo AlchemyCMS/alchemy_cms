@@ -66,13 +66,6 @@ module Alchemy
         end
       end
 
-      # Used for translations selector in Alchemy cockpit user settings.
-      def translations_for_select
-        Alchemy::I18n.available_locales.sort.map do |locale|
-          [Alchemy.t(locale, scope: :translations), locale]
-        end
-      end
-
       def alchemy_admin_js_translations(locale = ::I18n.locale)
         render partial: "alchemy/admin/translations/#{locale}", formats: [:js]
       rescue ActionView::MissingTemplate
