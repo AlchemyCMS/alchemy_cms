@@ -12,6 +12,10 @@ RSpec.describe Alchemy::Admin::FormHelper do
       expect(subject).to have_css(".alchemy")
     end
 
+    it "enables browser validations" do
+      expect(subject).not_to have_css("form[novalidate]")
+    end
+
     context "if options[:remote] is given" do
       context "and set to true" do
         subject { helper.alchemy_form_for(resource, remote: true) {} }

@@ -19,7 +19,8 @@ module Alchemy
         options.key?(:remote) || options[:remote] = request.xhr?
         options[:html] = {
           id: options.delete(:id),
-          class: ["alchemy", options.delete(:class)].compact.join(" ")
+          class: ["alchemy", options.delete(:class)].compact.join(" "),
+          novalidate: false
         }
         simple_form_for(object, *(args << options), &block)
       end
