@@ -33,7 +33,10 @@ module Alchemy
 
     context "for elements" do
       before do
-        expect(Element).to receive(:find).and_return(element)
+        allow(Element).to receive(:find).with(element.id).and_return(element)
+        allow(Element).to receive(:find).with(element.id.to_s).and_return(element)
+        allow(Element).to receive(:find).with(another_element.id).and_return(another_element)
+        allow(Element).to receive(:find).with(another_element.id.to_s).and_return(another_element)
       end
 
       describe "#insert" do

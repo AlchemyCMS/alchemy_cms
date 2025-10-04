@@ -4,6 +4,7 @@ module Alchemy
   module Admin
     class NodesController < Admin::ResourcesController
       include Alchemy::Admin::CurrentLanguage
+      include Alchemy::Admin::Clipboard
 
       def index
         @root_nodes = Node.language_root_nodes
@@ -14,8 +15,6 @@ module Alchemy
           parent_id: params[:parent_id],
           language: @current_language
         )
-        @clipboard = get_clipboard("nodes")
-        @clipboard_items = Node.all_from_clipboard(@clipboard)
       end
 
       def create
@@ -35,7 +34,6 @@ module Alchemy
               flash_notice_for_resource_action(:create)
               do_redirect_to(admin_nodes_path)
             else
-              load_clipboard_items
               render :new, status: :unprocessable_entity
             end
           rescue => e
@@ -49,7 +47,6 @@ module Alchemy
             flash_notice_for_resource_action(:create)
             do_redirect_to(admin_nodes_path)
           else
-            load_clipboard_items
             render :new, status: :unprocessable_entity
           end
         end
@@ -60,6 +57,8 @@ module Alchemy
           @node = Alchemy::Node.find(params[:id])
           @page = @node.page
           @page.nodes.destroy(@node)
+          # Remove node from clipboard
+          remove_resource_from_clipboard(@node)
           flash_notice_for_resource_action(:destroy)
         else
           super
@@ -67,19 +66,6 @@ module Alchemy
       end
 
       private
-
-      def load_clipboard_items
-        @clipboard = get_clipboard("nodes")
-        @clipboard_items = Node.all_from_clipboard(@clipboard)
-      end
-
-      def paste_from_clipboard
-        if params[:paste_from_clipboard]
-          source = Node.find(params[:paste_from_clipboard])
-          parent = Node.find_by(id: params[:node][:parent_id])
-          Node.copy_and_paste(source, parent, params[:node][:name])
-        end
-      end
 
       def resource_params
         params.require(:node).permit(

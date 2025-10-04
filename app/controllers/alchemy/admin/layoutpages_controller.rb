@@ -6,6 +6,7 @@ module Alchemy
       authorize_resource class: :alchemy_admin_layoutpages
 
       include Alchemy::Admin::CurrentLanguage
+      include Alchemy::Admin::Clipboard
 
       helper Alchemy::Admin::PagesHelper
 
