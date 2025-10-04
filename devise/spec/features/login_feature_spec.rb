@@ -21,7 +21,8 @@ describe "Login: " do
     context "with Alchemy configuration" do
       it "displays an login authentication field" do
         visit "/admin/login"
-        expect(page).to have_field("user_login")
+        expect(page).to have_css("#user_login[required][autocomplete='username']")
+        expect(page).to have_css("#user_password[required][autocomplete='current-password']")
       end
 
       it "works" do
@@ -40,7 +41,8 @@ describe "Login: " do
 
       it "displays an email authentication field" do
         visit "/admin/login"
-        expect(page).to have_field("user_email")
+        expect(page).to have_css("#user_email[type='email'][required][autocomplete='email']")
+        expect(page).to have_css("#user_password[required][autocomplete='current-password']")
       end
 
       it "works" do

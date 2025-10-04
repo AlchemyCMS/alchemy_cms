@@ -11,8 +11,9 @@
     <p><%= Alchemy.t('welcome_please_identify_notice') %></p>
   <% end %>
   <%= alchemy_form_for :user, url: {action: 'create'}, id: 'login', data: { turbo: false } do |f| %>
-    <%= f.input Devise.authentication_keys.first, autofocus: true %>
-    <%= f.input :password %>
+    <%= f.input Devise.authentication_keys.first, autofocus: true, required: true,
+      input_html: {autocomplete: Devise.authentication_keys.first == :email ? "email" : "username"} %>
+    <%= f.input :password, required: true, input_html: {autocomplete: "current-password"} %>
     <div class="submit">
       <%= link_to Alchemy.t('Forgot your password?'), admin_new_password_path %>
       <button type="submit"><%= Alchemy.t(:login) %></button>
