@@ -12,7 +12,7 @@
     tooltip_placement: "top-start",
     dialog_options: {
       title: Alchemy.t(:create_user),
-      size: "430x560"
+      size: "430x500"
     },
     if_permitted_to: [:create, Alchemy::User]
   ) %>
@@ -22,12 +22,7 @@
 <div id="archive_all" class="resources-table-wrapper">
 <% if @users.any? %>
   <%= render "alchemy/admin/resources/table_header" %>
-
-  <% if Alchemy::Admin.const_defined?(:Resource) %>
-    <%= render "resource_table" %>
-  <% else %>
-    <%= render "table" %>
-  <% end %>
+  <%= render "resource_table" %>
 
   <%= paginate @users, theme: 'alchemy' %>
 

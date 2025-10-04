@@ -98,7 +98,7 @@ module Alchemy
           deliver_welcome_mail
           redirect_to admin_pages_path
         else
-          render :signup
+          render :signup, status: :unprocessable_entity
         end
       end
 

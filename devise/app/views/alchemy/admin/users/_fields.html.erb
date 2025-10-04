@@ -1,13 +1,15 @@
-<%= f.input :firstname %>
-<%= f.input :lastname %>
-<%= f.input :login, autofocus: true %>
-<%= f.input :email %>
-<%= f.input :language,
-  collection: translations_for_select,
-  include_blank: false,
-  input_html: {class: 'alchemy_selectbox'} %>
-<%= f.input :password %>
-<%= f.input :password_confirmation %>
+<%= f.input :firstname, input_html: {autocomplete: "given-name"} %>
+<%= f.input :lastname, input_html: {autocomplete: "family-name"} %>
+<%= f.input :login, autofocus: true, required: @user.login_required?, input_html: {autocomplete: "username"} %>
+<%= f.input :email, required: @user.email_required?, input_html: {autocomplete: "email"} %>
+<% if Alchemy::I18n.available_locales.many? %>
+  <div class="input select">
+    <%= f.label(:language) %>
+    <%= render Alchemy::Admin::LocaleSelect.new(f.field_name(:language)) %>
+  </div>
+<% end %>
+<%= f.input :password, required: while_signup?, input_html: {autocomplete: "new-password"} %>
+<%= f.input :password_confirmation, required: while_signup?, input_html: {autocomplete: "new-password"} %>
 <% if can_update_role? %>
   <%= f.input :alchemy_roles,
     collection: @user_roles,
@@ -27,4 +29,8 @@
   </div>
 <% end %>
 <%= f.input :send_credentials, as: 'boolean' %>
-<%= f.submit Alchemy.t(:save) %>
+<div class="submit align-right">
+  <button type="submit">
+    <%= Alchemy.t(:save) %>
+  </button>
+</div>

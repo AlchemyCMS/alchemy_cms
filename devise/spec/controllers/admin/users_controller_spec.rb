@@ -75,6 +75,14 @@ module Alchemy
             post :create, params: {user: attributes_for(:alchemy_admin_user)}
           end
         end
+
+        context "with invalid params" do
+          it "re-renders form" do
+            post :create, params: {user: {firstname: "John"}}
+            expect(response).to render_template(:signup)
+            expect(response).to be_unprocessable
+          end
+        end
       end
 
       context "with send_credentials set to '1'" do
@@ -151,7 +159,7 @@ module Alchemy
 
         context "with invalid user" do
           it "does not send an email notification" do
-            post :update, params: {id: user.id, user: {send_credentials: "1", email: ""}}
+            post :update, params: {id: user.id, user: {send_credentials: "1", login: ""}}
             expect(ActionMailer::Base.deliveries).to be_empty
           end
         end

@@ -8,7 +8,7 @@
         alchemy.edit_admin_user_path(user), {
           title: Alchemy.t(:edit_user),
           overflow: true,
-          size: "430x560"
+          size: "430x500"
         },
         title: Alchemy.t(:edit_user) %>
     <% else %>
@@ -28,7 +28,7 @@
     <%= user.human_roles_string %>
   <% end %>
   <% table.delete_button tooltip: Alchemy.t(:delete_user), confirm_message: Alchemy.t(:confirm_to_delete_user) %>
-  <% table.edit_button tooltip: Alchemy.t(:edit_user), dialog_size: "430x560" %>
+  <% table.edit_button tooltip: Alchemy.t(:edit_user), dialog_size: "430x500" %>
 <% end %>
 
 <%= paginate @users, theme: "alchemy" %>

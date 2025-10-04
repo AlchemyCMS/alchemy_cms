@@ -18,8 +18,10 @@
 <% end %>
   <%= alchemy_form_for resource, as: resource_name, url: admin_update_password_path, method: 'patch' do |f| %>
     <%= f.hidden_field :reset_password_token %>
-    <%= f.input :password, autofocus: true, label: Alchemy.t("New password") %>
-    <%= f.input :password_confirmation, label: Alchemy.t("Confirm new password") %>
+    <%= f.input :password, autofocus: true, label: Alchemy.t("New password"),
+      required: true, input_html: {autocomplete: "new-password"} %>
+    <%= f.input :password_confirmation, label: Alchemy.t("Confirm new password"),
+      required: true, input_html: {autocomplete: "new-password"} %>
     <div class="submit">
       <%= link_to alchemy.admin_login_path do %>
         <%= render_icon("arrow-left-s", size: "1x") %>
