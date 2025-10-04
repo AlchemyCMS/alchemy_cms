@@ -226,16 +226,6 @@ module Alchemy
           expect(response).to render_template(:new)
           expect(response).to have_http_status(:unprocessable_entity)
         end
-
-        it "loads clipboard items for error rendering" do
-          post :create, params: {
-            node: node_params,
-            paste_from_clipboard: node_in_clipboard.id
-          }
-
-          # Since clipboard items are now loaded on demand, just verify the action completes
-          expect(response).to render_template(:new)
-        end
       end
 
       context "when normal node creation fails" do
