@@ -19,7 +19,11 @@
   <%= alchemy_form_for :user, url: admin_reset_password_path, html: {method: 'post'} do |f| %>
     <%= f.input :email,
       autofocus: true,
-      input_html: {value: params[:email]} %>
+      required: true,
+      input_html: {
+        autocomplete: "email",
+        value: params[:email]
+      } %>
     <div class="submit">
       <%= link_to alchemy.admin_login_path do %>
         <%= render_icon("arrow-left-s", size: "1x") %>

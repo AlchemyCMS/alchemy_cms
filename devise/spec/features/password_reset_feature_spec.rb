@@ -7,6 +7,7 @@ describe "Password reset feature." do
     visit admin_new_password_path
 
     expect(page).to have_content("Password reset")
+    expect(page).to have_css("#user_email[type='email'][required][autocomplete='email']")
   end
 
   it "User can request password reset." do
@@ -17,6 +18,13 @@ describe "Password reset feature." do
 
     expect(page)
       .to have_content("You will receive an email with instructions on how to reset your password in a few minutes.")
+  end
+
+  it "User can visit edit password form." do
+    visit admin_edit_password_path(id: user.id, reset_password_token: "1234")
+
+    expect(page).to have_css("#user_password[type='password'][required][autocomplete='new-password']")
+    expect(page).to have_css("#user_password_confirmation[type='password'][required][autocomplete='new-password']")
   end
 
   it "User can change password." do
