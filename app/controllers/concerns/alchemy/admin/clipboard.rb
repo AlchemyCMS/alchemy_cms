@@ -55,6 +55,7 @@ module Alchemy::Admin::Clipboard
     clipboard.delete_if { |item| item["id"] == resource.id.to_s }
   end
 
+  # (internal) Returns options for the clipboard select tag
   def clipboard_select_tag_options(items)
     options = items.map do |item|
       name = if item.respond_to?(:display_name_with_preview_text)
