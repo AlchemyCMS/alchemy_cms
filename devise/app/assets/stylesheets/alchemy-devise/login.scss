@@ -47,6 +47,10 @@ body.passwords {
     margin-left: var(--form-left-column-width);
     padding-left: var(--spacing-0);
 
+    &.align-right {
+      justify-content: end;
+    }
+
     > label {
       text-align: start;
 
