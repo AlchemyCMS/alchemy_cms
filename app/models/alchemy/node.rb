@@ -3,6 +3,7 @@
 module Alchemy
   class Node < BaseRecord
     VALID_URL_REGEX = /\A(\/|\D[a-z+\d.-]+:)/
+    SKIPPED_ATTRIBUTES_ON_COPY = %w[id created_at updated_at creator_id updater_id lft rgt depth parent_id]
 
     before_destroy :check_if_related_node_ingredients_present
 
@@ -72,10 +73,7 @@ module Alchemy
       end
 
       def copy_and_paste(source, new_parent, new_name)
-        attributes = source.attributes.except(
-          "id", "created_at", "updated_at", "creator_id", "updater_id",
-          "lft", "rgt", "depth", "parent_id"
-        ).merge(
+        attributes = source.attributes.except(*SKIPPED_ATTRIBUTES_ON_COPY).merge(
           name: new_name,
           parent: new_parent,
           language: new_parent&.language || source.language

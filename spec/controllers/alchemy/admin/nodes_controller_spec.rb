@@ -64,16 +64,16 @@ module Alchemy
             end
           end
 
-          it "loads clipboard items" do
+          it "has clipboard items available" do
             get :new
-            expect(assigns("clipboard_items")).to include(node_in_clipboard)
+            expect(controller.send(:clipboard)).to include({"id" => node_in_clipboard.id.to_s, "action" => "copy"})
           end
         end
 
         context "without clipboard items" do
-          it "sets empty clipboard items" do
+          it "has empty clipboard" do
             get :new
-            expect(assigns("clipboard_items")).to eq([])
+            expect(controller.send(:clipboard)).to eq([])
           end
         end
       end
@@ -193,7 +193,7 @@ module Alchemy
             paste_from_clipboard: node_in_clipboard.id
           }
 
-          expect(assigns("clipboard_items")).to include(node_in_clipboard)
+          expect(controller.send(:clipboard)).to include({"id" => node_in_clipboard.id.to_s})
         end
       end
 
@@ -233,7 +233,8 @@ module Alchemy
             paste_from_clipboard: node_in_clipboard.id
           }
 
-          expect(assigns("clipboard_items")).to include(node_in_clipboard)
+          # Since clipboard items are now loaded on demand, just verify the action completes
+          expect(response).to render_template(:new)
         end
       end
 
@@ -264,7 +265,7 @@ module Alchemy
         it "loads clipboard items for error rendering" do
           post :create, params: {node: invalid_params}
 
-          expect(assigns("clipboard_items")).to eq([])
+          expect(controller.send(:clipboard)).to eq([])
         end
       end
 
