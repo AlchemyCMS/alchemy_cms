@@ -1,8 +1,12 @@
-img {
-  opacity: 1;
-  transition: opacity var(--transition-duration);
+alchemy-picture-thumbnail {
+  &[loading] {
+    img {
+      opacity: 0;
+    }
+  }
 
-  &.loading {
-    opacity: 0;
+  img {
+    opacity: 1;
+    transition: opacity var(--transition-duration);
   }
 }
