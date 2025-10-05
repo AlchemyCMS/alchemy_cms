@@ -1,5 +1,6 @@
 <div id="overlay_toolbar">
   <%= render 'filter_and_size_bar' %>
+  <%= render 'alchemy/admin/partials/overlay_search_form' %>
 </div>
 <div id="assign_image_list" class="with_padding<%= search_filter_params[:tagged_with].present? ? ' filtered' : '' %>">
   <%= render "library_sidebar" %>
