@@ -212,6 +212,22 @@ RSpec.shared_examples_for "having picture thumbnails" do
       thumbnail_url
     end
 
+    context "with size given" do
+      subject(:thumbnail_url) { record.thumbnail_url(size: "10x10") }
+
+      it "passes it to the thumbnail url options." do
+        expect(picture).to receive(:url).with(hash_including(size: "10x10"))
+        thumbnail_url
+      end
+    end
+
+    context "with no size given" do
+      it "passes default size to the thumbnail url options." do
+        expect(picture).to receive(:url).with(hash_including(size: "160x120"))
+        thumbnail_url
+      end
+    end
+
     context "when crop is enabled in the settings" do
       let(:settings) do
         {crop: true}
@@ -298,6 +314,20 @@ RSpec.shared_examples_for "having picture thumbnails" do
 
     before do
       allow(record).to receive(:settings) { settings }
+    end
+
+    context "with size given" do
+      subject(:thumbnail_url_options) { record.thumbnail_url_options(size: "10x10") }
+
+      it "passes it to the thumbnail url options." do
+        expect(thumbnail_url_options[:size]).to eq("10x10")
+      end
+    end
+
+    context "with no size given" do
+      it "passes default size to the thumbnail url options." do
+        expect(thumbnail_url_options[:size]).to eq("160x120")
+      end
     end
 
     context "with picture assigned" do
