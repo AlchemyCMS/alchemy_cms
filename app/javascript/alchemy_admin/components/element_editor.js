@@ -1,4 +1,3 @@
-import ImageLoader from "alchemy_admin/image_loader"
 import fileEditors from "alchemy_admin/file_editors"
 import pictureEditors from "alchemy_admin/picture_editors"
 import SortableElements from "alchemy_admin/sortable_elements"
@@ -52,7 +51,6 @@ export class ElementEditor extends HTMLElement {
     }
 
     // Init GUI elements
-    ImageLoader.init(this)
     fileEditors(
       `#${this.id} .ingredient-editor.file, #${this.id} .ingredient-editor.audio, #${this.id} .ingredient-editor.video`
     )

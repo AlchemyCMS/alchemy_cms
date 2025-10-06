@@ -210,7 +210,7 @@ RSpec.describe "Picture Library", type: :system do
 
     scenario "allows to add a picture description" do
       visit alchemy.admin_pictures_path
-      page.find("a.thumbnail_background").click
+      page.find(".picture_thumbnail > a").click
       expect(page).to have_field("Description")
       fill_in "Description", with: "This is an amazing image."
       click_button "Save"
@@ -223,7 +223,7 @@ RSpec.describe "Picture Library", type: :system do
     scenario "allows to add multi language picture descriptions" do
       german = create(:alchemy_language, :german)
       visit alchemy.admin_pictures_path
-      page.find("a.thumbnail_background").click
+      page.find(".picture_thumbnail > a").click
       expect(page).to have_field("Description")
       fill_in "Description", with: "This is an amazing image."
       click_button "Save"
@@ -250,7 +250,7 @@ RSpec.describe "Picture Library", type: :system do
 
     scenario "allows to update a pictures name" do
       visit alchemy.admin_pictures_path
-      page.find("a.thumbnail_background").click
+      page.find(".picture_thumbnail > a").click
       expect(page).to have_field("Name")
       fill_in "Name", with: "my-amazing-image"
       click_button "Save"
