@@ -57,6 +57,7 @@ group :development, :test do
     gem "active_record_query_trace", require: false
     gem "rack-mini-profiler", require: false
     gem "brakeman", require: false
+    gem "ruby-lsp-rspec", require: false
   end
 end
 
