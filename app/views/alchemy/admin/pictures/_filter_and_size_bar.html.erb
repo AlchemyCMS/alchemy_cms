@@ -18,42 +18,36 @@
     <sl-tooltip content="<%= Alchemy.t(:small_thumbnails) %>">
       <%= link_to(
         render_icon('zoom-out'),
-        alchemy.admin_pictures_path({
-          size: "small",
-          form_field_id: @form_field_id,
-          q: search_filter_params[:q],
-          filter: search_filter_params[:filter],
-          tagged_with: search_filter_params[:tagged_with]
-        }),
-        remote: true,
+        alchemy.admin_pictures_path(
+          search_filter_params.merge(
+            size: "small",
+            form_field_id: @form_field_id
+          )
+        ),
         class: "icon_button"
       ) %>
     </sl-tooltip>
     <sl-tooltip content="<%= Alchemy.t(:medium_thumbnails) %>">
       <%= link_to(
         render_icon('search'),
-        alchemy.admin_pictures_path({
-          size: "medium",
-          form_field_id: @form_field_id,
-          q: search_filter_params[:q],
-          filter: search_filter_params[:filter],
-          tagged_with: search_filter_params[:tagged_with]
-        }),
-        remote: true,
+        alchemy.admin_pictures_path(
+          search_filter_params.merge(
+            size: "medium",
+            form_field_id: @form_field_id
+          )
+        ),
         class: "icon_button"
       ) %>
     </sl-tooltip>
     <sl-tooltip content="<%= Alchemy.t(:big_thumbnails) %>">
       <%= link_to(
         render_icon('zoom-in'),
-        alchemy.admin_pictures_path({
-          size: "large",
-          form_field_id: @form_field_id,
-          q: search_filter_params[:q],
-          filter: search_filter_params[:filter],
-          tagged_with: search_filter_params[:tagged_with]
-        }),
-        remote: true,
+        alchemy.admin_pictures_path(
+          search_filter_params.merge(
+            size: "large",
+            form_field_id: @form_field_id
+          )
+        ),
         class: "icon_button"
       ) %>
     </sl-tooltip>

@@ -1,32 +1,34 @@
-<div id="overlay_toolbar">
-  <div class="toolbar_buttons">
-    <% if can? :create, Alchemy::Attachment %>
-      <div class="toolbar_button">
-        <%= render 'alchemy/admin/uploader/button',
-          object: Alchemy::Attachment.new,
-          dropzone: '#assign_file_list',
-          file_attribute: 'file',
-          in_dialog: true,
-          redirect_url: admin_attachments_path(
-            form_field_id: @form_field_id
-          ) %>
-      </div>
-    <% end %>
+<%= turbo_frame_tag "archive_overlay" do %>
+  <div id="overlay_toolbar">
+    <div class="toolbar_buttons">
+      <% if can? :create, Alchemy::Attachment %>
+        <div class="toolbar_button">
+          <%= render 'alchemy/admin/uploader/button',
+            object: Alchemy::Attachment.new,
+            dropzone: '#assign_file_list',
+            file_attribute: 'file',
+            in_dialog: true,
+            redirect_url: admin_attachments_path(
+              form_field_id: @form_field_id
+            ) %>
+        </div>
+      <% end %>
+    </div>
+    <%= render 'alchemy/admin/partials/overlay_search_form' %>
   </div>
-  <%= render 'alchemy/admin/partials/overlay_search_form' %>
-</div>
 
-<div id="assign_file_list" class="with_padding<%= search_filter_params[:tagged_with].present? ? ' filtered' : '' %>">
-  <div id="library_sidebar">
-    <%= render 'filter_bar' if resource_has_filters %>
+  <div id="assign_file_list" class="with_padding<%= search_filter_params[:tagged_with].present? ? ' filtered' : '' %>">
+    <div id="library_sidebar">
+      <%= render 'filter_bar' if resource_has_filters %>
 
-    <% if Alchemy::Attachment.tag_counts.any? %>
-      <div class="tag-list">
-        <%= render 'tag_list' %>
-      </div>
-    <% end %>
+      <% if Alchemy::Attachment.tag_counts.any? %>
+        <div class="tag-list">
+          <%= render 'tag_list' %>
+        </div>
+      <% end %>
+    </div>
+    <div id="overlay_file_list" class="with_tag_list">
+      <%= render 'overlay_file_list' %>
+    </div>
   </div>
-  <div id="overlay_file_list" class="with_tag_list">
-    <%= render 'overlay_file_list' %>
-  </div>
-</div>
+<% end %>

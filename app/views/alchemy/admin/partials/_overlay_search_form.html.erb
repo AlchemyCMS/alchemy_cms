@@ -4,7 +4,7 @@
   size: @size
 )) -%>
 
-<%= search_form_for @query, url: url_for(action: 'index', size: @size), remote: true, html: {class: 'search_form', id: "resource_search"} do |f| %>
+<%= search_form_for @query, url: url_for(action: 'index', size: @size), html: {class: 'search_form', id: "resource_search"} do |f| %>
   <%= hidden_field_tag :form_field_id, @form_field_id %>
   <div class="search_field">
     <button type="submit">
@@ -15,7 +15,6 @@
       class: 'search_input_field',
       id: nil %>
     <%= link_to render_icon(:times, size: '1x'), url,
-      remote: true,
       class: 'search_field_clear',
       title: Alchemy.t(:click_to_show_all),
       style: search_filter_params.fetch(:q, {}).fetch(resource_handler.search_field_name, '').present? ? 'visibility: visible' : 'visibility: hidden' %>

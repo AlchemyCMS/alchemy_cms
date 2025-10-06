@@ -123,14 +123,9 @@ module Alchemy
 
       context "when params[:form_field_id]" do
         context "is set" do
-          it "for html requests it renders the archive_overlay partial" do
+          it "it renders the archive_overlay partial" do
             get :index, params: {form_field_id: "element_1_ingredient_1_picture_id"}
             expect(response).to render_template(partial: "_archive_overlay")
-          end
-
-          it "for ajax requests it renders the archive_overlay template" do
-            get :index, params: {form_field_id: "element_1_ingredient_1_picture_id"}, xhr: true
-            expect(response).to render_template(:archive_overlay)
           end
         end
 

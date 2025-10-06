@@ -1,24 +1,26 @@
-<div id="overlay_toolbar">
-  <%= render 'filter_and_size_bar' %>
-  <%= render 'alchemy/admin/partials/overlay_search_form' %>
-</div>
-<div id="assign_image_list" class="with_padding<%= search_filter_params[:tagged_with].present? ? ' filtered' : '' %>">
-  <%= render "library_sidebar" %>
-  <% if @pictures.empty? %>
-    <%= render_message do %>
-      <% if search_filter_params.empty? %>
-        <%= Alchemy.t(:no_images_in_archive) %>
-      <% else %>
-        <%= Alchemy.t(:no_search_results) %>
+<%= turbo_frame_tag "archive_overlay" do %>
+  <div id="overlay_toolbar">
+    <%= render 'filter_and_size_bar' %>
+    <%= render 'alchemy/admin/partials/overlay_search_form' %>
+  </div>
+  <div id="assign_image_list" class="with_padding<%= search_filter_params[:tagged_with].present? ? ' filtered' : '' %>">
+    <%= render "library_sidebar" %>
+    <% if @pictures.empty? %>
+      <%= render_message do %>
+        <% if search_filter_params.empty? %>
+          <%= Alchemy.t(:no_images_in_archive) %>
+        <% else %>
+          <%= Alchemy.t(:no_search_results) %>
+        <% end %>
       <% end %>
-    <% end %>
-  <% else %>
-    <div id="overlay_picture_list" class="picture-size--<%= @size %>">
-      <%= render partial: 'picture_to_assign',
-        collection: @pictures,
-        locals: {size: @size} %>
+    <% else %>
+      <div id="overlay_picture_list" class="picture-size--<%= @size %>">
+        <%= render partial: 'picture_to_assign',
+          collection: @pictures,
+          locals: {size: @size} %>
 
-      <%= render "alchemy/admin/resources/pagination", resources: @pictures, remote: true, hide_per_page_select: true %>
-    </div>
-  <% end %>
-</div>
+        <%= render "alchemy/admin/resources/pagination", resources: @pictures, hide_per_page_select: true %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
