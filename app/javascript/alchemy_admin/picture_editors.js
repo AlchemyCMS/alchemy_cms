@@ -2,7 +2,6 @@ import debounce from "alchemy_admin/utils/debounce"
 import max from "alchemy_admin/utils/max"
 import { get } from "alchemy_admin/utils/ajax"
 import { growl } from "alchemy_admin/growler"
-import ImageLoader from "alchemy_admin/image_loader"
 
 const UPDATE_DELAY = 125
 const IMAGE_PLACEHOLDER = '<alchemy-icon name="image" size="xl"></alchemy-icon>'
@@ -17,16 +16,12 @@ export class PictureEditor {
     this.targetSizeField = container.querySelector("[data-target-size]")
     this.imageCropperField = container.querySelector("[data-image-cropper]")
     this.image = container.querySelector("img")
-    this.thumbnailBackground = container.querySelector(".thumbnail_background")
+    this.pictureThumbnail = container.querySelector("alchemy-picture-thumbnail")
     this.deleteButton = container.querySelector(".picture_tool.delete")
     this.cropLink = container.querySelector(".crop_link")
 
     this.targetSize = this.targetSizeField.dataset.targetSize
     this.pictureId = this.pictureIdField.value
-
-    if (this.image) {
-      this.imageLoader = new ImageLoader(this.image)
-    }
 
     // The mutation observer is observing multiple fields that all get updated
     // simultaneously. We only want to update the image once, so we debounce.
@@ -60,10 +55,7 @@ export class PictureEditor {
   updateImage() {
     if (!this.pictureId) return
 
-    this.ensureImage()
-    this.image.removeAttribute("alt")
-    this.image.removeAttribute("src")
-    this.imageLoader.load(true)
+    this.pictureThumbnail.loading = true
     get(Alchemy.routes.url_admin_picture_path(this.pictureId), {
       crop: this.imageCropperEnabled,
       crop_from: this.cropFrom,
@@ -72,9 +64,9 @@ export class PictureEditor {
       size: THUMBNAIL_SIZE
     })
       .then(({ data }) => {
-        this.image.src = data.url
-        this.image.alt = data.alt
-        this.image.title = data.title
+        this.pictureThumbnail.src = data.url
+        this.pictureThumbnail.image.alt = data.alt
+        this.pictureThumbnail.image.title = data.title
         this.setElementDirty()
       })
       .catch((error) => {
@@ -83,15 +75,8 @@ export class PictureEditor {
       })
   }
 
-  ensureImage() {
-    const img = new Image()
-    this.thumbnailBackground.replaceChildren(img)
-    this.image = img
-    this.imageLoader = new ImageLoader(img)
-  }
-
   removeImage() {
-    this.thumbnailBackground.innerHTML = IMAGE_PLACEHOLDER
+    this.pictureThumbnail.innerHTML = IMAGE_PLACEHOLDER
     this.pictureIdField.value = ""
     this.image = null
     this.cropLink.classList.add("disabled")

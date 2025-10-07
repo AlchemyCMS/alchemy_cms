@@ -7,9 +7,9 @@
   <%= render_message do %>
     <%= simple_format Alchemy.t(:explain_cropping) %>
   <% end %>
-  <div class="thumbnail_background">
-    <%= image_tag @picture.url(flatten: true), id: 'imageToCrop' %>
-  </div>
+  <%= content_tag "alchemy-picture-thumbnail", nil,
+    src: @picture.url(flatten: true),
+    id: "imageToCrop" %>
   <form>
     <%= button_tag Alchemy.t(:apply), type: 'submit' %>
     <%= button_tag Alchemy.t('Reset Imagemask'), class: 'reset_mask secondary', type: 'reset' %>
@@ -19,11 +19,9 @@
 <% if @settings %>
 <script type="module">
   import ImageCropper from "alchemy_admin/image_cropper";
-  import ImageLoader from "alchemy_admin/image_loader";
 
-  const image = document.getElementById("imageToCrop");
+  const image = document.getElementById("imageToCrop")?.querySelector("img");
 
-  new ImageLoader(image);
   new ImageCropper(
     image,
     <%= @settings[:default_box].to_json %>,

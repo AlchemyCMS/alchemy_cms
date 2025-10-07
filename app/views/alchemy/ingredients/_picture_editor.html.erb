@@ -18,18 +18,11 @@
         <%= render_icon("close") %>
       </a>
       <div class="picture_image">
-        <div class="thumbnail_background">
-          <%- if picture_editor.picture -%>
-            <%= image_tag(
-              picture_editor.thumbnail_url,
-              alt: picture_editor.picture.name,
-              class: "img_paddingtop",
-              title: Alchemy.t(:image_name, name: picture_editor.picture.name),
-            ) %>
-          <% else %>
-            <%= render_icon(:image, size: "xl") %>
-          <% end %>
-        </div>
+        <%= render Alchemy::Admin::PictureThumbnail.new(
+          picture_editor,
+          css_class: "img_paddingtop",
+          placeholder: render_icon(:image, size: "xl")
+        ) %>
       </div>
       <%- if picture_editor.css_class.present? -%>
         <%= render "alchemy/ingredients/shared/picture_css_class", {

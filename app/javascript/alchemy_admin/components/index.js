@@ -24,6 +24,7 @@ import "alchemy_admin/components/node_select"
 import "alchemy_admin/components/uploader"
 import "alchemy_admin/components/overlay"
 import "alchemy_admin/components/page_select"
+import "alchemy_admin/components/picture_thumbnail"
 import "alchemy_admin/components/preview_window"
 import "alchemy_admin/components/select"
 import "alchemy_admin/components/spinner"
@@ -38,6 +39,7 @@ await Promise.race([
     customElements.whenDefined("alchemy-icon"),
     customElements.whenDefined("alchemy-growl"),
     customElements.whenDefined("alchemy-message"),
+    customElements.whenDefined("alchemy-picture-thumbnail"),
     customElements.whenDefined("alchemy-spinner")
   ]),
   // Resolve after two seconds

@@ -5,6 +5,9 @@ require "rails_helper"
 RSpec.describe Alchemy::Ingredients::Picture do
   it_behaves_like "an alchemy ingredient"
 
+  it { is_expected.to delegate_method(:description_for).to(:picture).allow_nil }
+  it { is_expected.to delegate_method(:name).to(:picture).allow_nil }
+
   let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat") }
   let(:picture) { build_stubbed(:alchemy_picture) }
 

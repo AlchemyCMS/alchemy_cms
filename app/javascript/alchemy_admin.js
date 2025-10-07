@@ -12,7 +12,6 @@ import { currentDialog, closeCurrentDialog } from "alchemy_admin/dialog"
 import Dirty from "alchemy_admin/dirty"
 import * as FixedElements from "alchemy_admin/fixed_elements"
 import { growl } from "alchemy_admin/growler"
-import ImageLoader from "alchemy_admin/image_loader"
 import Initializer from "alchemy_admin/initializer"
 import { LinkDialog } from "alchemy_admin/link_dialog"
 import pleaseWaitOverlay from "alchemy_admin/please_wait_overlay"
@@ -44,7 +43,6 @@ Object.assign(Alchemy, {
   t: translate, // Global utility method for translating a given string
   FixedElements,
   growl,
-  ImageLoader: ImageLoader.init,
   LinkDialog,
   pleaseWaitOverlay,
   Sitemap,

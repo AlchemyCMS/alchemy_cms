@@ -66,20 +66,20 @@ module Alchemy
     # image displayed in the frontend.
     #
     # @return [String]
-    def thumbnail_url
+    def thumbnail_url(size: "160x120")
       return if picture.nil?
 
-      picture.url(thumbnail_url_options) || "alchemy/missing-image.svg"
+      picture.url(thumbnail_url_options(size: size)) || "alchemy/missing-image.svg"
     end
 
     # Thumbnail rendering options
     #
     # @return [HashWithIndifferentAccess]
-    def thumbnail_url_options
+    def thumbnail_url_options(size: "160x120")
       crop = !!settings[:crop]
 
       {
-        size: "160x120",
+        size: size,
         crop: crop,
         crop_from: crop && crop_from.presence || default_crop_from&.join("x"),
         crop_size: crop && crop_size.presence || default_crop_size&.join("x"),

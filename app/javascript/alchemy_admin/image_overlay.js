@@ -1,4 +1,3 @@
-import ImageLoader from "alchemy_admin/image_loader"
 import { Dialog } from "alchemy_admin/dialog"
 
 export default class ImageOverlay extends Dialog {
@@ -7,7 +6,6 @@ export default class ImageOverlay extends Dialog {
   }
 
   init() {
-    ImageLoader.init(this.dialog_body[0])
     $(".zoomed-picture-background").on("click", (e) => {
       e.stopPropagation()
       if (e.target.nodeName === "IMG") {

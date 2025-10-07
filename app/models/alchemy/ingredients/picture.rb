@@ -38,10 +38,10 @@ module Alchemy
         upsample
       ]
 
+      delegate :description_for, :name, to: :picture, allow_nil: true
+
       def alt_text(language: Alchemy::Current.language)
-        alt_tag.presence ||
-          picture&.description_for(language) ||
-          picture&.name&.humanize
+        alt_tag.presence || description_for(language) || name&.humanize
       end
 
       # The first 30 characters of the pictures name
@@ -51,7 +51,7 @@ module Alchemy
       # @param [Integer] max_length (30)
       #
       def preview_text(max_length = 30)
-        picture&.name.to_s[0..max_length - 1]
+        name.to_s[0..max_length - 1]
       end
 
       # The picture view component with mapped options.

@@ -6,7 +6,7 @@
   ).to_h
 ) %>
 
-<div class="picture_thumbnail <%= @size %>" id="picture_<%= picture.id %>" name="<%= picture.name %>">
+<div class="picture_thumbnail <%= @size %>" id="picture_<%= picture.id %>">
   <span class="picture_tool select">
     <%= check_box_tag "picture_ids[]", picture.id %>
   </span>
@@ -21,16 +21,12 @@
     </sl-tooltip>
   </div>
   <% end %>
-  <% picture_url = picture.thumbnail_url(size: preview_size(@size)) %>
-  <% image = picture_url ? image_tag(picture_url, alt: picture.name) : '<alchemy-icon name="file-damage"></alchemy-icon>'.html_safe %>
   <% if can?(:edit, picture) %>
-    <%= link_to(
-      image,
-      picture_path,
-      class: 'thumbnail_background'
-    ) %>
+    <%= link_to picture_path do %>
+      <%= render Alchemy::Admin::PictureThumbnail.new(picture, size: @size) %>
+    <% end %>
   <% else %>
-    <%= image %>
+    <%= render Alchemy::Admin::PictureThumbnail.new(picture, size: @size) %>
   <% end %>
   <span class="picture_name" title="<%= picture.name %>">
     <%= picture.name %>
