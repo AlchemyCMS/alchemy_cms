@@ -225,4 +225,15 @@ Alchemy.configure do |config|
   # The storage adapter for Pictures and Attachments
   #
   config.storage_adapter = <%= @default_config.storage_adapter.inspect %>
+
+  # Additional JS modules to be imported in the Alchemy admin UI
+  #
+  # Be sure to also pin the modules with +Alchemy.importmap+.
+  #
+  # == Example
+  #
+  #    Alchemy.importmap.pin "flatpickr/de",
+  #      to: "https://ga.jspm.io/npm:flatpickr@4.6.13/dist/l10n/de.js"
+  #
+  # config.admin_js_imports << "flatpickr/de"
 end

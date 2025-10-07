@@ -15,12 +15,12 @@ RSpec.describe "layouts/alchemy/admin.html.erb" do
     rendered
   end
 
-  context "with Alchemy.admin_js_imports" do
+  context "with Alchemy.config.admin_js_imports" do
     around do |example|
-      current = Alchemy.admin_js_imports
-      Alchemy.admin_js_imports << "foo"
+      current = Alchemy.config.admin_js_imports
+      Alchemy.config.admin_js_imports << "foo"
       example.run
-      Alchemy.admin_js_imports = current
+      Alchemy.config.admin_js_imports = current
     end
 
     it "renders the given javascripts module imports" do
@@ -28,7 +28,7 @@ RSpec.describe "layouts/alchemy/admin.html.erb" do
     end
   end
 
-  context "without Alchemy.admin_js_imports" do
+  context "without Alchemy.config.admin_js_imports" do
     it "does not render the given javascripts module imports" do
       expect(subject).to_not have_selector("script[type=\"module\"]:last-of-type", text: /import "foo"/)
     end

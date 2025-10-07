@@ -40,24 +40,10 @@ module Alchemy
     deprecate preview_sources: "Use `Alchemy.config.preview_sources` instead.", deprecator: Alchemy::Deprecation
     deprecate :preview_sources= => "Use `Alchemy.config.preview_sources=` instead.", :deprecator => Alchemy::Deprecation
 
-    # Additional JS modules to be imported in the Alchemy admin UI
-    #
-    # Be sure to also pin the modules with +Alchemy.importmap+.
-    #
-    # == Example
-    #
-    #    Alchemy.importmap.pin "flatpickr/de",
-    #      to: "https://ga.jspm.io/npm:flatpickr@4.6.13/dist/l10n/de.js"
-    #
-    #    Alchemy.admin_js_imports << "flatpickr/de"
-    #
-    def admin_js_imports
-      @_admin_js_imports ||= Set.new
-    end
-
-    def admin_js_imports=(sources)
-      @_admin_js_imports = Set[sources]
-    end
+    delegate :admin_js_imports, to: :config
+    delegate :admin_js_imports=, to: :config
+    deprecate admin_js_imports: "Use `Alchemy.config.admin_js_imports` instead", deprecator: Alchemy::Deprecation
+    deprecate :admin_js_imports= => "Use `Alchemy.config.admin_js_imports=` instead", :deprecator => Alchemy::Deprecation
 
     # Additional importmaps to be included in the Alchemy admin UI
     #
