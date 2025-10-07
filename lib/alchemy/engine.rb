@@ -50,7 +50,7 @@ module Alchemy
         watch_paths += admin_import[:source_paths]
         app.config.assets.paths += admin_import[:source_paths]
         if admin_import[:name] != "alchemy_admin"
-          Alchemy.admin_js_imports.add(admin_import[:name])
+          Alchemy.config.admin_js_imports.add(admin_import[:name])
         end
       end
 

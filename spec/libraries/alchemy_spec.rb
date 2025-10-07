@@ -30,7 +30,7 @@ RSpec.describe Alchemy do
 
       it "adds additional importmap to admin imports" do
         initializer = Alchemy::Engine.initializers.find { _1.name == "alchemy.importmap" }
-        expect(Alchemy.admin_js_imports).to receive(:add).with("additional_importmap")
+        expect(Alchemy.config.admin_js_imports).to receive(:add).with("additional_importmap")
         initializer.run(Rails.application)
       end
     end

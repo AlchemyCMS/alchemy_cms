@@ -249,6 +249,19 @@ module Alchemy
       #           acme/preview_source: Acme Vorschau
       #
       option :preview_sources, :collection, item_type: :class, collection_class: Set, default: ["Alchemy::Admin::PreviewUrl"]
+
+      # Additional JS modules to be imported in the Alchemy admin UI
+      #
+      # Be sure to also pin the modules with +Alchemy.importmap+.
+      #
+      # == Example
+      #
+      #    Alchemy.importmap.pin "flatpickr/de",
+      #      to: "https://ga.jspm.io/npm:flatpickr@4.6.13/dist/l10n/de.js"
+      #
+      #    Alchemy.config.admin_js_imports << "flatpickr/de"
+      #
+      option :admin_js_imports, :collection, item_type: :string, collection_class: Set, default: []
     end
   end
 end
