@@ -8,6 +8,7 @@ require "alchemy/configuration/collection_option"
 require "alchemy/configuration/configuration_option"
 require "alchemy/configuration/class_option"
 require "alchemy/configuration/integer_option"
+require "alchemy/configuration/pathname_option"
 require "alchemy/configuration/regexp_option"
 require "alchemy/configuration/string_option"
 

@@ -236,4 +236,16 @@ Alchemy.configure do |config|
   #      to: "https://ga.jspm.io/npm:flatpickr@4.6.13/dist/l10n/de.js"
   #
   # config.admin_js_imports << "flatpickr/de"
+
+  # Additional importmaps to be included in the Alchemy admin UI
+  #
+  # Be sure to also pin modules with +Alchemy.importmap+.
+  #
+  # config.admin_importmaps.add(
+  #   importmap_path: root.join("config/importmap.rb"),
+  #   source_paths: [
+  #     root.join("app/javascript")
+  #   ],
+  #   name: "admin_extension"
+  # )
 end
