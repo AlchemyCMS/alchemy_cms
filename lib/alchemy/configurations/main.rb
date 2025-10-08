@@ -3,6 +3,7 @@
 require "alchemy/configuration"
 require "alchemy/configurations/default_language"
 require "alchemy/configurations/default_site"
+require "alchemy/configurations/importmap"
 require "alchemy/configurations/format_matchers"
 require "alchemy/configurations/mailer"
 require "alchemy/configurations/page_cache"
@@ -262,6 +263,32 @@ module Alchemy
       #    Alchemy.config.admin_js_imports << "flatpickr/de"
       #
       option :admin_js_imports, :collection, item_type: :string, collection_class: Set, default: []
+
+      # Additional importmaps to be included in the Alchemy admin UI
+      #
+      # Be sure to also pin modules with +Alchemy.importmap+.
+      #
+      # == Example
+      #
+      #    # config/alchemy/importmap.rb
+      #    Alchemy.importmap.pin "alchemy_solidus", to: "alchemy_solidus.js", preload: true
+      #    Alchemy.importmap.pin_all_from Alchemy::Solidus::Engine.root.join("app/javascript/alchemy_solidus"),
+      #      under: "alchemy_solidus",
+      #      preload: true
+      #
+      #    # lib/alchemy/solidus/engine.rb
+      #    initializer "alchemy_solidus.assets", before: "alchemy.importmap" do |app|
+      #      Alchemy.admin_importmaps.add({
+      #        importmap_path: root.join("config/importmap.rb"),
+      #        source_paths: [
+      #          root.join("app/javascript")
+      #        ],
+      #        name: "alchemy_solidus"
+      #      })
+      #      app.config.assets.precompile << "alchemy_solidus/manifest.js"
+      #    end
+      #
+      option :admin_importmaps, :collection, collection_class: Set, item_type: :configuration, config_class: Alchemy::Configurations::Importmap, default: []
     end
   end
 end
