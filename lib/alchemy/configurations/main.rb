@@ -3,6 +3,7 @@
 require "alchemy/configuration"
 require "alchemy/configurations/default_language"
 require "alchemy/configurations/default_site"
+require "alchemy/configurations/importmap"
 require "alchemy/configurations/format_matchers"
 require "alchemy/configurations/mailer"
 require "alchemy/configurations/page_cache"
@@ -249,6 +250,45 @@ module Alchemy
       #           acme/preview_source: Acme Vorschau
       #
       option :preview_sources, :collection, item_type: :class, collection_class: Set, default: ["Alchemy::Admin::PreviewUrl"]
+
+      # Additional JS modules to be imported in the Alchemy admin UI
+      #
+      # Be sure to also pin the modules with +Alchemy.importmap+.
+      #
+      # == Example
+      #
+      #    Alchemy.importmap.pin "flatpickr/de",
+      #      to: "https://ga.jspm.io/npm:flatpickr@4.6.13/dist/l10n/de.js"
+      #
+      #    Alchemy.config.admin_js_imports << "flatpickr/de"
+      #
+      option :admin_js_imports, :collection, item_type: :string, collection_class: Set, default: []
+
+      # Additional importmaps to be included in the Alchemy admin UI
+      #
+      # Be sure to also pin modules with +Alchemy.importmap+.
+      #
+      # == Example
+      #
+      #    # config/alchemy/importmap.rb
+      #    Alchemy.importmap.pin "alchemy_solidus", to: "alchemy_solidus.js", preload: true
+      #    Alchemy.importmap.pin_all_from Alchemy::Solidus::Engine.root.join("app/javascript/alchemy_solidus"),
+      #      under: "alchemy_solidus",
+      #      preload: true
+      #
+      #    # lib/alchemy/solidus/engine.rb
+      #    initializer "alchemy_solidus.assets", before: "alchemy.importmap" do |app|
+      #      Alchemy.admin_importmaps.add({
+      #        importmap_path: root.join("config/importmap.rb"),
+      #        source_paths: [
+      #          root.join("app/javascript")
+      #        ],
+      #        name: "alchemy_solidus"
+      #      })
+      #      app.config.assets.precompile << "alchemy_solidus/manifest.js"
+      #    end
+      #
+      option :admin_importmaps, :collection, collection_class: Set, item_type: :configuration, config_class: Alchemy::Configurations::Importmap, default: []
     end
   end
 end

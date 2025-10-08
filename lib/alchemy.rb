@@ -40,60 +40,13 @@ module Alchemy
     deprecate preview_sources: "Use `Alchemy.config.preview_sources` instead.", deprecator: Alchemy::Deprecation
     deprecate :preview_sources= => "Use `Alchemy.config.preview_sources=` instead.", :deprecator => Alchemy::Deprecation
 
-    # Additional JS modules to be imported in the Alchemy admin UI
-    #
-    # Be sure to also pin the modules with +Alchemy.importmap+.
-    #
-    # == Example
-    #
-    #    Alchemy.importmap.pin "flatpickr/de",
-    #      to: "https://ga.jspm.io/npm:flatpickr@4.6.13/dist/l10n/de.js"
-    #
-    #    Alchemy.admin_js_imports << "flatpickr/de"
-    #
-    def admin_js_imports
-      @_admin_js_imports ||= Set.new
-    end
+    delegate :admin_js_imports, to: :config
+    delegate :admin_js_imports=, to: :config
+    deprecate admin_js_imports: "Use `Alchemy.config.admin_js_imports` instead", deprecator: Alchemy::Deprecation
+    deprecate :admin_js_imports= => "Use `Alchemy.config.admin_js_imports=` instead", :deprecator => Alchemy::Deprecation
 
-    def admin_js_imports=(sources)
-      @_admin_js_imports = Set[sources]
-    end
-
-    # Additional importmaps to be included in the Alchemy admin UI
-    #
-    # Be sure to also pin modules with +Alchemy.importmap+.
-    #
-    # == Example
-    #
-    #    # config/alchemy/importmap.rb
-    #    Alchemy.importmap.pin "alchemy_solidus", to: "alchemy_solidus.js", preload: true
-    #    Alchemy.importmap.pin_all_from Alchemy::Solidus::Engine.root.join("app/javascript/alchemy_solidus"),
-    #      under: "alchemy_solidus",
-    #      preload: true
-    #
-    #    # lib/alchemy/solidus/engine.rb
-    #    initializer "alchemy_solidus.assets", before: "alchemy.importmap" do |app|
-    #      Alchemy.admin_importmaps.add({
-    #        importmap_path: root.join("config/importmap.rb"),
-    #        source_paths: [
-    #          root.join("app/javascript")
-    #        ],
-    #        name: "alchemy_solidus"
-    #      })
-    #      app.config.assets.precompile << "alchemy_solidus/manifest.js"
-    #    end
-    #
-    # @return [Set<Hash>]
-    def admin_importmaps
-      @_admin_importmaps ||= Set.new([{
-        importmap_path: Engine.root.join("config/importmap.rb"),
-        source_paths: [
-          Engine.root.join("app/javascript"),
-          Engine.root.join("vendor/javascript")
-        ],
-        name: "alchemy_admin"
-      }])
-    end
+    delegate :admin_importmaps, to: :config
+    deprecate admin_importmaps: "Use Alchemy.config.admin_importmaps instead", deprecator: Alchemy::Deprecation
 
     # Additional stylesheets to be included in the Alchemy admin UI
     #
