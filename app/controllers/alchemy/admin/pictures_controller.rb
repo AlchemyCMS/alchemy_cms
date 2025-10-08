@@ -8,8 +8,6 @@ module Alchemy
       include CurrentLanguage
       include PictureDescriptionsFormHelper
 
-      helper "alchemy/admin/tags"
-
       before_action :load_resource,
         only: [:edit, :update, :url, :destroy]
 

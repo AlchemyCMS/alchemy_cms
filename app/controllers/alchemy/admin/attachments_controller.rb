@@ -13,8 +13,6 @@ module Alchemy
       add_alchemy_filter :without_tag, type: :checkbox
       add_alchemy_filter :deletable, type: :checkbox
 
-      helper "alchemy/admin/tags"
-
       before_action(only: :assign) do
         @attachment = Attachment.find(params[:id])
       end
