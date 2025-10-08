@@ -9,7 +9,7 @@ module Alchemy
       extend Alchemy::Admin::ResourceName
       include Alchemy::Admin::ResourceFilter
 
-      helper Alchemy::ResourcesHelper, TagsHelper
+      helper Alchemy::ResourcesHelper
       helper_method :resource_handler, :items_per_page, :items_per_page_options
 
       before_action :load_resource,

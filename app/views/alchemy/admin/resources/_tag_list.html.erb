@@ -2,7 +2,7 @@
   <h3><%= Alchemy.t("Filter by tag") %></h3>
   <%= render Alchemy::Admin::ListFilter.new(".tag-list li") %>
   <ul>
-    <%= render_tag_list(resource_model.name) %>
+    <%= render Alchemy::Admin::TagsList.new(resource_model.name) %>
   </ul>
   <% if search_filter_params[:tagged_with].present? %>
     <%= link_to(
