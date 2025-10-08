@@ -128,7 +128,7 @@ module Alchemy
       # @see Alchemy::Resource#editable_attributes
       def resource_params
         params.require(resource_handler.namespaced_resource_name).permit(
-          resource_handler.editable_attributes.map { _1[:name] }
+          resource_handler.permitted_attributes
         )
       end
 
