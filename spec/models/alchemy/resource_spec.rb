@@ -256,11 +256,35 @@ module Alchemy
       end
     end
 
+    describe "#permitted_attributes" do
+      subject { resource.permitted_attributes }
+
+      let(:columns) do
+        [
+          double(:column, {name: "name", type: :string})
+        ]
+      end
+
+      it "contains permitted attribute names" do
+        is_expected.to eq(["name"])
+      end
+
+      context "when model is taggable" do
+        before do
+          allow(Party).to receive(:<).with(Alchemy::Taggable) { true }
+        end
+
+        it "contains tag_list attribute" do
+          is_expected.to match_array(["name", "tag_list"])
+        end
+      end
+    end
+
     describe "#sorted_attributes" do
       subject { resource.sorted_attributes }
 
       let(:random_attrs) do
-        20.times.map do
+        Array.new(20) do
           double(:column, {name: "some_title", type: :string})
         end
       end
