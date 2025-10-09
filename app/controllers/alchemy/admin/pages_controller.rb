@@ -220,7 +220,7 @@ module Alchemy
         # but not set to public true, because the cache_key for an element is +published_at+
         # and we don't want the layout pages to be present in +Page.published+ scope.
         @current_language.pages.flushable_layoutpages.update_all(published_at: Time.current)
-        respond_to { |format| format.js }
+        respond_to { |format| format.turbo_stream }
       end
 
       private

@@ -4,6 +4,7 @@ import { renderComponent } from "./component.helper"
 import { closeCurrentDialog } from "alchemy_admin/dialog"
 import * as PreviewWindow from "alchemy_admin/components/preview_window"
 import IngredientAnchorLink from "alchemy_admin/ingredient_anchor_link"
+import pleaseWaitOverlay from "alchemy_admin/please_wait_overlay"
 
 vi.mock("alchemy_admin/dialog", () => {
   return {
@@ -25,6 +26,13 @@ vi.mock("alchemy_admin/ingredient_anchor_link", () => {
     default: {
       updateIcon: vi.fn()
     }
+  }
+})
+
+vi.mock("alchemy_admin/please_wait_overlay", () => {
+  return {
+    __esModule: true,
+    default: vi.fn()
   }
 })
 
@@ -53,6 +61,14 @@ describe("alchemy-action", () => {
       `<alchemy-action name="closeCurrentDialog"></alchemy-action>`
     )
     expect(closeCurrentDialog).toBeCalled()
+  })
+
+  it("call hidePleaseWaitOverlay function ", () => {
+    renderComponent(
+      "alchemy-action",
+      `<alchemy-action name="hidePleaseWaitOverlay"></alchemy-action>`
+    )
+    expect(pleaseWaitOverlay).toBeCalledWith(false)
   })
 
   it("removes the element from DOM after connected to the DOM", () => {

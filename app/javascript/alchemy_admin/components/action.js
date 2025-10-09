@@ -2,6 +2,7 @@ import { reloadPreview } from "alchemy_admin/components/preview_window"
 import { removeTab } from "alchemy_admin/fixed_elements"
 import { closeCurrentDialog } from "alchemy_admin/dialog"
 import IngredientAnchorLink from "alchemy_admin/ingredient_anchor_link"
+import pleaseWaitOverlay from "alchemy_admin/please_wait_overlay"
 
 class Action extends HTMLElement {
   constructor() {
@@ -15,7 +16,10 @@ class Action extends HTMLElement {
       closeCurrentDialog,
       reloadPreview,
       removeFixedElement: removeTab,
-      updateAnchorIcon: IngredientAnchorLink.updateIcon
+      updateAnchorIcon: IngredientAnchorLink.updateIcon,
+      hidePleaseWaitOverlay() {
+        pleaseWaitOverlay(false)
+      }
     }
   }
 
