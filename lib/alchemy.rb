@@ -48,19 +48,8 @@ module Alchemy
     delegate :admin_importmaps, to: :config
     deprecate admin_importmaps: "Use Alchemy.config.admin_importmaps instead", deprecator: Alchemy::Deprecation
 
-    # Additional stylesheets to be included in the Alchemy admin UI
-    #
-    # == Example
-    #
-    #    # lib/alchemy/devise/engine.rb
-    #    initializer "alchemy.devise.stylesheets", before: "alchemy.admin_stylesheets" do
-    #      Alchemy.admin_stylesheets << "alchemy/devise/admin.css"
-    #    end
-    #
-    # @return [Set<String>]
-    def admin_stylesheets
-      @_admin_stylesheets ||= Set.new(["alchemy/admin/custom.css"])
-    end
+    delegate :admin_stylesheets, to: :config
+    deprecate admin_stylesheets: "Use Alchemy.config.admin_stylesheets instead", deprecator: Alchemy::Deprecation
 
     # Define page publish targets
     #

@@ -289,6 +289,17 @@ module Alchemy
       #    end
       #
       option :admin_importmaps, :collection, collection_class: Set, item_type: :configuration, config_class: Alchemy::Configurations::Importmap, default: []
+
+      # Additional stylesheets to be included in the Alchemy admin UI
+      #
+      # == Example
+      #
+      #    # lib/alchemy/devise/engine.rb
+      #    initializer "alchemy.devise.stylesheets", before: "alchemy.admin_stylesheets" do
+      #      Alchemy.config.admin_stylesheets << "alchemy/devise/admin.css"
+      #    end
+      #
+      option :admin_stylesheets, :collection, collection_class: Set, item_type: :string, default: ["alchemy/admin/custom.css"]
     end
   end
 end

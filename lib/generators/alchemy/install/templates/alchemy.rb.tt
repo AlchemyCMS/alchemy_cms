@@ -248,4 +248,7 @@ Alchemy.configure do |config|
   #   ],
   #   name: "admin_extension"
   # )
+
+  # Additional stylesheets to be included in the Alchemy admin UI
+  # config.admin_stylesheets.add("my_app/admin_extension")
 end
