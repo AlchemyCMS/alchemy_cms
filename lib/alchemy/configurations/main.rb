@@ -289,6 +289,73 @@ module Alchemy
       #    end
       #
       option :admin_importmaps, :collection, collection_class: Set, item_type: :configuration, config_class: Alchemy::Configurations::Importmap, default: []
+
+      # Additional stylesheets to be included in the Alchemy admin UI
+      #
+      # == Example
+      #
+      #    # lib/alchemy/devise/engine.rb
+      #    initializer "alchemy.devise.stylesheets", before: "alchemy.admin_stylesheets" do
+      #      Alchemy.config.admin_stylesheets << "alchemy/devise/admin.css"
+      #    end
+      #
+      option :admin_stylesheets, :collection, collection_class: Set, item_type: :string, default: ["alchemy/admin/custom.css"]
+
+      # Define page publish targets
+      #
+      # A publish target is a ActiveJob that gets performed
+      # whenever a user clicks the publish page button.
+      #
+      # Use this to trigger deployment hooks of external
+      # services in an asychronous way.
+      #
+      # == Example
+      #
+      #     # app/jobs/publish_job.rb
+      #     class PublishJob < ApplicationJob
+      #       def perform(page)
+      #         RestClient.post(ENV['BUILD_HOOK_URL'])
+      #       end
+      #     end
+      #
+      #     # config/initializers/alchemy.rb
+      #     Alchemy.config.publish_targets << PublishJob
+      #
+      option :publish_targets, :collection, collection_class: Set, item_type: :class, default: []
+
+      # Configure tabs in the link dialog
+      #
+      # With this configuration that tabs in the link dialog can be extended
+      # without overwriting or defacing the Admin Interface.
+      #
+      # == Example
+      #
+      #    # components/acme/link_tab.rb
+      #    module Acme
+      #      class LinkTab < ::Alchemy::Admin::LinkDialog::BaseTab
+      #        def title
+      #          "Awesome Tab Title"
+      #        end
+      #
+      #        def name
+      #          :unique_name
+      #        end
+      #
+      #        def fields
+      #           [ title_input, target_select ]
+      #        end
+      #      end
+      #    end
+      #
+      #    # config/initializers/alchemy.rb
+      #    Alchemy.config.link_dialog_tabs << "Acme::LinkTab"
+      #
+      option :link_dialog_tabs, :collection, collection_class: Set, item_type: :class, default: [
+        "Alchemy::Admin::LinkDialog::InternalTab",
+        "Alchemy::Admin::LinkDialog::AnchorTab",
+        "Alchemy::Admin::LinkDialog::ExternalTab",
+        "Alchemy::Admin::LinkDialog::FileTab"
+      ]
     end
   end
 end
