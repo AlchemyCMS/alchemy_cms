@@ -40,7 +40,7 @@ module Alchemy
           end
         end
 
-        Alchemy.publish_targets.each { |p| p.perform_later(page) }
+        Alchemy.config.publish_targets.each { |p| p.perform_later(page) }
       end
 
       private

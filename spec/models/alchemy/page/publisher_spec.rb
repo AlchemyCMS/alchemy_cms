@@ -89,16 +89,19 @@ RSpec.describe Alchemy::Page::Publisher do
     end
 
     context "with publish targets" do
-      let(:target) { Class.new(ActiveJob::Base) }
+      # This job _actually_ runs the Publisher, which then triggers the publish targets.
+      # Just using it here because it has the same method signature as a Publish Target,
+      # and stubbing "constantize" is not easy.
+      let(:target_class_name) { "Alchemy::PublishPageJob" }
 
       around do |example|
-        Alchemy.publish_targets << target
+        Alchemy.config.publish_targets << target_class_name
         example.run
-        Alchemy.instance_variable_set(:@_publish_targets, nil)
+        Alchemy.config.publish_targets = []
       end
 
       it "performs each target" do
-        expect(target).to receive(:perform_later).with(page)
+        expect(Alchemy::PublishPageJob).to receive(:perform_later).with(page)
         publish
       end
     end
