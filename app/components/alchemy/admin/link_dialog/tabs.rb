@@ -25,7 +25,7 @@ module Alchemy
         end
 
         def tabs
-          Alchemy.link_dialog_tabs
+          Alchemy.config.link_dialog_tabs
         end
       end
     end

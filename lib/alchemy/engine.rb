@@ -26,7 +26,7 @@ module Alchemy
 
     initializer "alchemy.admin_stylesheets" do |app|
       if defined?(Sprockets)
-        Alchemy.admin_stylesheets.each do |stylesheet|
+        Alchemy.config.admin_stylesheets.each do |stylesheet|
           app.config.assets.precompile << stylesheet
         end
       end
