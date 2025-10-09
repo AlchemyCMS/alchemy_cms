@@ -267,6 +267,16 @@ RSpec.describe "Resources", type: :system do
       end
     end
 
+    context "for taggable model" do
+      it "should have a tag select" do
+        visit "/admin/events/new"
+
+        within("form") do
+          expect(page).to have_selector("alchemy-tags-autocomplete")
+        end
+      end
+    end
+
     describe "date fields" do
       it "have date picker" do
         visit "/admin/bookings/new"
@@ -284,6 +294,7 @@ RSpec.describe "Resources", type: :system do
         visit "/admin/events/new"
         fill_in "event_name", with: "My second event"
         fill_in "event_starts_at", with: start_date
+        fill_in "Tag list", with: "wedding"
         select location.name, from: "Location"
         click_on "Save"
       end
@@ -291,6 +302,10 @@ RSpec.describe "Resources", type: :system do
       it "lists the new item" do
         expect(page).to have_content "My second event"
         expect(page).to have_content I18n.l(start_date, format: :"alchemy.default")
+
+        within "#library_sidebar" do
+          expect(page).to have_content "wedding"
+        end
       end
 
       it "shows a success message" do

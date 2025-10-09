@@ -152,7 +152,7 @@ module Alchemy
     end
 
     def attributes
-      @_attributes ||= model.columns.collect do |col|
+      @_attributes ||= model.columns.filter_map do |col|
         next if skipped_attributes.include?(col.name)
 
         {
@@ -161,7 +161,7 @@ module Alchemy
           relation: resource_relation(col.name),
           enum: enum_values_collection_for_select(col.name)
         }.delete_if { |_k, v| v.blank? }
-      end.compact
+      end
     end
 
     def enum_values_collection_for_select(column_name)
@@ -197,6 +197,19 @@ module Alchemy
 
     def editable_attributes
       attributes.reject { |h| restricted_attributes.map(&:to_s).include?(h[:name].to_s) }
+    end
+
+    # Returns a list of attribute names that are permitted to be updated.
+    # Uses {editable_attributes} and adds {tag_list} if model is taggable.
+    # Used in strong parameters of Alchemy::Admin::ResourcesController.
+    #
+    # @return [Array<String>]
+    def permitted_attributes
+      attrs = editable_attributes.map { _1[:name] }
+      if model < Alchemy::Taggable
+        attrs << "tag_list"
+      end
+      attrs
     end
 
     # Returns all attribute names that are searchable in the admin interface
