@@ -42,15 +42,26 @@ module Alchemy
       end
     end
 
+    initializer "alchemy.admin_importmap", before: "alchemy.importmap" do
+      Alchemy.config.admin_importmaps.add(
+        importmap_path: root.join("config/importmap.rb"),
+        source_paths: [
+          root.join("app/javascript"),
+          root.join("vendor/javascript")
+        ],
+        name: "alchemy_admin"
+      )
+    end
+
     initializer "alchemy.importmap" do |app|
       watch_paths = []
 
-      Alchemy.admin_importmaps.each do |admin_import|
-        Alchemy.importmap.draw admin_import[:importmap_path]
-        watch_paths += admin_import[:source_paths]
-        app.config.assets.paths += admin_import[:source_paths]
+      Alchemy.config.admin_importmaps.each do |admin_import|
+        Alchemy.importmap.draw admin_import.importmap_path
+        watch_paths += admin_import.source_paths.to_a
+        app.config.assets.paths += admin_import.source_paths.to_a
         if admin_import[:name] != "alchemy_admin"
-          Alchemy.admin_js_imports.add(admin_import[:name])
+          Alchemy.config.admin_js_imports.add(admin_import.name)
         end
       end
 

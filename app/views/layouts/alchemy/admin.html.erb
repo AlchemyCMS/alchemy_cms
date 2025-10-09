@@ -29,7 +29,7 @@
     <%= render 'alchemy/admin/tinymce/setup' %>
     <%= render 'alchemy/admin/partials/routes' %>
     <%= javascript_importmap_tags("alchemy_admin", importmap: Alchemy.importmap) %>
-    <% Alchemy.admin_js_imports.each do |path| %>
+    <% Alchemy.config.admin_js_imports.each do |path| %>
       <script type="module">
         import "<%= path %>"
       </script>
