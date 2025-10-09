@@ -29,8 +29,7 @@ module Alchemy
                 search_filter_params.except(:page, :tagged_with).merge(
                   tagged_with: tags_for_filter(current: tag).presence
                 )
-              ),
-              remote: request.xhr?
+              )
             )
           end
         end.join.html_safe
