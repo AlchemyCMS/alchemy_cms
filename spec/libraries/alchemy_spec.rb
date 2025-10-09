@@ -36,6 +36,16 @@ RSpec.describe Alchemy do
     end
   end
 
+  describe ".preview_sources" do
+    subject { Alchemy.preview_sources }
+
+    it "returns a Set of preview sources" do
+      Alchemy::Deprecation.silence do
+        is_expected.to be_a(Alchemy::Configuration::CollectionOption)
+      end
+    end
+  end
+
   describe ".config" do
     subject { Alchemy.config }
 

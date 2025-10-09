@@ -17,7 +17,9 @@ module Alchemy
       # @param value [Object] The value you want to return instead of the original one
       #
       def stub_alchemy_config(key, value)
-        allow(Alchemy.config).to receive(key).and_return(value)
+        temp_config = Alchemy::Configurations::Main.new
+        temp_config.send("#{key}=", value)
+        allow(Alchemy).to receive(:config).and_return(temp_config)
       end
     end
   end
