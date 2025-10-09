@@ -261,4 +261,11 @@ Alchemy.configure do |config|
   # services in an asychronous way.
   #
   # config.publish_targets << "MyPublishJob"
+
+  # Configure tabs in the link dialog
+  #
+  # With this configuration that tabs in the link dialog can be extended
+  # without overwriting or defacing the Admin Interface.
+  #
+  # config.link_dialog_tabs << "Acme::LinkTab"
 end

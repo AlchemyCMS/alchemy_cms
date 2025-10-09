@@ -322,6 +322,40 @@ module Alchemy
       #     Alchemy.config.publish_targets << PublishJob
       #
       option :publish_targets, :collection, collection_class: Set, item_type: :class, default: []
+
+      # Configure tabs in the link dialog
+      #
+      # With this configuration that tabs in the link dialog can be extended
+      # without overwriting or defacing the Admin Interface.
+      #
+      # == Example
+      #
+      #    # components/acme/link_tab.rb
+      #    module Acme
+      #      class LinkTab < ::Alchemy::Admin::LinkDialog::BaseTab
+      #        def title
+      #          "Awesome Tab Title"
+      #        end
+      #
+      #        def name
+      #          :unique_name
+      #        end
+      #
+      #        def fields
+      #           [ title_input, target_select ]
+      #        end
+      #      end
+      #    end
+      #
+      #    # config/initializers/alchemy.rb
+      #    Alchemy.config.link_dialog_tabs << "Acme::LinkTab"
+      #
+      option :link_dialog_tabs, :collection, collection_class: Set, item_type: :class, default: [
+        "Alchemy::Admin::LinkDialog::InternalTab",
+        "Alchemy::Admin::LinkDialog::AnchorTab",
+        "Alchemy::Admin::LinkDialog::ExternalTab",
+        "Alchemy::Admin::LinkDialog::FileTab"
+      ]
     end
   end
 end

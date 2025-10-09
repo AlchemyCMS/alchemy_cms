@@ -54,40 +54,7 @@ module Alchemy
     delegate :publish_targets, to: :config
     deprecate publish_targets: "Use Alchemy.config.publish_targets instead", deprecator: Alchemy::Deprecation
 
-    # Configure tabs in the link dialog
-    #
-    # With this configuration that tabs in the link dialog can be extended
-    # without overwriting or defacing the Admin Interface.
-    #
-    # == Example
-    #
-    #    # components/acme/link_tab.rb
-    #    module Acme
-    #      class LinkTab < ::Alchemy::Admin::LinkDialog::BaseTab
-    #        def title
-    #          "Awesome Tab Title"
-    #        end
-    #
-    #        def name
-    #          :unique_name
-    #        end
-    #
-    #        def fields
-    #           [ title_input, target_select ]
-    #        end
-    #      end
-    #    end
-    #
-    #    # config/initializers/alchemy.rb
-    #    Alchemy.link_dialog_tabs << Acme::LinkTab
-    #
-    def link_dialog_tabs
-      @_link_dialog_tabs ||= Set.new([
-        Alchemy::Admin::LinkDialog::InternalTab,
-        Alchemy::Admin::LinkDialog::AnchorTab,
-        Alchemy::Admin::LinkDialog::ExternalTab,
-        Alchemy::Admin::LinkDialog::FileTab
-      ])
-    end
+    delegate :link_dialog_tabs, to: :config
+    deprecate link_dialog_tabs: "Use Alchemy.config.link_dialog_tabs instead", deprecator: Alchemy::Deprecation
   end
 end
