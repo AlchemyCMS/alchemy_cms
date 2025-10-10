@@ -9,12 +9,11 @@
 <div class="picture-overlay-navigation">
   <% if @previous %>
     <%= link_to alchemy.admin_picture_path(
-        id: :previous,
-        q: search_filter_params[:q],
-        page: @previous,
-        tagged_with: search_filter_params[:tagged_with],
-        size: @size,
-        filter: search_filter_params[:filter]
+        :previous,
+        search_filter_params.merge(
+          picture_index: @previous,
+          size: @size
+        ).to_h
       ),
       class: "previous-picture",
       remote: true do %>
@@ -23,12 +22,11 @@
   <% end %>
   <% if @next %>
     <%= link_to alchemy.admin_picture_path(
-        id: :next,
-        q: search_filter_params[:q],
-        page: @next,
-        tagged_with: search_filter_params[:tagged_with],
-        size: @size,
-        filter: search_filter_params[:filter]
+        :next,
+        search_filter_params.merge(
+          picture_index: @next,
+          size: @size
+        ).to_h
       ),
       class: "next-picture",
       remote: true do %>
@@ -38,7 +36,7 @@
 </div>
 
 <div class="picture-details-overlay">
-  <%= render 'form' %>
+  <%= render 'form', picture_index: @previous || @next || 0 %>
   <hr>
   <%= render 'infos' %>
 </div>
