@@ -37,5 +37,14 @@ module Alchemy
     def render_message(type = :info, msg = nil, &)
       render Alchemy::Admin::Message.new(msg || capture(&), type: type)
     end
+
+    # Used for translations selector in Alchemy cockpit user settings.
+
+    def translations_for_select
+      Alchemy::I18n.available_locales.sort.map do |locale|
+        [Alchemy.t(locale, scope: :translations), locale]
+      end
+    end
+    deprecate translations_for_select: "Please use the new `Alchemy::Admin::LocaleSelect` component."
   end
 end
