@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.config.to_prepare do
-  require "alchemy/devise/ability"
-
   Alchemy.register_ability(Alchemy::Devise::Ability)
 
   Alchemy::Modules.register_module({
