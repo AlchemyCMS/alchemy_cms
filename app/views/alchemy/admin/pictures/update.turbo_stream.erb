@@ -2,5 +2,5 @@
   <%= @message[:body] %>
 </alchemy-growl>
 <%= turbo_stream.replace("picture_#{@picture.id}") do %>
-  <%= render "picture", picture: @picture, picture_counter: params[:page].to_i %>
+  <%= render "picture", picture: @picture, picture_index: params[:picture_index] %>
 <% end %>

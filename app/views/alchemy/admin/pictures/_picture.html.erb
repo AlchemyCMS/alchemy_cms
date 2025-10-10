@@ -20,10 +20,11 @@
   </div>
   <% end %>
   <% if can?(:edit, picture) %>
+    <% picture_index ||= picture_offset + picture_iteration.index %>
     <%= link_to alchemy.admin_picture_path(
       picture,
       search_filter_params.merge(
-        page: picture_counter + 1,
+        picture_index: picture_index.to_i + 1,
         size: @size.presence
       ).to_h
     ) do %>
