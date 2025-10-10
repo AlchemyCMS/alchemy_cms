@@ -11,7 +11,7 @@
     <%= link_to alchemy.admin_picture_path(
         :previous,
         search_filter_params.merge(
-          page: @previous,
+          picture_index: @previous,
           size: @size
         ).to_h
       ),
@@ -24,7 +24,7 @@
     <%= link_to alchemy.admin_picture_path(
         :next,
         search_filter_params.merge(
-          page: @next,
+          picture_index: @next,
           size: @size
         ).to_h
       ),
@@ -36,7 +36,7 @@
 </div>
 
 <div class="picture-details-overlay">
-  <%= render 'form', page: @previous || @next || 0 %>
+  <%= render 'form', picture_index: @previous || @next || 0 %>
   <hr>
   <%= render 'infos' %>
 </div>

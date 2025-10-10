@@ -22,12 +22,13 @@
   <% picture_url = picture.thumbnail_url(size: preview_size(@size)) %>
   <% image = picture_url ? image_tag(picture_url, alt: picture.name) : '<alchemy-icon name="file-damage"></alchemy-icon>'.html_safe %>
   <% if can?(:edit, picture) %>
+    <% picture_index ||= picture_offset + picture_iteration.index %>
     <%= link_to(
       image,
       alchemy.admin_picture_path(
         picture,
         search_filter_params.merge(
-          page: picture_counter + 1,
+          picture_index: picture_index.to_i + 1,
           size: @size.presence
         ).to_h
       ),

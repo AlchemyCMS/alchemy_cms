@@ -29,8 +29,10 @@ module Alchemy
       add_alchemy_filter :without_tag, type: :checkbox
       add_alchemy_filter :deletable, type: :checkbox
 
+      helper_method :picture_offset
+
       def index
-        @pictures = filtered_pictures
+        @pictures = filtered_pictures(page: params[:page])
 
         if in_overlay?
           archive_overlay
@@ -38,7 +40,7 @@ module Alchemy
       end
 
       def show
-        @pictures = filtered_pictures(per_page: 1)
+        @pictures = filtered_pictures(page: params[:picture_index], per_page: 1)
         @picture = @pictures.first
         @previous = @pictures.prev_page
         @next = @pictures.next_page
@@ -121,7 +123,7 @@ module Alchemy
         redirect_to_index
       end
 
-      def filtered_pictures(per_page: items_per_page)
+      def filtered_pictures(page: 1, per_page: items_per_page)
         @query = Picture.ransack(search_filter_params[:q])
         @query.sorts = default_sort_order if @query.sorts.empty?
         pictures = @query.result
@@ -130,7 +132,7 @@ module Alchemy
           pictures = pictures.tagged_with(params[:tagged_with])
         end
 
-        pictures = pictures.page(params[:page] || 1).per(per_page)
+        pictures = pictures.page(page).per(per_page)
         Alchemy.storage_adapter.preloaded_pictures(pictures)
       end
 
@@ -150,7 +152,7 @@ module Alchemy
           cookies[:alchemy_pictures_per_page] = params[:per_page] ||
             cookies[:alchemy_pictures_per_page] ||
             pictures_per_page_for_size
-        end
+        end.to_i
       end
 
       def items_per_page_options
@@ -159,6 +161,10 @@ module Alchemy
       end
 
       private
+
+      def picture_offset
+        ((params[:page] || 1).to_i - 1) * items_per_page
+      end
 
       def set_size
         @size = params[:size] || session[:alchemy_pictures_size] || "medium"
