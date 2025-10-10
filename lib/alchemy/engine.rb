@@ -59,7 +59,9 @@ module Alchemy
       Alchemy.config.admin_importmaps.each do |admin_import|
         Alchemy.importmap.draw admin_import.importmap_path
         watch_paths += admin_import.source_paths.to_a
-        app.config.assets.paths += admin_import.source_paths.to_a
+        if app.config.respond_to?(:assets)
+          app.config.assets.paths += admin_import.source_paths.to_a
+        end
         if admin_import[:name] != "alchemy_admin"
           Alchemy.config.admin_js_imports.add(admin_import.name)
         end
