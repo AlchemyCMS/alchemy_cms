@@ -19,11 +19,12 @@
     <div class="toolbar_button">
       <sl-tooltip content="<%= Alchemy.t("Flush page cache") %>">
         <%= button_to(
-          render_icon(:eraser),
           alchemy.flush_admin_pages_path,
           "turbo-method": :post,
           class: "icon_button please_wait"
-        ) %>
+        ) do %>
+          <%= render_icon(:eraser) %>
+        <% end %>
       </sl-tooltip>
     </div>
   <% end %>
