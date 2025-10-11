@@ -17,10 +17,8 @@ describe "Alchemy::ControllerActions", type: "controller" do
     end
 
     context "with custom current_user_method" do
-      around do |example|
-        Alchemy.current_user_method = "current_admin"
-        example.run
-        Alchemy.current_user_method = "current_user"
+      before do
+        stub_config(Alchemy, {current_user_method: :current_admin})
       end
 
       it "calls the custom method" do
@@ -30,10 +28,8 @@ describe "Alchemy::ControllerActions", type: "controller" do
     end
 
     context "with not implemented current_user_method" do
-      around do |example|
-        Alchemy.current_user_method = "not_implemented_method"
-        example.run
-        Alchemy.current_user_method = "current_user"
+      before do
+        stub_config(Alchemy, {current_user_method: :not_implemented_method})
       end
 
       it "raises an error" do

@@ -35,7 +35,7 @@ RSpec.describe "Resources", type: :system do
       end
 
       it "should limit the number of items per page based on alchemy's general configuration" do
-        stub_alchemy_config(:items_per_page, 5)
+        stub_alchemy_config(items_per_page: 5)
 
         visit "/admin/events"
         expect(page).to have_selector("div#archive_all table.list tbody tr", count: 5)
@@ -123,7 +123,7 @@ RSpec.describe "Resources", type: :system do
           end
 
           it "can combine filters and pagination", :js do
-            stub_alchemy_config(:items_per_page, 1)
+            stub_alchemy_config(items_per_page: 1)
 
             visit "/admin/events?q[by_timeframe]=starting_today"
 
@@ -139,7 +139,7 @@ RSpec.describe "Resources", type: :system do
 
           it "can combine ransack queries and pagination", :js do
             allow_any_instance_of(Admin::EventsController).to receive(:permitted_ransack_search_fields).and_return([:name_start])
-            stub_alchemy_config(:items_per_page, 1)
+            stub_alchemy_config(items_per_page: 1)
 
             visit "/admin/events?q[name_start]=today"
 
