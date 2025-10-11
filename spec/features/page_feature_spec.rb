@@ -194,7 +194,7 @@ RSpec.describe "Show page feature:", type: :system do
     context "as a guest user" do
       it "I am not able to visit the page" do
         visit restricted_page.urlname
-        expect(current_path).to eq(Alchemy.login_path)
+        expect(current_path).to eq(Alchemy.config.auth.login_path)
       end
     end
 

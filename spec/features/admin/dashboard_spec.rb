@@ -115,17 +115,13 @@ RSpec.describe "Dashboard feature", type: :system do
 
     context "with non alchemy user class" do
       before do
-        Alchemy.user_class_name = "SomeUser"
+        stub_alchemy_config(auth: {user_class: "SomeUser"})
       end
 
       it "does not list online users" do
         visit admin_dashboard_path
         users_widget = all('div[@class="widget users"]').first
         expect(users_widget).to be_nil
-      end
-
-      after do
-        Alchemy.user_class_name = "DummyUser"
       end
     end
   end
