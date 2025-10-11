@@ -11,6 +11,7 @@ require "alchemy/configuration/integer_option"
 require "alchemy/configuration/pathname_option"
 require "alchemy/configuration/regexp_option"
 require "alchemy/configuration/string_option"
+require "alchemy/configuration/symbol_option"
 
 module Alchemy
   class Configuration
