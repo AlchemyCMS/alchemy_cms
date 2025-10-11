@@ -251,7 +251,7 @@ RSpec.describe "Picture Library", type: :system do
 
     scenario "allows to update a pictures name" do
       visit alchemy.admin_pictures_path
-      page.find("a.thumbnail_background").click
+      page.find("#picture_#{picture_a.id} a.thumbnail_background").click
       page.find(".next-picture").click
       expect(page).to have_field("Name")
       fill_in "Name", with: "my-amazing-image"
