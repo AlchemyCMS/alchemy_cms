@@ -61,13 +61,13 @@ module Alchemy
         it "should not be possible to download attachments from restricted pages" do
           get :download, params: {id: attachment.id}
           expect(response.status).to eq(302)
-          expect(response).to redirect_to(Alchemy.login_path)
+          expect(response).to redirect_to(Alchemy.config.login_path)
         end
 
         it "should not be possible to see attachments from restricted pages" do
           get :show, params: {id: attachment.id}
           expect(response.status).to eq(302)
-          expect(response).to redirect_to(Alchemy.login_path)
+          expect(response).to redirect_to(Alchemy.config.login_path)
         end
       end
 

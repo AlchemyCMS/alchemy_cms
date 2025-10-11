@@ -10,13 +10,13 @@ module Alchemy
     context "a guest" do
       it "can not access page tree" do
         get admin_pages_path
-        expect(request).to redirect_to(Alchemy.login_path)
+        expect(request).to redirect_to(Alchemy.config.login_path)
       end
 
       it "can not access page preview of a public page" do
         page = create(:alchemy_page, :public)
         get admin_page_path(page)
-        expect(request).to redirect_to(Alchemy.login_path)
+        expect(request).to redirect_to(Alchemy.config.login_path)
       end
     end
 

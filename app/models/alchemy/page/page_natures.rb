@@ -35,7 +35,7 @@ module Alchemy
       end
 
       def folded?(user_id)
-        return unless Alchemy.user_class < ActiveRecord::Base
+        return unless Alchemy.config.user_class < ActiveRecord::Base
 
         if folded_pages.loaded?
           folded_pages.any? { |p| p.folded && p.user_id == user_id }

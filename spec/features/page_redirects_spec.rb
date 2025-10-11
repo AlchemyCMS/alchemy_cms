@@ -124,7 +124,7 @@ RSpec.describe "Requesting a page" do
 
     context "wrong language requested" do
       before do
-        allow(Alchemy.user_class).to receive(:admins).and_return([1, 2])
+        allow(Alchemy.config.user_class).to receive(:admins).and_return([1, 2])
       end
 
       it "should render 404 if urlname and lang parameter do not belong to same page" do

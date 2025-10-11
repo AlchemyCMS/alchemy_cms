@@ -34,7 +34,7 @@ module Alchemy
     # you can install the `alchemy-devise` gem that provides everything you need.
     #
     def current_alchemy_user
-      current_user_method = Alchemy.current_user_method
+      current_user_method = Alchemy.config.current_user_method
       raise NoCurrentUserFoundError if !respond_to?(current_user_method, true)
 
       send current_user_method

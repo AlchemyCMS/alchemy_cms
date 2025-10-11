@@ -1883,7 +1883,7 @@ module Alchemy
         end
 
         it "uses the primary key defined on user class" do
-          expect(Alchemy.user_class).to receive(:primary_key).at_least(:once) { "id" }
+          expect(Alchemy.config.user_class).to receive(:primary_key).at_least(:once) { "id" }
           subject
         end
       end
@@ -1897,7 +1897,7 @@ module Alchemy
         end
 
         it "uses the primary key defined on user class" do
-          expect(Alchemy.user_class).to receive(:primary_key).at_least(:once) { "id" }
+          expect(Alchemy.config.user_class).to receive(:primary_key).at_least(:once) { "id" }
           subject
         end
       end
@@ -1911,7 +1911,7 @@ module Alchemy
         end
 
         it "uses the primary key defined on user class" do
-          expect(Alchemy.user_class).to receive(:primary_key).at_least(:once) { "id" }
+          expect(Alchemy.config.user_class).to receive(:primary_key).at_least(:once) { "id" }
           subject
         end
       end
@@ -1945,7 +1945,7 @@ module Alchemy
       end
 
       context "with user class returning nil for alchemy_display_name" do
-        let(:user) { Alchemy.user_class.new }
+        let(:user) { Alchemy.config.user_class.new }
 
         describe "#creator_name" do
           let(:page) { Page.new(creator: user) }
@@ -1973,7 +1973,7 @@ module Alchemy
       end
 
       context "with user class not responding to alchemy_display_name" do
-        let(:user) { Alchemy.user_class.new }
+        let(:user) { Alchemy.config.user_class.new }
 
         before do
           expect(user).to receive(:respond_to?).with(:alchemy_display_name) { false }

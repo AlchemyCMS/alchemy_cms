@@ -14,9 +14,7 @@ module Alchemy::AbilityHelper
   def current_ability
     @current_ability ||= begin
       alchemy_permissions = Alchemy::Permissions.new(current_alchemy_user)
-      Alchemy.registered_abilities.each do |klass|
-        # Ensure to avoid issues with Rails constant lookup.
-        klass = "::#{klass}".constantize
+      Alchemy.config.abilities.each do |klass|
         alchemy_permissions.merge(klass.new(current_alchemy_user))
       end
       alchemy_permissions

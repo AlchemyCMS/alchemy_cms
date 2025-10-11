@@ -80,14 +80,14 @@ module Alchemy
       end
 
       def set_stamper
-        if Alchemy.user_class.respond_to?(:stamper=)
-          Alchemy.user_class.stamper = current_alchemy_user
+        if Alchemy.config.user_class.respond_to?(:stamper=)
+          Alchemy.config.user_class.stamper = current_alchemy_user
         end
       end
 
       def reset_stamper
-        if Alchemy.user_class.respond_to?(:reset_stamper)
-          Alchemy.user_class.reset_stamper
+        if Alchemy.config.user_class.respond_to?(:reset_stamper)
+          Alchemy.config.user_class.reset_stamper
         end
       end
 

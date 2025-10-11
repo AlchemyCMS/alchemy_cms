@@ -47,7 +47,7 @@ module Alchemy
 
     # Load folded page IDs for the user
     def load_folded_page_ids
-      if user && Alchemy.user_class < ActiveRecord::Base
+      if user && Alchemy.config.user_class < ActiveRecord::Base
         FoldedPage.folded_for_user(user).pluck(:page_id).to_set
       else
         Set.new
