@@ -35,7 +35,7 @@
     <% end %>
   <% else %>
     <div id="pictures" class="picture-size--<%= @size %>">
-      <%= render partial: 'picture', collection: @pictures %>
+      <%= render partial: "picture", collection: @pictures, locals: {picture_offset: picture_offset} %>
     </div>
   <% end %>
 <% end %>

@@ -1,11 +1,3 @@
-<% picture_path = alchemy.admin_picture_path(
-  picture,
-  search_filter_params.merge(
-    page: params[:page],
-    size: @size.presence
-  ).to_h
-) %>
-
 <div class="picture_thumbnail <%= @size %>" id="picture_<%= picture.id %>" name="<%= picture.name %>">
   <span class="picture_tool select">
     <%= check_box_tag "picture_ids[]", picture.id %>
@@ -16,7 +8,13 @@
       <%= link_to_confirm_dialog(
         render_icon("delete-bin-2"),
         Alchemy.t(:confirm_to_delete_image_from_server),
-        picture_path
+        alchemy.admin_picture_path(
+          picture,
+          search_filter_params.merge(
+            page: params[:page],
+            size: @size.presence
+          ).to_h
+        )
       ) -%>
     </sl-tooltip>
   </div>
@@ -24,9 +22,16 @@
   <% picture_url = picture.thumbnail_url(size: preview_size(@size)) %>
   <% image = picture_url ? image_tag(picture_url, alt: picture.name) : '<alchemy-icon name="file-damage"></alchemy-icon>'.html_safe %>
   <% if can?(:edit, picture) %>
+    <% picture_index ||= picture_offset + picture_iteration.index %>
     <%= link_to(
       image,
-      picture_path,
+      alchemy.admin_picture_path(
+        picture,
+        search_filter_params.merge(
+          picture_index: picture_index.to_i + 1,
+          size: @size.presence
+        ).to_h
+      ),
       class: 'thumbnail_background'
     ) %>
   <% else %>
