@@ -36,7 +36,7 @@ module Alchemy
           let(:another_user) { mock_model("DummyUser") }
 
           before do
-            expect(Alchemy.user_class).to receive(:logged_in).and_return([another_user])
+            expect(Alchemy.config.user_class).to receive(:logged_in).and_return([another_user])
           end
 
           it "assigns @online_users" do

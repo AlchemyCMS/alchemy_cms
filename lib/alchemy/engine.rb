@@ -147,10 +147,10 @@ module Alchemy
     end
 
     config.after_initialize do
-      if Alchemy.user_class
+      if Alchemy.config.user_class
         ActiveSupport.on_load(:active_record) do
-          Alchemy.user_class.model_stamper
-          Alchemy.user_class.stampable(stamper_class_name: Alchemy.user_class_name)
+          Alchemy.config.user_class.model_stamper
+          Alchemy.config.user_class.stampable(stamper_class_name: Alchemy.config.user_class_name)
         end
       end
 

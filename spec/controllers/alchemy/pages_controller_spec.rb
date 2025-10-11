@@ -170,7 +170,7 @@ module Alchemy
         let(:product) { create(:alchemy_page, :public, name: "Screwdriver", urlname: "screwdriver", parent: products, language: default_language, autogenerate_elements: true) }
 
         before do
-          allow(Alchemy.user_class).to receive(:admins).and_return(OpenStruct.new(count: 1))
+          allow(Alchemy.config.user_class).to receive(:admins).and_return(OpenStruct.new(count: 1))
           product.elements.find_by(name: "article").ingredients.texts.first.update_column(:value, "screwdriver")
         end
 
@@ -253,11 +253,11 @@ module Alchemy
 
         context "with user logged in" do
           before do
-            authorize_user(mock_model(Alchemy.user_class, cache_key_with_version: "bbb"))
+            authorize_user(mock_model(Alchemy.config.user_class, cache_key_with_version: "bbb"))
           end
 
           it "returns another etag for response headers" do
-            expect(subject).to include(an_instance_of(Alchemy.user_class))
+            expect(subject).to include(an_instance_of(Alchemy.config.user_class))
           end
         end
 

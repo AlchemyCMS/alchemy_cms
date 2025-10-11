@@ -26,14 +26,14 @@ RSpec.describe Alchemy::Admin::IngredientsController do
     describe "get :edit" do
       it "redirects to login path" do
         get :edit, params: {id: ingredient.id}
-        expect(response).to redirect_to(Alchemy.login_path)
+        expect(response).to redirect_to(Alchemy.config.login_path)
       end
     end
 
     describe "patch :update" do
       it "redirects to login path" do
         patch :update, params: {id: ingredient.id}
-        expect(response).to redirect_to(Alchemy.login_path)
+        expect(response).to redirect_to(Alchemy.config.login_path)
       end
     end
   end

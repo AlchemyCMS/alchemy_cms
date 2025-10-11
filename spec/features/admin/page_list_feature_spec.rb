@@ -7,7 +7,7 @@ RSpec.describe "Admin page list", type: :system do
   context "not logged in" do
     specify "it redirects to login" do
       visit admin_pages_path(view: "list")
-      expect(page.current_path).to eq(Alchemy.login_path)
+      expect(page.current_path).to eq(Alchemy.config.login_path)
     end
   end
 

@@ -10,7 +10,7 @@ RSpec.describe "Show page feature:", type: :system do
 
     context "and no admin user is present yet" do
       before do
-        Alchemy.user_class.delete_all
+        Alchemy.config.user_class.delete_all
       end
 
       it "shows a welcome page" do
@@ -139,11 +139,11 @@ RSpec.describe "Show page feature:", type: :system do
           it "a form and button to logout of alchemy" do
             within find("alchemy-menubar").shadow_root do
               expect(page).to \
-                have_selector("form[action='#{Alchemy.logout_path}'][method='post']")
+                have_selector("form[action='#{Alchemy.config.logout_path}'][method='post']")
               expect(page).to \
-                have_selector("form[action='#{Alchemy.logout_path}'] > button[type='submit']")
+                have_selector("form[action='#{Alchemy.config.logout_path}'] > button[type='submit']")
               expect(page).to \
-                have_selector("form[action='#{Alchemy.logout_path}'] > input[type='hidden'][name='_method'][value='#{Alchemy.logout_method}']")
+                have_selector("form[action='#{Alchemy.config.logout_path}'] > input[type='hidden'][name='_method'][value='#{Alchemy.config.logout_method}']")
             end
           end
         end
@@ -154,7 +154,7 @@ RSpec.describe "Show page feature:", type: :system do
   describe "Handling of non-existing pages" do
     before do
       # We need a admin user or the signup page will show up
-      allow(Alchemy.user_class).to receive(:admins).and_return([1, 2])
+      allow(Alchemy.config.user_class).to receive(:admins).and_return([1, 2])
     end
 
     it "should render public/404.html" do
@@ -194,7 +194,7 @@ RSpec.describe "Show page feature:", type: :system do
     context "as a guest user" do
       it "I am not able to visit the page" do
         visit restricted_page.urlname
-        expect(current_path).to eq(Alchemy.login_path)
+        expect(current_path).to eq(Alchemy.config.login_path)
       end
     end
 

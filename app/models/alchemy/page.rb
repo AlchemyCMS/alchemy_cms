@@ -98,25 +98,25 @@ module Alchemy
 
     acts_as_nested_set(dependent: :destroy, scope: [:layoutpage, :language_id])
 
-    stampable stamper_class_name: Alchemy.user_class_name
+    stampable stamper_class_name: Alchemy.config.user_class_name
 
     belongs_to :language
 
     belongs_to :creator,
-      primary_key: Alchemy.user_class_primary_key,
-      class_name: Alchemy.user_class_name,
+      primary_key: Alchemy.config.user_class_primary_key,
+      class_name: Alchemy.config.user_class_name,
       foreign_key: :creator_id,
       optional: true
 
     belongs_to :updater,
-      primary_key: Alchemy.user_class_primary_key,
-      class_name: Alchemy.user_class_name,
+      primary_key: Alchemy.config.user_class_primary_key,
+      class_name: Alchemy.config.user_class_name,
       foreign_key: :updater_id,
       optional: true
 
     belongs_to :locker,
-      primary_key: Alchemy.user_class_primary_key,
-      class_name: Alchemy.user_class_name,
+      primary_key: Alchemy.config.user_class_primary_key,
+      class_name: Alchemy.config.user_class_name,
       foreign_key: :locked_by,
       optional: true
 

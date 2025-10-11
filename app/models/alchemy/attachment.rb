@@ -27,7 +27,7 @@ module Alchemy
 
     include Alchemy.storage_adapter.attachment_class_methods
 
-    stampable stamper_class_name: Alchemy.user_class_name
+    stampable stamper_class_name: Alchemy.config.user_class_name
 
     scope :by_file_type, ->(*file_type) do
       Alchemy.storage_adapter.by_file_type_scope(file_type)
