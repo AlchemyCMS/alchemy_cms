@@ -196,8 +196,7 @@ module Alchemy
       end
 
       context "if the expression from config is nil" do
-        let(:format_matchers_config) { Alchemy::Configurations::FormatMatchers.new(link_url: nil) }
-        before { stub_alchemy_config(:format_matchers, format_matchers_config) }
+        before { stub_alchemy_config(format_matchers: {link_url: nil}) }
 
         it "returns the default expression" do
           expect(subject).to_not be_nil

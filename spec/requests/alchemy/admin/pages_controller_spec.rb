@@ -313,7 +313,7 @@ module Alchemy
 
         context "when layout is set to custom" do
           before do
-            stub_alchemy_config(:admin_page_preview_layout, "custom")
+            stub_alchemy_config(admin_page_preview_layout: "custom")
           end
 
           it "it renders custom layout instead" do
