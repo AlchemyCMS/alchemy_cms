@@ -1213,25 +1213,19 @@ module Alchemy
           end
         end
 
-        context "with user is a active record model" do
-          before do
-            allow(Alchemy.user_class).to receive(:<).and_return(true)
+        context "if page is folded" do
+          let!(:folded_page) do
+            Alchemy::FoldedPage.create!(page: page, user: user, folded: true)
           end
 
-          context "if page is folded" do
-            let!(:folded_page) do
-              Alchemy::FoldedPage.create!(page: page, user: user, folded: true)
-            end
-
-            it "should return true" do
-              is_expected.to eq(true)
-            end
+          it "should return true" do
+            is_expected.to eq(true)
           end
+        end
 
-          context "if page is not folded" do
-            it "should return false" do
-              is_expected.to eq(false)
-            end
+        context "if page is not folded" do
+          it "should return false" do
+            is_expected.to eq(false)
           end
         end
       end
