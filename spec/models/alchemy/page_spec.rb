@@ -1134,25 +1134,19 @@ module Alchemy
       describe "#folded?" do
         let(:page) { Page.new }
 
-        context "with user is a active record model" do
+        context "if page is folded" do
           before do
-            allow(Alchemy.user_class).to receive(:<).and_return(true)
+            expect(page).to receive(:folded_pages).and_return double(where: double(any?: true))
           end
 
-          context "if page is folded" do
-            before do
-              expect(page).to receive(:folded_pages).and_return double(where: double(any?: true))
-            end
-
-            it "should return true" do
-              expect(page.folded?(user.id)).to eq(true)
-            end
+          it "should return true" do
+            expect(page.folded?(user.id)).to eq(true)
           end
+        end
 
-          context "if page is not folded" do
-            it "should return false" do
-              expect(page.folded?(101_093)).to eq(false)
-            end
+        context "if page is not folded" do
+          it "should return false" do
+            expect(page.folded?(101_093)).to eq(false)
           end
         end
       end
