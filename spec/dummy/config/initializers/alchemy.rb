@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.config.to_prepare do
-  Alchemy.register_ability Ability
-  Alchemy.user_class_name = "DummyUser"
-  Alchemy.signup_path = "/admin/pages" unless Rails.env.test?
   Alchemy::Modules.register_module(
     name: "events",
     navigation: {
@@ -43,6 +40,11 @@ Rails.application.config.to_prepare do
 end
 
 Alchemy.configure do |config|
+  config.auth.configure do |auth|
+    auth.abilities.add("Ability")
+    auth.user_class = "DummyUser"
+    auth.signup_path = "/admin/pages" unless Rails.env.test?
+  end
   # == This is the global Alchemy configuration file
   #
 

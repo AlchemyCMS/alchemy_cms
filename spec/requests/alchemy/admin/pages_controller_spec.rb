@@ -10,13 +10,13 @@ module Alchemy
     context "a guest" do
       it "can not access page tree" do
         get admin_pages_path
-        expect(request).to redirect_to(Alchemy.login_path)
+        expect(request).to redirect_to(Alchemy.config.auth.login_path)
       end
 
       it "can not access page preview of a public page" do
         page = create(:alchemy_page, :public)
         get admin_page_path(page)
-        expect(request).to redirect_to(Alchemy.login_path)
+        expect(request).to redirect_to(Alchemy.config.auth.login_path)
       end
     end
 
@@ -313,7 +313,7 @@ module Alchemy
 
         context "when layout is set to custom" do
           before do
-            stub_alchemy_config(:admin_page_preview_layout, "custom")
+            stub_alchemy_config(admin_page_preview_layout: "custom")
           end
 
           it "it renders custom layout instead" do

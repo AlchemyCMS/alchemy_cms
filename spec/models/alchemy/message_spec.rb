@@ -23,14 +23,11 @@ RSpec.describe "Alchemy::Message" do
     end
 
     context "field containing email in its name" do
-      let(:mailer_config) do
-        Alchemy::Configurations::Mailer.new(
+      before do
+        stub_alchemy_config(mailer: {
           fields: %w[email_of_my_boss],
           validate_fields: %w[email_of_my_boss]
-        )
-      end
-      before do
-        stub_alchemy_config(:mailer, mailer_config)
+        })
         Alchemy.send(:remove_const, :Message)
         load Alchemy::Engine.root.join("app/models/alchemy/message.rb")
       end
