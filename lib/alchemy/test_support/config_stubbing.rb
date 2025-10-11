@@ -13,13 +13,20 @@ module Alchemy
     module ConfigStubbing
       # Stub a key from the Alchemy config
       #
-      # @param key [Symbol] The configuration key you want to stub
-      # @param value [Object] The value you want to return instead of the original one
+      # @param hash [Hash] The keys you would like to stub along with their values
       #
-      def stub_alchemy_config(key, value)
-        temp_config = Alchemy::Configurations::Main.new
-        temp_config.send("#{key}=", value)
-        allow(Alchemy).to receive(:config).and_return(temp_config)
+      def stub_alchemy_config(hash)
+        stub_config(Alchemy.config, hash)
+      end
+
+      def stub_config(config, hash)
+        hash.each do |key, value|
+          if value.is_a?(Hash)
+            stub_config(config.send(key), value)
+          else
+            allow(config).to receive(key).and_return(value)
+          end
+        end
       end
     end
   end
