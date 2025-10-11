@@ -83,7 +83,7 @@ RSpec.describe "Page request caching" do
 
       context "when caching is deactivated in the Alchemy config" do
         before do
-          stub_alchemy_config(:cache_pages, false)
+          stub_alchemy_config(cache_pages: false)
         end
 
         it "returns false" do

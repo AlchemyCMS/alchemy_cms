@@ -46,7 +46,7 @@ RSpec.describe "Link overlay", type: :system do
 
     context "add new tab" do
       before do
-        stub_alchemy_config(:link_dialog_tabs, ["TestTab"])
+        stub_alchemy_config(link_dialog_tabs: [TestTab])
       end
 
       it "has a new tab" do
