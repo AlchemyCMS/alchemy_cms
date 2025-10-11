@@ -369,7 +369,7 @@ module Alchemy
       context "when image is convertible" do
         before do
           expect(picture).to receive(:convertible?) { true }
-          stub_alchemy_config(:image_output_format, "jpg")
+          stub_alchemy_config(image_output_format: "jpg")
         end
 
         it "returns the configured image output format" do
@@ -380,7 +380,7 @@ module Alchemy
       context "when image is not convertible" do
         before do
           expect(picture).to receive(:convertible?) { false }
-          stub_alchemy_config(:image_output_format, "original")
+          stub_alchemy_config(image_output_format: "original")
         end
 
         it "returns the original file format." do
@@ -397,7 +397,7 @@ module Alchemy
 
       context "when `image_output_format` is configured to `original`" do
         before do
-          stub_alchemy_config(:image_output_format, "original")
+          stub_alchemy_config(image_output_format: "original")
         end
 
         it { is_expected.to be(false) }
@@ -405,7 +405,7 @@ module Alchemy
 
       context "when `image_output_format` is configured to jpg" do
         before do
-          stub_alchemy_config(:image_output_format, "jpg")
+          stub_alchemy_config(image_output_format: "jpg")
         end
 
         context "and the image has a convertible format" do

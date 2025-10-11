@@ -45,7 +45,7 @@ RSpec.describe Alchemy::Engine do
     end
 
     before do
-      stub_alchemy_config(:admin_importmaps, [additional_importmap])
+      stub_alchemy_config(admin_importmaps: [additional_importmap])
     end
 
     it "adds additional importmap to admin imports" do

@@ -161,7 +161,7 @@ RSpec.describe Alchemy::DragonflyToImageProcessing do
 
       context "and the image output format is configured to be original" do
         before do
-          stub_alchemy_config(:image_output_format, "original")
+          stub_alchemy_config(image_output_format: "original")
         end
 
         it "does not contain the format option" do
@@ -175,7 +175,7 @@ RSpec.describe Alchemy::DragonflyToImageProcessing do
 
       context "and the image output format is configured to webp" do
         before do
-          stub_alchemy_config(:image_output_format, "webp")
+          stub_alchemy_config(image_output_format: "webp")
         end
 
         it "does not contain the format option" do
