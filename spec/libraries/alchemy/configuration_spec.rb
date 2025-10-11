@@ -50,6 +50,15 @@ RSpec.describe Alchemy::Configuration do
         expect(configuration.fetch("auto_logout_time", 20)).to eq(40)
       end
     end
+
+    describe "#configure" do
+      it "yields self" do
+        configuration.configure do |conf|
+          conf.auto_logout_time = 15
+        end
+        expect(configuration.auto_logout_time).to eq(15)
+      end
+    end
   end
 
   context "setting with the wrong type" do

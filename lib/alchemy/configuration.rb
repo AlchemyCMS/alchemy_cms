@@ -39,6 +39,7 @@ module Alchemy
 
     alias_method :get, :send
     alias_method :[], :get
+    alias_method :configure, :tap
 
     def show = self
 
