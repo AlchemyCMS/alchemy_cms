@@ -42,7 +42,7 @@ module Alchemy
       end
     end
 
-    initializer "alchemy.admin_importmap", before: "alchemy.importmap" do
+    initializer "alchemy.admin_importmap" do
       Alchemy.config.admin_importmaps.add(
         importmap_path: root.join("config/importmap.rb"),
         source_paths: [
@@ -54,21 +54,23 @@ module Alchemy
     end
 
     initializer "alchemy.importmap" do |app|
-      watch_paths = []
+      app.config.to_prepare do
+        watch_paths = []
 
-      Alchemy.config.admin_importmaps.each do |admin_import|
-        Alchemy.importmap.draw admin_import.importmap_path
-        watch_paths += admin_import.source_paths.to_a
-        app.config.assets.paths += admin_import.source_paths.to_a
-        if admin_import[:name] != "alchemy_admin"
-          Alchemy.config.admin_js_imports.add(admin_import.name)
+        Alchemy.config.admin_importmaps.each do |admin_import|
+          Alchemy.importmap.draw admin_import.importmap_path
+          watch_paths += admin_import.source_paths.to_a
+          app.config.assets.paths += admin_import.source_paths.to_a
+          if admin_import[:name] != "alchemy_admin"
+            Alchemy.config.admin_js_imports.add(admin_import.name)
+          end
         end
-      end
 
-      if app.config.importmap.sweep_cache
-        Alchemy.importmap.cache_sweeper(watches: watch_paths)
-        ActiveSupport.on_load(:action_controller_base) do
-          before_action { Alchemy.importmap.cache_sweeper.execute_if_updated }
+        if app.config.importmap.sweep_cache
+          Alchemy.importmap.cache_sweeper(watches: watch_paths)
+          ActiveSupport.on_load(:action_controller_base) do
+            before_action { Alchemy.importmap.cache_sweeper.execute_if_updated }
+          end
         end
       end
     end
