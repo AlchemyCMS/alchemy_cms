@@ -51,7 +51,8 @@ RSpec.describe Alchemy::Engine do
     it "adds additional importmap to admin imports" do
       initializer = Alchemy::Engine.initializers.find { _1.name == "alchemy.importmap" }
       expect(Alchemy.config.admin_js_imports).to receive(:add).with("additional_importmap")
-      initializer.run(Rails.application)
+      prepare_blocks = initializer.run(Rails.application)
+      prepare_blocks.last.call
     end
   end
 end
