@@ -22,8 +22,10 @@ module Alchemy
         [self.class.value_class]
       end
 
+      def raw_value = @value
+
       def ==(other)
-        self.class == other.class && value == other.value
+        self.class == other.class && raw_value == other.raw_value
       end
       alias_method :eql?, :==
 
