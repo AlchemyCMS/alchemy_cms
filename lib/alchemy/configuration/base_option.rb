@@ -30,7 +30,7 @@ module Alchemy
       alias_method :eql?, :==
 
       def hash
-        [self.class, value].hash
+        [self.class, raw_value].hash
       end
     end
   end
