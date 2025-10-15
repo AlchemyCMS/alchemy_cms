@@ -82,6 +82,9 @@ RSpec.describe Alchemy::Configuration do
         "Invalid configuration value for picture_thumb_storage_class: String (expected String)"
       )
     end
+    it "allows getting the raw string" do
+      expect(configuration.raw_picture_thumb_storage_class).to eq("Alchemy::PictureThumb::FileStore")
+    end
   end
 
   describe "Boolean options" do
