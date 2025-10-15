@@ -116,11 +116,19 @@ module Alchemy
           super() + singleton_options
         end
 
-        define_method(name) do
+        define_method("#{name}_option") do
           unless instance_variable_defined?(:"@#{name}")
             send(:"#{name}=", default)
           end
-          instance_variable_get(:"@#{name}").value
+          instance_variable_get(:"@#{name}")
+        end
+
+        define_method(name) do
+          send("#{name}_option").value
+        end
+
+        define_method("raw_#{name}") do
+          send("#{name}_option").raw_value
         end
 
         define_method(:"#{name}=") do |value|
