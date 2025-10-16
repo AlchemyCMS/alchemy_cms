@@ -85,4 +85,22 @@ module Alchemy
       "Unknown Version! Please use one of #{Alchemy::EagerLoading::PAGE_VERSIONS.join(", ")}"
     end
   end
+
+  class NoUserConfiguredError < StandardError
+    def message
+      <<~MSG
+        AlchemyCMS cannot find any user class!
+
+        Please add a user class and tell Alchemy about it:
+
+            # config/initializers/alchemy.rb
+            Alchemy.config.auth.user_class_name = 'MyUser'
+
+        Or add the `alchemy-devise` gem to your Gemfile:
+
+            bundle add alchemy-devise
+
+      MSG
+    end
+  end
 end

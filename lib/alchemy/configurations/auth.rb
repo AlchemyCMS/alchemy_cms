@@ -66,33 +66,6 @@ module Alchemy
       #     Alchemy.config.auth.user_class = 'Admin'
       #
       option :user_class, :class
-      alias_method :original_user_class, :user_class
-
-      def user_class
-        return original_user_class
-      rescue NameError => e
-        if /#{Regexp.escape(@user_class.instance_variable_get(:@value))}/.match?(e.message)
-          Rails.logger.warn <<~MSG
-            #{e.message}
-            #{e.backtrace.join("\n")}
-
-            AlchemyCMS cannot find any user class!
-
-            Please add a user class and tell Alchemy about it:
-
-                # config/initializers/alchemy.rb
-                Alchemy.config.auth.user_class_name = 'MyUser'
-
-            Or add the `alchemy-devise` gem to your Gemfile:
-
-                bundle add alchemy-devise
-
-          MSG
-          nil
-        else
-          raise e
-        end
-      end
 
       # Returns the user class name
       #
