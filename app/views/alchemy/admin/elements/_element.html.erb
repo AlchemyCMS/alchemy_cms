@@ -34,7 +34,7 @@
       <% if element.has_ingredients_defined? %>
         <div class="element-ingredient-editors">
           <% element.ingredients.reject { _1.definition.group }.each do |ingredient| %>
-            <%= render ingredient.as_editor_component(element_form: f) %>
+            <%= render "ingredient", ingredient: ingredient, element_form: f %>
           <% end %>
 
           <!-- Each ingredient group -->
@@ -45,7 +45,7 @@
                 <%= render_icon "arrow-left-s" %>
               </summary>
               <% ingredients.each do |ingredient| %>
-                <%= render ingredient.as_editor_component(element_form: f) %>
+                <%= render "ingredient", ingredient: ingredient, element_form: f %>
               <% end %>
             <% end %>
           <% end %>

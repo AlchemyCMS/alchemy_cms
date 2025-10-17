@@ -1,0 +1,7 @@
+<% if ingredient.has_editor_partial?(self) %>
+  <% ingredient.editor_deprecation_notice %>
+  <%= render partial: "alchemy/ingredients/#{ingredient.partial_name}_editor",
+    locals: {element_form:}, object: ingredient %>
+<% else %>
+  <%= render ingredient.as_editor_component(element_form:) %>
+<% end %>
