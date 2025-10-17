@@ -163,6 +163,18 @@ module Alchemy
       editor_component_class.new(self, element_form:)
     end
 
+    def editor_deprecation_notice
+      Alchemy::Deprecation.warn <<~WARN
+        Ingredient editor partials are deprecated!
+        Please create a `#{component_class_name(part: "Editor")}` class inheriting from `Alchemy::IngredientEditor`.
+      WARN
+    end
+
+    # @param view_context [ActionView::Base] - the view context to check for deprecated partials
+    def has_editor_partial?(view_context)
+      view_context.lookup_context.template_exists?("alchemy/ingredients/_#{partial_name}_editor")
+    end
+
     private
 
     def view_component_class
