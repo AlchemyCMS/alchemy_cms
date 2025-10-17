@@ -71,8 +71,6 @@ module Alchemy
         end
       end
 
-
-
       context "when paste fails" do
         let!(:default_language) { create(:alchemy_language) }
         let!(:parent_node) { create(:alchemy_node, language: default_language) }
