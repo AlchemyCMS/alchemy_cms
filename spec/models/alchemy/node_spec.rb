@@ -227,42 +227,5 @@ module Alchemy
         end
       end
     end
-
-    describe "#display_name_with_preview_text" do
-      context "with a simple node name" do
-        let(:node) { create(:alchemy_node, name: "Test Node") }
-
-        it "returns the node name" do
-          expect(node.display_name_with_preview_text).to eq("Test Node")
-        end
-      end
-
-      context "when node is linked to a page" do
-        let(:page) { create(:alchemy_page, name: "Test Page") }
-        let(:node) { create(:alchemy_node, name: "Test Node", page: page) }
-
-        it "returns node name with page name" do
-          expect(node.display_name_with_preview_text).to eq("Test Node → Test Page")
-        end
-      end
-
-      context "when node has an external URL" do
-        let(:node) { create(:alchemy_node, name: "Test Node", url: "https://example.com") }
-
-        it "returns node name with URL" do
-          expect(node.display_name_with_preview_text(50)).to eq("Test Node → https://example.com")
-        end
-      end
-
-      context "with maxlength parameter" do
-        let(:node) { create(:alchemy_node, name: "A Very Long Node Name That Should Be Truncated") }
-
-        it "respects the maxlength parameter" do
-          result = node.display_name_with_preview_text(20)
-          expect(result.length).to be <= 20
-          expect(result).to end_with("...")
-        end
-      end
-    end
   end
 end

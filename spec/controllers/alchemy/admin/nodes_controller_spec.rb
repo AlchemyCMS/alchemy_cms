@@ -12,6 +12,8 @@ module Alchemy
 
     it_behaves_like "a controller that loads current language"
 
+    it_behaves_like "a controller with clipboard functionality", :node
+
     describe "#index" do
       context "if no language is present" do
         it "redirects to the language admin" do
@@ -54,28 +56,6 @@ module Alchemy
             expect(assigns("node").parent_id).to eq(1)
           end
         end
-
-        context "with clipboard items" do
-          let!(:node_in_clipboard) { create(:alchemy_node, language: default_language) }
-
-          before do
-            allow_any_instance_of(described_class).to receive(:get_clipboard).with("nodes") do
-              [{"id" => node_in_clipboard.id.to_s, "action" => "copy"}]
-            end
-          end
-
-          it "has clipboard items available" do
-            get :new
-            expect(controller.send(:clipboard)).to include({"id" => node_in_clipboard.id.to_s, "action" => "copy"})
-          end
-        end
-
-        context "without clipboard items" do
-          it "has empty clipboard" do
-            get :new
-            expect(controller.send(:clipboard)).to eq([])
-          end
-        end
       end
     end
 
@@ -91,70 +71,7 @@ module Alchemy
         end
       end
 
-      context "with paste_from_clipboard in parameters" do
-        let!(:default_language) { create(:alchemy_language) }
-        let!(:parent_node) { create(:alchemy_node, language: default_language) }
-        let!(:node_in_clipboard) { create(:alchemy_node, name: "Clipboard Node", language: default_language) }
-        let(:node_params) do
-          {
-            name: "New Node",
-            parent_id: parent_node.id,
-            language_id: default_language.id
-          }
-        end
 
-        it "calls Node.copy_and_paste" do
-          expect(Node).to receive(:copy_and_paste).with(
-            node_in_clipboard,
-            parent_node,
-            node_params[:name]
-          ).and_call_original
-
-          post :create, params: {
-            node: node_params,
-            paste_from_clipboard: node_in_clipboard.id
-          }
-        end
-
-        it "creates a copy of the node" do
-          expect {
-            post :create, params: {
-              node: node_params,
-              paste_from_clipboard: node_in_clipboard.id
-            }
-          }.to change { Node.count }.by(1)
-
-          new_node = Node.last
-          expect(new_node.name).to eq(node_params[:name])
-          expect(new_node.parent).to eq(parent_node)
-        end
-
-        it "redirects to nodes index" do
-          post :create, params: {
-            node: node_params,
-            paste_from_clipboard: node_in_clipboard.id
-          }
-
-          expect(response).to redirect_to(admin_nodes_path)
-        end
-
-        context "with child nodes" do
-          let!(:child_node) { create(:alchemy_node, parent: node_in_clipboard, name: "Child Node") }
-
-          it "copies all descendants" do
-            expect {
-              post :create, params: {
-                node: node_params,
-                paste_from_clipboard: node_in_clipboard.id
-              }
-            }.to change { Node.count }.by(2) # parent + child
-
-            new_parent = Node.where(name: node_params[:name]).first
-            expect(new_parent.children.count).to eq(1)
-            expect(new_parent.children.first.name).to eq("Child Node")
-          end
-        end
-      end
 
       context "when paste fails" do
         let!(:default_language) { create(:alchemy_language) }

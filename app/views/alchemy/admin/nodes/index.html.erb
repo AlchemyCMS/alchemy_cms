@@ -19,21 +19,7 @@
       if_permitted_to: [:create, Alchemy::Node]
     ) if @root_nodes.any? %>
     <div class="toolbar_spacer"></div>
-    <div class="toolbar_button">
-      <sl-tooltip content="<%= Alchemy.t("Show clipboard") %>">
-        <%= link_to_dialog(
-          render_icon(:clipboard, style: clipboard_empty?("nodes") ? "line" : "fill"),
-          alchemy.admin_clipboard_path(remarkable_type: "nodes"),
-          {
-            title: Alchemy.t("Clipboard"),
-            size: "380x305"
-          },
-          class: "icon_button",
-          title: Alchemy.t("Show clipboard"),
-          id: "clipboard_button"
-        ) %>
-      </sl-tooltip>
-    </div>
+    <%= render "alchemy/admin/clipboard/button", remarkable_type: "nodes" %>
   </div>
 <% end %>
 
