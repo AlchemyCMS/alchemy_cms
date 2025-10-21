@@ -162,7 +162,7 @@ module Alchemy
 
       return nil unless format
 
-      Alchemy::Config.get('format_matchers')[format] || format
+      Alchemy::Config.get("format_matchers")[format] || format
     end
 
     def length_validation
