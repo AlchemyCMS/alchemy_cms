@@ -94,7 +94,7 @@ module Alchemy
       end
     end
 
-    before_save :sanitize_image_file_name
+    before_save :sanitize_image_file_name, if: :image_file_name
     # Create important thumbnails upfront
     after_create -> { PictureThumb.generate_thumbs!(self) if has_convertible_format? }
 
