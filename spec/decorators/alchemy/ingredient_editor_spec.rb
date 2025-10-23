@@ -230,7 +230,7 @@ RSpec.describe Alchemy::IngredientEditor do
       it { is_expected.to be_nil }
     end
 
-    context "when ingredient has format validation" do
+    context "when ingredient has format validation with direct regex" do
       let(:ingredient) do
         mock_model(
           "Alchemy::Ingredients::Text",
@@ -242,6 +242,38 @@ RSpec.describe Alchemy::IngredientEditor do
       end
 
       it { is_expected.to eq(/\A[a-z]+\z/) }
+    end
+
+    context "when ingredient has format validation with config key as string" do
+      let(:ingredient) do
+        mock_model(
+          "Alchemy::Ingredients::Text",
+          definition: Alchemy::IngredientDefinition.new(
+            role: "email",
+            validate: [{format: "email"}]
+          )
+        )
+      end
+
+      it "resolves the regex from config format_matchers" do
+        expect(subject).to eq(Alchemy.config.format_matchers.email)
+      end
+    end
+
+    context "when ingredient has format validation with config key as symbol" do
+      let(:ingredient) do
+        mock_model(
+          "Alchemy::Ingredients::Text",
+          definition: Alchemy::IngredientDefinition.new(
+            role: "url",
+            validate: [{format: :url}]
+          )
+        )
+      end
+
+      it "resolves the regex from config format_matchers" do
+        expect(subject).to eq(Alchemy.config.format_matchers.url)
+      end
     end
   end
 
