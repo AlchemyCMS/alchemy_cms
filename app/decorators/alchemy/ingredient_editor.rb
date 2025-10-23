@@ -108,7 +108,15 @@ module Alchemy
     end
 
     def format_validation
-      validations.select { _1.is_a?(Hash) }.find { _1[:format] }&.fetch(:format)
+      format = validations.select { _1.is_a?(Hash) }.find { _1[:format] }&.fetch(:format)
+      return nil unless format
+
+      # If format is a string or symbol, resolve it from config format_matchers
+      if format.is_a?(String) || format.is_a?(Symbol)
+        Alchemy.config.format_matchers.get(format)
+      else
+        format
+      end
     end
 
     def length_validation
