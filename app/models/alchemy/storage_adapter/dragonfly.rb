@@ -15,7 +15,7 @@ module Alchemy
 
             has_many :thumbs, class_name: "Alchemy::PictureThumb", dependent: :destroy
 
-            before_save do
+            before_save if: :image_file_name do
               self.image_file_name = sanitized_filename(image_file_name)
             end
 
@@ -35,7 +35,7 @@ module Alchemy
               }
             end
 
-            before_save do
+            before_save if: :file_name do
               self.file_name = sanitized_filename(file_name)
             end
           end
