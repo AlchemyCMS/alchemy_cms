@@ -11,14 +11,16 @@ module Alchemy
       end
 
       def call
-        text_field_tag(field_name, nil, {
-          "data-options": elements_options.to_json,
-          "data-placeholder": Alchemy.t(:select_element),
-          is: "alchemy-element-select",
-          autofocus: true,
-          required: true,
-          value: elements.many? ? nil : elements.first&.name
-        })
+        content_tag "alchemy-element-select",
+          options: elements_options.to_json,
+          placeholder: Alchemy.t(:select_element) do
+          text_field_tag(field_name, nil, {
+            autofocus: true,
+            required: true,
+            value: elements.many? ? nil : elements.first&.name,
+            class: "alchemy_selectbox"
+          })
+        end
       end
 
       private
