@@ -4,6 +4,6 @@
     <small><%= Alchemy::Ingredient.normalize_type(ingredient.type).constantize.model_name.human %></small>
   </header>
   <% if ingredient.has_hint? %>
-    <p><%== ingredient.hint %></p>
+    <p class="description"><%= sanitize ingredient.hint %></p>
   <% end %>
 </li>

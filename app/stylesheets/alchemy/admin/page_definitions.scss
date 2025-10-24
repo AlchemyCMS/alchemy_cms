@@ -21,7 +21,7 @@
   aside {
     position: sticky;
     top: calc(var(--top-menu-height) + var(--spacing-2));
-    background-color: var(--sidebar-background-color);
+    background-color: var(--panel-background-color);
     border-radius: var(--border-radius_medium);
     padding: var(--spacing-4);
     margin-bottom: var(--spacing-2);
@@ -31,20 +31,22 @@
       flex-direction: column;
       gap: var(--spacing-2);
       list-style-position: outside;
-      margin-left: var(--spacing-1);
+      margin: 0 var(--spacing-1);
     }
 
     li {
-      padding: var(--spacing-1);
+      margin: var(--spacing-1) 0;
+      padding: var(--spacing-2);
       font-weight: bold;
     }
   }
 
   details {
-    padding: var(--spacing-2);
-    margin: var(--spacing-2) 0;
+    padding: var(--spacing-2) var(--spacing-2);
+    margin: var(--spacing-4) 0;
     background-color: var(--element-header-bg-color);
     border-radius: var(--border-radius_medium);
+    border: 1px solid hsla(0, 0%, 45%, 0.15);
 
     summary {
       display: flex;
@@ -53,6 +55,7 @@
       padding: var(--spacing-1) 0;
       font-weight: bold;
       gap: var(--spacing-1);
+      transition: margin var(--transition-duration) ease-out;
 
       header {
         display: flex;
@@ -62,8 +65,6 @@
         gap: var(--spacing-1);
 
         .label {
-          padding: var(--spacing-0) var(--spacing-2);
-          background-color: hsla(0, 0%, 45%, 0.15);
           margin-left: auto;
           font-weight: normal;
 
@@ -83,8 +84,16 @@
       }
     }
 
-    &[open] > summary:before {
-      content: "▾";
+    &[open] {
+      > summary {
+        &:before {
+          content: "▾";
+        }
+
+        margin-bottom: var(
+          --spacing-1
+        ); // necessary for the detail opening transition to work
+      }
     }
 
     > div {
@@ -92,14 +101,25 @@
     }
 
     ol {
-      list-style-type: none;
-      padding-left: 0;
+      list-style-type: square;
+      margin: var(--spacing-4) 0;
+      padding-left: var(--spacing-3);
 
       li {
-        margin: var(--spacing-4) 0;
+        margin: var(--spacing-6) 0;
+
+        &:only-child {
+          margin-top: 0;
+          margin-bottom: 0;
+        }
 
         header {
           gap: var(--spacing-2);
+        }
+
+        p.description {
+          margin: var(--spacing-2) 0;
+          padding: var(--spacing-2);
         }
       }
     }
@@ -113,7 +133,7 @@
   .page-definition {
     padding: var(--spacing-4);
     margin-bottom: var(--spacing-2);
-    background-color: var(--sidebar-background-color);
+    background-color: var(--panel-background-color);
     border-radius: var(--border-radius_medium);
 
     > img {
@@ -124,6 +144,18 @@
 
     p {
       margin: var(--spacing-4) 0;
+      padding: var(--spacing-4);
+      background-color: hsla(0, 0%, 45%, 0.05);
+      border-radius: var(--border-radius_medium);
+
+      &:first-child {
+        margin-top: var(--spacing-2);
+      }
+    }
+
+    .label {
+      padding: var(--spacing-0) var(--spacing-2);
+      background-color: hsla(0, 0%, 45%, 0.15);
     }
   }
 }

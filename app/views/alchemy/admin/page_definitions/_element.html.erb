@@ -13,14 +13,6 @@
       </header>
     </summary>
     <div>
-      <% if element.deprecated %>
-        <alchemy-message type="warning">
-          <%= element.deprecation_notice %>
-        </alchemy-message>
-      <% end %>
-      <% if element.has_hint? %>
-        <p><%= element.hint %></p>
-      <% end %>
       <% if element.unique %>
         <sl-tooltip content="This element can only be used once per page">
           <small class="label">
@@ -34,6 +26,14 @@
             <%= Alchemy::Element.human_attribute_name(:fixed) %>
           </small>
         </sl-tooltip>
+      <% end %>
+      <% if element.deprecated %>
+        <alchemy-message type="warning">
+          <%= element.deprecation_notice %>
+        </alchemy-message>
+      <% end %>
+      <% if element.has_hint? %>
+        <p class="description"><%= element.hint %></p>
       <% end %>
       <% if element.ingredients.any? %>
         <ol>

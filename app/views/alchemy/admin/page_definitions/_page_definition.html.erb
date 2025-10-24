@@ -14,8 +14,15 @@
   <% if page_definition.image %>
     <%= image_tag page_definition.image %>
   <% end %>
+  <% if page_definition.unique %>
+    <sl-tooltip content="This page can only be used once per page">
+      <small class="label">
+        <%= Alchemy::PageDefinition.human_attribute_name(:unique) %>
+      </small>
+    </sl-tooltip>
+  <% end %>
   <% if page_definition.has_hint? %>
-    <p><%= page_definition.hint %></p>
+    <p class="description"><%= page_definition.hint %></p>
   <% end %>
   <% if page_definition.elements.any? %>
     <%= render collection: page_definition.elements, partial: "element", as: "element_name" %>
