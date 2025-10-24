@@ -477,35 +477,35 @@ button.element-toggle {
     border-bottom-right-radius: 0;
   }
 
-  .icon {
+  .element-icon {
     fill: currentColor;
     transition: fill var(--transition-duration);
   }
 
   > .element-handle {
-    alchemy-icon,
-    .icon {
+    .handle-icon,
+    .element-icon {
       position: absolute;
       width: var(--spacing-4);
       height: var(--spacing-4);
       transition: opacity var(--transition-duration);
     }
 
-    alchemy-icon {
+    .handle-icon {
       opacity: 0;
     }
 
-    .icon {
+    .element-icon {
       opacity: 1;
     }
   }
 
   &:hover {
-    > .element-handle alchemy-icon {
+    > .element-handle .handle-icon {
       opacity: 1;
     }
 
-    > .element-handle .icon.element {
+    > .element-handle .element-icon {
       opacity: 0;
     }
   }

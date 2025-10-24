@@ -1,15 +1,15 @@
 <div class="element-header<%= ' has-hint' if element.has_hint? %>">
   <span class="element-handle">
     <% if element.definition.blank? %>
-      <%= hint_with_tooltip Alchemy.t(:element_definition_missing) %>
+      <%= hint_with_tooltip Alchemy.t(:element_definition_missing), icon_class: "element-icon" %>
     <% elsif element.deprecated? %>
-      <%= hint_with_tooltip element.deprecation_notice %>
+      <%= hint_with_tooltip element.deprecation_notice, icon_class: "element-icon" %>
     <% else %>
-      <span class="icon element">
+      <span class="element-icon">
         <%= element.definition.icon_file %>
       </span>
-      <%= render_icon(:draggable, style: false, fixed_width: false) %>
     <% end %>
+    <%= render_icon(:draggable, style: false, fixed_width: false, class: "handle-icon") %>
   </span>
   <span class="element-title">
     <span class="preview_text_element_name"><%= element.display_name %></span>
