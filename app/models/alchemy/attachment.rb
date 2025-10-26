@@ -96,7 +96,7 @@ module Alchemy
       message: Alchemy.t("not a valid file"),
       unless: -> { self.class.allowed_filetypes.include?("*") }
 
-    before_save :sanitize_file_name
+    before_save :sanitize_file_name, if: :file_name
     before_save :set_name, if: :file_name_changed?
 
     scope :with_file_type, ->(file_type) { where(file_mime_type: file_type) }
