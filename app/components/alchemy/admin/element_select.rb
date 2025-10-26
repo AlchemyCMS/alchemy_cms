@@ -30,7 +30,8 @@ module Alchemy
 
         elements.sort_by(&:name).map do |element|
           {
-            text: Element.display_name_for(element.name),
+            name: Element.display_name_for(element.name),
+            hint: element.hint,
             icon: element.icon_file,
             id: element.name
           }
