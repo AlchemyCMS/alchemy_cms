@@ -24,15 +24,15 @@ RSpec.describe Alchemy::Admin::ElementSelect, type: :component do
     expect(page).to have_selector("input[value='headline']")
   end
 
-  it "renders input field with options for element-select" do
+  it "renders alchemy-element-select with input field" do
     expect(page).to have_selector(
-      "input[is='alchemy-element-select'][data-placeholder='Select element'][autofocus][required][name='element[name]']"
+      "alchemy-element-select[placeholder='Select element'] input[autofocus][required][name='element[name]']"
     )
   end
 
-  it "renders data-options for select2" do
-    input = page.find("input")
-    options = JSON.parse(input["data-options"])
+  it "renders options for select2" do
+    component = page.find("alchemy-element-select")
+    options = JSON.parse(component["options"])
     expect(options).to match_array([
       {
         "text" => "Headline",
@@ -61,7 +61,7 @@ RSpec.describe Alchemy::Admin::ElementSelect, type: :component do
     end
 
     it "renders input field without value attribute" do
-      expect(page).to have_selector("input[is='alchemy-element-select']")
+      expect(page).to have_selector("alchemy-element-select input")
       expect(page).to_not have_selector("input[value]")
     end
   end

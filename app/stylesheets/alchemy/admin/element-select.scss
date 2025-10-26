@@ -3,6 +3,7 @@
   align-items: center;
 
   > svg {
+    flex-shrink: 0;
     width: auto;
     height: var(--spacing-4);
     fill: currentColor;

@@ -4,19 +4,18 @@ const formatItem = (icon, text) => {
   return `<div class="element-select-item">${icon} ${text}</div>`
 }
 
-class ElementSelect extends HTMLInputElement {
+class ElementSelect extends HTMLElement {
   constructor() {
     super()
-    this.classList.add("alchemy_selectbox")
   }
 
   connectedCallback() {
-    const el = this
+    const results = this.options
     const options = {
       minimumResultsForSearch: 3,
       dropdownAutoWidth: true,
       data() {
-        return { results: JSON.parse(el.dataset.options) }
+        return { results }
       },
       formatResult: (option, _el, search) => {
         let text
@@ -32,12 +31,23 @@ class ElementSelect extends HTMLInputElement {
       },
       formatSelection: (option) => {
         return formatItem(option.icon, option.text)
-      }
+      },
+      placeholder: this.placeholder
     }
-    $(this).select2(options)
+    $(this.inputField).select2(options)
+  }
+
+  get options() {
+    return JSON.parse(this.getAttribute("options"))
+  }
+
+  get placeholder() {
+    return this.getAttribute("placeholder")
+  }
+
+  get inputField() {
+    return this.querySelector("input")
   }
 }
 
-customElements.define("alchemy-element-select", ElementSelect, {
-  extends: "input"
-})
+customElements.define("alchemy-element-select", ElementSelect)
