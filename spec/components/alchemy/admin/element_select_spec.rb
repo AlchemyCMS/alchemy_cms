@@ -15,7 +15,8 @@ RSpec.describe Alchemy::Admin::ElementSelect, type: :component do
   let(:element_definitions) do
     [
       Alchemy::ElementDefinition.new(
-        "name" => "headline"
+        "name" => "headline",
+        "hint" => "Use this for headlines."
       )
     ]
   end
@@ -35,8 +36,9 @@ RSpec.describe Alchemy::Admin::ElementSelect, type: :component do
     options = JSON.parse(component["options"])
     expect(options).to match_array([
       {
-        "text" => "Headline",
+        "name" => "Headline",
         "icon" => an_instance_of(String),
+        "hint" => "Use this for headlines.",
         "id" => "headline"
       }
     ])
