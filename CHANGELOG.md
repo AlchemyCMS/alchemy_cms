@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.4.11 (2025-10-27)
+
+- [7.4-stable] Only sanitize filenames if not nil [#3437](https://github.com/AlchemyCMS/alchemy_cms/pull/3437) ([tvdeyen](https://github.com/tvdeyen))
+- [7.4-stable] Fix elements-editor format validations [#3432](https://github.com/AlchemyCMS/alchemy_cms/pull/3432) ([alchemycms-bot](https://github.com/alchemycms-bot))
+
 ## 7.4.10 (2025-10-02)
 
 - [7.4-stable] Fix admin page preview permissions [#3389](https://github.com/AlchemyCMS/alchemy_cms/pull/3389) ([alchemycms-bot](https://github.com/alchemycms-bot))
