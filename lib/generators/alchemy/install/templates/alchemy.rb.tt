@@ -137,8 +137,8 @@ Alchemy.configure do |config|
   #   mailer.mail_from = <%= @default_config.mailer.mail_from.inspect %>
   #   mailer.mail_to = <%= @default_config.mailer.mail_to.inspect %>
   #   mailer.subject = <%= @default_config.mailer.subject.inspect %>
-  #   mailer.fields = <%= @default_config.mailer.fields.inspect %>
-  #   mailer.validate_fields = <%= @default_config.mailer.validate_fields.inspect %>
+  #   mailer.fields = <%= @default_config.mailer.fields.map(&:to_s) %>
+  #   mailer.validate_fields = <%= @default_config.mailer.validate_fields.map(&:to_s) %>
   # end
 
   # === User roles
@@ -157,7 +157,7 @@ Alchemy.configure do |config|
   #     user_roles:
   #       rolename: Name of the role
   #
-  # config.user_roles = <%= @default_config.user_roles.inspect %>
+  # config.user_roles = <%= @default_config.user_roles.map(&:to_s) %>
 
   # === Uploader Settings
   #
@@ -170,8 +170,8 @@ Alchemy.configure do |config|
   #   uploader.upload_limit = <%= @default_config.uploader.upload_limit.inspect %>
   #   uploader.file_size_limit = <%= @default_config.uploader.file_size_limit.inspect %>
   #   uploader.allowed_filetypes.tap do |file_types|
-  #     file_types.alchemy_attachments = <%= @default_config.uploader.allowed_filetypes.alchemy_attachments.inspect %>
-  #     file_types.alchemy_pictures = <%= @default_config.uploader.allowed_filetypes.alchemy_pictures.inspect %>
+  #     file_types.alchemy_attachments = <%= @default_config.uploader.allowed_filetypes.alchemy_attachments.map(&:to_s) %>
+  #     file_types.alchemy_pictures = <%= @default_config.uploader.allowed_filetypes.alchemy_pictures.map(&:to_s) %>
   #   end
   # end
 
@@ -186,7 +186,7 @@ Alchemy.configure do |config|
   #
   #   jQuery(a[data-link-target="overlay"]).dialog();
   #
-  # config.link_target_options = <%= @default_config.link_target_options.inspect %>
+  # config.link_target_options = <%= @default_config.link_target_options.map(&:to_s) %>
 
   # === Format matchers
   #
@@ -207,7 +207,7 @@ Alchemy.configure do |config|
   # config.admin_page_preview_layout = <%= @default_config.admin_page_preview_layout.inspect %>
 
   # The sizes for the preview size select in the page editor.
-  # config.page_preview_sizes = <%= @default_config.page_preview_sizes.inspect %>
+  # config.page_preview_sizes = <%= @default_config.page_preview_sizes.map(&:to_s) %>
 
   # Enable full text search configuration
   #
