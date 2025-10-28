@@ -35,6 +35,8 @@ module Alchemy
 
     delegate :blank?, to: :name
 
+    DEFAULT_ICON_NAME = "layout-bottom-2-line"
+
     class << self
       # Returns the definitions from elements.yml file.
       #
@@ -168,8 +170,7 @@ module Alchemy
       case icon
       when TrueClass then name
       when String then icon
-      else
-        "default"
+      else determine_default_icon_name
       end
     end
 
@@ -185,6 +186,10 @@ module Alchemy
 
     def hint_translation_scope
       :element_hints
+    end
+
+    def determine_default_icon_name
+      Alchemy.config.element_icon_finder.call(name) || DEFAULT_ICON_NAME
     end
   end
 end
