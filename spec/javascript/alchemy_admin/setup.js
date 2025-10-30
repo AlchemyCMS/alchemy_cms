@@ -67,24 +67,22 @@ globalThis.fetch = vi.fn().mockResolvedValue({
 })
 
 // Mock XMLHttpRequest to avoid network requests
-globalThis.XMLHttpRequest = vi.fn().mockImplementation(function () {
-  return {
-    open: vi.fn(),
-    send: vi.fn(),
-    setRequestHeader: vi.fn(),
-    abort: vi.fn(),
-    status: 200,
-    readyState: 4,
-    responseText: "",
-    response: "",
-    upload: {
-      addEventListener: vi.fn(),
-      removeEventListener: vi.fn(),
-      onprogress: vi.fn()
-    },
+globalThis.XMLHttpRequest = vi.fn(function () {
+  this.open = vi.fn()
+  this.send = vi.fn()
+  this.setRequestHeader = vi.fn()
+  this.abort = vi.fn()
+  this.status = 200
+  this.readyState = 4
+  this.responseText = ""
+  this.response = ""
+  this.upload = {
     addEventListener: vi.fn(),
-    removeEventListener: vi.fn()
+    removeEventListener: vi.fn(),
+    onprogress: vi.fn()
   }
+  this.addEventListener = vi.fn()
+  this.removeEventListener = vi.fn()
 })
 
 // Mock matchMedia for components that use it
@@ -108,8 +106,8 @@ globalThis.Alchemy = {
   locale: "en",
   growl: vi.fn(),
   routes: {},
-  LinkDialog: vi.fn().mockImplementation(function () {
-    return { open: vi.fn() }
+  LinkDialog: vi.fn(function () {
+    this.open = vi.fn()
   }),
   currentDialog: vi.fn(),
   uploader_defaults: {},

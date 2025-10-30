@@ -3,10 +3,8 @@ import "alchemy_admin/components/link_buttons/link_button"
 import { renderComponent } from "../component.helper"
 
 beforeEach(() => {
-  Alchemy.LinkDialog = vi.fn().mockImplementation(function () {
-    return {
-      open: vi.fn(() => Promise.resolve({ data: {} }))
-    }
+  Alchemy.LinkDialog = vi.fn(function () {
+    this.open = vi.fn(() => Promise.resolve({ data: {} }))
   })
 })
 
