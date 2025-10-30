@@ -113,7 +113,7 @@ describe("alchemy-element-editor", () => {
   beforeEach(() => {
     editor = getComponent(html)
     Alchemy = {
-      Spinner: vi.fn(() => {
+      Spinner: vi.fn().mockImplementation(function () {
         return {
           spin: vi.fn(),
           stop: vi.fn()
