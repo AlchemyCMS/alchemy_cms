@@ -32,3 +32,4 @@ yarn-debug.log*
 .byebug_history
 .vscode/
 /spec/dummy/storage
+package-lock.json
