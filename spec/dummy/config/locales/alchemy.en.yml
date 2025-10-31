@@ -32,16 +32,20 @@ en:
     element_hints:
       all_you_can_eat: This element shows all ingredient types and settings of an Element Alchemy comes with in a default installation.
     ingredient_hints:
+      audio: This ingredient type represents a audio file
       boolean: This ingredient type represents a simple true/false value
       datetime: This ingredient type represents a date or time value
       file: This ingredient type represents a downloadable file
       html: This ingredient type represents raw HTML output
       link: This ingredient type represents a link
       number: This ingredient type represents a number
+      node: This ingredient type represents a menu node
+      page: This ingredient type represents a page
       picture: This ingredient type represents a picture
       richtext: This ingredient type represents richtext
       select: This ingredient type represents values the editor can choose from
       text: This ingredient type represents a simple line of text
+      video: This ingredient type represents a video file
     default_ingredient_texts:
       lorem_ipsum: Dapibus nostra massa phasellus viverra rhoncus fringilla
       welcome: Welcome to my site

@@ -1,0 +1,59 @@
+<% element = Alchemy::ElementDefinition.get(element_name) %>
+<% if element %>
+  <details>
+    <summary>
+      <header>
+        <span class="icon element">
+          <%= element.icon_file %>
+        </span>
+        <%= Alchemy::Element.display_name_for(element.name) %>
+        <small class="label usage">
+          <%= Alchemy::Element.named(element.name).count %>
+        </small>
+      </header>
+    </summary>
+    <div>
+      <% if element.unique %>
+        <sl-tooltip content="<%= Alchemy.t(:unique, scope: ["admin", "hints", Alchemy::ElementDefinition.model_name.i18n_key]) %>">
+          <small class="label">
+            <%= Alchemy::Element.human_attribute_name(:unique) %>
+          </small>
+        </sl-tooltip>
+      <% end %>
+      <% if element.fixed %>
+        <sl-tooltip content="<%= Alchemy.t(:fixed, scope: ["admin", "hints", Alchemy::ElementDefinition.model_name.i18n_key]) %>">
+          <small class="label">
+            <%= Alchemy::Element.human_attribute_name(:fixed) %>
+          </small>
+        </sl-tooltip>
+      <% end %>
+      <% if element.deprecated %>
+        <alchemy-message type="info">
+          <%= element.deprecation_notice %>
+        </alchemy-message>
+      <% end %>
+      <% if element.has_hint? %>
+        <p class="description"><%= element.hint %></p>
+      <% end %>
+      <% if element.ingredients.any? %>
+        <ol>
+          <%= render collection: element.ingredients.select { !_1.group }, partial: "ingredient_definition", locals: {element_name: element_name} %>
+
+          <% element.ingredients.select { _1.group }.group_by { _1.group }.each do |group, ingredients| %>
+            <h3>
+              <%= Alchemy.t(
+                group,
+                scope: "element_groups.#{element.name}",
+                default: Alchemy.t("element_groups.#{group}", default: group.humanize)
+              ) %>
+            </h3>
+            <ol>
+              <%= render collection: ingredients, partial: "ingredient_definition", locals: {element_name: element_name} %>
+            </ol>
+          <% end %>
+        </ol>
+      <% end %>
+      <%= render collection: element.nestable_elements, partial: "element_definition", as: "element_name" %>
+    </div>
+  </details>
+<% end %>

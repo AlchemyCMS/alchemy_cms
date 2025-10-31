@@ -1,0 +1,48 @@
+<div class="page-definition" name="<%= page_definition.name %>">
+  <h2 id="<%= page_definition.name %>">
+    <%= page_definition.human_name %>
+    <% count = Alchemy::Page.where(page_layout: page_definition.name).count %>
+    <small>
+      <% if count.positive? %>
+        <%= link_to Alchemy.t(:show_pages, scope: "admin.page_definitions") % {model_name: Alchemy::Page.model_name.human(count: count), count: count},
+          alchemy.admin_pages_path(view: "list", q: {by_page_layout: page_definition.name}) %>
+      <% else %>
+        <%= Alchemy.t(:zero_pages, scope: "admin.page_definitions") %>
+      <% end %>
+    </small>
+  </h2>
+  <% if page_definition.unique || page_definition.layoutpage %>
+    <div class="labels">
+      <% if page_definition.unique %>
+        <sl-tooltip content="<%= Alchemy.t(:unique, scope: ["admin", "hints", Alchemy::PageDefinition.model_name.i18n_key]) %>">
+          <small class="label">
+            <%= Alchemy::PageDefinition.human_attribute_name(:unique) %>
+          </small>
+        </sl-tooltip>
+      <% end %>
+      <% if page_definition.layoutpage %>
+        <sl-tooltip content="<%= Alchemy.t(:layoutpage, scope: ["admin", "hints", Alchemy::PageDefinition.model_name.i18n_key]) %>">
+          <small class="label">
+            <%= Alchemy::PageDefinition.human_attribute_name(:layoutpage) %>
+          </small>
+        </sl-tooltip>
+      <% end %>
+    </div>
+  <% end %>
+  <% if page_definition.image %>
+    <div class="image">
+      <%= image_tag page_definition.image %>
+    </div>
+  <% end %>
+  <% if page_definition.has_hint? %>
+    <p class="description"><%= page_definition.hint %></p>
+  <% end %>
+  <% if page_definition.elements.any? %>
+    <div class="elements">
+      <h3>
+        <%= Alchemy::PageDefinition.human_attribute_name(:elements) %>
+      </h3>
+      <%= render collection: page_definition.elements, partial: "element_definition", as: "element_name" %>
+    </div>
+  <% end %>
+</div>
