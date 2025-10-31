@@ -3,9 +3,9 @@ import "alchemy_admin/components/link_buttons/link_button"
 import { renderComponent } from "../component.helper"
 
 beforeEach(() => {
-  Alchemy.LinkDialog = vi.fn(() => ({
-    open: vi.fn(() => Promise.resolve({ data: {} }))
-  }))
+  Alchemy.LinkDialog = vi.fn(function () {
+    this.open = vi.fn(() => Promise.resolve({ data: {} }))
+  })
 })
 
 describe("alchemy-link-button", () => {

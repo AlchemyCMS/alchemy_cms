@@ -113,11 +113,9 @@ describe("alchemy-element-editor", () => {
   beforeEach(() => {
     editor = getComponent(html)
     Alchemy = {
-      Spinner: vi.fn(() => {
-        return {
-          spin: vi.fn(),
-          stop: vi.fn()
-        }
+      Spinner: vi.fn(function () {
+        this.spin = vi.fn()
+        this.stop = vi.fn()
       }),
       growl: vi.fn(),
       routes: {

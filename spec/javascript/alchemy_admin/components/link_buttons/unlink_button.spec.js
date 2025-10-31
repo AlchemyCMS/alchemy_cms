@@ -3,7 +3,9 @@ import "alchemy_admin/components/link_buttons/unlink_button"
 import { renderComponent } from "../component.helper"
 
 beforeEach(() => {
-  Alchemy.LinkDialog = vi.fn(() => ({ open: vi.fn() }))
+  Alchemy.LinkDialog = vi.fn(function () {
+    this.open = vi.fn()
+  })
 })
 
 describe("alchemy-unlink-button", () => {
