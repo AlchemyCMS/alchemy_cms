@@ -1,5 +1,10 @@
 .element-select-item {
   display: flex;
+  flex-direction: column;
+}
+
+.element-select-name {
+  display: flex;
   align-items: center;
 
   > svg {
@@ -9,4 +14,11 @@
     fill: currentColor;
     padding-right: var(--spacing-2);
   }
+}
+
+.element-select-description {
+  margin-top: var(--spacing-1);
+  padding-left: var(--spacing-6);
+  font-size: var(--font-size_small);
+  max-width: 270px;
 }
