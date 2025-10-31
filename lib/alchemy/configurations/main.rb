@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "alchemy/configuration"
+require "alchemy/configurations/auth"
 require "alchemy/configurations/default_language"
 require "alchemy/configurations/default_site"
 require "alchemy/configurations/importmap"
@@ -356,6 +357,9 @@ module Alchemy
         "Alchemy::Admin::LinkDialog::ExternalTab",
         "Alchemy::Admin::LinkDialog::FileTab"
       ]
+
+      # Holds all of the configuration for authentication
+      configuration :auth, Auth
     end
   end
 end

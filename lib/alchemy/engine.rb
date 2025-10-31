@@ -143,11 +143,11 @@ module Alchemy
     end
 
     config.after_initialize do
-      if Alchemy.user_class
-        ActiveSupport.on_load(:active_record) do
-          Alchemy.user_class.model_stamper
-          Alchemy.user_class.stampable(stamper_class_name: Alchemy.user_class_name)
-        end
+      raise NoUserConfiguredError unless Alchemy.config.auth.raw_user_class
+
+      ActiveSupport.on_load(:active_record) do
+        Alchemy.config.auth.user_class.model_stamper
+        Alchemy.config.auth.user_class.stampable(stamper_class_name: Alchemy.config.auth.user_class_name)
       end
 
       if defined?(RailsLiveReload) && Rails.env.development?
