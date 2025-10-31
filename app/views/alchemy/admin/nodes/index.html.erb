@@ -18,6 +18,8 @@
       },
       if_permitted_to: [:create, Alchemy::Node]
     ) if @root_nodes.any? %>
+    <div class="toolbar_spacer"></div>
+    <%= render "alchemy/admin/clipboard/button", remarkable_type: "nodes" %>
   </div>
 <% end %>
 

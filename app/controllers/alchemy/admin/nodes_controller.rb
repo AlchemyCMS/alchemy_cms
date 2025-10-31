@@ -4,6 +4,7 @@ module Alchemy
   module Admin
     class NodesController < Admin::ResourcesController
       include Alchemy::Admin::CurrentLanguage
+      include Alchemy::Admin::Clipboard
 
       def index
         @root_nodes = Node.language_root_nodes
@@ -26,8 +27,28 @@ module Alchemy
           else
             flash[:error] = @node.errors.full_messages.join(", ")
           end
+        elsif params[:paste_from_clipboard]
+          begin
+            @node = paste_from_clipboard
+            if @node&.persisted?
+              flash_notice_for_resource_action(:create)
+              do_redirect_to(admin_nodes_path)
+            else
+              render :new, status: :unprocessable_entity
+            end
+          rescue => e
+            flash[:error] = e.message
+            new  # Reinitialize instance variables like @node
+            render :new, status: :unprocessable_entity
+          end
         else
-          super
+          @node = Node.new(resource_params)
+          if @node.save
+            flash_notice_for_resource_action(:create)
+            do_redirect_to(admin_nodes_path)
+          else
+            render :new, status: :unprocessable_entity
+          end
         end
       end
 
@@ -36,6 +57,8 @@ module Alchemy
           @node = Alchemy::Node.find(params[:id])
           @page = @node.page
           @page.nodes.destroy(@node)
+          # Remove node from clipboard
+          remove_resource_from_clipboard(@node)
           flash_notice_for_resource_action(:destroy)
         else
           super
