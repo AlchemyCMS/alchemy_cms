@@ -33,7 +33,7 @@ module Alchemy
         default: Alchemy.t("ingredient_roles.#{role}", default: role.humanize)
       )
     end
-    deprecate :translated_role, deprecator: Alchemy::Deprecation
+    deprecate translated_role: "Use Ingredient#translated_role instead", deprecator: Alchemy::Deprecation
 
     # @deprecated
     def css_classes
