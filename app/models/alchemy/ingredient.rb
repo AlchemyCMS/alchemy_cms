@@ -108,6 +108,25 @@ module Alchemy
       element.ingredient_definition_for(role) || IngredientDefinition.new
     end
 
+    # Returns the translated role for displaying in labels
+    #
+    # Translate it in your locale yml file:
+    #
+    #   alchemy:
+    #     ingredient_roles:
+    #       foo: Bar
+    #
+    # Optionally you can scope your ingredient role to an element:
+    #
+    #   alchemy:
+    #     ingredient_roles:
+    #       article:
+    #         foo: Baz
+    #
+    def translated_role
+      self.class.translated_label_for(role, element&.name)
+    end
+
     # The first 30 characters of the value
     #
     # Used by the Element#preview_text method.
