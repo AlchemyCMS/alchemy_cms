@@ -9,6 +9,7 @@ module Alchemy
       :partial_name,
       :role,
       :settings,
+      :translated_role,
       :value,
       to: :ingredient
 
@@ -65,29 +66,6 @@ module Alchemy
     end
 
     private
-
-    # Returns the translated role for displaying in labels
-    #
-    # Translate it in your locale yml file:
-    #
-    #   alchemy:
-    #     ingredient_roles:
-    #       foo: Bar
-    #
-    # Optionally you can scope your ingredient role to an element:
-    #
-    #   alchemy:
-    #     ingredient_roles:
-    #       article:
-    #         foo: Baz
-    #
-    def translated_role
-      Alchemy.t(
-        role,
-        scope: "ingredient_roles.#{element.name}",
-        default: Alchemy.t("ingredient_roles.#{role}", default: role.humanize)
-      )
-    end
 
     def css_classes
       [
