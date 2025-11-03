@@ -142,6 +142,7 @@ RSpec.describe Alchemy::IngredientEditor, type: :component do
           has_hint?: false,
           partial_name: "text",
           settings: {},
+          translated_role: "Headline",
           role: "text"
         )
       end
@@ -173,6 +174,7 @@ RSpec.describe Alchemy::IngredientEditor, type: :component do
           has_hint?: false,
           partial_name: "text",
           settings: {},
+          translated_role: "Headline",
           role: "text"
         )
       end
@@ -204,6 +206,7 @@ RSpec.describe Alchemy::IngredientEditor, type: :component do
           has_hint?: false,
           partial_name: "text",
           settings: {},
+          translated_role: "Headline",
           role: "text"
         )
       end
@@ -227,6 +230,7 @@ RSpec.describe Alchemy::IngredientEditor, type: :component do
           has_hint?: false,
           partial_name: "text",
           settings: {},
+          translated_role: "Headline",
           role: "text"
         )
       end
@@ -254,6 +258,7 @@ RSpec.describe Alchemy::IngredientEditor, type: :component do
           has_hint?: false,
           partial_name: "text",
           settings: {},
+          translated_role: "Headline",
           role: "text"
         )
       end
@@ -293,6 +298,7 @@ RSpec.describe Alchemy::IngredientEditor, type: :component do
           has_hint?: false,
           partial_name: "text",
           settings: {},
+          translated_role: "Headline",
           role: "text"
         )
       end
@@ -316,6 +322,7 @@ RSpec.describe Alchemy::IngredientEditor, type: :component do
           has_hint?: false,
           partial_name: "text",
           settings: {},
+          translated_role: "Headline",
           role: "text"
         )
       end
@@ -347,6 +354,7 @@ RSpec.describe Alchemy::IngredientEditor, type: :component do
           has_hint?: false,
           partial_name: "text",
           settings: {},
+          translated_role: "Headline",
           role: "text"
         )
       end
@@ -370,6 +378,7 @@ RSpec.describe Alchemy::IngredientEditor, type: :component do
           has_hint?: false,
           partial_name: "text",
           settings: {},
+          translated_role: "Headline",
           role: "text"
         )
       end
