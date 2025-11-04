@@ -356,6 +356,10 @@ module Alchemy
         "Alchemy::Admin::LinkDialog::ExternalTab",
         "Alchemy::Admin::LinkDialog::FileTab"
       ]
+
+      # Define the class used to determine the icon for element by name
+      # Default is Alchemy::ElementIconFinder
+      option :element_icon_finder, :class, default: "Alchemy::ElementIconFinder"
     end
   end
 end
