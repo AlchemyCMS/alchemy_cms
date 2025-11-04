@@ -10,9 +10,9 @@ module Alchemy
 
         before { Alchemy::Current.language = language }
 
-        it "sets the ::I18n.locale to current language code" do
+        it "sets the ::I18n.locale to current language locale" do
           controller.send(:set_locale)
-          expect(::I18n.locale).to eq(language.code.to_sym)
+          expect(::I18n.locale).to eq(language.locale.to_sym)
         end
       end
 

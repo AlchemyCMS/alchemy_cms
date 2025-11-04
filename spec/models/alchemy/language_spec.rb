@@ -80,7 +80,7 @@ module Alchemy
       describe "#set_pages_language if language´s code has changed" do
         it "should update all its pages with the new code" do
           @other_page = create(:alchemy_page, language: language)
-          language.update(code: "fo")
+          language.update(language_code: "fo")
           language.reload
           page.reload
           @other_page.reload
@@ -143,7 +143,7 @@ module Alchemy
         end
 
         let!(:other_language) do
-          create(:alchemy_language, site: current_site, code: language.code)
+          create(:alchemy_language, site: current_site, language_code: language.code)
         end
 
         before do
