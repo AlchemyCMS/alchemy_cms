@@ -11,41 +11,48 @@
       size: '420x215',
       overflow: true
     },
+    id: "add-page-button",
     label: Alchemy.t('Add a page'),
     if_permitted_to: [:create, Alchemy::Page]
   ) %>
   <div class="toolbar_spacer"></div>
   <% if can?(:flush, Alchemy::Page) %>
     <div class="toolbar_button">
-      <wa-tooltip content="<%= Alchemy.t("Flush page cache") %>">
-        <%= button_to(
-          render_icon(:eraser),
-          alchemy.flush_admin_pages_path,
-          "turbo-method": :post,
-          class: "icon_button please_wait"
-        ) %>
+      <wa-tooltip for="flush-page-cache-button">
+        <%= Alchemy.t("Flush page cache") %>
       </wa-tooltip>
+      <%= button_to(
+        render_icon(:eraser),
+        alchemy.flush_admin_pages_path,
+        "turbo-method": :post,
+        class: "icon_button please_wait",
+        id: "flush-page-cache-button"
+      ) %>
     </div>
   <% end %>
   <%= render "alchemy/admin/clipboard/button", remarkable_type: "pages" %>
   <div class="toolbar_spacer"></div>
   <div class="toolbar_button">
-    <wa-tooltip content="<%= Alchemy.t("Hierarchical") %>">
-      <%= link_to(
-        render_icon(:"menu-2"),
-        alchemy.admin_pages_path(view: "tree"),
-        class: ["icon_button", @view != "list" && "active"].compact
-      ) %>
+    <wa-tooltip for="view-tree-button">
+      <%= Alchemy.t("Hierarchical") %>
     </wa-tooltip>
+    <%= link_to(
+      render_icon(:"menu-2"),
+      alchemy.admin_pages_path(view: "tree"),
+      class: ["icon_button", @view != "list" && "active"].compact,
+      id: "view-tree-button"
+    ) %>
   </div>
   <div class="toolbar_button">
-    <wa-tooltip content="<%= Alchemy.t("Sortable List") %>">
-      <%= link_to(
-        render_icon("sort-desc", style: false),
-        alchemy.admin_pages_path(view: "list"),
-        class: ["icon_button", @view == "list" && "active"].compact
-      ) %>
+    <wa-tooltip for="view-list-button">
+      <%= Alchemy.t("Sortable List") %>
     </wa-tooltip>
+    <%= link_to(
+      render_icon("sort-desc", style: false),
+      alchemy.admin_pages_path(view: "list"),
+      class: ["icon_button", @view == "list" && "active"].compact,
+      id: "view-list-button"
+    ) %>
   </div>
 </div>
 <% search_filter_params[:view] = "list" %>

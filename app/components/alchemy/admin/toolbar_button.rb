@@ -33,15 +33,16 @@ module Alchemy
     #
     class ToolbarButton < ViewComponent::Base
       erb_template <<-ERB
+        <wa-tooltip for="<%= id %>" placement="<%= tooltip_placement %>">
+          <%= label %>
+        </wa-tooltip>
         <div class="toolbar_button" id="<%= id %>">
-          <wa-tooltip content="<%= label %>" placement="<%= tooltip_placement %>">
-            <%= link_to(render_icon(icon, style: icon_style), url, {
-              class: css_classes,
-              "data-dialog-options" => dialog ? dialog_options.to_json : nil,
-              "data-alchemy-hotkey" => hotkey,
-              :is => dialog ? "alchemy-dialog-link" : nil
-            }.merge(link_options)) %>
-          </wa-tooltip>
+          <%= link_to(render_icon(icon, style: icon_style), url, {
+            class: css_classes,
+            "data-dialog-options" => dialog ? dialog_options.to_json : nil,
+            "data-alchemy-hotkey" => hotkey,
+            :is => dialog ? "alchemy-dialog-link" : nil
+          }.merge(link_options)) %>
         </div>
       ERB
 
@@ -87,7 +88,7 @@ module Alchemy
         @if_permitted_to = if_permitted_to
         @active = active
         @link_options = link_options
-        @id = id
+        @id = id || "toolbar-button-#{SecureRandom.hex(4)}"
         @icon_style = icon_style
         @tooltip_placement = tooltip_placement
       end

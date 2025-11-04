@@ -21,9 +21,10 @@ module Alchemy
         erb_template <<~ERB
           <% if name.nil? || can?(name, @resource) %>
             <% if tooltip.present? %>
-              <wa-tooltip content="<%= tooltip %>">
-                 <%= view_context.capture(@resource, &block) %>
+              <wa-tooltip for="<%= button_id %>">
+                <%= tooltip %>
               </wa-tooltip>
+              <%= view_context.capture(@resource, &block) %>
             <% else %>
               <%= view_context.capture(@resource, &block) %>
             <% end %>
@@ -39,6 +40,12 @@ module Alchemy
         def with_resource(resource)
           @resource = resource
           self
+        end
+
+        private
+
+        def button_id
+          "#{name}-#{@resource.class.name.underscore}-#{@resource.id}"
         end
       end
     end
