@@ -204,45 +204,47 @@ module Alchemy
           end
         end
 
-        context "when code is an available locale" do
-          let(:language) do
-            build(:alchemy_language, language_code: "de", country_code: "at")
+        context "when locale is not set yet" do
+          context "when code is an available locale" do
+            let(:language) do
+              build(:alchemy_language, locale: nil, language_code: "de", country_code: "at")
+            end
+
+            it "sets the locale to code" do
+              is_expected.to eq("de-at")
+            end
           end
 
-          it "sets the locale to code" do
-            is_expected.to eq("de-at")
-          end
-        end
+          context "when code is not is an available locale, but language_code is" do
+            let(:language) do
+              build(:alchemy_language, locale: nil, language_code: "de", country_code: "ch")
+            end
 
-        context "when code is not is an available locale, but language_code is" do
-          let(:language) do
-            build(:alchemy_language, language_code: "de", country_code: "ch")
-          end
-
-          it "sets the locale to language code" do
-            is_expected.to eq("de")
-          end
-        end
-
-        context "when language_code is an available locale" do
-          let(:language) do
-            build(:alchemy_language, language_code: "en")
+            it "sets the locale to language code" do
+              is_expected.to eq("de")
+            end
           end
 
-          it "sets the locale to language_code" do
-            is_expected.to eq("en")
-          end
-        end
+          context "when language_code is an available locale" do
+            let(:language) do
+              build(:alchemy_language, locale: nil, language_code: "en")
+            end
 
-        context "when neither language_code nor code is an available locale" do
-          it { is_expected.to be_nil }
+            it "sets the locale to language_code" do
+              is_expected.to eq("en")
+            end
+          end
+
+          context "when neither language_code nor code is an available locale" do
+            it { is_expected.to be_nil }
+          end
         end
       end
 
       describe "presence_of_locale_file" do
         context "when locale file is missing for selected language code" do
           let(:language) do
-            build(:alchemy_language, language_code: "jp")
+            build(:alchemy_language, locale: nil, language_code: "jp")
           end
 
           it "adds errors to locale attribute" do
@@ -274,7 +276,7 @@ module Alchemy
       end
 
       before do
-        expect(::I18n).to receive(:available_locales).twice do
+        expect(::I18n).to receive(:available_locales) do
           [:de, :"de-at", :"en-uk"]
         end
       end
