@@ -12,7 +12,7 @@ permissions:
 jobs:
   backport:
     name: Backport
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     # Only react to merged PRs for security reasons.
     # See https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request_target.
     if: |
@@ -26,10 +26,16 @@ jobs:
           (github.event.action == 'closed')
       )
     steps:
+      - name: Generate token
+        id: generate_token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.ALCHEMY_BOT_APP_ID }}
+          private-key: ${{ secrets.ALCHEMY_BOT_APP_PRIVATE_KEY }}
       - name: Backport pull request
         uses: sorenlouv/backport-github-action@v9.5.1
         with:
-          github_token: ${{ secrets.ALCHEMY_CI_BOT_ACCESS_TOKEN }}
+          github_token: ${{ steps.generate_token.outputs.token }}
           auto_backport_label_prefix: backport-to-
           add_original_reviewers: true
       - name: Info log
