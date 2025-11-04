@@ -33,6 +33,7 @@ FactoryBot.define do
         public_on { Time.current }
         public_until { nil }
       end
+      published_at { Time.current }
       after(:build) do |page, evaluator|
         page.build_public_version(
           public_on: evaluator.public_on,
