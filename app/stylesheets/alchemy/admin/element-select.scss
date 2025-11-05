@@ -17,8 +17,13 @@
 }
 
 .element-select-description {
-  margin-top: var(--spacing-1);
+  margin-top: var(--spacing-0);
   padding-left: var(--spacing-6);
   font-size: var(--font-size_small);
+  color: var(--text-color-muted);
   max-width: 270px;
+
+  .select2-highlighted & {
+    color: var(--select-hover-text-color);
+  }
 }
