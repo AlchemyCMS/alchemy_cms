@@ -20,7 +20,7 @@ describe "alchemy/admin/uploader/_button.html.erb" do
 
     it "does not render the accept attribute" do
       render partial: "alchemy/admin/uploader/button",
-             locals: { object: object, file_attribute: file_attribute, redirect_url: redirect_url }
+        locals: {object: object, file_attribute: file_attribute, redirect_url: redirect_url}
 
       expect(rendered).to have_selector('input[type="file"].fileupload')
       expect(rendered).not_to have_selector('input[type="file"][accept]')
@@ -36,7 +36,7 @@ describe "alchemy/admin/uploader/_button.html.erb" do
 
     it "renders the accept attribute with the correct file extensions" do
       render partial: "alchemy/admin/uploader/button",
-             locals: { object: object, file_attribute: file_attribute, redirect_url: redirect_url }
+        locals: {object: object, file_attribute: file_attribute, redirect_url: redirect_url}
 
       expect(rendered).to have_selector('input[type="file"].fileupload')
       expect(rendered).to have_selector('input[type="file"][accept=".jpg, .png, .gif"]')
@@ -55,7 +55,7 @@ describe "alchemy/admin/uploader/_button.html.erb" do
 
     it "does not render the accept attribute" do
       render partial: "alchemy/admin/uploader/button",
-             locals: { object: object, file_attribute: file_attribute, redirect_url: redirect_url }
+        locals: {object: object, file_attribute: file_attribute, redirect_url: redirect_url}
 
       expect(rendered).to have_selector('input[type="file"].fileupload')
       expect(rendered).not_to have_selector('input[type="file"][accept]')
@@ -74,7 +74,7 @@ describe "alchemy/admin/uploader/_button.html.erb" do
 
     it "renders the accept attribute with the correct file extensions" do
       render partial: "alchemy/admin/uploader/button",
-             locals: { object: object, file_attribute: file_attribute, redirect_url: redirect_url }
+        locals: {object: object, file_attribute: file_attribute, redirect_url: redirect_url}
 
       expect(rendered).to have_selector('input[type="file"].fileupload')
       expect(rendered).to have_selector('input[type="file"][accept=".pdf, .doc, .docx"]')
