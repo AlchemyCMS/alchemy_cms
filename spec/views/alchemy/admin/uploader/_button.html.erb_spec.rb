@@ -9,6 +9,9 @@ describe "alchemy/admin/uploader/_button.html.erb" do
 
   before do
     allow(view).to receive(:can?).and_return(true)
+    allow(view).to receive(:admin_pictures_path).and_return("/admin/pictures")
+    allow(view).to receive(:admin_attachments_path).and_return("/admin/attachments")
+    view.extend Alchemy::BaseHelper
   end
 
   context "when wildcard is configured (all file types allowed)" do
