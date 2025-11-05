@@ -140,7 +140,7 @@
 <h2>Selects</h2>
 
 <div style="display: flex; gap: 1em;">
-  <div style="width: 25%">
+  <div style="width: 20%">
     <h3>Select with Search</h3>
     <select is="alchemy-select" class="full_width">
       <option value="1">Option 1</option>
@@ -153,21 +153,26 @@
     </select>
   </div>
 
-  <div style="width: 25%">
+  <div style="width: 20%">
     <h3>Page Select</h3>
     <%= render Alchemy::Admin::PageSelect.new do %>
       <input name="page" class="full_width" />
     <% end %>
   </div>
 
-  <div style="width: 25%">
+  <div style="width: 20%">
+    <h3>Element Select</h3>
+    <%= render Alchemy::Admin::ElementSelect.new(Alchemy::Element.definitions) %>
+  </div>
+
+  <div style="width: 20%">
     <h3>Node Select</h3>
     <%= render Alchemy::Admin::NodeSelect.new do %>
       <input name="node" class="full_width" />
     <% end %>
   </div>
 
-  <div style="width: 25%">
+  <div style="width: 20%">
     <h3>Attachment Select</h3>
     <%= render Alchemy::Admin::AttachmentSelect.new do %>
       <input name="attachment" class="full_width" />

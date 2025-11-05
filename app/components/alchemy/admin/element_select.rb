@@ -18,7 +18,7 @@ module Alchemy
             autofocus: true,
             required: true,
             value: elements.many? ? nil : elements.first&.name,
-            class: "alchemy_selectbox"
+            class: "alchemy_selectbox full_width"
           })
         end
       end
