@@ -282,9 +282,9 @@ module Alchemy
       # @param icon: 'alert' [String] - Icon name
       #
       # @return [String]
-      def hint_with_tooltip(text, icon: "alert")
+      def hint_with_tooltip(text, icon: "alert", icon_class: nil)
         content_tag :"sl-tooltip", class: "like-hint-tooltip", content: text, placement: "bottom" do
-          render_icon(icon)
+          render_icon(icon, class: icon_class)
         end
       end
 

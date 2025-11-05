@@ -29,7 +29,7 @@
     "tinymce": "^8.0.2"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-terser": "^0.4.4",
     "consola": "^3.4.2",
@@ -41,6 +41,6 @@
     "rollup": "^4.50.0",
     "sass": "^1.92.0",
     "svg-sprite": "^2.0.4",
-    "vitest": "^3.2.4"
+    "vitest": "^4.0.5"
   }
 }

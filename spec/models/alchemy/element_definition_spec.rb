@@ -122,7 +122,7 @@ module Alchemy
         let(:definition) { described_class.new }
 
         it "returns the default icon" do
-          expect(icon_name).to eq("default")
+          expect(icon_name).to eq("layout-bottom-2-line")
         end
       end
     end

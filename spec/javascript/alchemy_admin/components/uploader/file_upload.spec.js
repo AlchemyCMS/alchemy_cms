@@ -132,11 +132,11 @@ describe("alchemy-file-upload", () => {
     describe("with image file", () => {
       beforeEach(() => {
         // mock file reader to response with an (invalid) image
-        vi.spyOn(global, "FileReader").mockImplementation(() => ({
-          readAsDataURL: vi.fn(),
-          addEventListener: (_load, callback) => callback(), // run the load callback
-          result: "data:image/png;base64,undefined"
-        }))
+        vi.spyOn(global, "FileReader").mockImplementation(function () {
+          this.readAsDataURL = vi.fn()
+          this.addEventListener = (_load, callback) => callback() // run the load callback
+          this.result = "data:image/png;base64,undefined"
+        })
 
         renderComponent(
           new File(["a".repeat(100)], "foo.png", { type: "image/png" })
