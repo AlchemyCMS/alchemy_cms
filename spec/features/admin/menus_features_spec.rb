@@ -54,6 +54,38 @@ RSpec.describe "Admin Menus Features", type: :system do
         end
       end
     end
+
+    context "without pages", :js do
+      let!(:main_menu) { create(:alchemy_node, name: "Main Menu") }
+
+      it "can add node with absolute url path" do
+        visit alchemy.admin_nodes_path
+        expect(page).to have_selector(".node_name", text: "Main Menu")
+        within ".nodes_tree" do
+          click_link_with_tooltip Alchemy.t(:create_node)
+        end
+        within ".alchemy-dialog" do
+          fill_in "Name", with: "Internal Link"
+          fill_in "URL", with: "/custom-url"
+          click_button "create"
+        end
+        expect(page).to have_selector(".node_name", text: "/custom-url")
+      end
+
+      it "can add node with full external url" do
+        visit alchemy.admin_nodes_path
+        expect(page).to have_selector(".node_name", text: "Main Menu")
+        within ".nodes_tree" do
+          click_link_with_tooltip Alchemy.t(:create_node)
+        end
+        within ".alchemy-dialog" do
+          fill_in "Name", with: "External Link"
+          fill_in "URL", with: "https://example.com/index.php?page=123"
+          click_button "create"
+        end
+        expect(page).to have_selector(".node_name", text: "https://example.com/index.php?page=123")
+      end
+    end
   end
 
   describe "adding a new menu" do
