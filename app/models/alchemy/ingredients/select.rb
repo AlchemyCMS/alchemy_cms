@@ -12,7 +12,7 @@ module Alchemy
       # Override value getter to handle multiple selection
       def value
         val = self[:value] || []
-        multiple? ?  val : val.first
+        multiple? ? val : val.first
       end
 
       # Override value setter to handle multiple selection

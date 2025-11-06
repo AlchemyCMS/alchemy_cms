@@ -1,4 +1,4 @@
-class ConvertSelectValueForMultiple < ActiveRecord::Migration[8.0]
+class ConvertSelectValueForMultiple < ActiveRecord::Migration[7.2]
   def up
     execute <<-SQL
         UPDATE alchemy_ingredients
