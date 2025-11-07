@@ -16,7 +16,11 @@
       <%= render Alchemy::Admin::PageSelect.new(node.page, allow_clear: true, query_params: {contentpages: true}) do %>
         <%= f.input :page_id, label: Alchemy::Page.model_name.human %>
       <% end %>
-      <%= f.input :url, input_html: { disabled: node.page }, hint: Alchemy.t(:node_url_hint) %>
+      <%= f.input :url, as: :string, input_html: {
+          disabled: node.page,
+          pattern: '/.*|[a-zA-Z][\w\+\-\.]*://.+',
+          title: Alchemy.t(:node_url_hint)
+        }, hint: Alchemy.t(:node_url_hint) %>
       <%= f.input :title %>
       <%= f.input :nofollow %>
       <%= f.input :external %>
