@@ -1,8 +1,7 @@
 Alchemy::Engine.routes.draw do
-  namespace :admin, {
+  namespace :admin,
     path: Alchemy.admin_path,
-    constraints: Alchemy.admin_constraints
-  } do
+    constraints: Alchemy.admin_constraints do
     devise_for :user,
       class_name: "Alchemy::User",
       singular: :user,
