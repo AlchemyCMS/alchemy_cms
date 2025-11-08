@@ -1,159 +1,167 @@
-<li id="page_<%= @page.id %>" class="sitemap-item <%= @page.page_layout %>" data-slug="<%= @page.slug %>" data-restricted="<%= @page.restricted %>" data-page-id="<%= @page.id %>" data-folded="<%= @page.folded?(current_alchemy_user&.id) %>">
-  <div class="sitemap_page<% @page.locked? ? ' locked' : '' %>" name="<%= @page.name%>">
-    <div class="sitemap_left_images">
-      <span class="page_folder"></span>
-      <% if @page.definition.blank? %>
-        <%= page_layout_missing_warning %>
-      <% else %>
-        <% if can?(:edit_content, @page) %>
-          <span class="page-icon<%= @page.root? ? '' : ' handle' %>">
-            <% if @page.locked? %>
-              <sl-tooltip content="<%= Alchemy.t("This page is locked", name: @page.locker_name) %>" class="like-hint-tooltip" placement="bottom-start">
-                <alchemy-icon name="file-edit" size="xl"></alchemy-icon>
-              </sl-tooltip>
-            <% else %>
-              <alchemy-icon name="file" size="xl"></alchemy-icon>
-            <% end %>
-          </span>
+<alchemy-page-node data-page-id="<%= @page.id %>" data-folded="<%= @page.folded?(current_alchemy_user&.id) %>">
+  <li id="page_<%= @page.id %>" class="sitemap-item <%= @page.page_layout %>" data-slug="<%= @page.slug %>" data-restricted="<%= @page.restricted %>" data-page-id="<%= @page.id %>">
+    <div class="sitemap_page<% @page.locked? ? ' locked' : '' %>" name="<%= @page.name%>">
+      <div class="sitemap_left_images">
+        <% if @page.children.any? || @page.folded?(current_alchemy_user&.id) %>
+          <a class="page_folder icon_button">
+            <alchemy-icon name="<%= @page.folded?(current_alchemy_user&.id) ? 'arrow-right-s' : 'arrow-down-s' %>"></alchemy-icon>
+          </a>
         <% else %>
-          <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
-            <alchemy-icon name="file-forbid" size="xl"></alchemy-icon>
-          </sl-tooltip>
+          <span class="page_folder"></span>
         <% end %>
-      <% end %>
-    </div>
-    <div class="sitemap_sitename">
-      <% if can?(:edit_content, @page) %>
-        <%= link_to(
-          @page.name,
-          alchemy.edit_admin_page_path(@page),
-          title: Alchemy.t(:edit_page),
-          class: "sitemap_pagename_link"
-        ) %>
-      <% else %>
-        <%= content_tag("span", @page.name, class: "sitemap_pagename_link") %>
-      <% end %>
-    </div>
-    <div class="sitemap_url" title="<%= @page.url_path %>">
-      <%= @page.url_path %>
-    </div>
-    <div class="page_infos">
-      <% if @page.locked? %>
-        <span class="page_status locked">
-          <alchemy-icon name="edit" size="1x"></alchemy-icon>
-          <%= @page.status_title(:locked) %>
-        </span>
-      <% end %>
-      <% if @page.restricted? %>
-        <span class="page_status">
-          <alchemy-icon name="lock" size="1x"></alchemy-icon>
-          <%= @page.status_title(:restricted) %>
-        </span>
-      <% end %>
-      <% unless @page.public? %>
-        <span class="page_status">
-          <alchemy-icon name="cloud-off" size="1x"></alchemy-icon>
-          <%= @page.status_title(:public) %>
-        </span>
-      <% end %>
-    </div>
-    <div class="sitemap_right_tools">
-      <% if can?(:info, @page) %>
-        <sl-tooltip content="<%= Alchemy.t(:page_infos) %>">
-          <%= link_to_dialog(
-            render_icon("information"),
-            alchemy.info_admin_page_path(@page),
-            {
-              title: Alchemy.t(:page_infos),
-              size: "520x290"
-            },
-            class: "icon_button"
+        <% if @page.definition.blank? %>
+          <%= page_layout_missing_warning %>
+        <% else %>
+          <% if can?(:edit_content, @page) %>
+            <span class="page-icon<%= @page.root? ? '' : ' handle' %>">
+              <% if @page.locked? %>
+                <sl-tooltip content="<%= Alchemy.t("This page is locked", name: @page.locker_name) %>" class="like-hint-tooltip" placement="bottom-start">
+                  <alchemy-icon name="file-edit" size="xl"></alchemy-icon>
+                </sl-tooltip>
+              <% else %>
+                <alchemy-icon name="file" size="xl"></alchemy-icon>
+              <% end %>
+            </span>
+          <% else %>
+            <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
+              <alchemy-icon name="file-forbid" size="xl"></alchemy-icon>
+            </sl-tooltip>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="sitemap_sitename">
+        <% if can?(:edit_content, @page) %>
+          <%= link_to(
+            @page.name,
+            alchemy.edit_admin_page_path(@page),
+            title: Alchemy.t(:edit_page),
+            class: "sitemap_pagename_link"
           ) %>
-        </sl-tooltip>
-      <% else %>
-        <div class="sitemap_tool disabled">
-          <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
-            <%= render_icon(:information) %>
+        <% else %>
+          <%= content_tag("span", @page.name, class: "sitemap_pagename_link") %>
+        <% end %>
+      </div>
+      <div class="sitemap_url" title="<%= @page.url_path %>">
+        <%= @page.url_path %>
+      </div>
+      <div class="page_infos">
+        <% if @page.locked? %>
+          <span class="page_status locked">
+            <alchemy-icon name="edit" size="1x"></alchemy-icon>
+            <%= @page.status_title(:locked) %>
+          </span>
+        <% end %>
+        <% if @page.restricted? %>
+          <span class="page_status">
+            <alchemy-icon name="lock" size="1x"></alchemy-icon>
+            <%= @page.status_title(:restricted) %>
+          </span>
+        <% end %>
+        <% unless @page.public? %>
+          <span class="page_status">
+            <alchemy-icon name="cloud-off" size="1x"></alchemy-icon>
+            <%= @page.status_title(:public) %>
+          </span>
+        <% end %>
+      </div>
+      <div class="sitemap_right_tools">
+        <% if can?(:info, @page) %>
+          <sl-tooltip content="<%= Alchemy.t(:page_infos) %>">
+            <%= link_to_dialog(
+              render_icon("information"),
+              alchemy.info_admin_page_path(@page),
+              {
+                title: Alchemy.t(:page_infos),
+                size: "520x290"
+              },
+              class: "icon_button"
+            ) %>
           </sl-tooltip>
-        </div>
-      <% end %>
-      <% if can?(:configure, @page) %>
-        <sl-tooltip content="<%= Alchemy.t(:edit_page_properties) %>">
-          <%= link_to_dialog(
-            render_icon("settings-3"),
-            alchemy.configure_admin_page_path(@page),
-            {
-              title: Alchemy.t(:edit_page_properties),
-              size: "500x680"
-            },
-            class: "icon_button"
-          ) %>
-        </sl-tooltip>
-      <% else %>
-        <div class="sitemap_tool disabled">
-          <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
-            <%= render_icon("settings-3") %>
+        <% else %>
+          <div class="sitemap_tool disabled">
+            <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
+              <%= render_icon(:information) %>
+            </sl-tooltip>
+          </div>
+        <% end %>
+        <% if can?(:configure, @page) %>
+          <sl-tooltip content="<%= Alchemy.t(:edit_page_properties) %>">
+            <%= link_to_dialog(
+              render_icon("settings-3"),
+              alchemy.configure_admin_page_path(@page),
+              {
+                title: Alchemy.t(:edit_page_properties),
+                size: "500x680"
+              },
+              class: "icon_button"
+            ) %>
           </sl-tooltip>
-        </div>
-      <% end %>
-      <% if can?(:copy, @page) %>
-        <sl-tooltip content="<%= Alchemy.t(:copy_page) %>">
-          <%= button_to(
-            render_icon("file-copy"),
-            alchemy.insert_admin_clipboard_path(
-              remarkable_type: :pages,
-              remarkable_id: @page,
-            ),
-            "data-turbo-method": :post,
-            class: "icon_button"
-          ) %>
-        </sl-tooltip>
-      <% else %>
-        <div class="sitemap_tool disabled">
-          <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
-            <%= render_icon("file-copy") %>
+        <% else %>
+          <div class="sitemap_tool disabled">
+            <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
+              <%= render_icon("settings-3") %>
+            </sl-tooltip>
+          </div>
+        <% end %>
+        <% if can?(:copy, @page) %>
+          <sl-tooltip content="<%= Alchemy.t(:copy_page) %>">
+            <%= button_to(
+              render_icon("file-copy"),
+              alchemy.insert_admin_clipboard_path(
+                remarkable_type: :pages,
+                remarkable_id: @page,
+              ),
+              "data-turbo-method": :post,
+              class: "icon_button"
+            ) %>
           </sl-tooltip>
-        </div>
-      <% end %>
-      <% if can?(:destroy, @page) %>
-        <sl-tooltip content="<%= Alchemy.t(:delete_page) %>">
-          <%= link_to_confirm_dialog(
-            render_icon("delete-bin-2"),
-            Alchemy.t(:confirm_to_delete_page),
-            alchemy.admin_page_path(@page),
-            class: "icon_button"
-          ) %>
-        </sl-tooltip>
-      <% else %>
-        <div class="sitemap_tool disabled">
-          <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
-            <%= render_icon("delete-bin-2") %>
+        <% else %>
+          <div class="sitemap_tool disabled">
+            <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
+              <%= render_icon("file-copy") %>
+            </sl-tooltip>
+          </div>
+        <% end %>
+        <% if can?(:destroy, @page) %>
+          <sl-tooltip content="<%= Alchemy.t(:delete_page) %>">
+            <%= link_to_confirm_dialog(
+              render_icon("delete-bin-2"),
+              Alchemy.t(:confirm_to_delete_page),
+              alchemy.admin_page_path(@page),
+              class: "icon_button"
+            ) %>
           </sl-tooltip>
-        </div>
-      <% end %>
-      <% if can?(:create, @page) %>
-        <sl-tooltip content="<%= Alchemy.t(:create_page) %>">
-          <%= link_to_dialog(
-            render_icon(:add),
-            alchemy.new_admin_page_path(parent_id: @page.id),
-            {
-              title: Alchemy.t(:create_page),
-              size: "340x165",
-              overflow: true
-            },
-            class: "icon_button"
-          ) %>
-        </sl-tooltip>
-      <% else %>
-        <div class="sitemap_tool disabled">
-          <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
-            <%= render_icon("file-add") %>
+        <% else %>
+          <div class="sitemap_tool disabled">
+            <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
+              <%= render_icon("delete-bin-2") %>
+            </sl-tooltip>
+          </div>
+        <% end %>
+        <% if can?(:create, @page) %>
+          <sl-tooltip content="<%= Alchemy.t(:create_page) %>">
+            <%= link_to_dialog(
+              render_icon(:add),
+              alchemy.new_admin_page_path(parent_id: @page.id),
+              {
+                title: Alchemy.t(:create_page),
+                size: "340x165",
+                overflow: true
+              },
+              class: "icon_button"
+            ) %>
           </sl-tooltip>
-        </div>
-      <% end %>
+        <% else %>
+          <div class="sitemap_tool disabled">
+            <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
+              <%= render_icon("file-add") %>
+            </sl-tooltip>
+          </div>
+        <% end %>
+      </div>
     </div>
-  </div>
-  <ul id="page_<%= @page.id %>_children" class="children" data-parent-id="<%= @page.id %>">
-    <%= render Alchemy::Admin::PageNode.with_collection(@page.children) %>
-  </ul>
-</li>
+    <ul id="page_<%= @page.id %>_children" class="children<%= ' hidden' if @page.folded?(current_alchemy_user&.id) %>" data-parent-id="<%= @page.id %>">
+      <%= render Alchemy::Admin::PageNode.with_collection(@page.children) %>
+    </ul>
+  </li>
+</alchemy-page-node>

@@ -511,7 +511,7 @@ module Alchemy
           allow_any_instance_of(described_class).to receive(:current_alchemy_user) { user }
         end
 
-        subject { patch fold_admin_page_path(page), xhr: true }
+        subject { patch fold_admin_page_path(page), xhr: true, headers: {"Accept" => "text/vnd.turbo-stream.html"} }
 
         context "if page is currently not folded" do
           it "should fold the page" do
