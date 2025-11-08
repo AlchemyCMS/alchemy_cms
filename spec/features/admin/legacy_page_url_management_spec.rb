@@ -53,7 +53,7 @@ RSpec.describe "Legacy page url management", type: :system, js: true do
         page.find("input#legacy_page_url_urlname").set("updated-link")
         click_button_with_tooltip "Save"
       end
-      within "sl-tab-panel[name='legacy_urls']" do
+      within "wa-tab-panel[name='legacy_urls']" do
         expect(page).to have_button("Add")
       end
       within "#legacy_page_urls" do
@@ -65,7 +65,7 @@ RSpec.describe "Legacy page url management", type: :system, js: true do
     it "lets a user remove a page link" do
       click_link_with_tooltip("Remove")
 
-      within "sl-dialog[open]" do
+      within "wa-dialog[open]" do
         click_button "Yes"
       end
 

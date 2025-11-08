@@ -116,7 +116,11 @@ module Alchemy
 
         def delete_button(tooltip: Alchemy.t("Delete"), confirm_message: Alchemy.t("Are you sure?"))
           with_action(:destroy, tooltip) do |row|
-            helpers.delete_button(resource_path(row, search_filter_params), {message: confirm_message})
+            helpers.delete_button(
+              resource_path(row, search_filter_params),
+              {message: confirm_message},
+              id: "destroy-#{row.class.name.underscore}-#{row.id}"
+            )
           end
         end
 
@@ -128,7 +132,8 @@ module Alchemy
                 size: dialog_size,
                 title: dialog_title
               },
-              class: "icon_button"
+              class: "icon_button",
+              id: "edit-#{row.class.name.underscore}-#{row.id}"
           end
         end
 

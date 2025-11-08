@@ -79,9 +79,9 @@ export default class PictureThumbnail extends HTMLElement {
     const message = `Could not load ${this.image.src}`
     this.spinner.stop()
     this.innerHTML = `
-      <sl-tooltip content="${message}">
+      <wa-tooltip content="${message}">
         <alchemy-icon name="alert" class="error"></alchemy-icon>
-      </sl-tooltip>
+      </wa-tooltip>
     `
     console.error(message, evt)
   }

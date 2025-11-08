@@ -33,7 +33,7 @@ module Alchemy
       def page_status_checkbox(page, attribute)
         label = page.class.human_attribute_name(attribute)
         checkbox = if page.attribute_fixed?(attribute)
-          content_tag("sl-tooltip", class: "like-hint-tooltip", content: Alchemy.t(:attribute_fixed, attribute: attribute), placement: "bottom-start") do
+          content_tag("wa-tooltip", class: "like-hint-tooltip", content: Alchemy.t(:attribute_fixed, attribute: attribute), placement: "bottom-start") do
             check_box_tag("page[#{attribute}]", "1", page.send(attribute), disabled: true)
           end
         else

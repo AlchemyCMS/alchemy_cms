@@ -1,16 +1,16 @@
 <%= turbo_frame_tag(legacy_page_url, class: ["row", cycle("even", "odd")]) do %>
   <div class="col name"><%= legacy_page_url.urlname %></div>
   <div class="col tools">
-    <sl-tooltip content="<%= Alchemy.t(:edit) %>">
+    <wa-tooltip content="<%= Alchemy.t(:edit) %>">
       <%= link_to render_icon(:edit),
         edit_admin_legacy_page_url_path(legacy_page_url, page_id: @page.id),
         class: "icon_button", data: { turbo_frame: dom_id(legacy_page_url)} %>
-    </sl-tooltip>
-    <sl-tooltip content="<%= Alchemy.t(:remove) %>">
+    </wa-tooltip>
+    <wa-tooltip content="<%= Alchemy.t(:remove) %>">
       <%= link_to render_icon(:minus),
         admin_legacy_page_url_path(legacy_page_url, page_id: @page.id),
         class: "icon_button",
         data: { turbo_method: :delete, turbo_confirm: Alchemy.t('Are you sure?') } %>
-    </sl-tooltip>
+    </wa-tooltip>
   </div>
 <% end %>

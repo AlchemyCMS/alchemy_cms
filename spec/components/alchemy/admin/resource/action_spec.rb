@@ -23,7 +23,7 @@ RSpec.describe Alchemy::Admin::Resource::Action, type: :component do
 
   it "should not render a tooltip" do
     render
-    expect(page).to_not have_selector("sl-tooltip")
+    expect(page).to_not have_selector("wa-tooltip")
   end
 
   context "with name" do
@@ -47,7 +47,7 @@ RSpec.describe Alchemy::Admin::Resource::Action, type: :component do
 
     it "should render a tooltip" do
       render
-      expect(page).to have_css('sl-tooltip[content="Bar"]', text: "Foo")
+      expect(page).to have_css('wa-tooltip[content="Bar"]', text: "Foo")
     end
   end
 end

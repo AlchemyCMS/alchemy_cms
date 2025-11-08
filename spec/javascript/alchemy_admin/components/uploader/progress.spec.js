@@ -84,7 +84,7 @@ describe("alchemy-upload-progress", () => {
     return new Promise((resolve) => {
       // Use setTimeout to ensure the component has been fully rendered
       setTimeout(() => {
-        progressBar = component.querySelector("sl-progress-bar")
+        progressBar = component.querySelector("wa-progress-bar")
         overallProgressValue = component.querySelector(
           ".overall-progress-value span"
         )

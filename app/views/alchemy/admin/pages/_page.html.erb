@@ -8,17 +8,17 @@
         {{#if permissions.edit_content}}
           <span class="page-icon {{#unless root}}handle{{/unless}}">
             {{#if locked}}
-              <sl-tooltip content="{{locked_notice}}" class="like-hint-tooltip" placement="bottom-start">
+              <wa-tooltip content="{{locked_notice}}" class="like-hint-tooltip" placement="bottom-start">
                 <alchemy-icon name="file-edit" size="xl"></alchemy-icon>
-              </sl-tooltip>
+              </wa-tooltip>
             {{else}}
               <alchemy-icon name="file" size="xl"></alchemy-icon>
             {{/if}}
           </span>
         {{else}}
-          <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
+          <wa-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
             <alchemy-icon name="file-forbid" size="xl"></alchemy-icon>
-          </sl-tooltip>
+          </wa-tooltip>
         {{/if}}
       {{/if}}
     </div>
@@ -59,7 +59,7 @@
     </div>
     <div class="sitemap_right_tools">
       {{#if permissions.info}}
-      <sl-tooltip content="<%= Alchemy.t(:page_infos) %>">
+      <wa-tooltip content="<%= Alchemy.t(:page_infos) %>">
         <%= link_to_dialog(
           render_icon("information"),
           alchemy.info_admin_page_path(id: "__ID__"),
@@ -69,16 +69,16 @@
           },
           class: "icon_button"
         ) %>
-      </sl-tooltip>
+      </wa-tooltip>
       {{else}}
       <div class="sitemap_tool disabled">
-        <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
+        <wa-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
           <%= render_icon("information") %>
-        </sl-tooltip>
+        </wa-tooltip>
       </div>
       {{/if}}
       {{#if permissions.configure}}
-      <sl-tooltip content="<%= Alchemy.t(:edit_page_properties) %>">
+      <wa-tooltip content="<%= Alchemy.t(:edit_page_properties) %>">
         <%= link_to_dialog(
           render_icon("settings-3"),
           alchemy.configure_admin_page_path(id: "__ID__"),
@@ -88,16 +88,16 @@
           },
           class: "icon_button"
         ) -%>
-      </sl-tooltip>
+      </wa-tooltip>
       {{else}}
       <div class="sitemap_tool disabled">
-        <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
+        <wa-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
           <%= render_icon("settings-3") %>
-        </sl-tooltip>
+        </wa-tooltip>
       </div>
       {{/if}}
       {{#if permissions.copy}}
-      <sl-tooltip content="<%= Alchemy.t(:copy_page) %>">
+      <wa-tooltip content="<%= Alchemy.t(:copy_page) %>">
         <%= button_to(
           render_icon("file-copy"),
           alchemy.insert_admin_clipboard_path(
@@ -107,16 +107,16 @@
           "data-turbo-method": :post,
           class: "icon_button"
         ) %>
-      </sl-tooltip>
+      </wa-tooltip>
       {{else}}
       <div class="sitemap_tool disabled">
-        <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
+        <wa-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
           <%= render_icon("file-copy") %>
-        </sl-tooltip>
+        </wa-tooltip>
       </div>
       {{/if}}
       {{#if permissions.destroy}}
-      <sl-tooltip content="<%= Alchemy.t(:delete_page) %>">
+      <wa-tooltip content="<%= Alchemy.t(:delete_page) %>">
         <%= link_to_confirm_dialog(
           render_icon("delete-bin-2"),
           Alchemy.t(:confirm_to_delete_page),
@@ -127,16 +127,16 @@
           ),
           class: "icon_button"
         ) -%>
-      </sl-tooltip>
+      </wa-tooltip>
       {{else}}
       <div class="sitemap_tool disabled">
-        <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
+        <wa-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
           <%= render_icon("delete-bin-2") %>
-        </sl-tooltip>
+        </wa-tooltip>
       </div>
       {{/if}}
       {{#if permissions.create}}
-      <sl-tooltip content="<%= Alchemy.t(:create_page) %>">
+      <wa-tooltip content="<%= Alchemy.t(:create_page) %>">
         <%= link_to_dialog(
           render_icon(:add),
           alchemy.new_admin_page_path(parent_id: "__ID__"),
@@ -147,12 +147,12 @@
           },
           class: "icon_button"
         ) -%>
-      </sl-tooltip>
+      </wa-tooltip>
       {{else}}
       <div class="sitemap_tool disabled">
-        <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
+        <wa-tooltip content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" class="like-hint-tooltip" placement="bottom-start">
           <%= render_icon("file-add") %>
-        </sl-tooltip>
+        </wa-tooltip>
       </div>
       {{/if}}
     </div>

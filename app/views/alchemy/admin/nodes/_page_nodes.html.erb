@@ -13,12 +13,12 @@
         <tr class="even">
           <td><%== "#{node.ancestors.map(&:name).join(seperator)}#{seperator}<strong>#{node.name}</strong>" %></td>
           <td class="tools">
-            <sl-tooltip content="<%= Alchemy.t("delete_node") %>">
+            <wa-tooltip content="<%= Alchemy.t("delete_node") %>">
               <%= link_to render_icon(:minus),
                 admin_node_path(node),
                 class: "icon_button",
                 data: { turbo_method: :delete, turbo_confirm: Alchemy.t('confirm_to_delete_node') } %>
-            </sl-tooltip>
+            </wa-tooltip>
           </td>
         </tr>
       <% end %>

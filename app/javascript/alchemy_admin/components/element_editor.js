@@ -201,7 +201,7 @@ export class ElementEditor extends HTMLElement {
   selectTabForElement() {
     return new Promise((resolve, reject) => {
       const tabs = document.querySelector("#fixed-elements")
-      const panel = this.closest("sl-tab-panel")
+      const panel = this.closest("wa-tab-panel")
       if (tabs && panel) {
         tabs.show(panel.getAttribute("name"))
         resolve()

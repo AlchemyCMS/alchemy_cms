@@ -1600,7 +1600,7 @@ button::-moz-focus-inner {
 
 .tox .tox-dialog__body-nav-item {
   border-bottom: 2px solid transparent;
-  color: var(--sl-color-neutral-600);
+  color: var(--wa-color-neutral-600);
   display: inline-block;
   font-size: var(--font-size_medium);
   line-height: 1.3;
@@ -1611,12 +1611,12 @@ button::-moz-focus-inner {
 }
 
 .tox .tox-dialog__body-nav-item:hover {
-  color: var(--sl-color-primary-600);
+  color: var(--wa-color-primary-600);
 }
 
 .tox .tox-dialog__body-nav-item--active {
   border-bottom-color: var(--tabs_indicator-color);
-  color: var(--sl-color-primary-600);
+  color: var(--wa-color-primary-600);
 }
 
 .tox .tox-dialog__body-content {

@@ -1,0 +1,345 @@
+:root {
+  /*
+   * Theme Tokens
+   */
+
+  /* Success */
+  --wa-color-success-50: var(--color-green_very_light);
+  --wa-color-success-100: var(--color-green_very_light);
+  --wa-color-success-200: var(--color-green_light);
+  --wa-color-success-300: var(--color-green_light);
+  --wa-color-success-400: var(--color-green_medium);
+  --wa-color-success-500: var(--color-green_medium);
+  --wa-color-success-600: var(--color-green_medium);
+  --wa-color-success-700: var(--color-green_medium);
+  --wa-color-success-800: var(--color-green_dark);
+  --wa-color-success-900: var(--color-green_dark);
+  --wa-color-success-950: var(--color-green_dark);
+
+  /* Warning */
+  --wa-color-warning-50: var(--color-orange_medium);
+  --wa-color-warning-100: var(--color-orange_medium);
+  --wa-color-warning-200: var(--color-orange_medium);
+  --wa-color-warning-300: var(--color-orange_medium);
+  --wa-color-warning-400: var(--color-orange_medium);
+  --wa-color-warning-500: var(--color-orange_dark);
+  --wa-color-warning-600: var(--color-orange_dark);
+  --wa-color-warning-700: var(--color-orange_dark);
+  --wa-color-warning-800: var(--color-orange_very_dark);
+  --wa-color-warning-900: var(--color-orange_very_dark);
+  --wa-color-warning-950: var(--color-orange_very_dark);
+
+  /* Danger */
+  --wa-color-danger-50: var(--color-red_very_light);
+  --wa-color-danger-100: var(--color-red_very_light);
+  --wa-color-danger-200: var(--color-red_light);
+  --wa-color-danger-300: var(--color-red_light);
+  --wa-color-danger-400: var(--color-red_medium);
+  --wa-color-danger-500: var(--color-red_medium);
+  --wa-color-danger-600: var(--color-red_medium);
+  --wa-color-danger-700: var(--color-red_medium);
+  --wa-color-danger-800: var(--color-red_dark);
+  --wa-color-danger-900: var(--color-red_dark);
+  --wa-color-danger-950: var(--color-red_dark);
+
+  /* Neutral one-offs */
+  --wa-color-neutral-0: hsl(0, 0%, 100%);
+  --wa-color-neutral-1000: hsl(0, 0%, 0%);
+
+  /*
+   * Border radii
+   */
+
+  --wa-border-radius-small: 0.1875rem; /* 3px */
+  --wa-border-radius-medium: var(--border-radius_medium);
+  --wa-border-radius-large: 0.5rem; /* 8px */
+  --wa-border-radius-x-large: 1rem; /* 16px */
+
+  --wa-border-radius-circle: 50%;
+  --wa-border-radius-pill: 9999px;
+
+  /*
+   * Elevations
+   */
+
+  --wa-shadow-x-small: 0 1px 2px hsl(240 3.8% 46.1% / 6%);
+  --wa-shadow-small: 0 1px 2px hsl(240 3.8% 46.1% / 12%);
+  --wa-shadow-medium: 0 2px 4px hsl(240 3.8% 46.1% / 12%);
+  --wa-shadow-large: 0 2px 8px hsl(240 3.8% 46.1% / 12%);
+  --wa-shadow-x-large: 0 8px 16px rgba(35, 35, 35, 0.5);
+
+  /*
+   * Spacings
+   */
+
+  --wa-spacing-3x-small: var(--spacing-0); /* 2px */
+  --wa-spacing-2x-small: var(--spacing-1); /* 4px */
+  --wa-spacing-x-small: var(--spacing-2); /* 8px */
+  --wa-spacing-small: var(--spacing-3); /* 12px */
+  --wa-spacing-medium: var(--spacing-4); /* 16px */
+  --wa-spacing-large: var(--spacing-5); /* 20px */
+  --wa-spacing-x-large: var(--spacing-6); /* 24px */
+  --wa-spacing-2x-large: var(--spacing-7); /* 28px */
+  --wa-spacing-3x-large: var(--spacing-8); /* 32px */
+  --wa-spacing-4x-large: 4.5rem; /* 72px */
+
+  /*
+   * Transitions
+   */
+
+  --wa-transition-x-slow: 1000ms;
+  --wa-transition-slow: 500ms;
+  --wa-transition-medium: 250ms;
+  --wa-transition-fast: 150ms;
+  --wa-transition-x-fast: 50ms;
+
+  /*
+   * Typography
+   */
+
+  /* Fonts */
+  --wa-font-mono: var(--font-mono);
+  --wa-font-sans: var(--font-sans);
+  --wa-font-serif: Georgia, "Times New Roman", serif;
+
+  /* Font sizes */
+  --wa-font-size-2x-small: 0.625rem; /* 10px */
+  --wa-font-size-x-small: var(--font-size_small); /* 10px */
+  --wa-font-size-small: var(--font-size_medium); /* 12px */
+  --wa-font-size-medium: var(--font-size_large); /* 16px */
+  --wa-font-size-large: 1.25rem; /* 20px */
+  --wa-font-size-x-large: 1.5rem; /* 24px */
+  --wa-font-size-2x-large: 2.25rem; /* 36px */
+  --wa-font-size-3x-large: 3rem; /* 48px */
+  --wa-font-size-4x-large: 4.5rem; /* 72px */
+
+  /* Font weights */
+  --wa-font-weight-light: 300;
+  --wa-font-weight-normal: var(--font-weight_normal);
+  --wa-font-weight-semibold: var(--font-weight_normal);
+  --wa-font-weight-bold: var(--font-weight_bold);
+
+  /* Letter spacings */
+  --wa-letter-spacing-denser: -0.03em;
+  --wa-letter-spacing-dense: -0.015em;
+  --wa-letter-spacing-normal: normal;
+  --wa-letter-spacing-loose: 0.075em;
+  --wa-letter-spacing-looser: 0.15em;
+
+  /* Line heights */
+  --wa-line-height-denser: 1;
+  --wa-line-height-dense: 1.4;
+  --wa-line-height-normal: 1.8;
+  --wa-line-height-loose: 2.2;
+  --wa-line-height-looser: 2.6;
+
+  /* Focus rings */
+  --wa-focus-ring-color: var(--focus-color);
+  --wa-focus-ring-style: solid;
+  --wa-focus-ring-width: 2px;
+  --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width)
+    var(--wa-focus-ring-color);
+  --wa-focus-ring-offset: 1px;
+
+  /*
+   * Forms
+   */
+
+  /* Buttons */
+  --wa-button-font-size-small: var(--wa-font-size-x-small);
+  --wa-button-font-size-medium: var(--wa-font-size-small);
+  --wa-button-font-size-large: var(--wa-font-size-medium);
+
+  /* Inputs */
+  --wa-input-height-small: 1.875rem; /* 30px */
+  --wa-input-height-medium: 2.5rem; /* 40px */
+  --wa-input-height-large: 3.125rem; /* 50px */
+
+  --wa-input-background-color: var(--form-field-background-color);
+  --wa-input-background-color-hover: var(--wa-input-background-color);
+  --wa-input-background-color-focus: var(--wa-input-background-color);
+  --wa-input-background-color-disabled: var(--form-field-disabled-bg-color);
+  --wa-input-border-color: var(--form-field-border-color);
+  --wa-input-border-color-hover: var(--wa-color-neutral-400);
+  --wa-input-border-color-focus: var(--wa-color-primary-500);
+  --wa-input-border-color-disabled: var(--wa-color-neutral-300);
+  --wa-input-border-width: 1px;
+  --wa-input-required-content: "*";
+  --wa-input-required-content-offset: -2px;
+  --wa-input-required-content-color: var(--wa-input-label-color);
+
+  --wa-input-border-radius-small: var(--wa-border-radius-medium);
+  --wa-input-border-radius-medium: var(--wa-border-radius-medium);
+  --wa-input-border-radius-large: var(--wa-border-radius-medium);
+
+  --wa-input-font-family: var(--wa-font-sans);
+  --wa-input-font-weight: var(--wa-font-weight-normal);
+  --wa-input-font-size-small: var(--wa-font-size-small);
+  --wa-input-font-size-medium: var(--wa-font-size-medium);
+  --wa-input-font-size-large: var(--wa-font-size-large);
+  --wa-input-letter-spacing: var(--wa-letter-spacing-normal);
+
+  --wa-input-color: var(--form-field-text-color);
+  --wa-input-color-hover: var(--wa-color-neutral-700);
+  --wa-input-color-focus: var(--wa-color-neutral-700);
+  --wa-input-color-disabled: var(--form-field-disabled-text-color);
+  --wa-input-icon-color: var(--wa-color-neutral-500);
+  --wa-input-icon-color-hover: var(--wa-color-neutral-600);
+  --wa-input-icon-color-focus: var(--wa-color-neutral-600);
+  --wa-input-placeholder-color: var(--wa-color-neutral-500);
+  --wa-input-placeholder-color-disabled: var(--wa-color-neutral-600);
+  --wa-input-spacing-small: var(--wa-spacing-small);
+  --wa-input-spacing-medium: var(--wa-spacing-medium);
+  --wa-input-spacing-large: var(--wa-spacing-large);
+
+  --wa-input-focus-ring-color: var(--focus-color);
+  --wa-input-focus-ring-offset: 0;
+
+  --wa-input-filled-background-color: var(--wa-color-neutral-100);
+  --wa-input-filled-background-color-hover: var(--wa-color-neutral-100);
+  --wa-input-filled-background-color-focus: var(--wa-color-neutral-100);
+  --wa-input-filled-background-color-disabled: var(--wa-color-neutral-100);
+  --wa-input-filled-color: var(--wa-color-neutral-800);
+  --wa-input-filled-color-hover: var(--wa-color-neutral-800);
+  --wa-input-filled-color-focus: var(--wa-color-neutral-700);
+  --wa-input-filled-color-disabled: var(--wa-color-neutral-800);
+
+  /* Labels */
+  --wa-input-label-font-size-small: var(--wa-font-size-small);
+  --wa-input-label-font-size-medium: var(--wa-font-size-medium);
+  --wa-input-label-font-size-large: var(--wa-font-size-large);
+  --wa-input-label-color: inherit;
+
+  /* Help text */
+  --wa-input-help-text-font-size-small: var(--wa-font-size-x-small);
+  --wa-input-help-text-font-size-medium: var(--wa-font-size-small);
+  --wa-input-help-text-font-size-large: var(--wa-font-size-medium);
+  --wa-input-help-text-color: var(--hint-text-color);
+
+  /* Toggles (checkboxes, radios, switches) */
+  --wa-toggle-size-small: 0.875rem; /* 14px */
+  --wa-toggle-size-medium: 1.125rem; /* 18px */
+  --wa-toggle-size-large: 1.375rem; /* 22px */
+
+  /*
+   * Overlays
+   */
+
+  --wa-overlay-background-color: var(--dialog-overlay-color);
+
+  /*
+   * Panels
+   */
+
+  --wa-panel-background-color: var(--wa-color-neutral-0);
+  --wa-panel-border-color: var(--wa-color-neutral-200);
+  --wa-panel-border-width: 1px;
+
+  /*
+   * Tooltips
+   */
+
+  --wa-tooltip-border-radius: var(--wa-border-radius-medium);
+  --wa-tooltip-background-color: var(--tooltip-background-color);
+  --wa-tooltip-content-color: var(--color-white);
+  --wa-tooltip-font-family: var(--wa-font-sans);
+  --wa-tooltip-font-weight: var(--wa-font-weight-normal);
+  --wa-tooltip-font-size: var(--wa-font-size-small);
+  --wa-tooltip-line-height: var(--wa-line-height-dense);
+  --wa-tooltip-padding: var(--wa-spacing-2x-small) var(--wa-spacing-x-small);
+  --wa-tooltip-arrow-size: 6px;
+
+  /*
+   * Z-indexes
+   */
+
+  --wa-z-index-drawer: 700;
+  --wa-z-index-dialog: 800;
+  --wa-z-index-dropdown: 900;
+  --wa-z-index-toast: 950;
+  --wa-z-index-tooltip: 1000;
+}
+
+// WebAwesome Utility classes
+.wa-scroll-lock {
+  padding-right: var(--wa-scroll-lock-size) !important;
+  overflow: hidden !important;
+}
+
+.wa-toast-stack {
+  position: fixed;
+  top: 0;
+  inset-inline-end: 0;
+  z-index: var(--wa-z-index-toast);
+  width: 400px;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: auto;
+}
+
+.wa-toast-stack wa-alert {
+  margin: var(--wa-spacing-medium);
+
+  &::part(base) {
+    box-shadow: var(--wa-shadow-large);
+  }
+}
+
+wa-tab-group {
+  --indicator-color: var(--tabs_indicator-color);
+  --track-color: var(--tabs_track-color);
+}
+
+wa-tab-panel {
+  --padding: var(--spacing-4);
+}
+
+wa-tooltip {
+  --max-width: 200px;
+  --show-delay: 0.2s;
+
+  &::part(body) {
+    white-space: normal;
+    box-sizing: content-box; // otherwise the box shadow will peak out!
+  }
+
+  &::part(base__popup) {
+    border-radius: var(--border-radius_medium);
+    box-shadow: var(--tooltip-box-shadow);
+  }
+}
+
+wa-dialog {
+  &::part(panel) {
+    background-color: var(--dialog-background-color);
+    --body-spacing: var(--spacing-4) var(--spacing-3);
+    --footer-spacing: var(--spacing-4) var(--spacing-3);
+    --wa-shadow-x-large: var(--dialog-box-shadow);
+  }
+
+  &::part(header) {
+    --header-spacing: 9.5px var(--spacing-3);
+    background-color: var(--dialog-header-color);
+    border-top-left-radius: var(--border-radius_medium);
+    border-top-right-radius: var(--border-radius_medium);
+  }
+
+  &::part(header-actions) {
+    --header-spacing: var(--spacing-1);
+  }
+
+  &::part(title) {
+    --wa-font-size-large: var(--font-size_medium);
+    color: var(--dialog-header-text-color);
+    font-weight: var(--font-weight_bold);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  &::part(close-button) {
+    --wa-color-primary-600: var(--dialog-header-text-color);
+    --wa-color-primary-700: var(--dialog-header-text-color);
+    color: var(--dialog-header-text-color);
+    fill: currentColor;
+  }
+}

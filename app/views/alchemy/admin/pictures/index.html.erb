@@ -13,7 +13,7 @@
       <div class="toolbar_spacer"></div>
     <% end %>
     <div class="button_group">
-      <sl-tooltip content="<%= Alchemy.t(:small_thumbnails) %>">
+      <wa-tooltip content="<%= Alchemy.t(:small_thumbnails) %>">
         <%= link_to(
           render_icon('zoom-out'),
           alchemy.admin_pictures_path(
@@ -21,8 +21,8 @@
           ),
           class: "icon_button"
         ) %>
-      </sl-tooltip>
-      <sl-tooltip content="<%= Alchemy.t(:medium_thumbnails) %>">
+      </wa-tooltip>
+      <wa-tooltip content="<%= Alchemy.t(:medium_thumbnails) %>">
         <%= link_to(
           render_icon('search'),
           alchemy.admin_pictures_path(
@@ -30,8 +30,8 @@
           ),
           class: "icon_button"
         ) %>
-      </sl-tooltip>
-      <sl-tooltip content="<%= Alchemy.t(:big_thumbnails) %>">
+      </wa-tooltip>
+      <wa-tooltip content="<%= Alchemy.t(:big_thumbnails) %>">
         <%= link_to(
           render_icon('zoom-in'),
           alchemy.admin_pictures_path(
@@ -39,11 +39,11 @@
           ),
           class: "icon_button"
         ) %>
-      </sl-tooltip>
+      </wa-tooltip>
     </div>
     <div class="toolbar_spacer"></div>
     <div class="toolbar_button">
-      <sl-tooltip content="<%= Alchemy.t("Select all") %>">
+      <wa-tooltip content="<%= Alchemy.t("Select all") %>">
         <%= link_to(
           render_icon('checkbox-multiple'),
           nil,
@@ -51,7 +51,7 @@
           class: 'icon_button',
           'data-alchemy-hotkey' => 'alt+a'
         ) %>
-      </sl-tooltip>
+      </wa-tooltip>
     </div>
   </div>
 

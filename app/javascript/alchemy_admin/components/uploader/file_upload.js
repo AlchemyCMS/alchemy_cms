@@ -33,17 +33,17 @@ export class FileUpload extends AlchemyHTMLElement {
 
   render() {
     return `
-      <sl-progress-bar value="${this.value}"></sl-progress-bar>
+      <wa-progress-bar value="${this.value}"></wa-progress-bar>
       <div class="description">
         <span class="file-name">${this.file?.name}</span>
         <span class="loaded-size">${this.loadedSize}</span>
         <span class="error-message">${this.errorMessage}</span>
       </div>
-      <sl-tooltip content="${translate("Abort upload")}">
+      <wa-tooltip content="${translate("Abort upload")}">
         <button class="icon_button" aria-label="${translate("Abort upload")}">
           <alchemy-icon name="close"></alchemy-icon>
         </button>
-      </sl-tooltip>
+      </wa-tooltip>
     `
   }
 
@@ -185,7 +185,7 @@ export class FileUpload extends AlchemyHTMLElement {
    * @returns {HTMLProgressElement|undefined}
    */
   get progressElement() {
-    return this.querySelector("sl-progress-bar")
+    return this.querySelector("wa-progress-bar")
   }
 
   /**

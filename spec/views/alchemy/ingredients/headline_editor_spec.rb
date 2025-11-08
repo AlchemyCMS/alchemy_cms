@@ -39,7 +39,7 @@ RSpec.describe "alchemy/ingredients/_headline_editor" do
   end
 
   it "renders a tooltip" do
-    is_expected.to have_selector("sl-tooltip[content='Level']")
+    is_expected.to have_selector("wa-tooltip[content='Level']")
   end
 
   context "when only one level is given" do
@@ -66,7 +66,7 @@ RSpec.describe "alchemy/ingredients/_headline_editor" do
     end
 
     it "renders a tooltip" do
-      is_expected.to have_selector("sl-tooltip[content='Size']")
+      is_expected.to have_selector("wa-tooltip[content='Size']")
     end
   end
 

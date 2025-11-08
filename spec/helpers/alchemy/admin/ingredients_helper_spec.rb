@@ -70,7 +70,7 @@ describe Alchemy::Admin::IngredientsHelper do
       end
 
       it "renders a warning with tooltip" do
-        is_expected.to have_selector("sl-tooltip[content='#{Alchemy.t(:ingredient_definition_missing)}']")
+        is_expected.to have_selector("wa-tooltip[content='#{Alchemy.t(:ingredient_definition_missing)}']")
       end
     end
 
@@ -92,7 +92,7 @@ describe Alchemy::Admin::IngredientsHelper do
       end
 
       it "renders a deprecation notice with tooltip" do
-        is_expected.to have_selector("sl-tooltip[content='#{Alchemy.t(:ingredient_deprecated)}']")
+        is_expected.to have_selector("wa-tooltip[content='#{Alchemy.t(:ingredient_deprecated)}']")
       end
     end
 

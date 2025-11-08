@@ -33,7 +33,6 @@
 @use "admin/resource_info";
 @use "admin/search";
 @use "admin/selects";
-@use "admin/shoelace";
 @use "admin/sitemap";
 @use "admin/spinner";
 @use "admin/tables";
@@ -41,4 +40,5 @@
 @use "admin/toolbar";
 @use "admin/typography";
 @use "admin/upload";
-@use "cropper.min";
+@use "admin/webawesome";
+@use "cropperjs/dist/cropper.min";

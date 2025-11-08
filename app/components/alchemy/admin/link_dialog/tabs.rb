@@ -5,11 +5,11 @@ module Alchemy
     module LinkDialog
       class Tabs < ViewComponent::Base
         erb_template <<~ERB
-          <sl-tab-group id="overlay_tabs">
+          <wa-tab-group id="overlay_tabs">
             <% tabs.each do |tab| %>
               <%= render tab.new(@url, is_selected: is_selected?(tab), link_title: @link_title, link_target: @link_target) %>
             <% end %>
-          </sl-tab-group>
+          </wa-tab-group>
         ERB
 
         def initialize(**options)

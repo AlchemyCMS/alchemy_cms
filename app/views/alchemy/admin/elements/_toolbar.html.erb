@@ -1,22 +1,22 @@
 <% remarkable_type = "elements" %>
 <div class="element-toolbar">
-  <sl-tooltip placement="top-start" content="<%= Alchemy.t(:copy_element) %>">
+  <wa-tooltip placement="top-start" content="<%= Alchemy.t(:copy_element) %>">
     <%= button_to(
       render_icon("file-copy"),
       alchemy.insert_admin_clipboard_path(remarkable_type: remarkable_type, remarkable_id: element.id),
       "data-turbo-method": :post,
       class: "icon_button"
     ) %>
-  </sl-tooltip>
-  <sl-tooltip content="<%= Alchemy.t(:cut_element) %>">
+  </wa-tooltip>
+  <wa-tooltip content="<%= Alchemy.t(:cut_element) %>">
     <%= button_to(
       render_icon("scissors-cut"),
       alchemy.insert_admin_clipboard_path(remarkable_type: remarkable_type, remarkable_id: element.id, remove: true),
       "data-turbo-method": :post,
       class: "icon_button"
     ) %>
-  </sl-tooltip>
-  <sl-tooltip content="<%= Alchemy.t("Delete element") %>">
+  </wa-tooltip>
+  <wa-tooltip content="<%= Alchemy.t("Delete element") %>">
     <alchemy-delete-element-button
       href="<%= alchemy.admin_element_path(element) %>"
       message="<%= Alchemy.t(:confirm_to_delete_element) %>"
@@ -25,12 +25,12 @@
         <%= render_icon('delete-bin-2') %>
       </button>
     </alchemy-delete-element-button>
-  </sl-tooltip>
-  <sl-tooltip content="<%= element.public? ? Alchemy.t(:hide_element) : Alchemy.t(:show_element) %>" placement="top-end">
+  </wa-tooltip>
+  <wa-tooltip content="<%= element.public? ? Alchemy.t(:hide_element) : Alchemy.t(:show_element) %>" placement="top-end">
     <alchemy-publish-element-button>
-      <sl-switch <%= element.public? ? nil : "checked" %> size="small">
+      <wa-switch <%= element.public? ? nil : "checked" %> size="small">
         <%= t(".hide") %>
-      </sl-switch>
+      </wa-switch>
     </alchemy-publish-element-button>
-  </sl-tooltip>
+  </wa-tooltip>
 </div>

@@ -47,12 +47,12 @@
           ) %>
     <% end %>
     <% table.with_action(:download) do |attachment| %>
-      <sl-tooltip content="<%= Alchemy.t("download_file", filename: attachment.file_name) %>">
+      <wa-tooltip content="<%= Alchemy.t("download_file", filename: attachment.file_name) %>">
         <%= link_to render_icon(:download),
           alchemy.download_attachment_path(attachment),
           target: "_blank",
           class: "icon_button" %>
-      </sl-tooltip>
+      </wa-tooltip>
     <% end %>
     <% table.with_action(:edit, Alchemy.t(:replace_file)) do |attachment| %>
       <%= render 'alchemy/admin/attachments/replace_button',
@@ -62,7 +62,7 @@
     <% end %>
     <% table.with_action(:destroy) do |attachment| %>
       <% if attachment.deletable? %>
-        <sl-tooltip content="<%= Alchemy.t(:delete_file) %>">
+        <wa-tooltip content="<%= Alchemy.t(:delete_file) %>">
           <%= link_to_confirm_dialog render_icon(:minus),
             Alchemy.t(:confirm_to_delete_file),
             alchemy.admin_attachment_path(
@@ -72,13 +72,13 @@
               per_page: params[:per_page]
             ),
             class: "icon_button" %>
-        </sl-tooltip>
+        </wa-tooltip>
       <% else %>
-        <sl-tooltip content="<%= Alchemy.t(:in_use) %>">
+        <wa-tooltip content="<%= Alchemy.t(:in_use) %>">
           <button class="icon_button disabled">
             <%= render_icon(:minus) %>
           </button>
-        </sl-tooltip>
+        </wa-tooltip>
       <% end %>
     <% end %>
     <% table.with_action(:edit, Alchemy.t(:rename_file)) do |attachment| %>

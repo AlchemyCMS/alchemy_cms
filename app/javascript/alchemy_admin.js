@@ -27,8 +27,8 @@ import "alchemy_admin/components"
 // Handlebars Templates
 import "alchemy_admin/templates/compiled"
 
-// Shoelace Setup
-import "alchemy_admin/shoelace_theme"
+// WebAwesome Setup
+import "alchemy_admin/webawesome_theme"
 
 // Global Alchemy object
 if (typeof window.Alchemy === "undefined") {

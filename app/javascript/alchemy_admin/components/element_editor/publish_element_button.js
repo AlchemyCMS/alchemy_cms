@@ -6,7 +6,7 @@ export class PublishElementButton extends HTMLElement {
   constructor() {
     super()
 
-    this.addEventListener("sl-change", this)
+    this.addEventListener("wa-change", this)
   }
 
   handleEvent(event) {
@@ -27,7 +27,7 @@ export class PublishElementButton extends HTMLElement {
   }
 
   get tooltip() {
-    return this.closest("sl-tooltip")
+    return this.closest("wa-tooltip")
   }
 
   get elementId() {

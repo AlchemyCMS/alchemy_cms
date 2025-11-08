@@ -11,9 +11,9 @@
     <%= render_icon("skip-left") %>
   </span>
 <% else %>
-  <sl-tooltip content="<%= Alchemy.t(:first, scope: 'pagination') %>" placement="top-start">
+  <wa-tooltip content="<%= Alchemy.t(:first, scope: 'pagination') %>" placement="top-start">
     <%= link_to url, remote: remote, class: 'first-page' do %>
       <%= render_icon("skip-left") %>
     <% end %>
-  </sl-tooltip>
+  </wa-tooltip>
 <% end %>

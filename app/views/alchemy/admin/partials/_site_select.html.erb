@@ -1,10 +1,10 @@
 <%- if multi_site? -%>
 <div class="toolbar_button">
-  <sl-tooltip content="<%= Alchemy.t("Current site") %>">
+  <wa-tooltip content="<%= Alchemy.t("Current site") %>">
     <%= select_tag 'change_site',
       options_for_select(sites_for_select, Alchemy::Current.site.id),
       is: 'alchemy-select' %>
-  </sl-tooltip>
+  </wa-tooltip>
 </div>
 <div class="toolbar_spacer"></div>
 <%- end -%>

@@ -27,7 +27,7 @@ class ConfirmDialog {
   #build() {
     const width = this.options.size.split("x")[0]
     this.dialog = createHtmlElement(`
-      <sl-dialog label="${this.options.title}" style="--width: ${width}px">
+      <wa-dialog label="${this.options.title}" style="--width: ${width}px">
         ${this.message}
         <button slot="footer" type="reset" class="secondary mx-1 my-0" autofocus>
           ${this.options.cancel_label}
@@ -35,7 +35,7 @@ class ConfirmDialog {
         <button slot="footer" type="submit" class="mx-1 my-0">
           ${this.options.ok_label}
         </button>
-      </sl-dialog>
+      </wa-dialog>
     `)
     document.body.append(this.dialog)
   }
@@ -52,14 +52,14 @@ class ConfirmDialog {
       this.dialog.hide()
     })
     // Prevent the dialog from closing when the user clicks on the overlay
-    this.dialog.addEventListener("sl-request-close", (event) => {
+    this.dialog.addEventListener("wa-request-close", (event) => {
       if (event.detail.source === "overlay") {
         this.options.on_cancel()
         event.preventDefault()
       }
     })
     // Remove the dialog from the DOM after it has been hidden
-    this.dialog.addEventListener("sl-after-hide", () => {
+    this.dialog.addEventListener("wa-after-hide", () => {
       this.dialog.remove()
     })
   }

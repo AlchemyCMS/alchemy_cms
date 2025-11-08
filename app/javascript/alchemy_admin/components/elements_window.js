@@ -36,7 +36,7 @@ class ElementsWindow extends HTMLElement {
   show() {
     document.body.classList.add("elements-window-visible")
     this.#visible = true
-    this.toggleButton.closest("sl-tooltip").content = Alchemy.t("Hide elements")
+    this.toggleButton.closest("wa-tooltip").content = Alchemy.t("Hide elements")
     this.toggleButton
       .querySelector("alchemy-icon")
       .setAttribute("name", "menu-unfold")
@@ -47,7 +47,7 @@ class ElementsWindow extends HTMLElement {
     document.body.classList.remove("elements-window-visible")
     document.body.style.removeProperty("--elements-window-width")
     this.#visible = false
-    this.toggleButton.closest("sl-tooltip").content = Alchemy.t("Show elements")
+    this.toggleButton.closest("wa-tooltip").content = Alchemy.t("Show elements")
     this.toggleButton
       .querySelector("alchemy-icon")
       .setAttribute("name", "menu-fold")

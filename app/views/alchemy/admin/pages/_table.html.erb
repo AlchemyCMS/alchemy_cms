@@ -2,16 +2,16 @@
   <% table.column :icon, header: "" do |page| %>
     <% if can?(:edit_content, page) %>
       <% if page.locked? %>
-        <sl-tooltip class="like-hint-tooltip" content="<%= Alchemy.t("This page is locked", name: page.locker_name) %>" placement="bottom-start">
+        <wa-tooltip class="like-hint-tooltip" content="<%= Alchemy.t("This page is locked", name: page.locker_name) %>" placement="bottom-start">
           <%= render_icon "file-edit", size: "xl" %>
-        </sl-tooltip>
+        </wa-tooltip>
       <% else %>
         <%= render_icon "file-edit", size: "xl" %>
       <% end %>
     <% else %>
-      <sl-tooltip class="like-hint-tooltip" content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" placement="bottom-start">
+      <wa-tooltip class="like-hint-tooltip" content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>" placement="bottom-start">
         <%= render_icon "file-forbid", size: "xl" %>
-      </sl-tooltip>
+      </wa-tooltip>
     <% end %>
   <% end %>
   <% table.column :name, sortable: true do |page| %>

@@ -1,6 +1,6 @@
 <div class="picture_thumbnail" name="<%= picture_to_assign.name %>" id="assignable_<%= picture_to_assign.id %>">
   <% if picture_to_assign.image_file %>
-    <sl-tooltip content="<%= Alchemy.t(:assign_image) %>">
+    <wa-tooltip content="<%= Alchemy.t(:assign_image) %>">
       <%= link_to(
         alchemy.assign_admin_picture_path(
           id: picture_to_assign.id,
@@ -12,7 +12,7 @@
       ) do %>
         <%= render Alchemy::Admin::PictureThumbnail.new(picture_to_assign) %>
       <% end %>
-    </sl-tooltip>
+    </wa-tooltip>
   <% else %>
     <alchemy-icon name="file-damage"></alchemy-icon>
   <% end %>

@@ -100,7 +100,7 @@ alchemy-tinymce {
   padding: var(--spacing-2) var(--spacing-1) 2px;
 }
 
-#fixed-elements sl-tab-panel {
+#fixed-elements wa-tab-panel {
   --scrollable-elements-offset: calc(
     var(--top-menu-height) + var(--toolbar-height) + 51px
   );
@@ -341,7 +341,7 @@ button.element-toggle {
       box-shadow: 0 1px 1px var(--border-color);
       transition: all var(--transition-duration);
 
-      sl-switch::part(label) {
+      wa-switch::part(label) {
         display: none;
       }
     }
@@ -543,7 +543,7 @@ alchemy-publish-element-button {
   margin-right: var(--spacing-1);
   line-height: 1;
 
-  sl-switch {
+  wa-switch {
     --thumb-size: 10px;
     --height: 12px;
   }

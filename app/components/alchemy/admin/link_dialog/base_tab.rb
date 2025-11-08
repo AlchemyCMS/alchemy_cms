@@ -9,8 +9,8 @@ module Alchemy
         attr_reader :url, :link_title, :link_target
 
         erb_template <<~ERB
-          <sl-tab slot="nav" panel="overlay_tab_<%= panel_name %>_link"<%= is_selected? ? ' active' : '' %>><%= title %></sl-tab>
-          <sl-tab-panel name="overlay_tab_<%= panel_name %>_link">
+          <wa-tab slot="nav" panel="overlay_tab_<%= panel_name %>_link"<%= is_selected? ? ' active' : '' %>><%= title %></wa-tab>
+          <wa-tab-panel name="overlay_tab_<%= panel_name %>_link">
             <form data-link-form-type="<%= panel_name %>">
               <%= message %>
               <% fields.each do |field| %>
@@ -20,7 +20,7 @@ module Alchemy
                 <%= button_tag(Alchemy.t(:apply)) %>
               </div>
             </form>
-          </sl-tab-panel>
+          </wa-tab-panel>
         ERB
 
         def initialize(url, is_selected: false, link_title: "", link_target: nil)

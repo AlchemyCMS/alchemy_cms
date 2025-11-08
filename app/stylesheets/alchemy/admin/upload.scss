@@ -142,7 +142,7 @@ alchemy-upload-progress {
       }
     }
 
-    sl-progress-bar {
+    wa-progress-bar {
       --height: var(--progress-height);
       left: 0;
       position: absolute;
@@ -151,9 +151,9 @@ alchemy-upload-progress {
     }
   }
 
-  sl-progress-bar {
+  wa-progress-bar {
     --indicator-color: var(--file-upload_progress-indicator-color);
-    --sl-border-radius-pill: var(--border-radius);
+    --wa-border-radius-pill: var(--border-radius);
     --track-color: var(--file-upload_progress-track-color);
     &::part(base) {
       top: calc(50% - var(--height) / 2);
