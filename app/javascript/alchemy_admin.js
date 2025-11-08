@@ -15,7 +15,6 @@ import { growl } from "alchemy_admin/growler"
 import Initializer from "alchemy_admin/initializer"
 import { LinkDialog } from "alchemy_admin/link_dialog"
 import pleaseWaitOverlay from "alchemy_admin/please_wait_overlay"
-import Sitemap from "alchemy_admin/sitemap"
 import Spinner from "alchemy_admin/spinner"
 import { reloadPreview } from "alchemy_admin/components/preview_window"
 import { openConfirmDialog } from "alchemy_admin/confirm_dialog"
@@ -44,7 +43,6 @@ Object.assign(Alchemy, {
   growl,
   LinkDialog,
   pleaseWaitOverlay,
-  Sitemap,
   Spinner,
   reloadPreview
 })

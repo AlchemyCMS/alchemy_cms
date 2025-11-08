@@ -4,8 +4,8 @@
   <span class="page_status"><%= Alchemy.t(:page_status) %></span>
 </h4>
 
-<div id="sitemap-wrapper">
+<alchemy-sitemap>
   <ul id="sitemap" class="list">
     <%= render Alchemy::Admin::PageNode.with_collection(@pages) %>
   </ul>
-</div>
+</alchemy-sitemap>

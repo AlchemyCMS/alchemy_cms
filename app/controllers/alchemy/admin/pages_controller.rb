@@ -169,8 +169,18 @@ module Alchemy
 
       def fold
         # @page is fetched via before filter
-        @page.fold!(current_alchemy_user.id, !@page.folded?(current_alchemy_user.id))
-        render json: serialized_page_tree
+        was_folded = @page.folded?(current_alchemy_user.id)
+        @page.fold!(current_alchemy_user.id, !was_folded)
+
+        respond_to do |format|
+          format.turbo_stream do
+            if was_folded
+              @children = @page.preloaded_children
+            else
+              head :ok
+            end
+          end
+        end
       end
 
       # Leaves the page editing mode and unlocks the page for other users
