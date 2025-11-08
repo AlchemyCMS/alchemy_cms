@@ -1230,7 +1230,8 @@ module Alchemy
 
           context "if page is folded" do
             before do
-              expect(page).to receive(:folded_pages).and_return double(where: double(any?: true))
+              folded_page = double(folded: true, user_id: user.id)
+              expect(page).to receive(:folded_pages).and_return [folded_page]
             end
 
             it "should return true" do
