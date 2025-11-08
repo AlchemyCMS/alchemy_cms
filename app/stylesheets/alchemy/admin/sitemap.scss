@@ -256,21 +256,6 @@
   margin-left: var(--spacing-2);
 }
 
-.alchemy-dialog {
-  #sitemap-wrapper {
-    min-height: 0;
-  }
-
-  #sitemap {
-    margin: 0;
-    padding: 0 var(--spacing-6) var(--spacing-2) var(--spacing-2);
-
-    .page_icon {
-      cursor: default;
-    }
-  }
-}
-
 #search_field_clear {
   cursor: pointer;
 }
