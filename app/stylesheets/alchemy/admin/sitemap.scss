@@ -118,8 +118,12 @@
     background-color: var(--sitemap-highlight-color);
   }
 
-  &.no-match .sitemap_pagename_link {
-    color: var(--color-grey_light);
+  &.no-match {
+    .sitemap_right_tools,
+    .sitemap_sitename,
+    .sitemap_url {
+      opacity: 0.25;
+    }
   }
 
   &:hover {
