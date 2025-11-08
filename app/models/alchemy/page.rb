@@ -167,13 +167,7 @@ module Alchemy
         scope = language ? with_language(language.id).contentpages : contentpages
 
         # Load ALL pages for the language with their base associations in one query
-        all_pages = scope.preload(
-          :public_version,
-          :folded_pages,
-          language: {
-            site: :languages
-          }
-        ).to_a
+        all_pages = scope.preload(*sitemap_preload_associations, :folded_pages).to_a
 
         # Get folded page IDs for this specific user upfront (one fast query)
         folded_page_ids = if user && Alchemy.user_class < ActiveRecord::Base
@@ -204,6 +198,14 @@ module Alchemy
 
         # Return only root pages - their children are now preloaded
         pages_by_parent[nil] || []
+      end
+
+      # Associations to preload for sitemap rendering
+      # Override this method to customize preloading for your application
+      #
+      # @return [Array] Array of associations to preload
+      def sitemap_preload_associations
+        [:public_version, {language: {site: :languages}}]
       end
 
       # The url_path class
@@ -300,6 +302,17 @@ module Alchemy
 
     # Instance methods
     #
+
+    # Preloaded children for this page after unfolding
+    # Sets each child's children to empty to prevent recursive rendering
+    def preloaded_children
+      children = self.children.preload(*self.class.sitemap_preload_associations)
+      children.each do |child|
+        child.association(:children).target = []
+        child.association(:children).loaded!
+      end
+      children
+    end
 
     # Returns elements from pages public version.
     #
