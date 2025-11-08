@@ -37,7 +37,11 @@ module Alchemy
       def folded?(user_id)
         return unless Alchemy.user_class < ActiveRecord::Base
 
-        folded_pages.where(user_id: user_id, folded: true).any?
+        if folded_pages.loaded?
+          folded_pages.any? { |p| p.folded && p.user_id == user_id }
+        else
+          folded_pages.where(user_id: user_id, folded: true).any?
+        end
       end
 
       # Returns an Array of Alchemy roles which are able to edit this template

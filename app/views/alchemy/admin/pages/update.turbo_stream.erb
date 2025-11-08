@@ -13,27 +13,13 @@
 
   <% if @view == "list" %>
     <turbo-stream action="refresh"></turbo-stream>
-  <% elsif @page.parent_id != @old_parent_id -%>
-    <%= turbo_stream.append "sitemap" do %>
-      <script type="module">
-        Alchemy.currentSitemap.load(<%= @page.get_language_root.id %>);
-      </script>
-    <% end %>
   <% else -%>
     <% if @page.layoutpage %>
       <%= turbo_stream.replace "page_#{@page.id}" do %>
         <%= render("alchemy/admin/layoutpages/layoutpage", layoutpage: @page) %>
       <% end %>
     <% else %>
-      <%= turbo_stream.append "sitemap" do %>
-        <script type="module">
-          const page = document.getElementById('page_<%= @page.id %>');
-          const page_html = "<%= j render('page', page: @page) %>".replace(/__ID__/g, "<%= @page.id %>");
-          const compiler = Handlebars.compile(page_html);
-          const tree = <%== @tree.to_json %>;
-          page.outerHTML = compiler(tree.pages[0]);
-        </script>
-      <% end %>
+      <turbo-stream action="refresh"></turbo-stream>
     <% end %>
   <% end -%>
 <% end %>
