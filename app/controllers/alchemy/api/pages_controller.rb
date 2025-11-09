@@ -28,12 +28,14 @@ module Alchemy
     def nested
       @page = Page.find_by(id: params[:page_id]) || Language.current_root_page
 
+      # Preload the full tree from this page
+      preloaded_pages = PageTreePreloader.new(from: @page, user: current_alchemy_user).call
+
       render json: PageTreeSerializer.new(
-        @page,
+        preloaded_pages.first,
         ability: current_ability,
         user: current_alchemy_user,
-        elements: params[:elements],
-        full: true
+        elements: params[:elements]
       )
     end
 
