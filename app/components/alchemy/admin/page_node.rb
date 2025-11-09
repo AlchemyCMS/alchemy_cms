@@ -7,7 +7,6 @@ module Alchemy
 
       delegate :alchemy,
         :current_alchemy_user,
-        :can?,
         :render_icon,
         :link_to_dialog,
         :link_to_confirm_dialog,
@@ -16,6 +15,10 @@ module Alchemy
 
       def initialize(page:)
         @page = page
+      end
+
+      def can?(action)
+        helpers.can?(action, page.__getobj__)
       end
     end
   end

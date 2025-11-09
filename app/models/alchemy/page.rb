@@ -163,51 +163,6 @@ module Alchemy
     # Class methods
     #
     class << self
-      def preload_sitemap(language: nil, user: nil)
-        scope = language ? with_language(language.id).contentpages : contentpages
-
-        # Load ALL pages for the language with their base associations in one query
-        all_pages = scope.preload(*sitemap_preload_associations, :folded_pages).to_a
-
-        # Get folded page IDs for this specific user upfront (one fast query)
-        folded_page_ids = if user && Alchemy.user_class < ActiveRecord::Base
-          FoldedPage.folded_for_user(user).pluck(:page_id).to_set
-        else
-          Set.new
-        end
-
-        # Group pages by parent_id for efficient lookup
-        pages_by_parent = all_pages.group_by(&:parent_id)
-
-        # Manually populate the children association for each page
-        # This prevents N+1 queries when the view calls page.children
-        all_pages.each do |page|
-          children_records = pages_by_parent[page.id] || []
-
-          # If page is folded for this user, set children to empty array
-          # This prevents rendering children of folded pages
-          page.association(:children).target = if folded_page_ids.include?(page.id)
-            []
-          else
-            # Set the association target directly to avoid database queries
-            # sorted by lft (left) to maintain tree order
-            children_records.sort_by(&:lft)
-          end
-          page.association(:children).loaded!
-        end
-
-        # Return only root pages - their children are now preloaded
-        pages_by_parent[nil] || []
-      end
-
-      # Associations to preload for sitemap rendering
-      # Override this method to customize preloading for your application
-      #
-      # @return [Array] Array of associations to preload
-      def sitemap_preload_associations
-        [:public_version, {language: {site: :languages}}]
-      end
-
       # The url_path class
       # @see Alchemy::Page::UrlPath
       def url_path_class
@@ -302,17 +257,6 @@ module Alchemy
 
     # Instance methods
     #
-
-    # Preloaded children for this page after unfolding
-    # Sets each child's children to empty to prevent recursive rendering
-    def preloaded_children
-      children = self.children.preload(*self.class.sitemap_preload_associations)
-      children.each do |child|
-        child.association(:children).target = []
-        child.association(:children).loaded!
-      end
-      children
-    end
 
     # Returns elements from pages public version.
     #

@@ -58,11 +58,11 @@ module Alchemy
 
           items = items.page(params[:page] || 1).per(items_per_page)
           @pages = items
-        else
-          @pages = Alchemy::Page.preload_sitemap(
-            language: @current_language,
+        elsif @current_language.root_page
+          @root_page = Alchemy::PageTreePreloader.new(
+            page: @current_language.root_page,
             user: current_alchemy_user
-          )
+          ).call
         end
       end
 
@@ -175,7 +175,7 @@ module Alchemy
         respond_to do |format|
           format.turbo_stream do
             if was_folded
-              @children = @page.preloaded_children
+              @page = PageTreePreloader.new(page: @page, user: current_alchemy_user).call
             else
               head :ok
             end
