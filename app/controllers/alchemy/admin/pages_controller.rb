@@ -57,10 +57,10 @@ module Alchemy
           items = items.page(params[:page] || 1).per(items_per_page)
           @pages = items
         else
-          @pages = Alchemy::Page.preload_sitemap(
+          @pages = Alchemy::PageTreePreloader.new(
             language: @current_language,
             user: current_alchemy_user
-          )
+          ).call
         end
       end
 
