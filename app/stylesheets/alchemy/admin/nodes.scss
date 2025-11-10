@@ -97,8 +97,12 @@
     background-color: var(--sitemap-highlight-color);
   }
 
-  &.no-match .sitemap_pagename_link {
-    color: var(--color-grey_light);
+  &.no-match {
+    .nodes_tree-right_tools,
+    .node_name,
+    .node_url {
+      opacity: 0.25;
+    }
   }
 
   &:hover {
