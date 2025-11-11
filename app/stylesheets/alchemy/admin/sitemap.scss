@@ -118,8 +118,12 @@
     background-color: var(--sitemap-highlight-color);
   }
 
-  &.no-match .sitemap_pagename_link {
-    color: var(--color-grey_light);
+  &.no-match {
+    .sitemap_right_tools,
+    .sitemap_sitename,
+    .sitemap_url {
+      opacity: 0.25;
+    }
   }
 
   &:hover {
@@ -250,21 +254,6 @@
 #page_filter_result {
   display: none;
   margin-left: var(--spacing-2);
-}
-
-.alchemy-dialog {
-  #sitemap-wrapper {
-    min-height: 0;
-  }
-
-  #sitemap {
-    margin: 0;
-    padding: 0 var(--spacing-6) var(--spacing-2) var(--spacing-2);
-
-    .page_icon {
-      cursor: default;
-    }
-  }
 }
 
 #search_field_clear {
