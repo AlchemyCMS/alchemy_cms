@@ -80,6 +80,8 @@ module Alchemy
     end
 
     def validate_format(format)
+      return if ingredient.value.blank?
+
       matcher = if format.is_a?(String) || format.is_a?(Symbol)
         Alchemy.config.format_matchers.get(format)
       else
@@ -91,6 +93,8 @@ module Alchemy
     end
 
     def validate_length(opts = {})
+      return if ingredient.value.blank?
+
       value_length = ingredient.value.to_s.length
       if value_length < opts[:minimum]
         ingredient.errors.add(:value, :too_short, count: opts[:minimum])
