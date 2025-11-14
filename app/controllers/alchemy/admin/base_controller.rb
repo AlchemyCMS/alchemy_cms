@@ -91,14 +91,14 @@ module Alchemy
       end
 
       def set_stamper
-        if Alchemy.user_class < ActiveRecord::Base
-          Alchemy.user_class.stamper = current_alchemy_user
+        if Alchemy.config.auth.user_class.respond_to?(:stamper=)
+          Alchemy.config.auth.user_class.stamper = current_alchemy_user
         end
       end
 
       def reset_stamper
-        if Alchemy.user_class < ActiveRecord::Base
-          Alchemy.user_class.reset_stamper
+        if Alchemy.config.auth.user_class.respond_to?(:reset_stamper)
+          Alchemy.config.auth.user_class.reset_stamper
         end
       end
 
