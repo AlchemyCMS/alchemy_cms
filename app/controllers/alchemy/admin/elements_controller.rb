@@ -100,13 +100,14 @@ module Alchemy
 
       def order
         @element = Element.find(params[:element_id])
-        @element.update(
-          parent_element_id: params[:parent_element_id],
-          position: params[:position]
-        )
-        if params[:parent_element_id].present?
-          @parent_element = Element.find_by(id: params[:parent_element_id])
-        end
+
+        # Update position
+        @element.parent_element_id = params[:parent_element_id] if params.key?(:parent_element_id)
+        @element.position = params[:position]
+
+        # Skip validations when updating position, since new records may not yet meet all
+        # validation requirements.
+        @element.save(validate: false)
 
         render json: {
           message: Alchemy.t(:successfully_saved_element_position),
