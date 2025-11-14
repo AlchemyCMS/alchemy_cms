@@ -306,6 +306,20 @@ RSpec.describe Alchemy::IngredientEditor do
       it { is_expected.to be(false) }
     end
 
+    context "when ingredient has presence validation as symbol" do
+      let(:ingredient) do
+        mock_model(
+          "Alchemy::Ingredients::Text",
+          definition: Alchemy::IngredientDefinition.new(
+            role: "foo",
+            validate: [:presence]
+          )
+        )
+      end
+
+      it { is_expected.to be(true) }
+    end
+
     context "when ingredient has presence validation as string" do
       let(:ingredient) do
         mock_model(
@@ -320,13 +334,83 @@ RSpec.describe Alchemy::IngredientEditor do
       it { is_expected.to be(true) }
     end
 
-    context "when ingredient has presence validation as hash" do
+    context "when ingredient has presence validation as hash with symbol key" do
       let(:ingredient) do
         mock_model(
           "Alchemy::Ingredients::Text",
           definition: Alchemy::IngredientDefinition.new(
             role: "foo",
             validate: [{presence: true}]
+          )
+        )
+      end
+
+      it { is_expected.to be(true) }
+    end
+
+    context "when ingredient has presence validation as hash with string key" do
+      let(:ingredient) do
+        mock_model(
+          "Alchemy::Ingredients::Text",
+          definition: Alchemy::IngredientDefinition.new(
+            role: "foo",
+            validate: [{"presence" => true}]
+          )
+        )
+      end
+
+      it { is_expected.to be(true) }
+    end
+
+    context "when ingredient has presence: false with symbol key" do
+      let(:ingredient) do
+        mock_model(
+          "Alchemy::Ingredients::Text",
+          definition: Alchemy::IngredientDefinition.new(
+            role: "foo",
+            validate: [{presence: false}]
+          )
+        )
+      end
+
+      it { is_expected.to be(false) }
+    end
+
+    context "when ingredient has presence: false with string key" do
+      let(:ingredient) do
+        mock_model(
+          "Alchemy::Ingredients::Text",
+          definition: Alchemy::IngredientDefinition.new(
+            role: "foo",
+            validate: [{"presence" => false}]
+          )
+        )
+      end
+
+      it { is_expected.to be(false) }
+    end
+
+    context "when ingredient has only format validation" do
+      let(:ingredient) do
+        mock_model(
+          "Alchemy::Ingredients::Text",
+          definition: Alchemy::IngredientDefinition.new(
+            role: "foo",
+            validate: [{format: "email"}]
+          )
+        )
+      end
+
+      it { is_expected.to be(false) }
+    end
+
+    context "when ingredient has format and presence validation" do
+      let(:ingredient) do
+        mock_model(
+          "Alchemy::Ingredients::Text",
+          definition: Alchemy::IngredientDefinition.new(
+            role: "foo",
+            validate: [:presence, {format: "email"}]
           )
         )
       end
