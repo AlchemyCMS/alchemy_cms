@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Alchemy::Admin::LinkDialog::InternalTab, type: :component do
   let(:site) { create(:alchemy_site) }
-  let(:language) { create(:alchemy_language, site: site, default: true, code: "en") }
+  let(:language) { create(:alchemy_language, site: site, default: true) }
   let(:url) { "/homepage#bar" }
 
   let!(:alchemy_page) { create(:alchemy_page, urlname: "homepage", language: language, language_code: "en") }

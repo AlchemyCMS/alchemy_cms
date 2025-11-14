@@ -32,7 +32,7 @@
       <% end %>
       <%= render 'form', language: Alchemy::Language.new(
           name: Alchemy.config.default_language.name,
-          code: Alchemy.config.default_language.code,
+          language_code: Alchemy.config.default_language.language_code,
           page_layout: Alchemy.config.default_language.page_layout,
           frontpage_name: Alchemy.config.default_language.frontpage_name,
           site: Alchemy::Current.site,

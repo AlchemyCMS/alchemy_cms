@@ -3,9 +3,16 @@
 RSpec.shared_examples_for "a controller that loads current language" do |args|
   context "when session has current language id key" do
     let!(:site_1) { create(:alchemy_site) }
-    let!(:site_1_default_language) { create :alchemy_language, site: site_1, default: true }
-    let!(:another_site_1_language) { create :alchemy_language, site: site_1, code: :de }
-    let(:site_2) { create :alchemy_site, host: "another.host", languages: [build(:alchemy_language, code: :en), build(:alchemy_language, code: :de)] }
+    let!(:site_1_default_language) { create(:alchemy_language, :english, site: site_1, default: true) }
+    let!(:another_site_1_language) { create(:alchemy_language, :german, site: site_1) }
+
+    let(:site_2) do
+      create(:alchemy_site,
+        host: "another.host", languages: [
+          build(:alchemy_language, :english),
+          build(:alchemy_language, :german)
+        ])
+    end
 
     context "on index action" do
       context "when switching the current site" do
