@@ -12,6 +12,8 @@ RSpec.describe Alchemy::Admin::PagesController do
 
   it_behaves_like "a controller that loads current language"
 
+  it_behaves_like "a controller with clipboard functionality", :page
+
   describe "#index" do
     let!(:page) { create(:alchemy_page) }
 
