@@ -108,7 +108,7 @@ module Alchemy
       ingredient.class
         .joins(:element).merge(Alchemy::Element.published)
         .where(Alchemy::Element.table_name => {name: ingredient.element.name})
-        .where(value: ingredient.value)
+        .where(ingredient.class.arel_table[:value].eq(ingredient.value_before_type_cast))
         .where.not(id: ingredient.id)
     end
   end
