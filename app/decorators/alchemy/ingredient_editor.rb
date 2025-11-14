@@ -124,8 +124,16 @@ module Alchemy
     end
 
     def presence_validation?
-      validations.include?("presence") ||
-        validations.any? { _1.is_a?(Hash) && _1[:presence] == true }
+      validations.any? do |validation|
+        case validation
+        when :presence, "presence"
+          true
+        when Hash
+          validation[:presence] == true || validation["presence"] == true
+        else
+          false
+        end
+      end
     end
 
     private

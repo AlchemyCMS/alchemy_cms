@@ -60,7 +60,7 @@ describe Alchemy::Admin::IngredientsHelper do
       let(:ingredient) do
         mock_model "Alchemy::Ingredients::Text",
           role: "intro",
-          definition: {},
+          definition: Alchemy::IngredientDefinition.new,
           translated_role: "Intro",
           has_validations?: false,
           deprecated?: false,
@@ -97,7 +97,7 @@ describe Alchemy::Admin::IngredientsHelper do
     end
 
     context "with validations" do
-      before { expect(ingredient).to receive(:has_validations?).and_return(true) }
+      before { expect(ingredient_editor).to receive(:presence_validation?).and_return(true) }
 
       it "show a validation indicator" do
         is_expected.to have_selector(".validation_indicator")

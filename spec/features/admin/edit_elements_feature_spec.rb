@@ -181,9 +181,6 @@ RSpec.describe "The edit elements feature", type: :system do
         within ".element_errors" do
           expect(page).to have_content(/Please check marked fields below/)
         end
-        within first("small.error", minimum: 1) do
-          expect(page).to have_content(/is invalid/)
-        end
       end
     end
   end

@@ -73,6 +73,14 @@ RSpec.describe Alchemy::IngredientValidator do
         it { expect(ingredient.errors).to be_present }
       end
     end
+
+    context "and the value is blank" do
+      let(:value) { "" }
+
+      it "does not add format validation errors" do
+        expect(ingredient.errors).to be_blank
+      end
+    end
   end
 
   context "an element with url format validation" do
@@ -126,6 +134,15 @@ RSpec.describe Alchemy::IngredientValidator do
       let(:value) { "applejuice" }
 
       it { expect(ingredient).to be_valid }
+    end
+
+    context "and the value is blank" do
+      let(:value) { "" }
+
+      it "does not add length validation errors" do
+        expect(ingredient.errors[:value]).not_to include("is too short (minimum is 3 characters)")
+        expect(ingredient.errors[:value]).not_to include("is too long (maximum is 50 characters)")
+      end
     end
   end
 

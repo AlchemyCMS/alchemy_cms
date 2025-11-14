@@ -9,7 +9,7 @@ module Alchemy
       #
       # Displays a warning icon if ingredient is missing its definition.
       #
-      # Displays a mandatory field indicator, if the ingredient has validations.
+      # Displays a mandatory field indicator, if the ingredient has a presence validation.
       #
       def render_ingredient_role(ingredient)
         if ingredient.blank?
@@ -24,7 +24,7 @@ module Alchemy
           content = "#{icon} #{content}".html_safe
         end
 
-        if ingredient.has_validations?
+        if ingredient.presence_validation?
           "#{content}<span class='validation_indicator'>*</span>".html_safe
         else
           content

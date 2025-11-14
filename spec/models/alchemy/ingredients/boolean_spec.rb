@@ -34,6 +34,122 @@ RSpec.describe Alchemy::Ingredients::Boolean do
 
       it { is_expected.to be_nil }
     end
+
+    context "with no default in definition and no value set" do
+      let(:boolean_ingredient) do
+        described_class.new(
+          element: element,
+          type: described_class.name,
+          role: "has_padding"
+        )
+      end
+
+      before do
+        definition = Alchemy::IngredientDefinition.new(
+          role: "has_padding",
+          type: "Boolean"
+        )
+        allow(boolean_ingredient).to receive(:definition).and_return(definition)
+      end
+
+      it "returns nil" do
+        is_expected.to be_nil
+      end
+    end
+
+    context "with default: true in definition and no value set" do
+      let(:boolean_ingredient) do
+        described_class.new(
+          element: element,
+          type: described_class.name,
+          role: "has_padding"
+        )
+      end
+
+      before do
+        definition = Alchemy::IngredientDefinition.new(
+          role: "has_padding",
+          type: "Boolean",
+          default: true
+        )
+        allow(boolean_ingredient).to receive(:definition).and_return(definition)
+      end
+
+      it "returns true" do
+        is_expected.to eq(true)
+      end
+    end
+
+    context "with default: false in definition and no value set" do
+      let(:boolean_ingredient) do
+        described_class.new(
+          element: element,
+          type: described_class.name,
+          role: "has_padding"
+        )
+      end
+
+      before do
+        definition = Alchemy::IngredientDefinition.new(
+          role: "has_padding",
+          type: "Boolean",
+          default: false
+        )
+        allow(boolean_ingredient).to receive(:definition).and_return(definition)
+      end
+
+      it "returns false" do
+        is_expected.to eq(false)
+      end
+    end
+
+    context "with default: true in definition but explicit false value" do
+      let(:boolean_ingredient) do
+        described_class.new(
+          element: element,
+          type: described_class.name,
+          role: "has_padding",
+          value: false
+        )
+      end
+
+      before do
+        definition = Alchemy::IngredientDefinition.new(
+          role: "has_padding",
+          type: "Boolean",
+          default: true
+        )
+        allow(boolean_ingredient).to receive(:definition).and_return(definition)
+      end
+
+      it "returns false (explicit value overrides default)" do
+        is_expected.to eq(false)
+      end
+    end
+
+    context "with default: false in definition but explicit true value" do
+      let(:boolean_ingredient) do
+        described_class.new(
+          element: element,
+          type: described_class.name,
+          role: "has_padding",
+          value: true
+        )
+      end
+
+      before do
+        definition = Alchemy::IngredientDefinition.new(
+          role: "has_padding",
+          type: "Boolean",
+          default: false
+        )
+        allow(boolean_ingredient).to receive(:definition).and_return(definition)
+      end
+
+      it "returns true (explicit value overrides default)" do
+        is_expected.to eq(true)
+      end
+    end
   end
 
   describe "preview_text" do
