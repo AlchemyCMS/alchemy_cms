@@ -6,7 +6,8 @@ module Alchemy
     #
     class Boolean < Alchemy::Ingredient
       def value
-        ActiveRecord::Type::Boolean.new.cast(self[:value])
+        val = self[:value].nil? ? definition.default : self[:value]
+        ActiveRecord::Type::Boolean.new.cast(val)
       end
 
       # The localized value
