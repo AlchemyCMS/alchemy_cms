@@ -20,10 +20,37 @@ export class AlchemySitemap extends HTMLElement {
     requestAnimationFrame(() => {
       this.setupSortables()
     })
+
+    // Set up MutationObserver to re-initialize sortables when children containers are added
+    this.observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeType !== Node.ELEMENT_NODE) return
+
+          // If the added node itself is a children container, initialize it
+          if (node.classList?.contains("children")) {
+            this.setupSortable(node)
+          }
+
+          // Also check for children containers nested within the added node
+          // This handles cases where a parent element with nested children is added at once
+          node
+            .querySelectorAll(".children")
+            .forEach((el) => this.setupSortable(el))
+        })
+      })
+    })
+
+    // Observe the sitemap for added nodes
+    this.observer.observe(this, {
+      childList: true,
+      subtree: true
+    })
   }
 
   disconnectedCallback() {
     this.teardownSearch()
+    this.observer?.disconnect()
   }
 
   setupSearch() {
@@ -107,20 +134,21 @@ export class AlchemySitemap extends HTMLElement {
     this.clearFilter()
   }
 
+  setupSortable(container) {
+    new Sortable(container, {
+      group: "pages",
+      animation: 150,
+      fallbackOnBody: true,
+      swapThreshold: 0.65,
+      handle: ".page-icon.handle",
+      draggable: "alchemy-page-node",
+      onEnd: (evt) => this.handleSort(evt)
+    })
+  }
+
   setupSortables() {
     const sortables = this.querySelectorAll(".children")
-
-    sortables.forEach((el) => {
-      new Sortable(el, {
-        group: "pages",
-        animation: 150,
-        fallbackOnBody: true,
-        swapThreshold: 0.65,
-        handle: ".page-icon.handle",
-        draggable: "alchemy-page-node",
-        onEnd: (evt) => this.handleSort(evt)
-      })
-    })
+    sortables.forEach((el) => this.setupSortable(el))
   }
 
   async handleSort(evt) {
