@@ -22,7 +22,15 @@ module Alchemy
     #
     # @return [Array<Page>] Pages with preloaded children, or array with single page when using from:
     def call
-      pages = page.self_and_descendants.preload(*preload_associations)
+      pages = page.self_and_descendants
+      folded_page_ids = load_folded_page_ids
+      if folded_page_ids.any?
+        pages = pages.where(
+          "parent_id IS NULL OR parent_id NOT IN (?)",
+          folded_page_ids
+        )
+      end
+      pages = pages.preload(*preload_associations)
       pages = pages.map { PageTreePage.new(_1) }
 
       preload_children_associations(pages, folded_page_ids:)
@@ -38,7 +46,7 @@ module Alchemy
     attr_reader :page, :user
 
     # Load folded page IDs for the user
-    def folded_page_ids
+    def load_folded_page_ids
       if user && Alchemy.user_class < ActiveRecord::Base
         FoldedPage.folded_for_user(user).pluck(:page_id).to_set
       else
