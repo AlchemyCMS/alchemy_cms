@@ -1,14 +1,8 @@
 <alchemy-page-node
-  data-page-id="<%= @page.id %>"
-  data-folded="<%= @page.folded? %>"
+  page-id="<%= @page.id %>"
+  <%= @page.folded? ? 'folded' : nil %>
 >
-  <li
-    id="page_<%= @page.id %>"
-    class="sitemap-item <%= @page.page_layout %>"
-    data-slug="<%= @page.slug %>"
-    data-restricted="<%= @page.restricted %>"
-    data-page-id="<%= @page.id %>"
-  >
+  <li class="sitemap-item <%= @page.page_layout %>">
     <div
       class="sitemap_page<% @page.locked? ? ' locked' : '' %>"
       name="<%= @page.name %>"

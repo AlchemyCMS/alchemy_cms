@@ -8,28 +8,14 @@ import Spinner from "alchemy_admin/spinner"
  */
 export class AlchemyPageNode extends HTMLElement {
   connectedCallback() {
-    this.pageId = this.dataset.pageId
-    this.folded = this.dataset.folded === "true"
+    this.pageId = this.getAttribute("page-id")
+    this.folded = this.hasAttribute("folded")
 
-    this.setupFoldingBehavior()
+    this.folderButton?.addEventListener("click", this)
   }
 
   disconnectedCallback() {
-    this.removeFoldingBehavior()
-  }
-
-  setupFoldingBehavior() {
-    const folderIcon = this.querySelector(".page_folder")
-    if (!folderIcon) return
-
-    folderIcon.addEventListener("click", this)
-  }
-
-  removeFoldingBehavior() {
-    const folderIcon = this.querySelector(".page_folder")
-    if (folderIcon) {
-      folderIcon.removeEventListener("click", this)
-    }
+    this.folderButton?.removeEventListener("click", this)
   }
 
   async handleEvent(event) {
@@ -55,7 +41,7 @@ export class AlchemyPageNode extends HTMLElement {
       )
 
       this.folded = !this.folded
-      this.dataset.folded = String(this.folded)
+      this.toggleAttribute("folded", this.folded)
       this.toggleChildren()
       this.updateFolderIcon()
     } catch (error) {
@@ -76,11 +62,14 @@ export class AlchemyPageNode extends HTMLElement {
   }
 
   updateFolderIcon() {
-    const folderButton = this.querySelector(".page_folder")
-    if (folderButton && folderButton.tagName === "A") {
+    if (this.folderButton) {
       const iconName = this.folded ? "arrow-right-s" : "arrow-down-s"
-      folderButton.innerHTML = `<alchemy-icon name="${iconName}"></alchemy-icon>`
+      this.folderButton.innerHTML = `<alchemy-icon name="${iconName}"></alchemy-icon>`
     }
+  }
+
+  get folderButton() {
+    return this.querySelector("button.page_folder")
   }
 }
 

@@ -37,13 +37,13 @@ describe("AlchemyPageNode", () => {
     // Create container with page node structure
     container = document.createElement("div")
     container.innerHTML = `
-      <alchemy-page-node data-page-id="123" data-folded="false">
-        <li id="page_123" class="sitemap-item">
+      <alchemy-page-node page-id="123">
+        <li class="sitemap-item">
           <div class="sitemap_page">
             <div class="sitemap_left_images">
-              <a href="#" class="page_folder">
+              <button class="page_folder">
                 <alchemy-icon name="arrow-down-s"></alchemy-icon>
-              </a>
+              </button>
             </div>
             <div class="sitemap_sitename">
               <a href="#" class="sitemap_pagename_link">Test Page</a>
@@ -79,11 +79,11 @@ describe("AlchemyPageNode", () => {
   })
 
   describe("initialization", () => {
-    it("sets pageId from data attribute", () => {
+    it("sets pageId from attribute", () => {
       expect(element.pageId).toBe("123")
     })
 
-    it("sets folded state from data attribute", () => {
+    it("sets folded state from attribute", () => {
       expect(element.folded).toBe(false)
     })
 
@@ -147,7 +147,7 @@ describe("AlchemyPageNode", () => {
       await element.handleFolderClick(event)
 
       expect(element.folded).toBe(true)
-      expect(element.dataset.folded).toBe("true")
+      expect(element.hasAttribute("folded")).toBe(true)
     })
 
     it("shows error growl on patch failure", async () => {
