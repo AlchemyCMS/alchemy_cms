@@ -44,9 +44,9 @@ module Alchemy
         context "with existing language root page" do
           let!(:language_root) { create(:alchemy_page, :language_root) }
 
-          it "assigns @pages variable" do
+          it "assigns @root_page variable" do
             get admin_pages_path
-            expect(assigns(:pages)).to include(language_root)
+            expect(assigns(:root_page)).to eq(language_root)
           end
         end
 
