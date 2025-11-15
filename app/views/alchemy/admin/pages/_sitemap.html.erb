@@ -6,6 +6,6 @@
 
 <alchemy-sitemap>
   <ul id="sitemap" class="list">
-    <%= render Alchemy::Admin::PageNode.with_collection(@pages) %>
+    <%= render Alchemy::Admin::PageNode.new(page: @root_page) %>
   </ul>
 </alchemy-sitemap>
