@@ -27,21 +27,13 @@ export class AlchemySitemap extends HTMLElement {
   }
 
   setupSearch() {
-    if (!this.searchInput) return
-
-    this.searchInput.addEventListener("input", this)
-    if (this.clearButton) {
-      this.clearButton.addEventListener("click", this)
-    }
+    this.searchInput?.addEventListener("input", this)
+    this.clearButton?.addEventListener("click", this)
   }
 
   teardownSearch() {
-    if (this.searchInput) {
-      this.searchInput.removeEventListener("input", this)
-    }
-    if (this.clearButton) {
-      this.clearButton.removeEventListener("click", this)
-    }
+    this.searchInput?.removeEventListener("input", this)
+    this.clearButton?.removeEventListener("click", this)
   }
 
   handleEvent(event) {
@@ -83,16 +75,15 @@ export class AlchemySitemap extends HTMLElement {
     })
 
     // Update result counter
-    if (this.resultCounter) {
-      if (matchCount === 1) {
-        this.resultCounter.textContent = `1 ${translate("page_found")}`
-        this.resultCounter.style.display = "block"
-      } else if (matchCount > 1) {
-        this.resultCounter.textContent = `${matchCount} ${translate("pages_found")}`
-        this.resultCounter.style.display = "block"
-      } else {
-        this.resultCounter.style.display = "none"
-      }
+
+    if (matchCount === 1) {
+      this.resultCounter.textContent = `1 ${translate("page_found")}`
+      this.resultCounter.style.display = "block"
+    } else if (matchCount > 1) {
+      this.resultCounter.textContent = `${matchCount} ${translate("pages_found")}`
+      this.resultCounter.style.display = "block"
+    } else {
+      this.resultCounter.style.display = "none"
     }
 
     // Scroll first match into view
@@ -107,16 +98,12 @@ export class AlchemySitemap extends HTMLElement {
       pageElement.classList.remove("highlight", "no-match")
     })
 
-    if (this.resultCounter) {
-      this.resultCounter.style.display = "none"
-    }
+    this.resultCounter.style.display = "none"
   }
 
   handleClearSearch(event) {
     event.preventDefault()
-    if (this.searchInput) {
-      this.searchInput.value = ""
-    }
+    this.searchInput.value = ""
     this.clearFilter()
   }
 
@@ -144,7 +131,7 @@ export class AlchemySitemap extends HTMLElement {
 
     // evt.item is the <alchemy-page-node> element being dragged
     const pageNode = evt.item
-    const pageId = pageNode.dataset.pageId
+    const pageId = pageNode.pageId
     const url = Alchemy.routes.move_admin_page_path(pageId)
     const data = {
       target_parent_id: evt.to.dataset.parentId,
@@ -200,24 +187,24 @@ export class AlchemySitemap extends HTMLElement {
     const hasChildren =
       childrenContainer.querySelectorAll(":scope > alchemy-page-node").length >
       0
-    const isFolded = parentPageNode.dataset.folded === "true"
+    const isFolded = parentPageNode.folded
 
     // If has children or is folded, show the folder icon
     if (hasChildren || isFolded) {
-      if (folderButton.tagName !== "A") {
-        // Convert span to anchor with icon
+      if (folderButton.tagName === "SPAN") {
+        // Convert span to button with icon
         const iconName = isFolded ? "arrow-right-s" : "arrow-down-s"
-        folderButton.outerHTML = `<a class="page_folder icon_button"><alchemy-icon name="${iconName}"></alchemy-icon></a>`
+        folderButton.outerHTML = `<button class="page_folder icon_button">
+          <alchemy-icon name="${iconName}"></alchemy-icon>
+        </button>`
 
         // Re-setup event listener for the new element
         const newFolderButton = parentPageNode.querySelector(".page_folder")
-        if (newFolderButton) {
-          newFolderButton.addEventListener("click", parentPageNode)
-        }
+        newFolderButton.addEventListener("click", parentPageNode)
       }
     } else {
       // No children and not folded, convert to empty span
-      if (folderButton.tagName === "A") {
+      if (folderButton.tagName === "BUTTON") {
         folderButton.outerHTML = '<span class="page_folder"></span>'
       }
     }
