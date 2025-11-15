@@ -196,45 +196,13 @@ export class AlchemySitemap extends HTMLElement {
 
   updateFolderIcons(fromContainer, toContainer) {
     // Update folder icon for source parent (might now have no children)
-    this.updateParentFolderIcon(fromContainer)
+    const fromParent = fromContainer.closest("alchemy-page-node")
+    fromParent?.updateFolderButton()
 
     // Update folder icon for destination parent (now definitely has children)
     if (fromContainer !== toContainer) {
-      this.updateParentFolderIcon(toContainer)
-    }
-  }
-
-  updateParentFolderIcon(childrenContainer) {
-    // Find the parent page node
-    const parentPageNode = childrenContainer.closest("alchemy-page-node")
-    if (!parentPageNode) return
-
-    const folderButton = parentPageNode.querySelector(".page_folder")
-    if (!folderButton) return
-
-    const hasChildren =
-      childrenContainer.querySelectorAll(":scope > alchemy-page-node").length >
-      0
-    const isFolded = parentPageNode.folded
-
-    // If has children or is folded, show the folder icon
-    if (hasChildren || isFolded) {
-      if (folderButton.tagName === "SPAN") {
-        // Convert span to button with icon
-        const iconName = isFolded ? "arrow-right-s" : "arrow-down-s"
-        folderButton.outerHTML = `<button class="page_folder icon_button">
-          <alchemy-icon name="${iconName}"></alchemy-icon>
-        </button>`
-
-        // Re-setup event listener for the new element
-        const newFolderButton = parentPageNode.querySelector(".page_folder")
-        newFolderButton.addEventListener("click", parentPageNode)
-      }
-    } else {
-      // No children and not folded, convert to empty span
-      if (folderButton.tagName === "BUTTON") {
-        folderButton.outerHTML = '<span class="page_folder"></span>'
-      }
+      const toParent = toContainer.closest("alchemy-page-node")
+      toParent?.updateFolderButton()
     }
   }
 }

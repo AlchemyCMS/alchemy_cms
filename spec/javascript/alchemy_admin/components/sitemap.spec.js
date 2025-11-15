@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest"
 import "alchemy_admin/components/sitemap"
+import "alchemy_admin/components/page_node"
 
 // Mock dependencies
 vi.mock("sortablejs", () => ({
@@ -388,6 +389,108 @@ describe("AlchemySitemap", () => {
 
       // Should not have called setupSortable for this element
       expect(setupSortableSpy.mock.calls.length).toBe(callCountBefore)
+    })
+  })
+
+  describe("updateFolderIcons", () => {
+    let fromContainer, toContainer, fromPageNode, toPageNode
+
+    beforeEach(() => {
+      // Set up a more complex DOM structure with nested page nodes
+      container.innerHTML = `
+        <alchemy-sitemap>
+          <ul id="sitemap" class="list">
+            <alchemy-page-node page-id="1">
+              <li class="sitemap-item">
+                <div class="sitemap_page">
+                  <div class="sitemap_left_images">
+                    <button class="page_folder icon_button">
+                      <alchemy-icon name="arrow-down-s"></alchemy-icon>
+                    </button>
+                  </div>
+                </div>
+                <ul id="page_1_children" class="children" data-parent-id="1">
+                  <alchemy-page-node page-id="2">
+                    <li class="sitemap-item">
+                      <div class="sitemap_page">Child Page</div>
+                    </li>
+                  </alchemy-page-node>
+                </ul>
+              </li>
+            </alchemy-page-node>
+            <alchemy-page-node page-id="3">
+              <li class="sitemap-item">
+                <div class="sitemap_page">
+                  <div class="sitemap_left_images">
+                    <span class="page_folder"></span>
+                  </div>
+                </div>
+                <ul id="page_3_children" class="children" data-parent-id="3">
+                  <!-- Empty, no children -->
+                </ul>
+              </li>
+            </alchemy-page-node>
+          </ul>
+        </alchemy-sitemap>
+      `
+      element = container.querySelector("alchemy-sitemap")
+
+      // Get the page nodes after they've been connected to the DOM
+      // This ensures their connectedCallback has been called
+      fromPageNode = element.querySelector('alchemy-page-node[page-id="1"]')
+      toPageNode = element.querySelector('alchemy-page-node[page-id="3"]')
+      fromContainer = fromPageNode.querySelector("#page_1_children")
+      toContainer = toPageNode.querySelector("#page_3_children")
+    })
+
+    it("calls updateFolderButton on source parent page node", () => {
+      const updateFolderButtonSpy = vi.spyOn(fromPageNode, "updateFolderButton")
+
+      element.updateFolderIcons(fromContainer, toContainer)
+
+      expect(updateFolderButtonSpy).toHaveBeenCalled()
+    })
+
+    it("calls updateFolderButton on destination parent when different from source", () => {
+      const fromUpdateSpy = vi.spyOn(fromPageNode, "updateFolderButton")
+      const toUpdateSpy = vi.spyOn(toPageNode, "updateFolderButton")
+
+      element.updateFolderIcons(fromContainer, toContainer)
+
+      expect(fromUpdateSpy).toHaveBeenCalled()
+      expect(toUpdateSpy).toHaveBeenCalled()
+    })
+
+    it("only calls updateFolderButton once when source and destination are same", () => {
+      const updateSpy = vi.spyOn(fromPageNode, "updateFolderButton")
+
+      element.updateFolderIcons(fromContainer, fromContainer)
+
+      expect(updateSpy).toHaveBeenCalledTimes(1)
+    })
+
+    it("handles null parent page node gracefully", () => {
+      // Create a container that is not inside an alchemy-page-node
+      const orphanContainer = document.createElement("ul")
+      orphanContainer.className = "children"
+      orphanContainer.dataset.parentId = "999"
+
+      // Should not throw
+      expect(() =>
+        element.updateFolderIcons(orphanContainer, toContainer)
+      ).not.toThrow()
+    })
+
+    it("handles both containers without parent page nodes", () => {
+      const container1 = document.createElement("ul")
+      const container2 = document.createElement("ul")
+      container1.className = "children"
+      container2.className = "children"
+
+      // Should not throw
+      expect(() =>
+        element.updateFolderIcons(container1, container2)
+      ).not.toThrow()
     })
   })
 })
