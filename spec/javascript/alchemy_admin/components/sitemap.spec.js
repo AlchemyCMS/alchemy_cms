@@ -416,4 +416,81 @@ describe("AlchemySitemap", () => {
       ).not.toThrow()
     })
   })
+
+  describe("MutationObserver handling", () => {
+    it("sets up MutationObserver on connect", () => {
+      expect(element.observer).toBeInstanceOf(MutationObserver)
+    })
+
+    it("disconnects observer on disconnect", () => {
+      const disconnectSpy = vi.spyOn(element.observer, "disconnect")
+
+      element.disconnectedCallback()
+
+      expect(disconnectSpy).toHaveBeenCalled()
+    })
+
+    it("re-initializes sortable when children container is added", async () => {
+      const setupSortableSpy = vi.spyOn(element, "setupSortable")
+
+      // Add a new children container
+      const newContainer = document.createElement("ul")
+      newContainer.id = "page_123_children"
+      newContainer.className = "children"
+      newContainer.dataset.parentId = "123"
+      element.appendChild(newContainer)
+
+      // Wait for MutationObserver to fire
+      await new Promise((resolve) => setTimeout(resolve, 0))
+
+      expect(setupSortableSpy).toHaveBeenCalledWith(newContainer)
+    })
+
+    it("re-initializes sortables for nested children containers", async () => {
+      vi.clearAllMocks()
+      const setupSortableSpy = vi.spyOn(element, "setupSortable")
+
+      // Create a container with nested children
+      const newContainer = document.createElement("ul")
+      newContainer.id = "page_123_children"
+      newContainer.className = "children"
+      newContainer.dataset.parentId = "123"
+
+      // Add a nested page node with its own children container
+      const nestedPageNode = document.createElement("alchemy-page-node")
+      nestedPageNode.setAttribute("page-id", "456")
+
+      const nestedChildren = document.createElement("ul")
+      nestedChildren.id = "page_456_children"
+      nestedChildren.className = "children"
+      nestedChildren.dataset.parentId = "456"
+
+      nestedPageNode.appendChild(nestedChildren)
+      newContainer.appendChild(nestedPageNode)
+      element.appendChild(newContainer)
+
+      // Wait for MutationObserver to fire
+      await new Promise((resolve) => setTimeout(resolve, 0))
+
+      // Should initialize sortable for both the main and nested containers
+      expect(setupSortableSpy).toHaveBeenCalledWith(newContainer)
+      expect(setupSortableSpy).toHaveBeenCalledWith(nestedChildren)
+    })
+
+    it("ignores non-children elements", async () => {
+      const setupSortableSpy = vi.spyOn(element, "setupSortable")
+      const callCountBefore = setupSortableSpy.mock.calls.length
+
+      // Add a non-children element
+      const someDiv = document.createElement("div")
+      someDiv.className = "some-other-element"
+      element.appendChild(someDiv)
+
+      // Wait for MutationObserver to fire
+      await new Promise((resolve) => setTimeout(resolve, 0))
+
+      // Should not have called setupSortable for this element
+      expect(setupSortableSpy.mock.calls.length).toBe(callCountBefore)
+    })
+  })
 })
