@@ -163,14 +163,6 @@ module Alchemy
     # Class methods
     #
     class << self
-      # Associations to preload for sitemap rendering
-      # Override this method to customize preloading for your application
-      #
-      # @return [Array] Array of associations to preload
-      def sitemap_preload_associations
-        [:public_version, {language: {site: :languages}}]
-      end
-
       # The url_path class
       # @see Alchemy::Page::UrlPath
       def url_path_class
@@ -265,17 +257,6 @@ module Alchemy
 
     # Instance methods
     #
-
-    # Preloaded children for this page after unfolding
-    # Sets each child's children to empty to prevent recursive rendering
-    def preloaded_children
-      children = self.children.preload(*self.class.sitemap_preload_associations, :folded_pages)
-      children.each do |child|
-        child.association(:children).target = []
-        child.association(:children).loaded!
-      end
-      children
-    end
 
     # Returns elements from pages public version.
     #

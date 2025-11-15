@@ -24,7 +24,7 @@
       <%= render "tag_list" if resource_has_tags %>
     </div>
   <% else %>
-    <% if @pages.any? %>
+    <% if @root_page %>
       <h2 id="page_filter_result">Page filter display</h2>
       <%= render "sitemap", page_partial: "page" %>
     <% elsif can?(:create, Alchemy::Page) %>
