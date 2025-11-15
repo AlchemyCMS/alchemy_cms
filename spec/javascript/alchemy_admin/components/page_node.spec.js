@@ -211,4 +211,161 @@ describe("AlchemyPageNode", () => {
       expect(removeEventListenerSpy).toHaveBeenCalledWith("click", element)
     })
   })
+
+  describe("hasChildren", () => {
+    it("returns true when node has child page nodes", () => {
+      const childrenContainer = element.querySelector("#page_123_children")
+      childrenContainer.innerHTML = `
+        <alchemy-page-node page-id="456">
+          <li class="sitemap-item">Test Child</li>
+        </alchemy-page-node>
+      `
+
+      expect(element.hasChildren).toBe(true)
+    })
+
+    it("returns false when node has no child page nodes", () => {
+      const childrenContainer = element.querySelector("#page_123_children")
+      childrenContainer.innerHTML = ""
+
+      expect(element.hasChildren).toBe(false)
+    })
+
+    it("returns false when children container does not exist", () => {
+      const childrenContainer = element.querySelector("#page_123_children")
+      childrenContainer.remove()
+
+      expect(element.hasChildren).toBe(false)
+    })
+
+    it("ignores non-alchemy-page-node elements in children container", () => {
+      const childrenContainer = element.querySelector("#page_123_children")
+      childrenContainer.innerHTML = `
+        <li class="some-other-element">Not a page node</li>
+        <div>Another element</div>
+      `
+
+      expect(element.hasChildren).toBe(false)
+    })
+  })
+
+  describe("updateFolderButton", () => {
+    it("converts span to button when node has children", () => {
+      // Replace button with span
+      const folderButton = element.querySelector(".page_folder")
+      folderButton.outerHTML = '<span class="page_folder"></span>'
+
+      // Add a child
+      const childrenContainer = element.querySelector("#page_123_children")
+      childrenContainer.innerHTML = `
+        <alchemy-page-node page-id="456">
+          <li class="sitemap-item">Test Child</li>
+        </alchemy-page-node>
+      `
+
+      element.updateFolderButton()
+
+      const newFolderElement = element.querySelector(".page_folder")
+      expect(newFolderElement.tagName).toBe("BUTTON")
+      expect(newFolderElement.querySelector("alchemy-icon")).toBeTruthy()
+      expect(
+        newFolderElement.querySelector("alchemy-icon").getAttribute("name")
+      ).toBe("arrow-down-s")
+    })
+
+    it("converts span to button when node is folded (even without children)", () => {
+      element.folded = true
+
+      // Replace button with span
+      const folderButton = element.querySelector(".page_folder")
+      folderButton.outerHTML = '<span class="page_folder"></span>'
+
+      element.updateFolderButton()
+
+      const newFolderElement = element.querySelector(".page_folder")
+      expect(newFolderElement.tagName).toBe("BUTTON")
+      expect(
+        newFolderElement.querySelector("alchemy-icon").getAttribute("name")
+      ).toBe("arrow-right-s")
+    })
+
+    it("converts button to span when node has no children and is not folded", () => {
+      element.folded = false
+
+      // Ensure children container is empty
+      const childrenContainer = element.querySelector("#page_123_children")
+      childrenContainer.innerHTML = ""
+
+      element.updateFolderButton()
+
+      const folderElement = element.querySelector(".page_folder")
+      expect(folderElement.tagName).toBe("SPAN")
+      expect(folderElement.innerHTML).toBe("")
+    })
+
+    it("updates icon direction when button exists and node has children", () => {
+      element.folded = true
+
+      // Add a child
+      const childrenContainer = element.querySelector("#page_123_children")
+      childrenContainer.innerHTML = `
+        <alchemy-page-node page-id="456">
+          <li class="sitemap-item">Test Child</li>
+        </alchemy-page-node>
+      `
+
+      element.updateFolderButton()
+
+      let icon = element.querySelector(".page_folder alchemy-icon")
+      expect(icon.getAttribute("name")).toBe("arrow-right-s")
+
+      // Unfold and update
+      element.folded = false
+      element.updateFolderButton()
+
+      // Re-query the icon as updateFolderIcon may have replaced the HTML
+      icon = element.querySelector(".page_folder alchemy-icon")
+      expect(icon.getAttribute("name")).toBe("arrow-down-s")
+    })
+
+    it("re-attaches event listener when converting span to button", () => {
+      // Replace button with span
+      const folderButton = element.querySelector(".page_folder")
+      folderButton.outerHTML = '<span class="page_folder"></span>'
+
+      // Add a child
+      const childrenContainer = element.querySelector("#page_123_children")
+      childrenContainer.innerHTML = `
+        <alchemy-page-node page-id="456">
+          <li class="sitemap-item">Test Child</li>
+        </alchemy-page-node>
+      `
+
+      element.updateFolderButton()
+
+      const newButton = element.querySelector("button.page_folder")
+      expect(newButton).toBeTruthy()
+
+      // Verify event listener works by clicking
+      const clickEvent = new MouseEvent("click", {
+        bubbles: true,
+        cancelable: true
+      })
+      Object.defineProperty(clickEvent, "currentTarget", {
+        value: newButton,
+        writable: true
+      })
+
+      // Should not throw
+      expect(() => element.handleEvent(clickEvent)).not.toThrow()
+    })
+
+    it("does nothing when folder element does not exist", () => {
+      const folderElement = element.querySelector(".page_folder")
+      folderElement.remove()
+
+      // Should not throw
+      expect(() => element.updateFolderButton()).not.toThrow()
+    })
+  })
 })
