@@ -57,7 +57,7 @@ module Alchemy
           items = items.page(params[:page] || 1).per(items_per_page)
           @pages = items
         elsif @current_language.root_page
-          @root_page = Alchemy::PageTreePreloader.new(
+          @root_page = Alchemy.config.page_tree_loader_class.new(
             page: @current_language.root_page,
             user: current_alchemy_user
           ).call
