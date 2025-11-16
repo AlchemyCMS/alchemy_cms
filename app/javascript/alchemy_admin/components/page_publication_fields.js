@@ -1,13 +1,12 @@
 // Handles the page publication date fields
-export default function () {
-  document.addEventListener("DialogReady.Alchemy", function (evt) {
-    const dialog = evt.detail.body
-    const public_on_field = dialog.querySelector("#page_public_on")
-    const public_until_field = dialog.querySelector("#page_public_until")
-    const publication_date_fields = dialog.querySelector(
+export class PagePublicationFields extends HTMLElement {
+  connectedCallback() {
+    const public_on_field = this.querySelector("#page_public_on")
+    const public_until_field = this.querySelector("#page_public_until")
+    const publication_date_fields = this.querySelector(
       ".page-publication-date-fields"
     )
-    const public_field = dialog.querySelector("#page_public")
+    const public_field = this.querySelector("#page_public")
 
     if (!public_field) return
 
@@ -24,5 +23,7 @@ export default function () {
       }
       public_until_field.value = ""
     })
-  })
+  }
 }
+
+customElements.define("alchemy-page-publication-fields", PagePublicationFields)
