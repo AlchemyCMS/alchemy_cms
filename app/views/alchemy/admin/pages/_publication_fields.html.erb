@@ -1,30 +1,32 @@
-<% checkbox = check_box_tag :page_public, nil, @page.public?, name: nil, disabled: @page.attribute_fixed?(:public_on) %>
+<alchemy-page-publication-fields>
+  <% checkbox = check_box_tag :page_public, nil, @page.public?, name: nil, disabled: @page.attribute_fixed?(:public_on) %>
 
-<label class="checkbox">
-<% if @page.attribute_fixed?(:public_on) || @page.attribute_fixed?(:public_until) %>
-  <sl-tooltip class="like-hint-tooltip" content="<%= Alchemy.t(:attribute_fixed) %>" placement="bottom-start">
+  <label class="checkbox">
+  <% if @page.attribute_fixed?(:public_on) || @page.attribute_fixed?(:public_until) %>
+    <sl-tooltip class="like-hint-tooltip" content="<%= Alchemy.t(:attribute_fixed) %>" placement="bottom-start">
+      <%= checkbox %>
+      <%= Alchemy::Page.human_attribute_name :public %>
+    </sl-tooltip>
+  <% else %>
     <%= checkbox %>
     <%= Alchemy::Page.human_attribute_name :public %>
-  </sl-tooltip>
-<% else %>
-  <%= checkbox %>
-  <%= Alchemy::Page.human_attribute_name :public %>
-<% end %>
-</label>
+  <% end %>
+  </label>
 
-<%= content_tag :div, class: [
-  @page.public_on.present? || @page.public_until.present? ? nil : 'hidden',
-  'page-publication-date-fields',
-  'input-row'
-] do %>
-  <div class="input-column">
-    <label><%= Alchemy.t(:from) %></label>
-    <%= alchemy_datepicker @page, :public_on, type: :datetime,
-      disabled: @page.attribute_fixed?(:public_on) %>
-  </div>
-  <div class="input-column">
-    <label><%= Alchemy.t(:until) %></label>
-    <%= alchemy_datepicker @page, :public_until, type: :datetime,
-      disabled: @page.attribute_fixed?(:public_until) %>
-  </div>
-<% end %>
+  <%= content_tag :div, class: [
+    @page.public_on.present? || @page.public_until.present? ? nil : 'hidden',
+    'page-publication-date-fields',
+    'input-row'
+  ] do %>
+    <div class="input-column">
+      <label><%= Alchemy.t(:from) %></label>
+      <%= alchemy_datepicker @page, :public_on, type: :datetime,
+        disabled: @page.attribute_fixed?(:public_on) %>
+    </div>
+    <div class="input-column">
+      <label><%= Alchemy.t(:until) %></label>
+      <%= alchemy_datepicker @page, :public_until, type: :datetime,
+        disabled: @page.attribute_fixed?(:public_until) %>
+    </div>
+  <% end %>
+</alchemy-page-publication-fields>

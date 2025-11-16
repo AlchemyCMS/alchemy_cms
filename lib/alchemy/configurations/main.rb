@@ -356,6 +356,14 @@ module Alchemy
         "Alchemy::Admin::LinkDialog::ExternalTab",
         "Alchemy::Admin::LinkDialog::FileTab"
       ]
+
+      # === Page tree loader class
+      #
+      # The class used to preload page trees with all associations and children.
+      # Must respond to .new(page:, user:).call
+      #
+      # @default Alchemy::PageTreePreloader
+      option :page_tree_loader_class, :class, default: "Alchemy::PageTreePreloader"
     end
   end
 end
