@@ -1,25 +1,45 @@
-<div class="widget sites">
-  <table class="list">
-    <tr>
-      <th colspan="2"><%= Alchemy::Site.model_name.human(count: 2) %></th>
-    </tr>
-    <% @sites.each do |site| %>
-    <tr class="<%= cycle('even', 'odd', name: 'sites') %>">
-      <td>
-        <% if alchemy.respond_to?(:login_url) %>
-          <%= link_to_unless site == Alchemy::Current.site,
-            site.name,
-            alchemy.login_url(
-              protocol: 'http://',
-              host: site.host,
-              user: {login: current_alchemy_user.try(:login)}
-            ), target: '_blank' %>
-        <% else %>
-          <%= site.name %>
-        <% end %>
-      </td>
-      <td><small><%= site.host %></small></td>
-    </tr>
-    <% end %>
-  </table>
+<div class="dashboard-card dashboard-sites">
+  <div class="card-header">
+    <h3>
+      <%= render_icon(:global, size: "1x") %>
+      <%= Alchemy::Site.model_name.human(count: 2) %>
+    </h3>
+
+    <span class="card-badge"><%= @sites.count %></span>
+  </div>
+
+  <div class="card-body">
+    <div class="sites-list">
+      <% @sites.each do |site| %>
+        <div class="site-item">
+          <div class="site-info">
+            <div class="site-name">
+              <% if alchemy.respond_to?(:login_url) %>
+                <%= link_to_unless site == Alchemy::Current.site,
+                  site.name,
+                  alchemy.login_url(
+                    protocol: 'http://',
+                    host: site.host,
+                    user: {login: current_alchemy_user.try(:login)}
+                  ), target: '_blank' %>
+              <% else %>
+                <%= site.name %>
+              <% end %>
+
+              <% if site == Alchemy::Current.site %>
+                <span class="current-badge">
+                  <%= Alchemy.t(:current, scope: 'admin.dashboard') %>
+                </span>
+              <% end %>
+            </div>
+
+            <div class="site-host">
+              <%= render_icon(:link, size: "1x") %>
+              <%= site.host %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

@@ -230,6 +230,18 @@ en:
           label: "Sorting"
           by_latest: "Latest"
           alphabetical: "A-Z"
+      dashboard:
+        alchemy_version: "Alchemy Version"
+        attachments: "Attachments"
+        current: "Current"
+        open_source_credits: "Open Source Credits"
+        pictures: "Pictures"
+        published_count:
+          one: "%{count} published"
+          other: "%{count} published"
+        rails_version: "Rails Version"
+        ruby_version: "Ruby Version"
+        system_info: "System Info"
       elements:
         toolbar:
           hide: Hide

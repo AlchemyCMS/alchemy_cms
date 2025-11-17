@@ -1,52 +1,67 @@
-<% colspan = multi_site? ? 5 : 4 %>
-<div class="widget">
-  <table class="list">
-    <tr>
-      <th colspan="<%= colspan %>"><%= Alchemy.t('Currently locked pages') %></th>
-    </tr>
-  <% if @all_locked_pages.blank? %>
-    <tr>
-      <td colspan="<%= colspan %>"><%= Alchemy.t('no pages') %></td>
-    </tr>
-  <% else %>
-    <% @all_locked_pages.each do |page| %>
-    <tr class="<%= cycle('even', 'odd', name: 'locked_pages') %>">
-      <td>
-        <% if current_alchemy_user.id == page.locked_by %>
-        <%= link_to(page.name, alchemy.edit_admin_page_path(page)) %>
-        <% else %>
-        <%= page.name %>
+<div class="dashboard-card dashboard-locked-pages">
+  <div class="card-header">
+    <h3><%= render_icon(:lock) %><%= Alchemy.t('Currently locked pages') %></h3>
+    <span class="card-badge"><%= @all_locked_pages.count %></span>
+  </div>
+
+  <div class="card-body">
+    <% if @all_locked_pages.blank? %>
+      <p class="empty-state"><%= Alchemy.t('no pages') %></p>
+    <% else %>
+      <div class="pages-list">
+        <% @all_locked_pages.each do |page| %>
+          <div class="page-item">
+            <div class="page-info">
+              <div class="page-name">
+                <% if current_alchemy_user.id == page.locked_by %>
+                  <%= link_to(page.name, alchemy.edit_admin_page_path(page)) %>
+                <% else %>
+                  <%= page.name %>
+                <% end %>
+              </div>
+
+              <div class="page-meta">
+                <% if multi_site? %>
+                  <span class="meta-item">
+                    <%= render_icon(:global, size: "1x") %>
+                    <%= page.site_name %>
+                  </span>
+                <% end %>
+
+                <% if page.site_languages.many? %>
+                  <span class="meta-item">
+                    <%= render_icon(:"translate-2", size: "1x", style: false) %>
+                    <%= page.language.code.upcase %>
+                  </span>
+                <% end %>
+
+                <span class="meta-item">
+                  <%= render_icon(:user, size: "1x") %>
+
+                  <% if current_alchemy_user.id == page.locked_by %>
+                    <%= Alchemy.t(:me) %>
+                  <% else %>
+                    <%= page.locker_name %>
+                  <% end %>
+                </span>
+              </div>
+            </div>
+
+            <div class="page-actions">
+              <% if (current_alchemy_user.id == page.locked_by) || can?(:manage, Alchemy::Current.site) %>
+                <%= form_tag(alchemy.unlock_admin_page_path(page, :redirect_to => alchemy.admin_dashboard_path)) do %>
+                  <button
+                    class="icon_button small"
+                    title="<%= Alchemy.t(:explain_unlocking) %>"
+                  >
+                    <%= render_icon(:close, size: '1x') %>
+                  </button>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
         <% end %>
-      </td>
-      <% if multi_site? %>
-      <td>
-        <small><%= page.site_name %></small>
-      </td>
-      <% end %>
-      <td>
-        <% if page.site_languages.many? %>
-        <small><%= page.language.code.upcase %></small>
-        <% end %>
-      </td>
-      <td>
-        <% if current_alchemy_user.id == page.locked_by %>
-        <small><%= Alchemy.t(:me) %></small>
-        <% else %>
-        <small><%= page.locker_name %></small>
-        <% end %>
-      </td>
-      <td>
-        <% if (current_alchemy_user.id == page.locked_by) || can?(:manage, Alchemy::Current.site) %>
-        <%= form_tag(alchemy.unlock_admin_page_path(page, :redirect_to => alchemy.admin_dashboard_path)) do %>
-          <button class="icon_button small" title="<%= Alchemy.t(:explain_unlocking) %>">
-            <%= render_icon(:close, size: '1x') %>
-          </button>
-        <% end %>
-        <% end %>
-      </td>
-    </tr>
+      </div>
     <% end %>
-  <% end %>
-  </table>
+  </div>
 </div>
-<% reset_cycle('locked_pages') %>

@@ -19,6 +19,25 @@ module Alchemy
           @first_time = current_alchemy_user.sign_in_count == 1 && @last_sign_at.nil?
         end
         @sites = Site.all
+
+        # Statistics for dashboard cards
+        @stats = {
+          pages_count: Page.count,
+          pictures: {
+            count: Picture.count,
+            size: Picture.sum(:image_file_size)
+          },
+          attachments: {
+            count: Attachment.count,
+            size: Attachment.sum(:file_size)
+          },
+          users_count: Alchemy.user_class.count,
+          sites_count: Site.count,
+          languages_count: Language.count
+        }
+
+        # Version info for system card
+        @alchemy_version = Alchemy.version
       end
 
       def info

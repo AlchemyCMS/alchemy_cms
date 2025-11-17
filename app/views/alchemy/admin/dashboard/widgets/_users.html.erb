@@ -1,21 +1,31 @@
-<div class="widget users">
-  <table class="list">
-    <tr>
-      <th colspan="2"><%= Alchemy.t('Who else is online') %></th>
-    </tr>
-  <% if @online_users.blank? %>
-    <tr>
-      <td colspan="2"><%= Alchemy.t('no users') %></td>
-    </tr>
-  <% else %>
-    <% @online_users.each do |user| %>
-    <tr class="<%= cycle('even', 'odd') %>">
-      <td><%= user.name %></td>
-      <td>
-        <small><%= user.human_roles_string %></small>
-      </td>
-    </tr>
+<div class="dashboard-card dashboard-online-users">
+  <div class="card-header">
+    <h3>
+      <%= render_icon(:user, size: "1x") %>
+      <%= Alchemy.t('Who else is online') %>
+    </h3>
+
+    <span class="card-badge"><%= @online_users.count %></span>
+  </div>
+
+  <div class="card-body">
+    <% if @online_users.blank? %>
+      <p class="empty-state"><%= Alchemy.t('no users') %></p>
+    <% else %>
+      <div class="online-users-list">
+        <% @online_users.each do |user| %>
+          <div class="online-user-item">
+            <div class="user-info">
+              <div class="user-name">
+                <%= render_icon(:user, size: "1x", style: "fill") %>
+                <%= user.name %>
+              </div>
+
+              <div class="user-roles"><%= user.human_roles_string %></div>
+            </div>
+          </div>
+        <% end %>
+      </div>
     <% end %>
-  <% end %>
-  </table>
+  </div>
 </div>

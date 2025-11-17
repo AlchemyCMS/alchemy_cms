@@ -1,34 +1,49 @@
-<div class="widget">
-  <table class="list">
-    <tr>
-      <th colspan="4"><%= Alchemy.t('Your last updated pages') %></th>
-    </tr>
-  <% if @last_edited_pages.blank? %>
-    <tr class="even">
-      <td colspan="4"><%= Alchemy.t('no pages') %></td>
-    </tr>
-  <% else %>
-    <% @last_edited_pages.each do |page| %>
-    <tr class="<%= cycle('even', 'odd', :name => 'edited_pages') %>">
-      <td>
-        <%= link_to_if((page.locked_by.blank? || page.locked_by == current_alchemy_user.id), page.name, edit_admin_page_path(page)) %>
-      </td>
-      <% if multi_site? %>
-      <td>
-        <small><%= page.site_name %></small>
-      </td>
-      <% end %>
-      <td>
-        <% if page.site_languages.many? %>
-        <small><%= page.language.code.upcase %></small>
+<div class="dashboard-card dashboard-recent-pages">
+  <div class="card-header">
+    <h3>
+      <%= render_icon(:edit) %>
+      <%= Alchemy.t('Your last updated pages') %>
+    </h3>
+
+    <span class="card-badge"><%= @last_edited_pages.count %></span>
+  </div>
+
+  <div class="card-body">
+    <% if @last_edited_pages.blank? %>
+      <p class="empty-state"><%= Alchemy.t('no pages') %></p>
+    <% else %>
+      <div class="pages-list">
+        <% @last_edited_pages.each do |page| %>
+          <div class="page-item">
+            <div class="page-info">
+              <div class="page-name">
+                <%= link_to_if((page.locked_by.blank? || page.locked_by == current_alchemy_user.id), page.name, edit_admin_page_path(page)) %>
+              </div>
+
+              <div class="page-meta">
+                <% if multi_site? %>
+                  <span class="meta-item">
+                    <%= render_icon(:global, size: "1x") %>
+                    <%= page.site_name %>
+                  </span>
+                <% end %>
+
+                <% if page.site_languages.many? %>
+                  <span class="meta-item">
+                    <%= render_icon(:translate, size: "1x") %>
+                    <%= page.language.code.upcase %>
+                  </span>
+                <% end %>
+
+                <span class="meta-item">
+                  <%= render_icon(:time, size: "1x") %>
+                  <%= l(page.updated_at, format: :'alchemy.short_datetime') %>
+                </span>
+              </div>
+            </div>
+          </div>
         <% end %>
-      </td>
-      <td>
-        <small><%= l(page.updated_at, format: :'alchemy.short_datetime') %></small>
-      </td>
-    </tr>
+      </div>
     <% end %>
-  <% end %>
-  </table>
+  </div>
 </div>
-<% reset_cycle('edited_pages') %>

@@ -1,20 +1,65 @@
-<%= content_for :toolbar do %>
-  <div class="toolbar_buttons">
-    <%= render Alchemy::Admin::ToolbarButton.new(
-      icon: 'information',
-      label: Alchemy.t(:info),
-      url: alchemy.dashboard_info_path,
-      title: Alchemy.t(:info),
-      dialog_options: {
-        title: Alchemy.t(:info),
-        size: "420x380"
-      },
-      if_permitted_to: [:info, :alchemy_admin_dashboard],
-      hotkey: 'alt+i'
-    ) %>
-  </div>
-<% end %>
-
 <div id="dashboard">
-  <%= render "dashboard" %>
+  <div class="dashboard-header">
+    <h1>
+      <% if @first_time -%>
+        <%= Alchemy.t(:welcome_note, name: current_alchemy_user.try(:name)) %>
+      <% else -%>
+        <%= Alchemy.t(:welcome_back_note, name: current_alchemy_user.try(:name)) %>
+      <% end -%>
+
+      <% if @last_sign_at %>
+        <br>
+        <small class="last-login">
+          <%= Alchemy.t('Your last login was on', time: l(@last_sign_at, format: :'alchemy.default')) %>
+        </small>
+      <% end %>
+    </h1>
+  </div>
+
+  <div class="dashboard-grid">
+    <div class="dashboard-stats-grid">
+      <%= render Alchemy::Admin::Dashboard::Widgets::StatCard.new(
+          title: Alchemy.t(:pages, scope: :modules),
+          value: @stats[:pages_count],
+          icon: :pages) %>
+
+      <%= render Alchemy::Admin::Dashboard::Widgets::StatCard.new(
+          title: Alchemy.t(:pictures, scope: 'modules'),
+          value: @stats.dig(:pictures, :count),
+          subtitle: number_to_human_size(@stats.dig(:pictures, :size)),
+          icon: :image) %>
+
+      <%= render Alchemy::Admin::Dashboard::Widgets::StatCard.new(
+          title: Alchemy.t(:attachments, scope: 'modules'),
+          value: @stats.dig(:attachments, :count),
+          subtitle: number_to_human_size(@stats.dig(:attachments, :size)),
+          icon: :"file-pdf-2") %>
+
+      <%= render Alchemy::Admin::Dashboard::Widgets::StatCard.new(
+          title: Alchemy.t(:users, scope: :modules),
+          value: @stats[:users_count],
+          icon: :user) %>
+
+      <%= render Alchemy::Admin::Dashboard::Widgets::StatCard.new(
+          title: Alchemy.t(:sites, scope: :modules),
+          value: @stats[:sites_count],
+          icon: :global) %>
+
+      <%= render Alchemy::Admin::Dashboard::Widgets::StatCard.new(
+          title: Alchemy.t(:languages, scope: :modules),
+          value: @stats[:languages_count],
+          icon: :"translate-2",
+          icon_style: false) %>
+    </div>
+
+    <div class="dashboard-widgets-grid">
+      <%= render "alchemy/admin/dashboard/widgets/locked_pages" %>
+
+      <%= render "alchemy/admin/dashboard/widgets/recent_pages" %>
+
+      <%= render "alchemy/admin/dashboard/widgets/users" %>
+
+      <%= render "alchemy/admin/dashboard/widgets/system_info" %>
+    </div>
+  </div>
 </div>

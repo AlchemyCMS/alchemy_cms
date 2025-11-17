@@ -16,6 +16,14 @@ class DummyUser < ActiveRecord::Base
     @alchemy_roles || %w[admin]
   end
 
+  def last_sign_in_at
+    2.days.ago
+  end
+
+  def sign_in_count
+    2
+  end
+
   def name
     @name || email
   end

@@ -65,6 +65,7 @@
   --font-size_small: 10px; /* 0.875rem */
   --font-size_medium: 12px; /* 1rem */
   --font-size_large: 16px; /* 1.25 rem */
+  --font-size_xlarge: 20px; /* 1.667 rem */
 
   --font-weight_normal: 500;
   --font-weight_bold: 700;
@@ -72,7 +73,9 @@
   --font-default: var(--font-size_medium) var(--font-sans);
 
   /* Borders */
-  --border-radius_medium: 3px;
+  --border-radius_medium: 0.25rem;
+  --border-radius_large: 0.5rem;
+  --border-radius_xlarge: 1rem;
   --border-width_small: 1px;
   --border-style: solid;
   --border-default: var(--border-width_small) var(--border-style)
