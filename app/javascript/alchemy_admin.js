@@ -17,7 +17,6 @@ import { LinkDialog } from "alchemy_admin/link_dialog"
 import pleaseWaitOverlay from "alchemy_admin/please_wait_overlay"
 import Sitemap from "alchemy_admin/sitemap"
 import Spinner from "alchemy_admin/spinner"
-import PagePublicationFields from "alchemy_admin/page_publication_fields"
 import { reloadPreview } from "alchemy_admin/components/preview_window"
 import { openConfirmDialog } from "alchemy_admin/confirm_dialog"
 
@@ -47,7 +46,6 @@ Object.assign(Alchemy, {
   pleaseWaitOverlay,
   Sitemap,
   Spinner,
-  PagePublicationFields,
   reloadPreview
 })
 
