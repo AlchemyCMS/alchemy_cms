@@ -55,6 +55,19 @@ module Alchemy
         ])
       end
 
+      it "saves position without validation" do
+        # Create an element that would fail validation if validated
+        element = create(:alchemy_element, page_version: page_version)
+
+        # Stub validation to fail
+        allow_any_instance_of(Element).to receive(:valid?).and_return(false)
+
+        # Position should still be saved
+        expect {
+          post :order, params: {element_id: element.id, position: 2}
+        }.to change { element.reload.position }.to(2)
+      end
+
       context "when nested inside parent element" do
         let(:parent) { create(:alchemy_element) }
 
