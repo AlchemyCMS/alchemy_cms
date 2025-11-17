@@ -67,7 +67,7 @@ module Alchemy
       if can?(:index, :alchemy_admin_dashboard)
         redirect_or_render_notice
       else
-        redirect_to Alchemy.unauthorized_path
+        redirect_to Alchemy.config.auth.unauthorized_path
       end
     end
 
@@ -95,7 +95,7 @@ module Alchemy
         render :permission_denied
       else
         store_location
-        redirect_to Alchemy.login_path
+        redirect_to Alchemy.config.auth.login_path
       end
     end
 

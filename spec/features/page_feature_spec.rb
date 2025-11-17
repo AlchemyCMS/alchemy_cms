@@ -10,7 +10,7 @@ RSpec.describe "Show page feature:", type: :system do
 
     context "and no admin user is present yet" do
       before do
-        Alchemy.user_class.delete_all
+        Alchemy.config.auth.user_class.delete_all
       end
 
       it "shows a welcome page" do
@@ -154,7 +154,7 @@ RSpec.describe "Show page feature:", type: :system do
   describe "Handling of non-existing pages" do
     before do
       # We need a admin user or the signup page will show up
-      allow(Alchemy.user_class).to receive(:admins).and_return([1, 2])
+      allow(Alchemy.config.auth.user_class).to receive(:admins).and_return([1, 2])
     end
 
     it "should render public/404.html" do
@@ -194,7 +194,7 @@ RSpec.describe "Show page feature:", type: :system do
     context "as a guest user" do
       it "I am not able to visit the page" do
         visit restricted_page.urlname
-        expect(current_path).to eq(Alchemy.login_path)
+        expect(current_path).to eq(Alchemy.config.auth.login_path)
       end
     end
 
