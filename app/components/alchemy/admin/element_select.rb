@@ -18,7 +18,7 @@ module Alchemy
             autofocus: true,
             required: true,
             value: elements.many? ? nil : elements.first&.name,
-            class: "alchemy_selectbox"
+            class: "alchemy_selectbox full_width"
           })
         end
       end
@@ -30,7 +30,8 @@ module Alchemy
 
         elements.sort_by(&:name).map do |element|
           {
-            text: Element.display_name_for(element.name),
+            name: Element.display_name_for(element.name),
+            hint: element.hint,
             icon: element.icon_file,
             id: element.name
           }

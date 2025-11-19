@@ -1,5 +1,10 @@
 .element-select-item {
   display: flex;
+  flex-direction: column;
+}
+
+.element-select-name {
+  display: flex;
   align-items: center;
 
   > svg {
@@ -8,5 +13,17 @@
     height: var(--spacing-4);
     fill: currentColor;
     padding-right: var(--spacing-2);
+  }
+}
+
+.element-select-description {
+  margin-top: var(--spacing-0);
+  padding-left: var(--spacing-6);
+  font-size: var(--font-size_small);
+  color: var(--text-color-muted);
+  max-width: 270px;
+
+  .select2-highlighted & {
+    color: var(--select-hover-text-color);
   }
 }
