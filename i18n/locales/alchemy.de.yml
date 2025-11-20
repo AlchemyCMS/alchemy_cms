@@ -1086,4 +1086,4 @@ de:
         password_confirmation: "Passwort Bestätigung"
         alchemy_roles: "Benutzerrollen"
         tag_list: Tags
-        send_credentials: "Sende Benutzerdaten per E-Mail"
+        send_credentials: "Willkommens-E-Mail senden"
