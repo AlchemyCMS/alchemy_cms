@@ -291,6 +291,11 @@ de:
       page_definitions:
         show_pages: Zeige %{count} %{model_name}
         zero_pages: 0 Seiten
+      pictures:
+        sorting_select:
+          label: "Sortierung"
+          by_latest: "Neueste zuerst"
+          alphabetical: "A-Z"
     anchor: "Sprungmarke"
     attribute_fixed: Dieser Wert ist für diesen Seitentyp nicht veränderbar
     back: "zurück"
