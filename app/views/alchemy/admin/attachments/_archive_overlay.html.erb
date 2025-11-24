@@ -14,19 +14,16 @@
         </div>
       <% end %>
     </div>
+
     <%= render 'alchemy/admin/partials/overlay_search_form' %>
   </div>
 
-  <div id="assign_file_list" class="with_padding<%= search_filter_params[:tagged_with].present? ? ' filtered' : '' %>">
-    <div id="library_sidebar">
-      <%= render 'filter_bar' if resource_has_filters %>
+  <div
+    id="assign_file_list"
+    class="with_padding<%= search_filter_params[:tagged_with].present? ? ' filtered' : '' %>"
+  >
+    <%= render 'library_sidebar' %>
 
-      <% if Alchemy::Attachment.tag_counts.any? %>
-        <div class="tag-list">
-          <%= render 'tag_list' %>
-        </div>
-      <% end %>
-    </div>
     <div id="overlay_file_list" class="with_tag_list">
       <%= render 'overlay_file_list' %>
     </div>

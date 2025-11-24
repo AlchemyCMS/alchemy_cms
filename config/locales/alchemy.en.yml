@@ -223,6 +223,11 @@ en:
         aliases: Enter additional domains this site should be accessible by. Please separate them by space or new line.
 
     admin:
+      attachments:
+        sorting_select:
+          label: "Sorting"
+          by_latest: "Latest"
+          alphabetical: "A-Z"
       elements:
         toolbar:
           hide: Hide
