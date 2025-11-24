@@ -38,7 +38,7 @@
   </small>
 </p>
 
-<% if can?(:update_check, :alchemy_admin_dashboard) %>
+<% if can?(:update_check, :alchemy_admin_dashboard) && Alchemy.config.update_check_service != :none %>
   <alchemy-update-check url="<%= alchemy.update_check_path %>">
     <span class="update_available hidden">
       <%= render_icon(:exclamation) %>
