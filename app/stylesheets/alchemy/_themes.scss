@@ -161,7 +161,7 @@
   --select-text-color: var(--text-color);
   --select-hover-bg-color: var(--color-blue_dark);
   --select-hover-border-color: var(--form-field-border-color);
-  --select-hover-text-color: var(--color-white);
+  --select-hover-text-color: var(--text-color);
   --select-background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="hsl(200deg, 5%, 70%)" viewBox="0 0 24 24"><path d="M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z"></path></svg>');
   --select-close-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="hsl(200deg, 5%, 70%)"><path d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"></path></svg>');
   --select-disabled-background-color: var(--a-darker-grey);
@@ -465,7 +465,7 @@
 
   /* Text */
   --text-color: hsla(224deg, 23%, 26%, 0.8);
-  --text-color-muted: hsla(224deg, 23%, 26%, 0.5);
+  --text-color-muted: hsla(224deg, 23%, 26%, 0.6);
   --text-link-color: var(--color-orange_very_dark);
   --text-shadow-light: 0 0 var(--spacing-1) hsla(0deg, 0%, 100%, 0.5);
 
