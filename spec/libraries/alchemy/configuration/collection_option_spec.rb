@@ -80,6 +80,43 @@ RSpec.describe Alchemy::Configuration::CollectionOption do
     end
   end
 
+  describe "#delete" do
+    let(:collection_class) { Set }
+    let(:item_type) { :integer }
+    let(:value) { [1, 2, 3] }
+
+    it "adds all items to the collection" do
+      option.delete(2)
+      expect(option.value.to_a).to contain_exactly(1, 3)
+    end
+
+    context "if removing non existing value" do
+      it "does not remove the item" do
+        option.delete(4)
+        expect(option.value.to_a).to contain_exactly(1, 2, 3)
+      end
+    end
+
+    context "for a array collection class" do
+      let(:collection_class) { Array }
+
+      it "deletes the item" do
+        option.delete(2)
+        expect(option.value.to_a).to contain_exactly(1, 3)
+      end
+    end
+
+    context "for a collection of class options" do
+      let(:item_type) { :class }
+      let(:value) { ["Alchemy::Page", "Alchemy::Element"] }
+
+      it "deletes the item" do
+        option.delete("Alchemy::Element")
+        expect(option.value.to_a).to contain_exactly("Alchemy::Page".constantize)
+      end
+    end
+  end
+
   describe "#clear" do
     let(:collection_class) { Set }
     let(:item_type) { :integer }
