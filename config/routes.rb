@@ -12,7 +12,7 @@ Alchemy::Engine.routes.draw do
     get "/dashboard", to: "admin/dashboard#index", as: :admin_dashboard
     get "/dashboard/info", to: "admin/dashboard#info", as: :dashboard_info
     get "/help", to: "admin/dashboard#help", as: :help
-    get "/dashboard/update_check", to: "admin/dashboard#update_check", as: :update_check
+    get "/update_check" => "admin/update_checks#show", :as => :update_check
     get "/leave", to: "admin/base#leave", as: :leave_admin
   end
 

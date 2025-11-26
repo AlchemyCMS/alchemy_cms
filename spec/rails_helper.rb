@@ -16,6 +16,7 @@ require "rspec/rails"
 require "shoulda-matchers"
 require "factory_bot"
 require "view_component/test_helpers"
+require "webmock"
 
 require "alchemy/seeder"
 require "alchemy/test_support"
@@ -74,6 +75,10 @@ RSpec.configure do |config|
   config.include Alchemy::TestSupport::CapybaraHelpers, type: :system
   config.include ViewComponent::TestHelpers, type: :component
 
+  [:controller, :model].each do |type|
+    config.include WebMock::API, type: type
+  end
+
   config.use_transactional_fixtures = true
 
   # All specs are running in transactions, but feature specs not.
@@ -95,6 +100,7 @@ RSpec.configure do |config|
     screen_size = example.metadata[:screen_size] || [1280, 800]
     driven_by(:selenium, using: :headless_chrome, screen_size: screen_size) do |capabilities|
       capabilities.add_argument("--disable-search-engine-choice-screen")
+      capabilities.add_argument("--accept-lang=en")
     end
   end
 end

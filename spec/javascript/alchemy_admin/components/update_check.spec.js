@@ -30,7 +30,7 @@ describe("alchemy-update-check", () => {
   it("shows update available when response is 'true'", async () => {
     global.fetch.mockResolvedValueOnce({
       ok: true,
-      text: () => Promise.resolve("true")
+      json: () => Promise.resolve({ status: "true" })
     })
 
     component = renderComponent("alchemy-update-check", html)
@@ -50,7 +50,7 @@ describe("alchemy-update-check", () => {
   it("shows update available when response is 'false'", async () => {
     global.fetch.mockResolvedValueOnce({
       ok: true,
-      text: () => Promise.resolve("false")
+      json: () => Promise.resolve({ status: "false" })
     })
 
     component = renderComponent("alchemy-update-check", html)

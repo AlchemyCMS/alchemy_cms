@@ -19,7 +19,7 @@ module Alchemy
 
       def index
         @query = Attachment.ransack(search_filter_params[:q])
-        @query.sorts = "name asc" if @query.sorts.empty?
+        @query.sorts = default_sort_order if @query.sorts.empty?
         @attachments = @query.result
 
         if search_filter_params[:tagged_with].present?
@@ -66,6 +66,10 @@ module Alchemy
       end
 
       private
+
+      def default_sort_order
+        "created_at desc"
+      end
 
       def search_filter_params
         @_search_filter_params ||= params.except(*COMMON_SEARCH_FILTER_EXCLUDES + [:attachment]).permit(
