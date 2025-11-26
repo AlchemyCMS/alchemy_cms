@@ -39,6 +39,10 @@ module Alchemy
         end
       end
 
+      def delete(value)
+        @value.delete to_item(value)
+      end
+
       delegate :join, :[], to: :to_a
 
       delegate :clear, :empty?, to: :@value
