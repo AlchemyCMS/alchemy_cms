@@ -9,7 +9,7 @@ module Alchemy
 
       helper "Alchemy::Admin::Base"
 
-      layout Alchemy::Devise.layout
+      layout Alchemy::Devise.config.layout
 
       private
 

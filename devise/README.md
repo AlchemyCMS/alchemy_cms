@@ -43,13 +43,13 @@ Default Devise modules included in `Alchemy::User` model
 - `:timeoutable`
 - `:recoverable`
 
-If you want to add additional modules into the Alchemy user class append them to `Alchemy.devise_modules` in an initializer in your app.
+If you want to add additional modules into the Alchemy user class append them to `Alchemy::Devise.config.devise_modules` in an initializer in your app.
 
 ### Register additional modules example
 
 ```ruby
 # config/initializers/alchemy.rb
-Alchemy.devise_modules << :registerable
+Alchemy::Devise.config.devise_modules << :registerable
 ```
 
 ### Using old encryption
@@ -58,7 +58,7 @@ If your app uses an old encryption that needs the +devise-encryptable+ gem you a
 
 ```ruby
 # config/initializers/alchemy.rb
-Alchemy.devise_modules << :encryptable
+Alchemy::Devise.config.devise_modules << :encryptable
 ```
 
 ## Testing

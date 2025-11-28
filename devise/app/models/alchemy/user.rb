@@ -17,7 +17,7 @@ module Alchemy
       :tag_list
     ]
 
-    devise(*Alchemy.devise_modules)
+    devise(*Alchemy::Devise.config.devise_modules)
 
     include Alchemy::Taggable
 
