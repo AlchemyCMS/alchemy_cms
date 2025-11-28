@@ -356,6 +356,28 @@ module Alchemy
         "Alchemy::Admin::LinkDialog::ExternalTab",
         "Alchemy::Admin::LinkDialog::FileTab"
       ]
+
+      # === Update Check Service
+      #
+      # The service to use for checking for new Alchemy versions.
+      #
+      # Available services:
+      # - :alchemy_app (default): Alchemy's own update check endpoint
+      #   shares minimal data about your installation (Alchemy version, Rails version, Ruby version, Origin host)
+      #   with maintainers of AlchemyCMS.
+      # - :ruby_gems: RubyGems.org API
+      #   recommeded if you don't want to share any data with AlchemyCMS maintainers.
+      # - :none: Disable update checks (not recommended).
+      #
+      option :update_check_service, :symbol, default: :alchemy_app
+
+      # === Update Check Cache Duration
+      #
+      # The duration in hours for caching the result of the update check.
+      #
+      # Default is 1 hour.
+      #
+      option :update_check_cache_duration, :integer, default: 1
     end
   end
 end

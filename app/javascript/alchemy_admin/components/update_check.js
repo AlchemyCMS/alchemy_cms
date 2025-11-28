@@ -7,10 +7,10 @@ class UpdateCheck extends HTMLElement {
 
     try {
       const response = await fetch(this.url)
-      const responseText = await response.text()
+      const responseJSON = await response.json()
 
       if (response.ok) {
-        this.showStatus(responseText)
+        this.showStatus(responseJSON)
       } else {
         this.showError(response)
       }
@@ -25,8 +25,8 @@ class UpdateCheck extends HTMLElement {
     return this.getAttribute("url")
   }
 
-  showStatus(responseText) {
-    if (responseText == "true") {
+  showStatus(responseJSON) {
+    if (responseJSON["status"] == "true") {
       this.querySelector(".update_available").classList.remove("hidden")
     } else {
       this.querySelector(".up_to_date").classList.remove("hidden")

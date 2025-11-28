@@ -16,6 +16,7 @@ require "rspec/rails"
 require "shoulda-matchers"
 require "factory_bot"
 require "view_component/test_helpers"
+require "webmock"
 
 require "alchemy/seeder"
 require "alchemy/test_support"
@@ -73,6 +74,10 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include Alchemy::TestSupport::CapybaraHelpers, type: :system
   config.include ViewComponent::TestHelpers, type: :component
+
+  [:controller, :model].each do |type|
+    config.include WebMock::API, type: type
+  end
 
   config.use_transactional_fixtures = true
 
