@@ -16,7 +16,8 @@ module Alchemy
       #       :trackable,
       #       :validatable,
       #       :timeoutable,
-      #       :recoverable
+      #       :recoverable,
+      #       :rememberable
       #     ]
       #
       # If you want to add additional modules into the Alchemy user class append
@@ -37,7 +38,8 @@ module Alchemy
         :trackable,
         :validatable,
         :timeoutable,
-        :recoverable
+        :recoverable,
+        :rememberable
       ]
     end
   end

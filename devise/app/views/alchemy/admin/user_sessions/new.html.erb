@@ -14,6 +14,16 @@
     <%= f.input Devise.authentication_keys.first, autofocus: true, required: true,
       input_html: {autocomplete: Devise.authentication_keys.first == :email ? "email" : "username"} %>
     <%= f.input :password, required: true, input_html: {autocomplete: "current-password"} %>
+    <% if devise_mapping.rememberable? %>
+      <div class="input">
+        <span class="control-label">&nbsp;</span>
+
+        <%= f.label :remember_me, class: "checkbox" do %>
+          <%= f.check_box :remember_me, checked: true %>
+          <%= Alchemy.t(:remember_me, scope: 'admin.login', days: Devise.remember_for.in_days.to_i) %>
+        <% end %>
+      </div>
+    <% end %>
     <div class="submit">
       <%= link_to Alchemy.t('Forgot your password?'), admin_new_password_path %>
       <button type="submit"><%= Alchemy.t(:login) %></button>

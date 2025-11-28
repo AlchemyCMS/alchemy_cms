@@ -1,0 +1,5 @@
+de:
+  alchemy:
+    admin:
+      login:
+        remember_me: "Für %{days} Tage angemeldet bleiben"

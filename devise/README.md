@@ -42,6 +42,7 @@ Default Devise modules included in `Alchemy::User` model
 - `:validatable`
 - `:timeoutable`
 - `:recoverable`
+- `:rememberable`
 
 If you want to add additional modules into the Alchemy user class append them to `Alchemy::Devise.config.devise_modules` in an initializer in your app.
 
