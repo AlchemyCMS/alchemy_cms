@@ -1,5 +1,20 @@
 # Changelog
 
+## 8.0.0 (2025-11-28)
+
+- Enable rememberable module [#237](https://github.com/AlchemyCMS/alchemy-devise/pull/237) ([tvdeyen](https://github.com/tvdeyen))
+- Use Alchemy::Configuration for config [#236](https://github.com/AlchemyCMS/alchemy-devise/pull/236) ([tvdeyen](https://github.com/tvdeyen))
+- CI: Test Alchemy 8.0-stable branch [#234](https://github.com/AlchemyCMS/alchemy-devise/pull/234) ([tvdeyen](https://github.com/tvdeyen))
+- Make `Alchemy::Devise::Ability` auto-loadable [#233](https://github.com/AlchemyCMS/alchemy-devise/pull/233) ([mamhoff](https://github.com/mamhoff))
+- Login, Signup and Password reset forms improvements [#231](https://github.com/AlchemyCMS/alchemy-devise/pull/231) ([tvdeyen](https://github.com/tvdeyen))
+- Test with Rails 8.0 [#230](https://github.com/AlchemyCMS/alchemy-devise/pull/230) ([tvdeyen](https://github.com/tvdeyen))
+- New login screen with dark mode support [#229](https://github.com/AlchemyCMS/alchemy-devise/pull/229) ([tvdeyen](https://github.com/tvdeyen))
+- Updates for Alchemy 8.0 [#228](https://github.com/AlchemyCMS/alchemy-devise/pull/228) ([mamhoff](https://github.com/mamhoff))
+- Update puma requirement from ~> 6.0 to ~> 7.0 [#227](https://github.com/AlchemyCMS/alchemy-devise/pull/227) ([dependabot](https://github.com/apps/dependabot))
+- Update rspec-rails requirement from ~> 7.1 to ~> 8.0 [#226](https://github.com/AlchemyCMS/alchemy-devise/pull/226) ([dependabot](https://github.com/apps/dependabot))
+- Add support for Alchemy 8.0 [#225](https://github.com/AlchemyCMS/alchemy-devise/pull/225) ([tvdeyen](https://github.com/tvdeyen))
+- Load Base Controller Extension when autoloading [#216](https://github.com/AlchemyCMS/alchemy-devise/pull/216) ([mamhoff](https://github.com/mamhoff))
+
 ## 7.4.1 (2025-02-12)
 
 - Fix module icon for Alchemy 7.4 [#224](https://github.com/AlchemyCMS/alchemy-devise/pull/224) ([tvdeyen](https://github.com/tvdeyen))
