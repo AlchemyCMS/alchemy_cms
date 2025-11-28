@@ -57,5 +57,29 @@ describe "Login: " do
         Devise.authentication_keys = default_key
       end
     end
+
+    context "with rememberable Devise module enabled" do
+      before do
+        allow_any_instance_of(Devise::Mapping).to receive(:rememberable?).and_return(true)
+      end
+
+      it "displays a remember me checkbox" do
+        visit "/admin/login"
+        expect(page).to have_css("label input#user_remember_me[checked]")
+        expect(page).to have_content("Remember me for 14 days")
+      end
+    end
+
+    context "with rememberable Devise module disabled" do
+      before do
+        allow_any_instance_of(Devise::Mapping).to receive(:rememberable?).and_return(false)
+      end
+
+      it "does not display a remember me checkbox" do
+        visit "/admin/login"
+        expect(page).to have_css(":not(:has(input#user_remember_me))")
+        expect(page).to_not have_content("Remember me for 14 days")
+      end
+    end
   end
 end

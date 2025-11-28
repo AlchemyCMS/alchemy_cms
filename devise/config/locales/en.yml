@@ -1,0 +1,5 @@
+en:
+  alchemy:
+    admin:
+      login:
+        remember_me: "Remember me for %{days} days"
