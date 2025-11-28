@@ -13,7 +13,7 @@ module Alchemy
 
       helper "Alchemy::Admin::Base"
 
-      layout Alchemy::Devise.layout
+      layout Alchemy::Devise.config.layout
 
       def create
         authenticate_user!
@@ -49,7 +49,7 @@ module Alchemy
 
       # Overwriting the default of Devise
       def after_sign_out_path_for(resource_or_scope)
-        if request.referer.blank? || request.referer.to_s =~ /admin/
+        if request.referer.blank? || request.referer.to_s.include?("admin")
           root_path
         else
           request.referer

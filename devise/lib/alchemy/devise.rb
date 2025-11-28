@@ -1,48 +1,33 @@
+require "alchemy/devise/configuration"
 require "alchemy/devise/engine"
 
 module Alchemy
-  # Devise modules included in +Alchemy::User+ model
-  #
-  # === Default modules
-  #
-  #     [
-  # .      :database_authenticatable,
-  #       :trackable,
-  #       :validatable,
-  #       :timeoutable,
-  #       :recoverable
-  # .    ]
-  #
-  # If you want to add additional modules into the Alchemy user class append
-  # them to this collection in an initializer in your app.
-  #
-  # === Example
-  #
-  #     # config/initializers/alchemy.rb
-  #     Alchemy.devise_modules << :registerable
-  #
-  # If your app uses an old encryption that needs the +devise-encryptable+ gem
-  # you also need to load the devise module.
-  #
-  #     Alchemy.devise_modules << :encryptable
-  #
-  def self.devise_modules
-    @devise_modules ||= [
-      :database_authenticatable,
-      :trackable,
-      :validatable,
-      :timeoutable,
-      :recoverable
-    ]
-  end
-
   module Devise
-    def self.layout=(value)
-      @layout = value
+    extend self
+
+    def deprecator
+      ActiveSupport::Deprecation.new("9.0", "Alchemy::Devise")
     end
 
-    def self.layout
-      @layout || "alchemy/admin"
+    delegate :layout=, to: :config
+    deprecate "layout=": "Use `Alchemy::Devise.config.layout=` instead.",
+      deprecator: Alchemy::Devise.deprecator
+
+    delegate :layout, to: :config
+    deprecate layout: "Use `Alchemy::Devise.config.layout` instead.",
+      deprecator: Alchemy::Devise.deprecator
+
+    def config
+      @config ||= Alchemy::Devise::Configuration.new
+    end
+
+    def configure(&blk)
+      yield config
     end
   end
+
+  extend self
+
+  deprecate devise_modules: "Alchemy::Devise.config.devise_modules", deprecator: Alchemy::Devise.deprecator
+  delegate :devise_modules, to: "Alchemy::Devise.config"
 end
