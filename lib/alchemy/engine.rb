@@ -159,6 +159,7 @@ module Alchemy
 
     initializer "alchemy.webp-mime_type" do |app|
       webp = "image/webp"
+      svg = "image/svg+xml"
 
       # Dragonfly uses Rack to read the mime type and guess what
       # Rack 3.0 has this included, but Rails 8 still allows Rack 2.2
@@ -173,6 +174,16 @@ module Alchemy
         end
         unless app.config.active_storage.content_types_allowed_inline.include? webp
           app.config.active_storage.content_types_allowed_inline += [webp]
+        end
+        # Rails sends svg images as attachment instead of inline.
+        # We want to display svgs and not download them.
+        unless app.config.active_storage.content_types_allowed_inline.include? svg
+          app.config.active_storage.content_types_allowed_inline += [svg]
+        end
+        # Rails renders SVG as binary for security reasons.
+        # We sanitize SVGs on upload and therefore can serve them as image.
+        if app.config.active_storage.content_types_to_serve_as_binary.include? svg
+          app.config.active_storage.content_types_to_serve_as_binary.delete(svg)
         end
       end
     end
