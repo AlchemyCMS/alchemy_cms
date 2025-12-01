@@ -18,28 +18,48 @@ module Alchemy
       # @return [String]
       #
       def call(options = {})
-        variant_options = DragonflyToImageProcessing.call(options)
-        variant_options[:format] = options[:format] || default_output_format
-        variant = image_file&.variant(variant_options)
-        return unless variant
+        return nil unless image_file
 
-        Rails.application.routes.url_helpers.rails_blob_path(
-          variant,
-          {
-            filename: filename(options),
-            format: variant_options[:format],
-            only_path: true
-          }
-        )
+        filename = image_filename(options)
+        format = output_format(options)
+        variant = image_variant(options.merge(format:))
+
+        if variant
+          Rails.application.routes.url_helpers.rails_blob_path(
+            variant,
+            {
+              filename:,
+              format:,
+              only_path: true
+            }
+          )
+        end
       end
 
       private
 
-      def filename(options = {})
+      def image_filename(options = {})
         if picture.name.presence
           picture.name.to_param
         else
           picture.image_file_name
+        end
+      end
+
+      def output_format(options = {})
+        if image_file.variable?
+          options[:format] || default_output_format
+        else
+          picture.image_file_extension
+        end
+      end
+
+      def image_variant(options = {})
+        if image_file.variable?
+          variant_options = DragonflyToImageProcessing.call(options)
+          image_file.variant(variant_options)
+        else
+          image_file.blob
         end
       end
 
