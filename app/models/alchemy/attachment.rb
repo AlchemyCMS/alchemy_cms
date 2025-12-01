@@ -126,8 +126,11 @@ module Alchemy
     def extension
       Alchemy.storage_adapter.file_extension(self)
     end
-
     alias_method :suffix, :extension
+
+    def svg?
+      file_mime_type == "image/svg+xml"
+    end
 
     # Returns a css class name for kind of file
     #

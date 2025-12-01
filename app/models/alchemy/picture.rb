@@ -272,6 +272,10 @@ module Alchemy
     alias_method :suffix, :image_file_extension
     deprecate suffix: :image_file_extension, deprecator: Alchemy::Deprecation
 
+    def svg?
+      image_file_format == "image/svg+xml"
+    end
+
     # A size String from original image file values.
     #
     # == Example
