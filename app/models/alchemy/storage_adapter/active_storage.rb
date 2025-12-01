@@ -9,12 +9,19 @@ module Alchemy
             Alchemy.storage_adapter.preprocessor_class.new(attachable).call
             Alchemy.storage_adapter.preprocessor_class.generate_thumbs!(attachable)
           end
+
+          base.after_create_commit if: :svg? do
+            SanitizeSvgJob.perform_later(self, file_accessor: :image_file)
+          end
         end
       end
 
       module AttachmentClassMethods
         def self.included(base)
           base.has_one_attached :file
+          base.after_create_commit if: :svg? do
+            SanitizeSvgJob.perform_later(self, file_accessor: :file)
+          end
         end
       end
 
