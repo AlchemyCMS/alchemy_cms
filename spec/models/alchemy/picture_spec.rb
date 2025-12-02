@@ -511,5 +511,25 @@ module Alchemy
         end
       end
     end
+
+    describe "after create", if: Alchemy.storage_adapter.active_storage? do
+      context "with SVG file" do
+        let(:svg_file) { fixture_file_upload("icon.svg", "image/svg+xml") }
+
+        it "enqueues SanitizeSvgJob" do
+          expect {
+            create(:alchemy_picture, image_file: svg_file)
+          }.to have_enqueued_job(StorageAdapter::ActiveStorage::SanitizeSvgJob)
+        end
+      end
+
+      context "with non-SVG file" do
+        it "does not enqueue SanitizeSvgJob" do
+          expect {
+            create(:alchemy_picture, image_file: image_file)
+          }.not_to have_enqueued_job(StorageAdapter::ActiveStorage::SanitizeSvgJob)
+        end
+      end
+    end
   end
 end
