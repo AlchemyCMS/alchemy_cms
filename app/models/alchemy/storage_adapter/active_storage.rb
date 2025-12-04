@@ -80,16 +80,22 @@ module Alchemy
         ::ActiveStorage::Error
       end
 
-      # @param [String]
+      # @param [String, Array<String>]
       # @return [Alchemy::Picture::ActiveRecord_Relation]
       def by_file_format_scope(file_format)
         Picture.with_attached_image_file.joins(:image_file_blob).where(active_storage_blobs: {content_type: file_format})
       end
 
-      # @param [String]
+      # @param [String, Array<String>]
       # @return [Alchemy::Atachment::ActiveRecord_Relation]
       def by_file_type_scope(file_type)
         Attachment.with_attached_file.joins(:file_blob).where(active_storage_blobs: {content_type: file_type})
+      end
+
+      # @param [String, Array<String>]
+      # @return [Alchemy::Atachment::ActiveRecord_Relation]
+      def not_file_type_scope(file_type)
+        Attachment.with_attached_file.joins(:file_blob).where.not(active_storage_blobs: {content_type: file_type})
       end
 
       # @param [Alchemy::Attachment]
