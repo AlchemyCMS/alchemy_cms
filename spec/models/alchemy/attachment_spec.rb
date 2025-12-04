@@ -48,7 +48,7 @@ module Alchemy
 
     describe ".ransackable_scopes" do
       it "delegates to storage adapter" do
-        expect(described_class.ransackable_scopes).to eq %i[by_file_type recent last_upload without_tag deletable]
+        expect(described_class.ransackable_scopes).to eq %i[by_file_type not_file_type recent last_upload without_tag deletable]
       end
     end
 
