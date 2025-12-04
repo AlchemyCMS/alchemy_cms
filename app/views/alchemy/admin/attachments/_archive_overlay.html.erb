@@ -25,6 +25,21 @@
     <%= render 'library_sidebar' %>
 
     <div id="overlay_file_list" class="with_tag_list">
+      <% %i[except only].each do |filter| %>
+        <% if search_filter_params[filter].present? %>
+          <%= render_message do %>
+            <%= Alchemy.t(:"choose_#{filter}_files", type:
+              Array.wrap(search_filter_params[filter]).map { |ext|
+                mime_to_human(Marcel::MimeType.for(extension: ext))
+              }.to_sentence(
+                last_word_connector: t(".last_word_connector", default: ", "),
+                two_words_connector: t(".two_words_connector", default: ", ")
+              )
+            ) %>
+          <% end %>
+        <% end %>
+      <% end %>
+
       <%= render 'overlay_file_list' %>
     </div>
   </div>

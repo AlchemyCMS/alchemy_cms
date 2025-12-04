@@ -226,6 +226,9 @@ en:
 
     admin:
       attachments:
+        archive_overlay:
+          last_word_connector: ", or "
+          two_words_connector: " or "
         sorting_select:
           label: "Sorting"
           by_latest: "Latest"
@@ -244,6 +247,8 @@ en:
     automatic_anchor_notice: The anchor is generated automatically.
     attribute_fixed: Value can't be changed for this page type
     back: "back"
+    choose_except_files: "Please choose any file except %{type}."
+    choose_only_files: "Please choose only %{type} files."
     locked_pages: "Active pages"
     "Add a page": "Add a page"
     "Add global page": "Add global page"

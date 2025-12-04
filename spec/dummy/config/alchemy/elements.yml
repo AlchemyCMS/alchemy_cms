@@ -61,6 +61,8 @@
   ingredients:
     - role: file
       type: File
+      settings:
+        except: mp3
 
 - name: bild
   ingredients:

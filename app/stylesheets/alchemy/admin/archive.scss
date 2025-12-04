@@ -313,6 +313,10 @@ div#library_sidebar {
   overflow-y: auto;
   padding-bottom: var(--pagination-height);
 
+  alchemy-message {
+    margin: var(--spacing-2) 0;
+  }
+
   .assign_file_file {
     display: block;
     margin-bottom: var(--spacing-1);
