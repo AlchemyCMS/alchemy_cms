@@ -50,7 +50,7 @@ namespace :alchemy do
       original_file = "./CHANGELOG.md"
       new_file = original_file + ".new"
       backup = original_file + ".old"
-      changes = `git rev-list v#{ENV["PREVIOUS_VERSION"]}...main | bundle exec github_fast_changelog AlchemyCMS/alchemy-devise`
+      changes = `git rev-list v#{ENV["PREVIOUS_VERSION"]}...HEAD | bundle exec github_fast_changelog AlchemyCMS/alchemy-devise`
       File.open(new_file, "w") do |fo|
         fo.puts changes
         File.foreach(original_file) do |li|
