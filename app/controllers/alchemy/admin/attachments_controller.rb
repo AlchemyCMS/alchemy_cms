@@ -7,7 +7,7 @@ module Alchemy
       include ArchiveOverlay
 
       add_alchemy_filter :by_file_type, type: :select,
-        options: -> { Alchemy::Attachment.file_types(_1.result) }
+        options: ->(_q) { Alchemy::Attachment.file_types }
       add_alchemy_filter :recent, type: :checkbox
       add_alchemy_filter :last_upload, type: :checkbox
       add_alchemy_filter :without_tag, type: :checkbox
@@ -72,11 +72,22 @@ module Alchemy
       end
 
       def search_filter_params
-        @_search_filter_params ||= params.except(*COMMON_SEARCH_FILTER_EXCLUDES + [:attachment]).permit(
-          *common_search_filter_includes + [
-            :form_field_id
-          ]
-        )
+        @_search_filter_params ||= begin
+          params[:q] ||= ActionController::Parameters.new
+          params.except(*COMMON_SEARCH_FILTER_EXCLUDES + [:attachment]).permit(
+            *common_search_filter_includes + [
+              :form_field_id
+            ]
+          )
+        end
+      end
+
+      def permitted_ransack_search_fields
+        super + [
+          {by_file_type: []},
+          :not_file_type,
+          {not_file_type: []}
+        ]
       end
 
       def handle_uploader_response(status:)
