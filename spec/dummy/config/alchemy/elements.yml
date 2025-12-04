@@ -171,9 +171,13 @@
     - role: audio
       type: Audio
       hint: true
+      settings:
+        only: [mp3, wav]
     - role: video
       type: Video
       hint: true
+      settings:
+        only: webm
     - role: page
       type: Page
       hint: true
