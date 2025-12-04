@@ -12,11 +12,13 @@ module Alchemy
     ]
 
     IMAGE_FILE_TYPES = [
+      "image/avif",
       "image/gif",
       "image/jpeg",
       "image/png",
       "image/svg+xml",
       "image/tiff",
+      "image/webp",
       "image/x-psd"
     ]
 
@@ -28,6 +30,7 @@ module Alchemy
       "video/mp4",
       "video/mpeg",
       "video/quicktime",
+      "video/webm",
       "video/x-msvideo",
       "video/x-ms-wmv"
     ]
