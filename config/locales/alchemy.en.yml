@@ -83,6 +83,7 @@ en:
       audio/mpeg: MP3 Audio
       audio/wav: WAV Audio
       audio/x-wav: WAV Audio
+      image/avif: AVIF Image
       image/gif: GIF Image
       image/jpeg: JPG Image
       image/png: PNG Image
@@ -95,6 +96,7 @@ en:
       video/mp4: MPEG-4 Video
       video/mpeg: MPEG Video
       video/quicktime: Quicktime Video
+      video/webm: WebM Video
       video/x-flv: Flash Video
       video/x-ms-wmv: Windows Media Video
       video/x-msvideo: AVI Video
