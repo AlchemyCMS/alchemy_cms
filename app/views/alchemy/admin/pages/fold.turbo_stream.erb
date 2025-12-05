@@ -1,0 +1,5 @@
+<%= turbo_stream.replace "page_#{@page.id}_children" do %>
+  <ul id="page_<%= @page.id %>_children" class="children" data-parent-id="<%= @page.id %>">
+    <%= render Alchemy::Admin::PageNode.with_collection(@page.children) %>
+  </ul>
+<% end %>
