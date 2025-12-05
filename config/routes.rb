@@ -7,7 +7,7 @@ Alchemy::Engine.routes.draw do
 
   get "/sitemap.xml", to: "pages#sitemap", format: "xml"
 
-  scope Alchemy.admin_path, {constraints: Alchemy.admin_constraints} do
+  scope Alchemy.admin_path, constraints: Alchemy.admin_constraints do
     get "/", to: redirect("#{Alchemy.admin_path}/dashboard"), as: :admin
     get "/dashboard", to: "admin/dashboard#index", as: :admin_dashboard
     get "/dashboard/info", to: "admin/dashboard#info", as: :dashboard_info
@@ -16,7 +16,7 @@ Alchemy::Engine.routes.draw do
     get "/leave", to: "admin/base#leave", as: :leave_admin
   end
 
-  namespace :admin, {path: Alchemy.admin_path, constraints: Alchemy.admin_constraints} do
+  namespace :admin, path: Alchemy.admin_path, constraints: Alchemy.admin_constraints do
     resources :nodes
 
     resources :pages do
