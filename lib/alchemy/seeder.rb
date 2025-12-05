@@ -68,7 +68,7 @@ module Alchemy
               "Please use `rake db:reset' if you want to rebuild your database.", :skip
           false
         else
-          users = YAML.load_file(user_seeds_file)
+          users = load_yaml_file(user_seeds_file)
           users.each do |draft|
             user = Alchemy.user_class.create!(draft)
             log "Created user: #{user.try(:email) || user.try(:login) || user.id}"
@@ -83,9 +83,15 @@ module Alchemy
       end
 
       def page_yml
-        @_page_yml ||= YAML.safe_load(
-          page_seeds_file.read,
-          permitted_classes: [Date],
+        @_page_yml ||= load_yaml_file(
+          page_seeds_file
+        )
+      end
+
+      def load_yaml_file(file)
+        YAML.safe_load_file(
+          file,
+          permitted_classes: [Date, Symbol],
           aliases: true
         )
       end
