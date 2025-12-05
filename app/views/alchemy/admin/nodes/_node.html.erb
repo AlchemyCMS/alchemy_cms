@@ -40,6 +40,25 @@
           ) %>
         </sl-tooltip>
       <% end %>
+      <% if can?(:copy, node) %>
+      <sl-tooltip content="<%= Alchemy.t(:copy_node) %>">
+        <%= link_to(
+          render_icon("file-copy"),
+          alchemy.insert_admin_clipboard_path(
+            remarkable_type: :nodes,
+            remarkable_id: node.id,
+          ),
+          "data-turbo-method": :post,
+          class: "icon_button"
+        ) %>
+      </sl-tooltip>
+      <% else %>
+      <div class="sitemap_tool disabled">
+        <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to copy this node") %>" class="like-hint-tooltip" placement="bottom-start">
+          <%= render_icon("file-copy") %>
+        </sl-tooltip>
+      </div>
+      <% end %>
       <% if can?(:destroy, node) %>
         <sl-tooltip content="<%= node.root? ? Alchemy.t(:delete_menu) : Alchemy.t(:delete_node) %>">
           <%= link_to_confirm_dialog(

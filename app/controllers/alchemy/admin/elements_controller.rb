@@ -5,25 +5,23 @@ module Alchemy
     class ElementsController < Alchemy::Admin::BaseController
       helper Alchemy::Admin::IngredientsHelper
 
+      before_action :load_page_and_version, only: [:index, :new]
+      include Alchemy::Admin::Clipboard
+
       before_action :load_element, only: [:update, :destroy, :collapse, :expand, :publish]
       authorize_resource class: Alchemy::Element
 
       def index
-        @page_version = PageVersion.find(params[:page_version_id])
-        @page = @page_version.page
         elements = @page_version.elements.order(:position).includes(*element_includes)
         @elements = elements.not_nested.unfixed
         @fixed_elements = elements.not_nested.fixed
-        load_clipboard_items
       end
 
       def new
-        @page_version = PageVersion.find(params[:page_version_id])
-        @page = @page_version.page
         @parent_element = Element.find_by(id: params[:parent_element_id])
         @elements = @page.available_elements_within_current_scope(@parent_element)
         @element = @page_version.elements.build
-        load_clipboard_items
+        clipboard_items
       end
 
       # Creates a element as discribed in config/alchemy/elements.yml on page via AJAX.
@@ -47,7 +45,6 @@ module Alchemy
         else
           @element.page_version = @page_version
           @elements = @page.available_element_definitions
-          load_clipboard_items
           render :new, status: :unprocessable_entity
         end
       end
@@ -148,6 +145,11 @@ module Alchemy
 
       private
 
+      def load_page_and_version
+        @page_version = PageVersion.find(params[:page_version_id])
+        @page = @page_version.page
+      end
+
       def collapse_nested_elements_ids(element)
         ids = []
         element.all_nested_elements.includes(:all_nested_elements).reject(&:compact?).each do |nested_element|
@@ -178,20 +180,12 @@ module Alchemy
         @element = Element.find(params[:id])
       end
 
-      def load_clipboard_items
-        @clipboard = get_clipboard("elements")
-        @clipboard_items = Element.all_from_clipboard_for_page(@clipboard, @page)
-      end
-
-      def element_from_clipboard
-        @element_from_clipboard ||= begin
-          @clipboard = get_clipboard("elements")
-          @clipboard.detect { |item| item["id"].to_i == params[:paste_from_clipboard].to_i }
-        end
+      def clipboard_items
+        @clipboard_items = Element.all_from_clipboard_for_page(clipboard, @page)
       end
 
       def paste_element_from_clipboard
-        @source_element = Element.find(element_from_clipboard["id"])
+        @source_element = Element.find(item_from_clipboard["id"])
         element = Element.copy(
           @source_element,
           {
@@ -199,10 +193,9 @@ module Alchemy
             page_version_id: @page_version.id
           }
         )
-        if element_from_clipboard["action"] == "cut"
+        if item_from_clipboard["action"] == "cut"
           @cut_element_id = @source_element.id
-          @clipboard.delete_if { |item| item["id"] == @source_element.id.to_s }
-          @source_element.destroy
+          remove_resource_from_clipboard(@source_element)
         end
         element
       end
