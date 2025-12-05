@@ -39,4 +39,39 @@ RSpec.describe "alchemy/ingredients/_select_editor" do
       is_expected.to have_css("select[is=\"alchemy-select\"]")
     end
   end
+
+  context "with multiple enabled" do
+    before do
+      expect(ingredient).to receive(:settings).at_least(:once) do
+        {
+          multiple: true,
+          select_values: ["handhelds", "fridges", "watches"]
+        }
+      end
+    end
+
+    it "renders a select box with multiple attribute" do
+      is_expected.to have_css("select[multiple]")
+    end
+
+    it "renders a select box with alchemy-select custom element" do
+      is_expected.to have_css("select[is=\"alchemy-select\"][multiple]")
+    end
+  end
+
+  context "without multiple" do
+    before do
+      expect(ingredient).to receive(:settings).at_least(:once) do
+        {
+          multiple: false,
+          select_values: ["handhelds", "fridges", "watches"]
+        }
+      end
+    end
+
+    it "renders a select box without multiple attribute" do
+      is_expected.to have_css("select[is=\"alchemy-select\"]")
+      is_expected.not_to have_css("select[multiple]")
+    end
+  end
 end

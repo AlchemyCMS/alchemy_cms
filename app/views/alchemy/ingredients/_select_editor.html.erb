@@ -20,12 +20,19 @@
         options_tags = grouped_options_for_select(select_values, select_editor.value)
       else
         options_tags = options_for_select(select_values, select_editor.value)
-      end %>
-      <%= f.select :value, options_tags, {}, {
+      end
+
+      select_options = {
         id: select_editor.form_field_id,
         class: ["ingredient-editor-select"],
         is: "alchemy-select"
-      } %>
+      }
+
+      if select_editor.multiple?
+        select_options[:multiple] = true
+      end
+      %>
+      <%= f.select :value, options_tags, {}, select_options %>
     <% end %>
   <% end %>
 <% end %>
