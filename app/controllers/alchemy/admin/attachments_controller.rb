@@ -18,12 +18,28 @@ module Alchemy
       end
 
       def index
+        if arrayified_param(:only)&.one? && search_filter_params[:except].blank?
+          search_filter_params[:q][:by_file_type] = mime_types_for_param(:only)
+        end
+
         @query = Attachment.ransack(search_filter_params[:q])
         @query.sorts = default_sort_order if @query.sorts.empty?
         @attachments = @query.result
 
         if search_filter_params[:tagged_with].present?
           @attachments = @attachments.tagged_with(search_filter_params[:tagged_with])
+        end
+
+        if arrayified_param(:only).many?
+          @attachments = @attachments.where(
+            file_mime_type: mime_types_for_param(:only)
+          )
+        end
+
+        if arrayified_param(:except).any?
+          @attachments = @attachments.where.not(
+            file_mime_type: mime_types_for_param(:except)
+          )
         end
 
         @attachments = @attachments
@@ -67,16 +83,33 @@ module Alchemy
 
       private
 
+      def arrayified_param(param)
+        Array.wrap(search_filter_params.fetch(param, []))
+      end
+
+      def mime_types_for_param(param)
+        arrayified_param(param).map do |ext|
+          Marcel::MimeType.for(extension: ext)
+        end
+      end
+
       def default_sort_order
         "created_at desc"
       end
 
       def search_filter_params
-        @_search_filter_params ||= params.except(*COMMON_SEARCH_FILTER_EXCLUDES + [:attachment]).permit(
-          *common_search_filter_includes + [
-            :form_field_id
-          ]
-        )
+        @_search_filter_params ||= begin
+          params[:q] ||= ActionController::Parameters.new
+          params.except(*COMMON_SEARCH_FILTER_EXCLUDES + [:attachment]).permit(
+            *common_search_filter_includes + [
+              :form_field_id
+            ],
+            :only,
+            {only: []},
+            :except,
+            {except: []}
+          )
+        end
       end
 
       def handle_uploader_response(status:)

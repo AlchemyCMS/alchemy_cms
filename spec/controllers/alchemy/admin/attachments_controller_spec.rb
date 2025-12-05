@@ -46,6 +46,81 @@ module Alchemy
         get :index
       end
 
+      context "when params[:only] is set" do
+        let(:pdf_file) { fixture_file_upload("file.pdf") }
+
+        let!(:pdf_attachment) { create(:alchemy_attachment, name: "PDF", file: pdf_file) }
+
+        context "to single extension" do
+          it "should filter attachments by file type from extension" do
+            attachment
+            get :index, params: {only: "pdf"}
+            expect(assigns(:attachments)).to contain_exactly(pdf_attachment)
+          end
+        end
+
+        context "to multiple extensions" do
+          let(:gif_file) { fixture_file_upload("animated.gif") }
+
+          let!(:gif_attachment) { create(:alchemy_attachment, name: "GIF", file: gif_file) }
+
+          it "should filter attachments by file type from extension" do
+            attachment
+            get :index, params: {only: ["pdf", "gif"]}
+            expect(assigns(:attachments)).to contain_exactly(pdf_attachment, gif_attachment)
+          end
+        end
+      end
+
+      context "when params[:except] is set" do
+        let(:pdf_file) { fixture_file_upload("file.pdf") }
+
+        let!(:pdf_attachment) { create(:alchemy_attachment, name: "PDF", file: pdf_file) }
+
+        context "to single extension" do
+          it "should filter attachments by file type from extension" do
+            get :index, params: {except: "pdf"}
+            expect(assigns(:attachments)).to contain_exactly(attachment)
+          end
+        end
+
+        context "to multiple extensions" do
+          let(:gif_file) { fixture_file_upload("animated.gif") }
+
+          let!(:gif_attachment) { create(:alchemy_attachment, name: "GIF", file: gif_file) }
+
+          it "should filter attachments by file type from extension" do
+            get :index, params: {except: ["pdf", "gif"]}
+            expect(assigns(:attachments)).to contain_exactly(attachment)
+          end
+        end
+      end
+
+      context "when params[:except] and params[:only] are set" do
+        let(:pdf_file) { fixture_file_upload("file.pdf") }
+
+        let!(:pdf_attachment) { create(:alchemy_attachment, name: "PDF", file: pdf_file) }
+
+        context "to single extension" do
+          it "should filter records by file type from extension" do
+            attachment
+            get :index, params: {except: "png", only: "pdf"}
+            expect(assigns(:attachments)).to contain_exactly(pdf_attachment)
+          end
+        end
+
+        context "to multiple extensions" do
+          let(:gif_file) { fixture_file_upload("animated.gif") }
+
+          let!(:gif_attachment) { create(:alchemy_attachment, name: "GIF", file: gif_file) }
+
+          it "should filter records by file type from extension" do
+            get :index, params: {except: ["pdf", "gif"]}
+            expect(assigns(:attachments)).to contain_exactly(attachment)
+          end
+        end
+      end
+
       context "when params[:tagged_with] is set" do
         it "should filter the records by tags" do
           expect(Attachment).to receive(:tagged_with).and_return(Attachment.all)

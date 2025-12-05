@@ -29,7 +29,7 @@ module Alchemy
 
     stampable stamper_class_name: Alchemy.user_class_name
 
-    scope :by_file_type, ->(file_type) do
+    scope :by_file_type, ->(*file_type) do
       Alchemy.storage_adapter.by_file_type_scope(file_type)
     end
 
