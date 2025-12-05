@@ -11,6 +11,7 @@ RSpec.describe "User seeding", type: :system do
     before do
       FileUtils.mkdir_p(Rails.root.join("db/seeds/alchemy"))
       FileUtils.cp(seeds_file, Rails.root.join("db/seeds/alchemy/users.yml"))
+      allow_any_instance_of(DummyUser).to receive(:confirmed_at=)
     end
 
     it "seeds users" do
