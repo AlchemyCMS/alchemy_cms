@@ -209,4 +209,45 @@ RSpec.describe Alchemy::Ingredient do
       )
     end
   end
+
+  describe "#as_editor_component" do
+    let(:ingredient) { Alchemy::Ingredients::Text.new(role: "intro", element: element) }
+    let(:view_context) { double(lookup_context: double(template_exists?: false)) }
+
+    subject do
+      ingredient.as_editor_component(element_form: nil)
+    end
+
+    it "returns the editor component of the ingredient" do
+      expect(subject).to be_a(Alchemy::IngredientEditor)
+      expect(subject.ingredient).to eq(ingredient)
+    end
+  end
+
+  describe "#editor_deprecation_notice" do
+    let(:ingredient) { Alchemy::Ingredients::Text.new(role: "intro", element: element) }
+
+    subject do
+      ingredient.editor_deprecation_notice
+    end
+
+    it "logs deprecation warning" do
+      expect(Alchemy::Deprecation).to receive(:warn).with(/Ingredient editor partials are deprecated!/)
+      subject
+    end
+  end
+
+  describe "#has_editor_partial?" do
+    let(:ingredient) { Alchemy::Ingredients::Text.new(role: "intro", element: element) }
+    let(:view_context) { double(lookup_context: double(template_exists?: false)) }
+
+    subject do
+      ingredient.has_editor_partial?(view_context)
+    end
+
+    it "checks for editor partial" do
+      expect(view_context.lookup_context).to receive(:template_exists?).with("alchemy/ingredients/_#{ingredient.partial_name}_editor")
+      subject
+    end
+  end
 end

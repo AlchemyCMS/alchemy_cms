@@ -23,46 +23,6 @@ RSpec.describe Alchemy::Ingredients::Headline do
     it { is_expected.to eq("se-headline") }
   end
 
-  describe "#level_options" do
-    subject { ingredient.level_options }
-
-    it { is_expected.to eq([["H1", 1], ["H2", 2], ["H3", 3], ["H4", 4], ["H5", 5], ["H6", 6]]) }
-
-    context "when restricted through the ingredient settings" do
-      before do
-        expect(ingredient).to receive(:settings).and_return(levels: [2, 3])
-      end
-
-      it { is_expected.to eq([["H2", 2], ["H3", 3]]) }
-    end
-  end
-
-  describe "#size_options" do
-    subject { ingredient.size_options }
-
-    it { is_expected.to eq([]) }
-
-    context "when enabled through the ingredient settings" do
-      before do
-        expect(ingredient).to receive(:settings).and_return(sizes: [3, 4])
-      end
-
-      it { is_expected.to eq([[".h3", 3], [".h4", 4]]) }
-    end
-
-    context "when two dimensional array" do
-      before do
-        expect(ingredient).to receive(:settings) do
-          {
-            sizes: [["XL", "text-xl"], ["L", "text-lg"]]
-          }
-        end
-      end
-
-      it { is_expected.to eq([["XL", "text-xl"], ["L", "text-lg"]]) }
-    end
-  end
-
   describe "creating from a settings" do
     let(:element) { create(:alchemy_element) }
 

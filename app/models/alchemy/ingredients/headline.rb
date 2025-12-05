@@ -24,23 +24,6 @@ module Alchemy
         "H#{level}: #{value}"[0..maxlength - 1]
       end
 
-      def level_options
-        levels.map { |level| ["H#{level}", level] }
-      end
-
-      def size_options
-        sizes.map do |size|
-          case size
-          when Array
-            size
-          else
-            [".h#{size}", size]
-          end
-        end
-      end
-
-      private
-
       def levels
         settings.fetch(:levels, 1..6)
       end
@@ -48,6 +31,8 @@ module Alchemy
       def sizes
         settings.fetch(:sizes, [])
       end
+
+      private
 
       def set_level_and_size
         self.level ||= levels.first
