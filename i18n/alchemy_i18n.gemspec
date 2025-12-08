@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.metadata["source_code_uri"] = "https://github.com/AlchemyCMS/alchemy_i18n"
   s.metadata["changelog_uri"] = "https://github.com/AlchemyCMS/alchemy_i18n/blob/main/CHANGELOG.md"
 
-  s.add_dependency "alchemy_cms", [">= 7.1.0", "< 9"]
+  s.add_dependency "alchemy_cms", [">= 8.0.0.c", "< 9"]
   s.add_dependency "rails-i18n"
 
   s.add_development_dependency "github_changelog_generator"
