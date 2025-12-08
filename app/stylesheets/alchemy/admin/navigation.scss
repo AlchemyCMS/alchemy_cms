@@ -8,14 +8,14 @@
   margin-left: var(--main-menu-width);
   padding-right: var(--main-menu-width);
   z-index: 20;
-  width: 100%;
+  width: 100vw;
   height: var(--top-menu-height);
   @extend .disable-user-select;
 }
 
 #left_menu {
   z-index: 30;
-  height: 100%;
+  height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
