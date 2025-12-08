@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.0.0 (2025-12-08)
+
+## What's Changed
+* Move JS translations into partials by @tvdeyen in https://github.com/AlchemyCMS/alchemy_i18n/pull/71
+* Add German filters translations for Alchemy 8 by @tvdeyen in https://github.com/AlchemyCMS/alchemy_i18n/pull/72
+* Do no import vendored locales by @tvdeyen in https://github.com/AlchemyCMS/alchemy_i18n/pull/73
+* Add Spanish filter translations by @mamhoff in https://github.com/AlchemyCMS/alchemy_i18n/pull/74
+* Add German translations for select filter `include_blank`s by @mamhoff in https://github.com/AlchemyCMS/alchemy_i18n/pull/75
+* Add translations for confirm dialogs. by @tvdeyen in https://github.com/AlchemyCMS/alchemy_i18n/pull/76
+* Update German Alchemy 8 translations by @tvdeyen in https://github.com/AlchemyCMS/alchemy_i18n/pull/77
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_i18n/compare/v4.3.1...v5.0.0
 ## [v4.3.1](https://github.com/AlchemyCMS/alchemy_i18n/tree/v4.3.1) (2025-03-18)
 
 [Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v4.3.0...v4.3.1)
