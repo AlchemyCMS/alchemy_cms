@@ -1,0 +1,159 @@
+name: Prepare Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: 'Version bump type'
+        required: true
+        type: choice
+        default: 'patch'
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Generate token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.ALCHEMY_BOT_APP_ID }}
+          private-key: ${{ secrets.ALCHEMY_BOT_APP_PRIVATE_KEY }}
+
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+
+      - name: Calculate next version
+        id: version
+        run: |
+          # Read current version
+          CURRENT=$(grep VERSION lib/alchemy_i18n/version.rb | sed 's/.*"\(.*\)".*/\1/')
+          echo "Current version: $CURRENT"
+
+          # Split into major.minor.patch
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT"
+
+          # Bump based on input
+          case "${{ inputs.bump }}" in
+            major)
+              MAJOR=$((MAJOR + 1))
+              MINOR=0
+              PATCH=0
+              ;;
+            minor)
+              MINOR=$((MINOR + 1))
+              PATCH=0
+              ;;
+            patch)
+              PATCH=$((PATCH + 1))
+              ;;
+          esac
+
+          NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+          echo "New version: $NEW_VERSION"
+          echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Configure git
+        run: |
+          git config user.name "alchemycms-bot"
+          git config user.email "alchemycms-bot@users.noreply.github.com"
+
+      - name: Create release branch
+        run: |
+          git checkout -b release/v${{ steps.version.outputs.version }}
+
+      - name: Generate release notes
+        id: release-notes
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ steps.generate-token.outputs.token }}
+          script: |
+            const { writeFileSync } = require('fs');
+
+            // Get the previous tag for comparison
+            let previousTag;
+            try {
+              const tags = await github.rest.repos.listTags({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                per_page: 1
+              });
+              previousTag = tags.data[0]?.name;
+            } catch (error) {
+              console.log('No previous tags found');
+            }
+
+            // Generate release notes
+            const params = {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: 'v${{ steps.version.outputs.version }}',
+              target_commitish: context.ref.replace('refs/heads/', '')
+            };
+
+            if (previousTag) {
+              params.previous_tag_name = previousTag;
+            }
+
+            const { data } = await github.rest.repos.generateReleaseNotes(params);
+
+            // Save to file for changelog
+            writeFileSync('/tmp/release-notes.md', data.body);
+
+            // Also save for PR body
+            writeFileSync('/tmp/pr-body.md', data.body);
+
+      - name: Bump version
+        run: |
+          # Update version file
+          sed -i 's/VERSION = "[^"]*"/VERSION = "${{ steps.version.outputs.version }}"/' lib/alchemy_i18n/version.rb
+
+          # Update changelog with generated release notes
+          DATE=$(date +%Y-%m-%d)
+          {
+            echo "# Changelog"
+            echo ""
+            echo "## ${{ steps.version.outputs.version }} ($DATE)"
+            echo ""
+            cat /tmp/release-notes.md
+            echo ""
+            tail -n +3 CHANGELOG.md
+          } > /tmp/changelog-new.md
+          mv /tmp/changelog-new.md CHANGELOG.md
+
+      - name: Commit changes
+        run: |
+          git add lib/alchemy_i18n/version.rb CHANGELOG.md
+          git commit -m "Release v${{ steps.version.outputs.version }}"
+          git push origin release/v${{ steps.version.outputs.version }}
+
+      - name: Create Pull Request
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ steps.generate-token.outputs.token }}
+          script: |
+            const { readFileSync } = require('fs');
+            const releaseNotes = readFileSync('/tmp/pr-body.md', 'utf8');
+
+            const { data: pr } = await github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Release v${{ steps.version.outputs.version }}',
+              head: 'release/v${{ steps.version.outputs.version }}',
+              base: 'main',
+              body: `## Release v${{ steps.version.outputs.version }}
+
+            ${releaseNotes}
+
+            ---
+            This PR was automatically created by the prepare-release workflow.
+            Once merged, the gem will be automatically published to RubyGems.`
+            });
+
+            console.log(`Created PR #${pr.number}: ${pr.html_url}`);
