@@ -227,8 +227,8 @@ de:
         updated_at_gteq:
           name: Aktualisiert nach
       picture:
-        all: Alle Dateitypen
         by_file_format:
+          all: Alle Dateitypen
           name: Dateityp
           values:
             gif: GIF
@@ -253,8 +253,8 @@ de:
         deletable:
           name: Nicht auf Seiten benutzt
       attachment:
-        all: Alle Dateitypen
         by_file_type:
+          all: Alle Dateitypen
           name: Dateityp
           values:
             <<: *mime_types
@@ -270,6 +270,8 @@ de:
           name: Kürzlich hochgeladen
         without_tag:
           name: Ohne Tag
+        deletable:
+          name: Nicht auf Seiten benutzt
 
     link_target_options:
       default: gleichem Fenster
@@ -286,6 +288,14 @@ de:
       elements:
         toolbar:
           hide: ausblenden
+      page_definitions:
+        show_pages: Zeige %{count} %{model_name}
+        zero_pages: 0 Seiten
+      pictures:
+        sorting_select:
+          label: "Sortierung"
+          by_latest: "Neueste zuerst"
+          alphabetical: "A-Z"
     anchor: "Sprungmarke"
     attribute_fixed: Dieser Wert ist für diesen Seitentyp nicht veränderbar
     back: "zurück"
@@ -438,6 +448,7 @@ de:
     align_in_text: "Im Text anordnen"
     all: "alle"
     all_pictures: "Alle Bilder anzeigen"
+    anchor_link_headline: Wählen Sie eine Sprungmarke innerhalb dieser Seite aus.
     apply: "übernehmen"
     assign_file: "Datei zuweisen"
     assign_file_from_archive: "Datei aus dem Archiv zuweisen"
@@ -550,6 +561,7 @@ de:
     "item copied to clipboard": "%{name} wurde in die Zwischenablage kopiert."
     "item moved to clipboard": "%{name} wurde in die Zwischenablage bewegt."
     "item removed from clipboard": "%{name} wurde aus der Zwischenablage entfernt."
+    items_per_page: "Einträge pro Seite"
     javascript_disabled_headline: "Javascript ist deaktiviert!"
     javascript_disabled_text: "Alchemy funktioniert nur einwandfrei mit aktiviertem Javascript. Bitte aktivieren Sie es in Ihrem Browser."
     language_code_placeholder: "z.B. de"
@@ -586,6 +598,7 @@ de:
       library: "Bibliothek"
       menus: "Menüs"
       pages: "Seiten"
+      page_definitions: "Seitentypen"
       tags: "Tags"
       sites: "Websites"
       user_sessions: "Anmeldung"
@@ -735,7 +748,12 @@ de:
     insert_image: "Bild einfügen"
     tag_list: Tags
     tags_get_created_if_used_the_first_time: "Ein Tag wird automatisch erstellt, sobald Sie es das erste mal verwenden."
-    this_picture_is_used_on_these_pages: "Dieses Bild wird auf folgenden Seiten benutzt"
+    used_on_these_pages:
+      attachment: "Diese Datei wird auf folgenden Seiten verwendet:"
+      picture: "Dieses Bild wird auf folgenden Seiten verwendet:"
+    not_in_use_yet:
+      attachment: "Diese Datei wird bisher nicht verwendet."
+      picture: "Dieses Bild wird bisher nicht verwendet."
     title: "Titel"
     to_alchemy: "Zu Alchemy"
     "trash element": "Element in den Papierkorb legen"
@@ -887,6 +905,9 @@ de:
       alchemy/message:
         one: "Nachricht"
         other: "Nachrichten"
+      alchemy/page_definition:
+        one: "Seitentyp"
+        other: "Seitentypen"
     attributes:
       alchemy/message:
         salutation: Anrede
@@ -1072,4 +1093,4 @@ de:
         password_confirmation: "Passwort Bestätigung"
         alchemy_roles: "Benutzerrollen"
         tag_list: Tags
-        send_credentials: "Sende Benutzerdaten per E-Mail"
+        send_credentials: "Willkommens-E-Mail senden"
