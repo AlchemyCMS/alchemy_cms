@@ -22,8 +22,11 @@ Alchemy.translations = {
   "File type not allowed": "Dateityp nicht erlaubt.",
   "Maximum number of files exceeded":
     "Maximale Anzahl gleichzeitig erlaubter Datei-Uploads erreicht.",
+  "No anchors found": "Keine Sprungmarken gefunden.",
+  None: "Keine",
   "Uploaded bytes exceed file size":
     "Maximale Größe der erlaubten Dateigröße erreicht.",
+  "Select a page first": "Zuerst eine Seite wählen.",
   "Successfully moved menu item": "Menü-Eintrag wurde erfolgreich bewegt.",
   formats: {
     datetime: "d.m.Y H:i",

@@ -448,6 +448,7 @@ de:
     align_in_text: "Im Text anordnen"
     all: "alle"
     all_pictures: "Alle Bilder anzeigen"
+    anchor_link_headline: Wählen Sie eine Sprungmarke innerhalb dieser Seite aus.
     apply: "übernehmen"
     assign_file: "Datei zuweisen"
     assign_file_from_archive: "Datei aus dem Archiv zuweisen"
@@ -560,6 +561,7 @@ de:
     "item copied to clipboard": "%{name} wurde in die Zwischenablage kopiert."
     "item moved to clipboard": "%{name} wurde in die Zwischenablage bewegt."
     "item removed from clipboard": "%{name} wurde aus der Zwischenablage entfernt."
+    items_per_page: "Einträge pro Seite"
     javascript_disabled_headline: "Javascript ist deaktiviert!"
     javascript_disabled_text: "Alchemy funktioniert nur einwandfrei mit aktiviertem Javascript. Bitte aktivieren Sie es in Ihrem Browser."
     language_code_placeholder: "z.B. de"
