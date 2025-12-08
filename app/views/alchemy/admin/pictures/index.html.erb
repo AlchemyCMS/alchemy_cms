@@ -80,7 +80,7 @@
     on("click", "#picture_archive", ".thumbnail_background", (event) => {
       const url = event.target.closest("a")?.href;
       const overlay = new ImageOverlay(url, {
-        size: `${window.innerWidth}x${window.innerHeight}`,
+        size: `${window.clientWidth}x${window.clientHeight}`,
         padding: false
       });
       overlay.open();

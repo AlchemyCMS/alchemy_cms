@@ -16,7 +16,10 @@
 
 .alchemy-image-overlay-container {
   --picture-overlay-handle-width: 24px;
-  --image-overlay-form-width: calc(350px - var(--picture-overlay-handle-width));
+  --image-overlay-sidebar-width: 370px;
+  --image-overlay-form-width: calc(
+    var(--image-overlay-sidebar-width) - var(--picture-overlay-handle-width)
+  );
   --image-overlay-transition-duration: 250ms;
   --image-overlay-transition-easing: ease-in;
 
