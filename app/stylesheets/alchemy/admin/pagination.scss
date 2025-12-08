@@ -116,6 +116,12 @@
   margin-left: auto;
   padding: var(--spacing-2);
 
+  label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+  }
+
   @media screen and (max-width: vars.$large-screen-break-point) {
     --sidebar-width: auto;
 
