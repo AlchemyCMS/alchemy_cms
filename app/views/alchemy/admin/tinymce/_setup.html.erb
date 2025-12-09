@@ -1,8 +1,8 @@
 <% tinymce_base_path = "#{Rails.application.config.assets.prefix}/tinymce" %>
 
-<link rel="preload" href="<%= asset_path("#{tinymce_base_path}/skins/ui/alchemy/skin.min.css") %>" as="style" />
+<link rel="preload" href="<%= asset_path("#{tinymce_base_path}/skins/ui/alchemy/skin.min.css") %>" as="style">
 <% if Alchemy::Tinymce.init[:content_css] %>
-  <link rel="preload" href="<%= asset_path(Alchemy::Tinymce.init[:content_css]) %>" as="style" />
+  <link rel="preload" href="<%= asset_path(Alchemy::Tinymce.init[:content_css]) %>" as="style">
 <% end %>
 <% Alchemy::Tinymce.preloadable_plugins.each do |plugin| %>
   <link rel="preload" href="<%= asset_path("#{tinymce_base_path}/plugins/#{plugin}/plugin.min.js") %>" as="script">
