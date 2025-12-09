@@ -1,0 +1,25 @@
+name: Prepare Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: 'Version bump type. Choose "release" for finalizing a pre-release (8.0.0.dev → 8.0.0), or patch/minor/major to simply bump version.'
+        required: true
+        type: choice
+        default: 'patch'
+        options:
+          - release
+          - patch
+          - minor
+          - major
+
+jobs:
+  prepare:
+    uses: AlchemyCMS/.github/.github/workflows/prepare-release.yml@main
+    with:
+      version_file_path: lib/alchemy/devise/version.rb
+      bump: ${{ inputs.bump }}
+    secrets:
+      app_id: ${{ vars.ALCHEMY_BOT_APP_ID }}
+      app_private_key: ${{ secrets.ALCHEMY_BOT_APP_PRIVATE_KEY }}
