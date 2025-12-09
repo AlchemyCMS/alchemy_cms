@@ -47,7 +47,7 @@
     <div class="input">
       <label class="control-label" for="datetime_picker">Date Time Picker</label>
       <alchemy-datepicker input-type="datetime">
-        <input type="text" id="datetime_picker">
+        <input type="text" id="datetime_picker" autocomplete="off">
       </alchemy-datepicker>
     </div>
 
@@ -57,12 +57,12 @@
         <div class="input-row">
           <div class="input-column">
             <alchemy-datepicker input-type="date">
-              <input type="text" id="date_picker">
+              <input type="text" id="date_picker" autocomplete="off">
             </alchemy-datepicker>
           </div>
           <div class="input-column">
             <alchemy-datepicker input-type="time">
-              <input type="text" id="time_picker">
+              <input type="text" id="time_picker" autocomplete="off">
             </alchemy-datepicker>
           </div>
         </div>
@@ -71,23 +71,23 @@
 
     <div class="input">
       <label class="control-label" for="optional_string">String</label>
-      <input type="text" id="optional_string">
+      <input type="text" id="optional_string" autocomplete="off">
     </div>
     <div class="input required">
       <label class="required control-label" for="required_string">
         Required String<abbr title="required">*</abbr>
       </label>
-      <input type="text" id="required_string">
+      <input type="text" id="required_string" autocomplete="off">
     </div>
     <div class="input field_with_errors">
       <label class="control-label" for="string_with_error">String with error</label>
-      <input type="text" id="string_with_error">
+      <input type="text" id="string_with_error" autocomplete="off">
       <small class="error">Error message</small>
     </div>
     <alchemy-char-counter max-chars="60">
       <div class="input">
         <label class="control-label" for="string_with_counter">String with char counter</label>
-        <input type="text" id="string_with_counter">
+        <input type="text" id="string_with_counter" autocomplete="off">
       </div>
     </alchemy-char-counter>
 
@@ -184,7 +184,7 @@
 
 <div style="width: 25%">
   <alchemy-tags-autocomplete>
-    <input type="text" class="full_width" />
+    <input type="text" class="full_width" autocomplete="off">
   </alchemy-tags-autocomplete>
 </div>
 
