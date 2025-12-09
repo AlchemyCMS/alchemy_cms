@@ -1,9 +1,9 @@
-<div id="jscropper">
 <% if @no_image_notice %>
   <%= render_message :warn do %>
     <%= @no_image_notice %>
   <% end %>
 <% else %>
+<div id="jscropper">
   <%= render_message do %>
     <%= simple_format Alchemy.t(:explain_cropping) %>
   <% end %>

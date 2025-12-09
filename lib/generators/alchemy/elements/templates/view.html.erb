@@ -1,4 +1,4 @@
-<%%- cache(<%= @element_name %>) do -%>
+<%% cache(<%= @element_name %>) do -%>
   <%%= element_view_for(<%= @element_name %>) do |el| -%>
   <%- @ingredients.each do |ingredient| -%>
     <%- if @ingredients.length > 1 -%>
@@ -12,5 +12,5 @@
   <%- if @element['nestable_elements'].present? -%>
     <%%= render <%= @element_name %>.nested_elements.published %>
   <%- end -%>
-  <%%- end -%>
-<%%- end -%>
+  <%% end -%>
+<%% end -%>

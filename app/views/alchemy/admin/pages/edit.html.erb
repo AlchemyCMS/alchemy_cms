@@ -136,7 +136,8 @@
   id="alchemy_preview_window"
   name="alchemy_preview_window"
   is="alchemy-preview-window"
-  frameborder="0">
+  frameborder="0"
+  title="<%= Alchemy.t("Page preview") %>">
 </iframe>
 
 <%= turbo_frame_tag "alchemy_elements_window", src: alchemy.admin_elements_path(page_version_id: @page_version.id) do %>

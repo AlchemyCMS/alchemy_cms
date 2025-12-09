@@ -1,6 +1,6 @@
 <% if @item.class.name == 'Alchemy::Element' && params[:remove] -%>
   <% if @item.fixed? -%>
-    <alchemy-action name="removeFixedElement" params="[<%= @item.id %>]" />
+    <alchemy-action name="removeFixedElement" params="[<%= @item.id %>]"></alchemy-action>
   <% else -%>
     <%= turbo_stream.remove "element_#{@item.id}" %>
   <% end -%>

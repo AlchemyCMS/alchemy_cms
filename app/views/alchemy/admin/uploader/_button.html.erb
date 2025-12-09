@@ -16,7 +16,7 @@
   <% end %>
 </alchemy-uploader>
 
-<script type='text/javascript'>
+<script type="text/javascript">
   document.querySelector("alchemy-uploader").addEventListener("Alchemy.upload.successful", (evt) => {
     setTimeout(() => {
       var url = '<%= redirect_url.html_safe %>';
