@@ -1,4 +1,4 @@
-<alchemy-growl type=<%= @message[:type] %>>
+<alchemy-growl type="<%= @message[:type] %>">
   <%= @message[:body] %>
 </alchemy-growl>
 <%= turbo_stream.replace("picture_#{@picture.id}") do %>
