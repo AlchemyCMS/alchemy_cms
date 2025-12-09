@@ -183,6 +183,7 @@ div.assign_image_list_image {
   z-index: 10;
   border-radius: var(--border-radius_medium);
   box-shadow: 0 0 1px var(--color-grey_dark);
+  border: 0;
 
   &:hover {
     text-decoration: none;

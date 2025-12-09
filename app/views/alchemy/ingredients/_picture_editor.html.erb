@@ -14,9 +14,9 @@
         image_cropper: picture_editor.thumbnail_url_options[:crop],
       },
       class: "picture_thumbnail" do %>
-      <a class="picture_tool delete">
+      <button class="picture_tool delete">
         <%= render_icon("close") %>
-      </a>
+      </button>
       <div class="picture_image">
         <%= render Alchemy::Admin::PictureThumbnail.new(
           picture_editor,
