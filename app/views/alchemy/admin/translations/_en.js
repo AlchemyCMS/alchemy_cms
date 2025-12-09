@@ -13,6 +13,7 @@ Alchemy.translations = {
   page_found: "Page found",
   pages_found: "Pages found",
   "Please confirm": "Please confirm",
+  "Preview failed to load": "Preview failed to load. Please try again.",
   url_validation_failed: "The url has no valid format.",
   warning: "Warning!",
   "File is too large": "File is too large",
