@@ -20,6 +20,8 @@ module Alchemy
         end
 
         has_many :ingredients, through: :elements
+        has_many :all_ingredients, through: :all_elements, source: :ingredients
+
         has_and_belongs_to_many :to_be_swept_elements, -> { distinct },
           class_name: "Alchemy::Element",
           join_table: ElementToPage.table_name

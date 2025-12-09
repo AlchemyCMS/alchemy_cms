@@ -7,6 +7,10 @@ module Alchemy
     it { is_expected.to have_many(:folded_pages).dependent(:destroy) }
     it { is_expected.to have_many(:legacy_urls).dependent(:destroy) }
     it { is_expected.to have_many(:versions) }
+    it { is_expected.to have_many(:elements) }
+    it { is_expected.to have_many(:all_elements) }
+    it { is_expected.to have_many(:ingredients) }
+    it { is_expected.to have_many(:all_ingredients) }
     it { is_expected.to have_one(:draft_version) }
     it { is_expected.to have_one(:public_version) }
 
