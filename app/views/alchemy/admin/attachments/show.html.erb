@@ -51,7 +51,7 @@
       <%= video_tag(@attachment.url, preload: "metadata", controls: true) %>
     </div>
     <% when "application/pdf" %>
-    <iframe src="<%= @attachment.url %>" frameborder="0"></iframe>
+    <iframe src="<%= @attachment.url %>" frameborder="0" title="Alchemy.t('File preview')"></iframe>
     <% end %>
   <% end %>
 </div>
