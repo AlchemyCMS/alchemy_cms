@@ -115,3 +115,11 @@ Object.assign(Alchemy, {
 })
 
 Alchemy.ElementSelector.init()
+
+// Notify parent window that preview is ready
+window.parent.postMessage(
+  {
+    message: "Alchemy.previewReady"
+  },
+  window.location.origin
+)

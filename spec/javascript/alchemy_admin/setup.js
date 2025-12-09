@@ -100,6 +100,10 @@ Object.defineProperty(window, "matchMedia", {
   }))
 })
 
+// Mock keymaster (key) for keyboard shortcuts
+globalThis.key = vi.fn()
+globalThis.key.unbind = vi.fn()
+
 // Set up global Alchemy object that many tests expect
 globalThis.Alchemy = {
   translations: {},
