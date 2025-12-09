@@ -9,45 +9,10 @@ on:
 
 jobs:
   publish:
-    # Only run if manually triggered OR (PR was merged and branch starts with "release/v")
     if: github.event_name == 'workflow_dispatch' || (github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'release/v'))
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: write
-
-    steps:
-      - name: Generate token
-        id: generate-token
-        uses: actions/create-github-app-token@v1
-        with:
-          app-id: ${{ vars.ALCHEMY_BOT_APP_ID }}
-          private-key: ${{ secrets.ALCHEMY_BOT_APP_PRIVATE_KEY }}
-
-      - uses: actions/checkout@v4
-        with:
-          token: ${{ steps.generate-token.outputs.token }}
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-          ruby-version: ruby
-
-      - name: Release gem to RubyGems
-        uses: rubygems/release-gem@v1
-
-      - name: Get version
-        id: version
-        run: |
-          VERSION=$(grep VERSION lib/alchemy_i18n/version.rb | sed 's/.*"\(.*\)".*/\1/')
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Version: $VERSION"
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v${{ steps.version.outputs.version }}
-          generate_release_notes: true
-        env:
-          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
+    uses: AlchemyCMS/.github/.github/workflows/release.yml@main
+    with:
+      version_file_path: lib/alchemy_i18n/version.rb
+    secrets:
+      app_id: ${{ vars.ALCHEMY_BOT_APP_ID }}
+      app_private_key: ${{ secrets.ALCHEMY_BOT_APP_PRIVATE_KEY }}

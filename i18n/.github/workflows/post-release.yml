@@ -1,0 +1,17 @@
+name: Post Release
+
+on:
+  workflow_run:
+    workflows: ["Publish Release"]
+    types:
+      - completed
+
+jobs:
+  bump-dev-version:
+    if: github.event.workflow_run.conclusion == 'success'
+    uses: AlchemyCMS/.github/.github/workflows/post-release.yml@main
+    with:
+      version_file_path: lib/alchemy_i18n/version.rb
+    secrets:
+      app_id: ${{ vars.ALCHEMY_BOT_APP_ID }}
+      app_private_key: ${{ secrets.ALCHEMY_BOT_APP_PRIVATE_KEY }}
