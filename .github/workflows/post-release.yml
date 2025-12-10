@@ -1,0 +1,23 @@
+name: Post Release
+
+on:
+  workflow_run:
+    workflows: ["Publish Release"]
+    types:
+      - completed
+
+jobs:
+  bump-dev-version:
+    if: github.event.workflow_run.conclusion == 'success'
+    uses: AlchemyCMS/.github/.github/workflows/post-release.yml@main
+    with:
+      version_file_path: lib/alchemy/version.rb
+      target_branch: ${{ github.event.workflow_run.head_branch }}
+    secrets:
+      app_id: ${{ vars.ALCHEMY_BOT_APP_ID }}
+      app_private_key: ${{ secrets.ALCHEMY_BOT_APP_PRIVATE_KEY }}
+      slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+      mastodon_access_token: ${{ secrets.MASTODON_ACCESS_TOKEN }}
+      mastodon_instance: ${{ secrets.MASTODON_INSTANCE }}
+      bluesky_identifier: ${{ secrets.BLUESKY_IDENTIFIER }}
+      bluesky_password: ${{ secrets.BLUESKY_PASSWORD }}
