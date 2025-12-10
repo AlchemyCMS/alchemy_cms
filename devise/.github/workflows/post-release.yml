@@ -15,3 +15,8 @@ jobs:
     secrets:
       app_id: ${{ vars.ALCHEMY_BOT_APP_ID }}
       app_private_key: ${{ secrets.ALCHEMY_BOT_APP_PRIVATE_KEY }}
+      slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+      mastodon_access_token: ${{ secrets.MASTODON_ACCESS_TOKEN }}
+      mastodon_instance: ${{ secrets.MASTODON_INSTANCE }}
+      bluesky_identifier: ${{ secrets.BLUESKY_IDENTIFIER }}
+      bluesky_password: ${{ secrets.BLUESKY_PASSWORD }}
