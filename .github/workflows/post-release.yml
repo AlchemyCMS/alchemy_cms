@@ -1,6 +1,7 @@
 name: Post Release
 
 on:
+  workflow_dispatch:
   workflow_run:
     workflows: ["Publish Release"]
     types:
@@ -8,7 +9,7 @@ on:
 
 jobs:
   bump-dev-version:
-    if: github.event.workflow_run.conclusion == 'success'
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     uses: AlchemyCMS/.github/.github/workflows/post-release.yml@main
     with:
       version_file_path: lib/alchemy/version.rb
