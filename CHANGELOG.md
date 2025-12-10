@@ -1,5 +1,24 @@
 # Changelog
 
+## 8.0.0 (2025-12-10)
+
+## What's Changed
+* [8.0-stable] Fix boolean ingredient to respect default value from elements.yml by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3482
+* [8.0-stable]  Fix element position not persisting after drag and drop for new elements by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3483
+* [8.0-stable] Allow gutentag v3 by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3486
+* [8.0-stable] Do not block database during index migration by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3491
+* [8.0-stable] feat(CollectionOption): Implement delete by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3493
+* [8.0-stable] feat(Configuration): Add SymbolOption by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3494
+* [8.0-stable] New Update Checks services by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3495
+* [8.0-stable] fix(ActiveStorage::PictureUrl): Do not transform if image is invariable by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3497
+* [8.0-stable] Sanitize SVGs after upload by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3499
+* [8.0-stable] fix(seeder): Use YAML.safe_load to load users.yml by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3503
+* [8.0-stable] Style fixes for 8.0 by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3505
+* [8.0-stable] feat(Page): Add all_ingredients association by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3507
+* [8.0-stable] Add reusable release workflows by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3511
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.0.0.c...v8.0.
 ## 8.0.0.c (2025-11-07)
 
 - [8.0-stable] Fix boolean ingredient to respect default value from elements.yml [#3482](https://github.com/AlchemyCMS/alchemy_cms/pull/3482) ([alchemycms-bot](https://github.com/apps/alchemycms-bot))
