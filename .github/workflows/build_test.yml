@@ -101,6 +101,18 @@ jobs:
             ruby: "3.4"
             database: sqlite
             storage: active_storage
+          - rails: "8.1"
+            ruby: "3.4"
+            database: postgresql
+            storage: active_storage
+          - rails: "8.1"
+            ruby: "3.4"
+            database: mariadb
+            storage: dragonfly
+          - rails: "8.1"
+            ruby: "3.4"
+            database: sqlite
+            storage: active_storage
 
     env:
       DB: ${{ matrix.database }}

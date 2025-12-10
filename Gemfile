@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 gemspec
 
-rails_version = ENV.fetch("RAILS_VERSION", "8.0")
+rails_version = ENV.fetch("RAILS_VERSION", "8.1")
 gem "rails", "~> #{rails_version}.0"
 
 if ENV["DB"].nil? || ENV["DB"] == "sqlite"
@@ -20,6 +20,8 @@ gem "alchemy_i18n", github: "AlchemyCMS/alchemy_i18n", branch: "main"
 if ENV["ALCHEMY_STORAGE_ADAPTER"] == "active_storage"
   gem "ruby-vips"
 end
+
+gem "awesome_nested_set", github: "caonUlisses/awesome_nested_set", branch: "main"
 
 group :development, :test do
   gem "execjs", "~> 2.10.0"
