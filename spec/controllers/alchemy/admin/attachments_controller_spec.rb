@@ -95,6 +95,21 @@ module Alchemy
         get :show, params: {id: attachment.id}
         expect(response).to render_template(:show)
       end
+
+      context "with assignments" do
+        let!(:page) { create(:alchemy_page) }
+        let!(:element) { create(:alchemy_element, page: page) }
+        let!(:ingredient) { create(:alchemy_ingredient_file, element: element, related_object: attachment) }
+
+        before do
+          page.publish!
+        end
+
+        it "assigns all file ingredients having an assignment to @assignments" do
+          get :show, params: {id: attachment.id}
+          expect(assigns(:assignments)).to eq([ingredient])
+        end
+      end
     end
 
     describe "#create" do
