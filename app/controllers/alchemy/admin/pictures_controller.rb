@@ -43,7 +43,7 @@ module Alchemy
         @previous = @pictures.prev_page
         @next = @pictures.next_page
 
-        @assignments = @picture.related_ingredients.joins(element: :page)
+        @assignments = @picture.related_ingredients.joins(element: :page).merge(PageVersion.drafts)
         @picture_description = @picture.descriptions.find_or_initialize_by(
           language_id: Alchemy::Current.language.id
         )
