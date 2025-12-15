@@ -1,4 +1,5 @@
 import SortableElements from "alchemy_admin/sortable_elements"
+import { ElementEditor } from "alchemy_admin/components/element_editor"
 
 class ElementsWindow extends HTMLElement {
   #visible = true
@@ -15,9 +16,7 @@ class ElementsWindow extends HTMLElement {
       this.toggle()
     })
     if (window.location.hash) {
-      document
-        .querySelector(window.location.hash)
-        ?.trigger("FocusElementEditor.Alchemy")
+      this.focusElementEditor(window.location.hash)
     }
     SortableElements()
     this.resize()
@@ -61,6 +60,16 @@ class ElementsWindow extends HTMLElement {
     if (width) {
       document.body.style.setProperty("--elements-window-width", `${width}px`)
       document.cookie = `alchemy-elements-window-width=${width}; SameSite=Lax; Path=/;`
+    }
+  }
+
+  // Focus element editor and element in preview if URL contains hash to element editor.
+  // The link is coming from the assignment view when showing assigned files or pictures.
+  focusElementEditor(dom_id) {
+    const el = document.querySelector(dom_id)
+
+    if (el instanceof ElementEditor) {
+      el.focusElement() && el.focusElementPreview()
     }
   }
 
