@@ -12,8 +12,9 @@ RSpec.describe "Admin page list", type: :system do
   end
 
   context "as author" do
-    let!(:alchemy_page) { create(:alchemy_page, name: "Page 1").tap { |p| p.update!(updated_at: Time.parse("2020-08-20")) } }
-    let!(:alchemy_page_2) { create(:alchemy_page, name: "Contact", page_layout: "contact").tap { |p| p.update(updated_at: Time.parse("2020-08-24")) } }
+    let!(:root_page) { create(:alchemy_page, :language_root, :public, name: "Intro") }
+    let!(:alchemy_page) { create(:alchemy_page, parent: root_page, name: "Page 1").tap { |p| p.update!(updated_at: Time.parse("2020-08-20")) } }
+    let!(:alchemy_page_2) { create(:alchemy_page, parent: root_page, name: "Contact", page_layout: "contact").tap { |p| p.update(updated_at: Time.parse("2020-08-24")) } }
     let!(:alchemy_page_3) { create(:alchemy_page, :layoutpage, name: "Footer") }
 
     before do
@@ -81,6 +82,34 @@ RSpec.describe "Admin page list", type: :system do
       visit admin_pages_path(view: "list")
       select2("Contact", from: "Page type")
       expect(page).to have_content("Filtered by")
+      within("table.list") do
+        expect(page.find("tr:nth-child(1) td.name", text: "Contact")).to be
+        expect(page).to_not have_css("tr:nth-child(2)")
+        expect(page).to_not have_css("tr:nth-child(3)")
+      end
+    end
+
+    specify "can filter table of pages by date", :js do
+      root_page.update!(updated_at: Time.parse("2020-08-10"))
+      Timecop.travel("2020-08-25") do
+        visit admin_pages_path(view: "list")
+        page.execute_script <<~JS.strip_heredoc
+          const fp = document.getElementById("q_updated_at_gteq")._flatpickr;
+          fp.setDate("2020-08-23 00:00", true);
+        JS
+        expect(page).to have_content("1 Page")
+        within("table.list") do
+          expect(page.find("tr:nth-child(1) td.name", text: "Contact")).to be
+          expect(page).to_not have_css("tr:nth-child(2)")
+          expect(page).to_not have_css("tr:nth-child(3)")
+        end
+      end
+    end
+
+    specify "can filter table of pages by page type", :js do
+      visit admin_pages_path(view: "list")
+      select2("contact", from: "Page Type")
+      expect(page).to have_content("1 Page")
       within("table.list") do
         expect(page.find("tr:nth-child(1) td.name", text: "Contact")).to be
         expect(page).to_not have_css("tr:nth-child(2)")
