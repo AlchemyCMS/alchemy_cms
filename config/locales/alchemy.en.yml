@@ -571,7 +571,7 @@ en:
         comma_seperated: "Separate by comma"
     password: "Password"
     paste: "paste"
-    pictures_in_page: "%{page} in %{pictures}"
+    pictures_in_page: "In %{page} as %{pictures}"
     pictures_will_be_deleted_now: Pictures will be deleted now
     place_link: "Add link"
     player_version: "Flash Player version"
