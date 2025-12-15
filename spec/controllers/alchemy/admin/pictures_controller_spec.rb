@@ -179,6 +179,10 @@ module Alchemy
         let!(:element) { create(:alchemy_element, page: page) }
         let!(:ingredient) { create(:alchemy_ingredient_picture, element: element, related_object: picture) }
 
+        before do
+          page.publish!
+        end
+
         it "assigns all picture ingredients having an assignment to @assignments" do
           get :show, params: {id: picture.id}
           expect(assigns(:assignments)).to eq([ingredient])
