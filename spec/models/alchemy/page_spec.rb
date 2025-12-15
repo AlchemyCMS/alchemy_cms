@@ -682,6 +682,22 @@ module Alchemy
         end
       end
 
+      describe ".ransackable_attributes" do
+        let(:auth_object) { double }
+
+        subject { described_class.ransackable_attributes(auth_object) }
+
+        it do
+          is_expected.to contain_exactly(
+            "page_layout",
+            "updated_at",
+            "urlname",
+            "title",
+            "name"
+          )
+        end
+      end
+
       describe ".ransackable_scopes" do
         let(:auth_object) { double }
 
