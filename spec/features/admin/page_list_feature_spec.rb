@@ -116,5 +116,13 @@ RSpec.describe "Admin page list", type: :system do
         expect(page).to_not have_css("tr:nth-child(3)")
       end
     end
+
+    specify "page type filter only includes content pages" do
+      visit admin_pages_path(view: "list")
+      options = find_all("select#q_by_page_layout > option")
+      options.each do |option|
+        expect(option.value).to_not eq("footer")
+      end
+    end
   end
 end

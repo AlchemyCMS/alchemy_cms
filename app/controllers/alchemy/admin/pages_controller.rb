@@ -38,7 +38,9 @@ module Alchemy
         only: [:show]
 
       add_alchemy_filter :by_page_layout, type: :select, options: ->(_q) do
-        PageDefinition.all.map { |p| [Alchemy.t(p[:name], scope: "page_layout_names"), p[:name]] }
+        PageDefinition.all.reject(&:layoutpage).tap do |page_layouts|
+          page_layouts.map! { |p| [Alchemy.t(p[:name], scope: "page_layout_names"), p[:name]] }
+        end
       end
 
       add_alchemy_filter :updated_at_gteq, type: :datepicker
