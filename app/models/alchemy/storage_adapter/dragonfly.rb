@@ -110,6 +110,12 @@ module Alchemy
       end
 
       # @param [String, Array<String>]
+      # @return [Alchemy::Picture::ActiveRecord_Relation]
+      def not_file_format_scope(file_format)
+        Picture.where.not(image_file_format: file_format)
+      end
+
+      # @param [String, Array<String>]
       # @return [Alchemy::Attachment::ActiveRecord_Relation]
       def by_file_type_scope(file_type)
         Attachment.where(file_mime_type: file_type)
