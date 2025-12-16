@@ -1,18 +1,8 @@
 <% dialog_link = link_to_dialog render_icon("file-add"),
   alchemy.admin_attachments_path(
     form_field_id: file_editor.form_field_id(:attachment_id),
-    q: {
-      by_file_type: Array(file_editor.settings[:only]).map { |ext|
-        Marcel::MimeType.for(
-          extension: ext
-        )
-      },
-      not_file_type: Array(file_editor.settings[:except]).map { |ext|
-        Marcel::MimeType.for(
-          extension: ext
-        )
-      }
-    }
+    only: Array(file_editor.settings[:only]),
+    except: Array(file_editor.settings[:except])
   ),
   {
     title: Alchemy.t(:assign_file),
