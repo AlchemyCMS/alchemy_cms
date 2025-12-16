@@ -54,7 +54,7 @@ describe "alchemy/ingredients/_file_editor" do
       let(:settings) { {only: "pdf"} }
 
       it "renders a link to open the attachment library overlay with only pdfs" do
-        is_expected.to include("/admin/attachments?form_field_id=element_#{element.id}_ingredient_#{ingredient.id}_attachment_id&amp;q%5Bby_file_type%5D%5B%5D=application%2Fpdf")
+        is_expected.to include("/admin/attachments?form_field_id=element_#{element.id}_ingredient_#{ingredient.id}_attachment_id&amp;only%5B%5D=pdf")
       end
     end
 
@@ -62,7 +62,7 @@ describe "alchemy/ingredients/_file_editor" do
       let(:settings) { {except: "pdf"} }
 
       it "renders a link to open the attachment library overlay without pdfs" do
-        is_expected.to include("/admin/attachments?form_field_id=element_#{element.id}_ingredient_#{ingredient.id}_attachment_id&amp;q%5Bnot_file_type%5D%5B%5D=application%2Fpdf")
+        is_expected.to include("/admin/attachments?except%5B%5D=pdf&amp;form_field_id=element_#{element.id}_ingredient_#{ingredient.id}_attachment_id")
       end
     end
   end

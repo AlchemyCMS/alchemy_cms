@@ -24,16 +24,25 @@ module Alchemy
             name:,
             resource_name:,
             label: translated_name,
-            include_blank:,
-            options: get_options_for_select(query),
+            include_blank: include_blank(params),
+            options: get_options_for_select(query, params),
+            multiple: multiple?(params),
             params:
           )
         end
 
         private
 
-        def include_blank
-          Alchemy.t(:all, scope: [:filters, resource_name, name])
+        def multiple?(params)
+          params[:only].presence&.many? || params[:except].present?
+        end
+
+        def include_blank(params)
+          if params[:only].present? || params[:except].present?
+            false
+          else
+            Alchemy.t(:all, scope: [:filters, resource_name, name])
+          end
         end
 
         def options_to_proc(options)
@@ -44,8 +53,8 @@ module Alchemy
           end
         end
 
-        def get_options_for_select(query)
-          options_for_select = options.call(query)
+        def get_options_for_select(query, params = nil)
+          options_for_select = (options.arity == 1) ? options.call(query) : options.call(query, params)
           # The result of the query is an Array of Arrays, where the first element is the translated name and the second element is the value.
           # If the first element is an Array, we assume that the options are already translated.
           if options_for_select.first.is_a? Array
