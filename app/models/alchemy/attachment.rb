@@ -74,7 +74,12 @@ module Alchemy
         Alchemy.storage_adapter.ransackable_associations(name)
       end
 
-      def file_types(scope = all)
+      def file_types(scope = all, from_extensions: nil)
+        if from_extensions.present?
+          scope = by_file_type(
+            Array(from_extensions).map { |extension| Marcel::MimeType.for(extension:) }
+          )
+        end
         Alchemy.storage_adapter.file_formats(name, scope:)
       end
 
