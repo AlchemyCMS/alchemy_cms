@@ -292,6 +292,10 @@ div#library_sidebar {
   padding-bottom: 60px;
 }
 
+#assign_file_list {
+  padding-left: var(--spacing-1);
+}
+
 #overlay_picture_list {
   height: 100%;
   overflow: auto;
@@ -307,8 +311,10 @@ div#library_sidebar {
 
 #overlay_file_list {
   max-height: 100%;
+  overflow-x: visible;
   overflow-y: auto;
-  padding-bottom: var(--pagination-height);
+  height: calc(100% - var(--pagination-height));
+  padding-left: var(--spacing-1);
 
   .assign_file_file {
     display: block;
