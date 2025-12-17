@@ -758,8 +758,8 @@ de:
     tag_list: Tags
     tags_get_created_if_used_the_first_time: "Ein Tag wird automatisch erstellt, sobald Sie es das erste mal verwenden."
     used_on_these_pages:
-      attachment: "Diese Datei wird auf folgenden Seiten verwendet:"
-      picture: "Dieses Bild wird auf folgenden Seiten verwendet:"
+      attachment: "Diese Datei wird folgendermaßen verwendet"
+      picture: "Dieses Bild wird folgendermaßen verwendet"
     not_in_use_yet:
       attachment: "Diese Datei wird bisher nicht verwendet."
       picture: "Dieses Bild wird bisher nicht verwendet."
