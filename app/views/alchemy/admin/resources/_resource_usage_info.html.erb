@@ -1,8 +1,9 @@
 <div class="resource-usage-info">
   <% if assignments.any? %>
-    <alchemy-message type="info">
+    <h2 class="resource-info-headline">
+      <%= render_icon :info %>
       <%= Alchemy.t(resource_name, scope: :used_on_these_pages) %>
-    </alchemy-message>
+    </h2>
     <ul class="resource_page_list">
       <% assignments.group_by(&:page).each do |page, related_ingredients| %>
         <% if page %>
@@ -11,13 +12,13 @@
               <%= render_icon 'file' %>
               <p><%= link_to page.name, edit_admin_page_path(page) %></p>
             </h3>
-            <ul class="list">
+            <ul>
               <% related_ingredients.group_by(&:element).each do |element, related_ingredients| %>
                 <li class="<%= cycle('even', 'odd') %>">
                   <% page_link = link_to element.display_name_with_preview_text,
                                   edit_admin_page_path(page, anchor: "element_#{element.id}") %>
                   <% ingredients = related_ingredients.map { |p| Alchemy::IngredientEditor.new(p).translated_role }.to_sentence %>
-                  <%= render_icon(:draggable, style: false) %>
+                  <%= element.definition.icon_file %>
                   <p>
                     <%== Alchemy.t(:pictures_in_page, page: page_link, pictures: ingredients) %>
                   </p>

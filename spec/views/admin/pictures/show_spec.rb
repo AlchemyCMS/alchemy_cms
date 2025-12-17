@@ -62,7 +62,7 @@ describe "alchemy/admin/pictures/show.html.erb" do
 
       render
 
-      expect(rendered).to have_css(".resource_page_list .list")
+      expect(rendered).to have_css(".resource_page_list li a", text: picture_ingredient.element.page.name)
       expect(rendered).to have_content Alchemy::IngredientEditor.new(picture_ingredient).translated_role
     end
   end
