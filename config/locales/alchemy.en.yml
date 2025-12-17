@@ -629,8 +629,8 @@ en:
     tags_get_created_if_used_the_first_time: "Tags get created if used the first time."
     this_picture_is_used_on_these_pages: "This picture is used on following pages"
     used_on_these_pages:
-      attachment: "This file is used on following pages"
-      picture: "This picture is used on following pages"
+      attachment: "This file is used as follows"
+      picture: "This picture is used as follows"
     not_in_use_yet:
       attachment: "This file is not in use yet."
       picture: "This picture is not in use yet."
