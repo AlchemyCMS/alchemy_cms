@@ -289,6 +289,11 @@ de:
 
     add_nested_element: "%{name} hinzufügen"
     admin:
+      attachments:
+        sorting_select:
+          label: "Sortierung"
+          by_latest: "Neueste zuerst"
+          alphabetical: "A-Z"
       elements:
         toolbar:
           hide: ausblenden
