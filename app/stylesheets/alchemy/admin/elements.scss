@@ -120,7 +120,7 @@ alchemy-tinymce {
   white-space: nowrap;
   transition: color var(--transition-duration);
   line-height: 1.5;
-  max-width: 85%;
+  min-width: 0;
 
   .preview_text_quote {
     overflow: hidden;
@@ -140,16 +140,17 @@ alchemy-tinymce {
 .element-handle {
   position: relative;
   display: inline-flex;
+  flex-shrink: 0;
   width: var(--spacing-4);
   height: var(--spacing-4);
   cursor: move;
-  padding-right: var(--spacing-1);
 }
 
 button.element-toggle {
   width: 20px;
   height: 20px;
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   position: relative;
   transition: none;
@@ -208,7 +209,7 @@ button.element-toggle {
       }
 
       .element-toggle {
-        margin-left: var(--spacing-1);
+        margin-left: 0;
       }
 
       .element-hidden-icon {
@@ -462,7 +463,7 @@ button.element-toggle {
 
 .element-header {
   display: flex;
-  gap: var(--spacing-1);
+  gap: var(--spacing-2);
   align-items: center;
   padding: var(--spacing-2);
   background-color: var(--element-header-bg-color);
@@ -514,6 +515,7 @@ button.element-toggle {
 .element-hidden-icon {
   display: none;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .element-toolbar {
