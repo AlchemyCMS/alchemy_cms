@@ -6,6 +6,7 @@
       type: Picture
       settings:
         linkable: false
+        except: gif
 
 - name: headline
   ingredients:
@@ -61,6 +62,8 @@
   ingredients:
     - role: file
       type: File
+      settings:
+        except: mp3
 
 - name: bild
   ingredients:
@@ -117,6 +120,7 @@
       settings:
         size: 1200x480
         crop: true
+        only: [jpeg]
         css_classes:
           - "align-right"
           - "align-left"
@@ -171,9 +175,13 @@
     - role: audio
       type: Audio
       hint: true
+      settings:
+        only: [mp3, wav]
     - role: video
       type: Video
       hint: true
+      settings:
+        only: webm
     - role: page
       type: Page
       hint: true

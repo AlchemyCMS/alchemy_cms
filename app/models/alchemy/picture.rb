@@ -81,8 +81,13 @@ module Alchemy
     scope :named, ->(name) { where("#{table_name}.name LIKE ?", "%#{name}%") }
     scope :recent, -> { where("#{table_name}.created_at > ?", Time.current - 24.hours).order(:created_at) }
     scope :without_tag, -> { left_outer_joins(:taggings).where(gutentag_taggings: {id: nil}) }
+
     scope :by_file_format, ->(file_format) do
       Alchemy.storage_adapter.by_file_format_scope(file_format)
+    end
+
+    scope :not_file_format, ->(file_format) do
+      Alchemy.storage_adapter.not_file_format_scope(file_format)
     end
 
     # Case insensitive Ransack searching and sorting for name attribute
@@ -126,7 +131,7 @@ module Alchemy
       end
 
       def ransackable_scopes(_auth_object = nil)
-        [:by_file_format, :recent, :last_upload, :without_tag, :deletable]
+        [:by_file_format, :not_file_format, :recent, :last_upload, :without_tag, :deletable]
       end
 
       def file_formats(scope = all)

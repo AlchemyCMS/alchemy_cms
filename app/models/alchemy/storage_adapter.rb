@@ -7,7 +7,9 @@ module Alchemy
     delegate(
       :attachment_url_class,
       :by_file_format_scope,
+      :not_file_format_scope,
       :by_file_type_scope,
+      :not_file_type_scope,
       :file_extension,
       :file_formats,
       :file_mime_type,
