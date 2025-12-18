@@ -8,6 +8,9 @@
             dropzone: '#assign_file_list',
             file_attribute: 'file',
             in_dialog: true,
+            accept: Array(search_filter_params[:only]).map { |extension|
+              Marcel::MimeType.for(extension:)
+            }.join(",").presence,
             redirect_url: admin_attachments_path(
               form_field_id: @form_field_id,
               only: search_filter_params[:only],
