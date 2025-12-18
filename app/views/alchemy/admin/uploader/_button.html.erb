@@ -1,7 +1,7 @@
 <% file_types = Alchemy.config.uploader.allowed_filetypes[object.class.model_name.collection] || ['*'] %>
 <% accept = file_types.to_a == ["*"] ? nil : file_types.map {|type| ".#{type}"}.join(", ") %>
 
-<alchemy-uploader dropzone="<%= local_assigns[:dropzone] || "#main_content" %>">
+<alchemy-uploader redirect-url="<%= redirect_url %>" dropzone="<%= local_assigns[:dropzone] || "#main_content" %>">
   <%= form_for [:admin, object], html: { multipart: true, class: 'upload-button' } do |f| %>
     <%= f.file_field file_attribute,
       class: 'fileupload fileupload--field', multiple: true, accept: accept,
@@ -15,17 +15,3 @@
     <% end %>
   <% end %>
 </alchemy-uploader>
-
-<script type="text/javascript">
-  document.querySelector("alchemy-uploader").addEventListener("Alchemy.upload.successful", (evt) => {
-    setTimeout(() => {
-      var url = '<%= redirect_url.html_safe %>';
-      evt.target.uploadProgress.visible = false;
-      <% if local_assigns[:in_dialog] %>
-      $.get(url, null, null, 'script');
-      <% else %>
-      Turbo.visit(url);
-      <% end %>
-    }, 1000)
-  })
-</script>

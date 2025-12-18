@@ -282,4 +282,89 @@ describe("alchemy-uploader", () => {
       })
     })
   })
+
+  describe("_handleUploadComplete", () => {
+    beforeEach(() => {
+      vi.useFakeTimers()
+      component._uploadFiles([firstFile])
+    })
+
+    afterEach(() => {
+      vi.useRealTimers()
+    })
+
+    describe("without redirect-url", () => {
+      beforeEach(() => {
+        global.Turbo = { visit: vi.fn() }
+        component.dispatchEvent(
+          new CustomEvent("Alchemy.upload.successful", { bubbles: true })
+        )
+      })
+
+      it("hides the progress after timeout", () => {
+        vi.advanceTimersByTime(750)
+        expect(component.uploadProgress.visible).toBeFalsy()
+      })
+
+      it("does not call Turbo.visit", () => {
+        vi.advanceTimersByTime(750)
+        expect(Turbo.visit).not.toHaveBeenCalled()
+      })
+    })
+
+    describe("without turbo-frame", () => {
+      beforeEach(() => {
+        global.Turbo = { visit: vi.fn() }
+        component.setAttribute("redirect-url", "/admin/pictures")
+        component.dispatchEvent(
+          new CustomEvent("Alchemy.upload.successful", { bubbles: true })
+        )
+      })
+
+      it("hides the progress after timeout", () => {
+        expect(component.uploadProgress.visible).toBeTruthy()
+        vi.advanceTimersByTime(750)
+        expect(component.uploadProgress.visible).toBeFalsy()
+      })
+
+      it("visits the redirect URL via Turbo", () => {
+        vi.advanceTimersByTime(750)
+        expect(Turbo.visit).toHaveBeenCalledWith("/admin/pictures")
+      })
+    })
+
+    describe("with turbo-frame", () => {
+      let turboFrame
+
+      beforeEach(() => {
+        // Wrap the component in a turbo-frame
+        turboFrame = document.createElement("turbo-frame")
+        turboFrame.id = "test-frame"
+        turboFrame.reload = vi.fn()
+        component.parentNode.insertBefore(turboFrame, component)
+        turboFrame.appendChild(component)
+
+        component.setAttribute("redirect-url", "/admin/pictures")
+        component.dispatchEvent(
+          new CustomEvent("Alchemy.upload.successful", { bubbles: true })
+        )
+      })
+
+      it("sets the turbo-frame src attribute", () => {
+        vi.advanceTimersByTime(750)
+        expect(turboFrame.getAttribute("src")).toBe("/admin/pictures")
+      })
+
+      it("reloads the turbo-frame", () => {
+        vi.advanceTimersByTime(750)
+        expect(turboFrame.reload).toHaveBeenCalled()
+      })
+
+      it("hides the progress after timeout", () => {
+        expect(component.uploadProgress.visible).toBeTruthy()
+        vi.advanceTimersByTime(750)
+        expect(component.uploadProgress.visible).toBeFalsy()
+      })
+    })
+  })
 })

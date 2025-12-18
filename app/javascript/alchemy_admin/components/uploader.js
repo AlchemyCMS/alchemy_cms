@@ -21,6 +21,32 @@ export class Uploader extends AlchemyHTMLElement {
     if (this.dropzone) {
       this._dragAndDropBehavior()
     }
+    this.addEventListener("Alchemy.upload.successful", this)
+  }
+
+  handleEvent(evt) {
+    switch (evt.type) {
+      case "Alchemy.upload.successful":
+        this._handleUploadComplete()
+        break
+    }
+  }
+
+  _handleUploadComplete() {
+    setTimeout(() => {
+      const url = this.redirectUrl
+      const turboFrame = this.closest("turbo-frame")
+      this.uploadProgress.visible = false
+
+      if (!url) return
+
+      if (turboFrame) {
+        turboFrame.setAttribute("src", url)
+        turboFrame.reload()
+      } else {
+        Turbo.visit(url)
+      }
+    }, 750)
   }
 
   /**
@@ -125,6 +151,10 @@ export class Uploader extends AlchemyHTMLElement {
    */
   get fileInput() {
     return this.querySelector("input[type='file']")
+  }
+
+  get redirectUrl() {
+    return this.getAttribute("redirect-url")
   }
 }
 

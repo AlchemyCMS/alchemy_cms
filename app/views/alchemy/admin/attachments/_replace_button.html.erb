@@ -1,6 +1,4 @@
-<% file_upload_id = "file_upload_#{dom_id(object)}" %>
-
-<alchemy-uploader id="<%= file_upload_id %>">
+<alchemy-uploader redirect-url="<%= redirect_url %>">
   <%= form_for [:admin, object], html: {multipart: true, class: 'upload-button'} do |f| %>
     <%= f.file_field file_attribute,
       class: 'fileupload--field',
@@ -11,9 +9,3 @@
     <% end %>
   <% end %>
 </alchemy-uploader>
-
-<script type="text/javascript">
-  document.getElementById("<%= file_upload_id %>").addEventListener("Alchemy.upload.successful", (event) => {
-    Turbo.visit('<%= redirect_url.html_safe %>');
-  })
-</script>
