@@ -17,4 +17,34 @@ describe "alchemy/admin/attachments/_replace_button.html.erb" do
       locals: {object: object, file_attribute: file_attribute, redirect_url: redirect_url}
     expect(rendered).to have_selector("alchemy-uploader[redirect-url='/admin/attachments']")
   end
+
+  context "with allowed_filetypes configured as wildcard" do
+    before do
+      allow(Alchemy.config.uploader.allowed_filetypes).to receive(:alchemy_attachments) do
+        ["*"]
+      end
+    end
+
+    it "does not render the accept attribute" do
+      render partial: "alchemy/admin/attachments/replace_button",
+        locals: {object: object, file_attribute: file_attribute, redirect_url: redirect_url}
+
+      expect(rendered).not_to have_selector('input[type="file"][accept]')
+    end
+  end
+
+  context "with allowed_filetypes configured as specific file types" do
+    before do
+      allow(Alchemy.config.uploader.allowed_filetypes).to receive(:alchemy_attachments) do
+        ["pdf", "doc", "docx"]
+      end
+    end
+
+    it "renders the accept attribute with the correct file extensions" do
+      render partial: "alchemy/admin/attachments/replace_button",
+        locals: {object: object, file_attribute: file_attribute, redirect_url: redirect_url}
+
+      expect(rendered).to have_selector('input[type="file"][accept=".pdf, .doc, .docx"]')
+    end
+  end
 end
