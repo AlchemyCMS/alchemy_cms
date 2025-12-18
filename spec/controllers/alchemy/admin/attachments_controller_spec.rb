@@ -83,6 +83,69 @@ module Alchemy
           expect(assigns(:attachments).to_a).to eq([jpg])
           expect(assigns(:attachments).to_a).to_not eq([png])
         end
+
+        context "with multiple content types" do
+          it "loads only attachments with matching content type" do
+            get :index, params: {q: {by_file_type: ["image/jpeg"]}}
+            expect(assigns(:attachments).to_a).to eq([jpg])
+            expect(assigns(:attachments).to_a).to_not eq([png])
+          end
+        end
+
+        context "with only param" do
+          it "populates by_file_type query" do
+            get :index, params: {only: ["png"]}
+            expect(assigns(:attachments).to_a).to eq([png])
+            expect(assigns(:attachments).to_a).to_not eq([jpg])
+          end
+        end
+
+        context "with only param and by_file_type query" do
+          it "uses by_file_type query" do
+            get :index, params: {only: ["png"], q: {by_file_type: "image/jpeg"}}
+            expect(assigns(:attachments).to_a).to eq([jpg])
+            expect(assigns(:attachments).to_a).to_not eq([png])
+          end
+        end
+      end
+
+      describe "not_file_type filter" do
+        let!(:png) { create(:alchemy_attachment) }
+
+        let!(:jpg) do
+          create :alchemy_attachment,
+            file: fixture_file_upload("image3.jpeg")
+        end
+
+        it "loads all but attachments with matching content type" do
+          get :index, params: {q: {not_file_type: "image/jpeg"}}
+          expect(assigns(:attachments).to_a).to_not eq([jpg])
+          expect(assigns(:attachments).to_a).to eq([png])
+        end
+
+        context "with multiple content types" do
+          it "loads all but attachments with matching content type" do
+            get :index, params: {q: {not_file_type: ["image/jpeg"]}}
+            expect(assigns(:attachments).to_a).to_not eq([jpg])
+            expect(assigns(:attachments).to_a).to eq([png])
+          end
+        end
+
+        context "with except param" do
+          it "populates by_file_type query" do
+            get :index, params: {except: ["jpg"]}
+            expect(assigns(:attachments).to_a).to eq([png])
+            expect(assigns(:attachments).to_a).to_not eq([jpg])
+          end
+        end
+
+        context "with except param and by_file_type query" do
+          it "uses by_file_type query" do
+            get :index, params: {except: ["png"], q: {by_file_type: "image/jpeg"}}
+            expect(assigns(:attachments).to_a).to eq([jpg])
+            expect(assigns(:attachments).to_a).to_not eq([png])
+          end
+        end
       end
     end
 

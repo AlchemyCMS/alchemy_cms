@@ -12,7 +12,7 @@
   --button-border-color: var(--color-blue_medium);
   --button-box-shadow: 0 1px 1px -1px hsl(0deg, 0%, 10%);
   --button-focus-border-color: var(--color-orange_dark);
-  --button-focus-box-shadow: 0 1px 1px 0 var(--button-focus-border-color);
+  --button-focus-box-shadow: 0 0 0 1px var(--button-focus-border-color);
   --button-hover-bg-color: var(--color-blue_medium);
   --button-hover-border-color: var(--color-blue_medium);
   --button-text-color: var(--color-white);
@@ -293,7 +293,7 @@
   --button-border-color: var(--border-color);
   --button-box-shadow: 0 1px 1px -1px hsl(0deg, 0%, 20%);
   --button-focus-border-color: var(--color-orange_dark);
-  --button-focus-box-shadow: 0 1px 1px 0 var(--button-focus-border-color);
+  --button-focus-box-shadow: 0 0 0 1px var(--button-focus-border-color);
   --button-hover-bg-color: var(--color-grey_very_light);
   --button-hover-border-color: hsla(0deg, 0%, 59%, 0.5);
   --button-text-color: var(--text-color);

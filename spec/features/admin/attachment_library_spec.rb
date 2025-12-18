@@ -26,6 +26,24 @@ RSpec.describe "Attachment Library", type: :system do
         expect(page).to_not have_content("archive")
       end
     end
+
+    scenario "the list of file types can be constraint by passing the `only` param" do
+      visit alchemy.admin_attachments_path(only: ["zip"])
+
+      within "#library_sidebar" do
+        expect(page).to have_css("option", text: "ZIP Archive")
+        expect(page).to_not have_css("option", text: "PDF Document")
+      end
+    end
+
+    scenario "the list of file types can be constraint by passing the `except` param" do
+      visit alchemy.admin_attachments_path(except: ["zip"])
+
+      within "#library_sidebar" do
+        expect(page).to_not have_css("option", text: "ZIP Archive")
+        expect(page).to have_css("option", text: "PDF Document")
+      end
+    end
   end
 
   describe "Sorting attachments", :js do

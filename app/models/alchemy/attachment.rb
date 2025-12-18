@@ -29,8 +29,12 @@ module Alchemy
 
     stampable stamper_class_name: Alchemy.user_class_name
 
-    scope :by_file_type, ->(file_type) do
+    scope :by_file_type, ->(*file_type) do
       Alchemy.storage_adapter.by_file_type_scope(file_type)
+    end
+
+    scope :not_file_type, ->(*file_type) do
+      Alchemy.storage_adapter.not_file_type_scope(file_type)
     end
 
     scope :recent, -> { where("#{table_name}.created_at > ?", Time.current - 24.hours).order(:created_at) }
@@ -70,7 +74,12 @@ module Alchemy
         Alchemy.storage_adapter.ransackable_associations(name)
       end
 
-      def file_types(scope = all)
+      def file_types(scope = all, from_extensions: nil)
+        if from_extensions.present?
+          scope = by_file_type(
+            Array(from_extensions).map { |extension| Marcel::MimeType.for(extension:) }
+          )
+        end
         Alchemy.storage_adapter.file_formats(name, scope:)
       end
 
@@ -79,7 +88,7 @@ module Alchemy
       end
 
       def ransackable_scopes(_auth_object = nil)
-        %i[by_file_type recent last_upload without_tag deletable]
+        %i[by_file_type not_file_type recent last_upload without_tag deletable]
       end
     end
 

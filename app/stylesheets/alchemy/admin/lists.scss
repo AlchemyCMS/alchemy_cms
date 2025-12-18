@@ -23,8 +23,8 @@ ul.list {
       overflow: hidden;
       background-color: transparent;
       font-weight: bold;
-      padding: var(--spacing-1) var(--spacing-2);
-      margin-bottom: var(--spacing-2);
+      padding: 0 var(--spacing-2);
+      margin: var(--spacing-1) 0 var(--spacing-2) 0;
 
       .list-secondary {
         color: var(--text-color);

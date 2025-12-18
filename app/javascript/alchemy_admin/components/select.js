@@ -53,7 +53,7 @@ class Select extends HTMLSelectElement {
   }
 
   get allowClear() {
-    return this.dataset.hasOwnProperty("allowClear")
+    return this.dataset.hasOwnProperty("allowClear") || this.multiple
   }
 }
 

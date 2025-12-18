@@ -48,7 +48,7 @@ module Alchemy
 
     describe ".ransackable_scopes" do
       it "delegates to storage adapter" do
-        expect(described_class.ransackable_scopes).to eq %i[by_file_type recent last_upload without_tag deletable]
+        expect(described_class.ransackable_scopes).to eq %i[by_file_type not_file_type recent last_upload without_tag deletable]
       end
     end
 
@@ -108,9 +108,33 @@ module Alchemy
     end
 
     describe ".file_types" do
-      it "deligates to storage adapter" do
-        expect(Alchemy.storage_adapter).to receive(:file_formats).with(described_class.name, scope: described_class.all)
-        described_class.file_types
+      before do
+        allow(Alchemy.storage_adapter).to receive(:file_formats)
+      end
+
+      context "without extensions" do
+        let(:scope) { double("all") }
+
+        it "calls file_formats on storage adapter with all scope" do
+          expect(described_class).to receive(:all) { scope }
+          described_class.file_types
+        end
+      end
+
+      context "with extensions" do
+        let(:scope) { double("by_file_type") }
+
+        it "calls file_formats on storage adapter with by_file_type scope" do
+          expect(described_class).to receive(:by_file_type).with(%w[image/png image/jpeg]) { scope }
+          described_class.file_types(from_extensions: %w[png jpg])
+        end
+      end
+
+      after do
+        expect(Alchemy.storage_adapter).to have_received(:file_formats).with(
+          described_class.name,
+          scope:
+        )
       end
     end
 
