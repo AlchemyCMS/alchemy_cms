@@ -103,16 +103,22 @@ module Alchemy
         ::Dragonfly::Job::Fetch::NotFound
       end
 
-      # @param [String]
+      # @param [String, Array<String>]
       # @return [Alchemy::Picture::ActiveRecord_Relation]
       def by_file_format_scope(file_format)
         Picture.where(image_file_format: file_format)
       end
 
-      # @param [String]
+      # @param [String, Array<String>]
       # @return [Alchemy::Attachment::ActiveRecord_Relation]
       def by_file_type_scope(file_type)
         Attachment.where(file_mime_type: file_type)
+      end
+
+      # @param [String, Array<String>]
+      # @return [Alchemy::Attachment::ActiveRecord_Relation]
+      def not_file_type_scope(file_type)
+        Attachment.where.not(file_mime_type: file_type)
       end
 
       # @param [Alchemy::Attachment]

@@ -258,10 +258,11 @@ div#library_sidebar {
   top: 0;
   right: 0;
   width: var(--sidebar-width);
+  overflow-y: auto;
 
   padding: calc(var(--top-menu-height) + var(--spacing-2)) var(--spacing-4)
-    calc(var(--pagination-height) + var(--spacing-2)) var(--spacing-4);
-  height: 100%;
+    var(--spacing-2) var(--spacing-4);
+  height: calc(100% - var(--pagination-height));
   z-index: 3;
   background-color: var(--sidebar-background-color);
 
@@ -270,18 +271,14 @@ div#library_sidebar {
   }
 
   h3 {
-    margin: 1.5em 0 1em;
+    margin: var(--spacing-4) 0 var(--spacing-3) 0;
+    font-size: var(--font-size_medium);
   }
 }
 
 .alchemy-dialog #library_sidebar {
   position: absolute;
-}
-
-.alchemy-dialog-body {
-  #library_sidebar {
-    padding: 0 var(--spacing-4) var(--pagination-height);
-  }
+  padding: 0 var(--spacing-4);
 }
 
 #assign_image_list,
@@ -293,6 +290,10 @@ div#library_sidebar {
 #assign_image_list {
   padding-right: 240px;
   padding-bottom: 60px;
+}
+
+#assign_file_list {
+  padding-left: var(--spacing-1);
 }
 
 #overlay_picture_list {
@@ -310,8 +311,10 @@ div#library_sidebar {
 
 #overlay_file_list {
   max-height: 100%;
+  overflow-x: visible;
   overflow-y: auto;
-  padding-bottom: var(--pagination-height);
+  height: calc(100% - var(--pagination-height));
+  padding-left: var(--spacing-1);
 
   .assign_file_file {
     display: block;

@@ -55,6 +55,21 @@ RSpec.describe Alchemy::Admin::Filters::Select do
       end
     end
 
+    context "when the options are given as block with params argument" do
+      let(:params) { {only: ["standard"]} }
+
+      let(:options) do
+        ->(_q, params) { params[:only] }
+      end
+
+      it "returns a select filter input component with options from params" do
+        expect(component).to be_a(Alchemy::Admin::Resource::SelectFilter)
+        expect(component.name).to eq(name)
+        expect(component.label).to eq("Page Type")
+        expect(component.options).to eq([["Standard", "standard"]])
+      end
+    end
+
     context "when the options are a translatable array" do
       let(:name) { "by_file_format" }
       let(:resource_name) { "picture" }
@@ -82,6 +97,26 @@ RSpec.describe Alchemy::Admin::Filters::Select do
         expect(component).to be_a(Alchemy::Admin::Resource::SelectFilter)
         expect(component.options).to eq([["A", "A"], ["B", "B"], ["C", "C"]])
         expect(component.selected).to eq("B")
+      end
+    end
+
+    context "when params[:only] is multiple values" do
+      let(:params) { {q: {by_page_layout: "standard"}, only: ["standard", "news"]} }
+
+      it "returns a select filter input component with multiple selection enabled and no blank option" do
+        expect(component).to be_a(Alchemy::Admin::Resource::SelectFilter)
+        expect(component.multiple).to be true
+        expect(component.include_blank).to be false
+      end
+    end
+
+    context "when params[:only] is a single value" do
+      let(:params) { {q: {by_page_layout: "standard"}, only: ["standard"]} }
+
+      it "returns a select filter input component with multiple selection disabled and no blank option" do
+        expect(component).to be_a(Alchemy::Admin::Resource::SelectFilter)
+        expect(component.multiple).to be false
+        expect(component.include_blank).to be false
       end
     end
   end

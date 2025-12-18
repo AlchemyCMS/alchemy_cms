@@ -28,5 +28,23 @@ RSpec.describe Alchemy::Admin::Resource::SelectFilter, type: :component do
       expect(page).to have_selector("option", text: "Draft")
       expect(page).to have_selector("option", text: "Archived")
     end
+
+    context "when multiple is true" do
+      let(:component) do
+        described_class.new(
+          name:,
+          resource_name:,
+          include_blank:,
+          label:,
+          options:,
+          params:,
+          multiple: true
+        )
+      end
+
+      it "renders a select input that allows multiple selections" do
+        expect(page).to have_selector("select[multiple]")
+      end
+    end
   end
 end

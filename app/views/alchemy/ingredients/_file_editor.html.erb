@@ -1,8 +1,8 @@
 <% dialog_link = link_to_dialog render_icon("file-add"),
   alchemy.admin_attachments_path(
     form_field_id: file_editor.form_field_id(:attachment_id),
-    only: file_editor.settings[:only],
-    except: file_editor.settings[:except]
+    only: Array(file_editor.settings[:only]),
+    except: Array(file_editor.settings[:except])
   ),
   {
     title: Alchemy.t(:assign_file),
