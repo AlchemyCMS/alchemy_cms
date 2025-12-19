@@ -121,6 +121,9 @@ div#overlay_text_box {
   }
 
   .current-user-name {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-1);
     padding: 0 var(--spacing-3);
 
     @media screen and (max-width: vars.$large-screen-break-point) {
