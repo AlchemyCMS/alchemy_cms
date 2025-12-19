@@ -225,7 +225,10 @@
   display: flex;
   flex-grow: 1;
   flex-wrap: nowrap;
-  height: calc(var(--header-height) + 2px);
+  height: var(--header-height);
+  overflow-x: auto;
+  scrollbar-width: none;
+  scrollbar-gutter: stable;
 
   label {
     float: left;
@@ -250,7 +253,6 @@
   align-items: center;
   flex-wrap: nowrap;
   border-right: var(--border-default);
-  border-bottom: var(--border-default);
   white-space: nowrap;
   padding-left: var(--spacing-1);
 
