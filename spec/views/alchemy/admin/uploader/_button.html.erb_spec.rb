@@ -8,10 +8,15 @@ describe "alchemy/admin/uploader/_button.html.erb" do
   let(:redirect_url) { "/admin/pictures" }
 
   before do
-    allow(view).to receive(:can?).and_return(true)
     allow(view).to receive(:admin_pictures_path).and_return("/admin/pictures")
     allow(view).to receive(:admin_attachments_path).and_return("/admin/attachments")
     view.extend Alchemy::BaseHelper
+  end
+
+  it "renders a alchemy-uploader component" do
+    render partial: "alchemy/admin/uploader/button",
+      locals: {object: object, file_attribute: file_attribute, redirect_url: redirect_url}
+    expect(rendered).to have_selector("alchemy-uploader[redirect-url='/admin/pictures']")
   end
 
   context "when wildcard is configured (all file types allowed)" do
