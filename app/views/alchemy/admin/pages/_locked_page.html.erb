@@ -3,7 +3,7 @@
 <% else %>
   <div class="locked_page wide" id="locked_page_<%= locked_page.id %>">
     <%= link_to alchemy.edit_admin_page_path(locked_page) do %>
-      <%= render 'alchemy/admin/pages/page_infos', page: locked_page, truncate: true %>
+      <%= render 'alchemy/admin/pages/page_infos', page: locked_page %>
     <% end %>
     <%= form_tag(alchemy.unlock_admin_page_path(locked_page), remote: true) do %>
       <button class="icon_button small" title="<%= Alchemy.t(:explain_unlocking) %>">
