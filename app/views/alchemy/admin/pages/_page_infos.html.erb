@@ -1,24 +1,26 @@
 <% if page.definition.blank? %>
   <%= page_layout_missing_warning %>
 <% end %>
-<span class="page_name" title="<%= page.name %>">
-  <% if local_assigns[:truncate] %>
-    <%= truncate page.name, length: 15 %>
-  <% else %>
-    <%= page.name %>
-  <% end %>
-</span>
-<%- if multi_site? -%>
-  <span class="page_site" title="<%= page.site_name %>">
+<div class="page_naming_infos">
+  <span class="page_name" title="<%= page.name %>">
     <% if local_assigns[:truncate] %>
-      <%= truncate page.site_name, length: 15 %>
+      <%= truncate page.name, length: 15 %>
     <% else %>
-      <%= page.site_name %>
+      <%= page.name %>
     <% end %>
   </span>
-<%- end -%>
-<%- if page.site_languages.many? -%>
-  <span class="page_language" title="<%= page.language.name %>">
-    <%= page.language_code %>
-  </span>
-<%- end -%>
+  <%- if multi_site? -%>
+    <span class="page_site" title="<%= page.site_name %>">
+      <% if local_assigns[:truncate] %>
+        <%= truncate page.site_name, length: 15 %>
+      <% else %>
+        <%= page.site_name %>
+      <% end %>
+    </span>
+  <%- end -%>
+  <%- if page.site_languages.many? -%>
+    <span class="page_language" title="<%= page.language.name %>">
+      <%= page.language_code %>
+    </span>
+  <%- end -%>
+</div>
