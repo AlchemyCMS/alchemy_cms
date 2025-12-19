@@ -3,19 +3,11 @@
 <% end %>
 <div class="page_naming_infos">
   <span class="page_name" title="<%= page.name %>">
-    <% if local_assigns[:truncate] %>
-      <%= truncate page.name, length: 15 %>
-    <% else %>
-      <%= page.name %>
-    <% end %>
+    <%= page.name %>
   </span>
   <%- if multi_site? -%>
     <span class="page_site" title="<%= page.site_name %>">
-      <% if local_assigns[:truncate] %>
-        <%= truncate page.site_name, length: 15 %>
-      <% else %>
-        <%= page.site_name %>
-      <% end %>
+      <%= page.site_name %>
     </span>
   <%- end -%>
   <%- if page.site_languages.many? -%>
