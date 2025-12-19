@@ -59,7 +59,7 @@ div#overlay_text_box {
   display: flex;
   height: var(--header-height);
   background: var(--header-background);
-  border-bottom: var(--header-border-bottom);
+  border-bottom: var(--border-default);
   position: relative;
 
   a:hover {
@@ -78,6 +78,9 @@ div#overlay_text_box {
     border-bottom-color: var(--toolbar-bg-color);
 
     .page_status {
+      &:first-of-type {
+        margin-left: var(--spacing-2);
+      }
       margin-left: var(--spacing-1);
       margin-bottom: 0;
 
