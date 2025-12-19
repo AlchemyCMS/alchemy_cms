@@ -1,5 +1,6 @@
 @use "base";
 @use "navigation";
+@use "../variables" as vars;
 
 alchemy-overlay {
   visibility: hidden;
@@ -106,7 +107,6 @@ div#overlay_text_box {
   display: flex;
   align-items: center;
   height: var(--header-height);
-  padding-left: var(--spacing-3);
   margin-left: auto;
   border-bottom: var(--border-default);
   border-left: var(--border-default);
@@ -121,6 +121,10 @@ div#overlay_text_box {
   }
 
   .current-user-name {
-    padding-right: var(--spacing-3);
+    padding: 0 var(--spacing-3);
+
+    @media screen and (max-width: vars.$large-screen-break-point) {
+      display: none;
+    }
   }
 }
