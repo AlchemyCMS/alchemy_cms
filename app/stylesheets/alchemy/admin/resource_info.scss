@@ -64,7 +64,10 @@
       min-height: var(--form-field-height);
       background: var(--form-field-background-color);
       border-radius: var(--border-radius_medium);
-      @include mixins.truncate(var(--form-right-column-width), $wrap: nowrap);
+
+      &:not(.value-block) {
+        @include mixins.truncate(var(--form-right-column-width), $wrap: nowrap);
+      }
     }
 
     &.with-icon {
