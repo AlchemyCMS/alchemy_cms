@@ -1,16 +1,31 @@
+import { growl } from "alchemy_admin/growler"
+import { translate } from "alchemy_admin/i18n"
+
 class PreviewWindow extends HTMLIFrameElement {
   #afterLoad
   #reloadIcon
+  #loadTimeout
+  #previewReadyHandler
 
   constructor() {
     super()
     this.addEventListener("load", this)
+    this.#previewReadyHandler = this.#handlePreviewReadyMessage.bind(this)
   }
 
   handleEvent(evt) {
     if (evt.type === "load") {
+      this.#clearLoadTimeout()
       this.#stopSpinner()
       this.#afterLoad?.call(this, evt)
+    }
+  }
+
+  #handlePreviewReadyMessage(event) {
+    if (event.data.message === "Alchemy.previewReady") {
+      this.#clearLoadTimeout()
+      this.#stopSpinner()
+      this.#afterLoad?.call(this, event)
     }
   }
 
@@ -18,6 +33,7 @@ class PreviewWindow extends HTMLIFrameElement {
     let url = this.url
 
     this.#attachEvents()
+    window.addEventListener("message", this.#previewReadyHandler)
 
     if (window.localStorage.getItem("alchemy-preview-url")) {
       url = window.localStorage.getItem("alchemy-preview-url")
@@ -29,6 +45,7 @@ class PreviewWindow extends HTMLIFrameElement {
 
   disconnectedCallback() {
     key.unbind("alt+r")
+    window.removeEventListener("message", this.#previewReadyHandler)
   }
 
   postMessage(data) {
@@ -47,6 +64,13 @@ class PreviewWindow extends HTMLIFrameElement {
     } else {
       this.src = this.url
     }
+
+    // Set 5s timeout as fallback - if iframe doesn't load, stop spinner anyway
+    this.#clearLoadTimeout()
+    this.#loadTimeout = setTimeout(() => {
+      this.#stopSpinner()
+      growl(translate("Preview failed to load"), "warning")
+    }, 5000)
 
     return new Promise((resolve) => {
       this.#afterLoad = resolve
@@ -85,12 +109,22 @@ class PreviewWindow extends HTMLIFrameElement {
   }
 
   #startSpinner() {
-    this.#reloadIcon = this.reloadButton.innerHTML
+    // Only save the reload icon if we're not already showing a spinner
+    if (!this.reloadButton.innerHTML.includes("alchemy-spinner")) {
+      this.#reloadIcon = this.reloadButton.innerHTML
+    }
     this.reloadButton.innerHTML = `<alchemy-spinner size="small"></alchemy-spinner>`
   }
 
   #stopSpinner() {
     this.reloadButton.innerHTML = this.#reloadIcon
+  }
+
+  #clearLoadTimeout() {
+    if (this.#loadTimeout) {
+      clearTimeout(this.#loadTimeout)
+      this.#loadTimeout = null
+    }
   }
 
   get url() {
