@@ -19,7 +19,7 @@
   </div>
   <div class="value">
     <label><%= Alchemy.t(:page_status) %></label>
-    <p>
+    <p class="value-block">
       <% if @page.locked? %>
         <span class="page_status">
           <%= render_icon(:edit, size: "1x") %>

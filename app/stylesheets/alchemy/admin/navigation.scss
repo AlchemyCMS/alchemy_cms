@@ -225,7 +225,10 @@
   display: flex;
   flex-grow: 1;
   flex-wrap: nowrap;
-  height: calc(var(--header-height) + 1px);
+  height: var(--header-height);
+  overflow-x: auto;
+  scrollbar-width: none;
+  scrollbar-gutter: stable;
 
   label {
     float: left;
@@ -250,13 +253,20 @@
   align-items: center;
   flex-wrap: nowrap;
   border-right: var(--border-default);
-  border-bottom: var(--border-default);
+  white-space: nowrap;
+  padding-left: var(--spacing-1);
 
   form {
-    align-self: center;
-    justify-self: flex-end;
+    display: flex;
+    align-content: center;
+    justify-content: center;
     margin-right: var(--spacing-1);
-    line-height: 1;
+
+    button {
+      display: flex;
+      align-content: center;
+      justify-content: center;
+    }
   }
 
   &:hover {
@@ -268,7 +278,7 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    padding: var(--spacing-1) var(--spacing-2);
+    padding: var(--spacing-1);
 
     &:focus {
       @include mixins.default-focus-style(
@@ -277,22 +287,21 @@
     }
   }
 
-  .icon.close {
-    vertical-align: text-bottom;
-    text-shadow: var(--text-shadow-light);
+  .page_naming_infos {
+    display: flex;
+    align-items: baseline; // Page name, Site name and language code having different font sizes
+    gap: var(--spacing-1);
   }
 
   .page_name {
-    margin-right: var(--spacing-1);
-    text-shadow: var(--text-shadow-light);
+    white-space: nowrap;
+    line-height: 1;
   }
 
   .page_language,
   .page_site {
-    display: inline-block;
     color: var(--text-color-muted);
     font-size: var(--font-size_small);
-    margin-right: var(--spacing-1);
   }
 
   .page_language {

@@ -234,16 +234,6 @@
   }
 }
 
-.page_status_and_name .page_status {
-  margin-left: var(--spacing-1);
-  margin-bottom: -1px;
-
-  // The lock icon is a bit too high, so we need to adjust it
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-
 .page_status {
   display: inline-flex;
   justify-content: center;

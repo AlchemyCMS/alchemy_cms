@@ -45,7 +45,7 @@ describe Alchemy::Admin::AttachmentsHelper do
     context "for an video attachment" do
       let(:mime_type) { "video/mp4" }
 
-      it { is_expected.to eq("900x280") }
+      it { is_expected.to eq("850x240") }
     end
 
     context "for any other file" do
