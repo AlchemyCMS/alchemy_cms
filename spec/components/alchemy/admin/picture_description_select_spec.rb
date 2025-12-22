@@ -28,7 +28,7 @@ RSpec.describe Alchemy::Admin::PictureDescriptionSelect, type: :component do
 
       it "renders the select box with both languages" do
         expect(page).to have_select("Language", options: ["EN", "DE"], selected: "EN")
-        expect(page).to have_selector("select[data-url='/some/url']")
+        expect(page).to have_selector("alchemy-picture-description-select[url='/some/url']")
       end
     end
   end
