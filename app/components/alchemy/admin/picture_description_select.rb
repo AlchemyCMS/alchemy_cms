@@ -38,7 +38,8 @@ module Alchemy
       end
 
       def language_label(language)
-        language.code.upcase
+        language_name = language.name
+        multi_site? ? "#{language_name} (#{language.site.name})" : language_name
       end
     end
   end

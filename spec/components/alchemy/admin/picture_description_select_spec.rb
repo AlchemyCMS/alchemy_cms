@@ -27,7 +27,24 @@ RSpec.describe Alchemy::Admin::PictureDescriptionSelect, type: :component do
       end
 
       it "renders the select box with both languages" do
-        expect(page).to have_select("Language", options: ["EN", "DE"], selected: "EN")
+        expect(page).to have_select("Language", options: ["English", "Deutsch"], selected: "English")
+        expect(page).to have_selector("alchemy-picture-description-select[url='/some/url']")
+      end
+    end
+
+    context "when there are multiple sites" do
+      let!(:language) { create(:alchemy_language, :english, site: site1) }
+      let!(:german) { create(:alchemy_language, :german, site: site2) }
+      let(:site1) { create(:alchemy_site, host: "demo.example.com", name: "Demo") }
+      let(:site2) { create(:alchemy_site, host: "www.example.com", name: "Default") }
+
+      before do
+        allow_any_instance_of(described_class).to receive(:multi_site?).and_return(true)
+        render
+      end
+
+      it "renders select with site names" do
+        expect(page).to have_select("Language", options: ["English (Demo)", "Deutsch (Default)"], selected: "English (Demo)")
         expect(page).to have_selector("alchemy-picture-description-select[url='/some/url']")
       end
     end
