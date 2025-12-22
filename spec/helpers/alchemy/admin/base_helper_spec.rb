@@ -176,7 +176,7 @@ module Alchemy
         let(:user) { double("User", alchemy_display_name: "Peter Schroeder") }
 
         it "Returns a span showing the name of the currently logged in user." do
-          is_expected.to have_content("#{Alchemy.t("Logged in as")} Peter Schroeder")
+          is_expected.to have_content("Peter Schroeder")
           is_expected.to have_selector("span.current-user-name")
         end
       end

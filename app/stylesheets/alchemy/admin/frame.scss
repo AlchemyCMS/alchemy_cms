@@ -1,5 +1,6 @@
 @use "base";
 @use "navigation";
+@use "../variables" as vars;
 
 alchemy-overlay {
   visibility: hidden;
@@ -59,7 +60,7 @@ div#overlay_text_box {
   display: flex;
   height: var(--header-height);
   background: var(--header-background);
-  border-bottom: var(--header-border-bottom);
+  border-bottom: var(--border-default);
   position: relative;
 
   a:hover {
@@ -68,20 +69,27 @@ div#overlay_text_box {
 
   .page_status_and_name {
     align-items: center;
-    padding: var(--spacing-1) var(--spacing-2);
+    padding: 0 var(--spacing-2);
+    height: 100%;
     background-color: var(--toolbar-bg-color);
     text-shadow: var(--text-shadow-light);
     @extend .disable-user-select;
     @extend .locked_page;
     cursor: default;
     border-bottom-color: var(--toolbar-bg-color);
-  }
 
-  .page_name {
-    margin-right: var(--spacing-1);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    .page_status {
+      &:first-of-type {
+        margin-left: var(--spacing-2);
+      }
+      margin-left: var(--spacing-1);
+      margin-bottom: 0;
+
+      // The lock icon is a bit too high, so we need to adjust it
+      &:last-child {
+        margin-bottom: 1px;
+      }
+    }
   }
 }
 
@@ -99,10 +107,11 @@ div#overlay_text_box {
   display: flex;
   align-items: center;
   height: var(--header-height);
-  padding-left: var(--spacing-2);
   margin-left: auto;
   border-bottom: var(--border-default);
-  background-color: var(--header-background);
+  border-left: var(--border-default);
+  white-space: nowrap;
+  background-color: var(--toolbar-bg-color);
 
   select {
     background-color: transparent;
@@ -112,6 +121,13 @@ div#overlay_text_box {
   }
 
   .current-user-name {
-    padding-right: var(--spacing-2);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-1);
+    padding: 0 var(--spacing-3);
+
+    @media screen and (max-width: vars.$large-screen-break-point) {
+      display: none;
+    }
   }
 }

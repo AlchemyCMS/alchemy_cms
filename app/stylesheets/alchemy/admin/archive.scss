@@ -256,14 +256,13 @@ div#library_sidebar {
   flex-direction: column;
   position: fixed;
   border-left: 1px solid var(--border-color);
-  top: 0;
+  top: var(--top-menu-height);
   right: 0;
   width: var(--sidebar-width);
   overflow-y: auto;
 
-  padding: calc(var(--top-menu-height) + var(--spacing-2)) var(--spacing-4)
-    var(--spacing-2) var(--spacing-4);
-  height: calc(100% - var(--pagination-height));
+  padding: var(--spacing-2) var(--spacing-4) var(--spacing-2) var(--spacing-4);
+  height: calc(100% - var(--top-menu-height) - var(--pagination-height));
   z-index: 3;
   background-color: var(--sidebar-background-color);
 

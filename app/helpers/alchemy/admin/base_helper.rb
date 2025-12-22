@@ -21,7 +21,9 @@ module Alchemy
       def current_alchemy_user_name
         name = current_alchemy_user.try(:alchemy_display_name)
         if name.present?
-          content_tag :span, "#{Alchemy.t("Logged in as")} #{name}", class: "current-user-name"
+          content_tag :span, class: "current-user-name" do
+            "#{render_icon(:user, size: "1x")} #{name}".html_safe
+          end
         end
       end
 
