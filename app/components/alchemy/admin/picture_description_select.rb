@@ -1,0 +1,45 @@
+module Alchemy
+  module Admin
+    class PictureDescriptionSelect < ViewComponent::Base
+      erb_template <<-ERB
+        <label class="inline-label">
+          <%= label %>
+          <%= select name_prefix, :language_id,
+            options_for_select(language_options, selected:), {},
+            id: "picture_description_select",
+            data: {url:} %>
+        </label>
+      ERB
+
+      def initialize(url:, selected:, name_prefix:)
+        @url = url
+        @selected = selected
+        @name_prefix = name_prefix
+      end
+
+      def render?
+        Alchemy::Language.published.many?
+      end
+
+      private
+
+      delegate :multi_site?, to: :helpers
+
+      attr_reader :name_prefix, :selected, :url
+
+      def label
+        Alchemy::Language.model_name.human
+      end
+
+      def language_options
+        Alchemy::Language.published.map do |language|
+          [language_label(language), language.id]
+        end
+      end
+
+      def language_label(language)
+        language.code.upcase
+      end
+    end
+  end
+end

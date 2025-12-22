@@ -349,3 +349,15 @@ div#library_sidebar {
 #all_files td.name a {
   @include mixins.zoom-in;
 }
+
+.picture-form {
+  .inline-label {
+    float: right;
+    justify-content: end;
+    width: 200px;
+
+    select {
+      max-width: 160px;
+    }
+  }
+}
