@@ -277,6 +277,8 @@ div#library_sidebar {
 
 .alchemy-dialog #library_sidebar {
   position: absolute;
+  top: 0;
+  height: calc(100% - var(--pagination-height));
   padding: 0 var(--spacing-4);
 }
 
