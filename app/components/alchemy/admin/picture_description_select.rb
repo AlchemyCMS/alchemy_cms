@@ -2,13 +2,13 @@ module Alchemy
   module Admin
     class PictureDescriptionSelect < ViewComponent::Base
       erb_template <<-ERB
-        <label class="inline-label">
-          <%= label %>
-          <%= select name_prefix, :language_id,
-            options_for_select(language_options, selected:), {},
-            id: "picture_description_select",
-            data: {url:} %>
-        </label>
+        <alchemy-picture-description-select url="<%= url %>">
+          <label class="inline-label">
+            <%= label %>
+            <%= select name_prefix, :language_id,
+              options_for_select(language_options, selected:) %>
+          </label>
+        </alchemy-picture-description-select>
       ERB
 
       def initialize(url:, selected:, name_prefix:)
