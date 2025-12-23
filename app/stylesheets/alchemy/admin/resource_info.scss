@@ -183,9 +183,11 @@
   a {
     color: var(--text-color);
     font-weight: var(--font-weight_bold);
+    text-decoration-color: transparent;
 
     &:hover {
-      color: var(--text-link-color);
+      text-decoration-color: var(--text-link-color);
+      color: inherit;
     }
   }
 }
