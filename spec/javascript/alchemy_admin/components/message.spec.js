@@ -20,9 +20,11 @@ describe("alchemy-message", () => {
       it("dismisses after delay", () => {
         return new Promise((resolve) => {
           const html = `
-            <alchemy-message dismissable delay=10>
-              A message
-            </alchemy-message>
+            <div id="flash_notices" data-auto-dismiss-delay="10">
+              <alchemy-message dismissable>
+                A message
+              </alchemy-message>
+            </div>
           `
           const component = renderComponent("alchemy-message", html)
           const spy = vi.spyOn(component, "dismiss")
@@ -36,9 +38,11 @@ describe("alchemy-message", () => {
       it("when type error, does not dismis after delay", () => {
         return new Promise((resolve) => {
           const html = `
-            <alchemy-message dismissable type="error" delay=10>
-              A message
-            </alchemy-message>
+            <div id="flash_notices" data-auto-dismiss-delay="10">
+              <alchemy-message dismissable type="error">
+                A message
+              </alchemy-message>
+            </div>
           `
           const component = renderComponent("alchemy-message", html)
           const spy = vi.spyOn(component, "dismiss")
