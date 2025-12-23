@@ -52,6 +52,17 @@ describe("alchemy-picture-thumbnail", () => {
       expect(element).toContain(element.image)
     })
 
+    it("replaces existing placeholder content with image", () => {
+      const element = renderComponent(
+        "alchemy-picture-thumbnail",
+        '<alchemy-picture-thumbnail src="https://example.com/image.jpg"><alchemy-icon name="image"></alchemy-icon></alchemy-picture-thumbnail>'
+      )
+
+      expect(element.querySelector("alchemy-icon")).toBeNull()
+      expect(element).toContain(element.image)
+      expect(element.childNodes.length).toBe(1)
+    })
+
     it("does nothing if image does not exist", () => {
       const element = renderComponent(
         "alchemy-picture-thumbnail",
