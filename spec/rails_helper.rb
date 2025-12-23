@@ -98,8 +98,8 @@ RSpec.configure do |config|
 
   config.before(:each, type: :system, js: true) do |example|
     screen_size = example.metadata[:screen_size] || [1280, 800]
-    driven_by(:selenium, using: :headless_chrome, screen_size: screen_size) do |capabilities|
-      capabilities.add_argument("--disable-search-engine-choice-screen")
+    driven_by(:selenium, using: :headless_firefox, screen_size: screen_size) do |capabilities|
+      capabilities.add_preference("intl.accept_languages", "en-GB")
     end
   end
 end
