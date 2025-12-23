@@ -248,6 +248,14 @@ form {
 
     a[href] {
       color: var(--hint-text-link-color);
+      text-decoration-line: underline;
+      text-decoration-color: inherit;
+      text-decoration-thickness: 1px;
+
+      &:hover {
+        color: inherit;
+        text-decoration-color: transparent;
+      }
     }
   }
 
