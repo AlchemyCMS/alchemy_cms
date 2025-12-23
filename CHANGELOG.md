@@ -1,5 +1,22 @@
 # Changelog
 
+## 8.0.1 (2025-12-23)
+
+## What's Changed
+* [8.0-stable] fix(page): Add `"page_layout"` to `ransackable_attributes` by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3514
+* [8.0-stable] fix(page filter): Only select from content pages by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3519
+* [8.0-stable] fix(assignments): Only list draft elements by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3520
+* [8.0-stable] fix(ElementsWindow): Focus element if element dom_id is in the url hash by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3521
+* [8.0-stable] fix(resource-info): Fix layout for long filenames by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3523
+* [8.0-stable] Fix filtering Attachments by only or except setting by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3525
+* [8.0-stable] Fix overlay uploader by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3527
+* [8.0-stable] Add timeout and retry feature for preview window by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3528
+* [8.0-stable] Fix UI glitches 2025 by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3529
+* [8.0-stable] tests: Run system tests with headless Firefox by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3536
+* [8.0-stable] fix(PictureDescriptionSelect): Add site name to identify language by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3535
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.0.0...v8.0.
 ## 8.0.0 (2025-12-10)
 
 ## What's Changed
