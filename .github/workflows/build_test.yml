@@ -101,7 +101,13 @@ jobs:
             ruby: "3.4"
             database: sqlite
             storage: active_storage
+          - rails: "8.0"
+            ruby: "ruby-head"
+            database: postgresql
+            storage: active_storage
+            experimental: true
 
+    continue-on-error: ${{ matrix.experimental == true }}
     env:
       DB: ${{ matrix.database }}
       DB_USER: alchemy_user
