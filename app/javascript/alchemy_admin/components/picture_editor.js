@@ -7,18 +7,19 @@ const UPDATE_DELAY = 125
 const IMAGE_PLACEHOLDER = '<alchemy-icon name="image" size="xl"></alchemy-icon>'
 const THUMBNAIL_SIZE = "160x120"
 
-export class PictureEditor {
-  constructor(container) {
-    this.container = container
-    this.cropFromField = container.querySelector("[data-crop-from]")
-    this.cropSizeField = container.querySelector("[data-crop-size]")
-    this.pictureIdField = container.querySelector("[data-picture-id]")
-    this.targetSizeField = container.querySelector("[data-target-size]")
-    this.imageCropperField = container.querySelector("[data-image-cropper]")
-    this.image = container.querySelector("img")
-    this.pictureThumbnail = container.querySelector("alchemy-picture-thumbnail")
-    this.deleteButton = container.querySelector(".picture_tool.delete")
-    this.cropLink = container.querySelector(".crop_link")
+export class PictureEditor extends HTMLElement {
+  constructor() {
+    super()
+
+    this.cropFromField = this.querySelector("[data-crop-from]")
+    this.cropSizeField = this.querySelector("[data-crop-size]")
+    this.pictureIdField = this.querySelector("[data-picture-id]")
+    this.targetSizeField = this.querySelector("[data-target-size]")
+    this.imageCropperField = this.querySelector("[data-image-cropper]")
+    this.image = this.querySelector("img")
+    this.pictureThumbnail = this.querySelector("alchemy-picture-thumbnail")
+    this.deleteButton = this.querySelector(".picture_tool.delete")
+    this.cropLink = this.querySelector(".crop_link")
 
     this.targetSize = this.targetSizeField.dataset.targetSize
     this.pictureId = this.pictureIdField.value
@@ -33,12 +34,16 @@ export class PictureEditor {
     this.deleteButton.addEventListener("click", this.removeImage.bind(this))
   }
 
-  observe() {
-    const observer = new MutationObserver(this.mutationCallback.bind(this))
+  connectedCallback() {
+    this.observer = new MutationObserver(this.mutationCallback.bind(this))
 
-    observer.observe(this.cropFromField, { attributes: true })
-    observer.observe(this.cropSizeField, { attributes: true })
-    observer.observe(this.pictureIdField, { attributes: true })
+    this.observer.observe(this.cropFromField, { attributes: true })
+    this.observer.observe(this.cropSizeField, { attributes: true })
+    this.observer.observe(this.pictureIdField, { attributes: true })
+  }
+
+  disconnectedCallback() {
+    this.observer.disconnect()
   }
 
   mutationCallback(mutationsList) {
@@ -84,7 +89,7 @@ export class PictureEditor {
   }
 
   setElementDirty() {
-    this.container.closest(".element-editor").setDirty(this.container)
+    this.closest(".element-editor").setDirty(this)
   }
 
   updateCropLink() {
@@ -152,9 +157,4 @@ export class PictureEditor {
   }
 }
 
-export default function init(selector) {
-  document.querySelectorAll(selector).forEach((node) => {
-    const thumbnail = new PictureEditor(node)
-    thumbnail.observe()
-  })
-}
+customElements.define("alchemy-picture-editor", PictureEditor)

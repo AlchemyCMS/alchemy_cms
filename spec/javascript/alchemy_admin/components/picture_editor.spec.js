@@ -1,5 +1,5 @@
 import { vi } from "vitest"
-import { PictureEditor } from "alchemy_admin/picture_editors"
+import "alchemy_admin/components/picture_editor"
 
 vi.mock("alchemy_admin/image_loader", () => ({
   __esModule: true,
@@ -13,7 +13,7 @@ describe("PictureEditor", () => {
     describe("when image cropper is enabled", () => {
       beforeEach(() => {
         document.body.innerHTML = `
-          <div class="ingredient-editor picture">
+          <alchemy-picture-editor class="ingredient-editor picture">
             <div
               data-target-size="1200x480"
               data-image-cropper="true"
@@ -67,13 +67,12 @@ describe("PictureEditor", () => {
               type="hidden"
               value="3"
             />
-          </div>
+          </alchemy-picture-editor>
         `
       })
 
       it("is the image size", () => {
-        const container = document.querySelector(".ingredient-editor")
-        const editor = new PictureEditor(container)
+        const editor = document.querySelector(".ingredient-editor")
         expect(editor.defaultCropSize).toEqual([5644, 2258])
       })
     })
@@ -81,7 +80,7 @@ describe("PictureEditor", () => {
     describe("when image cropper is disabled", () => {
       beforeEach(() => {
         document.body.innerHTML = `
-          <div class="ingredient-editor picture">
+          <alchemy-picture-editor class="ingredient-editor picture">
             <div
               data-target-size="1200x480"
               data-image-cropper="false"
@@ -135,13 +134,12 @@ describe("PictureEditor", () => {
               type="hidden"
               value="3"
             />
-          </div>
+          </alchemy-picture-editor>
         `
       })
 
       it("is empty", () => {
-        const container = document.querySelector(".ingredient-editor")
-        const editor = new PictureEditor(container)
+        const editor = document.querySelector(".ingredient-editor")
         expect(editor.defaultCropSize).toEqual([])
       })
     })
