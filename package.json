@@ -29,19 +29,19 @@
     "tinymce": "^8.0.2"
   },
   "devDependencies": {
-    "@herb-tools/linter": "^0.8.4",
+    "@herb-tools/linter": "^0.8.5",
     "@rollup/plugin-commonjs": "^29.0.0",
-    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "^0.4.4",
     "consola": "^3.4.2",
-    "eslint": "^9.34.0",
-    "jsdom": "^27.0.0",
-    "jsdom-testing-mocks": "^1.15.2",
-    "prettier": "^3.6.2",
-    "remixicon": "^4.6.0",
-    "rollup": "^4.50.0",
-    "sass": "^1.92.0",
+    "eslint": "^9.39.2",
+    "jsdom": "^27.3.0",
+    "jsdom-testing-mocks": "^1.16.0",
+    "prettier": "^3.7.4",
+    "remixicon": "^4.7.0",
+    "rollup": "^4.54.0",
+    "sass": "^1.97.1",
     "svg-sprite": "^2.0.4",
-    "vitest": "^4.0.5"
+    "vitest": "^4.0.16"
   }
 }
