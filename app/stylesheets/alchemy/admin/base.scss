@@ -64,11 +64,13 @@ body {
 a {
   color: inherit;
   text-decoration: none;
-  transition: var(--transition-duration);
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  transition: all var(--transition-duration);
 
   &:hover {
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
+    text-decoration-line: underline;
+    text-decoration-color: inherit;
   }
 
   img {

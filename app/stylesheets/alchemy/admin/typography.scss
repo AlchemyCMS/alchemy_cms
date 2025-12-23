@@ -55,7 +55,14 @@ p {
   white-space: normal;
 
   a {
-    color: var(--text-link-color);
+    color: inherit;
+    text-decoration-line: underline;
+    text-decoration-color: var(--text-link-color);
+    text-decoration-thickness: 1px;
+
+    &:hover {
+      text-decoration-color: transparent;
+    }
   }
 }
 
