@@ -26,7 +26,7 @@ class Message extends HTMLElement {
     if (this.dismissable && this.type !== "error") {
       setTimeout(() => {
         this.dismiss()
-      }, this.delay)
+      }, this.dismissDelay)
     }
   }
 
@@ -43,8 +43,10 @@ class Message extends HTMLElement {
     return this.getAttribute("type") || "notice"
   }
 
-  get delay() {
-    return parseInt(this.getAttribute("delay") || DISMISS_DELAY)
+  get dismissDelay() {
+    return parseInt(
+      this.noticesWrapper?.dataset.autoDismissDelay || DISMISS_DELAY
+    )
   }
 
   get iconName() {
@@ -63,6 +65,10 @@ class Message extends HTMLElement {
       default:
         return this.type
     }
+  }
+
+  get noticesWrapper() {
+    return this.closest("#flash_notices")
   }
 }
 
