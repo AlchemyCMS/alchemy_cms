@@ -16,3 +16,4 @@ jobs:
     secrets:
       app_id: ${{ vars.ALCHEMY_BOT_APP_ID }}
       app_private_key: ${{ secrets.ALCHEMY_BOT_APP_PRIVATE_KEY }}
+      rubygems_api_key: ${{ secrets.RUBYGEMS_API_KEY }}
