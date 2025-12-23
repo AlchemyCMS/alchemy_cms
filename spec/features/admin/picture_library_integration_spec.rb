@@ -231,16 +231,16 @@ RSpec.describe "Picture Library", type: :system do
         expect(page).to have_content("Picture updated successfully")
       end
 
-      select(german.language_code.upcase, from: "Language")
+      select(german.name, from: "Language")
       fill_in "Description", with: "Tolles Bild."
       click_button "Save"
       within "#flash_notices" do
         expect(page).to have_content("Picture updated successfully")
       end
 
-      select(language.language_code.upcase, from: "Language")
+      select(language.name, from: "Language")
       expect(page).to have_field("Description", with: "This is an amazing image.")
-      select(german.language_code.upcase, from: "Language")
+      select(german.name, from: "Language")
       expect(page).to have_field("Description", with: "Tolles Bild.")
     end
   end

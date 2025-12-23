@@ -1,21 +1,12 @@
 <div class="input">
-  <% if Alchemy::Language.published.many? %>
-    <label class="inline-label" style="float: right">
-      <%= Alchemy::Language.model_name.human %>
-      <%= select description_field_name_prefix, :language_id, options_from_collection_for_select(
-          Alchemy::Language.published, :id, ->(l) { l.code.upcase },
-          selected: @picture_description.language_id,
-        ),
-        {},
-        id: "picture_description_select",
-        data: {
-          url: alchemy.edit_admin_picture_description_url(
-            id: @picture_description.id || "__ID__",
-            picture_id: @picture
-          )
-        } %>
-    </label>
-  <% end %>
+  <%= render Alchemy::Admin::PictureDescriptionSelect.new(
+    url: alchemy.edit_admin_picture_description_url(
+      id: @picture_description.id || "__ID__",
+      picture_id: @picture
+    ),
+    selected: @picture_description.language_id,
+    name_prefix: description_field_name_prefix
+  ) %>
 
   <turbo-frame id="picture_descriptions">
     <%= render "alchemy/admin/picture_descriptions/form",
@@ -23,17 +14,3 @@
       picture_description: @picture_description %>
   </turbo-frame>
 </div>
-
-<script>
-  (function ($) {
-    const select = $.getElementById("picture_description_select")
-
-    if (select) {
-      select.addEventListener("change", () => {
-        const url = new URL(select.dataset.url)
-        url.searchParams.set("language_id", select.value)
-        Turbo.visit(url, { frame: "picture_descriptions" })
-      })
-    }
-  })(document)
-</script>
