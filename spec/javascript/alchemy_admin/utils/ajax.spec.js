@@ -145,9 +145,28 @@ describe("ajax utilities", () => {
       expect(ajaxSpy).toHaveBeenCalled()
       expect(response.data).toEqual({ success: true })
     })
+
+    it("supports Turbo Stream responses", async () => {
+      global.Turbo = { renderStreamMessage: vi.fn() }
+      const turboStreamResponse = {
+        ok: true,
+        headers: { get: () => "text/vnd.turbo-stream.html" },
+        text: async () => "<turbo-stream>...</turbo-stream>"
+      }
+
+      global.fetch.mockResolvedValueOnce(turboStreamResponse)
+
+      const response = await patch("/test", null, "text/vnd.turbo-stream.html")
+
+      expect(global.Turbo.renderStreamMessage).toHaveBeenCalledWith(
+        "<turbo-stream>...</turbo-stream>"
+      )
+      expect(response.data).toBe("<turbo-stream>...</turbo-stream>")
+    })
   })
 
   afterEach(() => {
     vi.resetAllMocks()
+    delete global.Turbo
   })
 })

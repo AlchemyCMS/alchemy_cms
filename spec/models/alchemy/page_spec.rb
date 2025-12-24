@@ -1152,7 +1152,31 @@ module Alchemy
       end
 
       describe "#folded?" do
-        let(:page) { Page.new }
+        subject { page.folded?(user.id) }
+
+        let(:page) { create(:alchemy_page) }
+
+        context "if folded_pages association is loaded" do
+          before do
+            expect(page.folded_pages).to receive(:loaded?).and_return(true)
+          end
+
+          it "queries the database" do
+            expect(page.folded_pages).to receive(:any?)
+            subject
+          end
+        end
+
+        context "if folded_pages association is not loaded" do
+          before do
+            expect(page.folded_pages).to receive(:loaded?).and_return(false)
+          end
+
+          it "queries the database" do
+            expect(page.folded_pages).to receive(:where).with(user_id: user.id, folded: true).and_return([])
+            subject
+          end
+        end
 
         context "with user is a active record model" do
           before do
@@ -1160,18 +1184,18 @@ module Alchemy
           end
 
           context "if page is folded" do
-            before do
-              expect(page).to receive(:folded_pages).and_return double(where: double(any?: true))
+            let!(:folded_page) do
+              Alchemy::FoldedPage.create!(page: page, user: user, folded: true)
             end
 
             it "should return true" do
-              expect(page.folded?(user.id)).to eq(true)
+              is_expected.to eq(true)
             end
           end
 
           context "if page is not folded" do
             it "should return false" do
-              expect(page.folded?(101_093)).to eq(false)
+              is_expected.to eq(false)
             end
           end
         end

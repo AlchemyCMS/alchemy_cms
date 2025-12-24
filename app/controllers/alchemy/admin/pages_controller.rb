@@ -20,13 +20,9 @@ module Alchemy
       before_action :set_translation,
         except: [:show]
 
-      before_action :set_root_page,
-        only: [:index, :show]
-
       before_action :set_preview_mode, only: [:show]
 
       before_action :load_languages_and_layouts,
-        unless: -> { @page_root },
         only: [:index]
 
       before_action :set_view, only: [:index, :update]
@@ -62,13 +58,12 @@ module Alchemy
 
           items = items.page(params[:page] || 1).per(items_per_page)
           @pages = items
+        elsif @current_language.root_page
+          @root_page = Alchemy::PageTreePreloader.new(
+            page: @current_language.root_page,
+            user: current_alchemy_user
+          ).call
         end
-      end
-
-      # Returns all pages as a tree from the root given by the id parameter
-      #
-      def tree
-        render json: serialized_page_tree
       end
 
       # Used by page preview iframe in Page#edit view.
@@ -144,10 +139,6 @@ module Alchemy
           if @view == "list"
             flash[:notice] = @notice
           end
-
-          unless @while_page_edit
-            @tree = serialized_page_tree
-          end
         else
           render :configure, status: :unprocessable_entity
         end
@@ -178,8 +169,18 @@ module Alchemy
 
       def fold
         # @page is fetched via before filter
-        @page.fold!(current_alchemy_user.id, !@page.folded?(current_alchemy_user.id))
-        render json: serialized_page_tree
+        was_folded = @page.folded?(current_alchemy_user.id)
+        @page.fold!(current_alchemy_user.id, !was_folded)
+
+        respond_to do |format|
+          format.turbo_stream do
+            if was_folded
+              @page = PageTreePreloader.new(page: @page, user: current_alchemy_user).call
+            else
+              head :ok
+            end
+          end
+        end
       end
 
       # Leaves the page editing mode and unlocks the page for other users
@@ -321,20 +322,8 @@ module Alchemy
         end
       end
 
-      def set_root_page
-        @page_root = @current_language.root_page
-      end
-
       def set_page_version
         @page_version = @page.draft_version
-      end
-
-      def serialized_page_tree
-        PageTreeSerializer.new(
-          @page,
-          ability: current_ability,
-          user: current_alchemy_user
-        )
       end
 
       def load_languages_and_layouts

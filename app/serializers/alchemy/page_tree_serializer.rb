@@ -7,43 +7,23 @@ module Alchemy
     end
 
     def pages
-      tree = []
-      path = [{id: object.parent_id, children: tree}]
-      page_list = object.self_and_descendants.includes(:public_version, {language: :site})
       base_level = object.level - 1
-      # Load folded pages in advance
-      folded_user_pages = FoldedPage.folded_for_user(opts[:user]).pluck(:page_id)
-      folded_depth = Float::INFINITY
+      build_pages_tree([object], base_level)
+    end
 
-      page_list.each_with_index do |page, i|
-        has_children = page_list[i + 1] && page_list[i + 1].parent_id == page.id
-        folded = has_children && folded_user_pages.include?(page.id)
+    private
 
-        if page.depth > folded_depth
-          next
-        else
-          folded_depth = Float::INFINITY
+    def build_pages_tree(pages, level)
+      pages.map do |page|
+        # Use association target directly to avoid triggering queries
+        children = page.association(:children).loaded? ? page.association(:children).target : []
+        has_children = children.any?
+        folded = !has_children && !page.leaf?
+
+        page_hash(page, level, folded).tap do |hash|
+          hash[:children] = build_pages_tree(children, level + 1)
         end
-
-        # If this page is folded, skip all pages that are on a higher level (further down the tree).
-        if folded && !opts[:full]
-          folded_depth = page.depth
-        end
-
-        if page.parent_id != path.last[:id]
-          if path.map { |o| o[:id] }.include?(page.parent_id) # Lower level
-            path.pop while path.last[:id] != page.parent_id
-          else # One level up
-            path << path.last[:children].last
-          end
-        end
-
-        level = path.count + base_level
-
-        path.last[:children] << page_hash(page, level, folded)
       end
-
-      tree
     end
 
     protected

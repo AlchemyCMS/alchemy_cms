@@ -58,7 +58,8 @@
   }
 }
 
-#sitemap-wrapper {
+alchemy-sitemap {
+  display: block;
   position: relative;
   min-height: calc(100vh - 148px);
 }

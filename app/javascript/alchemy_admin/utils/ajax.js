@@ -1,4 +1,5 @@
 const JSON_CONTENT_TYPE = "application/json"
+const TURBO_STREAM_CONTENT_TYPE = "text/vnd.turbo-stream.html"
 
 function isGetRequest(method) {
   return method.toLowerCase() === "get"
@@ -43,8 +44,8 @@ export function get(url, params) {
   return ajax("GET", url, params)
 }
 
-export function patch(url, data) {
-  return ajax("PATCH", url, data)
+export function patch(url, data, accept) {
+  return ajax("PATCH", url, data, accept)
 }
 
 export function post(url, data, accept = JSON_CONTENT_TYPE) {
@@ -63,7 +64,18 @@ export default async function ajax(
   )
   const contentType = response.headers.get("content-type")
   const isJson = contentType?.includes(JSON_CONTENT_TYPE)
-  const responseData = isJson ? await response.json() : null
+  const isTurboStream = contentType?.includes(TURBO_STREAM_CONTENT_TYPE)
+
+  let responseData = null
+  if (isJson) {
+    responseData = await response.json()
+  } else if (isTurboStream) {
+    responseData = await response.text()
+    // Automatically render Turbo Stream if Turbo is available
+    if (typeof Turbo !== "undefined") {
+      Turbo.renderStreamMessage(responseData)
+    }
+  }
 
   if (response.ok) {
     return { data: responseData, status: response.status }

@@ -44,9 +44,9 @@ module Alchemy
         context "with existing language root page" do
           let!(:language_root) { create(:alchemy_page, :language_root) }
 
-          it "assigns @page_root variable" do
+          it "assigns @root_page variable" do
             get admin_pages_path
-            expect(assigns(:page_root)).to eq(language_root)
+            expect(assigns(:root_page)).to eq(language_root)
           end
         end
 
@@ -59,138 +59,36 @@ module Alchemy
 
         context "with current language present" do
           let!(:language) { create(:alchemy_language, site: site) }
+          let!(:language_root) { create(:alchemy_page, :language_root, language: language) }
 
-          context "without language root page" do
+          it "it assigns current language" do
+            get admin_pages_path
+            expect(assigns(:current_language)).to eq(language)
+          end
+
+          context "with multiple sites" do
+            let!(:site_1_language_2) do
+              create(:alchemy_language, code: "fr")
+            end
+
+            let!(:site_2) do
+              create(:alchemy_site, host: "another-one.com")
+            end
+
+            let(:site_2_language) do
+              create(:alchemy_language, site: site_2)
+            end
+
             before do
-              expect_any_instance_of(Language).to receive(:root_page).and_return(nil)
+              create(:alchemy_page, :language_root, language: site_2_language)
+              create(:alchemy_page, :language_root, language: site_1_language_2)
             end
 
-            it "it assigns current language" do
+            it "loads languages with pages from current site only" do
               get admin_pages_path
-              expect(assigns(:current_language)).to eq(language)
+              expect(assigns(:languages_with_page_tree)).to include(site_1_language_2)
+              expect(assigns(:languages_with_page_tree)).to_not include(site_2_language)
             end
-
-            context "with multiple sites" do
-              let!(:site_1_language_2) do
-                create(:alchemy_language, code: "fr")
-              end
-
-              let!(:site_2) do
-                create(:alchemy_site, host: "another-one.com")
-              end
-
-              let(:site_2_language) do
-                create(:alchemy_language, site: site_2)
-              end
-
-              before do
-                create(:alchemy_page, :language_root, language: site_2_language)
-                create(:alchemy_page, :language_root, language: site_1_language_2)
-              end
-
-              it "loads languages with pages from current site only" do
-                get admin_pages_path
-                expect(assigns(:languages_with_page_tree)).to include(site_1_language_2)
-                expect(assigns(:languages_with_page_tree)).to_not include(site_2_language)
-              end
-            end
-          end
-        end
-      end
-
-      describe "#tree" do
-        let(:user) { create(:alchemy_dummy_user, :as_editor) }
-        let(:page_1) { create(:alchemy_page, name: "one") }
-        let(:page_2) { create(:alchemy_page, name: "two", parent_id: page_1.id) }
-        let(:page_3) { create(:alchemy_page, name: "three", parent_id: page_2.id) }
-        let!(:pages) { [page_1, page_2, page_3] }
-
-        subject :get_tree do
-          get tree_admin_pages_path(id: page_1.id)
-        end
-
-        it "returns a tree as JSON" do
-          get_tree
-
-          expect(response.status).to eq(200)
-          expect(response.media_type).to eq("application/json")
-
-          result = JSON.parse(response.body)
-
-          expect(result).to have_key("pages")
-          expect(result["pages"].count).to eq(1)
-
-          page = result["pages"].first
-
-          expect(page).to have_key("id")
-          expect(page["id"]).to eq(page_1.id)
-          expect(page).to have_key("name")
-          expect(page["name"]).to eq(page_1.name)
-          expect(page).to have_key("children")
-          expect(page["children"].count).to eq(1)
-          expect(page).to have_key("url_path")
-          expect(page["url_path"]).to eq(page_1.url_path)
-
-          page = page["children"].first
-
-          expect(page).to have_key("id")
-          expect(page["id"]).to eq(page_2.id)
-          expect(page).to have_key("name")
-          expect(page["name"]).to eq(page_2.name)
-          expect(page).to have_key("children")
-          expect(page["children"].count).to eq(1)
-          expect(page).to have_key("url_path")
-          expect(page["url_path"]).to eq(page_2.url_path)
-
-          page = page["children"].first
-
-          expect(page).to have_key("id")
-          expect(page["id"]).to eq(page_3.id)
-          expect(page).to have_key("name")
-          expect(page["name"]).to eq(page_3.name)
-          expect(page).to have_key("children")
-          expect(page["children"].count).to eq(0)
-          expect(page).to have_key("url_path")
-          expect(page["url_path"]).to eq(page_3.url_path)
-        end
-
-        context "when branch is folded" do
-          before do
-            page_2.fold!(user.id, true)
-          end
-
-          it "does not return a branch that is folded" do
-            get tree_admin_pages_path(id: page_1.id)
-
-            expect(response.status).to eq(200)
-            expect(response.media_type).to eq("application/json")
-
-            result = JSON.parse(response.body)
-            page = result["pages"].first["children"].first
-
-            expect(page["children"].count).to eq(0)
-          end
-        end
-
-        context "when page is locked" do
-          before do
-            page_1.lock_to!(user)
-          end
-
-          it "includes locked_notice if page is locked" do
-            get_tree
-
-            expect(response.status).to eq(200)
-            expect(response.media_type).to eq("application/json")
-
-            result = JSON.parse(response.body)
-
-            expect(result).to have_key("pages")
-            expect(result["pages"].count).to eq(1)
-
-            page = result["pages"].first
-            expect(page).to have_key("locked_notice")
-            expect(page["locked_notice"]).to match(/#{user.name}/)
           end
         end
       end
@@ -613,7 +511,7 @@ module Alchemy
           allow_any_instance_of(described_class).to receive(:current_alchemy_user) { user }
         end
 
-        subject { patch fold_admin_page_path(page), xhr: true }
+        subject { patch fold_admin_page_path(page), xhr: true, headers: {"Accept" => "text/vnd.turbo-stream.html"} }
 
         context "if page is currently not folded" do
           it "should fold the page" do
