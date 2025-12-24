@@ -75,12 +75,13 @@ alchemy-message {
   }
 
   a[href] {
-    text-decoration: underline;
-    color: var(--hint-text-link-color);
+    text-decoration-color: inherit;
+    text-decoration-thickness: 1px;
+    color: inherit;
 
     &:hover {
       color: inherit;
-      text-decoration: none;
+      text-decoration-color: transparent;
     }
   }
 

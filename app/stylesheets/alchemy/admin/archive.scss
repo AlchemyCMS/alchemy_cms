@@ -39,6 +39,7 @@ alchemy-uploader {
   align-items: center;
   justify-content: center;
   background-color: var(--picture-thumbnail-background-color, transparent);
+  transition: all var(--transition-duration);
 
   &:not(:has(alchemy-icon)) {
     box-shadow: 0 0 1px 1px var(--border-color);
@@ -277,6 +278,8 @@ div#library_sidebar {
 
 .alchemy-dialog #library_sidebar {
   position: absolute;
+  top: 0;
+  height: calc(100% - var(--pagination-height));
   padding: 0 var(--spacing-4);
 }
 
