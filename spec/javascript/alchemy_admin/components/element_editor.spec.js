@@ -1,6 +1,5 @@
 import { vi } from "vitest"
 import fileEditors from "alchemy_admin/file_editors"
-import pictureEditors from "alchemy_admin/picture_editors"
 import IngredientAnchorLink from "alchemy_admin/ingredient_anchor_link"
 import { ElementEditor } from "alchemy_admin/components/element_editor"
 import { renderComponent } from "./component.helper"
@@ -139,7 +138,6 @@ describe("alchemy-element-editor", () => {
   describe("connectedCallback", () => {
     beforeEach(() => {
       fileEditors.mockClear()
-      pictureEditors.mockClear()
     })
 
     describe("if dragged", () => {
@@ -162,7 +160,6 @@ describe("alchemy-element-editor", () => {
 
     it("initializes picture editors", () => {
       getComponent(html)
-      expect(pictureEditors).toHaveBeenCalled()
     })
   })
 

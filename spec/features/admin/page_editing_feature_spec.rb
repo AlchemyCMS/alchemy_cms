@@ -183,29 +183,29 @@ RSpec.describe "Page editing feature", type: :system do
       it "renders editors for all element ingredients" do
         visit alchemy.admin_elements_path(page_version_id: everything_page.draft_version.id)
 
-        expect(page).to have_selector("div.ingredient-editor.boolean")
-        expect(page).to have_selector("div.ingredient-editor.datetime")
-        expect(page).to have_selector("div.ingredient-editor.file")
-        expect(page).to have_selector("div.ingredient-editor.html")
-        expect(page).to have_selector("div.ingredient-editor.link")
-        expect(page).to have_selector("div.ingredient-editor.picture")
-        expect(page).to have_selector("div.ingredient-editor.richtext")
-        expect(page).to have_selector("div.ingredient-editor.select")
-        expect(page).to have_selector("div.ingredient-editor.text")
+        expect(page).to have_selector(".ingredient-editor.boolean")
+        expect(page).to have_selector(".ingredient-editor.datetime")
+        expect(page).to have_selector(".ingredient-editor.file")
+        expect(page).to have_selector(".ingredient-editor.html")
+        expect(page).to have_selector(".ingredient-editor.link")
+        expect(page).to have_selector(".ingredient-editor.picture")
+        expect(page).to have_selector(".ingredient-editor.richtext")
+        expect(page).to have_selector(".ingredient-editor.select")
+        expect(page).to have_selector(".ingredient-editor.text")
       end
 
       it "renders data attribute based on ingredient role" do
         visit alchemy.admin_elements_path(page_version_id: everything_page.draft_version.id)
 
-        expect(page).to have_selector("div[data-ingredient-role=boolean]")
-        expect(page).to have_selector("div[data-ingredient-role=datetime]")
-        expect(page).to have_selector("div[data-ingredient-role=file]")
-        expect(page).to have_selector("div[data-ingredient-role=html]")
-        expect(page).to have_selector("div[data-ingredient-role=link]")
-        expect(page).to have_selector("div[data-ingredient-role=picture]")
-        expect(page).to have_selector("div[data-ingredient-role=richtext]")
-        expect(page).to have_selector("div[data-ingredient-role=select]")
-        expect(page).to have_selector("div[data-ingredient-role=text]")
+        expect(page).to have_selector("[data-ingredient-role=boolean]")
+        expect(page).to have_selector("[data-ingredient-role=datetime]")
+        expect(page).to have_selector("[data-ingredient-role=file]")
+        expect(page).to have_selector("[data-ingredient-role=html]")
+        expect(page).to have_selector("[data-ingredient-role=link]")
+        expect(page).to have_selector("[data-ingredient-role=picture]")
+        expect(page).to have_selector("[data-ingredient-role=richtext]")
+        expect(page).to have_selector("[data-ingredient-role=select]")
+        expect(page).to have_selector("[data-ingredient-role=text]")
       end
     end
   end

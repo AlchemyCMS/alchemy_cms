@@ -1,6 +1,6 @@
 <% options = local_assigns.fetch(:options, {}) %>
 
-<%= content_tag :div,
+<%= content_tag "alchemy-picture-editor",
   class: picture_editor.css_classes,
   data: picture_editor.data_attributes do %>
   <%= element_form.fields_for(:ingredients, picture_editor.ingredient) do |f| %>
@@ -14,7 +14,7 @@
         image_cropper: picture_editor.thumbnail_url_options[:crop],
       },
       class: "picture_thumbnail" do %>
-      <button class="picture_tool delete">
+      <button type="button" class="picture_tool delete">
         <%= render_icon("close") %>
       </button>
       <div class="picture_image">

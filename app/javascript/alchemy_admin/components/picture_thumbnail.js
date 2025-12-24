@@ -30,7 +30,7 @@ export default class PictureThumbnail extends HTMLElement {
 
   connectedCallback() {
     if (this.image) {
-      this.appendChild(this.image)
+      this.replaceChildren(this.image)
     }
   }
 
