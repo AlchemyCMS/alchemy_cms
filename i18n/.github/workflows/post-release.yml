@@ -1,17 +1,22 @@
 name: Post Release
 
 on:
-  workflow_run:
-    workflows: ["Publish Release"]
-    types:
-      - completed
+  workflow_dispatch:
+    inputs:
+      target_branch:
+        description: 'Target branch (e.g., main, 8.0-stable)'
+        required: true
+        default: 'main'
+        type: string
+  repository_dispatch:
+    types: [post-release]
 
 jobs:
-  bump-dev-version:
-    if: github.event.workflow_run.conclusion == 'success'
+  post-release:
     uses: AlchemyCMS/.github/.github/workflows/post-release.yml@main
     with:
       version_file_path: lib/alchemy_i18n/version.rb
+      target_branch: ${{ github.event.client_payload.target_branch || inputs.target_branch }}
     secrets:
       app_id: ${{ vars.ALCHEMY_BOT_APP_ID }}
       app_private_key: ${{ secrets.ALCHEMY_BOT_APP_PRIVATE_KEY }}
