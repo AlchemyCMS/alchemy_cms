@@ -1,5 +1,12 @@
 # Changelog
 
+## 8.0.2 (2025-12-24)
+
+## What's Changed
+* [8.0-stable] Even more style fixes by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3540
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.0.1...v8.0.
 ## 8.0.1 (2025-12-23)
 
 ## What's Changed
