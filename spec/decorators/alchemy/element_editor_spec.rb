@@ -185,4 +185,66 @@ RSpec.describe Alchemy::ElementEditor do
 
     it { is_expected.to be(false) }
   end
+
+  describe "#ungrouped_ingredients" do
+    let(:element) { create(:alchemy_element, :with_ingredients) }
+
+    subject(:ungrouped) { element_editor.ungrouped_ingredients }
+
+    it "returns ingredients without a group" do
+      expect(ungrouped).to all(satisfy { |i| i.definition.group.nil? })
+    end
+
+    context "with grouped ingredients" do
+      before do
+        allow(element).to receive(:definition) do
+          Alchemy::ElementDefinition.new(
+            name: element.name,
+            ingredients: [
+              {role: "headline", type: "Text"},
+              {role: "text", type: "Text", group: "content"}
+            ]
+          )
+        end
+      end
+
+      it "excludes grouped ingredients" do
+        expect(ungrouped.map(&:role)).to eq(["headline"])
+      end
+    end
+  end
+
+  describe "#grouped_ingredients" do
+    let(:element) { create(:alchemy_element, name: "article") }
+
+    before do
+      allow(element).to receive(:definition) do
+        Alchemy::ElementDefinition.new(
+          name: "article",
+          ingredients: [
+            {role: "headline", type: "Text"},
+            {role: "text", type: "Richtext", group: "content"},
+            {role: "image", type: "Picture", group: "content"},
+            {role: "caption", type: "Text", group: "metadata"}
+          ]
+        )
+      end
+    end
+
+    subject(:grouped) { element_editor.grouped_ingredients }
+
+    it "returns a hash of ingredients grouped by group name" do
+      expect(grouped.keys).to match_array(["content", "metadata"])
+    end
+
+    it "groups ingredients correctly" do
+      expect(grouped["content"].map(&:role)).to match_array(["text", "image"])
+      expect(grouped["metadata"].map(&:role)).to eq(["caption"])
+    end
+
+    it "excludes ungrouped ingredients" do
+      all_grouped_roles = grouped.values.flatten.map(&:role)
+      expect(all_grouped_roles).not_to include("headline")
+    end
+  end
 end
