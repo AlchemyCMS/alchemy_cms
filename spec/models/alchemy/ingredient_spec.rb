@@ -209,4 +209,18 @@ RSpec.describe Alchemy::Ingredient do
       )
     end
   end
+
+  describe "#as_editor_component" do
+    let(:ingredient) { Alchemy::Ingredients::Text.new(role: "intro", element: element) }
+    let(:view_context) { double(lookup_context: double(template_exists?: false)) }
+
+    subject do
+      ingredient.as_editor_component(element_form: nil)
+    end
+
+    it "returns the editor component of the ingredient" do
+      expect(subject).to be_a(Alchemy::Ingredients::BaseEditor)
+      expect(subject.ingredient).to eq(ingredient)
+    end
+  end
 end

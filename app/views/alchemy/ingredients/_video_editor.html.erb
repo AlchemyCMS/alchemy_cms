@@ -1,5 +1,3 @@
-<%= render(
-  "alchemy/ingredients/file_editor",
-  element_form: element_form,
-  file_editor: video_editor,
+<%= render video_editor.as_editor_component(
+  element_form: element_form
 ) %>

@@ -4,31 +4,18 @@ require "rails_helper"
 
 RSpec.describe "alchemy/ingredients/_node_editor" do
   let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat") }
-  let(:element_editor) { Alchemy::ElementEditor.new(element) }
+  let(:element_form) { ActionView::Helpers::FormBuilder.new(:element, element, view, {}) }
   let(:ingredient) { Alchemy::Ingredients::Node.new(element: element, role: "node") }
 
   before do
-    allow(element_editor).to receive(:ingredients) { [Alchemy::IngredientEditor.new(ingredient)] }
-    view.class.send(:include, Alchemy::Admin::IngredientsHelper)
+    view.class.send(:include, Alchemy::Admin::BaseHelper)
   end
 
-  subject do
-    render element_editor
-    rendered
-  end
-
-  it_behaves_like "an alchemy ingredient editor"
-
-  it "renders a node select" do
-    is_expected.to have_css("input.alchemy_selectbox.full_width")
-  end
-
-  context "with a node related to ingredient" do
-    let(:node) { Alchemy::Node.new(id: 1) }
-    let(:ingredient) { Alchemy::Ingredients::Node.new(node: node, element: element, role: "role") }
-
-    it "sets node id as value" do
-      is_expected.to have_css('input.alchemy_selectbox[value="1"]')
-    end
+  it "renders the editor component" do
+    expect(ingredient).to receive(:as_editor_component).and_call_original
+    render partial: "alchemy/ingredients/node_editor", locals: {
+      node_editor: ingredient,
+      element_form:
+    }
   end
 end

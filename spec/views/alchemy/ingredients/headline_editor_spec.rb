@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe "alchemy/ingredients/_headline_editor" do
   let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat") }
-  let(:element_editor) { Alchemy::ElementEditor.new(element) }
+  let(:element_form) { ActionView::Helpers::FormBuilder.new(:element, element, view, {}) }
 
   let(:ingredient) do
     stub_model(
@@ -14,71 +14,15 @@ RSpec.describe "alchemy/ingredients/_headline_editor" do
     )
   end
 
-  let(:headline_editor) { Alchemy::IngredientEditor.new(ingredient) }
-  let(:settings) { {} }
-
-  subject do
-    render element_editor
-    rendered
-  end
-
   before do
-    allow(element_editor).to receive(:ingredients) { [headline_editor] }
-    view.class.send(:include, Alchemy::Admin::IngredientsHelper)
-    allow(ingredient).to receive(:settings) { settings }
+    view.class.send(:include, Alchemy::Admin::BaseHelper)
   end
 
-  it_behaves_like "an alchemy ingredient editor"
-
-  it "renders a text input" do
-    is_expected.to have_selector("input[type='text'][name='element[ingredients_attributes][0][value]']")
-  end
-
-  it "renders a level select" do
-    is_expected.to have_selector("select[name='element[ingredients_attributes][0][level]']")
-  end
-
-  it "renders a tooltip" do
-    is_expected.to have_selector("sl-tooltip[content='Level']")
-  end
-
-  context "when only one level is given" do
-    let(:settings) do
-      {levels: [1]}
-    end
-
-    it "renders a disabled level select" do
-      is_expected.to have_selector("select[disabled][name='element[ingredients_attributes][0][level]']")
-    end
-  end
-
-  it "does not render a size select" do
-    is_expected.to_not have_selector("select[name='element[ingredients_attributes][0][size]']")
-  end
-
-  context "when sizes are given" do
-    let(:settings) do
-      {sizes: [1, 2]}
-    end
-
-    it "renders a size select" do
-      is_expected.to have_selector("select[name='element[ingredients_attributes][0][size]']")
-    end
-
-    it "renders a tooltip" do
-      is_expected.to have_selector("sl-tooltip[content='Size']")
-    end
-  end
-
-  context "with settings anchor set to true" do
-    let(:settings) do
-      {
-        anchor: true
-      }
-    end
-
-    it "renders anchor link button" do
-      is_expected.to have_selector(".edit-ingredient-anchor-link a")
-    end
+  it "renders the editor component" do
+    expect(ingredient).to receive(:as_editor_component).and_call_original
+    render partial: "alchemy/ingredients/headline_editor", locals: {
+      headline_editor: ingredient,
+      element_form:
+    }
   end
 end

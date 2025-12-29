@@ -7,6 +7,6 @@
   <%= turbo_stream.replace_all "[data-ingredient-id='#{@ingredient.id}'] .picture_ingredient_css_class",
     partial: "alchemy/ingredients/shared/picture_css_class",
     locals: {
-      css_class: Alchemy::IngredientEditor.new(@ingredient).css_class
+      css_class: @ingredient.css_class
     } %>
 <% end %>

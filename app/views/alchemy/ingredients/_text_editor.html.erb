@@ -1,29 +1,3 @@
-<%= content_tag :div,
-  class: [
-    text_editor.css_classes,
-    text_editor.settings[:display_inline] ? "display_inline" : ""
-  ], data: text_editor.data_attributes do %>
-  <%= element_form.fields_for(:ingredients, text_editor.ingredient) do |f| %>
-    <%= ingredient_label(text_editor) %>
-    <div class="input-field">
-      <%= f.text_field :value,
-        class: text_editor.settings[:linkable] ? "text_with_icon" : "",
-        id: text_editor.form_field_id,
-        minlength: text_editor.length_validation&.fetch(:minimum, nil),
-        maxlength: text_editor.length_validation&.fetch(:maximum, nil),
-        required: text_editor.presence_validation?,
-        pattern: text_editor.format_validation,
-        type: text_editor.settings[:input_type] || "text" %>
-      <% if text_editor.settings[:anchor] %>
-        <%= render "alchemy/ingredients/shared/anchor", ingredient_editor: text_editor %>
-      <% end %>
-      <% if text_editor.settings[:linkable] %>
-        <%= f.hidden_field :link, "data-link-value": true, id: nil %>
-        <%= f.hidden_field :link_title, "data-link-title": true, id: nil %>
-        <%= f.hidden_field :link_class_name, "data-link-class": true, id: nil %>
-        <%= f.hidden_field :link_target, "data-link-target": true, id: nil %>
-        <%= render "alchemy/ingredients/shared/link_tools", ingredient_editor: text_editor, wrapper_class: "ingredient_link_buttons" %>
-      <% end %>
-    </div>
-  <% end %>
-<% end %>
+<%= render text_editor.as_editor_component(
+  element_form: element_form
+) %>

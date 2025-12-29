@@ -4,31 +4,18 @@ require "rails_helper"
 
 RSpec.describe "alchemy/ingredients/_page_editor" do
   let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat") }
-  let(:element_editor) { Alchemy::ElementEditor.new(element) }
+  let(:element_form) { ActionView::Helpers::FormBuilder.new(:element, element, view, {}) }
   let(:ingredient) { Alchemy::Ingredients::Page.new(element: element, role: "page") }
 
   before do
-    allow(element_editor).to receive(:ingredients) { [Alchemy::IngredientEditor.new(ingredient)] }
-    view.class.send(:include, Alchemy::Admin::IngredientsHelper)
+    view.class.send(:include, Alchemy::Admin::BaseHelper)
   end
 
-  subject do
-    render element_editor
-    rendered
-  end
-
-  it_behaves_like "an alchemy ingredient editor"
-
-  it "renders a page input" do
-    is_expected.to have_css("alchemy-page-select input")
-  end
-
-  context "with a page related to ingredient" do
-    let(:page) { build(:alchemy_page) }
-    let(:ingredient) { Alchemy::Ingredients::Page.new(page: page, element: element, role: "role") }
-
-    it "sets page id as value" do
-      is_expected.to have_css("input[value=\"#{page.id}\"]")
-    end
+  it "renders the editor component" do
+    expect(ingredient).to receive(:as_editor_component).and_call_original
+    render partial: "alchemy/ingredients/page_editor", locals: {
+      page_editor: ingredient,
+      element_form:
+    }
   end
 end

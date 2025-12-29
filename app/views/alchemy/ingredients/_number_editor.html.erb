@@ -1,24 +1,3 @@
-<%= content_tag :div, class: [number_editor.css_classes], data: number_editor.data_attributes do %>
-  <%= element_form.fields_for(:ingredients, number_editor.ingredient) do |f| %>
-    <%= ingredient_label(number_editor) %>
-    <div class="input-field">
-      <%= f.text_field :value,
-        type: number_editor.settings[:input_type] || "number",
-        required: number_editor.presence_validation?,
-        step: number_editor.settings[:step],
-        min: number_editor.settings[:min],
-        max: number_editor.settings[:max],
-        id: number_editor.form_field_id,
-        oninput: number_editor.settings[:input_type] == "range" ? "this.nextElementSibling.value = this.value" : nil
-      %>
-      <% if number_editor.settings[:input_type] == "range" %>
-        <output><%= number_editor.value %></output>
-      <% end %>
-      <% if number_editor.settings[:unit] %>
-        <div class="input-addon right">
-          <%= number_editor.settings[:unit] %>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
-<% end %>
+<%= render number_editor.as_editor_component(
+  element_form: element_form
+) %>

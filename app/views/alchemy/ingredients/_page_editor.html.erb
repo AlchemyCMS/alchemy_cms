@@ -1,13 +1,3 @@
-<%= content_tag :div,
-  class: page_editor.css_classes,
-  data: page_editor.data_attributes do %>
-  <%= element_form.fields_for(:ingredients, page_editor.ingredient) do |f| %>
-    <%= ingredient_label(page_editor, :page_id) %>
-    <%= render Alchemy::Admin::PageSelect.new(page_editor.page, allow_clear: true, query_params: page_editor.settings[:query_params]) do %>
-      <%= f.text_field :page_id,
-        value: page_editor.page&.id,
-        id: page_editor.form_field_id(:page_id),
-        class: 'full_width' %>
-      <% end %>
-    <% end %>
-<% end %>
+<%= render page_editor.as_editor_component(
+  element_form: element_form
+) %>

@@ -1,11 +1,3 @@
-<%= content_tag :div,
-  class: boolean_editor.css_classes,
-  data: boolean_editor.data_attributes do %>
-  <%= element_form.fields_for(:ingredients, boolean_editor.ingredient) do |f| %>
-    <%= f.label :value, style: "display: inline-block", for: nil do %>
-      <%= f.check_box :value, id: nil %>
-      <%= render_ingredient_role(boolean_editor) %>
-      <%= render_hint_for(boolean_editor, size: "1x", fixed_width: false) %>
-    <% end %>
-  <% end %>
-<% end %>
+<%= render boolean_editor.as_editor_component(
+  element_form: element_form
+) %>
