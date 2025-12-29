@@ -33,20 +33,22 @@
       <!-- Ingredients -->
       <% if element.has_ingredients_defined? %>
         <div class="element-ingredient-editors">
-          <% element.ingredients.reject { _1.definition.group }.each do |ingredient| %>
-            <%= render ingredient.as_editor_component(element_form: f) %>
-          <% end %>
+          <%= render Alchemy::Admin::IngredientEditor.with_collection(
+            element.ungrouped_ingredients,
+            element_form: f
+          ) %>
 
           <!-- Each ingredient group -->
-          <% element.ingredients.select { _1.definition.group }.group_by { _1.definition.group }.each do |group, ingredients| %>
+          <% element.grouped_ingredients.each do |group, ingredients| %>
             <%= content_tag :details, class: "ingredient-group", id: "element_#{element.id}_ingredient_group_#{group.parameterize.underscore}", is: "alchemy-ingredient-group" do %>
               <summary>
                 <%= element.translated_group group %>
                 <%= render_icon "arrow-left-s" %>
               </summary>
-              <% ingredients.each do |ingredient| %>
-                <%= render ingredient.as_editor_component(element_form: f) %>
-              <% end %>
+              <%= render Alchemy::Admin::IngredientEditor.with_collection(
+                ingredients,
+                element_form: f
+              ) %>
             <% end %>
           <% end %>
         </div>

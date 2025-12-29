@@ -68,6 +68,18 @@ module Alchemy
       ingredient_definitions.any? || taggable?
     end
 
+    # Returns ingredients that are not part of any group
+    def ungrouped_ingredients
+      ingredients.reject { _1.definition.group }
+    end
+
+    # Returns ingredients grouped by their group name
+    #
+    # @return [Hash<String, Array<Alchemy::Ingredient>>]
+    def grouped_ingredients
+      ingredients.select { _1.definition.group }.group_by { _1.definition.group }
+    end
+
     # Fixes Rails partial renderer calling to_model on the object
     # which reveals the delegated element instead of this decorator.
     def respond_to?(*args, **kwargs)
