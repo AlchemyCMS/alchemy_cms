@@ -38,6 +38,9 @@ Rails.application.configure do
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = true
 
+  # Raise error when a before_action's only/except options reference missing actions.
+  config.action_controller.raise_on_missing_callback_actions = true
+
   config.action_mailer.perform_caching = false
 
   # Tell Action Mailer not to deliver emails to the real world.
