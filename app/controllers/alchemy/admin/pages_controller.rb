@@ -9,9 +9,9 @@ module Alchemy
 
       before_action :load_resource, except: [:index, :flush, :new, :create, :copy_language_tree, :link]
 
-      authorize_resource class: Alchemy::Page, except: [:index, :tree]
+      authorize_resource class: Alchemy::Page, except: [:index]
 
-      before_action only: [:index, :tree, :flush, :new, :create, :copy_language_tree] do
+      before_action only: [:index, :flush, :new, :create, :copy_language_tree] do
         authorize! :index, :alchemy_admin_pages
       end
 
