@@ -139,6 +139,10 @@ module Alchemy
       false
     end
 
+    def linked?
+      link.try(:present?)
+    end
+
     # @return [Boolean]
     def preview_ingredient?
       !!definition.as_element_title
@@ -152,10 +156,25 @@ module Alchemy
       view_component_class.new(self, **options, html_options: html_options)
     end
 
+    # The editor component of the ingredient.
+    #
+    # @param element_form [ActionView::Helpers::FormBuilder] - the element form this ingredient is rendered in
+    def as_editor_component(element_form:)
+      editor_component_class.new(self, element_form:)
+    end
+
     private
 
     def view_component_class
-      @_view_component_class ||= "#{self.class.name}View".constantize
+      @_view_component_class ||= component_class_name(part: "View").constantize
+    end
+
+    def editor_component_class
+      @_editor_component_class ||= component_class_name(part: "Editor").constantize
+    end
+
+    def component_class_name(part:)
+      "#{self.class.name}#{part}"
     end
 
     def set_default_value

@@ -1,15 +1,3 @@
-<%= content_tag :div,
-  class: richtext_editor.css_classes,
-  data: richtext_editor.data_attributes do %>
-  <%= element_form.fields_for(:ingredients, richtext_editor.ingredient) do |f| %>
-    <%= ingredient_label(richtext_editor, :value) %>
-
-    <%- custom_tinymce_config = richtext_editor.custom_tinymce_config.inject({}) { |obj, (k, v)| obj[k.to_s.dasherize] = v.to_json; obj} %>
-    <%= content_tag("alchemy-tinymce", custom_tinymce_config) do %>
-      <%= f.text_area :value,
-        minlength: richtext_editor.length_validation&.fetch(:minimum, nil),
-        maxlength: richtext_editor.length_validation&.fetch(:maximum, nil),
-        id: richtext_editor.form_field_id(:value) %>
-    <% end %>
-  <% end %>
-<% end %>
+<%= render richtext_editor.as_editor_component(
+  element_form: element_form
+) %>

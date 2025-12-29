@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Alchemy::IngredientEditor do
+RSpec.describe Alchemy::IngredientEditor, :silence_deprecations do
   let(:element) { build(:alchemy_element, name: "article") }
   let(:ingredient) { Alchemy::Ingredients::Text.new(role: "headline", element: element) }
   let(:ingredient_editor) { described_class.new(ingredient) }

@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe "alchemy/ingredients/_file_editor" do
   let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat") }
-  let(:element_editor) { Alchemy::ElementEditor.new(element) }
+  let(:element_form) { ActionView::Helpers::FormBuilder.new(:element, element, view, {}) }
   let(:attachment) { build_stubbed(:alchemy_attachment) }
 
   let(:ingredient) do
@@ -16,62 +16,15 @@ describe "alchemy/ingredients/_file_editor" do
     )
   end
 
-  let(:file_editor) { Alchemy::IngredientEditor.new(ingredient) }
-  let(:settings) { {} }
-
-  subject do
-    render element_editor
-    rendered
-  end
-
   before do
-    allow(element_editor).to receive(:ingredients) { [file_editor] }
-    view.class.send(:include, Alchemy::Admin::IngredientsHelper)
-    allow(ingredient).to receive(:settings) { settings }
-    allow(file_editor).to receive(:attachment) { attachment }
+    view.class.send(:include, Alchemy::Admin::BaseHelper)
   end
 
-  it_behaves_like "an alchemy ingredient editor"
-
-  context "with attachment present" do
-    it "renders a hidden field with attachment id" do
-      is_expected.to have_selector("input[type='hidden'][value='#{attachment.id}']")
-    end
-
-    it "renders a link to open the attachment library overlay" do
-      within ".file_tools" do
-        is_expected.to have_selector("a[href='/admin/attachments?form_field_id=element_ingredients_attributes_0_attachment_id']")
-      end
-    end
-
-    it "renders a link to edit the ingredient" do
-      within ".file_tools" do
-        is_expected.to have_selector("a[href='/admin/ingredients/#{ingredient.id}/edit']")
-      end
-    end
-
-    context "with settings `only`" do
-      let(:settings) { {only: "pdf"} }
-
-      it "renders a link to open the attachment library overlay with only pdfs" do
-        is_expected.to include("/admin/attachments?form_field_id=element_#{element.id}_ingredient_#{ingredient.id}_attachment_id&amp;only%5B%5D=pdf")
-      end
-    end
-
-    context "with settings `except`" do
-      let(:settings) { {except: "pdf"} }
-
-      it "renders a link to open the attachment library overlay without pdfs" do
-        is_expected.to include("/admin/attachments?except%5B%5D=pdf&amp;form_field_id=element_#{element.id}_ingredient_#{ingredient.id}_attachment_id")
-      end
-    end
-  end
-
-  context "without attachment present" do
-    let(:attachment) { nil }
-
-    it "renders a hidden field for attachment_id" do
-      is_expected.to have_selector("input[type='hidden'][name='element[ingredients_attributes][0][attachment_id]']")
-    end
+  it "renders the editor component" do
+    expect(ingredient).to receive(:as_editor_component).and_call_original
+    render partial: "alchemy/ingredients/file_editor", locals: {
+      file_editor: ingredient,
+      element_form:
+    }
   end
 end

@@ -8,14 +8,14 @@ module Alchemy
       "alchemy/admin/elements/element"
     end
 
-    # Returns ingredient editor instances for defined ingredients
+    # Returns ingredient instances for defined ingredients
     #
     # Creates ingredient on demand if the ingredient is not yet present on the element
     #
-    # @return Array<Alchemy::IngredientEditor>
+    # @return Array<Alchemy::Ingredient>
     def ingredients
       ingredient_definitions.map do |ingredient|
-        Alchemy::IngredientEditor.new(find_or_create_ingredient(ingredient))
+        find_or_create_ingredient(ingredient)
       end
     end
 

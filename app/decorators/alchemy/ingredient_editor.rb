@@ -4,9 +4,11 @@ module Alchemy
   class IngredientEditor < SimpleDelegator
     alias_method :ingredient, :__getobj__
 
+    # @deprecated
     def to_partial_path
       "alchemy/ingredients/#{partial_name}_editor"
     end
+    deprecate :to_partial_path, deprecator: Alchemy::Deprecation
 
     # Returns the translated role for displaying in labels
     #
@@ -23,6 +25,7 @@ module Alchemy
     #       article:
     #         foo: Baz
     #
+    # @deprecated
     def translated_role
       Alchemy.t(
         role,
@@ -30,7 +33,9 @@ module Alchemy
         default: Alchemy.t("ingredient_roles.#{role}", default: role.humanize)
       )
     end
+    deprecate :translated_role, deprecator: Alchemy::Deprecation
 
+    # @deprecated
     def css_classes
       [
         "ingredient-editor",
@@ -42,13 +47,16 @@ module Alchemy
         settings[:anchor] ? "with-anchor" : nil
       ].compact
     end
+    deprecate :css_classes, deprecator: Alchemy::Deprecation
 
+    # @deprecated
     def data_attributes
       {
         ingredient_id: id,
         ingredient_role: role
       }
     end
+    deprecate :data_attributes, deprecator: Alchemy::Deprecation
 
     # Returns a string to be passed to Rails form field tags to ensure it can be used with Rails' nested attributes.
     #
@@ -64,17 +72,20 @@ module Alchemy
     #
     #   <%= text_field_tag text_editor.form_field_name(:link), text_editor.value %>
     #
+    # @deprecated
     def form_field_name(column = "value")
       "element[ingredients_attributes][#{form_field_counter}][#{column}]"
     end
+    deprecate :form_field_name, deprecator: Alchemy::Deprecation
 
     # Returns a unique string to be passed to a form field id.
     #
     # @param column [String] A Ingredient column_name. Default is 'value'
-    #
+    # @deprecated
     def form_field_id(column = "value")
       "element_#{element.id}_ingredient_#{id}_#{column}"
     end
+    deprecate :form_field_id, deprecator: Alchemy::Deprecation
 
     # Fixes Rails partial renderer calling to_model on the object
     # which reveals the delegated ingredient instead of this decorator.
@@ -84,14 +95,19 @@ module Alchemy
       super
     end
 
+    # @deprecated
     def has_warnings?
       definition.blank? || deprecated?
     end
+    deprecate :has_warnings?, deprecator: Alchemy::Deprecation
 
+    # @deprecated
     def linked?
       link.try(:present?)
     end
+    deprecate :linked?, deprecator: Alchemy::Deprecation
 
+    # @deprecated
     def warnings
       return unless has_warnings?
 
@@ -102,11 +118,15 @@ module Alchemy
         definition.deprecation_notice(element_name: element&.name)
       end
     end
+    deprecate :warnings, deprecator: Alchemy::Deprecation
 
+    # @deprecated
     def validations
       definition.validate
     end
+    deprecate :validations, deprecator: Alchemy::Deprecation
 
+    # @deprecated
     def format_validation
       format = validations.select { _1.is_a?(Hash) }.find { _1[:format] }&.fetch(:format)
       return nil unless format
@@ -118,11 +138,15 @@ module Alchemy
         format
       end
     end
+    deprecate :format_validation, deprecator: Alchemy::Deprecation
 
+    # @deprecated
     def length_validation
       validations.select { _1.is_a?(Hash) }.find { _1[:length] }&.fetch(:length)
     end
+    deprecate :length_validation, deprecator: Alchemy::Deprecation
 
+    # @deprecated
     def presence_validation?
       validations.any? do |validation|
         case validation
@@ -135,6 +159,7 @@ module Alchemy
         end
       end
     end
+    deprecate :presence_validation?, deprecator: Alchemy::Deprecation
 
     private
 

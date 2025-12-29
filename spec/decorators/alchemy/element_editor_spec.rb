@@ -17,10 +17,10 @@ RSpec.describe Alchemy::ElementEditor do
 
     subject(:ingredients) { element_editor.ingredients }
 
-    it "returns a IngredientEditor instance for each ingredient defined" do
+    it "returns ingredient instances for each ingredient defined" do
       aggregate_failures do
         ingredients.each do |ingredient|
-          expect(ingredient).to be_an(Alchemy::IngredientEditor)
+          expect(ingredient).to be_an(Alchemy::Ingredient)
         end
       end
     end
