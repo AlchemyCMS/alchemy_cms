@@ -119,7 +119,7 @@ jobs:
       RUBY_YJIT_ENABLE: "1"
     services:
       postgres:
-        image: postgres:11
+        image: postgres:17
         env:
           POSTGRES_USER: alchemy_user
           POSTGRES_PASSWORD: password
