@@ -1,0 +1,24 @@
+<% colors = color_editor.settings[:colors] %>
+<% custom_color = color_editor.settings[:custom_color] %>
+<% disabled = false %>
+
+<%= content_tag :div,
+  class: [color_editor.css_classes], data: color_editor.data_attributes do %>
+  <%= element_form.fields_for(:ingredients, color_editor.ingredient) do |f| %>
+    <%= ingredient_label(color_editor) %>
+
+    <alchemy-color-select>
+      <% if colors.present? %>
+        <% value = color_editor.value %>
+        <% if custom_color %>
+          <% colors << [Alchemy.t(:custom_color), "custom_color"] %>
+          <% value = "custom_color" if colors.none? { |color| color[1] == value } %>
+        <% end %>
+
+        <% disabled = value != "custom_color" %>
+        <%= f.select :value, options_for_select(colors, value) %>
+      <% end %>
+      <%= color_field_tag(color_editor.form_field_name, color_editor.value, disabled:) %>
+    </alchemy-color-select>
+  <% end %>
+<% end %>
