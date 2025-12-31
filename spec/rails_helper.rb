@@ -82,8 +82,8 @@ RSpec.configure do |config|
 
   config.use_transactional_fixtures = true
 
-  # All specs are running in transactions, but feature specs not.
   config.before(:each) do
+    Alchemy::Current.site = nil
     ::I18n.locale = :en
   end
 
