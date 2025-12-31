@@ -4,7 +4,6 @@ module Alchemy
   class PageDefinition
     include ActiveModel::Model
     include ActiveModel::Attributes
-    include Alchemy::Hints
 
     extend ActiveModel::Translation
 
@@ -21,6 +20,10 @@ module Alchemy
     attribute :hide, :boolean, default: false
     attribute :editable_by
     attribute :hint
+
+    # Needs to be down here in order to have the attribute reader
+    # available after the attribute is defined.
+    include Alchemy::Hints
 
     validates :name,
       presence: true,
