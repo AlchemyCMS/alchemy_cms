@@ -37,6 +37,7 @@ require "alchemy/test_support/current_language_shared_examples"
 
 require_relative "support/file_name_examples"
 require_relative "support/hint_examples"
+require_relative "support/clipboard_examples"
 require_relative "support/custom_news_elements_finder"
 
 ActionMailer::Base.delivery_method = :test

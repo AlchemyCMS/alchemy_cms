@@ -4,6 +4,7 @@ module Alchemy
   module Admin
     class PagesController < ResourcesController
       include OnPageLayout::CallbacksRunner
+      include Alchemy::Admin::Clipboard
 
       helper "alchemy/pages"
 
@@ -84,8 +85,6 @@ module Alchemy
       def new
         @page ||= Page.new(layoutpage: params[:layoutpage] == "true", parent_id: params[:parent_id])
         @page_layouts = Page.layouts_for_select(@current_language.id, layoutpages: @page.layoutpage?)
-        @clipboard = get_clipboard("pages")
-        @clipboard_items = Page.all_from_clipboard_for_select(@clipboard, @current_language.id, layoutpages: @page.layoutpage?)
       end
 
       def create
@@ -150,8 +149,7 @@ module Alchemy
           flash[:notice] = Alchemy.t("Page deleted", name: @page.name)
 
           # Remove page from clipboard
-          clipboard = get_clipboard("pages")
-          clipboard.delete_if { |item| item["id"] == @page.id.to_s }
+          remove_resource_from_clipboard(@page)
         else
           flash[:warning] = @page.errors.full_messages.to_sentence
         end
@@ -314,12 +312,9 @@ module Alchemy
         @page.locker.try!(:id) != current_alchemy_user.try!(:id)
       end
 
-      def paste_from_clipboard
-        if params[:paste_from_clipboard]
-          source = Page.find(params[:paste_from_clipboard])
-          parent = Page.find_by(id: params[:page][:parent_id])
-          Page.copy_and_paste(source, parent, params[:page][:name])
-        end
+      # Overridden from Alchemy::Admin::Clipboard concern
+      def clipboard_items
+        @clipboard_items ||= Page.all_from_clipboard_for_select(clipboard, @current_language.id, layoutpages: @page.layoutpage?)
       end
 
       def set_page_version

@@ -8,7 +8,7 @@ module Alchemy
 
       before_action :load_locked_pages
 
-      helper_method :clipboard_empty?, :get_clipboard, :is_admin?
+      helper_method :is_admin?
 
       check_authorization
 
@@ -77,17 +77,6 @@ module Alchemy
           @trace = error.backtrace[0..50]
           render "500", status: 500
         end
-      end
-
-      # Returns clipboard items for given category
-      def get_clipboard(category)
-        session[:alchemy_clipboard] ||= {}
-        session[:alchemy_clipboard][category.to_s] ||= []
-      end
-
-      # Checks if clipboard for given category is blank
-      def clipboard_empty?(category)
-        get_clipboard(category).blank?
       end
 
       def set_stamper

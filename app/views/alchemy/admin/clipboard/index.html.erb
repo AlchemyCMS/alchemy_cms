@@ -1,15 +1,14 @@
 <%= turbo_frame_tag :clipboard_items do %>
-  <% if @clipboard_items.blank? %>
+  <% if clipboard_items.blank? %>
     <%= render_message do %>
       <%= Alchemy.t('No items in your clipboard') %>
     <% end %>
   <% else %>
     <%= render_message do %>
-      <%= Alchemy.t('Add items from clipboard via "Add Element" button') %>
+      <%= Alchemy.t("Add items from clipboard via \"Add #{remarkable_type.singularize.capitalize}\" button") %>
     <% end %>
-
     <ul>
-      <% @clipboard_items.each do |item| %>
+      <% clipboard_items.each do |item| %>
         <% item_class = item.class.name.demodulize.underscore.pluralize %>
         <li id="clipboard_item_<%= item.id %>" class="<%= item_class %>">
           <% if item_class == 'pages' %>

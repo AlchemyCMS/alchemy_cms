@@ -1,4 +1,4 @@
-<%- if @clipboard_items.blank? -%>
+<%- if clipboard_items.blank? -%>
   <%= render 'new_page_form' %>
 <%- else -%>
 <sl-tab-group id="overlay_tabs">
@@ -8,17 +8,7 @@
     <%= render 'new_page_form' %>
   </sl-tab-panel>
   <sl-tab-panel name="paste_page_tab">
-    <%= alchemy_form_for [:admin, @page] do |f| %>
-      <%= f.hidden_field(:parent_id) %>
-      <div class="input select">
-        <label for="paste_from_clipboard" class="control-label"><%= Alchemy.t("Page") %></label>
-        <%= select_tag 'paste_from_clipboard',
-          clipboard_select_tag_options(@clipboard_items),
-          is: 'alchemy-select' %>
-      </div>
-      <%= f.input :name %>
-      <%= f.submit Alchemy.t(:paste) %>
-    <% end %>
+    <%= render 'alchemy/admin/partials/paste_from_clipboard_form', item: @page %>
   </sl-tab-panel>
 </sl-tab-group>
 <%- end -%>

@@ -1,7 +1,7 @@
 <%= content_tag :div, class: 'add-nested-element', data: { element_id: element.id } do %>
   <% if element.nestable_elements.length == 1 &&
     (nestable_element = element.nestable_elements.first) &&
-    Alchemy::Element.all_from_clipboard_for_parent_element(get_clipboard("elements"), element).none?
+    Alchemy::Element.all_from_clipboard_for_parent_element(clipboard, element).none?
   %>
     <%= turbo_frame_tag("new_nested_element_#{element.id}") do %>
       <%= form_for [:admin, Alchemy::Element.new(name: nestable_element)], html: { class: 'add-nested-element-form', id: nil } do |f| %>
