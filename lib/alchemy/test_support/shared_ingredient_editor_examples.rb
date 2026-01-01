@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.shared_examples_for "an alchemy ingredient editor" do
-  let(:element_form) do
-    ActionView::Helpers::FormBuilder.new(:element, element, vc_test_view_context, {})
-  end
-
-  let(:ingredient_editor) { described_class.new(ingredient, element_form:) }
+  let(:ingredient_editor) { described_class.new(ingredient) }
 
   before do
     vc_test_view_context.class.include Alchemy::Admin::BaseHelper
@@ -32,5 +28,13 @@ RSpec.shared_examples_for "an alchemy ingredient editor" do
 
   it "provides a ingredient input field" do
     is_expected.to have_css("input[name]")
+  end
+
+  it "provides an ingredient id field for nested attributes" do
+    counter = ingredient_editor.send(:form_field_counter)
+    is_expected.to have_css(
+      "input[type='hidden'][name='element[ingredients_attributes][#{counter}][id]'][value='#{ingredient.id}']",
+      visible: :hidden
+    )
   end
 end

@@ -20,7 +20,7 @@ RSpec.describe Alchemy::Ingredients::AudioEditor, type: :component do
     )
   end
 
-  let(:audio_editor) { Alchemy::Ingredients::AudioEditor.new(ingredient, element_form:) }
+  let(:audio_editor) { Alchemy::Ingredients::AudioEditor.new(ingredient) }
   let(:settings) { {} }
 
   subject do
@@ -78,7 +78,7 @@ RSpec.describe Alchemy::Ingredients::AudioEditor, type: :component do
     let(:attachment) { nil }
 
     it "renders a hidden field for attachment_id" do
-      is_expected.to have_selector("input[type='hidden'][name='element[ingredients_attributes][0][attachment_id]']")
+      is_expected.to have_selector("input[type='hidden'][name='#{audio_editor.form_field_name(:attachment_id)}']")
     end
   end
 end

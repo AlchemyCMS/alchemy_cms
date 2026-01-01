@@ -10,7 +10,7 @@ RSpec.describe Alchemy::Ingredients::TextEditor, type: :component do
     ActionView::Helpers::FormBuilder.new(:element, element, vc_test_view_context, {})
   end
 
-  let(:ingredient_editor) { described_class.new(ingredient, element_form:) }
+  let(:ingredient_editor) { described_class.new(ingredient) }
 
   it_behaves_like "an alchemy ingredient editor"
 
@@ -52,10 +52,10 @@ RSpec.describe Alchemy::Ingredients::TextEditor, type: :component do
     end
 
     it "renders link buttons" do
-      expect(rendered).to have_selector('input[type="hidden"][name="element[ingredients_attributes][0][link]"]')
-      expect(rendered).to have_selector('input[type="hidden"][name="element[ingredients_attributes][0][link_title]"]')
-      expect(rendered).to have_selector('input[type="hidden"][name="element[ingredients_attributes][0][link_class_name]"]')
-      expect(rendered).to have_selector('input[type="hidden"][name="element[ingredients_attributes][0][link_target]"]')
+      expect(rendered).to have_selector("input[type='hidden'][name='#{ingredient_editor.form_field_name(:link)}']")
+      expect(rendered).to have_selector("input[type='hidden'][name='#{ingredient_editor.form_field_name(:link_title)}']")
+      expect(rendered).to have_selector("input[type='hidden'][name='#{ingredient_editor.form_field_name(:link_class_name)}']")
+      expect(rendered).to have_selector("input[type='hidden'][name='#{ingredient_editor.form_field_name(:link_target)}']")
     end
   end
 

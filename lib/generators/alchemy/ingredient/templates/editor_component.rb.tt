@@ -6,9 +6,10 @@ module Alchemy
       # Override the input_field method to customize the editor input.
       # The base implementation renders a text field.
       #
-      # def input_field(form)
+      # def input_field
       #   tag.div(class: "input-field") do
-      #     form.text_field(:value,
+      #     text_field_tag(form_field_name,
+      #       value,
       #       id: form_field_id,
       #       minlength: length_validation&.fetch(:minimum, nil),
       #       maxlength: length_validation&.fetch(:maximum, nil),

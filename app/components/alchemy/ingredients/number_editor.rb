@@ -3,9 +3,10 @@
 module Alchemy
   module Ingredients
     class NumberEditor < BaseEditor
-      def input_field(form)
+      def input_field
         tag.div(class: "input-field") do
-          concat form.text_field(:value,
+          concat text_field_tag(form_field_name,
+            value,
             type: settings[:input_type] || "number",
             required: presence_validation?,
             step: settings[:step],

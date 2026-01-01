@@ -21,7 +21,7 @@ RSpec.describe Alchemy::Admin::IngredientEditor, type: :component do
   describe "#call" do
     context "when ingredient has no editor partial" do
       it "renders the ingredient's editor component" do
-        render_inline(described_class.new(ingredient: ingredient, element_form: element_form))
+        render_inline(described_class.new(ingredient: ingredient))
 
         expect(page).to have_css(".ingredient-editor.text")
         expect(page).to have_css("input[type='text']")
@@ -46,7 +46,7 @@ RSpec.describe Alchemy::Admin::IngredientEditor, type: :component do
         ActionView::LookupContext::DetailsKey.clear
       end
 
-      it "logs a deprecation warning" do
+      it "logs a deprecation warning and passes element_form to partial" do
         expect(Alchemy::Deprecation).to receive(:warn).with(/Ingredient editor partials are deprecated!/)
 
         render_inline(described_class.new(ingredient: ingredient, element_form: element_form))
@@ -74,7 +74,7 @@ RSpec.describe Alchemy::Admin::IngredientEditor, type: :component do
     end
 
     it "renders all ingredients in the collection" do
-      render_inline(described_class.with_collection(ingredients, element_form: element_form))
+      render_inline(described_class.with_collection(ingredients))
 
       expect(page).to have_css(".ingredient-editor", count: 2)
       expect(page).to have_css("[data-ingredient-id='1']")

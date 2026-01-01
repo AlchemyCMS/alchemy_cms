@@ -3,7 +3,7 @@
 module Alchemy
   module Ingredients
     class SelectEditor < BaseEditor
-      def input_field(form)
+      def input_field
         if select_values.nil?
           warning(":select_values is nil",
             <<-MSG.strip_heredoc
@@ -19,7 +19,7 @@ module Alchemy
           else
             options_for_select(select_values, value)
           end
-          form.select :value, options_tags, {}, {
+          select_tag form_field_name, options_tags, {
             id: form_field_id,
             class: ["ingredient-editor-select"],
             is: "alchemy-select"

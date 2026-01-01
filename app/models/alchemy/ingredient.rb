@@ -177,9 +177,8 @@ module Alchemy
 
     # The editor component of the ingredient.
     #
-    # @param element_form [ActionView::Helpers::FormBuilder] - the element form this ingredient is rendered in
-    def as_editor_component(element_form:)
-      editor_component_class.new(self, element_form:)
+    def as_editor_component
+      editor_component_class.new(self)
     end
 
     private

@@ -4,10 +4,15 @@ module Alchemy
   module Admin
     # Adapter component for rendering ingredient editors.
     #
-    # Handles both deprecated partial-based editors and modern ViewComponent editors.
+    # Handles both deprecated partial-based editors and component based editors.
     # Use with_collection for efficient batch rendering of ingredients.
     #
-    # @example
+    # @example Component based editors (no element_form needed)
+    #   <%= render Alchemy::Admin::IngredientEditor.with_collection(
+    #     element.ungrouped_ingredients
+    #   ) %>
+    #
+    # @example With element_form for deprecated partials
     #   <%= render Alchemy::Admin::IngredientEditor.with_collection(
     #     element.ungrouped_ingredients,
     #     element_form: f
@@ -16,7 +21,9 @@ module Alchemy
     class IngredientEditor < ViewComponent::Base
       with_collection_parameter :ingredient
 
-      def initialize(ingredient:, element_form:)
+      # @param ingredient [Alchemy::Ingredient] The ingredient to render an editor for
+      # @param element_form [ActionView::Helpers::FormBuilder, nil] Optional form builder for deprecated partials
+      def initialize(ingredient:, element_form: nil)
         @ingredient = ingredient
         @element_form = element_form
       end
@@ -25,9 +32,10 @@ module Alchemy
         if has_editor_partial?
           deprecation_notice
           render partial: "alchemy/ingredients/#{@ingredient.partial_name}_editor",
-            locals: {element_form: @element_form}, object: @ingredient
+            locals: {element_form: @element_form},
+            object: @ingredient
         else
-          render @ingredient.as_editor_component(element_form: @element_form)
+          render @ingredient.as_editor_component
         end
       end
 

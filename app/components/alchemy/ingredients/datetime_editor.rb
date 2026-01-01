@@ -5,7 +5,7 @@ module Alchemy
     class DatetimeEditor < BaseEditor
       delegate :alchemy_datepicker, to: :helpers
 
-      def input_field(form)
+      def input_field
         tag.div(class: "input-field") do
           concat alchemy_datepicker(
             ingredient, :value, {

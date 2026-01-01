@@ -5,9 +5,10 @@ module Alchemy
     class HeadlineEditor < BaseEditor
       delegate :level, :levels, :size, :sizes, to: :ingredient
 
-      def input_field(form)
+      def input_field
         tag.div(class: "input-field") do
-          concat form.text_field(:value,
+          concat text_field_tag(form_field_name,
+            value,
             minlength: length_validation&.fetch(:minimum, nil),
             maxlength: length_validation&.fetch(:maximum, nil),
             required: presence_validation?,
@@ -23,11 +24,10 @@ module Alchemy
 
           concat(
             tag.div(class: ["input-addon", "right", has_size_select? ? "second" : nil].compact) do
-              content_tag("sl-tooltip", content: form.object.class.human_attribute_name(:level)) do
-                form.select(
-                  :level,
+              content_tag("sl-tooltip", content: ingredient.class.human_attribute_name(:level)) do
+                select_tag(
+                  form_field_name(:level),
                   options_for_select(level_options, level),
-                  {},
                   class: "custom-select",
                   disabled: !has_level_select?
                 )
@@ -38,11 +38,10 @@ module Alchemy
           if has_size_select?
             concat(
               tag.div(class: "input-addon right") do
-                content_tag("sl-tooltip", content: form.object.class.human_attribute_name(:size)) do
-                  form.select(
-                    :size,
+                content_tag("sl-tooltip", content: ingredient.class.human_attribute_name(:size)) do
+                  select_tag(
+                    form_field_name(:size),
                     options_for_select(size_options, size),
-                    {},
                     class: "custom-select"
                   )
                 end

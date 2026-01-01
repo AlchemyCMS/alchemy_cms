@@ -6,7 +6,7 @@ module Alchemy
       delegate :attachment, to: :ingredient
       delegate :link_to_dialog, to: :helpers
 
-      def input_field(form)
+      def input_field
         tag.div(class: "file") do
           concat tag.div(
             render_icon(attachment&.icon_css_class),
@@ -37,8 +37,8 @@ module Alchemy
               )
             end
           )
-          concat form.hidden_field(:attachment_id,
-            value: attachment&.id,
+          concat hidden_field_tag(form_field_name(:attachment_id),
+            attachment&.id,
             id: form_field_id(:attachment_id))
         end
       end

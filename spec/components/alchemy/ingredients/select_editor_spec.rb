@@ -12,7 +12,7 @@ RSpec.describe Alchemy::Ingredients::SelectEditor, type: :component do
   end
 
   subject do
-    render_inline described_class.new(ingredient, element_form:)
+    render_inline described_class.new(ingredient)
     page
   end
 

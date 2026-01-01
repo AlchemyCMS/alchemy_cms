@@ -14,7 +14,7 @@ RSpec.describe Alchemy::Ingredients::HtmlEditor, type: :component do
     )
   end
 
-  let(:html_editor) { described_class.new(ingredient, element_form:) }
+  let(:html_editor) { described_class.new(ingredient) }
   let(:settings) { {} }
 
   subject do
@@ -29,6 +29,6 @@ RSpec.describe Alchemy::Ingredients::HtmlEditor, type: :component do
   it_behaves_like "an alchemy ingredient editor"
 
   it "renders a textarea" do
-    is_expected.to have_selector("textarea[name='element[ingredients_attributes][0][value]']")
+    is_expected.to have_selector("textarea[name='#{html_editor.form_field_name}']")
   end
 end

@@ -11,7 +11,7 @@ RSpec.describe Alchemy::Ingredients::RichtextEditor, type: :component do
   before do
     vc_test_view_context.class.send :include, Alchemy::Admin::BaseHelper
     allow(ingredient).to receive(:settings) { settings }
-    render_inline described_class.new(ingredient, element_form:)
+    render_inline described_class.new(ingredient)
   end
 
   it "renders a text area for tinymce" do

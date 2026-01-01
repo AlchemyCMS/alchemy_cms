@@ -7,7 +7,7 @@ RSpec.describe Alchemy::Ingredients::PictureEditor, type: :component do
   let(:picture) { stub_model(Alchemy::Picture) }
   let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat") }
   let(:element_form) { ActionView::Helpers::FormBuilder.new(:element, element, vc_test_view_context, {}) }
-  let(:ingredient_editor) { described_class.new(ingredient, element_form:) }
+  let(:ingredient_editor) { described_class.new(ingredient) }
 
   let(:ingredient) do
     stub_model(
