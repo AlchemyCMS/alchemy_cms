@@ -3,8 +3,8 @@
 module Alchemy
   module Ingredients
     class HtmlEditor < BaseEditor
-      def input_field(form)
-        form.text_area(:value, id: form_field_id)
+      def input_field
+        text_area_tag(form_field_name, value, id: form_field_id)
       end
     end
   end

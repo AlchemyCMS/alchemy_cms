@@ -16,7 +16,7 @@ RSpec.describe Alchemy::Ingredients::VideoEditor, type: :component do
     )
   end
 
-  let(:video_editor) { described_class.new(ingredient, element_form:) }
+  let(:video_editor) { described_class.new(ingredient) }
   let(:settings) { {} }
 
   subject do
@@ -74,7 +74,7 @@ RSpec.describe Alchemy::Ingredients::VideoEditor, type: :component do
     let(:attachment) { nil }
 
     it "renders a hidden field for attachment_id" do
-      is_expected.to have_selector("input[type='hidden'][name='element[ingredients_attributes][0][attachment_id]']")
+      is_expected.to have_selector("input[type='hidden'][name='#{video_editor.form_field_name(:attachment_id)}']")
     end
   end
 end

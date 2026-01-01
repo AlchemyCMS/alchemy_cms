@@ -3,9 +3,10 @@
 module Alchemy
   module Ingredients
     class TextEditor < BaseEditor
-      def input_field(form)
+      def input_field
         tag.div(class: "input-field") do
-          concat form.text_field(:value,
+          concat text_field_tag(form_field_name,
+            value,
             class: settings[:linkable] ? "text_with_icon" : "",
             id: form_field_id,
             minlength: length_validation&.fetch(:minimum, nil),
@@ -22,10 +23,10 @@ module Alchemy
           end
 
           if settings[:linkable]
-            concat form.hidden_field(:link, "data-link-value": true, id: nil)
-            concat form.hidden_field(:link_title, "data-link-title": true, id: nil)
-            concat form.hidden_field(:link_class_name, "data-link-class": true, id: nil)
-            concat form.hidden_field(:link_target, "data-link-target": true, id: nil)
+            concat hidden_field_tag(form_field_name(:link), ingredient.link, "data-link-value": true, id: nil)
+            concat hidden_field_tag(form_field_name(:link_title), ingredient.link_title, "data-link-title": true, id: nil)
+            concat hidden_field_tag(form_field_name(:link_class_name), ingredient.link_class_name, "data-link-class": true, id: nil)
+            concat hidden_field_tag(form_field_name(:link_target), ingredient.link_target, "data-link-target": true, id: nil)
             concat render(
               "alchemy/ingredients/shared/link_tools",
               ingredient_editor: ingredient,

@@ -3,9 +3,10 @@
 module Alchemy
   module Ingredients
     class RichtextEditor < BaseEditor
-      def input_field(form)
+      def input_field
         content_tag("alchemy-tinymce", custom_tinymce_config) do
-          form.text_area :value,
+          text_area_tag form_field_name,
+            value,
             minlength: length_validation&.fetch(:minimum, nil),
             maxlength: length_validation&.fetch(:maximum, nil),
             id: form_field_id(:value)

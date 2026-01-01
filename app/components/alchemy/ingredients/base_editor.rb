@@ -21,26 +21,24 @@ module Alchemy
         :warning,
         to: :helpers
 
-      attr_reader :ingredient, :element_form, :html_options
+      attr_reader :ingredient, :html_options
 
-      def initialize(ingredient, element_form:, html_options: {})
+      def initialize(ingredient, html_options: {})
         raise ArgumentError, "Ingredient missing!" if ingredient.nil?
 
         @ingredient = ingredient
-        @element_form = element_form
         @html_options = html_options
       end
 
       def call
         tag.div(class: css_classes, data: data_attributes, id: dom_id(ingredient)) do
-          element_form.fields_for(:ingredients, ingredient) do |form|
-            concat ingredient_label
-            concat input_field(form)
-          end
+          concat ingredient_id_field
+          concat ingredient_label
+          concat input_field
         end
       end
 
-      # Returns a string to be passed to Rails form field tags to ensure it can be used with Rails' nested attributes.
+      # Returns a string to be passed to Rails form field helpers.
       #
       # === Example:
       #
@@ -189,15 +187,23 @@ module Alchemy
         end
       end
 
+      # Renders a hidden field with the ingredient's ID.
+      # This allows Rails to identify which ingredient to update
+      # when processing nested attributes.
+      #
+      def ingredient_id_field
+        hidden_field_tag(form_field_name(:id), ingredient.id, id: nil)
+      end
+
       # Renders the input field for the ingredient.
       # Override this method in subclasses to provide custom input fields.
       # For example a text area or a select box.
       #
-      def input_field(form)
+      def input_field
         tag.div(class: "input-field") do
-          form.text_field(:value,
+          text_field_tag(form_field_name,
+            value,
             class: "full_width",
-            name: form_field_name,
             id: form_field_id,
             minlength: length_validation&.fetch(:minimum, nil),
             maxlength: length_validation&.fetch(:maximum, nil),

@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe Alchemy::Ingredients::LinkEditor, type: :component do
   let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat") }
   let(:element_form) { ActionView::Helpers::FormBuilder.new(:element, element, vc_test_view_context, {}) }
-  let(:ingredient_editor) { described_class.new(ingredient, element_form:) }
+  let(:ingredient_editor) { described_class.new(ingredient) }
 
   let(:ingredient) do
     stub_model(
@@ -31,8 +31,8 @@ RSpec.describe Alchemy::Ingredients::LinkEditor, type: :component do
   end
 
   it "renders link buttons" do
-    is_expected.to have_selector('input[type="hidden"][name="element[ingredients_attributes][0][link_title]"]')
-    is_expected.to have_selector('input[type="hidden"][name="element[ingredients_attributes][0][link_class_name]"]')
-    is_expected.to have_selector('input[type="hidden"][name="element[ingredients_attributes][0][link_target]"]')
+    is_expected.to have_selector("input[type='hidden'][name='#{ingredient_editor.form_field_name(:link_title)}']")
+    is_expected.to have_selector("input[type='hidden'][name='#{ingredient_editor.form_field_name(:link_class_name)}']")
+    is_expected.to have_selector("input[type='hidden'][name='#{ingredient_editor.form_field_name(:link_target)}']")
   end
 end

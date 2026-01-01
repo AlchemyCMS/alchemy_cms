@@ -5,14 +5,14 @@ module Alchemy
     class NodeEditor < BaseEditor
       delegate :node, :page, to: :ingredient
 
-      def input_field(form)
+      def input_field
         render Alchemy::Admin::NodeSelect.new(
           node,
           url: alchemy.api_nodes_path(language_id: page&.language_id, include: :ancestors),
           query_params: settings.fetch(:query_params, {})
         ) do
-          form.text_field :node_id,
-            value: node&.id,
+          text_field_tag form_field_name(:node_id),
+            node&.id,
             id: form_field_id(:node_id),
             class: "alchemy_selectbox full_width"
         end

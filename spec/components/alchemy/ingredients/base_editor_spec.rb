@@ -13,13 +13,13 @@ RSpec.describe Alchemy::Ingredients::BaseEditor, type: :component do
     ActionView::Helpers::FormBuilder.new(:element, element, vc_test_view_context, {})
   end
 
-  let(:ingredient_editor) { described_class.new(ingredient, element_form:) }
+  let(:ingredient_editor) { described_class.new(ingredient) }
 
   describe "#initialize" do
     context "when ingredient is nil" do
       it "raises ArgumentError" do
         expect {
-          described_class.new(nil, element_form: element_form)
+          described_class.new(nil)
         }.to raise_error(ArgumentError, "Ingredient missing!")
       end
     end

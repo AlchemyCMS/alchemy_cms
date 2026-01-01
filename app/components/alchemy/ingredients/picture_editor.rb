@@ -11,7 +11,7 @@ module Alchemy
         :thumbnail_url_options,
         to: :ingredient
 
-      def input_field(form)
+      def input_field
         content_tag("alchemy-picture-editor") do
           concat(
             tag.div(class: "picture_thumbnail",
@@ -52,20 +52,20 @@ module Alchemy
               )
             end
           )
-          concat form.hidden_field(:picture_id,
-            value: picture&.id,
+          concat hidden_field_tag(form_field_name(:picture_id),
+            picture&.id,
             id: form_field_id(:picture_id),
             data: {
               picture_id: true,
               image_file_width: image_file_width,
               image_file_height: image_file_height
             })
-          concat form.hidden_field(:link, data: {link_value: true}, id: nil)
-          concat form.hidden_field(:link_title, data: {link_title: true}, id: nil)
-          concat form.hidden_field(:link_class_name, data: {link_class: true}, id: nil)
-          concat form.hidden_field(:link_target, data: {link_target: true}, id: nil)
-          concat form.hidden_field(:crop_from, data: {crop_from: true}, id: form_field_id(:crop_from))
-          concat form.hidden_field(:crop_size, data: {crop_size: true}, id: form_field_id(:crop_size))
+          concat hidden_field_tag(form_field_name(:link), ingredient.link, data: {link_value: true}, id: nil)
+          concat hidden_field_tag(form_field_name(:link_title), ingredient.link_title, data: {link_title: true}, id: nil)
+          concat hidden_field_tag(form_field_name(:link_class_name), ingredient.link_class_name, data: {link_class: true}, id: nil)
+          concat hidden_field_tag(form_field_name(:link_target), ingredient.link_target, data: {link_target: true}, id: nil)
+          concat hidden_field_tag(form_field_name(:crop_from), ingredient.crop_from, data: {crop_from: true}, id: form_field_id(:crop_from))
+          concat hidden_field_tag(form_field_name(:crop_size), ingredient.crop_size, data: {crop_size: true}, id: form_field_id(:crop_size))
         end
       end
 

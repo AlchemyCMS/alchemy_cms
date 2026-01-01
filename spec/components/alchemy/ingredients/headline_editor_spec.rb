@@ -14,7 +14,7 @@ RSpec.describe Alchemy::Ingredients::HeadlineEditor, type: :component do
     )
   end
 
-  let(:headline_editor) { described_class.new(ingredient, element_form:) }
+  let(:headline_editor) { described_class.new(ingredient) }
   let(:settings) { {} }
 
   subject do
@@ -30,11 +30,11 @@ RSpec.describe Alchemy::Ingredients::HeadlineEditor, type: :component do
   it_behaves_like "an alchemy ingredient editor"
 
   it "renders a text input" do
-    is_expected.to have_selector("input[type='text'][name='element[ingredients_attributes][0][value]']")
+    is_expected.to have_selector("input[type='text'][name='#{headline_editor.form_field_name}']")
   end
 
   it "renders a level select" do
-    is_expected.to have_selector("select[name='element[ingredients_attributes][0][level]']")
+    is_expected.to have_selector("select[name='#{headline_editor.form_field_name(:level)}']")
   end
 
   it "renders a tooltip" do
@@ -67,12 +67,12 @@ RSpec.describe Alchemy::Ingredients::HeadlineEditor, type: :component do
     end
 
     it "renders a disabled level select" do
-      is_expected.to have_selector("select[disabled][name='element[ingredients_attributes][0][level]']")
+      is_expected.to have_selector("select[disabled][name='#{headline_editor.form_field_name(:level)}']")
     end
   end
 
   it "does not render a size select" do
-    is_expected.to_not have_selector("select[name='element[ingredients_attributes][0][size]']")
+    is_expected.to_not have_selector("select[name='#{headline_editor.form_field_name(:size)}']")
   end
 
   context "when sizes are given" do
@@ -81,7 +81,7 @@ RSpec.describe Alchemy::Ingredients::HeadlineEditor, type: :component do
     end
 
     it "renders a size select" do
-      is_expected.to have_selector("select[name='element[ingredients_attributes][0][size]']")
+      is_expected.to have_selector("select[name='#{headline_editor.form_field_name(:size)}']")
     end
 
     it "renders a tooltip" do
