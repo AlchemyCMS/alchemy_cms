@@ -3,6 +3,7 @@
 module Alchemy
   class Node < BaseRecord
     VALID_URL_REGEX = /\A(\/|\D[a-z+\d.-]+:)/
+    SKIPPED_ATTRIBUTES_ON_COPY = %w[id created_at updated_at creator_id updater_id lft rgt depth parent_id]
 
     before_destroy :check_if_related_node_ingredients_present
 
@@ -44,6 +45,32 @@ module Alchemy
 
       def available_menu_names
         read_definitions_file
+      end
+
+      def all_from_clipboard(clipboard)
+        return [] if clipboard.blank?
+
+        where(id: clipboard.collect { |n| n["id"] })
+      end
+
+      def copy_and_paste(source, new_parent, new_name)
+        # Prevent pasting a node as a child of itself or any of its descendants
+        return if new_parent && source.is_or_is_ancestor_of?(new_parent)
+
+        attributes = source.attributes.except(*SKIPPED_ATTRIBUTES_ON_COPY).merge(
+          name: new_name,
+          parent: new_parent,
+          language: new_parent&.language || source.language
+        )
+
+        node = create!(attributes)
+
+        # Copy all descendants
+        source.children.each do |child|
+          copy_and_paste(child, node, child.name)
+        end
+
+        node
       end
 
       private

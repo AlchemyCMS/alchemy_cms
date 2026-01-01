@@ -1,18 +1,17 @@
 <%= turbo_frame_tag :clipboard_items do %>
-  <% if @clipboard_items.blank? %>
+  <% if clipboard_items.blank? %>
     <%= render_message do %>
       <%= Alchemy.t('No items in your clipboard') %>
     <% end %>
   <% else %>
     <%= render_message do %>
-      <%= Alchemy.t('Add items from clipboard via "Add Element" button') %>
+      <%= Alchemy.t("Add items from clipboard via \"Add #{remarkable_type.singularize.capitalize}\" button") %>
     <% end %>
-
     <ul>
-      <% @clipboard_items.each do |item| %>
+      <% clipboard_items.each do |item| %>
         <% item_class = item.class.name.demodulize.underscore.pluralize %>
         <li id="clipboard_item_<%= item.id %>" class="<%= item_class %>">
-          <% if item_class == 'pages' %>
+          <% if %[pages nodes].include? item_class %>
             <%= render_icon(:file) %>
             <%= truncate(item.name, length: 50) %>
           <% else %>
@@ -20,9 +19,9 @@
             <%= truncate(item.display_name_with_preview_text(50), length: 50) %>
           <% end %>
           <sl-tooltip content="<%= Alchemy.t('Remove item from clipboard') %>">
-            <%= link_to render_icon(:close, size: '1x'),
+            <%= button_to render_icon(:close, size: '1x'),
               alchemy.remove_admin_clipboard_path(remarkable_type: item_class, remarkable_id: item.id),
-              "data-turbo-method": :delete,
+              method: :delete,
               class: "icon_button small"
             %>
           </sl-tooltip>
@@ -31,10 +30,10 @@
     </ul>
 
     <p>
-      <%= link_to Alchemy.t('clear clipboard'),
+      <%= button_to Alchemy.t('clear clipboard'),
         alchemy.clear_admin_clipboard_path(remarkable_type: params[:remarkable_type]),
         "data-turbo-confirm": Alchemy.t('Do you really want to clear the clipboard?'),
-        "data-turbo-method": :delete,
+        method: :delete,
         class: 'button' %>
     </p>
   <% end %>
