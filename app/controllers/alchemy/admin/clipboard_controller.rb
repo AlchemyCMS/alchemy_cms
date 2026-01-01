@@ -5,7 +5,7 @@ module Alchemy
     class ClipboardController < Alchemy::Admin::BaseController
       include Alchemy::Admin::Clipboard
 
-      REMARKABLE_TYPES = %w[elements pages]
+      REMARKABLE_TYPES = %w[elements pages nodes]
 
       authorize_resource class: :alchemy_admin_clipboard
 

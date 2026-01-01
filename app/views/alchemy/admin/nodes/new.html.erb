@@ -1,1 +1,14 @@
-<%= render 'form', node: @node, button_label: Alchemy.t(:create) %>
+<%- if clipboard_items.blank? -%>
+  <%= render 'form', node: @node, button_label: Alchemy.t(:create) %>
+<%- else -%>
+<sl-tab-group id="overlay_tabs">
+  <sl-tab slot="nav" panel="create_node_tab"><%= Alchemy.t('New node') %></sl-tab>
+  <sl-tab slot="nav" panel="paste_node_tab"><%= Alchemy.t('Paste from clipboard') %></sl-tab>
+  <sl-tab-panel name="create_node_tab">
+    <%= render 'form', node: @node, button_label: Alchemy.t(:create) %>
+  </sl-tab-panel>
+  <sl-tab-panel name="paste_node_tab">
+    <%= render 'alchemy/admin/partials/paste_from_clipboard_form', item: @node %>
+  </sl-tab-panel>
+</sl-tab-group>
+<%- end -%>

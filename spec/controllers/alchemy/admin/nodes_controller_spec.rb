@@ -12,6 +12,8 @@ module Alchemy
 
     it_behaves_like "a controller that loads current language"
 
+    it_behaves_like "a controller with clipboard functionality", :node
+
     describe "#index" do
       context "if no language is present" do
         it "redirects to the language admin" do
@@ -68,6 +70,134 @@ module Alchemy
           expect(response).to redirect_to(admin_nodes_path)
         end
       end
+
+      context "when paste fails" do
+        let!(:default_language) { create(:alchemy_language) }
+        let!(:parent_node) { create(:alchemy_node, language: default_language) }
+        let(:node_in_clipboard) { create(:alchemy_node, language: default_language) }
+        let(:node_params) do
+          {
+            name: "New Node",
+            parent_id: parent_node.id,
+            language_id: default_language.id
+          }
+        end
+
+        before do
+          allow(Node).to receive(:copy_and_paste).and_raise(StandardError.new("Copy failed"))
+        end
+
+        it "handles the error and renders new template" do
+          post :create, params: {
+            node: node_params,
+            paste_from_clipboard: node_in_clipboard.id
+          }
+
+          expect(response).to render_template(:new)
+          expect(response).to have_http_status(:unprocessable_entity)
+          expect(flash[:error]).to eq("Copy failed")
+        end
+
+        it "sets clipboard items for error rendering" do
+          allow_any_instance_of(described_class).to receive(:get_clipboard)
+            .with("nodes")
+            .and_return([{"id" => node_in_clipboard.id.to_s}])
+
+          post :create, params: {
+            node: node_params,
+            paste_from_clipboard: node_in_clipboard.id
+          }
+
+          expect(controller.send(:clipboard)).to include({"id" => node_in_clipboard.id.to_s})
+        end
+      end
+
+      context "when paste returns non-persisted node" do
+        let!(:default_language) { create(:alchemy_language) }
+        let!(:parent_node) { create(:alchemy_node, language: default_language) }
+        let(:node_in_clipboard) { create(:alchemy_node, language: default_language) }
+        let(:invalid_node) { build(:alchemy_node, name: nil) } # Invalid node that won't be persisted
+        let(:node_params) do
+          {
+            name: "New Node",
+            parent_id: parent_node.id,
+            language_id: default_language.id
+          }
+        end
+
+        before do
+          allow(Node).to receive(:copy_and_paste).and_return(invalid_node)
+          allow_any_instance_of(described_class).to receive(:get_clipboard)
+            .with("nodes")
+            .and_return([{"id" => node_in_clipboard.id.to_s}])
+        end
+
+        it "renders new template with unprocessable entity status" do
+          post :create, params: {
+            node: node_params,
+            paste_from_clipboard: node_in_clipboard.id
+          }
+
+          expect(response).to render_template(:new)
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
+      end
+
+      context "when normal node creation fails" do
+        let!(:default_language) { create(:alchemy_language) }
+        let!(:parent_node) { create(:alchemy_node, language: default_language) }
+        let(:invalid_params) do
+          {
+            name: "", # Invalid - name is required
+            parent_id: parent_node.id,
+            language_id: default_language.id
+          }
+        end
+
+        before do
+          allow_any_instance_of(described_class).to receive(:get_clipboard)
+            .with("nodes")
+            .and_return([])
+        end
+
+        it "renders new template with unprocessable entity status" do
+          post :create, params: {node: invalid_params}
+
+          expect(response).to render_template(:new)
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
+
+        it "loads clipboard items for error rendering" do
+          post :create, params: {node: invalid_params}
+
+          expect(controller.send(:clipboard)).to eq([])
+        end
+      end
+
+      context "clipboard integration workflow" do
+        let!(:default_language) { create(:alchemy_language) }
+        let!(:parent_node) { create(:alchemy_node, language: default_language) }
+        let!(:source_node) { create(:alchemy_node, name: "Source Node", language: default_language) }
+
+        it "supports full copy and paste workflow" do
+          expect {
+            post :create, params: {
+              node: {
+                name: "Pasted Node",
+                parent_id: parent_node.id,
+                language_id: default_language.id
+              },
+              paste_from_clipboard: source_node.id
+            }
+          }.to change { Node.count }.by(1)
+
+          # Verify the copied node
+          pasted_node = Node.last
+          expect(pasted_node.name).to eq("Pasted Node")
+          expect(pasted_node.parent).to eq(parent_node)
+          expect(pasted_node.language).to eq(default_language)
+        end
+      end
     end
 
     describe "#update" do
@@ -84,12 +214,23 @@ module Alchemy
     describe "#destroy" do
       let(:node) { create(:alchemy_node) }
 
-      context "as default call" do
-        it "removes node and redirects to index" do
-          expect {
-            delete :destroy, params: {id: node.id}
-          }.to change { Alchemy::Node.count }.by(0)
+      context "as default call (not turbo frame request)" do
+        it "calls super (ResourcesController destroy)" do
+          # Mock the super call behavior from ResourcesController
+          expect_any_instance_of(Alchemy::Admin::ResourcesController).to receive(:destroy).and_call_original
+
+          delete :destroy, params: {id: node.id}
           expect(response).to redirect_to(admin_nodes_path)
+        end
+      end
+
+      context "as turbo frame request" do
+        let!(:page) { create(:alchemy_page, nodes: [node]) }
+
+        it "destroys the node through the page" do
+          expect {
+            delete :destroy, params: {id: node.id}, xhr: true
+          }.to change { Node.count }.by(-1)
         end
       end
 

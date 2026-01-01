@@ -148,5 +148,116 @@ module Alchemy
         end
       end
     end
+
+    describe ".all_from_clipboard" do
+      let!(:node_1) { create(:alchemy_node) }
+      let!(:node_2) { create(:alchemy_node) }
+      let(:clipboard) { [{"id" => node_1.id.to_s}, {"id" => node_2.id.to_s}] }
+
+      it "returns all nodes from clipboard" do
+        expect(Node.all_from_clipboard(clipboard)).to contain_exactly(node_1, node_2)
+      end
+
+      context "with empty clipboard" do
+        let(:clipboard) { [] }
+
+        it "returns empty array" do
+          expect(Node.all_from_clipboard(clipboard)).to eq([])
+        end
+      end
+
+      context "with nil clipboard" do
+        let(:clipboard) { nil }
+
+        it "returns empty array" do
+          expect(Node.all_from_clipboard(clipboard)).to eq([])
+        end
+      end
+    end
+
+    describe ".copy_and_paste" do
+      let(:source) { create(:alchemy_node, name: "Source Node", url: "/source") }
+      let(:new_parent) { create(:alchemy_node) }
+      let(:node_name) { "Copied Node" }
+
+      subject { Node.copy_and_paste(source, new_parent, node_name) }
+
+      it "creates a copy of the source node with the given name under the new parent" do
+        expect(subject.name).to eq(node_name)
+        expect(subject.parent).to eq(new_parent)
+        expect(subject.language).to eq(new_parent.language)
+      end
+
+      it "copies the source node attributes" do
+        expect(subject.url).to eq(source.url)
+        expect(subject.menu_type).to eq(source.menu_type)
+      end
+
+      it "returns the copied node" do
+        expect(subject).to be_a(Alchemy::Node)
+        expect(subject).to be_persisted
+      end
+
+      context "when source node has children" do
+        let!(:child_node_1) { create(:alchemy_node, parent: source, name: "Child 1") }
+        let!(:child_node_2) { create(:alchemy_node, parent: source, name: "Child 2") }
+
+        it "also copies all descendant nodes" do
+          expect(subject.children.length).to eq(2)
+          expect(subject.children.map(&:name)).to contain_exactly("Child 1", "Child 2")
+        end
+
+        it "maintains the hierarchy structure" do
+          copied_child = subject.children.first
+          expect(copied_child.parent).to eq(subject)
+          expect(copied_child.language).to eq(subject.language)
+        end
+      end
+
+      context "with nested children" do
+        let!(:child_node) { create(:alchemy_node, parent: source, name: "Child") }
+        let!(:grandchild_node) { create(:alchemy_node, parent: child_node, name: "Grandchild") }
+
+        it "copies the entire nested structure" do
+          copied_child = subject.children.first
+          copied_grandchild = copied_child.children.first
+
+          expect(copied_grandchild.name).to eq("Grandchild")
+          expect(copied_grandchild.parent).to eq(copied_child)
+        end
+      end
+
+      context "when trying to paste node as child of itself" do
+        let(:new_parent) { source }
+
+        it "returns nil and does not create a copy" do
+          expect(subject).to be_nil
+          expect(Node.where(name: node_name)).to be_empty
+        end
+      end
+
+      context "when trying to paste node as child of its descendant" do
+        let!(:child_node) { create(:alchemy_node, parent: source, name: "Child") }
+        let(:new_parent) { child_node }
+
+        it "returns nil and does not create a copy" do
+          source.reload # Refresh nested set values after creating children
+          expect(subject).to be_nil
+          expect(Node.where(name: node_name)).to be_empty
+        end
+      end
+
+      context "when trying to paste node as child of its deep descendant" do
+        let!(:child_node) { create(:alchemy_node, parent: source, name: "Child") }
+        let!(:grandchild_node) { create(:alchemy_node, parent: child_node, name: "Grandchild") }
+        let(:new_parent) { grandchild_node }
+
+        it "returns nil and does not create a copy" do
+          source.reload # Refresh nested set values after creating children
+          expect(subject).to be_nil
+          expect(Node.where(name: node_name)).to be_empty
+        end
+      end
+    end
   end
 end

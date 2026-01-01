@@ -11,7 +11,7 @@
       <% clipboard_items.each do |item| %>
         <% item_class = item.class.name.demodulize.underscore.pluralize %>
         <li id="clipboard_item_<%= item.id %>" class="<%= item_class %>">
-          <% if item_class == 'pages' %>
+          <% if %[pages nodes].include? item_class %>
             <%= render_icon(:file) %>
             <%= truncate(item.name, length: 50) %>
           <% else %>
