@@ -10,7 +10,7 @@ RSpec.describe Alchemy::Ingredients::DatetimeEditor, type: :component do
   end
 
   let(:ingredient_editor) { described_class.new(ingredient, element_form:) }
-  let(:ingredient) { Alchemy::Ingredients::Datetime.new(role: "datetime", element: element) }
+  let(:ingredient) { Alchemy::Ingredients::Datetime.new(id: 1234, role: "datetime", element: element) }
 
   before do
     vc_test_view_context.class.send(:include, Alchemy::Admin::BaseHelper)

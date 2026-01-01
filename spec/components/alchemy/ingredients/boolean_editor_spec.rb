@@ -10,7 +10,7 @@ RSpec.describe Alchemy::Ingredients::BooleanEditor, type: :component do
   end
 
   let(:ingredient) do
-    Alchemy::Ingredients::Boolean.new(role: "boolean", element: element)
+    Alchemy::Ingredients::Boolean.new(id: 123, role: "boolean", element: element)
   end
 
   before do
