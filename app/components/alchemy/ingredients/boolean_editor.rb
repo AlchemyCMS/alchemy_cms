@@ -4,7 +4,7 @@ module Alchemy
   module Ingredients
     class BooleanEditor < BaseEditor
       def call
-        tag.div(class: css_classes, data: data_attributes) do
+        tag.div(class: css_classes, data: data_attributes, id: dom_id(ingredient)) do
           element_form.fields_for(:ingredients, ingredient) do |form|
             tag.label(:value, for: form_field_id) do
               concat form.check_box(:value, id: form_field_id)

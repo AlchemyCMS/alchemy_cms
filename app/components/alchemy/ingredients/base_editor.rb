@@ -14,6 +14,7 @@ module Alchemy
         to: :ingredient
 
       delegate :alchemy,
+        :dom_id,
         :hint_with_tooltip,
         :render_hint_for,
         :render_icon,
@@ -31,7 +32,7 @@ module Alchemy
       end
 
       def call
-        tag.div(class: css_classes, data: data_attributes) do
+        tag.div(class: css_classes, data: data_attributes, id: dom_id(ingredient)) do
           element_form.fields_for(:ingredients, ingredient) do |form|
             concat ingredient_label
             concat input_field(form)

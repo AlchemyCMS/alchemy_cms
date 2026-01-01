@@ -19,6 +19,7 @@ RSpec.shared_examples_for "an alchemy ingredient editor" do
   it "renders a ingredient editor", :aggregate_failures do
     is_expected.to have_css(".ingredient-editor.#{ingredient_editor.partial_name}")
     is_expected.to have_css("[data-ingredient-role]")
+    is_expected.to have_css("##{ingredient.class.model_name.param_key}_#{ingredient.id}")
   end
 
   it "provides a label" do

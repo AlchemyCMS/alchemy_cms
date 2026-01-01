@@ -6,7 +6,7 @@ RSpec.describe Alchemy::Ingredients::PageEditor, type: :component do
   let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat") }
   let(:element_form) { ActionView::Helpers::FormBuilder.new(:element, element, vc_test_view_context, {}) }
   let(:ingredient_editor) { described_class.new(ingredient, element_form:) }
-  let(:ingredient) { Alchemy::Ingredients::Page.new(element: element, role: "page") }
+  let(:ingredient) { Alchemy::Ingredients::Page.new(id: 1234, element: element, role: "page") }
 
   before do
     vc_test_view_context.class.include Alchemy::Admin::BaseHelper
