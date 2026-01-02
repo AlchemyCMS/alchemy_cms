@@ -7,12 +7,12 @@
 #  id               :integer          not null, primary key
 #  name             :string
 #  urlname          :string
-#  title            :string
+#  title            :string           (deprecated - use draft_version.title)
 #  language_code    :string
 #  language_root    :boolean
 #  page_layout      :string
-#  meta_keywords    :text
-#  meta_description :text
+#  meta_keywords    :text             (deprecated - use draft_version.meta_keywords)
+#  meta_description :text             (deprecated - use draft_version.meta_description)
 #  lft              :integer
 #  rgt              :integer
 #  parent_id        :integer
@@ -66,11 +66,12 @@ module Alchemy
       depth
       urlname
       cached_tag_list
+      title
+      meta_description
+      meta_keywords
     ]
 
     PERMITTED_ATTRIBUTES = [
-      :meta_description,
-      :meta_keywords,
       :name,
       :page_layout,
       :public_on,
@@ -81,10 +82,12 @@ module Alchemy
       :searchable,
       :sitemap,
       :tag_list,
-      :title,
       :urlname,
       :layoutpage,
-      :menu_id
+      :menu_id,
+      {
+        draft_version_attributes: [:id] + PageVersion::METADATA_ATTRIBUTES.map(&:to_sym)
+      }
     ]
 
     acts_as_nested_set(dependent: :destroy, scope: [:layoutpage, :language_id])
@@ -120,6 +123,8 @@ module Alchemy
     has_one :draft_version, -> { drafts }, class_name: "Alchemy::PageVersion"
     has_one :public_version, -> { published }, class_name: "Alchemy::PageVersion", autosave: -> { persisted? }
 
+    accepts_nested_attributes_for :draft_version
+
     has_many :page_ingredients, class_name: "Alchemy::Ingredients::Page", foreign_key: :related_object_id, dependent: :nullify
 
     before_validation :set_language,
@@ -129,8 +134,27 @@ module Alchemy
     validates_format_of :page_layout, with: /\A[a-z0-9_-]+\z/, unless: -> { page_layout.blank? }
     validates_presence_of :parent, unless: -> { layoutpage? || language_root? }
 
-    before_create -> { versions.build },
-      if: -> { versions.none? }
+    before_create :ensure_draft_version
+
+    # Ensures a draft version exists before creating a new page.
+    #
+    # We have two associations to the same table:
+    #   has_many :versions
+    #   has_one :draft_version, -> { drafts }
+    #
+    # ActiveRecord treats these as independent, so a version built through one
+    # isn't visible to the other until persisted. We check both to handle:
+    #   - versions.build (adds to has_many, but draft_version doesn't see it)
+    #   - nested attributes for draft_version (sets has_one, but versions.none? is true)
+    #
+    # We use `self.draft_version = versions.build` to ensure the version is
+    # accessible via both associations immediately, which is needed for
+    # callbacks like generate_elements that run after_create.
+    def ensure_draft_version
+      return unless versions.none? && draft_version.nil?
+
+      self.draft_version = versions.build
+    end
 
     before_save :set_language_code,
       if: -> { language.present? }
@@ -179,7 +203,7 @@ module Alchemy
       end
 
       def searchable_alchemy_resource_attributes
-        %w[name urlname title]
+        %w[name urlname]
       end
 
       # @return the language root page for given language id.
@@ -213,8 +237,7 @@ module Alchemy
           .call(changed_attributes: {
             parent: new_parent,
             language: new_parent&.language,
-            name: new_name,
-            title: new_name
+            name: new_name
           })
         if source.children.any?
           source.copy_children_to(page)
@@ -458,6 +481,54 @@ module Alchemy
       attribute_fixed?(:public_until) ? fixed_attributes[:public_until] : public_version&.public_until
     end
 
+    # Returns the title from the public version, falling back to draft version
+    #
+    # If it's a fixed attribute then the fixed value is returned instead
+    #
+    def title
+      return fixed_attributes[:title] if attribute_fixed?(:title)
+
+      public_version&.title || draft_version&.title
+    end
+
+    # Returns the meta_description from the public version, falling back to draft version
+    #
+    # If it's a fixed attribute then the fixed value is returned instead
+    #
+    def meta_description
+      return fixed_attributes[:meta_description] if attribute_fixed?(:meta_description)
+
+      public_version&.meta_description || draft_version&.meta_description
+    end
+
+    # Returns the meta_keywords from the public version, falling back to draft version
+    #
+    # If it's a fixed attribute then the fixed value is returned instead
+    #
+    def meta_keywords
+      return fixed_attributes[:meta_keywords] if attribute_fixed?(:meta_keywords)
+
+      public_version&.meta_keywords || draft_version&.meta_keywords
+    end
+
+    # @deprecated Use draft_version.title= instead
+    def title=(value)
+      draft_version&.title = value
+    end
+    deprecate "title=": :"draft_version.title=", deprecator: Alchemy::Deprecation
+
+    # @deprecated Use draft_version.meta_description= instead
+    def meta_description=(value)
+      draft_version&.meta_description = value
+    end
+    deprecate "meta_description=": :"draft_version.meta_description=", deprecator: Alchemy::Deprecation
+
+    # @deprecated Use draft_version.meta_keywords= instead
+    def meta_keywords=(value)
+      draft_version&.meta_keywords = value
+    end
+    deprecate "meta_keywords=": :"draft_version.meta_keywords=", deprecator: Alchemy::Deprecation
+
     # Returns the name of the creator of this page.
     #
     # If no creator could be found or associated user model
@@ -501,7 +572,12 @@ module Alchemy
 
     def set_fixed_attributes
       fixed_attributes.all.each do |attribute, value|
-        send(:"#{attribute}=", value)
+        attribute_name = attribute.to_s
+        if PageVersion::METADATA_ATTRIBUTES.include?(attribute_name)
+          draft_version&.send(:"#{attribute}=", value)
+        else
+          send(:"#{attribute}=", value)
+        end
       end
     end
 

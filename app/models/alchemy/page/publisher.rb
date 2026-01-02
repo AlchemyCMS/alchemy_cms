@@ -24,6 +24,8 @@ module Alchemy
             version = public_version(public_on)
             DeleteElements.new(version.elements).call
 
+            copy_metadata(public_version: version)
+
             repository = page.draft_version.element_repository
             ActiveRecord::Base.no_touching do
               Element.acts_as_list_no_update do
@@ -50,6 +52,16 @@ module Alchemy
       # Load the pages public version or create one
       def public_version(public_on)
         page.public_version || page.versions.create!(public_on: public_on)
+      end
+
+      # Copy metadata from draft_version to public_version.
+      def copy_metadata(public_version:)
+        draft = page.draft_version
+        return unless draft
+
+        PageVersion::METADATA_ATTRIBUTES.each do |attr|
+          public_version.send(:"#{attr}=", draft.send(attr))
+        end
       end
     end
   end

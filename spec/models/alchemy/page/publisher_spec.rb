@@ -54,6 +54,24 @@ RSpec.describe Alchemy::Page::Publisher do
       end
     end
 
+    context "with draft version metadata" do
+      before do
+        page.draft_version.update!(
+          title: "Draft Title",
+          meta_description: "Draft description",
+          meta_keywords: "draft, keywords"
+        )
+      end
+
+      it "copies metadata from draft_version to public_version" do
+        publish
+        page.reload
+        expect(page.public_version.title).to eq("Draft Title")
+        expect(page.public_version.meta_description).to eq("Draft description")
+        expect(page.public_version.meta_keywords).to eq("draft, keywords")
+      end
+    end
+
     context "with published version existing" do
       let(:yesterday) { Date.yesterday.to_time }
       let!(:public_version) do

@@ -3,6 +3,9 @@
 FactoryBot.define do
   factory :alchemy_page_version, class: "Alchemy::PageVersion" do
     association :page, factory: :alchemy_page
+    title { nil }
+    meta_description { nil }
+    meta_keywords { nil }
 
     trait :published do
       public_on { Time.current }

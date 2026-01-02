@@ -12,10 +12,18 @@ module Alchemy
     Dir["#{File.dirname(__FILE__)}/upgrader/*.rb"].sort.each { require(_1) }
 
     VERSION_MODULE_MAP = {
-      "8.0" => "Alchemy::Upgrader::EightZero"
+      "8.0" => "Alchemy::Upgrader::EightZero",
+      "8.1" => "Alchemy::Upgrader::EightOne"
     }
 
     source_root Alchemy::Engine.root.join("lib/generators/alchemy/install")
+
+    # Returns a memoized upgrader instance for the given version.
+    # This ensures todos are accumulated across rake tasks.
+    def self.[](version)
+      @instances ||= {}
+      @instances[version.to_s] ||= new(version)
+    end
 
     def initialize(version)
       super()
