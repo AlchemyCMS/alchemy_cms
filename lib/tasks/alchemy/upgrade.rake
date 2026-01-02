@@ -7,10 +7,11 @@ namespace :alchemy do
   desc "Upgrades your app to AlchemyCMS v#{Alchemy::VERSION}."
   task upgrade: [
     "alchemy:upgrade:prepare",
-    "alchemy:upgrade:8.0:run"
+    "alchemy:upgrade:8.0:run",
+    "alchemy:upgrade:8.1:run"
   ] do
-    Alchemy::Upgrader["8.0"].run_migrations
-    Alchemy::Upgrader["8.0"].display_todos
+    Alchemy::Upgrader["8.1"].run_migrations
+    Alchemy::Upgrader["8.1"].display_todos
   end
 
   namespace :upgrade do
@@ -37,6 +38,17 @@ namespace :alchemy do
 
       task :mention_alchemy_config_initializer do
         Alchemy::Upgrader["8.0"].mention_alchemy_config_initializer
+      end
+    end
+
+    namespace "8.1" do
+      task "run" => [
+        "alchemy:upgrade:8.1:migrate_page_metadata"
+      ]
+
+      desc "Migrate page metadata to page versions"
+      task migrate_page_metadata: [:environment] do
+        Alchemy::Upgrader["8.1"].migrate_page_metadata
       end
     end
   end
