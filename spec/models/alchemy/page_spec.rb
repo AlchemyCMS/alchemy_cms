@@ -122,6 +122,23 @@ module Alchemy
             expect { page.save! }.to_not change { page.versions.length }
           end
         end
+
+        context "if draft_version is set via nested attributes" do
+          let(:page) do
+            build(:alchemy_page, language: language, parent: language_root,
+              draft_version_attributes: {meta_description: "Test"})
+          end
+
+          it "has exactly one version" do
+            page.save!
+            expect(page.versions.length).to eq(1)
+          end
+
+          it "preserves the nested attributes" do
+            page.save!
+            expect(page.draft_version.meta_description).to eq("Test")
+          end
+        end
       end
 
       context "before_save" do
@@ -133,7 +150,7 @@ module Alchemy
         end
 
         it "should not automatically set the title if it changed its value" do
-          page.title = "I like SEO"
+          page.draft_version.title = "I like SEO"
           page.save
           page.reload
           expect(page.title).to eq("I like SEO")
@@ -692,7 +709,6 @@ module Alchemy
             "page_layout",
             "updated_at",
             "urlname",
-            "title",
             "name"
           )
         end
@@ -1231,14 +1247,14 @@ module Alchemy
         expect { subject }.to change { new_parent.children.count }.from(0).to 2
 
         source_page.children.each do |child|
-          expect(new_parent.children.where(title: child.title).count).to eq 1
+          expect(new_parent.children.where(name: child.name).count).to eq 1
         end
 
-        source_page_grandchildren = source_page.children.find_by_title("child with children").children
-        new_parent_grandchildren = new_parent.children.find_by_title("child with children").children
+        source_page_grandchildren = source_page.children.find_by(name: "child with children").children
+        new_parent_grandchildren = new_parent.children.find_by(name: "child with children").children
 
         source_page_grandchildren.each do |grandchild|
-          expect(new_parent_grandchildren.where(title: grandchild.title).count).to eq 1
+          expect(new_parent_grandchildren.where(name: grandchild.name).count).to eq 1
         end
       end
 
@@ -1249,14 +1265,14 @@ module Alchemy
           expect { subject }.to change { new_parent.children.count }.from(0).to 2
 
           source_page.children.each do |child|
-            expect(new_parent.children.where(title: child.title).count).to eq 1
+            expect(new_parent.children.where(name: child.name).count).to eq 1
           end
 
-          source_page_grandchildren = source_page.children.find_by_title("child with children").children
-          new_parent_grandchildren = new_parent.children.find_by_title("child with children").children
+          source_page_grandchildren = source_page.children.find_by(name: "child with children").children
+          new_parent_grandchildren = new_parent.children.find_by(name: "child with children").children
 
           source_page_grandchildren.each do |grandchild|
-            expect(new_parent_grandchildren.where(title: grandchild.title).count).to eq 1
+            expect(new_parent_grandchildren.where(name: grandchild.name).count).to eq 1
           end
         end
       end
@@ -2107,6 +2123,40 @@ module Alchemy
       it "delegates to instance of FixedAttributes" do
         expect_any_instance_of(Alchemy::Page::FixedAttributes).to receive(:fixed?).with("yolo")
         page.attribute_fixed?("yolo")
+      end
+    end
+
+    describe "metadata getters with fixed attributes" do
+      # The "readonly" page layout has fixed_attributes: title: false, meta_keywords: ~, meta_description: ~
+      let(:page) { create(:alchemy_page, page_layout: "readonly") }
+
+      before do
+        page.draft_version.update!(
+          title: "Draft Title",
+          meta_description: "Draft Description",
+          meta_keywords: "draft, keywords"
+        )
+      end
+
+      describe "#title" do
+        it "returns fixed value instead of version value" do
+          # readonly layout has title: false as fixed attribute
+          expect(page.title).to eq(false)
+        end
+      end
+
+      describe "#meta_description" do
+        it "returns fixed value instead of version value" do
+          # readonly layout has meta_description: ~ (nil) as fixed attribute
+          expect(page.meta_description).to be_nil
+        end
+      end
+
+      describe "#meta_keywords" do
+        it "returns fixed value instead of version value" do
+          # readonly layout has meta_keywords: ~ (nil) as fixed attribute
+          expect(page.meta_keywords).to be_nil
+        end
       end
     end
 

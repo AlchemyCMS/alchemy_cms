@@ -58,6 +58,25 @@ RSpec.describe Alchemy::CopyPage do
     end
   end
 
+  context "page with metadata" do
+    before do
+      page.draft_version.update!(
+        title: "Source Title",
+        meta_description: "Source description",
+        meta_keywords: "source, keywords"
+      )
+    end
+
+    it "copies meta_description and meta_keywords to the new page's draft version" do
+      expect(subject.draft_version.meta_description).to eq("Source description")
+      expect(subject.draft_version.meta_keywords).to eq("source, keywords")
+    end
+
+    it "derives title from the new page name" do
+      expect(subject.draft_version.title).to eq("#{page.name} (Copy)")
+    end
+  end
+
   context "page with fixed elements" do
     before { create(:alchemy_element, :fixed, page: page, page_version: page.draft_version) }
 
@@ -87,6 +106,10 @@ RSpec.describe Alchemy::CopyPage do
 
     it "should take this name" do
       expect(subject.name).to eq("Different name")
+    end
+
+    it "sets the draft version title to the new name" do
+      expect(subject.draft_version.title).to eq("Different name")
     end
   end
 
