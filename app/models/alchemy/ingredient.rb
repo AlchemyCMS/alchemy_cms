@@ -108,6 +108,25 @@ module Alchemy
       element.ingredient_definition_for(role) || IngredientDefinition.new
     end
 
+    # Returns the translated role for displaying in labels
+    #
+    # Translate it in your locale yml file:
+    #
+    #   alchemy:
+    #     ingredient_roles:
+    #       foo: Bar
+    #
+    # Optionally you can scope your ingredient role to an element:
+    #
+    #   alchemy:
+    #     ingredient_roles:
+    #       article:
+    #         foo: Baz
+    #
+    def translated_role
+      self.class.translated_label_for(role, element&.name)
+    end
+
     # The first 30 characters of the value
     #
     # Used by the Element#preview_text method.
@@ -139,6 +158,10 @@ module Alchemy
       false
     end
 
+    def linked?
+      link.try(:present?)
+    end
+
     # @return [Boolean]
     def preview_ingredient?
       !!definition.as_element_title
@@ -152,10 +175,24 @@ module Alchemy
       view_component_class.new(self, **options, html_options: html_options)
     end
 
+    # The editor component of the ingredient.
+    #
+    def as_editor_component
+      editor_component_class.new(self)
+    end
+
     private
 
     def view_component_class
-      @_view_component_class ||= "#{self.class.name}View".constantize
+      @_view_component_class ||= component_class_name(part: "View").constantize
+    end
+
+    def editor_component_class
+      @_editor_component_class ||= component_class_name(part: "Editor").constantize
+    end
+
+    def component_class_name(part:)
+      "#{self.class.name}#{part}"
     end
 
     def set_default_value

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Alchemy::Admin::IngredientsHelper do
+describe Alchemy::Admin::IngredientsHelper, :silence_deprecations do
   let(:element) { build_stubbed(:alchemy_element, name: "article") }
   let(:ingredient) { Alchemy::Ingredients::Text.new(role: "headline", element: element) }
   let(:ingredient_editor) { Alchemy::IngredientEditor.new(ingredient) }

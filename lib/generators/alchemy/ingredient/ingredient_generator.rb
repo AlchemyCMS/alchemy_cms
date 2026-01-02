@@ -11,20 +11,18 @@ module Alchemy
 
       def init
         @class_name = class_name.classify
-        @ingredients_view_path = "app/views/alchemy/ingredients"
-      end
-
-      def create_view_component
-        template "view_component.rb.tt", "app/components/alchemy/ingredients/#{file_name}_view.rb"
       end
 
       def create_model
         template "model.rb.tt", "app/models/alchemy/ingredients/#{file_name}.rb"
       end
 
-      def copy_templates
-        @ingredient_editor_local = "#{file_name}_editor"
-        template "editor.html.erb", "#{@ingredients_view_path}/_#{file_name}_editor.html.erb"
+      def create_view_component
+        template "view_component.rb.tt", "app/components/alchemy/ingredients/#{file_name}_view.rb"
+      end
+
+      def create_editor_component
+        template "editor_component.rb.tt", "app/components/alchemy/ingredients/#{file_name}_editor.rb"
       end
 
       def show_todo
