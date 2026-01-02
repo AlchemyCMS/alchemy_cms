@@ -8,6 +8,10 @@
     controller: "/alchemy/admin/dashboard"
     action: index
     icon: home-2
+    sub_navigation:
+      - name: Dashboard
+        controller: "/alchemy/admin/dashboard"
+        action: index
 
 - name: pages
   engine_name: alchemy
@@ -23,6 +27,9 @@
         action: index
       - name: "modules.layoutpages"
         controller: "/alchemy/admin/layoutpages"
+        action: index
+      - name: "modules.page_definitions"
+        controller: "/alchemy/admin/page_definitions"
         action: index
     nested:
       - controller: "/alchemy/admin/pages"

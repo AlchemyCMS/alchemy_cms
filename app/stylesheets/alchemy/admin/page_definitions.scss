@@ -1,0 +1,186 @@
+.page-definitions {
+  align-items: self-start;
+  position: relative;
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: var(--spacing-2);
+  grid-template-rows: auto;
+
+  h2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    border-bottom: 2px solid var(--body-background-color);
+    padding: var(--spacing-4);
+
+    small {
+      font-weight: normal;
+      font-size: var(--font-size_medium);
+    }
+  }
+
+  aside {
+    position: sticky;
+    top: calc(var(--top-menu-height) + var(--spacing-2));
+    background-color: var(--panel-background-color);
+    border-radius: var(--border-radius_medium);
+    padding: 0;
+    margin-bottom: var(--spacing-2);
+
+    ol {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-2);
+      list-style-position: outside;
+      margin: var(--spacing-4);
+    }
+
+    li {
+      margin: var(--spacing-1) 0;
+      padding: var(--spacing-1);
+    }
+  }
+
+  details {
+    padding: var(--spacing-2) var(--spacing-2);
+    margin: var(--spacing-2) 0;
+    background-color: var(--element-header-bg-color);
+    border-radius: var(--border-radius_medium);
+    border: 1px solid hsla(0, 0%, 45%, 0.15);
+
+    &:last-child {
+      margin-bottom: var(--spacing-4);
+    }
+
+    summary {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      padding: var(--spacing-1) 0;
+      gap: var(--spacing-1);
+      transition: margin var(--transition-duration) ease-out;
+
+      header {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--spacing-1);
+
+        .label {
+          margin-left: auto;
+          font-weight: normal;
+
+          &.usage:before {
+            content: "x";
+          }
+        }
+      }
+
+      &:before {
+        content: "▸";
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: var(--spacing-4);
+        height: var(--spacing-4);
+      }
+    }
+
+    &[open] {
+      > summary {
+        &:before {
+          content: "▾";
+        }
+
+        margin-bottom: var(
+          --spacing-1
+        ); // necessary for the detail opening transition to work
+      }
+    }
+
+    > div {
+      padding: var(--spacing-1) 0 var(--spacing-1) var(--spacing-5);
+    }
+
+    ol {
+      list-style-type: square;
+      margin: var(--spacing-4) 0;
+      padding-left: var(--spacing-3);
+
+      li {
+        margin: var(--spacing-6) 0;
+
+        &:only-child {
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+
+        header {
+          gap: var(--spacing-2);
+        }
+
+        p.description {
+          margin: var(--spacing-2) 0;
+          padding: var(--spacing-2);
+        }
+      }
+    }
+
+    details {
+      padding-left: var(--spacing-1);
+      background-color: hsla(0, 0%, 45%, 0.05);
+    }
+  }
+
+  .page-definition {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-2);
+    background-color: var(--panel-background-color);
+    border-radius: var(--border-radius_medium);
+
+    > alchemy-message,
+    > .labels,
+    > .image,
+    > .elements,
+    > p {
+      display: block;
+      margin: 0 var(--spacing-4);
+    }
+
+    h3 {
+      margin-top: var(--spacing-2);
+      margin-bottom: var(--spacing-4);
+      padding-left: var(--spacing-1);
+      font-weight: var(--font-weight_normal);
+    }
+
+    .image img {
+      width: auto;
+      max-width: 100%;
+      max-height: 160px;
+      border-radius: var(--border-radius_medium);
+    }
+
+    .elements {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 0;
+    }
+
+    p {
+      padding: var(--spacing-4);
+      background-color: hsla(0, 0%, 45%, 0.05);
+      border-radius: var(--border-radius_medium);
+    }
+
+    .label {
+      padding: var(--spacing-0) var(--spacing-2);
+      background-color: hsla(0, 0%, 45%, 0.15);
+    }
+  }
+}

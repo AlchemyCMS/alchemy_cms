@@ -4,6 +4,8 @@ html {
   box-sizing: border-box;
   height: 100%;
   font-size: var(--font-size_medium);
+  scroll-padding-top: calc(var(--top-menu-height) + var(--spacing-2));
+  scroll-behavior: smooth;
 
   &.turbo-progress-bar::before,
   .turbo-progress-bar {
