@@ -17,6 +17,13 @@ module Alchemy
 
     source_root Alchemy::Engine.root.join("lib/generators/alchemy/install")
 
+    # Returns a memoized upgrader instance for the given version.
+    # This ensures todos are accumulated across rake tasks.
+    def self.[](version)
+      @instances ||= {}
+      @instances[version.to_s] ||= new(version)
+    end
+
     def initialize(version)
       super()
       self.class.include VERSION_MODULE_MAP[version.to_s].constantize
