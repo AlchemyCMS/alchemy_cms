@@ -5,7 +5,6 @@ require "rails_helper"
 describe "alchemy/admin/elements/_element" do
   before do
     allow(element).to receive(:definition) { definition }
-    view.extend Alchemy::Admin::IngredientsHelper
   end
 
   let(:definition) do
@@ -16,6 +15,7 @@ describe "alchemy/admin/elements/_element" do
   end
 
   subject do
+    view.class.include Alchemy::Admin::BaseHelper
     render Alchemy::ElementEditor.new(element)
     rendered
   end

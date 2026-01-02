@@ -15,6 +15,7 @@ module Alchemy
       end
 
       def update
+        @page = @ingredient.page # necessarry to a render picture inhredient component
         @ingredient.update(ingredient_params)
       end
 
