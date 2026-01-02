@@ -7,10 +7,6 @@ module Alchemy::Language::Code
     [language_code, country_code].select(&:present?).join("-")
   end
 
-  def code=(code)
-    self.language_code = code
-  end
-
   module ClassMethods
     def find_by_code(code)
       codes = code.split("-")
