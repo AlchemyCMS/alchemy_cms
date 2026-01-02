@@ -83,7 +83,7 @@ RSpec.describe "Page editing feature", type: :system do
         it "should show all relevant input fields" do
           visit alchemy.configure_admin_page_path(a_page)
           expect(page).to have_selector("input#page_urlname")
-          expect(page).to have_selector("input#page_title")
+          expect(page).to have_selector("input#page_draft_version_attributes_title")
           expect(page).to have_selector("input#page_robot_index")
           expect(page).to have_selector("input#page_robot_follow")
         end
@@ -269,7 +269,12 @@ RSpec.describe "Page editing feature", type: :system do
       it "is not possible to edit the attribute", :aggregate_failures do
         visit alchemy.configure_admin_page_path(readonly_page)
         readonly_page.fixed_attributes.all.each do |attribute, _v|
-          expect(page).to have_selector("#page_#{attribute}[disabled]")
+          # Version metadata attributes have different ID due to nested form
+          if Alchemy::PageVersion::METADATA_ATTRIBUTES.include?(attribute.to_s)
+            expect(page).to have_selector("#page_draft_version_attributes_#{attribute}[disabled]")
+          else
+            expect(page).to have_selector("#page_#{attribute}[disabled]")
+          end
         end
       end
     end

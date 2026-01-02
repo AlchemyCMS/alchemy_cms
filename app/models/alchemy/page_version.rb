@@ -18,7 +18,7 @@ module Alchemy
     scope :drafts, -> { where(public_on: nil).order(updated_at: :desc) }
     scope :published, -> { where.not(public_on: nil).order(public_on: :desc) }
 
-    before_save :set_title
+    before_create :set_title_from_page
 
     def self.public_on(time = Time.current)
       where("#{table_name}.public_on <= :time AND " \
@@ -64,10 +64,10 @@ module Alchemy
       DeleteElements.new(elements).call
     end
 
-    def set_title
+    def set_title_from_page
       return if title.present?
 
-      self.title = page.name
+      self.title = page&.name
     end
   end
 end

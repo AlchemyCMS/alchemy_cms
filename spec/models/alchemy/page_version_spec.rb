@@ -83,7 +83,7 @@ describe Alchemy::PageVersion do
     end
   end
 
-  describe "#set_title" do
+  describe "#set_title_from_page" do
     let(:page) { create(:alchemy_page, name: "My Page Name") }
 
     context "when title is blank" do
