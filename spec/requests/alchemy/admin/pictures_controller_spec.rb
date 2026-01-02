@@ -9,7 +9,7 @@ RSpec.describe "Alchemy::Admin::PicturesController" do
     context "as anonymous user" do
       it "redirects" do
         get alchemy.url_admin_picture_path(picture)
-        expect(response).to redirect_to(Alchemy.login_path)
+        expect(response).to redirect_to(Alchemy.config.login_path)
       end
     end
 

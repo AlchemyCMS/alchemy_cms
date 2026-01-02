@@ -1178,25 +1178,19 @@ module Alchemy
           end
         end
 
-        context "with user is a active record model" do
-          before do
-            allow(Alchemy.user_class).to receive(:<).and_return(true)
+        context "if page is folded" do
+          let!(:folded_page) do
+            Alchemy::FoldedPage.create!(page: page, user: user, folded: true)
           end
 
-          context "if page is folded" do
-            let!(:folded_page) do
-              Alchemy::FoldedPage.create!(page: page, user: user, folded: true)
-            end
-
-            it "should return true" do
-              is_expected.to eq(true)
-            end
+          it "should return true" do
+            is_expected.to eq(true)
           end
+        end
 
-          context "if page is not folded" do
-            it "should return false" do
-              is_expected.to eq(false)
-            end
+        context "if page is not folded" do
+          it "should return false" do
+            is_expected.to eq(false)
           end
         end
       end
@@ -1889,7 +1883,7 @@ module Alchemy
         end
 
         it "uses the primary key defined on user class" do
-          expect(Alchemy.user_class).to receive(:primary_key).at_least(:once) { "id" }
+          expect(Alchemy.config.user_class).to receive(:primary_key).at_least(:once) { "id" }
           subject
         end
       end
@@ -1903,7 +1897,7 @@ module Alchemy
         end
 
         it "uses the primary key defined on user class" do
-          expect(Alchemy.user_class).to receive(:primary_key).at_least(:once) { "id" }
+          expect(Alchemy.config.user_class).to receive(:primary_key).at_least(:once) { "id" }
           subject
         end
       end
@@ -1917,7 +1911,7 @@ module Alchemy
         end
 
         it "uses the primary key defined on user class" do
-          expect(Alchemy.user_class).to receive(:primary_key).at_least(:once) { "id" }
+          expect(Alchemy.config.user_class).to receive(:primary_key).at_least(:once) { "id" }
           subject
         end
       end
@@ -1951,7 +1945,7 @@ module Alchemy
       end
 
       context "with user class returning nil for alchemy_display_name" do
-        let(:user) { Alchemy.user_class.new }
+        let(:user) { Alchemy.config.user_class.new }
 
         describe "#creator_name" do
           let(:page) { Page.new(creator: user) }
@@ -1979,7 +1973,7 @@ module Alchemy
       end
 
       context "with user class not responding to alchemy_display_name" do
-        let(:user) { Alchemy.user_class.new }
+        let(:user) { Alchemy.config.user_class.new }
 
         before do
           expect(user).to receive(:respond_to?).with(:alchemy_display_name) { false }
