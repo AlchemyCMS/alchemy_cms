@@ -1,4 +1,4 @@
-<%- if multi_site? -%>
+<%- if can?(:switch, Alchemy::Site) && sites_for_select.size > 1 -%>
 <div class="toolbar_button">
   <sl-tooltip content="<%= Alchemy.t("Current site") %>">
     <%= select_tag 'change_site',

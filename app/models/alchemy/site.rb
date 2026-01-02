@@ -51,6 +51,21 @@ module Alchemy
       languages.find_by(default: true)
     end
 
+    # Returns true if the given user has access to this site.
+    # A site is accessible by all users if no roles are specified.
+    #
+    def accessible_by?(user)
+      return false if user.nil?
+
+      (accessible_by & user.alchemy_roles).any? || accessible_by.empty?
+    end
+
+    # Returns an array of role names that are allowed to access this site.
+    #
+    def accessible_by
+      definition.fetch("accessible_by", [])
+    end
+
     class << self
       def find_for_host(host)
         # These are split up into two separate queries in order to run the
@@ -65,6 +80,10 @@ module Alchemy
         all.find do |site|
           site.aliases.split.include?(host) if site.aliases.present?
         end
+      end
+
+      def accessible_by(user)
+        all.select { |site| site.accessible_by?(user) }
       end
     end
   end
