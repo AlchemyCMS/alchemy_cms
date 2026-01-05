@@ -86,7 +86,7 @@ describe Alchemy::Admin::BaseController do
           controller.send(:permission_denied, CanCan::AccessDenied.new)
           expect(controller).to have_received(:render).with(
             json: {message: Alchemy.t("You are not authorized")},
-            status: :unauthorized
+            status: 401
           )
         end
       end

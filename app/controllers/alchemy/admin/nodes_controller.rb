@@ -34,12 +34,12 @@ module Alchemy
               flash_notice_for_resource_action(:create)
               do_redirect_to(admin_nodes_path)
             else
-              render :new, status: :unprocessable_entity
+              render :new, status: 422
             end
           rescue => e
             flash[:error] = e.message
             new  # Reinitialize instance variables like @node
-            render :new, status: :unprocessable_entity
+            render :new, status: 422
           end
         else
           @node = Node.new(resource_params)
@@ -47,7 +47,7 @@ module Alchemy
             flash_notice_for_resource_action(:create)
             do_redirect_to(admin_nodes_path)
           else
-            render :new, status: :unprocessable_entity
+            render :new, status: 422
           end
         end
       end

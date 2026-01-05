@@ -52,13 +52,13 @@ module Alchemy
 
       def create
         @attachment = Attachment.create(attachment_attributes)
-        handle_uploader_response(status: :created)
+        handle_uploader_response(status: 201)
       end
 
       def update
         @attachment.update(attachment_attributes)
         if attachment_attributes["file"].present?
-          handle_uploader_response(status: :accepted)
+          handle_uploader_response(status: 202)
         else
           render_errors_or_redirect(
             @attachment,

@@ -139,7 +139,7 @@ module Alchemy
             flash[:notice] = @notice
           end
         else
-          render :configure, status: :unprocessable_entity
+          render :configure, status: 422
         end
       end
 
@@ -175,7 +175,7 @@ module Alchemy
             if was_folded
               @page = PageTreePreloader.new(page: @page, user: current_alchemy_user).call
             else
-              head :ok
+              head 200
             end
           end
         end

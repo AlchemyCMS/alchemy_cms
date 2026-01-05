@@ -111,7 +111,7 @@ module Alchemy
           do_redirect_to redirect_url
         else
           render action: ((params[:action] == "update") ? "edit" : "new"),
-            status: :unprocessable_entity
+            status: 422
         end
       end
 

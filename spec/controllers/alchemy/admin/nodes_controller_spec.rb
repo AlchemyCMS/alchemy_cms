@@ -94,7 +94,7 @@ module Alchemy
           }
 
           expect(response).to render_template(:new)
-          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response).to have_http_status(422)
           expect(flash[:error]).to eq("Copy failed")
         end
 
@@ -139,7 +139,7 @@ module Alchemy
           }
 
           expect(response).to render_template(:new)
-          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response).to have_http_status(422)
         end
       end
 
@@ -164,7 +164,7 @@ module Alchemy
           post :create, params: {node: invalid_params}
 
           expect(response).to render_template(:new)
-          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response).to have_http_status(422)
         end
 
         it "loads clipboard items for error rendering" do

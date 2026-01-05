@@ -275,7 +275,7 @@ RSpec.describe ApplicationController, "OnPageLayout mixin", type: :controller do
   controller do
     def index
       @another_controller = true
-      head :ok
+      head 200
     end
   end
 

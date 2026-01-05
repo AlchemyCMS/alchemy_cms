@@ -26,7 +26,7 @@ module Alchemy
           @while_page_edit = request.referer.include?("edit")
           render "alchemy/admin/pages/update"
         else
-          render :edit, status: :unprocessable_entity
+          render :edit, status: 422
         end
       end
 

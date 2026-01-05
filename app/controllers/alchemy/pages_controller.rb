@@ -157,7 +157,7 @@ module Alchemy
 
     # Redirects to given url with 301 status
     def redirect_permanently_to(url)
-      redirect_to url, status: :moved_permanently
+      redirect_to url, status: 301
     end
 
     # Returns url parameters that are not internal show page params.
