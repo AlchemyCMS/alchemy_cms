@@ -1,5 +1,17 @@
 # Changelog
 
+## 5.0.1 (2026-01-06)
+
+## What's Changed
+* Add announcement secrets to post-release workflow by @tvdeyen in https://github.com/AlchemyCMS/alchemy_i18n/pull/79
+* Pass rubygems_api_key secret to release workflow by @tvdeyen in https://github.com/AlchemyCMS/alchemy_i18n/pull/80
+* Fix install generator for Alchemy 8.0 by @Copilot in https://github.com/AlchemyCMS/alchemy_i18n/pull/82
+
+## New Contributors
+* @Copilot made their first contribution in https://github.com/AlchemyCMS/alchemy_i18n/pull/82
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_i18n/compare/v5.0.0...v5.0.1
+
 ## 5.0.0 (2025-12-08)
 
 ## What's Changed
