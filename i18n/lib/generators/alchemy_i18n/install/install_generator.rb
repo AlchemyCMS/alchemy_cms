@@ -20,23 +20,6 @@ module AlchemyI18n
 
       source_root AlchemyI18n::Engine.root
 
-      def append_assets
-        additional_locales.each do |locale|
-          append_file 'vendor/assets/javascripts/alchemy/admin/all.js', <<~ASSETS
-            //= require alchemy_i18n/#{locale}
-            //= require select2_locale_#{locale}
-          ASSETS
-        end
-      end
-
-      def append_manifest
-        additional_locales.each do |locale|
-          append_file 'app/assets/config/manifest.js', <<~MANIFEST
-            //= link tinymce/langs/#{locale}.js
-          MANIFEST
-        end
-      end
-
       def add_rails_i18n
         environment do
           "config.i18n.available_locales = #{locales.inspect}"
@@ -50,10 +33,6 @@ module AlchemyI18n
       end
 
       private
-
-      def additional_locales
-        @_additional_locales ||= locales.reject { |locale| locale == :en }
-      end
 
       def locales
         @_locales ||= begin
