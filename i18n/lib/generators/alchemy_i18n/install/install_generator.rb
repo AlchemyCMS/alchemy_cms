@@ -44,7 +44,7 @@ module AlchemyI18n
         ask <<~LOCALES
           Which locales should we generate files for?
           #{self.class.description}
-          (seperate multiple locales with space):
+          (separate multiple locales with space):
         LOCALES
       end
     end
