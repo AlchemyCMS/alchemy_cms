@@ -306,6 +306,7 @@ de:
           by_latest: "Neueste zuerst"
           alphabetical: "A-Z"
     anchor: "Sprungmarke"
+    automatic_anchor_notice: Die Sprungmarke wurde automatisch erstellt.
     attribute_fixed: Dieser Wert ist für diesen Seitentyp nicht veränderbar
     back: "zurück"
     create_tree_as_new_language: "%{language} als neuen Sprachbaum anlegen"
