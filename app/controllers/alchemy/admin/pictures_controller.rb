@@ -89,7 +89,7 @@ module Alchemy
             type: "error"
           }
         end
-        render :update, status: (@message[:type] == "notice") ? :ok : :unprocessable_entity
+        render :update, status: (@message[:type] == "notice") ? 200 : 422
       end
 
       def update_multiple

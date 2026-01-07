@@ -41,11 +41,11 @@ module Alchemy
           end
         end
         if @element.save
-          render :create, status: :created
+          render :create, status: 201
         else
           @element.page_version = @page_version
           @elements = @page.available_element_definitions
-          render :new, status: :unprocessable_entity
+          render :new, status: 422
         end
       end
 
@@ -74,7 +74,7 @@ module Alchemy
                 errorMessage: ingredient.errors.messages[:value].to_sentence
               }
             end
-          }, status: :unprocessable_entity
+          }, status: 422
         end
       end
 

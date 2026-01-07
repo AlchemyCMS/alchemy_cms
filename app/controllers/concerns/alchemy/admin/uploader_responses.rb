@@ -5,7 +5,7 @@ module Alchemy
     module UploaderResponses
       extend ActiveSupport::Concern
 
-      def successful_uploader_response(file:, status: :created)
+      def successful_uploader_response(file:, status: 201)
         message = Alchemy.t(:upload_success,
           scope: [:uploader, file.class.model_name.i18n_key],
           name: file.name)
@@ -24,7 +24,7 @@ module Alchemy
 
         {
           json: {message: message},
-          status: :unprocessable_entity
+          status: 422
         }
       end
     end

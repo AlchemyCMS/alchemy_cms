@@ -54,7 +54,7 @@ module Alchemy
         WARN
       end
       if request.format.json?
-        render json: {message: Alchemy.t("You are not authorized")}, status: :unauthorized
+        render json: {message: Alchemy.t("You are not authorized")}, status: 401
       elsif current_alchemy_user
         handle_redirect_for_user
       else
