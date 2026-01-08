@@ -11,7 +11,8 @@ module Alchemy
 
       before do
         2.times { create(:alchemy_element, page_version: page_version) }
-        create(:alchemy_element, :nested, page_version: page_version)
+        # Create a slider element which auto-generates a nested slide element
+        create(:alchemy_element, :with_nestable_elements, page_version: page_version)
       end
 
       it "returns all not nested elements from published versions as json objects" do

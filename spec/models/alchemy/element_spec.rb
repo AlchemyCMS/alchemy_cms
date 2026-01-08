@@ -9,6 +9,30 @@ module Alchemy
     it { is_expected.to have_one(:page).through(:page_version) }
     it { is_expected.to have_one(:language).through(:page) }
 
+    describe "validations" do
+      describe "page_version must match parent" do
+        let(:page_version) { create(:alchemy_page_version) }
+        let(:other_page_version) { create(:alchemy_page_version) }
+        let(:parent) { create(:alchemy_element, name: "slider", page_version: page_version) }
+
+        it "is valid when page_version matches parent's page_version" do
+          element = build(:alchemy_element, name: "slide", parent_element: parent, page_version: page_version)
+          expect(element).to be_valid
+        end
+
+        it "is invalid when page_version differs from parent's page_version" do
+          element = build(:alchemy_element, name: "slide", parent_element: parent, page_version: other_page_version)
+          expect(element).not_to be_valid
+          expect(element.errors[:page_version_id]).to include("must be the same as the parent element's page version")
+        end
+
+        it "is valid for root elements (no parent)" do
+          element = build(:alchemy_element, page_version: page_version)
+          expect(element).to be_valid
+        end
+      end
+    end
+
     # to prevent memoization
     before { ElementDefinition.instance_variable_set(:@definitions, nil) }
 
@@ -640,8 +664,39 @@ module Alchemy
       let!(:element2) { create(:alchemy_element, page_version: page.draft_version, name: "slide", parent_element: element1) }
       let!(:element3) { create(:alchemy_element, page_version: page.draft_version, name: "slide", parent_element: element2) }
 
-      it "returns parent element ids" do
+      it "returns parent element ids from immediate parent to root" do
         expect(element3.parent_element_ids).to eq([element2.id, element1.id])
+      end
+
+      it "returns empty array for root element" do
+        expect(element1.parent_element_ids).to eq([])
+      end
+
+      it "returns single parent for first-level nested element" do
+        expect(element2.parent_element_ids).to eq([element1.id])
+      end
+
+      it "uses only one query regardless of nesting depth" do
+        # Create 5 levels of nesting
+        elements = [element1]
+        4.times do |i|
+          elements << create(:alchemy_element,
+            page_version: page.draft_version,
+            name: "slide",
+            parent_element: elements.last)
+        end
+        deepest = elements.last
+
+        query_count = 0
+        counter = ->(*, _) { query_count += 1 }
+
+        ActiveSupport::Notifications.subscribed(counter, "sql.active_record") do
+          result = deepest.parent_element_ids
+          expect(result.size).to eq(4)  # 4 parents above the deepest element
+        end
+
+        # Should be exactly 1 query (the pluck for parent lookup)
+        expect(query_count).to eq(1)
       end
     end
 
