@@ -14,6 +14,7 @@ require "rails-controller-testing"
 require "rspec-activemodel-mocks"
 require "rspec/rails"
 require "shoulda-matchers"
+require "db_query_matchers"
 require "factory_bot"
 require "view_component/test_helpers"
 require "webmock"
@@ -62,6 +63,10 @@ Shoulda::Matchers.configure do |config|
     with.test_framework :rspec
     with.library :rails
   end
+end
+
+DBQueryMatchers.configure do |config|
+  config.schemaless = true
 end
 
 RSpec.configure do |config|
