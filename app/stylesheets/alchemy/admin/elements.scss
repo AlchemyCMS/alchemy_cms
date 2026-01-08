@@ -682,6 +682,14 @@ alchemy-publish-element-button {
   }
 }
 
+.ingredient-editor.boolean {
+  label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-0);
+  }
+}
+
 .ingredient-editor.picture {
   position: relative;
   width: 50%;
@@ -756,6 +764,12 @@ alchemy-publish-element-button {
       fill: currentColor;
       filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.25));
     }
+  }
+}
+
+.ingredient-editor.richtext {
+  alchemy-tinymce {
+    margin: var(--spacing-2) 0;
   }
 }
 
@@ -1030,14 +1044,19 @@ select.long {
     text-indent: 1px;
     color: var(--form-field-label-color);
 
+    > sl-tooltip {
+      display: inline-flex;
+      margin-left: var(--spacing-1);
+    }
+
     span.warning.icon {
       position: relative;
       top: 2px;
     }
 
     &.inline {
-      display: inline-block;
-      vertical-align: middle;
+      display: inline-flex;
+      align-items: center;
       min-width: 90px;
       margin-right: var(--spacing-1);
     }

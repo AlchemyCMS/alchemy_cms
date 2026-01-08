@@ -8,14 +8,14 @@ module Alchemy
       "alchemy/admin/elements/element"
     end
 
-    # Returns ingredient editor instances for defined ingredients
+    # Returns ingredient instances for defined ingredients
     #
     # Creates ingredient on demand if the ingredient is not yet present on the element
     #
-    # @return Array<Alchemy::IngredientEditor>
+    # @return Array<Alchemy::Ingredient>
     def ingredients
       ingredient_definitions.map do |ingredient|
-        Alchemy::IngredientEditor.new(find_or_create_ingredient(ingredient))
+        find_or_create_ingredient(ingredient)
       end
     end
 
@@ -66,6 +66,18 @@ module Alchemy
     # Tells us, if we should show the element footer and form inputs.
     def editable?
       ingredient_definitions.any? || taggable?
+    end
+
+    # Returns ingredients that are not part of any group
+    def ungrouped_ingredients
+      ingredients.reject { _1.definition.group }
+    end
+
+    # Returns ingredients grouped by their group name
+    #
+    # @return [Hash<String, Array<Alchemy::Ingredient>>]
+    def grouped_ingredients
+      ingredients.select { _1.definition.group }.group_by { _1.definition.group }
     end
 
     # Fixes Rails partial renderer calling to_model on the object

@@ -105,6 +105,10 @@
         - length:
             minimum: 3
             maximum: 50
+      settings:
+        anchor: from_value
+        levels: [1, 2]
+        sizes: [1, 2, 3]
     - role: text
       type: Text
       hint: true

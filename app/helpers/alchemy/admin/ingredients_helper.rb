@@ -10,7 +10,7 @@ module Alchemy
       # Displays a warning icon if ingredient is missing its definition.
       #
       # Displays a mandatory field indicator, if the ingredient has a presence validation.
-      #
+      # @deprecated
       def render_ingredient_role(ingredient)
         if ingredient.blank?
           warning("Ingredient is nil")
@@ -30,8 +30,10 @@ module Alchemy
           content
         end
       end
+      deprecate :render_ingredient_role, deprecator: Alchemy::Deprecation
 
       # Renders the label and hint for a ingredient.
+      # @deprecated
       def ingredient_label(ingredient, column = :value, html_options = {})
         label_tag ingredient.form_field_id(column), html_options do
           [
@@ -40,6 +42,7 @@ module Alchemy
           ].compact.join("&nbsp;").html_safe
         end
       end
+      deprecate :ingredient_label, deprecator: Alchemy::Deprecation
     end
   end
 end

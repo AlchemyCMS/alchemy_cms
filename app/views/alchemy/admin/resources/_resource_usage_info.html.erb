@@ -17,7 +17,7 @@
                 <li class="<%= cycle('even', 'odd') %>">
                   <% page_link = link_to element.display_name_with_preview_text,
                                   edit_admin_page_path(page, anchor: "element_#{element.id}") %>
-                  <% ingredients = related_ingredients.map { |p| Alchemy::IngredientEditor.new(p).translated_role }.to_sentence %>
+                  <% ingredients = related_ingredients.map(&:translated_role).to_sentence %>
                   <%= element.definition.icon_file %>
                   <p>
                     <%== Alchemy.t(:pictures_in_page, page: page_link, pictures: ingredients) %>
