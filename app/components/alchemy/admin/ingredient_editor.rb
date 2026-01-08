@@ -33,7 +33,7 @@ module Alchemy
           deprecation_notice
           render partial: "alchemy/ingredients/#{@ingredient.partial_name}_editor",
             locals: {element_form: @element_form},
-            object: @ingredient
+            object: Alchemy::IngredientEditor.new(@ingredient)
         else
           render @ingredient.as_editor_component
         end
