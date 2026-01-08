@@ -133,6 +133,23 @@ module Alchemy
       def file_formats(scope = all)
         Alchemy.storage_adapter.file_formats(name, scope:)
       end
+
+      # Preload descriptions for element editor display
+      #
+      # @param pictures [Array<Picture>] Collection of pictures to preload for
+      # @param language [Alchemy::Language] Current language for descriptions
+      def alchemy_element_preloads(pictures, language:)
+        return if pictures.blank? || language.nil?
+
+        picture_ids = pictures.map(&:id).uniq
+        descriptions = Alchemy::PictureDescription
+          .where(picture_id: picture_ids, language: language)
+          .index_by(&:picture_id)
+
+        pictures.each do |picture|
+          picture.instance_variable_set(:@preloaded_description, descriptions[picture.id])
+        end
+      end
     end
 
     # Instance methods
@@ -183,8 +200,16 @@ module Alchemy
     end
 
     # Returns the picture description for a given language.
+    # Uses preloaded description if available (set by ElementPreloader)
+    #
+    # @param language [Language] The language to get description for
+    # @return [String, nil] The description text or nil
     def description_for(language)
-      descriptions.find_by(language: language)&.text
+      if defined?(@preloaded_description)
+        (@preloaded_description&.language_id == language&.id) ? @preloaded_description&.text : nil
+      else
+        descriptions.find_by(language: language)&.text
+      end
     end
 
     # Returns an uri escaped name.
