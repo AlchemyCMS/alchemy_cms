@@ -31,9 +31,11 @@ module Alchemy
       def call
         if has_editor_partial?
           deprecation_notice
-          render partial: "alchemy/ingredients/#{@ingredient.partial_name}_editor",
-            locals: {element_form: @element_form},
-            object: Alchemy::IngredientEditor.new(@ingredient)
+          Alchemy::Deprecation.silence do
+            render partial: "alchemy/ingredients/#{@ingredient.partial_name}_editor",
+              locals: {element_form: @element_form},
+              object: Alchemy::IngredientEditor.new(@ingredient)
+          end
         else
           render @ingredient.as_editor_component
         end
