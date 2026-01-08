@@ -10,7 +10,10 @@ module Alchemy
   end
 
   describe Shell do
-    before { allow(MyToDoList).to receive(:puts) }
+    before do
+      MyToDoList.todos.clear
+      allow(MyToDoList).to receive(:puts)
+    end
 
     describe ".todo" do
       it "should add given string as a todo by delegating to .add_todo" do

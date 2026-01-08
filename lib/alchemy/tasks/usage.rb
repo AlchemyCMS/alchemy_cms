@@ -18,11 +18,11 @@ module Alchemy
       end
 
       def pages_count_by_type
-        res = Alchemy::Page.all
-          .select("page_layout, COUNT(*) AS count")
+        res = Alchemy::Page
           .group(:page_layout)
-          .order("count DESC, page_layout ASC")
-          .map { |p| {"page_layout" => p.page_layout, "count" => p.count} }
+          .order("count_all DESC, page_layout ASC")
+          .count
+          .map { |layout, count| {"page_layout" => layout, "count" => count} }
         Alchemy::PageDefinition.all.reject { |page_layout| res.map { |p| p["page_layout"] }.include?(page_layout.name) }.sort_by(&:name).each do |page_layout|
           res << {"page_layout" => page_layout.name, "count" => 0}
         end

@@ -6,6 +6,10 @@ describe Alchemy::PageVersion do
   it { is_expected.to belong_to(:page) }
   it { is_expected.to have_many(:elements) }
 
+  it { is_expected.to have_db_column(:title).of_type(:string) }
+  it { is_expected.to have_db_column(:meta_description).of_type(:text) }
+  it { is_expected.to have_db_column(:meta_keywords).of_type(:text) }
+
   let(:page) { create(:alchemy_page) }
 
   describe ".drafts" do
@@ -76,6 +80,29 @@ describe Alchemy::PageVersion do
 
     it "touches the page" do
       expect { page_version.save }.to change(page, :updated_at)
+    end
+  end
+
+  describe "#set_title_from_page" do
+    let(:page) { create(:alchemy_page, name: "My Page Name") }
+
+    context "when title is blank" do
+      it "sets title from page name" do
+        page_version = page.versions.create!(title: nil)
+        expect(page_version.title).to eq("My Page Name")
+      end
+
+      it "sets title from page name when title is empty string" do
+        page_version = page.versions.create!(title: "")
+        expect(page_version.title).to eq("My Page Name")
+      end
+    end
+
+    context "when title is already set" do
+      it "does not override the title" do
+        page_version = page.versions.create!(title: "Custom Title")
+        expect(page_version.title).to eq("Custom Title")
+      end
     end
   end
 

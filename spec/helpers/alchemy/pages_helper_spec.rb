@@ -168,14 +168,14 @@ module Alchemy
         end
 
         it "should render a breadcrumb of restricted pages only" do
-          page.update_columns(restricted: true, urlname: "a-restricted-public-page", name: "A restricted Public Page", title: "A restricted Public Page")
+          page.update_columns(restricted: true, urlname: "a-restricted-public-page", name: "A restricted Public Page")
           is_expected.to have_selector("*[contains(\"#{page.name}\")]")
           is_expected.to_not have_selector("*[contains(\"#{parent.name}\")]")
         end
       end
 
       it "should not include unpublished pages" do
-        page.update_columns(urlname: "a-unpublic-page", name: "A Unpublic Page", title: "A Unpublic Page")
+        page.update_columns(urlname: "a-unpublic-page", name: "A Unpublic Page")
         page.public_version.destroy
         is_expected.to_not match(/A Unpublic Page/)
       end
@@ -186,7 +186,7 @@ module Alchemy
         end
 
         it "should render a breadcrumb without this page" do
-          page.update_columns(urlname: "not-me", name: "Not Me", title: "Not Me")
+          page.update_columns(urlname: "not-me", name: "Not Me")
           is_expected.not_to match(/Not Me/)
         end
       end
@@ -197,7 +197,7 @@ module Alchemy
         end
 
         it "should render a breadcrumb without these pages." do
-          page.update_columns(urlname: "not-me", name: "Not Me", title: "Not Me")
+          page.update_columns(urlname: "not-me", name: "Not Me")
           is_expected.not_to match(/Not Me/)
         end
       end
@@ -306,14 +306,14 @@ module Alchemy
       subject { helper.page_title }
 
       context "when current page has a title set" do
-        before { public_page.title = "My Public Page" }
+        before { public_page.public_version.title = "My Public Page" }
 
         it { is_expected.to eq "My Public Page" }
       end
 
       context "when current page has no title set" do
         before do
-          language_root.title = "Title from language root"
+          language_root.draft_version.title = "Title from language root"
         end
 
         context "when current page is the language root page" do
@@ -326,7 +326,7 @@ module Alchemy
       context "when response status is not 200" do
         let(:response) { double("response", status: 404) }
 
-        before { public_page.title = "My Public Page" }
+        before { public_page.public_version.title = "My Public Page" }
 
         it "should return the status code" do
           is_expected.to eq "404"
@@ -341,18 +341,18 @@ module Alchemy
         subject { helper.meta_description }
 
         context "when current page has a meta description set" do
-          before { public_page.meta_description = "description of my public page" }
+          before { public_page.public_version.meta_description = "description of my public page" }
           it { is_expected.to eq "description of my public page" }
         end
 
         context "when current page has no meta description set" do
           before do
-            language_root.meta_description = "description from language root"
+            language_root.draft_version.meta_description = "description from language root"
             allow(Language).to receive_messages(current_root_page: language_root)
           end
 
           context "when #meta_description is an empty string" do
-            before { public_page.meta_description = "" }
+            before { public_page.public_version.meta_description = "" }
 
             it "returns the meta description of its language root page" do
               is_expected.to eq "description from language root"
@@ -360,7 +360,7 @@ module Alchemy
           end
 
           context "when #meta_description is nil" do
-            before { public_page.meta_description = nil }
+            before { public_page.public_version.meta_description = nil }
 
             it "returns the meta description of its language root page" do
               is_expected.to eq "description from language root"
@@ -373,18 +373,18 @@ module Alchemy
         subject { helper.meta_keywords }
 
         context "when current page has meta keywords set" do
-          before { public_page.meta_keywords = "keywords, from public page" }
+          before { public_page.public_version.update!(meta_keywords: "keywords, from public page") }
           it { is_expected.to eq "keywords, from public page" }
         end
 
         context "when current page has no meta keywords set" do
           before do
-            language_root.meta_keywords = "keywords, from language root"
+            language_root.draft_version.update!(meta_keywords: "keywords, from language root")
             allow(Language).to receive_messages(current_root_page: language_root)
           end
 
           context "when #meta_keywords is an empty string" do
-            before { public_page.meta_keywords = "" }
+            before { public_page.public_version.update!(meta_keywords: "") }
 
             it "returns the keywords of its language root page" do
               is_expected.to eq "keywords, from language root"
@@ -392,7 +392,7 @@ module Alchemy
           end
 
           context "when #meta_keywords is nil" do
-            before { public_page.meta_keywords = nil }
+            before { public_page.public_version.update!(meta_keywords: nil) }
 
             it "returns the keywords of its language root page" do
               is_expected.to eq "keywords, from language root"

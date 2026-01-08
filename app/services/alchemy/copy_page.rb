@@ -28,7 +28,13 @@ module Alchemy
       depth
       urlname
       cached_tag_list
+      title
+      meta_description
+      meta_keywords
     ]
+
+    # Metadata to copy via nested attributes (title is derived from page.name)
+    METADATA_ATTRIBUTES_TO_COPY = (Alchemy::PageVersion::METADATA_ATTRIBUTES - %w[title]).freeze
 
     attr_reader :page
 
@@ -70,6 +76,7 @@ module Alchemy
         .merge(DEFAULT_ATTRIBUTES_FOR_COPY)
         .merge(differences)
       desired_attributes["name"] = best_name_for_copy(source_attributes, desired_attributes)
+      desired_attributes["draft_version_attributes"] = draft_version_attributes_for_copy
       desired_attributes.except(*SKIPPED_ATTRIBUTES_ON_COPY)
     end
 
@@ -92,6 +99,16 @@ module Alchemy
         "#{desired_name} (#{Alchemy.t("Copy")})"
       else
         desired_name
+      end
+    end
+
+    # Builds nested attributes for draft_version metadata (except title).
+    # Title is handled by PageVersion#set_title_from_page callback based on page.name.
+    def draft_version_attributes_for_copy
+      return {} unless page.draft_version
+
+      METADATA_ATTRIBUTES_TO_COPY.each_with_object({}) do |attr, hash|
+        hash[attr] = page.draft_version.send(attr)
       end
     end
   end

@@ -100,26 +100,39 @@ module Alchemy
         create(:alchemy_page, name: "My Testpage", language: language, parent: language_root)
       end
 
-      context "before_create" do
+      context "after_initialize" do
         let(:page) do
           build(:alchemy_page, language: language, parent: language_root)
         end
 
         it "builds a version" do
-          expect {
-            page.save!
-          }.to change { page.versions.length }.by(1)
+          expect(page.draft_version).to be_present
         end
 
         context "if there is already a version" do
           let(:page) do
-            build(:alchemy_page, language: language, parent: language_root).tap do |page|
-              page.versions.build
-            end
+            build(:alchemy_page, language: language, parent: language_root)
           end
 
-          it "builds no version" do
+          it "builds no additional version" do
             expect { page.save! }.to_not change { page.versions.length }
+          end
+        end
+
+        context "if draft_version is set via nested attributes" do
+          let(:page) do
+            build(:alchemy_page, language: language, parent: language_root,
+              draft_version_attributes: {meta_description: "Test"})
+          end
+
+          it "has exactly one version" do
+            page.save!
+            expect(page.versions.length).to eq(1)
+          end
+
+          it "sets it on the draft version" do
+            page.save!
+            expect(page.draft_version.meta_description).to eq("Test")
           end
         end
       end
@@ -133,7 +146,7 @@ module Alchemy
         end
 
         it "should not automatically set the title if it changed its value" do
-          page.title = "I like SEO"
+          page.draft_version.title = "I like SEO"
           page.save
           page.reload
           expect(page.title).to eq("I like SEO")
@@ -692,7 +705,6 @@ module Alchemy
             "page_layout",
             "updated_at",
             "urlname",
-            "title",
             "name"
           )
         end
@@ -1231,14 +1243,14 @@ module Alchemy
         expect { subject }.to change { new_parent.children.count }.from(0).to 2
 
         source_page.children.each do |child|
-          expect(new_parent.children.where(title: child.title).count).to eq 1
+          expect(new_parent.children.where(name: child.name).count).to eq 1
         end
 
-        source_page_grandchildren = source_page.children.find_by_title("child with children").children
-        new_parent_grandchildren = new_parent.children.find_by_title("child with children").children
+        source_page_grandchildren = source_page.children.find_by(name: "child with children").children
+        new_parent_grandchildren = new_parent.children.find_by(name: "child with children").children
 
         source_page_grandchildren.each do |grandchild|
-          expect(new_parent_grandchildren.where(title: grandchild.title).count).to eq 1
+          expect(new_parent_grandchildren.where(name: grandchild.name).count).to eq 1
         end
       end
 
@@ -1249,14 +1261,14 @@ module Alchemy
           expect { subject }.to change { new_parent.children.count }.from(0).to 2
 
           source_page.children.each do |child|
-            expect(new_parent.children.where(title: child.title).count).to eq 1
+            expect(new_parent.children.where(name: child.name).count).to eq 1
           end
 
-          source_page_grandchildren = source_page.children.find_by_title("child with children").children
-          new_parent_grandchildren = new_parent.children.find_by_title("child with children").children
+          source_page_grandchildren = source_page.children.find_by(name: "child with children").children
+          new_parent_grandchildren = new_parent.children.find_by(name: "child with children").children
 
           source_page_grandchildren.each do |grandchild|
-            expect(new_parent_grandchildren.where(title: grandchild.title).count).to eq 1
+            expect(new_parent_grandchildren.where(name: grandchild.name).count).to eq 1
           end
         end
       end
@@ -2089,6 +2101,121 @@ module Alchemy
           nested_folded_rtf_ingredient = nested_folded_element.ingredients.richtexts.first
 
           expect(richtext_ingredients_ids).to_not include(nested_folded_rtf_ingredient.id)
+        end
+      end
+    end
+
+    describe "metadata setters", :silence_deprecations do
+      let(:page) { create(:alchemy_page) }
+
+      before do
+        allow(page.draft_version).to receive(:title=)
+        allow(page.draft_version).to receive(:meta_description=)
+        allow(page.draft_version).to receive(:meta_keywords=)
+      end
+
+      describe "#title=" do
+        it "sets title on draft version" do
+          page.title = "New Title"
+          expect(page.draft_version).to have_received(:title=).with("New Title")
+        end
+      end
+
+      describe "#meta_description=" do
+        it "sets meta_descriptionon draft version" do
+          page.meta_description = "New Description"
+          expect(page.draft_version).to have_received(:meta_description=).with("New Description")
+        end
+      end
+
+      describe "#meta_keywords=" do
+        it "sets meta_keywords on draft version" do
+          page.meta_keywords = "draft, keywords"
+          expect(page.draft_version).to have_received(:meta_keywords=).with("draft, keywords")
+        end
+      end
+    end
+
+    describe "metadata getters" do
+      context "with fixed attributes" do
+        let(:page) { create(:alchemy_page, page_layout: "readonly") }
+
+        describe "#title" do
+          it "returns fixed value instead of version value" do
+            expect(page.title).to eq(false)
+          end
+        end
+
+        describe "#meta_description" do
+          it "returns fixed value instead of version value" do
+            expect(page.meta_description).to be_nil
+          end
+        end
+
+        describe "#meta_keywords" do
+          it "returns fixed value instead of version value" do
+            expect(page.meta_keywords).to be_nil
+          end
+        end
+      end
+
+      context "with public version" do
+        let(:page) { create(:alchemy_page, :public) }
+
+        before do
+          page.public_version.update!(
+            title: "Public Title",
+            meta_description: "Public Description",
+            meta_keywords: "public, keywords"
+          )
+        end
+
+        describe "#title" do
+          it "returns the public version value" do
+            expect(page.title).to eq("Public Title")
+          end
+        end
+
+        describe "#meta_description" do
+          it "returns fixed value instead of version value" do
+            expect(page.meta_description).to eq("Public Description")
+          end
+        end
+
+        describe "#meta_keywords" do
+          it "returns fixed value instead of version value" do
+            expect(page.meta_keywords).to eq("public, keywords")
+          end
+        end
+      end
+
+      context "with only draft version" do
+        let(:page) { create(:alchemy_page) }
+
+        before do
+          page.draft_version.update!(
+            title: "Draft Title",
+            meta_description: "Draft Description",
+            meta_keywords: "draft, keywords"
+          )
+        end
+
+        describe "#title" do
+          it "returns the draft version value" do
+            expect(page.title).to eq("Draft Title")
+          end
+        end
+
+        describe "#meta_description" do
+          it "returns the draft version value" do
+            expect(page.meta_description).to eq("Draft Description")
+          end
+        end
+
+        describe "#meta_keywords" do
+          it "returns the draft version value" do
+            expect(page.meta_keywords).to eq("draft, keywords")
+          end
         end
       end
     end

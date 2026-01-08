@@ -3,16 +3,15 @@
 require "alchemy/upgrader"
 require "alchemy/version"
 
-Upgrader = Alchemy::Upgrader.new("8.0")
-
 namespace :alchemy do
   desc "Upgrades your app to AlchemyCMS v#{Alchemy::VERSION}."
   task upgrade: [
     "alchemy:upgrade:prepare",
-    "alchemy:upgrade:8.0:run"
+    "alchemy:upgrade:8.0:run",
+    "alchemy:upgrade:8.1:run"
   ] do
-    Upgrader.run_migrations
-    Upgrader.display_todos
+    Alchemy::Upgrader["8.1"].run_migrations
+    Alchemy::Upgrader["8.1"].display_todos
   end
 
   namespace :upgrade do
@@ -29,7 +28,7 @@ namespace :alchemy do
 
     desc "Alchemy Upgrader: Update configuration file."
     task config: [:environment] do
-      Upgrader.update_config
+      Alchemy::Upgrader["8.0"].update_config
     end
 
     namespace "8.0" do
@@ -38,7 +37,18 @@ namespace :alchemy do
       ]
 
       task :mention_alchemy_config_initializer do
-        Upgrader.mention_alchemy_config_initializer
+        Alchemy::Upgrader["8.0"].mention_alchemy_config_initializer
+      end
+    end
+
+    namespace "8.1" do
+      task "run" => [
+        "alchemy:upgrade:8.1:migrate_page_metadata"
+      ]
+
+      desc "Migrate page metadata to page versions"
+      task migrate_page_metadata: [:environment] do
+        Alchemy::Upgrader["8.1"].migrate_page_metadata
       end
     end
   end

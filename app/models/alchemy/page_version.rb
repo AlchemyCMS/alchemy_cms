@@ -2,6 +2,13 @@
 
 module Alchemy
   class PageVersion < BaseRecord
+    # Metadata attributes that are versioned (moved from Page)
+    METADATA_ATTRIBUTES = %w[
+      title
+      meta_description
+      meta_keywords
+    ].freeze
+
     belongs_to :page, class_name: "Alchemy::Page", inverse_of: :versions, touch: true
 
     has_many :elements, -> { order(:position) },
@@ -10,6 +17,8 @@ module Alchemy
 
     scope :drafts, -> { where(public_on: nil).order(updated_at: :desc) }
     scope :published, -> { where.not(public_on: nil).order(public_on: :desc) }
+
+    before_create :set_title_from_page
 
     def self.public_on(time = Time.current)
       where("#{table_name}.public_on <= :time AND " \
@@ -53,6 +62,12 @@ module Alchemy
 
     def delete_elements
       DeleteElements.new(elements).call
+    end
+
+    def set_title_from_page
+      return if title.present?
+
+      self.title = page&.name
     end
   end
 end

@@ -6,7 +6,11 @@ module Alchemy
   describe "alchemy/pages/_meta_data" do
     let!(:language) { create(:alchemy_language, code: :en) }
     let(:root_page) { Page.new }
-    let(:page) { Page.new(language_code: "en", title: "Road Runner", urlname: "roadrunner") }
+    let(:page) do
+      build(:alchemy_page, language_code: "en", urlname: "roadrunner").tap do |p|
+        p.draft_version&.title = "Road Runner"
+      end
+    end
     let(:title_prefix) { "" }
     let(:title_suffix) { "" }
     let(:title_separator) { "" }
@@ -31,7 +35,7 @@ module Alchemy
           before { allow(Language).to receive(:current_root_page).and_return(root_page) }
 
           context "but the language root page has meta keywords" do
-            before { root_page.meta_keywords = "keywords, language, root" }
+            before { allow(root_page).to receive(:meta_keywords).and_return("keywords, language, root") }
 
             it "renders its keywords in the correct meta tag" do
               is_expected.to match(/meta name="keywords" content="keywords, language, root" lang="en"/)
@@ -59,7 +63,7 @@ module Alchemy
           before { allow(Language).to receive(:current_root_page).and_return(root_page) }
 
           context "but the language root page has a meta description" do
-            before { root_page.meta_description = "description from language root" }
+            before { allow(root_page).to receive(:meta_description).and_return("description from language root") }
 
             it "renders its description in the correct meta tag" do
               is_expected.to match(/meta name="description" content="description from language root"/)

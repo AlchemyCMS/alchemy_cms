@@ -19,9 +19,6 @@ module Alchemy
           uniqueness: {scope: [:language_id, :layoutpage], if: -> { urlname.present? }, case_sensitive: false},
           exclusion: {in: RESERVED_URLNAMES}
 
-        before_save :set_title,
-          if: -> { title.blank? }
-
         after_update :update_descendants_urlnames,
           if: :saved_change_to_urlname?
 
@@ -67,10 +64,6 @@ module Alchemy
       # The urlname contains the whole path including parent urlnames.
       def set_urlname
         self[:urlname] = nested_url_name
-      end
-
-      def set_title
-        self[:title] = name
       end
 
       # Returns the full nested urlname.
