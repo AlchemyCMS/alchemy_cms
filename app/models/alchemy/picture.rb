@@ -183,8 +183,15 @@ module Alchemy
     end
 
     # Returns the picture description for a given language.
+    #
+    # @param language [Language] The language to get description for
+    # @return [String, nil] The description text or nil
     def description_for(language)
-      descriptions.find_by(language: language)&.text
+      if descriptions.loaded?
+        descriptions.detect { _1.language == language }&.text
+      else
+        descriptions.find_by(language: language)&.text
+      end
     end
 
     # Returns an uri escaped name.
