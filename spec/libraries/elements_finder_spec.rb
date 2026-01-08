@@ -63,7 +63,8 @@ RSpec.describe Alchemy::ElementsFinder do
       end
 
       context "with nested elements present" do
-        let!(:nested_element) { create(:alchemy_element, :nested, page_version: page_version) }
+        let!(:parent_element) { create(:alchemy_element, :with_nestable_elements, page_version: page_version) }
+        let!(:nested_element) { create(:alchemy_element, name: "slide", parent_element: parent_element) }
 
         it "does not include nested elements" do
           is_expected.to_not include(nested_element)

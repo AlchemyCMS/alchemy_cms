@@ -96,6 +96,7 @@ module Alchemy
 
     validates_presence_of :name, on: :create
     validates_format_of :name, on: :create, with: NAME_REGEXP
+    validate :validate_same_page_version_as_parent
 
     after_initialize :set_default_public_on, if: :new_record?
 
@@ -324,6 +325,13 @@ module Alchemy
     def set_default_public_on
       return if @public_on_explicitely_set
       self.public_on ||= Time.current
+    end
+
+    def validate_same_page_version_as_parent
+      return unless parent_element
+      return if page_version_id == parent_element.page_version_id
+
+      errors.add(:page_version_id, :must_match_parent)
     end
 
     def generate_nested_elements
