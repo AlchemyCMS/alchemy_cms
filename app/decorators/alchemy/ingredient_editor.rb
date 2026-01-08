@@ -112,7 +112,7 @@ module Alchemy
       return unless has_warnings?
 
       if definition.blank?
-        Logger.warn("ingredient '#{role}' is missing its definition")
+        Logger.warn("ingredient '#{role}' is missing its definition! Please check your element definitions.")
         Alchemy.t(:ingredient_definition_missing)
       else
         definition.deprecation_notice(element_name: element&.name)

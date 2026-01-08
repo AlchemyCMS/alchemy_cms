@@ -26,7 +26,7 @@ module Alchemy
     end
 
     def message
-      "Element definition for #{@name} not found. Please check your elements.yml"
+      "Element definition for '#{@name}' not found! Please check your element definitions."
     end
   end
 
