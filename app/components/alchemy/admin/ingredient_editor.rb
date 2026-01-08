@@ -30,7 +30,10 @@ module Alchemy
 
       def call
         if has_editor_partial?
-          deprecation_notice
+          Alchemy::Deprecation.warn <<~WARN
+            Ingredient editor partials are deprecated!
+            Please create a `#{@ingredient.class.name}Editor` class inheriting from `Alchemy::Ingredients::BaseEditor`.
+          WARN
           Alchemy::Deprecation.silence do
             render partial: "alchemy/ingredients/#{@ingredient.partial_name}_editor",
               locals: {element_form: @element_form},
@@ -45,13 +48,6 @@ module Alchemy
 
       def has_editor_partial?
         helpers.lookup_context.template_exists?("alchemy/ingredients/_#{@ingredient.partial_name}_editor")
-      end
-
-      def deprecation_notice
-        Alchemy::Deprecation.warn <<~WARN
-          Ingredient editor partials are deprecated!
-          Please create a `#{@ingredient.class.name}Editor` class inheriting from `Alchemy::Ingredients::BaseEditor`.
-        WARN
       end
     end
   end
