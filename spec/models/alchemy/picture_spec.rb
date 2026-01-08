@@ -320,6 +320,28 @@ module Alchemy
       context "without a description for the given language" do
         it { is_expected.to be_nil }
       end
+
+      context "with preloaded description" do
+        before do
+          allow(picture.descriptions).to receive(:loaded?) { true }
+        end
+
+        it "does not query the database" do
+          expect(picture.descriptions).not_to receive(:find_by)
+          picture.description_for(language)
+        end
+      end
+
+      context "without preloaded description" do
+        before do
+          allow(picture.descriptions).to receive(:loaded?) { false }
+        end
+
+        it "queries the database" do
+          expect(picture.descriptions).to receive(:find_by)
+          picture.description_for(language)
+        end
+      end
     end
 
     describe "#restricted?" do
