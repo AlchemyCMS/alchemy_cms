@@ -311,6 +311,19 @@ module Alchemy
             "title" => "Show content of this element."
           })
         end
+
+        it "uses bounded queries regardless of nesting depth" do
+          query_count = 0
+          counter = ->(*, _) { query_count += 1 }
+
+          ActiveSupport::Notifications.subscribed(counter, "sql.active_record") do
+            subject
+          end
+
+          # Should use a small bounded number of queries (includes auth, session, etc.):
+          # Key point: query count doesn't grow with nesting depth
+          expect(query_count).to be <= 10
+        end
       end
     end
 
