@@ -12,9 +12,13 @@ module Alchemy
       authorize_resource class: Alchemy::Element
 
       def index
-        elements = @page_version.elements.order(:position).includes(*element_includes)
-        @elements = elements.not_nested.unfixed
-        @fixed_elements = elements.not_nested.fixed
+        root_elements = @page_version.elements.order(:position).not_nested
+        preloaded = Alchemy::ElementPreloader
+          .new(elements: root_elements, language: @page.language)
+          .call
+
+        @elements = preloaded.reject(&:fixed?)
+        @fixed_elements = preloaded.select(&:fixed?)
       end
 
       def new
@@ -159,23 +163,6 @@ module Alchemy
           ids.concat collapse_nested_elements_ids(nested_element) if nested_element.all_nested_elements.reject(&:compact?).any?
         end
         ids
-      end
-
-      def element_includes
-        [
-          {
-            ingredients: :related_object
-          },
-          :tags,
-          {
-            all_nested_elements: [
-              {
-                ingredients: :related_object
-              },
-              :tags
-            ]
-          }
-        ]
       end
 
       def load_element
