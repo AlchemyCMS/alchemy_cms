@@ -4,7 +4,7 @@ module Alchemy
   module ErrorTracking
     class ErrorLogger < BaseHandler
       def self.call(exception)
-        ::Rails.logger.tagged("alchemy_cms") do
+        ::Rails.logger.tagged("alchemy") do
           ::Rails.logger.error("#{exception.class.name}: #{exception.message} in #{exception.backtrace.first}")
         end
       end

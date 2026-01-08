@@ -20,6 +20,11 @@ RSpec.describe Alchemy::Logger do
       expect(Rails.logger).to receive(:warn).with(message)
       subject
     end
+
+    it "adds a Rails log tag" do
+      expect(Rails.logger).to receive(:tagged).with("alchemy").and_yield
+      subject
+    end
   end
 
   describe "#log_warning" do
