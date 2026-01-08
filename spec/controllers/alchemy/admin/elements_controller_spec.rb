@@ -16,7 +16,8 @@ module Alchemy
     describe "#index" do
       let!(:page_version) { create(:alchemy_page_version) }
       let!(:element) { create(:alchemy_element, page_version: page_version) }
-      let!(:nested_element) { create(:alchemy_element, :nested, page_version: page_version) }
+      let!(:parent_for_nested) { create(:alchemy_element, :with_nestable_elements, page_version: page_version) }
+      let!(:nested_element) { create(:alchemy_element, name: "slide", parent_element: parent_for_nested) }
       let!(:hidden_element) { create(:alchemy_element, page_version: page_version, public: false) }
 
       context "with fixed elements" do
@@ -36,7 +37,7 @@ module Alchemy
 
       it "assigns elements" do
         get :index, params: {page_version_id: page_version.id}
-        expect(assigns(:elements)).to eq([element, nested_element.parent_element, hidden_element])
+        expect(assigns(:elements)).to eq([element, parent_for_nested, hidden_element])
       end
     end
 
@@ -69,7 +70,7 @@ module Alchemy
       end
 
       context "when nested inside parent element" do
-        let(:parent) { create(:alchemy_element) }
+        let(:parent) { create(:alchemy_element, page_version: page_version) }
 
         it "touches the cache key of parent element" do
           parent.update_column(:updated_at, 3.days.ago)
@@ -188,12 +189,13 @@ module Alchemy
         end
 
         context "with parent_element_id given" do
-          let(:element_in_clipboard) { create(:alchemy_element, :nested, page_version: page_version) }
-          let(:parent_element) { create(:alchemy_element, :with_nestable_elements) }
+          let(:original_parent) { create(:alchemy_element, :with_nestable_elements, page_version: page_version) }
+          let(:element_in_clipboard) { create(:alchemy_element, name: "slide", parent_element: original_parent) }
+          let(:new_parent) { create(:alchemy_element, :with_nestable_elements, page_version: page_version) }
 
           it "moves the element to new parent" do
-            post :create, params: {paste_from_clipboard: element_in_clipboard.id, element: {page_version_id: page_version.id, parent_element_id: parent_element.id}}, xhr: true
-            expect(Alchemy::Element.last.parent_element_id).to eq(parent_element.id)
+            post :create, params: {paste_from_clipboard: element_in_clipboard.id, element: {page_version_id: page_version.id, parent_element_id: new_parent.id}}, xhr: true
+            expect(Alchemy::Element.last.parent_element_id).to eq(new_parent.id)
           end
         end
       end

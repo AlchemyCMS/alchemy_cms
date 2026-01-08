@@ -814,6 +814,10 @@ en:
             base:
               restrict_dependent_destroy:
                 has_many: "There are still %{record} attached to this page. Please remove them first."
+        alchemy/element:
+          attributes:
+            page_version_id:
+              must_match_parent: "must be the same as the parent element's page version"
     models:
       gutentag/tag:
         one: Tag
