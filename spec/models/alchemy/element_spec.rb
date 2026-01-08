@@ -92,8 +92,8 @@ module Alchemy
           end
 
           it "logs error warning" do
-            expect_any_instance_of(Alchemy::Logger).to \
-              receive(:log_warning).with("Element 'bar' not a nestable element for 'slider'. Skipping!")
+            expect(Alchemy::Logger).to \
+              receive(:warn).with("Element 'bar' not a nestable element for 'slider'. Skipping!")
             element
           end
 

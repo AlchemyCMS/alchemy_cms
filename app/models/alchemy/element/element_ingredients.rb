@@ -62,7 +62,7 @@ module Alchemy
           nil
         else
           ingredient_definitions.find { _1.role == role.to_s } ||
-            log_warning("Element #{name} is missing the ingredient definition for #{role}")
+            Logger.warn("Element '#{name}' is missing the ingredient definition for '#{role}'")
         end
       end
 

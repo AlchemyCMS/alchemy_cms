@@ -16,5 +16,6 @@ module Alchemy
     def log_warning(message)
       Alchemy::Logger.warn(message)
     end
+    deprecate log_warning: "Alchemy::Logger.warn", deprecator: Alchemy::Deprecation
   end
 end

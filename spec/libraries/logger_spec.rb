@@ -39,7 +39,7 @@ RSpec.describe Alchemy::Logger do
   describe "#log_warning" do
     subject { Something.new.log_warning(message) }
 
-    it "delegates to Alchemy::Logger.warn class method with second line of callstack" do
+    it "delegates to Alchemy::Logger.warn class method with second line of callstack", :silence_deprecations do
       expect(Alchemy::Logger).to receive(:warn).with(message)
       subject
     end
