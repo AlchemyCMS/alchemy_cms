@@ -172,7 +172,7 @@ module Alchemy
       if Rails.application.config.consider_all_requests_local?
         raise error, message
       else
-        Rails.logger.error message
+        Logger.error message
         ""
       end
     end

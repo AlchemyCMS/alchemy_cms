@@ -167,7 +167,7 @@ module Alchemy
         if ::Alchemy::ErrorTracking.notification_handler.respond_to?(:call)
           ::Alchemy::ErrorTracking.notification_handler.call(exception)
         else
-          Rails.logger.warn("To use the Alchemy::ErrorTracking.notification_handler, it must respond to #call.")
+          Logger.warn("To use the Alchemy::ErrorTracking.notification_handler, it must respond to #call.")
         end
       end
     end

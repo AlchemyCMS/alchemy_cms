@@ -79,11 +79,11 @@ module Alchemy
     config.to_prepare do
       # Definition files
       elements_reloader = Rails.application.config.file_watcher.new([ElementDefinition.definitions_file_path]) do
-        Rails.logger.info "[alchemy] Reloading Element Definitions."
+        Logger.info "Reloading Element Definitions."
         ElementDefinition.reset!
       end
       page_layouts_reloader = Rails.application.config.file_watcher.new([PageDefinition.layouts_file_path]) do
-        Rails.logger.info "[alchemy] Reloading Page Layouts."
+        Logger.info "Reloading Page Layouts."
         PageDefinition.reset!
       end
       [elements_reloader, page_layouts_reloader].each do |reloader|
