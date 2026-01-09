@@ -7,7 +7,7 @@ function build(message, flashType) {
       ${message}
     </alchemy-message>
   `)
-  flashNotices.append(flashMessage)
+  flashNotices.prepend(flashMessage)
 }
 
 export function growl(message, style = "notice") {
