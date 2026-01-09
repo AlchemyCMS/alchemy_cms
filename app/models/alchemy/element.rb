@@ -28,7 +28,6 @@ module Alchemy
   class Element < BaseRecord
     NAME_REGEXP = /\A[a-z0-9_-]+\z/
 
-    include Alchemy::Logger
     include Alchemy::Taggable
 
     FORBIDDEN_DEFINITION_ATTRIBUTES = [
@@ -287,7 +286,7 @@ module Alchemy
         if nestable_elements.include?(nestable_element)
           Element.create(page_version: page_version, parent_element_id: id, name: nestable_element)
         else
-          log_warning("Element '#{nestable_element}' not a nestable element for '#{name}'. Skipping!")
+          Logger.warn("Element '#{nestable_element}' not a nestable element for '#{name}'. Skipping!")
         end
       end
     end

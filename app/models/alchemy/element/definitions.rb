@@ -44,8 +44,7 @@ module Alchemy
         if (definition = self.class.definition_by_name(name))
           definition
         else
-          log_warning "Could not find element definition for #{name}. " \
-                      "Please check your elements.yml file!"
+          Logger.warn "Could not find element definition for '#{name}'! Please check your element definitions."
           ElementDefinition.new
         end
       end

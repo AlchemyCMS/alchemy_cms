@@ -28,7 +28,6 @@ module Alchemy
       large: "240x180"
     }.with_indifferent_access.freeze
 
-    include Alchemy::Logger
     include Alchemy::NameConversions
     include Alchemy::Taggable
     include Alchemy::TouchElements
@@ -148,7 +147,7 @@ module Alchemy
 
       self.class.url_class.new(self).call(options)
     rescue Alchemy.storage_adapter.rescuable_errors => e
-      log_warning(e.message)
+      Logger.warn(e.message)
       nil
     end
 

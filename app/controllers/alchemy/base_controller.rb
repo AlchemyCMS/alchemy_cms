@@ -48,7 +48,7 @@ module Alchemy
 
     def permission_denied(exception = nil)
       if exception
-        Rails.logger.debug <<-WARN.strip_heredoc
+        Logger.debug <<-WARN.strip_heredoc
           /!\\ Failed to permit #{exception.action} on #{exception.subject.inspect} for:
           #{current_alchemy_user.inspect}
         WARN
@@ -101,8 +101,8 @@ module Alchemy
 
     # Logs the current exception to the error log.
     def exception_logger(error)
-      Rails.logger.error("\n#{error.class} #{error.message} in #{error.backtrace.first}")
-      Rails.logger.error(error.backtrace[1..50].each { |line|
+      Logger.error("\n#{error.class} #{error.message} in #{error.backtrace.first}")
+      Logger.error(error.backtrace[1..50].each { |line|
         line.gsub(/#{Rails.root}/, "")
       }.join("\n"))
     end

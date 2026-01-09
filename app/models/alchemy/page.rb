@@ -44,7 +44,6 @@ require_dependency "alchemy/page/page_elements"
 
 module Alchemy
   class Page < BaseRecord
-    include Alchemy::Logger
     include Alchemy::Taggable
 
     DEFAULT_ATTRIBUTES_FOR_COPY = {

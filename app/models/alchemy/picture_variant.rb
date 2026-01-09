@@ -10,8 +10,6 @@ module Alchemy
   class PictureVariant
     extend Forwardable
 
-    include Alchemy::Logger
-
     ANIMATED_IMAGE_FORMATS = %w[gif webp]
     TRANSPARENT_IMAGE_FORMATS = %w[gif webp png]
     ENCODABLE_IMAGE_FORMATS = %w[jpg jpeg webp]
@@ -57,7 +55,7 @@ module Alchemy
       image = processed_image(image, @options)
       encoded_image(image, @options)
     rescue MissingImageFileError, WrongImageFormatError => e
-      log_warning(e.message)
+      Logger.warn(e.message)
       nil
     end
 

@@ -61,8 +61,12 @@ module Alchemy
         if ingredient_definitions.blank?
           nil
         else
-          ingredient_definitions.find { _1.role == role.to_s } ||
-            log_warning("Element #{name} is missing the ingredient definition for #{role}")
+          definition = ingredient_definitions.find { _1.role == role.to_s }
+          return definition if definition.present?
+
+          Logger.warn <<-WARN.strip_heredoc
+            Element '#{name}' is missing the ingredient definition for '#{role}'! Please check your element definitions.
+          WARN
         end
       end
 
