@@ -13,7 +13,7 @@ module Alchemy
     # Logs a error message to the Rails standard logger
     def self.error(message)
       Rails.logger.tagged("alchemy") do
-        Rails.logger.error(message)
+        Rails.logger.error("ERROR: #{message}")
       end
       nil
     end
@@ -32,7 +32,7 @@ module Alchemy
         Alchemy::Deprecation.warn("Alchemy::Logger.warn second argument is deprecated and will be removed in Alchemy 9.0")
       end
       Rails.logger.tagged("alchemy") do
-        Rails.logger.warn(message)
+        Rails.logger.warn("WARNING: #{message}")
       end
       nil
     end

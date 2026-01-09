@@ -31,7 +31,7 @@ RSpec.describe Alchemy::Logger do
     it { is_expected.to be_nil }
 
     it "uses Rails error logger" do
-      expect(Rails.logger).to receive(:error).with(message)
+      expect(Rails.logger).to receive(:error).with("ERROR: #{message}")
       subject
     end
 
@@ -74,7 +74,7 @@ RSpec.describe Alchemy::Logger do
     it { is_expected.to be_nil }
 
     it "uses Rails warn logger" do
-      expect(Rails.logger).to receive(:warn).with(message)
+      expect(Rails.logger).to receive(:warn).with("WARNING: #{message}")
       subject
     end
 
