@@ -61,7 +61,9 @@ module Alchemy
                 ingredientId: ingredient.id,
                 active: ingredient.dom_id.present?
               }
-            end
+            end,
+            pageHasUnpublishedChanges: @element.page.has_unpublished_changes?,
+            publishButtonTooltip: Alchemy.t(:explain_publishing)
           }
         else
           @warning = Alchemy.t("Validation failed")

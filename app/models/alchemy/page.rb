@@ -404,6 +404,19 @@ module Alchemy
       PublishPageJob.perform_later(id, public_on: current_time)
     end
 
+    # Returns true if the draft version has changes not yet published.
+    #
+    # Compares the updated_at timestamp of the draft_version against the
+    # updated_at timestamp of the public_version. If there's no public_version,
+    # the page has never been published and always has unpublished changes.
+    #
+    # @return [Boolean]
+    def has_unpublished_changes?
+      return true unless public_version
+
+      draft_version.updated_at > public_version.updated_at
+    end
+
     # Sets the public_on date on the published version
     #
     # Builds a new version if none exists yet.

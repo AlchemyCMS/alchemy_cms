@@ -151,6 +151,13 @@ export class ElementEditor extends HTMLElement {
       data.ingredientAnchors.forEach((anchor) => {
         IngredientAnchorLink.updateIcon(anchor.ingredientId, anchor.active)
       })
+      if (data.pageHasUnpublishedChanges) {
+        document.dispatchEvent(
+          new CustomEvent("alchemy:page-dirty", {
+            detail: { tooltip: data.publishButtonTooltip }
+          })
+        )
+      }
     }
   }
 

@@ -10,9 +10,9 @@ RSpec.describe "Page editing feature", type: :system do
   context "as author" do
     before { authorize_user(:as_author) }
 
-    it "cannot publish page." do
+    it "cannot publish page.", :js do
       visit alchemy.edit_admin_page_path(a_page)
-      expect(page).to have_selector("#publish_page_form button[disabled]")
+      expect(page).to have_selector("#publish_page_form sl-button[disabled]")
     end
 
     describe "the preview frame", :js do
@@ -44,9 +44,9 @@ RSpec.describe "Page editing feature", type: :system do
   context "as editor" do
     before { authorize_user(:as_editor) }
 
-    it "can publish page." do
+    it "can publish page.", :js do
       visit alchemy.edit_admin_page_path(a_page)
-      find("#publish_page_form button").click
+      find("#publish_page_form sl-button[type='submit']").click
       expect(page).to have_content Alchemy.t(:page_published, name: a_page.name)
     end
 
