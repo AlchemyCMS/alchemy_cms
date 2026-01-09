@@ -498,7 +498,7 @@ module Alchemy
 
         it "published page in the background" do
           expect {
-            post publish_admin_page_path(page)
+            post publish_admin_page_path(page, format: :turbo_stream)
           }.to have_enqueued_job(Alchemy::PublishPageJob)
         end
       end

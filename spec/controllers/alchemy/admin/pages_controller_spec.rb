@@ -81,7 +81,7 @@ RSpec.describe Alchemy::Admin::PagesController do
       current_time = Time.current
       Timecop.freeze(current_time) do
         expect {
-          post :publish, params: {id: page}
+          post :publish, params: {id: page}, format: :turbo_stream
         }.to have_enqueued_job(Alchemy::PublishPageJob).with(page.id, public_on: current_time)
       end
     end

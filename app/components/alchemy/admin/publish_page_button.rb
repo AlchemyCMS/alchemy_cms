@@ -10,16 +10,20 @@ module Alchemy
     #
     class PublishPageButton < ViewComponent::Base
       delegate :cannot?, :render_icon, to: :helpers
-      delegate :has_unpublished_changes?, to: :page
 
       attr_reader :page
 
-      def initialize(page:)
+      def initialize(page:, published: false)
         @page = page
+        @published = published
       end
 
       def disabled?
-        cannot?(:publish, page) || !has_unpublished_changes?
+        @published || cannot?(:publish, page) || !has_unpublished_changes?
+      end
+
+      def has_unpublished_changes?
+        !@published && page.has_unpublished_changes?
       end
 
       def tooltip_content
@@ -27,7 +31,7 @@ module Alchemy
           Alchemy.t(:publish_page_language_not_public)
         elsif cannot?(:publish, page)
           Alchemy.t(:publish_page_not_allowed)
-        elsif !has_unpublished_changes?
+        elsif @published || !has_unpublished_changes?
           Alchemy.t(:no_unpublished_changes)
         else
           Alchemy.t(:explain_publishing)

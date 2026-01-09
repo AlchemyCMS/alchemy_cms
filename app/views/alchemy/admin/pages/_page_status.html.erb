@@ -1,5 +1,5 @@
 <span class="page_status">
-  <% if page.public? %>
+  <% if local_assigns.fetch(:published, page.public?) %>
     <%= render_icon(:cloud, size: "1x") %>
   <% else %>
     <%= render_icon("cloud-off", size: "1x", class: "disabled") %>
