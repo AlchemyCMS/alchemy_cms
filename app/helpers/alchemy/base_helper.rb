@@ -5,7 +5,7 @@ module Alchemy
     # Logs a message in the Rails logger (warn level)
     # and optionally displays an error message to the user.
     def warning(message, text = nil)
-      Logger.warn(message, caller(1..1))
+      Logger.warn(message)
       unless text.nil?
         render_message(:warning) do
           text.html_safe

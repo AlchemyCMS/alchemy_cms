@@ -10,9 +10,18 @@ RSpec.describe Alchemy::Logger do
   let(:message) { "Something bad happened" }
 
   describe ".warn" do
-    let(:caller_string) { "file.rb:14" }
+    subject { Alchemy::Logger.warn(message) }
 
-    subject { Alchemy::Logger.warn(message, caller_string) }
+    context "when called with caller_string" do
+      let(:caller_string) { "file.rb:14" }
+
+      subject { Alchemy::Logger.warn(message, caller_string) }
+
+      it "logs a deprecation warning about the second argument" do
+        expect(Alchemy::Deprecation).to receive(:warn).with(/second argument is deprecated/)
+        subject
+      end
+    end
 
     it { is_expected.to be_nil }
 
@@ -30,12 +39,8 @@ RSpec.describe Alchemy::Logger do
   describe "#log_warning" do
     subject { Something.new.log_warning(message) }
 
-    before do
-      expect_any_instance_of(Something).to receive(:caller).with(1..1) { ["second"] }
-    end
-
     it "delegates to Alchemy::Logger.warn class method with second line of callstack" do
-      expect(Alchemy::Logger).to receive(:warn).with(message, ["second"])
+      expect(Alchemy::Logger).to receive(:warn).with(message)
       subject
     end
   end
