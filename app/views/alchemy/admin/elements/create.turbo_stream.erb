@@ -1,11 +1,3 @@
-<% opts = {
-  partial: "alchemy/admin/elements/element",
-  locals: {
-    element: Alchemy::ElementEditor.new(@element),
-    created: true
-  }
-} %>
-
 <% if @element.fixed? %>
   <% target = "fixed_element_#{@element.id}" %>
 <% elsif @element.parent_element %>
@@ -19,9 +11,13 @@
 <% end %>
 
 <% if @insert_at_top %>
-  <%= turbo_stream.prepend target, **opts %>
+  <%= turbo_stream.prepend target do %>
+    <%= render Alchemy::Admin::ElementEditor.new(element: @element, created: true) %>
+  <% end %>
 <% else %>
-  <%= turbo_stream.append target, **opts %>
+  <%= turbo_stream.append target do %>
+    <%= render Alchemy::Admin::ElementEditor.new(element: @element, created: true) %>
+  <% end %>
 <% end %>
 
 <%= turbo_stream.replace "clipboard_button",

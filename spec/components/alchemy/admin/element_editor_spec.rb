@@ -2,9 +2,13 @@
 
 require "rails_helper"
 
-RSpec.describe Alchemy::ElementEditor do
+RSpec.describe Alchemy::Admin::ElementEditor, type: :component do
+  before do
+    vc_test_view_context.class.include Alchemy::Admin::BaseHelper
+  end
+
   let(:element) { Alchemy::Element.new }
-  let(:element_editor) { described_class.new(element) }
+  let(:element_editor) { described_class.new(element: element) }
 
   describe "#element" do
     it "returns element object" do
@@ -45,14 +49,6 @@ RSpec.describe Alchemy::ElementEditor do
       it "creates the missing ingredient" do
         expect { subject }.to change { element.ingredients.count }.by(1)
       end
-    end
-  end
-
-  describe "#to_partial_path" do
-    subject { element_editor.to_partial_path }
-
-    it "returns the editor partial path" do
-      is_expected.to eq("alchemy/admin/elements/element")
     end
   end
 
@@ -147,43 +143,27 @@ RSpec.describe Alchemy::ElementEditor do
   describe "#editable?" do
     subject { element_editor.editable? }
 
-    context "for folded element" do
-      before { allow(element).to receive(:folded?) { true } }
+    context "for element having ingredients defined" do
+      before { allow(element).to receive(:ingredient_definitions) { [1] } }
 
-      it { is_expected.to eq(false) }
+      it { is_expected.to eq(true) }
     end
 
-    context "for expanded element" do
-      before { allow(element).to receive(:folded?) { false } }
+    context "for element having no ingredients defined" do
+      before { allow(element).to receive(:ingredient_definitions) { [] } }
 
-      context "and element having ingredients defined" do
-        before { allow(element).to receive(:ingredient_definitions) { [1] } }
+      context "and element being taggable" do
+        before { allow(element).to receive(:taggable?) { true } }
 
         it { is_expected.to eq(true) }
       end
 
-      context "and element having no ingredients defined" do
-        before { allow(element).to receive(:ingredient_definitions) { [] } }
+      context "and element not being taggable" do
+        before { allow(element).to receive(:taggable?) { false } }
 
-        context "and element beeing taggable" do
-          before { allow(element).to receive(:taggable?) { true } }
-
-          it { is_expected.to eq(true) }
-        end
-
-        context "and element not beeing taggable" do
-          before { allow(element).to receive(:taggable?) { false } }
-
-          it { is_expected.to eq(false) }
-        end
+        it { is_expected.to eq(false) }
       end
     end
-  end
-
-  describe "#respond_to?(:to_model)" do
-    subject { element_editor.respond_to?(:to_model) }
-
-    it { is_expected.to be(false) }
   end
 
   describe "#ungrouped_ingredients" do
@@ -245,6 +225,95 @@ RSpec.describe Alchemy::ElementEditor do
     it "excludes ungrouped ingredients" do
       all_grouped_roles = grouped.values.flatten.map(&:role)
       expect(all_grouped_roles).not_to include("headline")
+    end
+  end
+
+  describe "rendering" do
+    let(:definition) do
+      Alchemy::ElementDefinition.new(
+        name: "with_message",
+        message: "One nice message"
+      )
+    end
+
+    before do
+      allow(element).to receive(:definition) { definition }
+    end
+
+    context "with message given in element definition" do
+      let(:element) { create(:alchemy_element, name: "with_message") }
+
+      it "renders the message" do
+        render_inline(described_class.new(element: element))
+        expect(page).to have_css("alchemy-message", text: "One nice message")
+      end
+
+      context "that contains HTML" do
+        let(:definition) do
+          Alchemy::ElementDefinition.new(
+            name: "with_message",
+            message: "<h1>One nice message</h1>"
+          )
+        end
+
+        it "renders the HTML message" do
+          render_inline(described_class.new(element: element))
+          expect(page).to have_css('alchemy-message[type="info"] h1', text: "One nice message")
+        end
+      end
+    end
+
+    context "with warning given in element definition" do
+      let(:element) { create(:alchemy_element, name: "with_warning") }
+
+      let(:definition) do
+        Alchemy::ElementDefinition.new(
+          name: "with_warning",
+          warning: "One nice warning"
+        )
+      end
+
+      it "renders the warning" do
+        render_inline(described_class.new(element: element))
+        expect(page).to have_css('alchemy-message[type="warning"]', text: "One nice warning")
+      end
+
+      context "that contains HTML" do
+        let(:definition) do
+          Alchemy::ElementDefinition.new(
+            name: "with_warning",
+            warning: "<h1>One nice warning</h1>"
+          )
+        end
+
+        it "renders the HTML warning" do
+          render_inline(described_class.new(element: element))
+          expect(page).to have_css('alchemy-message[type="warning"] h1', text: "One nice warning")
+        end
+      end
+    end
+  end
+
+  describe ".with_collection" do
+    let(:elements) do
+      [
+        build_stubbed(:alchemy_element, id: 1, name: "header"),
+        build_stubbed(:alchemy_element, id: 2, name: "header")
+      ]
+    end
+
+    before do
+      elements.each do |el|
+        allow(el).to receive(:definition) do
+          Alchemy::ElementDefinition.new(name: el.name)
+        end
+      end
+    end
+
+    it "renders all elements in the collection" do
+      render_inline(described_class.with_collection(elements))
+
+      expect(page).to have_css("alchemy-element-editor", count: 2)
     end
   end
 end
