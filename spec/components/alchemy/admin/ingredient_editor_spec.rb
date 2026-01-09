@@ -53,6 +53,11 @@ RSpec.describe Alchemy::Admin::IngredientEditor, type: :component do
 
         expect(page).to have_css(".deprecated-editor")
       end
+
+      it "renders the deprecated partial with an IngredientEditor decorator" do
+        expect(Alchemy::IngredientEditor).to receive(:new).with(ingredient).and_call_original
+        render_inline(described_class.new(ingredient: ingredient, element_form: element_form))
+      end
     end
   end
 
