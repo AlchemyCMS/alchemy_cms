@@ -16,8 +16,8 @@ RSpec.describe Alchemy::Logger do
 
     it { is_expected.to be_nil }
 
-    it "uses Rails debug logger" do
-      expect(Rails.logger).to receive(:debug) { message }
+    it "uses Rails warn logger" do
+      expect(Rails.logger).to receive(:warn).with(message)
       subject
     end
   end
