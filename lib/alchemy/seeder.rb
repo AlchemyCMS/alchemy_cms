@@ -63,14 +63,14 @@ module Alchemy
       def seed_users
         desc "Seeding Alchemy users from #{user_seeds_file}"
 
-        if Alchemy.user_class.exists?
+        if Alchemy.config.user_class.exists?
           log "There are already users present in your database. " \
               "Please use `rake db:reset' if you want to rebuild your database.", :skip
           false
         else
           users = load_yaml_file(user_seeds_file)
           users.each do |draft|
-            user = Alchemy.user_class.create!(draft)
+            user = Alchemy.config.user_class.create!(draft)
             log "Created user: #{user.try(:email) || user.try(:login) || user.id}"
           end
         end

@@ -46,9 +46,9 @@ module Alchemy
           allow(controller).to receive(:redirect_to)
         end
 
-        it "redirects to login_path if no user" do
+        it "redirects to config.login_path if no user" do
           permission_denied
-          expect(controller).to have_received(:redirect_to).with(Alchemy.login_path)
+          expect(controller).to have_received(:redirect_to).with(Alchemy.config.login_path)
         end
 
         context "for a logged in member user" do
@@ -56,9 +56,9 @@ module Alchemy
             authorize_user build(:alchemy_dummy_user)
           end
 
-          it "redirects to unauthorized_path" do
+          it "redirects to config.unauthorized_path" do
             permission_denied
-            expect(controller).to have_received(:redirect_to).with(Alchemy.unauthorized_path)
+            expect(controller).to have_received(:redirect_to).with(Alchemy.config.unauthorized_path)
           end
         end
 

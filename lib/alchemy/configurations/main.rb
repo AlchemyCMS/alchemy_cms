@@ -378,6 +378,69 @@ module Alchemy
       # Default is 1 hour.
       #
       option :update_check_cache_duration, :integer, default: 1
+
+      # === The user class to be used for Alchemy
+      #
+      # If you don't have your own user model or don't want to provide one,
+      # add the `alchemy-devise` gem into your App's Gemfile.
+      #
+      # == Example
+      #     Alchemy.config.user_class = "MyUser"
+      option :user_class, :class
+
+      # Returns the user class name
+      #
+      # Prefixed with :: when getting to avoid constant name conflicts
+      def user_class_name = "::#{raw_user_class}"
+
+      # === User class primary key
+      #
+      # Your users table primary key. Defaults to +id+
+      #
+      # == Example
+      #     Alchemy.config.user_class_primary_key = :uuid
+      option :user_class_primary_key, :symbol, default: :id
+
+      # === Current user method
+      #
+      # A method on your ApplicationController to get current user. Defaults to +:id+
+      #
+      # == Example
+      #     Alchemy.config.current_user_method = :my_current_user
+      option :current_user_method, :symbol, default: :current_user
+
+      # === Signup Path
+      #
+      # The path to the signup form. Defaults to "/signup"
+      option :signup_path, :string, default: "/signup"
+
+      # === Login Path
+      #
+      # The path to the login form. Defaults to "/login"
+      option :login_path, :string, default: "/login"
+
+      # === Logout Path
+      #
+      # The path to the logout method.
+      option :logout_path, :string, default: "/logout"
+
+      # === Logout Method
+      #
+      # The http verb for the logout method. Defaults to "delete"
+      option :logout_method, :string, default: "delete"
+
+      # === Unauthorized Path
+      #
+      # The path to the page showing the user they're unauthorized
+      option :unauthorized_path, :string, default: "/"
+
+      # === CanCan abilities
+      #
+      # If your app or your engine has own CanCan abilities you must register them.
+      #
+      # == Example
+      #     Alchemy.config.abilities.add("MyCustom::Ability")
+      option :abilities, :collection, item_type: :class
     end
   end
 end
