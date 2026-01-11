@@ -312,8 +312,9 @@ sl-tooltip {
 sl-button {
   &::part(base),
   &::part(prefix),
+  &::part(spinner),
   &::part(label) {
-    transition-property: background-color, border-color, color;
+    transition-property: background-color, border-color, color, fill;
     transition-duration: var(--sl-transition-medium);
   }
 }
