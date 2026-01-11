@@ -56,11 +56,13 @@ module Alchemy
           render json: {
             notice: Alchemy.t(:element_saved),
             previewText: Rails::Html::SafeListSanitizer.new.sanitize(@element.preview_text),
-            ingredientAnchors: @element.ingredients.select { |i| i.settings[:anchor] }.map do |ingredient|
-              {
-                ingredientId: ingredient.id,
-                active: ingredient.dom_id.present?
-              }
+            ingredientAnchors: @element.ingredients.filter_map do |ingredient|
+              if ingredient.settings[:anchor]
+                {
+                  ingredientId: ingredient.id,
+                  active: ingredient.dom_id.present?
+                }
+              end
             end,
             pageHasUnpublishedChanges: @element.page.has_unpublished_changes?,
             publishButtonTooltip: Alchemy.t(:explain_publishing)
@@ -93,7 +95,9 @@ module Alchemy
         @element.save(validate: false)
         render json: {
           public: @element.public?,
-          label: @element.public? ? Alchemy.t(:hide_element) : Alchemy.t(:show_element)
+          label: @element.public? ? Alchemy.t(:hide_element) : Alchemy.t(:show_element),
+          pageHasUnpublishedChanges: @element.page.has_unpublished_changes?,
+          publishButtonTooltip: Alchemy.t(:explain_publishing)
         }
       end
 
