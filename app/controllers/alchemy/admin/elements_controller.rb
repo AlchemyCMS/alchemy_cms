@@ -63,10 +63,8 @@ module Alchemy
                   active: ingredient.dom_id.present?
                 }
               end
-            end,
-            pageHasUnpublishedChanges: @element.page.has_unpublished_changes?,
-            publishButtonTooltip: Alchemy.t(:explain_publishing)
-          }
+            end
+          }.merge(pagePublicationData(@element.page))
         else
           @warning = Alchemy.t("Validation failed")
           render json: {
@@ -95,10 +93,8 @@ module Alchemy
         @element.save(validate: false)
         render json: {
           public: @element.public?,
-          label: @element.public? ? Alchemy.t(:hide_element) : Alchemy.t(:show_element),
-          pageHasUnpublishedChanges: @element.page.has_unpublished_changes?,
-          publishButtonTooltip: Alchemy.t(:explain_publishing)
-        }
+          label: @element.public? ? Alchemy.t(:hide_element) : Alchemy.t(:show_element)
+        }.merge(pagePublicationData(@element.page))
       end
 
       def order
@@ -188,6 +184,13 @@ module Alchemy
 
       def clipboard_items
         @clipboard_items = Element.all_from_clipboard_for_page(clipboard, @page)
+      end
+
+      def pagePublicationData(page)
+        {
+          pageHasUnpublishedChanges: page.has_unpublished_changes?,
+          publishButtonTooltip: Alchemy.t(:explain_publishing)
+        }
       end
 
       def paste_element_from_clipboard
