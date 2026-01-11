@@ -85,7 +85,7 @@ module Alchemy
 
         render json: {
           message: Alchemy.t("Successfully deleted element") % {element: @element.display_name}
-        }
+        }.merge(pagePublicationData(@element.page))
       end
 
       def publish
