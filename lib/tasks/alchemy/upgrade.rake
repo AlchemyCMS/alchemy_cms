@@ -47,7 +47,11 @@ namespace :alchemy do
       ]
 
       desc "Migrate page metadata to page versions"
-      task migrate_page_metadata: [:environment] do
+      task migrate_page_metadata: [
+        "alchemy:install:migrations",
+        "environment"
+      ] do
+        Alchemy::Upgrader["8.1"].run_migrations
         Alchemy::Upgrader["8.1"].migrate_page_metadata
       end
     end
