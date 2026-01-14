@@ -69,4 +69,28 @@ RSpec.describe "Attachment Library", type: :system do
       end
     end
   end
+
+  describe "Sorting attachments", :js do
+    let!(:attachment_a) { create(:alchemy_attachment, name: "A File", created_at: 2.days.ago) }
+    let!(:attachment_b) { create(:alchemy_attachment, name: "B File", created_at: 1.day.ago) }
+
+    scenario "it sorts attachments by latest by default." do
+      visit alchemy.admin_attachments_path
+
+      within "table.list" do
+        expect(page).to have_css("tr:nth-child(1) td.name", text: "B File")
+        expect(page).to have_css("tr:nth-child(2) td.name", text: "A File")
+      end
+    end
+
+    scenario "it's possible to sort attachments by name." do
+      visit alchemy.admin_attachments_path
+
+      select "A-Z", from: "Sorting"
+      within "table.list" do
+        expect(page).to have_css("tr:nth-child(1) td.name", text: "A File")
+        expect(page).to have_css("tr:nth-child(2) td.name", text: "B File")
+      end
+    end
+  end
 end

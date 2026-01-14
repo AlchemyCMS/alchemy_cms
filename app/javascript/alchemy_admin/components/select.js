@@ -10,7 +10,9 @@ class Select extends HTMLSelectElement {
       allowClear: !!this.allowClear
     })
 
-    if (!this.allowClear) {
+    // For single selects, remove the close button if allowClear is not set
+    // For multiple selects, always keep the close buttons
+    if (!this.allowClear && !this.multiple) {
       this.#select2Element
         .prev(".select2-container")
         .find(".select2-search-choice-close")
