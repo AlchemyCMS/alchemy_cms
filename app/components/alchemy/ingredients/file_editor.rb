@@ -7,7 +7,7 @@ module Alchemy
       delegate :link_to_dialog, to: :helpers
 
       def input_field
-        tag.div(class: "file") do
+        content_tag("alchemy-file-editor", class: "file") do
           concat tag.div(
             render_icon(attachment&.icon_css_class),
             class: "file_icon"

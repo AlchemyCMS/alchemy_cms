@@ -36,6 +36,10 @@ RSpec.describe Alchemy::Ingredients::FileEditor, type: :component do
 
   it_behaves_like "an alchemy ingredient editor"
 
+  it "renders a alchemy-file-editor" do
+    is_expected.to have_selector("alchemy-file-editor")
+  end
+
   context "with attachment present" do
     it "renders a hidden field with attachment id" do
       is_expected.to have_selector("input[type='hidden'][value='#{attachment.id}']")
