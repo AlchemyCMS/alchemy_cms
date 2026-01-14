@@ -1,4 +1,3 @@
-import SortableElements from "alchemy_admin/sortable_elements"
 import IngredientAnchorLink from "alchemy_admin/ingredient_anchor_link"
 import { post } from "alchemy_admin/utils/ajax"
 import { createHtmlElement } from "alchemy_admin/utils/dom_helpers"
@@ -47,8 +46,6 @@ export class ElementEditor extends HTMLElement {
       })
       this.removeAttribute("created")
     }
-
-    SortableElements(`#${this.id} .nested-elements`)
   }
 
   handleEvent(event) {

@@ -51,31 +51,24 @@ function onEnd() {
   )
 }
 
-function createSortable(element, options = {}) {
-  const group = {
-    name: element.dataset.elementName,
-    put(to, _from, item) {
-      return to.el.dataset.droppableElements
-        .split(" ")
-        .includes(item.dataset.elementName)
+class SortableElements extends HTMLElement {
+  connectedCallback() {
+    const group = {
+      name: this.dataset.elementName,
+      put(to, _from, item) {
+        return to.el.dataset.droppableElements
+          .split(" ")
+          .includes(item.dataset.elementName)
+      }
     }
+    new Sortable(this, {
+      ...SORTABLE_OPTIONS,
+      onStart,
+      onSort,
+      onEnd,
+      group
+    })
   }
-  new Sortable(element, {
-    ...SORTABLE_OPTIONS,
-    ...options,
-    onStart,
-    onSort,
-    onEnd,
-    group
-  })
 }
 
-export default function SortableElements(selector) {
-  if (selector == null) selector = ".sortable-elements"
-
-  const sortable_areas = document.querySelectorAll(selector, {
-    direction: "vertical"
-  })
-
-  sortable_areas.forEach((element) => createSortable(element))
-}
+customElements.define("alchemy-sortable-elements", SortableElements)

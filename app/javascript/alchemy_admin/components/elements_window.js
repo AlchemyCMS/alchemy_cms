@@ -1,4 +1,3 @@
-import SortableElements from "alchemy_admin/sortable_elements"
 import { ElementEditor } from "alchemy_admin/components/element_editor"
 
 class ElementsWindow extends HTMLElement {
@@ -18,7 +17,6 @@ class ElementsWindow extends HTMLElement {
     if (window.location.hash) {
       this.focusElementEditor(window.location.hash)
     }
-    SortableElements()
     this.resize()
   }
 

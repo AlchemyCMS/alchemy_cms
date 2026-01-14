@@ -1,13 +1,6 @@
 import { vi } from "vitest"
 import { renderComponent } from "./component.helper"
 
-vi.mock("alchemy_admin/sortable_elements", () => {
-  return {
-    __esModule: true,
-    default: vi.fn()
-  }
-})
-
 vi.mock("alchemy_admin/components/element_editor", () => {
   return {
     ElementEditor: class MockElementEditor extends HTMLElement {
@@ -19,7 +12,6 @@ vi.mock("alchemy_admin/components/element_editor", () => {
 })
 
 import "alchemy_admin/components/elements_window"
-import SortableElements from "alchemy_admin/sortable_elements"
 import { ElementEditor } from "alchemy_admin/components/element_editor"
 
 // Register the mocked ElementEditor
@@ -68,12 +60,6 @@ describe("alchemy-elements-window", () => {
   })
 
   describe("connectedCallback", () => {
-    it("initializes SortableElements", () => {
-      SortableElements.mockClear()
-      getComponent(baseHtml)
-      expect(SortableElements).toHaveBeenCalled()
-    })
-
     it("calls resize", () => {
       const resizeSpy = vi.spyOn(elementsWindow.constructor.prototype, "resize")
       getComponent(baseHtml)
