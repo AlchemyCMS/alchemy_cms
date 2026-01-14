@@ -27,13 +27,6 @@ vi.mock("alchemy_admin/file_editors", () => {
   }
 })
 
-vi.mock("alchemy_admin/picture_editors", () => {
-  return {
-    __esModule: true,
-    default: vi.fn()
-  }
-})
-
 vi.mock("alchemy_admin/ingredient_anchor_link", () => {
   return {
     __esModule: true,
@@ -156,10 +149,6 @@ describe("alchemy-element-editor", () => {
     it("initializes file editors", () => {
       getComponent(html)
       expect(fileEditors).toHaveBeenCalled()
-    })
-
-    it("initializes picture editors", () => {
-      getComponent(html)
     })
   })
 
