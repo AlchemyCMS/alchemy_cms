@@ -51,7 +51,7 @@ module Alchemy
           -> {
             joins(:language, :versions)
               .merge(Language.published)
-              .merge(PageVersion.public_on(Time.current))
+              .merge(PageVersion.published)
           }
 
         # All pages that are a published language root
