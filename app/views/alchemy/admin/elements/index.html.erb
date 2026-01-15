@@ -32,13 +32,16 @@
         <% end %>
         <sl-tab-panel
           name="main-content-elements"
-          class="sortable-elements scrollable-elements"
-          data-droppable-elements="<%= @page.element_definition_names.join(' ') %>"
-          data-element-name="main-content-elements"
+          class="scrollable-elements"
           id="main-content-elements"
           style="--padding: 0"
         >
-          <%= render Alchemy::Admin::ElementEditor.with_collection(@elements) %>
+          <alchemy-sortable-elements
+            data-droppable-elements="<%= @page.element_definition_names.join(' ') %>"
+            data-element-name="main-content-elements"
+          >
+            <%= render Alchemy::Admin::ElementEditor.with_collection(@elements) %>
+          </alchemy-sortable-elements>
         </sl-tab-panel>
         <% @fixed_elements.each do |element| %>
           <sl-tab-panel id="fixed_element_<%= element.id %>" name="fixed-element-<%= element.id %>" style="--padding: 0" class="scrollable-elements">
@@ -47,13 +50,13 @@
         <% end %>
       </sl-tab-group>
     <% else %>
-      <div
-        id="main-content-elements"
-        class="sortable-elements scrollable-elements"
-        data-droppable-elements="<%= @page.element_definition_names.join(' ') %>"
-        data-element-name="main-content-elements"
-      >
-        <%= render Alchemy::Admin::ElementEditor.with_collection(@elements) %>
+      <div id="main-content-elements" class="scrollable-elements">
+        <alchemy-sortable-elements
+          data-droppable-elements="<%= @page.element_definition_names.join(' ') %>"
+          data-element-name="main-content-elements"
+        >
+          <%= render Alchemy::Admin::ElementEditor.with_collection(@elements) %>
+        </alchemy-sortable-elements>
       </div>
     <% end %>
   </alchemy-elements-window>

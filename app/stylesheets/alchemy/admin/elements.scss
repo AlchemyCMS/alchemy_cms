@@ -78,11 +78,12 @@ alchemy-elements-window-handle {
   }
 }
 
-#element_area {
-  .sortable-elements {
-    min-height: 100%;
-  }
+alchemy-sortable-elements {
+  display: block;
+  min-height: 100%;
+}
 
+#element_area {
   textarea {
     width: 100%;
   }

@@ -70,7 +70,7 @@
       "click element in the preview => load and expand element editor". %>
   <% if nestable_elements.any? %>
     <div class="nestable-elements">
-      <%= content_tag :div,
+      <%= content_tag "alchemy-sortable-elements",
         id: "element_#{id}_nested_elements",
         class: "nested-elements", data: {
           'droppable-elements' => nestable_elements.join(' '),
