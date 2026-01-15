@@ -111,7 +111,7 @@ module Alchemy
         render json: {
           message: Alchemy.t(:successfully_saved_element_position),
           preview_text: @element.preview_text
-        }
+        }.merge(pagePublicationData(@element.page))
       end
 
       # Collapses the element, all nested elements and persists the state in the db
