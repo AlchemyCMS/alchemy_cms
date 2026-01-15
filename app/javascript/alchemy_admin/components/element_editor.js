@@ -1,4 +1,3 @@
-import fileEditors from "alchemy_admin/file_editors"
 import SortableElements from "alchemy_admin/sortable_elements"
 import IngredientAnchorLink from "alchemy_admin/ingredient_anchor_link"
 import { post } from "alchemy_admin/utils/ajax"
@@ -49,10 +48,6 @@ export class ElementEditor extends HTMLElement {
       this.removeAttribute("created")
     }
 
-    // Init GUI elements
-    fileEditors(
-      `#${this.id} .ingredient-editor.file, #${this.id} .ingredient-editor.audio, #${this.id} .ingredient-editor.video`
-    )
     SortableElements(`#${this.id} .nested-elements`)
   }
 

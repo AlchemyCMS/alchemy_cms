@@ -1,5 +1,4 @@
 import { vi } from "vitest"
-import fileEditors from "alchemy_admin/file_editors"
 import IngredientAnchorLink from "alchemy_admin/ingredient_anchor_link"
 import { ElementEditor } from "alchemy_admin/components/element_editor"
 import { renderComponent } from "./component.helper"
@@ -17,20 +16,6 @@ vi.mock("alchemy_admin/image_loader", () => {
     default: {
       init: vi.fn()
     }
-  }
-})
-
-vi.mock("alchemy_admin/file_editors", () => {
-  return {
-    __esModule: true,
-    default: vi.fn()
-  }
-})
-
-vi.mock("alchemy_admin/picture_editors", () => {
-  return {
-    __esModule: true,
-    default: vi.fn()
   }
 })
 
@@ -136,10 +121,6 @@ describe("alchemy-element-editor", () => {
   })
 
   describe("connectedCallback", () => {
-    beforeEach(() => {
-      fileEditors.mockClear()
-    })
-
     describe("if dragged", () => {
       it("does not initializes", () => {
         const html = `
@@ -150,15 +131,6 @@ describe("alchemy-element-editor", () => {
     })
 
     it("initializes image loader", () => {
-      getComponent(html)
-    })
-
-    it("initializes file editors", () => {
-      getComponent(html)
-      expect(fileEditors).toHaveBeenCalled()
-    })
-
-    it("initializes picture editors", () => {
       getComponent(html)
     })
   })
