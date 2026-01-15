@@ -2,6 +2,8 @@
 
 module Alchemy
   class PageVersion < BaseRecord
+    include Alchemy::Publishable
+
     # Metadata attributes that are versioned (moved from Page)
     METADATA_ATTRIBUTES = %w[
       title
@@ -15,15 +17,14 @@ module Alchemy
       class_name: "Alchemy::Element",
       inverse_of: :page_version
 
-    scope :drafts, -> { where(public_on: nil).order(updated_at: :desc) }
-    scope :published, -> { where.not(public_on: nil).order(public_on: :desc) }
-
     before_create :set_title_from_page
 
-    def self.public_on(time = Time.current)
-      where("#{table_name}.public_on <= :time AND " \
-            "(#{table_name}.public_until IS NULL " \
-            "OR #{table_name}.public_until >= :time)", time: time)
+    class << self
+      alias_method :drafts, :draft
+      deprecate drafts: :draft, deprecator: Alchemy::Deprecation
+
+      alias_method :public_on, :published
+      deprecate public_on: :published, deprecator: Alchemy::Deprecation
     end
 
     before_destroy :delete_elements

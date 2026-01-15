@@ -12,7 +12,7 @@ module Alchemy
       if params[:page_id].present?
         @ingredients = @ingredients
           .where(alchemy_page_versions: {page_id: params[:page_id]})
-          .merge(Alchemy::PageVersion.drafts)
+          .merge(Alchemy::PageVersion.draft)
           .joins(element: :page_version)
       end
 
