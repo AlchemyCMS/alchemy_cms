@@ -6,6 +6,10 @@ FactoryBot.define do
     autogenerate_ingredients { false }
     association :page_version, factory: :alchemy_page_version
 
+    trait :published do
+      public_on { Time.current }
+    end
+
     trait :fixed do
       fixed { true }
       name { "right_column" }

@@ -8,7 +8,8 @@
 #  name              :string
 #  position          :integer
 #  page_version_id   :integer          not null
-#  public            :boolean          default(TRUE)
+#  public_on         :timestamp
+#  public_until      :timestamp
 #  fixed             :boolean          default(FALSE)
 #  folded            :boolean          default(FALSE)
 #  unique            :boolean          default(FALSE)
@@ -29,6 +30,7 @@ module Alchemy
     NAME_REGEXP = /\A[a-z0-9_-]+\z/
 
     include Alchemy::Taggable
+    include Publishable
 
     FORBIDDEN_DEFINITION_ATTRIBUTES = [
       "amount",
@@ -88,13 +90,13 @@ module Alchemy
     validates_presence_of :name, on: :create
     validates_format_of :name, on: :create, with: NAME_REGEXP
 
+    after_initialize :set_default_public_on, if: :new_record?
+
     attr_accessor :autogenerate_nested_elements
     after_create :generate_nested_elements, unless: -> { autogenerate_nested_elements == false }
 
     after_update :touch_touchable_pages
 
-    scope :published, -> { where(public: true) }
-    scope :hidden, -> { where(public: false) }
     scope :not_restricted, -> { joins(:page).merge(Page.not_restricted) }
     scope :named, ->(names) { where(name: names) }
     scope :excluded, ->(names) { where.not(name: names) }
@@ -115,6 +117,9 @@ module Alchemy
 
     # class methods
     class << self
+      alias_method :hidden, :draft
+      deprecate hidden: :draft, deprecator: Alchemy::Deprecation
+
       # Builds a new element as described in +/config/alchemy/elements.yml+
       #
       # - Returns a new Alchemy::Element object if no name is given in attributes,
@@ -209,6 +214,25 @@ module Alchemy
       end
     end
 
+    # Convenience setter to set public_on attribute
+    # when setting public to true or false.
+    def public=(value)
+      @public_on_explicitely_set = true
+      if ActiveModel::Type::Boolean.new.cast(value)
+        self.public_on ||= Time.current
+      else
+        self.public_on = nil
+      end
+    end
+
+    # Override setter to track if public_on was already set
+    # in order to not override it with default value if someone
+    # explicitly set it to nil.
+    def public_on=(value)
+      @public_on_explicitely_set = true
+      super
+    end
+
     # Returns true if the definition of this element has a taggable true value.
     def taggable?
       definition.taggable == true
@@ -280,6 +304,11 @@ module Alchemy
     end
 
     private
+
+    def set_default_public_on
+      return if @public_on_explicitely_set
+      self.public_on = Time.current
+    end
 
     def generate_nested_elements
       definition.autogenerate.each do |nestable_element|
