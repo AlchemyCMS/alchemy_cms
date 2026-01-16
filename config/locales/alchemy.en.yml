@@ -415,6 +415,7 @@ en:
     create_node: "Add a menu node"
     create_page: "Create a new subpage"
     currently_edited_by: "This page is locked by"
+    custom_color: "Custom color"
     cut_element: "Cut this element."
     delete_file: "Delete this file from server."
     delete_image: "Remove this image"

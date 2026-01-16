@@ -187,6 +187,15 @@
     - role: page
       type: Page
       hint: true
+    - role: color
+      type: Color
+      settings:
+        colors:
+          - ["None", "transparent"]
+          - ["Red", "red"]
+          - ["Blue", "#006"]
+          - ["Green", "#13db5e"]
+        custom_color: true
 
 - name: <%= 'erb_' + 'element' %>
   ingredients:

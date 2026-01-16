@@ -598,6 +598,51 @@ alchemy-publish-element-button {
   min-height: 100px;
 }
 
+alchemy-color-select {
+  display: flex;
+  gap: var(--spacing-1);
+  justify-content: space-between;
+  align-items: center;
+
+  > .select2-container {
+    width: 100%;
+  }
+
+  > input[type="color"] {
+    border: var(--border-default);
+    border-radius: var(--border-radius_medium);
+    height: var(--form-field-height);
+    background: var(--form-field-background-color);
+    width: 100%;
+
+    &[disabled] {
+      display: none;
+    }
+  }
+
+  select + input[type="color"] {
+    width: var(--form-field-addon-width);
+  }
+}
+
+// place the select color options outside, because Select2
+// is opening the selection container outside the `alchemy-color-select`
+// component
+.select-color-option {
+  .color-indicator {
+    --color: linear-gradient(90deg, red, orange, yellow, green, blue);
+    background: var(--color) 100% 100% no-repeat;
+    border: var(--border-default);
+    display: inline-block;
+    height: var(--icon-size-md);
+    width: var(--icon-size-md);
+  }
+
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
 .ingredient_link_buttons {
   display: flex;
   position: absolute;
