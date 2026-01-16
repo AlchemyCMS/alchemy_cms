@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_02_111901) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_15_171818) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -58,7 +58,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_02_111901) do
   create_table "alchemy_elements", force: :cascade do |t|
     t.string "name"
     t.integer "position"
-    t.boolean "public", default: true, null: false
     t.boolean "folded", default: false, null: false
     t.boolean "unique", default: false, null: false
     t.datetime "created_at", null: false
@@ -68,11 +67,14 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_02_111901) do
     t.integer "parent_element_id"
     t.boolean "fixed", default: false, null: false
     t.integer "page_version_id", null: false
+    t.datetime "public_on"
+    t.datetime "public_until"
     t.index ["creator_id"], name: "index_alchemy_elements_on_creator_id"
     t.index ["fixed"], name: "index_alchemy_elements_on_fixed"
     t.index ["page_version_id", "parent_element_id"], name: "idx_alchemy_elements_on_page_version_id_and_parent_element_id"
     t.index ["page_version_id", "position"], name: "idx_alchemy_elements_on_page_version_id_and_position"
     t.index ["page_version_id"], name: "index_alchemy_elements_on_page_version_id"
+    t.index ["public_on", "public_until"], name: "index_alchemy_elements_on_public_on_and_public_until"
     t.index ["updater_id"], name: "index_alchemy_elements_on_updater_id"
   end
 
