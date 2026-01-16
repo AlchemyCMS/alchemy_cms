@@ -1,0 +1,15 @@
+<alchemy-publish-page-button class="toolbar_button" id="publish_page_button">
+  <sl-tooltip content="<%= tooltip_content %>">
+    <%= form_tag publish_path, id: "publish_page_form", data: {turbo: true} do %>
+      <sl-button
+        type="submit"
+        outline
+        variant="<%= has_unpublished_changes? ? 'primary' : 'default' %>"
+        <%= "disabled" if disabled? %>
+      >
+        <sl-icon slot="prefix" name="upload-cloud-2" label="Publish" style="font-size: var(--icon-size-md)"></sl-icon>
+        <%= button_label %>
+      </sl-button>
+    <% end %>
+  </sl-tooltip>
+</alchemy-publish-page-button>

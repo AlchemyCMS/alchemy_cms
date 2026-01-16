@@ -89,7 +89,7 @@
 
   --sl-transition-x-slow: 1000ms;
   --sl-transition-slow: 500ms;
-  --sl-transition-medium: 250ms;
+  --sl-transition-medium: var(--transition-duration);
   --sl-transition-fast: 150ms;
   --sl-transition-x-fast: 50ms;
 
@@ -306,6 +306,16 @@ sl-tooltip {
   &::part(base__popup) {
     border-radius: var(--border-radius_medium);
     box-shadow: var(--tooltip-box-shadow);
+  }
+}
+
+sl-button {
+  &::part(base),
+  &::part(prefix),
+  &::part(spinner),
+  &::part(label) {
+    transition-property: background-color, border-color, color, fill;
+    transition-duration: var(--sl-transition-medium);
   }
 }
 

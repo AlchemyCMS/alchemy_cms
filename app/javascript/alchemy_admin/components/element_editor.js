@@ -6,6 +6,14 @@ import { growl } from "alchemy_admin/growler"
 import "alchemy_admin/components/element_editor/publish_element_button"
 import "alchemy_admin/components/element_editor/delete_element_button"
 
+export function dispatchPageDirtyEvent(data) {
+  document.dispatchEvent(
+    new CustomEvent("alchemy:page-dirty", {
+      detail: { tooltip: data.publishButtonTooltip }
+    })
+  )
+}
+
 export class ElementEditor extends HTMLElement {
   constructor() {
     super()
@@ -151,6 +159,9 @@ export class ElementEditor extends HTMLElement {
       data.ingredientAnchors.forEach((anchor) => {
         IngredientAnchorLink.updateIcon(anchor.ingredientId, anchor.active)
       })
+      if (data.pageHasUnpublishedChanges) {
+        dispatchPageDirtyEvent(data)
+      }
     }
   }
 

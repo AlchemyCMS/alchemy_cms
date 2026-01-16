@@ -1,0 +1,12 @@
+<alchemy-growl>
+  <%= Alchemy.t(:page_published, name: @page.name) %>
+</alchemy-growl>
+<%= turbo_stream.replace "locked_page_#{@page.id}",
+  partial: "alchemy/admin/pages/current_page",
+  locals: {current_page: @page, published: true } %>
+<%= turbo_stream.replace "publish_page_button" do %>
+  <%= render Alchemy::Admin::PublishPageButton.new(
+    page: @page,
+    published: true
+  ) %>
+<% end %>

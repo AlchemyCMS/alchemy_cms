@@ -3,6 +3,7 @@ import { removeTab } from "alchemy_admin/fixed_elements"
 import { growl } from "alchemy_admin/growler"
 import { reloadPreview } from "alchemy_admin/components/preview_window"
 import { openConfirmDialog } from "alchemy_admin/confirm_dialog"
+import { dispatchPageDirtyEvent } from "alchemy_admin/components/element_editor"
 
 export class DeleteElementButton extends HTMLElement {
   constructor() {
@@ -18,7 +19,7 @@ export class DeleteElementButton extends HTMLElement {
     }
   }
 
-  #removeElement(response) {
+  #removeElement(data) {
     const elementEditor = this.closest("alchemy-element-editor")
     elementEditor.addEventListener("transitionend", () => {
       if (elementEditor.fixed) {
@@ -27,7 +28,10 @@ export class DeleteElementButton extends HTMLElement {
       elementEditor.remove()
     })
     elementEditor.classList.add("dismiss")
-    growl(response.message)
+    growl(data.message)
+    if (data.pageHasUnpublishedChanges) {
+      dispatchPageDirtyEvent(data)
+    }
     reloadPreview()
   }
 

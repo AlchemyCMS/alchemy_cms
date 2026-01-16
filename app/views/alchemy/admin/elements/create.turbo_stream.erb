@@ -24,6 +24,10 @@
   partial: "alchemy/admin/clipboard/button",
   locals: {remarkable_type: "elements"} %>
 
+<%= turbo_stream.replace "publish_page_button" do %>
+  <%= render Alchemy::Admin::PublishPageButton.new(page: @element.page) %>
+<% end %>
+
 <alchemy-growl>
   <%= Alchemy.t(:successfully_added_element) %>
 </alchemy-growl>

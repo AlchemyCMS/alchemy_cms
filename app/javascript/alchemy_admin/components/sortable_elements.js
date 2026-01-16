@@ -2,6 +2,7 @@ import Sortable from "sortablejs"
 import { growl } from "alchemy_admin/growler"
 import { post } from "alchemy_admin/utils/ajax"
 import { reloadPreview } from "alchemy_admin/components/preview_window"
+import { dispatchPageDirtyEvent } from "alchemy_admin/components/element_editor"
 
 const SORTABLE_OPTIONS = {
   draggable: ".element-editor",
@@ -38,6 +39,9 @@ function onSort(event) {
     post(Alchemy.routes.order_admin_elements_path, params).then((response) => {
       const data = response.data
       growl(data.message)
+      if (data.pageHasUnpublishedChanges) {
+        dispatchPageDirtyEvent(data)
+      }
       reloadPreview()
       item.updateTitle(data.preview_text)
     })

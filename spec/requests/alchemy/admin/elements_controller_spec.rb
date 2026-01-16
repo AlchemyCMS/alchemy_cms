@@ -48,5 +48,12 @@ RSpec.describe Alchemy::Admin::ElementsController do
         expect(response.status).to eq 422
       end
     end
+
+    context "if validation succeeded" do
+      it "returns publishButtonTooltip" do
+        patch admin_element_path(id: element.id)
+        expect(response.parsed_body["publishButtonTooltip"]).to eq(Alchemy.t(:explain_publishing))
+      end
+    end
   end
 end

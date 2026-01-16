@@ -1,6 +1,7 @@
 import { patch } from "alchemy_admin/utils/ajax"
 import { reloadPreview } from "alchemy_admin/components/preview_window"
 import { growl } from "alchemy_admin/growler"
+import { dispatchPageDirtyEvent } from "alchemy_admin/components/element_editor"
 
 export class PublishElementButton extends HTMLElement {
   constructor() {
@@ -14,9 +15,13 @@ export class PublishElementButton extends HTMLElement {
     if (elementEditor === this.elementEditor) {
       patch(Alchemy.routes.publish_admin_element_path(this.elementId))
         .then((response) => {
-          this.elementEditor.published = response.data.public
-          this.tooltip.setAttribute("content", response.data.label)
+          const data = response.data
+          this.elementEditor.published = data.public
+          this.tooltip.setAttribute("content", data.label)
           reloadPreview()
+          if (data.pageHasUnpublishedChanges) {
+            dispatchPageDirtyEvent(data)
+          }
         })
         .catch((error) => growl(error.message, "error"))
     }

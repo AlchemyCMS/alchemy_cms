@@ -59,15 +59,6 @@
       <% end %>
     </sl-tooltip>
   </div>
-  <div class="toolbar_button">
-    <%= content_tag "sl-tooltip", content: @page.language.public? ? Alchemy.t(:explain_publishing) : @page.editable_by?(current_alchemy_user) ? Alchemy.t(:publish_page_language_not_public) : Alchemy.t(:publish_page_not_allowed) do %>
-      <%= form_tag alchemy.publish_admin_page_path(@page), id: 'publish_page_form' do %>
-        <%= button_tag class: 'icon_button please_wait', disabled: cannot?(:publish, @page) do %>
-          <%= render_icon('upload-cloud-2') %>
-        <% end %>
-      <% end %>
-    <% end %>
-  </div>
   <% unless @page.layoutpage? %>
     <div class="toolbar_button">
       <% if @page.public? %>
@@ -119,7 +110,10 @@
     </sl-tooltip>
   </div>
 </div>
+
 <div class="toolbar_buttons right">
+  <%= render Alchemy::Admin::PublishPageButton.new(page: @page) %>
+  <div class="toolbar_spacer"></div>
   <div class="toolbar_button">
     <sl-tooltip content="<%= Alchemy.t(:hide_elements) %>">
       <%= link_to render_icon("menu-unfold"), nil, {

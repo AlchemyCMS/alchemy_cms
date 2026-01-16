@@ -1,9 +1,10 @@
 div#flash_notices {
   position: fixed;
-  right: 0;
+  right: 50%;
+  transform: translateX(50%);
   z-index: 400000;
   width: 400px;
-  top: 0;
+  bottom: var(--spacing-2);
 
   alchemy-message {
     font-weight: bold;
@@ -15,7 +16,7 @@ div#flash_notices {
     &.dismissed {
       display: block;
       opacity: 0;
-      transform: translate3d(0, -100%, 0);
+      transform: translate3d(0, 100%, 0);
     }
 
     &[type="error"] {

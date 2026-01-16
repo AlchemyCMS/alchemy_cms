@@ -5,6 +5,9 @@
   <%= turbo_stream.replace "locked_page_#{@page.id}" do %>
     <%= render("alchemy/admin/pages/current_page", current_page: @page) %>
   <% end %>
+  <%= turbo_stream.replace "publish_page_button" do %>
+    <%= render Alchemy::Admin::PublishPageButton.new(page: @page) %>
+  <% end %>
   <alchemy-action name="reloadPreview"></alchemy-action>
 <% else %>
   <%= turbo_stream.replace "locked_page_#{@page.id}" do %>

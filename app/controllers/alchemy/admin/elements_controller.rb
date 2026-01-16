@@ -56,13 +56,15 @@ module Alchemy
           render json: {
             notice: Alchemy.t(:element_saved),
             previewText: Rails::Html::SafeListSanitizer.new.sanitize(@element.preview_text),
-            ingredientAnchors: @element.ingredients.select { |i| i.settings[:anchor] }.map do |ingredient|
-              {
-                ingredientId: ingredient.id,
-                active: ingredient.dom_id.present?
-              }
+            ingredientAnchors: @element.ingredients.filter_map do |ingredient|
+              if ingredient.settings[:anchor]
+                {
+                  ingredientId: ingredient.id,
+                  active: ingredient.dom_id.present?
+                }
+              end
             end
-          }
+          }.merge(pagePublicationData(@element.page))
         else
           @warning = Alchemy.t("Validation failed")
           render json: {
@@ -83,7 +85,7 @@ module Alchemy
 
         render json: {
           message: Alchemy.t("Successfully deleted element") % {element: @element.display_name}
-        }
+        }.merge(pagePublicationData(@element.page))
       end
 
       def publish
@@ -92,7 +94,7 @@ module Alchemy
         render json: {
           public: @element.public?,
           label: @element.public? ? Alchemy.t(:hide_element) : Alchemy.t(:show_element)
-        }
+        }.merge(pagePublicationData(@element.page))
       end
 
       def order
@@ -109,7 +111,7 @@ module Alchemy
         render json: {
           message: Alchemy.t(:successfully_saved_element_position),
           preview_text: @element.preview_text
-        }
+        }.merge(pagePublicationData(@element.page))
       end
 
       # Collapses the element, all nested elements and persists the state in the db
@@ -182,6 +184,13 @@ module Alchemy
 
       def clipboard_items
         @clipboard_items = Element.all_from_clipboard_for_page(clipboard, @page)
+      end
+
+      def pagePublicationData(page)
+        {
+          pageHasUnpublishedChanges: page.has_unpublished_changes?,
+          publishButtonTooltip: Alchemy.t(:explain_publishing)
+        }
       end
 
       def paste_element_from_clipboard

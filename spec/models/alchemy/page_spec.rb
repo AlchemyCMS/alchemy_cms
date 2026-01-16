@@ -1653,6 +1653,40 @@ module Alchemy
       end
     end
 
+    describe "#has_unpublished_changes?" do
+      context "when page has no public version" do
+        let(:page) { create(:alchemy_page) }
+
+        it "returns true" do
+          expect(page.has_unpublished_changes?).to be true
+        end
+      end
+
+      context "when page has a public version" do
+        let(:page) { create(:alchemy_page, :public) }
+
+        context "when draft is newer than public version" do
+          before do
+            page.draft_version.update_column(:updated_at, 1.minute.from_now)
+          end
+
+          it "returns true" do
+            expect(page.has_unpublished_changes?).to be true
+          end
+        end
+
+        context "when public version is current" do
+          before do
+            page.public_version.update_column(:updated_at, 1.minute.from_now)
+          end
+
+          it "returns false" do
+            expect(page.has_unpublished_changes?).to be false
+          end
+        end
+      end
+    end
+
     describe "#set_language" do
       let(:default_language) { build(:alchemy_language, code: "es") }
       let(:page) { build(:alchemy_page, parent: parent) }
