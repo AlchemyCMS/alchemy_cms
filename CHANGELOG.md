@@ -1,5 +1,63 @@
 # Changelog
 
+## 8.0.3 (2026-01-19)
+
+## What's Changed
+* [8.0-stable] Fix missing callback in page_controller by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3544
+* [8.0] fix(Clipboard): Adjust dark mode style by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3548
+* [8.0-stable] Reset Current.site between tests by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3552
+* [8.0-stable] fix(PictureEditor): Use local klass to translate by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3553
+* [8.0-stable] fix(resource_url_proxy): Use send over eval by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3563
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.0.2...v8.0.3
+
+## 8.0.2 (2025-12-24)
+
+## What's Changed
+* [8.0-stable] Even more style fixes by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3540
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.0.1...v8.0.2
+
+## 8.0.1 (2025-12-23)
+
+## What's Changed
+* [8.0-stable] fix(page): Add `"page_layout"` to `ransackable_attributes` by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3514
+* [8.0-stable] fix(page filter): Only select from content pages by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3519
+* [8.0-stable] fix(assignments): Only list draft elements by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3520
+* [8.0-stable] fix(ElementsWindow): Focus element if element dom_id is in the url hash by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3521
+* [8.0-stable] fix(resource-info): Fix layout for long filenames by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3523
+* [8.0-stable] Fix filtering Attachments by only or except setting by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3525
+* [8.0-stable] Fix overlay uploader by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3527
+* [8.0-stable] Add timeout and retry feature for preview window by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3528
+* [8.0-stable] Fix UI glitches 2025 by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3529
+* [8.0-stable] tests: Run system tests with headless Firefox by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3536
+* [8.0-stable] fix(PictureDescriptionSelect): Add site name to identify language by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3535
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.0.0...v8.0.1
+
+## 8.0.0 (2025-12-10)
+
+## What's Changed
+* [8.0-stable] Fix boolean ingredient to respect default value from elements.yml by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3482
+* [8.0-stable] Fix element position not persisting after drag and drop for new elements by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3483
+* [8.0-stable] Allow gutentag v3 by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3486
+* [8.0-stable] Do not block database during index migration by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3491
+* [8.0-stable] feat(CollectionOption): Implement delete by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3493
+* [8.0-stable] feat(Configuration): Add SymbolOption by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3494
+* [8.0-stable] New Update Checks services by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3495
+* [8.0-stable] fix(ActiveStorage::PictureUrl): Do not transform if image is invariable by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3497
+* [8.0-stable] Sanitize SVGs after upload by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3499
+* [8.0-stable] fix(seeder): Use YAML.safe_load to load users.yml by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3503
+* [8.0-stable] Style fixes for 8.0 by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3505
+* [8.0-stable] feat(Page): Add all_ingredients association by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3507
+* [8.0-stable] Add reusable release workflows by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3511
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.0.0.c...v8.0.0
+
 ## 8.0.0.c (2025-11-07)
 
 - [8.0-stable] Fix boolean ingredient to respect default value from elements.yml [#3482](https://github.com/AlchemyCMS/alchemy_cms/pull/3482) ([alchemycms-bot](https://github.com/apps/alchemycms-bot))
@@ -168,6 +226,22 @@
 - Fix image cropper [#3192](https://github.com/AlchemyCMS/alchemy_cms/pull/3192) ([tvdeyen](https://github.com/tvdeyen))
 - Deprecate `Alchemy.enable_searchable` for `Alchemy.config.show_page_searchable_checkbox` [#3188](https://github.com/AlchemyCMS/alchemy_cms/pull/3188) ([mamhoff](https://github.com/mamhoff))
 - Add Alchemy.config and DSL for type-safe configuration [#3178](https://github.com/AlchemyCMS/alchemy_cms/pull/3178) ([mamhoff](https://github.com/mamhoff))
+
+## 7.4.12 (2026-01-19)
+
+## What's Changed
+* Fix flaky picture descriptions spec by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3438
+* [7.4-stable] Fix factories by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3462
+* [7.4-stable] fix(seeder): Use YAML.safe_load to load users.yml by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3502
+* [7.4-stable] fix(resource_url_proxy): Use send over eval by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3564
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v7.4.11...v7.4.12
+
+## 7.4.11 (2025-10-27)
+
+- [7.4-stable] Only sanitize filenames if not nil [#3437](https://github.com/AlchemyCMS/alchemy_cms/pull/3437) ([tvdeyen](https://github.com/tvdeyen))
+- [7.4-stable] Fix elements-editor format validations [#3432](https://github.com/AlchemyCMS/alchemy_cms/pull/3432) ([alchemycms-bot](https://github.com/alchemycms-bot))
 
 ## 7.4.10 (2025-10-02)
 
