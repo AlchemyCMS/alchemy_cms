@@ -52,6 +52,11 @@ describe Alchemy::ResourcesHelper do
         it "returns the engine's proxy" do
           expect(test_controller_for_engine.resource_url_proxy).to eq("my_engine_proxy")
         end
+
+        it "uses public_send to call the engine proxy method" do
+          expect(test_controller_for_engine).to receive(:public_send).with("my_engine").and_return("my_engine_proxy")
+          test_controller_for_engine.resource_url_proxy
+        end
       end
     end
 
