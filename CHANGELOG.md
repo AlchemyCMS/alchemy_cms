@@ -1,5 +1,16 @@
 # Changelog
 
+## 7.4.12 (2026-01-19)
+
+## What's Changed
+* Fix flaky picture descriptions spec by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3438
+* [7.4-stable] Fix factories by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3462
+* [7.4-stable] fix(seeder): Use YAML.safe_load to load users.yml by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3502
+* [7.4-stable] fix(resource_url_proxy): Use send over eval by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3564
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v7.4.11...v7.4.12
+
 ## 7.4.11 (2025-10-27)
 
 - [7.4-stable] Only sanitize filenames if not nil [#3437](https://github.com/AlchemyCMS/alchemy_cms/pull/3437) ([tvdeyen](https://github.com/tvdeyen))
