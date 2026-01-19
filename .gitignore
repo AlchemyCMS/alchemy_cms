@@ -20,9 +20,6 @@ spec/dummy/uploads/
 *.gem
 /index/
 /.bundle/
-.rbenv-version
-.ruby-gemset
-.ruby-version
 .env
 node_modules
 yarn-error.log
