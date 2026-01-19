@@ -1,0 +1,21 @@
+name: Publish Release
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+      - '*-stable'
+
+jobs:
+  publish:
+    if: github.event_name == 'workflow_dispatch' || (github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'release/v'))
+    uses: AlchemyCMS/.github/.github/workflows/release.yml@main
+    with:
+      version_file_path: lib/alchemy/version.rb
+      target_branch: ${{ github.event.pull_request.base.ref || github.ref_name }}
+    secrets:
+      app_id: ${{ vars.ALCHEMY_BOT_APP_ID }}
+      app_private_key: ${{ secrets.ALCHEMY_BOT_APP_PRIVATE_KEY }}
+      rubygems_api_key: ${{ secrets.RUBYGEMS_API_KEY }}
