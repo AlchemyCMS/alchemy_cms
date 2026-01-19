@@ -1,5 +1,8 @@
 # Changelog
 
+## 8.0.3 (2026-01-19)
+
+
 ## 8.0.0.c (2025-11-07)
 
 - [8.0-stable] Fix boolean ingredient to respect default value from elements.yml [#3482](https://github.com/AlchemyCMS/alchemy_cms/pull/3482) ([alchemycms-bot](https://github.com/apps/alchemycms-bot))
