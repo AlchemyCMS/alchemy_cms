@@ -1,5 +1,93 @@
 # Changelog
 
+## 7.4.12 (2026-01-19)
+
+## What's Changed
+* [7.3-stable] Make page select portable by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3038
+* [7.3] Deprecate resources helpers by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3040
+* [7.3-stable] Add tinymce skin files to Sprockets manifest by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3063
+* [7.3-stable] fix new page form by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3064
+* [7.3-stable] Fix filtering associated models by id by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3068
+* [7.3-stable] Fix loading custom properties into Tinymce skin by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3070
+* [7.3-stable] chore: Fix rubocop styling issues by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3080
+* [7.3] Fix welcome screen stylesheet by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3078
+* Fix tinymce fullscreen mode by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3100
+* [7.3-stable] Fix image_overlay hidden form style by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3111
+* [7.4-stable] Replace MySQL build with SQLite by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3112
+* [7.4-stable] Bundle alchemy_link plugin into tinymce bundle by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3113
+* [7.4-stable] Use Handlebars templates from npm by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3114
+* [7.4-stable] Precompile alchem/preview.js by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3115
+* [7.4-stable] Use cropperjs instead of Jcrop by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3116
+* [7.4-stable] Load Select2 via importmap by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3117
+* [7.4-stable] Load jQuery via importmap by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3118
+* [7.4-stable] Convert dialog class into esm by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3119
+* [7.4-stable] Picture alt text form field height by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3120
+* [7.4-stable] Use turbo frame and stream to create element by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3121
+* [7.4-stable] CI: Run actions on ubuntu-22.04 by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3123
+* [7.4-stable] Use turbo streams to update page from configure dialog by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3128
+* [7.4-stable] Generate a view component in ingredient generator by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3131
+* [7.4-stable] Deprecate frontend elements controller by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3130
+* [7.4-stable] Use safe redirect paths in admin redirects by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3133
+* [7.4-stable] Allow Rails 8.0 by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3138
+* [7.4-stable] Correct element guides link in elements.yml.tt by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3149
+* [7.4-stable] CI: Set workflow permissions by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3141
+* [7.4-stable] Verify module controllers at runtime by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3150
+* [7.4-stable] fix missing logger issue in github actions by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3159
+* [7.4-stable] fix attribute sorting across Ruby versions by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3164
+* [7.4-stable] Use `#send` in navigation helper by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3165
+* [7.4-stable] Prevent redefining 'alchemy-menubar' custom element when using Turbo by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3167
+* [7.4-stable] Fix locked pages tab height by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3170
+* [7.4-stable] Preload SVG Icon Sprite by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3171
+* [7.4-stable] Test with Ruby 3.4.1 by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3168
+* [7.4-stable] [ruby - main] Update rails_live_reload to version 0.4.0 by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3173
+* [7.4-stable] Remove coffee-rails dependency by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3174
+* [7.4-stable] fix(Uploader): Handle HTML Errors during upload by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3177
+* Remove 7.0 upgrader tasks by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3181
+* [7.4-stable] Add specs for format matchers by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3183
+* [7.4] Allow additional stylesheets to be included in the admin UI by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3180
+* [7.4-stable] Add rel="noopener noreferrer" to external links by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3186
+* [7.4-stable] Resizable elements window by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3187
+* [7.4-stable] Fix image cropper by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3193
+* [7.4-stable] Only set elementEditor dirty if present during assignment by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3196
+* [7.4-stable] Prevent content overflowing in tinymce editor fullscreen mode by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3197
+* [7.4-stable] CI: Use own script to check changes files by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3200
+* [7.4-stable] Fix link dialog for links with url scheme mailto by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3207
+* [7.4-stable] Allow is_safe_redirect_path to recognize customized admin path by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3213
+* [7.4-stable] Resource "Download CSV" link: Use all filter params by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3211
+* [7.4-stable] Skip PushJavaScript Job for PRs without changed bun lock by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3222
+* [7.4-stable] Hide body while custom elements load by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3232
+* [7.4] Fix thumbnail bg pattern by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3250
+* [7.4-stable] fix(alchemy-select): Remove clear button of select2 by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3253
+* [7.4-stable] Fix Icons by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3257
+* [7.4] Fix attachment overlay list overflow by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3261
+* [7.4-stable] Remove non visual custom elements after connect by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3291
+* [7.4-stable] Add server error turbo_stream template by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3292
+* [7.4-stable] Fix multi language picture descriptions by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3293
+* [7.4-stable] Tweak small button appearance by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3294
+* [7.4]: Resources Admin: Fix editing with filters by @mamhoff in https://github.com/AlchemyCMS/alchemy_cms/pull/3313
+* [7.4-stable] Display current search string in resource search field by @mamhoff in https://github.com/AlchemyCMS/alchemy_cms/pull/3315
+* [7.4-stable] fix(picture_fields): use correct local variable by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3321
+* [7.4-stable] Fix Picture.deletable scope by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3336
+* [7.4-stable] Nullify related_object_type if related_object_id is set to nil by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3338
+* [7.4-stable] Harden picture descriptions integration spec by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3342
+* [7.4] CI: Use unique screenshots name by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3341
+* [7.4-stable] Add explicit strict mode in components index file by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3337
+* [7.4-stable] fix(DatetimeView): Use settings value if present by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3350
+* [7.4-stable] Fix page info url path display by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3355
+* [7.4-stable] Alchemy TinyMCE: Remove frontend presence validation by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3361
+* [7.4] Allow importmap-rails v2.0 by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3374
+* [7.4] Sanititze filenames before upload by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3375
+* [7.4-stable] Fix admin page preview permissions by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3389
+* [7.4-stable] Fix elements-editor format validations by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3432
+* [7.4-stable] Only sanitize filenames if not nil by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3437
+* Fix flaky picture descriptions spec by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3438
+* [7.4-stable] Fix factories by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3462
+* [7.4-stable] fix(seeder): Use YAML.safe_load to load users.yml by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3502
+* [7.4-stable] fix(resource_url_proxy): Use send over eval by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3564
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.0.2...v7.4.12
+
 ## 7.4.11 (2025-10-27)
 
 - [7.4-stable] Only sanitize filenames if not nil [#3437](https://github.com/AlchemyCMS/alchemy_cms/pull/3437) ([tvdeyen](https://github.com/tvdeyen))
