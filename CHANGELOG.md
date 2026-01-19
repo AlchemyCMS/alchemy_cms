@@ -1,5 +1,17 @@
 # Changelog
 
+## 8.0.3 (2026-01-19)
+
+## What's Changed
+* [8.0-stable] Fix missing callback in page_controller by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3544
+* [8.0] fix(Clipboard): Adjust dark mode style by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3548
+* [8.0-stable] Reset Current.site between tests by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3552
+* [8.0-stable] fix(PictureEditor): Use local klass to translate by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3553
+* [8.0-stable] fix(resource_url_proxy): Use send over eval by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3563
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.0.2...v8.0.3
+
 ## 8.0.2 (2025-12-24)
 
 ## What's Changed
