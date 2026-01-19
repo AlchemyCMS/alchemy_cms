@@ -56,7 +56,6 @@ group :development, :test do
     gem "github_fast_changelog", require: false
     gem "active_record_query_trace", require: false
     gem "rack-mini-profiler", require: false
-    gem "brakeman", require: false
     gem "ruby-lsp-rspec", require: false
   end
 end
@@ -79,3 +78,5 @@ gem "propshaft", "~> 1.0"
 gem "gem-release", "~> 2.2"
 
 gem "i18n-debug", "~> 1.2", require: false # Set to `"i18n/debug"` if you want to debug missing translations
+
+gem "brakeman", "~> 7.1", require: false
