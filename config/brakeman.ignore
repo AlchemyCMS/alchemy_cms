@@ -3,18 +3,18 @@
     {
       "warning_type": "File Access",
       "warning_code": 16,
-      "fingerprint": "154e5d85347ab40256b60182d3143830247b33b81de2ae9ac0622155a1de8e51",
+      "fingerprint": "457ad4fe86dba31aef8b4668f98487fbd40df70b2dd0036a594c3bcb37415ab8",
       "check_name": "SendFile",
       "message": "Parameter value used in file name",
-      "file": "app/controllers/alchemy/admin/attachments_controller.rb",
-      "line": 69,
+      "file": "app/controllers/alchemy/attachments_controller.rb",
+      "line": 42,
       "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
-      "code": "send_file(Attachment.find(params[:id]).file.path, :filename => Attachment.find(params[:id]).file_name, :type => Attachment.find(params[:id]).file_mime_type)",
+      "code": "send_file(Attachment.find(params[:id]).file.path, :filename => Attachment.find(params[:id]).file_name, :type => Attachment.find(params[:id]).file_mime_type, :disposition => disposition)",
       "render_path": null,
       "location": {
         "type": "method",
-        "class": "Alchemy::Admin::AttachmentsController",
-        "method": "download"
+        "class": "Alchemy::AttachmentsController",
+        "method": "send_attachment_file"
       },
       "user_input": "params[:id]",
       "confidence": "Weak",
@@ -24,43 +24,20 @@
       "note": ""
     },
     {
-      "warning_type": "Mass Assignment",
-      "warning_code": 70,
-      "fingerprint": "1dd8f69d9b1bdd4017212f38098f03d2ecb2db06269fb940090f209eee7570c6",
-      "check_name": "MassAssignment",
-      "message": "Specify exact keys allowed for mass assignment instead of using `permit!` which allows any keys",
-      "file": "app/controllers/alchemy/admin/resources_controller.rb",
-      "line": 209,
-      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
-      "code": "params.require(resource_handler.namespaced_resource_name).permit!",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Alchemy::Admin::ResourcesController",
-        "method": "resource_params"
-      },
-      "user_input": null,
-      "confidence": "Medium",
-      "cwe_id": [
-        915
-      ],
-      "note": "Because we actually can't know all attributes each inheriting controller supports, we permit all resource model params. It is adviced that all inheriting controllers implement this method and provide its own set of permitted attributes. As this all happens inside the password protected /admin namespace this can be considered a false positive."
-    },
-    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
       "fingerprint": "6e6ed4f8b20c07868bc04a4dc419103ecce33bb514eff77790abd57246a4513f",
       "check_name": "LinkToHref",
       "message": "Potentially unsafe model attribute in `link_to` href",
       "file": "app/views/alchemy/admin/nodes/_node.html.erb",
-      "line": 62,
+      "line": 22,
       "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
       "code": "link_to((Unresolved Model).new.url, (Unresolved Model).new.url, :target => \"_blank\", :title => (Unresolved Model).new.url)",
       "render_path": [
         {
           "type": "template",
           "name": "alchemy/admin/nodes/_node",
-          "line": 71,
+          "line": 95,
           "file": "app/views/alchemy/admin/nodes/_node.html.erb",
           "rendered": {
             "name": "alchemy/admin/nodes/_node",
@@ -78,122 +55,7 @@
         79
       ],
       "note": ""
-    },
-    {
-      "warning_type": "File Access",
-      "warning_code": 16,
-      "fingerprint": "6f642c32a45d9f6bbdff89c51873485c930479f4d72885ad0a1883c4372140bf",
-      "check_name": "SendFile",
-      "message": "Parameter value used in file name",
-      "file": "app/controllers/alchemy/attachments_controller.rb",
-      "line": 25,
-      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
-      "code": "send_file(Attachment.find(params[:id]).file.path, :filename => Attachment.find(params[:id]).file_name, :type => Attachment.find(params[:id]).file_mime_type)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Alchemy::AttachmentsController",
-        "method": "download"
-      },
-      "user_input": "params[:id]",
-      "confidence": "Weak",
-      "cwe_id": [
-        22
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "80b9b11d658cd393c549d568b3655c62566862f55b2fa16ed688de7c2e9343ac",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/views/alchemy/admin/elements/index.html.erb",
-      "line": 18,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => PageVersion.find(params[:page_version_id]).elements.order(:position).includes(*element_includes).not_nested.unfixed.map do\n Alchemy::ElementEditor.new(element)\n end, {})",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Alchemy::Admin::ElementsController",
-          "method": "index",
-          "line": 16,
-          "file": "app/controllers/alchemy/admin/elements_controller.rb",
-          "rendered": {
-            "name": "alchemy/admin/elements/index",
-            "file": "app/views/alchemy/admin/elements/index.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "alchemy/admin/elements/index"
-      },
-      "user_input": "params[:page_version_id]",
-      "confidence": "Weak",
-      "cwe_id": [
-        22
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "80b9b11d658cd393c549d568b3655c62566862f55b2fa16ed688de7c2e9343ac",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/views/alchemy/admin/elements/index.html.erb",
-      "line": 31,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => PageVersion.find(params[:page_version_id]).elements.order(:position).includes(*element_includes).not_nested.unfixed.map do\n Alchemy::ElementEditor.new(element)\n end, {})",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Alchemy::Admin::ElementsController",
-          "method": "index",
-          "line": 16,
-          "file": "app/controllers/alchemy/admin/elements_controller.rb",
-          "rendered": {
-            "name": "alchemy/admin/elements/index",
-            "file": "app/views/alchemy/admin/elements/index.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "alchemy/admin/elements/index"
-      },
-      "user_input": "params[:page_version_id]",
-      "confidence": "Weak",
-      "cwe_id": [
-        22
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "File Access",
-      "warning_code": 16,
-      "fingerprint": "a1197cfa89e3a66e6d10ee060cd87af97d5e978d6d93b5936eb987288f1c02e6",
-      "check_name": "SendFile",
-      "message": "Parameter value used in file name",
-      "file": "app/controllers/alchemy/attachments_controller.rb",
-      "line": 12,
-      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
-      "code": "send_file(Attachment.find(params[:id]).file.path, :filename => Attachment.find(params[:id]).file_name, :type => Attachment.find(params[:id]).file_mime_type, :disposition => \"inline\")",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Alchemy::AttachmentsController",
-        "method": "show"
-      },
-      "user_input": "params[:id]",
-      "confidence": "Weak",
-      "cwe_id": [
-        22
-      ],
-      "note": ""
     }
   ],
-  "updated": "2023-01-31 19:16:48 +0100",
-  "brakeman_version": "5.4.0"
+  "brakeman_version": "7.1.2"
 }
