@@ -23,7 +23,7 @@ module Alchemy
 
     def resource_url_proxy
       if resource_handler.in_engine?
-        eval(resource_handler.engine_name) # rubocop:disable Security/Eval
+        public_send(resource_handler.engine_name)
       else
         main_app
       end
