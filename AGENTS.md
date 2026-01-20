@@ -274,6 +274,12 @@ Follow Ruby and JavaScript conventions from `CONTRIBUTING.md`:
 - Event-driven communication between components
 - Prefer modern ES6+ syntax
 
+**Commit Messages**:
+- Do not use bullet points in commit message bodies
+- Write short explanatory sentences that explain why the change is useful or necessary
+- Focus on the reasoning and context, not just listing what changed
+- Keep commits focused on a single topic. Unrelated changes must go in separate commits
+
 ## Important Patterns
 
 ### Definition Repositories
