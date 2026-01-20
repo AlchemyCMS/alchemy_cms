@@ -5,6 +5,8 @@ require "rails_helper"
 module Alchemy
   describe Element do
     it { is_expected.to belong_to(:page_version) }
+    it { is_expected.to have_one(:page).through(:page_version) }
+    it { is_expected.to have_one(:language).through(:page) }
 
     # to prevent memoization
     before { ElementDefinition.instance_variable_set(:@definitions, nil) }
