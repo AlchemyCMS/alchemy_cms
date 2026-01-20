@@ -56,7 +56,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('bun.lockdb') }}
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('package.json', 'bun.lockdb') }}
           restore-keys: |
             ${{ runner.os }}-node-modules
       - name: Install dependencies
