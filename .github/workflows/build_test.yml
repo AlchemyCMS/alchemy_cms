@@ -27,7 +27,12 @@ jobs:
       - name: Get changed files
         id: changed-package-json
         run: |
-          git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} > changed_files
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          else
+            BASE_SHA="${{ github.event.before }}"
+          fi
+          git diff --name-only "$BASE_SHA" ${{ github.sha }} > changed_files
           cat changed_files
           if grep -q package.json changed_files; then
             echo "any_changed=true" > $GITHUB_OUTPUT
