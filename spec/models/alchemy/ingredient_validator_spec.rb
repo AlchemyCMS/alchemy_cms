@@ -172,5 +172,58 @@ RSpec.describe Alchemy::IngredientValidator do
       it { expect(ingredient.errors).to be_present }
       it { expect(ingredient.errors.messages).to eq(value: ["has already been taken"]) }
     end
+
+    context "and the same value exists in a published page version" do
+      let(:page) { create(:alchemy_page, :public) }
+      let(:draft_version) { page.draft_version }
+      let(:public_version) { page.public_version }
+
+      let(:draft_element) do
+        create(:alchemy_element, :with_ingredients, name: "all_you_can_eat", page_version: draft_version)
+      end
+
+      let(:ingredient) { draft_element.ingredient_by_role(:select) }
+
+      let!(:public_element) do
+        create(:alchemy_element, :with_ingredients, name: "all_you_can_eat", page_version: public_version)
+      end
+
+      let!(:public_ingredient) do
+        public_element.ingredient_by_role(:select).tap do |ing|
+          ing.update!(value: "B")
+        end
+      end
+
+      before do
+        ingredient.update(value: "B")
+      end
+
+      it "does not consider the published version as a duplicate" do
+        expect(ingredient.errors).to be_blank
+      end
+    end
+
+    context "and the same value exists in a different language" do
+      let(:german) { create(:alchemy_language, :german) }
+      let(:german_page) { create(:alchemy_page, language: german) }
+
+      let(:german_element) do
+        create(:alchemy_element, :with_ingredients, name: "all_you_can_eat", page_version: german_page.draft_version)
+      end
+
+      let!(:german_ingredient) do
+        german_element.ingredient_by_role(:select).tap do |ing|
+          ing.update!(value: "B")
+        end
+      end
+
+      before do
+        ingredient.update(value: "B")
+      end
+
+      it "does not consider the other language as a duplicate" do
+        expect(ingredient.errors).to be_blank
+      end
+    end
   end
 end
