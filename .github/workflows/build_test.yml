@@ -256,17 +256,22 @@ jobs:
     permissions:
       contents: read
     runs-on: ubuntu-22.04
+    needs: [check_package_json, build_javascript]
     env:
       NODE_ENV: test
     steps:
       - uses: actions/checkout@v4
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
+      - uses: actions/download-artifact@v4
+        if: needs.check_package_json.outputs.package_json_changed == 'true'
+        with:
+          name: bun-lockdb
       - name: Restore node modules cache
         uses: actions/cache@v4
         with:
           path: node_modules
-          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lockdb') }}
+          key: ${{ runner.os }}-bun-${{ hashFiles('package.json', 'bun.lockdb') }}
           restore-keys: |
             ${{ runner.os }}-bun-
       - name: Install dependencies
