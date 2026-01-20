@@ -15,11 +15,11 @@ on:
   pull_request:
 
 jobs:
-  check_bun_lock:
+  check_package_json:
     permissions:
       contents: read
     runs-on: ubuntu-22.04
-    name: Check bun.lockdb
+    name: Check package.json
     steps:
       - uses: actions/checkout@v4
         with:
@@ -27,25 +27,25 @@ jobs:
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
       - name: Get changed files
-        id: changed-bun-lock
+        id: changed-package-json
         run: |
           bun install
           git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} > changed_files
           cat changed_files
-          if grep -q bun.lockdb changed_files; then
+          if grep -q package.json changed_files; then
             echo "any_changed=true" > $GITHUB_OUTPUT
           else
             echo "any_changed=false" > $GITHUB_OUTPUT
           fi
     outputs:
-      bun_lock_changed: ${{ steps.changed-bun-lock.outputs.any_changed }}
+      package_json_changed: ${{ steps.changed-package-json.outputs.any_changed }}
 
   build_javascript:
     permissions:
       contents: read
     runs-on: ubuntu-22.04
     name: Build JS packages
-    needs: check_bun_lock
+    needs: check_package_json
     steps:
       - uses: actions/checkout@v4
       - name: Setup Bun
@@ -60,18 +60,23 @@ jobs:
       - name: Install dependencies
         run: bun install
       - name: bun build
-        if: needs.check_bun_lock.outputs.bun_lock_changed == 'true'
+        if: needs.check_package_json.outputs.package_json_changed == 'true'
         run: bun run --bun build
       - uses: actions/upload-artifact@v4
-        if: needs.check_bun_lock.outputs.bun_lock_changed == 'true'
+        if: needs.check_package_json.outputs.package_json_changed == 'true'
         with:
           name: javascript-bundles
           path: vendor/javascript
+      - uses: actions/upload-artifact@v4
+        if: needs.check_package_json.outputs.package_json_changed == 'true'
+        with:
+          name: bun-lockdb
+          path: bun.lockdb
 
   RSpec:
     permissions:
       contents: read
-    needs: [check_bun_lock, build_javascript]
+    needs: [check_package_json, build_javascript]
     runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
@@ -175,7 +180,7 @@ jobs:
           sudo apt install -qq --fix-missing libvips -o dir::cache::archives="/home/runner/apt/cache"
           sudo chown -R runner /home/runner/apt/cache
       - uses: actions/download-artifact@v4
-        if: needs.check_bun_lock.outputs.bun_lock_changed == 'true'
+        if: needs.check_package_json.outputs.package_json_changed == 'true'
         with:
           name: javascript-bundles
           path: vendor/javascript
@@ -205,8 +210,8 @@ jobs:
     permissions:
       contents: write
     runs-on: ubuntu-22.04
-    needs: [check_bun_lock, RSpec]
-    if: github.event_name == 'pull_request' && needs.check_bun_lock.outputs.bun_lock_changed == 'true'
+    needs: [check_package_json, RSpec]
+    if: github.event_name == 'pull_request' && needs.check_package_json.outputs.package_json_changed == 'true'
     steps:
       - name: Generate token
         id: generate_token
@@ -225,15 +230,18 @@ jobs:
         with:
           name: javascript-bundles
           path: vendor/javascript
+      - uses: actions/download-artifact@v4
+        with:
+          name: bun-lockdb
       - name: Check git status
         id: git-status
-        run: git diff --quiet vendor/javascript || echo "changed=true" >> $GITHUB_OUTPUT
+        run: git diff --quiet vendor/javascript bun.lockdb || echo "changed=true" >> $GITHUB_OUTPUT
       - name: git commit
         if: steps.git-status.outputs.changed == 'true'
         run: |
           git config --local user.name 'AlchemyCMS - CI Bot'
           git config --local user.email 'alchemy@blish.cloud'
-          git add vendor/javascript
+          git add vendor/javascript bun.lockdb
           git commit -m "Update JS packages" -m "Rebuilt packages after updating dependencies." -m "[skip ci]"
       - name: Push changes
         if: steps.git-status.outputs.changed == 'true'
