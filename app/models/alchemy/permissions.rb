@@ -111,6 +111,11 @@ module Alchemy
         can :edit_content, Alchemy::Page, Alchemy::Page.all do |page|
           page.editable_by?(@user)
         end
+
+        can :switch, Alchemy::Site
+        can(:access, Alchemy::Site) do |site|
+          site.accessible_by?(@user)
+        end
       end
     end
 
