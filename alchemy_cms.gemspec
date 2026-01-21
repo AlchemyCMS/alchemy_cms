@@ -34,7 +34,7 @@ Gem::Specification.new do |gem|
     activesupport
     railties
   ].each do |rails_gem|
-    gem.add_runtime_dependency rails_gem, [">= 7.1", "< 8.1"]
+    gem.add_runtime_dependency rails_gem, [">= 7.2", "< 8.1"]
   end
 
   gem.add_runtime_dependency "active_model_serializers", ["~> 0.10.14"]
@@ -60,12 +60,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "puma", "~> 7.0"
   gem.add_development_dependency "rails-controller-testing", ["~> 1.0"]
   gem.add_development_dependency "rspec-activemodel-mocks", ["~> 1.0"]
-  case ENV.fetch("RAILS_VERSION", "8.0")
-  when "7.1"
-    gem.add_development_dependency "rspec-rails", ["~> 7.1"]
-  else
-    gem.add_development_dependency "rspec-rails", ["~> 8.0"]
-  end
+  gem.add_development_dependency "rspec-rails", ["~> 8.0"]
   gem.add_development_dependency "simplecov", ["~> 0.20"]
   gem.add_development_dependency "selenium-webdriver", ["~> 4.10"]
   gem.add_development_dependency "webmock", ["~> 3.3"]

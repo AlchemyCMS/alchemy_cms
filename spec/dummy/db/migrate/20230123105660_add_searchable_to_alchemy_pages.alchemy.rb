@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This migration comes from alchemy (originally 20230123112425)
-class AddSearchableToAlchemyPages < ActiveRecord::Migration[6.0]
+class AddSearchableToAlchemyPages < ActiveRecord::Migration[7.2]
   def change
     return if column_exists?(:alchemy_pages, :searchable)
 

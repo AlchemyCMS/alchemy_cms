@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-class CreateEvents < ActiveRecord::Migration[4.2]
+class CreateEvents < ActiveRecord::Migration[7.2]
 
   def change
     create_table "events" do |t|
-      t.string   "name"
-      t.string   "hidden_name"
+      t.string "name"
+      t.string "hidden_name"
       t.datetime "starts_at"
       t.datetime "ends_at"
-      t.time     "lunch_starts_at"
-      t.time     "lunch_ends_at"
-      t.text     "description"
+      t.time "lunch_starts_at"
+      t.time "lunch_ends_at"
+      t.text "description"
       t.decimal  "entrance_fee", :precision => 6, :scale => 2
-      t.boolean  "published"
-      t.integer  "location_id"
+      t.boolean "published"
+      t.integer "location_id"
       t.datetime "created_at",                                 :null => false
       t.datetime "updated_at",                                 :null => false
     end

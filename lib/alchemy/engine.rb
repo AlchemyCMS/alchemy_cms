@@ -167,14 +167,7 @@ module Alchemy
         Rack::Mime::MIME_TYPES[".webp"] = webp
       end
 
-      # ActiveStorage 7.2 adds support for webp, but we still support Rails 7.1
       if app.config.active_storage
-        unless app.config.active_storage.web_image_content_types.include? webp
-          app.config.active_storage.web_image_content_types += [webp]
-        end
-        unless app.config.active_storage.content_types_allowed_inline.include? webp
-          app.config.active_storage.content_types_allowed_inline += [webp]
-        end
         # Rails sends svg images as attachment instead of inline.
         # We want to display svgs and not download them.
         unless app.config.active_storage.content_types_allowed_inline.include? svg

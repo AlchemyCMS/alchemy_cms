@@ -1,5 +1,5 @@
 # This migration comes from alchemy (originally 20260115164704)
-class AddPublicationTimestampsToAlchemyElements < ActiveRecord::Migration[7.1]
+class AddPublicationTimestampsToAlchemyElements < ActiveRecord::Migration[7.2]
   def up
     add_column :alchemy_elements, :public_on, :datetime
     add_column :alchemy_elements, :public_until, :datetime
