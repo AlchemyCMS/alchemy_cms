@@ -221,7 +221,7 @@ module Alchemy
         attributes.select { |a| searchable_attribute?(a) }
           .concat(searchable_relation_attributes(attributes))
           .collect { |h| h[:name] }
-      end
+      end.sort
     end
 
     # Search field input name
