@@ -1,5 +1,5 @@
 # This migration comes from alchemy (originally 20240314105244)
-class CreateAlchemyPictureDescriptions < ActiveRecord::Migration[7.0]
+class CreateAlchemyPictureDescriptions < ActiveRecord::Migration[7.2]
   def change
     create_table :alchemy_picture_descriptions do |t|
       t.belongs_to :picture, null: false, foreign_key: {to_table: :alchemy_pictures}

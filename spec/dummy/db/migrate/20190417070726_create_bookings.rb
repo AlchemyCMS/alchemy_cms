@@ -1,4 +1,4 @@
-class CreateBookings < ActiveRecord::Migration[5.0]
+class CreateBookings < ActiveRecord::Migration[7.2]
   def change
     create_table :bookings do |t|
       t.date :from

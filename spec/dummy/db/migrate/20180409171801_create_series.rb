@@ -1,4 +1,4 @@
-class CreateSeries < ActiveRecord::Migration[5.0]
+class CreateSeries < ActiveRecord::Migration[7.2]
   def change
     create_table :series do |t|
       t.string :name

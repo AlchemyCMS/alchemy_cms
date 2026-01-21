@@ -1,5 +1,5 @@
 # This migration comes from alchemy (originally 20250626160259)
-class AddUniqueIndexToPictureDescriptions < ActiveRecord::Migration[7.0]
+class AddUniqueIndexToPictureDescriptions < ActiveRecord::Migration[7.2]
   disable_ddl_transaction! if connection.adapter_name.match?(/postgres/i)
 
   def change

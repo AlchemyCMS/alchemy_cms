@@ -4,8 +4,6 @@ module Alchemy
       module PictureClassMethods
         def self.included(base)
           base.has_one_attached :image_file do |attachable|
-            # Only works in Rails 7.1+
-            # https://github.com/rails/rails/pull/47473
             Alchemy.storage_adapter.preprocessor_class.new(attachable).call
             Alchemy.storage_adapter.preprocessor_class.generate_thumbs!(attachable)
           end
