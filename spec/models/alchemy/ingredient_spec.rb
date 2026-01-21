@@ -3,6 +3,13 @@
 require "rails_helper"
 
 RSpec.describe Alchemy::Ingredient do
+  describe "associations" do
+    it { is_expected.to belong_to(:element) }
+    it { is_expected.to have_one(:page_version).through(:element) }
+    it { is_expected.to have_one(:page).through(:page_version) }
+    it { is_expected.to have_one(:language).through(:page) }
+  end
+
   describe "validations" do
     let!(:other_ingredient) { create(:alchemy_ingredient_text) }
 

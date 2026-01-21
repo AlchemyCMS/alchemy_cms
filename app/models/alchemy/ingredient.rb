@@ -11,7 +11,9 @@ module Alchemy
     belongs_to :element, touch: true, class_name: "Alchemy::Element", inverse_of: :ingredients
     belongs_to :related_object, polymorphic: true, optional: true
 
-    has_one :page, through: :element, class_name: "Alchemy::Page"
+    has_one :page_version, through: :element, class_name: "Alchemy::PageVersion"
+    has_one :page, through: :page_version, class_name: "Alchemy::Page"
+    has_one :language, through: :page, class_name: "Alchemy::Language"
 
     after_initialize :set_default_value,
       if: -> { definition.default && value.nil? }
