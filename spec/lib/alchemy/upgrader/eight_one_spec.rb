@@ -6,6 +6,20 @@ require "alchemy/upgrader"
 RSpec.describe Alchemy::Upgrader::EightOne do
   let(:upgrader) { Alchemy::Upgrader["8.1"] }
 
+  # Temporarily unignore the deprecated columns for testing
+  around do |example|
+    Alchemy::Shell.silence!
+    ignore_columns = Alchemy::Page.ignored_columns
+    Alchemy::Page.ignored_columns -= [
+      "meta_description",
+      "meta_keywords",
+      "title"
+    ]
+    example.run
+    Alchemy::Page.ignored_columns = ignore_columns
+    Alchemy::Shell.verbose!
+  end
+
   describe "#migrate_page_metadata" do
     context "when all page versions have metadata" do
       let!(:page) do

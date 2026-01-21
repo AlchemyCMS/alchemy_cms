@@ -46,6 +46,13 @@ module Alchemy
   class Page < BaseRecord
     include Alchemy::Taggable
 
+    # These columns are deprecated in favor of page versions
+    self.ignored_columns += [
+      "meta_description",
+      "meta_keywords",
+      "title"
+    ]
+
     DEFAULT_ATTRIBUTES_FOR_COPY = {
       autogenerate_elements: false,
       public_on: nil,
