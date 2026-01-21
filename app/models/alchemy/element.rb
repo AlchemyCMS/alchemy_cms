@@ -73,6 +73,7 @@ module Alchemy
 
     belongs_to :page_version, touch: true, inverse_of: :elements
     has_one :page, through: :page_version
+    has_one :language, through: :page
 
     # A nested element belongs to a parent element.
     belongs_to :parent_element,
