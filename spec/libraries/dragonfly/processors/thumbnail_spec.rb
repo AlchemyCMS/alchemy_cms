@@ -3,7 +3,7 @@
 require "rails_helper"
 require_relative "../../../support/dragonfly_test_app"
 
-RSpec.describe Alchemy::Dragonfly::Processors::Thumbnail do
+RSpec.describe Alchemy::Dragonfly::Processors::Thumbnail, if: Alchemy.storage_adapter.dragonfly? do
   let(:app) { dragonfly_test_app }
   let(:file) { fixture_file_upload("80x60.png") }
   let(:image) { Dragonfly::Content.new(app, file) }
