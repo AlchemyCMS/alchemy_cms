@@ -18,7 +18,7 @@ jobs:
   check_bun_lock:
     permissions:
       contents: read
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     name: Check bun.lockdb
     steps:
       - uses: actions/checkout@v4
@@ -43,7 +43,7 @@ jobs:
   build_javascript:
     permissions:
       contents: read
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     name: Build JS packages
     needs: check_bun_lock
     steps:
@@ -72,7 +72,7 @@ jobs:
     permissions:
       contents: read
     needs: [check_bun_lock, build_javascript]
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
@@ -146,9 +146,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /home/runner/apt/cache
-          key: ${{ runner.os }}-apt-${{ matrix.database }}
+          key: ${{ runner.os }}-apt-${{ matrix.database }}-${{ matrix.storage }}
           restore-keys: |
-            ${{ runner.os }}-apt-
+            ${{ runner.os }}-apt-${{ matrix.database }}-
       - name: Install Postgres headers
         if: matrix.database == 'postgresql'
         run: |
@@ -171,6 +171,15 @@ jobs:
           mkdir -p /home/runner/apt/cache
           sudo apt update -qq
           sudo apt install -qq --fix-missing libvips -o dir::cache::archives="/home/runner/apt/cache"
+          sudo chown -R runner /home/runner/apt/cache
+      - name: Install ImageMagick
+        if: matrix.storage == 'dragonfly'
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          mkdir -p /home/runner/apt/cache
+          sudo apt update -qq
+          sudo apt install -qq --fix-missing imagemagick -o dir::cache::archives="/home/runner/apt/cache"
           sudo chown -R runner /home/runner/apt/cache
       - uses: actions/download-artifact@v4
         if: needs.check_bun_lock.outputs.bun_lock_changed == 'true'
@@ -202,7 +211,7 @@ jobs:
   PushJavascript:
     permissions:
       contents: write
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [check_bun_lock, RSpec]
     if: github.event_name == 'pull_request' && needs.check_bun_lock.outputs.bun_lock_changed == 'true'
     steps:
@@ -243,7 +252,7 @@ jobs:
   Vitest:
     permissions:
       contents: read
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     env:
       NODE_ENV: test
     steps:
