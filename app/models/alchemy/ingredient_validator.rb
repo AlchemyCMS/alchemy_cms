@@ -107,7 +107,7 @@ module Alchemy
     def duplicates
       ingredient.class
         .joins(:element, :page_version, :language)
-        .merge(Alchemy::PageVersion.drafts)
+        .merge(Alchemy::PageVersion.draft)
         .merge(Alchemy::Language.where(id: ingredient.language.id))
         .where(Alchemy::Element.table_name => {name: ingredient.element.name})
         .where(value: ingredient.value)

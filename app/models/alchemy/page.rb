@@ -126,8 +126,8 @@ module Alchemy
     has_many :legacy_urls, class_name: "Alchemy::LegacyPageUrl", dependent: :destroy
     has_many :nodes, class_name: "Alchemy::Node", inverse_of: :page, dependent: :restrict_with_error
     has_many :versions, class_name: "Alchemy::PageVersion", inverse_of: :page, dependent: :destroy
-    has_one :draft_version, -> { drafts }, class_name: "Alchemy::PageVersion"
-    has_one :public_version, -> { published }, class_name: "Alchemy::PageVersion", autosave: -> { persisted? }
+    has_one :draft_version, -> { draft.order(updated_at: :desc) }, class_name: "Alchemy::PageVersion"
+    has_one :public_version, -> { published.order(public_on: :desc) }, class_name: "Alchemy::PageVersion", autosave: -> { persisted? }
 
     accepts_nested_attributes_for :draft_version
 

@@ -853,6 +853,29 @@ module Alchemy
       end
     end
 
+    describe "#draft_version" do
+      subject(:draft_version) { page.draft_version }
+
+      let(:page) { create(:alchemy_page) }
+
+      let!(:draft_one) do
+        Alchemy::PageVersion.create!(page: page).tap {
+          _1.update_columns(updated_at: 2.days.ago)
+        }
+      end
+
+      let!(:draft_two) do
+        Alchemy::PageVersion.create!(page: page).tap {
+          _1.update_columns(updated_at: 1.day.from_now)
+        }
+      end
+
+      it "returns latest draft version" do
+        page.reload
+        expect(page.draft_version).to eq(draft_two)
+      end
+    end
+
     describe "#public_version" do
       subject(:public_version) { page.public_version }
 
@@ -1592,19 +1615,23 @@ module Alchemy
       end
 
       context "when is not fixed attribute" do
+        let(:page) do
+          create(:alchemy_page, public_version:)
+        end
+
         context "and a public version is available" do
-          let(:page) do
-            create(:alchemy_page, :public, public_until: "2016-11-01")
+          let(:public_version) do
+            create(:alchemy_page_version, public_until: 1.day.from_now)
           end
 
           it "returns public_until from public version" do
-            is_expected.to eq("2016-11-01".to_time(:utc))
+            is_expected.to be_within(1.second).of(public_version.public_until)
           end
         end
 
         context "and a public version is not available" do
-          let(:page) do
-            create(:alchemy_page, public_until: "2016-11-01")
+          let(:public_version) do
+            create(:alchemy_page_version, public_until: 1.day.ago)
           end
 
           it { is_expected.to be_nil }

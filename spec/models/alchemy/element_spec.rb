@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "rails_helper"
+require "alchemy/test_support/shared_publishable_examples"
 
 module Alchemy
   describe Element do
@@ -457,6 +458,8 @@ module Alchemy
     end
 
     # InstanceMethods
+
+    it_behaves_like("being publishable", :alchemy_element)
 
     describe "#definition" do
       context "if the element name could not be found in the definition file" do
