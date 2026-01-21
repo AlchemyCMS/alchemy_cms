@@ -156,42 +156,34 @@ jobs:
         id: apt-cache
         uses: actions/cache@v4
         with:
-          path: /home/runner/apt/cache
-          key: ${{ runner.os }}-apt-${{ matrix.database }}-${{ matrix.storage }}
+          path: /var/cache/apt/archives
+          key: ${{ runner.os }}-apt-v2-${{ matrix.database }}-${{ matrix.storage }}
           restore-keys: |
-            ${{ runner.os }}-apt-${{ matrix.database }}-
+            ${{ runner.os }}-apt-v2-${{ matrix.database }}-
       - name: Install Postgres headers
         if: matrix.database == 'postgresql'
         run: |
-          mkdir -p /home/runner/apt/cache
-          sudo apt update -qq
-          sudo apt install -qq --fix-missing libpq-dev -o dir::cache::archives="/home/runner/apt/cache"
-          sudo chown -R runner /home/runner/apt/cache
+          sudo apt-get update -qq
+          sudo apt-get install -qq --fix-missing libpq-dev
       - name: Install MariaDB headers
         if: matrix.database == 'mariadb'
         run: |
-          mkdir -p /home/runner/apt/cache
-          sudo apt update -qq
-          sudo apt install -qq --fix-missing libmysqlclient-dev -o dir::cache::archives="/home/runner/apt/cache"
-          sudo chown -R runner /home/runner/apt/cache
+          sudo apt-get update -qq
+          sudo apt-get install -qq --fix-missing libmysqlclient-dev
       - name: Install libvips
         if: matrix.storage == 'active_storage'
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-          mkdir -p /home/runner/apt/cache
-          sudo apt update -qq
-          sudo apt install -qq --fix-missing libvips -o dir::cache::archives="/home/runner/apt/cache"
-          sudo chown -R runner /home/runner/apt/cache
+          sudo apt-get update -qq
+          sudo apt-get install -qq --fix-missing libvips
       - name: Install ImageMagick
         if: matrix.storage == 'dragonfly'
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-          mkdir -p /home/runner/apt/cache
-          sudo apt update -qq
-          sudo apt install -qq --fix-missing imagemagick -o dir::cache::archives="/home/runner/apt/cache"
-          sudo chown -R runner /home/runner/apt/cache
+          sudo apt-get update -qq
+          sudo apt-get install -qq --fix-missing imagemagick
       - uses: actions/download-artifact@v4
         if: needs.check_package_json.outputs.package_json_changed == 'true'
         with:
