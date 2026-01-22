@@ -101,7 +101,7 @@ module Alchemy
         @element = Element.find(params[:element_id])
 
         # Update position
-        @element.parent_element_id = params[:parent_element_id] if params.key?(:parent_element_id)
+        @element.parent_element_id = params[:parent_element_id]
         @element.position = params[:position]
 
         # Skip validations when updating position, since new records may not yet meet all
