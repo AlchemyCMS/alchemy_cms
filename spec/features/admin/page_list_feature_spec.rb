@@ -11,92 +11,105 @@ RSpec.describe "Admin page list", type: :system do
     end
   end
 
-  context "as author" do
+  context "as authorized user" do
     let!(:root_page) { create(:alchemy_page, :language_root, :public, name: "Intro") }
     let!(:alchemy_page) { create(:alchemy_page, parent: root_page, name: "Page 1").tap { |p| p.update!(updated_at: Time.parse("2020-08-20")) } }
     let!(:alchemy_page_2) { create(:alchemy_page, parent: root_page, name: "Contact", page_layout: "contact").tap { |p| p.update(updated_at: Time.parse("2020-08-24")) } }
     let!(:alchemy_page_3) { create(:alchemy_page, :layoutpage, name: "Footer") }
 
-    before do
-      authorize_user(:as_author)
-    end
-
-    specify "displays a table of non layout pages" do
-      visit admin_pages_path(view: "list")
-      within("table.list") do
-        expect(page).to have_css("tr:nth-child(1) td.name:contains('Contact')")
-        expect(page).to have_css("tr:nth-child(2) td.name:contains('Intro')")
-        expect(page).to have_css("tr:nth-child(3) td.name:contains('Page 1')")
-        expect(page).to_not have_css("td.name:contains('Footer')")
+    context "with author role" do
+      before do
+        authorize_user(:as_author)
       end
-    end
 
-    specify "can sort table of pages by name" do
-      visit admin_pages_path(view: "list")
-      page.find(".sort_link", text: "Name").click
-      expect(page).to have_css("thead a.sort_link.desc:contains('Name')")
-      within("table.list") do
-        expect(page).to have_css("tr:nth-child(1) td.name:contains('Page 1')")
-        expect(page).to have_css("tr:nth-child(2) td.name:contains('Intro')")
-        expect(page).to have_css("tr:nth-child(3) td.name:contains('Contact')")
-      end
-    end
-
-    specify "can sort table of pages by update date" do
-      Timecop.travel("2020-08-25") do
+      specify "displays a table of non layout pages" do
         visit admin_pages_path(view: "list")
-        page.find(".sort_link", text: "Updated at").click
-        expect(page).to have_css("thead a.sort_link.desc:contains('Updated at')")
         within("table.list") do
-          expect(page).to have_css("tr:nth-child(1) td.name:contains('Intro')")
-          expect(page).to have_css("tr:nth-child(2) td.name:contains('Contact')")
+          expect(page).to have_css("tr:nth-child(1) td.name:contains('Contact')")
+          expect(page).to have_css("tr:nth-child(2) td.name:contains('Intro')")
           expect(page).to have_css("tr:nth-child(3) td.name:contains('Page 1')")
+          expect(page).to_not have_css("td.name:contains('Footer')")
         end
       end
-    end
 
-    specify "can filter table of pages by name" do
-      visit admin_pages_path(view: "list")
-      page.find(".search_input_field").set("Page")
-      page.find(".search_field button").click
-      expect(page).to have_content("1 Page")
-      within("table.list") do
-        expect(page).to have_css("tr:nth-child(1) td.name:contains('Page 1')")
-        expect(page).to_not have_css("tr:nth-child(2)")
-        expect(page).to_not have_css("tr:nth-child(3)")
-      end
-    end
-
-    specify "can filter table of pages by status", :js do
-      visit admin_pages_path(view: "list")
-      check("Published")
-      expect(page).to have_content("Filtered by")
-      within("table.list") do
-        expect(page.find("tr:nth-child(1) td.name", text: "Intro")).to be
-        expect(page).to_not have_css("tr:nth-child(2)")
-        expect(page).to_not have_css("tr:nth-child(3)")
-      end
-    end
-
-    specify "can filter table of pages by type", :js do
-      visit admin_pages_path(view: "list")
-      select2("Contact", from: "Page type")
-      expect(page).to have_content("Filtered by")
-      within("table.list") do
-        expect(page.find("tr:nth-child(1) td.name", text: "Contact")).to be
-        expect(page).to_not have_css("tr:nth-child(2)")
-        expect(page).to_not have_css("tr:nth-child(3)")
-      end
-    end
-
-    specify "can filter table of pages by date", :js do
-      root_page.update!(updated_at: Time.parse("2020-08-10"))
-      Timecop.travel("2020-08-25") do
+      specify "can sort table of pages by name" do
         visit admin_pages_path(view: "list")
-        page.execute_script <<~JS.strip_heredoc
-          const fp = document.getElementById("q_updated_at_gteq")._flatpickr;
-          fp.setDate("2020-08-23 00:00", true);
-        JS
+        page.find(".sort_link", text: "Name").click
+        expect(page).to have_css("thead a.sort_link.desc:contains('Name')")
+        within("table.list") do
+          expect(page).to have_css("tr:nth-child(1) td.name:contains('Page 1')")
+          expect(page).to have_css("tr:nth-child(2) td.name:contains('Intro')")
+          expect(page).to have_css("tr:nth-child(3) td.name:contains('Contact')")
+        end
+      end
+
+      specify "can sort table of pages by update date" do
+        Timecop.travel("2020-08-25") do
+          visit admin_pages_path(view: "list")
+          page.find(".sort_link", text: "Updated at").click
+          expect(page).to have_css("thead a.sort_link.desc:contains('Updated at')")
+          within("table.list") do
+            expect(page).to have_css("tr:nth-child(1) td.name:contains('Intro')")
+            expect(page).to have_css("tr:nth-child(2) td.name:contains('Contact')")
+            expect(page).to have_css("tr:nth-child(3) td.name:contains('Page 1')")
+          end
+        end
+      end
+
+      specify "can filter table of pages by name" do
+        visit admin_pages_path(view: "list")
+        page.find(".search_input_field").set("Page")
+        page.find(".search_field button").click
+        expect(page).to have_content("1 Page")
+        within("table.list") do
+          expect(page).to have_css("tr:nth-child(1) td.name:contains('Page 1')")
+          expect(page).to_not have_css("tr:nth-child(2)")
+          expect(page).to_not have_css("tr:nth-child(3)")
+        end
+      end
+
+      specify "can filter table of pages by status", :js do
+        visit admin_pages_path(view: "list")
+        check("Published")
+        expect(page).to have_content("Filtered by")
+        within("table.list") do
+          expect(page.find("tr:nth-child(1) td.name", text: "Intro")).to be
+          expect(page).to_not have_css("tr:nth-child(2)")
+          expect(page).to_not have_css("tr:nth-child(3)")
+        end
+      end
+
+      specify "can filter table of pages by type", :js do
+        visit admin_pages_path(view: "list")
+        select2("Contact", from: "Page type")
+        expect(page).to have_content("Filtered by")
+        within("table.list") do
+          expect(page.find("tr:nth-child(1) td.name", text: "Contact")).to be
+          expect(page).to_not have_css("tr:nth-child(2)")
+          expect(page).to_not have_css("tr:nth-child(3)")
+        end
+      end
+
+      specify "can filter table of pages by date", :js do
+        root_page.update!(updated_at: Time.parse("2020-08-10"))
+        Timecop.travel("2020-08-25") do
+          visit admin_pages_path(view: "list")
+          page.execute_script <<~JS.strip_heredoc
+            const fp = document.getElementById("q_updated_at_gteq")._flatpickr;
+            fp.setDate("2020-08-23 00:00", true);
+          JS
+          expect(page).to have_content("1 Page")
+          within("table.list") do
+            expect(page.find("tr:nth-child(1) td.name", text: "Contact")).to be
+            expect(page).to_not have_css("tr:nth-child(2)")
+            expect(page).to_not have_css("tr:nth-child(3)")
+          end
+        end
+      end
+
+      specify "can filter table of pages by page type", :js do
+        visit admin_pages_path(view: "list")
+        select2("contact", from: "Page Type")
         expect(page).to have_content("1 Page")
         within("table.list") do
           expect(page.find("tr:nth-child(1) td.name", text: "Contact")).to be
@@ -104,24 +117,28 @@ RSpec.describe "Admin page list", type: :system do
           expect(page).to_not have_css("tr:nth-child(3)")
         end
       end
-    end
 
-    specify "can filter table of pages by page type", :js do
-      visit admin_pages_path(view: "list")
-      select2("contact", from: "Page Type")
-      expect(page).to have_content("1 Page")
-      within("table.list") do
-        expect(page.find("tr:nth-child(1) td.name", text: "Contact")).to be
-        expect(page).to_not have_css("tr:nth-child(2)")
-        expect(page).to_not have_css("tr:nth-child(3)")
+      specify "page type filter only includes content pages" do
+        visit admin_pages_path(view: "list")
+        options = find_all("select#q_by_page_layout > option")
+        options.each do |option|
+          expect(option.value).to_not eq("footer")
+        end
       end
     end
 
-    specify "page type filter only includes content pages" do
-      visit admin_pages_path(view: "list")
-      options = find_all("select#q_by_page_layout > option")
-      options.each do |option|
-        expect(option.value).to_not eq("footer")
+    context "with editor role" do
+      before do
+        authorize_user(:as_editor)
+      end
+
+      specify "can copy page into clipboard", :js do
+        visit admin_pages_path(view: "list")
+        within("table.list") do
+          page.find("tr:first-child alchemy-icon[name='file-copy']").click
+        end
+        expect(page).to have_content("Copied #{alchemy_page_2.name} to clipboard")
+        expect(page).to have_css("alchemy-icon[name='clipboard'][icon-style='fill']")
       end
     end
   end
