@@ -1,5 +1,15 @@
 # Changelog
 
+## 8.0.4 (2026-01-22)
+
+## What's Changed
+* [8.0-stable] Fix ingredient uniqueness validation by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3577
+* [8.0-stable] fix(Page List): Use Turbo to copy page into clipboard. by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3581
+* [8.0-stable] fix: Dragging nested element out of nesting element by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3584
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.0.3...v8.0.4
+
 ## 8.0.3 (2026-01-19)
 
 ## What's Changed
