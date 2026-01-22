@@ -88,6 +88,20 @@ module Alchemy
           }
           expect(element_3.reload.parent_element_id).to eq parent.id
         end
+
+        context "and dragged outside of parent element" do
+          before do
+            element_3.update(parent_element: parent)
+          end
+
+          it "nils parent_element_id" do
+            expect {
+              post :order, params: {
+                element_id: element_3.id
+              }
+            }.to change { element_3.reload.parent_element_id }.to(nil)
+          end
+        end
       end
     end
 
