@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-24.04
     name: Check bun.lockdb
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0 # Fetch all history
       - name: Setup Bun
@@ -48,7 +48,7 @@ jobs:
     needs: check_bun_lock
     if: needs.check_bun_lock.outputs.bun_lock_changed == 'true'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
       - name: Restore node_modules cache
@@ -135,7 +135,7 @@ jobs:
           MARIADB_ROOT_PASSWORD: password
         options: --health-cmd="mariadb-admin ping" --health-interval=1s --health-timeout=1s --health-retries=30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -210,7 +210,7 @@ jobs:
         with:
           app-id: ${{ vars.ALCHEMY_BOT_APP_ID }}
           private-key: ${{ secrets.ALCHEMY_BOT_APP_PRIVATE_KEY }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           token: ${{ steps.generate_token.outputs.token }}
           ref: ${{ github.head_ref }}
@@ -247,7 +247,7 @@ jobs:
     env:
       NODE_ENV: test
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
       - name: Restore node modules cache
