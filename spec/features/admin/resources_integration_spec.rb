@@ -462,7 +462,7 @@ RSpec.describe "Resources", type: :system do
       visit admin_events_path(params: {
         q: {
           by_location_id: office.id,
-          name_or_hidden_name_or_description_or_location_name_cont: "Meeting"
+          description_or_hidden_name_or_location_name_or_name_cont: "Meeting"
         }
       })
       expect(page).to have_selector(".search_field input[value='Meeting']")

@@ -25,7 +25,7 @@ RSpec.describe Alchemy::Admin::ResourcesController do
     end
 
     context "with search query given" do
-      let(:params) { {q: {name_or_hidden_name_or_description_or_location_name_cont: "PeTer"}} }
+      let(:params) { {q: {description_or_hidden_name_or_location_name_or_name_cont: "PeTer"}} }
 
       it "returns only matching records" do
         get :index, params: params
@@ -35,7 +35,7 @@ RSpec.describe Alchemy::Admin::ResourcesController do
 
       context "but searching for record with certain association" do
         let(:bauwagen) { create(:location, name: "Bauwagen") }
-        let(:params) { {q: {name_or_hidden_name_or_description_or_location_name_cont: "Bauwagen"}} }
+        let(:params) { {q: {description_or_hidden_name_or_location_name_or_name_cont: "Bauwagen"}} }
 
         before do
           peter.location = bauwagen
@@ -88,13 +88,13 @@ RSpec.describe Alchemy::Admin::ResourcesController do
   end
 
   describe "#update" do
-    let(:params) { {q: {name_or_hidden_name_or_description_or_location_name_cont: "some_query"}, page: 6} }
+    let(:params) { {q: {description_or_hidden_name_or_location_name_or_name_cont: "some_query"}, page: 6} }
     let(:peter) { create(:event, name: "Peter") }
 
     context "with regular noun model name" do
       it "redirects to index, keeping the current location parameters" do
         post :update, params: {id: peter.id, event: {name: "Hans"}}.merge(params)
-        expect(response.redirect_url).to eq("http://test.host/admin/events?page=6&q%5Bname_or_hidden_name_or_description_or_location_name_cont%5D=some_query")
+        expect(response.redirect_url).to eq("http://test.host/admin/events?page=6&q%5Bdescription_or_hidden_name_or_location_name_or_name_cont%5D=some_query")
       end
     end
 
@@ -135,13 +135,13 @@ RSpec.describe Alchemy::Admin::ResourcesController do
   end
 
   describe "#create" do
-    let(:params) { {q: {name_or_hidden_name_or_description_or_location_name_cont: "some_query"}, page: 6} }
+    let(:params) { {q: {description_or_hidden_name_or_location_name_or_name_cont: "some_query"}, page: 6} }
     let!(:location) { create(:location) }
 
     context "with regular noun model name" do
       it "redirects to index, keeping the current location parameters" do
         post :create, params: {event: {name: "Hans", location_id: location.id}}.merge(params)
-        expect(response.redirect_url).to eq("http://test.host/admin/events?page=6&q%5Bname_or_hidden_name_or_description_or_location_name_cont%5D=some_query")
+        expect(response.redirect_url).to eq("http://test.host/admin/events?page=6&q%5Bdescription_or_hidden_name_or_location_name_or_name_cont%5D=some_query")
       end
     end
 
@@ -178,12 +178,12 @@ RSpec.describe Alchemy::Admin::ResourcesController do
   end
 
   describe "#destroy" do
-    let(:params) { {q: {name_or_hidden_name_or_description_or_location_name_cont: "some_query"}, page: 6} }
+    let(:params) { {q: {description_or_hidden_name_or_location_name_or_name_cont: "some_query"}, page: 6} }
     let!(:peter) { create(:event, name: "Peter") }
 
     it "redirects to index, keeping the current location parameters" do
       delete :destroy, params: {id: peter.id}.merge(params)
-      expect(response.redirect_url).to eq("http://test.host/admin/events?page=6&q%5Bname_or_hidden_name_or_description_or_location_name_cont%5D=some_query")
+      expect(response.redirect_url).to eq("http://test.host/admin/events?page=6&q%5Bdescription_or_hidden_name_or_location_name_or_name_cont%5D=some_query")
     end
 
     context "If the resource is not destroyable" do
@@ -192,7 +192,7 @@ RSpec.describe Alchemy::Admin::ResourcesController do
       it "adds an error flash" do
         delete :destroy, params: {id: undestroyable.id}.merge(params)
 
-        expect(response.redirect_url).to eq("http://test.host/admin/events?page=6&q%5Bname_or_hidden_name_or_description_or_location_name_cont%5D=some_query")
+        expect(response.redirect_url).to eq("http://test.host/admin/events?page=6&q%5Bdescription_or_hidden_name_or_location_name_or_name_cont%5D=some_query")
         expect(flash[:error]).to eq("This is the undestructible event!")
       end
     end

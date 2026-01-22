@@ -28,9 +28,9 @@ RSpec.describe "Picture assignment overlay", type: :system do
       visit alchemy.admin_pictures_path(form_field_id: "ingredients_#{ingredient.id}_picture_id")
       within "#resource_search" do
         if Alchemy.storage_adapter.dragonfly?
-          fill_in "q[name_or_image_file_name_cont]", with: "Blue"
+          fill_in "q[image_file_name_or_name_cont]", with: "Blue"
         elsif Alchemy.storage_adapter.active_storage?
-          fill_in "q[name_or_image_file_blob_filename_cont]", with: "Blue"
+          fill_in "q[image_file_blob_filename_or_name_cont]", with: "Blue"
         end
         find("button[type='submit']").click
       end

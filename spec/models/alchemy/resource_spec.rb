@@ -182,7 +182,7 @@ module Alchemy
       subject { resource.searchable_attribute_names }
 
       it "returns all attribute names of type string and text" do
-        is_expected.to eq(["name", "hidden_value", "description"])
+        is_expected.to eq(["description", "hidden_value", "name"])
       end
 
       context "when model provides custom defined searchable attribute names" do
@@ -193,7 +193,7 @@ module Alchemy
         end
 
         it "returns the custom defined attribute names from the model" do
-          is_expected.to eq(["date", "venue", "age"])
+          is_expected.to eq(["age", "date", "venue"])
         end
       end
 
@@ -207,7 +207,7 @@ module Alchemy
         end
 
         it "also includes the searchable attributes of the relation" do
-          is_expected.to eq(["name", "hidden_value", "description", "location_name"])
+          is_expected.to eq(["description", "hidden_value", "location_name", "name"])
         end
       end
 
@@ -229,7 +229,7 @@ module Alchemy
       subject { resource.search_field_name }
 
       it "returns a ransack compatible search query" do
-        is_expected.to eq("name_or_hidden_value_or_description_cont")
+        is_expected.to eq("description_or_hidden_value_or_name_cont")
       end
     end
 

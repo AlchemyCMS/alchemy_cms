@@ -15,12 +15,12 @@ module Alchemy
     let(:search_params) do
       if Alchemy.storage_adapter.dragonfly?
         {
-          name_or_image_file_name_cont: "kitten",
+          image_file_name_or_name_cont: "kitten",
           last_upload: true
         }
       elsif Alchemy.storage_adapter.active_storage?
         {
-          name_or_image_file_blob_filename_cont: "kitten",
+          image_file_blob_filename_or_name_cont: "kitten",
           last_upload: true
         }
       end

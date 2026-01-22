@@ -122,6 +122,10 @@ module Alchemy
         ActiveStorage::Blob.define_singleton_method(:ransackable_attributes) do |_auth_object|
           %w[filename]
         end
+
+        ActiveStorage::Blob.define_singleton_method(:ransackable_associations) do |_auth_object|
+          %w[]
+        end
       end
     end
 
