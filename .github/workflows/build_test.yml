@@ -122,6 +122,7 @@ jobs:
       DB_USER: alchemy_user
       DB_PASSWORD: password
       DB_HOST: "127.0.0.1"
+      DEBIAN_FRONTEND: noninteractive
       RAILS_ENV: test
       RAILS_VERSION: ${{ matrix.rails }}
       ALCHEMY_STORAGE_ADAPTER: ${{ matrix.storage }}
@@ -172,15 +173,11 @@ jobs:
           sudo apt-get install -qq --fix-missing libmysqlclient-dev
       - name: Install libvips
         if: matrix.storage == 'active_storage'
-        env:
-          DEBIAN_FRONTEND: noninteractive
         run: |
           sudo apt-get update -qq
           sudo apt-get install -qq --fix-missing libvips
       - name: Install ImageMagick
         if: matrix.storage == 'dragonfly'
-        env:
-          DEBIAN_FRONTEND: noninteractive
         run: |
           sudo apt-get update -qq
           sudo apt-get install -qq --fix-missing imagemagick
