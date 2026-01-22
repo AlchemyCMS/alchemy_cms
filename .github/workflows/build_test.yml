@@ -71,7 +71,7 @@ jobs:
     permissions:
       contents: read
     needs: [check_bun_lock, build_javascript]
-    if: ${{ needs.build_javascript.result == 'success' || needs.build_javascript.result == 'skipped' }}
+    if: ${{ always() && (needs.build_javascript.result == 'success' || needs.build_javascript.result == 'skipped') }}
     runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
@@ -243,7 +243,7 @@ jobs:
       contents: read
     runs-on: ubuntu-24.04
     needs: [check_bun_lock, build_javascript]
-    if: ${{ needs.build_javascript.result == 'success' || needs.build_javascript.result == 'skipped' }}
+    if: ${{ always() && (needs.build_javascript.result == 'success' || needs.build_javascript.result == 'skipped') }}
     env:
       NODE_ENV: test
     steps:
