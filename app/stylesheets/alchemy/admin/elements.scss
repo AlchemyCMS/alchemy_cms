@@ -816,6 +816,10 @@ alchemy-color-select {
   alchemy-tinymce {
     margin: var(--spacing-2) 0;
   }
+
+  .tox-tinymce {
+    width: 100% !important;
+  }
 }
 
 .ingredient-editor.headline {
