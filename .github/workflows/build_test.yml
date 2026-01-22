@@ -50,6 +50,7 @@ jobs:
     runs-on: ubuntu-24.04
     name: Build JS packages
     needs: check_package_json
+    if: needs.check_package_json.outputs.package_json_changed == 'true'
     steps:
       - uses: actions/checkout@v4
       - name: Setup Bun
@@ -64,15 +65,12 @@ jobs:
       - name: Install dependencies
         run: bun install
       - name: bun build
-        if: needs.check_package_json.outputs.package_json_changed == 'true'
         run: bun run --bun build
       - uses: actions/upload-artifact@v4
-        if: needs.check_package_json.outputs.package_json_changed == 'true'
         with:
           name: javascript-bundles
           path: vendor/javascript
       - uses: actions/upload-artifact@v4
-        if: needs.check_package_json.outputs.package_json_changed == 'true'
         with:
           name: bun-lockdb
           path: bun.lockdb
@@ -81,6 +79,7 @@ jobs:
     permissions:
       contents: read
     needs: [check_package_json, build_javascript]
+    if: ${{ needs.build_javascript.result == 'success' || needs.build_javascript.result == 'skipped' }}
     runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
@@ -257,6 +256,7 @@ jobs:
       contents: read
     runs-on: ubuntu-24.04
     needs: [check_package_json, build_javascript]
+    if: ${{ needs.build_javascript.result == 'success' || needs.build_javascript.result == 'skipped' }}
     env:
       NODE_ENV: test
     steps:
