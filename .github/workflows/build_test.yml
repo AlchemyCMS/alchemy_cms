@@ -20,10 +20,10 @@ jobs:
   check_package_json:
     permissions:
       contents: read
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     name: Check package.json
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0 # Fetch all history
       - name: Get changed files
@@ -47,11 +47,12 @@ jobs:
   build_javascript:
     permissions:
       contents: read
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     name: Build JS packages
     needs: check_package_json
+    if: needs.check_package_json.outputs.package_json_changed == 'true'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
       - name: Restore node_modules cache
@@ -64,15 +65,12 @@ jobs:
       - name: Install dependencies
         run: bun install
       - name: bun build
-        if: needs.check_package_json.outputs.package_json_changed == 'true'
         run: bun run --bun build
       - uses: actions/upload-artifact@v4
-        if: needs.check_package_json.outputs.package_json_changed == 'true'
         with:
           name: javascript-bundles
           path: vendor/javascript
       - uses: actions/upload-artifact@v4
-        if: needs.check_package_json.outputs.package_json_changed == 'true'
         with:
           name: bun-lockdb
           path: bun.lockdb
@@ -81,7 +79,8 @@ jobs:
     permissions:
       contents: read
     needs: [check_package_json, build_javascript]
-    runs-on: ubuntu-22.04
+    if: ${{ always() && (needs.build_javascript.result == 'success' || needs.build_javascript.result == 'skipped') }}
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
@@ -122,6 +121,7 @@ jobs:
       DB_USER: alchemy_user
       DB_PASSWORD: password
       DB_HOST: "127.0.0.1"
+      DEBIAN_FRONTEND: noninteractive
       RAILS_ENV: test
       RAILS_VERSION: ${{ matrix.rails }}
       ALCHEMY_STORAGE_ADAPTER: ${{ matrix.storage }}
@@ -145,7 +145,7 @@ jobs:
           MARIADB_ROOT_PASSWORD: password
         options: --health-cmd="mariadb-admin ping" --health-interval=10s --health-timeout=5s --health-retries=5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -156,33 +156,30 @@ jobs:
         id: apt-cache
         uses: actions/cache@v4
         with:
-          path: /home/runner/apt/cache
-          key: ${{ runner.os }}-apt-${{ matrix.database }}
+          path: /var/cache/apt/archives
+          key: ${{ runner.os }}-apt-v2-${{ matrix.database }}-${{ matrix.storage }}
           restore-keys: |
-            ${{ runner.os }}-apt-
+            ${{ runner.os }}-apt-v2-${{ matrix.database }}-
       - name: Install Postgres headers
         if: matrix.database == 'postgresql'
         run: |
-          mkdir -p /home/runner/apt/cache
-          sudo apt update -qq
-          sudo apt install -qq --fix-missing libpq-dev -o dir::cache::archives="/home/runner/apt/cache"
-          sudo chown -R runner /home/runner/apt/cache
+          sudo apt-get update -qq
+          sudo apt-get install -qq --fix-missing libpq-dev
       - name: Install MariaDB headers
         if: matrix.database == 'mariadb'
         run: |
-          mkdir -p /home/runner/apt/cache
-          sudo apt update -qq
-          sudo apt install -qq --fix-missing libmysqlclient-dev -o dir::cache::archives="/home/runner/apt/cache"
-          sudo chown -R runner /home/runner/apt/cache
+          sudo apt-get update -qq
+          sudo apt-get install -qq --fix-missing libmysqlclient-dev
       - name: Install libvips
         if: matrix.storage == 'active_storage'
-        env:
-          DEBIAN_FRONTEND: noninteractive
         run: |
-          mkdir -p /home/runner/apt/cache
-          sudo apt update -qq
-          sudo apt install -qq --fix-missing libvips -o dir::cache::archives="/home/runner/apt/cache"
-          sudo chown -R runner /home/runner/apt/cache
+          sudo apt-get update -qq
+          sudo apt-get install -qq --fix-missing libvips
+      - name: Install ImageMagick
+        if: matrix.storage == 'dragonfly'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -qq --fix-missing imagemagick
       - uses: actions/download-artifact@v4
         if: needs.check_package_json.outputs.package_json_changed == 'true'
         with:
@@ -213,7 +210,7 @@ jobs:
   PushJavascript:
     permissions:
       contents: write
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [check_package_json, RSpec]
     if: github.event_name == 'pull_request' && needs.check_package_json.outputs.package_json_changed == 'true'
     steps:
@@ -223,7 +220,7 @@ jobs:
         with:
           app-id: ${{ vars.ALCHEMY_BOT_APP_ID }}
           private-key: ${{ secrets.ALCHEMY_BOT_APP_PRIVATE_KEY }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           token: ${{ steps.generate_token.outputs.token }}
           ref: ${{ github.head_ref }}
@@ -257,12 +254,13 @@ jobs:
   Vitest:
     permissions:
       contents: read
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [check_package_json, build_javascript]
+    if: ${{ always() && (needs.build_javascript.result == 'success' || needs.build_javascript.result == 'skipped') }}
     env:
       NODE_ENV: test
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
       - uses: actions/download-artifact@v4

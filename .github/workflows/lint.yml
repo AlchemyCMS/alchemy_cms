@@ -11,10 +11,10 @@ permissions:
 
 jobs:
   Standard:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
         with:
@@ -24,10 +24,10 @@ jobs:
       - name: Lint Ruby files
         run: bundle exec standardrb
   ESLint:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
       - name: Restore node_modules cache
@@ -42,10 +42,10 @@ jobs:
       - name: Lint code
         run: bun run --bun eslint
   Prettier:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
       - name: Restore node_modules cache
@@ -60,10 +60,10 @@ jobs:
       - name: Lint code
         run: bun run --bun lint
   Herb:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
       - name: Restore node_modules cache
