@@ -22,7 +22,8 @@ module Alchemy
           select_tag form_field_name, options_tags, {
             id: form_field_id,
             class: ["ingredient-editor-select"],
-            is: "alchemy-select"
+            is: "alchemy-select",
+            multiple: settings[:multiple]
           }
         end
       end

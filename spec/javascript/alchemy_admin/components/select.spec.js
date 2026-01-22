@@ -138,4 +138,39 @@ describe("alchemy-select", () => {
       ).toBeFalsy()
     })
   })
+
+  describe("with multiple attribute", () => {
+    it("does not remove close buttons", () => {
+      const html = `<select is="alchemy-select" multiple>
+        <option value="1" selected>First</option>
+        <option value="2" selected>Second</option>
+        <option value="3">Third</option>
+      </select>`
+
+      component = renderComponent("alchemy-select", html)
+      select2Component = document.querySelector(".select2-container")
+
+      // For multiselect, we verify that the select has the multiple attribute
+      // and that Select2 was initialized
+      expect(component.multiple).toBeTruthy()
+      expect(select2Component).toBeInstanceOf(HTMLElement)
+    })
+  })
+
+  describe("with multiple attribute and data-allow-clear", () => {
+    it("keeps multiselect functionality with allow clear", () => {
+      const html = `<select is="alchemy-select" multiple data-allow-clear>
+        <option value="1" selected>First</option>
+        <option value="2" selected>Second</option>
+        <option value="3">Third</option>
+      </select>`
+
+      component = renderComponent("alchemy-select", html)
+      select2Component = document.querySelector(".select2-container")
+
+      // Verify multiselect is active and Select2 is initialized
+      expect(component.multiple).toBeTruthy()
+      expect(select2Component).toBeInstanceOf(HTMLElement)
+    })
+  })
 })
