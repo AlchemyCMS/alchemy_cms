@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "rails"
+require "rails/generators"
 
 module Alchemy
   module Generators
