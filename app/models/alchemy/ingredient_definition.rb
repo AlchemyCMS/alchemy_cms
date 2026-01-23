@@ -30,6 +30,7 @@ module Alchemy
         with: /\A[A-Z][a-zA-Z]+\z/
       }
 
+    delegate :[], to: :attributes
     delegate :blank?, to: :role
 
     def attributes
