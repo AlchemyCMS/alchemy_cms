@@ -74,20 +74,38 @@ RSpec.describe Alchemy::DuplicateElement do
     context "with publishable_only option" do
       let(:element) { create(:alchemy_element) }
 
-      let!(:visible_nested) do
-        create(:alchemy_element, parent_element: element, page_version: element.page_version, public: true)
+      let!(:current_nested) do
+        create(:alchemy_element, parent_element: element, page_version: element.page_version, public_on: 1.day.ago)
       end
 
-      let!(:hidden_nested) do
-        create(:alchemy_element, parent_element: element, page_version: element.page_version, public: false)
+      let!(:future_nested) do
+        create(:alchemy_element, parent_element: element, page_version: element.page_version, public_on: 1.day.from_now)
+      end
+
+      let!(:draft_nested) do
+        create(:alchemy_element, parent_element: element, page_version: element.page_version, public_on: nil)
+      end
+
+      let!(:expired_nested) do
+        create(:alchemy_element, parent_element: element, page_version: element.page_version, public_on: 2.days.ago, public_until: 1.day.ago)
       end
 
       subject do
         described_class.new(element, publishable_only: true).call(differences)
       end
 
-      it "only copies visible nested elements" do
-        expect(subject.all_nested_elements).to all(be_public)
+      it "only copies publishable nested elements" do
+        expect(subject.all_nested_elements.count).to eq(2)
+      end
+
+      it "does not copy draft nested elements" do
+        public_ons = subject.all_nested_elements.map(&:public_on)
+        expect(public_ons).to all(be_present)
+      end
+
+      it "does not copy expired nested elements" do
+        public_untils = subject.all_nested_elements.map(&:public_until)
+        expect(public_untils).to all(be_nil)
       end
     end
   end

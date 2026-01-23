@@ -54,6 +54,52 @@ RSpec.describe Alchemy::Page::Publisher do
       end
     end
 
+    context "with elements scheduled for future publication" do
+      let(:page) { create(:alchemy_page) }
+
+      let!(:current_element) do
+        create(:alchemy_element,
+          page_version: page.draft_version,
+          public_on: 1.day.ago)
+      end
+
+      let!(:future_element) do
+        create(:alchemy_element,
+          page_version: page.draft_version,
+          public_on: 1.day.from_now)
+      end
+
+      let!(:draft_element) do
+        create(:alchemy_element, page_version: page.draft_version).tap do |element|
+          element.update_columns(public_on: nil)
+        end
+      end
+
+      let!(:expired_element) do
+        create(:alchemy_element,
+          page_version: page.draft_version,
+          public_on: 2.days.ago,
+          public_until: 1.day.ago)
+      end
+
+      it "copies currently public and future scheduled elements" do
+        publish
+        expect(page.reload.public_version.elements.count).to eq(2)
+      end
+
+      it "does not copy draft elements without public_on" do
+        publish
+        public_ons = page.reload.public_version.elements.pluck(:public_on)
+        expect(public_ons).to all(be_present)
+      end
+
+      it "does not copy expired elements" do
+        publish
+        public_untils = page.reload.public_version.elements.pluck(:public_until)
+        expect(public_untils).to all(be_nil)
+      end
+    end
+
     context "with draft version metadata" do
       before do
         page.draft_version.update!(

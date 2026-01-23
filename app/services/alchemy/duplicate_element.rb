@@ -36,7 +36,7 @@ module Alchemy
       new_element.save!
 
       nested_elements = repository.children_of(source_element)
-      nested_elements = nested_elements.visible if publishable_only
+      nested_elements = nested_elements.publishable if publishable_only
       Element.acts_as_list_no_update do
         nested_elements.each.with_index(1) do |nested_element, position|
           self.class.new(nested_element, repository: repository, publishable_only: publishable_only).call(

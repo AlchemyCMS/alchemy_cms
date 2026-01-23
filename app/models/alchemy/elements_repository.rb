@@ -22,6 +22,12 @@ module Alchemy
       self.class.new select(&:public)
     end
 
+    # All publishable elements
+    # @return [Alchemy::ElementRepository]
+    def publishable
+      self.class.new select(&:publishable?)
+    end
+
     # All not fixed elements
     # @return [Alchemy::ElementRepository]
     def hidden

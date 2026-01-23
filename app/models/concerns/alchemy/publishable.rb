@@ -28,6 +28,15 @@ module Alchemy
     end
     alias_method :public, :public?
 
+    # Determines if this record is publishable
+    #
+    # A record is publishable if a +public_on+ timestamp is set and not expired yet.
+    #
+    # @returns Boolean
+    def publishable?
+      !public_on.nil? && still_public_for?
+    end
+
     # Determines if this record is already public for given time
     # @param time [DateTime] (Time.current)
     # @returns Boolean
