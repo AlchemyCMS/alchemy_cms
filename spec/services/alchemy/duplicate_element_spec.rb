@@ -70,5 +70,25 @@ RSpec.describe Alchemy::DuplicateElement do
         end
       end
     end
+
+    context "with publishable_only option" do
+      let(:element) { create(:alchemy_element) }
+
+      let!(:visible_nested) do
+        create(:alchemy_element, parent_element: element, page_version: element.page_version, public: true)
+      end
+
+      let!(:hidden_nested) do
+        create(:alchemy_element, parent_element: element, page_version: element.page_version, public: false)
+      end
+
+      subject do
+        described_class.new(element, publishable_only: true).call(differences)
+      end
+
+      it "only copies visible nested elements" do
+        expect(subject.all_nested_elements).to all(be_public)
+      end
+    end
   end
 end
