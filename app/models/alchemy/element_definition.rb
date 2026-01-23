@@ -36,6 +36,7 @@ module Alchemy
       format: {with: /\A[\w-]+\z/i},
       if: -> { icon.is_a?(String) }
 
+    delegate :[], to: :attributes
     delegate :blank?, to: :name
 
     DEFAULT_ICON_NAME = "layout-bottom-2-line"
