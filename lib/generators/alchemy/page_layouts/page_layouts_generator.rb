@@ -9,7 +9,7 @@ module Alchemy
       source_root File.expand_path("templates", __dir__)
 
       def create_partials
-        @page_layouts = load_alchemy_yaml("page_layouts.yml")
+        @page_layouts = Alchemy::PageDefinition.all
         return unless @page_layouts
 
         @page_layouts.each do |page_layout|
