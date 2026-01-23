@@ -4,6 +4,15 @@ require "rails_helper"
 
 module Alchemy
   describe ElementDefinition do
+    describe "#[]" do
+      let(:definition) { described_class.new(name: "article", unique: true) }
+
+      it "provides hash-like access to attributes" do
+        expect(definition["name"]).to eq("article")
+        expect(definition[:unique]).to be(true)
+      end
+    end
+
     describe "#attributes" do
       let(:definition) { described_class.new(name: "standard") }
 
