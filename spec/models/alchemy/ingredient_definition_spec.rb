@@ -4,6 +4,15 @@ require "rails_helper"
 
 module Alchemy
   describe IngredientDefinition do
+    describe "#[]" do
+      let(:definition) { described_class.new(role: "headline", type: "Headline") }
+
+      it "provides hash-like access to attributes" do
+        expect(definition["role"]).to eq("headline")
+        expect(definition[:type]).to eq("Headline")
+      end
+    end
+
     describe "#attributes" do
       let(:definition) { described_class.new(role: "text") }
 
