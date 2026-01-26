@@ -12,9 +12,7 @@
     <p><%= Alchemy.t('Please enter your email address') %></p>
   <% end %>
 <% else %>
-  <div id="errors" style="display: block">
-    <%= devise_error_messages! %>
-  </div>
+  <%= render "devise/shared/error_messages", resource: resource %>
 <% end %>
   <%= alchemy_form_for :user, url: admin_reset_password_path, html: {method: 'post'} do |f| %>
     <%= f.input :email,

@@ -12,9 +12,7 @@
     <p><%= Alchemy.t('Please enter a new password') %></p>
   <% end %>
 <% else %>
-  <div id="errors" style="display: block">
-    <%= devise_error_messages! %>
-  </div>
+  <%= render "devise/shared/error_messages", resource: resource %>
 <% end %>
   <%= alchemy_form_for resource, as: resource_name, url: admin_update_password_path, method: 'patch' do |f| %>
     <%= f.hidden_field :reset_password_token %>
