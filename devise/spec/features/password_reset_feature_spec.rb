@@ -20,6 +20,15 @@ describe "Password reset feature." do
       .to have_content("You will receive an email with instructions on how to reset your password in a few minutes.")
   end
 
+  it "Displays error if email not found." do
+    visit admin_new_password_path
+
+    fill_in :user_email, with: "wrong@email.com"
+    click_button "Send reset instructions"
+
+    expect(page).to have_content("Email not found")
+  end
+
   it "User can visit edit password form." do
     visit admin_edit_password_path(id: user.id, reset_password_token: "1234")
 
@@ -40,5 +49,15 @@ describe "Password reset feature." do
 
     expect(page)
       .to have_content("Your password has been changed successfully.")
+  end
+
+  it "Displays error if reset token is wrong." do
+    visit admin_edit_password_path(id: user.id, reset_password_token: "1234")
+
+    fill_in :user_password, with: "secret123"
+    fill_in :user_password_confirmation, with: "secret123"
+    click_button "Change password"
+
+    expect(page).to have_content("Reset password token is invalid")
   end
 end
