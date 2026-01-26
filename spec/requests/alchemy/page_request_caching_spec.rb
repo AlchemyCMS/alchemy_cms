@@ -97,18 +97,36 @@ RSpec.describe "Page request caching" do
         expect(response.headers).to have_key("ETag")
       end
 
-      context "and public version is present" do
-        let(:jan_first) { Time.new(2020, 1, 1) }
-
-        before do
-          allow_any_instance_of(Alchemy::Page).to receive(:last_modified_at) { jan_first }
+      context "with scheduled element becoming visible" do
+        let!(:scheduled_element) do
+          create(:alchemy_element, page_version: page.public_version, public_on: 1.hour.from_now)
         end
 
-        it "sets last-modified header" do
+        it "changes the etag when element becomes visible" do
           get "/#{page.urlname}"
-          expect(response.headers).to have_key("Last-Modified")
-          expect(response.headers["Last-Modified"]).to eq(jan_first.httpdate)
+          etag_before = response.headers["ETag"]
+
+          travel 2.hours do
+            get "/#{page.urlname}"
+            etag_after = response.headers["ETag"]
+            expect(etag_after).not_to eq(etag_before)
+          end
         end
+
+        it "returns 200 instead of 304 after element becomes visible" do
+          get "/#{page.urlname}"
+          etag = response.headers["ETag"]
+
+          travel 2.hours do
+            get "/#{page.urlname}", headers: {"If-None-Match" => etag}
+            expect(response.status).to eq(200)
+          end
+        end
+      end
+
+      it "does not set last-modified header" do
+        get "/#{page.urlname}"
+        expect(response.headers).to_not have_key("Last-Modified")
       end
     end
 

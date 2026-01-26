@@ -246,6 +246,11 @@ module Alchemy
           expect(subject).to include(page)
         end
 
+        it "includes published elements cache key" do
+          expected = page.public_version.elements.published.order(:id).pluck(:id)
+          expect(subject[1]).to eq(expected)
+        end
+
         context "with user logged in" do
           before do
             authorize_user(mock_model(Alchemy.user_class, cache_key_with_version: "bbb"))
@@ -253,6 +258,41 @@ module Alchemy
 
           it "returns another etag for response headers" do
             expect(subject).to include(an_instance_of(Alchemy.user_class))
+          end
+        end
+
+        context "when element becomes published" do
+          let!(:scheduled_element) do
+            create(:alchemy_element, page_version: page.public_version, public_on: 1.hour.from_now)
+          end
+
+          it "changes the etag when element becomes visible" do
+            etag_before = subject[1]
+            travel 2.hours do
+              etag_after = controller.send(:page_etag)[1]
+              expect(etag_after).not_to eq(etag_before)
+            end
+          end
+        end
+
+        context "when one element replaces another" do
+          let!(:default_header) do
+            create(:alchemy_element, page_version: page.public_version, public_on: 1.day.ago, public_until: 1.hour.from_now)
+          end
+
+          let!(:seasonal_header) do
+            create(:alchemy_element, page_version: page.public_version, public_on: 1.hour.from_now)
+          end
+
+          it "changes the etag even when published element count stays the same" do
+            etag_before = subject[1]
+            expect(etag_before.length).to eq(2)
+
+            travel 2.hours do
+              etag_after = controller.send(:page_etag)[1]
+              expect(etag_after.length).to eq(2)
+              expect(etag_after).not_to eq(etag_before)
+            end
           end
         end
       end

@@ -215,7 +215,13 @@ module Alchemy
 
     # Returns the etag used for response headers.
     #
-    # If a user is logged in, we append theirs etag to prevent caching of user related content.
+    # The etag is composed of:
+    # - The page's cache key (includes updated_at timestamp)
+    # - Published element IDs (changes when elements enter/leave the published scope)
+    # - The current user's cache key (for user-specific content)
+    #
+    # This ensures HTTP caches invalidate when scheduled elements become visible
+    # or hidden, even though the page's updated_at hasn't changed.
     #
     # IMPORTANT:
     #
@@ -224,7 +230,8 @@ module Alchemy
     # Otherwise all users will see the same cached page, regardless of user's state.
     #
     def page_etag
-      [@page, current_alchemy_user]
+      elements_cache_key = @page.public_version&.elements&.published&.order(:id)&.pluck(:id)
+      [@page, elements_cache_key, current_alchemy_user]
     end
 
     # We only render the page if either the cache is disabled for this page
@@ -233,7 +240,6 @@ module Alchemy
     def render_fresh_page?
       must_not_cache? || stale?(
         etag: page_etag,
-        last_modified: @page.last_modified_at,
         public: !@page.restricted,
         template: "pages/show"
       )
