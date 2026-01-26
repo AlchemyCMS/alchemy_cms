@@ -10,7 +10,7 @@ module Alchemy
         @page = page
       end
 
-      # Copies all currently visible elements to the public version of page
+      # Copies all currently publishable elements to the public version of page
       #
       # Creates a new published version if none exists yet and updates
       # the `published_at` timestamp of the page.
@@ -29,7 +29,7 @@ module Alchemy
             repository = page.draft_version.element_repository
             ActiveRecord::Base.no_touching do
               Element.acts_as_list_no_update do
-                repository.visible.not_nested.each.with_index(1) do |element, position|
+                repository.publishable.not_nested.each.with_index(1) do |element, position|
                   Alchemy::DuplicateElement.new(element, repository: repository, publishable_only: true).call(
                     page_version_id: version.id,
                     position: position

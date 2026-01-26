@@ -313,7 +313,7 @@ module Alchemy
 
     def set_default_public_on
       return if @public_on_explicitely_set
-      self.public_on = Time.current
+      self.public_on ||= Time.current
     end
 
     def generate_nested_elements
