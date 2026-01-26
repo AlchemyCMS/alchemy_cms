@@ -124,6 +124,28 @@ RSpec.describe Alchemy::Page::Publisher do
       end
     end
 
+    context "with nested elements" do
+      let(:page) { create(:alchemy_page) }
+
+      let!(:parent_element) do
+        create(:alchemy_element, page_version: page.draft_version, public: true)
+      end
+
+      let!(:visible_nested) do
+        create(:alchemy_element, parent_element: parent_element, page_version: page.draft_version, public: true)
+      end
+
+      let!(:hidden_nested) do
+        create(:alchemy_element, parent_element: parent_element, page_version: page.draft_version, public: false)
+      end
+
+      it "copies only visible nested elements to public version" do
+        publish
+        published_parent = page.reload.public_version.elements.first
+        expect(published_parent.all_nested_elements).to all(be_public)
+      end
+    end
+
     context "in parallel" do
       before do
         # another publisher - instance created a mutex entry and locked the page

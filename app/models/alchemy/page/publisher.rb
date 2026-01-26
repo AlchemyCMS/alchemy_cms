@@ -30,7 +30,7 @@ module Alchemy
             ActiveRecord::Base.no_touching do
               Element.acts_as_list_no_update do
                 repository.visible.not_nested.each.with_index(1) do |element, position|
-                  Alchemy::DuplicateElement.new(element, repository: repository).call(
+                  Alchemy::DuplicateElement.new(element, repository: repository, publishable_only: true).call(
                     page_version_id: version.id,
                     position: position
                   )

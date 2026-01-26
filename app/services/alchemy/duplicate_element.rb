@@ -13,11 +13,12 @@ module Alchemy
       "updater_id"
     ].freeze
 
-    attr_reader :source_element, :repository
+    attr_reader :source_element, :repository, :publishable_only
 
-    def initialize(source_element, repository: source_element.page_version.element_repository)
+    def initialize(source_element, repository: source_element.page_version.element_repository, publishable_only: false)
       @source_element = source_element
       @repository = repository
+      @publishable_only = publishable_only
     end
 
     def call(differences = {})
@@ -35,9 +36,10 @@ module Alchemy
       new_element.save!
 
       nested_elements = repository.children_of(source_element)
+      nested_elements = nested_elements.visible if publishable_only
       Element.acts_as_list_no_update do
         nested_elements.each.with_index(1) do |nested_element, position|
-          self.class.new(nested_element, repository: repository).call(
+          self.class.new(nested_element, repository: repository, publishable_only: publishable_only).call(
             parent_element: new_element,
             page_version: new_element.page_version,
             position: position
