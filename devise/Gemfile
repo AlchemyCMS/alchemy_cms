@@ -20,8 +20,6 @@ group :test do
   if ENV["GITHUB_ACTIONS"]
     gem "simplecov-cobertura", "~> 3.0"
   end
-  gem "selenium-webdriver", "~> 4.40"
-  gem "capybara-screenshot", "~> 1.0"
 end
 
 gem "github_fast_changelog", require: false

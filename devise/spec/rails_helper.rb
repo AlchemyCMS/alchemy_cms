@@ -25,6 +25,7 @@ ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true
 ActionMailer::Base.default_url_options[:host] = "test.com"
 Capybara.default_driver = :rack_test
+Capybara.javascript_driver = :selenium_headless
 Capybara.default_selector = :css
 Capybara.ignore_hidden_elements = false
 ActiveJob::Base.queue_adapter = :test
