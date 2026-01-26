@@ -21,10 +21,14 @@ jobs:
         rails:
           - "7.2"
           - "8.0"
+          - "8.1"
         database:
           - mysql
           - postgresql
           - sqlite
+        exclude:
+          - alchemy_branch: "8.0-stable"
+            rails: "8.1"
 
     env:
       DB: ${{ matrix.database }}
