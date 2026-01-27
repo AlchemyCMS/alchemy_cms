@@ -6,4 +6,7 @@ class ConvertSelectValueForMultiple < ActiveRecord::Migration[7.1]
         WHERE type = 'Alchemy::Ingredients::Select' AND value NOT LIKE '["%"]';
     SQL
   end
+
+  def down
+  end
 end
