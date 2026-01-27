@@ -5,6 +5,9 @@ changelog:
   exclude:
     labels:
       - skip-changelog
+      - backport-to-7.4-stable
+      - backport-to-8.0-stable
+      - backport-to-8.1-stable
       - chore
 
   categories:
