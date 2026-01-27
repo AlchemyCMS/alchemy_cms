@@ -98,6 +98,13 @@ module Alchemy
 
       # @param [Alchemy::Attachment]
       # @return [String]
+      def file_basename(attachment)
+        filename = attachment.file&.filename.to_s
+        File.basename(filename, File.extname(filename))
+      end
+
+      # @param [Alchemy::Attachment]
+      # @return [String]
       def file_name(attachment)
         attachment.file&.filename&.to_s
       end
@@ -124,6 +131,13 @@ module Alchemy
       # @return [TrueClass, FalseClass]
       def has_convertible_format?(picture)
         picture.image_file&.variable?
+      end
+
+      # @param [Alchemy::Picture]
+      # @return [String]
+      def image_file_basename(picture)
+        filename = picture.image_file&.filename.to_s
+        File.basename(filename, File.extname(filename))
       end
 
       # @param [Alchemy::Picture]

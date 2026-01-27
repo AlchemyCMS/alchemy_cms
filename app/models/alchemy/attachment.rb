@@ -25,6 +25,8 @@ module Alchemy
     include Alchemy::TouchElements
     include Alchemy::RelatableResource
 
+    before_save :set_name, if: -> { Alchemy.storage_adapter.set_attachment_name?(self) }
+
     include Alchemy.storage_adapter.attachment_class_methods
 
     stampable stamper_class_name: Alchemy.config.user_class_name
@@ -96,8 +98,6 @@ module Alchemy
     validates_size_of :file, maximum: Alchemy.config.uploader.file_size_limit.megabytes
     validate :file_type_allowed,
       unless: -> { self.class.allowed_filetypes.include?("*") }
-
-    before_save :set_name, if: -> { Alchemy.storage_adapter.set_attachment_name?(self) }
 
     scope :with_file_type, ->(file_type) { where(file_mime_type: file_type) }
 
@@ -179,7 +179,7 @@ module Alchemy
     end
 
     def set_name
-      self.name ||= convert_to_humanized_name(file_name, extension)
+      self.name ||= Alchemy.storage_adapter.file_basename(self).humanize
     end
   end
 end

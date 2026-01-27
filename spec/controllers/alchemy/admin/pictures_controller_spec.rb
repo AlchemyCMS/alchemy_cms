@@ -141,15 +141,14 @@ module Alchemy
     describe "#create" do
       subject { post :create, params: params }
 
-      let(:params) { {picture: {name: ""}} }
-      let(:picture) { mock_model("Picture", humanized_name: "Cute kittens") }
-
       context "with passing validations" do
-        before do
-          expect(Picture).to receive(:new).and_return(picture)
-          expect(picture).to receive(:name=).and_return("Cute kittens")
-          expect(picture).to receive(:name).and_return("Cute kittens")
-          expect(picture).to receive(:save).and_return(true)
+        let(:params) do
+          {picture: {image_file: fixture_file_upload("my FileNämü.png")}}
+        end
+
+        it "creates a new picture with human friendly name" do
+          expect { subject }.to change { Picture.count }.by(1)
+          expect(Picture.last.name).to eq("My filenämü")
         end
 
         it "renders json response with success message" do
@@ -162,6 +161,8 @@ module Alchemy
       end
 
       context "with failing validations" do
+        let(:params) { {picture: {name: ""}} }
+
         it_behaves_like "having a json uploader error message"
       end
     end

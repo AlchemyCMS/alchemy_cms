@@ -62,6 +62,8 @@ module Alchemy
       @_preprocessor_class = klass
     end
 
+    before_create :set_name, if: :image_file_name
+
     include Alchemy.storage_adapter.picture_class_methods
 
     # We need to define this method here to have it available in the validations below.
@@ -195,14 +197,6 @@ module Alchemy
       end
     end
 
-    # Returns a humanized, readable name from image filename.
-    #
-    def humanized_name
-      return "" if image_file_name.blank?
-
-      convert_to_humanized_name(image_file_name, image_file_extension)
-    end
-
     # Returns the format the image should be rendered with
     #
     # Only returns a format differing from original if an +image_output_format+
@@ -286,6 +280,12 @@ module Alchemy
     end
 
     private
+
+    # Returns a humanized, readable name from image filename.
+    #
+    def set_name
+      self.name ||= Alchemy.storage_adapter.image_file_basename(self).humanize
+    end
 
     def image_file_type_allowed
       unless image_file_extension&.in?(self.class.allowed_filetypes)
