@@ -77,12 +77,7 @@ module Alchemy
       end
 
       def file_types(scope = all, from_extensions: nil)
-        if from_extensions.present?
-          scope = by_file_type(
-            Array(from_extensions).map { |extension| Marcel::MimeType.for(extension:) }
-          )
-        end
-        Alchemy.storage_adapter.file_formats(name, scope:)
+        Alchemy.storage_adapter.file_formats(name, scope:, from_extensions:)
       end
 
       def allowed_filetypes

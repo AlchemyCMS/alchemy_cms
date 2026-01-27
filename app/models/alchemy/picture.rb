@@ -130,8 +130,8 @@ module Alchemy
         [:by_file_format, :recent, :last_upload, :without_tag, :deletable]
       end
 
-      def file_formats(scope = all)
-        Alchemy.storage_adapter.file_formats(name, scope:)
+      def file_formats(scope = all, from_extensions: nil)
+        Alchemy.storage_adapter.file_formats(name, scope:, from_extensions:)
       end
     end
 

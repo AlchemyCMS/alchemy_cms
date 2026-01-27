@@ -72,7 +72,17 @@ module Alchemy
         @_picture_url_class ||= PictureUrl
       end
 
-      def file_formats(class_name, scope:)
+      def file_formats(class_name, scope:, from_extensions: nil)
+        if from_extensions.present?
+          extensions = Array(from_extensions)
+          case class_name
+          when "Alchemy::Picture"
+            scope = scope.by_file_format(extensions.map(&:to_s))
+          when "Alchemy::Attachment"
+            scope = scope.by_file_type(extensions.map { |extension| Marcel::MimeType.for(extension:) })
+          end
+        end
+
         mime_type_column = case class_name
         when "Alchemy::Attachment" then :file_mime_type
         when "Alchemy::Picture" then :image_file_format

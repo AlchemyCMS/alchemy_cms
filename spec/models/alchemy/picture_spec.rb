@@ -142,8 +142,21 @@ module Alchemy
 
     describe ".file_formats" do
       it "deligates to storage adapter" do
-        expect(Alchemy.storage_adapter).to receive(:file_formats).with(described_class.name, scope: described_class.all)
+        expect(Alchemy.storage_adapter).to receive(:file_formats).with(
+          described_class.name,
+          scope: described_class.all,
+          from_extensions: nil
+        )
         described_class.file_formats
+      end
+
+      it "passes from_extensions to storage adapter" do
+        expect(Alchemy.storage_adapter).to receive(:file_formats).with(
+          described_class.name,
+          scope: described_class.all,
+          from_extensions: %w[png jpg]
+        )
+        described_class.file_formats(from_extensions: %w[png jpg])
       end
     end
 
