@@ -101,6 +101,12 @@ module Alchemy
       end
     end
 
+    describe ".ransackable_scopes" do
+      it do
+        expect(described_class.ransackable_scopes).to eq %i[by_file_format recent last_upload without_tag deletable]
+      end
+    end
+
     describe ".preprocessor_class" do
       it "delegates to storage adapter" do
         expect(Alchemy.storage_adapter).to receive(:preprocessor_class)

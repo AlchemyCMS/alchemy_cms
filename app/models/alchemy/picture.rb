@@ -82,7 +82,8 @@ module Alchemy
     scope :named, ->(name) { where("#{table_name}.name LIKE ?", "%#{name}%") }
     scope :recent, -> { where("#{table_name}.created_at > ?", Time.current - 24.hours).order(:created_at) }
     scope :without_tag, -> { left_outer_joins(:taggings).where(gutentag_taggings: {id: nil}) }
-    scope :by_file_format, ->(file_format) do
+
+    scope :by_file_format, ->(*file_format) do
       Alchemy.storage_adapter.by_file_format_scope(file_format)
     end
 
