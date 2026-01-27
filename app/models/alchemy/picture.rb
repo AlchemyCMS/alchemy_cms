@@ -75,7 +75,7 @@ module Alchemy
     validates_size_of :image_file, maximum: Alchemy.config.uploader.file_size_limit.megabytes
     validate :image_file_type_allowed, if: -> { image_file.present? }
 
-    stampable stamper_class_name: Alchemy.user_class_name
+    stampable stamper_class_name: Alchemy.config.user_class_name
 
     scope :named, ->(name) { where("#{table_name}.name LIKE ?", "%#{name}%") }
     scope :recent, -> { where("#{table_name}.created_at > ?", Time.current - 24.hours).order(:created_at) }

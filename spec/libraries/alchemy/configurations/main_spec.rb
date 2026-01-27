@@ -3,7 +3,12 @@
 require "rails_helper"
 require "alchemy/configurations/main"
 
+class MyCustomUser
+end
+
 RSpec.describe Alchemy::Configurations::Main do
+  subject(:configuration) { described_class.new }
+
   describe "#set_from_yaml" do
     let(:fixture_file) do
       Rails.root.join("..", "fixtures", "config.yml")
@@ -35,8 +40,6 @@ RSpec.describe Alchemy::Configurations::Main do
   end
 
   describe "default values" do
-    let(:configuration) { described_class.new }
-
     describe "#page_searchable_checkbox" do
       subject { configuration.show_page_searchable_checkbox }
       it { is_expected.to be false }
@@ -48,6 +51,66 @@ RSpec.describe Alchemy::Configurations::Main do
 
     it "returns a Set of admin importmaps" do
       is_expected.to be_a(Alchemy::Configuration::CollectionOption)
+    end
+  end
+
+  describe ".user_class" do
+    before do
+      subject.user_class = "Alchemy::MyCustomUser"
+    end
+
+    it "raises error if user_class is not a String" do
+      expect {
+        subject.user_class = DummyUser
+      }.to raise_error(Alchemy::Configuration::ConfigurationError)
+    end
+
+    it "returns user_class_name with :: prefix" do
+      expect(subject.user_class_name).to eq("::Alchemy::MyCustomUser")
+    end
+  end
+
+  describe ".user_class" do
+    before do
+      subject.user_class = "DummyUser"
+    end
+
+    context "and the custom User class exists" do
+      it "returns the custom user class" do
+        expect(subject.user_class).to be(::DummyUser)
+      end
+    end
+
+    context "and the custom user class does not exist" do
+      before do
+        subject.user_class = "NoUser"
+      end
+
+      it "raises a NameError" do
+        expect { subject.user_class }.to raise_exception(NameError)
+      end
+    end
+  end
+
+  describe "defaults" do
+    it "has default value for user_class_primary_key" do
+      expect(subject.user_class_primary_key).to eq(:id)
+    end
+
+    it "has default value for signup_path" do
+      expect(subject.signup_path).to eq("/signup")
+    end
+
+    it "has default value for login_path" do
+      expect(subject.login_path).to eq("/login")
+    end
+
+    it "has default value for logout_path" do
+      expect(subject.logout_path).to eq("/logout")
+    end
+
+    it "has default value for logout_method" do
+      expect(subject.logout_method).to eq("delete")
     end
   end
 end

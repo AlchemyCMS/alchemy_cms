@@ -11,11 +11,8 @@ module Alchemy
       let(:user) { create(:alchemy_dummy_user) }
 
       context "with a non-AR user_class" do
-        around :each do |example|
-          before = Alchemy.user_class_name
-          Alchemy.user_class_name = "NonArDummyUser"
-          example.run
-          Alchemy.user_class_name = before
+        before do
+          stub_alchemy_config(user_class: "NonArDummyUser")
         end
         let(:user) { NonArDummyUser.new }
 

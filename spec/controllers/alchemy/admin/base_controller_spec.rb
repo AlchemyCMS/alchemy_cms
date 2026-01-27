@@ -64,15 +64,15 @@ describe Alchemy::Admin::BaseController do
         allow(controller).to receive(:render)
       end
 
-      it "redirects to login_path if no user" do
+      it "redirects to config.login_path if no user" do
         controller.send(:permission_denied, CanCan::AccessDenied.new)
-        expect(controller).to have_received(:redirect_to).with(Alchemy.login_path)
+        expect(controller).to have_received(:redirect_to).with(Alchemy.config.login_path)
       end
 
-      it "redirects to unauthorized_path for a logged in user" do
+      it "redirects to config.unauthorized_path for a logged in user" do
         authorize_user(build(:alchemy_dummy_user))
         controller.send(:permission_denied, CanCan::AccessDenied.new)
-        expect(controller).to have_received(:redirect_to).with(Alchemy.unauthorized_path)
+        expect(controller).to have_received(:redirect_to).with(Alchemy.config.unauthorized_path)
       end
 
       context "for a json request" do

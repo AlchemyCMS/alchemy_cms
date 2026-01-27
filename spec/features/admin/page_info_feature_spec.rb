@@ -8,7 +8,7 @@ RSpec.describe "Show page info feature", type: :system do
   context "as anonymous user" do
     it "redirects to login page" do
       visit alchemy.info_admin_page_path(alchemy_page)
-      expect(page).to have_current_path(Alchemy.login_path)
+      expect(page).to have_current_path(Alchemy.config.login_path)
     end
   end
 

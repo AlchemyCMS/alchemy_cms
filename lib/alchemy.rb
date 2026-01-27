@@ -21,10 +21,7 @@ module Alchemy
     def config
       @_config ||= Alchemy::Configurations::Main.new
     end
-
-    def configure(&blk)
-      yield config
-    end
+    delegate :configure, to: :config
 
     enable_searchable_deprecation_msg = "Use `Alchemy.config.show_page_searchable_checkbox` instead."
     def enable_searchable = config.show_page_searchable_checkbox

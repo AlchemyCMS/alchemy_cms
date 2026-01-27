@@ -1,134 +1,68 @@
 # frozen_string_literal: true
 
-# Provides authentication accessors.
-#
-# Alchemy has some defaults for user model name and login logout path names:
-#
-# +Alchemy.user_class_name+ defaults to +'User'+
-# +Alchemy.user_class_primary_key+ defaults to +:id+
-# +Alchemy.current_user_method defaults to +'current_user'+
-# +Alchemy.signup_path defaults to +'/signup'+
-# +Alchemy.login_path defaults to +'/login'+
-# +Alchemy.logout_path defaults to +'/logout'+
-# +Alchemy.logout_method defaults to +'delete'+
-# +Alchemy.unauthorized_path defaults to +'/'+
-#
-# Anyway, you can tell Alchemy about your authentication model configuration:
-#
-#   1. Your user class name - @see: Alchemy.user_class
-#   2. Your users table primary key - @see: Alchemy.user_class_primary_key
-#   3. A method on your ApplicationController to get current user -
-#      @see: Alchemy.current_user_method
-#   4. The path to the signup form - @see: Alchemy.signup_path
-#   5. The path to the login form - @see: Alchemy.login_path
-#   6. The path to the logout method - @see: Alchemy.logout_path
-#   7. The http verb for the logout method - @see: Alchemy.logout_method
-#   8. The path to the page showing the user she's unauthorized - @see: Alchemy.unauthorized_path
-#
-# == Example
-#
-#     # config/initializers/alchemy.rb
-#     Alchemy.user_class_name = 'Admin'
-#     Alchemy.user_class_primary_key = :user_id
-#     Alchemy.current_user_method = 'current_admin'
-#     Alchemy.signup_path = '/auth/signup'
-#     Alchemy.login_path = '/auth/login'
-#     Alchemy.logout_path = '/auth/logout'
-#     Alchemy.logout_method = 'get'
-#     Alchemy.unauthorized_path = '/home'
-#
-# If you don't have your own user model or don't want to provide one,
-# add the `alchemy-devise` gem into your App's Gemfile.
-#
-# == Adding your own CanCan abilities
-#
-# If your app or your engine has own CanCan abilities you must register them:
-#
-#     Alchemy.register_ability MyCustom::Ability
-#
 module Alchemy
-  mattr_accessor :user_class_primary_key,
-    :current_user_method,
-    :signup_path,
-    :login_path,
-    :logout_path,
-    :logout_method,
-    :unauthorized_path
+  class << self
+    delegate :user_class_primary_key, to: :config
+    deprecate user_class_primary_key: "Use `Alchemy.config.user_class_primary_key instead", deprecator: Alchemy::Deprecation
 
-  # Defaults
-  #
-  @@user_class_name = "User"
-  @@user_class_primary_key = :id
-  @@current_user_method = "current_user"
-  @@signup_path = "/signup"
-  @@login_path = "/login"
-  @@logout_path = "/logout"
-  @@logout_method = "delete"
-  @@unauthorized_path = "/"
+    delegate :user_class_primary_key=, to: :config
+    deprecate :user_class_primary_key= => "Use `Alchemy.config.user_class_primary_key instead", :deprecator => Alchemy::Deprecation
 
-  # Returns the user class
-  #
-  # Set your App's user class to Alchemy.user_class_name in an initializer.
-  #
-  # Defaults to +User+
-  #
-  # == Example
-  #
-  #     # config/initializers/alchemy.rb
-  #     Alchemy.user_class_name = 'Admin'
-  #
+    delegate :current_user_method, to: :config
+    deprecate current_user_method: "Use `Alchemy.config.current_user_method instead", deprecator: Alchemy::Deprecation
 
-  # Prefix with :: when getting to avoid constant name conflicts
-  def self.user_class_name
-    if !@@user_class_name.is_a?(String)
-      raise TypeError, "Alchemy.user_class_name must be a String, not a Class."
+    delegate :current_user_method=, to: :config
+    deprecate :current_user_method= => "Use `Alchemy.config.current_user_method instead", :deprecator => Alchemy::Deprecation
+
+    delegate :signup_path, to: :config
+    deprecate signup_path: "Use `Alchemy.config.signup_path instead", deprecator: Alchemy::Deprecation
+
+    delegate :signup_path=, to: :config
+    deprecate :signup_path= => "Use `Alchemy.config.signup_path instead", :deprecator => Alchemy::Deprecation
+
+    delegate :login_path, to: :config
+    deprecate login_path: "Use `Alchemy.config.login_path instead", deprecator: Alchemy::Deprecation
+
+    delegate :login_path=, to: :config
+    deprecate :login_path= => "Use `Alchemy.config.login_path instead", :deprecator => Alchemy::Deprecation
+
+    delegate :logout_path, to: :config
+    deprecate logout_path: "Use `Alchemy.config.logout_path instead", deprecator: Alchemy::Deprecation
+
+    delegate :logout_path=, to: :config
+    deprecate :logout_path= => "Use `Alchemy.config.logout_path instead", :deprecator => Alchemy::Deprecation
+
+    delegate :logout_method, to: :config
+    deprecate logout_method: "Use `Alchemy.config.logout_method instead", deprecator: Alchemy::Deprecation
+
+    delegate :logout_method=, to: :config
+    deprecate :logout_method= => "Use `Alchemy.config.logout_method instead", :deprecator => Alchemy::Deprecation
+
+    delegate :unauthorized_path, to: :config
+    deprecate unauthorized_path: "Use `Alchemy.config.unauthorized_path instead", deprecator: Alchemy::Deprecation
+
+    delegate :unauthorized_path=, to: :config
+    deprecate :unauthorized_path= => "Use `Alchemy.config.unauthorized_path instead", :deprecator => Alchemy::Deprecation
+
+    delegate :user_class, to: :config
+    deprecate user_class: "Use `Alchemy.config.user_class instead", deprecator: Alchemy::Deprecation
+
+    delegate :user_class_name, to: :config
+    deprecate user_class_name: "Use `Alchemy.config.user_class_name instead", deprecator: Alchemy::Deprecation
+
+    def user_class_name=(klass_name)
+      config.user_class = klass_name
     end
+    deprecate :user_class_name= => "Use `Alchemy.config.user_class instead", :deprecator => Alchemy::Deprecation
 
-    "::#{@@user_class_name}"
-  end
-
-  def self.user_class_name=(user_class_name)
-    @@user_class_name = user_class_name
-  end
-
-  def self.user_class
-    @@user_class ||= begin
-      @@user_class_name.constantize
-    rescue NameError => e
-      if /#{Regexp.escape(@@user_class_name)}/.match?(e.message)
-        Logger.warn <<~MSG
-          #{e.message}
-          #{e.backtrace.join("\n")}
-
-          AlchemyCMS cannot find any user class!
-
-          Please add a user class and tell Alchemy about it:
-
-              # config/initializers/alchemy.rb
-              Alchemy.user_class_name = 'MyUser'
-
-          Or add the `alchemy-devise` gem to your Gemfile:
-
-              bundle add alchemy-devise
-
-        MSG
-        nil
-      else
-        raise e
-      end
+    def register_ability(klass)
+      config.abilities.add(klass.name)
     end
-  end
+    deprecate register_ability: 'Use `Alchemy.config.abilities.add("MyClass")` instead', deprecator: Alchemy::Deprecation
 
-  # Register a CanCan Ability class
-  #
-  def self.register_ability(klass)
-    @abilities ||= []
-    @abilities << klass
-  end
-
-  # All CanCan Ability classes registered to Alchemy
-  #
-  def self.registered_abilities
-    @abilities ||= []
+    def registered_abilities
+      config.abilities
+    end
+    deprecate registered_abilities: "Use `Alchemy.config.abilities` instead", deprecator: Alchemy::Deprecation
   end
 end

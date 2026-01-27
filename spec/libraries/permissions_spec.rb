@@ -200,7 +200,7 @@ describe Alchemy::Permissions do
   end
 
   context "A logged in user without a role" do
-    let(:user) { mock_model(Alchemy.user_class, alchemy_roles: []) }
+    let(:user) { mock_model(Alchemy.config.user_class, alchemy_roles: []) }
 
     it "can only see public not restricted pages (like the guest role)" do
       is_expected.to be_able_to(:show, public_page)
