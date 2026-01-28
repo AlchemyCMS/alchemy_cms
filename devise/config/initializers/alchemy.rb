@@ -18,5 +18,5 @@ Rails.application.config.to_prepare do
   Alchemy.signup_path = "/admin/signup"
   Alchemy.login_path = "/admin/login"
   Alchemy.logout_path = "/admin/logout"
-  Alchemy.logout_method = Devise.sign_out_via
+  Alchemy.logout_method = Devise.sign_out_via.to_s
 end
