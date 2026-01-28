@@ -85,15 +85,11 @@ module Alchemy
           params[:q] ||= ActionController::Parameters.new
 
           if params[:only].present?
-            params[:q][:by_file_type] ||= Array(params[:only]).map do |extension|
-              Marcel::MimeType.for(extension:)
-            end
+            params[:q][:by_file_type] ||= Attachment.file_types(from_extensions: params[:only])
           end
 
           if params[:except].present?
-            params[:q][:by_file_type] ||= Attachment.file_types - params[:except].map do |extension|
-              Marcel::MimeType.for(extension:)
-            end
+            params[:q][:by_file_type] ||= Attachment.file_types - Attachment.file_types(from_extensions: params[:except])
           end
 
           params.except(*COMMON_SEARCH_FILTER_EXCLUDES + [:attachment]).permit(
@@ -108,9 +104,7 @@ module Alchemy
 
       def permitted_ransack_search_fields
         super + [
-          {by_file_type: []},
-          :not_file_type,
-          {not_file_type: []}
+          {by_file_type: []}
         ]
       end
 

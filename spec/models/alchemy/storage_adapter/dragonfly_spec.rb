@@ -134,6 +134,16 @@ RSpec.describe Alchemy::StorageAdapter::Dragonfly, if: Alchemy.storage_adapter.d
           is_expected.to eq(["jpeg"])
         end
       end
+
+      context "with from_extensions" do
+        subject(:file_formats) do
+          described_class.file_formats(class_name, scope: scope, from_extensions: ["jpeg"])
+        end
+
+        it "should return only matching picture file formats" do
+          is_expected.to eq(["jpeg"])
+        end
+      end
     end
 
     context "for a Alchemy::Attachment" do
@@ -160,6 +170,16 @@ RSpec.describe Alchemy::StorageAdapter::Dragonfly, if: Alchemy.storage_adapter.d
 
         it "should only return scoped attachment file formats" do
           is_expected.to eq ["application/pdf"]
+        end
+      end
+
+      context "with from_extensions" do
+        subject(:file_formats) do
+          described_class.file_formats(class_name, scope: scope, from_extensions: ["pdf"])
+        end
+
+        it "should return only matching attachment file formats" do
+          is_expected.to eq(["application/pdf"])
         end
       end
     end

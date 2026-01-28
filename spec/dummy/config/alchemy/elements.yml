@@ -6,6 +6,7 @@
       type: Picture
       settings:
         linkable: false
+        except: gif
 
 - name: headline
   ingredients:
@@ -123,6 +124,7 @@
       settings:
         size: 1200x480
         crop: true
+        only: [jpeg]
         css_classes:
           - "align-right"
           - "align-left"

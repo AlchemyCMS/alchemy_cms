@@ -19,8 +19,15 @@ module Alchemy
         @picture = Picture.find(params[:id])
       end
 
-      add_alchemy_filter :by_file_format, type: :select, options: ->(query) do
-        Alchemy::Picture.file_formats(query.result)
+      add_alchemy_filter :by_file_format, type: :select, options: ->(_query, params) do
+        case params&.to_h
+        in {except:}
+          Alchemy::Picture.file_formats - Alchemy::Picture.file_formats(from_extensions: except)
+        in {only:}
+          Alchemy::Picture.file_formats(from_extensions: only)
+        else
+          Alchemy::Picture.file_formats
+        end
       end
       add_alchemy_filter :recent, type: :checkbox
       add_alchemy_filter :last_upload, type: :checkbox
@@ -182,12 +189,32 @@ module Alchemy
       end
 
       def search_filter_params
-        @_search_filter_params ||= params.except(*COMMON_SEARCH_FILTER_EXCLUDES + [:picture_ids]).permit(
-          *common_search_filter_includes + [
-            :size,
-            :form_field_id
-          ]
-        )
+        @_search_filter_params ||= begin
+          params[:q] ||= ActionController::Parameters.new
+
+          if params[:only].present?
+            params[:q][:by_file_format] ||= Picture.file_formats(from_extensions: params[:only])
+          end
+
+          if params[:except].present?
+            params[:q][:by_file_format] ||= Picture.file_formats - Picture.file_formats(from_extensions: params[:except])
+          end
+
+          params.except(*COMMON_SEARCH_FILTER_EXCLUDES + [:picture_ids]).permit(
+            *common_search_filter_includes + [
+              :size,
+              :form_field_id,
+              {only: []},
+              {except: []}
+            ]
+          )
+        end
+      end
+
+      def permitted_ransack_search_fields
+        super + [
+          {by_file_format: []}
+        ]
       end
 
       def picture_params

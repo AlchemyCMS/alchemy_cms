@@ -22,7 +22,9 @@
 <%= content_tag "sl-tooltip", content: picture_editor.picture ? Alchemy.t(:swap_image) : Alchemy.t(:insert_image) do %>
   <%= link_to_dialog render_icon("image-add"),
     alchemy.admin_pictures_path(
-      form_field_id: picture_editor.form_field_id(:picture_id)
+      form_field_id: picture_editor.form_field_id(:picture_id),
+      only: Array(picture_editor.settings[:only]),
+      except: Array(picture_editor.settings[:except])
     ),
     {
       title: Alchemy.t(:choose_image),
