@@ -64,7 +64,6 @@ module Alchemy
 
       def create
         @picture = Picture.new(picture_params)
-        @picture.name = @picture.humanized_name
         if @picture.save
           render successful_uploader_response(file: @picture)
         else

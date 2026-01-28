@@ -55,24 +55,27 @@ module Alchemy
       end
     end
 
-    describe "#humanized_name" do
-      it "should return a humanized version of original filename" do
-        allow(picture).to receive(:image_file_name).and_return("cute_kitten.JPG")
-        allow(picture).to receive(:image_file_extension).and_return("jpg")
-        expect(picture.humanized_name).to eq("cute kitten")
+    describe "after create" do
+      let(:image_file) { fixture_file_upload("image with spaces.png") }
+      let(:picture) { create(:alchemy_picture, name: nil, image_file: image_file) }
+
+      it "should have a humanized version of original filename" do
+        expect(picture.name).to eq("Image with spaces")
       end
 
-      it "should not remove incidents of suffix from filename" do
-        allow(picture).to receive(:image_file_name).and_return("cute_kitten_mo.jpgi.JPG")
-        allow(picture).to receive(:image_file_extension).and_return("jpg")
-        expect(picture.humanized_name).to eq("cute kitten mo.jpgi")
+      context "image has suffix-like in filename" do
+        let(:image_file) { fixture_file_upload("image with spaces.jpgi.png") }
+
+        it "should not have incidents of suffix from filename" do
+          expect(picture.name).to eq("Image with spaces.jpgi")
+        end
       end
 
-      context "image has no suffix" do
-        it "should return humanized name" do
-          allow(picture).to receive(:image_file_name).and_return("cute_kitten")
-          allow(picture).to receive(:image_file_extension).and_return("")
-          expect(picture.humanized_name).to eq("cute kitten")
+      context "image has underscores" do
+        let(:image_file) { fixture_file_upload("cute_kitten.png") }
+
+        it "should have humanized name" do
+          expect(picture.name).to eq("Cute kitten")
         end
       end
     end

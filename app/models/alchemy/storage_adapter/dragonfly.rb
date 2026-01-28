@@ -128,6 +128,12 @@ module Alchemy
       end
 
       # @param [Alchemy::Attachment]
+      # @return [String]
+      def file_basename(attachment)
+        attachment.file&.basename&.to_s
+      end
+
+      # @param [Alchemy::Attachment]
       # @return [Integer]
       def file_size(attachment)
         attachment.read_attribute(:file_size)
@@ -150,6 +156,12 @@ module Alchemy
       # @return [TrueClass, FalseClass]
       def has_convertible_format?(picture)
         image_file_extension(picture).in?(CONVERTIBLE_FILE_FORMATS)
+      end
+
+      # @param [Alchemy::Picture]
+      # @return [String]
+      def image_file_basename(picture)
+        picture.image_file&.basename&.to_s
       end
 
       # @param [Alchemy::Picture]

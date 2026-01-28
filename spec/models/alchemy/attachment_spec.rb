@@ -57,7 +57,7 @@ module Alchemy
 
       it "should have a humanized name" do
         save
-        expect(attachment.name).to eq("image with spaces")
+        expect(attachment.name).to eq("Image with spaces")
       end
 
       context "when file_name has not changed" do
