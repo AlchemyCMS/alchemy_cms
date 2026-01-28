@@ -1,5 +1,16 @@
 # Changelog
 
+## 8.0.5 (2026-01-28)
+
+## What's Changed
+* [8.0-stable] fix: Page layouts generator fails with NoMethodError by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3589
+* [8.0-stable] Fix elements generator by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3591
+* [8.0-stable] fix: Filter nested elements by visibility when publishing pages by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3595
+* [8.0-stable] fix(gemspec): Ignore build artifacts from package by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3599
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.0.4...v8.0.5
+
 ## 8.0.4 (2026-01-22)
 
 ## What's Changed
