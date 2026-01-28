@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.0.2 (2026-01-28)
+
+## What's Changed
+* fix(gemspec): Exclude build artifacts by @tvdeyen in https://github.com/AlchemyCMS/alchemy_i18n/pull/86
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_i18n/compare/v5.0.1...v5.0.2
+
 ## 5.0.1 (2026-01-06)
 
 ## What's Changed
