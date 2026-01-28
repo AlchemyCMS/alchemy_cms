@@ -14,7 +14,13 @@ Gem::Specification.new do |s|
   s.description = "Translation files for AlchemyCMS"
   s.license     = "MIT"
 
-  s.files = Dir["{app,locales,lib,vendor}/**/*", "CHANGELOG.md", "LICENSE", "README.md"]
+  s.files = Dir[
+    "{app,lib,locales}/**/*",
+    "vendor/{assets,locales}/**/*",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ]
 
   s.metadata["homepage_uri"] = s.homepage
   s.metadata["source_code_uri"] = "https://github.com/AlchemyCMS/alchemy_i18n"
