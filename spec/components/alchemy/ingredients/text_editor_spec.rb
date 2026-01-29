@@ -5,11 +5,6 @@ require "rails_helper"
 RSpec.describe Alchemy::Ingredients::TextEditor, type: :component do
   let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat") }
   let(:ingredient) { Alchemy::Ingredients::Text.new(id: 1, role: "headline", value: "1234", element: element) }
-
-  let(:element_form) do
-    ActionView::Helpers::FormBuilder.new(:element, element, vc_test_view_context, {})
-  end
-
   let(:ingredient_editor) { described_class.new(ingredient) }
 
   it_behaves_like "an alchemy ingredient editor"

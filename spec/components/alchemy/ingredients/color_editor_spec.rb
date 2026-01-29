@@ -6,10 +6,6 @@ RSpec.describe Alchemy::Ingredients::ColorEditor, type: :component do
   let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat") }
   let(:settings) { {} }
 
-  let(:element_form) do
-    ActionView::Helpers::FormBuilder.new(:element, element, vc_test_view_context, {})
-  end
-
   let(:ingredient) do
     Alchemy::Ingredients::Color.new(id: 123, role: "color", element: element)
   end

@@ -5,10 +5,6 @@ require "rails_helper"
 RSpec.describe Alchemy::Ingredients::BooleanEditor, type: :component do
   let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat") }
 
-  let(:element_form) do
-    ActionView::Helpers::FormBuilder.new(:element, element, vc_test_view_context, {})
-  end
-
   let(:ingredient) do
     Alchemy::Ingredients::Boolean.new(id: 123, role: "boolean", element: element)
   end
