@@ -1,10 +1,17 @@
+<% disabled = cannot?(:edit, ingredient) %>
 <%= content_tag "alchemy-link-buttons", class: local_assigns[:wrapper_class], data: {ingredient_id: ingredient_editor.id} do %>
-  <%= content_tag "sl-tooltip", content: Alchemy.t(:place_link) do %>
+  <%= content_tag "sl-tooltip",
+    content: Alchemy.t(:place_link),
+    disabled: disabled do %>
     <%= content_tag "button", "", is: "alchemy-link-button",
+      disabled: disabled,
       class: [ingredient_editor.linked? ? "linked" : nil] %>
   <% end %>
-  <%= content_tag "sl-tooltip", content: Alchemy.t(:unlink) do %>
+  <%= content_tag "sl-tooltip",
+    content: Alchemy.t(:unlink),
+    disabled: disabled do %>
     <%= content_tag "button", "", is: "alchemy-unlink-button",
+      disabled: disabled,
       class: [ingredient_editor.linked? ? "linked" : "disabled"] %>
   <% end %>
 <% end %>

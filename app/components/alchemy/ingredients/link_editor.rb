@@ -21,6 +21,7 @@ module Alchemy
           concat hidden_field_tag(form_field_name(:link_target), ingredient.link_target, "data-link-target": true, id: nil)
           concat render("alchemy/ingredients/shared/link_tools",
             ingredient_editor: ingredient,
+            ingredient:,
             wrapper_class: "ingredient_link_buttons")
         end
       end

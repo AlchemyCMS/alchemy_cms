@@ -1,34 +1,59 @@
 <% remarkable_type = "elements" %>
 <div class="element-toolbar">
-  <sl-tooltip placement="top-start" content="<%= Alchemy.t(:copy_element) %>">
+  <sl-tooltip
+    placement="top-start"
+    content="<%= Alchemy.t(:copy_element) %>"
+    <%= "disabled" if cannot?(:create, element) %>
+  >
     <%= button_to(
       render_icon("file-copy"),
       alchemy.insert_admin_clipboard_path(remarkable_type: remarkable_type, remarkable_id: element.id),
       "data-turbo-method": :post,
-      class: "icon_button"
+      class: "icon_button",
+      disabled: cannot?(:create, element)
     ) %>
   </sl-tooltip>
-  <sl-tooltip content="<%= Alchemy.t(:cut_element) %>">
+  <sl-tooltip
+    content="<%= Alchemy.t(:cut_element) %>"
+    <%= "disabled" if cannot?(:create, element) %>
+  >
     <%= button_to(
       render_icon("scissors-cut"),
       alchemy.insert_admin_clipboard_path(remarkable_type: remarkable_type, remarkable_id: element.id, remove: true),
       "data-turbo-method": :post,
-      class: "icon_button"
+      class: "icon_button",
+      disabled: cannot?(:create, element)
     ) %>
   </sl-tooltip>
-  <sl-tooltip content="<%= Alchemy.t("Delete element") %>">
+  <sl-tooltip
+    content="<%= Alchemy.t("Delete element") %>"
+    <%= "disabled" if cannot?(:destroy, element) %>
+  >
     <alchemy-delete-element-button
       href="<%= alchemy.admin_element_path(element) %>"
       message="<%= Alchemy.t(:confirm_to_delete_element) %>"
     >
-      <button type="button" class="icon_button" data-turbo="false">
+      <button
+        class="icon_button"
+        data-turbo="false"
+        type="button"
+        <%= "disabled" if cannot?(:destroy, element) %>
+      >
         <%= render_icon('delete-bin-2') %>
       </button>
     </alchemy-delete-element-button>
   </sl-tooltip>
-  <sl-tooltip content="<%= element.public? ? Alchemy.t(:hide_element) : Alchemy.t(:show_element) %>" placement="top-end">
+  <sl-tooltip
+    content="<%= element.public? ? Alchemy.t(:hide_element) : Alchemy.t(:show_element) %>"
+    placement="top-end"
+    <%= "disabled" if cannot?(:update, element) %>
+  >
     <alchemy-publish-element-button>
-      <sl-switch <%= element.public? ? nil : "checked" %> size="small">
+      <sl-switch
+        size="small"
+        <%= "checked" if !element.public? %>
+        <%= "disabled" if cannot?(:update, element) %>
+      >
         <%= t(".hide") %>
       </sl-switch>
     </alchemy-publish-element-button>

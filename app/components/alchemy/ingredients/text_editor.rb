@@ -13,6 +13,7 @@ module Alchemy
             maxlength: length_validation&.fetch(:maximum, nil),
             required: presence_validation?,
             pattern: format_validation,
+            readonly: cannot?(:edit, ingredient),
             type: settings[:input_type] || "text")
 
           if settings[:anchor]
@@ -30,6 +31,7 @@ module Alchemy
             concat render(
               "alchemy/ingredients/shared/link_tools",
               ingredient_editor: ingredient,
+              ingredient:,
               wrapper_class: "ingredient_link_buttons"
             )
           end
