@@ -9,10 +9,6 @@ RSpec.describe Alchemy::Ingredients::BaseEditor, type: :component do
     Alchemy::Ingredients::Text.new(id: 123, role: "headline", element: element)
   end
 
-  let(:element_form) do
-    ActionView::Helpers::FormBuilder.new(:element, element, vc_test_view_context, {})
-  end
-
   let(:ingredient_editor) { described_class.new(ingredient) }
 
   describe "#initialize" do

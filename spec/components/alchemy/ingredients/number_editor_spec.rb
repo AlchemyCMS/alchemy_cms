@@ -4,7 +4,6 @@ require "rails_helper"
 
 RSpec.describe Alchemy::Ingredients::NumberEditor, type: :component do
   let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat") }
-  let(:element_form) { ActionView::Helpers::FormBuilder.new(:element, element, vc_test_view_context, {}) }
   let(:ingredient_editor) { described_class.new(ingredient) }
   let(:ingredient) { Alchemy::Ingredients::Number.new(id: 123, element: element, role: "number") }
   let(:settings) { {} }

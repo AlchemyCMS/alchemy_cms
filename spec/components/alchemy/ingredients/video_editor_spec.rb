@@ -4,7 +4,6 @@ require "rails_helper"
 
 RSpec.describe Alchemy::Ingredients::VideoEditor, type: :component do
   let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat") }
-  let(:element_form) { ActionView::Helpers::FormBuilder.new(:element, element, vc_test_view_context, {}) }
   let(:attachment) { build_stubbed(:alchemy_attachment) }
 
   let(:ingredient) do
