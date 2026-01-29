@@ -140,7 +140,7 @@ module Alchemy
     validates_format_of :page_layout, with: /\A[a-z0-9_-]+\z/, unless: -> { page_layout.blank? }
     validates_presence_of :parent, unless: -> { layoutpage? || language_root? }
 
-    after_initialize :ensure_draft_version
+    after_initialize :ensure_draft_version, if: :new_record?
 
     before_save :set_language_code,
       if: -> { language.present? }

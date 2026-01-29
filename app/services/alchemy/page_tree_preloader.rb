@@ -13,9 +13,11 @@ module Alchemy
   class PageTreePreloader
     # @param page [Page] Starting page for loading descendants
     # @param user [User, nil] User for folding support
-    def initialize(page:, user: nil)
+    # @param admin_includes [Boolean] Whether to include admin-only associations like :locker
+    def initialize(page:, user: nil, admin_includes: false)
       @page = page
       @user = user
+      @admin_includes = admin_includes
     end
 
     # Preloads and returns the page tree
@@ -43,7 +45,7 @@ module Alchemy
 
     private
 
-    attr_reader :page, :user
+    attr_reader :page, :user, :admin_includes
 
     # Load folded page IDs for the user
     def load_folded_page_ids
@@ -83,7 +85,16 @@ module Alchemy
 
     # Associations to preload for sitemap rendering
     def preload_associations
-      [:public_version, {language: {site: :languages}}]
+      associations = [
+        {
+          language: {
+            site: :languages
+          }
+        },
+        :public_version
+      ]
+      associations.push(:locker) if admin_includes
+      associations
     end
   end
 

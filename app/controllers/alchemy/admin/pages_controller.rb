@@ -62,7 +62,8 @@ module Alchemy
         elsif @current_language.root_page
           @root_page = Alchemy::PageTreePreloader.new(
             page: @current_language.root_page,
-            user: current_alchemy_user
+            user: current_alchemy_user,
+            admin_includes: true
           ).call
         end
       end
@@ -173,7 +174,11 @@ module Alchemy
         respond_to do |format|
           format.turbo_stream do
             if was_folded
-              @page = PageTreePreloader.new(page: @page, user: current_alchemy_user).call
+              @page = PageTreePreloader.new(
+                page: @page,
+                user: current_alchemy_user,
+                admin_includes: true
+              ).call
             else
               head 200
             end
