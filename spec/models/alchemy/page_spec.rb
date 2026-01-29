@@ -135,6 +135,24 @@ module Alchemy
             expect(page.draft_version.meta_description).to eq("Test")
           end
         end
+
+        context "for persisted pages" do
+          let!(:persisted_page) do
+            create(:alchemy_page, language: language, parent: language_root)
+          end
+
+          let(:page) do
+            Alchemy::Page.find(persisted_page.id)
+          end
+
+          it "does not load draft_version association" do
+            expect(page.association(:draft_version)).not_to be_loaded
+          end
+
+          it "still provides draft_version when accessed" do
+            expect(page.draft_version).to be_present
+          end
+        end
       end
 
       context "before_save" do
