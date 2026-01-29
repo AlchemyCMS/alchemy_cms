@@ -143,7 +143,10 @@ alchemy-tinymce {
   flex-shrink: 0;
   width: var(--spacing-4);
   height: var(--spacing-4);
-  cursor: move;
+
+  &.draggable {
+    cursor: move;
+  }
 }
 
 button.element-toggle {

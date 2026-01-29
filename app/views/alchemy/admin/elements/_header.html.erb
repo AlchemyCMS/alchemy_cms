@@ -1,5 +1,5 @@
 <div class="element-header<%= ' has-hint' if element.has_hint? %>">
-  <span class="element-handle">
+  <span class="element-handle<%= ' draggable' if can?(:order, element) %>">
     <% if element.definition.blank? %>
       <%= hint_with_tooltip Alchemy.t(:element_definition_missing), icon_class: "element-icon" %>
     <% elsif element.deprecated? %>
