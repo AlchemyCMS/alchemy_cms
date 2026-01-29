@@ -50,7 +50,7 @@
         <% if can?(:edit_content) %>
           <%= link_to(
             @page.name,
-            alchemy.edit_admin_page_path(@page),
+            url(:edit_page),
             title: Alchemy.t(:edit_page),
             class: "sitemap_pagename_link"
           ) %>
@@ -91,7 +91,7 @@
           <sl-tooltip content="<%= Alchemy.t(:page_infos) %>">
             <%= link_to_dialog(
               render_icon("information"),
-              alchemy.info_admin_page_path(@page),
+              url(:info_page),
               {
                 title: Alchemy.t(:page_infos),
                 size: "520x290"
@@ -115,7 +115,7 @@
           <sl-tooltip content="<%= Alchemy.t(:edit_page_properties) %>">
             <%= link_to_dialog(
               render_icon("settings-3"),
-              alchemy.configure_admin_page_path(@page),
+              url(:configure_page),
               {
                 title: Alchemy.t(:edit_page_properties),
                 size: "500x680"
@@ -139,10 +139,7 @@
           <sl-tooltip content="<%= Alchemy.t(:copy_page) %>">
             <%= button_to(
               render_icon("file-copy"),
-              alchemy.insert_admin_clipboard_path(
-                remarkable_type: :pages,
-                remarkable_id: @page,
-              ),
+              url(:clipboard_insert),
               "data-turbo-method": :post,
               class: "icon_button"
             ) %>
@@ -164,7 +161,7 @@
             <%= link_to_confirm_dialog(
               render_icon("delete-bin-2"),
               Alchemy.t(:confirm_to_delete_page),
-              alchemy.admin_page_path(@page),
+              url(:page),
               class: "icon_button"
             ) %>
           </sl-tooltip>
@@ -184,7 +181,7 @@
           <sl-tooltip content="<%= Alchemy.t(:create_page) %>">
             <%= link_to_dialog(
               render_icon(:add),
-              alchemy.new_admin_page_path(parent_id: @page.id),
+              url(:new_child_page),
               {
                 title: Alchemy.t(:create_page),
                 size: "340x165",
