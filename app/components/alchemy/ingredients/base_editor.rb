@@ -14,6 +14,8 @@ module Alchemy
         to: :ingredient
 
       delegate :alchemy,
+        :can?,
+        :cannot?,
         :dom_id,
         :hint_with_tooltip,
         :render_hint_for,
