@@ -69,7 +69,7 @@
   &.disabled,
   &[disabled] {
     background-color: var(--button-disabled-bg-color);
-    border-color: var(--button-border-color);
+    border-color: var(--button-disabled-border-color);
     cursor: not-allowed;
     box-shadow: none;
     outline: none;
