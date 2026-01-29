@@ -25,6 +25,11 @@ module Alchemy
         self.class.routes[key].sub(PAGE_ID, page.id.to_s)
       end
 
+      # Memoized translation lookup
+      def t(key)
+        self.class.translations[key]
+      end
+
       PAGE_ID = "__ID__"
 
       class << self
@@ -44,6 +49,20 @@ module Alchemy
               )
             }.freeze
           end
+        end
+
+        # Translations - computed once, reused for all pages
+        def translations
+          @_translations ||= {
+            cannot_edit_page: Alchemy.t("Your user role does not allow you to edit this page"),
+            edit_page: Alchemy.t(:edit_page),
+            page_infos: Alchemy.t(:page_infos),
+            edit_page_properties: Alchemy.t(:edit_page_properties),
+            copy_page: Alchemy.t(:copy_page),
+            delete_page: Alchemy.t(:delete_page),
+            confirm_to_delete_page: Alchemy.t(:confirm_to_delete_page),
+            create_page: Alchemy.t(:create_page)
+          }.freeze
         end
       end
     end

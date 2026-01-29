@@ -36,7 +36,7 @@
             </span>
           <% else %>
             <sl-tooltip
-              content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>"
+              content="<%= t(:cannot_edit_page) %>"
               class="like-hint-tooltip"
               placement="bottom-start"
             >
@@ -51,7 +51,7 @@
           <%= link_to(
             @page.name,
             url(:edit_page),
-            title: Alchemy.t(:edit_page),
+            title: t(:edit_page),
             class: "sitemap_pagename_link"
           ) %>
         <% else %>
@@ -88,12 +88,12 @@
 
       <div class="sitemap_right_tools">
         <% if can?(:info) %>
-          <sl-tooltip content="<%= Alchemy.t(:page_infos) %>">
+          <sl-tooltip content="<%= t(:page_infos) %>">
             <%= link_to_dialog(
               render_icon("information"),
               url(:info_page),
               {
-                title: Alchemy.t(:page_infos),
+                title: t(:page_infos),
                 size: "520x290"
               },
               class: "icon_button"
@@ -102,7 +102,7 @@
         <% else %>
           <div class="sitemap_tool disabled">
             <sl-tooltip
-              content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>"
+              content="<%= t(:cannot_edit_page) %>"
               class="like-hint-tooltip"
               placement="bottom-start"
             >
@@ -112,12 +112,12 @@
         <% end %>
 
         <% if can?(:configure) %>
-          <sl-tooltip content="<%= Alchemy.t(:edit_page_properties) %>">
+          <sl-tooltip content="<%= t(:edit_page_properties) %>">
             <%= link_to_dialog(
               render_icon("settings-3"),
               url(:configure_page),
               {
-                title: Alchemy.t(:edit_page_properties),
+                title: t(:edit_page_properties),
                 size: "500x680"
               },
               class: "icon_button"
@@ -126,7 +126,7 @@
         <% else %>
           <div class="sitemap_tool disabled">
             <sl-tooltip
-              content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>"
+              content="<%= t(:cannot_edit_page) %>"
               class="like-hint-tooltip"
               placement="bottom-start"
             >
@@ -136,7 +136,7 @@
         <% end %>
 
         <% if can?(:copy) %>
-          <sl-tooltip content="<%= Alchemy.t(:copy_page) %>">
+          <sl-tooltip content="<%= t(:copy_page) %>">
             <%= button_to(
               render_icon("file-copy"),
               url(:clipboard_insert),
@@ -147,7 +147,7 @@
         <% else %>
           <div class="sitemap_tool disabled">
             <sl-tooltip
-              content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>"
+              content="<%= t(:cannot_edit_page) %>"
               class="like-hint-tooltip"
               placement="bottom-start"
             >
@@ -157,10 +157,10 @@
         <% end %>
 
         <% if can?(:destroy) %>
-          <sl-tooltip content="<%= Alchemy.t(:delete_page) %>">
+          <sl-tooltip content="<%= t(:delete_page) %>">
             <%= link_to_confirm_dialog(
               render_icon("delete-bin-2"),
-              Alchemy.t(:confirm_to_delete_page),
+              t(:confirm_to_delete_page),
               url(:page),
               class: "icon_button"
             ) %>
@@ -168,7 +168,7 @@
         <% else %>
           <div class="sitemap_tool disabled">
             <sl-tooltip
-              content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>"
+              content="<%= t(:cannot_edit_page) %>"
               class="like-hint-tooltip"
               placement="bottom-start"
             >
@@ -178,12 +178,12 @@
         <% end %>
 
         <% if can?(:create) %>
-          <sl-tooltip content="<%= Alchemy.t(:create_page) %>">
+          <sl-tooltip content="<%= t(:create_page) %>">
             <%= link_to_dialog(
               render_icon(:add),
               url(:new_child_page),
               {
-                title: Alchemy.t(:create_page),
+                title: t(:create_page),
                 size: "340x165",
                 overflow: true
               },
@@ -193,7 +193,7 @@
         <% else %>
           <div class="sitemap_tool disabled">
             <sl-tooltip
-              content="<%= Alchemy.t("Your user role does not allow you to edit this page") %>"
+              content="<%= t(:cannot_edit_page) %>"
               class="like-hint-tooltip"
               placement="bottom-start"
             >
