@@ -1,13 +1,13 @@
 sqlite: &sqlite
   adapter: sqlite3
-  database: db/<%= Rails.env %>.sqlite3
+  database: db/<%= Rails.env %><%= ENV['TEST_ENV_NUMBER'] %>.sqlite3
 
 mysql: &mysql
   adapter: mysql2
   encoding: utf8mb4
   username: <%= ENV['DB_USER'] %>
   password: <%= ENV['DB_PASSWORD'] %>
-  database: alchemy_cms_dummy_<%= Rails.env %>
+  database: alchemy_cms_dummy_<%= Rails.env %><%= ENV['TEST_ENV_NUMBER'] %>
 
 mariadb: &mariadb
   adapter: mysql2
@@ -15,7 +15,7 @@ mariadb: &mariadb
   port: 3307
   username: <%= ENV['DB_USER'] %>
   password: <%= ENV['DB_PASSWORD'] %>
-  database: alchemy_cms_dummy_<%= Rails.env %>
+  database: alchemy_cms_dummy_<%= Rails.env %><%= ENV['TEST_ENV_NUMBER'] %>
 
 postgresql: &postgresql
   adapter: postgresql
@@ -23,7 +23,7 @@ postgresql: &postgresql
   username: <%= ENV['DB_USER'] %>
   password: <%= ENV['DB_PASSWORD'] %>
   <% end %>
-  database: alchemy_cms_dummy_<%= Rails.env %>
+  database: alchemy_cms_dummy_<%= Rails.env %><%= ENV['TEST_ENV_NUMBER'] %>
   min_messages: ERROR
 
 defaults: &defaults

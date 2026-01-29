@@ -336,6 +336,34 @@ $ bundle exec rake
 
 *) This default task executes the database preparations and runs all defined test cases.
 
+### Run specs in parallel
+
+Using https://github.com/grosser/parallel_tests
+
+#### Once before running
+
+```
+bundle exec rake alchemy:spec:prepare
+cd spec/dummy
+bin/rails parallel:setup
+cd -
+```
+
+#### Start a parallel test run
+
+```
+bin/parallel_rspec
+```
+
+#### After adding a new migration
+
+```
+cd spec/dummy
+bin/rails alchemy:install:migrations
+bin/rails parallel:migrate
+cd -
+```
+
 ### Start the dummy app
 
 You can even start the dummy app and use it to manually test your changes with:

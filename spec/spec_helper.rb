@@ -12,6 +12,13 @@ SimpleCov.start "rails" do
   add_filter "/lib/generators"
 end
 
+if ENV["TEST_ENV_NUMBER"] # parallel specs
+  SimpleCov.at_exit do
+    result = SimpleCov.result
+    result.format! if ParallelTests.number_of_running_processes <= 1
+  end
+end
+
 require "rspec/core"
 
 RSpec.configure do |config|
@@ -19,4 +26,5 @@ RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
   config.pattern = "**/*_spec.rb"
   config.filter_run :focus
+  config.silence_filter_announcements = true if ENV["TEST_ENV_NUMBER"]
 end
