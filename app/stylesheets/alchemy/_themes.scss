@@ -83,8 +83,8 @@
   --form-field-box-shadow: inset 0 0 1px var(--a-dark-grey);
   --form-field-label-color: var(--text-color-muted);
   --form-field-text-color: var(--text-color);
-  --form-field-disabled-text-color: hsl(0deg, 0%, 53%);
-  --form-field-disabled-bg-color: hsla(0deg, 0%, 20%, 0.5);
+  --form-field-disabled-text-color: var(--form-field-text-color);
+  --form-field-disabled-bg-color: transparent;
   --form-field-error-bg-color: hsl(0deg, 47%, 10%);
   --form-field-error-box-shadow: inset 0 0 1px hsla(0deg, 25%, 30%, 0.5);
 
@@ -167,9 +167,9 @@
   --select-hover-text-color: var(--text-color);
   --select-background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="hsl(200deg, 5%, 70%)" viewBox="0 0 24 24"><path d="M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z"></path></svg>');
   --select-close-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="hsl(200deg, 5%, 70%)"><path d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"></path></svg>');
-  --select-disabled-background-color: var(--a-darker-grey);
+  --select-disabled-background-color: transparent;
   --select-disabled-border-color: var(--a-grey);
-  --select-disabled-text-color: var(--a-lighter-grey);
+  --select-disabled-text-color: var(--select-text-color);
   --select-dropdown-background-color: var(--a-darker-grey);
   --select-dropdown-box-shadow: 0 var(--spacing-2) var(--spacing-2)
     hsla(0deg, 0%, 0%, 0.75);
@@ -357,8 +357,8 @@
   --form-field-box-shadow: inset 0 0 1px var(--color-grey_light);
   --form-field-label-color: var(--text-color);
   --form-field-text-color: var(--text-color);
-  --form-field-disabled-text-color: hsl(0deg, 0%, 53%);
-  --form-field-disabled-bg-color: hsla(0deg, 0%, 100%, 0.5);
+  --form-field-disabled-text-color: var(--form-field-text-color);
+  --form-field-disabled-bg-color: transparent;
   --form-field-error-bg-color: hsl(0deg, 47%, 96%);
   --form-field-error-box-shadow: inset 0 0 1px hsla(0deg, 25%, 69%, 0.5);
 
@@ -439,8 +439,9 @@
   --select-hover-text-color: var(--color-white);
   --select-background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="hsla(224deg, 23%, 26%, 0.75)"><path d="M11.9999 13.1714L16.9497 8.22168L18.3639 9.63589L11.9999 15.9999L5.63599 9.63589L7.0502 8.22168L11.9999 13.1714Z"></path></svg>');
   --select-close-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="hsla(224deg, 23%, 26%, 0.75)"><path d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"></path></svg>');
-  --select-disabled-background-color: var(--color-grey_very_light);
+  --select-disabled-background-color: transparent;
   --select-disabled-border-color: var(--border-inset-color);
+  --select-disabled-text-color: var(--select-text-color);
   --select-dropdown-background-color: var(--color-white);
   --select-dropdown-box-shadow: 0 var(--spacing-2) var(--spacing-2)
     hsla(0deg, 0%, 0%, 0.15);
