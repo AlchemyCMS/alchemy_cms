@@ -94,6 +94,16 @@ describe("alchemy-tinymce", () => {
       expect(component.configuration.foo_bar).toEqual("bar | foo")
     })
 
+    it("should handle boolean HTML attributes", () => {
+      const html = `
+        <alchemy-tinymce readonly="readonly">
+          <textarea id="${textareaId}"></textarea>
+        </alchemy-tinymce>
+      `
+      component = renderComponent("alchemy-tinymce", html)
+      expect(component.configuration.readonly).toEqual(true)
+    })
+
     it("should set the selector to textarea id", () => {
       expect(component.configuration.selector).toEqual("#tinymce-textarea")
     })
