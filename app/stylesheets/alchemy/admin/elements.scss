@@ -665,8 +665,8 @@ alchemy-color-select {
       width: var(--form-field-addon-width);
       height: var(--form-field-height);
 
-      &:hover {
-        border-color: #c0c0c0;
+      &:hover:not([disabled]):not(.disabled) {
+        border-color: var(--button-hover-border-color);
       }
 
       &:focus {

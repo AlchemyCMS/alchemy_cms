@@ -84,15 +84,14 @@ input.button {
 
   &.disabled,
   &[disabled] {
-    pointer-events: none;
-
     svg {
       opacity: 0.3;
     }
 
     &:hover {
       text-decoration: none;
-      cursor: default;
+      cursor: not-allowed;
+      border-color: initial;
     }
   }
 
