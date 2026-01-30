@@ -1,9 +1,11 @@
 <span class="edit-ingredient-anchor-link">
-  <%= link_to_dialog render_icon(:bookmark, { style: ingredient_editor.dom_id.present? ? "fill" : "line" }),
-    alchemy.edit_admin_ingredient_path(id: ingredient_editor.id),
-    {
-      title: Alchemy.t(:edit_anchor),
-      size: "380x125"
-    },
-    title: Alchemy.t(:edit_anchor) %>
+  <% disabled = cannot?(:edit, ingredient_editor) %>
+  <%= content_tag "sl-tooltip", content: Alchemy.t(:edit_anchor), disabled: disabled do %>
+    <%= link_to_dialog render_icon(:bookmark, { style: ingredient_editor.dom_id.present? ? "fill" : "line" }),
+      disabled ? nil : alchemy.edit_admin_ingredient_path(id: ingredient_editor.id),
+      {
+        title: Alchemy.t(:edit_anchor),
+        size: "380x125"
+      } %>
+  <% end %>
 </span>

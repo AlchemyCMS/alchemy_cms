@@ -75,5 +75,14 @@ RSpec.describe Alchemy::Ingredients::TextEditor, type: :component do
     it "renders a readonly text input" do
       expect(rendered).to have_selector('input[type="text"][readonly]')
     end
+
+    context "with settings anchor set to true" do
+      let(:settings) { {anchor: true} }
+
+      it "renders a disabled anchor button" do
+        expect(rendered).to have_selector(".edit-ingredient-anchor-link a.disabled")
+        expect(rendered).not_to have_selector(".edit-ingredient-anchor-link a[href]")
+      end
+    end
   end
 end
