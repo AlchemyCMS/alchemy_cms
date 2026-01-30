@@ -33,11 +33,11 @@
         <% end %>
         <sl-tab-panel
           name="main-content-elements"
-          class="scrollable-elements"
-          id="main-content-elements"
           style="--padding: 0"
         >
           <alchemy-sortable-elements
+            id="main-content-elements"
+            class="scrollable-elements"
             data-droppable-elements="<%= @page.element_definition_names.join(' ') %>"
             data-element-name="main-content-elements"
           >
@@ -51,14 +51,14 @@
         <% end %>
       </sl-tab-group>
     <% else %>
-      <div id="main-content-elements" class="scrollable-elements">
-        <alchemy-sortable-elements
-          data-droppable-elements="<%= @page.element_definition_names.join(' ') %>"
-          data-element-name="main-content-elements"
-        >
-          <%= render Alchemy::Admin::ElementEditor.with_collection(@elements) %>
-        </alchemy-sortable-elements>
-      </div>
+      <alchemy-sortable-elements
+        id="main-content-elements"
+        class="scrollable-elements"
+        data-droppable-elements="<%= @page.element_definition_names.join(' ') %>"
+        data-element-name="main-content-elements"
+      >
+        <%= render Alchemy::Admin::ElementEditor.with_collection(@elements) %>
+      </alchemy-sortable-elements>
     <% end %>
   </alchemy-elements-window>
 <% end %>
