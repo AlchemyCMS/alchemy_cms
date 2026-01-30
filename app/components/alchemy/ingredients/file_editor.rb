@@ -13,27 +13,29 @@ module Alchemy
             class: "file_icon"
           )
           concat tag.div(attachment&.name, class: "file_name")
-          concat link_to(
-            render_icon(:times), "#",
-            class: [
-              "remove_file_link",
-              attachment ? nil : "hidden"
-            ],
-            data: {
-              form_field_id: form_field_id(:attachment_id)
-            }
-          )
+          if editable?
+            concat link_to(
+              render_icon(:times), "#",
+              class: [
+                "remove_file_link",
+                attachment ? nil : "hidden"
+              ],
+              data: {
+                form_field_id: form_field_id(:attachment_id)
+              }
+            )
+          end
           concat(
             tag.div(class: "file_tools") do
               concat dialog_link
               concat link_to_dialog(
                 render_icon(:edit),
-                alchemy.edit_admin_ingredient_path(ingredient),
+                editable? ? alchemy.edit_admin_ingredient_path(ingredient) : nil,
                 {
                   title: Alchemy.t(:edit_file_properties),
                   size: "400x215"
                 },
-                title: Alchemy.t(:edit_file_properties)
+                title: editable? ? Alchemy.t(:edit_file_properties) : nil
               )
             end
           )
@@ -48,18 +50,18 @@ module Alchemy
       def dialog_link
         link_to_dialog(
           render_icon("file-add"),
-          alchemy.admin_attachments_path(
+          editable? ? alchemy.admin_attachments_path(
             form_field_id: form_field_id(:attachment_id),
             only: Array(settings[:only]),
             except: Array(settings[:except])
-          ),
+          ) : nil,
           {
             title: Alchemy.t(:assign_file),
             size: "780x585",
             padding: false
           },
           class: "file_icon",
-          title: Alchemy.t(:assign_file)
+          title: editable? ? Alchemy.t(:assign_file) : nil
         )
       end
     end

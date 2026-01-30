@@ -68,6 +68,10 @@ module Alchemy
 
       private
 
+      def editable?
+        @_editable ||= can?(:edit, ingredient)
+      end
+
       # Returns the translated role for displaying in labels
       #
       # Translate it in your locale yml file:

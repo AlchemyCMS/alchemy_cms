@@ -23,7 +23,8 @@ module Alchemy
             id: form_field_id,
             class: ["ingredient-editor-select"],
             is: "alchemy-select",
-            multiple: settings[:multiple]
+            multiple: settings[:multiple],
+            disabled: !editable?
           }
         end
       end

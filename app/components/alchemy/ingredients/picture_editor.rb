@@ -22,11 +22,13 @@ module Alchemy
                 ].join("x"),
                 image_cropper: thumbnail_url_options[:crop]
               }) do
-              concat tag.button(
-                render_icon("close"),
-                type: "button",
-                class: "picture_tool delete"
-              )
+              if editable?
+                concat tag.button(
+                  render_icon("close"),
+                  type: "button",
+                  class: "picture_tool delete"
+                )
+              end
               concat(
                 tag.div(class: "picture_image") do
                   render Alchemy::Admin::PictureThumbnail.new(

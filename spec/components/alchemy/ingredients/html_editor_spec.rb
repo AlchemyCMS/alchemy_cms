@@ -30,4 +30,14 @@ RSpec.describe Alchemy::Ingredients::HtmlEditor, type: :component do
   it "renders a textarea" do
     is_expected.to have_selector("textarea[name='#{html_editor.form_field_name}']")
   end
+
+  context "without edit permission" do
+    before do
+      allow(vc_test_view_context).to receive(:can?).and_return(false)
+    end
+
+    it "renders a readonly textarea" do
+      is_expected.to have_selector("textarea[readonly]")
+    end
+  end
 end

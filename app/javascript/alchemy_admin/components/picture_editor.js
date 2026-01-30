@@ -31,7 +31,7 @@ export class PictureEditor extends HTMLElement {
       this.updateCropLink()
     }, UPDATE_DELAY)
 
-    this.deleteButton.addEventListener("click", this.removeImage.bind(this))
+    this.deleteButton?.addEventListener("click", this.removeImage.bind(this))
   }
 
   connectedCallback() {

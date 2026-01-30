@@ -24,6 +24,7 @@ RSpec.describe Alchemy::Ingredients::HeadlineEditor, type: :component do
   before do
     vc_test_view_context.class.include Alchemy::Admin::BaseHelper
     allow(ingredient).to receive(:settings) { settings }
+    allow(vc_test_view_context).to receive(:can?).and_return(true)
   end
 
   it_behaves_like "an alchemy ingredient editor"
@@ -137,6 +138,28 @@ RSpec.describe Alchemy::Ingredients::HeadlineEditor, type: :component do
 
     it "renders anchor link button" do
       is_expected.to have_selector(".edit-ingredient-anchor-link a")
+    end
+  end
+
+  context "without edit permission" do
+    before do
+      allow(vc_test_view_context).to receive(:can?).and_return(false)
+    end
+
+    it "renders a readonly text input" do
+      is_expected.to have_selector("input[type='text'][readonly]")
+    end
+
+    it "renders a disabled level select" do
+      is_expected.to have_selector("select[disabled][name='#{headline_editor.form_field_name(:level)}']")
+    end
+
+    context "when sizes are given" do
+      let(:settings) { {sizes: [1, 2]} }
+
+      it "renders a disabled size select" do
+        is_expected.to have_selector("select[disabled][name='#{headline_editor.form_field_name(:size)}']")
+      end
     end
   end
 end

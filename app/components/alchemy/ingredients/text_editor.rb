@@ -13,7 +13,7 @@ module Alchemy
             maxlength: length_validation&.fetch(:maximum, nil),
             required: presence_validation?,
             pattern: format_validation,
-            readonly: cannot?(:edit, ingredient),
+            readonly: !editable?,
             type: settings[:input_type] || "text")
 
           if settings[:anchor]

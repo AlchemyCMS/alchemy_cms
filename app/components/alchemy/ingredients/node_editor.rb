@@ -14,7 +14,8 @@ module Alchemy
           text_field_tag form_field_name(:node_id),
             node&.id,
             id: form_field_id(:node_id),
-            class: "alchemy_selectbox full_width"
+            class: "alchemy_selectbox full_width",
+            disabled: !editable?
         end
       end
     end

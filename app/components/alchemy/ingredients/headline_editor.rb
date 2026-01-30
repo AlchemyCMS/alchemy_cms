@@ -11,6 +11,7 @@ module Alchemy
             value,
             minlength: length_validation&.fetch(:minimum, nil),
             maxlength: length_validation&.fetch(:maximum, nil),
+            readonly: !editable?,
             required: presence_validation?,
             pattern: format_validation,
             id: form_field_id)
@@ -24,12 +25,14 @@ module Alchemy
 
           concat(
             tag.div(class: ["input-addon", "right", has_size_select? ? "second" : nil].compact) do
-              content_tag("sl-tooltip", content: ingredient.class.human_attribute_name(:level)) do
+              content_tag("sl-tooltip",
+                content: ingredient.class.human_attribute_name(:level),
+                disabled: !editable?) do
                 select_tag(
                   form_field_name(:level),
                   options_for_select(level_options, level),
                   class: "custom-select",
-                  disabled: !has_level_select?
+                  disabled: !has_level_select? || !editable?
                 )
               end
             end
@@ -38,11 +41,14 @@ module Alchemy
           if has_size_select?
             concat(
               tag.div(class: "input-addon right") do
-                content_tag("sl-tooltip", content: ingredient.class.human_attribute_name(:size)) do
+                content_tag("sl-tooltip",
+                  content: ingredient.class.human_attribute_name(:size),
+                  disabled: !editable?) do
                   select_tag(
                     form_field_name(:size),
                     options_for_select(size_options, size),
-                    class: "custom-select"
+                    class: "custom-select",
+                    disabled: !editable?
                   )
                 end
               end

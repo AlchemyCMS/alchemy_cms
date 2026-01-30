@@ -6,7 +6,7 @@ module Alchemy
       def input_field
         content_tag("alchemy-color-select") do
           if colors.present?
-            concat select_tag(form_field_name, options_for_select(colors, color_value))
+            concat select_tag(form_field_name, options_for_select(colors, color_value), disabled: !editable?)
           end
           concat color_field_tag(form_field_name, value, disabled: disabled?)
         end
@@ -36,7 +36,7 @@ module Alchemy
       end
 
       def disabled?
-        color_value != "custom_color" && colors.present?
+        !editable? || (color_value != "custom_color" && colors.present?)
       end
     end
   end
