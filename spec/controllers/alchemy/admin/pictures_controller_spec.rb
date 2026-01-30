@@ -121,6 +121,64 @@ module Alchemy
         end
       end
 
+      describe "by_file_format filter" do
+        let!(:png) { create(:alchemy_picture, image_file: fixture_file_upload("image.png")) }
+
+        let!(:jpeg) do
+          create(:alchemy_picture, image_file: fixture_file_upload("image3.jpeg"))
+        end
+
+        let(:jpeg_format) do
+          Alchemy.storage_adapter.dragonfly? ? "jpeg" : "image/jpeg"
+        end
+
+        it "loads only pictures with matching format" do
+          get :index, params: {q: {by_file_format: jpeg_format}}
+          expect(assigns(:pictures).to_a).to eq([jpeg])
+          expect(assigns(:pictures).to_a).to_not eq([png])
+        end
+
+        context "with multiple formats" do
+          it "loads only pictures with matching format" do
+            get :index, params: {q: {by_file_format: [jpeg_format]}}
+            expect(assigns(:pictures).to_a).to eq([jpeg])
+            expect(assigns(:pictures).to_a).to_not eq([png])
+          end
+        end
+
+        context "with only param" do
+          it "populates by_file_format query" do
+            get :index, params: {only: ["jpeg"]}
+            expect(assigns(:pictures).to_a).to eq([jpeg])
+            expect(assigns(:pictures).to_a).to_not eq([png])
+          end
+        end
+
+        context "with only param and by_file_format query" do
+          it "uses by_file_format query" do
+            get :index, params: {only: ["png"], q: {by_file_format: jpeg_format}}
+            expect(assigns(:pictures).to_a).to eq([jpeg])
+            expect(assigns(:pictures).to_a).to_not eq([png])
+          end
+        end
+
+        context "with except param" do
+          it "populates by_file_format query" do
+            get :index, params: {except: ["jpeg"]}
+            expect(assigns(:pictures).to_a).to_not eq([jpeg])
+            expect(assigns(:pictures).to_a).to eq([png])
+          end
+        end
+
+        context "with except param and by_file_format query" do
+          it "uses by_file_format query" do
+            get :index, params: {except: ["png"], q: {by_file_format: jpeg_format}}
+            expect(assigns(:pictures).to_a).to eq([jpeg])
+            expect(assigns(:pictures).to_a).to_not eq([png])
+          end
+        end
+      end
+
       context "when params[:form_field_id]" do
         context "is set" do
           it "it renders the archive_overlay partial" do

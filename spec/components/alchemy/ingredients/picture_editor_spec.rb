@@ -104,6 +104,22 @@ RSpec.describe Alchemy::Ingredients::PictureEditor, type: :component do
     end
   end
 
+  context "with settings `only`" do
+    let(:settings) { {only: "jpeg"} }
+
+    it "renders a link to open the picture library overlay with only jpegs" do
+      is_expected.to have_selector("a[href*='only%5B%5D=jpeg']")
+    end
+  end
+
+  context "with settings `except`" do
+    let(:settings) { {except: "gif"} }
+
+    it "renders a link to open the picture library overlay without gifs" do
+      is_expected.to have_selector("a[href*='except%5B%5D=gif']")
+    end
+  end
+
   describe "#ingredient_label" do
     context "with another column given" do
       it "has for attribute set to ingredient form field id for that column" do

@@ -30,8 +30,10 @@ module Alchemy
       allow_settings %i[
         crop
         css_classes
+        except
         fixed_ratio
         linkable
+        only
         size
         sizes
         srcset

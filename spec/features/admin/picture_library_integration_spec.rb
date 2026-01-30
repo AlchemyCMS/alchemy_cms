@@ -167,6 +167,47 @@ RSpec.describe "Picture Library", type: :system do
     end
   end
 
+  describe "Filter by only and except params" do
+    let!(:picture1) { create(:alchemy_picture, name: "Ping", image_file: fixture_file_upload("image.png")) }
+    let!(:picture2) { create(:alchemy_picture, name: "Jay Peg", image_file: fixture_file_upload("image3.jpeg")) }
+
+    scenario "the list of pictures can be constrained by passing the `only` param" do
+      visit alchemy.admin_pictures_path(only: ["png"])
+
+      within "#pictures" do
+        expect(page).to have_content("Ping")
+        expect(page).to_not have_content("Jay Peg")
+      end
+    end
+
+    scenario "the list of pictures can be constrained by passing the `except` param" do
+      visit alchemy.admin_pictures_path(except: ["png"])
+
+      within "#pictures" do
+        expect(page).to_not have_content("Ping")
+        expect(page).to have_content("Jay Peg")
+      end
+    end
+
+    scenario "the list of file formats can be constrained by passing the `only` param" do
+      visit alchemy.admin_pictures_path(only: ["png"])
+
+      within "#library_sidebar" do
+        expect(page).to have_css("option", text: "PNG")
+        expect(page).to_not have_css("option", text: "JPG")
+      end
+    end
+
+    scenario "the list of file formats can be constrained by passing the `except` param" do
+      visit alchemy.admin_pictures_path(except: ["png"])
+
+      within "#library_sidebar" do
+        expect(page).to_not have_css("option", text: "PNG")
+        expect(page).to have_css("option", text: "JPG")
+      end
+    end
+  end
+
   describe "Filter by format" do
     let!(:picture1) { create(:alchemy_picture, name: "Ping", image_file: fixture_file_upload("image.png")) }
     let!(:picture2) { create(:alchemy_picture, name: "Jay Peg", image_file: fixture_file_upload("image3.jpeg")) }
