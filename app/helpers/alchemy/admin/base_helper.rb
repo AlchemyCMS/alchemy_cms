@@ -57,10 +57,14 @@ module Alchemy
         if html_options[:title]
           tooltip = html_options.delete(:title)
         end
-        anchor = link_to(content, url, html_options.merge(
-          "data-dialog-options" => options.to_json,
-          :is => "alchemy-dialog-link"
-        ))
+        anchor = if url.nil?
+          tag.a(content, class: "disabled #{html_options[:class]}".strip, tabindex: "-1")
+        else
+          link_to(content, url, html_options.merge(
+            "data-dialog-options" => options.to_json,
+            :is => "alchemy-dialog-link"
+          ))
+        end
         if tooltip
           content_tag("sl-tooltip", anchor, content: tooltip)
         else
