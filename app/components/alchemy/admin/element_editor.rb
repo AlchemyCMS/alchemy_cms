@@ -11,7 +11,7 @@ module Alchemy
         :name, :nestable_elements, :all_nested_elements, :taggable?, :public?, :deprecated?,
         to: :element
 
-      delegate :alchemy, :render_icon, :render_message, to: :helpers
+      delegate :alchemy, :cannot?, :render_icon, :render_message, to: :helpers
 
       def initialize(element:, created: false)
         @element = element

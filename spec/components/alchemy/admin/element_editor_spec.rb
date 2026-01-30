@@ -292,6 +292,33 @@ RSpec.describe Alchemy::Admin::ElementEditor, type: :component do
         end
       end
     end
+
+    context "with element beeing taggable" do
+      let(:element) { create(:alchemy_element, name: "taggable") }
+
+      let(:definition) do
+        Alchemy::ElementDefinition.new(
+          name: "taggable",
+          taggable: true
+        )
+      end
+
+      it "renders the tag autocomplete" do
+        render_inline(described_class.new(element: element))
+        expect(page).to have_selector("alchemy-tags-autocomplete")
+      end
+
+      context "but user cannot edit tags" do
+        before do
+          allow(vc_test_view_context).to receive(:cannot?) { true }
+        end
+
+        it "renders the tag autocomplete as disabled" do
+          render_inline(described_class.new(element: element))
+          expect(page).to have_selector("alchemy-tags-autocomplete input[disabled]")
+        end
+      end
+    end
   end
 
   describe ".with_collection" do
