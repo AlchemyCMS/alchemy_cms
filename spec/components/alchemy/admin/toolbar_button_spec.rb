@@ -12,7 +12,7 @@ RSpec.describe Alchemy::Admin::ToolbarButton, type: :component do
   end
 
   context "with permission" do
-    before { expect(component).to receive(:can?) { true } }
+    before { allow(component).to receive(:cannot?) { false } }
 
     it "renders a toolbar button" do
       render_inline component
@@ -137,17 +137,16 @@ RSpec.describe Alchemy::Admin::ToolbarButton, type: :component do
   end
 
   context "without permission" do
-    before { expect(component).to receive(:can?) { false } }
+    before { allow(component).to receive(:cannot?) { true } }
 
-    it "returns empty string" do
+    it "returns disabled link" do
       render_inline component
-      expect(page.native.inner_html).to be_empty
+      expect(page).to have_css %(sl-tooltip a.icon_button.disabled[tabindex="-1"])
+      expect(page).to_not have_css %(sl-tooltip a.icon_button[href])
     end
   end
 
   context "with disabled permission check" do
-    before { expect(component).not_to receive(:can?) { false } }
-
     let(:component) do
       described_class.new(
         url: admin_dashboard_path,
@@ -164,7 +163,7 @@ RSpec.describe Alchemy::Admin::ToolbarButton, type: :component do
   end
 
   context "with empty permission option" do
-    before { expect(component).to receive(:can?) { true } }
+    before { allow(component).to receive(:cannot?) { false } }
 
     let(:component) do
       described_class.new(
@@ -176,7 +175,7 @@ RSpec.describe Alchemy::Admin::ToolbarButton, type: :component do
     end
 
     it "returns reads the permission from url" do
-      expect(component).to receive(:permissions_from_url)
+      allow(component).to receive(:permissions_from_url) { [:index, :dashboard] }
       render_inline component
       expect(page).to have_css %(sl-tooltip .icon_button[href="#{admin_dashboard_path}"])
     end
