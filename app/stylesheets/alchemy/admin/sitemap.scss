@@ -222,10 +222,11 @@ alchemy-sitemap {
   }
 
   .sitemap_tool {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     width: var(--spacing-8);
     height: var(--spacing-8);
-    line-height: var(--sitemap-line-height);
-    text-align: center;
     margin: 0;
 
     &.disabled .icon {
