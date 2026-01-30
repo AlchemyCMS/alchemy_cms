@@ -32,7 +32,7 @@
 <% end %>
 
 <% if linkable %>
-  <%= render "alchemy/ingredients/shared/link_tools", ingredient_editor: picture_editor %>
+  <%= render "alchemy/ingredients/shared/link_tools", ingredient: picture_editor.ingredient %>
 <% else %>
   <span class="icon_button disabled"><%= render_icon("link", style: "m") %></span>
   <span class="icon_button disabled"><%= render_icon("link-unlink", style: "m") %></span>

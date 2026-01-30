@@ -19,7 +19,7 @@ module Alchemy
           if settings[:anchor]
             concat render(
               "alchemy/ingredients/shared/anchor",
-              ingredient_editor: ingredient
+              ingredient:
             )
           end
 
