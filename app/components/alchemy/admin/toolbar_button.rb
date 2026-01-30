@@ -34,18 +34,22 @@ module Alchemy
     class ToolbarButton < ViewComponent::Base
       erb_template <<-ERB
         <div class="toolbar_button" id="<%= id %>">
-          <sl-tooltip content="<%= label %>" placement="<%= tooltip_placement %>">
-            <%= link_to(render_icon(icon, style: icon_style), url, {
-              class: css_classes,
-              "data-dialog-options" => dialog ? dialog_options.to_json : nil,
-              "data-alchemy-hotkey" => hotkey,
-              :is => dialog ? "alchemy-dialog-link" : nil
-            }.merge(link_options)) %>
+          <sl-tooltip content="<%= label %>" placement="<%= tooltip_placement %>" <%= "disabled" if disabled? %>>
+            <% if disabled? %>
+              <%= tag.a(render_icon(icon, style: icon_style), class: css_classes + ["disabled"], tabindex: "-1") %>
+            <% else %>
+              <%= link_to(render_icon(icon, style: icon_style), url, {
+                class: css_classes,
+                "data-dialog-options" => dialog ? dialog_options.to_json : nil,
+                "data-alchemy-hotkey" => hotkey,
+                :is => dialog ? "alchemy-dialog-link" : nil
+              }.merge(link_options)) %>
+            <% end %>
           </sl-tooltip>
         </div>
       ERB
 
-      delegate :can?, :link_to, :link_to_dialog, :render_icon, to: :helpers
+      delegate :cannot?, :link_to, :link_to_dialog, :render_icon, to: :helpers
 
       attr_reader :url,
         :icon,
@@ -92,11 +96,11 @@ module Alchemy
         @tooltip_placement = tooltip_placement
       end
 
-      def render?
-        skip_permission_check || can?(*permission_options)
-      end
-
       private
+
+      def disabled?
+        @_disabled ||= !skip_permission_check && cannot?(*permission_options)
+      end
 
       def css_classes = ["icon_button", active && "active"].compact
 

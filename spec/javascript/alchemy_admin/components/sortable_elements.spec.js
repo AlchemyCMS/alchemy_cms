@@ -61,7 +61,7 @@ describe("alchemy-sortable-elements", () => {
         data-element-id="123"
         data-element-name="article"
       >
-        <div class="element-handle"></div>
+        <div class="element-handle draggable"></div>
       </alchemy-element-editor>
       <alchemy-element-editor
         id="element_456"
@@ -94,7 +94,7 @@ describe("alchemy-sortable-elements", () => {
       const options = Sortable.mock.calls[0][1]
 
       expect(options.draggable).toBe(".element-editor")
-      expect(options.handle).toBe(".element-handle")
+      expect(options.handle).toBe(".element-handle.draggable")
       expect(options.ghostClass).toBe("dragged")
       expect(options.animation).toBe(150)
       expect(options.swapThreshold).toBe(0.65)
@@ -171,8 +171,12 @@ describe("alchemy-sortable-elements", () => {
       }
       options.onStart(mockEvent)
 
-      const dropzone1 = document.querySelectorAll("[data-droppable-elements]")[1]
-      const dropzone2 = document.querySelectorAll("[data-droppable-elements]")[2]
+      const dropzone1 = document.querySelectorAll(
+        "[data-droppable-elements]"
+      )[1]
+      const dropzone2 = document.querySelectorAll(
+        "[data-droppable-elements]"
+      )[2]
 
       expect(dropzone1.classList.contains("droppable-elements")).toBe(true)
       expect(dropzone2.classList.contains("droppable-elements")).toBe(false)

@@ -13,6 +13,7 @@ module Alchemy
             min: settings[:min],
             max: settings[:max],
             id: form_field_id,
+            readonly: !editable?,
             oninput: (settings[:input_type] == "range") ? "this.nextElementSibling.value = this.value" : nil)
           if settings[:input_type] == "range"
             concat tag.output(value)

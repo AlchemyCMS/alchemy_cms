@@ -35,6 +35,16 @@ RSpec.describe Alchemy::Ingredients::SelectEditor, type: :component do
     end
   end
 
+  context "without edit permission" do
+    before do
+      allow(vc_test_view_context).to receive(:can?).and_return(false)
+    end
+
+    it "renders a disabled select box" do
+      is_expected.to have_css("select[is=\"alchemy-select\"][disabled]")
+    end
+  end
+
   context "if select values are a hash (grouped options)" do
     before do
       expect(ingredient).to receive(:settings).at_least(:once) do

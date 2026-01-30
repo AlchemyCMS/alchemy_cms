@@ -1,27 +1,26 @@
 <% linkable = picture_editor.settings[:linkable] != false %>
 <% croppable = picture_editor.allow_image_cropping? %>
+<% disabled = cannot?(:edit, picture_editor.ingredient) %>
 
-<%= content_tag "sl-tooltip", content: Alchemy.t("Edit Picturemask"), placement: "top-start", disabled: !croppable do %>
+<%= content_tag "sl-tooltip", content: Alchemy.t("Edit Picturemask"), placement: "top-start", disabled: !croppable || disabled do %>
   <%= link_to_dialog render_icon(:crop),
-    alchemy.crop_admin_ingredient_path(picture_editor.ingredient, {
+    (croppable && !disabled) ? alchemy.crop_admin_ingredient_path(picture_editor.ingredient, {
       crop_from_form_field_id: picture_editor.form_field_id(:crop_from),
       crop_size_form_field_id: picture_editor.form_field_id(:crop_size),
       picture_id: picture_editor.picture&.id
-    }), {
+    }) : nil, {
       size: "1080x615",
       title: Alchemy.t("Edit Picturemask"),
       image_loader: false,
       padding: false
     }, {
-      class: croppable ? "crop_link icon_button" : "disabled crop_link icon_button" ,
-      tabindex: croppable ? nil : "-1",
-      onclick: "return false"
+      class: "crop_link icon_button"
     } %>
 <% end %>
 
-<%= content_tag "sl-tooltip", content: picture_editor.picture ? Alchemy.t(:swap_image) : Alchemy.t(:insert_image) do %>
+<%= content_tag "sl-tooltip", content: picture_editor.picture ? Alchemy.t(:swap_image) : Alchemy.t(:insert_image), disabled: disabled do %>
   <%= link_to_dialog render_icon("image-add"),
-    alchemy.admin_pictures_path(
+    disabled ? nil : alchemy.admin_pictures_path(
       form_field_id: picture_editor.form_field_id(:picture_id)
     ),
     {
@@ -33,15 +32,15 @@
 <% end %>
 
 <% if linkable %>
-  <%= render "alchemy/ingredients/shared/link_tools", ingredient_editor: picture_editor %>
+  <%= render "alchemy/ingredients/shared/link_tools", ingredient: picture_editor.ingredient %>
 <% else %>
   <span class="icon_button disabled"><%= render_icon("link", style: "m") %></span>
   <span class="icon_button disabled"><%= render_icon("link-unlink", style: "m") %></span>
 <% end %>
 
-<%= content_tag "sl-tooltip", content: Alchemy.t(:edit_image_properties), placement: "top-end" do %>
+<%= content_tag "sl-tooltip", content: Alchemy.t(:edit_image_properties), placement: "top-end", disabled: disabled do %>
   <%= link_to_dialog render_icon(:edit),
-    alchemy.edit_admin_ingredient_path(id: picture_editor.id, language_id: @page.language_id),
+    disabled ? nil : alchemy.edit_admin_ingredient_path(id: picture_editor.id, language_id: @page.language_id),
     {
       title: Alchemy.t(:edit_image_properties),
       size: "380x255"

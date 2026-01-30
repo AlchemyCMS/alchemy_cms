@@ -34,16 +34,15 @@
   line-height: var(--form-field-line-height);
   transition: var(--transition-duration);
 
-  &:focus:not(.readonly) {
+  &:focus:not(.readonly),
+  &:focus:not([readonly]) {
     @include mixins.default-focus-style(
       $box-shadow: 0 0 0 1px var(--focus-color)
     );
   }
 
   &[disabled],
-  &.disabled,
-  &:not(.flatpickr-input)[readonly],
-  &:not(.flatpickr-input).readonly {
+  &.disabled {
     color: var(--form-field-disabled-text-color);
     background-color: var(--form-field-disabled-bg-color);
     cursor: default;
@@ -52,11 +51,6 @@
   &[disabled],
   &.disabled {
     cursor: not-allowed;
-  }
-
-  &:not(.flatpickr-input)[readonly],
-  &:not(.flatpickr-input).readonly {
-    pointer-events: none;
   }
 }
 

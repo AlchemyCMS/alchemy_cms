@@ -12,6 +12,7 @@ RSpec.describe Alchemy::Ingredients::TextEditor, type: :component do
   before do
     vc_test_view_context.class.include Alchemy::Admin::BaseHelper
     allow(ingredient).to receive(:settings) { settings }
+    allow(vc_test_view_context).to receive(:can?).and_return(true)
   end
 
   let(:settings) { {} }
@@ -63,6 +64,25 @@ RSpec.describe Alchemy::Ingredients::TextEditor, type: :component do
 
     it "renders anchor button" do
       expect(rendered).to have_selector(".edit-ingredient-anchor-link a")
+    end
+  end
+
+  context "without edit permission" do
+    before do
+      allow(vc_test_view_context).to receive(:can?).and_return(false)
+    end
+
+    it "renders a readonly text input" do
+      expect(rendered).to have_selector('input[type="text"][readonly]')
+    end
+
+    context "with settings anchor set to true" do
+      let(:settings) { {anchor: true} }
+
+      it "renders a disabled anchor button" do
+        expect(rendered).to have_selector(".edit-ingredient-anchor-link a.disabled")
+        expect(rendered).not_to have_selector(".edit-ingredient-anchor-link a[href]")
+      end
     end
   end
 end

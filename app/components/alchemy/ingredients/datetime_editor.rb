@@ -12,7 +12,8 @@ module Alchemy
               name: form_field_name,
               id: form_field_id,
               value: value,
-              type: settings[:input_type]
+              type: settings[:input_type],
+              disabled: !editable?
             }
           )
           concat tag.label(

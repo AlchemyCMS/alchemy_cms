@@ -14,6 +14,8 @@ module Alchemy
         to: :ingredient
 
       delegate :alchemy,
+        :can?,
+        :cannot?,
         :dom_id,
         :hint_with_tooltip,
         :render_hint_for,
@@ -65,6 +67,10 @@ module Alchemy
       end
 
       private
+
+      def editable?
+        @_editable ||= can?(:edit, ingredient)
+      end
 
       # Returns the translated role for displaying in labels
       #

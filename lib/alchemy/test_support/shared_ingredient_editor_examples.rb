@@ -5,6 +5,7 @@ RSpec.shared_examples_for "an alchemy ingredient editor" do
 
   before do
     vc_test_view_context.class.include Alchemy::Admin::BaseHelper
+    allow(vc_test_view_context).to receive(:can?).and_return(true)
   end
 
   subject do

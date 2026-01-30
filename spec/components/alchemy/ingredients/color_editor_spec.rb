@@ -13,6 +13,7 @@ RSpec.describe Alchemy::Ingredients::ColorEditor, type: :component do
   before do
     allow(ingredient).to receive(:settings) { settings }
     vc_test_view_context.class.send :include, Alchemy::Admin::BaseHelper
+    allow(vc_test_view_context).to receive(:can?).and_return(true)
   end
 
   subject do
@@ -71,6 +72,24 @@ RSpec.describe Alchemy::Ingredients::ColorEditor, type: :component do
 
     it "renders an enabled color input and will ignore this setting" do
       is_expected.to have_selector('input[type="color"]:not([disabled])')
+    end
+  end
+
+  context "without edit permission" do
+    before do
+      allow(vc_test_view_context).to receive(:can?).and_return(false)
+    end
+
+    it "renders a disabled color input" do
+      is_expected.to have_selector('input[type="color"][disabled]')
+    end
+
+    context "with color options" do
+      let(:settings) { {colors: [%w[Red red], %w[Blue blue]]} }
+
+      it "renders a disabled select" do
+        is_expected.to have_selector("select[disabled]")
+      end
     end
   end
 end

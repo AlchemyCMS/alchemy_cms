@@ -4,7 +4,7 @@ module Alchemy
   module Ingredients
     class RichtextEditor < BaseEditor
       def input_field
-        content_tag("alchemy-tinymce", custom_tinymce_config) do
+        content_tag("alchemy-tinymce", tinymce_config) do
           text_area_tag form_field_name,
             value,
             minlength: length_validation&.fetch(:minimum, nil),
@@ -14,6 +14,12 @@ module Alchemy
       end
 
       private
+
+      def tinymce_config
+        config = custom_tinymce_config
+        config["readonly"] = true.to_json if !editable?
+        config
+      end
 
       def custom_tinymce_config
         ingredient.custom_tinymce_config.each_with_object({}) do |(k, v), obj|

@@ -162,11 +162,16 @@ class Tinymce extends AlchemyHTMLElement {
         const config = this.getAttribute(attributeName)
         const key = attributeName.replaceAll("-", "_")
 
-        try {
-          customConfig[key] = JSON.parse(config)
-        } catch (e) {
-          // also string values as parameter
-          customConfig[key] = config
+        // Handle boolean HTML attributes (e.g., readonly="readonly" or readonly="")
+        if (config === attributeName || config === "") {
+          customConfig[key] = true
+        } else {
+          try {
+            customConfig[key] = JSON.parse(config)
+          } catch (e) {
+            // also string values as parameter
+            customConfig[key] = config
+          }
         }
       }
     })

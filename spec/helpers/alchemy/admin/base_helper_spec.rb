@@ -35,6 +35,14 @@ module Alchemy
           expect(link).to_not have_css("a[title]")
         end
       end
+
+      context "without url" do
+        it "renders a disabled link" do
+          link = helper.link_to_dialog("Open", nil)
+          expect(link).to have_css('a.disabled[tabindex="-1"]')
+          expect(link).to_not have_css("a[href]")
+        end
+      end
     end
 
     describe "#link_to_confirm_dialog" do

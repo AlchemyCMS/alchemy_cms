@@ -159,6 +159,15 @@ select {
       }
     }
 
+    &.select2-container-disabled {
+      .select2-choices {
+        background-color: var(--select-disabled-background-color);
+        border-color: var(--select-disabled-border-color);
+        cursor: not-allowed;
+        color: var(--select-disabled-text-color);
+      }
+    }
+
     .select2-search-choice-close {
       position: absolute;
       left: initial;

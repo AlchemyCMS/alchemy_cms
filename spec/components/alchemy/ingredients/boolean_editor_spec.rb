@@ -24,6 +24,16 @@ RSpec.describe Alchemy::Ingredients::BooleanEditor, type: :component do
     is_expected.to have_selector('input[type="checkbox"]')
   end
 
+  context "without edit permission" do
+    before do
+      allow(vc_test_view_context).to receive(:can?).and_return(false)
+    end
+
+    it "renders a disabled checkbox" do
+      is_expected.to have_selector('input[type="checkbox"][disabled]')
+    end
+  end
+
   context "with default value given in ingredient settings" do
     let(:element) do
       create(:alchemy_element, :with_ingredients, name: "all_you_can_eat")

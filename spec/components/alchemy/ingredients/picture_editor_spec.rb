@@ -26,6 +26,8 @@ RSpec.describe Alchemy::Ingredients::PictureEditor, type: :component do
     allow(ingredient).to receive(:settings) { settings }
     vc_test_view_context.class.include Alchemy::Admin::BaseHelper
     vc_test_view_context.instance_variable_set(:@page, alchemy_page)
+    allow(vc_test_view_context).to receive(:can?).and_return(true)
+    allow(vc_test_view_context).to receive(:cannot?).and_return(false)
   end
 
   subject do
@@ -108,6 +110,37 @@ RSpec.describe Alchemy::Ingredients::PictureEditor, type: :component do
     context "with another column given" do
       it "has for attribute set to ingredient form field id for that column" do
         is_expected.to have_selector("label[for='element_#{element.id}_ingredient_#{ingredient.id}_picture_id']")
+      end
+    end
+  end
+
+  context "without edit permission" do
+    before do
+      allow(vc_test_view_context).to receive(:can?).and_return(false)
+      allow(vc_test_view_context).to receive(:cannot?).and_return(true)
+    end
+
+    it "does not render a delete button" do
+      is_expected.not_to have_selector("button.picture_tool.delete")
+    end
+
+    it "renders a disabled insert image link" do
+      is_expected.to have_selector("a.icon_button.disabled")
+      is_expected.not_to have_selector('a.icon_button[href*="pictures"]')
+    end
+
+    it "renders a disabled edit properties link" do
+      is_expected.not_to have_selector('a.icon_button[href*="edit"]')
+    end
+
+    context "with image cropping enabled" do
+      before do
+        allow(ingredient).to receive(:allow_image_cropping?) { true }
+      end
+
+      it "renders a disabled cropping link" do
+        is_expected.to have_selector("a.disabled.crop_link")
+        is_expected.not_to have_selector('a.crop_link[href*="crop"]')
       end
     end
   end

@@ -27,6 +27,7 @@ RSpec.describe Alchemy::Ingredients::FileEditor, type: :component do
     vc_test_view_context.class.include Alchemy::Admin::BaseHelper
     allow(ingredient).to receive(:settings) { settings }
     allow(file_editor).to receive(:attachment) { attachment }
+    allow(vc_test_view_context).to receive(:can?).and_return(true)
   end
 
   it_behaves_like "an alchemy ingredient editor"
@@ -74,6 +75,27 @@ RSpec.describe Alchemy::Ingredients::FileEditor, type: :component do
 
     it "renders a hidden field for attachment_id" do
       is_expected.to have_selector("input[type='hidden'][name='#{file_editor.form_field_name(:attachment_id)}']")
+    end
+  end
+
+  context "without edit permission" do
+    before do
+      allow(vc_test_view_context).to receive(:can?).and_return(false)
+    end
+
+    it "does not render the remove file link" do
+      is_expected.not_to have_selector(".remove_file_link")
+    end
+
+    it "renders a disabled assign file link without tooltip" do
+      is_expected.to have_selector(".file_tools a.disabled")
+      is_expected.not_to have_selector(".file_tools a[href*='attachments']")
+      is_expected.not_to have_selector(".file_tools a.file_icon[title]")
+    end
+
+    it "renders a disabled edit properties link without tooltip" do
+      is_expected.not_to have_selector(".file_tools a[href*='edit']")
+      is_expected.to have_selector(".file_tools a.disabled:not([title])", count: 2)
     end
   end
 end

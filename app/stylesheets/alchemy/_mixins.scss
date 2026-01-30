@@ -16,6 +16,7 @@
 
 @mixin button-defaults(
   $background-color: var(--button-bg-color),
+  $disabled-background-color: var(--button-disabled-bg-color),
   $hover-color: var(--button-hover-bg-color),
   $hover-border-color: var(--button-hover-border-color),
   $border-radius: var(--button-border-radius),
@@ -68,8 +69,9 @@
 
   &.disabled,
   &[disabled] {
-    background-color: var(--button-disabled-bg-color);
+    background-color: $disabled-background-color;
     border-color: var(--button-disabled-border-color);
+    color: var(--text-color-muted);
     cursor: not-allowed;
     box-shadow: none;
     outline: none;

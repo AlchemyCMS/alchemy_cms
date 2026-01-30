@@ -10,7 +10,8 @@ module Alchemy
           text_field_tag form_field_name(:page_id),
             page&.id,
             id: form_field_id(:page_id),
-            class: "full_width"
+            class: "full_width",
+            disabled: !editable?
         end
       end
     end

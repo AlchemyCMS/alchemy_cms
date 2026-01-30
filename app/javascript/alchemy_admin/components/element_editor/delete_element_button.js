@@ -8,7 +8,7 @@ import { dispatchPageDirtyEvent } from "alchemy_admin/components/element_editor"
 export class DeleteElementButton extends HTMLElement {
   constructor() {
     super()
-    this.addEventListener("click", this)
+    this.button?.addEventListener("click", this)
   }
 
   async handleEvent() {
@@ -41,6 +41,10 @@ export class DeleteElementButton extends HTMLElement {
 
   get message() {
     return this.getAttribute("message")
+  }
+
+  get button() {
+    return this.querySelector("button")
   }
 }
 

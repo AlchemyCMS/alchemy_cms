@@ -9,6 +9,7 @@ RSpec.describe Alchemy::Ingredients::NodeEditor, type: :component do
 
   before do
     vc_test_view_context.class.include Alchemy::Admin::BaseHelper
+    allow(vc_test_view_context).to receive(:can?).and_return(true)
   end
 
   subject do
@@ -28,6 +29,16 @@ RSpec.describe Alchemy::Ingredients::NodeEditor, type: :component do
 
     it "sets node id as value" do
       is_expected.to have_css('input.alchemy_selectbox[value="1"]')
+    end
+  end
+
+  context "without edit permission" do
+    before do
+      allow(vc_test_view_context).to receive(:can?).and_return(false)
+    end
+
+    it "renders a disabled input field" do
+      is_expected.to have_css("input[disabled]")
     end
   end
 end

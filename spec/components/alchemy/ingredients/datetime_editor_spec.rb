@@ -17,4 +17,15 @@ RSpec.describe Alchemy::Ingredients::DatetimeEditor, type: :component do
     render_inline ingredient_editor
     expect(page).to have_css('alchemy-datepicker[input-type="datetime"] input[type="text"].datetime')
   end
+
+  context "without edit permission" do
+    before do
+      allow(vc_test_view_context).to receive(:can?).and_return(false)
+    end
+
+    it "renders a readonly datepicker input" do
+      render_inline ingredient_editor
+      expect(page).to have_css('alchemy-datepicker input[type="text"][disabled]')
+    end
+  end
 end

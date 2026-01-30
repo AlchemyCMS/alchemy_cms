@@ -20,8 +20,18 @@ RSpec.describe Alchemy::Ingredients::NumberEditor, type: :component do
 
   it_behaves_like "an alchemy ingredient editor"
 
-  it "renders a number inpur" do
+  it "renders a number input" do
     is_expected.to have_css("input[type='number']")
+  end
+
+  context "without edit permission" do
+    before do
+      allow(vc_test_view_context).to receive(:can?).and_return(false)
+    end
+
+    it "renders a readonly number input" do
+      is_expected.to have_css("input[type='number'][readonly]")
+    end
   end
 
   context "with input_type setting set to range" do

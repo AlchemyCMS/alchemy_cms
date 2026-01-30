@@ -6,7 +6,7 @@ import { dispatchPageDirtyEvent } from "alchemy_admin/components/element_editor"
 
 const SORTABLE_OPTIONS = {
   draggable: ".element-editor",
-  handle: ".element-handle",
+  handle: ".element-handle.draggable",
   ghostClass: "dragged",
   animation: 150,
   swapThreshold: 0.65,

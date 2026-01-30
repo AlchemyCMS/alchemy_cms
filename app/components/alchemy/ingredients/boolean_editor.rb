@@ -9,7 +9,7 @@ module Alchemy
           concat label_tag(nil, for: form_field_id) {
             safe_join([
               hidden_field_tag(form_field_name, "0", id: nil),
-              check_box_tag(form_field_name, "1", value, id: form_field_id),
+              check_box_tag(form_field_name, "1", value, id: form_field_id, disabled: !editable?),
               ingredient_role,
               render_hint_for(ingredient, size: "1x", fixed_width: false)
             ])

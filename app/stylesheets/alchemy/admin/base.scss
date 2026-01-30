@@ -81,8 +81,8 @@ a {
   }
 }
 
-a:focus,
-[tabindex]:focus {
+a:focus:not(.disabled),
+[tabindex]:focus:not(.disabled) {
   @include mixins.default-focus-style;
 }
 
