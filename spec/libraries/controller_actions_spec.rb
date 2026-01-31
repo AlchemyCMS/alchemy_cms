@@ -41,7 +41,7 @@ describe "Alchemy::ControllerActions", type: "controller" do
   end
 
   describe "#set_alchemy_language" do
-    let!(:default_language) { create(:alchemy_language, code: :en) }
+    let!(:default_language) { create(:alchemy_language, :english) }
     let(:klingon) { create(:alchemy_language, :klingon) }
 
     after do
@@ -69,7 +69,7 @@ describe "Alchemy::ControllerActions", type: "controller" do
 
     context "with a locale given" do
       it "should find and set the language by the locale" do
-        controller.send :set_alchemy_language, klingon.code
+        controller.send :set_alchemy_language, klingon.locale
         expect(assigns(:language)).to eq(klingon)
         expect(Alchemy::Current.language).to eq(klingon)
       end
