@@ -8,6 +8,9 @@
 
 <% if @element.fixed? %>
   <% target = "fixed_element_#{@element.id}" %>
+  <%= turbo_stream.append "fixed-elements",
+    partial: "alchemy/admin/elements/fixed_element",
+    locals: {element: @element} %>
 <% elsif @element.parent_element %>
   <% target = "element_#{@element.parent_element_id}_nested_elements" %>
 <% else %>
