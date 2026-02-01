@@ -1,0 +1,6 @@
+<sl-tab slot="nav" panel="fixed-element-<%= element.id %>">
+  <%= element.display_name %>
+</sl-tab>
+<sl-tab-panel id="fixed_element_<%= element.id %>" name="fixed-element-<%= element.id %>" style="--padding: 0" class="scrollable-elements">
+  <%= render Alchemy::Admin::ElementEditor.new(element: element) %>
+</sl-tab-panel>
