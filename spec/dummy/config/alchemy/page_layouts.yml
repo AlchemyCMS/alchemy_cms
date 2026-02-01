@@ -37,7 +37,7 @@
       element_with_ingredient_groups,
       tinymce_custom
     ]
-  autogenerate: [all_you_can_eat, right_column, left_column]
+  autogenerate: [all_you_can_eat, left_column, right_column]
 
 - name: news
   unique: true
