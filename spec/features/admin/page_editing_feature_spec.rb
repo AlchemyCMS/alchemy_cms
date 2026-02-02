@@ -59,17 +59,40 @@ RSpec.describe "Page editing feature", type: :system do
       end
     end
 
-    it "can create a new element", :js do
-      visit alchemy.edit_admin_page_path(a_page)
-      expect(page).to have_link_with_tooltip("New element")
-      click_link_with_tooltip("New element")
-      expect(page).to have_selector(".alchemy-dialog-body .simple_form")
-      within ".alchemy-dialog-body .simple_form" do
-        select2("Article", from: "Element")
-        click_button("Add")
+    describe "creating a new element", :js do
+      before do
+        visit alchemy.edit_admin_page_path(a_page)
+        expect(page).to have_link_with_tooltip("New element")
+        click_link_with_tooltip("New element")
+        expect(page).to have_selector(".alchemy-dialog-body .simple_form")
       end
-      expect(page).to_not have_selector(".alchemy-dialog-body")
-      expect(page).to have_selector('.element-editor[data-element-name="article"]')
+
+      context "on a page having article elements defined" do
+        let(:a_page) { create(:alchemy_page, page_layout: "standard") }
+
+        scenario "can create a new article element" do
+          within ".alchemy-dialog-body .simple_form" do
+            select2("Article", from: "Element")
+            click_button("Add")
+          end
+          expect(page).to_not have_selector(".alchemy-dialog-body")
+          expect(page).to have_selector('.element-editor[data-element-name="article"]')
+        end
+      end
+
+      context "on a page having fixed elements defined" do
+        let(:a_page) { create(:alchemy_page, page_layout: "everything") }
+
+        scenario "can create a new fixed element" do
+          within ".alchemy-dialog-body" do
+            select2("Left column", from: "Element")
+            click_button("Add")
+          end
+
+          expect(page).to_not have_selector(".alchemy-dialog-body")
+          expect(page).to have_selector('sl-tab-panel .element-editor.is-fixed[data-element-name="left_column"]')
+        end
+      end
     end
   end
 
