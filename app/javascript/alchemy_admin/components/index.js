@@ -31,19 +31,3 @@ import "alchemy_admin/components/spinner"
 import "alchemy_admin/components/tags_autocomplete"
 import "alchemy_admin/components/tinymce"
 import "alchemy_admin/components/update_check"
-
-await Promise.race([
-  // Load all global custom elements
-  Promise.allSettled([
-    customElements.whenDefined("alchemy-button"),
-    customElements.whenDefined("alchemy-icon"),
-    customElements.whenDefined("alchemy-growl"),
-    customElements.whenDefined("alchemy-message"),
-    customElements.whenDefined("alchemy-spinner")
-  ]),
-  // Resolve after two seconds
-  new Promise((resolve) => setTimeout(resolve, 1250))
-])
-
-// Remove the class, showing the page content
-document.documentElement.classList.remove("loading-custom-elements")
