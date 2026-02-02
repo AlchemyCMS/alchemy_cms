@@ -17,16 +17,39 @@ describe "Password reset feature." do
     click_button "Send reset instructions"
 
     expect(page)
-      .to have_content("You will receive an email with instructions on how to reset your password in a few minutes.")
+      .to have_content("If your email address exists in our database, you will receive a password recovery link")
   end
 
-  it "Displays error if email not found." do
-    visit admin_new_password_path
+  context "with paranoid mode disabled" do
+    before do
+      allow(Devise).to receive(:paranoid).and_return(false)
+    end
 
-    fill_in :user_email, with: "wrong@email.com"
-    click_button "Send reset instructions"
+    it "Displays error if email not found." do
+      visit admin_new_password_path
 
-    expect(page).to have_content("Email not found")
+      fill_in :user_email, with: "wrong@email.com"
+      click_button "Send reset instructions"
+
+      expect(page).to have_content("Email not found")
+    end
+  end
+
+  context "with paranoid mode enabled" do
+    before do
+      allow(Devise).to receive(:paranoid).and_return(true)
+    end
+
+    it "Displays notification about reset instructions.", :js do
+      visit admin_new_password_path
+
+      fill_in :user_email, with: "wrong@email.com"
+      click_button "Send reset instructions"
+
+      expect(page).to have_content(
+        "If your email address exists in our database, you will receive a password recovery link"
+      )
+    end
   end
 
   it "User can visit edit password form." do
