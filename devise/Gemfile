@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-alchemy_branch = ENV.fetch("ALCHEMY_BRANCH", "main")
+alchemy_branch = ENV.fetch("ALCHEMY_BRANCH", "8.1-stable")
 gem "alchemy_cms", github: "AlchemyCMS/alchemy_cms", branch: alchemy_branch
 
 rails_version = ENV.fetch("RAILS_VERSION", "8.0")
