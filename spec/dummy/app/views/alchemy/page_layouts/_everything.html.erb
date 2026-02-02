@@ -1,8 +1,9 @@
 <div id="content">
   <%= render_elements %>
 </div>
+<div id="left-column">
+  <%= render_elements only: %w[left_column], fixed: true %>
+</div>
 <div id="right-column">
-  <% @page.fixed_elements.each do |element| %>
-    <%= render_element(element) %>
-  <% end %>
+  <%= render_elements only: %w[right_column], fixed: true %>
 </div>
