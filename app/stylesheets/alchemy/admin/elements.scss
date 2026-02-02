@@ -93,16 +93,20 @@ alchemy-tinymce {
   border-radius: var(--border-radius_medium);
 }
 
-#main-content-elements {
+alchemy-elements-window {
   --scrollable-elements-offset: calc(
     var(--top-menu-height) + var(--toolbar-height)
   );
+}
+
+#main-content-elements {
   padding: var(--spacing-2) var(--spacing-1) 2px;
 }
 
-#fixed-elements sl-tab-panel {
+#fixed-elements {
   --scrollable-elements-offset: calc(
-    var(--top-menu-height) + var(--toolbar-height) + 51px
+    var(--top-menu-height) + var(--toolbar-height) +
+      var(--fixed-elements-tabs-height, 51px)
   );
 }
 
