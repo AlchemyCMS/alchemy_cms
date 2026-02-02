@@ -12,10 +12,6 @@ html {
     background-color: var(--color-blue_medium) !important;
     z-index: 400001;
   }
-
-  &.loading-custom-elements body {
-    opacity: 0;
-  }
 }
 
 *,
@@ -61,6 +57,17 @@ body {
 
   &.prevent-scrolling {
     overflow: hidden;
+  }
+
+  &:has(:not(:defined)) {
+    opacity: var(--custom-elements-loaded, 0);
+    animation: custom-elements-loaded 0 linear 250ms forwards;
+  }
+}
+
+@keyframes custom-elements-loaded {
+  to {
+    --custom-elements-loaded: 1;
   }
 }
 
