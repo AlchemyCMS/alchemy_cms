@@ -159,8 +159,9 @@ RSpec.describe "The edit elements feature", type: :system do
 
       scenario "shows success notice" do
         visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
-        expect(page).to have_button("Save")
-        click_button("Save")
+        within ".element-footer" do
+          click_button("Save")
+        end
         within "#flash_notices" do
           expect(page).to have_content(/Saved element/)
         end
@@ -173,8 +174,9 @@ RSpec.describe "The edit elements feature", type: :system do
       scenario "shows error notice" do
         visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
         fill_in "Headline", with: "123"
-        expect(page).to have_button("Save")
-        click_button("Save")
+        within ".element-footer" do
+          click_button("Save")
+        end
         within "#flash_notices" do
           expect(page).to have_content(/Validation failed/)
         end
@@ -182,6 +184,34 @@ RSpec.describe "The edit elements feature", type: :system do
           expect(page).to have_content(/Please check marked fields below/)
         end
       end
+    end
+  end
+
+  describe "Hiding an element" do
+    let(:element) { create(:alchemy_element, page_version: a_page.draft_version) }
+
+    it "marks element as hidden if the hide button is clicked", :js do
+      visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
+      expect(page).to have_selector("alchemy-publish-element-button")
+      find("alchemy-publish-element-button sl-button[type='submit']").click
+      expect(page).to have_selector("alchemy-element-editor.element-hidden")
+    end
+  end
+
+  describe "Scheduling an element" do
+    let(:element) { create(:alchemy_element, page_version: a_page.draft_version) }
+
+    it "can schedule element if the schedule button is clicked", :js do
+      visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
+      expect(page).to have_selector("alchemy-publish-element-button")
+      find("alchemy-publish-element-button sl-button[slot=trigger]").click
+      within(".alchemy-popover") do
+        expect(page).to have_selector("input[name='element[public_until]']")
+        find("input[name='element[public_until]']", visible: :all).set(2.hours.from_now.strftime("%Y-%m-%d %H:%M"))
+        click_button("Save")
+      end
+      expect(page).to have_content("Successfully scheduled element")
+      expect(page).to have_selector("sl-tooltip.element-scheduled-icon:not([hidden])")
     end
   end
 

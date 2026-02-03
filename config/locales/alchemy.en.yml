@@ -233,6 +233,15 @@ en:
       elements:
         toolbar:
           hide: Hide
+        schedule:
+          visibility_status:
+            public_html: This element is <b>currently visible</b>.
+            hidden_html: This element is <b>currently hidden</b>.
+          public_no_schedule: Set a "visible until" date to automatically hide it.
+          public_scheduled_html: It will be hidden on <b>%{public_until}</b>.
+          hidden_no_schedule: Change dates to make it visible again.
+          hidden_scheduled_html: It will be visible from <b>%{public_on}</b>.
+          hidden_window_html: It will be visible from <b>%{public_on}</b> until <b>%{public_until}</b>.
       pictures:
         sorting_select:
           label: "Sorting"
@@ -390,6 +399,7 @@ en:
     cannot_visit_unpublic_page: "Publish page before visiting it."
     choose_file_to_link: "Please choose a file to link"
     "clear clipboard": "clear clipboard"
+    clear_schedule: Clear Schedule
     click_to_show_all: "Click to show all again."
     confirm_to_delete_element: "Do you really want to delete this element? It cannot be restored!"
     confirm_to_delete_file: "Do you really want to delete this file from the server?"
@@ -445,6 +455,9 @@ en:
     element_hidden: "Hidden"
     element_of_type: "Element"
     element_saved: "Saved element."
+    element_scheduled:
+      public_on: "visible from %{public_on}"
+      public_until: "visible until %{public_until}"
     enter_external_link: "Please enter the URL you want to link with"
     explain_cropping: '<p>Move the frame and change its size with the mouse or arrow keys to adjust the image mask. Click on "apply" when you are satisfied with your selection.</p><p>If you want to return to the original centered image mask like it was defined in the layout, click "reset" and "apply" afterwards.</p>'
     explain_publishing: "Publish current page content"
@@ -624,6 +637,7 @@ en:
     fulltext_search: "Fulltext search"
     select_element: "Select element"
     seperate_tags_with_comma: "Seperate tags with comma"
+    schedule_element: Schedule visibility
     show_element_content: "Show content of this element."
     show_eq: "Show EQ"
     show_navigation: "Show in navigation"
@@ -634,6 +648,7 @@ en:
     successfully_added_element: "Successfully added new element."
     successfully_deleted_tag: "Successfully deleted tag"
     successfully_saved_element_position: "Element position updated successfully."
+    successfully_scheduled_element: "Successfully scheduled element."
     successfully_updated_tag: "Successfully updated tag"
     swap_image: "Change image"
     insert_image: "Insert image"
@@ -711,7 +726,7 @@ en:
         text: "required"
         mark: "*"
       error_notification:
-        default_message: "Please review the problems below:"
+        default_message: "Please review the problems below."
 
   # Alchemy date formats
   date:
@@ -728,6 +743,7 @@ en:
         page_status: "%d %b %Y, %I:%M%P"
         short_datetime: "%d %b %I:%M%P"
         time: "%I:%M%P"
+        element_date: "%d %b %Y, %I:%M%P"
 
   # Translations for error messages.
   errors:
@@ -873,6 +889,8 @@ en:
         name: "Name"
         public: "visible"
         tag_list: Tags
+        public_on: Visible from
+        public_until: Visible until
       alchemy/ingredient:
         dom_id: Anchor
       alchemy/ingredients/file:

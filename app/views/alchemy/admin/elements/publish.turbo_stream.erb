@@ -1,0 +1,22 @@
+<% if @element.errors.any? %>
+  <%= turbo_stream.replace "element-#{@element.id}-schedule",
+    partial: "schedule", locals: {element: @element} %>
+<% else %>
+  <% if @element.scheduled? %>
+    <alchemy-growl>
+      <%= Alchemy.t(:successfully_scheduled_element) %>
+    </alchemy-growl>
+  <% end %>
+  <alchemy-action name="closeCurrentDialog"></alchemy-action>
+  <alchemy-action name="reloadPreview"></alchemy-action>
+  <%= turbo_stream.replace "element_#{@element.id}" do %>
+    <%= render Alchemy::Admin::ElementEditor.new(
+      element: @element
+    ) %>
+  <% end %>
+  <%= turbo_stream.replace "publish_page_button" do %>
+    <%= render Alchemy::Admin::PublishPageButton.new(
+      page: @element.page
+    ) %>
+  <% end %>
+<% end %>

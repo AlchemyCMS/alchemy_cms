@@ -303,8 +303,16 @@ RSpec.describe Alchemy::Admin::ElementEditor, type: :component do
       )
     end
 
+    let(:element) { create(:alchemy_element) }
+
     before do
       allow(element).to receive(:definition) { definition }
+      allow(vc_test_view_context).to receive(:alchemy_form_for) { "form" }
+    end
+
+    it "has a publish element button" do
+      render_inline(described_class.new(element: element))
+      expect(page).to have_selector("alchemy-publish-element-button")
     end
 
     context "with message given in element definition" do
@@ -405,6 +413,7 @@ RSpec.describe Alchemy::Admin::ElementEditor, type: :component do
     end
 
     it "renders all elements in the collection" do
+      allow(vc_test_view_context).to receive(:alchemy_form_for) { "form" }
       render_inline(described_class.with_collection(elements))
 
       expect(page).to have_css("alchemy-element-editor", count: 2)

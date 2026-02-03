@@ -1,0 +1,41 @@
+<alchemy-publish-element-button id="publish-element-button-<%= element.id %>">
+  <sl-button-group label="Example Button Group">
+    <sl-tooltip
+      content="<%= element.public? ? Alchemy.t(:hide_element) : Alchemy.t(:show_element) %>"
+      <%= "disabled" if element.scheduled? || cannot?(:update, element) %>
+    >
+      <%= form_tag(alchemy.publish_admin_element_path(element), method: "patch") do %>
+        <sl-button
+          variant="<%= element.public? ? "default" : "primary" %>"
+          type="submit"
+          size="small"
+          <%= "disabled" if element.scheduled? || cannot?(:update, element) %>
+          outline
+          pill
+        >
+          <alchemy-icon name="cloud-off" slot="prefix" size="1x"></alchemy-icon>
+        </sl-button>
+      <% end %>
+    </sl-tooltip>
+    <sl-tooltip
+      content="<%= element.scheduled? ? Alchemy.t(:edit_element_schedule) : Alchemy.t(:schedule_element) %>"
+      <%= "disabled" if cannot?(:update, element) %>
+    >
+      <sl-dropdown distance="5">
+        <sl-button
+          slot="trigger"
+          variant="<%= element.scheduled? ? "primary" : "default" %>"
+          size="small"
+          <%= "disabled" if cannot?(:update, element) %>
+          outline
+          pill
+        >
+          <alchemy-icon name="calendar-schedule" slot="suffix" size="1x"></alchemy-icon>
+        </sl-button>
+        <div class="alchemy-popover">
+          <%= render "alchemy/admin/elements/schedule", element: element %>
+        </div>
+      </sl-dropdown>
+    </sl-tooltip>
+  </sl-button-group>
+</alchemy-publish-element-button>
