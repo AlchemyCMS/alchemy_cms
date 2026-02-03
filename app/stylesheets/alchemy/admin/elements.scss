@@ -607,7 +607,7 @@ alchemy-publish-element-button {
 
 alchemy-color-select {
   display: flex;
-  gap: var(--spacing-1);
+  gap: var(--spacing-2);
   justify-content: space-between;
   align-items: center;
 
@@ -628,7 +628,8 @@ alchemy-color-select {
   }
 
   select + input[type="color"] {
-    width: var(--form-field-addon-width);
+    width: calc(2 * var(--form-field-addon-width));
+    flex-shrink: 0;
   }
 }
 
