@@ -1,42 +1,43 @@
-import { patch } from "alchemy_admin/utils/ajax"
-import { reloadPreview } from "alchemy_admin/components/preview_window"
-import { growl } from "alchemy_admin/growler"
-import { dispatchPageDirtyEvent } from "alchemy_admin/components/element_editor"
-
 export class PublishElementButton extends HTMLElement {
-  constructor() {
-    super()
+  #scheduleButtonVariant
 
-    this.addEventListener("sl-change", this)
+  connectedCallback() {
+    this.#scheduleButtonVariant = this.scheduleButton.getAttribute("variant")
+    this.publishButton.addEventListener("click", this)
+    this.dropdown.addEventListener("sl-show", this)
+    this.dropdown.addEventListener("sl-hide", this)
+  }
+
+  disconnectedCallback() {
+    this.publishButton.removeEventListener("click", this)
+    this.dropdown.removeEventListener("sl-show", this)
+    this.dropdown.removeEventListener("sl-hide", this)
   }
 
   handleEvent(event) {
-    const elementEditor = event.target.closest("alchemy-element-editor")
-    if (elementEditor === this.elementEditor) {
-      patch(Alchemy.routes.publish_admin_element_path(this.elementId))
-        .then((response) => {
-          const data = response.data
-          this.elementEditor.published = data.public
-          this.tooltip.setAttribute("content", data.label)
-          reloadPreview()
-          if (data.pageHasUnpublishedChanges) {
-            dispatchPageDirtyEvent(data)
-          }
-        })
-        .catch((error) => growl(error.message, "error"))
+    switch (event.type) {
+      case "click":
+        this.publishButton.loading = true
+        break
+      case "sl-show":
+        this.scheduleButton.setAttribute("variant", "primary")
+        break
+      case "sl-hide":
+        this.scheduleButton.setAttribute("variant", this.#scheduleButtonVariant)
+        break
     }
   }
 
-  get elementEditor() {
-    return this.closest("alchemy-element-editor")
+  get publishButton() {
+    return this.querySelector("sl-button[type='submit']")
   }
 
-  get tooltip() {
-    return this.closest("sl-tooltip")
+  get dropdown() {
+    return this.querySelector("sl-dropdown")
   }
 
-  get elementId() {
-    return this.elementEditor.elementId
+  get scheduleButton() {
+    return this.querySelector("sl-button[slot='trigger']")
   }
 }
 

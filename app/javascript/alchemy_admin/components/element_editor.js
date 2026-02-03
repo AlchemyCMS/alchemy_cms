@@ -27,7 +27,7 @@ export class ElementEditor extends HTMLElement {
 
     // Dirty observer still needs to be jQuery
     // in order to support select2.
-    $(this).on("change", this.onChange)
+    $(this.form).on("change", this.onChange)
 
     this.header?.addEventListener("dblclick", () => {
       this.toggle()
@@ -87,7 +87,7 @@ export class ElementEditor extends HTMLElement {
     if (target.classList.contains("nested-elements")) {
       return
     }
-    this.setDirty(target)
+    this.closest("alchemy-element-editor").setDirty(target)
     event.stopPropagation()
     return false
   }
@@ -553,6 +553,15 @@ export class ElementEditor extends HTMLElement {
    */
   get firstChild() {
     return this.querySelector("alchemy-element-editor")
+  }
+
+  /**
+   * The form element if present
+   *
+   * @returns {HTMLFormElement|undefined}
+   */
+  get form() {
+    return this.querySelector("form.element-body")
   }
 
   /**
