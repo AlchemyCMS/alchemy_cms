@@ -638,7 +638,6 @@ alchemy-color-select {
 // component
 .select-color-option {
   .color-indicator {
-    --color: linear-gradient(90deg, red, orange, yellow, green, blue);
     background: var(--color) 100% 100% no-repeat;
     border: var(--border-default);
     display: inline-block;

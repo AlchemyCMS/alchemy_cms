@@ -1,11 +1,14 @@
 const formatItem = (object) => {
   const optionEl = object.element[0]
   const swatch = optionEl.dataset.swatch || optionEl.value
-  const style =
-    optionEl.value === "custom_color" ? "" : `style="--color: ${swatch}"`
+  const customColor = optionEl.value === "custom_color"
+  const colorIndicator = customColor
+    ? `<alchemy-icon name="palette"></alchemy-icon>`
+    : `<span class="color-indicator" style="--color: ${swatch}"></span>`
+
   return `
     <div class="select-color-option">
-      <span class="color-indicator" ${style}></span>
+      ${colorIndicator}
       <span>${object.text}</span>
     </div>`
 }
