@@ -1,5 +1,29 @@
 # Changelog
 
+## 8.1.0 (2026-02-02)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
+
+## What's Changed
+### Breaking Changes
+* Update Alchemy to 8.1 by @tvdeyen in https://github.com/AlchemyCMS/alchemy-devise/pull/251
+### New Features
+* Allow Devise 5.0 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy-devise/pull/246
+* Add devise-i18n locales by @tvdeyen in https://github.com/AlchemyCMS/alchemy-devise/pull/248
+* feat: Enable Devise.paranoid mode by default by @tvdeyen in https://github.com/AlchemyCMS/alchemy-devise/pull/247
+### Dependencies
+* Allow Rails 8.1 by @tvdeyen in https://github.com/AlchemyCMS/alchemy-devise/pull/235
+### Other Changes
+* allow removal of alchemy_roles in UI by @robinboening in https://github.com/AlchemyCMS/alchemy-devise/pull/238
+* Add backport tool by @tvdeyen in https://github.com/AlchemyCMS/alchemy-devise/pull/239
+* Pass rubygems_api_key secret to release workflow by @tvdeyen in https://github.com/AlchemyCMS/alchemy-devise/pull/245
+* fix: Convert `Devise.sign_out_via` to String by @tvdeyen in https://github.com/AlchemyCMS/alchemy-devise/pull/249
+* chore(CI): Test Alchemy 8.1-stable by @tvdeyen in https://github.com/AlchemyCMS/alchemy-devise/pull/250
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy-devise/compare/v8.0.0...v8.1.0
+
+
 ## 8.0.0 (2025-11-28)
 
 - Enable rememberable module [#237](https://github.com/AlchemyCMS/alchemy-devise/pull/237) ([tvdeyen](https://github.com/tvdeyen))
