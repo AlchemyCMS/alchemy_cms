@@ -1,5 +1,17 @@
 # Changelog
 
+## 8.0.6 (2026-02-03)
+
+## What's Changed
+* [8.0-stable] fix: Disabled button styles by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3604
+* [8.0-stable] Use css only solution to reduce FOUC by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3615
+* [8.0-stable] Fix creating a fixed element by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3616
+* [8.0-stable] Fix scrollable elements offset for fixed elements by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3617
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.0.5...v8.0.6
+
+
 ## 8.0.5 (2026-01-28)
 
 ## What's Changed
