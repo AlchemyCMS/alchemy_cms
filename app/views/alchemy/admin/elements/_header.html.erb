@@ -18,11 +18,19 @@
       <%= sanitize(element.preview_text.presence || '&nbsp;') %>
     </span>
   </span>
-  <span class="element-hidden-icon">
-    <%= render_icon("cloud-off", size: "1x") %>
-    <span class="element-hidden-label">
-      <%= Alchemy.t(:element_hidden) %>
-    </span>
+  <span class="element-status-icon">
+    <% if !element.public? %>
+      <sl-tooltip content="<%= Alchemy.t(:element_hidden) %>">
+        <%= render_icon("cloud-off", size: "1x") %>
+      </sl-tooltip>
+    <% end %>
+    <% if element.scheduled? %>
+      <sl-tooltip
+        content="<%= Alchemy.t(element.public_on&.future? ? :public_on : :public_until, scope: :element_scheduled, public_on: element.public_on && l(element.public_on, format: :short), public_until: element.public_until && l(element.public_until, format: :short)) %>"
+      >
+        <%= render_icon("calendar-schedule", size: "1x") %>
+      </sl-tooltip>
+    <% end %>
   </span>
   <sl-tooltip content="<%= Alchemy.t(element.folded? ? :show_element_content : :hide_element_content) %>">
     <%= button_tag(class: "element-toggle") do %>

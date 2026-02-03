@@ -42,6 +42,7 @@ Alchemy::Engine.routes.draw do
         post :order
       end
       member do
+        get :schedule
         patch :publish
         post :collapse
         post :expand
