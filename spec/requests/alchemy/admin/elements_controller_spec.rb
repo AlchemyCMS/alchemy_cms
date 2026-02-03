@@ -23,14 +23,36 @@ RSpec.describe Alchemy::Admin::ElementsController do
   end
 
   describe "#publish" do
-    context "publish element" do
+    let(:element) { create(:alchemy_element, public: false) }
+
+    context "with json request" do
+      subject!(:publish) { patch publish_admin_element_path(id: element.id, format: :json) }
+
+      it "publishes element and returns json" do
+        expect(JSON.parse(response.body)).to eq(
+          {
+            "public" => true,
+            "tooltip" => "Hide element",
+            "pageHasUnpublishedChanges" => true,
+            "publishButtonTooltip" => "Publish current page content"
+          }
+        )
+      end
+
       context "with validations" do
         let(:element) { create(:alchemy_element, :with_ingredients, name: :all_you_can_eat, public: false) }
 
         it "saves without running validations" do
-          patch publish_admin_element_path(id: element.id, format: :js)
           expect(element.reload).to be_public
         end
+      end
+    end
+
+    context "with turbo-stream request" do
+      subject!(:publish) { patch publish_admin_element_path(id: element.id, format: :turbo_stream) }
+
+      it "returns turbo streams" do
+        expect(response.body).to include("<alchemy-growl>Successfully scheduled element.</alchemy-growl>")
       end
     end
   end

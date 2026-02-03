@@ -1,0 +1,17 @@
+<%= alchemy_form_for [:publish, :admin, @element], remote: false, data: {turbo: true} do |f| %>
+  <alchemy-datepicker input-type="datetime">
+    <%= f.input :public_on, as: :string, hint: true %>
+  </alchemy-datepicker>
+  <alchemy-datepicker input-type="datetime">
+    <%= f.input :public_until, as: :string, hint: true %>
+  </alchemy-datepicker>
+  <div class="buttons">
+    <button
+      type="reset"
+      class="secondary"
+      onclick="this.form.querySelectorAll('alchemy-datepicker').forEach((d) => d.clear())">
+      <%= Alchemy.t(:clear_schedule) %>
+    </button>
+    <%= f.submit Alchemy.t(:save) %>
+  </div>
+<% end %>

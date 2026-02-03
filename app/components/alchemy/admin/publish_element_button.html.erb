@@ -1,0 +1,33 @@
+<alchemy-publish-element-button id="publish-element-button-<%= element.id %>">
+  <sl-button-group label="Example Button Group">
+    <sl-tooltip
+      content="<%= element.public? ? Alchemy.t(:hide_element) : Alchemy.t(:show_element) %>"
+      <%= "disabled" if element.scheduled? || cannot?(:update, element) %>
+    >
+      <sl-button
+        variant="<%= element.public? ? "default" : "primary" %>"
+        type="submit"
+        size="small"
+        <%= "disabled" if element.scheduled? || cannot?(:update, element) %>
+        <%= "outline" if element.public? || element.scheduled? %>
+        pill
+      >
+        <alchemy-icon name="cloud-off" slot="prefix" size="1x"></alchemy-icon>
+      </sl-button>
+    </sl-tooltip>
+    <sl-tooltip
+      content="<%= Alchemy.t(:schedule_element) %>"
+    >
+      <sl-button
+        href="<%= alchemy.schedule_admin_element_path(element) %>"
+        variant="<%= element.scheduled? ? "primary" : "default" %>"
+        size="small"
+        <%= "outline" unless element.scheduled? %>
+        <%= "disabled" if cannot?(:update, element) %>
+        pill
+      >
+        <alchemy-icon name="calendar-schedule" slot="suffix" size="1x"></alchemy-icon>
+      </sl-button>
+    </sl-tooltip>
+  </sl-button-group>
+</alchemy-publish-element-button>

@@ -1,5 +1,6 @@
 // Used to bundle our own Shoelace build with Rollup
 import "@shoelace-style/shoelace/dist/components/button/button.js"
+import "@shoelace-style/shoelace/dist/components/button-group/button-group.js"
 import "@shoelace-style/shoelace/dist/components/dialog/dialog.js"
 import "@shoelace-style/shoelace/dist/components/icon/icon.js"
 import "@shoelace-style/shoelace/dist/components/progress-bar/progress-bar.js"

@@ -1,0 +1,14 @@
+<alchemy-growl><%= Alchemy.t(:successfully_scheduled_element) %></alchemy-growl>
+<alchemy-action name="closeCurrentDialog"></alchemy-action>
+<alchemy-action name="reloadPreview"></alchemy-action>
+<%= turbo_stream.replace "element-header-#{@element.id}",
+  partial: "alchemy/admin/elements/header",
+  locals: {element: @element} %>
+<%= turbo_stream.replace "publish-element-button-#{@element.id}" do %>
+  <%= render Alchemy::Admin::PublishElementButton.new(element: @element) %>
+<% end %>
+<%= turbo_stream.replace "publish_page_button" do %>
+  <%= render Alchemy::Admin::PublishPageButton.new(
+    page: @element.page
+  ) %>
+<% end %>

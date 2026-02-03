@@ -185,6 +185,40 @@ RSpec.describe "The edit elements feature", type: :system do
     end
   end
 
+  describe "Hiding an element" do
+    let(:element) { create(:alchemy_element, page_version: a_page.draft_version) }
+
+    it "marks element as hidden if the hide button is clicked", :js do
+      visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
+      expect(page).to have_selector("alchemy-publish-element-button")
+      find("alchemy-publish-element-button sl-button[type='submit']").click
+      expect(page).to have_selector("alchemy-element-editor.element-hidden")
+    end
+  end
+
+  describe "Scheduling an element" do
+    let(:element) { create(:alchemy_element, page_version: a_page.draft_version) }
+
+    it "can schedule element if the schedule button is clicked", :js do
+      visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
+      expect(page).to have_selector("alchemy-publish-element-button")
+      find("alchemy-publish-element-button sl-button[href]").click
+      within(".alchemy-dialog-body") do
+        expect(page).to have_selector("input[name='element[public_until]']")
+        find(".element_public_until .flatpickr-input[readonly]").click
+      end
+      within(".flatpickr-calendar.open") do
+        find(".flatpickr-day.today").click
+        find(".flatpickr-hour").set(2.hours.from_now.hour)
+      end
+      within(".alchemy-dialog-body") do
+        click_button("Save")
+      end
+      expect(page).to_not have_selector(".alchemy-dialog-body")
+      expect(page).to have_selector("sl-tooltip.element-scheduled-icon:not([hidden])")
+    end
+  end
+
   describe "With an element that has ingredient groups" do
     let(:element) do
       create(
