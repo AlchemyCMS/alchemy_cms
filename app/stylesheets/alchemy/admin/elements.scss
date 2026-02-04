@@ -610,6 +610,7 @@ alchemy-color-select {
   justify-content: space-between;
   align-items: center;
 
+  > input[type="text"],
   > .select2-container {
     width: 100%;
   }
@@ -630,6 +631,7 @@ alchemy-color-select {
   }
 
   &:has(input[type="color"]:not([disabled])) {
+    input[type="text"],
     .select2-container,
     .select2-choice {
       border-top-right-radius: 0;
@@ -637,6 +639,7 @@ alchemy-color-select {
     }
   }
 
+  input[type="text"] + input[type="color"],
   select + input[type="color"] {
     width: calc(2 * var(--form-field-addon-width));
     flex-shrink: 0;

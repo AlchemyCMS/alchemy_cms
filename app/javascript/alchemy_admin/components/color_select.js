@@ -21,8 +21,29 @@ class ColorSelect extends HTMLElement {
         this.#toggleColorPicker(event.val === "custom_color")
       )
     } else {
+      if (this.textInput) {
+        this.colorInput.addEventListener("input", this)
+        this.textInput.addEventListener("input", this)
+        this.textInput.value = this.colorInput.value
+      }
       this.#toggleColorPicker(true)
     }
+  }
+
+  handleEvent(event) {
+    switch (event.target) {
+      case this.colorInput:
+        this.textInput.value = this.colorInput.value
+        break
+      case this.textInput:
+        this.colorInput.value = this.textInput.value
+        break
+    }
+  }
+
+  disconnectedCallback() {
+    this.colorInput?.removeEventListener("input", this)
+    this.textInput?.removeEventListener("input", this)
   }
 
   #initializeSelect2() {
@@ -41,6 +62,10 @@ class ColorSelect extends HTMLElement {
 
   get colorInput() {
     return this.querySelector("input[type='color']")
+  }
+
+  get textInput() {
+    return this.querySelector("input[type='text']")
   }
 
   get select() {

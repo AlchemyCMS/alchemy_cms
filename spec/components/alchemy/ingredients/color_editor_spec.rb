@@ -31,6 +31,14 @@ RSpec.describe Alchemy::Ingredients::ColorEditor, type: :component do
     is_expected.to_not have_selector("select")
   end
 
+  context "with no color option" do
+    let(:settings) { {} }
+
+    it "renders a text input field with a color picker" do
+      is_expected.to have_selector("input[type='text'] + input[type='color']")
+    end
+  end
+
   context "with color options as name/value pairs" do
     let(:settings) { {colors: [%w[Red red], %w[Blue blue]]} }
     it "renders a select with color option" do
