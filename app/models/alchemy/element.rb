@@ -41,6 +41,7 @@ module Alchemy
       "ingredients",
       "message",
       "nestable_elements",
+      "searchable",
       "taggable",
       "warning"
     ].freeze

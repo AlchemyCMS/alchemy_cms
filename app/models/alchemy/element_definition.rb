@@ -22,6 +22,7 @@ module Alchemy
     attribute :warning
     attribute :hint
     attribute :icon
+    attribute :searchable, :boolean, default: true
 
     validates :name,
       presence: true,

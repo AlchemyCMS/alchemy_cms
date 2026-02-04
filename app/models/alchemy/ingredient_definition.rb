@@ -17,6 +17,7 @@ module Alchemy
     attribute :default
     attribute :deprecated
     attribute :hint
+    attribute :searchable, :boolean, default: true
 
     validates :role,
       presence: true,
