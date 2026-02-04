@@ -2,7 +2,7 @@ module Alchemy
   module Ingredients
     class ColorView < BaseView
       def call
-        value
+        value.html_safe
       end
 
       def render?
