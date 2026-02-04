@@ -1,9 +1,11 @@
 class ConvertSelectValueForMultiple < ActiveRecord::Migration[7.1]
   def up
-    execute <<-SQL
+    say_with_time "Converting Alchemy::Ingredients::Select values to multiple" do
+      update <<-SQL.squish
         UPDATE alchemy_ingredients
         SET value = '["' || value || '"]'
         WHERE type = 'Alchemy::Ingredients::Select' AND value NOT LIKE '["%"]';
-    SQL
+      SQL
+    end
   end
 end
