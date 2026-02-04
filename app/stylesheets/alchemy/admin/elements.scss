@@ -607,19 +607,22 @@ alchemy-publish-element-button {
 
 alchemy-color-select {
   display: flex;
-  gap: var(--spacing-2);
   justify-content: space-between;
   align-items: center;
 
+  > input[type="text"],
   > .select2-container {
     width: 100%;
   }
 
   > input[type="color"] {
-    border: var(--border-default);
+    border-width: var(--form-field-border-width);
+    border-style: var(--form-field-border-style);
+    border-color: var(--form-field-border-color);
     border-radius: var(--border-radius_medium);
     height: var(--form-field-height);
     background: var(--form-field-background-color);
+    padding: var(--spacing-1);
     width: 100%;
 
     &[disabled] {
@@ -627,9 +630,22 @@ alchemy-color-select {
     }
   }
 
+  &:has(input[type="color"]:not([disabled])) {
+    input[type="text"],
+    .select2-container,
+    .select2-choice {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  input[type="text"] + input[type="color"],
   select + input[type="color"] {
     width: calc(2 * var(--form-field-addon-width));
     flex-shrink: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left-width: 0;
   }
 }
 
@@ -638,9 +654,9 @@ alchemy-color-select {
 // component
 .select-color-option {
   .color-indicator {
-    --color: linear-gradient(90deg, red, orange, yellow, green, blue);
     background: var(--color) 100% 100% no-repeat;
     border: var(--border-default);
+    border-radius: var(--border-radius_medium);
     display: inline-block;
     height: var(--icon-size-md);
     width: var(--icon-size-md);
