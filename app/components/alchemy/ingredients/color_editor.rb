@@ -5,8 +5,18 @@ module Alchemy
     class ColorEditor < BaseEditor
       def input_field
         content_tag("alchemy-color-select") do
-          if colors.present?
-            concat select_tag(form_field_name, color_options, disabled: !editable?)
+          if colors.none?
+            concat text_field_tag(
+              form_field_name,
+              value,
+              disabled: !editable?
+            )
+          else
+            concat select_tag(
+              form_field_name,
+              color_options.join.html_safe,
+              disabled: !editable?
+            )
           end
           concat color_field_tag(form_field_name, value, disabled: disabled?)
         end
@@ -30,8 +40,16 @@ module Alchemy
         colors.map do |color|
           name, value, swatch = color_settings(color).values_at(:name, :value, :swatch)
           selected = value == color_value
-          content_tag(:option, name, value:, selected:, data: {swatch:})
-        end.join.html_safe
+          tag.option(name, value:, selected:, data: {swatch:})
+        end.tap do |option_tags|
+          if with_custom_color?
+            option_tags << tag.option(
+              Alchemy.t(:custom_color),
+              value: "custom_color",
+              selected: color_value == "custom_color"
+            )
+          end
+        end
       end
 
       def color_settings(color)
@@ -46,13 +64,7 @@ module Alchemy
       end
 
       def colors
-        @_colors ||= begin
-          @_colors = settings.fetch(:colors, [])
-          if with_custom_color?
-            @_colors << [Alchemy.t(:custom_color), "custom_color"]
-          end
-          @_colors
-        end
+        @_colors ||= settings.fetch(:colors, [])
       end
 
       def with_custom_color?
