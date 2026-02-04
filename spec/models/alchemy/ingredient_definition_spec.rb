@@ -27,6 +27,7 @@ module Alchemy
       it { is_expected.to have_key(:default) }
       it { is_expected.to have_key(:deprecated) }
       it { is_expected.to have_key(:hint) }
+      it { is_expected.to have_key(:searchable) }
     end
 
     describe "validations" do

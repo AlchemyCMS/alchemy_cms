@@ -32,6 +32,7 @@ module Alchemy
       it { is_expected.to have_key(:message) }
       it { is_expected.to have_key(:warning) }
       it { is_expected.to have_key(:hint) }
+      it { is_expected.to have_key(:searchable) }
     end
 
     describe "validations" do
