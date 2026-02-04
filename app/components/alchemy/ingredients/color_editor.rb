@@ -11,14 +11,15 @@ module Alchemy
               value,
               disabled: !editable?
             )
+            concat color_field_tag(nil, value, disabled: disabled?)
           else
             concat select_tag(
               form_field_name,
               color_options.join.html_safe,
               disabled: !editable?
             )
+            concat color_field_tag(form_field_name, value, disabled: disabled?)
           end
-          concat color_field_tag(form_field_name, value, disabled: disabled?)
         end
       end
 
