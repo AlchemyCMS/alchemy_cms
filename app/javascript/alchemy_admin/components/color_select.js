@@ -21,11 +21,8 @@ class ColorSelect extends HTMLElement {
         this.#toggleColorPicker(event.val === "custom_color")
       )
     } else {
-      if (this.textInput) {
-        this.colorInput.addEventListener("input", this)
-        this.textInput.addEventListener("input", this)
-        this.textInput.value = this.colorInput.value
-      }
+      this.colorInput?.addEventListener("input", this)
+      this.textInput?.addEventListener("input", this)
       this.#toggleColorPicker(true)
     }
   }
