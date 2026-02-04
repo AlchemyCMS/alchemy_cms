@@ -21,6 +21,7 @@ module Alchemy
     attribute :warning
     attribute :hint
     attribute :icon
+    attribute :searchable, :boolean, default: true
 
     # Needs to be down here in order to have the attribute reader
     # available after the attribute is defined.
