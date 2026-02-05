@@ -140,6 +140,43 @@ RSpec.describe Alchemy::Admin::ElementEditor, type: :component do
     end
   end
 
+  describe "#display_name" do
+    subject { element_editor.display_name }
+
+    context "without a parent element" do
+      let(:element) { build_stubbed(:alchemy_element, name: "article") }
+      let(:element_editor) { described_class.new(element: element) }
+
+      it "returns the element's display name" do
+        expect(subject).to eq(element.display_name)
+      end
+    end
+
+    context "with a parent element" do
+      let(:parent_element) { build_stubbed(:alchemy_element, name: "slider") }
+      let(:element) { build_stubbed(:alchemy_element, name: "slide") }
+      let(:parent_editor) { described_class.new(element: parent_element) }
+      let(:element_editor) { described_class.new(element: element, parent_element: parent_editor) }
+
+      it "returns the parent's display name followed by the element's display name" do
+        expect(subject).to eq("#{parent_element.display_name} > #{element.display_name}")
+      end
+    end
+
+    context "with deeply nested elements" do
+      let(:grandparent_element) { build_stubbed(:alchemy_element, name: "container") }
+      let(:parent_element) { build_stubbed(:alchemy_element, name: "slider") }
+      let(:element) { build_stubbed(:alchemy_element, name: "slide") }
+      let(:grandparent_editor) { described_class.new(element: grandparent_element) }
+      let(:parent_editor) { described_class.new(element: parent_element, parent_element: grandparent_editor) }
+      let(:element_editor) { described_class.new(element: element, parent_element: parent_editor) }
+
+      it "returns the full ancestry chain" do
+        expect(subject).to eq("#{grandparent_element.display_name} > #{parent_element.display_name} > #{element.display_name}")
+      end
+    end
+  end
+
   describe "#editable?" do
     subject { element_editor.editable? }
 

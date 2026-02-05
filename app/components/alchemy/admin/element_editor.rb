@@ -5,7 +5,7 @@ module Alchemy
     class ElementEditor < ViewComponent::Base
       with_collection_parameter :element
 
-      attr_reader :element, :created
+      attr_reader :element, :created, :parent_element
 
       delegate :compact?, :definition, :fixed?, :folded?, :id, :ingredient_definitions,
         :name, :nestable_elements, :all_nested_elements, :taggable?, :public?, :deprecated?,
@@ -13,9 +13,10 @@ module Alchemy
 
       delegate :alchemy, :cannot?, :render_icon, :render_message, to: :helpers
 
-      def initialize(element:, created: false)
+      def initialize(element:, created: false, parent_element: nil)
         @element = element
         @created = created
+        @parent_element = parent_element
       end
 
       # CSS classes for the element editor.
@@ -88,6 +89,12 @@ module Alchemy
           scope: "element_groups.#{element.name}",
           default: Alchemy.t("element_groups.#{group}", default: group.humanize)
         )
+      end
+
+      def display_name
+        parent_element ?
+          "#{parent_element.display_name} > #{element.display_name}"
+          : element.display_name
       end
 
       private
