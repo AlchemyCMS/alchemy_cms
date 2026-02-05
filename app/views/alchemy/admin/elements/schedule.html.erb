@@ -1,0 +1,11 @@
+<%= alchemy_form_for [:publish, :admin, @element], remote: false, data: {turbo: true} do |f| %>
+  <alchemy-datepicker input-type="datetime">
+    <%= f.input :public_on, as: :string,
+      hint: "Set this to a future time and it will be automatically visible on that time." %>
+  </alchemy-datepicker>
+  <alchemy-datepicker input-type="datetime">
+    <%= f.input :public_until, as: :string,
+      hint: "Set this if you want to automatically hide it again once it got visible." %>
+  </alchemy-datepicker>
+  <%= f.submit Alchemy.t(:save) %>
+<% end %>

@@ -43,19 +43,5 @@
       </button>
     </alchemy-delete-element-button>
   </sl-tooltip>
-  <sl-tooltip
-    content="<%= element.public? ? Alchemy.t(:hide_element) : Alchemy.t(:show_element) %>"
-    placement="top-end"
-    <%= "disabled" if cannot?(:update, element) %>
-  >
-    <alchemy-publish-element-button>
-      <sl-switch
-        size="small"
-        <%= "checked" if !element.public? %>
-        <%= "disabled" if cannot?(:update, element) %>
-      >
-        <%= t(".hide") %>
-      </sl-switch>
-    </alchemy-publish-element-button>
-  </sl-tooltip>
+  <%= render Alchemy::Admin::PublishElementButton.new(element:) %>
 </div>

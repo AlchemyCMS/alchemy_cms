@@ -15,7 +15,7 @@ if ENV["DB"] == "mysql" || ENV["DB"] == "mariadb"
 end
 gem "pg", "~> 1.0" if ENV["DB"] == "postgresql"
 
-gem "alchemy_i18n", github: "AlchemyCMS/alchemy_i18n", branch: "main"
+gem "alchemy_i18n", github: "AlchemyCMS/alchemy_i18n", branch: "publish-button"
 
 if ENV["ALCHEMY_STORAGE_ADAPTER"] == "active_storage"
   gem "ruby-vips"
