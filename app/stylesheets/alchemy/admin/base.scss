@@ -56,7 +56,7 @@ body {
     overflow: hidden;
   }
 
-  &:has(:not(:defined)) {
+  &:has(alchemy-spinner:not(:defined)) {
     opacity: var(--custom-elements-loaded, 0);
     animation: custom-elements-loaded 0 linear 250ms forwards;
   }
