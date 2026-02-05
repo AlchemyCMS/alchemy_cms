@@ -1,5 +1,11 @@
 @use "../mixins";
 
+@property --custom-elements-loaded {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
 html {
   box-sizing: border-box;
   height: 100%;
@@ -46,6 +52,7 @@ body {
   cursor: default;
   opacity: 1;
   transition: opacity var(--transition-duration);
+  animation: custom-elements-loaded 0 linear 250ms forwards;
 
   // Fix for strange element window offset
   &.pages.edit {
@@ -58,7 +65,6 @@ body {
 
   &:has(alchemy-spinner:not(:defined)) {
     opacity: var(--custom-elements-loaded, 0);
-    animation: custom-elements-loaded 0 linear 250ms forwards;
   }
 }
 
