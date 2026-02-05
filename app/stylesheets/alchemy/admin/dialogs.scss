@@ -192,11 +192,17 @@
   }
 
   .buttons {
-    text-align: right;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: auto;
+    gap: var(--spacing-3);
+    align-items: center;
+    margin-top: 2em;
+    margin-bottom: 0;
 
-    label {
-      float: left;
-      margin-top: var(--spacing-3);
+    > .button {
+      width: 100%;
+      white-space: nowrap;
     }
   }
 }
