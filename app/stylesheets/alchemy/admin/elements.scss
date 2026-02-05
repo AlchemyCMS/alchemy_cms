@@ -5,7 +5,7 @@
 
 #alchemy_elements_window {
   --width: var(--elements-window-width, 100vw);
-  position: absolute;
+  position: fixed;
   right: 0;
   top: var(--top-menu-height);
   z-index: 20;
@@ -21,7 +21,8 @@
     --elements-window-background-color,
     var(--dialog-background-color)
   );
-  transition: var(--transition-duration) ease-in-out;
+  transition: var(--transition-duration)
+    var(--elements-window-transition-easing);
   transform: translate3d(100%, 0, 0);
 
   .elements-window-visible & {
@@ -97,6 +98,7 @@ alchemy-elements-window {
   --scrollable-elements-offset: calc(
     var(--top-menu-height) + var(--toolbar-height)
   );
+  display: block;
 }
 
 #main-content-elements {
