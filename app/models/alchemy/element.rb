@@ -96,6 +96,7 @@ module Alchemy
 
     validates_presence_of :name, on: :create
     validates_format_of :name, on: :create, with: NAME_REGEXP
+    validate :validate_same_page_version_as_parent
 
     after_initialize :set_default_public_on, if: :new_record?
 
@@ -183,13 +184,28 @@ module Alchemy
       end
     end
 
-    # Heavily unoptimized naive way to get all parent ids
+    # Returns all parent element IDs from immediate parent up to root
+    #
+    # Optimized to use a single query instead of N queries for N-level depth.
+    # Loads all element parent relationships for the page version, then walks
+    # up the tree in memory.
+    #
+    # @return [Array<Integer>] Parent element IDs from immediate parent to root
     def parent_element_ids
-      ids ||= []
-      parent = parent_element
-      while parent
-        ids.push parent.id
-        parent = parent.parent_element
+      return [] unless parent_element_id
+
+      # Single query to get all parent relationships for this page version
+      parent_lookup = self.class
+        .where(page_version_id: page_version_id)
+        .pluck(:id, :parent_element_id)
+        .to_h
+
+      # Walk up the tree using the preloaded lookup hash
+      ids = []
+      current_id = parent_element_id
+      while current_id
+        ids << current_id
+        current_id = parent_lookup[current_id]
       end
       ids
     end
@@ -315,6 +331,13 @@ module Alchemy
     def set_default_public_on
       return if @public_on_explicitely_set
       self.public_on ||= Time.current
+    end
+
+    def validate_same_page_version_as_parent
+      return unless parent_element
+      return if page_version_id == parent_element.page_version_id
+
+      errors.add(:page_version_id, :must_match_parent)
     end
 
     def generate_nested_elements
