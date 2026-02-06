@@ -190,6 +190,22 @@ RSpec.describe Alchemy::Element do
           nested_element_2.ingredient_ids
         )
       end
+
+      context "when all_nested_elements is preloaded" do
+        subject do
+          Alchemy::Element.preload(:all_nested_elements, ingredients: :related_object)
+            .find(element.id)
+            .richtext_ingredients_ids
+        end
+
+        it "includes all richtext ingredients from all expanded descendent elements" do
+          is_expected.to eq(
+            element.ingredient_ids +
+            nested_element_1.ingredient_ids +
+            nested_element_2.ingredient_ids
+          )
+        end
+      end
     end
   end
 end
