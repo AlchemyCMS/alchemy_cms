@@ -1,8 +1,8 @@
 alchemy-list-filter {
-  display: flex;
+  display: block;
   position: relative;
 
-  > alchemy-icon {
+  > label alchemy-icon {
     position: absolute;
     left: var(--spacing-2);
     top: 50%;
@@ -12,7 +12,7 @@ alchemy-list-filter {
   .js_filter_field {
     width: 100%;
     padding-left: var(--spacing-7);
-    padding-right: var(--spacing-6);
+    padding-right: var(--spacing-7);
     margin: 0;
 
     form .input & {
@@ -25,7 +25,7 @@ alchemy-list-filter {
     display: flex;
     visibility: hidden;
     position: absolute;
-    right: var(--spacing-1);
+    right: var(--spacing-2);
     top: 50%;
     transform: translateY(-50%);
     width: 16px;

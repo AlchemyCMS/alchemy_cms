@@ -216,6 +216,7 @@
   /* Toolbar */
   --toolbar-bg-color: var(--a-darker-grey);
   --toolbar-border-bottom: 1px solid var(--a-darkest-grey);
+  --toolbar-spacer-color: var(--a-grey);
 
   /* Tooltips */
   --tooltip-background-color: var(--color-blue_dark);
@@ -490,6 +491,7 @@
   /* Toolbar */
   --toolbar-bg-color: var(--color-grey_light);
   --toolbar-border-bottom: var(--border-default);
+  --toolbar-spacer-color: var(--border-color);
 
   /* Tooltips */
   --tooltip-background-color: var(--color-blue_dark);

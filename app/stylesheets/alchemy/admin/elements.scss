@@ -73,8 +73,28 @@ alchemy-elements-window-handle {
   padding: var(--spacing-2);
 
   .right {
-    display: inline-block;
+    display: inline-flex;
+    gap: var(--spacing-2);
     margin-left: auto;
+  }
+
+  alchemy-list-filter {
+    width: 54px;
+    transition: var(--transition-duration);
+
+    &:focus-within,
+    &:has(input:not(:placeholder-shown)) {
+      width: 180px;
+
+      input {
+        background-color: var(--form-field-background-color);
+      }
+    }
+
+    input {
+      height: 100%;
+      background-color: var(--toolbar-bg-color);
+    }
   }
 }
 
@@ -191,13 +211,9 @@ button.element-toggle {
     --element-editor-background-color,
     --dialog-background-color
   );
-  margin: var(--spacing-2) 0;
+  margin-bottom: var(--spacing-2);
   transition: box-shadow var(--transition-duration);
   scroll-margin: var(--spacing-2);
-
-  &:first-child {
-    margin-top: 0;
-  }
 
   &.element-hidden {
     border-style: dashed;

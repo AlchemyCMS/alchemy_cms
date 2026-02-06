@@ -1,6 +1,6 @@
 <div class="tag-list<%= ' with_filter_bar' if resource_has_filters %><%= ' filtered' if search_filter_params[:tagged_with].present? %>">
   <h3><%= Alchemy.t("Filter by tag") %></h3>
-  <%= render Alchemy::Admin::ListFilter.new(".tag-list li") %>
+  <%= render Alchemy::Admin::ListFilter.new(".tag-list li", placeholder: Alchemy.t("Filter tags")) %>
   <ul>
     <%= render Alchemy::Admin::TagsList.new(resource_model.name) %>
   </ul>

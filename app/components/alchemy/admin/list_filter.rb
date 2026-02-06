@@ -17,26 +17,37 @@ module Alchemy
     #
     # @param [String] items_selector - A CSS selector string that represents the items to filter
     # @param [String] name_attribute - A name that represents the attribute on the items to get filtered by
+    # @param [String] placeholder - Inoput field placeholder
     #
     class ListFilter < ViewComponent::Base
       erb_template <<~ERB
-        <alchemy-list-filter items-selector="<%= items_selector %>" name-attribute="<%= name_attribute %>">
-          <input type="text" class="js_filter_field" />
-          <alchemy-icon name="search"></alchemy-icon>
+        <alchemy-list-filter
+          items-selector="<%= items_selector %>"
+          name-attribute="<%= name_attribute %>"
+          <% if hotkey %>
+          hotkey="<%= hotkey %>"
+          <% end %>
+        >
+          <label>
+            <alchemy-icon name="search"></alchemy-icon>
+            <input type="text" placeholder="<%= placeholder %>" class="js_filter_field">
+          </label>
           <button type="button" class="js_filter_field_clear icon_button">
             <alchemy-icon name="close" size="1x"></alchemy-icon>
           </button>
         </alchemy-list-filter>
       ERB
 
-      def initialize(items_selector, name_attribute: "name")
+      def initialize(items_selector, name_attribute: "name", placeholder: Alchemy.t(:filter), hotkey: nil)
         @items_selector = items_selector
         @name_attribute = name_attribute
+        @placeholder = placeholder
+        @hotkey = hotkey
       end
 
       private
 
-      attr_reader :items_selector, :name_attribute
+      attr_reader :items_selector, :name_attribute, :placeholder, :hotkey
     end
   end
 end

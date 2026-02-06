@@ -3,9 +3,10 @@
 .tag-list {
   display: flex;
   flex-direction: column;
+  margin-top: var(--spacing-3);
   margin-bottom: var(--spacing-2);
 
-  label {
+  > label {
     display: block;
     font-weight: bold;
     font-size: var(--font-size_medium);
@@ -83,6 +84,7 @@
 #tags_tag_list {
   alchemy-list-filter {
     margin-top: 0;
+    margin-bottom: var(--spacing-0);
   }
 
   ul.tags {
