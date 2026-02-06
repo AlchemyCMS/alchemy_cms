@@ -166,6 +166,71 @@ describe("alchemy-list-filter", () => {
     })
   })
 
+  describe("debouncing", () => {
+    let component
+
+    beforeEach(() => {
+      vi.useFakeTimers()
+      const html = `
+        <alchemy-list-filter items-selector=".item" name-attribute="name">
+          <input type="text">
+          <button type="button">Clear</button>
+        </alchemy-list-filter>
+        <ul>
+          <li class="item" name="Apple">Apple</li>
+          <li class="item" name="Banana">Banana</li>
+        </ul>
+      `
+      component = renderComponent("alchemy-list-filter", html)
+    })
+
+    afterEach(() => {
+      vi.useRealTimers()
+    })
+
+    it("debounces filter on keyup", () => {
+      const filterSpy = vi.spyOn(component, "filter")
+
+      // Rapid keystrokes
+      component.filterField.value = "a"
+      component.filterField.dispatchEvent(new Event("keyup"))
+      component.filterField.value = "ap"
+      component.filterField.dispatchEvent(new Event("keyup"))
+      component.filterField.value = "app"
+      component.filterField.dispatchEvent(new Event("keyup"))
+
+      expect(filterSpy).not.toHaveBeenCalled()
+
+      vi.advanceTimersByTime(150)
+
+      expect(filterSpy).toHaveBeenCalledTimes(1)
+      expect(filterSpy).toHaveBeenCalledWith("app")
+    })
+
+    it("uses custom debounce time from attribute", () => {
+      const html = `
+        <alchemy-list-filter items-selector=".item" name-attribute="name" debounce-time="300">
+          <input type="text">
+          <button type="button">Clear</button>
+        </alchemy-list-filter>
+        <ul>
+          <li class="item" name="Apple">Apple</li>
+        </ul>
+      `
+      const customComponent = renderComponent("alchemy-list-filter", html)
+      const filterSpy = vi.spyOn(customComponent, "filter")
+
+      customComponent.filterField.value = "app"
+      customComponent.filterField.dispatchEvent(new Event("keyup"))
+
+      vi.advanceTimersByTime(150)
+      expect(filterSpy).not.toHaveBeenCalled()
+
+      vi.advanceTimersByTime(150)
+      expect(filterSpy).toHaveBeenCalledTimes(1)
+    })
+  })
+
   describe("attributes", () => {
     it("uses 'name' as default name attribute", () => {
       const html = `
