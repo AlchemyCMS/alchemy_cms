@@ -175,7 +175,7 @@ RSpec.describe Alchemy::ElementPreloader do
 
         # Queries are bounded regardless of element count (8 elements created)
         # Root elements, all elements, ingredients, related objects, tags
-        # No language passed, so no description preloading
+        # No language passed, so no description/thumb preloading
         expect {
           result = described_class.new(elements: elements).call
 
@@ -269,9 +269,11 @@ RSpec.describe Alchemy::ElementPreloader do
         elements = page_version.elements.not_nested.order(:position)
 
         # Expected queries:
-        # Root elements (2x from includes), all elements, ingredients (2x),
-        # related objects (2x), tags (2x), picture descriptions
+        # Root elements, all elements, ingredients, related objects, tags,
+        # picture descriptions, picture storage associations (thumbs for Dragonfly, attachment+blob for ActiveStorage)
         # No additional queries when accessing descriptions (preloaded)
+        expected_queries = Alchemy.storage_adapter.dragonfly? ? 11 : 12
+
         expect {
           preloaded = described_class.new(elements: elements, language: language).call
 
@@ -283,7 +285,7 @@ RSpec.describe Alchemy::ElementPreloader do
               end
             end
           end
-        }.to make_database_queries(count: 10)
+        }.to make_database_queries(count: expected_queries)
       end
     end
 

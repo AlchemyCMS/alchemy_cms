@@ -134,7 +134,7 @@ module Alchemy
         Alchemy.storage_adapter.file_formats(name, scope:)
       end
 
-      # Preload descriptions for element editor display
+      # Preload associations for element editor display
       #
       # @param pictures [Array<Picture>] Collection of pictures to preload for
       # @param language [Alchemy::Language] Current language for descriptions
@@ -142,6 +142,8 @@ module Alchemy
         return if pictures.blank? || language.nil?
 
         picture_ids = pictures.map(&:id).uniq
+
+        # Preload descriptions
         descriptions = Alchemy::PictureDescription
           .where(picture_id: picture_ids, language: language)
           .index_by(&:picture_id)
@@ -149,6 +151,9 @@ module Alchemy
         pictures.each do |picture|
           picture.instance_variable_set(:@preloaded_description, descriptions[picture.id])
         end
+
+        # Preload storage-specific associations to avoid N+1 when rendering thumbnails
+        Alchemy.storage_adapter.preload_picture_associations(pictures)
       end
     end
 

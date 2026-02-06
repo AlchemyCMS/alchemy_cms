@@ -394,14 +394,28 @@ module Alchemy
           expect(picture2.instance_variable_get(:@preloaded_description)).to eq(description2)
         end
 
-        it "uses only one query for all descriptions" do
-          query_count = 0
-          counter = ->(*, _) { query_count += 1 }
-          ActiveSupport::Notifications.subscribed(counter, "sql.active_record") do
+        it "preloads descriptions and thumbs", if: Alchemy.storage_adapter.dragonfly? do
+          # 1 query for descriptions + 1 query for thumbs
+          expect {
             described_class.alchemy_element_preloads([picture1, picture2], language: language)
-          end
+          }.to make_database_queries(count: 2)
 
-          expect(query_count).to eq(1)
+          expect(picture1.association(:thumbs)).to be_loaded
+          expect(picture2.association(:thumbs)).to be_loaded
+        end
+
+        it "preloads descriptions and image file", if: Alchemy.storage_adapter.active_storage? do
+          # Reload pictures to clear already-loaded associations from factory
+          reloaded1 = Picture.find(picture1.id)
+          reloaded2 = Picture.find(picture2.id)
+
+          # 1 query for descriptions + 2 queries for image_file_attachment + blob
+          expect {
+            described_class.alchemy_element_preloads([reloaded1, reloaded2], language: language)
+          }.to make_database_queries(count: 3)
+
+          expect(reloaded1.association(:image_file_attachment)).to be_loaded
+          expect(reloaded2.association(:image_file_attachment)).to be_loaded
         end
       end
 
