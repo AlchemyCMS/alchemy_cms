@@ -97,6 +97,10 @@ module Alchemy
           : element.display_name
       end
 
+      def filter_text
+        [display_name, element.preview_text].compact_blank.join(" ")
+      end
+
       private
 
       def find_or_create_ingredient(definition)

@@ -177,6 +177,36 @@ RSpec.describe Alchemy::Admin::ElementEditor, type: :component do
     end
   end
 
+  describe "#filter_text" do
+    subject { element_editor.filter_text }
+
+    let(:element) { build_stubbed(:alchemy_element, name: "article") }
+
+    it "includes the display name" do
+      expect(subject).to include(element.display_name)
+    end
+
+    context "with preview text" do
+      before do
+        allow(element).to receive(:preview_text).and_return("Some preview content")
+      end
+
+      it "includes the preview text" do
+        expect(subject).to eq("#{element.display_name} Some preview content")
+      end
+    end
+
+    context "without preview text" do
+      before do
+        allow(element).to receive(:preview_text).and_return("")
+      end
+
+      it "returns just the display name" do
+        expect(subject).to eq(element.display_name)
+      end
+    end
+  end
+
   describe "#editable?" do
     subject { element_editor.editable? }
 
