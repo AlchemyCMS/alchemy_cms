@@ -188,6 +188,15 @@ module Alchemy
         pictures.with_attached_image_file
       end
 
+      # Preload picture associations on already-loaded records
+      # @param [Array<Alchemy::Picture>] pictures
+      def preload_picture_associations(pictures)
+        ActiveRecord::Associations::Preloader.new(
+          records: pictures,
+          associations: {image_file_attachment: :blob}
+        ).call
+      end
+
       # @param [Alchemy::Attachment]
       # @return [TrueClass, FalseClass]
       def set_attachment_name?(attachment)
