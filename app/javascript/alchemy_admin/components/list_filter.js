@@ -28,10 +28,26 @@ class ListFilter extends HTMLElement {
       this.clearButton.style.visibility = "hidden"
     }
 
+    const itemsToShow = new Set()
+
+    // First pass: find matching items and mark their ancestors as visible too
     this.items.forEach((item) => {
       const name = item.getAttribute(this.nameAttribute)?.toLowerCase()
       // indexOf is much faster then match()
       if (name.indexOf(term.toLowerCase()) !== -1) {
+        itemsToShow.add(item)
+        // Mark ancestor items as visible so nested matches stay visible
+        let ancestor = item.parentElement?.closest(this.itemsSelector)
+        while (ancestor) {
+          itemsToShow.add(ancestor)
+          ancestor = ancestor.parentElement?.closest(this.itemsSelector)
+        }
+      }
+    })
+
+    // Second pass: apply visibility
+    this.items.forEach((item) => {
+      if (itemsToShow.has(item)) {
         item.classList.remove("hidden")
       } else {
         item.classList.add("hidden")
