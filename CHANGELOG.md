@@ -1,5 +1,19 @@
 # Changelog
 
+## 8.0.7 (2026-02-06)
+
+## What's Changed
+* [8.0-stable] Add searchable attributes to element and ingredient definition by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3634
+* [8.0-stable] fix(elements-window): Use fixed position by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3645
+* [8.0-stable] fix(tinymce): Do not exceed height of element window by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3650
+* [8.0-stable] fix(leave dialog): Re-align buttons by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3646
+* [8.0-stable] fix(FOUC): Always register timeout animation by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3652
+* [8.0-stable] fix(resource info value): Correct block alignment by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3653
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.0.6...v8.0.7
+
+
 ## 8.0.6 (2026-02-03)
 
 ## What's Changed
