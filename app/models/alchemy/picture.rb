@@ -133,6 +133,16 @@ module Alchemy
       def file_formats(scope = all)
         Alchemy.storage_adapter.file_formats(name, scope:)
       end
+
+      # Preload associations for element editor display
+      #
+      # @param pictures [Array<Picture>] Collection of pictures to preload for
+      def alchemy_element_preloads(pictures)
+        return if pictures.blank?
+
+        # Preload storage-specific associations to avoid N+1 when rendering thumbnails
+        Alchemy.storage_adapter.preload_picture_associations(pictures)
+      end
     end
 
     # Instance methods

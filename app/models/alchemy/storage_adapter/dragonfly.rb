@@ -213,6 +213,15 @@ module Alchemy
         pictures.includes(:thumbs)
       end
 
+      # Preload picture associations on already-loaded records
+      # @param [Array<Alchemy::Picture>] pictures
+      def preload_picture_associations(pictures)
+        ActiveRecord::Associations::Preloader.new(
+          records: pictures,
+          associations: :thumbs
+        ).call
+      end
+
       # @param [Alchemy::Attachment]
       # @return [TrueClass, FalseClass]
       def set_attachment_name?(attachment)
