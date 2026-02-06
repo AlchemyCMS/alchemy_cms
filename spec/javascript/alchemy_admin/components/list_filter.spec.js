@@ -7,6 +7,8 @@ describe("alchemy-list-filter", () => {
     window.key = vi.fn()
     window.key.setScope = vi.fn()
     window.key.unbind = vi.fn()
+    // Mock scrollIntoView since it's not available in jsdom
+    Element.prototype.scrollIntoView = vi.fn()
   })
 
   beforeEach(() => {
@@ -66,6 +68,31 @@ describe("alchemy-list-filter", () => {
       const items = document.querySelectorAll(".item")
       items.forEach((item) => {
         expect(item.classList.contains("hidden")).toBe(false)
+      })
+    })
+
+    it("scrolls single result into view", () => {
+      const banana = document.querySelector('[name="Banana"]')
+      banana.scrollIntoView = vi.fn()
+
+      component.filter("ban")
+
+      expect(banana.scrollIntoView).toHaveBeenCalledWith({
+        behavior: "smooth",
+        block: "nearest"
+      })
+    })
+
+    it("does not scroll when multiple results match", () => {
+      const items = document.querySelectorAll(".item")
+      items.forEach((item) => {
+        item.scrollIntoView = vi.fn()
+      })
+
+      component.filter("a") // Matches Apple and Banana
+
+      items.forEach((item) => {
+        expect(item.scrollIntoView).not.toHaveBeenCalled()
       })
     })
   })
@@ -168,6 +195,20 @@ describe("alchemy-list-filter", () => {
       expect(level1.classList.contains("hidden")).toBe(false)
       expect(level2.classList.contains("hidden")).toBe(false)
       expect(level3.classList.contains("hidden")).toBe(false)
+    })
+
+    it("scrolls single nested match into view even with visible ancestors", () => {
+      const level3 = document.querySelector(
+        '[display-name="Level 1 > Level 2 > Level 3"]'
+      )
+      level3.scrollIntoView = vi.fn()
+
+      component.filter("Level 3")
+
+      expect(level3.scrollIntoView).toHaveBeenCalledWith({
+        behavior: "smooth",
+        block: "nearest"
+      })
     })
   })
 

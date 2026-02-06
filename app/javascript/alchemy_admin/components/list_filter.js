@@ -48,6 +48,7 @@ class ListFilter extends HTMLElement {
       this.clearButton.style.visibility = "hidden"
     }
 
+    const matchedItems = []
     const itemsToShow = new Set()
     const lowerTerm = term.toLowerCase()
 
@@ -56,6 +57,7 @@ class ListFilter extends HTMLElement {
       const name = item.getAttribute(this.nameAttribute)?.toLowerCase()
       // indexOf is much faster then match()
       if (name.indexOf(lowerTerm) !== -1) {
+        matchedItems.push(item)
         itemsToShow.add(item)
         // Mark ancestor items as visible so nested matches stay visible
         let ancestor = item.parentElement?.closest(this.itemsSelector)
@@ -70,6 +72,11 @@ class ListFilter extends HTMLElement {
     this.items.forEach((item) => {
       item.classList.toggle("hidden", !itemsToShow.has(item))
     })
+
+    // Scroll into view if only one match
+    if (matchedItems.length === 1) {
+      matchedItems[0].scrollIntoView({ behavior: "smooth", block: "nearest" })
+    }
   }
 
   clear() {
