@@ -75,11 +75,19 @@ module Alchemy
       # This is used to re-initialize the TinyMCE editor in the element editor.
       #
       def richtext_ingredients_ids
-        ids = ingredients.select(&:has_tinymce?).collect(&:id)
-        expanded_nested_elements = nested_elements.expanded
-        if expanded_nested_elements.present?
-          ids += expanded_nested_elements.collect(&:richtext_ingredients_ids)
+        ids = ingredients.filter_map { |i| i.id if i.has_tinymce? }
+
+        # Use preloaded association if available, otherwise query
+        expanded_nested_elements = if association(:all_nested_elements).loaded?
+          all_nested_elements.select(&:expanded?)
+        else
+          nested_elements.expanded
         end
+
+        if expanded_nested_elements.present?
+          ids += expanded_nested_elements.map(&:richtext_ingredients_ids)
+        end
+
         ids.flatten
       end
 
