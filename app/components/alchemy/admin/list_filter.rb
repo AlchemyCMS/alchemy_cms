@@ -21,7 +21,13 @@ module Alchemy
     #
     class ListFilter < ViewComponent::Base
       erb_template <<~ERB
-        <alchemy-list-filter items-selector="<%= items_selector %>" name-attribute="<%= name_attribute %>">
+        <alchemy-list-filter
+          items-selector="<%= items_selector %>"
+          name-attribute="<%= name_attribute %>"
+          <% if hotkey %>
+          hotkey="<%= hotkey %>"
+          <% end %>
+        >
           <label>
             <alchemy-icon name="search"></alchemy-icon>
             <input type="text" placeholder="<%= placeholder %>" class="js_filter_field">
@@ -32,15 +38,16 @@ module Alchemy
         </alchemy-list-filter>
       ERB
 
-      def initialize(items_selector, name_attribute: "name", placeholder: Alchemy.t(:filter))
+      def initialize(items_selector, name_attribute: "name", placeholder: Alchemy.t(:filter), hotkey: nil)
         @items_selector = items_selector
         @name_attribute = name_attribute
         @placeholder = placeholder
+        @hotkey = hotkey
       end
 
       private
 
-      attr_reader :items_selector, :name_attribute, :placeholder
+      attr_reader :items_selector, :name_attribute, :placeholder, :hotkey
     end
   end
 end

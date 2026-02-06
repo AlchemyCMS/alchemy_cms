@@ -19,7 +19,8 @@
         <%= render Alchemy::Admin::ListFilter.new(
           "alchemy-element-editor",
           name_attribute: "display-name",
-          placeholder: Alchemy.t("Filter elements")
+          placeholder: Alchemy.t("Filter elements"),
+          hotkey: "alt+f"
         ) %>
         <div class="toolbar_spacer"></div>
         <sl-tooltip content="<%= Alchemy.t("Collapse all elements") %>" placement="bottom-end">
