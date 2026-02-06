@@ -6,6 +6,11 @@ describe("alchemy-list-filter", () => {
     // Mock the global key function used for keyboard shortcuts
     window.key = vi.fn()
     window.key.setScope = vi.fn()
+    window.key.unbind = vi.fn()
+  })
+
+  beforeEach(() => {
+    vi.clearAllMocks()
   })
 
   describe("with a flat list", () => {
@@ -252,6 +257,71 @@ describe("alchemy-list-filter", () => {
       `
       const component = renderComponent("alchemy-list-filter", html)
       expect(component.nameAttribute).toBe("display-name")
+    })
+  })
+
+  describe("hotkey", () => {
+    it("binds hotkey when attribute is present", () => {
+      const html = `
+        <alchemy-list-filter items-selector=".item" hotkey="alt+f">
+          <input type="text">
+          <button type="button">Clear</button>
+        </alchemy-list-filter>
+      `
+      renderComponent("alchemy-list-filter", html)
+      expect(window.key).toHaveBeenCalledWith("alt+f", expect.any(Function))
+    })
+
+    it("does not bind hotkey when attribute is missing", () => {
+      const html = `
+        <alchemy-list-filter items-selector=".item">
+          <input type="text">
+          <button type="button">Clear</button>
+        </alchemy-list-filter>
+      `
+      renderComponent("alchemy-list-filter", html)
+      // key is called for "esc" binding, but not for a hotkey
+      const calls = window.key.mock.calls
+      const hotkeyCall = calls.find(
+        (call) => call[0] !== "esc" && call[1] !== "list_filter"
+      )
+      expect(hotkeyCall).toBeUndefined()
+    })
+
+    it("unbinds hotkey on disconnectedCallback", () => {
+      const html = `
+        <alchemy-list-filter items-selector=".item" hotkey="alt+f">
+          <input type="text">
+          <button type="button">Clear</button>
+        </alchemy-list-filter>
+      `
+      const component = renderComponent("alchemy-list-filter", html)
+      component.remove()
+      expect(window.key.unbind).toHaveBeenCalledWith("alt+f")
+    })
+
+    it("does not unbind hotkey when no hotkey was set", () => {
+      const html = `
+        <alchemy-list-filter items-selector=".item">
+          <input type="text">
+          <button type="button">Clear</button>
+        </alchemy-list-filter>
+      `
+      const component = renderComponent("alchemy-list-filter", html)
+      component.remove()
+      expect(window.key.unbind).not.toHaveBeenCalledWith("alt+f")
+    })
+
+    it("unbinds esc key on disconnectedCallback", () => {
+      const html = `
+        <alchemy-list-filter items-selector=".item">
+          <input type="text">
+          <button type="button">Clear</button>
+        </alchemy-list-filter>
+      `
+      const component = renderComponent("alchemy-list-filter", html)
+      component.remove()
+      expect(window.key.unbind).toHaveBeenCalledWith("esc", "list_filter")
     })
   })
 })

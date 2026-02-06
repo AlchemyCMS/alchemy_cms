@@ -9,6 +9,12 @@ class ListFilter extends HTMLElement {
   }
 
   #attachEvents() {
+    if (this.hotkey) {
+      key(this.hotkey, () => {
+        this.filterField.focus()
+        return false
+      })
+    }
     this.filterField.addEventListener("keyup", () => {
       clearTimeout(this.#debounceTimer)
       this.#debounceTimer = setTimeout(() => {
@@ -28,6 +34,13 @@ class ListFilter extends HTMLElement {
       this.clear()
       this.filterField.blur()
     })
+  }
+
+  disconnectedCallback() {
+    if (this.hotkey) {
+      key.unbind(this.hotkey)
+    }
+    key.unbind("esc", "list_filter")
   }
 
   filter(term) {
@@ -87,6 +100,10 @@ class ListFilter extends HTMLElement {
 
   get debounceTime() {
     return parseInt(this.getAttribute("debounce-time")) || DEFAULT_DEBOUNCE_TIME
+  }
+
+  get hotkey() {
+    return this.getAttribute("hotkey")
   }
 }
 
