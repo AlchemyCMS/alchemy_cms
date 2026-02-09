@@ -335,7 +335,7 @@ module Alchemy
 
         subject { post :expand, params: {id: nested_nested_folded_element.id} }
 
-        it "expands all parent elements" do
+        it "expands all folded parent elements" do
           subject
           aggregate_failures do
             expect(nested_element.reload).to_not be_folded
@@ -345,12 +345,11 @@ module Alchemy
           end
         end
 
-        it "returns json" do
+        it "returns json with only the folded parent element ids" do
           subject
           expect(JSON.parse(response.body)).to eq({
             "parentElementIds" => [
               element.id,
-              nested_element.id,
               nested_nested_element.id,
               nested_folded_element.id
             ],
