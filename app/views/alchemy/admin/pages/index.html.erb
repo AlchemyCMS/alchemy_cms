@@ -26,7 +26,9 @@
   <% else %>
     <% if @root_page %>
       <h2 id="page_filter_result">Page filter display</h2>
-      <%= render "sitemap", page_partial: "page" %>
+      <%= turbo_frame_tag "alchemy_pages_tree", src: alchemy.tree_admin_pages_path do %>
+        <alchemy-spinner></alchemy-spinner>
+      <% end %>
     <% elsif can?(:create, Alchemy::Page) %>
       <%= render partial: "create_language_form" %>
     <% else %>

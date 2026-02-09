@@ -1,0 +1,13 @@
+<%= turbo_frame_tag "alchemy_pages_tree" do %>
+  <h4 id="sitemap_heading">
+    <span class="page_name"><%= Alchemy::Page.human_attribute_name(:name) %></span>
+    <span class="page_urlname"><%= Alchemy::Page.human_attribute_name(:urlname) %></span>
+    <span class="page_status"><%= Alchemy.t(:page_status) %></span>
+  </h4>
+
+  <alchemy-sitemap>
+    <ul id="sitemap" class="list">
+      <%= render Alchemy::Admin::PageNode.new(page: @root_page) %>
+    </ul>
+  </alchemy-sitemap>
+<% end %>
