@@ -52,7 +52,8 @@
             @page.name,
             url(:edit_page),
             title: t(:edit_page),
-            class: "sitemap_pagename_link"
+            class: "sitemap_pagename_link",
+            "data-turbo-frame": "_top"
           ) %>
         <% else %>
           <%= content_tag("span", @page.name, class: "sitemap_pagename_link") %>
