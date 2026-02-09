@@ -2,6 +2,7 @@
   id="element_<%= id %>"
   data-element-id="<%= id %>"
   data-element-name="<%= name %>"
+  filter-text="<%= filter_text %>"
   class="<%= css_classes.join(" ") %>"
   <%= compact? ? "compact" : nil %>
   <%= created ? "created" : nil %>
@@ -76,7 +77,7 @@
           'droppable-elements' => nestable_elements.join(' '),
           'element-name' => name
         } do %>
-        <%= render Alchemy::Admin::ElementEditor.with_collection(all_nested_elements) %>
+        <%= render Alchemy::Admin::ElementEditor.with_collection(all_nested_elements, parent_element: self) %>
       <% end %>
 
       <%= render "alchemy/admin/elements/add_nested_element_form", element: element %>

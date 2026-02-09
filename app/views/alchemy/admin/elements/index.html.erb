@@ -15,11 +15,20 @@
         if_permitted_to: [:create, Alchemy::Element]
       ) %>
       <%= render "alchemy/admin/clipboard/button", remarkable_type: "elements", tooltip_placement: "bottom-start" %>
-      <sl-tooltip content="<%= Alchemy.t("Collapse all elements") %>" placement="bottom-end" class="right">
-        <button id="collapse-all-elements-button" class="icon_button">
-          <alchemy-icon name="contract-up-down"></alchemy-icon>
-        </button>
-      </sl-tooltip>
+      <div class="right">
+        <%= render Alchemy::Admin::ListFilter.new(
+          "alchemy-element-editor",
+          name_attribute: "filter-text",
+          placeholder: Alchemy.t("Filter elements"),
+          hotkey: "alt+f"
+        ) %>
+        <div class="toolbar_spacer"></div>
+        <sl-tooltip content="<%= Alchemy.t("Collapse all elements") %>" placement="bottom-end">
+          <button id="collapse-all-elements-button" class="icon_button">
+            <alchemy-icon name="contract-up-down"></alchemy-icon>
+          </button>
+        </sl-tooltip>
+      </div>
     </div>
     <% if @page.element_definitions.any?(&:fixed) %>
       <sl-tab-group id="fixed-elements">

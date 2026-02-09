@@ -13,7 +13,7 @@
     <div class="input tags">
       <label class="control-label"><%= Alchemy.t('Tags') %></label>
       <div class="control_group" id="tags_tag_list">
-        <%= render Alchemy::Admin::ListFilter.new(".tag-list li") %>
+        <%= render Alchemy::Admin::ListFilter.new(".tag-list li", placeholder: Alchemy.t("Filter tags")) %>
         <ul class="tags tag-list">
           <%= render partial: "radio_tag", collection: @tags, locals: {name: "tag"} %>
         </ul>
