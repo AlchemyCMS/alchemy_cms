@@ -8,7 +8,7 @@ module Alchemy
 
       helper "alchemy/pages"
 
-      before_action :load_resource, except: [:index, :flush, :new, :create, :copy_language_tree, :link]
+      before_action :load_resource, except: [:index, :flush, :new, :create, :copy_language_tree, :link, :tree]
 
       authorize_resource class: Alchemy::Page, except: [:index]
 
@@ -60,12 +60,16 @@ module Alchemy
           items = items.page(params[:page] || 1).per(items_per_page)
           @pages = items
         elsif @current_language.root_page
-          @root_page = Alchemy::PageTreePreloader.new(
-            page: @current_language.root_page,
-            user: current_alchemy_user,
-            admin_includes: true
-          ).call
+          @root_page = @current_language.root_page
         end
+      end
+
+      def tree
+        @root_page = Alchemy::PageTreePreloader.new(
+          page: @current_language.root_page,
+          user: current_alchemy_user,
+          admin_includes: true
+        ).call
       end
 
       # Used by page preview iframe in Page#edit view.
