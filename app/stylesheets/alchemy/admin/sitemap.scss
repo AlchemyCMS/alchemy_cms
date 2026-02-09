@@ -64,6 +64,12 @@ alchemy-sitemap {
   min-height: calc(100vh - 148px);
 }
 
+#alchemy_pages_tree {
+  display: block;
+  height: calc(100vh - var(--top-menu-height) - var(--spacing-3));
+  position: relative;
+}
+
 #sitemap {
   padding: 0 0 104px 0;
 
