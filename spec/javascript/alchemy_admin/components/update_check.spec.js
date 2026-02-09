@@ -27,6 +27,20 @@ describe("alchemy-update-check", () => {
     vi.clearAllMocks()
   })
 
+  it("fetches with credentials included", async () => {
+    global.fetch.mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve({ status: "true" })
+    })
+
+    component = renderComponent("alchemy-update-check", html)
+    await new Promise(process.nextTick)
+
+    expect(global.fetch).toHaveBeenCalledWith("/update_check", {
+      credentials: "include"
+    })
+  })
+
   it("shows update available when response is 'true'", async () => {
     global.fetch.mockResolvedValueOnce({
       ok: true,
