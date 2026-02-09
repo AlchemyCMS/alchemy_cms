@@ -39,6 +39,20 @@ RSpec.describe "Page editing feature", type: :system do
         expect(page).to have_select("preview_url", options: ["Internal", "Foo Preview"])
       end
     end
+
+    context "in pages tree" do
+      let!(:a_page) { create(:alchemy_page) }
+
+      describe "clicking the page name" do
+        it "opens the page in edit mode", :js do
+          visit alchemy.admin_pages_path(view: "tree")
+          within ".sitemap_page[name='#{a_page.name}']" do
+            click_link a_page.name
+          end
+          expect(page).to have_current_path("/admin/pages/#{a_page.id}/edit")
+        end
+      end
+    end
   end
 
   context "as editor" do
