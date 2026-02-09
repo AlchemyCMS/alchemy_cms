@@ -136,7 +136,7 @@ module Alchemy
         @element.update_columns(folded: false)
         # We want to expand the upper most parent first in order to prevent
         # re-painting issues in the browser
-        parent_element_ids = @element.parent_element_ids.reverse
+        parent_element_ids = @element.folded_parent_element_ids.reverse
         Alchemy::Element.where(id: parent_element_ids).update_all(folded: false)
 
         render json: {

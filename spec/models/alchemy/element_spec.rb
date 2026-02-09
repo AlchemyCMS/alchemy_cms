@@ -633,15 +633,34 @@ module Alchemy
       end
     end
 
-    describe "#parent_element_ids" do
+    describe "#folded_parent_element_ids" do
       let(:page) { create(:alchemy_page) }
 
-      let!(:element1) { create(:alchemy_element, page_version: page.draft_version, name: "slider", autogenerate_nested_elements: false) }
-      let!(:element2) { create(:alchemy_element, page_version: page.draft_version, name: "slide", parent_element: element1) }
+      let!(:element1) { create(:alchemy_element, page_version: page.draft_version, name: "slider", folded: true, autogenerate_nested_elements: false) }
+      let!(:element2) { create(:alchemy_element, page_version: page.draft_version, name: "slide", folded: true, parent_element: element1) }
       let!(:element3) { create(:alchemy_element, page_version: page.draft_version, name: "slide", parent_element: element2) }
 
-      it "returns parent element ids" do
-        expect(element3.parent_element_ids).to eq([element2.id, element1.id])
+      it "returns folded parent element ids from immediate parent to root" do
+        expect(element3.folded_parent_element_ids).to eq([element2.id, element1.id])
+      end
+
+      it "returns empty array for root element" do
+        expect(element1.folded_parent_element_ids).to eq([])
+      end
+
+      it "returns single parent for first-level nested element" do
+        expect(element2.folded_parent_element_ids).to eq([element1.id])
+      end
+
+      it "skips already expanded parents" do
+        element2.update_columns(folded: false)
+        expect(element3.folded_parent_element_ids).to eq([element1.id])
+      end
+
+      it "returns empty array when all parents are expanded" do
+        element1.update_columns(folded: false)
+        element2.update_columns(folded: false)
+        expect(element3.folded_parent_element_ids).to eq([])
       end
     end
 

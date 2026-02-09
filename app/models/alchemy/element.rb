@@ -183,13 +183,21 @@ module Alchemy
       end
     end
 
-    # Heavily unoptimized naive way to get all parent ids
-    def parent_element_ids
-      ids ||= []
-      parent = parent_element
-      while parent
-        ids.push parent.id
-        parent = parent.parent_element
+    # Returns IDs of all folded parent elements from immediate parent up to root
+    #
+    # Walks up the ancestor chain and collects only the ones that are folded,
+    # skipping already expanded parents.
+    #
+    # @return [Array<Integer>] Folded parent element IDs from immediate parent to root
+    def folded_parent_element_ids
+      return [] unless parent_element_id
+
+      ids = []
+      current_id = parent_element_id
+      while current_id
+        folded, parent_id = self.class.where(id: current_id).pick(:folded, :parent_element_id)
+        ids << current_id if folded
+        current_id = parent_id
       end
       ids
     end
