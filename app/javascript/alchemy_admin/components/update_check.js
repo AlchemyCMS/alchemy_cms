@@ -6,7 +6,7 @@ class UpdateCheck extends HTMLElement {
     spinner.spin(this)
 
     try {
-      const response = await fetch(this.url)
+      const response = await fetch(this.url, { credentials: "include" })
       const responseJSON = await response.json()
 
       if (response.ok) {
