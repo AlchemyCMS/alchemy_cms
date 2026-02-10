@@ -234,9 +234,10 @@ module Alchemy
     def public=(value)
       @public_on_explicitely_set = true
       if ActiveModel::Type::Boolean.new.cast(value)
-        self.public_on ||= Time.current
+        self.public_on = Time.current
+        self.public_until = nil
       else
-        self.public_on = nil
+        self.public_until = Time.current
       end
     end
 
