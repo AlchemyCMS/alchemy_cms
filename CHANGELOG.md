@@ -1,5 +1,17 @@
 # Changelog
 
+## 8.1.2 (2026-02-10)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
+
+## What's Changed
+### Other Changes
+* [8.1-stable] Set `public_until` instead of clearing `public_on` when unpublishing elements by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3676
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.1.1...v8.1.2
+
+
 ## 8.1.1 (2026-02-09)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
