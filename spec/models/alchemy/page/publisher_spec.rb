@@ -28,7 +28,7 @@ RSpec.describe Alchemy::Page::Publisher do
     shared_context "with elements" do
       let(:page) do
         create(:alchemy_page, autogenerate_elements: true).tap do |page|
-          page.draft_version.elements.first.update!(public: false)
+          page.draft_version.elements.first.update!(public_until: 1.minute.ago)
         end
       end
     end
