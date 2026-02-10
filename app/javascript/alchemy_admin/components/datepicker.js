@@ -28,6 +28,10 @@ class Datepicker extends AlchemyHTMLElement {
     this.flatpickr.destroy()
   }
 
+  clear() {
+    this.flatpickr.clear()
+  }
+
   get flatpickrOptions() {
     const enableTime = /time/.test(this.inputType)
     const options = {
