@@ -178,7 +178,7 @@ module Alchemy
           content = "#{icon} #{content}".html_safe
         end
 
-        if ingredient.has_validations?
+        if presence_validation?
           "#{content}<span class='validation_indicator'>*</span>".html_safe
         else
           content
