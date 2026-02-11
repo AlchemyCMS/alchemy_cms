@@ -186,7 +186,7 @@ RSpec.describe Alchemy::Ingredients::BaseEditor, type: :component do
       end
 
       it "does not show any validation indicator" do
-        is_expected.to have_selector(".validation_indicator")
+        is_expected.to_not have_selector(".validation_indicator")
       end
     end
   end
