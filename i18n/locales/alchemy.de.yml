@@ -305,6 +305,9 @@ de:
           label: "Sortierung"
           by_latest: "Neueste zuerst"
           alphabetical: "A-Z"
+      publish_page_button:
+        publish_page: "Seite veröffentlichen"
+        publish_changes: "Änderungen veröffentlichen"
     anchor: "Sprungmarke"
     automatic_anchor_notice: Die Sprungmarke wurde automatisch erstellt.
     attribute_fixed: Dieser Wert ist für diesen Seitentyp nicht veränderbar
@@ -532,7 +535,7 @@ de:
     element_saved: "Element wurde gespeichert."
     enter_external_link: "Geben Sie hier die Adresse der Seite ein zu der Sie einen Link setzen wollen."
     explain_cropping: '<p>Sie können den Rahmen mit der Maus und den Pfeiltasten verschieben und in der Größe verändern, um einen eigenen Bildausschnitt festzulegen. Wenn Sie zufrieden sind, dann klicken Sie bitte auf "übernehmen".</p><p>Um zu dem zentrierten Bildausschnitt zurückzukehren, wie er im Layout vorgesehen wurde, klicken Sie bitte auf "zurücksezen" und "übernehmen" anschließend die Änderungen.</p>'
-    explain_publishing: "Die gecachte Version vom Server löschen und die aktuellen Änderungen veröffentlichen"
+    explain_publishing: "Sie haben Änderungen die noch nicht veröffentlicht wurden."
     explain_sitemap_dragndrop_sorting: "Tip: Halten Sie zum Sortieren der Seiten das Seitensymbol mit der Maus fest und bewegen Sie sie an ihre neue Position."
     explain_unlocking: "Die Seite verlassen und für andere Benutzer zum Bearbeiten freigeben."
     external_link_notice_1: "Bitte geben Sie die URL komplett mit http:// (oder vergleichbarem Protokoll) ein."
@@ -632,6 +635,7 @@ de:
       alchemy/node: "<h2>Sie haben bisher keine Menüs.</h2><p>Mittels Menüs können Benutzer Ihre Webseite navigieren. Sie können mehrere Menüs auf Ihrer Website anzeigen. Wie viele hängt von Ihrem Website-Template ab.</p><p>Bitte wählen Sie aus welches Menü Sie erstellen wollen.</p>"
       alchemy/site: "<h2>Sie haben bisher keine Websites.</h2><p>Um Anfragen bedienen zu können, müssen Sie zunächst eine Website erstellen.</p><p>Dieses Formular wurde mit sinnvollen Standardwerten ausgefüllt, die in den meisten Fällen funktionieren.</p>"
     no_search_results: "Keine Suchergebnisse."
+    no_unpublished_changes: "Kein unveröffentlichten Änderungen."
     not_found: "ohne"
     "not a valid image": "Keine valide Bilddatei."
     "or": "oder"

@@ -36,4 +36,6 @@ Alchemy.translations = {
   },
   Yes: "Ja",
   No: "Nein",
+  "Preview failed to load":
+    "Die Vorschau konnte nicht geladen werden. Bitte versuchen Sie es erneut.",
 }
