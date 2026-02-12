@@ -50,7 +50,7 @@ RSpec.describe Alchemy::Forms::Builder, type: :controller do
 
         it_behaves_like "datepicker expect" do
           let(:type) { :date }
-          let(:value) { "2021-07-14T00:00:00Z" }
+          let(:value) { "2021-07-14T00:00:00+02:00" }
         end
       end
 
@@ -59,7 +59,7 @@ RSpec.describe Alchemy::Forms::Builder, type: :controller do
 
         it_behaves_like "datepicker expect" do
           let(:type) { :date }
-          let(:value) { "2021-08-01T00:00:00Z" }
+          let(:value) { "2021-08-01T00:00:00+02:00" }
         end
       end
     end
