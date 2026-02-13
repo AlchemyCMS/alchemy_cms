@@ -110,7 +110,7 @@ module Alchemy
         action_controller = url.delete_prefix("/").split("/")
         [
           action_controller.last.to_sym,
-          action_controller[0..action_controller.length - 2].join("_").to_sym
+          action_controller[0..-2].join("_").to_sym
         ]
       end
     end
