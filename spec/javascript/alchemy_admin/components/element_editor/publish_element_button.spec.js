@@ -1,15 +1,12 @@
 import { vi } from "vitest"
 import "alchemy_admin/components/element_editor/publish_element_button"
 import { renderComponent } from "../component.helper"
+import { reloadPreview } from "alchemy_admin/components/preview_window"
 import { growl } from "alchemy_admin/growler"
-
-const mockReloadPreview = vi.fn()
 
 vi.mock("alchemy_admin/components/preview_window", () => {
   return {
-    reloadPreview: () => {
-      mockReloadPreview()
-    }
+    reloadPreview: vi.fn()
   }
 })
 
@@ -29,7 +26,7 @@ vi.mock("alchemy_admin/utils/ajax", () => {
             resolve({
               data: {
                 public: false,
-                label: "Hide element"
+                tooltip: "Show element"
               }
             })
             break
@@ -47,10 +44,18 @@ vi.mock("alchemy_admin/utils/ajax", () => {
 describe("alchemy-publish-element-button", () => {
   let html = `
     <alchemy-element-editor>
+      <span class="element-hidden-icon"></span>
       <div class="element-toolbar">
-        <sl-tooltip content="Show element">
-          <alchemy-publish-element-button></alchemy-publish-element-button>
-        </sl-tooltip>
+        <alchemy-publish-element-button>
+          <sl-button-group>
+            <sl-tooltip content="Hide element">
+              <sl-button type="submit" variant="default" outline>Hide</sl-button>
+            </sl-tooltip>
+            <sl-tooltip content="Schedule element">
+              <sl-button href="/admin/elements/schedule" variant="default" outline>Schedule</sl-button>
+            </sl-tooltip>
+          </sl-button-group>
+        </alchemy-publish-element-button>
       </div>
     </alchemy-element-editor>
   `
@@ -63,42 +68,44 @@ describe("alchemy-publish-element-button", () => {
         publish_admin_element_path(id) {
           return `/admin/elements/${id}/publish`
         }
-      },
-      reloadPreview: vi.fn()
+      }
     }
-
-    Alchemy.reloadPreview.mockClear()
+    reloadPreview.mockClear()
     growl.mockClear()
   })
 
-  describe("on change", () => {
+  describe("on click of publish button", () => {
     it("Publishes element editor", () => {
-      const change = new CustomEvent("sl-change", { bubbles: true })
+      const click = new CustomEvent("click", { bubbles: true })
+      const publishButton = button.querySelector("sl-button[type='submit']")
       vi.spyOn(button, "elementId", "get").mockReturnValue("123")
-      button.dispatchEvent(change)
+      publishButton.dispatchEvent(click)
 
       return new Promise((resolve) => {
         setTimeout(() => {
-          expect(button.tooltip.getAttribute("content")).toEqual("Hide element")
-          expect(mockReloadPreview).toHaveBeenCalled()
+          expect(button.publishTooltip.getAttribute("content")).toEqual(
+            "Show element"
+          )
+          expect(reloadPreview).toHaveBeenCalled()
           resolve()
         }, 1)
       })
     }, 100)
-  })
 
-  describe("on error", () => {
-    it("Shows error", () => {
-      const change = new CustomEvent("sl-change", { bubbles: true })
-      vi.spyOn(button, "elementId", "get").mockReturnValue("666")
-      button.dispatchEvent(change)
+    describe("on error", () => {
+      it("Shows error", () => {
+        const click = new CustomEvent("click", { bubbles: true })
+        const publishButton = button.querySelector("sl-button[type='submit']")
+        vi.spyOn(button, "elementId", "get").mockReturnValue("666")
+        publishButton.dispatchEvent(click)
 
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          expect(growl).toHaveBeenCalled()
-          resolve()
-        }, 1)
-      })
-    }, 100)
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            expect(growl).toHaveBeenCalled()
+            resolve()
+          }, 1)
+        })
+      }, 100)
+    })
   })
 })

@@ -177,7 +177,8 @@ a img {
   width: 100%;
 }
 
-.hidden {
+.hidden,
+[hidden] {
   display: none !important;
 }
 

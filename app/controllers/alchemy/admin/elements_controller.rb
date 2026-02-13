@@ -8,7 +8,7 @@ module Alchemy
       before_action :load_page_and_version, only: [:index, :new]
       include Alchemy::Admin::Clipboard
 
-      before_action :load_element, only: [:update, :destroy, :collapse, :expand, :publish]
+      before_action :load_element, only: [:schedule, :update, :destroy, :collapse, :expand, :publish]
       authorize_resource class: Alchemy::Element
 
       def index
@@ -89,12 +89,22 @@ module Alchemy
       end
 
       def publish
-        @element.public = !@element.public?
+        if schedule_element_params.present?
+          @element.assign_attributes(schedule_element_params)
+        else
+          @element.public = !@element.public?
+        end
         @element.save(validate: false)
-        render json: {
-          public: @element.public?,
-          label: @element.public? ? Alchemy.t(:hide_element) : Alchemy.t(:show_element)
-        }.merge(pagePublicationData(@element.page))
+
+        respond_to do |format|
+          format.json do
+            render json: {
+              public: @element.public?,
+              tooltip: @element.public? ? Alchemy.t(:hide_element) : Alchemy.t(:show_element)
+            }.merge(pagePublicationData(@element.page))
+          end
+          format.turbo_stream
+        end
       end
 
       def order
@@ -215,6 +225,10 @@ module Alchemy
 
       def create_element_params
         params.require(:element).permit(:name, :page_version_id, :parent_element_id)
+      end
+
+      def schedule_element_params
+        params[:element]&.permit(:public_on, :public_until)
       end
     end
   end

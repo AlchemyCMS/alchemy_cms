@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeAll, beforeEach, vi } from "vitest"
 import "alchemy_admin/components/datepicker"
 import { renderComponent, setupLanguage } from "./component.helper"
 
@@ -56,6 +57,14 @@ describe("alchemy-datepicker", () => {
     it("removes the flatpickr-calendar after removing", () => {
       component.remove()
       expect(document.querySelector(".flatpickr-calendar")).toBeNull()
+    })
+  })
+
+  describe("clear()", () => {
+    it("clears the flatpickr values", () => {
+      const clearSpy = vi.spyOn(component.flatpickr, "clear")
+      component.clear()
+      expect(clearSpy).toHaveBeenCalled()
     })
   })
 

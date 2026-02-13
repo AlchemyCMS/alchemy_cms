@@ -264,6 +264,10 @@ form {
     text-align: right;
   }
 
+  .buttons {
+    margin-left: var(--form-left-column-width);
+  }
+
   .input-column {
     padding: 0 var(--spacing-1);
 
