@@ -4,18 +4,22 @@ module Alchemy
     class LocaleSelect < ViewComponent::Base
       attr_reader :name
 
-      def initialize(name = :change_locale)
+      def initialize(name = :admin_locale)
         @name = name
       end
 
       def call
-        select_tag(
-          name,
-          options_for_select(
-            translations_for_select,
-            ::I18n.locale
-          )
-        )
+        form_tag(helpers.url_for, method: :get) do
+          content_tag("alchemy-auto-submit") do
+            select_tag(
+              name,
+              options_for_select(
+                translations_for_select,
+                ::I18n.locale
+              )
+            )
+          end
+        end
       end
 
       def render?
