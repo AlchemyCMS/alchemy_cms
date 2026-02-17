@@ -29,9 +29,7 @@ export default class PictureThumbnail extends HTMLElement {
   }
 
   connectedCallback() {
-    if (this.image) {
-      this.replaceChildren(this.image)
-    }
+    this.#setImage()
   }
 
   disconnectedCallback() {
@@ -87,13 +85,21 @@ export default class PictureThumbnail extends HTMLElement {
     console.error(message, evt)
   }
 
+  #setImage() {
+    if (this.image?.complete) {
+      this.replaceChildren(this.image)
+    } else if (this.image) {
+      this.append(this.image)
+    }
+  }
+
   set loading(value) {
     value ? this.load() : this.stop()
   }
 
   set src(src) {
     this.start(src)
-    this.replaceChildren(this.image)
+    this.#setImage()
   }
 
   get name() {
