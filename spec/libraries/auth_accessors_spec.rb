@@ -40,7 +40,7 @@ module Alchemy
 
         context "and the default user class does not exist" do
           before do
-            if Object.constants.include?(:User)
+            if Object.const_defined?(:User)
               Object.send(:remove_const, :User)
             end
           end
