@@ -1,5 +1,14 @@
 # Changelog
 
+## 7.4.13 (2026-02-17)
+
+## What's Changed
+* [7.4-stable] fix(LinkDialog): Fix anchor regex to handle hyphens in URL fragments by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3684
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v7.4.12...v7.4.13
+
+
 ## 8.1.2 (2026-02-10)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
