@@ -1,5 +1,14 @@
 # Changelog
 
+## 8.0.8 (2026-02-17)
+
+## What's Changed
+* [8.0-stable] Include credentials in update check fetch request by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3663
+* [8.0-stable] fix(LinkDialog): Fix anchor regex to handle hyphens in URL fragments by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3685
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.0.7...v8.0.8
+
 ## 8.0.7 (2026-02-06)
 
 ## What's Changed
