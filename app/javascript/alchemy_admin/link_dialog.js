@@ -1,6 +1,11 @@
 import { translate } from "alchemy_admin/i18n"
 import { Dialog } from "alchemy_admin/dialog"
 
+// Matches a URL fragment (#anchor) at the end of a string.
+// Covers RFC 3986 unreserved characters (ALPHA, DIGIT, "-", ".", "_", "~")
+// which are the characters valid in URL fragments and common in DOM element IDs.
+const ANCHOR_REGEX = /#[\w.~-]+$/
+
 // Represents the link Dialog that appears, if a user clicks the link buttons
 // in TinyMCE or on an Ingredient that has links enabled (e.g. Picture)
 //
@@ -103,7 +108,7 @@ export class LinkDialog extends Dialog {
 
     if (linkType === "internal" && elementAnchor.value !== "") {
       // remove possible fragments on the url and attach the fragment (which contains the #)
-      url = url.replace(/#\w+$/, "") + elementAnchor.value
+      url = url.replace(ANCHOR_REGEX, "") + elementAnchor.value
     } else if (linkType === "external" && !url.match(Alchemy.link_url_regexp)) {
       // show validation error and prevent link creation
       this.#showValidationError()
