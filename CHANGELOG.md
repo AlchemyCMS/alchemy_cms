@@ -1,5 +1,18 @@
 # Changelog
 
+## 8.1.3 (2026-02-17)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
+
+## What's Changed
+### Other Changes
+* [8.1-stable] Fix required field indicator to only show for presence validations   by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3680
+* [8.1-stable] fix(LinkDialog): Fix anchor regex to handle hyphens in URL fragments by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3686
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.1.2...v8.1.3
+
+
 ## 8.1.2 (2026-02-10)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
