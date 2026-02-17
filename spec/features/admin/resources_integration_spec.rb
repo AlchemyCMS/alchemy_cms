@@ -254,7 +254,7 @@ RSpec.describe "Resources", type: :system do
 
     it "should have a select box for associated models" do
       visit "/admin/events/new"
-      within("form") do
+      within('form[action="/admin/events"]') do
         expect(page).to have_selector("select#event_location_id")
       end
     end
@@ -262,7 +262,7 @@ RSpec.describe "Resources", type: :system do
     it "should have a select box for enums values" do
       visit "/admin/events/new"
 
-      within("form") do
+      within('form[action="/admin/events"]') do
         expect(page).to have_selector("select#event_event_type")
       end
     end
@@ -271,7 +271,7 @@ RSpec.describe "Resources", type: :system do
       it "should have a tag select" do
         visit "/admin/events/new"
 
-        within("form") do
+        within('form[action="/admin/events"]') do
           expect(page).to have_selector("alchemy-tags-autocomplete")
         end
       end

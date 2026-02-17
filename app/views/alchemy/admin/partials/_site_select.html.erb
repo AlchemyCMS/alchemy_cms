@@ -1,9 +1,12 @@
 <%- if multi_site? -%>
 <div class="toolbar_button">
   <sl-tooltip content="<%= Alchemy.t("Current site") %>">
-    <%= select_tag 'change_site',
-      options_for_select(sites_for_select, Alchemy::Current.site.id),
-      is: 'alchemy-select' %>
+    <%= form_tag url_for, method: :get do %>
+      <alchemy-auto-submit>
+        <%= select_tag :site_id,
+          options_for_select(sites_for_select, Alchemy::Current.site.id) %>
+      </alchemy-auto-submit>
+    <% end %>
   </sl-tooltip>
 </div>
 <div class="toolbar_spacer"></div>

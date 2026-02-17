@@ -12,7 +12,7 @@ RSpec.describe "Locale select", type: :system do
 
   it "contains all locales in a selectbox" do
     visit admin_dashboard_path
-    expect(page).to have_select("change_locale", options: ["Kl", "Jp", "Cz"])
+    expect(page).to have_select("admin_locale", options: ["Kl", "Jp", "Cz"])
   end
 
   context "when having available_locales set for Alchemy::I18n" do
@@ -22,7 +22,7 @@ RSpec.describe "Locale select", type: :system do
 
     it "provides only these locales" do
       visit admin_dashboard_path
-      expect(page).to have_select("change_locale", options: ["Jp", "Cz"])
+      expect(page).to have_select("admin_locale", options: ["Jp", "Cz"])
     end
   end
 
