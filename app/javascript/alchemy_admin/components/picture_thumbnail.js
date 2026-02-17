@@ -77,9 +77,10 @@ export default class PictureThumbnail extends HTMLElement {
 
   #onError(evt) {
     const message = `Could not load ${this.image.src}`
+    const hoist = this.closest(".ingredient-editor")
     this.spinner.stop()
     this.innerHTML = `
-      <sl-tooltip content="${message}">
+      <sl-tooltip content="${message}" ${hoist ? "hoist" : ""}>
         <alchemy-icon name="alert" class="error"></alchemy-icon>
       </sl-tooltip>
     `
