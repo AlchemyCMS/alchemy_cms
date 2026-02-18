@@ -43,24 +43,38 @@ describe("alchemy-picture-thumbnail", () => {
   })
 
   describe("connectedCallback", () => {
-    it("appends image to element", () => {
+    it("shows spinner and appends image while loading", () => {
       const element = renderComponent(
         "alchemy-picture-thumbnail",
         '<alchemy-picture-thumbnail src="https://example.com/image.jpg"></alchemy-picture-thumbnail>'
       )
 
+      expect(element.querySelector("alchemy-spinner")).not.toBeNull()
       expect(element).toContain(element.image)
     })
 
-    it("replaces existing placeholder content with image", () => {
+    it("appends image when already complete", () => {
+      const element = renderComponent(
+        "alchemy-picture-thumbnail",
+        "<alchemy-picture-thumbnail></alchemy-picture-thumbnail>"
+      )
+      element.image = new Image()
+      Object.defineProperty(element.image, "complete", { value: true })
+
+      element.connectedCallback()
+
+      expect(element).toContain(element.image)
+    })
+
+    it("replaces placeholder content with spinner and image while loading", () => {
       const element = renderComponent(
         "alchemy-picture-thumbnail",
         '<alchemy-picture-thumbnail src="https://example.com/image.jpg"><alchemy-icon name="image"></alchemy-icon></alchemy-picture-thumbnail>'
       )
 
       expect(element.querySelector("alchemy-icon")).toBeNull()
+      expect(element.querySelector("alchemy-spinner")).not.toBeNull()
       expect(element).toContain(element.image)
-      expect(element.childNodes.length).toBe(1)
     })
 
     it("does nothing if image does not exist", () => {
@@ -254,6 +268,7 @@ describe("alchemy-picture-thumbnail", () => {
 
       expect(stopSpy).toHaveBeenCalled()
       expect(element.hasAttribute("loading")).toBe(false)
+      expect(element).toContain(element.image)
     })
 
     it("handles error event", () => {
@@ -385,7 +400,7 @@ describe("alchemy-picture-thumbnail", () => {
       expect(startSpy).toHaveBeenCalledWith("https://example.com/new.jpg")
     })
 
-    it("replaces children with new image", () => {
+    it("shows spinner while new image is loading", () => {
       const element = renderComponent(
         "alchemy-picture-thumbnail",
         '<alchemy-picture-thumbnail src="https://example.com/old.jpg"></alchemy-picture-thumbnail>'
@@ -395,7 +410,23 @@ describe("alchemy-picture-thumbnail", () => {
       element.src = "https://example.com/new.jpg"
 
       expect(element.contains(oldImage)).toBe(false)
+      expect(element.querySelector("alchemy-spinner")).not.toBeNull()
+    })
+
+    it("replaces children with image when already complete", () => {
+      const element = renderComponent(
+        "alchemy-picture-thumbnail",
+        "<alchemy-picture-thumbnail></alchemy-picture-thumbnail>"
+      )
+      const startSpy = vi.spyOn(element, "start").mockImplementation(() => {
+        element.image = new Image()
+        Object.defineProperty(element.image, "complete", { value: true })
+      })
+
+      element.src = "https://example.com/new.jpg"
+
       expect(element.contains(element.image)).toBe(true)
+      startSpy.mockRestore()
     })
   })
 
