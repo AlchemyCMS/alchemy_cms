@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.1.0 (2026-02-18)
+
+## What's Changed
+* Add German publish button translations by @tvdeyen in https://github.com/AlchemyCMS/alchemy_i18n/pull/89
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_i18n/compare/v5.0.2...v5.1.0
+
 ## 5.0.2 (2026-01-28)
 
 ## What's Changed
