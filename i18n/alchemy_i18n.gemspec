@@ -28,6 +28,4 @@ Gem::Specification.new do |s|
 
   s.add_dependency "alchemy_cms", [">= 8.0.0.c", "< 9"]
   s.add_dependency "rails-i18n"
-
-  s.add_development_dependency "github_changelog_generator"
 end
