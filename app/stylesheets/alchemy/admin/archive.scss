@@ -49,7 +49,7 @@ alchemy-uploader {
     text-decoration: none;
   }
 
-  alchemy-icon {
+  alchemy-icon:not(.error) {
     display: flex;
     width: var(--picture-width);
     height: var(--picture-height);
