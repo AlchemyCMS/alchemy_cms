@@ -37,7 +37,7 @@
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "^0.4.4",
     "consola": "^3.4.2",
-    "eslint": "^9.39.2",
+    "eslint": "^10.0.1",
     "jsdom": "^27.3.0",
     "jsdom-testing-mocks": "^1.16.0",
     "prettier": "^3.7.4",
