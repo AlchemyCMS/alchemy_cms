@@ -28,7 +28,7 @@ RSpec.describe Alchemy::Admin::Filters::Datepicker do
       let(:input_type) { :datetime }
 
       it "returns a datepicker filter input component with the correct input type and format" do
-        expect(applied_filter_component.applied_filter_value).to eq("2025-04-01 00:00")
+        expect(applied_filter_component.applied_filter_value).to eq("01-04-2025 12:00am")
       end
     end
 
@@ -36,7 +36,7 @@ RSpec.describe Alchemy::Admin::Filters::Datepicker do
       let(:input_type) { :time }
 
       it "returns a datepicker filter input component with the correct input type and format" do
-        expect(applied_filter_component.applied_filter_value).to eq("00:00")
+        expect(applied_filter_component.applied_filter_value).to eq("12:00am")
       end
     end
   end

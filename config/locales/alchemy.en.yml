@@ -723,11 +723,11 @@ en:
   time:
     formats:
       alchemy:
-        default: "%Y-%m-%d %H:%M"
+        default: "%d-%m-%Y %I:%M%P"
         ingredient_date: "%Y-%m-%d"
-        page_status: "%m.%d.%Y %H:%M"
-        short_datetime: "%d %b %H:%M"
-        time: "%H:%M"
+        page_status: "%d %b %Y, %I:%M%P"
+        short_datetime: "%d %b %I:%M%P"
+        time: "%I:%M%P"
 
   # Translations for error messages.
   errors:

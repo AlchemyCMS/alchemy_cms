@@ -24,7 +24,7 @@ RSpec.describe Alchemy::Ingredients::DatetimeView, type: :component do
   context "with date value" do
     context "without date_format passed" do
       it "translates the date value with default format" do
-        is_expected.to have_content("2024-08-29 12:00")
+        is_expected.to have_content("29-08-2024 12:00pm")
       end
     end
 
