@@ -1,4 +1,4 @@
-import { vi } from "vitest"
+import { describe, vi } from "vitest"
 import "alchemy_admin/components/message"
 import { renderComponent } from "./component.helper"
 
@@ -105,6 +105,22 @@ describe("alchemy-message", () => {
         `
         const component = renderComponent("alchemy-message", html)
         expect(component.type).toEqual("notice")
+      })
+    })
+  })
+
+  describe("icon", () => {
+    describe("when icon attribute is given", () => {
+      it("uses the icon instead of type", () => {
+        const html = `
+          <alchemy-message icon="warn">
+            A message with custom icon
+          </alchemy-message>
+        `
+        const component = renderComponent("alchemy-message", html)
+        expect(
+          component.querySelector("alchemy-icon").getAttribute("name")
+        ).toEqual("alert")
       })
     })
   })
