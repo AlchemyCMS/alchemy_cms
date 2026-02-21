@@ -856,7 +856,7 @@ de:
         text: "Pflichtfeld"
         mark: "*"
       error_notification:
-        default_message: "Es sind Fehler aufgetreten:"
+        default_message: "Es sind Fehler aufgetreten."
       hints:
         element:
           public_on: Stellen Sie hier ein ab wann das Element sichtbar sein soll.
@@ -880,6 +880,7 @@ de:
         datepicker: "%d.%m.%Y"
         datetimepicker: "%d.%m.%Y %H:%M"
         default: "%d. %b. %Y, %H:%M Uhr"
+        element_date: "%d. %b. %Y, %H:%M Uhr"
         essence_date: "%d.%m.%Y"
         page_status: "%d.%m.%Y um %H:%M Uhr"
         short_datetime: "%d. %B, %H:%Mh"

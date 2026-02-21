@@ -668,6 +668,7 @@ zh-CN:
         datepicker: "%Y-%m-%d"
         datetimepicker: "%Y-%m-%d %H:%M"
         default: "%Y-%m-%d %H:%M"
+        element_date: "%Y-%m-%d %H:%M"
         essence_dat: "%Y-%m-%d"
         page_status: "%m.%d.%Y %H:%M"
         short_datetime: "%d %b %H:%M"
