@@ -37,6 +37,8 @@ module Alchemy
     include Alchemy::Taggable
     include Publishable
 
+    attr_accessor :skip_ingredient_validations
+
     FORBIDDEN_DEFINITION_ATTRIBUTES = [
       "amount",
       "autogenerate",
