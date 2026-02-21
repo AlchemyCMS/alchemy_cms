@@ -1075,7 +1075,8 @@ select.long {
     .picture_thumbnail,
     .select2-container,
     .tinymce_container {
-      outline: 1px solid var(--element-dirty-border-color);
+      box-shadow: 0 0 0 1px var(--element-dirty-border-color);
+      border-color: var(--element-dirty-border-color);
     }
   }
 

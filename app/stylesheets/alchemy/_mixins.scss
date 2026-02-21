@@ -6,7 +6,7 @@
   border-color: $border-color;
   border-radius: $border-radius;
   box-shadow: $box-shadow;
-  outline: none;
+  outline: 0 none;
 
   &::-moz-focus-inner {
     border: none !important;
