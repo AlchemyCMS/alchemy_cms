@@ -59,7 +59,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('package.json', 'bun.lockdb') }}
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('package.json', 'bun.lockb') }}
           restore-keys: |
             ${{ runner.os }}-node-modules
       - name: Install dependencies
@@ -72,8 +72,8 @@ jobs:
           path: vendor/javascript
       - uses: actions/upload-artifact@v4
         with:
-          name: bun-lockdb
-          path: bun.lockdb
+          name: bun-lockb
+          path: bun.lockb
 
   RSpec:
     permissions:
@@ -245,16 +245,16 @@ jobs:
           path: vendor/javascript
       - uses: actions/download-artifact@v4
         with:
-          name: bun-lockdb
+          name: bun-lockb
       - name: Check git status
         id: git-status
-        run: git diff --quiet vendor/javascript bun.lockdb || echo "changed=true" >> $GITHUB_OUTPUT
+        run: git diff --quiet vendor/javascript bun.lockb || echo "changed=true" >> $GITHUB_OUTPUT
       - name: git commit
         if: steps.git-status.outputs.changed == 'true'
         run: |
           git config --local user.name 'AlchemyCMS - CI Bot'
           git config --local user.email 'alchemy@blish.cloud'
-          git add vendor/javascript bun.lockdb
+          git add vendor/javascript bun.lockb
           git commit -m "Update JS packages" -m "Rebuilt packages after updating dependencies." -m "[skip ci]"
       - name: Push changes
         if: steps.git-status.outputs.changed == 'true'
@@ -278,12 +278,12 @@ jobs:
       - uses: actions/download-artifact@v4
         if: needs.check_package_json.outputs.package_json_changed == 'true'
         with:
-          name: bun-lockdb
+          name: bun-lockb
       - name: Restore node modules cache
         uses: actions/cache@v4
         with:
           path: node_modules
-          key: ${{ runner.os }}-bun-${{ hashFiles('package.json', 'bun.lockdb') }}
+          key: ${{ runner.os }}-bun-${{ hashFiles('package.json', 'bun.lockb') }}
           restore-keys: |
             ${{ runner.os }}-bun-
       - name: Install dependencies
