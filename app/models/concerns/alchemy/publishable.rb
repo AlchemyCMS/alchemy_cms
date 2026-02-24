@@ -13,6 +13,14 @@ module Alchemy
             where("#{table_name}.public_until > :at", at:)
           )
       }
+
+      validate do
+        if public_on.present? && public_until.present?
+          if public_until <= public_on
+            errors.add(:public_until, :must_be_after_public_on)
+          end
+        end
+      end
     end
 
     # Determines if this record is public

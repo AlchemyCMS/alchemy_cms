@@ -731,6 +731,9 @@ en:
 
   # Translations for error messages.
   errors:
+    attributes:
+      public_until:
+        must_be_after_public_on: "must be after visible from date"
     models:
       alchemy/element:
         attributes:

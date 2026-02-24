@@ -28,7 +28,7 @@ RSpec.describe Alchemy::Page::Publisher do
     shared_context "with elements" do
       let(:page) do
         create(:alchemy_page, autogenerate_elements: true).tap do |page|
-          page.draft_version.elements.first.update!(public_until: 1.minute.ago)
+          page.draft_version.elements.first.update!(public_on: 1.hour.ago, public_until: 1.minute.ago)
         end
       end
     end
@@ -182,7 +182,7 @@ RSpec.describe Alchemy::Page::Publisher do
       end
 
       let!(:hidden_nested) do
-        create(:alchemy_element, parent_element: parent_element, page_version: page.draft_version, public: false)
+        create(:alchemy_element, parent_element: parent_element, page_version: page.draft_version)
       end
 
       it "copies only visible nested elements to public version" do

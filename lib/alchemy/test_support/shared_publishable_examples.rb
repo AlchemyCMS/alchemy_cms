@@ -1,6 +1,25 @@
 # frozen_string_literal: true
 
 RSpec.shared_examples_for "being publishable" do |factory_name|
+  describe "validations" do
+    context "when public_until is older than public_on" do
+      let(:record) do
+        build(
+          factory_name,
+          public_on: Time.current,
+          public_until: Time.current - 1.day
+        )
+      end
+
+      it "is not valid" do
+        expect(record).not_to be_valid
+        expect(record.errors[:public_until]).to include(
+          I18n.t("errors.attributes.public_until.must_be_after_public_on")
+        )
+      end
+    end
+  end
+
   describe ".draft" do
     let!(:draft_versions) { create_list(factory_name, 2, public_on: nil) }
 
