@@ -59,7 +59,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('package.json', 'bun.lockb') }}
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('package.json', 'bun.lock') }}
           restore-keys: |
             ${{ runner.os }}-node-modules
       - name: Install dependencies
@@ -72,8 +72,8 @@ jobs:
           path: vendor/javascript
       - uses: actions/upload-artifact@v4
         with:
-          name: bun-lockb
-          path: bun.lockb
+          name: bun-lock
+          path: bun.lock
 
   RSpec:
     permissions:
@@ -234,12 +234,12 @@ jobs:
       - uses: actions/download-artifact@v4
         if: needs.check_package_json.outputs.package_json_changed == 'true'
         with:
-          name: bun-lockb
+          name: bun-lock
       - name: Restore node modules cache
         uses: actions/cache@v4
         with:
           path: node_modules
-          key: ${{ runner.os }}-bun-${{ hashFiles('package.json', 'bun.lockb') }}
+          key: ${{ runner.os }}-bun-${{ hashFiles('package.json', 'bun.lock') }}
           restore-keys: |
             ${{ runner.os }}-bun-
       - name: Install dependencies
