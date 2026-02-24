@@ -1,0 +1,62 @@
+name: Push JavaScript
+
+on:
+  workflow_run:
+    workflows: ["Build & Test"]
+    types:
+      - completed
+
+jobs:
+  PushJavascript:
+    permissions:
+      contents: write
+    runs-on: ubuntu-24.04
+    if: >
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success'
+    steps:
+      - name: Generate token
+        id: generate_token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.ALCHEMY_BOT_APP_ID }}
+          private-key: ${{ secrets.ALCHEMY_BOT_APP_PRIVATE_KEY }}
+      - uses: actions/checkout@v6
+        with:
+          token: ${{ steps.generate_token.outputs.token }}
+          ref: ${{ github.event.workflow_run.head_branch }}
+          # Make sure the value of GITHUB_TOKEN will not be persisted in repo's config
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/download-artifact@v4
+        id: download-bundles
+        continue-on-error: true
+        with:
+          name: javascript-bundles
+          path: vendor/javascript
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+      - uses: actions/download-artifact@v4
+        id: download-lockfile
+        continue-on-error: true
+        with:
+          name: bun-lockb
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+      - name: Check git status
+        if: steps.download-bundles.outcome == 'success'
+        id: git-status
+        run: git diff --quiet vendor/javascript bun.lockb || echo "changed=true" >> $GITHUB_OUTPUT
+      - name: git commit
+        if: steps.git-status.outputs.changed == 'true'
+        run: |
+          git config --local user.name 'AlchemyCMS - CI Bot'
+          git config --local user.email 'alchemy@blish.cloud'
+          git add vendor/javascript bun.lockb
+          git commit -m "Update JS packages" -m "Rebuilt packages after updating dependencies." -m "[skip ci]"
+      - name: Push changes
+        if: steps.git-status.outputs.changed == 'true'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ steps.generate_token.outputs.token }}
+          branch: ${{ github.event.workflow_run.head_branch }}
