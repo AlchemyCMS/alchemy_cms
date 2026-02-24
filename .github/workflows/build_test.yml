@@ -59,7 +59,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('package.json', 'bun.lockdb') }}
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('package.json', 'bun.lockb') }}
           restore-keys: |
             ${{ runner.os }}-node-modules
       - name: Install dependencies
@@ -72,8 +72,8 @@ jobs:
           path: vendor/javascript
       - uses: actions/upload-artifact@v4
         with:
-          name: bun-lockdb
-          path: bun.lockdb
+          name: bun-lockb
+          path: bun.lockb
 
   RSpec:
     permissions:
@@ -219,50 +219,6 @@ jobs:
             spec/dummy/tmp/capybara
             spec/dummy/tmp/screenshots
 
-  PushJavascript:
-    permissions:
-      contents: write
-    runs-on: ubuntu-24.04
-    needs: [check_package_json, RSpec]
-    if: github.event_name == 'pull_request' && needs.check_package_json.outputs.package_json_changed == 'true'
-    steps:
-      - name: Generate token
-        id: generate_token
-        uses: actions/create-github-app-token@v2
-        with:
-          app-id: ${{ vars.ALCHEMY_BOT_APP_ID }}
-          private-key: ${{ secrets.ALCHEMY_BOT_APP_PRIVATE_KEY }}
-      - uses: actions/checkout@v6
-        with:
-          token: ${{ steps.generate_token.outputs.token }}
-          ref: ${{ github.head_ref }}
-          # Make sure the value of GITHUB_TOKEN will not be persisted in repo's config
-          persist-credentials: false
-          fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
-      - uses: actions/download-artifact@v4
-        with:
-          name: javascript-bundles
-          path: vendor/javascript
-      - uses: actions/download-artifact@v4
-        with:
-          name: bun-lockdb
-      - name: Check git status
-        id: git-status
-        run: git diff --quiet vendor/javascript bun.lockdb || echo "changed=true" >> $GITHUB_OUTPUT
-      - name: git commit
-        if: steps.git-status.outputs.changed == 'true'
-        run: |
-          git config --local user.name 'AlchemyCMS - CI Bot'
-          git config --local user.email 'alchemy@blish.cloud'
-          git add vendor/javascript bun.lockdb
-          git commit -m "Update JS packages" -m "Rebuilt packages after updating dependencies." -m "[skip ci]"
-      - name: Push changes
-        if: steps.git-status.outputs.changed == 'true'
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ steps.generate_token.outputs.token }}
-          branch: ${{ github.head_ref }}
-
   Vitest:
     permissions:
       contents: read
@@ -278,12 +234,12 @@ jobs:
       - uses: actions/download-artifact@v4
         if: needs.check_package_json.outputs.package_json_changed == 'true'
         with:
-          name: bun-lockdb
+          name: bun-lockb
       - name: Restore node modules cache
         uses: actions/cache@v4
         with:
           path: node_modules
-          key: ${{ runner.os }}-bun-${{ hashFiles('package.json', 'bun.lockdb') }}
+          key: ${{ runner.os }}-bun-${{ hashFiles('package.json', 'bun.lockb') }}
           restore-keys: |
             ${{ runner.os }}-bun-
       - name: Install dependencies
