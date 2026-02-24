@@ -40,19 +40,19 @@ jobs:
         id: download-lockfile
         continue-on-error: true
         with:
-          name: bun-lockb
+          name: bun-lock
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ github.token }}
       - name: Check git status
         if: steps.download-bundles.outcome == 'success'
         id: git-status
-        run: git diff --quiet vendor/javascript bun.lockb || echo "changed=true" >> $GITHUB_OUTPUT
+        run: git diff --quiet vendor/javascript bun.lock || echo "changed=true" >> $GITHUB_OUTPUT
       - name: git commit
         if: steps.git-status.outputs.changed == 'true'
         run: |
           git config --local user.name 'AlchemyCMS - CI Bot'
           git config --local user.email 'alchemy@blish.cloud'
-          git add vendor/javascript bun.lockb
+          git add vendor/javascript bun.lock
           git commit -m "Update JS packages" -m "Rebuilt packages after updating dependencies." -m "[skip ci]"
       - name: Push changes
         if: steps.git-status.outputs.changed == 'true'

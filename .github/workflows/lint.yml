@@ -34,7 +34,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('bun.lockb') }}
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('bun.lock') }}
           restore-keys: |
             ${{ runner.os }}-node-modules
       - name: Install dependencies
@@ -52,7 +52,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('bun.lockb') }}
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('bun.lock') }}
           restore-keys: |
             ${{ runner.os }}-node-modules
       - name: Install dependencies
@@ -70,7 +70,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('bun.lockb') }}
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('bun.lock') }}
           restore-keys: |
             ${{ runner.os }}-node-modules
       - name: Install dependencies
