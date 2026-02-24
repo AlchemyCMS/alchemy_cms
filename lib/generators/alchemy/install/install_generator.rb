@@ -69,7 +69,8 @@ module Alchemy
           default_language: {
             name: @default_language[:name],
             code: @default_language[:code]
-          }
+          },
+          storage_adapter: "active_storage"
         )
         template "#{__dir__}/templates/alchemy.rb.tt", app_config_path.join("initializers", "alchemy.rb")
       end
