@@ -42,7 +42,7 @@
     "jsdom-testing-mocks": "^1.16.0",
     "prettier": "^3.7.4",
     "remixicon": "^4.7.0",
-    "rollup": "^4.54.0",
+    "rollup": "^4.59.0",
     "sass": "^1.97.1",
     "svg-sprite": "^2.0.4",
     "vitest": "^4.0.16"
