@@ -9,6 +9,30 @@ module Alchemy
     it { is_expected.to have_one(:page).through(:page_version) }
     it { is_expected.to have_one(:language).through(:page) }
 
+    describe "validations" do
+      describe "page_version must match parent" do
+        let(:page_version) { create(:alchemy_page_version) }
+        let(:other_page_version) { create(:alchemy_page_version) }
+        let(:parent) { create(:alchemy_element, name: "slider", page_version: page_version) }
+
+        it "is valid when page_version matches parent's page_version" do
+          element = build(:alchemy_element, name: "slide", parent_element: parent, page_version: page_version)
+          expect(element).to be_valid
+        end
+
+        it "is invalid when page_version differs from parent's page_version" do
+          element = build(:alchemy_element, name: "slide", parent_element: parent, page_version: other_page_version)
+          expect(element).not_to be_valid
+          expect(element.errors[:page_version_id]).to include("must be the same as the parent element's page version")
+        end
+
+        it "is valid for root elements (no parent)" do
+          element = build(:alchemy_element, page_version: page_version)
+          expect(element).to be_valid
+        end
+      end
+    end
+
     # to prevent memoization
     before { ElementDefinition.instance_variable_set(:@definitions, nil) }
 
