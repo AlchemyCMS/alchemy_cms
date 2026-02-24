@@ -260,11 +260,24 @@ form {
   }
 
   .submit {
+    display: flex;
     padding: var(--spacing-1) 0;
-    text-align: right;
+    justify-content: space-between;
+
+    > button:last-of-type {
+      margin-left: auto;
+    }
+  }
+
+  &.simple_form {
+    .buttons {
+      margin-top: var(--spacing-1);
+      margin-left: var(--form-left-column-width);
+    }
   }
 
   .input-column {
+    width: 50%;
     padding: 0 var(--spacing-1);
 
     input[type] {
