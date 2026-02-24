@@ -218,7 +218,7 @@ module Alchemy
 
       # The storage adapter for Pictures and Attachments
       #
-      option :storage_adapter, :string, default: "dragonfly"
+      option :storage_adapter, :string, default: "active_storage"
 
       # Define page preview sources
       #
