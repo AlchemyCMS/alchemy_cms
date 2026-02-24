@@ -793,7 +793,7 @@ module Alchemy
         end
 
         it "returns a cache version string" do
-          expect(page.cache_version).to eq("2018-12-31 12:00:00 UTC")
+          expect(page.cache_version).to eq("2018-12-31 13:00:00 +0100")
         end
       end
 
@@ -1608,7 +1608,7 @@ module Alchemy
         end
 
         it "returns value" do
-          is_expected.to eq("2016-11-01".to_time(:utc))
+          is_expected.to eq(Time.zone.parse("2016-11-01"))
         end
       end
     end

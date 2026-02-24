@@ -10,7 +10,7 @@ RSpec.describe Alchemy::ElementSerializer do
   it "includes all attributes" do
     json = JSON.parse(subject)
     expect(json).to eq(
-      "created_at" => element.created_at.strftime("%FT%T.%LZ"),
+      "created_at" => element.created_at.as_json,
       "display_name" => element.display_name_with_preview_text,
       "id" => element.id,
       "ingredients" => [],
@@ -20,7 +20,7 @@ RSpec.describe Alchemy::ElementSerializer do
       "page_version_id" => element.page_version_id,
       "position" => 1,
       "tag_list" => [],
-      "updated_at" => element.updated_at.strftime("%FT%T.%LZ")
+      "updated_at" => element.updated_at.as_json
     )
   end
 end
