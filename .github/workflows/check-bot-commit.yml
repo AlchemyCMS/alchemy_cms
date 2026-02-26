@@ -1,0 +1,25 @@
+name: Check Bot Commit
+
+on:
+  workflow_call:
+    outputs:
+      is_bot:
+        value: ${{ jobs.check.outputs.is_bot }}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      is_bot: ${{ steps.check.outputs.is_bot }}
+    steps:
+      - id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          SHA="${{ github.event.pull_request.head.sha || github.sha }}"
+          AUTHOR_EMAIL=$(gh api "repos/${{ github.repository }}/commits/${SHA}" --jq '.commit.author.email')
+          if [ "$AUTHOR_EMAIL" = "alchemy@blish.cloud" ]; then
+            echo "is_bot=true" >> $GITHUB_OUTPUT
+          fi

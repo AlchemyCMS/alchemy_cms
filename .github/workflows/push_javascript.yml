@@ -53,7 +53,7 @@ jobs:
           git config --local user.name 'AlchemyCMS - CI Bot'
           git config --local user.email 'alchemy@blish.cloud'
           git add vendor/javascript bun.lock
-          git commit -m "Update JS packages" -m "Rebuilt packages after updating dependencies." -m "[skip ci]"
+          git commit -m "Update JS packages" -m "Rebuilt packages after updating dependencies."
       - name: Push changes
         if: steps.git-status.outputs.changed == 'true'
         uses: ad-m/github-push-action@master

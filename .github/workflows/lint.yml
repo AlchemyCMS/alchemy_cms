@@ -10,7 +10,12 @@ permissions:
   contents: read
 
 jobs:
+  check_bot_commit:
+    uses: ./.github/workflows/check-bot-commit.yml
+
   Standard:
+    needs: [check_bot_commit]
+    if: needs.check_bot_commit.outputs.is_bot != 'true'
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout code
@@ -24,6 +29,8 @@ jobs:
       - name: Lint Ruby files
         run: bundle exec standardrb
   ESLint:
+    needs: [check_bot_commit]
+    if: needs.check_bot_commit.outputs.is_bot != 'true'
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
@@ -42,6 +49,8 @@ jobs:
       - name: Lint code
         run: bun run --bun eslint
   Prettier:
+    needs: [check_bot_commit]
+    if: needs.check_bot_commit.outputs.is_bot != 'true'
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
@@ -60,6 +69,8 @@ jobs:
       - name: Lint code
         run: bun run --bun lint
   Herb:
+    needs: [check_bot_commit]
+    if: needs.check_bot_commit.outputs.is_bot != 'true'
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
@@ -77,3 +88,18 @@ jobs:
         run: bun install
       - name: Lint erb files
         run: bun run --bun herb-lint
+
+  lint-success:
+    name: "Lint Success"
+    if: always()
+    needs: [check_bot_commit, Standard, ESLint, Prettier, Herb]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check results
+        run: |
+          for result in "${{ needs.Standard.result }}" "${{ needs.ESLint.result }}" "${{ needs.Prettier.result }}" "${{ needs.Herb.result }}"; do
+            if [[ "$result" != "success" && "$result" != "skipped" ]]; then
+              echo "Failed: $result"
+              exit 1
+            fi
+          done

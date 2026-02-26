@@ -17,6 +17,9 @@ on:
   pull_request:
 
 jobs:
+  check_bot_commit:
+    uses: ./.github/workflows/check-bot-commit.yml
+
   check_package_json:
     permissions:
       contents: read
@@ -78,8 +81,11 @@ jobs:
   RSpec:
     permissions:
       contents: read
-    needs: [check_package_json, build_javascript]
-    if: ${{ always() && (needs.build_javascript.result == 'success' || needs.build_javascript.result == 'skipped') }}
+    needs: [check_package_json, build_javascript, check_bot_commit]
+    if: >
+      always() &&
+      needs.check_bot_commit.outputs.is_bot != 'true' &&
+      (needs.build_javascript.result == 'success' || needs.build_javascript.result == 'skipped')
     runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
@@ -223,8 +229,11 @@ jobs:
     permissions:
       contents: read
     runs-on: ubuntu-24.04
-    needs: [check_package_json, build_javascript]
-    if: ${{ always() && (needs.build_javascript.result == 'success' || needs.build_javascript.result == 'skipped') }}
+    needs: [check_package_json, build_javascript, check_bot_commit]
+    if: >
+      always() &&
+      needs.check_bot_commit.outputs.is_bot != 'true' &&
+      (needs.build_javascript.result == 'success' || needs.build_javascript.result == 'skipped')
     env:
       NODE_ENV: test
     steps:
@@ -246,3 +255,20 @@ jobs:
         run: bun install
       - name: Run vitest
         run: bun run test
+
+  build-test-success:
+    name: "Build & Test Success"
+    if: always()
+    needs: [check_bot_commit, RSpec, Vitest]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check results
+        run: |
+          for result in "${{ needs.RSpec.result }}" "${{ needs.Vitest.result }}"; do
+            if [[ "$result" != "success" && "$result" != "skipped" ]]; then
+              echo "Failed: $result"
+              exit 1
+            fi
+          done

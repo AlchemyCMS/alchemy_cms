@@ -21,7 +21,12 @@ on:
     - cron: "40 4 * * 2"
 
 jobs:
+  check_bot_commit:
+    uses: ./.github/workflows/check-bot-commit.yml
+
   brakeman-scan:
+    needs: [check_bot_commit]
+    if: needs.check_bot_commit.outputs.is_bot != 'true'
     name: Brakeman Scan
     runs-on: ubuntu-24.04
     steps:
@@ -47,3 +52,18 @@ jobs:
         if: always()
         with:
           sarif_file: output.sarif.json
+
+  brakeman-success:
+    name: "Brakeman Success"
+    if: always()
+    needs: [check_bot_commit, brakeman-scan]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check results
+        run: |
+          if [[ "${{ needs.brakeman-scan.result }}" != "success" && "${{ needs.brakeman-scan.result }}" != "skipped" ]]; then
+            echo "Failed: ${{ needs.brakeman-scan.result }}"
+            exit 1
+          fi
