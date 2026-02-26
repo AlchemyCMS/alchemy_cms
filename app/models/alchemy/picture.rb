@@ -236,7 +236,7 @@ module Alchemy
     # even if it is also assigned on a restricted page.
     #
     def restricted?
-      pages.any? && pages.not_restricted.blank?
+      related_pages.any? && related_pages.not_restricted.blank?
     end
 
     def image_file_name

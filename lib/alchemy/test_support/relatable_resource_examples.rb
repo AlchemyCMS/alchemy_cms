@@ -1,7 +1,7 @@
 RSpec.shared_examples_for "a relatable resource" do |args|
   it { is_expected.to have_many(:related_ingredients) }
-  it { is_expected.to have_many(:elements).through(:related_ingredients) }
-  it { is_expected.to have_many(:pages).through(:elements) }
+  it { is_expected.to have_many(:related_elements).through(:related_ingredients) }
+  it { is_expected.to have_many(:related_pages).through(:related_elements) }
 
   describe ".deletable" do
     subject { described_class.deletable }

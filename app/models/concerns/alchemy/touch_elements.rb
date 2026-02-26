@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Alchemy
-  # If the model has a +elements+ association,
+  # If the model has a +related_elements+ association,
   # it updates all their timestamps after save.
   #
   # Should only be used on bottom to top relations,
@@ -16,9 +16,9 @@ module Alchemy
     private
 
     def touch_elements
-      return unless respond_to?(:elements)
+      return unless respond_to?(:related_elements)
 
-      elements.touch_all
+      related_elements.touch_all
     end
   end
 end
