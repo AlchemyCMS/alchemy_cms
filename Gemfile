@@ -23,6 +23,7 @@ end
 
 group :development, :test do
   gem "execjs", "~> 2.10.0"
+  gem "parallel_tests", "~> 5.5"
   gem "rubocop", require: false
   gem "standard", "~> 1.25", require: false
 
