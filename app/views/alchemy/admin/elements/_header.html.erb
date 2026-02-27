@@ -1,4 +1,4 @@
-<div class="element-header<%= ' has-hint' if element.has_hint? %>">
+<div class="element-header<%= ' has-hint' if element.has_hint? %>" id="element-header-<%= element.id %>">
   <span class="element-handle<%= ' draggable' if can?(:order, element) %>">
     <% if element.definition.blank? %>
       <%= hint_with_tooltip Alchemy.t(:element_definition_missing), icon_class: "element-icon" %>
@@ -18,11 +18,21 @@
       <%= sanitize(element.preview_text.presence || '&nbsp;') %>
     </span>
   </span>
-  <span class="element-hidden-icon">
-    <%= render_icon("cloud-off", size: "1x") %>
-    <span class="element-hidden-label">
-      <%= Alchemy.t(:element_hidden) %>
-    </span>
+  <span class="element-status-icons">
+    <% unless element.public? || element.scheduled? %>
+      <%= render_icon("cloud-off", size: "1x") %>
+      <span class="element-hidden-label">
+        <%= Alchemy.t(:element_hidden) %>
+      </span>
+    <% end %>
+    <sl-tooltip
+      class="element-scheduled-icon"
+      content="<%= Alchemy.t(element.public_on&.future? ? :public_on : :public_until, scope: :element_scheduled, public_on: element.public_on && l(element.public_on, format: :"alchemy.default"), public_until: element.public_until && l(element.public_until, format: :"alchemy.default")) %>"
+      <%= "hidden" if !element.scheduled? %>
+    >
+      <%= render_icon("calendar-schedule", size: "1x") %>
+      <%= element.public_on&.future? ? element.public_on && l(element.public_on, format: :"alchemy.short_datetime") : element.public_until && l(element.public_until, format: :"alchemy.short_datetime") %>
+    </sl-tooltip>
   </span>
   <sl-tooltip content="<%= Alchemy.t(element.folded? ? :show_element_content : :hide_element_content) %>">
     <%= button_tag(class: "element-toggle") do %>

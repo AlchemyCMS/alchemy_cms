@@ -106,9 +106,9 @@
   --sl-font-size-2x-small: 0.625rem; /* 10px */
   --sl-font-size-x-small: var(--font-size_small); /* 10px */
   --sl-font-size-small: var(--font-size_medium); /* 12px */
-  --sl-font-size-medium: var(--font-size_large); /* 16px */
-  --sl-font-size-large: 1.25rem; /* 20px */
-  --sl-font-size-x-large: 1.5rem; /* 24px */
+  --sl-font-size-medium: var(--font-size_medium); /* 16px */
+  --sl-font-size-large: var(--font-size_medium); /* 20px */
+  --sl-font-size-x-large: var(--font-size_large); /* 24px */
   --sl-font-size-2x-large: 2.25rem; /* 36px */
   --sl-font-size-3x-large: 3rem; /* 48px */
   --sl-font-size-4x-large: 4.5rem; /* 72px */
@@ -285,6 +285,15 @@
   }
 }
 
+sl-dropdown {
+  &::part(panel) {
+    background-color: var(--dialog-background-color);
+    box-shadow: none;
+    filter: drop-shadow(var(--dialog-box-shadow));
+    border: 1px solid var(--border-color);
+  }
+}
+
 sl-tab-group {
   --indicator-color: var(--tabs_indicator-color);
   --track-color: var(--tabs_track-color);
@@ -320,6 +329,10 @@ sl-button {
   &[disabled]::part(base) {
     border-color: var(--button-disabled-border-color);
   }
+  &[variant="primary"]::part(base),
+  &[variant="default"]::part(base) {
+    --sl-color-neutral-0: var(--button-primary-text-color);
+  }
 }
 
 sl-dialog {
@@ -342,7 +355,6 @@ sl-dialog {
   }
 
   &::part(title) {
-    --sl-font-size-large: var(--font-size_medium);
     color: var(--dialog-header-text-color);
     font-weight: var(--font-weight_bold);
     -webkit-font-smoothing: antialiased;

@@ -147,6 +147,8 @@ module Alchemy
 
     # @return [Boolean]
     def has_validations?
+      return false if element.skip_ingredient_validations
+
       definition.validate.any?
     end
 

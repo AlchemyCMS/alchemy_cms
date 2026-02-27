@@ -1,104 +1,90 @@
-import { vi } from "vitest"
 import "alchemy_admin/components/element_editor/publish_element_button"
 import { renderComponent } from "../component.helper"
-import { growl } from "alchemy_admin/growler"
-
-const mockReloadPreview = vi.fn()
-
-vi.mock("alchemy_admin/components/preview_window", () => {
-  return {
-    reloadPreview: () => {
-      mockReloadPreview()
-    }
-  }
-})
-
-vi.mock("alchemy_admin/growler", () => {
-  return {
-    growl: vi.fn()
-  }
-})
-
-vi.mock("alchemy_admin/utils/ajax", () => {
-  return {
-    __esModule: true,
-    patch(url) {
-      return new Promise((resolve, reject) => {
-        switch (url) {
-          case "/admin/elements/123/publish":
-            resolve({
-              data: {
-                public: false,
-                label: "Hide element"
-              }
-            })
-            break
-          case "/admin/elements/666/publish":
-            reject(new Error("Something went wrong!"))
-            break
-          default:
-            reject(new Error(`URL ${url} not found!`))
-        }
-      })
-    }
-  }
-})
+import { beforeEach } from "vitest"
 
 describe("alchemy-publish-element-button", () => {
-  let html = `
-    <alchemy-element-editor>
-      <div class="element-toolbar">
-        <sl-tooltip content="Show element">
-          <alchemy-publish-element-button></alchemy-publish-element-button>
-        </sl-tooltip>
-      </div>
-    </alchemy-element-editor>
-  `
-  let button
+  let html, button
 
-  beforeEach(() => {
-    button = renderComponent("alchemy-publish-element-button", html)
-    Alchemy = {
-      routes: {
-        publish_admin_element_path(id) {
-          return `/admin/elements/${id}/publish`
-        }
-      },
-      reloadPreview: vi.fn()
-    }
+  describe("on click of publish button", () => {
+    beforeEach(() => {
+      html = `
+        <alchemy-publish-element-button>
+          <sl-button type="submit" variant="default" outline>Hide</sl-button>
+          <sl-dropdown>
+            <sl-button slot="trigger" variant="default" outline>Schedule</sl-button>
+          </sl-dropdown>
+        </alchemy-publish-element-button>
+      `
+      button = renderComponent("alchemy-publish-element-button", html)
+    })
 
-    Alchemy.reloadPreview.mockClear()
-    growl.mockClear()
+    it("sets button to loading", async () => {
+      const click = new Event("click", { bubbles: true })
+      const publishButton = button.querySelector("sl-button[type='submit']")
+
+      publishButton.dispatchEvent(click)
+      await Promise.resolve()
+      expect(publishButton.loading).toBeTruthy()
+    })
   })
 
-  describe("on change", () => {
-    it("Publishes element editor", () => {
-      const change = new CustomEvent("sl-change", { bubbles: true })
-      vi.spyOn(button, "elementId", "get").mockReturnValue("123")
-      button.dispatchEvent(change)
-
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          expect(button.tooltip.getAttribute("content")).toEqual("Hide element")
-          expect(mockReloadPreview).toHaveBeenCalled()
-          resolve()
-        }, 1)
+  describe("on sl-show event", () => {
+    describe("when dropdown button is default", () => {
+      beforeEach(() => {
+        html = `
+          <alchemy-publish-element-button>
+            <sl-button type="submit" variant="default" outline>Hide</sl-button>
+            <sl-dropdown>
+              <sl-button slot="trigger" variant="default" outline>Schedule</sl-button>
+            </sl-dropdown>
+          </alchemy-publish-element-button>
+        `
+        button = renderComponent("alchemy-publish-element-button", html)
       })
-    }, 100)
-  })
 
-  describe("on error", () => {
-    it("Shows error", () => {
-      const change = new CustomEvent("sl-change", { bubbles: true })
-      vi.spyOn(button, "elementId", "get").mockReturnValue("666")
-      button.dispatchEvent(change)
+      it("sets button to primary on dropdown show", async () => {
+        const show = new CustomEvent("sl-show", { bubbles: true })
+        const dropdown = button.querySelector("sl-dropdown")
+        const scheduleButton = button.querySelector("sl-button[slot='trigger']")
 
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          expect(growl).toHaveBeenCalled()
-          resolve()
-        }, 1)
+        dropdown.dispatchEvent(show)
+        await Promise.resolve()
+        expect(scheduleButton.getAttribute("variant")).toEqual("primary")
       })
-    }, 100)
+
+      it("sets button to default on dropdown hide", async () => {
+        const show = new CustomEvent("sl-hide", { bubbles: true })
+        const dropdown = button.querySelector("sl-dropdown")
+        const scheduleButton = button.querySelector("sl-button[slot='trigger']")
+
+        dropdown.dispatchEvent(show)
+        await Promise.resolve()
+        expect(scheduleButton.getAttribute("variant")).toEqual("default")
+      })
+    })
+
+    describe("when dropdown button is primary", () => {
+      beforeEach(() => {
+        html = `
+          <alchemy-publish-element-button>
+            <sl-button type="submit" variant="default" outline>Hide</sl-button>
+            <sl-dropdown>
+              <sl-button slot="trigger" variant="primary" outline>Schedule</sl-button>
+            </sl-dropdown>
+          </alchemy-publish-element-button>
+        `
+        button = renderComponent("alchemy-publish-element-button", html)
+      })
+
+      it("keeps button at primary on dropdown hide", async () => {
+        const show = new CustomEvent("sl-show", { bubbles: true })
+        const dropdown = button.querySelector("sl-dropdown")
+        const scheduleButton = button.querySelector("sl-button[slot='trigger']")
+
+        dropdown.dispatchEvent(show)
+        await Promise.resolve()
+        expect(scheduleButton.getAttribute("variant")).toEqual("primary")
+      })
+    })
   })
 })
