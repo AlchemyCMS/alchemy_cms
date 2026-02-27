@@ -320,6 +320,128 @@ module Alchemy
       context "without a description for the given language" do
         it { is_expected.to be_nil }
       end
+
+      context "with preloaded description" do
+        let!(:description) do
+          Alchemy::PictureDescription.create!(
+            picture: picture,
+            language: language,
+            text: "Preloaded description"
+          )
+        end
+
+        before do
+          picture.instance_variable_set(:@preloaded_description, description)
+        end
+
+        it "returns the preloaded description text" do
+          expect(picture.description_for(language)).to eq("Preloaded description")
+        end
+
+        it "does not query the database" do
+          expect(picture.descriptions).not_to receive(:find_by)
+          picture.description_for(language)
+        end
+      end
+
+      context "with preloaded description for different language" do
+        let(:other_language) { create(:alchemy_language, :german) }
+        let!(:description) do
+          Alchemy::PictureDescription.create!(
+            picture: picture,
+            language: other_language,
+            text: "German description"
+          )
+        end
+
+        before do
+          picture.instance_variable_set(:@preloaded_description, description)
+        end
+
+        it "returns nil when querying for a different language" do
+          expect(picture.description_for(language)).to be_nil
+        end
+      end
+
+      context "with nil preloaded description" do
+        before do
+          picture.instance_variable_set(:@preloaded_description, nil)
+        end
+
+        it "returns nil" do
+          expect(picture.description_for(language)).to be_nil
+        end
+      end
+    end
+
+    describe ".alchemy_element_preloads" do
+      let(:language) { create(:alchemy_language) }
+
+      context "with pictures that have descriptions" do
+        let!(:picture1) { create(:alchemy_picture) }
+        let!(:picture2) { create(:alchemy_picture) }
+        let!(:description1) do
+          Alchemy::PictureDescription.create!(picture: picture1, language: language, text: "Description 1")
+        end
+        let!(:description2) do
+          Alchemy::PictureDescription.create!(picture: picture2, language: language, text: "Description 2")
+        end
+
+        it "preloads descriptions for all pictures" do
+          described_class.alchemy_element_preloads([picture1, picture2], language: language)
+
+          expect(picture1.instance_variable_get(:@preloaded_description)).to eq(description1)
+          expect(picture2.instance_variable_get(:@preloaded_description)).to eq(description2)
+        end
+
+        it "preloads descriptions and thumbs", if: Alchemy.storage_adapter.dragonfly? do
+          # 1 query for descriptions + 1 query for thumbs
+          expect {
+            described_class.alchemy_element_preloads([picture1, picture2], language: language)
+          }.to make_database_queries(count: 2)
+
+          expect(picture1.association(:thumbs)).to be_loaded
+          expect(picture2.association(:thumbs)).to be_loaded
+        end
+
+        it "preloads descriptions and image file", if: Alchemy.storage_adapter.active_storage? do
+          # Reload pictures to clear already-loaded associations from factory
+          reloaded1 = Picture.find(picture1.id)
+          reloaded2 = Picture.find(picture2.id)
+
+          # 1 query for descriptions + 2 queries for image_file_attachment + blob
+          expect {
+            described_class.alchemy_element_preloads([reloaded1, reloaded2], language: language)
+          }.to make_database_queries(count: 3)
+
+          expect(reloaded1.association(:image_file_attachment)).to be_loaded
+          expect(reloaded2.association(:image_file_attachment)).to be_loaded
+        end
+      end
+
+      context "with pictures without descriptions" do
+        let!(:picture) { create(:alchemy_picture) }
+
+        it "sets nil for pictures without descriptions" do
+          described_class.alchemy_element_preloads([picture], language: language)
+
+          expect(picture.instance_variable_get(:@preloaded_description)).to be_nil
+        end
+      end
+
+      context "with empty pictures array" do
+        it "returns early without errors" do
+          expect { described_class.alchemy_element_preloads([], language: language) }.not_to raise_error
+        end
+      end
+
+      context "with nil language" do
+        let!(:picture) { create(:alchemy_picture) }
+
+        it "returns early without errors" do
+          expect { described_class.alchemy_element_preloads([picture], language: nil) }.not_to raise_error
+        end
+      end
     end
 
     describe "#restricted?" do
@@ -330,7 +452,7 @@ module Alchemy
       context "is assigned on pages" do
         context "that are all restricted" do
           before do
-            expect(picture).to receive(:pages).at_least(:once) do
+            expect(picture).to receive(:related_pages).at_least(:once) do
               double(
                 not_restricted: double(blank?: true),
                 any?: true
@@ -343,7 +465,7 @@ module Alchemy
 
         context "that are not all restricted" do
           before do
-            expect(picture).to receive(:pages).at_least(:once) do
+            expect(picture).to receive(:related_pages).at_least(:once) do
               double(
                 not_restricted: double(blank?: false),
                 any?: true
@@ -357,7 +479,7 @@ module Alchemy
 
       context "is not assigned on any page" do
         before do
-          expect(picture).to receive(:pages).and_return double(any?: false)
+          expect(picture).to receive(:related_pages).and_return double(any?: false)
         end
 
         it { is_expected.to be_falsey }
@@ -510,7 +632,7 @@ module Alchemy
         end
 
         it "touches elements" do
-          expect { picture.save }.to change { picture.elements.reload.first.updated_at }
+          expect { picture.save }.to change { picture.related_elements.reload.first.updated_at }
         end
       end
     end

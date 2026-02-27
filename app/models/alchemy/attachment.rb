@@ -114,7 +114,7 @@ module Alchemy
 
     # Checks if the attachment is restricted, because it is attached on restricted pages only
     def restricted?
-      pages.any? && pages.not_restricted.blank?
+      related_pages.any? && related_pages.not_restricted.blank?
     end
 
     # File name

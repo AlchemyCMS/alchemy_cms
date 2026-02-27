@@ -12,9 +12,12 @@ module Alchemy
       authorize_resource class: Alchemy::Element
 
       def index
-        elements = @page_version.elements.order(:position).includes(*element_includes)
-        @elements = elements.not_nested.unfixed
-        @fixed_elements = elements.not_nested.fixed
+        preloaded = Alchemy::ElementPreloader
+          .new(page_version: @page_version, language: @page.language)
+          .call
+
+        @elements = preloaded.reject(&:fixed?)
+        @fixed_elements = preloaded.select(&:fixed?)
       end
 
       def new
@@ -119,12 +122,12 @@ module Alchemy
       def collapse
         # We do not want to trigger the touch callback or any validations
         @element.update_columns(folded: true)
-        # Collapse all nested elements
-        nested_elements_ids = collapse_nested_elements_ids(@element)
-        Alchemy::Element.where(id: nested_elements_ids).update_all(folded: true)
+        # Collapse all nested elements (except compact ones which stay as-is)
+        nested_element_ids = nested_element_ids_to_collapse(@element)
+        Alchemy::Element.where(id: nested_element_ids).update_all(folded: true)
 
         render json: {
-          nestedElementIds: nested_elements_ids,
+          nestedElementIds: nested_element_ids,
           title: Alchemy.t(@element.folded? ? :show_element_content : :hide_element_content)
         }
       end
@@ -152,30 +155,31 @@ module Alchemy
         @page = @page_version.page
       end
 
-      def collapse_nested_elements_ids(element)
-        ids = []
-        element.all_nested_elements.includes(:all_nested_elements).reject(&:compact?).each do |nested_element|
-          ids.push nested_element.id if nested_element.expanded?
-          ids.concat collapse_nested_elements_ids(nested_element) if nested_element.all_nested_elements.reject(&:compact?).any?
-        end
-        ids
-      end
+      # Collects IDs of nested elements that should be collapsed.
+      # Skips compact elements (they retain their fold state).
+      # Optimized to use a single query instead of N queries for N levels.
+      def nested_element_ids_to_collapse(element)
+        all_elements = Element
+          .where(page_version_id: element.page_version_id)
+          .select(:id, :parent_element_id, :folded, :name)
+          .to_a
 
-      def element_includes
-        [
-          {
-            ingredients: :related_object
-          },
-          :tags,
-          {
-            all_nested_elements: [
-              {
-                ingredients: :related_object
-              },
-              :tags
-            ]
-          }
-        ]
+        children_by_parent = all_elements.group_by(&:parent_element_id)
+
+        ids = []
+        stack = [element.id]
+
+        while stack.any?
+          current_id = stack.pop
+          children = children_by_parent[current_id] || []
+
+          children.reject(&:compact?).each do |child|
+            ids << child.id if child.expanded?
+            stack << child.id
+          end
+        end
+
+        ids
       end
 
       def load_element

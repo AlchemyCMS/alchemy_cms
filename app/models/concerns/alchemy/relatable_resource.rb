@@ -2,6 +2,21 @@ module Alchemy
   module RelatableResource
     extend ActiveSupport::Concern
 
+    class_methods do
+      # Preload associations for element editor display
+      #
+      # Override this method in models that need custom preloading
+      # when displayed in the element editor (e.g., preloading
+      # language-specific descriptions).
+      #
+      # @param records [Array] Collection of records to preload for
+      # @param language [Alchemy::Language] Current language context
+      def alchemy_element_preloads(records, language:)
+        # Default implementation does nothing
+        # Override in subclasses that need preloading
+      end
+    end
+
     included do
       scope :deletable, -> do
         where(
@@ -15,8 +30,8 @@ module Alchemy
         foreign_key: "related_object_id",
         as: :related_object
 
-      has_many :elements, through: :related_ingredients
-      has_many :pages, through: :elements
+      has_many :related_elements, through: :related_ingredients, source: :element
+      has_many :related_pages, through: :related_elements, source: :page
     end
 
     # Returns true if object is not assigned to any ingredient.
