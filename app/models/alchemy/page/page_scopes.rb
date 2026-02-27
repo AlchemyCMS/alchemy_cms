@@ -78,18 +78,6 @@ module Alchemy
         #
         scope :contentpages, -> { where(layoutpage: [false, nil]) }
 
-        # Returns all public contentpages that are not locked.
-        #
-        # Used for flushing all pages caches at once.
-        #
-        scope :flushables, -> { not_locked.published.contentpages }
-
-        # Returns all layoutpages that are not locked.
-        #
-        # Used for flushing all pages caches at once.
-        #
-        scope :flushable_layoutpages, -> { not_locked.layoutpages }
-
         # All searchable pages
         #
         scope :searchables, -> { not_restricted.published.contentpages }
