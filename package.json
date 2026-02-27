@@ -28,7 +28,7 @@
     "jquery": "^3.7.1",
     "keymaster": "^1.6.2",
     "select2": "github:select2/select2#3.5.4",
-    "sortablejs": "^1.15.6",
+    "sortablejs": "^1.15.7",
     "tinymce": "^8.3.2"
   },
   "devDependencies": {
