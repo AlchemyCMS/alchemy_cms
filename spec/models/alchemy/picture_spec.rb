@@ -330,7 +330,7 @@ module Alchemy
       context "is assigned on pages" do
         context "that are all restricted" do
           before do
-            expect(picture).to receive(:pages).at_least(:once) do
+            expect(picture).to receive(:related_pages).at_least(:once) do
               double(
                 not_restricted: double(blank?: true),
                 any?: true
@@ -343,7 +343,7 @@ module Alchemy
 
         context "that are not all restricted" do
           before do
-            expect(picture).to receive(:pages).at_least(:once) do
+            expect(picture).to receive(:related_pages).at_least(:once) do
               double(
                 not_restricted: double(blank?: false),
                 any?: true
@@ -357,7 +357,7 @@ module Alchemy
 
       context "is not assigned on any page" do
         before do
-          expect(picture).to receive(:pages).and_return double(any?: false)
+          expect(picture).to receive(:related_pages).and_return double(any?: false)
         end
 
         it { is_expected.to be_falsey }
@@ -510,7 +510,7 @@ module Alchemy
         end
 
         it "touches elements" do
-          expect { picture.save }.to change { picture.elements.reload.first.updated_at }
+          expect { picture.save }.to change { picture.related_elements.reload.first.updated_at }
         end
       end
     end

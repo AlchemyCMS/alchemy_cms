@@ -15,8 +15,8 @@ module Alchemy
         foreign_key: "related_object_id",
         as: :related_object
 
-      has_many :elements, through: :related_ingredients
-      has_many :pages, through: :elements
+      has_many :related_elements, through: :related_ingredients, source: :element
+      has_many :related_pages, through: :related_elements, source: :page
     end
 
     # Returns true if object is not assigned to any ingredient.

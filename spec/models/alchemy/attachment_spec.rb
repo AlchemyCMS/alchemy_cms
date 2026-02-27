@@ -82,7 +82,7 @@ module Alchemy
         end
 
         it "touches elements" do
-          expect { attachment.update(name: "image with spaces") }.to change { attachment.elements.reload.first.updated_at }
+          expect { attachment.update(name: "image with spaces") }.to change { attachment.related_elements.reload.first.updated_at }
         end
       end
     end
@@ -382,7 +382,7 @@ module Alchemy
         before do
           pages = double(any?: true)
           expect(pages).to receive(:not_restricted).and_return([])
-          expect(attachment).to receive(:pages).twice.and_return(pages)
+          expect(attachment).to receive(:related_pages).twice.and_return(pages)
         end
 
         it { is_expected.to be_truthy }
@@ -394,7 +394,7 @@ module Alchemy
         before do
           pages = double(any?: true)
           expect(pages).to receive(:not_restricted).and_return([page])
-          expect(attachment).to receive(:pages).twice.and_return(pages)
+          expect(attachment).to receive(:related_pages).twice.and_return(pages)
         end
 
         it { is_expected.to be_falsey }
