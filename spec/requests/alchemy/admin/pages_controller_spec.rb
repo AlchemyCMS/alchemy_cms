@@ -125,28 +125,28 @@ module Alchemy
         let(:content_pages) { [content_page_1, content_page_2] }
         let(:layout_pages) { [layout_page_1, layout_page_2] }
 
-        it "should update the published_at field of content pages" do
+        it "should update the updated_at field of content pages" do
           content_pages
 
           travel_to(Time.current) do
             post flush_admin_pages_path, xhr: true
-            # Reloading because published_at was directly updated in the database.
+            # Reloading because updated_at was directly updated in the database.
             content_pages.map(&:reload)
             content_pages.each do |page|
-              expect(page.published_at).to eq(Time.current)
+              expect(page.updated_at).to eq(Time.current)
             end
           end
         end
 
-        it "should update the published_at field of layout pages" do
+        it "should update the updated_at field of layout pages" do
           layout_pages
 
           travel_to(Time.current) do
             post flush_admin_pages_path, xhr: true
-            # Reloading because published_at was directly updated in the database.
+            # Reloading because updated_at was directly updated in the database.
             layout_pages.map(&:reload)
             layout_pages.each do |page|
-              expect(page.published_at).to eq(Time.current)
+              expect(page.updated_at).to eq(Time.current)
             end
           end
         end
