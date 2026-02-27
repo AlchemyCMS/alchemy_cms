@@ -32,7 +32,7 @@
     "tinymce": "^8.3.2"
   },
   "devDependencies": {
-    "@herb-tools/linter": "^0.8.5",
+    "@herb-tools/linter": "^0.8.10",
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "^0.4.4",
