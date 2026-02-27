@@ -9,60 +9,11 @@ module Alchemy
     let(:page) { mock_model(Page, urlname: "testpage", language_code: "en") }
 
     context "page path helpers" do
-      describe "#show_page_path_params" do
-        subject(:show_page_path_params) { helper.show_page_path_params(page) }
-
-        context "if prefix_locale? is false" do
-          before do
-            expect(helper).to receive(:prefix_locale?).with(page.language_code) { false }
-          end
-
-          it "returns a Hash with urlname and no locale parameter" do
-            expect(show_page_path_params).to include(urlname: "testpage")
-            expect(show_page_path_params).to_not include(locale: "en")
-          end
-
-          context "with additional parameters" do
-            subject(:show_page_path_params) do
-              helper.show_page_path_params(page, {query: "test"})
-            end
-
-            it "returns a Hash with urlname, no locale and query parameter" do
-              expect(show_page_path_params).to \
-                include(urlname: "testpage", query: "test")
-              expect(show_page_path_params).to_not \
-                include(locale: "en")
-            end
-          end
-        end
-
-        context "if prefix_locale? is false" do
-          before do
-            expect(helper).to receive(:prefix_locale?).with(page.language_code) { true }
-          end
-
-          it "returns a Hash with urlname and locale parameter" do
-            expect(show_page_path_params).to \
-              include(urlname: "testpage", locale: "en")
-          end
-
-          context "with additional parameters" do
-            subject(:show_page_path_params) do
-              helper.show_page_path_params(page, {query: "test"})
-            end
-
-            it "returns a Hash with urlname, locale and query parameter" do
-              expect(show_page_path_params).to \
-                include(urlname: "testpage", locale: "en", query: "test")
-            end
-          end
-        end
-      end
-
       describe "#show_alchemy_page_path" do
         context "when prefix_locale? set to true" do
           before do
-            expect(helper).to receive(:prefix_locale?).with(page.language_code) { true }
+            allow(page).to receive(:url_path).with({}).and_return("/#{page.language_code}/testpage")
+            allow(page).to receive(:url_path).with({query: "test"}).and_return("/#{page.language_code}/testpage?query=test")
           end
 
           it "should return the correct relative path string" do
@@ -77,7 +28,8 @@ module Alchemy
 
         context "when prefix_locale? set to false" do
           before do
-            expect(helper).to receive(:prefix_locale?).with(page.language_code) { false }
+            allow(page).to receive(:url_path).with({}).and_return("/testpage")
+            allow(page).to receive(:url_path).with({query: "test"}).and_return("/testpage?query=test")
           end
 
           it "should return the correct relative path string" do
@@ -94,7 +46,8 @@ module Alchemy
       describe "#show_alchemy_page_url" do
         context "when prefix_locale? set to true" do
           before do
-            expect(helper).to receive(:prefix_locale?).with(page.language_code) { true }
+            allow(page).to receive(:url_path).with({}).and_return("/#{page.language_code}/testpage")
+            allow(page).to receive(:url_path).with({query: "test"}).and_return("/#{page.language_code}/testpage?query=test")
           end
 
           it "should return the correct url string" do
@@ -110,7 +63,8 @@ module Alchemy
 
         context "when prefix_locale? set to false" do
           before do
-            expect(helper).to receive(:prefix_locale?).with(page.language_code) { false }
+            allow(page).to receive(:url_path).with({}).and_return("/testpage")
+            allow(page).to receive(:url_path).with({query: "test"}).and_return("/testpage?query=test")
           end
 
           it "should return the correct url string" do

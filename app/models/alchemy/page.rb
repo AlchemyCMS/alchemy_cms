@@ -301,8 +301,10 @@ module Alchemy
     # = The url_path for this page
     #
     # @see Alchemy::Page::UrlPath#call
-    def url_path
-      self.class.url_path_class.new(self).call
+    def url_path(optional_params = {})
+      uri = URI(self.class.url_path_class.new(self).call)
+      uri.query = optional_params.to_query.presence
+      uri.to_s
     end
 
     # The page's view partial is dependent from its page layout
