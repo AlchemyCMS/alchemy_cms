@@ -72,8 +72,8 @@ RSpec.describe Alchemy::CopyPage do
       expect(subject.draft_version.meta_keywords).to eq("source, keywords")
     end
 
-    it "derives title from the new page name" do
-      expect(subject.draft_version.title).to eq("#{page.name} (Copy)")
+    it "copies the title from the source page's draft version" do
+      expect(subject.draft_version.title).to eq("Source Title")
     end
   end
 
@@ -108,8 +108,8 @@ RSpec.describe Alchemy::CopyPage do
       expect(subject.name).to eq("Different name")
     end
 
-    it "sets the draft version title to the new name" do
-      expect(subject.draft_version.title).to eq("Different name")
+    it "keeps the draft version title from the source page" do
+      expect(subject.draft_version.title).to eq(page.draft_version.title)
     end
   end
 
