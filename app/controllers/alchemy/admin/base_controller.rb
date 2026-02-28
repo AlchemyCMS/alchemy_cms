@@ -153,11 +153,18 @@ module Alchemy
       end
 
       # Returns the current site for admin controllers.
+      # Raises CanCan::AccessDenied if the user is not allowed to access the site.
       #
       def current_alchemy_site
         @current_alchemy_site ||= begin
           site_id = params[:site_id] || session[:alchemy_site_id]
           site = Site.find_by(id: site_id) || super
+
+          authorize! :access, site if site
+        rescue CanCan::AccessDenied
+          site = Site.accessible_by(current_alchemy_user).first
+          raise
+        ensure
           session[:alchemy_site_id] = site&.id
           site
         end
