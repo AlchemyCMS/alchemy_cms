@@ -33,8 +33,8 @@ module Alchemy
       meta_keywords
     ]
 
-    # Metadata to copy via nested attributes (title is derived from page.name)
-    METADATA_ATTRIBUTES_TO_COPY = (Alchemy::PageVersion::METADATA_ATTRIBUTES - %w[title]).freeze
+    # Metadata to copy via nested attributes
+    METADATA_ATTRIBUTES_TO_COPY = Alchemy::PageVersion::METADATA_ATTRIBUTES.freeze
 
     attr_reader :page
 
@@ -102,8 +102,7 @@ module Alchemy
       end
     end
 
-    # Builds nested attributes for draft_version metadata (except title).
-    # Title is handled by PageVersion#set_title_from_page callback based on page.name.
+    # Builds nested attributes for draft_version metadata.
     def draft_version_attributes_for_copy
       return {} unless page.draft_version
 
