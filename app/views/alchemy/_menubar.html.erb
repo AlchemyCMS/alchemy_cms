@@ -35,7 +35,8 @@
         }
 
         .menubar:hover,
-        .menubar:focus-within {
+        .menubar:focus-within,
+        .menubar.is-open {
           left: 0;
         }
 
@@ -121,9 +122,32 @@
         }
 
         connectedCallback() {
-          const bar = this.shadowRoot.querySelector(".menubar")
-          const width = bar.offsetWidth
-          bar.style = `--panel-width: ${width}px; --left-offset: calc(var(--icon-size) + 32px);`
+          const width = this.bar.offsetWidth
+          this.bar.style = `--panel-width: ${width}px; --left-offset: calc(var(--icon-size) + 32px);`
+          this.bar.addEventListener("touchstart", this, { passive: false })
+          document.addEventListener("touchstart", this, { passive: true })
+        }
+
+        handleEvent(event) {
+          // click on menubar
+          if (event.currentTarget === this.bar) {
+            if (!this.bar.classList.contains("is-open")) {
+              event.preventDefault()
+              this.bar.classList.add("is-open")
+            }
+          // click outside of menubar
+          } else if (!event.composedPath().includes(this.bar)) {
+            this.bar.classList.remove("is-open")
+          }
+        }
+
+        disconnectedCallback() {
+          this.bar.removeEventListener("touchstart", this)
+          document.removeEventListener("touchstart", this)
+        }
+
+        get bar() {
+          return this.shadowRoot.querySelector(".menubar")
         }
       }
 
