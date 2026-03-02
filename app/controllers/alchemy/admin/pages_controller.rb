@@ -222,11 +222,8 @@ module Alchemy
       end
 
       def flush
-        @current_language.pages.flushables.update_all(published_at: Time.current)
-        # We need to ensure, that also all layoutpages get the +published_at+ timestamp set,
-        # but not set to public true, because the cache_key for an element is +published_at+
-        # and we don't want the layout pages to be present in +Page.published+ scope.
-        @current_language.pages.flushable_layoutpages.update_all(published_at: Time.current)
+        @current_language.pages.touch_all
+        PageVersion.where(page_id: @current_language.pages.select(:id)).touch_all
         respond_to { |format| format.turbo_stream }
       end
 
