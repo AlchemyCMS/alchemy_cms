@@ -239,8 +239,7 @@ module Alchemy
 
           it "should render language links referring to their language root page" do
             code = klingon_language_root.language_code
-            urlname = klingon_language_root.urlname
-            expect(helper.language_links).to have_selector("a.#{code}[href='/#{code}/#{urlname}']")
+            expect(helper.language_links).to have_selector("a.#{code}[href='/#{code}']")
           end
 
           context "with options[:linkname]" do

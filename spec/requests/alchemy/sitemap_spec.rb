@@ -24,34 +24,22 @@ RSpec.describe "Requests for PagesController#sitemap" do
   end
 
   context "in multi language mode" do
-    let!(:root) { page.parent }
-    let!(:pages) { [root, page] }
-
-    before do
-      allow_any_instance_of(Alchemy::BaseController).to receive("prefix_locale?") { true }
-    end
+    let!(:klingon) { create(:alchemy_language, :klingon) }
+    let!(:klingon_page) { create(:alchemy_page, :public, sitemap: true, language: klingon) }
 
     it "links in sitemap has locale code included" do
       get "/sitemap.xml"
       xml_doc = Nokogiri::XML(response.body)
-      xml_doc.css("urlset url").each_with_index do |node, i|
-        page = pages[i]
-        expect(node.css("loc").text).to match(/\/#{page.language_code}\//)
-      end
+      klingon_loc = xml_doc.css("urlset url loc").map(&:text).find { |loc| loc.include?(klingon_page.urlname) }
+      expect(klingon_loc).to match(/\/#{klingon.language_code}\//)
     end
 
     context "if the default locale is the page locale" do
-      before do
-        allow_any_instance_of(Alchemy::BaseController).to receive("prefix_locale?") { false }
-      end
-
       it "links in sitemap has no locale code included" do
         get "/sitemap.xml"
         xml_doc = Nokogiri::XML(response.body)
-        xml_doc.css("urlset url").each_with_index do |node, i|
-          page = pages[i]
-          expect(node.css("loc").text).to_not match(/\/#{page.language_code}\//)
-        end
+        default_loc = xml_doc.css("urlset url loc").map(&:text).find { |loc| loc.include?(page.urlname) }
+        expect(default_loc).to_not match(/\/#{page.language_code}\//)
       end
     end
   end
