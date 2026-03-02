@@ -307,6 +307,12 @@ sl-tooltip {
     border-radius: var(--border-radius_medium);
     box-shadow: var(--tooltip-box-shadow);
   }
+
+  @media (pointer: coarse) {
+    &::part(base__popup) {
+      display: none;
+    }
+  }
 }
 
 sl-button {
