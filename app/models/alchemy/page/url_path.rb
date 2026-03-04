@@ -20,19 +20,28 @@ module Alchemy
     #     link_to page.url
     #
     class UrlPath
-      def initialize(page)
+      def initialize(page, optional_params = {})
         @page = page
         @language = @page.language
         @site = @language.site
+        @optional_params = optional_params
       end
 
       def call
-        if @page.language_root?
+        path = if @page.language_root?
           language_root_path
         elsif @site.languages.count(&:public?) > 1
           page_path_with_language_prefix
         else
           page_path_with_leading_slash
+        end
+
+        if @optional_params.present?
+          uri = URI(path)
+          uri.query = @optional_params.to_query
+          uri.to_s
+        else
+          path
         end
       end
 

@@ -66,6 +66,16 @@ RSpec.describe Alchemy::Page::UrlPath do
     end
   end
 
+  context "with optional params" do
+    subject(:url) { described_class.new(page, {foo: "bar"}).call }
+
+    let(:page) { create(:alchemy_page) }
+
+    it "appends params as query string" do
+      is_expected.to eq("/#{page.urlname}?foo=bar")
+    end
+  end
+
   context "mounted on a non-root path" do
     let(:page) do
       create(:alchemy_page)
