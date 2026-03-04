@@ -399,6 +399,7 @@ en:
     confirm_to_delete_menu: "Do you really want to delete this menu?"
     confirm_to_delete_node: "Do you really want to delete this menu node?"
     confirm_to_delete_page: "Do you really want to delete this page?"
+    confirm_to_flush_cache: "Do you really want to flush the page cache? This will might take a while and can make first page requests slow."
     ingredient_validations_headline: "Please check marked fields below"
     copy: "copy"
     copy_element: "Copy this element"
