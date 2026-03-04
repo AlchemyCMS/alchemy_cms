@@ -21,8 +21,8 @@
         <%= button_to(
           render_icon(:eraser),
           alchemy.flush_admin_pages_path,
-          "turbo-method": :post,
-          class: "icon_button please_wait"
+          "data-turbo-confirm": Alchemy.t(:confirm_to_flush_cache),
+          class: "icon_button"
         ) %>
       </sl-tooltip>
     </div>
