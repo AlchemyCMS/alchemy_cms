@@ -217,8 +217,7 @@ module Alchemy
       end
 
       def flush
-        @current_language.pages.touch_all
-        PageVersion.where(page_id: @current_language.pages.select(:id)).touch_all
+        PageVersion.where(page_id: @current_language.pages.select(:id)).published.touch_all
         respond_to { |format| format.js }
       end
 
