@@ -23,8 +23,9 @@
           alchemy.flush_admin_pages_path,
           remote: true,
           method: :post,
-          class: "icon_button please_wait",
-          title: Alchemy.t("Flush page cache")
+          class: "icon_button",
+          title: Alchemy.t("Flush page cache"),
+          "data-turbo-confirm": Alchemy.t(:confirm_to_flush_cache)
         ) %>
       </sl-tooltip>
     </div>

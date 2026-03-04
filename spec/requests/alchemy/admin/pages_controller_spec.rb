@@ -227,29 +227,42 @@ module Alchemy
         let(:content_pages) { [content_page_1, content_page_2] }
         let(:layout_pages) { [layout_page_1, layout_page_2] }
 
-        it "should update the updated_at field of content pages" do
-          content_pages
+        it "should not update the updated_at field of pages" do
+          pages = content_pages + layout_pages
 
           travel_to(Time.current) do
-            post flush_admin_pages_path, xhr: true
-            # Reloading because updated_at was directly updated in the database.
-            content_pages.map(&:reload)
-            content_pages.each do |page|
-              expect(page.updated_at).to eq(Time.current)
-            end
+            expect {
+              post flush_admin_pages_path, xhr: true
+            }.to_not change {
+              # Reloading because updated_at was directly updated in the database.
+              pages.map { _1.reload.updated_at }
+            }
           end
         end
 
-        it "should update the updated_at field of layout pages" do
-          layout_pages
+        it "should update the updated_at field of public versions" do
+          page_versions = content_pages.filter_map(&:public_version)
 
           travel_to(Time.current) do
-            post flush_admin_pages_path, xhr: true
-            # Reloading because updated_at was directly updated in the database.
-            layout_pages.map(&:reload)
-            layout_pages.each do |page|
-              expect(page.updated_at).to eq(Time.current)
-            end
+            expect {
+              post flush_admin_pages_path, xhr: true
+            }.to change {
+              # Reloading because updated_at was directly updated in the database.
+              page_versions.map { _1.reload.updated_at }
+            }
+          end
+        end
+
+        it "should not update the updated_at field of draft versions" do
+          page_versions = content_pages.filter_map(&:draft_version)
+
+          travel_to(Time.current) do
+            expect {
+              post flush_admin_pages_path, xhr: true
+            }.to_not change {
+              # Reloading because updated_at was directly updated in the database.
+              page_versions.map { _1.reload.updated_at }
+            }
           end
         end
       end
