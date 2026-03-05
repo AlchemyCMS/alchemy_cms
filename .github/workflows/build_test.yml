@@ -149,18 +149,14 @@ jobs:
         image: postgres:17
         env:
           POSTGRES_USER: alchemy_user
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: alchemy_cms_dummy_test
+          POSTGRES_HOST_AUTH_METHOD: trust
         ports: ["5432:5432"]
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
       mariadb:
         image: mariadb:latest
         ports: ["3307:3306"]
         env:
-          MARIADB_USER: alchemy_user
-          MARIADB_PASSWORD: password
-          MARIADB_DATABASE: alchemy_cms_dummy_test
-          MARIADB_ROOT_PASSWORD: password
+          MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
         options: --health-cmd="mariadb-admin ping" --health-interval=10s --health-timeout=5s --health-retries=5
     steps:
       - uses: actions/checkout@v6
@@ -206,9 +202,12 @@ jobs:
       - name: Prepare database
         run: |
           bundle exec rake alchemy:spec:prepare
+          cd spec/dummy
+          bin/rails parallel:setup
+          cd -
       - name: Run tests
         run: |
-          bundle exec rspec
+          bin/parallel_rspec
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
         if: matrix.rails == '8.0' && matrix.ruby == '3.4'
