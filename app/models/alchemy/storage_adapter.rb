@@ -25,6 +25,7 @@ module Alchemy
       :image_file_size,
       :image_file_width,
       :picture_url_class,
+      :preload_picture_associations,
       :preloaded_pictures,
       :preprocessor_class,
       :ransackable_associations,

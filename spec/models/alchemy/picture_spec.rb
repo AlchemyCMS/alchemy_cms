@@ -320,6 +320,63 @@ module Alchemy
       context "without a description for the given language" do
         it { is_expected.to be_nil }
       end
+
+      context "with preloaded description" do
+        before do
+          allow(picture.descriptions).to receive(:loaded?) { true }
+        end
+
+        it "does not query the database" do
+          expect(picture.descriptions).not_to receive(:find_by)
+          picture.description_for(language)
+        end
+      end
+
+      context "without preloaded description" do
+        before do
+          allow(picture.descriptions).to receive(:loaded?) { false }
+        end
+
+        it "queries the database" do
+          expect(picture.descriptions).to receive(:find_by)
+          picture.description_for(language)
+        end
+      end
+    end
+
+    describe ".alchemy_element_preloads" do
+      context "with pictures" do
+        let!(:picture1) { create(:alchemy_picture) }
+        let!(:picture2) { create(:alchemy_picture) }
+
+        let!(:reloaded1) { Picture.find(picture1.id) }
+        let!(:reloaded2) { Picture.find(picture2.id) }
+
+        it "preloads thumbnails", if: Alchemy.storage_adapter.dragonfly? do
+          expect {
+            described_class.alchemy_element_preloads([picture1, picture2])
+          }.to make_database_queries(count: 1)
+
+          expect(picture1.association(:thumbs)).to be_loaded
+          expect(picture2.association(:thumbs)).to be_loaded
+        end
+
+        it "preloads thumbnails", if: Alchemy.storage_adapter.active_storage? do
+          # 2 queries for image_file_attachment + blob
+          expect {
+            described_class.alchemy_element_preloads([reloaded1, reloaded2])
+          }.to make_database_queries(count: 2)
+
+          expect(reloaded1.association(:image_file_attachment)).to be_loaded
+          expect(reloaded2.association(:image_file_attachment)).to be_loaded
+        end
+      end
+
+      context "with empty pictures array" do
+        it "returns early without errors" do
+          expect { described_class.alchemy_element_preloads([]) }.not_to raise_error
+        end
+      end
     end
 
     describe "#restricted?" do
