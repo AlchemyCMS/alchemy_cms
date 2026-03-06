@@ -83,6 +83,65 @@ RSpec.shared_examples_for "being publishable" do |factory_name|
     end
   end
 
+  describe "#scheduled?" do
+    subject { record.scheduled? }
+
+    let(:record) { build(factory_name, public_on:, public_until:) }
+
+    context "when public_on is nil" do
+      let(:public_on) { nil }
+
+      context "and public_until is nil" do
+        let(:public_until) { nil }
+
+        it { expect(subject).to be_nil }
+      end
+
+      context "and public_until is in the past" do
+        let(:public_until) { Date.yesterday }
+
+        it "returns false" do
+          expect(subject).to be(false)
+        end
+      end
+
+      context "when public_until is in the future" do
+        let(:public_until) { Date.tomorrow }
+
+        it "returns true" do
+          expect(subject).to be(true)
+        end
+      end
+    end
+
+    context "when public_on is in the past" do
+      let(:public_on) { Date.yesterday }
+
+      context "and public_until is nil" do
+        let(:public_until) { nil }
+
+        it { expect(subject).to be_nil }
+      end
+
+      context "and public_until is in the future" do
+        let(:public_until) { Date.tomorrow }
+
+        it "returns true" do
+          expect(subject).to be(true)
+        end
+      end
+    end
+
+    context "when public_on is in the future" do
+      let(:public_on) { Date.tomorrow }
+      let(:public_until) { nil }
+
+      it "returns true" do
+        expect(subject).to be(true)
+      end
+    end
+  end
+
   describe "#public?" do
     subject { page_version.public? }
 

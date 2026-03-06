@@ -1,0 +1,61 @@
+<div id="element-<%= element.id %>-schedule">
+  <% if element.errors.any? %>
+    <alchemy-message type="error" icon="warn">
+      <%= Alchemy.t(:default_message, scope: "forms.error_notification") %>
+    </alchemy-message>
+  <% else %>
+    <alchemy-message type="info">
+      <% if element.public? %>
+        <p><%= sanitize t(".visibility_status.public_html") %></p>
+        <% if element.scheduled? %>
+          <%= sanitize t(".public_scheduled_html",
+            public_until: l(element.public_until, format: :"alchemy.element_date")) %>
+        <% elsif element.public_until.blank? %>
+          <%= t(".public_no_schedule") %>
+        <% end %>
+      <% else %>
+        <p><%= sanitize t(".visibility_status.hidden_html") %></p>
+        <% if element.scheduled? %>
+          <% if element.public_until.present? %>
+            <%= sanitize t(".hidden_window_html",
+              public_on: l(element.public_on, format: :"alchemy.element_date"),
+              public_until: l(element.public_until, format: :"alchemy.element_date")) %>
+          <% else %>
+            <%= sanitize t(".hidden_scheduled_html",
+              public_on: l(element.public_on, format: :"alchemy.element_date")) %>
+          <% end %>
+        <% else %>
+          <%= t(".hidden_no_schedule") %>
+        <% end %>
+      <% end %>
+    </alchemy-message>
+  <% end %>
+
+  <%= alchemy_form_for [:publish, :admin, element], remote: false, data: {turbo: true} do |f| %>
+    <div class="input">
+      <div class="input-row">
+        <div class="input-column">
+          <label for="element_public_on"><%= Alchemy::Element.human_attribute_name(:public_on) %></label>
+          <%= f.datetime_local_field :public_on %>
+          <%= f.error :public_on %>
+        </div>
+        <div class="input-column">
+          <label for="element_public_until"><%= Alchemy::Element.human_attribute_name(:public_until) %></label>
+          <%= f.datetime_local_field :public_until %>
+          <%= f.error :public_until %>
+        </div>
+      </div>
+    </div>
+    <div class="submit">
+      <button
+        type="button"
+        class="secondary"
+        onclick="this.form.querySelectorAll('input[type=datetime-local]').forEach((i) => i.value = '')">
+        <%= Alchemy.t(:clear_schedule) %>
+      </button>
+      <button type="submit">
+        <%= Alchemy.t(:save) %>
+      </button>
+    </div>
+  <% end %>
+</div>

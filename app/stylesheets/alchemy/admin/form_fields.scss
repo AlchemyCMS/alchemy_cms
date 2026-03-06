@@ -8,6 +8,9 @@ input[type="text"],
 input[type="email"],
 input[type="password"],
 input[type="search"],
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
 .thin_border,
 .input_field {
   @extend %default-input-style;

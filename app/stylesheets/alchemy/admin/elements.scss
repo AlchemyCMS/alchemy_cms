@@ -237,19 +237,15 @@ button.element-toggle {
       .element-toggle {
         margin-left: 0;
       }
-
-      .element-hidden-icon {
-        display: inline-flex;
-        align-items: center;
-        gap: var(--spacing-1);
-        margin-left: auto;
-      }
-
-      .element-hidden-label {
-        line-height: 1;
-        font-size: var(--font-size_small);
-      }
     }
+  }
+
+  .element-status-icons {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-1);
+    margin-left: auto;
+    font-size: var(--font-size_small);
   }
 
   &.is-fixed {
@@ -355,10 +351,6 @@ button.element-toggle {
   }
 
   &.compact {
-    .element-hidden-label {
-      display: none;
-    }
-
     .element-toolbar {
       visibility: hidden;
       position: absolute;
@@ -449,7 +441,7 @@ button.element-toggle {
     text-align: left;
   }
 
-  alchemy-message {
+  > alchemy-message {
     margin: var(--spacing-2);
   }
 
@@ -538,7 +530,7 @@ button.element-toggle {
   }
 }
 
-.element-hidden-icon {
+.element-status-icons {
   display: none;
   white-space: nowrap;
   flex-shrink: 0;

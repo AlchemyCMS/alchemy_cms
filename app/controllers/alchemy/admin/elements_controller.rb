@@ -89,12 +89,23 @@ module Alchemy
       end
 
       def publish
-        @element.public = !@element.public?
-        @element.save(validate: false)
-        render json: {
-          public: @element.public?,
-          label: @element.public? ? Alchemy.t(:hide_element) : Alchemy.t(:show_element)
-        }.merge(pagePublicationData(@element.page))
+        if schedule_element_params.present?
+          @element.assign_attributes(schedule_element_params)
+          @element.skip_ingredient_validations = true
+          @element.save
+          status = @element.valid? ? 200 : 422
+        else
+          @element.public = !@element.public?
+          @element.save(validate: false)
+          status = 200
+        end
+
+        respond_to do |format|
+          format.turbo_stream do
+            @page = @element.page
+            render status:
+          end
+        end
       end
 
       def order
@@ -215,6 +226,10 @@ module Alchemy
 
       def create_element_params
         params.require(:element).permit(:name, :page_version_id, :parent_element_id)
+      end
+
+      def schedule_element_params
+        params[:element]&.permit(:public_on, :public_until)
       end
     end
   end
