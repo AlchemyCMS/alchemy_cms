@@ -14,24 +14,9 @@ RSpec.describe Alchemy::Admin::PictureThumbnail, type: :component do
     render_inline component
   end
 
-  context "with picture description for current language" do
-    before do
-      language = create(:alchemy_language)
-      Alchemy::Current.language = language
-      Alchemy::PictureDescription.create!(picture: picture, language: language, text: "Picture description")
-    end
-
-    it "adds description as name attribute" do
-      render_inline component
-      expect(page).to have_css("alchemy-picture-thumbnail[name='Picture description']")
-    end
-  end
-
-  context "without picture description for current language" do
-    it "adds picture name as name attribute" do
-      render_inline component
-      expect(page).to have_css("alchemy-picture-thumbnail[name='image']")
-    end
+  it "adds picture name as name attribute" do
+    render_inline component
+    expect(page).to have_css("alchemy-picture-thumbnail[name='image']")
   end
 
   context "when size is 'small'" do

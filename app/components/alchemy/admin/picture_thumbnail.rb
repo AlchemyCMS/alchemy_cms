@@ -15,7 +15,7 @@ module Alchemy
         if thumbnail_url || placeholder
           content_tag "alchemy-picture-thumbnail", placeholder, {
             src: thumbnail_url,
-            name: picture&.description_for(::Alchemy::Current.language) || picture&.name,
+            name: picture&.name,
             class: css_class
           }
         else
