@@ -1,5 +1,21 @@
 # Changelog
 
+## 8.1.4 (2026-03-06)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
+
+## What's Changed
+### Other Changes
+* [8.1-stable] fix(PictureThumbnail): Show spinner while images load by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3694
+* [8.1-stable] Fix page cache flush not invalidating ETags by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3718
+* [8.1-stable] fix(Page Cache Flushing): Only touch public page versions by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3721
+* [8.1-stable] Hide Shoelace tooltips on touch devices by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3724
+* [8.1-stable] Add touch support to the admin menubar by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3723
+* [8.1-stable] CI: Use shorter readiness times by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3728
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.1.3...v8.1.4
+
 ## 8.1.3 (2026-02-17)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
