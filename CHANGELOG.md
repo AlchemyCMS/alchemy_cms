@@ -1,5 +1,15 @@
 # Changelog
 
+## 8.0.9 (2026-03-06)
+
+## What's Changed
+* [8.0-stable] Fix page cache flush not invalidating ETags by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3719
+* [8.0-stable] fix(Page Cache Flushing): Only touch public page versions by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3722
+* [8.0-stable] CI: Use shorter readiness times by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3727
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.0.8...v8.0.9
+
 ## 8.0.8 (2026-02-17)
 
 ## What's Changed
