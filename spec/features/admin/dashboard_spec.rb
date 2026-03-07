@@ -27,7 +27,8 @@ RSpec.describe "Dashboard feature", type: :system do
         expect(locked_pages_widget).to have_content "Currently locked pages"
         expect(locked_pages_widget).to have_content a_page.name
         expect(locked_pages_widget).to have_content "Me"
-        expect(locked_pages_widget).to have_css "button[title=\"#{Alchemy.t(:explain_unlocking)}\"]"
+        expect(locked_pages_widget).to have_css %(button[title="#{Alchemy.t(:explain_unlocking)}"])
+        expect(locked_pages_widget).to have_css %(form[action="/admin/pages/#{a_page.id}/unlock?redirect_to=%2Fadmin%2Fdashboard"])
       end
     end
 
