@@ -39,9 +39,6 @@ bin/rails g alchemy:install
 
 The generator also creates all the other basic folders and files for setting up your website with Alchemy.
 
-::: warning NOTE
-The element definitions are cached. Please restart the server after editing the `elements.yml`.
-:::
 
 ### Example element definition
 
