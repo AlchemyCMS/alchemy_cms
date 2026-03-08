@@ -57,58 +57,69 @@ By default, the first ingredient's value is used as the preview text in the elem
 
 The following settings can be used to define elements in the `elements.yml`.
 
-* **name** `String` _required_
+### name
+`String` _required_
 
-  A lowercased **unique** name of the element. Separate words need to be underscored. The name is used in the `page_layouts.yml` file to define on which pages the element can be used. It is also part of the `app/views/alchemy/elements` view partials file names. The name is [translatable](#translating-elements) for the user in the admin frontend.
+A lowercased **unique** name of the element. Separate words need to be underscored. The name is used in the `page_layouts.yml` file to define on which pages the element can be used. It is also part of the `app/views/alchemy/elements` view partials file names. The name is [translatable](#translating-elements) for the user in the admin frontend.
 
-* **unique** `Boolean` (Default: `false`)
+### unique
+`Boolean` (Default: `false`)
 
-  Passing `true` means this element can be placed only once on a page.
+Passing `true` means this element can be placed only once on a page.
 
-* **hint** `String`
+### hint
+`String`
 
-  A hint for the user in the admin interface that should be used to describe what the element is used for. The hint is [translatable](#translating-elements) if you provide an I18n translation key instead of a complete sentence. The hint itself will be displayed as a small question mark icon and will reveal a tooltip once hovered by the user.
+A hint for the user in the admin interface that should be used to describe what the element is used for. The hint is [translatable](#translating-elements) if you provide an I18n translation key instead of a complete sentence. The hint itself will be displayed as a small question mark icon and will reveal a tooltip once hovered by the user.
 
-* **message** `String`
+### message
+`String`
 
-  A prominent informational message displayed at the top of the element editor form in the admin interface that can be used to give your user additional information. You can even use simple html to add some emphasis to your message.
+A prominent informational message displayed at the top of the element editor form in the admin interface that can be used to give your user additional information. You can even use simple html to add some emphasis to your message.
 
-* **warning** `String`
+### warning
+`String`
 
-  A prominent warning message displayed at the top of the element editor form in the admin interface that can be used to warn your user about something. You can use simple html to add even more emphasis to your warning.
+A prominent warning message displayed at the top of the element editor form in the admin interface that can be used to warn your user about something. You can use simple html to add even more emphasis to your warning.
 
-* **nestable_elements** `Array`
+### nestable_elements
+`Array`
 
-  A collection of element names that can be nested into the element.
+A collection of element names that can be nested into the element.
 
-* **taggable** `Boolean` (Default: `false`)
+### taggable
+`Boolean` (Default: `false`)
 
-  Enables the element to be taggable by the user in the admin frontend.
+Enables the element to be taggable by the user in the admin frontend.
 
-* **fixed** `Boolean` (Default: `false`)
+### fixed
+`Boolean` (Default: `false`)
 
-  Used to separate an element from the normal flow. When `true`, the element is rendered on the page only with the explicit call of the `fixed_elements` scope. See [fixed elements](#rendering-fixed-elements) for more details.
+Used to separate an element from the normal flow. When `true`, the element is rendered on the page only with the explicit call of the `fixed_elements` scope. See [fixed elements](#rendering-fixed-elements) for more details.
 
-* **icon** `String|Boolean`
+### icon
+`String|Boolean`
 
-  Controls the icon in the admin UI. Set to `true` to use `<element_name>.svg` or set to a string to use `<string>.svg`, both from `app/assets/images/alchemy/element_icons/` in your app. If not set, Alchemy uses its own default icon.
+Controls the icon in the admin UI. Set to `true` to use `<element_name>.svg` or set to a string to use `<string>.svg`, both from `app/assets/images/alchemy/element_icons/` in your app. If not set, Alchemy uses its own default icon.
 
 ::: tip
 Alchemy uses Remix Icons throughout its admin interface. To keep your custom element icons consistent, download SVG icons from the [Remix Icon website](https://remixicon.com) and place them in the `element_icons` folder.
 :::
 
-* **amount** `Integer`
+### amount
+`Integer`
 
-  Maximum number of top-level instances of this element per page. Once the limit is reached, the element is no longer offered in the "add element" dialog. All elements on the draft version are counted regardless of their published state. Defaults to unlimited. `unique: true` is effectively `amount: 1`. Does not apply to nested elements.
+Maximum number of top-level instances of this element per page. Once the limit is reached, the element is no longer offered in the "add element" dialog. All elements on the draft version are counted regardless of their published state. Defaults to unlimited. `unique: true` is effectively `amount: 1`. Does not apply to nested elements.
 
 ~~~ yaml
 - name: hero_banner
   amount: 3
 ~~~
 
-* **compact** `Boolean` (Default: `false`)
+### compact
+`Boolean` (Default: `false`)
 
-  Renders the element in a compact UI in the admin editor. Useful for elements that are primarily used as nestable children, like slides in a slider, cards in a card grid, or items in a gallery.
+Renders the element in a compact UI in the admin editor. Useful for elements that are primarily used as nestable children, like slides in a slider, cards in a card grid, or items in a gallery.
 
 ~~~ yaml
 - name: slide
@@ -118,13 +129,15 @@ Alchemy uses Remix Icons throughout its admin interface. To keep your custom ele
       type: Picture
 ~~~
 
-* **searchable** `Boolean` (Default: `true`)
+### searchable
+`Boolean` (Default: `true`)
 
-  Include this element's ingredients in the fulltext search index. Set to `false` for elements that contain sensitive data or purely controlling values like CSS class names, accordion titles, or slider timing configurations.
+Include this element's ingredients in the fulltext search index. Set to `false` for elements that contain sensitive data or purely controlling values like CSS class names, accordion titles, or slider timing configurations.
 
-* **deprecated** `Boolean|String` (Default: `false`)
+### deprecated
+`Boolean|String` (Default: `false`)
 
-  Mark this element as deprecated. Set to `true` to use a deprecation notice from I18n, or provide a custom message string directly.
+Mark this element as deprecated. Set to `true` to use a deprecation notice from I18n, or provide a custom message string directly.
 
 ~~~ yaml
 - name: old_element
@@ -144,12 +157,13 @@ en:
       old_element: "This element is outdated. Please use new_element instead."
 ~~~
 
-* **ingredients** `Array`
+### ingredients
+`Array`
 
-  A collection of ingredients the element contains. A ingredient has to have a `role` (unique per element) and a `type`.
+A collection of ingredients the element contains. An ingredient has to have a `role` (unique per element) and a `type`.
 
 ::: tip
-Have a look at the [ingredients guide](ingredients) to get more informations about available ingredient types.
+Have a look at the [ingredients guide](ingredients) to get more information about available ingredient types.
 :::
 
 ## Assign elements to page layouts
@@ -196,11 +210,11 @@ Just define nestable elements in your `elements.yml` file.
       type: Picture
 ~~~
 
-::: warning NOTE
+::: tip
 Nested elements can also have `nestable_elements`. Just don't get too crazy with it, though.
 :::
 
-## Rendering nested elements
+### Rendering nested elements
 
 Use the `render` helper to render all nested elements as a collection.
 
@@ -267,7 +281,7 @@ Ingredients can be visually grouped in the admin editor using the `group` proper
 
 Grouped ingredients are rendered as collapsible sections in the element editor. Ingredients without a `group` appear ungrouped at the top.
 
-::: warning
+::: tip
 Use ingredient groups sparingly. Editors should see all content-related ingredients at once without having to expand sections. Groups are best suited for configuration or secondary options that are not part of the main content, such as CSS classes, display settings, or layout options.
 :::
 
