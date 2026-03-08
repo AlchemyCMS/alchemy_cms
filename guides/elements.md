@@ -13,19 +13,7 @@ Imagine you combine a headline, a text block and a picture - this is a typical e
 
 Some people speak of widgets, blocks or components. All these are elements in Alchemy. Elements can be nested into each other and are the key of Alchemy's flexible content architecture.
 
-They give you a powerful tool to build the CMS you need.
-
-The ingredients of an element are of a specific [type](ingredients). Each ingredient represents a data type that store values in the database.
-
-## Templates
-
-Each element has a template (they are called [partials in Rails](https://guides.rubyonrails.org/layouts_and_rendering.html#using-partials)).
-
-They live in `app/views/alchemy/elements/`.
-
-::: tip NOTE
-You don't need to create the files yourself. Use [the built in generator](#generating-the-partials) to let Alchemy generate them for you.
-:::
+The ingredients of an element are of a specific [type](ingredients). Each ingredient represents a data type that stores values in the database.
 
 ## Defining elements
 
@@ -38,7 +26,6 @@ bin/rails g alchemy:install
 ~~~
 
 The generator also creates all the other basic folders and files for setting up your website with Alchemy.
-
 
 ### Example element definition
 
@@ -58,12 +45,12 @@ The generator also creates all the other basic folders and files for setting up 
 
 The element in this example is named **"article"** and can be placed only once per page (because it is `unique`). It has three ingredients of the following types:
 
-* [Picture](ingredients.html#picture)
-* [Text](ingredients.html#text)
-* [Richtext](ingredients.html#richtext)
+* [Picture](ingredients#picture)
+* [Text](ingredients#text)
+* [Richtext](ingredients#richtext)
 
 ::: tip
-You can select which ingredient will be used for the preview text in the element's title bar in the admin frontend by adding `as_element_title: true` to the desired ingredient. In the example above, the **"headline"** ingredient would be used.
+By default, the first ingredient's value is used as the preview text in the element's title bar in the admin frontend. If you want a different ingredient to be used instead, add `as_element_title: true` to that ingredient. In the example above, the **"headline"** ingredient would be used instead of **"image"**.
 :::
 
 ## Element settings
@@ -100,7 +87,7 @@ The following settings can be used to define elements in the `elements.yml`.
 
 * **fixed** `Boolean` (Default: `false`)
 
-  Used to separate an element from the normal flow. When `true`, the element is rendered on the page only with the explicit call of the `fixed_elements` scope. See [fixed elements](elements.html#render-a-group-of-elements-on-a-fixed-place-on-the-page) for more details.
+  Used to separate an element from the normal flow. When `true`, the element is rendered on the page only with the explicit call of the `fixed_elements` scope. See [fixed elements](#rendering-fixed-elements) for more details.
 
 * **icon** `String|Boolean`
 
@@ -165,7 +152,21 @@ en:
 Have a look at the [ingredients guide](ingredients) to get more informations about available ingredient types.
 :::
 
-In the following examples you will see how to use these settings.
+## Assign elements to page layouts
+
+Before you can use elements on pages, you need to define on which page layouts your element can be placed.
+
+So open `config/alchemy/page_layouts.yml` in your text editor and put the name of your new element into the list of available elements for a specific page layout.
+
+~~~ yaml
+- name: standard
+  elements: [article]
+  autogenerate: [article]
+~~~
+
+You can now place the article element on each page with page layout `standard`.
+
+All future created pages with page layout `standard` will automatically create the article element for you.
 
 ## Nestable elements
 
@@ -374,32 +375,17 @@ The validations are evaluated in the order as they are defined in the list.
 
 At first the name ingredient will be validated for `presence`, then for `uniqueness` and at least against its `format`.
 
-## Assign elements to page layouts
-
-Before you can use elements on pages, you need to define on which page layouts your element can be placed.
-
-So open `config/alchemy/page_layouts.yml` in your text editor and put the name of your new element into the list of available elements for a specific page layout.
-
-~~~ yaml
-- name: standard
-  elements: [article]
-  autogenerate: [article]
-~~~
-
-You can now place the article element on each page with page layout `standard`.
-
-All future created pages with page layout `standard` will automatically create the article element for you.
-
 ## Generating the partials
 
-After typing the line below in your terminal, the rails generator will create the elements editor and view files.
+Each element has a view partial (a [Rails partial](https://guides.rubyonrails.org/layouts_and_rendering.html#using-partials)) that lives in `app/views/alchemy/elements/`.
+
+You don't need to create these files yourself. After typing the line below in your terminal, the Rails generator will create the element view files:
 
 ~~~ bash
 bin/rails g alchemy:elements --skip
 ~~~
 
-The `--skip` flag command skips files that already exist
-Without the skip flag, the generator will prompt you about over-writing your element view partials to include the content changes.
+The `--skip` flag command skips files that already exist.
 The `--force` flag will overwrite your element view partials automatically.
 
 ::: tip
@@ -411,7 +397,7 @@ The generator will create partials for each element in your `app/views/alchemy/e
 
 According to the first example, the article element, the generator will create the `_article.html.erb` partial.
 
-The generator does not only create these files, it also generates the necessary code for you. Mostly you can take use of the that code and make it nifty by adding some CSS stylings.
+The generator creates working code that you can use as a starting point and customize to fit your needs.
 
 ## Render elements in your layout
 
@@ -430,7 +416,7 @@ This renders all elements from current page.
 ::: tip
 Pages must be published for Elements to be associated and rendered.
 
-If you aren't seeing content you created in the admin interface, make sure elements are saved and and you click the "Publish current page content" button from the edit page admin view.
+If you aren't seeing content you created in the admin interface, make sure elements are saved and you click the "Publish current page content" button from the edit page admin view.
 :::
 
 ### Render only specific elements
@@ -448,6 +434,18 @@ Sometimes you only want to render specific elements on a specific page and maybe
   <footer><%= render_elements only: 'footer' %></footer>
 </body>
 ~~~
+
+### render_elements options
+
+The `render_elements` helper accepts several options:
+
+* **only** - Render only elements with these names
+* **except** - Render all elements except these names
+* **from_page** - Render elements from a different page. Accepts a page layout name as a `String`, an `Array` of page layout names, or an `Alchemy::Page` instance
+* **count** - Limit the number of rendered elements
+* **offset** - Skip the first N elements
+* **random** - Randomize the order of elements
+* **fixed** - When `true`, render only fixed elements. See [rendering fixed elements](#rendering-fixed-elements)
 
 ### Render elements from other pages
 
@@ -502,7 +500,7 @@ Which can be added to your `application.html.erb` file:
 </html>
 ~~~
 
-### Render a group of elements on a fixed place on the page
+### Rendering fixed elements
 
 Often you have a separate section on one page (like a sidebar) or a global section to be rendered on every page (like a navbar or footer).
 
@@ -518,31 +516,23 @@ If you configure those elements as `fixed: true` in `elements.yml`, then they'll
       # ...
 ~~~
 
-You can then access these elements using the `fixed_elements` scope:
+You can render fixed elements using `render_elements` with the `fixed` option:
 
 ~~~ erb
-<% @page.fixed_elements.each do |element| %>
-  <%= render_element(element) %>
-<% end %>
+<aside>
+  <%= render_elements fixed: true, only: 'sidebar' %>
+</aside>
 ~~~
 
-As `fixed_elements` is an a active record scope you can also filter by `where(name: 'your_element')` or use the `named('your_element')` scope. To gain some extra efficiency from Rails you could also use the collection rendering shortcut
+You can also access them directly via the page:
 
 ~~~ erb
 <%= render @page.fixed_elements.named('sidebar') %>
 ~~~
 
-::: tip NOTE
-You need to use the elements view partial name instead of the element local variable in your child element views. Ie. `sidebar_view` instead of `element`.
-:::
+## Element view partials
 
-## Customizing the view partial
-
-The Alchemy element generator creates the basic html markup for you.
-
-Pretty useful, but maybe not what you need, sometimes. No problem, feel free to customize it. It's yours :).
-
-This is the newer notation for rendering the element's partial:
+The Alchemy element generator creates a basic view partial for each element. This is where you control how the element's content is rendered on your website.
 
 ~~~ erb
 <%= element_view_for(element) do |el| %>
@@ -608,10 +598,6 @@ You can pass additional arguments to add or change any html attributes of the wr
 <% end %>
 ~~~
 
-::: tip
-If you want to learn more about the helper methods used in these partials, please have a look at the [Documentation](http://rubydoc.info/search/github/AlchemyCMS/alchemy_cms?q=helper).
-:::
-
 ### Pass options to the ingredient view
 
 You can pass options to the ingredient view.
@@ -623,7 +609,7 @@ You can pass options to the ingredient view.
 ~~~
 
 ::: tip
-Instead of passing the `size` of an image into the `EssencePicture` as shown above, you should consider to use static [ingredient settings](ingredients.html#individual-ingredient-settings) instead.
+Instead of passing the `size` of an image inline, you should consider using static [ingredient settings](ingredients#individual-ingredient-settings) instead.
 :::
 
 The first hash is the `options` the second one the `html_options` passed to the wrapper of the ingredient.
@@ -634,10 +620,6 @@ If you only want to pass `html_options` you need to pass an empty hash as second
   <%= el.render :image, {}, class: 'image-large' %>
 <% end %>
 ~~~
-
-::: tip
-Not all ingredients have wrapper tags. A list of all ingredient views are [here](https://github.com/AlchemyCMS/alchemy_cms/tree/master/app/views/alchemy/ingredients).
-:::
 
 ## Translating elements
 
@@ -668,13 +650,15 @@ de:
         color: Button Farbe
 ~~~
 
-### Re-arranging Elements on a Page
+## Working with elements in the admin
+
+### Re-arranging elements on a page
 
 Collapsed elements can be re-arranged by clicking and dragging the its icon to the left of the element title.
 
 You can't re-arrange an expanded element, you need to collapse it first.
 
-### Using the Clipboard
+### Using the clipboard
 
 The clipboard receives elements that are copied or cut. The most prominent use-case is to copy or move elements from one page to another.
 
