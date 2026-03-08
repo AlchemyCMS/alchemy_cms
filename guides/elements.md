@@ -66,7 +66,7 @@ The element in this example is named **"article"** and can be placed only once p
 You can select which ingredient will be used for the preview text in the element's title bar in the admin frontend by adding `as_element_title: true` to the desired ingredient. In the example above, the **"headline"** ingredient would be used.
 :::
 
-### Element settings
+## Element settings
 
 The following settings can be used to define elements in the `elements.yml`.
 
@@ -101,6 +101,61 @@ The following settings can be used to define elements in the `elements.yml`.
 * **fixed** `Boolean` (Default: `false`)
 
   Used to separate an element from the normal flow. When `true`, the element is rendered on the page only with the explicit call of the `fixed_elements` scope. See [fixed elements](elements.html#render-a-group-of-elements-on-a-fixed-place-on-the-page) for more details.
+
+* **icon** `String|Boolean`
+
+  Controls the icon in the admin UI. Set to `true` to use `<element_name>.svg` or set to a string to use `<string>.svg`, both from `app/assets/images/alchemy/element_icons/` in your app. If not set, Alchemy uses its own default icon.
+
+::: tip
+Alchemy uses Remix Icons throughout its admin interface. To keep your custom element icons consistent, download SVG icons from the [Remix Icon website](https://remixicon.com) and place them in the `element_icons` folder.
+:::
+
+* **amount** `Integer`
+
+  Maximum number of top-level instances of this element per page. Once the limit is reached, the element is no longer offered in the "add element" dialog. All elements on the draft version are counted regardless of their published state. Defaults to unlimited. `unique: true` is effectively `amount: 1`. Does not apply to nested elements.
+
+~~~ yaml
+- name: hero_banner
+  amount: 3
+~~~
+
+* **compact** `Boolean` (Default: `false`)
+
+  Renders the element in a compact UI in the admin editor. Useful for elements that are primarily used as nestable children, like slides in a slider, cards in a card grid, or items in a gallery.
+
+~~~ yaml
+- name: slide
+  compact: true
+  ingredients:
+    - role: image
+      type: Picture
+~~~
+
+* **searchable** `Boolean` (Default: `true`)
+
+  Include this element's ingredients in the fulltext search index. Set to `false` for elements that contain sensitive data or purely controlling values like CSS class names, accordion titles, or slider timing configurations.
+
+* **deprecated** `Boolean|String` (Default: `false`)
+
+  Mark this element as deprecated. Set to `true` to use a deprecation notice from I18n, or provide a custom message string directly.
+
+~~~ yaml
+- name: old_element
+  deprecated: true
+
+- name: legacy_widget
+  deprecated: "Use the new_widget element instead."
+~~~
+
+When set to `true`, Alchemy looks up the notice via I18n:
+
+~~~ yaml
+# config/locales/en.yml
+en:
+  alchemy:
+    element_deprecation_notices:
+      old_element: "This element is outdated. Please use new_element instead."
+~~~
 
 * **ingredients** `Array`
 
@@ -188,6 +243,43 @@ Or `render` a single nested element by loading it from the `nested_elements` col
     <%= render article.nested_elements.where(name: :text) %>
   </div>
 <% end %>
+~~~
+
+## Ingredient groups
+
+Ingredients can be visually grouped in the admin editor using the `group` property on ingredient definitions:
+
+~~~ yaml
+- name: product
+  ingredients:
+    - role: title
+      type: Text
+    - role: description
+      type: Richtext
+    - role: css_class
+      type: Select
+      group: settings
+    - role: width
+      type: Text
+      group: settings
+~~~
+
+Grouped ingredients are rendered as collapsible sections in the element editor. Ingredients without a `group` appear ungrouped at the top.
+
+::: warning
+Use ingredient groups sparingly. Editors should see all content-related ingredients at once without having to expand sections. Groups are best suited for configuration or secondary options that are not part of the main content, such as CSS classes, display settings, or layout options.
+:::
+
+Group names can be translated via I18n:
+
+~~~ yaml
+# config/locales/en.yml
+en:
+  alchemy:
+    element_groups:
+      settings: Settings
+      product:
+        settings: Display Options
 ~~~
 
 ## Element with tags
@@ -473,6 +565,38 @@ This is the newer notation for rendering the element's partial:
 The `element_view_for` helper wraps the inner html code into a `div` element by default. You can pass arguments to the helper to change its rendering behavior:
 
 The second argument `tag` is used for the wrapping html tag. Passing `false` to it means no wrapping at all. Passing the name of any html element to it means the inner html gets wrapped within the given html tag instead of the default `div`.
+
+### Block helper methods
+
+Besides `el.render`, the block helper provides additional methods for accessing ingredient data:
+
+~~~ erb
+<%= element_view_for(element) do |el| %>
+  <%= el.render :headline %>
+
+  <% if el.has?(:image) %>
+    <%= el.render :image %>
+  <% end %>
+
+  <span class="date"><%= el.value(:date) %></span>
+<% end %>
+~~~
+
+* **`el.render :role`** - Renders the ingredient's view component (the standard way to display ingredients)
+* **`el.value(:role)`** - Returns the raw value without any view component wrapping
+* **`el.has?(:role)`** - Returns `true` if the ingredient has a non-blank value
+* **`el.ingredient_by_role(:role)`** - Returns the ingredient record directly
+
+Use `el.ingredient_by_role` when you need to access ingredient attributes beyond the plain value. For example, a Page ingredient has a `page` method that returns the actual `Alchemy::Page` record, which you can use to build custom links:
+
+~~~ erb
+<%= element_view_for(element) do |el| %>
+  <% page_ingredient = el.ingredient_by_role(:linked_page) %>
+  <% if page_ingredient&.page %>
+    <%= link_to page_ingredient.page.name, show_alchemy_page_path(page_ingredient.page) %>
+  <% end %>
+<% end %>
+~~~
 
 ### Pass options to the element wrapper
 
