@@ -36,6 +36,21 @@ Unlike many other CMS's that store a whole page body with complete HTML markup, 
 
 You, the webdeveloper are in full control of the markup and styling. The editor just manages the content.
 
+### The model hierarchy
+
+The complete content hierarchy in Alchemy is:
+
+~~~
+Site
+  Language
+    Page (nested set tree)
+      PageVersion (draft and public)
+        Element (can be nested)
+          Ingredient (STI subclasses)
+~~~
+
+Each page maintains a **draft version** for editing and a **public version** for visitors. Elements belong to a `PageVersion`, not to a `Page` directly. When a page is published, Alchemy duplicates the draft's elements into a public version. This is handled transparently - your templates always receive the correct version automatically.
+
 ### The render flow
 
 Alchemy uses [Rails' partials](https://guides.rubyonrails.org/layouts_and_rendering.html#using-partials). It has no own templating language and no *special files*.

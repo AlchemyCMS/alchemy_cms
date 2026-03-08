@@ -75,6 +75,18 @@ Every page type needs at least a name. You don't need to set every option. It de
 
   Controllers action to use instead of the default `Alchemy::PagesController#show`
 
+* **fixed_attributes** `Hash`
+
+  Lock specific page attributes to fixed values that editors cannot change. See [Fixed attributes](#fixed-attributes).
+
+* **insert_elements_at** `String`
+
+  Set to `top` to insert new elements at the top instead of the bottom (default).
+
+* **hint** `String|Boolean`
+
+  A tooltip displayed to content editors when selecting this page type.
+
 ### Example
 
 Lets say you want to create a contact page with a headline element, a contactform and a text element on it.
@@ -94,9 +106,6 @@ We also want to autogenerate the headline and the contactform element after the 
   autogenerate: [headline, contactform]
 ~~~
 
-::: warning NOTE
-Please ensure to restart the Rails server after editing `page_layouts.yml`.
-:::
 
 ## Page templates
 
@@ -183,6 +192,33 @@ You can use Rails' "Russian-Doll-Caching" to cache page templates.
 ::: warning
 Be sure to not cache page templates that have elements with forms on it, like contact or comment forms. Rails' csrf protection token is placed inside the `<form`> tag and caching it will break form submissions.
 :::
+
+## Fixed attributes
+
+You can lock page attributes to specific values that editors cannot change:
+
+~~~ yaml
+# config/alchemy/page_layouts.yml
+- name: readonly_page
+  fixed_attributes:
+    public_on: ~
+    public_until: ~
+    restricted: false
+~~~
+
+The fixed values are enforced at save time and override any editor changes.
+
+## SEO metadata
+
+Pages have `title`, `meta_description`, and `meta_keywords` attributes for SEO.
+
+::: tip NOTE
+Starting with Alchemy 8.1, these attributes have moved to `PageVersion`. This means SEO metadata changes need to be published just like content changes. In Alchemy 8.0, they are still stored directly on the page.
+:::
+
+## URL redirects
+
+When a page's URL changes (e.g. because it was renamed or moved), Alchemy automatically creates a SEO-friendly 301 redirect from the old URL to the new one. These redirects can be managed in the admin page settings.
 
 ## Translate page type names
 
