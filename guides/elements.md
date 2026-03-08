@@ -5,27 +5,21 @@ next: ingredients
 
 # Elements
 
-## Overview
+Elements are the central building blocks of an Alchemy website. They are reusable content containers - for example, a headline, an image and a text block might form an "article" element. These individual pieces of content within an element are called [ingredients](ingredients).
 
-Elements are reusable blocks of content that belong together, visually and contextually.
-
-Imagine you combine a headline, a text block and a picture - this is a typical element, maybe you want to call it an "article".
-
-Some people speak of widgets, blocks or components. All these are elements in Alchemy. Elements can be nested into each other and are the key of Alchemy's flexible content architecture.
-
-The ingredients of an element are of a specific [type](ingredients). Each ingredient represents a data type that stores values in the database.
+You define elements and their ingredients in YAML. Editors place them on pages through the admin interface. You control how they are rendered with view partials. See the [About guide](about) for how elements fit into the full content architecture.
 
 ## Defining elements
 
-Elements are defined in the `config/alchemy/elements.yml` file. Element definitions are written in [YAML](http://yaml.org)
+Elements are defined in the `config/alchemy/elements.yml` file. Element definitions are written in [YAML](http://yaml.org).
 
-If this file does not exist yet, use the scaffold generator to do that now:
+If this file does not exist yet, create it with the scaffold generator:
 
 ~~~ bash
 bin/rails g alchemy:install
 ~~~
 
-The generator also creates all the other basic folders and files for setting up your website with Alchemy.
+The generator also creates the other basic folders and files for setting up your website with Alchemy.
 
 ### Example element definition
 
@@ -60,27 +54,27 @@ The following settings can be used to define elements in the `elements.yml`.
 ### name
 `String` _required_
 
-A lowercased **unique** name of the element. Separate words need to be underscored. The name is used in the `page_layouts.yml` file to define on which pages the element can be used. It is also part of the `app/views/alchemy/elements` view partials file names. The name is [translatable](#translating-elements) for the user in the admin frontend.
+A lowercased **unique** name of the element. Separate words need to be underscored. The name is used in the `page_layouts.yml` file to define on which pages the element can be used. It is also the file name of the element's view partial in `app/views/alchemy/elements/`. The name is [translatable](#translating-elements) for the user in the admin frontend.
 
 ### unique
 `Boolean` (Default: `false`)
 
-Passing `true` means this element can be placed only once on a page.
+Passing `true` means this element can be placed only once on a page. For more fine-grained control, use [amount](#amount) instead.
 
 ### hint
 `String`
 
-A hint for the user in the admin interface that should be used to describe what the element is used for. The hint is [translatable](#translating-elements) if you provide an I18n translation key instead of a complete sentence. The hint itself will be displayed as a small question mark icon and will reveal a tooltip once hovered by the user.
+A hint for the user in the admin interface that should be used to describe what the element is used for. The hint is [translatable](#translating-elements) if you provide an I18n translation key instead of a complete sentence. The hint is displayed as a small question mark icon that reveals a tooltip on hover.
 
 ### message
 `String`
 
-A prominent informational message displayed at the top of the element editor form in the admin interface that can be used to give your user additional information. You can even use simple html to add some emphasis to your message.
+A prominent informational message displayed at the top of the element editor form in the admin interface. You can use simple HTML to add emphasis.
 
 ### warning
 `String`
 
-A prominent warning message displayed at the top of the element editor form in the admin interface that can be used to warn your user about something. You can use simple html to add even more emphasis to your warning.
+A prominent warning message displayed at the top of the element editor form in the admin interface. You can use simple HTML to add emphasis.
 
 ### nestable_elements
 `Array`
@@ -95,7 +89,7 @@ Enables the element to be taggable by the user in the admin frontend.
 ### fixed
 `Boolean` (Default: `false`)
 
-Used to separate an element from the normal flow. When `true`, the element is rendered on the page only with the explicit call of the `fixed_elements` scope. See [fixed elements](#rendering-fixed-elements) for more details.
+Separates an element from the normal flow. When `true`, the element is only rendered when explicitly requested via the `fixed_elements` scope. See [fixed elements](#rendering-fixed-elements) for more details.
 
 ### icon
 `String|Boolean`
@@ -109,7 +103,7 @@ Alchemy uses Remix Icons throughout its admin interface. To keep your custom ele
 ### amount
 `Integer`
 
-Maximum number of top-level instances of this element per page. Once the limit is reached, the element is no longer offered in the "add element" dialog. All elements on the draft version are counted regardless of their published state. Defaults to unlimited. `unique: true` is effectively `amount: 1`. Does not apply to nested elements.
+Maximum number of top-level instances of this element per page. Once the limit is reached, the element is no longer offered in the "add element" dialog. All elements on the draft version are counted regardless of their published state. Defaults to unlimited. Does not apply to nested elements. For a single instance, use [unique](#unique) instead.
 
 ~~~ yaml
 - name: hero_banner
@@ -166,11 +160,11 @@ A collection of ingredients the element contains. An ingredient has to have a `r
 Have a look at the [ingredients guide](ingredients) to get more information about available ingredient types.
 :::
 
-## Assign elements to page layouts
+## Available elements
 
-Before you can use elements on pages, you need to define on which page layouts your element can be placed.
+Before you can use elements on pages, you need to define which page layouts they can be placed on.
 
-So open `config/alchemy/page_layouts.yml` in your text editor and put the name of your new element into the list of available elements for a specific page layout.
+Open `config/alchemy/page_layouts.yml` and add the element name to the list of available elements for a page layout.
 
 ~~~ yaml
 - name: standard
@@ -178,15 +172,13 @@ So open `config/alchemy/page_layouts.yml` in your text editor and put the name o
   autogenerate: [article]
 ~~~
 
-You can now place the article element on each page with page layout `standard`.
+You can now place the article element on any page with the `standard` page layout.
 
-All future created pages with page layout `standard` will automatically create the article element for you.
+Any new pages created with the `standard` layout will automatically have the article element.
 
 ## Nestable elements
 
-You are able to nest elements into other elements.
-
-Just define nestable elements in your `elements.yml` file.
+Elements can be nested inside other elements. Define the allowed children in your `elements.yml` file.
 
 ### Example
 
@@ -228,7 +220,7 @@ Use the `render` helper to render all nested elements as a collection.
 <% end %>
 ~~~
 
-Or `render` a group of nested elements by filtering the `nested_elements` collection by element name.
+You can also filter nested elements by name.
 
 ~~~ erb
 <%= element_view_for(article) do |el| %>
@@ -244,7 +236,7 @@ Or `render` a group of nested elements by filtering the `nested_elements` collec
 <% end %>
 ~~~
 
-Or `render` a single nested element by loading it from the `nested_elements` collection by element name.
+Or render a single nested element.
 
 ~~~ erb
 <%= element_view_for(article) do |el| %>
@@ -262,7 +254,7 @@ Or `render` a single nested element by loading it from the `nested_elements` col
 
 ## Ingredient groups
 
-Ingredients can be visually grouped in the admin editor using the `group` property on ingredient definitions:
+Ingredients can be visually grouped in the admin editor using the `group` property on ingredient definitions.
 
 ~~~ yaml
 - name: product
@@ -285,7 +277,7 @@ Grouped ingredients are rendered as collapsible sections in the element editor. 
 Use ingredient groups sparingly. Editors should see all content-related ingredients at once without having to expand sections. Groups are best suited for configuration or secondary options that are not part of the main content, such as CSS classes, display settings, or layout options.
 :::
 
-Group names can be translated via I18n:
+Group names can be translated via I18n.
 
 ~~~ yaml
 # config/locales/en.yml
@@ -297,7 +289,7 @@ en:
         settings: Display Options
 ~~~
 
-## Element with tags
+## Tagging
 
 Elements are taggable. To enable it, add `taggable: true` to the element's definition.
 
@@ -320,13 +312,13 @@ Tags are a collection on the `element` object. `element.tag_list` returns an arr
 <%= element.tag_list.join(', ') %>
 ~~~
 
-Alchemy uses the [gutentag](https://github.com/pat/gutentag) gem, so please refer to the github [README](https://github.com/pat/gutentag/blob/master/README.md) or the [Wiki](https://github.com/pat/gutentag/wiki) for further informations.
+Alchemy uses the [gutentag](https://github.com/pat/gutentag) gem, so please refer to the github [README](https://github.com/pat/gutentag/blob/master/README.md) or the [Wiki](https://github.com/pat/gutentag/wiki) for further information.
 
-## Element with ingredient validations
+## Validations
 
 You can enable validations for your ingredients. They behave like the Rails model validations.
 
-Supported validations are
+Supported validations are:
 
 * `presence`
 * `uniqueness`
@@ -334,9 +326,7 @@ Supported validations are
 
 The `format` validator needs to have a [regular expression](http://rubular.com) or a predefined matcher string as its value.
 
-There are already predefined format matchers listed in the `config/alchemy/config.yml` file.
-
-It is also possible to add own format matchers there.
+Predefined format matchers are listed in `config/alchemy/config.yml`. You can also add your own matchers there.
 
 ### Format matchers
 
@@ -370,7 +360,7 @@ The `email` ingredient gets validated against the predefined `email` matcher in 
 
 The `homepage` ingredient is matched against the given regexp.
 
-### Multiple validations.
+### Multiple validations
 
 Ingredients can have multiple validations.
 
@@ -385,21 +375,23 @@ Ingredients can have multiple validations.
         - format: name
 ~~~
 
-The validations are evaluated in the order as they are defined in the list.
+Validations are evaluated in the order they are defined.
 
-At first the name ingredient will be validated for `presence`, then for `uniqueness` and at least against its `format`.
+The name ingredient will be validated for `presence` first, then for `uniqueness`, and finally against its `format`.
 
-## Generating the partials
+## Rendering
+
+### Generating partials
 
 Each element has a view partial (a [Rails partial](https://guides.rubyonrails.org/layouts_and_rendering.html#using-partials)) that lives in `app/views/alchemy/elements/`.
 
-You don't need to create these files yourself. After typing the line below in your terminal, the Rails generator will create the element view files:
+You don't need to create these files yourself. Use the Rails generator to create them.
 
 ~~~ bash
 bin/rails g alchemy:elements --skip
 ~~~
 
-The `--skip` flag command skips files that already exist.
+The `--skip` flag skips files that already exist.
 The `--force` flag will overwrite your element view partials automatically.
 
 ::: tip
@@ -409,13 +401,11 @@ The default template engine depends on your settings in your Rails host app.
 
 The generator will create partials for each element in your `app/views/alchemy/elements` folder.
 
-According to the first example, the article element, the generator will create the `_article.html.erb` partial.
+For the article element from the example above, the generator creates `_article.html.erb`. The generated code serves as a starting point that you can customize to fit your needs.
 
-The generator creates working code that you can use as a starting point and customize to fit your needs.
+### Page layouts
 
-## Render elements in your layout
-
-Now that the above 'article' element example is associated with the 'standard' page layout, the element can be rendered on that layout `app/views/alchemy/page_layouts/_standard.html.erb`.
+With the article element associated with the 'standard' page layout, it can be rendered in the layout partial `app/views/alchemy/page_layouts/_standard.html.erb`.
 
 ~~~ erb
 ...
@@ -425,15 +415,15 @@ Now that the above 'article' element example is associated with the 'standard' p
 ...
 ~~~
 
-This renders all elements from current page.
+This renders all elements from the current page.
 
 ::: tip
-Pages must be published for Elements to be associated and rendered.
+Pages must be published for elements to be rendered.
 
 If you aren't seeing content you created in the admin interface, make sure elements are saved and you click the "Publish current page content" button from the edit page admin view.
 :::
 
-### Render only specific elements
+#### Render only specific elements
 
 Sometimes you only want to render specific elements on a specific page and maybe exclude some elements.
 
@@ -449,7 +439,7 @@ Sometimes you only want to render specific elements on a specific page and maybe
 </body>
 ~~~
 
-### render_elements options
+#### render_elements options
 
 The `render_elements` helper accepts several options:
 
@@ -461,9 +451,9 @@ The `render_elements` helper accepts several options:
 * **random** - Randomize the order of elements
 * **fixed** - When `true`, render only fixed elements. See [rendering fixed elements](#rendering-fixed-elements)
 
-### Render elements from other pages
+#### Render elements from other pages
 
-A common use case is to have global pages for header and footer parts:
+A common use case is to have global pages for header and footer parts.
 ~~~ yaml
 # config/alchemy/elements.yml
 - name: header
@@ -491,7 +481,7 @@ A common use case is to have global pages for header and footer parts:
   layoutpage: true
 ~~~
 
-Which can be added to your `application.html.erb` file:
+These can be rendered in your `application.html.erb` file.
 
 ~~~ erb
 <!DOCTYPE html>
@@ -514,11 +504,11 @@ Which can be added to your `application.html.erb` file:
 </html>
 ~~~
 
-### Rendering fixed elements
+#### Rendering fixed elements
 
 Often you have a separate section on one page (like a sidebar) or a global section to be rendered on every page (like a navbar or footer).
 
-If you configure those elements as `fixed: true` in `elements.yml`, then they'll be separated from the general collection of elements and will be displayed separately in a separate tab in the admin elements section.
+If you configure those elements as `fixed: true` in `elements.yml`, then they'll be separated from the general collection of elements and will be displayed in a separate tab in the admin elements section.
 
 ~~~ yaml {3}
 - name: sidebar
@@ -530,7 +520,7 @@ If you configure those elements as `fixed: true` in `elements.yml`, then they'll
       # ...
 ~~~
 
-You can render fixed elements using `render_elements` with the `fixed` option:
+You can render fixed elements using `render_elements` with the `fixed` option.
 
 ~~~ erb
 <aside>
@@ -538,13 +528,13 @@ You can render fixed elements using `render_elements` with the `fixed` option:
 </aside>
 ~~~
 
-You can also access them directly via the page:
+You can also access them directly via the page.
 
 ~~~ erb
 <%= render @page.fixed_elements.named('sidebar') %>
 ~~~
 
-## Element view partials
+### Element views
 
 The Alchemy element generator creates a basic view partial for each element. This is where you control how the element's content is rendered on your website.
 
@@ -566,13 +556,11 @@ The Alchemy element generator creates a basic view partial for each element. Thi
 <% end %>
 ~~~
 
-The `element_view_for` helper wraps the inner html code into a `div` element by default. You can pass arguments to the helper to change its rendering behavior:
+The `element_view_for` helper wraps the content in a `div` by default. You can change the wrapping tag with the `tag` argument, or pass `false` to disable wrapping entirely.
 
-The second argument `tag` is used for the wrapping html tag. Passing `false` to it means no wrapping at all. Passing the name of any html element to it means the inner html gets wrapped within the given html tag instead of the default `div`.
+#### Block helper methods
 
-### Block helper methods
-
-Besides `el.render`, the block helper provides additional methods for accessing ingredient data:
+Besides `el.render`, the block helper provides additional methods for accessing ingredient data.
 
 ~~~ erb
 <%= element_view_for(element) do |el| %>
@@ -591,7 +579,7 @@ Besides `el.render`, the block helper provides additional methods for accessing 
 * **`el.has?(:role)`** - Returns `true` if the ingredient has a non-blank value
 * **`el.ingredient_by_role(:role)`** - Returns the ingredient record directly
 
-Use `el.ingredient_by_role` when you need to access ingredient attributes beyond the plain value. For example, a Page ingredient has a `page` method that returns the actual `Alchemy::Page` record, which you can use to build custom links:
+Use `el.ingredient_by_role` when you need to access ingredient attributes beyond the plain value. For example, a Page ingredient has a `page` method that returns the actual `Alchemy::Page` record, which you can use to build custom links.
 
 ~~~ erb
 <%= element_view_for(element) do |el| %>
@@ -602,7 +590,7 @@ Use `el.ingredient_by_role` when you need to access ingredient attributes beyond
 <% end %>
 ~~~
 
-### Pass options to the element wrapper
+#### Pass options to the element wrapper
 
 You can pass additional arguments to add or change any html attributes of the wrapper.
 
@@ -612,7 +600,7 @@ You can pass additional arguments to add or change any html attributes of the wr
 <% end %>
 ~~~
 
-### Pass options to the ingredient view
+#### Pass options to the ingredient view
 
 You can pass options to the ingredient view.
 
@@ -626,8 +614,8 @@ You can pass options to the ingredient view.
 Instead of passing the `size` of an image inline, you should consider using static [ingredient settings](ingredients#individual-ingredient-settings) instead.
 :::
 
-The first hash is the `options` the second one the `html_options` passed to the wrapper of the ingredient.
-If you only want to pass `html_options` you need to pass an empty hash as second argument.
+The first hash is the `options`, the second is the `html_options` passed to the ingredient's wrapper.
+If you only want to pass `html_options`, you need to pass an empty hash as the first argument.
 
 ~~~ erb
 <%= element_view_for(element) do |el| %>
@@ -650,8 +638,8 @@ de:
       headline: Überschrift
 ~~~
 
-Content names can also be translated related to their element.
-This is useful for ingredients with the same name that should have different translations.
+Ingredient roles can also be translated per element.
+This is useful when the same role name needs different labels depending on the element.
 
 ~~~ yaml
 de:
@@ -664,17 +652,17 @@ de:
         color: Button Farbe
 ~~~
 
-## Working with elements in the admin
+## Admin UI
 
 ### Re-arranging elements on a page
 
-Collapsed elements can be re-arranged by clicking and dragging the its icon to the left of the element title.
+Collapsed elements can be re-arranged by clicking and dragging the icon to the left of the element title.
 
 You can't re-arrange an expanded element, you need to collapse it first.
 
 ### Using the clipboard
 
-The clipboard receives elements that are copied or cut. The most prominent use-case is to copy or move elements from one page to another.
+The clipboard holds elements that have been copied or cut. The most common use case is to copy or move elements from one page to another.
 
 You can use the icons to copy and cut a specific element from its expanded state.
 
