@@ -1,7 +1,7 @@
 import { defineConfig } from "vitepress"
 
-const VERSIONS = [4, 5, 6, 7]
-const CURRENT_VERSION = process.env.VERSION || 7
+const VERSIONS = [4, 5, 6, 7, 8]
+const CURRENT_VERSION = process.env.VERSION || 8
 const VERSION_NAVITEMS = {
   4: [
     {
@@ -244,6 +244,84 @@ const VERSION_NAVITEMS = {
   7: [
     {
       text: "Getting Started",
+      link: "/v7/getting_started",
+    },
+    {
+      text: "Basics",
+      collapsed: false,
+      items: [
+        {
+          text: "About AlchemyCMS",
+          link: "/v7/about",
+        },
+        {
+          text: "Pages",
+          link: "/v7/pages",
+        },
+        {
+          text: "Elements",
+          link: "/v7/elements",
+        },
+        {
+          text: "Ingredients",
+          link: "/v7/ingredients",
+        },
+        {
+          text: "Rendering images",
+          link: "/v7/render_images",
+        },
+        {
+          text: "Configuration",
+          link: "/v7/configuration",
+        },
+        {
+          text: "Updating",
+          link: "/v7/upgrading",
+        },
+      ],
+    },
+    {
+      text: "How To",
+      collapsed: false,
+      items: [
+        {
+          text: "Create a blog template",
+          link: "/v7/how_to_create_a_blog_template",
+        },
+        {
+          text: "Create a contact form",
+          link: "/v7/how_to_create_a_contact_form",
+        },
+        {
+          text: "Customize the Richtext Editor",
+          link: "/v7/how_to_customize_tinymce",
+        },
+        {
+          text: "Create custom ingredients",
+          link: "/v7/how_to_create_custom_ingredients",
+        },
+        {
+          text: "Deploy on Heroku",
+          link: "/v7/how_to_deploy_on_heroku",
+        },
+        {
+          text: "Create custom modules",
+          link: "/v7/how_to_create_modules",
+        },
+        {
+          text: "Add custom authentication",
+          link: "/v7/how_to_add_custom_authentication",
+        },
+        {
+          text: "Extend Alchemy",
+          link: "/v7/how_to_extend_alchemy",
+        },
+      ],
+    },
+  ],
+  8: [
+    {
+      text: "Getting Started",
       link: "/getting_started",
     },
     {
@@ -265,6 +343,14 @@ const VERSION_NAVITEMS = {
         {
           text: "Ingredients",
           link: "/ingredients",
+        },
+        {
+          text: "Rendering",
+          link: "/rendering",
+        },
+        {
+          text: "Navigation",
+          link: "/navigation",
         },
         {
           text: "Rendering images",
@@ -315,6 +401,32 @@ const VERSION_NAVITEMS = {
         {
           text: "Extend Alchemy",
           link: "/how_to_extend_alchemy",
+        },
+      ],
+    },
+    {
+      text: "Advanced",
+      collapsed: false,
+      items: [
+        {
+          text: "Service Objects",
+          link: "/services",
+        },
+        {
+          text: "Admin Frontend",
+          link: "/admin_frontend",
+        },
+        {
+          text: "Testing",
+          link: "/testing",
+        },
+        {
+          text: "Extending Alchemy",
+          link: "/extending",
+        },
+        {
+          text: "Common Pitfalls",
+          link: "/pitfalls",
         },
       ],
     },
