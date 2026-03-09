@@ -299,6 +299,10 @@ export default defineConfig({
     logo: "/icon.svg",
     nav: [
       {
+        text: "Home",
+        link: "https://www.alchemy-cms.com",
+      },
+      {
         text: "Version",
         items: navItems,
       },
