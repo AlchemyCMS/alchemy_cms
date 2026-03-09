@@ -7,40 +7,17 @@ next:
 
 # About AlchemyCMS
 
-Alchemy is a user friendly and flexible Rails based CMS. In
-this guide you will learn about Alchemy's powerful features:
+Alchemy is a flexible, developer-friendly content management framework for Ruby on Rails. It gives you full control over markup and styling while providing editors with a powerful, intuitive admin interface.
 
-* The flexible content storing architecture
-* The image processing magick
-* Caching
-* The resources controller
+## Rails engine
 
-## Rails Engine
+Alchemy is a [Rails engine](https://guides.rubyonrails.org/engines.html) that integrates into your existing application. It uses standard Rails conventions — ERB templates, ActiveRecord, asset pipeline — so there is nothing new to learn.
 
-AlchemyCMS is a Ruby on Rails engine. Read about [engines in the Rails guides](https://guides.rubyonrails.org/engines.html).
+## Content architecture
 
-## The Core modules
+Unlike CMS systems that store complete HTML pages, Alchemy stores only structured content: text, references to images and attachments, and richtext. No HTML markup, no CSS, no layout. You control how content is rendered.
 
-AlchemyCMS comes with six core modules:
-
-1. [Pages](pages)
-2. Languages
-3. Sites
-4. Users
-5. Tags
-6. Library (Pictures & Attachments)
-
-The core modules can be extended by own modules. A module should be a Rails engine that registers itself at Alchemy. Read more about [creating own modules](how_to_create_modules).
-
-## Storing architecture
-
-Unlike many other CMS's that store a whole page body with complete HTML markup, Alchemy only stores unformatted text, ids of objects (like attachments and pictures) and only some richtext content in the database. No HTML markup, no CSS, no styling, no layout. Just pure content.
-
-You, the webdeveloper are in full control of the markup and styling. The editor just manages the content.
-
-### The model hierarchy
-
-The complete content hierarchy in Alchemy is:
+### The content hierarchy
 
 ~~~
 Site
@@ -48,56 +25,51 @@ Site
     Page (nested set tree)
       PageVersion (draft and public)
         Element (can be nested)
-          Ingredient (STI subclasses)
+          Ingredient (typed content fields)
 ~~~
 
-Each page maintains a **draft version** for editing and a **public version** for visitors. Elements belong to a `PageVersion`, not to a `Page` directly. When a page is published, Alchemy duplicates the draft's elements into a public version. This is handled transparently - your templates always receive the correct version automatically.
+- A **Site** has one or more **Languages**.
+- Each language has a tree of **[Pages](pages)**.
+- Each page maintains a **draft version** for editing and a **public version** for visitors. When a page is published, Alchemy duplicates the draft's elements into the public version. This is handled transparently.
+- Pages contain **[Elements](elements)** — reusable content components like articles, hero sections, or cards. Elements can be nested.
+- Elements contain **[Ingredients](ingredients)** — typed content fields like Text, Richtext, Picture, or Boolean.
 
 ### The render flow
 
-Alchemy uses [Rails' partials](https://guides.rubyonrails.org/layouts_and_rendering.html#using-partials). It has no own templating language and no *special files*.
+Alchemy uses standard [Rails partials](https://guides.rubyonrails.org/layouts_and_rendering.html#using-partials) and [ViewComponents](https://viewcomponent.org). It has no custom templating language.
 
-When Alchemy renders a typically Page, these files get usually rendered:
+When Alchemy renders a page, these files are used:
 
-1. `app/views/layouts/application.html.erb`
-2. `app/views/alchemy/page_layouts/_<page_layout>.html.erb`
-3. `app/views/alchemy/elements/_<element>.html.erb`
-4. `app/views/alchemy/ingredients/_<ingredient>_view.html.erb`
+1. `app/views/layouts/application.html.erb` — your application layout
+2. `app/views/alchemy/page_layouts/_<page_layout>.html.erb` — the page layout partial
+3. `app/views/alchemy/elements/_<element>.html.erb` — the element partial
+4. Ingredient view components render the individual content fields
 
-::: tip
-Alchemy comes with useful helpers that help render these partials. For further information please [have a look into the Alchemy::PagesHelper documentation](https://www.rubydoc.info/github/AlchemyCMS/alchemy_cms/Alchemy/PagesHelper.html)
-:::
+### Planning your content structure
 
-### Tips for page and content structure
+Start by identifying the different types of pages your site needs (called page layouts). Every structurally different page should have its own layout. [More about pages.](pages)
 
-When working with AlchemyCMS the very first thing you should do is identify the website´s layout different page types (called page layouts).
+Then split the content within each layout into elements. Group related content fields into reusable components. Elements are the key building blocks of Alchemy. [More about elements.](elements)
 
-Every page which is structurally different to another, should have its own page layout. A page layout is a HTML template with specified properties. [More about pages and their layouts »](pages.html#defining-page-layouts)
+Finally, define the ingredients for each element — the individual content fields like headlines, images, and text. [More about ingredients.](ingredients)
 
-After that you should identify fixed areas on the layout and define them for sidebars, heroes and other groups of content. Fixed elements render on page layouts and are acting as containers for element groups. [More about fixed elements »](elements#render-a-group-of-elements-on-a-fixed-place-on-the-page)
+## Image processing
 
-In any case you should split the layout into elements. That means grouping small parts of the websites content into reusable containers. Elements are rendered on page layouts and are the key component of Alchemy. [More about elements »](elements)
-
-An ingredient is the smallest part of content in Alchemy and represents a headline, an image, paragraphs and other values of content. [More about ingredients »](ingredients)
-
-## Processing images
-
-Alchemy uses [ImageMagick®](https://www.imagemagick.org) and [Dragonfly](https://markevans.github.io/dragonfly/) to render images on-the-fly.
-
-Images are stored as master images in the picture library. The editor just assigns these images to elements you provide them. You also set the image rendering boundaries. The max width and heigth values, or even the size an image should be cropped to. Alchemy comes with a built-in image cropping tool, so that the editor can define the mask to be used.
-
-[Read more about how to use the powerful image processing tools](render_images).
+Alchemy renders images on the fly using [ImageMagick](https://imagemagick.org) or [libvips](https://www.libvips.org). Images are stored as originals in the picture library. Editors assign them to elements and can crop them using the built-in cropping tool. You define the rendering dimensions and output format. [More about rendering images.](render_images)
 
 ## Caching
 
-If not deactivated in the [configuration](configuration), Alchemy uses Rails "Russian Doll Caching" for fast content delivering. This will cache all [page layout](pages) partials where [elements](elements) are rendered on.
+Alchemy uses Rails' Russian doll caching for fast content delivery. With every page request Alchemy sends `Cache-Control` headers that CDNs, proxies and browsers use to cache the page. Caching can be configured globally or per page layout. [More about caching.](configuration#caching)
 
-With every page request Alchemy sends cache headers that are used by CDNs, proxies and your vistors browser to cache the page body.
+## Admin modules
 
-## Rails admin for your custom models
+Alchemy comes with these admin modules:
 
-Alchemy can also be your Rails admin for your own custom models and controllers. When developing own modules for Alchemy, your controller can inherit from that resources controller (`Alchemy::Admin::ResourcesController`) to get typical Rails CRUD methods.
+- **[Pages](pages)** — manage the page tree and edit content
+- **Languages** — multi-language support
+- **Sites** — multi-site support
+- **Library** — picture and attachment management
+- **Tags** — tagging for pictures, attachments, and pages
+- **Users** — user management (with [alchemy-devise](https://github.com/AlchemyCMS/alchemy-devise))
 
-The standard templates for the backend views are also rendered. They can be overwritten in your app, just use the expected filenames and variables.
-
-Read more details about the resources controller in the [module development](how_to_create_modules) guide.
+You can extend the admin with your own modules. A module is a Rails engine that registers itself with Alchemy. Your controllers can inherit from `Alchemy::Admin::ResourcesController` to get standard CRUD views. [More about creating modules.](how_to_create_modules)
