@@ -308,7 +308,7 @@ export default defineConfig({
       },
     ],
     socialLinks: [
-      { icon: "github", link: "https://github.com/AlchemyCMS/alchemy_cms" },
+      { icon: "github", link: "https://github.com/AlchemyCMS/" },
       { icon: "mastodon", link: "https://ruby.social/@alchemy_cms" },
       { icon: "bluesky", link: "https://bsky.app/profile/alchemy-cms.com" },
       { icon: "slack", link: "https://alchemy-cms.slack.com" },
