@@ -177,7 +177,7 @@ You can pass a `page_layout` name as a `String`, an `Array` of page type names, 
 
 ## Caching
 
-If using the global caching option (defined in `config/alchemy/config.yml`) - which is enabled by default - your page requests will deliver cache headers. Most browsers, CDNs and proxys use these headers to cache the page.
+Page caching is enabled by default. When active, page requests deliver `Cache-Control` headers that browsers, CDNs and proxies use to cache the page. See the [Configuration guide](configuration#caching) for global cache settings.
 
 ::: tip
 You can disable cache headers for certain pages by using the `cache: false` setting.

@@ -11,7 +11,7 @@ next:
 
 Images are stored as originals in the Alchemy picture library. Editors assign these images to [Picture ingredients](ingredients#picture) on elements. You control the rendering dimensions, cropping, and output format through ingredient settings and rendering options.
 
-Alchemy supports two storage adapters: **ActiveStorage** (the default since 8.1) and **Dragonfly**. Both use the same rendering API, so you can switch between them without changing your templates.
+Alchemy supports two storage adapters: **ActiveStorage** and **Dragonfly**. Both use the same rendering API, so you can switch between them without changing your templates.
 
 ## Configuration
 

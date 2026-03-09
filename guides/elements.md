@@ -330,15 +330,18 @@ Supported validations are:
 
 The `format` validator needs to have a [regular expression](http://rubular.com) or a predefined matcher string as its value.
 
-Predefined format matchers are listed in `config/alchemy/config.yml`. You can also add your own matchers there.
+Predefined format matchers are configured in your initializer. You can also add your own. See the [Configuration guide](configuration#format-matchers) for details.
 
 ### Format matchers
 
-~~~ yaml
-# config/alchemy/config.yml
-format_matchers:
-  email: !ruby/regexp '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'
-  url: !ruby/regexp '/\A[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/ix'
+~~~ ruby
+# config/initializers/alchemy.rb
+Alchemy.configure do |config|
+  config.format_matchers.tap do |format|
+    format.email = /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
+    format.url = /\A[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/ix
+  end
+end
 ~~~
 
 ### Example
@@ -360,7 +363,7 @@ format_matchers:
         - format: !ruby/regexp '/^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/']
 ~~~
 
-The `email` ingredient gets validated against the predefined `email` matcher in the `config.yml`.
+The `email` ingredient gets validated against the predefined `email` matcher from the initializer.
 
 The `homepage` ingredient is matched against the given regexp.
 
