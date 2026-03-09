@@ -1,25 +1,29 @@
 ---
 layout: home
 hero:
-  name: AlchemyCMS
+  name: Alchemy
   image:
     src: /icon.svg
     alt: AlchemyCMS Icon
-  text: The open source content framework built in Rails
+  text: The Rails CMS framework
+  tagline: For teams that need full control
   actions:
-    - text: Get Started →
+    - text: Read the Guides →
       link: getting_started
       theme: brand
+    - text: Learn more
+      link: https://alchemy-cms.com
+      theme: alt
 features:
-- title: Not a common CMS
-  icon: 🚀
-  details: Alchemy is a CMS framework. It enables you to build your own CMS.
-- title: Highly customizable
-  icon: 🛠
-  details: Build even complex websites in a shorter time frame.
-- title: Easy to use
-  icon: 😇
-  details: The user interface is powerful, easy to use and intuitive to learn.
+- title: Content Framework
+  icon: 🧩
+  details: Compose pages from reusable, semantic content components with strict content and markup separation.
+- title: Open Source
+  icon: ❤️
+  details: Free forever. Community-driven since 2010. No vendor lock-in. Integrates into any Rails application.
+- title: Built for Teams
+  icon: 🎉
+  details: A beautiful, intuitive admin interface that content authors love. Editors work within the structure you define, without breaking the layout.
 ---
 
 <h2 style="text-align: center">Sponsored by</h2>
