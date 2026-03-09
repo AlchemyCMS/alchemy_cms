@@ -191,6 +191,10 @@ const VERSION_NAVITEMS = {
           link: "/pages",
         },
         {
+          text: "Menus",
+          link: "/menus",
+        },
+        {
           text: "Rendering Images",
           link: "/render_images",
         },

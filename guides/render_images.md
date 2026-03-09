@@ -1,7 +1,7 @@
 ---
 prev:
-  text: Pages
-  link: pages
+  text: Menus
+  link: menus
 next:
   text: Configuration
   link: configuration

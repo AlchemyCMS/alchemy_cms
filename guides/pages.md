@@ -3,8 +3,8 @@ prev:
   text: Ingredients
   link: ingredients
 next:
-  text: Rendering Images
-  link: render_images
+  text: Menus
+  link: menus
 ---
 
 # Pages

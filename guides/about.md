@@ -66,6 +66,7 @@ Alchemy uses Rails' Russian doll caching for fast content delivery. With every p
 Alchemy comes with these admin modules:
 
 - **[Pages](pages)** — manage the page tree and edit content
+- **[Menus](menus)** — manage navigation trees independently from pages
 - **Languages** — multi-language support
 - **Sites** — multi-site support
 - **Library** — picture and attachment management
