@@ -161,11 +161,7 @@ const VERSION_NAVITEMS = {
   ],
   8: [
     {
-      text: "Getting Started",
-      link: "/getting_started",
-    },
-    {
-      text: "Basics",
+      text: "Introduction",
       collapsed: false,
       items: [
         {
@@ -173,9 +169,15 @@ const VERSION_NAVITEMS = {
           link: "/about",
         },
         {
-          text: "Pages",
-          link: "/pages",
+          text: "Getting Started",
+          link: "/getting_started",
         },
+      ],
+    },
+    {
+      text: "Basics",
+      collapsed: false,
+      items: [
         {
           text: "Elements",
           link: "/elements",
@@ -184,8 +186,12 @@ const VERSION_NAVITEMS = {
           text: "Ingredients",
           link: "/ingredients",
         },
-{
-          text: "Rendering images",
+        {
+          text: "Pages",
+          link: "/pages",
+        },
+        {
+          text: "Rendering Images",
           link: "/render_images",
         },
         {

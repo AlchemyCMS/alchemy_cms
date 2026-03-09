@@ -1,7 +1,7 @@
 ---
 prev:
-  text: Pages
-  link: pages
+  text: Getting Started
+  link: getting_started
 next:
   text: Ingredients
   link: ingredients

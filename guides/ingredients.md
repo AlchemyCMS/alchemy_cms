@@ -3,8 +3,8 @@ prev:
   text: Elements
   link: elements
 next:
-  text: Rendering Images
-  link: render_images
+  text: Pages
+  link: pages
 ---
 
 # Ingredients

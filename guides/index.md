@@ -11,8 +11,8 @@ hero:
     - text: Read the Guides →
       link: getting_started
       theme: brand
-    - text: Learn more
-      link: https://alchemy-cms.com
+    - text: About Alchemy
+      link: about
       theme: alt
 features:
 - title: Content Framework

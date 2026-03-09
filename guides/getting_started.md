@@ -1,149 +1,109 @@
 ---
 prev: false
 next:
-  text: About AlchemyCMS
-  link: about
+  text: Elements
+  link: elements
 ---
 
 # Getting Started
 
-This guide covers getting up and running with AlchemyCMS. After reading it, you should be familiar with:
-
-* Installing and creating a new application with AlchemyCMS
-* Creating a user and logging in for the first time.
+This guide walks you through installing AlchemyCMS into a Rails application. By the end you will have a running Alchemy instance with an admin user.
 
 ## Prerequisites
 
-This guide is designed for beginners who want to get started with AlchemyCMS from scratch. It does not assume that you have any prior experience with AlchemyCMS. However, to get the most out of it, you need to have some prerequisites installed:
+You need a working Ruby on Rails development environment. If you are new to Rails, follow the [Install Ruby on Rails](https://guides.rubyonrails.org/install_ruby_on_rails.html) guide first.
 
-* The [Ruby](http://www.ruby-lang.org/en/downloads) programming language
-* At least one of these databases: [SQLite](https://sqlite.org), [MariaDB](https://www.mariadb.org) or [PostgreSQL](https://www.postgresql.org)
-* The image processing library [ImageMagick](https://www.imagemagick.org/script/install-source.php)
+- [Ruby](https://www.ruby-lang.org/en/documentation/installation/) >= 3.1
+- [Ruby on Rails](https://rubyonrails.org) >= 7.2
+- [ImageMagick](https://imagemagick.org) or [libvips](https://www.libvips.org) for image processing
+- A database: [PostgreSQL](https://www.postgresql.org), [MariaDB](https://www.mariadb.org), or [SQLite](https://sqlite.org)
 
-### Installing dependencies
-
-**It is highly recommended** to use a package manager to install dependencies like ImageMagick and your database.
-
-Common package managers are:
-
-* [Homebrew](http://brew.sh) on the Mac
-* Your Linux box already has a package manager installed and you likely are already familiar with it.
-
-### Installing Ruby
-
-The most common ways to install Ruby on your computer nowadays are:
-
-* If you are on a Mac or Linux Box use [RVM](http://rvm.io)
-* If you are on Windows use [RailsInstaller](http://railsinstaller.org)
-
-### Learning Rails
-
-It is highly recommended to familiarize yourself with Ruby on Rails before using AlchemyCMS.
-You will understand much more and see things clearer if you know about the basics of Ruby on Rails.
-
-There are many excellent resources on the internet for learning Ruby on Rails, including:
-
-* [Try Ruby](http://tryruby.org)
-* [Getting Started with Rails](http://guides.rubyonrails.org/getting_started.html)
-* [Rails for Zombies](http://railsforzombies.org)
-* [Railscasts](http://railscasts.com)
-
-## Installing Alchemy
-
-### Create the Rails application
-
-The installation of AlchemyCMS is very easy. You just need to run Ruby's `gem` command.
-
-~~~ bash
-gem install alchemy_cms
-~~~
-
-Alchemy is a Rails 4 engine, so at first you need to generate a fresh Rails 4 application, by running this command
-
-~~~ bash
-rails new YOUR_APP_NAME
-~~~
-
-::: tip INFO
-The `rails` command has lots of parameters like choosing the database you want to work with. Please follow [the official Rails guides](https://guides.rubyonrails.org/getting_started.html) for further information.
+::: tip
+Use a package manager to install system dependencies. [Homebrew](https://brew.sh) on macOS, or your Linux distribution's package manager.
 :::
 
-### Install Alchemy into the Rails application
+## Create a Rails application
 
-In your existing Rails application, you can need to require the AlchemyCMS gem.
+If you don't have an existing Rails app, create one.
 
-Just add this line to your `Gemfile`.
-
-~~~ ruby
-gem 'alchemy_cms'
-~~~
-
-Since AlchemyCMS is a mountable engine, you need to define the mountpoint in your `config/routes.rb` file.
-
-~~~ ruby
-MyApp::Application.routes.draw do
-  mount Alchemy::Engine => '/'
-end
+~~~ bash
+gem install rails
+rails new myapp
+cd myapp
 ~~~
 
 ::: tip
-You can mount Alchemy on every route you want. `pages`, `cms`, what ever you want. Most of the time you go with the root route.
+See the [Rails Getting Started guide](https://guides.rubyonrails.org/getting_started.html) for more options.
 :::
 
-::: warning NOTE
-Please be aware that Alchemy has a very strong catch all route. It is *highly recommended* that you mount Alchemy at last position in your app, so your existing routes are still available.
-:::
+## Install Alchemy
 
-Now you need to run bundler for installing the dependencies.
+Add the gem and run the installer. It will mount Alchemy in your routes, create configuration files, set up the database, and generate demo content.
 
 ~~~ bash
-bundle install
+bundle add alchemy_cms
+bin/rails alchemy:install
 ~~~
 
-Then run the install task.
+The installer asks for your site's primary language. Accept the defaults or enter your own.
+
+## Authentication
+
+Alchemy lets you choose your own authentication strategy.
+
+**Option A: Use alchemy-devise** (recommended for new projects)
+
+Add the gem and run its installer.
 
 ~~~ bash
-bin/rake alchemy:install
-~~~
-
-#### Authentication
-
-If you already have your own user class in your application, you have to tell Alchemy about it. Please follow [this guide](how_to_add_custom_authentication) to learn how to achieve that.
-
-If you don't have a authentication solution, you can use the alchemy-devise gem.
-
-Just add it to your apps `Gemfile`
-
-~~~ ruby
-# Gemfile
-gem 'alchemy-devise'
-~~~
-
-~~~ bash
-bundle install
-~~~
-
-and run the installer
-
-~~~ bash
+bundle add alchemy-devise
 bin/rails g alchemy:devise:install
 ~~~
 
-## Starting AlchemyCMS
+**Option B: Use your existing authentication**
 
-Now that you have AlchemyCMS successfully installed, let's move on by creating your first user with administrative privilegs.
+If your app already has a user model, configure Alchemy to use it. See the [custom authentication guide](how_to_add_custom_authentication) for details.
 
-You just need to start a local ruby server on your development machine.
-
-~~~ bash
-cd YOUR_APP_NAME
-~~~
+## Start the server
 
 ~~~ bash
-bin/rails s
+bin/rails server
 ~~~
 
-Open a browser window and navigate to [http://localhost:3000](http://localhost:3000).
-You will be greeted with a screen that is prompting you to create the first user.
+Open [http://localhost:3000/admin](http://localhost:3000/admin) in your browser. You will be prompted to create the first admin user.
 
-Congratulations, you can now access the backend.
+After signing in you can start building pages. Continue with the [Elements](elements) guide to learn how to define your content structure.
+
+## Changing the mount point
+
+The installer automatically mounts Alchemy at the root of your application. If your app has its own routes and you want Alchemy to handle only a subpath, change the mount point in `config/routes.rb`.
+
+~~~ ruby
+# config/routes.rb
+Rails.application.routes.draw do
+  # your app's routes
+  resources :products
+
+  # mount Alchemy under /cms instead of /
+  mount Alchemy::Engine => "/cms"
+end
+~~~
+
+::: warning
+Alchemy has a catch-all route for page URLs. Mount it after your own routes so they take priority.
+:::
+
+## What the installer creates
+
+The installer generates these files in your app.
+
+| File | Purpose |
+|------|---------|
+| `config/alchemy/elements.yml` | [Element](elements) definitions |
+| `config/alchemy/page_layouts.yml` | [Page layout](pages) definitions |
+| `config/alchemy/menus.yml` | Menu definitions |
+| `config/initializers/alchemy.rb` | Alchemy [configuration](configuration) |
+| `app/views/layouts/application.html.erb` | Application layout with Alchemy helpers |
+| `app/views/alchemy/page_layouts/_standard.html.erb` | Demo [page layout](pages#page-layouts) partial |
+| `app/views/alchemy/elements/_article.html.erb` | Demo [element](elements#rendering) partial |
+| `app/assets/stylesheets/alchemy/admin/custom.css` | Custom [admin styles](configuration#admin-javascript-and-css) |

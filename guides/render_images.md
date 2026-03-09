@@ -1,7 +1,7 @@
 ---
 prev:
-  text: Ingredients
-  link: ingredients
+  text: Pages
+  link: pages
 next:
   text: Configuration
   link: configuration

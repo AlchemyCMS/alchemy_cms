@@ -1,10 +1,10 @@
 ---
 prev:
-  text: About AlchemyCMS
-  link: about
+  text: Ingredients
+  link: ingredients
 next:
-  text: Elements
-  link: elements
+  text: Rendering Images
+  link: render_images
 ---
 
 # Pages
