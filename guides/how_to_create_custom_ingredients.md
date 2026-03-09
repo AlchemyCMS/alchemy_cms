@@ -1,25 +1,40 @@
-# Creating own Ingredients
+---
+prev:
+  text: Ingredients
+  link: ingredients
+---
 
-Alchemys powerful content storage technology is build around ingredients. They are ActiveRecord models that have an editor and a presentation view partial.
+# Custom Ingredients
 
-Alchemy has lots of [build in ingredients](https://github.com/AlchemyCMS/alchemy_cms/tree/main/app/models/alchemy/ingredients). But you can create your own ingredient and even associate them with your existing models. This guide shows how.
+Alchemy provides many [built-in ingredient types](ingredients), but you can create your own to store custom data or associate ingredients with your existing models.
 
-* Use the generator to create a new ingredient
-* Associate an ingredient to your model
+Each custom ingredient consists of a model class, a view component for the frontend, and an editor component for the admin interface. Alchemy uses [ViewComponent](https://viewcomponent.org) for both.
 
-## Using The Ingredient Generator
+::: tip
+The [alchemy-solidus](https://github.com/AlchemyCMS/alchemy-solidus) extension is a good real-world example. It provides `SpreeProduct`, `SpreeTaxon` and `SpreeVariant` ingredient types that associate Alchemy elements with Solidus e-commerce models.
+:::
 
-The ingredient generator is a wrapper around the Rails model generator. It generates the ingredient model for you.
+## Using the generator
+
+The ingredient generator creates the model and both components for you.
 
 ~~~ bash
 bin/rails g alchemy:ingredient MyIngredient
 ~~~
 
-::: tip INFO
-Ingredients are created under the `Alchemy::Ingredients` namespace.
+This creates three files:
+
+- `app/models/alchemy/ingredients/my_ingredient.rb` - the model
+- `app/components/alchemy/ingredients/my_ingredient_view.rb` - the frontend view
+- `app/components/alchemy/ingredients/my_ingredient_editor.rb` - the admin editor
+
+::: tip
+Ingredients live under the `Alchemy::Ingredients` namespace. The type name in your `elements.yml` is the PascalCase class name, e.g. `MyIngredient`.
 :::
 
-This is what the generated model looks like:
+## The model
+
+The generated model extends `Alchemy::Ingredient`. The main content is stored in the `value` column (a `text` column).
 
 ~~~ ruby
 # app/models/alchemy/ingredients/my_ingredient.rb
@@ -36,56 +51,159 @@ module Alchemy
 end
 ~~~
 
-Alchemy stores the main value in the `value` (a `Text`) column.
+If you need to store additional values beyond `value`, add them as attributes to the `data` column using [`store_accessor`](https://api.rubyonrails.org/classes/ActiveRecord/Store.html). Rails will create accessor methods for you.
 
-If you want to store additional values in another column, please add it as attribute to the `data` [`store_accessor`](https://api.rubyonrails.org/classes/ActiveRecord/Store.html). Rails will create accessor methods for you.
+### Type casting the value
 
-## The ingredient views
+Since `value` is stored as text, you may want to cast it to a different type. Override the `value` method and use ActiveRecord type casting.
 
-Every ingredient has to have two views:
+~~~ ruby
+# Cast to boolean (like the built-in Boolean ingredient)
+def value
+  ActiveRecord::Type::Boolean.new.cast(self[:value])
+end
 
-* One for presenting
-* One for editing
+# Cast to datetime (like the built-in Datetime ingredient)
+def value
+  ActiveRecord::Type::DateTime.new.cast(self[:value])
+end
 
-### The view partial
-
-The view partial is used by the `render_elements` helper to present the ingredient to the user.
-
-It is yours. Adjust it to your needs. You can access the value with the `ingredient` method of the `content` object instance.
-
-~~~ erb
-<!-- app/views/alchemy/ingredients/_my_ingredient_view.html.erb -->
-<h1><%= my_ingredient_view.ingredient %></h1>
+# Cast to integer
+def value
+  ActiveRecord::Type::Integer.new.cast(self[:value])
+end
 ~~~
 
-### The editor partial
+### Allowing settings
 
-The editor partial is basically a set of form fields holding values of your ingredient. It is rendered inside the element editor view form object.
+Use `allow_settings` to define which settings from `elements.yml` are available to your ingredient. Only safelisted settings are accessible via the `settings` hash.
 
-This is just what the generator creates for you:
-
-~~~ erb
-<!-- app/views/alchemy/ingredients/_my_ingredient_editor.html.erb -->
-<%= content_tag :div,
-  class: my_ingredient_editor.css_classes,
-  data: my_ingredient_editor.data_attributes do %>
-  <%= element_form.fields_for(:ingredients, my_ingredient_editor.ingredient) do |f| %>
-    <%= ingredient_label(my_ingredient_editor) %>
-    <%= f.text_field :value %>
-  <% end %>
-<% end %>
+~~~ ruby
+class MyIngredient < Alchemy::Ingredient
+  allow_settings %i[format display_mode]
+end
 ~~~
 
-But this is yours. Feel free to adjust it to your needs.
-Just make shure that you provide form fields that Alchemy can use to update your object in the database.
+~~~ yaml
+# config/alchemy/elements.yml
+- name: my_element
+  ingredients:
+    - role: custom
+      type: MyIngredient
+      settings:
+        format: short
+        display_mode: inline
+~~~
 
-## Associations
+### Customizing the preview text
 
-You can associate every ActiveRecord based model with an ingredient. In this example we want to connect an existing `Person` model to an element, so we can associate it with an Alchemy page.
+The `preview_text` method controls what is shown in the element's title bar in the admin. By default it shows the first 30 characters of `value`. Override it to show something more meaningful.
 
-Just use the `related_object_alias` method to tell Alchemy the foreign key to use for the association.
+~~~ ruby
+class Person < Alchemy::Ingredient
+  related_object_alias :person, class_name: "My::Person"
 
-### Set the foreign key
+  def preview_text(maxlength = 30)
+    return unless person
+
+    person.name[0..maxlength - 1]
+  end
+end
+~~~
+
+## The view component
+
+The view component controls how the ingredient is rendered on your website. It extends `Alchemy::Ingredients::BaseView`.
+
+~~~ ruby
+# app/components/alchemy/ingredients/my_ingredient_view.rb
+module Alchemy
+  module Ingredients
+    class MyIngredientView < BaseView
+      def call
+        content_tag(:div, ingredient.value)
+      end
+    end
+  end
+end
+~~~
+
+The `ingredient` accessor gives you access to the ingredient record, including its `value`, `settings`, and any `data` attributes or associations. Override `call` to return the HTML you want to render.
+
+Override `render?` to control when the component renders. By default it renders when the ingredient has a value.
+
+~~~ ruby
+class PersonView < BaseView
+  delegate :person, to: :ingredient
+
+  def call
+    content_tag(:span, person.name)
+  end
+
+  def render?
+    !!person
+  end
+end
+~~~
+
+## The editor component
+
+The editor component controls the form fields in the admin interface. It extends `Alchemy::Ingredients::BaseEditor`.
+
+~~~ ruby
+# app/components/alchemy/ingredients/my_ingredient_editor.rb
+module Alchemy
+  module Ingredients
+    class MyIngredientEditor < BaseEditor
+      # The default editor renders a text field for the `value` column.
+      # Override `input_field` to customize the form input.
+      #
+      # def input_field
+      #   text_field_tag(form_field_name, value)
+      # end
+    end
+  end
+end
+~~~
+
+The base editor provides helpers for building form fields:
+
+- `form_field_name(column)` - generates the correct form field name for a column (defaults to `"value"`)
+- `form_field_id(column)` - generates the correct form field ID for a column
+- `value` - the current ingredient value
+- `settings` - the ingredient's settings from the element definition
+
+Override the `input_field` method to customize the editor UI. For example, to render a select box:
+
+~~~ ruby
+class MyIngredientEditor < BaseEditor
+  def input_field
+    select_tag(
+      form_field_name,
+      options_for_select(available_options, value),
+      class: "full_width"
+    )
+  end
+
+  private
+
+  def available_options
+    settings[:options] || []
+  end
+end
+~~~
+
+::: warning
+Avoid loading large collections into the editor. If your `input_field` renders a `select_tag` with all records from a model (e.g. all products or all people), every element editor will trigger a database query for the full set. This causes N+1 queries and slow admin pages.
+
+Instead, use a remote select that fetches results on demand via an API endpoint. Alchemy ships a `RemoteSelect` JavaScript base class (`alchemy_admin/components/remote_select`) that provides paginated, searchable selects using [Custom Elements](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements). Your custom element extends `RemoteSelect`, implements `_searchQuery()` and `_parseResponse()`, and your editor component renders the custom element tag instead of a `select_tag`.
+
+The [alchemy-solidus](https://github.com/AlchemyCMS/alchemy-solidus) extension demonstrates this pattern. It defines `<alchemy-product-select>`, `<alchemy-variant-select>` and `<alchemy-taxon-select>` custom elements that query the Solidus API with pagination and search, avoiding loading thousands of records into memory.
+:::
+
+## Associating with models
+
+You can associate any ActiveRecord model with an ingredient using `related_object_alias`. This stores the foreign key in the `related_object_id` column and sets up a `belongs_to` association.
 
 ~~~ ruby
 # app/models/alchemy/ingredients/person.rb
@@ -93,18 +211,47 @@ module Alchemy
   module Ingredients
     class Person < Alchemy::Ingredient
       related_object_alias :person, class_name: "My::Person"
+
+      def preview_text(maxlength = 30)
+        return unless person
+
+        person.name[0..maxlength - 1]
+      end
     end
   end
 end
 ~~~
 
-### Accessing your model instance
+Alchemy handles the rest. You can access the associated model in your view component.
 
-That's it. Everything else is handled by Alchemy. You can now access the associated `My::Person` model with the `person` method.
+~~~ ruby
+# app/components/alchemy/ingredients/person_view.rb
+module Alchemy
+  module Ingredients
+    class PersonView < BaseView
+      delegate :person, to: :ingredient
 
-~~~ erb
-<!-- app/views/alchemy/ingredients/_person_view.html.erb -->
-<%= person_view.person.firstname %>
+      def call
+        content_tag(:span, person.name)
+      end
+
+      def render?
+        !!person
+      end
+    end
+  end
+end
 ~~~
 
-Now you can use your new ingredient in any element you want as shown in the [Elements guide](elements).
+## Using your ingredient
+
+Add your custom ingredient to any element definition in `elements.yml`.
+
+~~~ yaml
+- name: team_member
+  ingredients:
+    - role: person
+      type: Person
+~~~
+
+See the [Elements guide](elements) for more on defining elements.
