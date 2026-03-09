@@ -13,6 +13,10 @@ Ingredients are the individual content fields within an [element](elements). Eac
 
 Alchemy comes with a set of built-in ingredient types for common needs. You can also [create your own ingredient types](how_to_create_custom_ingredients).
 
+::: tip
+The [alchemy-solidus](https://github.com/AlchemyCMS/alchemy-solidus) extension is a good example of custom ingredients in action. It provides `SpreeProduct`, `SpreeTaxon` and `SpreeVariant` ingredient types that associate Alchemy elements with Solidus e-commerce models.
+:::
+
 ## Global settings
 
 Ingredients are defined within an [element definition](elements#defining-elements) in `config/alchemy/elements.yml`. Each ingredient requires a `role` and `type`. You can also set hints and default values.
