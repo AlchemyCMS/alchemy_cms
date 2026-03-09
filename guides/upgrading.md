@@ -5,99 +5,80 @@ prev:
 next: false
 ---
 
-# Updating AlchemyCMS
+# Updating Alchemy
 
 This guide describes how to update AlchemyCMS to a new version.
 
-Updating Alchemy is mostly three steps.
-
-1. [Update the gem](#update-the-gem)
-2. [Run the upgrade task](#run-the-upgrade-task)
-3. [Follow ups](#follow-ups)
-
 ## Update the gem
 
-If you use Alchemy from a git branch, point it to the next stable release.
+Update the version constraint in your `Gemfile` and run bundler.
 
-~~~diff
-...
--gem 'alchemy_cms', github: 'AlchemyCMS/alchemy_cms', branch: '5.2-stable'
-+gem 'alchemy_cms', github: 'AlchemyCMS/alchemy_cms', branch: '5.3-stable'
-...
+~~~ diff
+-gem 'alchemy_cms', '~> 8.0'
++gem 'alchemy_cms', '~> 8.1'
 ~~~
 
-If you use Alchemy from rubygems, point it to the next stable release.
+If you use [alchemy-devise](https://github.com/AlchemyCMS/alchemy-devise) for authentication, update it as well. The major and minor versions of `alchemy_cms` and `alchemy-devise` match.
 
-~~~diff
-...
--gem 'alchemy_cms', '~> 5.2'
-+gem 'alchemy_cms', '~> 5.3'
-...
+~~~ diff
+-gem 'alchemy_cms', '~> 8.0'
++gem 'alchemy_cms', '~> 8.1'
+-gem 'alchemy-devise', '~> 8.0'
++gem 'alchemy-devise', '~> 8.1'
 ~~~
 
-If you are using `alchemy-devise` for authentication, then update the gem as well. The major and minor versions of the `alchemy_cms` and the `alchemy-devise` gems match.
+Then run bundler.
 
-~~~diff
-...
--gem 'alchemy_cms', '~> 5.2'
-+gem 'alchemy_cms', '~> 5.3'
--gem 'alchemy-devise', '~> 5.2'
-+gem 'alchemy-devise', '~> 5.3'
-...
-~~~
-
-Now update via bundler
-
-~~~bash
+~~~ bash
 bundle update alchemy_cms alchemy-devise
 ~~~
 
 ## Run the upgrade task
 
-Now you can run the upgrade task. While upgrading, you will get informations about the process on your screen.
+The upgrade task runs all necessary migrations and adjustments.
 
-~~~bash
-bin/rake alchemy:upgrade
+~~~ bash
+bin/rails alchemy:upgrade
 ~~~
 
-and follow the on screen instructions.
+Follow the on-screen instructions. The task will inform you about changes and any manual steps required.
 
-### Update the default config
+If you have `alchemy-devise` installed, re-run its install generator to pick up any changes.
 
-If new configuration options have been introduced you see them in the `config/alchemy/config.yml.defaults` file. Simply copy them over and have a look at the `git diff`. Keep your changes remove or add new keys as necessary.
-
-If you have also `alchemy-devise` installed you need to .
-
-~~~bash
-bin/rails g alchemy_devise:install
+~~~ bash
+bin/rails g alchemy:devise:install
 ~~~
 
-### Run single upgrade tasks
+### Run individual upgrade tasks
 
-Upgrade tasks can also be run on its own. For example to run only the `alchemy:upgrade:config` task:
+Upgrade tasks can also be run individually. For example, to run only the config upgrade:
 
-~~~bash
-bin/rake alchemy:upgrade:config
+~~~ bash
+bin/rails alchemy:upgrade:config
 ~~~
 
-A list of all upgrade tasks can be listed with
+List all available upgrade tasks with:
 
-~~~bash
-bin/rake -T alchemy:upgrade
+~~~ bash
+bin/rails -T alchemy:upgrade
 ~~~
 
-## Follow ups
+## Follow-ups
 
-Most of the time the upgrader does all the work for you. But sometimes the upgrade needs some manual work. This will be noted as TODOs at the end of the upgrade task.
-
-Please follow them carefully.
+Most of the time the upgrader handles everything. But some upgrades require manual steps — these are listed as TODOs at the end of the upgrade output. Follow them carefully.
 
 ## Major version upgrades
 
-Major version upgrades follow the same upgrade process as minor versions, but they will have breaking changes.
+Major versions follow the same upgrade process, but include breaking changes. They remove deprecated features and old upgrade tasks.
 
-Major versions remove deprecated features and old upgrade tasks. Please make sure you addressed all deprecations and run all upgrades in the current version before upgrading to the next major version.
+::: warning
+Before upgrading to the next major version, make sure you have addressed all deprecation warnings and run all upgrade tasks in the current version first.
+:::
 
-## Finally
+## Verify the upgrade
 
-Please always verify the upgrade by looking through the `git diff` and by running your test suite for customization you made. Also the [CHANGELOG](https://github.com/AlchemyCMS/alchemy_cms/blob/main/CHANGELOG.md) is a good place to look for changes.
+After upgrading:
+
+1. Review the changes with `git diff`
+2. Run your test suite
+3. Check the [CHANGELOG](https://github.com/AlchemyCMS/alchemy_cms/blob/main/CHANGELOG.md) for details on what changed
