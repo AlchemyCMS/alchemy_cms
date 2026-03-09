@@ -658,21 +658,3 @@ de:
       contact_form:
         color: Button Farbe
 ~~~
-
-## Admin UI
-
-### Re-arranging elements on a page
-
-Collapsed elements can be re-arranged by clicking and dragging the icon to the left of the element title.
-
-You can't re-arrange an expanded element, you need to collapse it first.
-
-### Using the clipboard
-
-The clipboard holds elements that have been copied or cut. The most common use case is to copy or move elements from one page to another.
-
-You can use the icons to copy and cut a specific element from its expanded state.
-
-You can view the contents of the clipboard using the icon at the top of the elements bar.
-
-When adding a new top-level element, the "Paste from clipboard" tab will be visible if the clipboard is storing any elements.
