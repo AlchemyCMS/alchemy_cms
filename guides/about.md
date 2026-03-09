@@ -67,10 +67,10 @@ Alchemy comes with these admin modules:
 
 - **[Pages](pages)** — manage the page tree and edit content
 - **[Menus](menus)** — manage navigation trees independently from pages
-- **Languages** — multi-language support
-- **Sites** — multi-site support
-- **Library** — picture and attachment management
-- **Tags** — tagging for pictures, attachments, and pages
+- **[Languages](languages)** — multi-language support
+- **[Sites](sites)** — multi-site support
+- **[Library](library)** — picture and attachment management
+- **[Tags](tags)** — tagging for pictures, attachments, and pages
 - **Users** — user management (with [alchemy-devise](https://github.com/AlchemyCMS/alchemy-devise))
 
 You can extend the admin with your own modules. A module is a Rails engine that registers itself with Alchemy. Your controllers can inherit from `Alchemy::Admin::ResourcesController` to get standard CRUD views. [More about creating modules.](how_to_create_modules)

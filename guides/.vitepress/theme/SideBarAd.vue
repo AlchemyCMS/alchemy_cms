@@ -17,6 +17,9 @@
 <style lang="css" scoped>
   .help-box {
     font-size: var(--font-size-1);
+    margin-top: 0;
+    padding-top: 20px;
+    border-top: 1px solid var(--vp-c-divider);
   }
 
   .blish-link {

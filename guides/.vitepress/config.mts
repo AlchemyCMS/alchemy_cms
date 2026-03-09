@@ -209,8 +209,30 @@ const VERSION_NAVITEMS = {
       ],
     },
     {
+      text: "Admin Modules",
+      collapsed: true,
+      items: [
+        {
+          text: "Library",
+          link: "/library",
+        },
+        {
+          text: "Tags",
+          link: "/tags",
+        },
+        {
+          text: "Languages",
+          link: "/languages",
+        },
+        {
+          text: "Sites",
+          link: "/sites",
+        },
+      ],
+    },
+    {
       text: "How To",
-      collapsed: false,
+      collapsed: true,
       items: [
         {
           text: "Create a blog template",
