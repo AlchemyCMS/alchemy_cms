@@ -1,5 +1,7 @@
 ---
-prev: configuration
+prev:
+  text: Configuration
+  link: configuration
 next: false
 ---
 

@@ -1,6 +1,10 @@
 ---
-prev: pages
-next: ingredients
+prev:
+  text: Pages
+  link: pages
+next:
+  text: Ingredients
+  link: ingredients
 ---
 
 # Elements

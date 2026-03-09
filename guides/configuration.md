@@ -1,6 +1,10 @@
 ---
-prev: render_images
-next: upgrading
+prev:
+  text: Rendering Images
+  link: render_images
+next:
+  text: Updating
+  link: upgrading
 ---
 
 # Configuration of AlchemyCMS

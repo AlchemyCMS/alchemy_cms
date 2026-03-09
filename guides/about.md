@@ -1,6 +1,10 @@
 ---
-prev: getting_started
-next: pages
+prev:
+  text: Getting Started
+  link: getting_started
+next:
+  text: Pages
+  link: pages
 ---
 
 # About AlchemyCMS

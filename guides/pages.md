@@ -1,6 +1,10 @@
 ---
-prev: about
-next: elements
+prev:
+  text: About AlchemyCMS
+  link: about
+next:
+  text: Elements
+  link: elements
 ---
 
 # Pages

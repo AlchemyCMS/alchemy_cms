@@ -1,6 +1,10 @@
 ---
-prev: essences
-next: configuration
+prev:
+  text: Ingredients
+  link: ingredients
+next:
+  text: Configuration
+  link: configuration
 ---
 
 # Render Images

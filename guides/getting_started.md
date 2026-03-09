@@ -1,6 +1,8 @@
 ---
 prev: false
-next: about
+next:
+  text: About AlchemyCMS
+  link: about
 ---
 
 # Getting Started

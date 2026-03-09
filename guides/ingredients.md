@@ -1,6 +1,10 @@
 ---
-prev: elements
-next: render_images
+prev:
+  text: Elements
+  link: elements
+next:
+  text: Rendering Images
+  link: render_images
 ---
 
 # Ingredients
