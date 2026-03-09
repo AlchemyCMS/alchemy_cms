@@ -7,73 +7,129 @@ next:
   link: configuration
 ---
 
-# Render Images
+# Rendering Images
 
-Alchemy uses [Dragonfly](https://markevans.github.io/dragonfly/) to render images.
+Images are stored as originals in the Alchemy picture library. Editors assign these images to [Picture ingredients](ingredients#picture) on elements. You control the rendering dimensions, cropping, and output format through ingredient settings and rendering options.
 
-Images are stored as master images in the pictury library. The editor just assigns these master images to content elements you provide. You also set the image rendering bounderies. The max width and height values, or even the size an image should be cropped to. Alchemy even comes with a built in image cropping tool, so that your editors can define the mask to be used.
+Alchemy supports two storage adapters: **ActiveStorage** (the default since 8.1) and **Dragonfly**. Both use the same rendering API, so you can switch between them without changing your templates.
 
 ## Configuration
 
-* **output_image_jpg_quality** `Integer` (Default `85`)
+Image rendering is configured through `Alchemy.config`. See the [Configuration guide](configuration) for general setup.
 
-  If image gets rendered as JPG this is the quality setting for it.
-
-* **preprocess_image_resize** `String` (Default `nil`)
-
-  Example `1000x1000`. If you are limited on diskspace use this option to downsize large images after upload.
-
-* **image_output_format** `String` (Default `jpg`)
-
-  The global image output format setting.
+~~~ ruby
+# config/initializers/alchemy.rb
+Alchemy.config.output_image_quality = 85
+Alchemy.config.preprocess_image_resize = "1000x1000"
+Alchemy.config.image_output_format = "original"
+Alchemy.config.sharpen_images = false
+~~~
 
 ::: tip
-You can always override the output format while rendering your essence with passing `{format: 'png'}` to the `el.render(:image)` method.
+You can override the output format and quality per ingredient by passing `format` and `quality` in the ingredient settings or as rendering options.
 :::
-
-### The default configuration
-
-~~~ yaml
-output_image_jpg_quality: 85
-preprocess_image_resize:
-image_output_format: jpg
-~~~
 
 ## Rendering
 
-In most cases the `el.render(:image)` method is the perfect fit for rendering images.
+In most cases, rendering a Picture ingredient through `el.render(:image)` in your element view is all you need. It generates the correct image URL with all configured options applied.
 
-It handles all advanced stuff for you (Loading the image instance, setting all needed options and
-sets the correct security token).
+~~~ erb
+<%# app/views/alchemy/elements/_article.html.erb %>
+<%= el.render(:hero_image) %>
+~~~
 
-### Rendering Options
+The Picture ingredient view component handles resizing, cropping, srcset generation, and link wrapping automatically based on your ingredient settings.
 
-* **size** `String`
+### Ingredient settings
 
-  The dimensions the image should be resized to, while keeping the aspect ratio. Example `"400x300"`.
+Configure rendering in your `elements.yml` definition.
 
-* **crop** `Boolean`
+~~~ yaml
+- name: article
+  ingredients:
+    - role: hero_image
+      type: Picture
+      settings:
+        size: 1200x600
+        crop: true
+~~~
 
-  Pass `true` to crop the image to the given size.
+See the [Picture ingredient settings](ingredients#picture) for the full list of options.
 
-* **format** `Symbol|String`
+### Rendering options
 
-  The output format of the image. `:jpg`, `:gif` or `:png`.
+These options control how the image variant is generated.
 
-* **quality** `Integer`
+#### size
+`String`
 
-  The quality of the rendered jpg image. Obviously only used on jpg images.
+The dimensions to resize the image to, preserving aspect ratio. Example: `"400x300"`.
 
-### Advanced rendering
+#### crop
+`Boolean`
 
-If you want to render an image on your own, please have a look at the `show_alchemy_picture_url` helper in the [Alchemy documentation](https://www.rubydoc.info/github/AlchemyCMS/alchemy_cms/Alchemy/UrlHelper#show_alchemy_picture_path-instance_method).
+Crop the image to exactly match the given size.
+
+#### format
+`String`
+
+The output format: `"jpg"`, `"png"`, `"gif"`, or `"webp"`.
+
+#### quality
+`Integer`
+
+The quality of rendered JPEG and WebP images.
+
+#### upsample
+`Boolean`
+
+Allow the image to be scaled up beyond its original dimensions. By default, images are only scaled down.
+
+## Responsive images
+
+Use the `srcset` and `sizes` ingredient settings to generate responsive `<img>` tags with multiple sources.
+
+~~~ yaml
+- role: photo
+  type: Picture
+  settings:
+    size: 1200x800
+    crop: true
+    srcset: ['400x267', '800x533', '1200x800']
+    sizes: ['(max-width: 600px) 400px', '(max-width: 900px) 800px', '1200px']
+~~~
+
+This renders an `<img>` tag with a `srcset` attribute containing URLs for each size and a `sizes` attribute telling the browser which source to use at each viewport width.
+
+## Remote storage
+
+In production you typically want to store images on a remote service like Amazon S3, Google Cloud Storage, or Azure Storage instead of the local filesystem.
+
+**With ActiveStorage**, configure your storage service in `config/storage.yml` and set the active service in your environment config, just like any Rails application. See the [Active Storage Overview](https://guides.rubyonrails.org/active_storage_overview.html#setup) in the Rails guides.
+
+~~~ yaml
+# config/storage.yml
+amazon:
+  service: S3
+  access_key_id: <%= Rails.application.credentials.dig(:aws, :access_key_id) %>
+  secret_access_key: <%= Rails.application.credentials.dig(:aws, :secret_access_key) %>
+  region: eu-central-1
+  bucket: my-app-production
+~~~
+
+~~~ ruby
+# config/environments/production.rb
+config.active_storage.service = :amazon
+~~~
+
+**With Dragonfly**, use the [alchemy-dragonfly-s3](https://github.com/AlchemyCMS/alchemy-dragonfly-s3) extension to store images on S3 compatible services.
 
 ## Caching
 
-In production environments you want to implement a cache to avoid rendering the same image over and over again.
+Alchemy caches rendered image variants automatically. The caching strategy depends on your storage adapter.
 
-All supported rendering options are reflected in the url schema. Even the quality of a rendered jpg image and all cropping options. So adding a CDN or HTTP cache (ie. `Rack::Cache`) is the recommended caching option.
+**ActiveStorage** uses Rails' built-in variant caching. Variants are generated on first request and stored alongside the original blob.
 
-::: tip
-Please be sure to read the [Dragonfly caching guide](https://markevans.github.io/dragonfly/cache) for further informations.
-:::
+**Dragonfly** uses Alchemy's `PictureThumb` model to cache rendered variants in the database. Three admin thumbnail sizes are pregenerated on upload.
+
+In both cases, adding a CDN in front of your application is recommended for production to avoid hitting the application server for repeated image requests.
