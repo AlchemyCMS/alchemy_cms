@@ -5,23 +5,13 @@ next: render_images
 
 # Ingredients
 
-## Overview
+Ingredients are the individual content fields within an [element](elements). Each ingredient has a type that determines what kind of data it stores and how it is edited in the admin interface.
 
-Ingredients store the actual content of your site. They are stored as instances of `Alchemy::Ingredient` subclasses on each `Alchemy::Element` instance.
+Alchemy comes with a set of built-in ingredient types for common needs. You can also [create your own ingredient types](how_to_create_custom_ingredients).
 
-Alchemy uses Rails [Single Table Inheritance](https://guides.rubyonrails.org/association_basics.html#single-table-inheritance-sti) to store the values in the same table.
+## Global settings
 
-Alchemy comes with a lot of predefined ingredients for the regular needs of a website project. Combine them like a chemestry kit into [elements](elements).
-
-Ingredients are Rails models. It is pretty easy to [add your own ingredient class](how_to_create_custom_ingredients) as well.
-
-## Definition
-
-Ingredients are defined as `ingredients` on an [element definition](elements#defining-elements).
-
-### Global ingredient settings
-
-When defining ingredients, you need to provide a `role` and `type`. You can set hints and default values as well.
+Ingredients are defined within an [element definition](elements#defining-elements) in `config/alchemy/elements.yml`. Each ingredient requires a `role` and `type`. You can also set hints and default values.
 
 ~~~ yaml
 # config/alchemy/elements.yml
@@ -40,60 +30,41 @@ When defining ingredients, you need to provide a `role` and `type`. You can set 
       as_element_title: true
 ~~~
 
-* **role** `String` _required_
+### role
+`String` _required_
 
-  A lowercased **unique** (per element) role of the ingredient. Separate words needs to be underscored.
+A lowercased **unique** (per element) identifier for the ingredient. Separate words with underscores.
 
-* **type** `String` _required_
+### type
+`String` _required_
 
-  An type this ingredient is of. Alchemy has lots of built in ingredients for [simple text](#text), [rich text](#richtext), [images](#picture), [booleans](#boolean) and more.
+The ingredient type as a PascalCase class name (e.g. `Text`, `Richtext`, `Picture`). This maps to a class under `Alchemy::Ingredients`, so `Text` resolves to `Alchemy::Ingredients::Text`. Alchemy provides built-in types for [plain text](#text), [rich text](#richtext), [images](#picture), [booleans](#boolean) and more.
 
-* **hint** `String|Symbol|Boolean`
+### hint
+`String|Symbol|Boolean`
 
-  A hint for the user in the admin frontend that describes what the ingredient is used for. The hint is translatable if you provide an I18n translation `Symbol` instead of a `String`. You may also set it to `true` to default to the I18n key `alchemy.ingredients_hints.your_ingredient_role`.
+A hint for the editor in the admin interface that describes what the ingredient is used for. The hint is translatable if you provide an I18n `Symbol` instead of a `String`. Set to `true` to use the I18n key `alchemy.ingredients_hints.your_ingredient_role`.
 
-* **default** `String`
+### default
+`String`
 
-  The default text to prefill newly created elements. You may also use a symbol to set it to the I18n key `alchemy.default_ingredients_texts.your_ingredient_role`
+The default value to prefill newly created elements. You can also use a symbol to reference the I18n key `alchemy.default_ingredients_texts.your_ingredient_role`.
 
-* **as_element_title** `Boolean`
+### as_element_title
+`Boolean`
 
-  For the displayed element title, the first ingredient is used. Use this setting to override this behaviour and show other ingredient as element title.
+By default, the first ingredient is used for the element's title in the admin. Use this setting to override that and use a different ingredient instead.
 
-* **settings** `Hash`
+### settings
+`Hash`
 
-  A set of options to configure the ingredient. Each ingredient has its own set of options listed below.
-
-### Individual ingredient settings
-
-Each ingredient type can have its own type of settings.
-
-To configure these settings you have to pass them into its `settings` key in the `elements.yml`.
-
-~~~ yaml {5-6}
-- name: my_element
-  ingredients:
-    - role: headline
-      type: Text
-      settings:
-        linkable: true
-~~~
+Type-specific options to configure the ingredient. Each type has its own set of options listed below.
 
 ## Text
 
-Stores plain text of 255 chars max.
+Stores plain text of 255 characters max.
 
-Use this for a headline, or a product name. The editor is renderd as a single lined input field. The view output will be sanitized and HTML escaped.
-
-### Settings
-
-* **linkable** `Boolean`
-
-  If set to `true`, the user can add a link to the text.
-
-* **input_type** `String`
-
-  Change the [input type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types) of the form field displayed in the editor.
+Use this for headlines, product names, or short labels. The editor renders a single-line input field. The output is sanitized and HTML-escaped.
 
 ### Example
 
@@ -104,28 +75,28 @@ Use this for a headline, or a product name. The editor is renderd as a single li
     linkable: true
 ~~~
 
-## Headline
-
-Stores headline text of 255 chars max.
-
-Use this for HTML headings. The editor is renderd as a single lined input field with level and optional size selects. The view output will be a heading element.
-
 ### Settings
 
-* **anchor** `Boolean` or the `String` `from_value`
+#### linkable
+`Boolean`
 
-  If set to `true`, the user can add a custom anchor to the headline.
-  If set to `from_value` the anchor will be created from the value.
-  The anchor will be added as `id` to the heading tag.
+If set to `true`, the editor can add a link to the text.
 
-* **levels** `Array` of `Integer`s
+#### input_type
+`String`
 
-  Set the available [heading levels](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements) that the editor can choose from.
-  By default it is 1 to 6.
+Change the [input type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types) of the form field displayed to the editor.
 
-* **sizes** `Array` of `Integer`s
+#### anchor
+`Boolean|String`
 
-  Optionally add a listy of sizes that the editor can choose a heading css size. Added as class (`.h2`) to the heading element. Use this of
+Controls the DOM ID (`id` attribute) on the rendered element. Set to `true` to let the editor enter a custom anchor. Set to `from_value` to auto-generate it from the ingredient's value. Set to any other string to use that as a fixed anchor.
+
+## Headline
+
+Stores headline text of 255 characters max.
+
+Use this for HTML headings. The editor renders a single-line input field with level and optional size selects. The view outputs a heading element (`<h1>` through `<h6>`).
 
 ### Example
 
@@ -137,17 +108,29 @@ Use this for HTML headings. The editor is renderd as a single lined input field 
     sizes: [1, 2]
 ~~~
 
-## Richtext
-
-Used to store paragraphs of formatted text.
-
-The editor is rendered as a textarea with embedded Tinymce Editor.
-
 ### Settings
 
-You can customize the Tinymce editor of a single element instance.
+#### anchor
+`Boolean|String`
 
-* **tinymce** `Hash`
+Controls the DOM ID (`id` attribute) on the heading tag. Set to `true` to let the editor enter a custom anchor. Set to `from_value` to auto-generate it from the headline text. Set to any other string to use that as a fixed anchor.
+
+#### levels
+`Array` of `Integer`s
+
+Set the available [heading levels](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements) the editor can choose from.
+Defaults to 1 through 6.
+
+#### sizes
+`Array` of `Integer`s
+
+Add a list of visual sizes the editor can choose from. The selected size is added as a CSS class (e.g. `.h2`) to the heading element, allowing you to decouple visual size from semantic level.
+
+## Richtext
+
+Stores paragraphs of formatted text.
+
+The editor renders a textarea with an embedded TinyMCE editor.
 
 ### Example
 
@@ -161,79 +144,248 @@ You can customize the Tinymce editor of a single element instance.
           block: 'h3'
 ~~~
 
-::: tip INFO
-See the [Tinymce customization guide](how_to_customize_tinymce) for all available options
+::: tip
+See the [TinyMCE customization guide](how_to_customize_tinymce) for all available options.
 :::
+
+### Settings
+
+#### tinymce
+`Hash`
+
+Customize the TinyMCE editor for this ingredient.
 
 ## Picture
 
-Store references to pictures the editor assigns from the library.
+Stores a reference to a picture from the Alchemy library.
 
-The editor partial is rendered as a picture editor with a lot of options (i.e. image cropper).
+The editor renders a picture selector with cropping options. The view renders the assigned picture, resized and cropped as configured.
 
-The view partial renders the assigned picture, resizes it and crops it if needed.
-
-::: tip INFO
-See the [rendering images](render_images) guide for further information on the powerful image rendering engine of Alchemy.
+::: tip
+See the [rendering images](render_images) guide for more on Alchemy's image rendering engine.
 :::
+
+### Example
+
+~~~ yaml
+- name: hero_image
+  type: Picture
+  settings:
+    size: 1200x600
+    crop: true
+    srcset: ['400x200', '800x400', '1200x600']
+    sizes: ['(max-width: 600px) 400px', '(max-width: 900px) 800px', '1200px']
+~~~
 
 ### Settings
 
-* **size** `String`
+#### size
+`String`
 
-  The size the image should be downsized to. I.e. 400x300
+The size to downscale the image to, e.g. `400x300`.
 
-* **crop** `Boolean` (default: false)
+#### crop
+`Boolean` (Default: `false`)
 
-  Crop the image to given size. This also enables the build in cropper tool.
+Crop the image to the given size. This also enables the built-in cropper tool.
 
-* **srcset** `Array<String>`
+#### srcset
+`Array<String>`
 
-  A list of sizes of this image uses as sources list. Best used with the `sizes` setting for implementing responsive images.
+A list of image sizes to use as sources. Best used with the `sizes` setting for responsive images.
 
-* **sizes** `Array<String>`
+#### sizes
+`Array<String>`
 
-  A list of screen sizes the image sources should be used for. Best used with the `srcset` setting for implementing responsive images.
+A list of media conditions for the image sources. Best used with the `srcset` setting for responsive images.
 
-* **linkable** `Boolean`
+#### linkable
+`Boolean` (Default: `true`)
 
-  If set to `false`, the user cannot add a link to the picture.
+If set to `false`, the editor cannot add a link to the picture.
+
+## Audio
+
+Stores a reference to an audio attachment from the Alchemy library.
+
+The view renders an HTML `<audio>` element with a `<source>` child.
+
+### Example
+
+~~~ yaml
+- name: podcast_player
+  type: Audio
+  settings:
+    controls: true
+~~~
+
+### Settings
+
+#### controls
+`Boolean` (Default: `false`)
+
+Show playback controls.
+
+#### autoplay
+`Boolean` (Default: `false`)
+
+Start playing automatically.
+
+#### muted
+`Boolean` (Default: `false`)
+
+Start muted.
+
+#### loop
+`Boolean` (Default: `false`)
+
+Loop playback.
+
+#### except
+`Array<String>`
+
+Exclude attachments with these file extensions from the selection.
+
+#### only
+`Array<String>`
+
+Only show attachments with these file extensions in the selection.
+
+## Video
+
+Stores a reference to a video attachment from the Alchemy library.
+
+The view renders an HTML `<video>` element with a `<source>` child.
+
+### Example
+
+~~~ yaml
+- name: background_video
+  type: Video
+  settings:
+    autoplay: true
+    muted: true
+    loop: true
+    playsinline: true
+~~~
+
+### Settings
+
+#### controls
+`Boolean` (Default: `false`)
+
+Show playback controls.
+
+#### autoplay
+`Boolean` (Default: `false`)
+
+Start playing automatically.
+
+#### muted
+`Boolean` (Default: `false`)
+
+Start muted.
+
+#### loop
+`Boolean` (Default: `false`)
+
+Loop playback.
+
+#### playsinline
+`Boolean` (Default: `false`)
+
+Play inline on mobile devices instead of fullscreen.
+
+#### preload
+`String`
+
+The preload strategy. Accepts `none`, `metadata`, or `auto`.
+
+#### width
+`String`
+
+The width of the video element.
+
+#### height
+`String`
+
+The height of the video element.
+
+#### except
+`Array<String>`
+
+Exclude attachments with these file extensions from the selection.
+
+#### only
+`Array<String>`
+
+Only show attachments with these file extensions in the selection.
+
+## File
+
+Stores a reference to a file attachment from the Alchemy library.
+
+The view renders a download link (`<a>` tag) to the attachment.
+
+### Example
+
+~~~ yaml
+- name: download
+  type: File
+  settings:
+    only: ['pdf', 'zip']
+~~~
+
+### Settings
+
+#### link_text
+`String`
+
+Default text for the download link. Falls back to the attachment name.
+
+#### css_classes
+`Array<String>`
+
+CSS classes available for the editor to choose from.
+
+#### except
+`Array<String>`
+
+Exclude attachments with these file extensions from the selection.
+
+#### only
+`Array<String>`
+
+Only show attachments with these file extensions in the selection.
 
 ## Datetime
 
-Use this to store a `DateTime` value. Renders a datepicker in the editor partial.
+Stores a date and time value. The editor renders a datepicker.
 
-The view output is passed through Rails' I18n Library, so it is fully localizable.
+The view output is passed through Rails' I18n library, so it is fully localizable.
 
 ### Settings
 
-* **date_format** `String|Symbol`
-  Either a `String` with the format of [Rubys `strftime`](https://ruby-doc.org/stdlib-2.6.1/libdoc/date/rdoc/Date.html#method-i-strftime) or a `Symbol` of a [date/time format](https://guides.rubyonrails.org/i18n.html#adding-date-time-formats) defined in your locale files.
+#### date_format
+`String|Symbol`
+
+Either a `String` with the format of [Ruby's `strftime`](https://ruby-doc.org/stdlib-2.6.1/libdoc/date/rdoc/Date.html#method-i-strftime) or a `Symbol` of a [date/time format](https://guides.rubyonrails.org/i18n.html#adding-date-time-formats) defined in your locale files.
 
 ## Html
 
-Useful to store HTML code (i.e. a embed, or tracking code).
+Stores raw HTML code, useful for embeds or tracking snippets.
 
 ::: warning
-The view renders the raw, not sanitized or escaped output.
-**So be careful!**
+The view renders the raw, unsanitized output. Be careful with user-provided content.
 :::
 
 ## Boolean
 
-Stores a `Boolean` value in the database. Renders a checkbox in the editor partial.
+Stores a boolean value. The editor renders a checkbox.
 
 ## Select
 
-Renders a select box in the editor partial and stores the value as `String`.
-
-Useful for letting your user select from a limited set of choices.
-
-### Settings
-
-* **select_values** `Array`
-
-  A list of values your users can select from. Use [a two dimensional array](https://guides.rubyonrails.org/form_helpers.html#the-select-and-option-tags) for having value and text pairs.
+Stores a string value selected from a list of options. The editor renders a select box.
 
 ### Example
 
@@ -244,42 +396,78 @@ Useful for letting your user select from a limited set of choices.
     select_values: ['200', '300', '400']
 ~~~
 
+### Settings
+
+#### select_values
+`Array`
+
+The values the editor can choose from. Use [a two-dimensional array](https://guides.rubyonrails.org/form_helpers.html#the-select-and-option-tags) for separate display text and stored value pairs.
+
+#### display_inline
+`Boolean`
+
+If set to `true`, renders the select box inline in the element editor.
+
+#### multiple <Badge type="tip" text="8.1+" />
+`Boolean` (Default: `false`)
+
+Allow the editor to select multiple values.
+
 ::: tip
-If you need dynamic values (ie, a from a product catalogue), please [create a custom ingredient class](how_to_create_custom_ingredients) that provides the values.
+If you need dynamic values (e.g. from a product catalogue), [create a custom ingredient type](how_to_create_custom_ingredients) instead.
 :::
 
 ## Link
 
-Stores a url in the database. Useful for linking things, where the editor should not set the linked text itself.
+Stores a URL. Useful for linking content where the editor should not set the link text directly.
+
+### Settings
+
+#### text
+`String`
+
+Default link text.
 
 ::: tip
-If you want the linked text to be editable by the editor use the [**Text**](#text) with `linkable: true` option instead.
+If you want the link text to be editable, use [Text](#text) with `linkable: true` instead.
 :::
 
 ## Number
 
-Stores a number in the database. Useful for slider durations, price, lengths, etc. The number value gets translated via Rails' [`number_to_human`](https://api.rubyonrails.org/classes/ActionView/Helpers/NumberHelper.html#method-i-number_to_human) helper.
+Stores a number value. Useful for prices, durations, quantities, etc.
 
 ### Settings
 
-* **input_type** `String|Symbol`
-  The input type to render the editor with. Defaults to `number`. Can be set to `range` instead.
-* **step** `Integer|Decimal`
-  The step on the editor input.
-* **min** `Integer|Decimal`
-  The minimum number allowed on the editor input.
-* **max** `Integer|Decimal`
-  The maximum number allowed on the editor input.
-* **unit** `String`
-  The unit displayed on the editor input addon. Also used as `unit` for the `number_to_human` helper.
+#### input_type
+`String|Symbol`
+
+The input type for the editor. Defaults to `number`. Can be set to `range`.
+
+#### step
+`Integer|Decimal`
+
+The step increment for the input.
+
+#### min
+`Integer|Decimal`
+
+The minimum allowed value.
+
+#### max
+`Integer|Decimal`
+
+The maximum allowed value.
+
+#### unit
+`String`
+
+The unit label displayed next to the input.
 
 ## Page
 
-References an [Alchemy::Page](pages).
+References an [Alchemy page](pages). The editor renders a page select box.
 
-Renders a select box in the editor partial.
-
-Useful for contact form follow up pages or other use cases where you want to reference another page.
+Useful for follow-up pages, related content links, or any case where you need to reference another page.
 
 ### Example
 
@@ -290,79 +478,31 @@ Useful for contact form follow up pages or other use cases where you want to ref
       type: Page
 ~~~
 
-## Rendering ingredients within your element
+### Settings
 
-Similar to [rendering elements within layouts](elements.html#render_elements_in_your_layout), ingredients are rendered on an element.
+#### query_params
+`Hash`
 
-Page layouts use the `<%= render_elements %>` helper to load an elements partial, elements use the `<%= element_view_for %>` helper to expose a block that makes it easy to access the ingredients (instances of `Alchemy::Ingredient` subclasses) of the element.
+Additional query parameters appended to the page URL.
 
-For example. With an `article` element like this:
+## Node
+
+References an Alchemy menu node. The editor renders a node select box.
+
+Useful for linking to specific menu entries or navigation items.
+
+### Example
 
 ~~~ yaml
-# config/alchemy/elements.yml
-- name: article
+- name: call_to_action
   ingredients:
-    - role: headline
-      type: Text
-    - role: color
-      type: Text
-      settings:
-        input_type: color
-    - role: copy
-      type: Richtext
+    - role: menu_link
+      type: Node
 ~~~
 
-The `_article.html.erb` template generated by `rails alchemy:elements --skip` would look like this:
+### Settings
 
-~~~erb
-<%- cache(article) do -%>
-  <%= element_view_for(article) do |el| -%>
-    <div class="headline">
-      <%= el.render :headline %>
-    </div>
-    <div class="color">
-      <%= el.render :color %>
-    </div>
-    <div class="copy">
-      <%= el.render :copy %>
-    </div>
-  <%- end -%>
-<%- end -%>
-~~~
+#### query_params
+`Hash`
 
-Note how `element_view_for` allows you to call `el.render` on ingredients within the block.
-
-::: tip
-`element_view_for` wraps the block in a `<div>` with a set ID and class by default, but this is [customizeable](https://github.com/AlchemyCMS/alchemy_cms/blob/main/app/helpers/alchemy/elements_block_helper.rb#L137) if you pass in arguments:
-
-`<%= element_view_for(article, tag: :span, id: 'custom_id', class: 'custom_class') do |el| -%>`
-:::
-
-Without using the `element_view_for` helper, you can still access ingredients:
-
-`article.ingredient_by_role('headline')&.value`
-
-But the `el.render` helper takes care of generating the appropriate DOM elements to display the ingredient based on its type. It is recommended you rely on these helpers unless you are comfortable with the structure of the ingredient model you are trying to render.
-
-Just like `element_view_for`, you can pass `options` and `html_options` to `el.render`:
-
-~~~erb
-<%= el.render :headline, options = {}, html_options = {} %>
-~~~
-
-You can check out the [`ElementViewHelper#render` helper](https://github.com/AlchemyCMS/alchemy_cms/blob/b8cc62493693a070f7457081760708bf28c13e34/app/helpers/alchemy/elements_block_helper.rb#L31) for details.
-
-::: warning NOTE
-Options are not universally applied by all element types. For example, `ElementRichText` ignores `html_options` since it's already in HTML format and isn't wrapped in any special div. And you can't prevent the `ElementPicture` from generating an `<img>` tag.
-:::
-
-### Options
-
-The `options = {}` hash is used for formatting the child elements' tags. You can pass `false` to not include tags inside the wrapper element. For more, see the source code [here](https://github.com/AlchemyCMS/alchemy_cms/blob/56e95a07446fb6832676acfc1e8c7047d1b80495/app/helpers/alchemy/elements_block_helper.rb#L128) and [here](https://github.com/AlchemyCMS/alchemy_cms/blob/main/app/helpers/alchemy/elements_helper.rb#L193)
-
-### Html_options
-
-The `html_option = {}` are:
-* `:tag` - The HTML tag to be used for the wrapping element
-* `:id` - The wrapper tag's DOM ID.
-* `:class` - The wrapper tag's DOM class.
+Additional query parameters appended to the node URL.
