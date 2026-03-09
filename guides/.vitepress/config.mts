@@ -184,15 +184,7 @@ const VERSION_NAVITEMS = {
           text: "Ingredients",
           link: "/ingredients",
         },
-        {
-          text: "Rendering",
-          link: "/rendering",
-        },
-        {
-          text: "Navigation",
-          link: "/navigation",
-        },
-        {
+{
           text: "Rendering images",
           link: "/render_images",
         },
@@ -241,32 +233,6 @@ const VERSION_NAVITEMS = {
         {
           text: "Extend Alchemy",
           link: "/how_to_extend_alchemy",
-        },
-      ],
-    },
-    {
-      text: "Advanced",
-      collapsed: false,
-      items: [
-        {
-          text: "Service Objects",
-          link: "/services",
-        },
-        {
-          text: "Admin Frontend",
-          link: "/admin_frontend",
-        },
-        {
-          text: "Testing",
-          link: "/testing",
-        },
-        {
-          text: "Extending Alchemy",
-          link: "/extending",
-        },
-        {
-          text: "Common Pitfalls",
-          link: "/pitfalls",
         },
       ],
     },
