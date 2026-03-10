@@ -153,14 +153,6 @@
   --vp-custom-block-tip-code-bg: var(--vp-c-tip-soft);
 }
 
-/**
- * Component: Algolia
- * -------------------------------------------------------------------------- */
-
-.DocSearch {
-  --docsearch-primary-color: var(--vp-c-brand-1) !important;
-}
-
 .blish-logo {
   color: rgb(28, 2, 56);
 }

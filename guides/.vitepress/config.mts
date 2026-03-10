@@ -325,12 +325,7 @@ export default defineConfig({
         'Copyright © 2010 - present <a href="https://blish.cloud" target="_blank">Blish GmbH</a>',
     },
     search: {
-      provider: "algolia",
-      options: {
-        apiKey: "02e92bf5a88addf72d649f29ef77243a",
-        appId: "SJXVVCKUQL",
-        indexName: "alchemy-cms",
-      },
+      provider: "local",
     },
   },
   lastUpdated: true,
