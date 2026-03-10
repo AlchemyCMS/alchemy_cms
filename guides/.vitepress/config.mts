@@ -326,6 +326,14 @@ export default defineConfig({
     },
     search: {
       provider: "local",
+      options: {
+        _render(src, env, md) {
+          const html = md.render(src, env)
+          if (/^v\d+\//.test(env.relativePath))
+            return ""
+          return html
+        },
+      },
     },
   },
   lastUpdated: true,
