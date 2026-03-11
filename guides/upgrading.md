@@ -1,7 +1,7 @@
 ---
 prev:
-  text: Configuration
-  link: configuration
+  text: Deployment
+  link: deployment
 next: false
 ---
 
@@ -74,6 +74,12 @@ Major versions follow the same upgrade process, but include breaking changes. Th
 ::: warning
 Before upgrading to the next major version, make sure you have addressed all deprecation warnings and run all upgrade tasks in the current version first.
 :::
+
+## Upgrading in production
+
+After deploying a new version of the `alchemy_cms` gem, database migrations run automatically via `db:prepare`.
+
+The `alchemy:upgrade` task bundles several individual upgrade tasks. Some of these (like data migrations) need to run in production, while others (like config or file changes) are meant for development only. Check the output of `bin/rails -T alchemy:upgrade` and run the relevant tasks individually in production as needed.
 
 ## Verify the upgrade
 

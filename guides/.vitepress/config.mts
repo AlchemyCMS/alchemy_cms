@@ -203,6 +203,10 @@ const VERSION_NAVITEMS = {
           link: "/configuration",
         },
         {
+          text: "Deployment",
+          link: "/deployment",
+        },
+        {
           text: "Updating",
           link: "/upgrading",
         },
@@ -251,8 +255,8 @@ const VERSION_NAVITEMS = {
           link: "/how_to_create_custom_ingredients",
         },
         {
-          text: "Deploy on Heroku",
-          link: "/how_to_deploy_on_heroku",
+          text: "Deploy with Kamal",
+          link: "/how_to_deploy_with_kamal",
         },
         {
           text: "Create custom modules",

@@ -3,8 +3,8 @@ prev:
   text: Rendering Images
   link: render_images
 next:
-  text: Updating
-  link: upgrading
+  text: Deployment
+  link: deployment
 ---
 
 # Configuration
@@ -57,6 +57,10 @@ config.page_cache.tap do |page_cache|
   page_cache.stale_while_revalidate = 3600  # stale-while-revalidate in seconds (default: nil)
 end
 ~~~
+
+:::tip NOTE
+When `stale_while_revalidate` is not set, Alchemy sends `must-revalidate` in the `Cache-Control` header instead.
+:::
 
 ## Images
 
