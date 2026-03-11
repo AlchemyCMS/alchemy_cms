@@ -47,12 +47,16 @@ const spriteUrl = document
   .getAttribute("href")
 
 const iconMap = {
-  "x-lg": "close"
+  "x-lg": "close",
+  caret: "arrow-down-s"
 }
 
 const options = {
   resolver: (name) => `${spriteUrl}#ri-${iconMap[name] || name}-line`,
-  mutator: (svg) => svg.setAttribute("fill", "currentColor"),
+  mutator: (svg) => {
+    svg.setAttribute("fill", "currentColor")
+    svg.setAttribute("viewBox", "0 0 24 24")
+  },
   spriteSheet: true
 }
 

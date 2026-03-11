@@ -23,12 +23,23 @@ RSpec.describe Alchemy::Admin::ElementsController do
   end
 
   describe "#publish" do
-    context "publish element" do
+    let(:element) { create(:alchemy_element, public: false) }
+
+    context "with turbo_stream request" do
+      subject!(:publish) { patch publish_admin_element_path(id: element.id, format: :turbo_stream) }
+
+      it "publishes element" do
+        expect(element.reload).to be_public
+      end
+
+      it "replaces element editor via turbo stream" do
+        expect(response.body).to include(%(<turbo-stream action="replace" target="element_#{element.id}">))
+      end
+
       context "with validations" do
         let(:element) { create(:alchemy_element, :with_ingredients, name: :all_you_can_eat, public: false) }
 
         it "saves without running validations" do
-          patch publish_admin_element_path(id: element.id, format: :js)
           expect(element.reload).to be_public
         end
       end

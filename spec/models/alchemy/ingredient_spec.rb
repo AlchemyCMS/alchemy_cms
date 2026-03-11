@@ -116,6 +116,14 @@ RSpec.describe Alchemy::Ingredient do
       end
 
       it { is_expected.to be true }
+
+      context "when element has skip_ingredient_validations set to true" do
+        before do
+          ingredient.element.skip_ingredient_validations = true
+        end
+
+        it { is_expected.to be false }
+      end
     end
   end
 

@@ -39,6 +39,10 @@ class Message extends HTMLElement {
     return this.hasAttribute("dismissable")
   }
 
+  get icon() {
+    return this.getAttribute("icon")
+  }
+
   get type() {
     return this.getAttribute("type") || "notice"
   }
@@ -50,7 +54,7 @@ class Message extends HTMLElement {
   }
 
   get iconName() {
-    switch (this.type) {
+    switch (this.icon || this.type) {
       case "warning":
       case "warn":
       case "alert":

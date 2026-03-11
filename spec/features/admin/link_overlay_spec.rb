@@ -92,7 +92,7 @@ RSpec.describe "Link overlay", type: :system do
         click_button "apply"
       end
 
-      within "#element_#{article.id}" do
+      within "#element_#{article.id} .element-footer" do
         click_button "Save"
       end
 
@@ -124,7 +124,7 @@ RSpec.describe "Link overlay", type: :system do
         click_button "apply"
       end
 
-      within "#element_#{article.id}" do
+      within "#element_#{article.id} .element-footer" do
         click_button "Save"
       end
 
@@ -157,7 +157,7 @@ RSpec.describe "Link overlay", type: :system do
         click_button "apply"
       end
 
-      within "#element_#{article.id}" do
+      within "#element_#{article.id} .element-footer" do
         click_button "Save"
       end
 
