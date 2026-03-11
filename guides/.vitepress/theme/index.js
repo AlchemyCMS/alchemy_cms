@@ -3,6 +3,7 @@ import { h } from "vue"
 import DefaultTheme from "vitepress/theme"
 import SideBarAd from "./SideBarAd.vue"
 import BottomAd from "./BottomAd.vue"
+import ServiceAd from "./ServiceAd.vue"
 import "./style.css"
 
 export default {
@@ -14,7 +15,7 @@ export default {
       "doc-after": () => h(BottomAd),
     })
   },
-  enhanceApp({ app, router, siteData }) {
-    // ...
+  enhanceApp({ app }) {
+    app.component("ServiceAd", ServiceAd)
   },
 }

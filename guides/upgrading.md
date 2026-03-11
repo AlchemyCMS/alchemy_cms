@@ -9,6 +9,11 @@ next: false
 
 This guide describes how to update AlchemyCMS to a new version.
 
+<ServiceAd href="https://blish.cloud/en/solutions/alchemycms">
+<template #before>Need help upgrading? Our sponsor</template>
+<template #after>offers professional <a href="https://blish.cloud/en/solutions/alchemycms" target="_blank">Alchemy upgrade services</a>.</template>
+</ServiceAd>
+
 ## Update the gem
 
 Update the version constraint in your `Gemfile` and run bundler.
