@@ -15,6 +15,24 @@ FactoryBot.define do
         FactoryBot.create(:alchemy_page, :public, :language_root, language: language)
     end
 
+    transient do
+      title do
+        draft_version.respond_to?(:title) ? draft_version.title = @overrides[:title] : @overrides[:title]
+      end
+    end
+
+    transient do
+      meta_description do
+        draft_version.respond_to?(:meta_description) ? draft_version.meta_description = @overrides[:meta_description] : @overrides[:meta_description]
+      end
+    end
+
+    transient do
+      meta_keywords do
+        draft_version.respond_to?(:meta_keywords) ? draft_version.meta_keywords = @overrides[:meta_keywords] : @overrides[:meta_description]
+      end
+    end
+
     # This speeds up creating of pages dramatically.
     # Pass autogenerate_elements: true to generate elements
     autogenerate_elements { false }
