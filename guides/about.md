@@ -73,4 +73,6 @@ Alchemy comes with these admin modules:
 - **[Tags](tags)** — tagging for pictures, attachments, and pages
 - **Users** — user management (with [alchemy-devise](https://github.com/AlchemyCMS/alchemy-devise))
 
-You can extend the admin with your own modules. A module is a Rails engine that registers itself with Alchemy. Your controllers can inherit from `Alchemy::Admin::ResourcesController` to get standard CRUD views. [More about creating modules.](how_to_create_modules)
+::: tip
+You can extend the admin with your own [custom modules](how_to_create_modules).
+:::
