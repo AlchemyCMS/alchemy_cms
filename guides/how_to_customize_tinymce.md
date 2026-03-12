@@ -1,189 +1,236 @@
 # Customizing the Richtext Editor
 
-This guide explains how to override the default settings of the TinyMCE richtext editor and customize it.
-After reading this guide you will be able to:
+Alchemy uses [TinyMCE](https://www.tiny.cloud) as the richtext editor for [Richtext ingredients](ingredients#richtext). You can customize the toolbar, add plugins, apply custom stylesheets, and configure each editor instance independently.
 
-* [Overriding default settings](#override-the-default-settings)
-* [Customizing the toolbar](#custom-toolbar-buttons)
-* [Changing the default stylesheet](#setting-a-custom-stylesheet)
+## Default Configuration
 
-## Override the default settings
-
-To override the default settings you have to create a `tinymce.rb` initializer file into `config/initializers`.
-
-Alchemys default settings for TinyMCE can be found in the [documentation](https://www.rubydoc.info/github/AlchemyCMS/alchemy_cms/Alchemy/Tinymce)
-
-### A Minimal Editor
-
-Let's reduce the options for formatting the text to a minimum.
-
-Because Alchemy merges the default options and your custom options you just need to pass the options you want to override to `Alchemy::Tinymce.init`.
+Alchemy ships with a sensible default configuration:
 
 ~~~ ruby
-# config/initializers/tinymce.rb
+{
+  skin: "alchemy",
+  width: "auto",
+  resize: true,
+  min_height: 250,
+  menubar: false,
+  statusbar: true,
+  toolbar: [
+    "bold italic underline | strikethrough subscript superscript | numlist bullist indent outdent | removeformat | fullscreen",
+    "pastetext charmap hr | undo redo | alchemy_link unlink anchor | code"
+  ],
+  fix_list_elements: true,
+  convert_urls: false,
+  entity_encoding: "raw",
+  paste_as_text: true
+}
+~~~
+
+::: info NOTE
+Default plugins: `alchemy_link`, `anchor`, `charmap`, `code`, `directionality`, `fullscreen`, `link`, `lists`.
+:::
+
+## Global Customization
+
+To change TinyMCE settings for all richtext editors in your application, set `Alchemy::Tinymce.init` in an initializer. Your settings are **merged** with the defaults, so you only need to specify what you want to override.
+
+~~~ ruby
+# config/initializers/alchemy.rb
 Alchemy::Tinymce.init = {
   toolbar: [
-    'bold italic underline',
-    'pastetext charmap code | undo redo | alchemy_link unlink | alignleft aligncenter alignright alignjustify'
+    "bold italic underline | numlist bullist | removeformat | fullscreen",
+    "pastetext | undo redo | alchemy_link unlink | code"
   ]
 }
 ~~~
 
-Now only this three basic formatting options are available in the first toolbar to your editors.
-In the second toolbar are now the align formatting options available.
-
-::: warning NOTE
-Overriding options always in the initializer applies to all richtext editors in all elements in Alchemy.
+::: info NOTE
+Global settings apply to all richtext editors in all elements. Use [per-ingredient settings](#per-ingredient-customization) to customize individual editors.
 :::
 
-## Custom toolbar buttons
+## Per-Ingredient Customization
 
-You can customize the TinyMCE toolbar with a lot of buttons. Find them in the [TinyMCE documentation](http://www.tinymce.com/wiki.php/Controls)
-
-### Adding a format select box
-
-Let's add a format select to our editors so they can insert headlines into their texts.
-
-In the TinyMCE documentation we found our configuration option:
-
-~~~ js
-tinymce.init({
-  ...
-  block_formats: "Paragraph=p;Header 1=h1;Header 2=h2;Header 3=h3"
-});
-~~~
-
-We just have to _convert_ this javacript object into a ruby hash.
-And we need to insert the format select into the set of buttons.
-
-~~~ ruby
-# config/initializers/tinymce.rb
-Alchemy::Tinymce.init = {
-  toolbar: [
-    'bold italic underline | strikethrough subscript superscript | numlist bullist indent outdent | removeformat | fullscreen',
-    'pastetext | formatselect | charmap code | undo redo | alchemy_link unlink'
-  ],
-  block_formats: "Header 2=h2;Paragraph=p"
-}
-~~~
-
-That's it. Now the editor can format a block of text as headline 2. Nice!
-
-::: warning NOTE
-Custom buttons always appear in all richtext editors in all elements in Alchemy.
-:::
-
-## Adding editor plugins
-It is possible to extend the tinymce editor with plugins.
-All you have to do is to download the tinymce plugin and copy the folder to
-`vendor/assets/javascripts/tinymce/plugins`
-
-and add the following content to `config/initializers/tinymce.rb`
-
-~~~ ruby
-Alchemy::Tinymce.init = {
-  plugins: Alchemy::Tinymce.plugins + ['colorpicker'],
-  toolbar: [
-    'bold italic underline | strikethrough subscript superscript | numlist bullist indent outdent | removeformat | alignleft aligncenter alignright | fullscreen',
-    'pastetext charmap hr | undo redo | alchemy_link unlink anchor | code | colorpicker'
-  ]
-}
-~~~
-
-Another example configuration could be:
-
-~~~ ruby
-Alchemy::Tinymce.plugins += ['textcolor']
-Alchemy::Tinymce.init = {
-  toolbar: [
-    'bold italic underline | strikethrough subscript superscript | numlist bullist indent outdent | removeformat | fullscreen',
-    'pastetext | charmap code | undo redo | alchemy_link unlink | help | forecolor backcolor'
-  ],
-}
-~~~
-
-This example adds the textcolor plugin and adds its button to the toolbar.
-
-
-## Setting a custom stylesheet
-
-It is a good practice to set the stylesheet TinyMCE uses to display text in the editor area to the one you use to render the website.
-
-::: tip INFO
-Please read more on custom stylesheets in the [TinyMCE documentation](http://www.tinymce.com/wiki.php/Configuration:content_css)
-:::
-
-### Create the css file
-
-Put a `tinymce_content.css` stylesheet into your `app/assets/stylesheets` folder.
-
-### Setting the stylesheet
-
-~~~ ruby
-# config/initializers/tinymce.rb
-Alchemy::Tinymce.init = {
-  content_css: "/assets/tinymce_content.css"
-}
-~~~
-
-### Compile the asset for production
-
-In production mode (on your server) Rails uses compiled assets to speed up the rendering of your page.
-As default Rails only compiles the `application.css` stylesheet. But you can tell Rails to compile our custom TinyMCE stylesheet as well.
-
-Open the `config/environments/production.rb` file in your editor and insert this line:
-
-~~~ ruby
-config.assets.precompile += %w( tinymce_content.css )
-~~~
-
-## Per element customization
-
-You can also set TinyMCE configuration options per element.
+You can override TinyMCE settings for individual Richtext ingredients in `config/alchemy/elements.yml` using the `tinymce` setting:
 
 ~~~ yaml
-# elements.yml
-- name: minimal_text
+# config/alchemy/elements.yml
+- name: article
   ingredients:
     - role: text
       type: Richtext
       settings:
         tinymce:
           toolbar:
-            - 'bold italic underline',
-            - 'pastetext charmap code | undo redo | alchemy_link unlink | alignleft aligncenter alignright alignjustify'
+            - "bold italic underline | removeformat"
+            - "pastetext | undo redo | alchemy_link unlink | code"
 ~~~
 
+Per-ingredient settings are merged with the global configuration, so you only need to specify the options you want to change for that specific editor.
+
+### Adding Style Formats
+
+Give editors a dropdown to apply predefined styles:
+
+~~~ yaml
+- name: text
+  type: Richtext
+  settings:
+    tinymce:
+      toolbar:
+        - "bold italic underline | styleselect | removeformat | fullscreen"
+        - "pastetext | undo redo | alchemy_link unlink | code"
+      style_formats:
+        - title: "Subheadline"
+          block: "h3"
+        - title: "Quote"
+          block: "blockquote"
+        - title: "Small"
+          inline: "small"
+~~~
+
+::: tip
+Keep your style formats minimal. Alchemy's strength is structured content with separate elements for different content types. Resist the temptation to turn a single richtext field into a full page editor.
+:::
+
+## Toolbar Buttons
+
+The toolbar is defined as an array of strings. Each string is one toolbar row. Buttons are separated by spaces, groups are separated by `|`.
+
+Common buttons:
+
+| Button | Description |
+|--------|-------------|
+| `bold` `italic` `underline` `strikethrough` | Text formatting |
+| `subscript` `superscript` | Sub/superscript |
+| `numlist` `bullist` | Ordered and unordered lists |
+| `indent` `outdent` | Indentation |
+| `removeformat` | Clear formatting |
+| `pastetext` | Paste as plain text |
+| `alchemy_link` `unlink` | Alchemy's link dialog |
+| `anchor` | Insert anchor |
+| `charmap` | Special characters |
+| `code` | View/edit HTML source |
+| `fullscreen` | Toggle fullscreen editing |
+| `hr` | Horizontal rule |
+| `formatselect` | Block format dropdown |
+| `styleselect` | Style format dropdown |
+
+::: tip
+See the [TinyMCE toolbar documentation](https://www.tiny.cloud/docs/tinymce/latest/available-toolbar-buttons/) for all available buttons.
+:::
+
+## Adding Plugins
+
+TinyMCE can be extended with [community and premium plugins](https://www.tiny.cloud/docs/tinymce/latest/plugins/). Download the plugin and place it in `vendor/assets/javascripts/tinymce/plugins/` inside your app.
+
+Then append it to `Alchemy::Tinymce.plugins` and add its buttons to the toolbar:
+
+~~~ ruby
+# config/initializers/alchemy.rb
+Alchemy::Tinymce.plugins += ["table"]
+Alchemy::Tinymce.init = {
+  toolbar: [
+    "bold italic underline | numlist bullist | removeformat | fullscreen",
+    "pastetext | undo redo | alchemy_link unlink | table | code"
+  ]
+}
+~~~
+
+::: info NOTE
+Plugins added to `Alchemy::Tinymce.plugins` beyond the built-in set are automatically preloaded in the admin interface.
+:::
+
+## Custom Stylesheet
+
+You can apply a stylesheet to the TinyMCE editor area so the editing experience matches your site's typography:
+
+~~~ ruby
+# config/initializers/alchemy.rb
+Alchemy::Tinymce.init = {
+  content_css: "/assets/tinymce_content.css"
+}
+~~~
+
+Create the stylesheet at `app/assets/stylesheets/tinymce_content.css`. This file is loaded inside the editor's iframe and controls how text appears while editing.
+
+::: info NOTE
+Alchemy automatically switches between a light (`alchemy`) and dark (`alchemy-dark`) editor skin based on the user's OS preference. Setting a custom `content_css` overrides the built-in dark mode content stylesheet, so make sure your stylesheet works in both modes if your editors use dark mode.
+:::
+
+## HTML Sanitization
+
+Alchemy sanitizes richtext content before saving using Rails' [SafeListSanitizer](https://api.rubyonrails.org/classes/Rails/HTML/SafeListSanitizer.html). By default, Rails allows a generous set of tags (`p`, `strong`, `em`, `a`, `ul`, `ol`, `li`, `h1`-`h6`, `blockquote`, `br`, `img`, `span`, and more).
+
+To be more restrictive, configure which tags and attributes are allowed per ingredient:
+
+~~~ yaml
+- name: text
+  type: Richtext
+  settings:
+    sanitizer:
+      tags:
+        - p
+        - strong
+        - em
+        - a
+        - ul
+        - ol
+        - li
+        - h2
+        - h3
+      attributes:
+        - href
+        - target
+        - class
+~~~
 ## Configuration Syntax
 
-You can set any [TinyMCE configuration option](http://www.tinymce.com/wiki.php/Configuration). Just remember to _convert_ the javascript syntax into ruby.
-
-### Convertions Tips
-
-Javascript and Ruby has very similiar syntax. Especially if you use the new Ruby 1.9 Hash syntax. So converting is no big deal.
-
-#### Object to Hash
+Any [TinyMCE configuration option](https://www.tiny.cloud/docs/tinymce/latest/editor-important-options/) can be used. When setting options in Ruby (initializer), convert JavaScript syntax to Ruby hashes:
 
 ~~~ js
-{ "key" : "value" } => { key: "value" }
+// JavaScript
+{
+  block_formats: "Paragraph=p;Header 2=h2;Header 3=h3"
+}
 ~~~
 
-#### Array to Array
-
-Arrays have the same syntax. So you can just take them as they are.
-
-~~~ js
-["1", "2", "3", "4"] => ["1", "2", "3", "4"]
+~~~ ruby
+# Ruby
+{
+  block_formats: "Paragraph=p;Header 2=h2;Header 3=h3"
+}
 ~~~
 
-#### Object with Array as value
+When setting options in YAML (elements.yml), use standard YAML syntax:
 
-~~~ js
-{ "key" : ["value1", "value2"] } => { key: ["value1", "value2"] }
+~~~ yaml
+settings:
+  tinymce:
+    block_formats: "Paragraph=p;Header 2=h2;Header 3=h3"
+    style_formats:
+      - title: "Highlight"
+        inline: "span"
+        classes: "highlight"
 ~~~
 
-#### Object with Object as value
+::: tip
+Use YAML anchors to share TinyMCE configurations across multiple elements:
 
-~~~ js
-{ "key" : { "value" : ["value1", "value2"] } } => { key: { value: ["value1", "value2"] } }
+~~~ yaml
+# config/alchemy/elements.yml
+- name: article
+  ingredients:
+    - role: text
+      type: Richtext
+      settings:
+        tinymce: &minimal_tinymce
+          toolbar:
+            - "bold italic underline | alchemy_link unlink | code"
+
+- name: news
+  ingredients:
+    - role: body
+      type: Richtext
+      settings:
+        tinymce: *minimal_tinymce
 ~~~
+:::

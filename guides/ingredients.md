@@ -153,7 +153,7 @@ The editor renders a textarea with an embedded TinyMCE editor.
 ~~~
 
 ::: tip
-See the [TinyMCE customization guide](how_to_customize_tinymce) for all available options.
+See the [TinyMCE customization guide](how_to_customize_tinymce#per-ingredient-customization) for all available options.
 :::
 
 ### Settings
