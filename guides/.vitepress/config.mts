@@ -232,6 +232,10 @@ const VERSION_NAVITEMS = {
           text: "Sites",
           link: "/sites",
         },
+        {
+          text: "Custom Modules",
+          link: "/how_to_create_modules",
+        },
       ],
     },
     {
@@ -257,10 +261,6 @@ const VERSION_NAVITEMS = {
         {
           text: "Deploy with Kamal",
           link: "/how_to_deploy_with_kamal",
-        },
-        {
-          text: "Create custom modules",
-          link: "/how_to_create_modules",
         },
         {
           text: "Add custom authentication",
