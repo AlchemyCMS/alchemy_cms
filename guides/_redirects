@@ -14,4 +14,8 @@ https://alchemy-guides.netlify.com/* https://guides.alchemy-cms.com/:splat 301!
 /deploy_on_heroku.html /how_to_deploy_on_heroku.html 301
 /essences.html /ingredients.html 301
 /extending_alchemy.html /how_to_extend_alchemy.html 301
-/page_layouts.html /pages.html 301​
+/page_layouts.html /pages.html 301
+/how_to_create_a_blog_template /how_to_create_a_blog 301
+/how_to_create_a_blog_template.html /how_to_create_a_blog 301
+/how_to_deploy_on_heroku /deployment 301
+/how_to_deploy_on_heroku.html /deployment 301

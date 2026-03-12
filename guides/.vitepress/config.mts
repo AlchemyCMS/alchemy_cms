@@ -47,7 +47,7 @@ const VERSION_NAVITEMS = {
       collapsed: false,
       items: [
         {
-          text: "Create a Blog Template",
+          text: "Create a Blog",
           link: "/v6/how_to_create_a_blog_template",
         },
         {
@@ -125,7 +125,7 @@ const VERSION_NAVITEMS = {
       collapsed: false,
       items: [
         {
-          text: "Create a Blog Template",
+          text: "Create a Blog",
           link: "/v7/how_to_create_a_blog_template",
         },
         {
@@ -243,8 +243,8 @@ const VERSION_NAVITEMS = {
       collapsed: true,
       items: [
         {
-          text: "Create a Blog Template",
-          link: "/how_to_create_a_blog_template",
+          text: "Create a Blog",
+          link: "/how_to_create_a_blog",
         },
         {
           text: "Create a Contact Form",
