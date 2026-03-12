@@ -318,6 +318,21 @@ Tags are a collection on the `element` object. `element.tag_list` returns an arr
 
 Alchemy uses the [gutentag](https://github.com/pat/gutentag) gem, so please refer to the github [README](https://github.com/pat/gutentag/blob/master/README.md) or the [Wiki](https://github.com/pat/gutentag/wiki) for further information.
 
+## Publishing
+
+Only published elements are rendered on the public page version. Editors can toggle element visibility in the admin.
+
+### Time-Based Publishing <Badge type="tip" text="8.1+" />
+
+Beginning with Alchemy 8.1, elements support time-based publishing, just like [pages](pages#publishing). Each element has `public_on` and `public_until` timestamps that control when it is visible to visitors.
+
+- **`public_on`** — the date and time the element becomes visible (defaults to the current time when created)
+- **`public_until`** — the date and time the element is automatically hidden
+
+::: tip
+This is useful for time-limited content like banners, seasonal promotions, or event announcements that should appear and disappear automatically.
+:::
+
 ## Validations
 
 You can enable validations for your ingredients. They behave like the Rails model validations.

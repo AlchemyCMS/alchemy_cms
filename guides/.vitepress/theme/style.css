@@ -158,6 +158,15 @@
   --vp-custom-block-note-code-bg: var(--vp-c-indigo-soft);
 }
 
+.dark .light-only,
+.light-only + .dark-only {
+  display: none;
+}
+
+.dark .dark-only {
+  display: block;
+}
+
 .blish-logo {
   color: rgb(28, 2, 56);
 }

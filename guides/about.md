@@ -19,18 +19,13 @@ Unlike CMS systems that store complete HTML pages, Alchemy stores only structure
 
 ### The Content Hierarchy
 
-~~~
-Site
-  Language
-    Page (nested set tree)
-      PageVersion (draft and public)
-        Element (can be nested)
-          Ingredient (typed content fields)
-~~~
+<img src="/content-hierarchy-light.svg" alt="Content Hierarchy" class="light-only" />
+<img src="/content-hierarchy-dark.svg" alt="Content Hierarchy" class="dark-only" />
 
 - A **Site** has one or more **Languages**.
 - Each language has a tree of **[Pages](pages)**.
 - Each page maintains a **draft version** for editing and a **public version** for visitors. When a page is published, Alchemy duplicates the draft's elements into the public version. This is handled transparently.
+- Pages support **[time-based publishing](pages#publishing)**, allowing scheduled publishing and expiration. Since 8.1, [elements support this as well](elements#time-based-publishing).
 - Pages contain **[Elements](elements)** — reusable content components like articles, hero sections, or cards. Elements can be nested.
 - Elements contain **[Ingredients](ingredients)** — typed content fields like Text, Richtext, Picture, or Boolean.
 

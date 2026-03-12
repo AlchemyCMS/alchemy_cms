@@ -179,6 +179,19 @@ Use the `from_page` option of the `render_elements` helper. Pass an `Alchemy::Pa
 </footer>
 ~~~
 
+## Publishing
+
+Pages support time-based publishing with two timestamps:
+
+- **`public_on`** — the date and time the page becomes visible to visitors
+- **`public_until`** — the date and time the page is automatically unpublished
+
+Editors can set these in the page settings dialog. When a page is published, Alchemy duplicates the draft version's elements into the public version. Visitors always see the public version.
+
+::: tip
+Setting `public_on` to a future date schedules the page for publication. Setting `public_until` lets you create time-limited content like promotions or announcements.
+:::
+
 ## Caching
 
 Page caching is enabled by default. When active, page requests deliver `Cache-Control` headers that browsers, CDNs, and proxies use to cache the page. See the [Configuration guide](configuration#caching) for global cache settings.
