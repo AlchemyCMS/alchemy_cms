@@ -1,43 +1,77 @@
 # Extending Alchemy
 
-At some point you may come across the need of adding some behavior to already existing controllers or models, that Alchemy provides. Obviously you could just copy the files, insert them into your projects and edit them there, but this isn't a really clean solution.
+Alchemy has extensive [configuration](configuration) options and class-level extension points, but sometimes you need to go further. This guide is about using Alchemy's helpers in your own controllers, and adding behavior to Alchemy's built-in controllers and models.
 
-* This section will give you a hint on how to extend existing Alchemy files without overriding everything.
+## Using Alchemy in Your Controllers
 
-## Tell Rails to Load Our Extensions
-
-Tell Rails to load our extensions by adding some lines into `config/application.rb`
+If your app has controllers that render Alchemy content or use Alchemy view helpers like `render_elements` or `render_menu`, include `Alchemy::ControllerActions`:
 
 ~~~ ruby
-# config/application.rb
-config.to_prepare do
-  Dir.glob(Rails.root.join('app', '**', '*_extension.rb')) do |f|
-    Rails.configuration.cache_classes ? require(f) : load(f)
+# app/controllers/blog_controller.rb
+class BlogController < ApplicationController
+  include Alchemy::ControllerActions
+end
+~~~
+
+This gives your controller access to:
+
+- `current_alchemy_site` and `set_alchemy_language`
+- Alchemy's page and element view helpers
+- `current_alchemy_user` and `alchemy_user_signed_in?`
+
+## Extending Alchemy Controllers
+
+To add behavior to an Alchemy controller, use Ruby's `prepend` inside a `config.to_prepare` block. This ensures the extension is reloaded in development.
+
+~~~ ruby
+# config/initializers/alchemy_extensions.rb
+Rails.application.config.to_prepare do
+  Alchemy::PagesController.prepend(PagesControllerExtension)
+end
+~~~
+
+~~~ ruby
+# app/models/pages_controller_extension.rb
+module PagesControllerExtension
+  def self.prepended(base)
+    base.before_action :track_visit, only: :show
+  end
+
+  private
+
+  def track_visit
+    # your custom logic
   end
 end
 ~~~
 
-## Adding an Extension
+## Extending Alchemy Models
 
-After you set up the loading for our extensions, we can actually start making some. Lets assume you want to add a before_action method to the `Alchemy::PagesController`. You go into your host app and add a file in `app/controllers/alchemy/` called `pages_controller_extension.rb`. It's important to add the `_extension` to the filename so Rails will load them.
-
-Into this file you add the following code:
+The same pattern works for models:
 
 ~~~ ruby
-module AlchemyPagesControllerExtension
+# config/initializers/alchemy_extensions.rb
+Rails.application.config.to_prepare do
+  Alchemy::Page.prepend(PageExtension)
 end
-
-Alchemy::PagesController.prepend AlchemyPagesControllerExtension
 ~~~
 
-Into this block you can add anything you want your controller to do. As already mentioned, we want to add a before_action to this controller for some show off. It could then look like this:
-
 ~~~ ruby
-module AlchemyPagesControllerExtension
-  def prepended(base)
-    base.before_action :some_method, only: :show
+# app/models/page_extension.rb
+module PageExtension
+  def self.prepended(base)
+    base.scope :featured, -> { where(page_layout: "featured") }
+    base.after_publish :notify_subscribers
+  end
+
+  private
+
+  def notify_subscribers
+    # your custom logic
   end
 end
 ~~~
 
-The last step is adding some_method to your `ApplicationController`. This is done like you are used to in Rails.
+::: tip
+`config.to_prepare` runs on every request in development and once in production, so your extensions are always in sync with code reloads.
+:::

@@ -87,7 +87,7 @@ When `false`, pages of this type are excluded from the built-in fulltext search.
 ### editable_by
 `String|Array`
 
-Restrict which user roles can edit pages of this type.
+Restrict which [user roles](configuration#user-roles) can edit pages of this type.
 
 ### fixed_attributes
 `Hash`
