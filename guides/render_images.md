@@ -15,18 +15,20 @@ Alchemy supports two storage adapters: **ActiveStorage** and **Dragonfly**. Both
 
 ## Configuration
 
-Image rendering is configured through `Alchemy.config`. See the [Configuration guide](configuration) for general setup.
+Image rendering is configured in your initializer. See the [Configuration guide](configuration#images) for all available options.
 
 ~~~ ruby
 # config/initializers/alchemy.rb
-Alchemy.config.output_image_quality = 85
-Alchemy.config.preprocess_image_resize = "1000x1000"
-Alchemy.config.image_output_format = "original"
-Alchemy.config.sharpen_images = false
+Alchemy.configure do |config|
+  config.output_image_quality = 85
+  config.preprocess_image_resize = "1000x1000"
+  config.image_output_format = "original"
+  config.sharpen_images = false
+end
 ~~~
 
 ::: tip
-You can override the output format and quality per ingredient by passing `format` and `quality` in the ingredient settings or as rendering options.
+You can override the output format and quality per ingredient by passing `format` and `quality` as [rendering options](#rendering-options).
 :::
 
 ## Rendering
@@ -38,7 +40,12 @@ In most cases, rendering a Picture ingredient through `el.render(:image)` in you
 <%= el.render(:hero_image) %>
 ~~~
 
-The Picture ingredient view component handles resizing, cropping, srcset generation, and link wrapping automatically based on your ingredient settings.
+The output depends on what the editor has configured on the picture:
+
+- **Image only** — renders an `<img>` tag
+- **With caption** — wraps in a `<figure>` with a `<figcaption>`
+- **With link** — wraps the image in an `<a>` tag
+- **With caption and link** — wraps the linked image in a `<figure>` with a `<figcaption>`
 
 ### Ingredient Settings
 
