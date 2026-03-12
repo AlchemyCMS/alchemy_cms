@@ -14,7 +14,7 @@ Each custom ingredient consists of a model class, a view component for the front
 The [alchemy-solidus](https://github.com/AlchemyCMS/alchemy-solidus) extension is a good real-world example. It provides `SpreeProduct`, `SpreeTaxon` and `SpreeVariant` ingredient types that associate Alchemy elements with Solidus e-commerce models.
 :::
 
-## Using the generator
+## Using the Generator
 
 The ingredient generator creates the model and both components for you.
 
@@ -32,7 +32,7 @@ This creates three files:
 Ingredients live under the `Alchemy::Ingredients` namespace. The type name in your `elements.yml` is the PascalCase class name, e.g. `MyIngredient`.
 :::
 
-## The model
+## The Model
 
 The generated model extends `Alchemy::Ingredient`. The main content is stored in the `value` column (a `text` column).
 
@@ -53,7 +53,7 @@ end
 
 If you need to store additional values beyond `value`, add them as attributes to the `data` column using [`store_accessor`](https://api.rubyonrails.org/classes/ActiveRecord/Store.html). Rails will create accessor methods for you.
 
-### Type casting the value
+### Type Casting the Value
 
 Since `value` is stored as text, you may want to cast it to a different type. Override the `value` method and use ActiveRecord type casting.
 
@@ -74,7 +74,7 @@ def value
 end
 ~~~
 
-### Allowing settings
+### Allowing Settings
 
 Use `allow_settings` to define which settings from `elements.yml` are available to your ingredient. Only safelisted settings are accessible via the `settings` hash.
 
@@ -95,7 +95,7 @@ end
         display_mode: inline
 ~~~
 
-### Customizing the preview text
+### Customizing the Preview Text
 
 The `preview_text` method controls what is shown in the element's title bar in the admin. By default it shows the first 30 characters of `value`. Override it to show something more meaningful.
 
@@ -111,7 +111,7 @@ class Person < Alchemy::Ingredient
 end
 ~~~
 
-## The view component
+## The View Component
 
 The view component controls how the ingredient is rendered on your website. It extends `Alchemy::Ingredients::BaseView`.
 
@@ -146,7 +146,7 @@ class PersonView < BaseView
 end
 ~~~
 
-## The editor component
+## The Editor Component
 
 The editor component controls the form fields in the admin interface. It extends `Alchemy::Ingredients::BaseEditor`.
 
@@ -201,7 +201,7 @@ Instead, use a remote select that fetches results on demand via an API endpoint.
 The [alchemy-solidus](https://github.com/AlchemyCMS/alchemy-solidus) extension demonstrates this pattern. It defines `<alchemy-product-select>`, `<alchemy-variant-select>` and `<alchemy-taxon-select>` custom elements that query the Solidus API with pagination and search, avoiding loading thousands of records into memory.
 :::
 
-## Associating with models
+## Associating with Models
 
 You can associate any ActiveRecord model with an ingredient using `related_object_alias`. This stores the foreign key in the `related_object_id` column and sets up a `belongs_to` association.
 
@@ -243,7 +243,7 @@ module Alchemy
 end
 ~~~
 
-## Using your ingredient
+## Using Your Ingredient
 
 Add your custom ingredient to any element definition in `elements.yml`.
 

@@ -9,15 +9,15 @@ next:
 
 Alchemy is a flexible, developer-friendly content management framework for Ruby on Rails. It gives you full control over markup and styling while providing editors with a powerful, intuitive admin interface.
 
-## Rails engine
+## Rails Engine
 
 Alchemy is a [Rails engine](https://guides.rubyonrails.org/engines.html) that integrates into your existing application. It uses standard Rails conventions — ERB templates, ActiveRecord, asset pipeline — so there is nothing new to learn.
 
-## Content architecture
+## Content Architecture
 
 Unlike CMS systems that store complete HTML pages, Alchemy stores only structured content: text, references to images and attachments, and richtext. No HTML markup, no CSS, no layout. You control how content is rendered.
 
-### The content hierarchy
+### The Content Hierarchy
 
 ~~~
 Site
@@ -34,7 +34,7 @@ Site
 - Pages contain **[Elements](elements)** — reusable content components like articles, hero sections, or cards. Elements can be nested.
 - Elements contain **[Ingredients](ingredients)** — typed content fields like Text, Richtext, Picture, or Boolean.
 
-### The render flow
+### The Render Flow
 
 Alchemy uses standard [Rails partials](https://guides.rubyonrails.org/layouts_and_rendering.html#using-partials) and [ViewComponents](https://viewcomponent.org). It has no custom templating language.
 
@@ -45,7 +45,7 @@ When Alchemy renders a page, these files are used:
 3. `app/views/alchemy/elements/_<element>.html.erb` — the element partial
 4. Ingredient view components render the individual content fields
 
-### Planning your content structure
+### Planning Your Content Structure
 
 Start by identifying the different types of pages your site needs (called page layouts). Every structurally different page should have its own layout. [More about pages.](pages)
 
@@ -53,7 +53,7 @@ Then split the content within each layout into elements. Group related content f
 
 Finally, define the ingredients for each element — the individual content fields like headlines, images, and text. [More about ingredients.](ingredients)
 
-## Image processing
+## Image Processing
 
 Alchemy renders images on the fly using [ImageMagick](https://imagemagick.org) or [libvips](https://www.libvips.org). Images are stored as originals in the picture library. Editors assign them to elements and can crop them using the built-in cropping tool. You define the rendering dimensions and output format. [More about rendering images.](render_images)
 
@@ -61,7 +61,7 @@ Alchemy renders images on the fly using [ImageMagick](https://imagemagick.org) o
 
 Alchemy uses Rails' Russian doll caching for fast content delivery. With every page request Alchemy sends `Cache-Control` headers that CDNs, proxies and browsers use to cache the page. Caching can be configured globally or per page layout. [More about caching.](configuration#caching)
 
-## Admin modules
+## Admin Modules
 
 Alchemy comes with these admin modules:
 

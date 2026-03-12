@@ -1,4 +1,4 @@
-# How To: Create a contact form
+# How To: Create a Contact Form
 
 This guide covers the configuration setup and create process of a
 regular contact form:
@@ -6,7 +6,7 @@ regular contact form:
 -   Setup Alchemy mailer
 -   Customize the views
 
-## Additional Rails and application setup
+## Additional Rails and Application Setup
 
 Alchemy relies on Rails' [ActionMailer](https://guides.rubyonrails.org/action_mailer_basics.html) to send emails.
 You will need to configure ActionMailer to use an SMTP service like Gmail, Sendgrid, Mailgun, Mandrill, Amazon SES, etc.
@@ -58,7 +58,7 @@ mailer:
 All optional setting should be manageable through the content management user. So creating an element that set these values is **highly recommended**.
 :::
 
-## Creating a contact form element
+## Creating a Contact Form Element
 
 Describe a new Element with this options inside your `elements.yml` file:
 
@@ -111,11 +111,11 @@ Create a page layout for your contact page in the `page_layouts.yml` file:
 Disabling the page caching is **very important**!
 :::
 
-## Example contact form
+## Example Contact Form
 
 Use the `rails g alchemy:elements --skip` generator to create the view files.
 
-### The contact form view
+### The Contact Form View
 
 We are using the great `simple_form` gem in this example.
 
@@ -149,7 +149,7 @@ If you use different or additional input symbols like 'company' , 'age' etc. mak
 Please have a look at the [simple form documentation](https://github.com/plataformatec/simple_form#readme) for further infos about the various config options.
 :::
 
-## Translating validation messages
+## Translating Validation Messages
 
 All validation messages are passed through `::I18n.t` so you can translate it in your language yml file.
 

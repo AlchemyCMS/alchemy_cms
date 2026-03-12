@@ -14,7 +14,7 @@ This guide describes how to update AlchemyCMS to a new version.
 <template #after>offers professional <a href="https://blish.cloud/en/solutions/alchemycms" target="_blank">Alchemy upgrade services</a>.</template>
 </ServiceAd>
 
-## Update the gem
+## Update the Gem
 
 Update the version constraint in your `Gemfile` and run bundler.
 
@@ -38,7 +38,7 @@ Then run bundler.
 bundle update alchemy_cms alchemy-devise
 ~~~
 
-## Run the upgrade task
+## Run the Upgrade Task
 
 The upgrade task runs all necessary migrations and adjustments.
 
@@ -54,7 +54,7 @@ If you have `alchemy-devise` installed, re-run its install generator to pick up 
 bin/rails g alchemy:devise:install
 ~~~
 
-### Run individual upgrade tasks
+### Run Individual Upgrade Tasks
 
 Upgrade tasks can also be run individually. For example, to run only the config upgrade:
 
@@ -72,7 +72,7 @@ bin/rails -T alchemy:upgrade
 
 Most of the time the upgrader handles everything. But some upgrades require manual steps — these are listed as TODOs at the end of the upgrade output. Follow them carefully.
 
-## Major version upgrades
+## Major Version Upgrades
 
 Major versions follow the same upgrade process, but include breaking changes. They remove deprecated features and old upgrade tasks.
 
@@ -80,13 +80,13 @@ Major versions follow the same upgrade process, but include breaking changes. Th
 Before upgrading to the next major version, make sure you have addressed all deprecation warnings and run all upgrade tasks in the current version first.
 :::
 
-## Upgrading in production
+## Upgrading in Production
 
 After deploying a new version of the `alchemy_cms` gem, database migrations run automatically via `db:prepare`.
 
 The `alchemy:upgrade` task bundles several individual upgrade tasks. Some of these (like data migrations) need to run in production, while others (like config or file changes) are meant for development only. Check the output of `bin/rails -T alchemy:upgrade` and run the relevant tasks individually in production as needed.
 
-## Verify the upgrade
+## Verify the Upgrade
 
 After upgrading:
 

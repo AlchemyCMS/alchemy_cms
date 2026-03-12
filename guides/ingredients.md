@@ -17,7 +17,7 @@ Alchemy comes with a set of built-in ingredient types for common needs. You can 
 The [alchemy-solidus](https://github.com/AlchemyCMS/alchemy-solidus) extension is a good example of custom ingredients in action. It provides `SpreeProduct`, `SpreeTaxon` and `SpreeVariant` ingredient types that associate Alchemy elements with Solidus e-commerce models.
 :::
 
-## Global settings
+## Global Settings
 
 Ingredients are defined within an [element definition](elements#defining-elements) in `config/alchemy/elements.yml`. Each ingredient requires a `role` and `type`. You can also set hints and default values.
 
@@ -320,7 +320,7 @@ Stores a string value representing a color. Without any settings, the editor ren
 
 Values are not restricted to hex codes -- you can use any string: hex values, CSS color names, CSS custom properties, CSS class names, or any other token your frontend understands.
 
-### Predefined colors
+### Predefined Colors
 
 Use the `colors` setting to offer a palette of predefined options:
 
@@ -336,7 +336,7 @@ Use the `colors` setting to offer a palette of predefined options:
 
 When using simple strings, the value is used as both the label and the swatch preview.
 
-### Named colors with swatches
+### Named Colors with Swatches
 
 Define colors as hashes to control the label, stored value, and swatch preview independently:
 
@@ -358,7 +358,7 @@ Define colors as hashes to control the label, stored value, and swatch preview i
 
 The `swatch` controls the color shown in the select dropdown. This is useful when the stored value is not a visual color (like a CSS custom property or class name). If `swatch` is omitted, it defaults to the `value`.
 
-### Custom color
+### Custom Color
 
 When using predefined colors, you can allow a free color picker alongside the palette:
 

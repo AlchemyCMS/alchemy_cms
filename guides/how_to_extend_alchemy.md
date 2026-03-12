@@ -4,7 +4,7 @@ At some point you may come across the need of adding some behavior to already ex
 
 * This section will give you a hint on how to extend existing Alchemy files without overriding everything.
 
-## Tell Rails to load our extensions
+## Tell Rails to Load Our Extensions
 
 Tell Rails to load our extensions by adding some lines into `config/application.rb`
 
@@ -17,7 +17,7 @@ config.to_prepare do
 end
 ~~~
 
-## Adding an extension
+## Adding an Extension
 
 After you set up the loading for our extensions, we can actually start making some. Lets assume you want to add a before_action method to the `Alchemy::PagesController`. You go into your host app and add a file in `app/controllers/alchemy/` called `pages_controller_extension.rb`. It's important to add the `_extension` to the filename so Rails will load them.
 

@@ -13,7 +13,7 @@ Alchemy uses a dedicated menu system that is separate from the page tree. Menus 
 
 This separation gives editors full control over navigation structure without being constrained by the page hierarchy. A page can appear in multiple menus, or not appear in any menu at all.
 
-## Defining menus
+## Defining Menus
 
 Menu types are defined in the `config/alchemy/menus.yml` file. The installer creates this file with two default menus.
 
@@ -25,7 +25,7 @@ Menu types are defined in the `config/alchemy/menus.yml` file. The installer cre
 
 Each entry is a menu type name. Alchemy creates a root node for each menu type per language. Editors then build the menu tree by adding child nodes in the admin interface.
 
-## Generating menu partials
+## Generating Menu Partials
 
 Alchemy provides a generator that creates view partials for all defined menus.
 
@@ -40,7 +40,7 @@ For each menu type, the generator creates two partials:
 | `app/views/alchemy/menus/<menu_type>/_wrapper.html.erb` | The outer container (e.g. `<ul>`) |
 | `app/views/alchemy/menus/<menu_type>/_node.html.erb` | A single menu item (e.g. `<li>`) |
 
-## Rendering menus
+## Rendering Menus
 
 Use the `render_menu` helper in your layout to render a menu.
 
@@ -61,9 +61,9 @@ The helper finds the root node for the given menu type in the current language a
 <%= render_menu "main_menu", class: "navbar" %>
 ~~~
 
-## Customizing menu partials
+## Customizing Menu Partials
 
-### The wrapper partial
+### The Wrapper Partial
 
 The wrapper partial receives the root node as `menu` and any options you passed to `render_menu`.
 
@@ -79,7 +79,7 @@ The wrapper partial receives the root node as `menu` and any options you passed 
 <% end %>
 ~~~
 
-### The node partial
+### The Node Partial
 
 The node partial receives each node and renders it as a menu item. Child nodes are rendered recursively.
 
@@ -105,7 +105,7 @@ The node partial receives each node and renders it as a menu item. Child nodes a
 
 Customize these partials to match your site's markup and CSS framework.
 
-## Node properties
+## Node Properties
 
 Each node has the following properties that editors can set in the admin interface.
 
@@ -133,7 +133,7 @@ Marks the link as external. When `true`, the link opens in a new tab (`target="_
 
 When `true`, adds `rel="nofollow"` to the link.
 
-## Translating menu names
+## Translating Menu Names
 
 Menu type names are translated through I18n. These names appear as root node labels in the admin interface.
 

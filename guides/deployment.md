@@ -20,7 +20,7 @@ For general Rails deployment guidance, see [Deploying to Production](https://gui
 
 For a step-by-step example, see the [Deploy with Kamal](how_to_deploy_with_kamal) guide.
 
-## Production checklist
+## Production Checklist
 
 Before deploying, make sure you have:
 
@@ -28,7 +28,7 @@ Before deploying, make sure you have:
 - Remote storage configured for pictures and attachments (on ephemeral filesystems)
 - A database (PostgreSQL, MySQL, or SQLite)
 
-## Image processing
+## Image Processing
 
 Alchemy requires an image processing library to be installed on your production server for cropping and resizing images.
 
@@ -47,7 +47,7 @@ RUN apt-get install --no-install-recommends -y imagemagick
 
 See the [Rendering Images](render_images) guide for details on configuring the image processor.
 
-## Remote storage
+## Remote Storage
 
 On platforms with ephemeral filesystems (Docker containers, Heroku, Fly.io, Render.com), you must configure remote storage for both **pictures** and **attachments**. Without it, uploaded files will be lost on every deploy.
 

@@ -40,7 +40,7 @@ In most cases, rendering a Picture ingredient through `el.render(:image)` in you
 
 The Picture ingredient view component handles resizing, cropping, srcset generation, and link wrapping automatically based on your ingredient settings.
 
-### Ingredient settings
+### Ingredient Settings
 
 Configure rendering in your `elements.yml` definition.
 
@@ -56,7 +56,7 @@ Configure rendering in your `elements.yml` definition.
 
 See the [Picture ingredient settings](ingredients#picture) for the full list of options.
 
-### Rendering options
+### Rendering Options
 
 These options control how the image variant is generated.
 
@@ -85,7 +85,7 @@ The quality of rendered JPEG and WebP images.
 
 Allow the image to be scaled up beyond its original dimensions. By default, images are only scaled down.
 
-## Responsive images
+## Responsive Images
 
 Use the `srcset` and `sizes` ingredient settings to generate responsive `<img>` tags with multiple sources.
 
@@ -101,7 +101,7 @@ Use the `srcset` and `sizes` ingredient settings to generate responsive `<img>` 
 
 This renders an `<img>` tag with a `srcset` attribute containing URLs for each size and a `sizes` attribute telling the browser which source to use at each viewport width.
 
-## Remote storage
+## Remote Storage
 
 In production you typically want to store images on a remote service like Amazon S3, Google Cloud Storage, or Azure Storage instead of the local filesystem.
 

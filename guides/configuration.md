@@ -17,7 +17,7 @@ bin/rails g alchemy:install
 
 All settings have sensible defaults. You only need to configure what you want to change.
 
-## The initializer
+## The Initializer
 
 The initializer uses a block syntax with `Alchemy.configure`.
 
@@ -29,7 +29,7 @@ Alchemy.configure do |config|
 end
 ~~~
 
-### Environment-specific configuration
+### Environment-Specific Configuration
 
 Use Rails' standard environment files to override settings per environment.
 
@@ -131,7 +131,7 @@ Trigger external deployment hooks when a page is published. Each target is an Ac
 config.publish_targets << "MyPublishJob"
 ~~~
 
-## User roles
+## User Roles
 
 ### user_roles
 `Array<String>` (Default: `["member", "author", "editor", "admin"]`)
@@ -241,7 +241,7 @@ end
 
 Set `show_flag` to `true` to add a "Show in sitemap" checkbox to the page settings, allowing editors to control sitemap visibility per page.
 
-## Format matchers
+## Format Matchers
 
 Named aliases for regular expressions, commonly used for [ingredient validations](elements#validations).
 
@@ -262,7 +262,7 @@ Minutes of inactivity before the admin session expires. Used by [alchemy-devise]
 
 Number of items per page in admin list views (uses Kaminari).
 
-## Default site
+## Default Site
 
 Used by the seeder to create the initial site.
 
@@ -273,7 +273,7 @@ config.default_site.tap do |default_site|
 end
 ~~~
 
-## Default language
+## Default Language
 
 Used by the seeder to create the initial language and frontpage.
 
@@ -286,7 +286,7 @@ config.default_language.tap do |default_language|
 end
 ~~~
 
-## Update check
+## Update Check
 
 ### update_check_service
 `Symbol` (Default: `:alchemy_app`)

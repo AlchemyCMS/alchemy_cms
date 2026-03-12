@@ -22,7 +22,7 @@ You need a working Ruby on Rails development environment. If you are new to Rail
 Use a package manager to install system dependencies. [Homebrew](https://brew.sh) on macOS, or your Linux distribution's package manager.
 :::
 
-## Create a Rails application
+## Create a Rails Application
 
 If you don't have an existing Rails app, create one.
 
@@ -64,7 +64,7 @@ bin/rails g alchemy:devise:install
 
 If your app already has a user model, configure Alchemy to use it. See the [custom authentication guide](how_to_add_custom_authentication) for details.
 
-## Start the server
+## Start the Server
 
 ~~~ bash
 bin/rails server
@@ -74,7 +74,7 @@ Open [http://localhost:3000/admin](http://localhost:3000/admin) in your browser.
 
 After signing in you can start building pages. Continue with the [Elements](elements) guide to learn how to define your content structure.
 
-## Changing the mount point
+## Changing the Mount Point
 
 The installer automatically mounts Alchemy at the root of your application. If your app has its own routes and you want Alchemy to handle only a subpath, change the mount point in `config/routes.rb`.
 
@@ -93,7 +93,7 @@ end
 Alchemy has a catch-all route for page URLs. Mount it after your own routes so they take priority.
 :::
 
-## What the installer creates
+## What the Installer Creates
 
 The installer generates these files in your app.
 

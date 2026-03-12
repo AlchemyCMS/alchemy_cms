@@ -74,7 +74,7 @@ exec "${@}"
 
 This runs `db:prepare` only when starting the web server, which handles both initial setup and migrations.
 
-## Kamal configuration
+## Kamal Configuration
 
 Configure `config/deploy.yml`:
 
@@ -135,7 +135,7 @@ Never commit `config/master.key` to git. Pass it through secrets instead.
 
 Add any additional secrets your app needs to this file and reference them in the `env.secret` list in `config/deploy.yml`.
 
-## Database setup
+## Database Setup
 
 For a simple deployment, SQLite with a persistent Docker volume works well. The `volumes` entry in `config/deploy.yml` ensures the database survives deploys:
 
@@ -154,7 +154,7 @@ For **local disk storage**, the Docker volume mount keeps files persistent. This
 
 For **remote storage** (S3, GCS, Azure), configure ActiveStorage as described in the [Deployment](deployment#remote-storage) guide. Remote storage is required if you run multiple servers or want files to survive a server replacement.
 
-## First deploy
+## First Deploy
 
 ~~~bash
 bin/kamal setup
@@ -169,7 +169,7 @@ This will:
 
 Verify by visiting your domain. If you configured `proxy.ssl`, HTTPS should work automatically.
 
-## Subsequent deploys
+## Subsequent Deploys
 
 ~~~bash
 bin/kamal deploy
@@ -177,7 +177,7 @@ bin/kamal deploy
 
 Kamal performs zero-downtime deploys by default: it starts the new container, waits for it to pass health checks, then stops the old one.
 
-## Useful commands
+## Useful Commands
 
 ~~~bash
 # Open a Rails console on the server

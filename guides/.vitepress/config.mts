@@ -29,7 +29,7 @@ const VERSION_NAVITEMS = {
           link: "/v6/ingredients",
         },
         {
-          text: "Rendering images",
+          text: "Rendering Images",
           link: "/v6/render_images",
         },
         {
@@ -47,11 +47,11 @@ const VERSION_NAVITEMS = {
       collapsed: false,
       items: [
         {
-          text: "Create a blog template",
+          text: "Create a Blog Template",
           link: "/v6/how_to_create_a_blog_template",
         },
         {
-          text: "Create a contact form",
+          text: "Create a Contact Form",
           link: "/v6/how_to_create_a_contact_form",
         },
         {
@@ -59,7 +59,7 @@ const VERSION_NAVITEMS = {
           link: "/v6/how_to_customize_tinymce",
         },
         {
-          text: "Create custom ingredients",
+          text: "Create Custom Ingredients",
           link: "/v6/how_to_create_custom_ingredients",
         },
         {
@@ -67,11 +67,11 @@ const VERSION_NAVITEMS = {
           link: "/v6/how_to_deploy_on_heroku",
         },
         {
-          text: "Create custom modules",
+          text: "Create Custom Modules",
           link: "/v6/how_to_create_modules",
         },
         {
-          text: "Add custom authentication",
+          text: "Add Custom Authentication",
           link: "/v6/how_to_add_custom_authentication",
         },
         {
@@ -107,7 +107,7 @@ const VERSION_NAVITEMS = {
           link: "/v7/ingredients",
         },
         {
-          text: "Rendering images",
+          text: "Rendering Images",
           link: "/v7/render_images",
         },
         {
@@ -125,11 +125,11 @@ const VERSION_NAVITEMS = {
       collapsed: false,
       items: [
         {
-          text: "Create a blog template",
+          text: "Create a Blog Template",
           link: "/v7/how_to_create_a_blog_template",
         },
         {
-          text: "Create a contact form",
+          text: "Create a Contact Form",
           link: "/v7/how_to_create_a_contact_form",
         },
         {
@@ -137,7 +137,7 @@ const VERSION_NAVITEMS = {
           link: "/v7/how_to_customize_tinymce",
         },
         {
-          text: "Create custom ingredients",
+          text: "Create Custom Ingredients",
           link: "/v7/how_to_create_custom_ingredients",
         },
         {
@@ -145,11 +145,11 @@ const VERSION_NAVITEMS = {
           link: "/v7/how_to_deploy_on_heroku",
         },
         {
-          text: "Create custom modules",
+          text: "Create Custom Modules",
           link: "/v7/how_to_create_modules",
         },
         {
-          text: "Add custom authentication",
+          text: "Add Custom Authentication",
           link: "/v7/how_to_add_custom_authentication",
         },
         {
@@ -243,11 +243,11 @@ const VERSION_NAVITEMS = {
       collapsed: true,
       items: [
         {
-          text: "Create a blog template",
+          text: "Create a Blog Template",
           link: "/how_to_create_a_blog_template",
         },
         {
-          text: "Create a contact form",
+          text: "Create a Contact Form",
           link: "/how_to_create_a_contact_form",
         },
         {
@@ -255,7 +255,7 @@ const VERSION_NAVITEMS = {
           link: "/how_to_customize_tinymce",
         },
         {
-          text: "Create custom ingredients",
+          text: "Create Custom Ingredients",
           link: "/how_to_create_custom_ingredients",
         },
         {
@@ -263,7 +263,7 @@ const VERSION_NAVITEMS = {
           link: "/how_to_deploy_with_kamal",
         },
         {
-          text: "Add custom authentication",
+          text: "Add Custom Authentication",
           link: "/how_to_add_custom_authentication",
         },
         {

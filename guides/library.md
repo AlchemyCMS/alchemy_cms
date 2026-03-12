@@ -34,10 +34,10 @@ The attachment library supports:
 - Filtering by file type, tags, or upload date
 - Replacing a file while keeping the same record and URL
 
-## Remote storage
+## Remote Storage
 
 In production you typically store media on a remote service like Amazon S3 instead of the local filesystem. See [Rendering Images: Remote storage](render_images#remote-storage) for setup instructions.
 
-## Upload settings
+## Upload Settings
 
 Configure allowed file types and size limits in the [initializer](configuration#uploads).

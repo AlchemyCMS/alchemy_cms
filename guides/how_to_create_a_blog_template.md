@@ -1,4 +1,4 @@
-# How To: Create a blog template
+# How To: Create a Blog Template
 
 A blog is an appropriate way to present information about formal and informal events or extraordinary experiences.
 
@@ -7,7 +7,7 @@ In this guide you will learn how to:
 -   Define blog layout and elements
 -   Integration in your existing application
 
-## Conceptual page and content structuring
+## Conceptual Page and Content Structuring
 
 Imagine you like to have a simple blog template on your website. First of all as mentioned in [about AlchemyCMS](about) you should identify required components in your blog layout. Common components are a **headline**, a **blog post** itself and **sidebar blocks** for category overview and featured posts.
 
@@ -15,7 +15,7 @@ Following the steps you will create blog template according to [Foundation Zurb]
 
 *We will build this template using the [Blog sample](http://foundation.zurb.com/page-templates/blog.html)*
 
-## Concept and structure
+## Concept and Structure
 
 Visit the Blog sample page and have a deep look at the layout.
 
@@ -32,7 +32,7 @@ First of all, follow these instruction provided by Zurb to [Add Foundation to yo
 
 Hence the necessary preparations are completed.
 
-## Define elements
+## Define Elements
 
 First of all we define the elements we need in `config/alchemy/elements.yml`. The individual page elements (see [Concept and structure](#concept-and-structure)) could be considered as an element.
 
@@ -131,7 +131,7 @@ The 'featured block' with a headline, text and a link.
 Instead of `Text` you could alternatively use `Link` for 'featured_link'.
 :::
 
-## Define blog page layout
+## Define Blog Page Layout
 
 After the definition of the elements, you we will continue with the defintion of an appropriate page layout. Page layout are specified in `config/alchemy/page_layouts.yml`.
 
@@ -150,7 +150,7 @@ Add a new page layout for your blog template:
 
 The `autogenerate` attribute allows to define elements which will be generated automatically, when the user creates a new page in backend.
 
-## Generate and customize the partials
+## Generate and Customize the Partials
 
 The command
 
@@ -164,7 +164,7 @@ The partials are stored in `app/views/alchemy/elements/`.
 
 e.g. the partial for 'blog_post' element: `_blog_post.html.erb`
 
-### Customize the partials
+### Customize the Partials
 
 In order to adapt the output of the elements you have to change the partial. The command above generates default partials. The `_blog_post.html.erb` might look like this:
 
@@ -261,15 +261,15 @@ For the remaining elements replace the content of the correspondig partials with
 <% end %>
 ~~~
 
-## Embed the elements into your page layout
+## Embed the Elements into Your Page Layout
 
 Finally you have to integrate your elements into the page layout.
 
-### Create new page layout view
+### Create New Page Layout View
 
 Create a new file called `_blog.html.erb` in `app/views/alchemy/page_layouts` and copy the plain html code from [Foundation Zurb Blog Template Raw](https://gist.githubusercontent.com/ghaida/5054379/raw/f080e139a4e25c4548b265e7229cd6dbe09bff92/gistfile1.html).
 
-### Edit blog page layout view
+### Edit Blog Page Layout View
 
 In `app/views/alchemy/page_layouts/_blog.html` search for
 (inside 'Nav Bar' comment)

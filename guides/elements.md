@@ -25,7 +25,7 @@ bin/rails g alchemy:install
 
 The generator also creates the other basic folders and files for setting up your website with Alchemy.
 
-### Example element definition
+### Example Element Definition
 
 ~~~ yaml
 # config/alchemy/elements.yml
@@ -51,7 +51,7 @@ The element in this example is named **"article"** and can be placed only once p
 By default, the first ingredient's value is used as the preview text in the element's title bar in the admin frontend. If you want a different ingredient to be used instead, add `as_element_title: true` to that ingredient. In the example above, the **"headline"** ingredient would be used instead of **"image"**.
 :::
 
-## Element settings
+## Element Settings
 
 The following settings can be used to define elements in the `elements.yml`.
 
@@ -164,7 +164,7 @@ A collection of ingredients the element contains. An ingredient has to have a `r
 Have a look at the [ingredients guide](ingredients) to get more information about available ingredient types.
 :::
 
-## Available elements
+## Available Elements
 
 Before you can use elements on pages, you need to define which page layouts they can be placed on.
 
@@ -180,7 +180,7 @@ You can now place the article element on any page with the `standard` page layou
 
 Any new pages created with the `standard` layout will automatically have the article element.
 
-## Nestable elements
+## Nestable Elements
 
 Elements can be nested inside other elements. Define the allowed children in your `elements.yml` file.
 
@@ -210,7 +210,7 @@ Elements can be nested inside other elements. Define the allowed children in you
 Nested elements can also have `nestable_elements`. Just don't get too crazy with it, though.
 :::
 
-### Rendering nested elements
+### Rendering Nested Elements
 
 Use the `render` helper to render all nested elements as a collection.
 
@@ -256,7 +256,7 @@ Or render a single nested element.
 <% end %>
 ~~~
 
-## Ingredient groups
+## Ingredient Groups
 
 Ingredients can be visually grouped in the admin editor using the `group` property on ingredient definitions.
 
@@ -332,7 +332,7 @@ The `format` validator needs to have a [regular expression](http://rubular.com) 
 
 Predefined format matchers are configured in your initializer. You can also add your own. See the [Configuration guide](configuration#format-matchers) for details.
 
-### Format matchers
+### Format Matchers
 
 ~~~ ruby
 # config/initializers/alchemy.rb
@@ -367,7 +367,7 @@ The `email` ingredient gets validated against the predefined `email` matcher fro
 
 The `homepage` ingredient is matched against the given regexp.
 
-### Multiple validations
+### Multiple Validations
 
 Ingredients can have multiple validations.
 
@@ -388,7 +388,7 @@ The name ingredient will be validated for `presence` first, then for `uniqueness
 
 ## Rendering
 
-### Generating partials
+### Generating Partials
 
 Each element has a view partial (a [Rails partial](https://guides.rubyonrails.org/layouts_and_rendering.html#using-partials)) that lives in `app/views/alchemy/elements/`.
 
@@ -410,7 +410,7 @@ The generator will create partials for each element in your `app/views/alchemy/e
 
 For the article element from the example above, the generator creates `_article.html.erb`. The generated code serves as a starting point that you can customize to fit your needs.
 
-### Page layouts
+### Page Layouts
 
 With the article element associated with the 'standard' page layout, it can be rendered in the layout partial `app/views/alchemy/page_layouts/_standard.html.erb`.
 
@@ -430,7 +430,7 @@ Pages must be published for elements to be rendered.
 If you aren't seeing content you created in the admin interface, make sure elements are saved and you click the "Publish current page content" button from the edit page admin view.
 :::
 
-#### Render only specific elements
+#### Render Only Specific Elements
 
 Sometimes you only want to render specific elements on a specific page and maybe exclude some elements.
 
@@ -446,7 +446,7 @@ Sometimes you only want to render specific elements on a specific page and maybe
 </body>
 ~~~
 
-#### render_elements options
+#### render_elements Options
 
 The `render_elements` helper accepts several options:
 
@@ -458,7 +458,7 @@ The `render_elements` helper accepts several options:
 * **random** - Randomize the order of elements
 * **fixed** - When `true`, render only fixed elements. See [rendering fixed elements](#rendering-fixed-elements)
 
-#### Render elements from other pages
+#### Render Elements from Other Pages
 
 A common use case is to have global pages for header and footer parts.
 ~~~ yaml
@@ -511,7 +511,7 @@ These can be rendered in your `application.html.erb` file.
 </html>
 ~~~
 
-#### Rendering fixed elements
+#### Rendering Fixed Elements
 
 Often you have a separate section on one page (like a sidebar) or a global section to be rendered on every page (like a navbar or footer).
 
@@ -541,7 +541,7 @@ You can also access them directly via the page.
 <%= render @page.fixed_elements.named('sidebar') %>
 ~~~
 
-### Element views
+### Element Views
 
 The Alchemy element generator creates a basic view partial for each element. This is where you control how the element's content is rendered on your website.
 
@@ -565,7 +565,7 @@ The Alchemy element generator creates a basic view partial for each element. Thi
 
 The `element_view_for` helper wraps the content in a `div` by default. You can change the wrapping tag with the `tag` argument, or pass `false` to disable wrapping entirely.
 
-#### Block helper methods
+#### Block Helper Methods
 
 Besides `el.render`, the block helper provides additional methods for accessing ingredient data.
 
@@ -597,7 +597,7 @@ Use `el.ingredient_by_role` when you need to access ingredient attributes beyond
 <% end %>
 ~~~
 
-#### Pass options to the element wrapper
+#### Pass Options to the Element Wrapper
 
 You can pass additional arguments to add or change any html attributes of the wrapper.
 
@@ -607,7 +607,7 @@ You can pass additional arguments to add or change any html attributes of the wr
 <% end %>
 ~~~
 
-#### Pass options to the ingredient view
+#### Pass Options to the Ingredient View
 
 You can pass options to the ingredient view.
 
@@ -630,7 +630,7 @@ If you only want to pass `html_options`, you need to pass an empty hash as the f
 <% end %>
 ~~~
 
-## Translating elements
+## Translating Elements
 
 Element and ingredient names are passed through Rails' [I18n](http://guides.rubyonrails.org/i18n.html) library.
 You can translate them in your `config/locales` language yml file.

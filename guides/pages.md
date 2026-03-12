@@ -15,7 +15,7 @@ Pages are organized as a nested tree and have a unique URL slug. Each page has a
 
 Every page has a [page layout](#defining-page-layouts) — a definition that controls which elements can be placed on it and how the page behaves.
 
-## Defining page layouts
+## Defining Page Layouts
 
 Page layouts are defined in the `config/alchemy/page_layouts.yml` file. Each page layout needs at least a name.
 
@@ -32,7 +32,7 @@ A contact page with a headline, a contact form, and a text element. The page sho
   autogenerate: [headline, contactform]
 ~~~
 
-## Page layout settings
+## Page Layout Settings
 
 ### name
 `String` _required_
@@ -112,7 +112,7 @@ Set to `top` to insert new elements at the top of the page instead of the bottom
 
 A tooltip displayed to content editors when selecting this page layout. Set to `true` to use the I18n key `alchemy.page_layout_hints.<name>`.
 
-## Page templates
+## Page Templates
 
 Each page layout has a view partial that is rendered inside the application layout (`app/views/layouts/application.html.erb`).
 
@@ -122,7 +122,7 @@ Page layout partials live in `app/views/alchemy/page_layouts/` and are named aft
 If no partial is found for a page layout, the `_standard.html.erb` partial is rendered instead.
 :::
 
-### Template generator
+### Template Generator
 
 Alchemy provides a generator that creates page layout partials for all defined layouts.
 
@@ -134,7 +134,7 @@ bin/rails g alchemy:page_layouts --skip
 Pass `--template-engine` or `-e` to use `haml`, `slim`, or `erb`. The default follows your Rails application's template engine setting.
 :::
 
-### Rendering elements
+### Rendering Elements
 
 The generated partial contains a single call to render all elements on the page.
 
@@ -152,13 +152,13 @@ Customize the HTML around this call to match your design. The `render_elements` 
 <%= render_elements except: ["header", "footer"] %>
 ~~~
 
-## Global pages
+## Global Pages
 
 Global pages (or layout pages) live outside the normal page tree. They are never rendered on their own. Use them to store shared elements that appear on multiple pages — for example, a footer, header, or tracking codes.
 
 To define a global page, set `layoutpage: true` in the page layout definition.
 
-### Rendering elements from a global page
+### Rendering Elements from a Global Page
 
 Use the `from_page` option of the `render_elements` helper. Pass an `Alchemy::Page` instance.
 
@@ -187,7 +187,7 @@ Page caching is enabled by default. When active, page requests deliver `Cache-Co
 Set `cache: false` on individual page layouts to disable caching for pages with forms or personalized content.
 :::
 
-### Fragment caching
+### Fragment Caching
 
 Use Rails' [fragment caching](https://guides.rubyonrails.org/caching_with_rails.html#fragment-caching) to cache page templates.
 
@@ -201,7 +201,7 @@ Use Rails' [fragment caching](https://guides.rubyonrails.org/caching_with_rails.
 Do not cache page templates that contain forms (contact forms, comment forms, etc.). Rails' CSRF protection token is inside the `<form>` tag and caching it will break form submissions.
 :::
 
-## SEO metadata
+## SEO Metadata
 
 Pages have `title`, `meta_description`, and `meta_keywords` attributes for SEO. Editors can set these in the page settings dialog.
 
@@ -209,11 +209,11 @@ Pages have `title`, `meta_description`, and `meta_keywords` attributes for SEO. 
 Starting with Alchemy 8.1, these attributes have moved to `PageVersion`. This means SEO metadata changes need to be published just like content changes. In Alchemy 8.0, they are still stored directly on the page.
 :::
 
-## URL redirects
+## URL Redirects
 
 When a page's URL changes — because it was renamed or moved in the tree — Alchemy automatically creates a 301 redirect from the old URL to the new one. These redirects can be managed in the admin page settings.
 
-## Translating page layout names
+## Translating Page Layout Names
 
 Page layout names are passed through Rails' I18n.
 

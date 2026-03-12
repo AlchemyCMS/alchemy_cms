@@ -7,7 +7,7 @@ next: false
 
 Alchemy has built-in multi-language support. Each [site](sites) can have multiple languages, each with its own page tree, menus, and content.
 
-## How languages work
+## How Languages Work
 
 Every language belongs to a site and is defined by a language code (e.g. `en`, `de`) and an optional country code (e.g. `US`, `AT`). One language per site must be marked as the default.
 
@@ -21,14 +21,14 @@ Every language belongs to a site and is defined by a language code (e.g. `en`, `
 | **Frontpage name** | Name of the root page for this language |
 | **Page layout** | Default page layout for the root page |
 
-## Creating a new language
+## Creating a New Language
 
 Add languages through the admin interface under the Languages module. When you create a new language, Alchemy creates a root page for it using the configured page layout.
 
-## Switching languages in the admin
+## Switching Languages in the Admin
 
 Editors switch between languages using the language selector in the admin interface. Each language has its own page tree and menu structure that editors manage independently.
 
-## Single-language setups
+## Single-Language Setups
 
 The installer creates a default language during setup. If your site only needs one language, no additional configuration is required.

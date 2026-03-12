@@ -8,7 +8,7 @@ You only need to tell Alchemy about your user class and implement a few methods.
 
 Tell Alchemy about your user class and authentication paths in an initializer.
 
-### Available options
+### Available Options
 
 | Option | Default | Description |
 |--------|---------|-------------|
@@ -117,7 +117,7 @@ def self.admins
 end
 ~~~
 
-### Page tree folding
+### Page Tree Folding
 
 Alchemy remembers which pages a user has folded or expanded in the admin page tree. To enable this, add the following association:
 
@@ -127,7 +127,7 @@ has_many :folded_pages, class_name: "Alchemy::FoldedPage"
 
 Without this, the page tree will work but folding state won't be persisted per user.
 
-### Change tracking
+### Change Tracking
 
 Alchemy stores `creator_id` and `updater_id` on records like pages, elements, and pictures. To track which user created or updated these records, add these columns to your users table:
 
@@ -155,7 +155,7 @@ This adds [Gutentag](https://github.com/pat/gutentag)-based tagging with the fol
 * `User.tagged_with(["tag1", "tag2"])` -- find tagged records
 * `User.tag_counts` -- list all unique tags
 
-## Complete example
+## Complete Example
 
 ~~~ ruby
 class User < ApplicationRecord
