@@ -212,6 +212,206 @@ A list of media conditions for the image sources. Best used with the `srcset` se
 
 If set to `false`, the editor cannot add a link to the picture.
 
+## Select
+
+Stores a value selected from a list of options. The editor renders a select box. With `multiple: true`, multiple values can be selected and the value is stored as an array.
+
+### Example
+
+~~~ yaml
+- name: width
+  type: Select
+  default: '300'
+  settings:
+    select_values: ['200', '300', '400']
+~~~
+
+### Settings
+
+#### select_values
+`Array`
+
+The values the editor can choose from. Use [a two-dimensional array](https://guides.rubyonrails.org/form_helpers.html#the-select-and-option-tags) for separate display text and stored value pairs.
+
+#### display_inline
+`Boolean`
+
+If set to `true`, renders the select box inline in the element editor.
+
+#### multiple <Badge type="tip" text="8.1+" />
+`Boolean` (Default: `false`)
+
+Allow the editor to select multiple values. When enabled, the value is stored as a JSON array internally. The `value` method returns an array instead of a string.
+
+~~~ yaml
+- name: categories
+  type: Select
+  settings:
+    select_values:
+      - ['Ruby on Rails', 'rails']
+      - ['Single Page App', 'spa']
+      - ['Static Site', 'static']
+    multiple: true
+~~~
+
+Accessing the values in your template:
+
+~~~ erb
+<%= element_view_for(element) do |el| %>
+  <% el.value(:categories).each do |category| %>
+    <span class="badge"><%= category %></span>
+  <% end %>
+<% end %>
+~~~
+
+::: tip
+If you need dynamic values (e.g. from a product catalogue), [create a custom ingredient type](how_to_create_custom_ingredients) instead.
+:::
+
+## Link
+
+Stores a URL. Useful for linking content where the editor should not set the link text directly.
+
+### Settings
+
+#### text
+`String`
+
+Default link text.
+
+::: tip
+If you want the link text to be editable, use [Text](#text) with `linkable: true` instead.
+:::
+
+## Number
+
+Stores a number value. Useful for prices, durations, quantities, etc.
+
+### Settings
+
+#### input_type
+`String|Symbol`
+
+The input type for the editor. Defaults to `number`. Can be set to `range`.
+
+#### step
+`Integer|Decimal`
+
+The step increment for the input.
+
+#### min
+`Integer|Decimal`
+
+The minimum allowed value.
+
+#### max
+`Integer|Decimal`
+
+The maximum allowed value.
+
+#### unit
+`String`
+
+The unit label displayed next to the input.
+
+## Color <Badge type="tip" text="8.1+" />
+
+Stores a string value representing a color. Without any settings, the editor renders a free color picker.
+
+Values are not restricted to hex codes -- you can use any string: hex values, CSS color names, CSS custom properties, CSS class names, or any other token your frontend understands.
+
+### Predefined colors
+
+Use the `colors` setting to offer a palette of predefined options:
+
+~~~ yaml
+- name: brand_color
+  type: Color
+  settings:
+    colors:
+      - "#ff0000"
+      - "var(--primary)"
+      - "bg-blue-500"
+~~~
+
+When using simple strings, the value is used as both the label and the swatch preview.
+
+### Named colors with swatches
+
+Define colors as hashes to control the label, stored value, and swatch preview independently:
+
+~~~ yaml
+- name: theme_color
+  type: Color
+  settings:
+    colors:
+      - name: Primary
+        value: "var(--color-primary)"
+        swatch: "#3b82f6"
+      - name: Secondary
+        value: "var(--color-secondary)"
+        swatch: "#8b5cf6"
+      - name: Danger
+        value: danger
+        swatch: "#ef4444"
+~~~
+
+The `swatch` controls the color shown in the select dropdown. This is useful when the stored value is not a visual color (like a CSS custom property or class name). If `swatch` is omitted, it defaults to the `value`.
+
+### Custom color
+
+When using predefined colors, you can allow a free color picker alongside the palette:
+
+~~~ yaml
+- name: accent_color
+  type: Color
+  settings:
+    colors:
+      - name: Primary
+        value: "var(--color-primary)"
+        swatch: "#3b82f6"
+    custom_color: true
+~~~
+
+This adds a "Custom color" option to the select that opens a free color picker for arbitrary values.
+
+## File
+
+Stores a reference to a file attachment from the Alchemy library.
+
+The view renders a download link (`<a>` tag) to the attachment.
+
+### Example
+
+~~~ yaml
+- name: download
+  type: File
+  settings:
+    only: ['pdf', 'zip']
+~~~
+
+### Settings
+
+#### link_text
+`String`
+
+Default text for the download link. Falls back to the attachment name.
+
+#### css_classes
+`Array<String>`
+
+CSS classes available for the editor to choose from.
+
+#### except
+`Array<String>`
+
+Exclude attachments with these file extensions from the selection.
+
+#### only
+`Array<String>`
+
+Only show attachments with these file extensions in the selection.
+
 ## Audio
 
 Stores a reference to an audio attachment from the Alchemy library.
@@ -329,43 +529,6 @@ Exclude attachments with these file extensions from the selection.
 
 Only show attachments with these file extensions in the selection.
 
-## File
-
-Stores a reference to a file attachment from the Alchemy library.
-
-The view renders a download link (`<a>` tag) to the attachment.
-
-### Example
-
-~~~ yaml
-- name: download
-  type: File
-  settings:
-    only: ['pdf', 'zip']
-~~~
-
-### Settings
-
-#### link_text
-`String`
-
-Default text for the download link. Falls back to the attachment name.
-
-#### css_classes
-`Array<String>`
-
-CSS classes available for the editor to choose from.
-
-#### except
-`Array<String>`
-
-Exclude attachments with these file extensions from the selection.
-
-#### only
-`Array<String>`
-
-Only show attachments with these file extensions in the selection.
-
 ## Datetime
 
 Stores a date and time value. The editor renders a datepicker.
@@ -378,159 +541,6 @@ The view output is passed through Rails' I18n library, so it is fully localizabl
 `String|Symbol`
 
 Either a `String` with the format of [Ruby's `strftime`](https://ruby-doc.org/stdlib-2.6.1/libdoc/date/rdoc/Date.html#method-i-strftime) or a `Symbol` of a [date/time format](https://guides.rubyonrails.org/i18n.html#adding-date-time-formats) defined in your locale files.
-
-## Html
-
-Stores raw HTML code, useful for embeds or tracking snippets.
-
-::: warning
-The view renders the raw, unsanitized output. Be careful with user-provided content.
-:::
-
-## Boolean
-
-Stores a boolean value. The editor renders a checkbox.
-
-## Color <Badge type="tip" text="8.1+" />
-
-Stores a string value representing a color. Without any settings, the editor renders a free color picker.
-
-Values are not restricted to hex codes -- you can use any string: hex values, CSS color names, CSS custom properties, CSS class names, or any other token your frontend understands.
-
-### Predefined colors
-
-Use the `colors` setting to offer a palette of predefined options:
-
-~~~ yaml
-- name: brand_color
-  type: Color
-  settings:
-    colors:
-      - "#ff0000"
-      - "var(--primary)"
-      - "bg-blue-500"
-~~~
-
-When using simple strings, the value is used as both the label and the swatch preview.
-
-### Named colors with swatches
-
-Define colors as hashes to control the label, stored value, and swatch preview independently:
-
-~~~ yaml
-- name: theme_color
-  type: Color
-  settings:
-    colors:
-      - name: Primary
-        value: "var(--color-primary)"
-        swatch: "#3b82f6"
-      - name: Secondary
-        value: "var(--color-secondary)"
-        swatch: "#8b5cf6"
-      - name: Danger
-        value: danger
-        swatch: "#ef4444"
-~~~
-
-The `swatch` controls the color shown in the select dropdown. This is useful when the stored value is not a visual color (like a CSS custom property or class name). If `swatch` is omitted, it defaults to the `value`.
-
-### Custom color
-
-When using predefined colors, you can allow a free color picker alongside the palette:
-
-~~~ yaml
-- name: accent_color
-  type: Color
-  settings:
-    colors:
-      - name: Primary
-        value: "var(--color-primary)"
-        swatch: "#3b82f6"
-    custom_color: true
-~~~
-
-This adds a "Custom color" option to the select that opens a free color picker for arbitrary values.
-
-## Select
-
-Stores a string value selected from a list of options. The editor renders a select box.
-
-### Example
-
-~~~ yaml
-- name: width
-  type: Select
-  settings:
-    select_values: ['200', '300', '400']
-~~~
-
-### Settings
-
-#### select_values
-`Array`
-
-The values the editor can choose from. Use [a two-dimensional array](https://guides.rubyonrails.org/form_helpers.html#the-select-and-option-tags) for separate display text and stored value pairs.
-
-#### display_inline
-`Boolean`
-
-If set to `true`, renders the select box inline in the element editor.
-
-#### multiple <Badge type="tip" text="8.1+" />
-`Boolean` (Default: `false`)
-
-Allow the editor to select multiple values.
-
-::: tip
-If you need dynamic values (e.g. from a product catalogue), [create a custom ingredient type](how_to_create_custom_ingredients) instead.
-:::
-
-## Link
-
-Stores a URL. Useful for linking content where the editor should not set the link text directly.
-
-### Settings
-
-#### text
-`String`
-
-Default link text.
-
-::: tip
-If you want the link text to be editable, use [Text](#text) with `linkable: true` instead.
-:::
-
-## Number
-
-Stores a number value. Useful for prices, durations, quantities, etc.
-
-### Settings
-
-#### input_type
-`String|Symbol`
-
-The input type for the editor. Defaults to `number`. Can be set to `range`.
-
-#### step
-`Integer|Decimal`
-
-The step increment for the input.
-
-#### min
-`Integer|Decimal`
-
-The minimum allowed value.
-
-#### max
-`Integer|Decimal`
-
-The maximum allowed value.
-
-#### unit
-`String`
-
-The unit label displayed next to the input.
 
 ## Page
 
@@ -575,3 +585,15 @@ Useful for linking to specific menu entries or navigation items.
 `Hash`
 
 Additional query parameters appended to the node URL.
+
+## Boolean
+
+Stores a boolean value. The editor renders a checkbox.
+
+## Html
+
+Stores raw HTML code, useful for embeds or tracking snippets.
+
+::: warning
+The view renders the raw, unsanitized output. Be careful with user-provided content.
+:::
