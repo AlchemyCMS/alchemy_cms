@@ -1,163 +1,184 @@
 # Custom Authentication
 
-Alchemy 3.0 has removed its build in authentication into a separate gem called [alchemy-devise](https://github.com/AlchemyCMS/alchemy-devise).
+Alchemy does not ship with its own authentication. The [alchemy-devise](https://github.com/AlchemyCMS/alchemy-devise) gem provides a ready-made solution using Devise, but you can use any authentication system.
 
-Now, that this is not in the core anymore it gives you the possibility to add your own custom authentification. You only have to tell Alchemy about your user class.
+You only need to tell Alchemy about your user class and implement a few methods. This guide covers configuration, the required `alchemy_roles` method, and recommended methods for a full integration.
 
-In this guide you will learn to:
+## Configuration
 
-* add just enough code to make your User class work with Alchemy
-* add additionally methods to enhance the integration
+Tell Alchemy about your user class and authentication paths in an initializer.
 
-## Activating your model
+### Available options
 
-Alchemy has some defaults for user model name and login logout path names:
+| Option | Default | Description |
+|--------|---------|-------------|
+| `user_class` | `"User"` | Your user model class name |
+| `login_path` | `"/login"` | Path to the login form |
+| `logout_path` | `"/logout"` | Path to the logout action |
+| `logout_method` | `"delete"` | HTTP verb for the logout action |
+| `signup_path` | `"/signup"` | Path to the signup form |
+| `current_user_method` | `:current_user` | Controller method that returns the current user |
+| `user_class_primary_key` | `:id` | Primary key column of your user model (useful for UUIDs) |
 
-### Defaults
-
-* `Alchemy.user_class_name` defaults to `'User'`
-* `Alchemy.login_path` defaults to `'/login'`
-* `Alchemy.logout_path` defaults to `'/logout'`
-
-Anyway, you can tell Alchemy about your authentication model configuration.
-
-### Example
+### Alchemy 8.1+ <Badge type="tip" text="8.1+" />
 
 ~~~ ruby
 # config/initializers/alchemy.rb
-Alchemy.user_class_name = 'Admin'
-Alchemy.login_path = '/auth/login'
-Alchemy.logout_path = '/auth/logout'
+Alchemy.configure do |config|
+  config.user_class = "Admin"
+  config.login_path = "/auth/login"
+  config.logout_path = "/auth/logout"
+  config.logout_method = "delete"
+end
 ~~~
 
-## Mandatory configuration
+### Alchemy 8.0 <Badge type="warning" text="8.0" />
 
-### Relationships
-- `has_many :folded_pages` -
-  This will allow alchemy to store page tree folding on a per user basis.
+~~~ ruby
+# config/initializers/alchemy.rb
+Alchemy.user_class_name = "Admin"
+Alchemy.login_path = "/auth/login"
+Alchemy.logout_path = "/auth/logout"
+~~~
 
+:::warning
+This syntax is deprecated since Alchemy 8.1 and will be removed in a future version.
+:::
 
+## Required
 
-### Setting roles
-
-The only method that AlchemyCMS needs from your user class is `alchemy_roles`. This method has to return an array of strings containing at least one of these roles:
+The only method Alchemy needs from your user class is `alchemy_roles`. It must return an array of strings containing at least one of these roles:
 
 * `member`
 * `author`
 * `editor`
 * `admin`
 
-### Example
-
 ~~~ ruby
 # app/models/user.rb
-
 def alchemy_roles
   if admin?
     %w(admin)
   else
-    []
+    %w(member)
   end
 end
 ~~~
 
-::: tip
-You can use your own authorization system to set the role. You only need to ensure that it returns an Array with at least one of the roles.
+:::tip
+You can use your own authorization system to determine the role. Alchemy only needs an array with at least one of the roles listed above.
 :::
 
-That's it. Alchemy has everything it needs to use your user class as authentication model.
+## Recommended
 
-## Optional methods
+These methods and associations are not strictly required, but without them parts of the admin interface will show missing or placeholder information.
 
-Although Alchemy does not need much to know about your user class, there are some few other attributes that are good to have in your user class which are:
+### `name`
 
-### Name
-
-This would be used to say "Welcome back `#{@user.name}`" in the Alchemy dashboard.
-
-### Example
+Used on the dashboard to greet the user ("Welcome back, [name]") and in the online users list. Without it, the greeting will be blank.
 
 ~~~ ruby
-# app/models/user.rb
-
 def name
-  # If you don't have a name, you could use the user's email
   read_attribute(:email)
 end
 ~~~
 
-### Display name
+### `alchemy_display_name`
 
-This is used in the "logged in as" note on the top right corner of the admin interface.
-
-### Example
+Shown in the "logged in as" area at the top right of the admin interface, and used for creator/updater/locker names on pages. Without it, these will show "unknown".
 
 ~~~ ruby
-# app/models/user.rb
-
 def alchemy_display_name
-  # If you don't have a name, you could use the user's email
   "#{firstname} #{lastname}".strip
 end
 ~~~
 
-## Preferred Language
+### `language`
 
-A locale String to set the users preferred translation of the Alchemy GUI.
-Anyway, the user has always the option to switch the language, but it is good
-to give your user its preferred language.
-
-### Example
+A locale string for the user's preferred translation of the Alchemy admin interface. The user can always switch the language manually, but this sets the default.
 
 ~~~ ruby
-# app/models/user.rb
-
 def language
-  # Always use dutch as translation
-  'nl'
+  "nl"
 end
 ~~~
 
-::: tip
-In a real world application you maybe want to store this as `alchemy_language` in the users table.
+:::tip
+In a real application you would store this as a column in the users table.
 :::
 
-## User stamp columns
+### `admins`
 
-Alchemy stores updater and creator ids (if the columns are present).
-If you want to track which user updated a record you need to add:
-
-`creator_id` and `updater_id`
-
-to your users table.
-
-### Example
-
-~~~ bash
-bin/rails g migration add_creator_id_and_updater_id_to_users creator_id:integer:index updater_id:integer:index
-bin/rake db:migrate
-~~~
-
-## Tagging
-
-If you want your users to be taggable you need to add the `acts_as_taggable` and `acts_as_tagger` class methods.
-
-### Example
+Class method that returns a collection of admin users. Used to check if any admins exist (e.g. for signup eligibility).
 
 ~~~ ruby
-class User < ActiveRecord::Base
-  acts_as_taggable
-  acts_as_tagger
-  ...
+def self.admins
+  where(admin: true)
 end
 ~~~
 
-::: tip
-You also should add a `cached_tag_list` text column into your users table for better performance.
-:::
+### Page tree folding
 
-~~~ bash
-bin/rails g migration add_cached_tag_list_to_users cached_tag_list:text
+Alchemy remembers which pages a user has folded or expanded in the admin page tree. To enable this, add the following association:
+
+~~~ ruby
+has_many :folded_pages, class_name: "Alchemy::FoldedPage"
 ~~~
 
-This is it! Now your user class should be a first class citizen of the Alchemy admin backend.
+Without this, the page tree will work but folding state won't be persisted per user.
+
+### Change tracking
+
+Alchemy stores `creator_id` and `updater_id` on records like pages, elements, and pictures. To track which user created or updated these records, add these columns to your users table:
+
+~~~ bash
+bin/rails g migration AddCreatorIdAndUpdaterIdToUsers creator_id:integer:index updater_id:integer:index
+bin/rails db:migrate
+~~~
+
+## Optional
+
+### Tagging
+
+If you want your users to be taggable, include the `Alchemy::Taggable` module:
+
+~~~ ruby
+class User < ApplicationRecord
+  include Alchemy::Taggable
+end
+~~~
+
+This adds [Gutentag](https://github.com/pat/gutentag)-based tagging with the following methods:
+
+* `tag_names` / `tag_list` -- get or set tags
+* `tag_list=` -- set tags from a comma-separated string or array
+* `User.tagged_with(["tag1", "tag2"])` -- find tagged records
+* `User.tag_counts` -- list all unique tags
+
+## Complete example
+
+~~~ ruby
+class User < ApplicationRecord
+  include Alchemy::Taggable
+
+  has_many :folded_pages, class_name: "Alchemy::FoldedPage"
+
+  def alchemy_roles
+    if admin?
+      %w(admin)
+    else
+      %w(member)
+    end
+  end
+
+  def name
+    email
+  end
+
+  alias_method :alchemy_display_name, :name
+
+  def self.admins
+    where(admin: true)
+  end
+end
+~~~
