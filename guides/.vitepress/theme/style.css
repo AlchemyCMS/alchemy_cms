@@ -62,10 +62,10 @@
   --vp-c-brand-3: var(--alchemy-c-blue);
   --vp-c-brand-soft: var(--alchemy-c-orange);
 
-  --vp-c-tip-1: var(--vp-c-indigo-1);
-  --vp-c-tip-2: var(--vp-c-indigo-2);
-  --vp-c-tip-3: var(--vp-c-indigo-3);
-  --vp-c-tip-soft: var(--vp-c-indigo-soft);
+  --vp-c-tip-1: var(--vp-c-green-1);
+  --vp-c-tip-2: var(--vp-c-green-2);
+  --vp-c-tip-3: var(--vp-c-green-3);
+  --vp-c-tip-soft: var(--vp-c-green-soft);
 
   --vp-c-warning-1: var(--vp-c-yellow-1);
   --vp-c-warning-2: var(--vp-c-yellow-2);
@@ -147,10 +147,15 @@
  * -------------------------------------------------------------------------- */
 
 :root {
-  --vp-custom-block-tip-border: transparent;
-  --vp-custom-block-tip-text: var(--vp-c-text-1);
-  --vp-custom-block-tip-bg: var(--vp-c-tip-soft);
-  --vp-custom-block-tip-code-bg: var(--vp-c-tip-soft);
+  --vp-custom-block-info-border: transparent;
+  --vp-custom-block-info-text: var(--vp-c-text-1);
+  --vp-custom-block-info-bg: var(--vp-c-indigo-soft);
+  --vp-custom-block-info-code-bg: var(--vp-c-indigo-soft);
+
+  --vp-custom-block-note-border: transparent;
+  --vp-custom-block-note-text: var(--vp-c-text-1);
+  --vp-custom-block-note-bg: var(--vp-c-indigo-soft);
+  --vp-custom-block-note-code-bg: var(--vp-c-indigo-soft);
 }
 
 .blish-logo {
