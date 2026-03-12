@@ -230,8 +230,7 @@ module Alchemy
     # Otherwise all users will see the same cached page, regardless of user's state.
     #
     def page_etag
-      elements_cache_key = @page.public_version&.elements&.published&.order(:id)&.pluck(:id)
-      [@page, elements_cache_key, current_alchemy_user]
+      Alchemy::Page::EtagGenerator.new(@page).call(current_alchemy_user)
     end
 
     # We only render the page if either the cache is disabled for this page
