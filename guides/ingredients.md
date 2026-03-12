@@ -391,6 +391,67 @@ The view renders the raw, unsanitized output. Be careful with user-provided cont
 
 Stores a boolean value. The editor renders a checkbox.
 
+## Color <Badge type="tip" text="8.1+" />
+
+Stores a string value representing a color. Without any settings, the editor renders a free color picker.
+
+Values are not restricted to hex codes -- you can use any string: hex values, CSS color names, CSS custom properties, CSS class names, or any other token your frontend understands.
+
+### Predefined colors
+
+Use the `colors` setting to offer a palette of predefined options:
+
+~~~ yaml
+- name: brand_color
+  type: Color
+  settings:
+    colors:
+      - "#ff0000"
+      - "var(--primary)"
+      - "bg-blue-500"
+~~~
+
+When using simple strings, the value is used as both the label and the swatch preview.
+
+### Named colors with swatches
+
+Define colors as hashes to control the label, stored value, and swatch preview independently:
+
+~~~ yaml
+- name: theme_color
+  type: Color
+  settings:
+    colors:
+      - name: Primary
+        value: "var(--color-primary)"
+        swatch: "#3b82f6"
+      - name: Secondary
+        value: "var(--color-secondary)"
+        swatch: "#8b5cf6"
+      - name: Danger
+        value: danger
+        swatch: "#ef4444"
+~~~
+
+The `swatch` controls the color shown in the select dropdown. This is useful when the stored value is not a visual color (like a CSS custom property or class name). If `swatch` is omitted, it defaults to the `value`.
+
+### Custom color
+
+When using predefined colors, you can allow a free color picker alongside the palette:
+
+~~~ yaml
+- name: accent_color
+  type: Color
+  settings:
+    colors:
+      - name: Primary
+        value: "var(--color-primary)"
+        swatch: "#3b82f6"
+    custom_color: true
+~~~
+
+This adds a "Custom color" option to the select that opens a free color picker for arbitrary values.
+
 ## Select
 
 Stores a string value selected from a list of options. The editor renders a select box.
