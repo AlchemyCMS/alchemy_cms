@@ -58,7 +58,7 @@ The following settings can be used to define elements in the `elements.yml`.
 ### name
 `String` _required_
 
-A lowercased **unique** name of the element. Separate words need to be underscored. The name is used in the `page_layouts.yml` file to define on which pages the element can be used. It is also the file name of the element's view partial in `app/views/alchemy/elements/`. The name is [translatable](#translating-elements) for the user in the admin frontend.
+A lowercased **unique** name of the element. Separate words need to be underscored. The name is used in the `page_layouts.yml` file to define on which pages the element can be used. It is also the file name of the element's view partial in `app/views/alchemy/elements/`. The name is [translatable](i18n#element-names) for the admin interface.
 
 ### unique
 `Boolean` (Default: `false`)
@@ -68,7 +68,7 @@ Passing `true` means this element can be placed only once on a page. For more fi
 ### hint
 `String`
 
-A hint for the user in the admin interface that should be used to describe what the element is used for. The hint is [translatable](#translating-elements) if you provide an I18n translation key instead of a complete sentence. The hint is displayed as a small question mark icon that reveals a tooltip on hover.
+A hint for the user in the admin interface that describes what the element is used for. Set to `true` to use a [translated hint](i18n#hints) from your locale files. The hint is displayed as a small question mark icon that reveals a tooltip on hover.
 
 ### message
 `String`
@@ -135,7 +135,7 @@ Include this element's ingredients in the fulltext search index. Set to `false` 
 ### deprecated
 `Boolean|String` (Default: `false`)
 
-Mark this element as deprecated. Set to `true` to use a deprecation notice from I18n, or provide a custom message string directly.
+Mark this element as deprecated. Set to `true` to use a [translated deprecation notice](i18n#deprecation-notices), or provide a custom message string directly.
 
 ~~~ yaml
 - name: old_element
@@ -281,7 +281,7 @@ Grouped ingredients are rendered as collapsible sections in the element editor. 
 Use ingredient groups sparingly. Editors should see all content-related ingredients at once without having to expand sections. Groups are best suited for configuration or secondary options that are not part of the main content, such as CSS classes, display settings, or layout options.
 :::
 
-Group names can be translated via I18n.
+Group names can be [translated via I18n](i18n#ingredient-groups).
 
 ~~~ yaml
 # config/locales/en.yml
@@ -673,3 +673,7 @@ de:
       contact_form:
         color: Button Farbe
 ~~~
+
+::: tip
+See the [I18n guide](i18n) for all available translation scopes including hints, deprecation notices, and ingredient groups.
+:::

@@ -203,6 +203,10 @@ const VERSION_NAVITEMS = {
           link: "/configuration",
         },
         {
+          text: "I18n",
+          link: "/i18n",
+        },
+        {
           text: "Seeder",
           link: "/seeder",
         },

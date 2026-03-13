@@ -167,6 +167,10 @@ de:
       events: Veranstaltungen
 ~~~
 
+::: tip
+See the [I18n guide](i18n) for all available translation scopes.
+:::
+
 ## Authorization
 
 Alchemy uses [CanCanCan](https://github.com/CanCanCommunity/cancancan) for authorization. Create an ability class and register it so Alchemy knows about your module's permissions:

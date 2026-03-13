@@ -41,7 +41,7 @@ Ingredients are defined within an [element definition](elements#defining-element
 ### role
 `String` _required_
 
-A lowercased **unique** (per element) identifier for the ingredient. Separate words with underscores.
+A lowercased **unique** (per element) identifier for the ingredient. Separate words with underscores. The role is used as the label in the admin and is [translatable](i18n#ingredient-roles).
 
 ### type
 `String` _required_
@@ -51,12 +51,12 @@ The ingredient type as a PascalCase class name (e.g. `Text`, `Richtext`, `Pictur
 ### hint
 `String|Symbol|Boolean`
 
-A hint for the editor in the admin interface that describes what the ingredient is used for. The hint is translatable if you provide an I18n `Symbol` instead of a `String`. Set to `true` to use the I18n key `alchemy.ingredients_hints.your_ingredient_role`.
+A hint for the editor in the admin interface that describes what the ingredient is used for. Set to `true` to use a [translated hint](i18n#hints) from your locale files.
 
 ### default
 `String`
 
-The default value to prefill newly created elements. You can also use a symbol to reference the I18n key `alchemy.default_ingredients_texts.your_ingredient_role`.
+The default value to prefill newly created elements. You can also use a symbol to reference a [translated default text](i18n#default-ingredient-texts).
 
 ### as_element_title
 `Boolean`
@@ -207,10 +207,32 @@ A list of image sizes to use as sources. Best used with the `sizes` setting for 
 
 A list of media conditions for the image sources. Best used with the `srcset` setting for responsive images.
 
+#### css_classes
+`Array<String>`
+
+CSS classes the editor can choose from. The class labels are [translatable](i18n#picture-css-classes).
+
+~~~ yaml
+- name: hero_image
+  type: Picture
+  settings:
+    css_classes: ['left', 'right', 'no_float']
+~~~
+
+#### fixed_ratio
+`Boolean` (Default: `false`)
+
+If set to `true`, the crop ratio is locked to the aspect ratio of the `size` setting. Requires `crop: true` and a `size` with both dimensions.
+
 #### linkable
 `Boolean` (Default: `true`)
 
 If set to `false`, the editor cannot add a link to the picture.
+
+#### upsample
+`Boolean` (Default: `false`)
+
+If set to `true`, images smaller than the requested `size` are upscaled.
 
 ## Select
 

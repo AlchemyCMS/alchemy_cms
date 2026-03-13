@@ -250,7 +250,7 @@ You can also restrict which roles can edit specific page layouts with [`editable
 config.abilities << "MyCustom::Ability"
 ~~~
 
-Roles can be translated in your locale files.
+Roles can be translated in your locale files. See the [I18n guide](i18n) for details.
 
 ~~~ yaml
 # config/locales/en.yml

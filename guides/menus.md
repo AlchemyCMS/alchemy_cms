@@ -145,3 +145,7 @@ de:
       main_menu: Hauptnavigation
       footer_menu: Fusszeile
 ~~~
+
+::: tip
+See the [I18n guide](i18n) for all available translation scopes.
+:::

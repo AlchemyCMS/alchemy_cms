@@ -110,7 +110,7 @@ Set to `top` to insert new elements at the top of the page instead of the bottom
 ### hint
 `String|Boolean`
 
-A tooltip displayed to content editors when selecting this page layout. Set to `true` to use the I18n key `alchemy.page_layout_hints.<name>`.
+A tooltip displayed to content editors when selecting this page layout. Set to `true` to use a [translated hint](i18n#hints) from your locale files.
 
 ## Page Templates
 
@@ -240,5 +240,5 @@ de:
 ~~~
 
 ::: tip
-All Alchemy translation keys are scoped under the `alchemy` namespace.
+See the [I18n guide](i18n) for all available translation scopes.
 :::
