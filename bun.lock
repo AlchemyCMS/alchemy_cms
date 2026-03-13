@@ -19,7 +19,7 @@
         "tinymce": "^8.3.2",
       },
       "devDependencies": {
-        "@herb-tools/linter": "^0.8.10",
+        "@herb-tools/linter": "^0.9.0",
         "@rollup/plugin-commonjs": "^29.0.2",
         "@rollup/plugin-node-resolve": "^16.0.3",
         "@rollup/plugin-terser": "^1.0.0",
@@ -137,21 +137,21 @@
 
     "@floating-ui/utils": ["@floating-ui/utils@0.2.10", "", {}, "sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ=="],
 
-    "@herb-tools/config": ["@herb-tools/config@0.8.10", "", { "dependencies": { "@herb-tools/core": "0.8.10", "picomatch": "^4.0.2", "tinyglobby": "^0.2.15", "yaml": "^2.8.2" } }, "sha512-feFfAcr/n400vBxtjlLExkcDGjQwUY/SJI+/iwDv9qyLjU6JuwAfsMyG6Td5Kx23U5IFWVC+YbTF9bnd8ZtFdQ=="],
+    "@herb-tools/config": ["@herb-tools/config@0.9.0", "", { "dependencies": { "@herb-tools/core": "0.9.0", "picomatch": "^4.0.2", "tinyglobby": "^0.2.15", "yaml": "^2.8.2" } }, "sha512-Sj4RjjyGzClZWpf+khR0EltORjKyLN1NWTAfk7SVCfYY+4i+lEh96xV8y6JYV3SwkMRE5sUkJtye3/jvxPVMHw=="],
 
-    "@herb-tools/core": ["@herb-tools/core@0.8.10", "", {}, "sha512-KFZX6SUcB9ZSJB8XITEOogq4/hH+QabQp4c0PJqG6c9Iv+EEfEUgVQflFOmJ59NKHrT7Og78lmgJhyeBC20wxQ=="],
+    "@herb-tools/core": ["@herb-tools/core@0.9.0", "", {}, "sha512-vqbyyZo30dbZDZMhQ/OJgUZ1E1NOffVC43CWi3kQUmS8UrCiFiq2bF7h+N/IKr3cEk7yZkWJrwtrXWENnok6Ug=="],
 
-    "@herb-tools/highlighter": ["@herb-tools/highlighter@0.8.10", "", { "dependencies": { "@herb-tools/core": "0.8.10", "@herb-tools/node-wasm": "0.8.10" }, "bin": { "herb-highlight": "bin/herb-highlight" } }, "sha512-jeFLJ9ZIrcja9Ac61QWQfa/6ENHAE5Tju8/ScmjYWZGoF5awaEJM6hmdVVboGQzBcSd0Qjp8Kxq1Odsp+344pg=="],
+    "@herb-tools/highlighter": ["@herb-tools/highlighter@0.9.0", "", { "dependencies": { "@herb-tools/core": "0.9.0", "@herb-tools/node-wasm": "0.9.0" }, "bin": { "herb-highlight": "bin/herb-highlight" } }, "sha512-s5gA8nGh26DuW8s9op4LwwR24XoIbW/4CVfzi6hRDZq+zy16p4IMSvoSvd55B4oh9sqJJhlWLkDYQZDs67ukTw=="],
 
-    "@herb-tools/linter": ["@herb-tools/linter@0.8.10", "", { "dependencies": { "@herb-tools/config": "0.8.10", "@herb-tools/core": "0.8.10", "@herb-tools/highlighter": "0.8.10", "@herb-tools/node-wasm": "0.8.10", "@herb-tools/printer": "0.8.10", "@herb-tools/rewriter": "0.8.10", "picomatch": "^4.0.2", "tinyglobby": "^0.2.15" }, "bin": { "herb-lint": "bin/herb-lint" } }, "sha512-li/JFDoHMpSkYbUMKmFDst+Glf931fobrILvGrnaIp4r7pGBDJQONcImGBdnumKPqMk2p1UkHWONRcEHx33jSw=="],
+    "@herb-tools/linter": ["@herb-tools/linter@0.9.0", "", { "dependencies": { "@herb-tools/config": "0.9.0", "@herb-tools/core": "0.9.0", "@herb-tools/highlighter": "0.9.0", "@herb-tools/node-wasm": "0.9.0", "@herb-tools/printer": "0.9.0", "@herb-tools/rewriter": "0.9.0", "picomatch": "^4.0.2", "tinyglobby": "^0.2.15" }, "bin": { "herb-lint": "bin/herb-lint" } }, "sha512-sCqBqAYuNEfUVhW8SXJoKRQTn7/5bMlYI5V7OdS0AksCYwKtRK/JJ3rs0T/9nHnxCYDLO6vYAbcYyfUarMtfqg=="],
 
-    "@herb-tools/node-wasm": ["@herb-tools/node-wasm@0.8.10", "", { "dependencies": { "@herb-tools/core": "0.8.10" } }, "sha512-lxOL0olfFydmYG76v/br/MHsCbJE/r6vm86oqarOnsZLT+th6MCiKK6E9tE6RlYk/4OeOANePm4NLTqpqF2/5g=="],
+    "@herb-tools/node-wasm": ["@herb-tools/node-wasm@0.9.0", "", { "dependencies": { "@herb-tools/core": "0.9.0" } }, "sha512-yg7OFnUjUgd8iRRgUbZsQ71QHm5UR+Wl51o77A2ALDZfihW0pdpanMINSzr8/WbcXzlAGbxQoTSiBobH06Obuw=="],
 
-    "@herb-tools/printer": ["@herb-tools/printer@0.8.10", "", { "dependencies": { "@herb-tools/core": "0.8.10", "tinyglobby": "^0.2.15" }, "bin": { "herb-print": "bin/herb-print" } }, "sha512-/fKbm7e4bhIyxsYkEaNTJajcvhzlfzKrZ/DftcBmeOZeblz0lTkL3Vx9nvRNQuLT1LyPBfmEzMp1qPKvWUyaCw=="],
+    "@herb-tools/printer": ["@herb-tools/printer@0.9.0", "", { "dependencies": { "@herb-tools/core": "0.9.0", "tinyglobby": "^0.2.15" }, "bin": { "herb-print": "bin/herb-print" } }, "sha512-v4WS1qMSIt/hk+WNS3JHMQ9cEPluNuhSEZjxrR2wA86Nv6cDdAXEfxvry21uLnEuzO6EOfbjceTrhjF6oTJTRg=="],
 
-    "@herb-tools/rewriter": ["@herb-tools/rewriter@0.8.10", "", { "dependencies": { "@herb-tools/core": "0.8.10", "@herb-tools/tailwind-class-sorter": "0.8.10", "tinyglobby": "^0.2.15" } }, "sha512-Fak3lheNaiYXBfhi9U7aQjgBnziJ4EOtQr4j8BbkV5luH25Wc3LET3/aKn8w910ZQdfNmQ+rmBvVpJWq5XP+7g=="],
+    "@herb-tools/rewriter": ["@herb-tools/rewriter@0.9.0", "", { "dependencies": { "@herb-tools/core": "0.9.0", "@herb-tools/tailwind-class-sorter": "0.9.0", "tinyglobby": "^0.2.15" } }, "sha512-UPQWP3qIChgWA+vlhjAQ72g8FXBGsu7yIY1QGbEiRUHQIcsc3uaapC/5hrZVc73o31FAy6HutYxd8NfHZYm6sw=="],
 
-    "@herb-tools/tailwind-class-sorter": ["@herb-tools/tailwind-class-sorter@0.8.10", "", { "dependencies": { "clear-module": "^4.1.2", "escalade": "^3.2.0", "jiti": "^2.5.1", "postcss": "^8.5.6", "postcss-import": "^16.1.1" }, "peerDependencies": { "tailwindcss": "^3.0 || ^4.0" } }, "sha512-bwvvQDiwfRP0BsziM+AFCnRkFZx7aSSCoo5qO2ox5R3nJKGUEQrG+JJF4fwrtT1phyjqBytDPtctpXps77J2HA=="],
+    "@herb-tools/tailwind-class-sorter": ["@herb-tools/tailwind-class-sorter@0.9.0", "", { "dependencies": { "clear-module": "^4.1.2", "escalade": "^3.2.0", "jiti": "^2.5.1", "postcss": "^8.5.8", "postcss-import": "^16.1.1" }, "peerDependencies": { "tailwindcss": "^3.0 || ^4.0" } }, "sha512-PjVLwufcFlskKT4oNVORPVCO/20kFcl/zwCuFvx6pAj0+icTYSk7+rC+4GO+258MH1Ru4dsN65kRqOnUz+EkqQ=="],
 
     "@humanfs/core": ["@humanfs/core@0.19.1", "", {}, "sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA=="],
 
@@ -863,6 +863,8 @@
 
     "@herb-tools/tailwind-class-sorter/escalade": ["escalade@3.2.0", "", {}, "sha512-WUj2qlxaQtO4g6Pq5c29GTcWGDyd8itL8zTlipgECz3JesAiiOKotd8JU6otB3PACgG6xkJUyVhboMS+bje/jA=="],
 
+    "@herb-tools/tailwind-class-sorter/postcss": ["postcss@8.5.8", "", { "dependencies": { "nanoid": "^3.3.11", "picocolors": "^1.1.1", "source-map-js": "^1.2.1" } }, "sha512-OW/rX8O/jXnm82Ey1k44pObPtdblfiuWnrd8X7GJ7emImCOstunGbXUpp7HdBrFQX6rJzn3sPT397Wp5aCwCHg=="],
+
     "@jridgewell/gen-mapping/@jridgewell/sourcemap-codec": ["@jridgewell/sourcemap-codec@1.5.0", "", {}, "sha512-gv3ZRaISU3fjPAgNsriBRqGWQL6quFx04YMPW/zD8XMLsU32mhCCbfbO6KZFLjvYpCZ8zyDEgqsgf+PwPaM7GQ=="],
 
     "@jridgewell/trace-mapping/@jridgewell/sourcemap-codec": ["@jridgewell/sourcemap-codec@1.5.0", "", {}, "sha512-gv3ZRaISU3fjPAgNsriBRqGWQL6quFx04YMPW/zD8XMLsU32mhCCbfbO6KZFLjvYpCZ8zyDEgqsgf+PwPaM7GQ=="],
@@ -912,6 +914,8 @@
     "vite/rollup": ["rollup@4.44.1", "", { "dependencies": { "@types/estree": "1.0.8" }, "optionalDependencies": { "@rollup/rollup-android-arm-eabi": "4.44.1", "@rollup/rollup-android-arm64": "4.44.1", "@rollup/rollup-darwin-arm64": "4.44.1", "@rollup/rollup-darwin-x64": "4.44.1", "@rollup/rollup-freebsd-arm64": "4.44.1", "@rollup/rollup-freebsd-x64": "4.44.1", "@rollup/rollup-linux-arm-gnueabihf": "4.44.1", "@rollup/rollup-linux-arm-musleabihf": "4.44.1", "@rollup/rollup-linux-arm64-gnu": "4.44.1", "@rollup/rollup-linux-arm64-musl": "4.44.1", "@rollup/rollup-linux-loongarch64-gnu": "4.44.1", "@rollup/rollup-linux-powerpc64le-gnu": "4.44.1", "@rollup/rollup-linux-riscv64-gnu": "4.44.1", "@rollup/rollup-linux-riscv64-musl": "4.44.1", "@rollup/rollup-linux-s390x-gnu": "4.44.1", "@rollup/rollup-linux-x64-gnu": "4.44.1", "@rollup/rollup-linux-x64-musl": "4.44.1", "@rollup/rollup-win32-arm64-msvc": "4.44.1", "@rollup/rollup-win32-ia32-msvc": "4.44.1", "@rollup/rollup-win32-x64-msvc": "4.44.1", "fsevents": "~2.3.2" }, "bin": { "rollup": "dist/bin/rollup" } }, "sha512-x8H8aPvD+xbl0Do8oez5f5o8eMS3trfCghc4HhLAnCkj7Vl0d1JWGs0UF/D886zLW2rOj2QymV/JcSSsw+XDNg=="],
 
     "vite/tinyglobby": ["tinyglobby@0.2.14", "", { "dependencies": { "fdir": "^6.4.4", "picomatch": "^4.0.2" } }, "sha512-tX5e7OM1HnYr2+a2C/4V0htOcSQcoSTH9KgJnVvNm5zm/cyEWKJ7j7YutsH9CxMdtOkkLFy2AHrMci9IM8IPZQ=="],
+
+    "@herb-tools/tailwind-class-sorter/postcss/picocolors": ["picocolors@1.1.1", "", {}, "sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA=="],
 
     "ansi-styles/color-convert/color-name": ["color-name@1.1.4", "", {}, "sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA=="],
 
