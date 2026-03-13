@@ -668,7 +668,7 @@ es:
     show_elements_from_page: "Mostrar todos los elementos de esta página"
     show_eq: "Mostrar EQ"
     show_navigation: "Mostrar en navegación"
-    show_page_in_sitemap: "Mostar página en mapa del sitio."
+    show_page_in_sitemap: "Mostrar página en el sitemap XML."
     signup_mail_delivery_error: "El correo de registro no se pudo enviar. Por favor revisa tu configuración de correo."
     small_thumbnails: "Miniaturas pequeñas"
     subject: "Asunto"

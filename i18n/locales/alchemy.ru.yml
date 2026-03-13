@@ -555,7 +555,7 @@ ru:
     show_elements_from_page: "Показать эелементы страницы"
     show_eq: "Показать EQ"
     show_navigation: "Отображать в навигации"
-    show_page_in_sitemap: "Отображать страницу в sitemap."
+    show_page_in_sitemap: "Отображать страницу в XML-карте сайта."
     signup_mail_delivery_error: "Почта не может быть доставлена новому пользователю. Проверьте настройки почты."
     small_thumbnails: "Маленькие миниатюры"
     subject: "Тема"
