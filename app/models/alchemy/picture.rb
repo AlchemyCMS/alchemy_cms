@@ -133,6 +133,16 @@ module Alchemy
       def file_formats(scope = all)
         Alchemy.storage_adapter.file_formats(name, scope:)
       end
+
+      # Preload associations for element editor display
+      #
+      # @param pictures [Array<Picture>] Collection of pictures to preload for
+      def alchemy_element_preloads(pictures)
+        return if pictures.blank?
+
+        # Preload storage-specific associations to avoid N+1 when rendering thumbnails
+        Alchemy.storage_adapter.preload_picture_associations(pictures)
+      end
     end
 
     # Instance methods
@@ -183,8 +193,15 @@ module Alchemy
     end
 
     # Returns the picture description for a given language.
+    #
+    # @param language [Language] The language to get description for
+    # @return [String, nil] The description text or nil
     def description_for(language)
-      descriptions.find_by(language: language)&.text
+      if descriptions.loaded?
+        descriptions.detect { _1.language == language }&.text
+      else
+        descriptions.find_by(language: language)&.text
+      end
     end
 
     # Returns an uri escaped name.
