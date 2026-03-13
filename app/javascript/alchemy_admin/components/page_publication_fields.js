@@ -1,8 +1,12 @@
 // Handles the page publication date fields
 export class PagePublicationFields extends HTMLElement {
   connectedCallback() {
-    const public_on_field = this.querySelector("#page_public_on")
-    const public_until_field = this.querySelector("#page_public_until")
+    const public_on_picker = this.querySelector(
+      "alchemy-datepicker:has(#page_public_on)"
+    )
+    const public_until_picker = this.querySelector(
+      "alchemy-datepicker:has(#page_public_until)"
+    )
     const publication_date_fields = this.querySelector(
       ".page-publication-date-fields"
     )
@@ -16,12 +20,12 @@ export class PagePublicationFields extends HTMLElement {
 
       if (checkbox.checked) {
         publication_date_fields.classList.remove("hidden")
-        public_on_field._flatpickr.setDate(now)
+        public_on_picker.flatpickr.setDate(now)
       } else {
         publication_date_fields.classList.add("hidden")
-        public_on_field.value = ""
+        public_on_picker.flatpickr.clear()
       }
-      public_until_field.value = ""
+      public_until_picker.flatpickr?.clear()
     })
   }
 }
