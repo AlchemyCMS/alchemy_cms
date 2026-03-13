@@ -267,6 +267,10 @@ const VERSION_NAVITEMS = {
           link: "/how_to_add_custom_authentication",
         },
         {
+          text: "Integrate Into Existing Rails App",
+          link: "/how_to_integrate_into_existing_rails_app",
+        },
+        {
           text: "Extend Alchemy",
           link: "/how_to_extend_alchemy",
         },
