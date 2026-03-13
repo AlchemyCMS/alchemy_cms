@@ -1,4 +1,5 @@
 import { defineConfig } from "vitepress"
+import llmstxtPlugin from "vitepress-plugin-llmstxt"
 
 const VERSIONS = [6, 7, 8]
 const CURRENT_VERSION = process.env.VERSION || 8
@@ -345,8 +346,7 @@ export default defineConfig({
       options: {
         _render(src, env, md) {
           const html = md.render(src, env)
-          if (/^v\d+\//.test(env.relativePath))
-            return ""
+          if (/^v\d+\//.test(env.relativePath)) return ""
           return html
         },
       },
@@ -354,4 +354,7 @@ export default defineConfig({
   },
   lastUpdated: true,
   ignoreDeadLinks: "localhostLinks",
+  vite: {
+    plugins: [llmstxtPlugin()],
+  },
 })
