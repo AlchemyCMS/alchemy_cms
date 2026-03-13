@@ -628,7 +628,7 @@ en:
     show_element_content: "Show content of this element."
     show_eq: "Show EQ"
     show_navigation: "Show in navigation"
-    show_page_in_sitemap: "Show page in sitemap."
+    show_page_in_sitemap: "Show page in XML Sitemap."
     signup_mail_delivery_error: "Signup mail could not be delivered. Please check your mail settings."
     small_thumbnails: "Small thumbnails"
     subject: "Subject"
