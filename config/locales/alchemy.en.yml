@@ -919,7 +919,9 @@ en:
         name: "Name"
         nodes: "Menu nodes"
         page_layout: "Page type"
-        public: "public"
+        public: publicly available
+        public_on: Visible from
+        public_until: Visible until
         restricted: "restricted"
         searchable: "show in search"
         robot_follow: "robot may follow links"
