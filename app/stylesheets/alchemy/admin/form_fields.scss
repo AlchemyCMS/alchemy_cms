@@ -72,8 +72,7 @@ fieldset {
 }
 
 .page-publication-date-fields {
-  padding-bottom: var(--spacing-1);
-  @include mixins.clearfix;
+  margin: var(--spacing-2) 0;
 
   &.hidden {
     display: none;

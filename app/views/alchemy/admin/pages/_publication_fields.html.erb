@@ -1,5 +1,5 @@
 <alchemy-page-publication-fields>
-  <% checkbox = check_box_tag :page_public, nil, @page.public?, name: nil, disabled: @page.attribute_fixed?(:public_on) %>
+  <% checkbox = check_box_tag :page_public, nil, @page.public? || @page.scheduled?, name: nil, disabled: @page.attribute_fixed?(:public_on) %>
 
   <label class="checkbox">
   <% if @page.attribute_fixed?(:public_on) || @page.attribute_fixed?(:public_until) %>
@@ -19,12 +19,12 @@
     'input-row'
   ] do %>
     <div class="input-column">
-      <label><%= Alchemy.t(:from) %></label>
+      <label><%= Alchemy::Page.human_attribute_name(:public_on) %></label>
       <%= alchemy_datepicker @page, :public_on, type: :datetime,
         disabled: @page.attribute_fixed?(:public_on) %>
     </div>
     <div class="input-column">
-      <label><%= Alchemy.t(:until) %></label>
+      <label><%= Alchemy::Page.human_attribute_name(:public_until) %></label>
       <%= alchemy_datepicker @page, :public_until, type: :datetime,
         disabled: @page.attribute_fixed?(:public_until) %>
     </div>
