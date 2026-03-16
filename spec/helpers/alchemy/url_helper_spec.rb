@@ -52,12 +52,12 @@ module Alchemy
 
           it "should return the correct url string" do
             expect(helper.show_alchemy_page_url(page)).to \
-              eq("/#{page.language_code}/testpage")
+              eq("http://#{helper.request.host}/#{page.language_code}/testpage")
           end
 
           it "should return the correct url string with additional parameters" do
             expect(helper.show_alchemy_page_url(page, {query: "test"})).to \
-              eq("/#{page.language_code}/testpage?query=test")
+              eq("http://#{helper.request.host}/#{page.language_code}/testpage?query=test")
           end
         end
 
@@ -69,12 +69,12 @@ module Alchemy
 
           it "should return the correct url string" do
             expect(helper.show_alchemy_page_url(page)).to \
-              eq("/testpage")
+              eq("http://#{helper.request.host}/testpage")
           end
 
           it "should return the correct url string with additional parameter" do
             expect(helper.show_alchemy_page_url(page, {query: "test"})).to \
-              eq("/testpage?query=test")
+              eq("http://#{helper.request.host}/testpage?query=test")
           end
         end
       end

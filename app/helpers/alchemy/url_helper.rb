@@ -13,7 +13,7 @@ module Alchemy
 
     # Returns the url for rendering an alchemy page
     def show_alchemy_page_url(page, optional_params = {})
-      url_for(page.url_path(optional_params))
+      "#{request.base_url}#{page.url_path(optional_params)}"
     end
 
     # Returns the path for downloading an alchemy attachment
