@@ -13,6 +13,14 @@ module Alchemy
         language.public? && !!public_version&.public?
       end
 
+      # Determines if this page has a public version and this version is scheduled.
+      #
+      # @see PageVersion#scheduled?
+      # @returns Boolean
+      def scheduled?
+        !!public_version&.scheduled?
+      end
+
       # Cache-Control max-age duration in seconds.
       #
       # You can set this via the `ALCHEMY_PAGE_CACHE_MAX_AGE` environment variable,
