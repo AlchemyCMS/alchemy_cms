@@ -22,15 +22,10 @@
 
   const image = document.getElementById("imageToCrop")?.querySelector("img");
 
-  new ImageCropper(
-    image,
-    <%= @settings[:default_box].to_json %>,
-    <%= @settings[:ratio] %>,
-    [
-      "<%= params[:crop_from_form_field_id] %>",
-      "<%= params[:crop_size_form_field_id] %>",
-    ],
-    <%= @element.id %>
-  );
+  new ImageCropper(image, <%= @settings.merge(
+    crop_from_form_field_id: params[:crop_from_form_field_id],
+    crop_size_form_field_id: params[:crop_size_form_field_id],
+    element_id: @element.id
+  ).to_json %>);
 </script>
 <% end %>

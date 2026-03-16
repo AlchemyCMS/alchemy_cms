@@ -15,13 +15,13 @@ describe("ImageCropper", () => {
 
     it("is sets initial data", () => {
       const image = new Image()
-      const cropper = new ImageCropper(
-        image,
-        {},
-        1,
-        ["crop_from", "crop_size"],
-        "element_id"
-      )
+      const cropper = new ImageCropper(image, {
+        default_box: {},
+        ratio: 1,
+        crop_from_form_field_id: "crop_from",
+        crop_size_form_field_id: "crop_size",
+        element_id: "element_id"
+      })
       expect(cropper.cropperOptions["data"]).toEqual({
         height: 480,
         width: 1200,
@@ -32,26 +32,26 @@ describe("ImageCropper", () => {
 
     it("does not set min crop size", () => {
       const image = new Image()
-      const cropper = new ImageCropper(
-        image,
-        {},
-        1,
-        ["crop_from", "crop_size"],
-        "element_id"
-      )
+      const cropper = new ImageCropper(image, {
+        default_box: {},
+        ratio: 1,
+        crop_from_form_field_id: "crop_from",
+        crop_size_form_field_id: "crop_size",
+        element_id: "element_id"
+      })
       expect(cropper.cropperOptions["minCropBoxWidth"]).toBeUndefined()
       expect(cropper.cropperOptions["minCropBoxHeight"]).toBeUndefined()
     })
 
     it("prevents CORS issues", () => {
       const image = new Image()
-      const cropper = new ImageCropper(
-        image,
-        {},
-        1,
-        ["crop_from", "crop_size"],
-        "element_id"
-      )
+      const cropper = new ImageCropper(image, {
+        default_box: {},
+        ratio: 1,
+        crop_from_form_field_id: "crop_from",
+        crop_size_form_field_id: "crop_size",
+        element_id: "element_id"
+      })
       expect(cropper.cropperOptions["checkCrossOrigin"]).toBe(false)
       expect(cropper.cropperOptions["checkOrientation"]).toBe(false)
     })
