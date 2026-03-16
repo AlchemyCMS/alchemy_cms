@@ -898,11 +898,22 @@ module Alchemy
       subject(:public_version) { page.public_version }
 
       let(:page) { create(:alchemy_page) }
-      let!(:public_one) { Alchemy::PageVersion.create!(page: page, public_on: Date.yesterday) }
-      let!(:public_two) { Alchemy::PageVersion.create!(page: page, public_on: Time.current) }
 
-      it "returns latest published version" do
-        is_expected.to eq(public_two)
+      context "with multiple published versions" do
+        let!(:public_one) { Alchemy::PageVersion.create!(page: page, public_on: Date.yesterday) }
+        let!(:public_two) { Alchemy::PageVersion.create!(page: page, public_on: Time.current) }
+
+        it "returns latest published version" do
+          is_expected.to eq(public_two)
+        end
+      end
+
+      context "with a future public_on date" do
+        let!(:schedule_version) { Alchemy::PageVersion.create!(page: page, public_on: 1.day.from_now) }
+
+        it "returns the scheduled version" do
+          is_expected.to eq(schedule_version)
+        end
       end
     end
 
@@ -1681,6 +1692,32 @@ module Alchemy
         let(:page) { create(:alchemy_page, :public, language: language) }
 
         it { is_expected.to be(false) }
+      end
+    end
+
+    describe "#scheduled?" do
+      subject { page.scheduled? }
+
+      context "when public version is not present" do
+        let(:page) { create(:alchemy_page) }
+
+        it { is_expected.to be(false) }
+      end
+
+      context "when public version is present" do
+        let(:page) { create(:alchemy_page) }
+
+        context "that is scheduled" do
+          let!(:scheduled) { create(:alchemy_page_version, page: page, public_on: 2.days.from_now) }
+
+          it { is_expected.to be(true) }
+        end
+
+        context "that is not scheduled" do
+          let!(:scheduled) { create(:alchemy_page_version, page: page, public_on: nil) }
+
+          it { is_expected.to be(false) }
+        end
       end
     end
 

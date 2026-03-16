@@ -28,6 +28,10 @@ module Alchemy
     end
     alias_method :public, :public?
 
+    def scheduled?
+      public_on&.future? || public_until&.future?
+    end
+
     # Determines if this record is publishable
     #
     # A record is publishable if a +public_on+ timestamp is set and not expired yet.
