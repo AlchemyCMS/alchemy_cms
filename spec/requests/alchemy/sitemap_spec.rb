@@ -12,6 +12,9 @@ RSpec.describe "Requests for PagesController#sitemap" do
     expect(xml_doc.namespaces).to have_key("xmlns")
     expect(xml_doc.namespaces["xmlns"]).to eq("http://www.sitemaps.org/schemas/sitemap/0.9")
     expect(xml_doc.css("urlset url loc").length).to eq(2)
+    xml_doc.css("urlset url loc").each do |loc|
+      expect(loc.text).to match(%r{\Ahttps?://})
+    end
   end
 
   it "lastmod dates are ISO 8601 timestamps" do
