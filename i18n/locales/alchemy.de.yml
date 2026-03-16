@@ -297,6 +297,15 @@ de:
       elements:
         toolbar:
           hide: ausblenden
+        schedule:
+          visibility_status:
+            public_html: Dieses Element ist <b>momentan sichtbar</b>.
+            hidden_html: Dieses Element ist <b>momentan unsichtbar</b>.
+          public_no_schedule: Setzen Sie ein "sichtbar bis" Datum, um es automatisch auszublenden.
+          public_scheduled_html: Es wird am <b>%{public_until}</b> ausgeblendet.
+          hidden_no_schedule: Ändern Sie die Daten, um es wieder einzublenden.
+          hidden_scheduled_html: Es wird am <b>%{public_on}</b> sichtbar.
+          hidden_window_html: Es wird vom <b>%{public_on}</b> bis zum <b>%{public_until}</b> sichtbar sein.
       page_definitions:
         show_pages: Zeige %{count} %{model_name}
         zero_pages: 0 Seiten
@@ -412,7 +421,7 @@ de:
     "Select style": "Stilvorlage"
     "Send reset instructions": "Anweisungen senden"
     show_elements: "Elemente anzeigen"
-    show_element: "Element anzeigen"
+    show_element: "Element einblenden"
     "Show all files": Alle Dateien anzeigen
     "Show childpages": "Unterseiten anzeigen"
     "Show clipboard": "Zwischenablage anzeigen"
@@ -476,6 +485,7 @@ de:
     choose_file_to_link: "Bitte wählen Sie eine Datei zum Verlinken aus."
     "clear clipboard": "Zwischenablage leeren"
     "clear trash": "Papierkorb leeren"
+    clear_schedule: "Zeitplan entfernen"
     click_to_show_all: "wieder alles anzeigen"
     "Collapse all elements": "Alle Elemente einklappen"
     confirm_to_delete_element: "Wollen Sie dieses Element wirklich löschen?"
@@ -530,9 +540,12 @@ de:
     edit_tag: "Tag bearbeiten"
     edit_selected_pictures: "Selektierte Bilder:"
     element_editor_not_found: "Bei diesem Element ist ein Fehler aufgetreten"
-    element_hidden: "versteckt"
+    element_hidden: unsichtbar
     element_of_type: "Element"
     element_saved: "Element wurde gespeichert."
+    element_scheduled:
+      public_on: "sichtbar ab %{public_on}"
+      public_until: "sichtbar bis %{public_until}"
     enter_external_link: "Geben Sie hier die Adresse der Seite ein zu der Sie einen Link setzen wollen."
     explain_cropping: '<p>Sie können den Rahmen mit der Maus und den Pfeiltasten verschieben und in der Größe verändern, um einen eigenen Bildausschnitt festzulegen. Wenn Sie zufrieden sind, dann klicken Sie bitte auf "übernehmen".</p><p>Um zu dem zentrierten Bildausschnitt zurückzukehren, wie er im Layout vorgesehen wurde, klicken Sie bitte auf "zurücksezen" und "übernehmen" anschließend die Änderungen.</p>'
     explain_publishing: "Sie haben Änderungen die noch nicht veröffentlicht wurden."
@@ -745,6 +758,7 @@ de:
     Select a page first: Zuerst eine Seite wählen
     select_element: "Element wählen"
     seperate_tags_with_comma: "Mehrere Tags mit Komma trennen."
+    schedule_element: Sichtbarkeit planen
     show_element_content: "Element ausklappen"
     show_elements_from_page: "Elemente dieser Seite anzeigen"
     show_eq: "EQ anzeigen"
@@ -842,7 +856,11 @@ de:
         text: "Pflichtfeld"
         mark: "*"
       error_notification:
-        default_message: "Es sind Fehler aufgetreten:"
+        default_message: "Es sind Fehler aufgetreten."
+      hints:
+        element:
+          public_on: Stellen Sie hier ein ab wann das Element sichtbar sein soll.
+          public_until: Setzen Sie hier einen Zeitpunkt ein, wenn das Element automatisch wieder unsichtbar werden soll.
       labels:
         user:
           email: E-Mail
@@ -862,6 +880,7 @@ de:
         datepicker: "%d.%m.%Y"
         datetimepicker: "%d.%m.%Y %H:%M"
         default: "%d. %b. %Y, %H:%M Uhr"
+        element_date: "%d. %b. %Y, %H:%M Uhr"
         essence_date: "%d.%m.%Y"
         page_status: "%d.%m.%Y um %H:%M Uhr"
         short_datetime: "%d. %B, %H:%Mh"
@@ -870,6 +889,9 @@ de:
 
   # Translations for error messages.
   errors:
+    attributes:
+      public_until:
+        must_be_after_public_on: muss nach "sichtbar ab" sein
     models:
       alchemy/content:
         attributes:
@@ -1008,6 +1030,8 @@ de:
         display_name: "Name"
         name: "Name"
         public: "sichtbar"
+        public_on: "sichtbar ab"
+        public_until: "sichtbar bis"
         tag_list: Tags
       alchemy/ingredient:
         autoplay: Direkt abspielen
