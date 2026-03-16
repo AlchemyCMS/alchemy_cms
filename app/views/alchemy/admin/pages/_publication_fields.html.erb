@@ -19,13 +19,13 @@
     'input-row'
   ] do %>
     <div class="input-column">
-      <label><%= Alchemy::Page.human_attribute_name(:public_on) %></label>
-      <%= alchemy_datepicker @page, :public_on, type: :datetime,
+      <%= label :page, :public_on %>
+      <%= datetime_local_field :page, :public_on, include_seconds: false,
         disabled: @page.attribute_fixed?(:public_on) %>
     </div>
     <div class="input-column">
-      <label><%= Alchemy::Page.human_attribute_name(:public_until) %></label>
-      <%= alchemy_datepicker @page, :public_until, type: :datetime,
+      <%= label :page, :public_until %>
+      <%= datetime_local_field :page, :public_until, include_seconds: false,
         disabled: @page.attribute_fixed?(:public_until) %>
     </div>
   <% end %>

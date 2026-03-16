@@ -64,6 +64,17 @@ RSpec.describe "Page editing feature", type: :system do
       expect(page).to have_content Alchemy.t(:page_published, name: a_page.name)
     end
 
+    it "can schedule page visibility", :js do
+      date = 1.day.from_now
+      visit alchemy.configure_admin_page_path(a_page)
+      find("alchemy-page-publication-fields > label").click
+      expect(page).to have_field("Visible from")
+      fill_in("Visible from", with: date)
+      click_button "Save"
+      expect(page).to have_content Alchemy.t("Page saved", name: a_page.name)
+      expect(page).to have_field("Visible from", with: date.strftime("%Y-%m-%dT%H:%M"))
+    end
+
     context "while editing a global page" do
       let(:a_page) { create(:alchemy_page, :layoutpage) }
 
