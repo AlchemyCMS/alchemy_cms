@@ -763,7 +763,7 @@ de:
     show_elements_from_page: "Elemente dieser Seite anzeigen"
     show_eq: "EQ anzeigen"
     show_navigation: "Navigation anzeigen"
-    show_page_in_sitemap: "Seite in der Sitemap zeigen"
+    show_page_in_sitemap: "Seite in der XML-Sitemap anzeigen."
     signup_mail_delivery_error: "Einrichtungs-E-Mail konnte nicht verschickt werden. Bitte überprüfen Sie die Mail Einstellungen."
     small_thumbnails: "kleine Miniaturbilder"
     subject: "Betreff"

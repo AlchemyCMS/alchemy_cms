@@ -559,7 +559,7 @@ pl:
     show_elements_from_page: "Show all elements from this page"
     show_eq: "Show EQ"
     show_navigation: "Show in navigation"
-    show_page_in_sitemap: "Show page in sitemap."
+    show_page_in_sitemap: "Pokaż stronę w sitemap XML."
     signup_mail_delivery_error: "Signup mail could not be delivered. Please check your mail settings."
     small_thumbnails: "Small thumbnails"
     subject: "Subject"

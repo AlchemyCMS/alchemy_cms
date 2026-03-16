@@ -679,7 +679,7 @@ nb-NO:
     show_elements_from_page: Vis alle elementer fra denne siden
     show_eq: Vis EQ
     show_navigation: Vi i navigasjon
-    show_page_in_sitemap: Vis sider i sidekart.
+    show_page_in_sitemap: "Vis side i XML-sitemap."
     signup_mail_delivery_error: Registrerings-e-post kunne ikke leveres. Vennligst sjekk e-post-innstillingene dine.
     sitemap_editor_info:
     small_thumbnails: Små forhåndsvisninger
