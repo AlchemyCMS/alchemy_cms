@@ -64,8 +64,10 @@ describe("alchemy-uploader", () => {
       uploader_defaults: {
         file_size_limit: 100,
         upload_limit: 50,
-        allowed_filetype_pictures: "webp, png, svg",
-        allowed_filetype_attachments: "*"
+        allowed_filetypes: {
+          alchemy_pictures: ["webp", "png", "svg"],
+          alchemy_attachments: ["*"]
+        }
       }
     }
 
@@ -214,7 +216,7 @@ describe("alchemy-uploader", () => {
   describe("file not valid", () => {
     beforeEach(() => {
       vi.clearAllMocks() // Clear mocks before this specific test
-      Alchemy.uploader_defaults.allowed_filetype_attachments = ["txt"]
+      Alchemy.uploader_defaults.allowed_filetypes.alchemy_attachments = ["txt"]
       component._uploadFiles([
         new File([], "foo.pdf", { type: "application/pdf" }),
         firstFile,

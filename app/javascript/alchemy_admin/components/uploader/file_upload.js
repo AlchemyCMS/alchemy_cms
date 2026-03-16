@@ -85,13 +85,13 @@ export class FileUpload extends AlchemyHTMLElement {
       errorMessage = translate("Uploaded bytes exceed file size")
     }
 
-    const fileConfiguration = this.file?.type.includes("image")
-      ? "allowed_filetype_pictures"
-      : "allowed_filetype_attachments"
+    const allowedFiletypes = this.file?.type.includes("image")
+      ? config.allowed_filetypes.alchemy_pictures
+      : config.allowed_filetypes.alchemy_attachments
 
     const isFileFormatSupported =
-      config[fileConfiguration] === "*" ||
-      config[fileConfiguration].includes(
+      allowedFiletypes.includes("*") ||
+      allowedFiletypes.includes(
         this.file?.type.replace(/^\w+\/(\w+)(\+\w+)?/i, "$1")
       )
 
