@@ -1,5 +1,20 @@
 # Changelog
 
+## 8.1.5 (2026-03-16)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
+
+## What's Changed
+### Other Changes
+* [8.1-stable] Dashboard | Fix redirect after unlocking by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3735
+* [8.1-stable] fix(page_factory): Delegate meta data to draft version by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3741
+* [8.1-stable] Fix page publication fields checkbox handling by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3743
+* [8.1-stable] Add XML to show_page_in_sitemap translation by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3749
+* [8.1-stable] fix(Page): Consider scheduled version public  by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3750
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.1.4...v8.1.5
+
 ## 8.1.4 (2026-03-06)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
