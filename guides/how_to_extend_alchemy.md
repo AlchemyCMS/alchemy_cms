@@ -2,6 +2,10 @@
 
 Alchemy has extensive [configuration](configuration) options and class-level extension points, but sometimes you need to go further. This guide is about using Alchemy's helpers in your own controllers, and adding behavior to Alchemy's built-in controllers and models.
 
+::: tip
+Looking for ready-made add-ons? See the [Extensions](extensions) page.
+:::
+
 ## Using Alchemy in Your Controllers
 
 If your app has controllers that render Alchemy content or use Alchemy view helpers like `render_elements` or `render_menu`, include `Alchemy::ControllerActions`:

@@ -55,6 +55,10 @@ Alchemy lets you choose your own authentication strategy.
 
 Add the gem and run its installer.
 
+::: tip
+See [Extensions](extensions) for all available add-ons.
+:::
+
 ~~~ bash
 bundle add alchemy-devise
 bin/rails g alchemy:devise:install

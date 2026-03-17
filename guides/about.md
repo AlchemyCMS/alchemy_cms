@@ -66,8 +66,8 @@ Alchemy comes with these admin modules:
 - **[Sites](sites)** — multi-site support
 - **[Library](library)** — picture and attachment management
 - **[Tags](tags)** — tagging for pictures, attachments, and pages
-- **Users** — user management (with [alchemy-devise](https://github.com/AlchemyCMS/alchemy-devise))
+- **Users** — user management (with [alchemy-devise](extensions#alchemy-devise))
 
 ::: tip
-You can extend the admin with your own [custom modules](how_to_create_modules).
+You can extend the admin with your own [custom modules](how_to_create_modules). See [Extensions](extensions) for a full list of available add-ons.
 :::

@@ -403,5 +403,5 @@ end
 ~~~
 
 ::: tip
-The [alchemy-devise](https://github.com/AlchemyCMS/alchemy-devise) and [alchemy-solidus](https://github.com/AlchemyCMS/alchemy-solidus) extensions are good examples of engine-based modules.
+The [alchemy-devise](extensions#alchemy-devise) and [alchemy-solidus](extensions#alchemy-solidus) extensions are good examples of engine-based modules. See [Extensions](extensions) for more.
 :::

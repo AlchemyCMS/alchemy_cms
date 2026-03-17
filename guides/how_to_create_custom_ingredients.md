@@ -11,7 +11,7 @@ Alchemy provides many [built-in ingredient types](ingredients), but you can crea
 Each custom ingredient consists of a model class, a view component for the frontend, and an editor component for the admin interface. Alchemy uses [ViewComponent](https://viewcomponent.org) for both.
 
 ::: tip
-The [alchemy-solidus](https://github.com/AlchemyCMS/alchemy-solidus) extension is a good real-world example. It provides `SpreeProduct`, `SpreeTaxon` and `SpreeVariant` ingredient types that associate Alchemy elements with Solidus e-commerce models.
+The [alchemy-solidus](extensions#alchemy-solidus) extension is a good real-world example. It provides `SpreeProduct`, `SpreeTaxon` and `SpreeVariant` ingredient types that associate Alchemy elements with Solidus e-commerce models.
 :::
 
 ## Using the Generator
@@ -198,7 +198,7 @@ Avoid loading large collections into the editor. If your `input_field` renders a
 
 Instead, use a remote select that fetches results on demand via an API endpoint. Alchemy ships a `RemoteSelect` JavaScript base class (`alchemy_admin/components/remote_select`) that provides paginated, searchable selects using [Custom Elements](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements). Your custom element extends `RemoteSelect`, implements `_searchQuery()` and `_parseResponse()`, and your editor component renders the custom element tag instead of a `select_tag`.
 
-The [alchemy-solidus](https://github.com/AlchemyCMS/alchemy-solidus) extension demonstrates this pattern. It defines `<alchemy-product-select>`, `<alchemy-variant-select>` and `<alchemy-taxon-select>` custom elements that query the Solidus API with pagination and search, avoiding loading thousands of records into memory.
+The [alchemy-solidus](extensions#alchemy-solidus) extension demonstrates this pattern. It defines `<alchemy-product-select>`, `<alchemy-variant-select>` and `<alchemy-taxon-select>` custom elements that query the Solidus API with pagination and search, avoiding loading thousands of records into memory.
 :::
 
 ## Associating with Models

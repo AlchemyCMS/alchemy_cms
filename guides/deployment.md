@@ -68,9 +68,13 @@ Then set it as the active service in `config/environments/production.rb`:
 config.active_storage.service = :amazon
 ~~~
 
-**With Dragonfly**, use the [alchemy-dragonfly-s3](https://github.com/AlchemyCMS/alchemy-dragonfly-s3) gem.
+**With Dragonfly**, use the [alchemy-dragonfly-s3](extensions#alchemy-dragonfly-s3) gem.
 
 See the [Rendering Images](render_images#remote-storage) guide for the full setup.
+
+::: tip
+See [Extensions](extensions) for all available storage add-ons.
+:::
 
 ## Database
 

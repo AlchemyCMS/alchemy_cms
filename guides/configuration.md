@@ -136,7 +136,7 @@ config.link_dialog_tabs << "Acme::LinkTab"
 ~~~
 
 ::: tip
-[alchemy-solidus](https://github.com/AlchemyCMS/alchemy-solidus) provides a tab for linking to Solidus products.
+[alchemy-solidus](extensions#alchemy-solidus) provides a tab for linking to Solidus products.
 :::
 
 ## Mailer
@@ -194,12 +194,12 @@ The viewport sizes available in the preview size selector.
 ### show_page_searchable_checkbox
 `Boolean` (Default: `false`)
 
-Show a searchable checkbox in the page form. Useful with search plugins like [alchemy-pg_search](https://github.com/AlchemyCMS/alchemy-pg_search).
+Show a searchable checkbox in the page form. Useful with search plugins like [alchemy-pg_search](extensions#alchemy-pg_search).
 
 ### auto_logout_time
 `Integer` (Default: `30`)
 
-Minutes of inactivity before the admin session expires. Used by [alchemy-devise](https://github.com/AlchemyCMS/alchemy-devise) to configure Devise's `:timeoutable` module. Disabled in development.
+Minutes of inactivity before the admin session expires. Used by [alchemy-devise](extensions#alchemy-devise) to configure Devise's `:timeoutable` module. Disabled in development.
 
 ### items_per_page
 `Integer` (Default: `15`)
@@ -267,7 +267,7 @@ Alchemy offers two ways to customize the admin's page preview.
 
 ### Preview Sources
 
-When multiple preview sources are configured, a select menu appears in the admin preview frame. This is useful when you want to preview content across different frontends, for example if you use Alchemy as a headless CMS via [alchemy-json_api](https://github.com/AlchemyCMS/alchemy-json_api):
+When multiple preview sources are configured, a select menu appears in the admin preview frame. This is useful when you want to preview content across different frontends, for example if you use Alchemy as a headless CMS via [alchemy-json_api](extensions#alchemy-json_api):
 
 ~~~ ruby
 config.preview_sources << "MyCustom::PreviewSource"
@@ -319,7 +319,7 @@ Alchemy::ErrorTracking.notification_handler = MyErrorHandler
 Your class must respond to `call` with an exception argument.
 
 ::: tip
-Ready-made integrations exist for the most common services: [Sentry](https://github.com/AlchemyCMS/alchemy-sentry), [Bugsnag](https://github.com/AlchemyCMS/alchemy-bugsnag), [AppSignal](https://github.com/AlchemyCMS/alchemy-appsignal), and [Airbrake](https://github.com/AlchemyCMS/alchemy-airbrake).
+Ready-made integrations exist for the most common services: [Sentry](extensions#alchemy-sentry), [Bugsnag](extensions#alchemy-bugsnag), [AppSignal](extensions#alchemy-appsignal), and [Airbrake](https://github.com/AlchemyCMS/alchemy-airbrake). See [Extensions](extensions) for more.
 :::
 
 ## Update Check

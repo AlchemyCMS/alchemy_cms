@@ -23,7 +23,7 @@ Update the version constraint in your `Gemfile` and run bundler.
 +gem 'alchemy_cms', '~> 8.1'
 ~~~
 
-If you use [alchemy-devise](https://github.com/AlchemyCMS/alchemy-devise) for authentication, update it as well. The major and minor versions of `alchemy_cms` and `alchemy-devise` match.
+If you use [alchemy-devise](extensions#alchemy-devise) for authentication, update it as well. The major and minor versions of `alchemy_cms` and `alchemy-devise` match.
 
 ~~~ diff
 -gem 'alchemy_cms', '~> 8.0'

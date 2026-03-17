@@ -1,6 +1,6 @@
 # Custom Authentication
 
-Alchemy does not ship with its own authentication. The [alchemy-devise](https://github.com/AlchemyCMS/alchemy-devise) gem provides a ready-made solution using Devise, but you can use any authentication system.
+Alchemy does not ship with its own authentication. The [alchemy-devise](extensions#alchemy-devise) gem provides a ready-made solution using Devise, but you can use any authentication system.
 
 You only need to tell Alchemy about your user class and implement a few methods. This guide covers configuration, the required `alchemy_roles` method, and recommended methods for a full integration.
 
