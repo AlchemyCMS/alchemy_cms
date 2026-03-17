@@ -32,9 +32,12 @@ const alchemyBadgeUrl = computed(() => {
   const color =
     support === "current" ? "2ea44f" : support === "legacy" ? "orange" : "red"
   let message = alchemyRequirements.value
-  const minMatch = alchemyRequirements.value.match(/>=?\s*(\d+(\.\d+)?)/)
-  if (minMatch) {
-    message = ">= " + minMatch[1]
+  if (support === "current") {
+    const minMatch = alchemyRequirements.value.match(/>=?\s*(\d+(\.\d+)?)/)
+    if (minMatch) message = ">= " + minMatch[1]
+  } else {
+    const maxMatch = alchemyRequirements.value.match(/<\s*(\d+(\.\d+)?)/)
+    if (maxMatch) message = "< " + maxMatch[1]
   }
   const params = new URLSearchParams({
     label: "alchemy",

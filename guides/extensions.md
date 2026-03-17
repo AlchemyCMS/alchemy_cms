@@ -31,6 +31,12 @@ A [JSON:API](https://jsonapi.org) compliant API for AlchemyCMS. Use Alchemy as a
 
 <ExtensionLinks gem="alchemy-json_api" github="https://github.com/AlchemyCMS/alchemy-json_api" />
 
+### alchemy-graphql <Badge type="warning" text="outdated" />
+
+[GraphQL](https://graphql.org) API for AlchemyCMS.
+
+<ExtensionLinks gem="alchemy-graphql" github="https://github.com/AlchemyCMS/alchemy-graphql" />
+
 ## Search
 
 ### alchemy-pg_search <Badge type="tip" text="official" />
