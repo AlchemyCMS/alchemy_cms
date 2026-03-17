@@ -81,7 +81,7 @@ module Alchemy
 
       # Used for site selector in Alchemy cockpit.
       def sites_for_select
-        Alchemy::Site.all.map do |site|
+        @_sites_for_select ||= Alchemy::Site.accessible_by(current_alchemy_user).map do |site|
           [site.name, site.id]
         end
       end
