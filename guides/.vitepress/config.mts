@@ -1,8 +1,6 @@
 import { defineConfig } from "vitepress"
 import llmstxtPlugin from "vitepress-plugin-llmstxt"
-
-const VERSIONS = [6, 7, 8]
-const CURRENT_VERSION = process.env.VERSION || 8
+import { VERSIONS, CURRENT_VERSION } from "./versions.js"
 const VERSION_NAVITEMS = {
   6: [
     {
@@ -318,6 +316,10 @@ export default defineConfig({
       {
         text: "Home",
         link: "https://www.alchemy-cms.com",
+      },
+      {
+        text: "Extensions",
+        link: "/extensions",
       },
       {
         text: "Version",

@@ -4,6 +4,7 @@ import DefaultTheme from "vitepress/theme"
 import SideBarAd from "./SideBarAd.vue"
 import BottomAd from "./BottomAd.vue"
 import ServiceAd from "./ServiceAd.vue"
+import ExtensionLinks from "./ExtensionLinks.vue"
 import "./style.css"
 
 export default {
@@ -17,5 +18,6 @@ export default {
   },
   enhanceApp({ app }) {
     app.component("ServiceAd", ServiceAd)
+    app.component("ExtensionLinks", ExtensionLinks)
   },
 }
