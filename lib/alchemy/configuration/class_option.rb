@@ -9,7 +9,7 @@ module Alchemy
         String
       end
 
-      def value = @value.constantize
+      def value = @value&.constantize
     end
   end
 end
