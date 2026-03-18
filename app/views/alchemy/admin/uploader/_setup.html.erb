@@ -1,8 +1,3 @@
 <script>
-  Alchemy.uploader_defaults = {
-    file_size_limit: <%= Alchemy.config.uploader.file_size_limit -%>,
-    upload_limit: <%= Alchemy.config.uploader.upload_limit -%>,
-    allowed_filetype_pictures: "<%= Alchemy.config.uploader.allowed_filetypes.alchemy_pictures.join(", ") -%>",
-    allowed_filetype_attachments: "<%= Alchemy.config.uploader.allowed_filetypes.alchemy_attachments.join(", ") -%>",
-  }
+  Alchemy.uploader_defaults = <%= Alchemy.config.uploader.to_json %>
 </script>

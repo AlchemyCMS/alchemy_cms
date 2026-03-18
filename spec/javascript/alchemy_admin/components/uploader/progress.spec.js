@@ -116,8 +116,10 @@ describe("alchemy-upload-progress", () => {
       uploader_defaults: {
         file_size_limit: 100,
         upload_limit: 50,
-        allowed_filetype_pictures: "webp, png, svg",
-        allowed_filetype_attachments: "*"
+        allowed_filetypes: {
+          alchemy_pictures: ["webp", "png", "svg"],
+          alchemy_attachments: ["*"]
+        }
       }
     }
   })

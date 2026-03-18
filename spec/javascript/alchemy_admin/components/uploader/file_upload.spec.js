@@ -88,8 +88,10 @@ describe("alchemy-file-upload", () => {
       uploader_defaults: {
         file_size_limit: 100,
         upload_limit: 50,
-        allowed_filetype_pictures: "webp, png, svg",
-        allowed_filetype_attachments: "*"
+        allowed_filetypes: {
+          alchemy_pictures: ["webp", "png", "svg"],
+          alchemy_attachments: ["*"]
+        }
       }
     }
     growl.mockClear()
@@ -400,8 +402,8 @@ describe("alchemy-file-upload", () => {
 
     beforeEach(() => {
       Alchemy.uploader_defaults.file_size_limit = 100
-      Alchemy.uploader_defaults.allowed_filetype_attachments = "*"
-      Alchemy.uploader_defaults.allowed_filetype_pictures = "webp, png, svg"
+      Alchemy.uploader_defaults.allowed_filetypes.alchemy_attachments = ["*"]
+      Alchemy.uploader_defaults.allowed_filetypes.alchemy_pictures = ["webp", "png", "svg"]
     })
 
     describe("file size", () => {
@@ -486,7 +488,7 @@ describe("alchemy-file-upload", () => {
 
         describe("allowed_filetype_pictures as wildcard", () => {
           beforeEach(() => {
-            Alchemy.uploader_defaults.allowed_filetype_pictures = "*"
+            Alchemy.uploader_defaults.allowed_filetypes.alchemy_pictures = ["*"]
             renderComponent(invalidImageFile)
           })
 
@@ -503,7 +505,7 @@ describe("alchemy-file-upload", () => {
 
         describe("allowed_filetype_attachments based of file types", () => {
           beforeEach(() => {
-            Alchemy.uploader_defaults.allowed_filetype_attachments = "txt, foo"
+            Alchemy.uploader_defaults.allowed_filetypes.alchemy_attachments = ["txt", "foo"]
             renderComponent(invalidFile)
           })
 
@@ -523,7 +525,7 @@ describe("alchemy-file-upload", () => {
 
         describe("allowed_filetype_attachments as wildcard", () => {
           beforeEach(() => {
-            Alchemy.uploader_defaults.allowed_filetype_attachments = "*"
+            Alchemy.uploader_defaults.allowed_filetypes.alchemy_attachments = ["*"]
             renderComponent(invalidFile)
           })
 
