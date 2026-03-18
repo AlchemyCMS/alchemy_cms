@@ -1,5 +1,16 @@
 # Changelog
 
+## 8.1.6 (2026-03-18)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
+
+## What's Changed
+### Other Changes
+* [8.1-stable] fix(ClassOption): Return nil if value is not present by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3759
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.1.5...v8.1.6
+
 ## 8.1.5 (2026-03-16)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
