@@ -1,4 +1,5 @@
 <div id="user_info">
   <%= current_alchemy_user_name %>
+  <%= render Alchemy::Admin::TimezoneSelect.new %>
   <%= render Alchemy::Admin::LocaleSelect.new %>
 </div>

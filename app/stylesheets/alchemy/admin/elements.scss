@@ -429,6 +429,16 @@ button.element-toggle {
       transform 1s ease-in;
   }
 
+  .alchemy-popover {
+    width: 360px;
+    padding-bottom: var(--spacing-0);
+
+    label {
+      margin-bottom: var(--spacing-1);
+      font-size: var(--font-size_small);
+    }
+  }
+
   .element-body {
     margin: var(--spacing-2);
   }
