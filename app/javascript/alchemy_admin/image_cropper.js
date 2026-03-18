@@ -6,13 +6,17 @@ export default class ImageCropper {
   #cropFromField = null
   #cropSizeField = null
 
-  constructor(image, defaultBox, aspectRatio, formFieldIds, elementId) {
+  constructor(image, settings) {
     this.image = image
-    this.defaultBox = defaultBox
-    this.aspectRatio = aspectRatio
-    this.#cropFromField = document.getElementById(formFieldIds[0])
-    this.#cropSizeField = document.getElementById(formFieldIds[1])
-    this.elementId = elementId
+    this.defaultBox = settings.default_box
+    this.aspectRatio = settings.ratio
+    this.#cropFromField = document.getElementById(
+      settings.crop_from_form_field_id
+    )
+    this.#cropSizeField = document.getElementById(
+      settings.crop_size_form_field_id
+    )
+    this.elementId = settings.element_id
     this.dialog = Alchemy.currentDialog()
     if (this.dialog) {
       this.dialog.options.closed = () => this.destroy()
