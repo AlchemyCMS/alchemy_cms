@@ -1,0 +1,5 @@
+<% if locked_pages.present? %>
+  <div id="locked_pages">
+    <%= render partial: 'alchemy/admin/pages/locked_page', collection: locked_pages %>
+  </div>
+<% end %>
