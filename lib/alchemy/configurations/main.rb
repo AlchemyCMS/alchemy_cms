@@ -434,6 +434,18 @@ module Alchemy
       # The path to the page showing the user they're unauthorized
       option :unauthorized_path, :string, default: "/"
 
+      # === Edit User Path
+      #
+      # The path to the edit user form.
+      #
+      # == Example
+      #
+      #     "/admin/users/:id/edit"
+      #
+      # NOTE: The :id placeholder will be replaced with the current_alchemy_user's id.
+      #
+      option :edit_user_path, :string
+
       # === CanCan abilities
       #
       # If your app or your engine has own CanCan abilities you must register them.
