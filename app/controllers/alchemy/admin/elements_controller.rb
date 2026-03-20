@@ -12,6 +12,10 @@ module Alchemy
       authorize_resource class: Alchemy::Element
 
       def index
+        if params[:preview_at].present?
+          Current.page_preview_at = Time.zone.parse(params[:preview_at])
+        end
+
         preloaded = Alchemy::ElementPreloader
           .new(page_version: @page_version)
           .call

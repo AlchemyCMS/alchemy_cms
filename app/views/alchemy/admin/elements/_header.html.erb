@@ -19,7 +19,7 @@
     </span>
   </span>
   <span class="element-status-icons">
-    <% unless element.public? || element.scheduled? %>
+    <% unless element.public?(Alchemy::Current.page_preview_at || Time.current) || element.scheduled? %>
       <%= render_icon("cloud-off", size: "1x") %>
       <span class="element-hidden-label">
         <%= Alchemy.t(:element_hidden) %>

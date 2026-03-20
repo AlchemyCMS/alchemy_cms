@@ -8,7 +8,7 @@ module Alchemy
       attr_reader :element, :created, :parent_element
 
       delegate :compact?, :definition, :fixed?, :folded?, :id, :ingredient_definitions,
-        :name, :nestable_elements, :all_nested_elements, :taggable?, :public?, :deprecated?,
+        :name, :nestable_elements, :all_nested_elements, :taggable?, :deprecated?,
         to: :element
 
       delegate :alchemy, :cannot?, :render_icon, :render_message, to: :helpers
@@ -17,6 +17,10 @@ module Alchemy
         @element = element
         @created = created
         @parent_element = parent_element
+      end
+
+      def public?
+        element.public?(Current.page_preview_at || Time.current)
       end
 
       # CSS classes for the element editor.

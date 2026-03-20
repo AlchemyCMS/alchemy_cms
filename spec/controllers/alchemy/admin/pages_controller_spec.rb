@@ -74,6 +74,25 @@ RSpec.describe Alchemy::Admin::PagesController do
     end
   end
 
+  describe "#edit" do
+    let(:page) { create(:alchemy_page) }
+
+    context "with preview_at parameter" do
+      it "sets Current.page_preview_at" do
+        preview_time = "2025-06-15T14:00:00"
+        get :edit, params: {id: page, preview_at: preview_time}
+        expect(Alchemy::Current.page_preview_at).to eq(Time.zone.parse(preview_time))
+      end
+    end
+
+    context "without preview_at parameter" do
+      it "does not set Current.page_preview_at" do
+        get :edit, params: {id: page}
+        expect(Alchemy::Current.page_preview_at).to be_nil
+      end
+    end
+  end
+
   describe "#show" do
     let(:page) { create(:alchemy_page) }
 

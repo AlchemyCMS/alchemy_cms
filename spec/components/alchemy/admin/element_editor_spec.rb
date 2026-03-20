@@ -52,6 +52,34 @@ RSpec.describe Alchemy::Admin::ElementEditor, type: :component do
     end
   end
 
+  describe "#public?" do
+    subject { element_editor.public? }
+
+    context "with a scheduled element" do
+      let(:element) { build_stubbed(:alchemy_element, public_on: 1.hour.from_now) }
+
+      it { is_expected.to be false }
+
+      context "with Current.page_preview_at set to after public_on" do
+        before { Alchemy::Current.page_preview_at = 2.hours.from_now }
+
+        it { is_expected.to be true }
+      end
+    end
+
+    context "with an expired element" do
+      let(:element) { build_stubbed(:alchemy_element, public_on: 2.hours.ago, public_until: 1.hour.ago) }
+
+      it { is_expected.to be false }
+
+      context "with Current.page_preview_at set to before public_until" do
+        before { Alchemy::Current.page_preview_at = 90.minutes.ago }
+
+        it { is_expected.to be true }
+      end
+    end
+  end
+
   describe "#css_classes" do
     subject { element_editor.css_classes }
 

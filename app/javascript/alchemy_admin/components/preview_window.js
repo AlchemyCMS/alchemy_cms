@@ -6,7 +6,6 @@ class PreviewWindow extends HTMLIFrameElement {
   #reloadIcon
   #loadTimeout
   #previewReadyHandler
-  #previewAt
 
   constructor() {
     super()
@@ -60,8 +59,7 @@ class PreviewWindow extends HTMLIFrameElement {
   refresh(url) {
     this.#startSpinner()
 
-    const targetUrl = url || this.url
-    this.src = this.#appendPreviewAt(targetUrl)
+    this.src = url || this.url
 
     // Set 5s timeout as fallback - if iframe doesn't load, stop spinner anyway
     this.#clearLoadTimeout()
@@ -104,18 +102,6 @@ class PreviewWindow extends HTMLIFrameElement {
       window.localStorage.setItem("alchemy-preview-url", url)
       this.refresh(url)
     })
-
-    document.addEventListener("preview-at-changed", (evt) => {
-      this.#previewAt = evt.detail.previewAt || null
-      this.refresh()
-    })
-  }
-
-  #appendPreviewAt(url) {
-    if (!this.#previewAt) return url
-
-    const separator = url.includes("?") ? "&" : "?"
-    return `${url}${separator}alchemy_preview_at=${encodeURIComponent(this.#previewAt)}`
   }
 
   #startSpinner() {

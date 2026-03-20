@@ -118,6 +118,10 @@ module Alchemy
         elsif page_needs_lock?
           @page.lock_to!(current_alchemy_user)
         end
+        if params[:preview_at].present?
+          @preview_at = Time.zone.parse(params[:preview_at])
+          Current.page_preview_at = @preview_at
+        end
         @preview_urls = Alchemy.config.preview_sources.map do |klass|
           [
             klass.model_name.human,

@@ -102,7 +102,7 @@
   <div class="toolbar_button">
     <sl-tooltip content="<%= Alchemy.t('Preview at') %>">
       <alchemy-preview-date-select>
-        <input type="datetime-local" title="<%= Alchemy.t('Preview at') %>" />
+        <input type="datetime-local" title="<%= Alchemy.t('Preview at') %>" value="<%= params[:preview_at] %>" />
       </alchemy-preview-date-select>
     </sl-tooltip>
   </div>
@@ -139,7 +139,7 @@
   title="<%= Alchemy.t("Page preview") %>">
 </iframe>
 
-<%= turbo_frame_tag "alchemy_elements_window", src: alchemy.admin_elements_path(page_version_id: @page_version.id) do %>
+<%= turbo_frame_tag "alchemy_elements_window", src: alchemy.admin_elements_path(page_version_id: @page_version.id, preview_at: params[:preview_at]) do %>
   <alchemy-spinner></alchemy-spinner>
 <% end %>
 
