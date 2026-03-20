@@ -1,0 +1,17 @@
+{
+  "name": "Alchemy CMS Development",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "web",
+  "workspaceFolder": "/workspace",
+  "postCreateCommand": "bundle install && bun install && cd spec/dummy && bin/rails db:prepare",
+  "forwardPorts": [3000],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Shopify.ruby-lsp",
+        "esbenp.prettier-vscode",
+        "vitest.explorer"
+      ]
+    }
+  }
+}
