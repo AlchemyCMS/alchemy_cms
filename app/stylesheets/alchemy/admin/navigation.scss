@@ -8,7 +8,7 @@
   margin-left: var(--main-menu-width);
   padding-right: var(--main-menu-width);
   z-index: 20;
-  width: 100vw;
+  width: 100%;
   height: var(--top-menu-height);
   @extend .disable-user-select;
 }
