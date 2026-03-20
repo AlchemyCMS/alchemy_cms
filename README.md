@@ -310,7 +310,18 @@ If you want to contribute to Alchemy ([and we encourage you to do so](CONTRIBUTI
 
 ### Preparation
 
-First of all you need to clone your fork to your local development machine. Then you need to install the dependencies with bundler.
+First of all you need to clone your fork to your local development machine.
+
+**Using Docker (recommended):**
+
+```bash
+$ docker compose build
+$ docker compose up
+```
+
+This starts the Rails dev server, Sass watcher, and JS bundle watcher. The dev server is available at http://localhost:3000.
+
+**Local setup:**
 
 ```bash
 $ bin/setup
