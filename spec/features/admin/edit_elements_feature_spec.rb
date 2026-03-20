@@ -205,7 +205,7 @@ RSpec.describe "The edit elements feature", type: :system do
       visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
       expect(page).to have_selector("alchemy-publish-element-button")
       find("alchemy-publish-element-button sl-button[slot=trigger]").click
-      within(".alchemy-popover") do
+      within("alchemy-publish-element-button .alchemy-popover") do
         expect(page).to have_selector("input[name='element[public_until]']")
         find("input[name='element[public_until]']", visible: :all).set(2.hours.from_now.strftime("%Y-%m-%d %H:%M"))
         click_button("Save")

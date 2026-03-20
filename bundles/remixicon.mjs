@@ -76,6 +76,7 @@ const icons = [
   "Finance/price-tag-3-line",
   "Finance/shopping-cart-line",
   "Finance/ticket-line",
+  "Map/time-zone-line",
   "Media/camera-line",
   "Media/image-add-line",
   "Media/image-line",

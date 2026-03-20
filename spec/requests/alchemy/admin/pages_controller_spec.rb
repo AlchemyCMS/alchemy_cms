@@ -271,6 +271,16 @@ module Alchemy
             end
           end
         end
+
+        context "scheduling with timezone" do
+          it "converts datetime-local values from user timezone to UTC" do
+            patch admin_page_path(page, format: :turbo_stream),
+              params: {admin_timezone: "Hawaii", page: {public_on: "2026-06-15T10:00"}}
+
+            # Hawaii is UTC-10, so 10:00 HST should be stored as 20:00 UTC
+            expect(page.reload.public_on).to eq(Time.utc(2026, 6, 15, 20, 0))
+          end
+        end
       end
 
       describe "#create" do

@@ -44,6 +44,19 @@ RSpec.describe Alchemy::Admin::ElementsController do
         end
       end
     end
+
+    context "scheduling with timezone" do
+      let(:element) { create(:alchemy_element) }
+
+      it "converts datetime-local values from user timezone to UTC" do
+        patch publish_admin_element_path(id: element.id, format: :turbo_stream),
+          params: {admin_timezone: "Hawaii", element: {public_on: "2026-06-15T10:00"}}
+
+        expect(response).to have_http_status(:ok)
+        # Hawaii is UTC-10, so 10:00 HST should be stored as 20:00 UTC
+        expect(element.reload.public_on).to eq(Time.utc(2026, 6, 15, 20, 0))
+      end
+    end
   end
 
   describe "#update" do

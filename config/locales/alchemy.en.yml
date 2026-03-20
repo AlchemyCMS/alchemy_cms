@@ -687,6 +687,7 @@ en:
     width: "Width"
     without_tag: "Without tag"
     you_can_rename_this_tag: "You can rename this tag"
+    timezone: "Timezone"
     zoom_image: "Zoom this image"
     "Leave Alchemy": "Leave Alchemy"
     leave: "Leave"

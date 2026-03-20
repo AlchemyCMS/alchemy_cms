@@ -44,52 +44,9 @@
       <p><%= Alchemy.t(:javascript_disabled_text) %></p>
     </noscript>
     <alchemy-overlay text="<%= Alchemy.t(:please_wait) %>"></alchemy-overlay>
-    <div id="left_menu">
-      <div id="main_navi">
-        <% sorted_alchemy_modules.each do |alchemy_module| %>
-          <%= alchemy_main_navigation_entry(alchemy_module) %>
-        <% end %>
-        <%= yield(:alchemy_main_navigation) %>
-      </div>
-
-      <div id="logout">
-        <div class="main_navi_entry">
-          <% if current_alchemy_user %>
-            <%= link_to_dialog(
-              %(
-                #{render_icon('logout-box-r', class: 'module')}
-                <label>#{Alchemy.t(:leave)}</label>
-              ).html_safe,
-              alchemy.leave_admin_path, {
-                size: "320x140",
-                title: Alchemy.t("Leave Alchemy")
-            }, {'data-alchemy-hotkey' => 'alt+q'}) %>
-          <% else %>
-            <%= link_to(alchemy.root_path) do %>
-              <%= render_icon "logout-box-r", size: "lg" %>
-              <label><%= Alchemy.t(:leave) %></label>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
-    </div>
+    <%= render "alchemy/admin/left_menu" %>
     <% if current_alchemy_user %>
-    <div id="top_menu">
-      <div id="header">
-        <% if @locked_pages.present? %>
-          <div id="locked_pages">
-            <%= render partial: 'alchemy/admin/pages/locked_page', collection: @locked_pages %>
-          </div>
-        <% end %>
-        <div id="user_info">
-          <%= current_alchemy_user_name %>
-          <%= render Alchemy::Admin::LocaleSelect.new %>
-        </div>
-      </div>
-      <div id="toolbar">
-        <%= yield(:toolbar) %>
-      </div>
-    </div>
+      <%= render "alchemy/admin/top_menu", locked_pages: @locked_pages %>
     <% end %>
     <%= render 'alchemy/admin/partials/flash_notices' %>
     <div id="main_content">

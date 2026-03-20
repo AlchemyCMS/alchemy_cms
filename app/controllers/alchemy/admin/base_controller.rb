@@ -5,6 +5,7 @@ module Alchemy
     class BaseController < Alchemy::BaseController
       include Userstamp
       include Locale
+      include Timezone
 
       before_action :load_locked_pages
 
