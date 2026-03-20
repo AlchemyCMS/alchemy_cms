@@ -178,21 +178,16 @@ module Alchemy
     describe "#current_alchemy_user_name" do
       subject { helper.current_alchemy_user_name }
 
-      before { expect(helper).to receive(:current_alchemy_user).and_return(user) }
+      let(:user) { double("User", alchemy_display_name: "Peter Schroeder") }
 
-      context "with a user having a `alchemy_display_name` method" do
-        let(:user) { double("User", alchemy_display_name: "Peter Schroeder") }
-
-        it "Returns a span showing the name of the currently logged in user." do
-          is_expected.to have_content("Peter Schroeder")
-          is_expected.to have_selector("span.current-user-name")
-        end
+      before do
+        expect(helper).to receive(:current_alchemy_user).and_return(user)
+        allow(helper).to receive(:render).with(instance_of(Alchemy::Admin::CurrentUserName))
       end
 
-      context "with a user not having a `alchemy_display_name` method" do
-        let(:user) { double("User", name: "Peter Schroeder") }
-
-        it { is_expected.to be_nil }
+      it "renders the Alchemy::Admin::CurrentUserName component", :silence_deprecations do
+        subject
+        expect(helper).to have_received(:render).with(instance_of(Alchemy::Admin::CurrentUserName))
       end
     end
 
