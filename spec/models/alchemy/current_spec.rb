@@ -105,6 +105,18 @@ RSpec.describe Alchemy::Current do
     end
   end
 
+  describe ".page_preview_at" do
+    it "stores a preview time" do
+      time = Time.zone.parse("2025-06-15 14:00:00")
+      described_class.page_preview_at = time
+      expect(described_class.page_preview_at).to eq(time)
+    end
+
+    it "defaults to nil" do
+      expect(described_class.page_preview_at).to be_nil
+    end
+  end
+
   describe ".preview_page?" do
     context "with Current.page being Current.preview_page" do
       it "returns true" do

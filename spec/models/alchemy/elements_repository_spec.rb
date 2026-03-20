@@ -37,6 +37,17 @@ RSpec.describe Alchemy::ElementsRepository do
     end
 
     it_behaves_like "being chainable"
+
+    context "with at: keyword" do
+      let(:future_element) do
+        build_stubbed(:alchemy_element, public_on: 2.days.from_now, public_until: nil)
+      end
+      let(:elements) { [visible_element, hidden_element, future_element] }
+
+      it "uses the given time to determine visibility" do
+        expect(repo.visible(at: 3.days.from_now)).to match_array([visible_element, future_element])
+      end
+    end
   end
 
   describe "#hidden" do
@@ -47,6 +58,17 @@ RSpec.describe Alchemy::ElementsRepository do
     end
 
     it_behaves_like "being chainable"
+
+    context "with at: keyword" do
+      let(:expired_element) do
+        build_stubbed(:alchemy_element, public_on: 3.days.ago, public_until: 1.day.ago)
+      end
+      let(:elements) { [visible_element, expired_element] }
+
+      it "uses the given time to determine visibility" do
+        expect(repo.hidden(at: 2.days.ago)).to match_array([])
+      end
+    end
   end
 
   describe "#named" do

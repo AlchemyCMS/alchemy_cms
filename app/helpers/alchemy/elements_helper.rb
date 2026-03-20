@@ -76,6 +76,8 @@ module Alchemy
         render_format: "html"
       }.update(options)
 
+      options[:public_at] ||= Current.page_preview_at
+
       finder = options[:finder] || Alchemy::ElementsFinder.new(options)
 
       page_version = if Current.preview_page?

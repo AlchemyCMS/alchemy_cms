@@ -174,6 +174,42 @@ describe("alchemy-preview-window", () => {
       expect(growlSpy).not.toHaveBeenCalled()
     })
 
+    it("appends alchemy_preview_at parameter when preview-at-changed event is fired", () => {
+      previewWindow.refresh()
+      previewWindow.dispatchEvent(new Event("load"))
+
+      document.dispatchEvent(
+        new CustomEvent("preview-at-changed", {
+          bubbles: true,
+          detail: { previewAt: "2025-06-15T14:00:00Z" }
+        })
+      )
+
+      expect(previewWindow.src).toContain(
+        "alchemy_preview_at=2025-06-15T14%3A00%3A00Z"
+      )
+    })
+
+    it("refreshes without alchemy_preview_at when cleared", () => {
+      // Set a preview_at first
+      document.dispatchEvent(
+        new CustomEvent("preview-at-changed", {
+          bubbles: true,
+          detail: { previewAt: "2025-06-15T14:00:00Z" }
+        })
+      )
+
+      // Clear it
+      document.dispatchEvent(
+        new CustomEvent("preview-at-changed", {
+          bubbles: true,
+          detail: { previewAt: "" }
+        })
+      )
+
+      expect(previewWindow.src).not.toContain("alchemy_preview_at")
+    })
+
     it("prefers postMessage over timeout when both occur", () => {
       const originalContent = reloadButton.innerHTML
 

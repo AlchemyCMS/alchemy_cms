@@ -100,6 +100,13 @@
     </div>
   <% end %>
   <div class="toolbar_button">
+    <sl-tooltip content="<%= Alchemy.t('Preview at') %>">
+      <alchemy-preview-date-select>
+        <input type="datetime-local" title="<%= Alchemy.t('Preview at') %>" />
+      </alchemy-preview-date-select>
+    </sl-tooltip>
+  </div>
+  <div class="toolbar_button">
     <sl-tooltip content="<%= Alchemy.t('Reload Preview') %>">
       <%= link_to render_icon(:refresh), nil, {
         class: 'icon_button',

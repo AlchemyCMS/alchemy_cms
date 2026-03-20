@@ -17,9 +17,10 @@ module Alchemy
     end
 
     # All visible elements
+    # @param at [DateTime] (Time.current)
     # @return [Alchemy::ElementRepository]
-    def visible
-      self.class.new select(&:public)
+    def visible(at: Time.current)
+      self.class.new(select { |e| e.public?(at) })
     end
 
     # All publishable elements
@@ -28,10 +29,11 @@ module Alchemy
       self.class.new select(&:publishable?)
     end
 
-    # All not fixed elements
+    # All not visible elements
+    # @param at [DateTime] (Time.current)
     # @return [Alchemy::ElementRepository]
-    def hidden
-      self.class.new reject(&:public)
+    def hidden(at: Time.current)
+      self.class.new(reject { |e| e.public?(at) })
     end
 
     # All elements with given name(s)

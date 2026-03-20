@@ -54,7 +54,8 @@ module Alchemy
     def find_elements(page_version)
       return Alchemy::ElementsRepository.none unless page_version
 
-      elements = page_version.element_repository.visible.not_nested
+      at = options[:public_at] || Time.current
+      elements = page_version.element_repository.visible(at:).not_nested
       elements = options[:fixed] ? elements.fixed : elements.unfixed
 
       if options[:only]
