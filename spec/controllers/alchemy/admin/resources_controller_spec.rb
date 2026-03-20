@@ -85,7 +85,23 @@ RSpec.describe Alchemy::Admin::ResourcesController do
         end
       end
     end
+
+    describe "searching for records with multiple associated records" do
+      controller(Admin::LocationsController) {}
+
+      let(:bauwagen) { create(:location, name: "Bauwagen") }
+      let!(:peter) { create(:event, name: "Peter", location: bauwagen) }
+      let!(:lustig) { create(:event, name: "Lustig", location: bauwagen) }
+
+      it "returns only one bauwagen" do
+        get :index, params: { q: {events_name_cont: "t"}}
+        expect(response).to be_successful
+        expect(assigns(:locations)).to eq([bauwagen])
+      end
+    end
   end
+
+
 
   describe "#update" do
     let(:params) { {q: {description_or_hidden_name_or_location_name_or_name_cont: "some_query"}, page: 6} }

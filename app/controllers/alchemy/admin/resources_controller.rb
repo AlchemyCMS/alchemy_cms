@@ -27,7 +27,7 @@ module Alchemy
 
         respond_to do |format|
           format.html do
-            items = items.page(params[:page] || 1).per(items_per_page)
+            items = items.distinct.page(params[:page] || 1).per(items_per_page)
             instance_variable_set(:"@#{resources_name}", items)
           end
           format.csv do
