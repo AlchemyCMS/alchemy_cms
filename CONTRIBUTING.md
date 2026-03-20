@@ -56,6 +56,14 @@ taken straight from the Ruby on Rails guide:
 * Update the documentation, the surrounding one, examples elsewhere, guides,
   whatever is affected by your contribution
 
+### JavaScript changes
+
+If you modify JavaScript source files under `app/javascript/alchemy_admin/`, you must rebuild the bundle and commit the artifact:
+
+    $ bun run build:admin
+
+Commit the updated `app/assets/builds/alchemy/alchemy_admin.min.js` alongside your source changes. For local development, `bin/start` runs the watch process automatically.
+
 Please follow these syntax guides:
 
 * Two spaces, no tabs.

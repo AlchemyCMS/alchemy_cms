@@ -72,8 +72,8 @@
 
 <% content_for :javascripts do %>
   <script type="module">
-    import ImageOverlay from "alchemy_admin/image_overlay";
-    import pictureSelector from "alchemy_admin/picture_selector";
+    import { ImageOverlay } from "alchemy_admin/image_overlay";
+    import { pictureSelector } from "alchemy_admin/picture_selector";
     import { on } from "alchemy_admin/utils/events";
 
     pictureSelector();

@@ -12,5 +12,10 @@ pin "shoelace", to: "shoelace.min.js", preload: true
 pin "@rails/ujs", to: "rails-ujs.min.js", preload: true # @7.1.2
 pin "tinymce", to: "tinymce.min.js", preload: true
 
-pin "alchemy_admin", to: "alchemy_admin.js", preload: true
-pin_all_from File.expand_path("../app/javascript/alchemy_admin", __dir__), under: "alchemy_admin", preload: true
+pin "alchemy_admin", to: "alchemy/alchemy_admin.min.js", preload: true
+pin "alchemy_admin/components/remote_select", to: "alchemy/alchemy_admin.min.js"
+pin "alchemy_admin/image_cropper", to: "alchemy/alchemy_admin.min.js"
+pin "alchemy_admin/image_overlay", to: "alchemy/alchemy_admin.min.js"
+pin "alchemy_admin/picture_selector", to: "alchemy/alchemy_admin.min.js"
+pin "alchemy_admin/node_tree", to: "alchemy/alchemy_admin.min.js"
+pin "alchemy_admin/utils/events", to: "alchemy/alchemy_admin.min.js"
