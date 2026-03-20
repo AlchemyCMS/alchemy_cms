@@ -1,0 +1,37 @@
+name: alchemy_cms
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+    command: bash -c "cd spec/dummy && bin/rails db:prepare && bin/rails server -b 0.0.0.0"
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/workspace
+      - node_modules:/workspace/node_modules
+    depends_on:
+      - css
+      - js
+
+  css:
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+    command: bun run --bun build:css --watch
+    volumes:
+      - .:/workspace
+      - node_modules:/workspace/node_modules
+
+  js:
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+    command: bun run --bun build:admin:dev
+    volumes:
+      - .:/workspace
+      - node_modules:/workspace/node_modules
+
+volumes:
+  node_modules:
