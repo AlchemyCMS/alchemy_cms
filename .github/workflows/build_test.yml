@@ -78,14 +78,40 @@ jobs:
           name: bun-lock
           path: bun.lock
 
+  check_build_artifacts:
+    permissions:
+      contents: read
+    runs-on: ubuntu-24.04
+    name: Check build artifacts are up to date
+    steps:
+      - uses: actions/checkout@v6
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+      - name: Restore node_modules cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('package.json', 'bun.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules
+      - name: Install dependencies
+        run: bun install
+      - name: Build all artifacts
+        run: bun run --bun build
+      - name: Check for uncommitted changes
+        run: |
+          git diff --exit-code app/assets/builds/alchemy/alchemy_admin.min.js || (echo "ERROR: alchemy_admin.min.js is out of date. Run 'bun run build:admin' and commit the result." && exit 1)
+          git diff --exit-code app/assets/builds/alchemy/admin.css || (echo "ERROR: admin.css is out of date. Run 'bun run build:css' and commit the result." && exit 1)
+
   RSpec:
     permissions:
       contents: read
-    needs: [check_package_json, build_javascript, check_bot_commit]
+    needs: [check_package_json, build_javascript, check_bot_commit, check_build_artifacts]
     if: >
       always() &&
       needs.check_bot_commit.outputs.is_bot != 'true' &&
-      (needs.build_javascript.result == 'success' || needs.build_javascript.result == 'skipped')
+      (needs.build_javascript.result == 'success' || needs.build_javascript.result == 'skipped') &&
+      needs.check_build_artifacts.result == 'success'
     runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
@@ -229,11 +255,12 @@ jobs:
     permissions:
       contents: read
     runs-on: ubuntu-24.04
-    needs: [check_package_json, build_javascript, check_bot_commit]
+    needs: [check_package_json, build_javascript, check_bot_commit, check_build_artifacts]
     if: >
       always() &&
       needs.check_bot_commit.outputs.is_bot != 'true' &&
-      (needs.build_javascript.result == 'success' || needs.build_javascript.result == 'skipped')
+      (needs.build_javascript.result == 'success' || needs.build_javascript.result == 'skipped') &&
+      needs.check_build_artifacts.result == 'success'
     env:
       NODE_ENV: test
     steps:
@@ -259,14 +286,14 @@ jobs:
   build-test-success:
     name: "Build & Test Success"
     if: always()
-    needs: [check_bot_commit, RSpec, Vitest]
+    needs: [check_bot_commit, RSpec, Vitest, check_build_artifacts]
     runs-on: ubuntu-latest
     permissions:
       contents: read
     steps:
       - name: Check results
         run: |
-          for result in "${{ needs.RSpec.result }}" "${{ needs.Vitest.result }}"; do
+          for result in "${{ needs.RSpec.result }}" "${{ needs.Vitest.result }}" "${{ needs.check_build_artifacts.result }}"; do
             if [[ "$result" != "success" && "$result" != "skipped" ]]; then
               echo "Failed: $result"
               exit 1
