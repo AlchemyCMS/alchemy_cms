@@ -253,7 +253,7 @@ RSpec.describe "Picture Library", type: :system do
       visit alchemy.admin_pictures_path
       page.find("#picture_#{picture_a.id} > a").click
       page.find(".next-picture").click
-      expect(page).to have_field("Name")
+      expect(page).to have_field("Name", with: "B Picture")
       fill_in "Name", with: "my-amazing-image"
       click_button "Save"
       within "#flash_notices" do
