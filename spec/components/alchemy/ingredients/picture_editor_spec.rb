@@ -79,6 +79,8 @@ RSpec.describe Alchemy::Ingredients::PictureEditor, type: :component do
   end
 
   context "with image cropping enabled" do
+    let(:settings) { {crop: true, size: "400x300"} }
+
     before do
       allow(ingredient).to receive(:allow_image_cropping?) { true }
     end
@@ -93,6 +95,22 @@ RSpec.describe Alchemy::Ingredients::PictureEditor, type: :component do
 
     it "has crop_size hidden field" do
       is_expected.to have_selector("input[type=\"hidden\"][id=\"#{ingredient_editor.form_field_id(:crop_size)}\"]")
+    end
+  end
+
+  context "with crop configured but no picture assigned" do
+    let(:settings) { {crop: true, size: "400x300"} }
+
+    before do
+      allow(ingredient).to receive(:allow_image_cropping?) { false }
+    end
+
+    it "renders crop link as a dialog link so it works after picture assignment" do
+      is_expected.to have_selector('a.crop_link[is="alchemy-dialog-link"][href*="crop"]')
+    end
+
+    it "renders crop link as disabled" do
+      is_expected.to have_selector("a.crop_link.disabled")
     end
   end
 
