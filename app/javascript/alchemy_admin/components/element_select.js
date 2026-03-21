@@ -2,17 +2,19 @@ import { hightlightTerm } from "alchemy_admin/components/remote_select"
 
 const formatSelection = (option) => {
   return `
-    <div class="element-select-name">${option.icon} ${option.name}</div>
+    <div class="element-select-name">
+      ${option.icon}<span>${option.text}</span>
+    </div>
   `
 }
 
-const formatItem = (icon, name, hint) => {
+const formatItem = (icon, text, hint) => {
   const description = hint
     ? `<div class="element-select-description">${hint}</div>`
     : ""
   return `
     <div class="element-select-item">
-      ${formatSelection({ icon, name })}
+      ${formatSelection({ icon, text })}
       ${description}
     </div>
   `
@@ -34,11 +36,11 @@ class ElementSelect extends HTMLElement {
       formatResult: (option, _el, search) => {
         let text
 
-        if (option.id === "") return option.name
+        if (option.id === "") return option.text
         if (search.term !== "") {
-          text = hightlightTerm(option.name, search.term)
+          text = hightlightTerm(option.text, search.term)
         } else {
-          text = option.name
+          text = option.text
         }
 
         return formatItem(option.icon, text, option.hint)
