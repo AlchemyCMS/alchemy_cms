@@ -1,10 +1,11 @@
 <% linkable = picture_editor.settings[:linkable] != false %>
 <% croppable = picture_editor.allow_image_cropping? %>
+<% crop_configured = !!picture_editor.settings[:crop] %>
 <% disabled = cannot?(:edit, picture_editor.ingredient) %>
 
 <%= content_tag "sl-tooltip", content: Alchemy.t("Edit Picturemask"), placement: "top-start", disabled: !croppable || disabled do %>
   <%= link_to_dialog render_icon(:crop),
-    (croppable && !disabled) ? alchemy.crop_admin_ingredient_path(picture_editor.ingredient, {
+    (crop_configured && !disabled) ? alchemy.crop_admin_ingredient_path(picture_editor.ingredient, {
       crop_from_form_field_id: picture_editor.form_field_id(:crop_from),
       crop_size_form_field_id: picture_editor.form_field_id(:crop_size),
       picture_id: picture_editor.picture&.id
@@ -14,7 +15,7 @@
       image_loader: false,
       padding: false
     }, {
-      class: "crop_link icon_button"
+      class: ["crop_link icon_button", ("disabled" unless croppable)].compact.join(" ")
     } %>
 <% end %>
 
