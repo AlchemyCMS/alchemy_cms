@@ -1,5 +1,19 @@
 # Changelog
 
+## 8.1.7 (2026-03-23)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
+
+## What's Changed
+### Other Changes
+* [8.1-stable] Fix top_menu width by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3763
+* [8.1-stable] Fix flaky picture library update spec by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3775
+* [8.1-stable] Fix element select search filtering by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3777
+* [8.1-stable] Fix picture crop dialog link not opening for newly assigned pictures by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3778
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.1.6...v8.1.7
+
 ## 8.1.6 (2026-03-18)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
