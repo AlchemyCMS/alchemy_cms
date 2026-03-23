@@ -59,5 +59,33 @@
     - menu
   layoutpage: true
 
+- name: product_detail
+  url_pattern: ":id"
+  url_constraints: integer
+  elements: [article]
+
+- name: user_profile
+  url_pattern: ":uuid/profile"
+  url_constraints:
+    uuid: "uuid"
+  elements: [article]
+
+- name: blog_post
+  url_pattern: ":year/:slug"
+  url_constraints:
+    year: "integer"
+    slug: "string"
+  elements: [article]
+
+- name: product_by_slug
+  url_pattern: ":slug"
+  elements: [article]
+
+- name: product_by_sku
+  url_pattern: ":sku"
+  url_constraints:
+    sku: !ruby/regexp /\A[A-Z]{2}-\d{4}\z/
+  elements: [article]
+
 - name: <%= 'erb_' + 'layout' %>
   unique: true
