@@ -1,3 +1,4 @@
 web: env RUBY_DEBUG_OPEN=true bin/rails server
 css: bin/rails dartsass:watch
 sass: cd ../../ && bun run --bun build:css --watch
+js: cd ../../ && bun run --bun build:admin:dev

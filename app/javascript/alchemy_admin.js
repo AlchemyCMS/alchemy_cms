@@ -2,7 +2,7 @@
 import "handlebars"
 import "jquery"
 import "@ungap/custom-elements"
-import "@hotwired/turbo-rails"
+import { Turbo } from "@hotwired/turbo-rails"
 import "select2"
 
 import Rails from "@rails/ujs"
@@ -50,3 +50,13 @@ Object.assign(Alchemy, {
 Rails.start()
 Turbo.config.forms.confirm = openConfirmDialog
 document.addEventListener("turbo:load", Initializer)
+
+// Public API for extensions
+export { RemoteSelect } from "alchemy_admin/components/remote_select"
+export { on } from "alchemy_admin/utils/events"
+
+// Page-specific modules - bundled to avoid dual-loading
+export { default as ImageCropper } from "alchemy_admin/image_cropper"
+export { default as ImageOverlay } from "alchemy_admin/image_overlay"
+export { default as pictureSelector } from "alchemy_admin/picture_selector"
+export { default as NodeTree } from "alchemy_admin/node_tree"
