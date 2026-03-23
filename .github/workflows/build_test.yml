@@ -20,17 +20,17 @@ jobs:
   check_bot_commit:
     uses: ./.github/workflows/check-bot-commit.yml
 
-  check_package_json:
+  check_assets_changes:
     permissions:
       contents: read
     runs-on: ubuntu-24.04
-    name: Check package.json
+    name: Check assets changes
     steps:
       - uses: actions/checkout@v6
         with:
           fetch-depth: 0 # Fetch all history
       - name: Get changed files
-        id: changed-package-json
+        id: changed-files
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             BASE_SHA="${{ github.event.pull_request.base.sha }}"
@@ -39,21 +39,21 @@ jobs:
           fi
           git diff --name-only "$BASE_SHA" ${{ github.sha }} > changed_files
           cat changed_files
-          if grep -q package.json changed_files; then
+          if grep -qE '(package\.json|^app/javascript/|^app/stylesheets/)' changed_files; then
             echo "any_changed=true" > $GITHUB_OUTPUT
           else
             echo "any_changed=false" > $GITHUB_OUTPUT
           fi
     outputs:
-      package_json_changed: ${{ steps.changed-package-json.outputs.any_changed }}
+      assets_changed: ${{ steps.changed-files.outputs.any_changed }}
 
   build_javascript:
     permissions:
       contents: read
     runs-on: ubuntu-24.04
     name: Build JS packages
-    needs: check_package_json
-    if: needs.check_package_json.outputs.package_json_changed == 'true'
+    needs: check_assets_changes
+    if: needs.check_assets_changes.outputs.assets_changed == 'true'
     steps:
       - uses: actions/checkout@v6
       - name: Setup Bun
@@ -71,47 +71,20 @@ jobs:
         run: bun run --bun build
       - uses: actions/upload-artifact@v4
         with:
-          name: javascript-bundles
-          path: vendor/javascript
-      - uses: actions/upload-artifact@v4
-        with:
-          name: bun-lock
-          path: bun.lock
-
-  check_build_artifacts:
-    permissions:
-      contents: read
-    runs-on: ubuntu-24.04
-    name: Check build artifacts are up to date
-    steps:
-      - uses: actions/checkout@v6
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-      - name: Restore node_modules cache
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('package.json', 'bun.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-modules
-      - name: Install dependencies
-        run: bun install
-      - name: Build all artifacts
-        run: bun run --bun build
-      - name: Check for uncommitted changes
-        run: |
-          git diff --exit-code app/assets/builds/alchemy/alchemy_admin.min.js || (echo "ERROR: alchemy_admin.min.js is out of date. Run 'bun run build:admin' and commit the result." && exit 1)
-          git diff --exit-code app/assets/builds/alchemy/admin.css || (echo "ERROR: admin.css is out of date. Run 'bun run build:css' and commit the result." && exit 1)
+          name: build-artifacts
+          path: |
+            vendor/javascript
+            app/assets/builds/alchemy/
+            bun.lock
 
   RSpec:
     permissions:
       contents: read
-    needs: [check_package_json, build_javascript, check_bot_commit, check_build_artifacts]
+    needs: [check_assets_changes, build_javascript, check_bot_commit]
     if: >
       always() &&
       needs.check_bot_commit.outputs.is_bot != 'true' &&
-      (needs.build_javascript.result == 'success' || needs.build_javascript.result == 'skipped') &&
-      needs.check_build_artifacts.result == 'success'
+      (needs.build_javascript.result == 'success' || needs.build_javascript.result == 'skipped')
     runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
@@ -225,10 +198,9 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -qq --fix-missing imagemagick
       - uses: actions/download-artifact@v4
-        if: needs.check_package_json.outputs.package_json_changed == 'true'
+        if: needs.check_assets_changes.outputs.assets_changed == 'true'
         with:
-          name: javascript-bundles
-          path: vendor/javascript
+          name: build-artifacts
       - name: Prepare database
         run: |
           bundle exec rake alchemy:spec:prepare
@@ -255,12 +227,11 @@ jobs:
     permissions:
       contents: read
     runs-on: ubuntu-24.04
-    needs: [check_package_json, build_javascript, check_bot_commit, check_build_artifacts]
+    needs: [check_assets_changes, build_javascript, check_bot_commit]
     if: >
       always() &&
       needs.check_bot_commit.outputs.is_bot != 'true' &&
-      (needs.build_javascript.result == 'success' || needs.build_javascript.result == 'skipped') &&
-      needs.check_build_artifacts.result == 'success'
+      (needs.build_javascript.result == 'success' || needs.build_javascript.result == 'skipped')
     env:
       NODE_ENV: test
     steps:
@@ -268,9 +239,9 @@ jobs:
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
       - uses: actions/download-artifact@v4
-        if: needs.check_package_json.outputs.package_json_changed == 'true'
+        if: needs.check_assets_changes.outputs.assets_changed == 'true'
         with:
-          name: bun-lock
+          name: build-artifacts
       - name: Restore node modules cache
         uses: actions/cache@v4
         with:
@@ -286,16 +257,55 @@ jobs:
   build-test-success:
     name: "Build & Test Success"
     if: always()
-    needs: [check_bot_commit, RSpec, Vitest, check_build_artifacts]
+    needs: [check_bot_commit, RSpec, Vitest]
     runs-on: ubuntu-latest
     permissions:
       contents: read
     steps:
       - name: Check results
         run: |
-          for result in "${{ needs.RSpec.result }}" "${{ needs.Vitest.result }}" "${{ needs.check_build_artifacts.result }}"; do
+          for result in "${{ needs.RSpec.result }}" "${{ needs.Vitest.result }}"; do
             if [[ "$result" != "success" && "$result" != "skipped" ]]; then
               echo "Failed: $result"
               exit 1
             fi
           done
+
+  push_assets:
+    name: Push build artifacts
+    needs: [check_assets_changes, build_javascript, build-test-success]
+    if: >
+      needs.check_assets_changes.outputs.assets_changed == 'true' &&
+      needs.build_javascript.result == 'success' &&
+      needs.build-test-success.result == 'success' &&
+      github.event_name == 'pull_request'
+    permissions:
+      contents: write
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Generate token
+        id: generate_token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.ALCHEMY_BOT_APP_ID }}
+          private-key: ${{ secrets.ALCHEMY_BOT_APP_PRIVATE_KEY }}
+      - uses: actions/checkout@v6
+        with:
+          token: ${{ steps.generate_token.outputs.token }}
+          ref: ${{ github.head_ref }}
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+      - name: Check for changes
+        id: git-status
+        run: git diff --quiet vendor/javascript app/assets/builds/alchemy/ bun.lock || echo "changed=true" >> $GITHUB_OUTPUT
+      - name: Commit and push
+        if: steps.git-status.outputs.changed == 'true'
+        run: |
+          git config --local user.name 'AlchemyCMS - CI Bot'
+          git config --local user.email 'alchemy@blish.cloud'
+          git add vendor/javascript app/assets/builds/alchemy/ bun.lock
+          git commit -m "Update build artifacts" -m "Rebuilt assets after source or dependency changes."
+          git push https://x-access-token:${{ steps.generate_token.outputs.token }}@github.com/${{ github.repository }}.git HEAD:${{ github.head_ref }}
