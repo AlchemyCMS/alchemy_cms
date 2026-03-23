@@ -105,15 +105,6 @@ module Alchemy
       end
     end
 
-    context "with two unconstrained sibling pages of the same layout" do
-      let!(:second_product_by_slug_page) { create_page(name: "Second Product By Slug", layout: "product_by_slug", parent: products_page) }
-
-      it "matches the first sibling returned by the database" do
-        matcher = described_class.new("products/widget")
-        expect(matcher.page).to eq(product_by_slug_page)
-      end
-    end
-
     context "with competing sibling patterns of different segment counts" do
       let!(:shared_page) { create_page(name: "Shared") }
       let!(:multi_segment_page) { create_page(name: "Multi Segment", layout: "blog_post", parent: shared_page) }

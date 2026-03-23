@@ -67,14 +67,19 @@ module Alchemy
       end
 
       # Returns the full nested urlname.
-      #
+      # Uses the url_pattern from the page definition if present,
+      # otherwise converts the slug or name to a url-friendly string.
       def nested_url_name
-        converted_url_name = convert_to_urlname(slug.blank? ? name : slug)
+        url_part = page_layout_url_pattern || convert_to_urlname(slug.blank? ? name : slug)
         if parent&.language_root?
-          converted_url_name
+          url_part
         else
-          [parent&.urlname, converted_url_name].compact.join("/")
+          [parent&.urlname, url_part].compact.join("/")
         end
+      end
+
+      def page_layout_url_pattern
+        @_page_layout_url_pattern ||= PageDefinition.get(page_layout)&.url_pattern
       end
     end
   end
