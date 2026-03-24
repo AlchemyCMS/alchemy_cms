@@ -10,7 +10,7 @@ RSpec.describe Alchemy::UpdateChecks::AlchemyApp, type: :model do
 
     context "requesting update-check endpoint" do
       before do
-        stub_request(:post, "https://app.alchemy-cms.com/update-check")
+        stub_request(:post, "https://www.alchemy-cms.com/update-check")
           .to_return(
             status: 200,
             body: {latest_version: "2.6.0"}.to_json,
@@ -25,7 +25,7 @@ RSpec.describe Alchemy::UpdateChecks::AlchemyApp, type: :model do
 
     context "if update-check endpoint is unavailable" do
       before do
-        stub_request(:post, "https://app.alchemy-cms.com/update-check").to_return(status: 503)
+        stub_request(:post, "https://www.alchemy-cms.com/update-check").to_return(status: 503)
       end
 
       it "should raise error" do
