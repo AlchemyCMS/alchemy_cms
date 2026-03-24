@@ -17,15 +17,12 @@ module Alchemy
       #
       # In order to represent your own +User+'s class instance,
       # you should add a +alchemy_display_name+ method to your +User+ class
-      #
+      # @deprecated Use the +CurrentAlchemyUserName+ component instead.
       def current_alchemy_user_name
-        name = current_alchemy_user.try(:alchemy_display_name)
-        if name.present?
-          content_tag :span, class: "current-user-name" do
-            "#{render_icon(:user, size: "1x")} #{name}".html_safe
-          end
-        end
+        render Alchemy::Admin::CurrentUserName.new(user: current_alchemy_user)
       end
+      deprecate current_alchemy_user_name: "Use the Alchemy::Admin::CurrentUserName component instead.",
+        deprecator: Alchemy::Deprecation
 
       # This helper renders the link to an dialog.
       #
