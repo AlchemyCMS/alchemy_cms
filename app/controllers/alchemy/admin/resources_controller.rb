@@ -18,12 +18,7 @@ module Alchemy
       before_action :authorize_resource
 
       def index
-        @query = resource_handler.model.ransack(search_filter_params[:q])
-        @query.sorts = default_sort_order if @query.sorts.empty?
-        items = @query.result
-
-        items = items.includes(*resource_relations_names) if contains_relations?
-        items = items.tagged_with(search_filter_params[:tagged_with]) if search_filter_params[:tagged_with].present?
+        items = collection
 
         respond_to do |format|
           format.html do
@@ -119,6 +114,16 @@ module Alchemy
 
       def authorize_resource
         authorize!(action_name.to_sym, resource_instance_variable || resource_handler.model)
+      end
+
+      def collection
+        @query = resource_handler.model.ransack(search_filter_params[:q])
+        @query.sorts = default_sort_order if @query.sorts.empty?
+        items = @query.result(distinct: true)
+
+        items = items.includes(*resource_relations_names) if contains_relations?
+        items = items.tagged_with(search_filter_params[:tagged_with]) if search_filter_params[:tagged_with].present?
+        items
       end
 
       # Permits all editable resource attributes as default.
