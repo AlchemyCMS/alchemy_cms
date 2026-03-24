@@ -1,5 +1,68 @@
 # Changelog
 
+## 8.2.0 (2026-03-24)
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### Breaking Changes
+* Rename RelatableResource associations to related_elements and related_pages by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3710
+### New Features
+* feat(publishable): Add public_until validation by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3699
+* Use active_storage as default adapter for new apps by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3700
+* feat: Add schedule element button by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3621
+* feat: Add Page Etag Generator by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3738
+* feat: Use datetime-local fields for page publication by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3748
+* feat: Add a timezone select to admin by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3761
+* Resources controller: Return distinct records by @mamhoff in https://github.com/AlchemyCMS/alchemy_cms/pull/3766
+### Bug Fixes
+* Fix sitemap generating wrong URLs for language root pages   by @antwertinger in https://github.com/AlchemyCMS/alchemy_cms/pull/3713
+* The sitemap.xml requires absolute URLs in <loc> tags by @antwertinger in https://github.com/AlchemyCMS/alchemy_cms/pull/3753
+### Performance Improvements
+* perf(Admin): Use picture name as alt tag by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3726
+* Increase element window loading performance by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3658
+* Bundle alchemy_admin JS into a single pre-built artifact by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3769
+### Dependencies
+* chore(deps-dev): Bump jsdom from 27.4.0 to 28.1.0 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3682
+* chore(deps-dev): bump eslint from 9.39.3 to 10.0.2 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3696
+* chore(deps-dev): bump rollup from 4.54.0 to 4.59.0 in the rollup group by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3702
+* chore(deps-dev): bump prettier from 3.7.4 to 3.8.1 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3703
+* chore(deps): bump tinymce from 8.3.1 to 8.3.2 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3706
+* chore(deps-dev): bump vitest from 4.0.16 to 4.0.18 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3704
+* chore(deps): bump sortablejs from 1.15.6 to 1.15.7 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3707
+* chore(deps-dev): bump @herb-tools/linter from 0.8.5 to 0.8.10 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3705
+* chore(deps-dev): bump sass from 1.97.1 to 1.97.3 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3708
+* chore(deps-dev): bump remixicon from 4.7.0 to 4.9.1 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3711
+* chore(deps-dev): bump @rollup/plugin-commonjs from 29.0.0 to 29.0.2 in the rollup group by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3731
+* chore(deps-dev): bump eslint from 10.0.2 to 10.0.3 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3736
+* chore(deps-dev): bump sass from 1.97.3 to 1.98.0 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3739
+* chore(deps-dev): bump @rollup/plugin-terser from 0.4.4 to 1.0.0 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3732
+* chore(deps-dev): bump vitest from 4.0.18 to 4.1.0 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3742
+* chore(deps-dev): bump jsdom from 28.1.0 to 29.0.0 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3756
+* chore(deps-dev): bump eslint from 10.0.3 to 10.1.0 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3767
+* chore(deps-dev): bump jsdom from 29.0.0 to 29.0.1 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3768
+* chore(deps-dev): bump rollup from 4.59.0 to 4.60.0 in the rollup group by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3781
+* chore(deps-dev): bump vitest from 4.1.0 to 4.1.1 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3782
+### Other Changes
+* Lesser jQuery by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3681
+* feat(css): Add a `.buttons` container class by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3697
+* Use 12h time format for `en` locale by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3698
+* feat(element): Ensure nested elements share parent's page_version by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3660
+* chore: Switch to text based bun lock file by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3701
+* Add gateway pattern for CI required checks by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3709
+* fix(element schedule): Do not show seconds by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3747
+* refactor(uploader): use Alchemy.config.uploader.to_json for JS defaults by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3752
+* refactor(image cropper): accept settings object instead of positional args by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3754
+* refactor(tinymce): use .to_json for JS configuration objects by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3755
+* Auto-push build artifacts when asset sources change by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3780
+* Add devcontainer and Docker Compose for local development by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3770
+* feat: Extract admin user name display into component by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3765
+
+## New Contributors
+* @phylor made their first contribution in https://github.com/AlchemyCMS/alchemy_cms/pull/3733
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.1.8...v8.2.0
+
 ## 7.4.13 (2026-02-17)
 
 ## What's Changed
