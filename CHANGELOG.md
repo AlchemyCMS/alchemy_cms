@@ -1,5 +1,16 @@
 # Changelog
 
+## 8.0.10 (2026-03-24)
+
+## What's Changed
+* [8.0-stable] Dashboard | Fix redirect after unlocking by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3734
+* [8.0-stable] Fix top_menu width by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3764
+* [8.0-stable] Fix flaky picture library update spec by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3774
+* [8.0-stable] Fix update check URL to avoid redirect by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3784
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.0.9...v8.0.10
+
 ## 8.0.9 (2026-03-06)
 
 ## What's Changed
