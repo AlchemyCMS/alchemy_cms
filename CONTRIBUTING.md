@@ -29,20 +29,35 @@ Here's a quick guide:
 
 1. Fork the repo.
 
-2. Run the tests. We only take pull requests with passing tests, and it's great
+2. Set up your development environment. You can either use Docker or install
+dependencies locally:
+
+**Using Docker (recommended):**
+
+        $ docker compose build
+        $ docker compose up
+
+This starts the Rails dev server, Sass watcher, and JS bundle watcher.
+
+**Local setup:**
+
+        $ bin/setup
+        $ bin/start
+
+3. Run the tests. We only take pull requests with passing tests, and it's great
 to know that you have a clean slate:
 
         $ bundle exec rake
 
-3. Create new branch then make changes and add tests for your changes. Only
+4. Create new branch then make changes and add tests for your changes. Only
 refactoring and documentation changes require no new tests. If you are adding
 functionality or fixing a bug, we need tests!
 
-4. Push to your fork and submit a pull request. If the changes will apply cleanly
+5. Push to your fork and submit a pull request. If the changes will apply cleanly
 to the latest stable branches and main branch, you will only need to submit one
 pull request.
 
-5. If a PR does not apply cleanly to one of its targeted branches, then a separate
+6. If a PR does not apply cleanly to one of its targeted branches, then a separate
 PR should be created that does. For instance, if a PR applied to main & 2.7-stable but not 2.8-stable, then there should be one PR for main & 2.7-stable and another, separate PR for 2.8-stable.
 
 At this point you're waiting on us. We like to at least comment on, if not
