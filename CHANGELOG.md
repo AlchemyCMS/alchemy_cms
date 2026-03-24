@@ -1,5 +1,16 @@
 # Changelog
 
+## 8.1.8 (2026-03-24)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
+
+## What's Changed
+### Other Changes
+* [8.1-stable] Fix update check URL to avoid redirect by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3785
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.1.7...v8.1.8
+
 ## 8.1.7 (2026-03-23)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
