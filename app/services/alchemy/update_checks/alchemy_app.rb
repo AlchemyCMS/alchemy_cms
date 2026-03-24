@@ -40,7 +40,7 @@ module Alchemy
         connection.request(request)
       end
 
-      def uri = "https://app.alchemy-cms.com/update-check"
+      def uri = "https://www.alchemy-cms.com/update-check"
 
       def content_type = Marcel::EXTENSIONS["json"]
 
