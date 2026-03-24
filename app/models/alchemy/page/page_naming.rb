@@ -42,9 +42,13 @@ module Alchemy
         end
       end
 
-      # Returns always the last part of a urlname path
+      # Returns url pattern or the last part of an urlname path
       def slug
-        urlname.to_s.split("/").last
+        page_layout_url_pattern.presence || urlname.to_s.split("/").last
+      end
+
+      def has_url_pattern?
+        page_layout_url_pattern.present?
       end
 
       private

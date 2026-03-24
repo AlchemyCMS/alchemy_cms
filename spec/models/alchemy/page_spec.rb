@@ -1978,6 +1978,22 @@ module Alchemy
           expect(page.slug).to be_nil
         end
       end
+
+      context "with a page layout that has a url_pattern" do
+        let(:page) { build(:alchemy_page, page_layout: "product_detail") }
+
+        it "returns the url_pattern instead of the urlname" do
+          expect(page.slug).to eq(":id")
+        end
+      end
+
+      context "with a multi-segment url_pattern" do
+        let(:page) { build(:alchemy_page, page_layout: "blog_post") }
+
+        it "returns the full url_pattern" do
+          expect(page.slug).to eq(":year/:slug")
+        end
+      end
     end
 
     context "page status methods" do
