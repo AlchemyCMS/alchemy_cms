@@ -3,7 +3,7 @@
     <%= render_icon(:user, style: user.logged_in? ? "solid" : "regular") %>
   <% end %>
   <% table.column :login, sortable: true do |user| %>
-    <% if can?(:edit, user) %>
+    <% if can?(:edit, user) && user.login %>
       <%= link_to_dialog user.login,
         alchemy.edit_admin_user_path(user), {
           title: Alchemy.t(:edit_user),
