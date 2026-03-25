@@ -6,7 +6,7 @@ module Alchemy
       extend ActiveSupport::Concern
 
       included do
-        around_action :set_timezone
+        around_action :set_timezone, if: -> { can?(:edit_content, Alchemy::Page) }
       end
 
       private
