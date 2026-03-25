@@ -37,21 +37,21 @@ module Alchemy
     #
     # @param time [DateTime] (Time.current)
     # @returns Boolean
-    def public?(time = Time.current)
+    def public?(time = Current.preview_time)
       already_public_for?(time) && still_public_for?(time)
     end
 
     # Determines if this version is already public for given time
-    # @param time [DateTime] (Time.current)
+    # @param time [DateTime] (Current.preview_time)
     # @returns Boolean
-    def already_public_for?(time = Time.current)
+    def already_public_for?(time = Current.preview_time)
       !public_on.nil? && public_on <= time
     end
 
     # Determines if this version is still public for given time
-    # @param time [DateTime] (Time.current)
+    # @param time [DateTime] (Current.preview_time)
     # @returns Boolean
-    def still_public_for?(time = Time.current)
+    def still_public_for?(time = Current.preview_time)
       public_until.nil? || public_until >= time
     end
 
