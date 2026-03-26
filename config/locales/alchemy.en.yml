@@ -609,7 +609,9 @@ en:
       "1024": "iPad Landscape (1024px)"
       "1280": "Laptop (1280px)"
       "1440": "Desktop (1440px)"
+    preview_time: "Preview Time"
     preview_url: Preview
+    now: "Now"
     publish_page_language_not_public: Cannot publish page if language is not public
     publish_page_not_allowed: You have not the permission to publish this page
     recently_uploaded_only: "Recently uploaded only"

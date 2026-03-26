@@ -39,6 +39,21 @@ module Alchemy
         get :index, params: {page_version_id: page_version.id}
         expect(assigns(:elements)).to eq([element, parent_for_nested, hidden_element])
       end
+
+      context "with alchemy_preview_time param" do
+        it "sets Current.preview_time" do
+          preview_time = "2025-06-15T12:00:00Z"
+          expect(Alchemy::Current).to receive(:preview_time=).with(Time.zone.parse(preview_time))
+          get :index, params: {page_version_id: page_version.id, alchemy_preview_time: preview_time}
+        end
+      end
+
+      context "without alchemy_preview_time param" do
+        it "does not set Current.preview_time" do
+          expect(Alchemy::Current).not_to receive(:preview_time=)
+          get :index, params: {page_version_id: page_version.id}
+        end
+      end
     end
 
     describe "#order" do

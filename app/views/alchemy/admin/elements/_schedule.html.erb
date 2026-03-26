@@ -7,10 +7,10 @@
     <alchemy-message type="info">
       <% if element.public? %>
         <p><%= sanitize t(".visibility_status.public_html") %></p>
-        <% if element.scheduled? %>
+        <% if element.scheduled? && element.public_until.present? %>
           <%= sanitize t(".public_scheduled_html",
             public_until: l(element.public_until, format: :"alchemy.element_date")) %>
-        <% elsif element.public_until.blank? %>
+        <% else %>
           <%= t(".public_no_schedule") %>
         <% end %>
       <% else %>
@@ -54,6 +54,7 @@
         <%= Alchemy.t(:clear_schedule) %>
       </button>
       <button type="submit">
+        <%= hidden_field_tag :alchemy_preview_time, params[:alchemy_preview_time] %>
         <%= Alchemy.t(:save) %>
       </button>
     </div>

@@ -91,6 +91,10 @@
     </sl-tooltip>
   </div>
   <div class="toolbar_spacer"></div>
+  <%= render Alchemy::Admin::PreviewTimeSelect.new(
+    @page_version,
+    url: edit_admin_page_path(@page),
+    selected: params[:alchemy_preview_time]) %>
   <% if @preview_urls.many? %>
     <div class="select_with_label">
       <label><%= Alchemy.t(:preview_url) %></label>
@@ -132,7 +136,7 @@
   title="<%= Alchemy.t("Page preview") %>">
 </iframe>
 
-<%= turbo_frame_tag "alchemy_elements_window", src: alchemy.admin_elements_path(page_version_id: @page_version.id) do %>
+<%= turbo_frame_tag "alchemy_elements_window", src: alchemy.admin_elements_path(page_version_id: @page_version.id, alchemy_preview_time: params[:alchemy_preview_time]) do %>
   <alchemy-spinner></alchemy-spinner>
 <% end %>
 
