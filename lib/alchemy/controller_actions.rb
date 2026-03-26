@@ -80,7 +80,8 @@ module Alchemy
 
     def load_alchemy_language_from_id_or_code(id_or_code)
       Language.find_by(id: id_or_code) ||
-        Language.find_by_code(id_or_code)
+        Language.find_by_code(id_or_code) ||
+        Language.default
     end
 
     # Stores language in +Current.language+
