@@ -47,6 +47,19 @@ RSpec.describe Alchemy::Admin::PagesController do
         end
       end
     end
+
+    context "with wrong or missing language in session" do
+      let!(:site_1) { create(:alchemy_site) }
+      let!(:site_1_default_language) { create :alchemy_language, site: site_1, default: true }
+
+      it "should fall back to existing language if session language does not exist" do
+        session[:alchemy_language_id] = 123456789
+
+        expect {
+          get :index
+        }.to_not raise_error
+      end
+    end
   end
 
   describe "#destroy" do
