@@ -27,7 +27,8 @@ module Alchemy
               content_tag("alchemy-auto-submit") do
                 select_tag(
                   :admin_timezone,
-                  options_for_select(timezones_for_select, current_timezone)
+                  options_for_select(timezones_for_select, current_timezone),
+                  is: "alchemy-select"
                 )
               end
           end
