@@ -1,5 +1,13 @@
 # Changelog
 
+## 7.4.14 (2026-03-26)
+
+## What's Changed
+* [7.4-stable] Fix exception in admin when current language is deleted by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3791
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v7.4.13...v7.4.14
+
 ## 7.4.13 (2026-02-17)
 
 ## What's Changed
