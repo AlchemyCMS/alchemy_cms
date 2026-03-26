@@ -60,7 +60,7 @@ module Alchemy
     # @param at [DateTime] (Time.current)
     # @returns Boolean
     def still_public_for?(at: Current.preview_time)
-      public_until.nil? || public_until >= at
+      public_until.nil? || public_until > at
     end
   end
 end

@@ -7,6 +7,7 @@ module Alchemy
 
       before_action :load_page_and_version, only: [:index, :new]
       include Alchemy::Admin::Clipboard
+      include Alchemy::Admin::PreviewTime
 
       before_action :load_element, only: [:update, :destroy, :collapse, :expand, :publish]
       authorize_resource class: Alchemy::Element

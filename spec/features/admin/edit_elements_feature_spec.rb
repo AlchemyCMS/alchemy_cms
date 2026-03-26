@@ -215,6 +215,30 @@ RSpec.describe "The edit elements feature", type: :system do
     end
   end
 
+  describe "Preview time select" do
+    let(:future_time) { 2.days.from_now.change(sec: 0, usec: 0) }
+    let!(:element) do
+      create(:alchemy_element, page_version: a_page.draft_version, public_on: future_time)
+    end
+
+    it "preserves the selected preview time after publishing", :js do
+      visit alchemy.edit_admin_page_path(a_page, alchemy_preview_time: future_time.iso8601)
+
+      within("#preview_time_select") do
+        expect(page).to have_css("option[selected][value='#{future_time.iso8601}']")
+      end
+
+      find("alchemy-publish-element-button sl-button[slot=trigger]").click
+      within("alchemy-publish-element-button .alchemy-popover") do
+        click_button("Save")
+      end
+
+      within("#preview_time_select") do
+        expect(page).to have_css("option[selected][value='#{future_time.iso8601}']")
+      end
+    end
+  end
+
   describe "With an element that has ingredient groups" do
     let(:element) do
       create(
