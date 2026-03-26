@@ -98,8 +98,10 @@ RSpec.describe "Picture Library", type: :system do
       end
 
       select(language.language_code.upcase, from: "Language")
+      expect(page).to have_no_css("turbo-frame#picture_descriptions[busy]")
       expect(page).to have_field("Description", with: "This is an amazing image.")
       select(german.language_code.upcase, from: "Language")
+      expect(page).to have_no_css("turbo-frame#picture_descriptions[busy]")
       expect(page).to have_field("Description", with: "Tolles Bild.")
     end
   end
