@@ -118,6 +118,16 @@ describe Alchemy::Admin::LanguagesController do
         expect(response).to redirect_to admin_languages_path
         expect(flash[:notice]).to eq("Language successfully removed.")
       end
+
+      it "removes the language from session if present" do
+        session[:alchemy_language_id] = language.id
+
+        delete :destroy, params: {id: language.id}
+        expect(response).to redirect_to admin_languages_path
+        expect(flash[:notice]).to eq("Language successfully removed.")
+
+        expect(session[:alchemy_language_id]).to be_nil
+      end
     end
   end
 
