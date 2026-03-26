@@ -13,6 +13,7 @@ module Alchemy::Language::Code
 
   module ClassMethods
     def find_by_code(code)
+      return unless code.respond_to?(:split)
       codes = code.split("-")
       codes << "" if codes.length == 1
       on_current_site.find_by(
