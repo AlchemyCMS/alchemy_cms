@@ -19,4 +19,10 @@
       page: @element.page
     ) %>
   <% end %>
+  <%= turbo_stream.replace "preview_time_select" do %>
+    <%= render Alchemy::Admin::PreviewTimeSelect.new(
+      @element.page_version,
+      url: edit_admin_page_path(@element.page),
+      selected: params[:alchemy_preview_time]) %>
+  <% end %>
 <% end %>
