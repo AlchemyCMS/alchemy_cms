@@ -30,6 +30,9 @@ module Alchemy
 
       def destroy
         if @language.destroy
+          if session[:alchemy_language_id] == @language.id
+            session.delete(:alchemy_language_id)
+          end
           flash[:notice] = Alchemy.t("Language successfully removed")
         else
           flash[:warning] = @language.errors.full_messages.to_sentence
