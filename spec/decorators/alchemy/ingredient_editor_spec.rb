@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Alchemy::IngredientEditor, :silence_deprecations do
   let(:element) { build(:alchemy_element, name: "article") }
-  let(:ingredient) { Alchemy::Ingredients::Text.new(role: "headline", element: element) }
+  let(:ingredient) { Alchemy::Ingredients::Text.new(id: 123, role: "headline", element: element) }
   let(:ingredient_editor) { described_class.new(ingredient) }
 
   describe "#ingredient" do
@@ -99,12 +99,12 @@ RSpec.describe Alchemy::IngredientEditor, :silence_deprecations do
 
   describe "#form_field_name" do
     it "returns a name for form fields with value as default" do
-      expect(ingredient_editor.form_field_name).to eq("element[ingredients_attributes][1][value]")
+      expect(ingredient_editor.form_field_name).to eq("element[ingredients_attributes][123][value]")
     end
 
     context "with a value given" do
       it "returns a name for form fields for that column" do
-        expect(ingredient_editor.form_field_name(:link_title)).to eq("element[ingredients_attributes][1][link_title]")
+        expect(ingredient_editor.form_field_name(:link_title)).to eq("element[ingredients_attributes][123][link_title]")
       end
     end
   end

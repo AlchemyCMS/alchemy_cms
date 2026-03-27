@@ -164,7 +164,7 @@ module Alchemy
     private
 
     def form_field_counter
-      element.ingredient_definitions.index { _1.role == role }
+      id
     end
   end
 end
