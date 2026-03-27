@@ -22,10 +22,8 @@
 <div id="archive_all" class="resources-table-wrapper">
 <% if @users.any? %>
   <%= render "alchemy/admin/resources/table_header" %>
-  <%= render "resource_table" %>
-
-  <%= paginate @users, theme: 'alchemy' %>
-
+  <%= render "resource_table", users: @users, query: @query %>
+  <%= render "alchemy/admin/resources/pagination", resources: @users %>
 <% elsif params[:query] %>
 
   <div class="info">
