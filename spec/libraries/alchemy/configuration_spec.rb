@@ -281,6 +281,12 @@ RSpec.describe Alchemy::Configuration do
         uploader: {file_size_limit: 100, upload_limit: 50}
       )
     end
+
+    it "can be converted to JSON" do
+      expect(configuration.to_json).to eq(
+        '{"uploader":{"file_size_limit":100,"upload_limit":50}}'
+      )
+    end
   end
 
   describe "#preview_sources" do
