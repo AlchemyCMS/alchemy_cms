@@ -26,7 +26,7 @@
     "clipboard": "^2.0.11",
     "cropperjs": "^1.6.2",
     "flatpickr": "^4.6.13",
-    "handlebars": "^4.7.8",
+    "handlebars": "^4.7.9",
     "jquery": "^3.7.1",
     "keymaster": "^1.6.2",
     "select2": "github:select2/select2#3.5.4",
