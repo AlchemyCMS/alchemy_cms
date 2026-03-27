@@ -814,7 +814,7 @@ alchemy-color-select {
 
   .thumbnail_background {
     --picture-thumbnail-border-radius: 0;
-    height: 120px;
+    min-height: 120px;
 
     alchemy-icon {
       --icon-size: 3em;

@@ -1,4 +1,6 @@
 alchemy-picture-thumbnail {
+  display: block;
+
   &[loading] {
     img {
       opacity: 0;
@@ -6,6 +8,7 @@ alchemy-picture-thumbnail {
   }
 
   img {
+    display: block;
     width: 100%;
     height: auto;
     opacity: 1;
