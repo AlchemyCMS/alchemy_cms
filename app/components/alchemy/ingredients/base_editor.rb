@@ -161,7 +161,7 @@ module Alchemy
       end
 
       def form_field_counter
-        element.definition.ingredients.index { |i| i.role == role }
+        ingredient.id
       end
 
       # Renders the translated role of ingredient.
