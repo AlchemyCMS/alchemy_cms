@@ -1,5 +1,14 @@
 # Changelog
 
+## 8.0.11 (2026-03-27)
+
+## What's Changed
+* [8.0-stable] Fix exception in admin when current language is deleted by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3792
+* [8.0-stable] Revert update check URL change by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3801
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.0.10...v8.0.11
+
 ## 8.0.10 (2026-03-24)
 
 ## What's Changed
