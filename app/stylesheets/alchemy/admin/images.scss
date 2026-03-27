@@ -6,6 +6,8 @@ alchemy-picture-thumbnail {
   }
 
   img {
+    width: 100%;
+    height: auto;
     opacity: 1;
     transition: opacity var(--transition-duration);
   }
