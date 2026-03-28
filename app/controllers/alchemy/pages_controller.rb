@@ -126,10 +126,22 @@ module Alchemy
     def load_page
       page_not_found! unless Current.language
 
+      urlname = params[:urlname]
+      language_code = params[:locale] || Current.language.code
       @page ||= Current.language.pages.contentpages.find_by(
-        urlname: params[:urlname],
-        language_code: params[:locale] || Current.language.code
+        urlname: urlname,
+        language_code: language_code
       )
+
+      if @page.nil?
+        matcher = UrlPatternMatcher.new(urlname, language_code: language_code)
+
+        if matcher.page.present?
+          @page = matcher.page
+          params.merge!(matcher.params)
+        end
+      end
+
       Current.page = @page
     end
 

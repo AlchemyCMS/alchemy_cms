@@ -20,6 +20,8 @@ module Alchemy
     attribute :hide, :boolean, default: false
     attribute :editable_by
     attribute :hint
+    attribute :url_pattern, :string
+    attribute :url_constraints, default: {}
 
     # Needs to be down here in order to have the attribute reader
     # available after the attribute is defined.

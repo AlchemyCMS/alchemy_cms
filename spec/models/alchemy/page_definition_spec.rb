@@ -20,6 +20,8 @@ module Alchemy
       it { is_expected.to have_key(:hide) }
       it { is_expected.to have_key(:editable_by) }
       it { is_expected.to have_key(:hint) }
+      it { is_expected.to have_key(:url_pattern) }
+      it { is_expected.to have_key(:url_constraints) }
     end
 
     describe "#blank?" do
@@ -113,6 +115,36 @@ module Alchemy
     describe ".get" do
       it "should return the page_layout definition found by given name" do
         expect(PageDefinition.get("standard").name).to eq("standard")
+      end
+    end
+
+    describe "url_pattern" do
+      let(:definition) do
+        described_class.new(
+          name: "product_detail",
+          url_pattern: ":id",
+          url_constraints: {"id" => "integer"}
+        )
+      end
+
+      it "stores the url_pattern" do
+        expect(definition.url_pattern).to eq(":id")
+      end
+
+      it "stores the url_constraints" do
+        expect(definition.url_constraints).to eq({"id" => "integer"})
+      end
+
+      context "without url_pattern" do
+        let(:definition) { described_class.new(name: "standard") }
+
+        it "returns nil for url_pattern" do
+          expect(definition.url_pattern).to be_nil
+        end
+
+        it "returns empty hash for url_constraints" do
+          expect(definition.url_constraints).to eq({})
+        end
       end
     end
 
