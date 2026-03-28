@@ -38,6 +38,10 @@ select {
   &.large {
     width: var(--select-large-width);
   }
+
+  &.x-large {
+    width: var(--select-x-large-width);
+  }
 }
 
 .select2-container {

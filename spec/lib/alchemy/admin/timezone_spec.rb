@@ -13,6 +13,10 @@ RSpec.describe Alchemy::Admin::Timezone, type: :controller do
     private
 
     attr_reader :current_alchemy_user
+
+    def can?(*)
+      true
+    end
   end
 
   let(:original_timezone) { Time.zone.name }
@@ -96,6 +100,27 @@ RSpec.describe Alchemy::Admin::Timezone, type: :controller do
       original = Time.zone.name
       get :index, params: {admin_timezone: "Hawaii"}
       expect(Time.zone.name).to eq(original)
+    end
+
+    context "when user cannot edit content" do
+      controller(ActionController::Base) do
+        include Alchemy::Admin::Timezone
+
+        def index
+          render plain: Time.zone.name
+        end
+
+        private
+
+        def can?(*)
+          false
+        end
+      end
+
+      it "does not set the timezone" do
+        get :index, params: {admin_timezone: "Hawaii"}
+        expect(response.body).to eq(original_timezone)
+      end
     end
   end
 end

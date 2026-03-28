@@ -49,7 +49,7 @@ RSpec.describe "Admin Menus Features", type: :system do
         within ".alchemy-dialog" do
           select2_search layoutpage.name, from: "Page", select: false
         end
-        within ".select2-results" do
+        within ".select2-drop-active .select2-results" do
           expect(page).to have_content("No matches found")
         end
       end

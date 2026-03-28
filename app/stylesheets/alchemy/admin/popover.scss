@@ -12,6 +12,10 @@
     display: flex;
     gap: var(--spacing-2);
     align-items: center;
+
+    .alchemy_selectbox {
+      min-width: var(--select-x-large-width);
+    }
   }
 
   span.error {
