@@ -68,6 +68,8 @@ module Alchemy
       ).to_h
     end
 
+    delegate :to_json, to: :to_h
+
     class << self
       def defined_configurations = []
 
