@@ -80,6 +80,14 @@
   margin-left: var(--spacing-1);
 }
 
+#preview_time_select {
+  display: inline-flex;
+
+  select {
+    width: var(--select-x-large-width);
+  }
+}
+
 #overlay_toolbar {
   @extend %gradiated-toolbar;
 }

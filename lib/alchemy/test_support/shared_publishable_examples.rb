@@ -94,7 +94,7 @@ RSpec.shared_examples_for "being publishable" do |factory_name|
       context "and public_until is nil" do
         let(:public_until) { nil }
 
-        it { expect(subject).to be_nil }
+        it { expect(subject).to be(false) }
       end
 
       context "and public_until is in the past" do
@@ -120,7 +120,7 @@ RSpec.shared_examples_for "being publishable" do |factory_name|
       context "and public_until is nil" do
         let(:public_until) { nil }
 
-        it { expect(subject).to be_nil }
+        it { expect(subject).to be(false) }
       end
 
       context "and public_until is in the future" do
@@ -187,6 +187,29 @@ RSpec.shared_examples_for "being publishable" do |factory_name|
       let(:page_version) { build(factory_name, public_on: Time.current + 2.days) }
 
       it { is_expected.to be(false) }
+    end
+
+    context "when Current.preview_time is set" do
+      let(:page_version) do
+        build(factory_name,
+          public_on: Time.zone.parse("2025-06-01 00:00:00"),
+          public_until: Time.zone.parse("2025-06-30 23:59:59"))
+      end
+
+      it "uses preview_time to determine visibility" do
+        Alchemy::Current.preview_time = Time.zone.parse("2025-06-15 12:00:00")
+        expect(page_version.public?).to be(true)
+      end
+
+      it "returns false when preview_time is outside the public range" do
+        Alchemy::Current.preview_time = Time.zone.parse("2025-07-15 12:00:00")
+        expect(page_version.public?).to be(false)
+      end
+
+      it "returns false when preview_time is before public_on" do
+        Alchemy::Current.preview_time = Time.zone.parse("2025-05-15 12:00:00")
+        expect(page_version.public?).to be(false)
+      end
     end
   end
 end
