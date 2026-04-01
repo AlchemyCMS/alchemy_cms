@@ -47,10 +47,13 @@ module Alchemy
             port: uri.port,
             path: page.url_path,
             userinfo: userinfo,
-            query: {alchemy_preview_mode: true}.to_param
+            query: {
+              alchemy_preview_mode: true,
+              alchemy_preview_time: preview_time
+            }.compact.to_param
           ).to_s
         else
-          routes.admin_page_path(page)
+          routes.admin_page_path(page, alchemy_preview_time: preview_time)
         end
       end
 
@@ -77,6 +80,14 @@ module Alchemy
         else
           uri.class
         end
+      end
+
+      # Returns the preview time as ISO 8601 string if explicitly set.
+      # We use Current.attributes instead of Current.preview_time because
+      # the getter falls back to Time.current, which would freeze a stale
+      # timestamp into the preview URL and hide elements created after page load.
+      def preview_time
+        Current.attributes[:preview_time]&.iso8601
       end
 
       def userinfo
