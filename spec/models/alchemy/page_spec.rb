@@ -1994,6 +1994,14 @@ module Alchemy
           expect(page.slug).to be_nil
         end
       end
+
+      context "with a page layout that has a wildcard_url" do
+        let(:page) { build(:alchemy_page, page_layout: "page_with_wildcard_url", urlname: "products/:slug") }
+
+        it "returns the wildcard_url pattern" do
+          expect(page.slug).to eq(":slug")
+        end
+      end
     end
 
     context "page status methods" do

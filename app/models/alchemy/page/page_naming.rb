@@ -44,9 +44,13 @@ module Alchemy
         end
       end
 
-      # Returns always the last part of a urlname path
+      # Returns wildcard url param or the last part of an urlname path
       def slug
         urlname.to_s.split("/").last
+      end
+
+      def has_wildcard_url?
+        wildcard_url.present?
       end
 
       private
