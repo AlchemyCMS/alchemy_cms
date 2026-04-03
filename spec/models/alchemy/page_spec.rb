@@ -1994,6 +1994,22 @@ module Alchemy
           expect(page.slug).to be_nil
         end
       end
+
+      context "with a page layout that has a wildcard_url" do
+        let(:page) { build(:alchemy_page, page_layout: "product_detail") }
+
+        it "returns the wildcard_url pattern instead of the urlname" do
+          expect(page.slug).to eq(":id")
+        end
+      end
+
+      context "with a multi-segment wildcard_url" do
+        let(:page) { build(:alchemy_page, page_layout: "blog_post") }
+
+        it "returns the full wildcard_url pattern" do
+          expect(page.slug).to eq(":year/:slug")
+        end
+      end
     end
 
     context "page status methods" do
