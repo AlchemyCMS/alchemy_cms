@@ -18,7 +18,10 @@
     </div>
 
     <%= f.input :name, autofocus: true %>
-    <%= f.input :urlname, as: 'string', input_html: {value: @page.slug}, label: Alchemy::Page.human_attribute_name(:slug) %>
+    <%= f.input :urlname, as: 'string', input_html: {
+      value: @page.slug,
+      disabled: @page.has_wildcard_url?
+    }, label: Alchemy::Page.human_attribute_name(:slug) %>
 
     <%= f.fields_for :draft_version, @page.draft_version do |v| %>
       <alchemy-char-counter max-chars="60">
