@@ -55,13 +55,19 @@ RSpec.describe Alchemy::Tasks::Usage do
         {"page_layout" => "standard", "count" => 2},
         {"page_layout" => "home", "count" => 1},
         {"page_layout" => "index", "count" => 1},
+        {"page_layout" => "blog_post", "count" => 0},
         {"page_layout" => "contact", "count" => 0},
         {"page_layout" => "erb_layout", "count" => 0},
         {"page_layout" => "everything", "count" => 0},
         {"page_layout" => "footer", "count" => 0},
         {"page_layout" => "news", "count" => 0},
+        {"page_layout" => "product_by_sku", "count" => 0},
+        {"page_layout" => "product_by_slug", "count" => 0},
+        {"page_layout" => "product_detail", "count" => 0},
         {"page_layout" => "readonly", "count" => 0},
-        {"page_layout" => "search", "count" => 0}
+        {"page_layout" => "search", "count" => 0},
+        {"page_layout" => "static_wildcard", "count" => 0},
+        {"page_layout" => "user_profile", "count" => 0}
       ]
     end
   end
