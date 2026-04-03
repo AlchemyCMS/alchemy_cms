@@ -1876,6 +1876,27 @@ module Alchemy
         end
       end
 
+      context "with a page layout that has a wildcard_url" do
+        let(:parent) { create(:alchemy_page, name: "Products") }
+        let(:pattern_page) { create(:alchemy_page, parent: parent, name: "Product Details", page_layout: "page_with_wildcard_url") }
+
+        it "uses the wildcard_url pattern instead of the page name" do
+          expect(pattern_page.urlname).to eq("products/:slug")
+        end
+
+        it "uses the wildcard_url pattern as slug" do
+          expect(pattern_page.slug).to eq(":slug")
+        end
+
+        context "with a child page under a wildcard_url page" do
+          let(:child) { create(:alchemy_page, parent: pattern_page, name: "Comments") }
+
+          it "includes the parent's wildcard_url pattern in the path" do
+            expect(child.urlname).to eq("products/:slug/comments")
+          end
+        end
+      end
+
       context "if new urlname exists as a legacy url" do
         it "will delete obsolete legacy_urls" do
           expect(page.urlname).to eq("parentparent/parent/page")
