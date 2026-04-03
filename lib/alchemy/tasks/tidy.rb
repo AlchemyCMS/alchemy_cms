@@ -64,7 +64,7 @@ module Alchemy
       def remove_duplicate_legacy_urls
         puts "\n## Removing duplicate legacy URLs"
         sql = <<~SQL
-          DELETE FROM alchemy_legacy_page_urls A USING alchemy_legacy_page_urls B
+          DELETE A FROM alchemy_legacy_page_urls A INNER JOIN alchemy_legacy_page_urls B
           WHERE A.page_id = B.page_id
             AND A.urlname = B.urlname
             AND A.id < B.id
