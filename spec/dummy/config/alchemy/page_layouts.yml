@@ -59,5 +59,37 @@
     - menu
   layoutpage: true
 
+- name: product_detail
+  wildcard_url:
+    pattern: ":id"
+    params: integer
+  elements: [article]
+
+- name: user_profile
+  wildcard_url:
+    pattern: ":uuid/profile"
+    params:
+      uuid: "uuid"
+  elements: [article]
+
+- name: blog_post
+  wildcard_url:
+    pattern: ":year/:slug"
+    params:
+      year: "integer"
+      slug: "string"
+  elements: [article]
+
+- name: product_by_slug
+  wildcard_url: ":slug"
+  elements: [article]
+
+- name: product_by_sku
+  wildcard_url:
+    pattern: ":sku"
+    params:
+      sku: !ruby/regexp /\A[A-Z]{2}-\d{4}\z/
+  elements: [article]
+
 - name: <%= 'erb_' + 'layout' %>
   unique: true
