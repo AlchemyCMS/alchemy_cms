@@ -67,14 +67,19 @@ module Alchemy
       end
 
       # Returns the full nested urlname.
-      #
+      # Uses the wildcard_url pattern from the page definition if present,
+      # otherwise converts the slug or name to a url-friendly string.
       def nested_url_name
-        converted_url_name = convert_to_urlname(slug.blank? ? name : slug)
+        url_part = wildcard_url&.pattern || convert_to_urlname(slug.blank? ? name : slug)
         if parent&.language_root?
-          converted_url_name
+          url_part
         else
-          [parent&.urlname, converted_url_name].compact.join("/")
+          [parent&.urlname, url_part].compact.join("/")
         end
+      end
+
+      def wildcard_url
+        @_wildcard_url ||= PageDefinition.get(page_layout)&.wildcard_url
       end
     end
   end
