@@ -60,6 +60,7 @@ RSpec.describe Alchemy::Tasks::Usage do
         {"page_layout" => "everything", "count" => 0},
         {"page_layout" => "footer", "count" => 0},
         {"page_layout" => "news", "count" => 0},
+        {"page_layout" => "page_with_wildcard_url", "count" => 0},
         {"page_layout" => "readonly", "count" => 0},
         {"page_layout" => "search", "count" => 0}
       ]

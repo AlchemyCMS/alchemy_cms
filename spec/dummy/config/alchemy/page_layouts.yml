@@ -59,5 +59,9 @@
     - menu
   layoutpage: true
 
+- name: page_with_wildcard_url
+  wildcard_url: :slug
+  elements: [article]
+
 - name: <%= 'erb_' + 'layout' %>
   unique: true
