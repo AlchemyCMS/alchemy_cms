@@ -65,11 +65,7 @@ module Alchemy
       end
 
       def tree
-        @root_page = Alchemy::PageTreePreloader.new(
-          page: @current_language.root_page,
-          user: current_alchemy_user,
-          admin_includes: true
-        ).call
+        @root_page = preload_page_tree
       end
 
       # Used by page preview iframe in Page#edit view.
@@ -161,6 +157,9 @@ module Alchemy
 
         if @page.layoutpage?
           redirect_to alchemy.admin_layoutpages_path
+        elsif turbo_frame_request?
+          @root_page = preload_page_tree
+          render :destroy, formats: [:turbo_stream]
         else
           redirect_to alchemy.admin_pages_path
         end
@@ -227,6 +226,14 @@ module Alchemy
       end
 
       private
+
+      def preload_page_tree
+        Alchemy::PageTreePreloader.new(
+          page: @current_language.root_page,
+          user: current_alchemy_user,
+          admin_includes: true
+        ).call
+      end
 
       def resource_handler
         @_resource_handler ||= Alchemy::Resource.new(controller_path, alchemy_module, Alchemy::Page)

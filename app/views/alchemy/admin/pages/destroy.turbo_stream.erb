@@ -1,0 +1,7 @@
+<% key = flash.keys.first %>
+<alchemy-growl message="<%= flash[key] %>" type="<%= key %>"></alchemy-growl>
+<%= turbo_stream.replace "alchemy_pages_tree" do %>
+  <%= turbo_frame_tag "alchemy_pages_tree" do %>
+    <%= render "alchemy/admin/pages/tree" %>
+  <% end %>
+<% end %>
