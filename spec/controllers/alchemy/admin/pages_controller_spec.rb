@@ -67,22 +67,52 @@ RSpec.describe Alchemy::Admin::PagesController do
   describe "#destroy" do
     let(:page) { create(:alchemy_page) }
 
-    context "with nodes attached" do
-      let!(:node) { create(:alchemy_node, page: page) }
+    context "with turbo_stream format" do
+      context "with nodes attached" do
+        let!(:node) { create(:alchemy_node, page: page) }
 
-      it "returns with error message" do
-        delete :destroy, params: {id: page.id, format: :js}
-        expect(response).to redirect_to(admin_pages_path)
-        expect(flash[:warning]).to \
-          eq("There are still menu nodes attached to this page. Please remove them first.")
+        it "returns with error message" do
+          delete :destroy, params: {id: page.id}, format: :turbo_stream
+          expect(flash[:warning]).to \
+            eq("There are still menu nodes attached to this page. Please remove them first.")
+        end
+      end
+
+      context "without nodes" do
+        it "removes the page" do
+          delete :destroy, params: {id: page.id}, format: :turbo_stream
+          expect(flash[:notice]).to eq Alchemy.t("Page deleted", name: page.name)
+        end
       end
     end
 
-    context "without nodes" do
-      it "removes the page" do
-        delete :destroy, params: {id: page.id, format: :js}
-        expect(response).to redirect_to(admin_pages_path)
-        expect(flash[:notice]).to eq Alchemy.t("Page deleted", name: page.name)
+    context "with html format" do
+      context "with nodes attached" do
+        let!(:node) { create(:alchemy_node, page: page) }
+
+        it "redirects with error message" do
+          delete :destroy, params: {id: page.id}
+          expect(response).to redirect_to(admin_pages_path)
+          expect(flash[:warning]).to \
+            eq("There are still menu nodes attached to this page. Please remove them first.")
+        end
+      end
+
+      context "without nodes" do
+        it "removes the page and redirects" do
+          delete :destroy, params: {id: page.id}
+          expect(response).to redirect_to(admin_pages_path)
+          expect(flash[:notice]).to eq Alchemy.t("Page deleted", name: page.name)
+        end
+      end
+
+      context "with a layout page" do
+        let(:page) { create(:alchemy_page, :layoutpage) }
+
+        it "redirects to layoutpages path" do
+          delete :destroy, params: {id: page.id}
+          expect(response).to redirect_to(admin_layoutpages_path)
+        end
       end
     end
   end

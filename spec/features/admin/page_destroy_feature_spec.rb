@@ -8,7 +8,7 @@ RSpec.describe "Page destroy feature", type: :system, js: true do
   context "destroying a content page" do
     let!(:content_page) { create(:alchemy_page) }
 
-    it "deletes page and redirects to page tree" do
+    it "deletes page and updates the page tree" do
       visit admin_pages_path
 
       page.find("a[href='#{admin_page_path(content_page.id)}']").click
@@ -17,8 +17,11 @@ RSpec.describe "Page destroy feature", type: :system, js: true do
         click_button "Yes"
       end
 
-      expect(page.current_path).to eq admin_pages_path
-      expect(page).to_not have_css "#page_#{content_page.id}"
+      within "#alchemy_pages_tree" do
+        expect(page).to have_css("#sitemap")
+        expect(page).to_not have_css("alchemy-spinner")
+        expect(page).to_not have_css("#page_#{content_page.id}")
+      end
     end
   end
 
