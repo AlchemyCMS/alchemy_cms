@@ -135,6 +135,8 @@ module Alchemy
 
     has_many :page_ingredients, class_name: "Alchemy::Ingredients::Page", foreign_key: :related_object_id, dependent: :nullify
 
+    before_destroy :check_descendants_for_menu_nodes
+
     before_validation :set_language,
       if: -> { language.nil? }
 
@@ -610,6 +612,14 @@ module Alchemy
     def touch_nodes
       ids = node_ids + nodes.flat_map { |n| n.ancestors.pluck(:id) }
       Node.where(id: ids).touch_all
+    end
+
+    def check_descendants_for_menu_nodes
+      pages_with_nodes = descendants.joins(:nodes).reorder("alchemy_pages.lft").distinct
+      if pages_with_nodes.exists?
+        errors.add(:descendants, :still_attached_to_nodes, page_names: pages_with_nodes.map(&:name).to_sentence)
+        throw :abort
+      end
     end
   end
 end
