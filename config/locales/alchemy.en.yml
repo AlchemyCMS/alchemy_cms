@@ -832,6 +832,7 @@ en:
             base:
               restrict_dependent_destroy:
                 has_many: "There are still %{record} attached to this page. Please remove them first."
+              nodes_on_descendants: "This page has descendant pages that are still attached to menu nodes. Please remove them first."
         alchemy/element:
           attributes:
             page_version_id:
