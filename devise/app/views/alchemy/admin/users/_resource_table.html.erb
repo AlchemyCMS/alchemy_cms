@@ -1,4 +1,4 @@
-<%= render Alchemy::Admin::Resource::Table.new(@users, query: @query) do |table| %>
+<%= render Alchemy::Admin::Resource::Table.new(users, query: query) do |table| %>
   <% table.icon_column do |user| %>
     <%= render_icon(:user, style: user.logged_in? ? "solid" : "regular") %>
   <% end %>
