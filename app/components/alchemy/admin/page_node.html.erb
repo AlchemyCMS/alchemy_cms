@@ -163,7 +163,8 @@
               render_icon("delete-bin-2"),
               t(:confirm_to_delete_page),
               url(:page),
-              class: "icon_button"
+              class: "icon_button",
+              "data-turbo-frame": "_top"
             ) %>
           </sl-tooltip>
         <% else %>
