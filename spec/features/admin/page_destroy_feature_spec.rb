@@ -19,6 +19,9 @@ RSpec.describe "Page destroy feature", type: :system, js: true do
 
       expect(page.current_path).to eq admin_pages_path
       expect(page).to_not have_css "#page_#{content_page.id}"
+      within "#flash_notices" do
+        expect(page).to have_content "#{content_page.name} deleted"
+      end
     end
   end
 
@@ -36,6 +39,9 @@ RSpec.describe "Page destroy feature", type: :system, js: true do
 
       expect(page.current_path).to eq admin_layoutpages_path
       expect(page).to_not have_css "#page_#{layout_page.id}"
+      within "#flash_notices" do
+        expect(page).to have_content "#{layout_page.name} deleted"
+      end
     end
   end
 end
