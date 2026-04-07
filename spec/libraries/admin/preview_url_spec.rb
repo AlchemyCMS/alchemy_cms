@@ -16,6 +16,20 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
       it "returns the admin pages preview url" do
         is_expected.to eq "/admin/pages/#{page.id}"
       end
+
+      context "with Current.preview_time set" do
+        let(:preview_time) { Time.zone.parse("2026-03-28T10:00:00") }
+
+        around do |example|
+          Alchemy::Current.preview_time = preview_time
+          example.run
+          Alchemy::Current.reset
+        end
+
+        it "includes the preview time" do
+          expect(subject).to include("alchemy_preview_time=")
+        end
+      end
     end
 
     context "with preview configured" do

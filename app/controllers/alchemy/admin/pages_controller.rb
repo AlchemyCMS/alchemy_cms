@@ -5,6 +5,7 @@ module Alchemy
     class PagesController < ResourcesController
       include OnPageLayout::CallbacksRunner
       include Alchemy::Admin::Clipboard
+      include Alchemy::Admin::PreviewTime
 
       helper "alchemy/pages"
 
