@@ -281,6 +281,22 @@ module Alchemy
             expect { page.destroy! }.to change { ingredient.reload.related_object_id }.from(page.id).to(nil)
           end
         end
+
+        context "with a descendant page attached to a menu node" do
+          let!(:page) { create(:alchemy_page) }
+          let!(:child_page) { create(:alchemy_page, parent: page) }
+          let!(:node) { create(:alchemy_node, page: child_page, parent: create(:alchemy_node)) }
+
+          it "prevents destruction of the parent page" do
+            expect(page.destroy).to be false
+            expect(page.errors[:descendants]).to include(
+              ::I18n.t(
+                "activerecord.errors.models.alchemy/page.attributes.descendants.still_attached_to_nodes",
+                page_names: child_page.name
+              )
+            )
+          end
+        end
       end
     end
 
