@@ -91,6 +91,7 @@ RSpec.describe "Picture Library", type: :system do
       end
 
       select(german.language_code.upcase, from: "Language")
+      expect(page).to have_field("Description", with: "")
       fill_in "Description", with: "Tolles Bild."
       click_button "Save"
       within "#flash_notices" do
