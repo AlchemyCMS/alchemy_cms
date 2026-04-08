@@ -14,10 +14,11 @@ jobs:
       matrix:
         alchemy_branch:
           - "8.1-stable"
+          - "8.2-stable"
         ruby:
-          - "3.2"
           - "3.3"
           - "3.4"
+          - "4.0"
         rails:
           - "7.2"
           - "8.0"
