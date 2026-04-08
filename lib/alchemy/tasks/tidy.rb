@@ -63,13 +63,12 @@ module Alchemy
 
       def remove_duplicate_legacy_urls
         puts "\n## Removing duplicate legacy URLs"
-        sql = <<~SQL
-          DELETE FROM alchemy_legacy_page_urls A USING alchemy_legacy_page_urls B
-          WHERE A.page_id = B.page_id
-            AND A.urlname = B.urlname
-            AND A.id < B.id
-        SQL
-        count = ActiveRecord::Base.connection.exec_delete(sql)
+        keep_ids = Alchemy::LegacyPageUrl
+          .select("MAX(id)")
+          .group(:page_id, :urlname)
+        count = Alchemy::LegacyPageUrl
+          .where.not(id: keep_ids)
+          .delete_all
         log "Deleted #{count} duplicate legacy URLs"
       end
 
