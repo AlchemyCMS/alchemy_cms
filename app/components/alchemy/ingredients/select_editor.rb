@@ -20,11 +20,14 @@ module Alchemy
             options_for_select(select_values, value)
           end
           select_tag form_field_name, options_tags, {
+            include_blank: allow_clear?,
             id: form_field_id,
             class: ["ingredient-editor-select"],
             is: "alchemy-select",
+            required: presence_validation?,
             multiple: settings[:multiple],
-            disabled: !editable?
+            disabled: !editable?,
+            data: allow_clear? ? {"allow-clear": true} : {}
           }
         end
       end
@@ -32,6 +35,8 @@ module Alchemy
       private
 
       def select_values = settings[:select_values]
+
+      def allow_clear? = settings[:allow_clear]
     end
   end
 end

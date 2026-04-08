@@ -5,8 +5,7 @@ module Alchemy
     # A text value from a select box
     #
     class Select < Alchemy::Ingredient
-      allow_settings %i[display_inline select_values]
-      allow_settings %i[display_inline select_values multiple]
+      allow_settings %i[allow_clear display_inline select_values multiple]
 
       serialize :value, coder: JSON
 
