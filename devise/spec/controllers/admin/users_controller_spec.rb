@@ -178,6 +178,10 @@ module Alchemy
         before do
           allow(controller)
             .to receive(:can?)
+            .with(:edit_content, Alchemy::Page)
+            .and_return(true)
+          allow(controller)
+            .to receive(:can?)
             .with(:update_role, Alchemy::User)
             .and_return(true)
         end
@@ -192,6 +196,10 @@ module Alchemy
 
       context "if the user is not permitted to update roles" do
         before do
+          allow(controller)
+            .to receive(:can?)
+            .with(:edit_content, Alchemy::Page)
+            .and_return(true)
           allow(controller)
             .to receive(:can?)
             .with(:update_role, Alchemy::User)
