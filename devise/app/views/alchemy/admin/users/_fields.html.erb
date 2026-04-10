@@ -10,6 +10,12 @@
 <% end %>
 <%= f.input :password, required: while_signup?, input_html: {autocomplete: "new-password"} %>
 <%= f.input :password_confirmation, required: while_signup?, input_html: {autocomplete: "new-password"} %>
+<%= f.input :timezone,
+  collection: ActiveSupport::TimeZone.all, label_method: :to_s, value_method: :name,
+  input_html: {
+    is: "alchemy-select",
+    data: {allow_clear: true}
+  } %>
 <% if can_update_role? %>
   <%= f.input :alchemy_roles,
     collection: @user_roles,
