@@ -5,3 +5,5 @@ rescue LoadError
 end
 
 require 'bundler/gem_tasks'
+
+Dir.glob("lib/tasks/**/*.rake").each { |r| load r }
