@@ -49,8 +49,8 @@ Alchemy.configure do |config|
   # config.preview = {
   #   host: https://www.my-static-site.com
   #   auth:
-  #     username: <%= ENV["BASIC_AUTH_USERNAME"] %%>
-  #     password: <%= ENV["BASIC_AUTH_PASSWORD"] %%>
+  #     username: <%= ENV["BASIC_AUTH_USERNAME"] %>
+  #     password: <%= ENV["BASIC_AUTH_PASSWORD"] %>
   # }
   # Preview config per site is supported as well.
   #
@@ -58,8 +58,8 @@ Alchemy.configure do |config|
   #   My site name:
   #     host: https://www.my-static-site.com
   #     auth:
-  #       username: <%= ENV["BASIC_AUTH_USERNAME"] %%>
-  #       password: <%= ENV["BASIC_AUTH_PASSWORD"] %%>
+  #       username: <%= ENV["BASIC_AUTH_USERNAME"] %>
+  #       password: <%= ENV["BASIC_AUTH_PASSWORD"] %>
   # }
 
   # === Picture rendering settings
@@ -207,7 +207,7 @@ Alchemy.configure do |config|
   # config.admin_page_preview_layout = "application"
 
   # The sizes for the preview size select in the page editor.
-  # config.page_preview_sizes = [360, 640, 768, 1024, 1280, 1440]
+  # config.page_preview_sizes = ["360", "640", "768", "1024", "1280", "1440"]
 
   # Enable full text search configuration
   #
@@ -224,5 +224,48 @@ Alchemy.configure do |config|
 
   # The storage adapter for Pictures and Attachments
   #
-  config.storage_adapter = "dragonfly"
+  config.storage_adapter = "active_storage"
+
+  # Additional JS modules to be imported in the Alchemy admin UI
+  #
+  # Be sure to also pin the modules with +Alchemy.importmap+.
+  #
+  # == Example
+  #
+  #    Alchemy.importmap.pin "flatpickr/de",
+  #      to: "https://ga.jspm.io/npm:flatpickr@4.6.13/dist/l10n/de.js"
+  #
+  # config.admin_js_imports << "flatpickr/de"
+
+  # Additional importmaps to be included in the Alchemy admin UI
+  #
+  # Be sure to also pin modules with +Alchemy.importmap+.
+  #
+  # config.admin_importmaps.add(
+  #   importmap_path: root.join("config/importmap.rb"),
+  #   source_paths: [
+  #     root.join("app/javascript")
+  #   ],
+  #   name: "admin_extension"
+  # )
+
+  # Additional stylesheets to be included in the Alchemy admin UI
+  # config.admin_stylesheets.add("my_app/admin_extension")
+
+  # Define page publish targets
+  #
+  # A publish target is a ActiveJob that gets performed
+  # whenever a user clicks the publish page button.
+  #
+  # Use this to trigger deployment hooks of external
+  # services in an asychronous way.
+  #
+  # config.publish_targets << "MyPublishJob"
+
+  # Configure tabs in the link dialog
+  #
+  # With this configuration that tabs in the link dialog can be extended
+  # without overwriting or defacing the Admin Interface.
+  #
+  # config.link_dialog_tabs << "Acme::LinkTab"
 end
