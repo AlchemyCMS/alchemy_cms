@@ -1240,3 +1240,4 @@ de:
         alchemy_roles: "Benutzerrollen"
         tag_list: Tags
         send_credentials: "Willkommens-E-Mail senden"
+        timezone: "Zeitzone"

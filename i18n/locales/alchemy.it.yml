@@ -1156,3 +1156,4 @@ it:
         alchemy_roles: "Ruoli utente"
         send_credentials: "Invia email con le credenziali"
         tag_list: Tag
+        timezone: "Fuso orario"

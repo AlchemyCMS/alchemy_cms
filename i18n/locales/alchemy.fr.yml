@@ -1188,6 +1188,7 @@ fr:
         alchemy_roles: "Rôles de l’utilisateur"
         tag_list: Tags
         send_credentials: "Envoyer un e-mail avec les informations d’identification"
+        timezone: "Fuseau horaire"
     errors:
       models:
         alchemy/node:

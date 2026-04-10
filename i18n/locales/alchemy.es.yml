@@ -1182,6 +1182,7 @@ es:
         alchemy_roles: "Roles"
         send_credentials: "Enviar correo con las credenciales"
         tag_list: Etiquetas
+        timezone: "Zona horaria"
     errors:
       models:
         alchemy/content:
