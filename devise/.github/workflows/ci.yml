@@ -13,7 +13,6 @@ jobs:
       fail-fast: false
       matrix:
         alchemy_branch:
-          - "8.1-stable"
           - "8.2-stable"
         ruby:
           - "3.3"
@@ -27,9 +26,6 @@ jobs:
           - mysql
           - postgresql
           - sqlite
-        exclude:
-          - alchemy_branch: "8.0-stable"
-            rails: "8.1"
 
     env:
       DB: ${{ matrix.database }}
