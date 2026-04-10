@@ -61,7 +61,7 @@ module Alchemy
 
       def css_classes
         super + [
-          has_level_select? ? "with-level-select" : nil,
+          level_options.any? ? "with-level-select" : nil,
           has_size_select? ? "with-size-select" : nil
         ].compact
       end

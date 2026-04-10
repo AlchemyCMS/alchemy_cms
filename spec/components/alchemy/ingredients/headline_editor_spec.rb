@@ -41,10 +41,10 @@ RSpec.describe Alchemy::Ingredients::HeadlineEditor, type: :component do
     is_expected.to have_selector("sl-tooltip[content='Level']")
   end
 
-  context "and having many level options" do
+  context "and having any level options" do
     before do
       allow(headline_editor).to receive(:level_options) do
-        [["H1", 1], ["H2", 2]]
+        [["H1", 1]]
       end
     end
 
