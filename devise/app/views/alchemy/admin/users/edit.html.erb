@@ -1,6 +1,6 @@
 <% if request.xhr? || turbo_frame_request? %>
   <%= alchemy_form_for [:admin, @user] do |f| %>
-    <%= render 'fields', f: f %>
+    <%= render "fields", f: f, user_roles: @user_roles %>
   <% end %>
 <% else %>
   <%= content_for :toolbar do %>
@@ -16,7 +16,7 @@
       <%= Alchemy.t(:edit_user) %>
     </alchemy-message>
     <%= alchemy_form_for [:admin, @user] do |f| %>
-      <%= render 'fields', f: f %>
+      <%= render "fields", f: f, user_roles: @user_roles %>
     <% end %>
   </div>
 <% end %>
