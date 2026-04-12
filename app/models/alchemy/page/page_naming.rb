@@ -49,6 +49,19 @@ module Alchemy
         wildcard_url&.pattern.presence || urlname.to_s.split("/").last
       end
 
+      # Returns the urlname of the page.
+      # If the page has a wildcard_url, you can pass params to substitute
+      # the wildcards in the urlname: page.urlname(id: 42) # => "products/42"
+      def urlname(**params)
+        value = self[:urlname]
+        return value if params.empty? || !has_wildcard_url?
+
+        params.each do |key, val|
+          value = value.gsub(":#{key}", val.to_s)
+        end
+        value
+      end
+
       def has_wildcard_url?
         wildcard_url&.present?
       end

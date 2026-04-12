@@ -1895,6 +1895,25 @@ module Alchemy
             expect(child.urlname).to eq("products/:id/comments")
           end
         end
+
+        it "substitutes wildcards when called with params" do
+          expect(pattern_page.urlname(id: 42)).to eq("products/42")
+        end
+      end
+
+      context "with a multi-segment wildcard_url" do
+        let(:parent) { create(:alchemy_page, name: "Blog") }
+        let(:blog_page) { create(:alchemy_page, parent: parent, name: "Blog Post", page_layout: "blog_post") }
+
+        it "substitutes multiple wildcards when called with params" do
+          expect(blog_page.urlname(year: 2026, slug: "hello-world")).to eq("blog/2026/hello-world")
+        end
+      end
+
+      context "without a wildcard_url" do
+        it "returns the raw urlname even when called with params" do
+          expect(page.urlname(id: 42)).to eq(page.urlname)
+        end
       end
 
       context "if new urlname exists as a legacy url" do
