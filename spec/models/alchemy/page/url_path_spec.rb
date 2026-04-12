@@ -76,6 +76,39 @@ RSpec.describe Alchemy::Page::UrlPath do
     end
   end
 
+  context "with wildcard params" do
+    let(:parent) { create(:alchemy_page, name: "Products") }
+    let(:page) { create(:alchemy_page, parent: parent, name: "Product Detail", page_layout: "page_with_wildcard_url") }
+
+    subject(:url) { described_class.new(page, wildcard_params: {slug: 42}).call }
+
+    it "substitutes wildcards in the urlname" do
+      is_expected.to eq("/products/42")
+    end
+  end
+
+  context "with wildcard params as ActionController::Parameters" do
+    let(:parent) { create(:alchemy_page, name: "Products") }
+    let(:page) { create(:alchemy_page, parent: parent, name: "Product Detail", page_layout: "page_with_wildcard_url") }
+
+    subject(:url) { described_class.new(page, wildcard_params: ActionController::Parameters.new({slug: 42})).call }
+
+    it "substitutes wildcards in the urlname" do
+      is_expected.to eq("/products/42")
+    end
+  end
+
+  context "with wildcard and query params mixed" do
+    let(:parent) { create(:alchemy_page, name: "Products") }
+    let(:page) { create(:alchemy_page, parent: parent, name: "Product Detail", page_layout: "page_with_wildcard_url") }
+
+    subject(:url) { described_class.new(page, {page: 2}, wildcard_params: {slug: 42}).call }
+
+    it "substitutes wildcards and appends remaining params as query string" do
+      is_expected.to eq("/products/42?page=2")
+    end
+  end
+
   context "mounted on a non-root path" do
     let(:page) do
       create(:alchemy_page)

@@ -20,11 +20,12 @@ module Alchemy
     #     link_to page.url
     #
     class UrlPath
-      def initialize(page, optional_params = {})
+      def initialize(page, optional_params = {}, wildcard_params: {})
         @page = page
         @language = @page.language
         @site = @language.site
         @optional_params = optional_params
+        @wildcard_params = wildcard_params
       end
 
       def call
@@ -64,7 +65,11 @@ module Alchemy
       end
 
       def page_path
-        "#{root_path}#{@page.urlname}"
+        urlname = @page.urlname
+        @wildcard_params.each do |key, val|
+          urlname = urlname.gsub(":#{key}", val.to_s)
+        end
+        "#{root_path}#{urlname}"
       end
 
       def root_path

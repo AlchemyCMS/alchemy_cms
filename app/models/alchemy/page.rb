@@ -305,8 +305,8 @@ module Alchemy
     # = The url_path for this page
     #
     # @see Alchemy::Page::UrlPath#call
-    def url_path(optional_params = {})
-      self.class.url_path_class.new(self, optional_params).call
+    def url_path(optional_params = {}, wildcard_params: {})
+      self.class.url_path_class.new(self, optional_params, wildcard_params: wildcard_params).call
     end
 
     # The page's view partial is dependent from its page layout
