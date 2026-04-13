@@ -20,6 +20,7 @@ module Alchemy
       it { is_expected.to have_key(:hide) }
       it { is_expected.to have_key(:editable_by) }
       it { is_expected.to have_key(:hint) }
+      it { is_expected.to have_key(:wildcard_url) }
     end
 
     describe "#blank?" do

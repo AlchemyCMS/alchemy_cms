@@ -8,6 +8,8 @@ module Alchemy
 
       RESERVED_URLNAMES = %w[admin messages new]
 
+      delegate :wildcard_url, to: :definition
+
       included do
         before_validation :set_urlname,
           if: :renamed?,
@@ -42,9 +44,26 @@ module Alchemy
         end
       end
 
-      # Returns always the last part of a urlname path
+      # Returns wildcard url pattern or the last part of an urlname path
       def slug
-        urlname.to_s.split("/").last
+        wildcard_url&.pattern.presence || urlname.to_s.split("/").last
+      end
+
+      # Returns the urlname of the page.
+      # If the page has a wildcard_url, you can pass params to substitute
+      # the wildcards in the urlname: page.urlname(id: 42) # => "products/42"
+      def urlname(**params)
+        value = self[:urlname]
+        return value if params.empty? || !has_wildcard_url?
+
+        params.each do |key, val|
+          value = value.gsub(":#{key}", val.to_s)
+        end
+        value
+      end
+
+      def has_wildcard_url?
+        wildcard_url&.present?
       end
 
       private
@@ -67,13 +86,14 @@ module Alchemy
       end
 
       # Returns the full nested urlname.
-      #
+      # Uses the wildcard_url pattern from the page definition if present,
+      # otherwise converts the slug or name to a url-friendly string.
       def nested_url_name
-        converted_url_name = convert_to_urlname(slug.blank? ? name : slug)
+        url_part = wildcard_url&.pattern || convert_to_urlname(slug.blank? ? name : slug)
         if parent&.language_root?
-          converted_url_name
+          url_part
         else
-          [parent&.urlname, converted_url_name].compact.join("/")
+          [parent&.urlname, url_part].compact.join("/")
         end
       end
     end

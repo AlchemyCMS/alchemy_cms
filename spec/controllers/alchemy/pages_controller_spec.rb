@@ -257,5 +257,128 @@ module Alchemy
         end
       end
     end
+
+    describe "Wildcard URL matching" do
+      before do
+        PageDefinition.reset!
+      end
+
+      context "with a child page that has wildcard_url (replaces slug)" do
+        let!(:products_page) do
+          create(
+            :alchemy_page,
+            :public,
+            name: "Products",
+            page_layout: "standard",
+            parent: default_language_root,
+            language: default_language
+          )
+        end
+
+        let!(:product_detail_page) do
+          create(
+            :alchemy_page,
+            :public,
+            name: "Product Details",
+            page_layout: "product_detail",
+            parent: products_page,
+            language: default_language
+          )
+        end
+
+        it "matches a dynamic path and sets params" do
+          get :show, params: {urlname: "products/42"}
+          expect(assigns(:page)).to eq(product_detail_page)
+          expect(controller.params[:id]).to eq("42")
+        end
+
+        it "renders 404 when constraint does not match" do
+          expect {
+            get :show, params: {urlname: "products/not-a-number"}
+          }.to raise_error(ActionController::RoutingError)
+        end
+      end
+
+      context "exact page match takes priority over pattern" do
+        let!(:products_page) do
+          create(
+            :alchemy_page,
+            :public,
+            name: "Products",
+            page_layout: "standard",
+            parent: default_language_root,
+            language: default_language
+          )
+        end
+
+        let!(:product_detail_page) do
+          create(
+            :alchemy_page,
+            :public,
+            name: "Product Details",
+            page_layout: "product_detail",
+            parent: products_page,
+            language: default_language
+          )
+        end
+
+        let!(:child_page) do
+          create(
+            :alchemy_page,
+            :public,
+            name: "Featured",
+            page_layout: "standard",
+            parent: product_detail_page,
+            language: default_language
+          )
+        end
+
+        it "loads the exact page match, not the pattern match" do
+          get :show, params: {urlname: child_page.urlname}
+          expect(assigns(:page)).to eq(child_page)
+        end
+      end
+
+      context "with hierarchical patterns (grandchild under pattern page)" do
+        let!(:products_page) do
+          create(
+            :alchemy_page,
+            :public,
+            name: "Products",
+            page_layout: "standard",
+            parent: default_language_root,
+            language: default_language
+          )
+        end
+
+        let!(:product_detail_page) do
+          create(
+            :alchemy_page,
+            :public,
+            name: "Product Details",
+            page_layout: "product_detail",
+            parent: products_page,
+            language: default_language
+          )
+        end
+
+        let!(:comments_page) do
+          create(
+            :alchemy_page,
+            :public,
+            name: "Comments",
+            page_layout: "standard",
+            parent: product_detail_page,
+            language: default_language
+          )
+        end
+
+        it "matches a grandchild page with parent's pattern segment" do
+          get :show, params: {urlname: "products/42/comments"}
+          expect(assigns(:page)).to eq(comments_page)
+          expect(controller.params[:id]).to eq("42")
+        end
+      end
+    end
   end
 end

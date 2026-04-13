@@ -24,7 +24,7 @@ module Alchemy
         @page = page
         @language = @page.language
         @site = @language.site
-        @optional_params = optional_params
+        @wildcard_params, @query_params = split_params(optional_params)
       end
 
       def call
@@ -36,9 +36,9 @@ module Alchemy
           page_path_with_leading_slash
         end
 
-        if @optional_params.present?
+        if @query_params.present?
           uri = URI(path)
-          uri.query = @optional_params.to_query
+          uri.query = @query_params.to_query
           uri.to_s
         else
           path
@@ -64,7 +64,13 @@ module Alchemy
       end
 
       def page_path
-        "#{root_path}#{@page.urlname}"
+        "#{root_path}#{@page.urlname(**@wildcard_params)}"
+      end
+
+      def split_params(params)
+        return [{}, params] unless @page.has_wildcard_url? && params.present?
+
+        params.partition { |key, _| @page.wildcard_url.param_keys.include?(key) }.map(&:to_h)
       end
 
       def root_path
