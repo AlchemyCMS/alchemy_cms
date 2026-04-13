@@ -1,3 +1,22 @@
-<%= alchemy_form_for [:admin, @user] do |f| %>
-  <%= render 'fields', f: f %>
+<% if request.xhr? || turbo_frame_request? %>
+  <%= alchemy_form_for [:admin, @user] do |f| %>
+    <%= render "fields", f: f, user_roles: @user_roles %>
+  <% end %>
+<% else %>
+  <%= content_for :toolbar do %>
+    <sl-tooltip content="<%= Alchemy.t(:back) %>">
+      <%= link_to request.referer || alchemy.admin_dashboard_path, class: "icon_button" do %>
+        <alchemy-icon name="arrow-left-s"></alchemy-icon>
+      <% end %>
+    </sl-tooltip>
+  <% end %>
+
+  <div class="panel">
+    <alchemy-message type="info">
+      <%= Alchemy.t(:edit_user) %>
+    </alchemy-message>
+    <%= alchemy_form_for [:admin, @user] do |f| %>
+      <%= render "fields", f: f, user_roles: @user_roles %>
+    <% end %>
+  </div>
 <% end %>

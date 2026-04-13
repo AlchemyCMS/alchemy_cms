@@ -1,7 +1,7 @@
 <%= f.input :firstname, input_html: {autocomplete: "given-name"} %>
 <%= f.input :lastname, input_html: {autocomplete: "family-name"} %>
-<%= f.input :login, autofocus: true, required: @user.login_required?, input_html: {autocomplete: "username"} %>
-<%= f.input :email, required: @user.email_required?, input_html: {autocomplete: "email"} %>
+<%= f.input :login, autofocus: true, required: f.object.login_required?, input_html: {autocomplete: "username"} %>
+<%= f.input :email, required: f.object.email_required?, input_html: {autocomplete: "email"} %>
 <% if Alchemy::I18n.available_locales.many? %>
   <div class="input select">
     <%= f.label(:language) %>
@@ -16,9 +16,9 @@
     is: "alchemy-select",
     data: {allow_clear: true}
   } %>
-<% if can_update_role? %>
+<% if local_assigns[:user_roles] && can_update_role? %>
   <%= f.input :alchemy_roles,
-    collection: @user_roles,
+    collection: user_roles,
     input_html: {
       multiple: true,
       is: 'alchemy-select',
@@ -32,7 +32,7 @@
     <%= f.label :tag_list %>
     <%= render 'alchemy/admin/partials/autocomplete_tag_list',
       f: f,
-      object: @user %>
+      object: f.object %>
   </div>
 <% end %>
 <%= f.input :send_credentials, as: 'boolean' %>
