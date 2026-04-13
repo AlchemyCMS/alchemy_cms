@@ -99,6 +99,23 @@ module Alchemy
     describe WildcardUrlType::Value do
       subject(:value) { described_class.new(pattern: ":id", params: {"id" => "integer"}) }
 
+      describe "#param_keys" do
+        it "returns the named parameter keys as symbols" do
+          value = described_class.new(pattern: ":year/:slug")
+          expect(value.param_keys).to eq([:year, :slug])
+        end
+
+        it "returns a single key for a single-segment pattern" do
+          value = described_class.new(pattern: ":id")
+          expect(value.param_keys).to eq([:id])
+        end
+
+        it "ignores static segments" do
+          value = described_class.new(pattern: ":uuid/profile")
+          expect(value.param_keys).to eq([:uuid])
+        end
+      end
+
       describe "#present?" do
         it "returns true when pattern is present" do
           expect(value).to be_present

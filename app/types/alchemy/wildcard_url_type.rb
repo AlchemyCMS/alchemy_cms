@@ -13,6 +13,10 @@ module Alchemy
       def present?
         pattern.present?
       end
+
+      def param_keys
+        @_param_keys ||= pattern.scan(/:(\w+)/).flatten.map(&:to_sym)
+      end
     end
 
     def cast(value)
