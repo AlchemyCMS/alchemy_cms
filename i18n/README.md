@@ -1,17 +1,21 @@
 # AlchemyCMS Translations
 
-Translations files for AlchemyCMS 8.0 and above.
+Translation files for [AlchemyCMS](https://github.com/AlchemyCMS/alchemy_cms) 8.0 and above.
 
 ## Alchemy version
 
-- For a Alchemy 7.x compatible version use v4.3.1 or the `4.3-stable` branch.
-- For a Alchemy 7.0 compatible version use v4.0.2 or the `4.0-stable` branch.
-- For a Alchemy 6.1 compatible version use v3.2.0 or the `3.2-stable` branch.
-- For a Alchemy 5.3 compatible version use v2.3.1 or the `2.3-stable` branch.
+| Alchemy CMS | alchemy_i18n | Branch        |
+|-------------|-------------|---------------|
+| 8.2         | >= 8.2.0    | `8.2-stable`  |
+| 8.0         | 5.x         | `5.1-stable`  |
+| 7.x         | 4.3.x       | `4.3-stable`  |
+| 7.0         | 4.0.x       | `4.0-stable`  |
+| 6.1         | 3.2.x       | `3.2-stable`  |
+| 5.3         | 2.3.x       | `2.3-stable`  |
 
 ## Installation
 
-Add this Gem to your `Gemfile` and run the install generator
+Add the gem to your `Gemfile` and run the install generator:
 
 ```
 bundle add alchemy_i18n
@@ -19,23 +23,25 @@ bin/rails g alchemy_i18n:install
 ```
 
 Pass the locales you want to generate files for with the `--locales` option.
-Seperate multiple locales by space.
+Separate multiple locales by space.
 
 ```
-bin/rails g alchemy_i18n:install --locales=de it es
+bin/rails g alchemy_i18n:install --locales de it es
 ```
 
----
+## Available locales
 
-A ruby translation project managed on [Locale](http://www.localeapp.com/) that's open to all!
+`de` `es` `fr` `it` `nb-NO` `nl` `pl` `ru` `zh-CN`
 
-## Contributing to AlchemyCMS/alchemy_i18n
+### Noteworthy missing translations
 
-- Edit the translations directly on the [AlchemyCMS/alchemy_i18n](http://www.localeapp.com/projects/public?search=AlchemyCMS/alchemy_i18n) project on Locale.
-- **That's it!**
-- The maintainer will then pull translations from the Locale project and push to Github.
+Russian (`ru`) and Chinese (`zh-CN`) are at roughly 68% coverage and need help.
 
-Happy translating!
+## Contributing
+
+1. Fork the repository
+2. Add or update translations in the locale files under `locales/`
+3. Open a pull request
 
 ## License
 
