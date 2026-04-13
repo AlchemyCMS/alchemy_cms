@@ -14,7 +14,8 @@ module Alchemy
       :password,
       :password_confirmation,
       :send_credentials,
-      :tag_list
+      :tag_list,
+      :timezone
     ]
 
     devise(*Alchemy::Devise.config.devise_modules)

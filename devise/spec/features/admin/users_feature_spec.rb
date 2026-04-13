@@ -129,6 +129,19 @@ RSpec.describe "Admin users feature." do
       end
 
       it_behaves_like "allowing to set users language"
+
+      it "can set users timezone" do
+        subject
+
+        within "form.alchemy[action*='/admin/users']" do
+          expect(page).to have_select "Timezone"
+          select "Berlin", from: "Timezone"
+          click_button "Save"
+        end
+
+        expect(page).to have_content Alchemy.t("User updated", name: user.name)
+        expect(user.reload.timezone).to eq "Berlin"
+      end
     end
   end
 end
