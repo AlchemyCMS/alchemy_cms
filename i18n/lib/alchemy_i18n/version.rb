@@ -1,3 +1,3 @@
 module AlchemyI18n
-  VERSION = "8.2.0"
+  VERSION = "8.3.0.dev"
 end
