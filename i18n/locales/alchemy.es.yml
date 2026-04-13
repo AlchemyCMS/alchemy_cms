@@ -826,7 +826,6 @@ es:
     show_elements_from_page: "Mostrar todos los elementos de esta página"
     show_eq: "Mostrar EQ"
     show_navigation: "Mostrar en navegación"
-    show_page_in_sitemap: "Mostrar página en el sitemap XML."
     signup_mail_delivery_error: "El correo de registro no se pudo enviar. Por favor revise su configuración de correo."
     small_thumbnails: "Miniaturas pequeñas"
     subject: "Asunto"
@@ -1145,7 +1144,7 @@ es:
         robot_follow: "robot puede seguir enlaces"
         robot_index: "permitir indexar al robot"
         searchable: "indexable"
-        sitemap: "visible en mapa del sitio"
+        sitemap: "Mostrar página en el sitemap XML"
         slug: "Slug"
         tag_list: Etiquetas
         title: "Título"

@@ -826,7 +826,6 @@ fr:
     show_elements_from_page: "Voir les articles sur cette page"
     show_eq: "afficher EQ"
     show_navigation: "Afficher la navigation"
-    show_page_in_sitemap: "Afficher la page dans le sitemap XML"
     signup_mail_delivery_error: "Mise en place e-mail n’a pas pu être envoyé. S’il vous plaît vérifier les paramètres de messagerie."
     small_thumbnails: "Petites images de miniature"
     subject: "Concerne"
@@ -1151,7 +1150,7 @@ fr:
         robot_follow: "laissez le robot suivre les liens"
         robot_index: "index par Robot"
         searchable: "afficher dans la recherche"
-        sitemap: "visible dans le site"
+        sitemap: "Afficher la page dans le sitemap XML"
         slug: "Slug"
         tag_list: Tags
         title: "page de titre"

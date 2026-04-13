@@ -778,7 +778,6 @@ it:
     show_elements_from_page: "Mostra tutti gli elementi di questa pagina"
     show_eq: "Mostra EQ"
     show_navigation: "Mostra in navigazione"
-    show_page_in_sitemap: "Mostra la pagina nella sitemap XML."
     signup_mail_delivery_error: "Non è stato possibile consegnare la mail di signup. Ricontrolla le impostazioni dell'email."
     small_thumbnails: "Thumbnail piccoli"
     subject: "Oggetto"
@@ -1119,7 +1118,7 @@ it:
         public_on: "Visibile dal"
         public_until: "Visibile fino al"
         searchable: "mostra nei risultati di ricerca"
-        sitemap: "visibile nella sitemap"
+        sitemap: "Mostra la pagina nella sitemap XML"
         slug: "Slug"
         tag_list: Tag
         title: "Titolo"

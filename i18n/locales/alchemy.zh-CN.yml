@@ -572,7 +572,6 @@ zh-CN:
     show_elements_from_page: "在这个页面显示所有元素"
     show_eq: "显示EQ"
     show_navigation: "在导航中显示"
-    show_page_in_sitemap: "在 XML 站点地图中显示页面。"
     signup_mail_delivery_error: "无法发送注册邮件。请检查你的邮件设置。"
     small_thumbnails: "小缩略图"
     subject: "主题"
@@ -822,7 +821,7 @@ zh-CN:
         restricted: "受限"
         robot_follow: "允许机器人追踪链接"
         robot_index: "允许机器人索引"
-        sitemap: "在站点地图可见"
+        sitemap: "在 XML 站点地图中显示页面。"
         tag_list: 标签
         title: "标题"
         updated_at: "更新于"
