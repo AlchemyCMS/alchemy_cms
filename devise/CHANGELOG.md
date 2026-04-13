@@ -1,5 +1,29 @@
 # Changelog
 
+## 8.2.0 (2026-04-13)
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### New Features
+* feat: Add timezone to users by @tvdeyen in https://github.com/AlchemyCMS/alchemy-devise/pull/269
+* feat: Add edit user link to user info by @tvdeyen in https://github.com/AlchemyCMS/alchemy-devise/pull/270
+### Bug Fixes
+* fix: remove duplicate pagination in users resource table by @blish-guenzler in https://github.com/AlchemyCMS/alchemy-devise/pull/256
+* Don't render link when user login is nil by @blish-guenzler in https://github.com/AlchemyCMS/alchemy-devise/pull/259
+* fix: user table pagination by @tvdeyen in https://github.com/AlchemyCMS/alchemy-devise/pull/265
+### Dependencies
+* Bump immutable from 4.3.6 to 4.3.8 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy-devise/pull/254
+* Bump picomatch from 2.3.1 to 2.3.2 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy-devise/pull/264
+* chore(deps): update local dev puma to 8.0 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy-devise/pull/271
+### Other Changes
+* CI: Test Alchemy 8.2 by @tvdeyen in https://github.com/AlchemyCMS/alchemy-devise/pull/268
+
+## New Contributors
+* @blish-guenzler made their first contribution in https://github.com/AlchemyCMS/alchemy-devise/pull/256
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy-devise/compare/v8.1.1...v8.2.0
+
 ## 8.1.0 (2026-02-02)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
