@@ -5,7 +5,7 @@
 <% if Alchemy::I18n.available_locales.many? %>
   <div class="input select">
     <%= f.label(:language) %>
-    <%= render Alchemy::Admin::LocaleSelect.new(f.field_name(:language)) %>
+    <%= render Alchemy::Admin::LocaleSelect.new(f.field_name(:language), auto_submit: false) %>
   </div>
 <% end %>
 <%= f.input :password, required: while_signup?, input_html: {autocomplete: "new-password"} %>
