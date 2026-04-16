@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
-# alchemy_branch = ENV.fetch("ALCHEMY_BRANCH", "8.2-stable")
-gem "alchemy_cms", github: "AlchemyCMS/alchemy_cms", branch: "locale-select-auto-submit-option"
+alchemy_branch = ENV.fetch("ALCHEMY_BRANCH", "8.2-stable")
+gem "alchemy_cms", github: "AlchemyCMS/alchemy_cms", branch: alchemy_branch
 
 rails_version = ENV.fetch("RAILS_VERSION", "8.0")
 gem "rails", "~> #{rails_version}.0"
