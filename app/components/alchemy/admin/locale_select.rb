@@ -2,22 +2,19 @@ module Alchemy
   module Admin
     # Renders a locale select tag for switching the backend locale.
     class LocaleSelect < ViewComponent::Base
-      attr_reader :name
+      attr_reader :name, :auto_submit
 
-      def initialize(name = :admin_locale)
+      def initialize(name = :admin_locale, auto_submit: true)
         @name = name
+        @auto_submit = auto_submit
       end
 
       def call
         form_tag(helpers.url_for, method: :get) do
-          content_tag("alchemy-auto-submit") do
-            select_tag(
-              name,
-              options_for_select(
-                translations_for_select,
-                ::I18n.locale
-              )
-            )
+          if auto_submit
+            content_tag("alchemy-auto-submit", locale_select)
+          else
+            locale_select
           end
         end
       end
@@ -27,6 +24,16 @@ module Alchemy
       end
 
       private
+
+      def locale_select
+        select_tag(
+          name,
+          options_for_select(
+            translations_for_select,
+            ::I18n.locale
+          )
+        )
+      end
 
       def available_locales
         @_available_locales ||= Alchemy::I18n.available_locales.sort!
