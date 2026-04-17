@@ -5,7 +5,6 @@
 <%- else -%>
   <%= turbo_frame_tag @element do %>
     <%= alchemy_form_for [:admin, @element], remote: false do |form| %>
-      <%= form.hidden_field :page_version_id %>
       <div class="input">
         <%= form.label(:name, class: "control-label required") do %>
           <%= Alchemy.t(:element_of_type) %><abbr>*</abbr>
@@ -15,7 +14,9 @@
           field_name: form.field_name(:name)
         ) %>
       </div>
+      <%= form.hidden_field :page_version_id %>
       <%= form.hidden_field :parent_element_id, value: @parent_element.try(:id) %>
+      <%= hidden_field_tag :after_element_id, params[:after_element_id] %>
       <%= form.submit Alchemy.t(:add) %>
     <%- end -%>
   <%- end -%>

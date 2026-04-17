@@ -13,9 +13,10 @@ module Alchemy
 
       delegate :alchemy, :cannot?, :render_icon, :render_message, to: :helpers
 
-      def initialize(element:, created: false, parent_element: nil)
+      def initialize(element:, element_iteration: nil, created: false, parent_element: nil)
         @element = element
         @created = created
+        @iteration = element_iteration
         @parent_element = parent_element
       end
 

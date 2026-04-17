@@ -5,7 +5,7 @@ import { reloadPreview } from "alchemy_admin/components/preview_window"
 import { dispatchPageDirtyEvent } from "alchemy_admin/components/element_editor"
 
 const SORTABLE_OPTIONS = {
-  draggable: ".element-editor",
+  draggable: ".sortable-element",
   handle: ".element-handle.draggable",
   ghostClass: "dragged",
   animation: 150,
@@ -14,22 +14,27 @@ const SORTABLE_OPTIONS = {
 }
 
 function onStart(event) {
-  const name = event.item.dataset.elementName
+  const name = event.item.elementName
   document
-    .querySelectorAll(`[data-droppable-elements~="${name}"]`)
+    .querySelectorAll(`[droppable-elements~="${name}"]`)
     .forEach((dropzone) => dropzone.classList.add("droppable-elements"))
+  document
+    .querySelectorAll(".add-element-button")
+    .forEach((el) => (el.style.visibility = "hidden"))
 }
 
 function onSort(event) {
   const item = event.item
-  const parentElement = event.to.parentElement.closest(".element-editor")
+  const parentElement = event.to.parentElement.closest(
+    "alchemy-sortable-element"
+  )
   const params = {
-    element_id: item.dataset.elementId,
+    element_id: item.elementId,
     position: event.newIndex + 1
   }
 
   if (parentElement) {
-    params.parent_element_id = parentElement.dataset.elementId
+    params.parent_element_id = parentElement.elementId
   }
 
   // Only send the request if the item was moved to a different container
@@ -43,35 +48,50 @@ function onSort(event) {
         dispatchPageDirtyEvent(data)
       }
       reloadPreview()
-      item.updateTitle(data.preview_text)
+      item.elementEditor.updateTitle(data.preview_text)
     })
   }
 }
 
 function onEnd() {
-  const dropzones = document.querySelectorAll("[data-droppable-elements]")
+  const dropzones = document.querySelectorAll("[droppable-elements]")
   dropzones.forEach((dropzone) =>
     dropzone.classList.remove("droppable-elements")
   )
+  document
+    .querySelectorAll(".add-element-button")
+    .forEach((el) => (el.style.visibility = "visible"))
 }
 
 class SortableElements extends HTMLElement {
+  #sortable = null
+
+  get elementName() {
+    return this.getAttribute("element-name")
+  }
+
+  get droppableElements() {
+    return this.getAttribute("droppable-elements")
+  }
+
   connectedCallback() {
     const group = {
-      name: this.dataset.elementName,
+      name: this.elementName,
       put(to, _from, item) {
-        return to.el.dataset.droppableElements
-          .split(" ")
-          .includes(item.dataset.elementName)
+        return to.el.droppableElements.split(" ").includes(item.elementName)
       }
     }
-    new Sortable(this, {
+    this.#sortable = new Sortable(this, {
       ...SORTABLE_OPTIONS,
       onStart,
       onSort,
       onEnd,
       group
     })
+  }
+
+  disconnectedCallback() {
+    this.#sortable?.destroy()
   }
 }
 

@@ -4,12 +4,14 @@ import Sortable from "sortablejs"
 import { growl } from "alchemy_admin/growler"
 import { post } from "alchemy_admin/utils/ajax"
 import { reloadPreview } from "alchemy_admin/components/preview_window"
+import "alchemy_admin/components/sortable_element"
 import "alchemy_admin/components/sortable_elements"
 
 vi.mock("sortablejs", () => {
   const MockSortable = vi.fn(function (el, options) {
     this.el = el
     this.options = options
+    this.destroy = vi.fn()
   })
   return {
     __esModule: true,
@@ -52,25 +54,27 @@ describe("alchemy-sortable-elements", () => {
 
   const baseHtml = `
     <alchemy-sortable-elements
-      data-element-name="article"
-      data-droppable-elements="article slide"
+      element-name="article"
+      droppable-elements="article slide"
     >
-      <alchemy-element-editor
-        id="element_123"
-        class="element-editor"
-        data-element-id="123"
-        data-element-name="article"
+      <alchemy-sortable-element
+        class="sortable-element"
+        element-id="123"
+        element-name="article"
       >
-        <div class="element-handle draggable"></div>
-      </alchemy-element-editor>
-      <alchemy-element-editor
-        id="element_456"
-        class="element-editor"
-        data-element-id="456"
-        data-element-name="article"
+        <alchemy-element-editor id="element_123">
+          <div class="element-handle draggable"></div>
+        </alchemy-element-editor>
+      </alchemy-sortable-element>
+      <alchemy-sortable-element
+        class="sortable-element"
+        element-id="456"
+        element-name="article"
       >
-        <div class="element-handle"></div>
-      </alchemy-element-editor>
+        <alchemy-element-editor id="element_456">
+          <div class="element-handle"></div>
+        </alchemy-element-editor>
+      </alchemy-sortable-element>
     </alchemy-sortable-elements>
   `
 
@@ -93,7 +97,7 @@ describe("alchemy-sortable-elements", () => {
       sortableElements = getComponent(baseHtml)
       const options = Sortable.mock.calls[0][1]
 
-      expect(options.draggable).toBe(".element-editor")
+      expect(options.draggable).toBe(".sortable-element")
       expect(options.handle).toBe(".element-handle.draggable")
       expect(options.ghostClass).toBe("dragged")
       expect(options.animation).toBe(150)
@@ -114,9 +118,9 @@ describe("alchemy-sortable-elements", () => {
         const options = Sortable.mock.calls[0][1]
 
         const mockTo = {
-          el: { dataset: { droppableElements: "article slide" } }
+          el: { droppableElements: "article slide" }
         }
-        const mockItem = { dataset: { elementName: "article" } }
+        const mockItem = { elementName: "article" }
 
         expect(options.group.put(mockTo, {}, mockItem)).toBe(true)
       })
@@ -126,9 +130,9 @@ describe("alchemy-sortable-elements", () => {
         const options = Sortable.mock.calls[0][1]
 
         const mockTo = {
-          el: { dataset: { droppableElements: "article slide" } }
+          el: { droppableElements: "article slide" }
         }
-        const mockItem = { dataset: { elementName: "slide" } }
+        const mockItem = { elementName: "slide" }
 
         expect(options.group.put(mockTo, {}, mockItem)).toBe(true)
       })
@@ -138,9 +142,9 @@ describe("alchemy-sortable-elements", () => {
         const options = Sortable.mock.calls[0][1]
 
         const mockTo = {
-          el: { dataset: { droppableElements: "article slide" } }
+          el: { droppableElements: "article slide" }
         }
-        const mockItem = { dataset: { elementName: "header" } }
+        const mockItem = { elementName: "header" }
 
         expect(options.group.put(mockTo, {}, mockItem)).toBe(false)
       })
@@ -151,32 +155,28 @@ describe("alchemy-sortable-elements", () => {
     it("adds droppable-elements class to matching dropzones", () => {
       const html = `
         <alchemy-sortable-elements
-          data-element-name="article"
-          data-droppable-elements="article"
+          element-name="article"
+          droppable-elements="article"
         >
-          <alchemy-element-editor
-            class="element-editor"
-            data-element-id="123"
-            data-element-name="article"
-          ></alchemy-element-editor>
+          <alchemy-sortable-element
+            class="sortable-element"
+            element-id="123"
+            element-name="article"
+          ></alchemy-sortable-element>
         </alchemy-sortable-elements>
-        <div data-droppable-elements="article slide"></div>
-        <div data-droppable-elements="header"></div>
+        <div droppable-elements="article slide"></div>
+        <div droppable-elements="header"></div>
       `
       sortableElements = getComponent(html)
       const options = Sortable.mock.calls[0][1]
 
       const mockEvent = {
-        item: { dataset: { elementName: "article" } }
+        item: { elementName: "article" }
       }
       options.onStart(mockEvent)
 
-      const dropzone1 = document.querySelectorAll(
-        "[data-droppable-elements]"
-      )[1]
-      const dropzone2 = document.querySelectorAll(
-        "[data-droppable-elements]"
-      )[2]
+      const dropzone1 = document.querySelectorAll("[droppable-elements]")[1]
+      const dropzone2 = document.querySelectorAll("[droppable-elements]")[2]
 
       expect(dropzone1.classList.contains("droppable-elements")).toBe(true)
       expect(dropzone2.classList.contains("droppable-elements")).toBe(false)
@@ -192,8 +192,8 @@ describe("alchemy-sortable-elements", () => {
       it("posts to order endpoint with element_id and position", async () => {
         const options = Sortable.mock.calls[0][1]
         const mockItem = {
-          dataset: { elementId: "123" },
-          updateTitle: vi.fn()
+          elementId: "123",
+          elementEditor: { updateTitle: vi.fn() }
         }
         const mockTo = sortableElements
         const mockEvent = {
@@ -213,29 +213,29 @@ describe("alchemy-sortable-elements", () => {
 
       it("includes parent_element_id when inside nested element", async () => {
         const nestedHtml = `
-          <alchemy-element-editor
-            id="parent_element"
-            class="element-editor"
-            data-element-id="999"
+          <alchemy-sortable-element
+            class="sortable-element"
+            element-id="999"
+            element-name="article"
           >
             <alchemy-sortable-elements
-              data-element-name="article"
-              data-droppable-elements="article"
+              element-name="article"
+              droppable-elements="article"
             >
-              <alchemy-element-editor
-                class="element-editor"
-                data-element-id="123"
-                data-element-name="article"
-              ></alchemy-element-editor>
+              <alchemy-sortable-element
+                class="sortable-element"
+                element-id="123"
+                element-name="article"
+              ></alchemy-sortable-element>
             </alchemy-sortable-elements>
-          </alchemy-element-editor>
+          </alchemy-sortable-element>
         `
         sortableElements = getComponent(nestedHtml)
         const options = Sortable.mock.calls[0][1]
 
         const mockItem = {
-          dataset: { elementId: "123" },
-          updateTitle: vi.fn()
+          elementId: "123",
+          elementEditor: { updateTitle: vi.fn() }
         }
         const mockEvent = {
           item: mockItem,
@@ -256,8 +256,8 @@ describe("alchemy-sortable-elements", () => {
       it("shows growl message on success", async () => {
         const options = Sortable.mock.calls[0][1]
         const mockItem = {
-          dataset: { elementId: "123" },
-          updateTitle: vi.fn()
+          elementId: "123",
+          elementEditor: { updateTitle: vi.fn() }
         }
         const mockEvent = {
           item: mockItem,
@@ -275,8 +275,8 @@ describe("alchemy-sortable-elements", () => {
       it("reloads preview on success", async () => {
         const options = Sortable.mock.calls[0][1]
         const mockItem = {
-          dataset: { elementId: "123" },
-          updateTitle: vi.fn()
+          elementId: "123",
+          elementEditor: { updateTitle: vi.fn() }
         }
         const mockEvent = {
           item: mockItem,
@@ -293,9 +293,10 @@ describe("alchemy-sortable-elements", () => {
 
       it("updates item title on success", async () => {
         const options = Sortable.mock.calls[0][1]
+        const updateTitle = vi.fn()
         const mockItem = {
-          dataset: { elementId: "123" },
-          updateTitle: vi.fn()
+          elementId: "123",
+          elementEditor: { updateTitle }
         }
         const mockEvent = {
           item: mockItem,
@@ -306,9 +307,7 @@ describe("alchemy-sortable-elements", () => {
 
         options.onSort(mockEvent)
         await vi.waitFor(() => {
-          expect(mockItem.updateTitle).toHaveBeenCalledWith(
-            "Updated preview text"
-          )
+          expect(updateTitle).toHaveBeenCalledWith("Updated preview text")
         })
       })
     })
@@ -317,8 +316,8 @@ describe("alchemy-sortable-elements", () => {
       it("does not post to order endpoint", () => {
         const options = Sortable.mock.calls[0][1]
         const mockItem = {
-          dataset: { elementId: "123" },
-          updateTitle: vi.fn()
+          elementId: "123",
+          elementEditor: { updateTitle: vi.fn() }
         }
         const mockOtherTarget = document.createElement("div")
         const mockEvent = {
@@ -339,24 +338,24 @@ describe("alchemy-sortable-elements", () => {
     it("removes droppable-elements class from all dropzones", () => {
       const html = `
         <alchemy-sortable-elements
-          data-element-name="article"
-          data-droppable-elements="article"
+          element-name="article"
+          droppable-elements="article"
         >
-          <alchemy-element-editor
-            class="element-editor"
-            data-element-id="123"
-            data-element-name="article"
-          ></alchemy-element-editor>
+          <alchemy-sortable-element
+            class="sortable-element"
+            element-id="123"
+            element-name="article"
+          ></alchemy-sortable-element>
         </alchemy-sortable-elements>
-        <div data-droppable-elements="article" class="droppable-elements"></div>
-        <div data-droppable-elements="header" class="droppable-elements"></div>
+        <div droppable-elements="article" class="droppable-elements"></div>
+        <div droppable-elements="header" class="droppable-elements"></div>
       `
       sortableElements = getComponent(html)
       const options = Sortable.mock.calls[0][1]
 
       options.onEnd()
 
-      const dropzones = document.querySelectorAll("[data-droppable-elements]")
+      const dropzones = document.querySelectorAll("[droppable-elements]")
       dropzones.forEach((dropzone) => {
         expect(dropzone.classList.contains("droppable-elements")).toBe(false)
       })

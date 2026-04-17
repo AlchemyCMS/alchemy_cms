@@ -39,9 +39,10 @@ module Alchemy
           else
             Element.new(create_element_params)
           end
-          if @page.definition.insert_elements_at == "top"
-            @insert_at_top = true
-            @element.position = 1
+          @element.position = if params[:after_element_id]
+            Element.where(id: params[:after_element_id]).pick(:position).to_i + 1
+          else
+            1
           end
         end
         if @element.save
@@ -230,7 +231,7 @@ module Alchemy
       end
 
       def create_element_params
-        params.require(:element).permit(:name, :page_version_id, :parent_element_id)
+        params.require(:element).permit(:name, :page_version_id, :parent_element_id, :position)
       end
 
       def schedule_element_params

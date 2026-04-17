@@ -533,15 +533,6 @@ export class ElementEditor extends HTMLElement {
   }
 
   /**
-   * The element defintion name
-   *
-   * @returns {string}
-   */
-  get elementName() {
-    return this.dataset.elementName
-  }
-
-  /**
    * Does this element have ingredient editor fields?
    *
    * @returns {boolean}

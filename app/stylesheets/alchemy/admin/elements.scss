@@ -122,7 +122,7 @@ alchemy-elements-window {
 }
 
 #main-content-elements {
-  padding: var(--spacing-2) var(--spacing-1) 2px;
+  padding: var(--spacing-1);
 }
 
 #fixed-elements {
@@ -211,7 +211,6 @@ button.element-toggle {
     --element-editor-background-color,
     --dialog-background-color
   );
-  margin-bottom: var(--spacing-2);
   transition: box-shadow var(--transition-duration);
   scroll-margin: var(--spacing-2);
 
@@ -1238,7 +1237,6 @@ textarea.has_tinymce {
 
 .element-editor {
   display: block;
-  width: 100%;
 
   .not-fixed & {
     width: calc(100% - var(--spacing-2));
@@ -1332,4 +1330,24 @@ label.ingredient-date--label {
   > a {
     padding: var(--spacing-1);
   }
+}
+
+.add-element-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-1) 0;
+  margin-left: auto;
+  margin-right: auto;
+  --icon-button-width: 100%;
+  --icon-button-height: var(--spacing-5);
+  --icon-button-hover-bg-color: var(
+    --add-element-button-hover-bg-color,
+    var(--color-grey_light)
+  );
+}
+
+.sortable-element {
+  margin: var(--spacing-2) 0;
+  flex-grow: 1;
 }

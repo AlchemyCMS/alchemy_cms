@@ -1,86 +1,103 @@
-<alchemy-element-editor
-  id="element_<%= id %>"
-  data-element-id="<%= id %>"
-  data-element-name="<%= name %>"
-  filter-text="<%= filter_text %>"
-  class="<%= css_classes.join(" ") %>"
-  <%= compact? ? "compact" : nil %>
-  <%= created ? "created" : nil %>
-  <%= fixed? ? "fixed" : nil %>
->
-  <% unless fixed? %>
-    <%= render 'alchemy/admin/elements/header', element: element %>
+<% unless fixed? %>
+  <alchemy-sortable-element
+    id="sortable-element-<%= element.id %>"
+    class="sortable-element"
+    element-name="<%= name %>"
+    element-id="<%= id %>"
+    filter-text="<%= filter_text %>"
+  >
+  <% if @iteration&.first? %>
+    <%= render Alchemy::Admin::AddElementButton.new(page_version: element.page_version) %>
   <% end %>
+<% end %>
 
-  <%= render 'alchemy/admin/elements/toolbar', element: element %>
-
-  <% definition.message.tap do |message| %>
-    <%= render_message(:info, sanitize(message)) if message %>
-  <% end %>
-
-  <% definition.warning.tap do |warning| %>
-    <%= render_message(:warning, sanitize(warning)) if warning %>
-  <% end %>
-
-  <% if editable? %>
-    <%= form_for [alchemy, :admin, element], remote: true,
-      html: {id: "element_#{id}_form".html_safe, class: 'element-body'} do |f| %>
-
-      <div id="element_<%= id %>_errors" class="element_errors hidden">
-        <alchemy-icon name="alert"></alchemy-icon>
-        <p><%= Alchemy.t(:ingredient_validations_headline) %></p>
-      </div>
-
-      <!-- Ingredients -->
-      <% if has_ingredients_defined? %>
-        <div class="element-ingredient-editors">
-          <%= render Alchemy::Admin::IngredientEditor.with_collection(
-            ungrouped_ingredients,
-            element_form: f
-          ) %>
-
-          <!-- Each ingredient group -->
-          <% grouped_ingredients.each do |group, ingredients| %>
-            <%= content_tag :details, class: "ingredient-group", id: "element_#{id}_ingredient_group_#{group.parameterize.underscore}", is: "alchemy-ingredient-group" do %>
-              <summary>
-                <%= translated_group group %>
-                <%= render_icon "arrow-left-s" %>
-              </summary>
-              <%= render Alchemy::Admin::IngredientEditor.with_collection(
-                ingredients,
-                element_form: f
-              ) %>
-            <% end %>
-          <% end %>
-        </div>
-      <% end %>
-
-      <% if taggable? %>
-        <%= render Alchemy::Admin::TagsAutocomplete.new do %>
-          <%= f.label :tag_list %>
-          <%= f.text_field :tag_list, value: f.object.tag_list.join(","), disabled: cannot?(:edit, element) %>
-        <% end %>
-      <% end %>
+  <alchemy-element-editor
+    id="element_<%= id %>"
+    data-element-id="<%= id %>"
+    class="<%= css_classes.join(" ") %>"
+    <%= compact? ? "compact" : nil %>
+    <%= created ? "created" : nil %>
+    <%= fixed? ? "fixed" : nil %>
+  >
+    <% unless fixed? %>
+      <%= render 'alchemy/admin/elements/header', element: element %>
     <% end %>
 
-    <%= render 'alchemy/admin/elements/footer', element: element %>
-  <% end %>
+    <%= render 'alchemy/admin/elements/toolbar', element: element %>
 
-  <%# We need to render nested elements even if the element is folded,
-      because we need the element present in the DOM for the feature
-      "click element in the preview => load and expand element editor". %>
-  <% if nestable_elements.any? %>
-    <div class="nestable-elements">
-      <%= content_tag "alchemy-sortable-elements",
-        id: "element_#{id}_nested_elements",
-        class: "nested-elements", data: {
-          'droppable-elements' => nestable_elements.join(' '),
-          'element-name' => name
-        } do %>
-        <%= render Alchemy::Admin::ElementEditor.with_collection(all_nested_elements, parent_element: self) %>
+    <% definition.message.tap do |message| %>
+      <%= render_message(:info, sanitize(message)) if message %>
+    <% end %>
+
+    <% definition.warning.tap do |warning| %>
+      <%= render_message(:warning, sanitize(warning)) if warning %>
+    <% end %>
+
+    <% if editable? %>
+      <%= form_for [alchemy, :admin, element], remote: true,
+        html: {id: "element_#{id}_form".html_safe, class: 'element-body'} do |f| %>
+
+        <div id="element_<%= id %>_errors" class="element_errors hidden">
+          <alchemy-icon name="alert"></alchemy-icon>
+          <p><%= Alchemy.t(:ingredient_validations_headline) %></p>
+        </div>
+
+        <!-- Ingredients -->
+        <% if has_ingredients_defined? %>
+          <div class="element-ingredient-editors">
+            <%= render Alchemy::Admin::IngredientEditor.with_collection(
+              ungrouped_ingredients,
+              element_form: f
+            ) %>
+
+            <!-- Each ingredient group -->
+            <% grouped_ingredients.each do |group, ingredients| %>
+              <%= content_tag :details, class: "ingredient-group", id: "element_#{id}_ingredient_group_#{group.parameterize.underscore}", is: "alchemy-ingredient-group" do %>
+                <summary>
+                  <%= translated_group group %>
+                  <%= render_icon "arrow-left-s" %>
+                </summary>
+                <%= render Alchemy::Admin::IngredientEditor.with_collection(
+                  ingredients,
+                  element_form: f
+                ) %>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+
+        <% if taggable? %>
+          <%= render Alchemy::Admin::TagsAutocomplete.new do %>
+            <%= f.label :tag_list %>
+            <%= f.text_field :tag_list, value: f.object.tag_list.join(","), disabled: cannot?(:edit, element) %>
+          <% end %>
+        <% end %>
       <% end %>
 
-      <%= render "alchemy/admin/elements/add_nested_element_form", element: element %>
-    </div>
-  <% end %>
-</alchemy-element-editor>
+      <%= render 'alchemy/admin/elements/footer', element: element %>
+    <% end %>
+
+    <%# We need to render nested elements even if the element is folded,
+        because we need the element present in the DOM for the feature
+        "click element in the preview => load and expand element editor". %>
+    <% if nestable_elements.any? %>
+      <div class="nestable-elements">
+        <%= content_tag(
+          "alchemy-sortable-elements",
+          id: "element_#{id}_nested_elements",
+          class: "nested-elements",
+          "droppable-elements": nestable_elements.join(' '),
+          "element-name": name
+        ) do %>
+          <%= render Alchemy::Admin::ElementEditor.with_collection(all_nested_elements, parent_element: self) %>
+        <% end %>
+
+        <%= render "alchemy/admin/elements/add_nested_element_form", element: element %>
+      </div>
+    <% end %>
+  </alchemy-element-editor>
+
+<% unless fixed? %>
+  <%= render Alchemy::Admin::AddElementButton.new(page_version: element.page_version, after_element: element) %>
+</alchemy-sortable-element>
+<% end %>

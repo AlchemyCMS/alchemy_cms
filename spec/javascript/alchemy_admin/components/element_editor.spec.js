@@ -812,12 +812,6 @@ describe("alchemy-element-editor", () => {
     })
   })
 
-  describe("elementName", () => {
-    it("returns element definition name", () => {
-      expect(editor.elementName).toEqual("article")
-    })
-  })
-
   describe("compact", () => {
     it("is false if not has compact attribute", () => {
       expect(editor.compact).toBeFalsy()

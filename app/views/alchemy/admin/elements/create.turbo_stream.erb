@@ -13,12 +13,12 @@
   <%= turbo_stream.remove "element_#{@cut_element_id}" %>
 <% end %>
 
-<% if @insert_at_top %>
-  <%= turbo_stream.prepend target do %>
+<% if params[:after_element_id] %>
+  <%= turbo_stream.after "sortable-element-#{params[:after_element_id]}" do %>
     <%= render Alchemy::Admin::ElementEditor.new(element: @element, created: true) %>
   <% end %>
 <% else %>
-  <%= turbo_stream.append target do %>
+  <%= turbo_stream.prepend target do %>
     <%= render Alchemy::Admin::ElementEditor.new(element: @element, created: true) %>
   <% end %>
 <% end %>
