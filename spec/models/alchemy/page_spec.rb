@@ -1933,6 +1933,38 @@ module Alchemy
         end
       end
 
+      context "with conflicting wildcard param keys across layouts" do
+        let(:parent) { create(:alchemy_page, name: "Items") }
+
+        before do
+          PageDefinition.add(
+            name: "conflicting_layout",
+            wildcard_url: ":slug"
+          )
+        end
+
+        after { PageDefinition.reset! }
+
+        it "is invalid when another layout already uses the same param key" do
+          page = build(:alchemy_page, parent: parent, name: "Item", page_layout: "conflicting_layout")
+          expect(page).not_to be_valid
+          expect(page.errors[:page_layout]).to include(
+            a_string_matching(/param ":slug".*"page_with_wildcard_url"/)
+          )
+        end
+      end
+
+      context "with the same wildcard layout under different parents" do
+        let(:parent_a) { create(:alchemy_page, name: "Section A") }
+        let(:parent_b) { create(:alchemy_page, name: "Section B") }
+
+        it "allows creating pages with the same layout" do
+          create(:alchemy_page, parent: parent_a, name: "Detail A", page_layout: "page_with_wildcard_url")
+          page_b = build(:alchemy_page, parent: parent_b, name: "Detail B", page_layout: "page_with_wildcard_url")
+          expect(page_b).to be_valid
+        end
+      end
+
       context "if new urlname exists as a legacy url" do
         it "will delete obsolete legacy_urls" do
           expect(page.urlname).to eq("parentparent/parent/page")

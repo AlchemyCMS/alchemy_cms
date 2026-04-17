@@ -20,6 +20,7 @@ module Alchemy
         validates :urlname,
           uniqueness: {scope: [:language_id, :layoutpage], if: -> { urlname.present? }, case_sensitive: false},
           exclusion: {in: RESERVED_URLNAMES}
+        validate :unique_wildcard_param_keys, if: :has_wildcard_url?
 
         after_update :update_descendants_urlnames,
           if: :saved_change_to_urlname?
@@ -54,6 +55,21 @@ module Alchemy
       end
 
       private
+
+      def unique_wildcard_param_keys
+        conflicting = PageDefinition.all.find do |other|
+          other.name != page_layout && other.wildcard_url == wildcard_url
+        end
+
+        if conflicting
+          errors.add(
+            :page_layout,
+            :conflicting_wildcard_param_key,
+            param: wildcard_url,
+            conflicting_layout: conflicting.name
+          )
+        end
+      end
 
       def update_descendants_urlnames
         reload
