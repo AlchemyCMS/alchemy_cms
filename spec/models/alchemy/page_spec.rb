@@ -330,6 +330,34 @@ module Alchemy
       end
     end
 
+    describe ".url_path" do
+      let(:page) { create(:alchemy_page, name: "Foo") }
+
+      subject { page.url_path }
+
+      it { is_expected.to eq("/foo") }
+
+      context "with optional parameters" do
+        subject { page.url_path({page: 2}) }
+
+        it { is_expected.to eq("/foo?page=2") }
+      end
+
+      context "with a custom url_path_class" do
+        let(:url_path_class) { Struct.new(:page, :params) { def call = "/bar" } }
+
+        before do
+          described_class.url_path_class = url_path_class
+        end
+
+        after do
+          described_class.url_path_class = Alchemy::Page::UrlPath
+        end
+
+        it { is_expected.to eq("/bar") }
+      end
+    end
+
     describe ".all_from_clipboard_for_select" do
       context "with clipboard holding pages having non unique page layout" do
         it "should return the pages" do
