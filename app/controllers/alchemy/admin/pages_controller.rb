@@ -81,6 +81,10 @@ module Alchemy
         Current.preview_page = @page
         # Setting the locale to pages language, so the page content has it's correct translations.
         ::I18n.locale = @page.language.locale
+        if @page.service
+          @service = @page.service.new(@page, params: params, preview_mode: true)
+          @service.call
+        end
         render(layout: Alchemy.config.admin_page_preview_layout || "application")
       end
 
