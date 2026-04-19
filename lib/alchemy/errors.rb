@@ -85,4 +85,7 @@ module Alchemy
       "Unknown Version! Please use one of #{Alchemy::EagerLoading::PAGE_VERSIONS.join(", ")}"
     end
   end
+
+  # Raised by page definition services to trigger a 404 response.
+  class PageNotFound < StandardError; end
 end

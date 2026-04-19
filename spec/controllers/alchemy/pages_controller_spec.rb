@@ -257,5 +257,25 @@ module Alchemy
         end
       end
     end
+
+    describe "Page definition service" do
+      let(:page_with_service) { create(:alchemy_page, :public, page_layout: :with_service) }
+
+      context "when the page definition has a service" do
+        it "assigns the service instance to @service" do
+          get :show, params: {urlname: page_with_service.urlname}
+          expect(assigns(:service)).to be_a(DummyPageService)
+        end
+      end
+
+      context "when the service raises Alchemy::PageNotFound" do
+        it "renders a 404" do
+          expect_any_instance_of(DummyPageService).to receive(:call).and_raise(Alchemy::PageNotFound)
+          expect {
+            get :show, params: {urlname: page_with_service.urlname}
+          }.to raise_error(ActionController::RoutingError)
+        end
+      end
+    end
   end
 end

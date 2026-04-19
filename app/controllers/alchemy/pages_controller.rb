@@ -130,6 +130,16 @@ module Alchemy
         urlname: params[:urlname],
         language_code: params[:locale] || Current.language.code
       )
+
+      if @page&.service
+        begin
+          @service = @page.service.new(@page, params: params)
+          @service.call
+        rescue Alchemy::PageNotFound
+          page_not_found!
+        end
+      end
+
       Current.page = @page
     end
 
