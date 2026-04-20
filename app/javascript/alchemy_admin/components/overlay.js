@@ -1,13 +1,11 @@
-import { AlchemyHTMLElement } from "alchemy_admin/components/alchemy_html_element"
-
-class Overlay extends AlchemyHTMLElement {
-  render() {
-    return `
+class Overlay extends HTMLElement {
+  connectedCallback() {
+    this.innerHTML = `
       <alchemy-spinner></alchemy-spinner>
       <div id="overlay_text_box">
-        <span id="overlay_text">${this.getAttribute("text")}</span>
+        <span id="overlay_text">${this.getAttribute("text") ?? ""}</span>
       </div>
-      `
+    `
   }
 
   set show(value) {
