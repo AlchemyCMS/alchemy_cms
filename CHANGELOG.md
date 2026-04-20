@@ -1,5 +1,17 @@
 # Changelog
 
+## 8.2.1 (2026-04-16)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.2-stable -->
+
+## What's Changed
+### Other Changes
+* [8.2-stable] fix(alchemy-notice): Use default font size for headings by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3834
+* [8.2-stable] feat(LocaleSelect): Make auto_submit toggable by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3836
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.2.0...v8.2.1
+
 ## 8.2.0 (2026-04-08)
 
 <!-- Release notes generated using configuration in .github/release.yml at main -->
