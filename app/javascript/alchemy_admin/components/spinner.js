@@ -1,15 +1,7 @@
-import { AlchemyHTMLElement } from "alchemy_admin/components/alchemy_html_element"
-
-class Spinner extends AlchemyHTMLElement {
-  static properties = {
-    size: { default: "medium" },
-    color: { default: "currentColor" }
-  }
-
-  render() {
+class Spinner extends HTMLElement {
+  connectedCallback() {
     this.className = `spinner spinner--${this.size}`
-
-    return `
+    this.innerHTML = `
       <svg width="100%" viewBox="0 0 28 28" style="--spinner-color: ${this.color}">
         <path
           class="hex1"
@@ -25,6 +17,14 @@ class Spinner extends AlchemyHTMLElement {
         />
       </svg>
     `
+  }
+
+  get size() {
+    return this.getAttribute("size") || "medium"
+  }
+
+  get color() {
+    return this.getAttribute("color") || "currentColor"
   }
 }
 
