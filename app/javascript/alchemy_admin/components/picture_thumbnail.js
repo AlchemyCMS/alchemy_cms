@@ -7,12 +7,7 @@ export default class PictureThumbnail extends HTMLElement {
   constructor() {
     super()
 
-    this.classList.add("thumbnail_background")
     this.spinner = new Spinner("small")
-
-    if (this.src) {
-      this.start()
-    }
   }
 
   handleEvent(evt) {
@@ -29,6 +24,10 @@ export default class PictureThumbnail extends HTMLElement {
   }
 
   connectedCallback() {
+    this.classList.add("thumbnail_background")
+    if (this.src && !this.image) {
+      this.start()
+    }
     this.#setImage()
   }
 
