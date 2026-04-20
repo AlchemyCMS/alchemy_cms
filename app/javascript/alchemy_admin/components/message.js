@@ -1,15 +1,7 @@
 const DISMISS_DELAY = 5000
 
 class Message extends HTMLElement {
-  #message
-
-  constructor() {
-    super()
-    this.#message = this.innerHTML
-    if (this.dismissable || this.type === "error") {
-      this.addEventListener("click", this)
-    }
-  }
+  #dismissTimeoutId = null
 
   handleEvent(event) {
     if (event.type === "click") {
@@ -18,15 +10,30 @@ class Message extends HTMLElement {
   }
 
   connectedCallback() {
-    this.innerHTML = `
-      <alchemy-icon name="${this.iconName}"></alchemy-icon>
-      ${this.dismissable && this.type === "error" ? '<alchemy-icon name="close"></alchemy-icon>' : ""}
-      ${this.#message}
-    `
+    if (!this.querySelector(":scope > alchemy-icon")) {
+      const closeIcon =
+        this.dismissable && this.type === "error"
+          ? '<alchemy-icon name="close"></alchemy-icon>'
+          : ""
+      this.insertAdjacentHTML(
+        "afterbegin",
+        `<alchemy-icon name="${this.iconName}"></alchemy-icon>${closeIcon}`
+      )
+    }
+    if (this.dismissable || this.type === "error") {
+      this.addEventListener("click", this)
+    }
     if (this.dismissable && this.type !== "error") {
-      setTimeout(() => {
+      this.#dismissTimeoutId = setTimeout(() => {
         this.dismiss()
       }, this.dismissDelay)
+    }
+  }
+
+  disconnectedCallback() {
+    if (this.#dismissTimeoutId !== null) {
+      clearTimeout(this.#dismissTimeoutId)
+      this.#dismissTimeoutId = null
     }
   }
 
