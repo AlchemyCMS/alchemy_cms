@@ -1,22 +1,26 @@
 /**
  * Show the character counter below input fields and textareas
  */
-import { AlchemyHTMLElement } from "alchemy_admin/components/alchemy_html_element"
 import { translate } from "alchemy_admin/i18n"
 
-class CharCounter extends AlchemyHTMLElement {
-  static properties = {
-    maxChars: { default: 60 }
-  }
-  connected() {
+class CharCounter extends HTMLElement {
+  connectedCallback() {
     this.translation = translate("allowed_chars", this.maxChars)
     this.formField = this.getFormField()
 
     if (this.formField) {
       this.createDisplayElement()
       this.countCharacters()
-      this.formField.addEventListener("keyup", () => this.countCharacters()) // add arrow function to get a implicit this - binding
+      this.formField.addEventListener("keyup", this)
     }
+  }
+
+  disconnectedCallback() {
+    this.formField?.removeEventListener("keyup", this)
+  }
+
+  handleEvent(event) {
+    if (event.type === "keyup") this.countCharacters()
   }
 
   getFormField() {
@@ -25,6 +29,8 @@ class CharCounter extends AlchemyHTMLElement {
   }
 
   createDisplayElement() {
+    this.display = this.querySelector(":scope > .alchemy-char-counter")
+    if (this.display) return
     this.display = document.createElement("small")
     this.display.className = "alchemy-char-counter"
     this.formField.after(this.display)
@@ -34,6 +40,10 @@ class CharCounter extends AlchemyHTMLElement {
     const charLength = this.formField.value.length
     this.display.textContent = `${charLength} ${this.translation}`
     this.display.classList.toggle("too-long", charLength > this.maxChars)
+  }
+
+  get maxChars() {
+    return this.getAttribute("max-chars") ?? 60
   }
 }
 
