@@ -1,12 +1,15 @@
 class FileEditor extends HTMLElement {
-  constructor() {
-    super()
+  connectedCallback() {
     this.deleteLink = this.querySelector(".remove_file_link")
     this.fileIcon = this.querySelector(".file_icon")
     this.fileName = this.querySelector(".file_name")
     this.formFieldId = this.deleteLink?.dataset.formFieldId
     this.formField = this.querySelector(`#${this.formFieldId}`)
     this.deleteLink?.addEventListener("click", this)
+  }
+
+  disconnectedCallback() {
+    this.deleteLink?.removeEventListener("click", this)
   }
 
   handleEvent(event) {
