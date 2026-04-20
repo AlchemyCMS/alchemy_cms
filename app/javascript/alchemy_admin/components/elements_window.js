@@ -4,20 +4,49 @@ class ElementsWindow extends HTMLElement {
   #visible = true
   #turboFrame = null
 
-  constructor() {
-    super()
-    this.#attachEvents()
-  }
-
   connectedCallback() {
-    this.toggleButton?.addEventListener("click", (evt) => {
-      evt.preventDefault()
-      this.toggle()
-    })
+    this.toggleButton?.addEventListener("click", this.#onToggleClick)
+    this.collapseButton?.addEventListener("click", this.#onCollapseClick)
+    window.addEventListener("message", this.#onWindowMessage)
+    document.body.addEventListener("click", this.#onBodyClick)
     if (window.location.hash) {
       this.focusElementEditor(window.location.hash)
     }
     this.resize()
+  }
+
+  disconnectedCallback() {
+    this.toggleButton?.removeEventListener("click", this.#onToggleClick)
+    this.collapseButton?.removeEventListener("click", this.#onCollapseClick)
+    window.removeEventListener("message", this.#onWindowMessage)
+    document.body.removeEventListener("click", this.#onBodyClick)
+  }
+
+  #onToggleClick = (evt) => {
+    evt.preventDefault()
+    this.toggle()
+  }
+
+  #onCollapseClick = () => {
+    this.collapseAllElements()
+  }
+
+  #onWindowMessage = (event) => {
+    const data = event.data
+    if (data?.message == "Alchemy.focusElementEditor") {
+      const element = document.getElementById(`element_${data.element_id}`)
+      this.show()
+      element?.focusElement()
+    }
+  }
+
+  #onBodyClick = (evt) => {
+    if (!evt.target.closest("alchemy-element-editor")) {
+      this.querySelectorAll("alchemy-element-editor").forEach((editor) => {
+        editor.classList.remove("selected")
+      })
+      this.previewWindow?.postMessage({ message: "Alchemy.blurElements" })
+    }
   }
 
   collapseAllElements() {
@@ -100,28 +129,6 @@ class ElementsWindow extends HTMLElement {
   set isDragged(dragged) {
     this.turboFrame.style.transitionProperty = dragged ? "none" : null
     this.turboFrame.style.pointerEvents = dragged ? "none" : null
-  }
-
-  #attachEvents() {
-    this.collapseButton?.addEventListener("click", () => {
-      this.collapseAllElements()
-    })
-    window.addEventListener("message", (event) => {
-      const data = event.data
-      if (data?.message == "Alchemy.focusElementEditor") {
-        const element = document.getElementById(`element_${data.element_id}`)
-        this.show()
-        element?.focusElement()
-      }
-    })
-    document.body.addEventListener("click", (evt) => {
-      if (!evt.target.closest("alchemy-element-editor")) {
-        this.querySelectorAll("alchemy-element-editor").forEach((editor) => {
-          editor.classList.remove("selected")
-        })
-        this.previewWindow?.postMessage({ message: "Alchemy.blurElements" })
-      }
-    })
   }
 }
 
