@@ -1,33 +1,37 @@
-import { AlchemyHTMLElement } from "alchemy_admin/components/alchemy_html_element"
 import { setupSelectLocale } from "alchemy_admin/i18n"
 
 export function hightlightTerm(name, term) {
   return name.replace(new RegExp(term, "gi"), (match) => `<em>${match}</em>`)
 }
 
-export class RemoteSelect extends AlchemyHTMLElement {
-  static properties = {
-    allowClear: { default: false },
-    selection: { default: undefined },
-    placeholder: { default: "" },
-    queryParams: { default: "{}" },
-    url: { default: "" }
-  }
+export class RemoteSelect extends HTMLElement {
+  #select2 = null
 
-  async connected() {
+  async connectedCallback() {
     await setupSelectLocale()
+    // Bail out if the element was disconnected while the locale was loading.
+    // Otherwise Select2 would leak onto a detached input.
+    if (!this.isConnected) return
 
     this.input.classList.add("alchemy_selectbox")
 
-    $(this.input)
+    this.#select2 = $(this.input)
       .select2(this.select2Config)
-      .on("select2-open", (evt) => {
-        this.onOpen(evt)
-      })
-      .on("change", (evt) => {
-        this.onChange(evt)
-      })
+      .on("select2-open", this.#onOpen)
+      .on("change", this.#onChange)
   }
+
+  disconnectedCallback() {
+    if (this.#select2) {
+      this.#select2.off("select2-open", this.#onOpen)
+      this.#select2.off("change", this.#onChange)
+      this.#select2.select2("destroy")
+      this.#select2 = null
+    }
+  }
+
+  #onOpen = (evt) => this.onOpen(evt)
+  #onChange = (evt) => this.onChange(evt)
 
   /**
    * Optional on change handler called by Select2.
@@ -52,6 +56,38 @@ export class RemoteSelect extends AlchemyHTMLElement {
     setTimeout(() => {
       document.querySelector("#select2-drop .select2-input").focus()
     }, 100)
+  }
+
+  /**
+   * Dispatches a custom event with given name, namespaced under `Alchemy.`.
+   * Subclasses may call this to emit their own events.
+   * @param {string} name The name of the custom event
+   * @param {object} detail Optional event details
+   */
+  dispatchCustomEvent(name, detail = {}) {
+    this.dispatchEvent(
+      new CustomEvent(`Alchemy.${name}`, { bubbles: true, detail })
+    )
+  }
+
+  get allowClear() {
+    return this.hasAttribute("allow-clear")
+  }
+
+  get selection() {
+    return this.getAttribute("selection")
+  }
+
+  get placeholder() {
+    return this.getAttribute("placeholder") ?? ""
+  }
+
+  get queryParams() {
+    return this.getAttribute("query-params") ?? "{}"
+  }
+
+  get url() {
+    return this.getAttribute("url") ?? ""
   }
 
   get input() {
