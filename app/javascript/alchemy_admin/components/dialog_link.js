@@ -1,9 +1,12 @@
 import { Dialog } from "alchemy_admin/dialog"
 
 export class DialogLink extends HTMLAnchorElement {
-  constructor() {
-    super()
+  connectedCallback() {
     this.addEventListener("click", this)
+  }
+
+  disconnectedCallback() {
+    this.removeEventListener("click", this)
   }
 
   handleEvent(evt) {
