@@ -114,14 +114,10 @@
 
     <script type="module" data-turbo-eval="false">
       class Menubar extends HTMLElement {
-        constructor() {
-          super()
+        connectedCallback() {
           const template = this.querySelector("template")
           const attachedShadowRoot = this.attachShadow({ mode: "open" })
           attachedShadowRoot.appendChild(template.content.cloneNode(true))
-        }
-
-        connectedCallback() {
           const width = this.bar.offsetWidth
           this.bar.style = `--panel-width: ${width}px; --left-offset: calc(var(--icon-size) + 32px);`
           this.bar.addEventListener("touchstart", this, { passive: false })
