@@ -1,11 +1,19 @@
 import { setupSelectLocale } from "alchemy_admin/i18n"
 
 class TagsAutocomplete extends HTMLElement {
+  #select2 = null
+
   async connectedCallback() {
     await setupSelectLocale()
+    if (!this.isConnected) return
 
     this.classList.add("autocomplete_tag_list")
-    $(this.input).select2(this.select2Config)
+    this.#select2 = $(this.input).select2(this.select2Config)
+  }
+
+  disconnectedCallback() {
+    this.#select2?.select2("destroy")
+    this.#select2 = null
   }
 
   get input() {
