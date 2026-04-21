@@ -1,38 +1,22 @@
-import { AlchemyHTMLElement } from "alchemy_admin/components/alchemy_html_element"
 import { formatFileSize } from "alchemy_admin/utils/format"
 import { translate } from "alchemy_admin/i18n"
 import { growl } from "alchemy_admin/growler"
 
-export class FileUpload extends AlchemyHTMLElement {
-  constructor() {
-    super()
+export class FileUpload extends HTMLElement {
+  // public — used by callers (Uploader, Progress, tests)
+  file = null
+  request = null
+  progressEventLoaded = 0
+  progressEventTotal = 0
 
-    this.file = null
-    this.request = null
+  // private — backing state for getters/setters
+  #valid = true
+  #value = 0
+  #status = undefined
+  #errorMessage = ""
 
-    this.progressEventLoaded = 0
-    this.progressEventTotal = 0
-    this.className = "in-progress"
-    this.valid = true
-    this.value = 0
-  }
-
-  /**
-   * Initialize the component with file and request
-   * @param {File} file
-   * @param {XMLHttpRequest} request
-   */
-  initialize(file, request) {
-    this.file = file
-    this.request = request
-    this.progressEventTotal = file ? file.size : 0
-
-    this._validateFile()
-    this._addRequestEventListener()
-  }
-
-  render() {
-    return `
+  connectedCallback() {
+    this.innerHTML = `
       <sl-progress-bar value="${this.value}"></sl-progress-bar>
       <div class="description">
         <span class="file-name">${this.file?.name}</span>
@@ -45,9 +29,7 @@ export class FileUpload extends AlchemyHTMLElement {
         </button>
       </sl-tooltip>
     `
-  }
 
-  afterRender() {
     this.querySelector("button").addEventListener("click", () => this.cancel())
 
     if (this.file?.type.includes("image")) {
@@ -62,6 +44,21 @@ export class FileUpload extends AlchemyHTMLElement {
   }
 
   /**
+   * Initialize the component with file and request
+   * @param {File} file
+   * @param {XMLHttpRequest} request
+   */
+  initialize(file, request) {
+    this.file = file
+    this.request = request
+    this.progressEventTotal = file ? file.size : 0
+    this.status = "in-progress"
+
+    this.#validateFile()
+    this.#addRequestEventListener()
+  }
+
+  /**
    * cancel the upload
    */
   cancel() {
@@ -73,10 +70,17 @@ export class FileUpload extends AlchemyHTMLElement {
   }
 
   /**
-   * validate given file with the `Alchemy.uploader_defaults` - configuration
-   * @private
+   * Dispatches a custom event with given name, namespaced under `Alchemy.`.
+   * @param {string} name The name of the custom event
    */
-  _validateFile() {
+  dispatchCustomEvent(name) {
+    this.dispatchEvent(new CustomEvent(`Alchemy.${name}`, { bubbles: true }))
+  }
+
+  /**
+   * validate given file with the `Alchemy.uploader_defaults` - configuration
+   */
+  #validateFile() {
     const config = Alchemy.uploader_defaults
     const maxFileSize = config.file_size_limit * Math.pow(1024, 2) // in Byte
     let errorMessage = undefined
@@ -107,9 +111,8 @@ export class FileUpload extends AlchemyHTMLElement {
 
   /**
    * register event listeners to react on request changes
-   * @private
    */
-  _addRequestEventListener() {
+  #addRequestEventListener() {
     // prevent errors if the component will be called without a request - object
     if (!this.request) {
       return
@@ -149,14 +152,14 @@ export class FileUpload extends AlchemyHTMLElement {
    * @returns {string}
    */
   get errorMessage() {
-    return this._errorMessage || ""
+    return this.#errorMessage || ""
   }
 
   /**
    * @param {string} message
    */
   set errorMessage(message) {
-    this._errorMessage = message
+    this.#errorMessage = message
     const errorMessageContainer = this.querySelector(".error-message")
     if (errorMessageContainer) {
       errorMessageContainer.textContent = message
@@ -215,14 +218,14 @@ export class FileUpload extends AlchemyHTMLElement {
    * @returns {string}
    */
   get status() {
-    return this._status
+    return this.#status
   }
 
   /**
    * @param {string} status
    */
   set status(status) {
-    this._status = status
+    this.#status = status
     this.className = status
 
     this.progressElement?.toggleAttribute(
@@ -235,14 +238,14 @@ export class FileUpload extends AlchemyHTMLElement {
    * @returns {boolean}
    */
   get valid() {
-    return this._valid
+    return this.#valid
   }
 
   /**
    * @param {boolean} isValid
    */
   set valid(isValid) {
-    this._valid = isValid
+    this.#valid = isValid
     this.classList.toggle("invalid", !isValid)
   }
 
@@ -251,14 +254,14 @@ export class FileUpload extends AlchemyHTMLElement {
    * @returns {number}
    */
   get value() {
-    return this._value
+    return this.#value
   }
 
   /**
    * @param {number} value
    */
   set value(value) {
-    this._value = value
+    this.#value = value
     if (this.progressElement) {
       this.progressElement.value = value
     }

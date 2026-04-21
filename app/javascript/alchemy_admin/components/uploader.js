@@ -3,36 +3,75 @@
  * @property {string} name
  * @property {number} size
  */
-import { AlchemyHTMLElement } from "alchemy_admin/components/alchemy_html_element"
 import { Progress } from "alchemy_admin/components/uploader/progress"
 import { FileUpload } from "alchemy_admin/components/uploader/file_upload"
 import { translate } from "alchemy_admin/i18n"
 import { getToken } from "alchemy_admin/utils/ajax"
 
-export class Uploader extends AlchemyHTMLElement {
-  static properties = {
-    dropzone: { default: false }
-  }
+export class Uploader extends HTMLElement {
+  #dropzoneElement = null
+  #isDraggedOver = false
 
-  connected() {
-    this.fileInput.addEventListener("change", (event) => {
-      this._uploadFiles(Array.from(event.target.files))
-    })
+  connectedCallback() {
+    this.fileInput.addEventListener("change", this.#onFileInputChange)
     if (this.dropzone) {
-      this._dragAndDropBehavior()
+      this.#setupDropZone()
     }
     this.addEventListener("Alchemy.upload.successful", this)
+  }
+
+  disconnectedCallback() {
+    this.fileInput?.removeEventListener("change", this.#onFileInputChange)
+    if (this.#dropzoneElement) {
+      this.#dropzoneElement.removeEventListener(
+        "dragleave",
+        this.#onDropzoneDragleave
+      )
+      this.#dropzoneElement.removeEventListener("drop", this.#onDropzoneDrop)
+      this.#dropzoneElement.removeEventListener(
+        "dragover",
+        this.#onDropzoneDragover
+      )
+      this.#dropzoneElement = null
+    }
   }
 
   handleEvent(evt) {
     switch (evt.type) {
       case "Alchemy.upload.successful":
-        this._handleUploadComplete()
+        this.#handleUploadComplete()
         break
     }
   }
 
-  _handleUploadComplete() {
+  #onFileInputChange = (event) => {
+    this.uploadFiles(Array.from(event.target.files))
+  }
+
+  #toggleDropzoneClass = (enabled) => {
+    if (this.#isDraggedOver !== enabled) {
+      this.#isDraggedOver = enabled
+      this.#dropzoneElement.classList.toggle("dragover")
+    }
+  }
+
+  #onDropzoneDragleave = () => this.#toggleDropzoneClass(false)
+
+  #onDropzoneDrop = async (event) => {
+    event.preventDefault()
+    this.#toggleDropzoneClass(false)
+
+    const files = [...event.dataTransfer.items].map((item) => item.getAsFile())
+
+    this.uploadFiles(files)
+  }
+
+  #onDropzoneDragover = (event) => {
+    event.preventDefault() // dragover has to be disabled to use the custom drop event
+    this.#toggleDropzoneClass(true)
+  }
+
+  #handleUploadComplete() {
     setTimeout(() => {
       const url = this.redirectUrl
       const turboFrame = this.closest("turbo-frame")
@@ -53,42 +92,22 @@ export class Uploader extends AlchemyHTMLElement {
    * add dragover class to indicate, if the file is draggable
    * @private
    */
-  _dragAndDropBehavior() {
-    const dropzoneElement = document.querySelector(this.dropzone)
-    let isDraggedOver = false
+  #setupDropZone() {
+    this.#dropzoneElement = document.querySelector(this.dropzone)
+    if (!this.#dropzoneElement) return
 
-    const toggleDropzoneClass = (enabled) => {
-      if (isDraggedOver !== enabled) {
-        isDraggedOver = enabled
-        dropzoneElement.classList.toggle("dragover")
-      }
-    }
-
-    dropzoneElement.addEventListener("dragleave", () =>
-      toggleDropzoneClass(false)
+    this.#dropzoneElement.addEventListener(
+      "dragleave",
+      this.#onDropzoneDragleave
     )
-    dropzoneElement.addEventListener("drop", async (event) => {
-      event.preventDefault()
-      toggleDropzoneClass(false)
-
-      const files = [...event.dataTransfer.items].map((item) =>
-        item.getAsFile()
-      )
-
-      this._uploadFiles(files)
-    })
-
-    dropzoneElement.addEventListener("dragover", (event) => {
-      event.preventDefault() // dragover has to be disabled to use the custom drop event
-      toggleDropzoneClass(true)
-    })
+    this.#dropzoneElement.addEventListener("drop", this.#onDropzoneDrop)
+    this.#dropzoneElement.addEventListener("dragover", this.#onDropzoneDragover)
   }
 
   /**
    * @param {File[]} files
-   * @private
    */
-  _uploadFiles(files) {
+  uploadFiles(files) {
     // prepare file progress bars and server request
     let fileUploadCount = 0
 
@@ -102,13 +121,13 @@ export class Uploader extends AlchemyHTMLElement {
         fileUpload.errorMessage = translate("Maximum number of files exceeded")
       } else if (fileUpload.valid) {
         fileUploadCount++
-        this._submitFile(request, file)
+        this.#submitFile(request, file)
       }
 
       return fileUpload
     })
 
-    this._createProgress(fileUploads)
+    this.#createProgress(fileUploads)
   }
 
   /**
@@ -116,7 +135,7 @@ export class Uploader extends AlchemyHTMLElement {
    * @param {File} file
    * @private
    */
-  _submitFile(request, file) {
+  #submitFile(request, file) {
     const form = this.querySelector("form")
     const formData = new FormData(form)
     formData.set(this.fileInput.name, file)
@@ -132,7 +151,7 @@ export class Uploader extends AlchemyHTMLElement {
    * @param {FileUpload[]} fileUploads
    * @private
    */
-  _createProgress(fileUploads) {
+  #createProgress(fileUploads) {
     if (this.uploadProgress) {
       this.uploadProgress.cancel()
       document.body.removeChild(this.uploadProgress)
@@ -140,10 +159,16 @@ export class Uploader extends AlchemyHTMLElement {
     this.uploadProgress = new Progress()
     this.uploadProgress.initialize(fileUploads)
     this.uploadProgress.onComplete = (status) => {
-      this.dispatchCustomEvent(`upload.${status}`)
+      this.dispatchEvent(
+        new CustomEvent(`Alchemy.upload.${status}`, { bubbles: true })
+      )
     }
 
     document.body.append(this.uploadProgress)
+  }
+
+  get dropzone() {
+    return this.getAttribute("dropzone")
   }
 
   /**
