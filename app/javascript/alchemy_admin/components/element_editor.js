@@ -15,8 +15,15 @@ export function dispatchPageDirtyEvent(data) {
 }
 
 export class ElementEditor extends HTMLElement {
-  constructor() {
-    super()
+  #form = null
+  #header = null
+  #toggleButton = null
+
+  connectedCallback() {
+    // The placeholder while be being dragged is empty.
+    if (this.classList.contains("ui-sortable-placeholder")) {
+      return
+    }
 
     // Add event listeners
     this.addEventListener("click", this)
@@ -27,24 +34,16 @@ export class ElementEditor extends HTMLElement {
 
     // Dirty observer still needs to be jQuery
     // in order to support select2.
-    $(this.form).on("change", this.onChange)
-
-    this.header?.addEventListener("dblclick", () => {
-      this.toggle()
-    })
-    this.toggleButton?.addEventListener("click", (evt) => {
-      const elementEditor = evt.target.closest("alchemy-element-editor")
-      if (elementEditor === this) {
-        this.toggle()
-      }
-    })
-  }
-
-  connectedCallback() {
-    // The placeholder while be being dragged is empty.
-    if (this.classList.contains("ui-sortable-placeholder")) {
-      return
+    this.#form = this.form
+    if (this.#form) {
+      $(this.#form).on("change", this.onChange)
     }
+
+    this.#header = this.header
+    this.#header?.addEventListener("dblclick", this.#onHeaderDblclick)
+
+    this.#toggleButton = this.toggleButton
+    this.#toggleButton?.addEventListener("click", this.#onToggleClick)
 
     // When newly created, focus the element and refresh the preview
     if (this.hasAttribute("created")) {
@@ -54,6 +53,20 @@ export class ElementEditor extends HTMLElement {
       })
       this.removeAttribute("created")
     }
+  }
+
+  disconnectedCallback() {
+    this.removeEventListener("click", this)
+    this.removeEventListener("alchemy:element-update-title", this)
+    this.removeEventListener("ajax:complete", this)
+    if (this.#form) {
+      $(this.#form).off("change", this.onChange)
+      this.#form = null
+    }
+    this.#header?.removeEventListener("dblclick", this.#onHeaderDblclick)
+    this.#header = null
+    this.#toggleButton?.removeEventListener("click", this.#onToggleClick)
+    this.#toggleButton = null
   }
 
   handleEvent(event) {
@@ -79,7 +92,7 @@ export class ElementEditor extends HTMLElement {
     }
   }
 
-  onChange(event) {
+  onChange = (event) => {
     const target = event.target
     // SortableJS fires a native change event :/
     // and we do not want to set the element editor dirty
@@ -87,7 +100,7 @@ export class ElementEditor extends HTMLElement {
     if (target.classList.contains("nested-elements")) {
       return
     }
-    this.closest("alchemy-element-editor").setDirty(target)
+    this.setDirty(target)
     event.stopPropagation()
     return false
   }
@@ -575,6 +588,17 @@ export class ElementEditor extends HTMLElement {
 
   get previewWindow() {
     return document.getElementById("alchemy_preview_window")
+  }
+
+  #onHeaderDblclick = () => {
+    this.toggle()
+  }
+
+  #onToggleClick = (evt) => {
+    const elementEditor = evt.target.closest("alchemy-element-editor")
+    if (elementEditor === this) {
+      this.toggle()
+    }
   }
 }
 
