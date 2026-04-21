@@ -14,12 +14,12 @@ const formatItem = (object) => {
 }
 
 class ColorSelect extends HTMLElement {
+  #select2 = null
+
   connectedCallback() {
     if (this.select) {
       this.#initializeSelect2()
-      $(this.select).on("change", (event) =>
-        this.#toggleColorPicker(event.val === "custom_color")
-      )
+      this.#select2.on("change", this.#onSelectChange)
     } else {
       this.colorInput?.addEventListener("input", this)
       this.textInput?.addEventListener("input", this)
@@ -41,6 +41,15 @@ class ColorSelect extends HTMLElement {
   disconnectedCallback() {
     this.colorInput?.removeEventListener("input", this)
     this.textInput?.removeEventListener("input", this)
+    if (this.#select2) {
+      this.#select2.off("change", this.#onSelectChange)
+      this.#select2.select2("destroy")
+      this.#select2 = null
+    }
+  }
+
+  #onSelectChange = (event) => {
+    this.#toggleColorPicker(event.val === "custom_color")
   }
 
   #initializeSelect2() {
@@ -50,7 +59,7 @@ class ColorSelect extends HTMLElement {
       formatResult: formatItem,
       formatSelection: formatItem
     }
-    $(this.select).select2(options)
+    this.#select2 = $(this.select).select2(options)
   }
 
   #toggleColorPicker(enabled = true) {
