@@ -20,6 +20,11 @@ class Select extends HTMLSelectElement {
     }
   }
 
+  disconnectedCallback() {
+    this.#select2Element?.select2("destroy")
+    this.#select2Element = null
+  }
+
   enable() {
     this.removeAttribute("disabled")
     this.#updateSelect2()
