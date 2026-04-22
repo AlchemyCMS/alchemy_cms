@@ -1,11 +1,11 @@
 alchemy-picture-thumbnail {
   &[loading] {
-    img {
+    > img {
       opacity: 0;
     }
   }
 
-  img {
+  > img {
     opacity: 1;
     transition: opacity var(--transition-duration);
   }
