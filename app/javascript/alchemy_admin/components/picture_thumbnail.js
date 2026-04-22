@@ -44,7 +44,6 @@ export default class PictureThumbnail extends HTMLElement {
     if (alt) {
       this.image.alt = alt
     }
-    this.image.loading = "lazy"
   }
 
   start(src) {
