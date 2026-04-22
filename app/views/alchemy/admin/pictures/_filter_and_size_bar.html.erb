@@ -22,7 +22,7 @@
           search_filter_params.merge(
             size: "small",
             form_field_id: @form_field_id
-          )
+          ).to_h
         ),
         class: "icon_button"
       ) %>
@@ -34,7 +34,7 @@
           search_filter_params.merge(
             size: "medium",
             form_field_id: @form_field_id
-          )
+          ).to_h
         ),
         class: "icon_button"
       ) %>
@@ -46,7 +46,7 @@
           search_filter_params.merge(
             size: "large",
             form_field_id: @form_field_id
-          )
+          ).to_h
         ),
         class: "icon_button"
       ) %>
