@@ -10,7 +10,7 @@
         onclick: '$(self).attr("href", "#").off("click"); return false',
         method: 'put',
       ) do %>
-        <%= render Alchemy::Admin::PictureThumbnail.new(picture_to_assign) %>
+        <%= render Alchemy::Admin::PictureThumbnail.new(picture_to_assign, size: size) %>
       <% end %>
     </sl-tooltip>
   <% else %>
