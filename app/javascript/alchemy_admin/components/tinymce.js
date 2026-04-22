@@ -1,18 +1,29 @@
 import "tinymce"
-import { AlchemyHTMLElement } from "alchemy_admin/components/alchemy_html_element"
 import { currentLocale } from "alchemy_admin/i18n"
 
 const DARK_THEME = "alchemy-dark"
 const LIGHT_THEME = "alchemy"
 
-class Tinymce extends AlchemyHTMLElement {
+class Tinymce extends HTMLElement {
   #min_height = null
 
   /**
    * the observer will initialize Tinymce if the textarea becomes visible
    */
-  connected() {
+  connectedCallback() {
     this.className = "tinymce_container"
+
+    // Append the spinner if not already present (idempotent on reconnect/clone)
+    if (!this.querySelector(":scope > alchemy-spinner")) {
+      this.insertAdjacentHTML(
+        "beforeend",
+        `<alchemy-spinner size="small"></alchemy-spinner>`
+      )
+    }
+
+    // hide the textarea until TinyMCE is ready to show the editor
+    this.style.minHeight = `${this.minHeight}px`
+    this.editor.style.display = "none"
 
     const observerCallback = (entries, observer) => {
       entries.forEach((entry) => {
@@ -43,30 +54,13 @@ class Tinymce extends AlchemyHTMLElement {
   /**
    * disconnect intersection observer and remove Tinymce editor if the web components get destroyed
    */
-  disconnected() {
-    if (this.tinymceIntersectionObserver !== null) {
-      this.tinymceIntersectionObserver.disconnect()
-    }
+  disconnectedCallback() {
+    this.tinymceIntersectionObserver?.disconnect()
 
     // Remove theme change listener
     this._removeThemeChangeListener()
 
     tinymce.get(this.editorId)?.remove(this.editorId)
-  }
-
-  render() {
-    return `
-      ${this.initialContent}
-      <alchemy-spinner size="small"></alchemy-spinner>
-    `
-  }
-
-  /**
-   * hide the textarea until TinyMCE is ready to show the editor
-   */
-  afterRender() {
-    this.style.minHeight = `${this.minHeight}px`
-    this.editor.style.display = "none"
   }
 
   /**

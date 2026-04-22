@@ -79,20 +79,20 @@ describe("alchemy-uploader", () => {
 
   describe("input field", () => {
     it("should call the upload function if the file input changes", () => {
-      component._uploadFiles = vi.fn()
+      component.uploadFiles = vi.fn()
       input.dispatchEvent(new CustomEvent("change"))
-      expect(component._uploadFiles).toHaveBeenCalledTimes(1)
+      expect(component.uploadFiles).toHaveBeenCalledTimes(1)
     })
   })
 
-  describe("_uploadFiles", () => {
+  describe("uploadFiles", () => {
     it("should upload files", () => {
-      component._uploadFiles([firstFile, secondFile])
+      component.uploadFiles([firstFile, secondFile])
       expect(XMLHttpRequest).toHaveBeenCalledTimes(2)
     })
 
     it("should open the correct url", () => {
-      component._uploadFiles([firstFile])
+      component.uploadFiles([firstFile])
       const mockInstance = XMLHttpRequest.mock.results[0].value
       expect(mockInstance.open).toHaveBeenCalledWith(
         "POST",
@@ -101,7 +101,7 @@ describe("alchemy-uploader", () => {
     })
 
     it("should send the file form", () => {
-      component._uploadFiles([firstFile])
+      component.uploadFiles([firstFile])
       const mockInstance = XMLHttpRequest.mock.results[0].value
       expect(mockInstance.send).toHaveBeenCalledWith(new FormData(form))
     })
@@ -111,7 +111,7 @@ describe("alchemy-uploader", () => {
     let progressBar = undefined
 
     beforeEach(() => {
-      component._uploadFiles([firstFile])
+      component.uploadFiles([firstFile])
       progressBar = document.querySelector(
         "alchemy-upload-progress sl-progress-bar"
       )
@@ -160,7 +160,7 @@ describe("alchemy-uploader", () => {
 
     describe("another upload", () => {
       it("should have only one progress - component", () => {
-        component._uploadFiles([firstFile])
+        component.uploadFiles([firstFile])
         expect(
           document.querySelectorAll("alchemy-upload-progress").length
         ).toEqual(1)
@@ -169,7 +169,7 @@ describe("alchemy-uploader", () => {
       it("should cancel the previous process", () => {
         const uploadProgress = document.querySelector("alchemy-upload-progress")
         uploadProgress.cancel = vi.fn()
-        component._uploadFiles([firstFile])
+        component.uploadFiles([firstFile])
         expect(uploadProgress.cancel).toBeCalled()
       })
     })
@@ -180,7 +180,7 @@ describe("alchemy-uploader", () => {
       beforeEach(() => {
         vi.clearAllMocks() // Clear mocks before this specific test
         Alchemy.uploader_defaults.upload_limit = 2
-        component._uploadFiles([firstFile, secondFile, new File([], "foo")])
+        component.uploadFiles([firstFile, secondFile, new File([], "foo")])
       })
 
       it("should upload only two files", () => {
@@ -217,7 +217,7 @@ describe("alchemy-uploader", () => {
     beforeEach(() => {
       vi.clearAllMocks() // Clear mocks before this specific test
       Alchemy.uploader_defaults.allowed_filetypes.alchemy_attachments = ["txt"]
-      component._uploadFiles([
+      component.uploadFiles([
         new File([], "foo.pdf", { type: "application/pdf" }),
         firstFile,
         secondFile
@@ -244,8 +244,8 @@ describe("alchemy-uploader", () => {
 
   describe("on complete", () => {
     beforeEach(() => {
-      component.dispatchCustomEvent = vi.fn()
-      component._uploadFiles([firstFile, secondFile])
+      component.dispatchEvent = vi.fn()
+      component.uploadFiles([firstFile, secondFile])
     })
 
     describe("successful", () => {
@@ -254,8 +254,8 @@ describe("alchemy-uploader", () => {
       })
 
       it("should fire upload - event", () => {
-        expect(component.dispatchCustomEvent).toBeCalledWith(
-          "upload.successful"
+        expect(component.dispatchEvent).toBeCalledWith(
+          expect.objectContaining({ type: "Alchemy.upload.successful" })
         )
       })
     })
@@ -266,7 +266,9 @@ describe("alchemy-uploader", () => {
       })
 
       it("should fire upload - event", () => {
-        expect(component.dispatchCustomEvent).toBeCalledWith("upload.canceled")
+        expect(component.dispatchEvent).toBeCalledWith(
+          expect.objectContaining({ type: "Alchemy.upload.canceled" })
+        )
       })
     })
 
@@ -276,7 +278,9 @@ describe("alchemy-uploader", () => {
       })
 
       it("should fire upload - event", () => {
-        expect(component.dispatchCustomEvent).toBeCalledWith("upload.failed")
+        expect(component.dispatchEvent).toBeCalledWith(
+          expect.objectContaining({ type: "Alchemy.upload.failed" })
+        )
       })
 
       it("should not hide the progress component", () => {
@@ -285,10 +289,10 @@ describe("alchemy-uploader", () => {
     })
   })
 
-  describe("_handleUploadComplete", () => {
+  describe("uploadFiles", () => {
     beforeEach(() => {
       vi.useFakeTimers()
-      component._uploadFiles([firstFile])
+      component.uploadFiles([firstFile])
     })
 
     afterEach(() => {

@@ -1,31 +1,24 @@
-import { AlchemyHTMLElement } from "alchemy_admin/components/alchemy_html_element"
 import { translate, currentLocale } from "alchemy_admin/i18n"
 import flatpickr from "flatpickr"
 
 const locale = currentLocale()
 
-class Datepicker extends AlchemyHTMLElement {
-  static properties = {
-    inputType: { default: "date" }
-  }
-
-  constructor() {
-    super()
-    this.flatpickr = undefined
-  }
-
+class Datepicker extends HTMLElement {
   // Load the locales for flatpickr before setting it up.
-  async connected() {
+  async connectedCallback() {
     // English is the default locale for flatpickr, so we don't need to load it
     if (locale !== "en") {
       await import(`flatpickr/${locale}.js`)
     }
+    // Bail out if the element was disconnected while the locale was loading.
+    // Otherwise flatpickr would leak a calendar onto a detached input.
+    if (!this.isConnected) return
 
     this.flatpickr = flatpickr(this.inputField, this.flatpickrOptions)
   }
 
-  disconnected() {
-    this.flatpickr.destroy()
+  disconnectedCallback() {
+    this.flatpickr?.destroy()
   }
 
   get flatpickrOptions() {
@@ -55,6 +48,10 @@ class Datepicker extends AlchemyHTMLElement {
 
   get inputField() {
     return this.querySelector("input")
+  }
+
+  get inputType() {
+    return this.getAttribute("input-type") || "date"
   }
 }
 

@@ -188,7 +188,7 @@ The admin interface uses a **hybrid architecture**:
 
 **Modern Web Components** (preferred for new features):
 - Custom elements in `app/javascript/alchemy_admin/components/`
-- Base class: `AlchemyHTMLElement` (extends `HTMLElement`)
+- Extend `HTMLElement` directly; do all DOM work in `connectedCallback`
 - Examples: `alchemy-sitemap`, `alchemy-element-editor`, `alchemy-datepicker`
 - Vanilla JavaScript (no framework dependency)
 
