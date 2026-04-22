@@ -16,6 +16,15 @@ RSpec.describe "Picture assignment overlay", type: :system do
       visit alchemy.admin_pictures_path(form_field_id: "ingredients_#{ingredient.id}_picture_id")
       expect(page).to have_css %(a[data-method="put"][href*="/admin/pictures/#{picture.id}/assign"])
     end
+
+    scenario "thumbnail renders at the selected size" do
+      expect(Alchemy::Admin::PictureThumbnail).to receive(:new)
+        .with(picture, size: "large").and_call_original
+      visit alchemy.admin_pictures_path(
+        form_field_id: "ingredients_#{ingredient.id}_picture_id",
+        size: "large"
+      )
+    end
   end
 
   describe "filtering the picture list" do
