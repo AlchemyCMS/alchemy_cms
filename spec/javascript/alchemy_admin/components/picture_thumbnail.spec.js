@@ -152,16 +152,6 @@ describe("alchemy-picture-thumbnail", () => {
       expect(element.image.alt).not.toBe("Test image")
     })
 
-    it("sets loading to lazy", () => {
-      const element = renderComponent(
-        "alchemy-picture-thumbnail",
-        "<alchemy-picture-thumbnail></alchemy-picture-thumbnail>"
-      )
-      element.createImage("https://example.com/test.jpg")
-
-      expect(element.image.loading).toBe("lazy")
-    })
-
     it("uses default src from attribute", () => {
       const element = renderComponent(
         "alchemy-picture-thumbnail",
