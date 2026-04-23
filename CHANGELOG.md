@@ -1,5 +1,17 @@
 # Changelog
 
+## 8.2.2 (2026-04-23)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.2-stable -->
+
+## What's Changed
+### Other Changes
+* [8.2-stable] Remove lazy loading from thumbnail by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3847
+* [8.2-stable] Fix thumbnail size in picture overlay by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3849
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.2.1...v8.2.2
+
 ## 8.2.1 (2026-04-16)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.2-stable -->
