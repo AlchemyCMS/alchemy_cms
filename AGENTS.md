@@ -42,7 +42,8 @@ bun run test
 bun run build
 
 # Build individual components
-bun run build:js         # Rollup JavaScript bundling
+bun run build:admin      # Bundle admin JavaScript (app/javascript/alchemy_admin/**)
+bun run build:js         # Bundle vendored dependencies (sortablejs, shoelace, tinymce, etc.)
 bun run build:css        # Sass compilation
 bun run handlebars:compile  # Compile Handlebars templates
 bun run build:icons      # Generate icon sprite

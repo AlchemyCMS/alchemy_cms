@@ -5,13 +5,6 @@ class PreviewWindow extends HTMLIFrameElement {
   #afterLoad
   #reloadIcon
   #loadTimeout
-  #previewReadyHandler
-
-  constructor() {
-    super()
-    this.addEventListener("load", this)
-    this.#previewReadyHandler = this.#handlePreviewReadyMessage.bind(this)
-  }
 
   handleEvent(evt) {
     if (evt.type === "load") {
@@ -21,7 +14,7 @@ class PreviewWindow extends HTMLIFrameElement {
     }
   }
 
-  #handlePreviewReadyMessage(event) {
+  #onPreviewReady = (event) => {
     if (event.data.message === "Alchemy.previewReady") {
       this.#clearLoadTimeout()
       this.#stopSpinner()
@@ -32,8 +25,9 @@ class PreviewWindow extends HTMLIFrameElement {
   connectedCallback() {
     let url = this.url
 
+    this.addEventListener("load", this)
     this.#attachEvents()
-    window.addEventListener("message", this.#previewReadyHandler)
+    window.addEventListener("message", this.#onPreviewReady)
 
     if (window.localStorage.getItem("alchemy-preview-url")) {
       url = window.localStorage.getItem("alchemy-preview-url")
@@ -44,8 +38,9 @@ class PreviewWindow extends HTMLIFrameElement {
   }
 
   disconnectedCallback() {
+    this.removeEventListener("load", this)
     key.unbind("alt+r")
-    window.removeEventListener("message", this.#previewReadyHandler)
+    window.removeEventListener("message", this.#onPreviewReady)
   }
 
   postMessage(data) {

@@ -2,10 +2,14 @@ import "alchemy_admin/components/link_buttons/link_button"
 import "alchemy_admin/components/link_buttons/unlink_button"
 
 class LinkButtons extends HTMLElement {
-  constructor() {
-    super()
+  connectedCallback() {
     this.addEventListener("alchemy:link", this)
     this.addEventListener("alchemy:unlink", this)
+  }
+
+  disconnectedCallback() {
+    this.removeEventListener("alchemy:link", this)
+    this.removeEventListener("alchemy:unlink", this)
   }
 
   handleEvent(event) {

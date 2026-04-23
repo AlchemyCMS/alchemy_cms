@@ -3,12 +3,16 @@ class ElementsWindowHandle extends HTMLElement {
   #elementsWindow = null
   #previewWindow = null
 
-  constructor() {
-    super()
-
+  connectedCallback() {
     this.addEventListener("mousedown", this)
     window.addEventListener("mousemove", this)
     window.addEventListener("mouseup", this)
+  }
+
+  disconnectedCallback() {
+    this.removeEventListener("mousedown", this)
+    window.removeEventListener("mousemove", this)
+    window.removeEventListener("mouseup", this)
   }
 
   handleEvent(event) {

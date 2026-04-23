@@ -183,9 +183,9 @@
 <h3>Tags Autocomplete</h3>
 
 <div style="width: 25%">
-  <alchemy-tags-autocomplete>
+  <%= render Alchemy::Admin::TagsAutocomplete.new do %>
     <input type="text" class="full_width" autocomplete="off">
-  </alchemy-tags-autocomplete>
+  <% end %>
 </div>
 
 <h2>Typography</h2>

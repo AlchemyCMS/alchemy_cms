@@ -1,14 +1,11 @@
 class PublishPageButton extends HTMLElement {
-  constructor() {
-    super()
-    this.addEventListener("submit", this)
-  }
-
   connectedCallback() {
+    this.addEventListener("submit", this)
     document.addEventListener("alchemy:page-dirty", this)
   }
 
   disconnectedCallback() {
+    this.removeEventListener("submit", this)
     document.removeEventListener("alchemy:page-dirty", this)
   }
 

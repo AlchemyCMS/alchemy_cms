@@ -1,6 +1,5 @@
 class UnlinkButton extends HTMLButtonElement {
-  constructor() {
-    super()
+  connectedCallback() {
     this.addEventListener("click", this)
     this.classList.add("icon_button")
     // Prevent accidental form submits if this component is wrapped inside a form

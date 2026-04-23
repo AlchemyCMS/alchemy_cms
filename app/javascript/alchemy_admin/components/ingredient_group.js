@@ -1,14 +1,16 @@
 export class IngredientGroup extends HTMLDetailsElement {
   #localStorageKey = "Alchemy.expanded_ingredient_groups"
 
-  constructor() {
-    super()
-
+  connectedCallback() {
     this.addEventListener("toggle", this)
 
     if (this.isInLocalStorage) {
       this.open = true
     }
+  }
+
+  disconnectedCallback() {
+    this.removeEventListener("toggle", this)
   }
 
   /**

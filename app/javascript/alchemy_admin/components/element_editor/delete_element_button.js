@@ -6,9 +6,12 @@ import { openConfirmDialog } from "alchemy_admin/confirm_dialog"
 import { dispatchPageDirtyEvent } from "alchemy_admin/components/element_editor"
 
 export class DeleteElementButton extends HTMLElement {
-  constructor() {
-    super()
+  connectedCallback() {
     this.button?.addEventListener("click", this)
+  }
+
+  disconnectedCallback() {
+    this.button?.removeEventListener("click", this)
   }
 
   async handleEvent() {

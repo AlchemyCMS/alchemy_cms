@@ -21,9 +21,7 @@ const formatItem = (icon, text, hint) => {
 }
 
 class ElementSelect extends HTMLElement {
-  constructor() {
-    super()
-  }
+  #select2 = null
 
   connectedCallback() {
     const results = this.options
@@ -48,7 +46,12 @@ class ElementSelect extends HTMLElement {
       formatSelection,
       placeholder: this.placeholder
     }
-    $(this.inputField).select2(options)
+    this.#select2 = $(this.inputField).select2(options)
+  }
+
+  disconnectedCallback() {
+    this.#select2?.select2("destroy")
+    this.#select2 = null
   }
 
   get options() {

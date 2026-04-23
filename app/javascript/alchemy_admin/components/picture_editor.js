@@ -8,9 +8,7 @@ const IMAGE_PLACEHOLDER = '<alchemy-icon name="image" size="xl"></alchemy-icon>'
 const THUMBNAIL_SIZE = "160x120"
 
 export class PictureEditor extends HTMLElement {
-  constructor() {
-    super()
-
+  connectedCallback() {
     this.cropFromField = this.querySelector("[data-crop-from]")
     this.cropSizeField = this.querySelector("[data-crop-size]")
     this.pictureIdField = this.querySelector("[data-picture-id]")
@@ -31,12 +29,9 @@ export class PictureEditor extends HTMLElement {
       this.updateCropLink()
     }, UPDATE_DELAY)
 
-    this.deleteButton?.addEventListener("click", this.removeImage.bind(this))
-  }
+    this.deleteButton?.addEventListener("click", this.removeImage)
 
-  connectedCallback() {
-    this.observer = new MutationObserver(this.mutationCallback.bind(this))
-
+    this.observer = new MutationObserver(this.mutationCallback)
     this.observer.observe(this.cropFromField, { attributes: true })
     this.observer.observe(this.cropSizeField, { attributes: true })
     this.observer.observe(this.pictureIdField, { attributes: true })
@@ -46,7 +41,7 @@ export class PictureEditor extends HTMLElement {
     this.observer.disconnect()
   }
 
-  mutationCallback(mutationsList) {
+  mutationCallback = (mutationsList) => {
     for (const mutation of mutationsList) {
       if ("pictureId" in mutation.target.dataset) {
         this.cropFromField.value = ""
@@ -80,7 +75,7 @@ export class PictureEditor extends HTMLElement {
       })
   }
 
-  removeImage() {
+  removeImage = () => {
     this.pictureThumbnail.innerHTML = IMAGE_PLACEHOLDER
     this.pictureIdField.value = ""
     this.image = null

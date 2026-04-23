@@ -1,7 +1,10 @@
 class PictureDescriptionSelect extends HTMLElement {
-  constructor() {
-    super()
+  connectedCallback() {
     this.addEventListener("change", this)
+  }
+
+  disconnectedCallback() {
+    this.removeEventListener("change", this)
   }
 
   handleEvent(event) {

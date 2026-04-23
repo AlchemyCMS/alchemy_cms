@@ -2,41 +2,30 @@ const DEFAULT_DEBOUNCE_TIME = 150
 
 class ListFilter extends HTMLElement {
   #debounceTimer
+  #filterField = null
+  #clearButton = null
 
-  constructor() {
-    super()
-    this.#attachEvents()
-  }
-
-  #attachEvents() {
+  connectedCallback() {
     if (this.hotkey) {
-      key(this.hotkey, () => {
-        this.filterField.focus()
-        return false
-      })
+      key(this.hotkey, this.#onHotkey)
     }
-    this.filterField.addEventListener("keyup", () => {
-      clearTimeout(this.#debounceTimer)
-      this.#debounceTimer = setTimeout(() => {
-        const term = this.filterField.value
-        this.clearButton.style.visibility = term ? "visible" : "hidden"
-        this.filter(term)
-      }, this.debounceTime)
-    })
-    this.clearButton.addEventListener("click", (e) => {
-      e.preventDefault()
-      this.clear()
-    })
-    this.filterField.addEventListener("focus", () =>
-      key.setScope("list_filter")
-    )
-    key("esc", "list_filter", () => {
-      this.clear()
-      this.filterField.blur()
-    })
+    this.#filterField = this.filterField
+    this.#filterField.addEventListener("keyup", this.#onKeyup)
+    this.#filterField.addEventListener("focus", this.#onFocus)
+
+    this.#clearButton = this.clearButton
+    this.#clearButton.addEventListener("click", this.#onClearClick)
+
+    key("esc", "list_filter", this.#onEscape)
   }
 
   disconnectedCallback() {
+    clearTimeout(this.#debounceTimer)
+    this.#filterField?.removeEventListener("keyup", this.#onKeyup)
+    this.#filterField?.removeEventListener("focus", this.#onFocus)
+    this.#filterField = null
+    this.#clearButton?.removeEventListener("click", this.#onClearClick)
+    this.#clearButton = null
     if (this.hotkey) {
       key.unbind(this.hotkey)
     }
@@ -111,6 +100,32 @@ class ListFilter extends HTMLElement {
 
   get hotkey() {
     return this.getAttribute("hotkey")
+  }
+
+  #onHotkey = () => {
+    this.filterField.focus()
+    return false
+  }
+
+  #onKeyup = () => {
+    clearTimeout(this.#debounceTimer)
+    this.#debounceTimer = setTimeout(() => {
+      const term = this.filterField.value
+      this.clearButton.style.visibility = term ? "visible" : "hidden"
+      this.filter(term)
+    }, this.debounceTime)
+  }
+
+  #onFocus = () => key.setScope("list_filter")
+
+  #onClearClick = (e) => {
+    e.preventDefault()
+    this.clear()
+  }
+
+  #onEscape = () => {
+    this.clear()
+    this.filterField.blur()
   }
 }
 

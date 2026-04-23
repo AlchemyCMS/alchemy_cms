@@ -4,15 +4,6 @@ import { vi } from "vitest"
 
 describe("alchemy-picture-thumbnail", () => {
   describe("constructor", () => {
-    it("adds thumbnail_background class", () => {
-      const element = renderComponent(
-        "alchemy-picture-thumbnail",
-        "<alchemy-picture-thumbnail></alchemy-picture-thumbnail>"
-      )
-
-      expect(element.classList).toContain("thumbnail_background")
-    })
-
     it("creates spinner instance", () => {
       const element = renderComponent(
         "alchemy-picture-thumbnail",
@@ -20,6 +11,17 @@ describe("alchemy-picture-thumbnail", () => {
       )
 
       expect(element.spinner).toBeDefined()
+    })
+  })
+
+  describe("connectedCallback", () => {
+    it("adds thumbnail_background class", () => {
+      const element = renderComponent(
+        "alchemy-picture-thumbnail",
+        "<alchemy-picture-thumbnail></alchemy-picture-thumbnail>"
+      )
+
+      expect(element.classList).toContain("thumbnail_background")
     })
 
     it("creates image when src attribute is present", () => {
@@ -40,9 +42,7 @@ describe("alchemy-picture-thumbnail", () => {
 
       expect(element.image).toBeUndefined()
     })
-  })
 
-  describe("connectedCallback", () => {
     it("shows spinner and appends image while loading", () => {
       const element = renderComponent(
         "alchemy-picture-thumbnail",
