@@ -1,5 +1,20 @@
 # Changelog
 
+## 8.1.10 (2026-04-23)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
+
+## What's Changed
+### Other Changes
+* [8.1-stable] fix(Configuration): Delegate to_json to to_h by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3807
+* [8.1-stable] chore: Wait for turbo in picture-descriptions feature spec by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3821
+* [8.1-stable] Fix duplicate legacy URL removal for all DB engines by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3823
+* [8.1-stable] Remove lazy loading from thumbnail by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3848
+* [8.1-stable] Fix thumbnail size in picture overlay by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3850
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.1.9...v8.1.10
+
 ## 8.1.9 (2026-03-27)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
