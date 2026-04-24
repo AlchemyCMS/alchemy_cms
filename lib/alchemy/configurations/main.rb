@@ -478,6 +478,20 @@ module Alchemy
       # === Dashboard configuration
       #
       configuration :dashboard, Dashboard
+
+      # === Publishable resolver
+      #
+      # The class used to resolve publication state for Publishable records
+      # (currently +Alchemy::Element+ and +Alchemy::PageVersion+).
+      #
+      # The default resolver uses the +public_on+ / +public_until+ timestamp
+      # columns. Apps or gems can provide a custom resolver that implements
+      # the same interface — see +Alchemy::Publishable::TimestampResolver+
+      # for the interface.
+      #
+      # == Example
+      #     Alchemy.config.publishable_resolver = "MyApp::CustomResolver"
+      option :publishable_resolver, :class, default: "Alchemy::Publishable::TimestampResolver"
     end
   end
 end
