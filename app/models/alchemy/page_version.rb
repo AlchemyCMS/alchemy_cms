@@ -29,32 +29,6 @@ module Alchemy
 
     before_destroy :delete_elements
 
-    # Determines if this version is public
-    #
-    # Takes the two timestamps +public_on+ and +public_until+
-    # and returns true if the time given (+Time.current+ per default)
-    # is in this timespan.
-    #
-    # @param time [DateTime] (Time.current)
-    # @returns Boolean
-    def public?(time = Current.preview_time)
-      already_public_for?(time) && still_public_for?(time)
-    end
-
-    # Determines if this version is already public for given time
-    # @param time [DateTime] (Current.preview_time)
-    # @returns Boolean
-    def already_public_for?(time = Current.preview_time)
-      !public_on.nil? && public_on <= time
-    end
-
-    # Determines if this version is still public for given time
-    # @param time [DateTime] (Current.preview_time)
-    # @returns Boolean
-    def still_public_for?(time = Current.preview_time)
-      public_until.nil? || public_until >= time
-    end
-
     def element_repository
       ElementsRepository.new(elements)
     end
