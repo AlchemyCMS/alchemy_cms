@@ -136,6 +136,27 @@ module Alchemy
           end
         end
       end
+
+      describe "@deletable_picture_ids" do
+        let!(:deletable_picture) { create(:alchemy_picture) }
+        let!(:referenced_picture) { create(:alchemy_picture) }
+
+        before do
+          create(:alchemy_ingredient_picture, related_object: referenced_picture)
+        end
+
+        it "is a Set of ids of pictures on the current page that are deletable" do
+          get :index
+          expect(assigns(:deletable_picture_ids)).to be_a(Set)
+          expect(assigns(:deletable_picture_ids)).to include(deletable_picture.id)
+          expect(assigns(:deletable_picture_ids)).not_to include(referenced_picture.id)
+        end
+
+        it "is scoped to the current page only" do
+          get :index, params: {per_page: 1}
+          expect(assigns(:deletable_picture_ids).size).to be <= 1
+        end
+      end
     end
 
     describe "#create" do
