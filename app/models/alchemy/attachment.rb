@@ -40,6 +40,33 @@ module Alchemy
     scope :recent, -> { where("#{table_name}.created_at > ?", Time.current - 24.hours).order(:created_at) }
     scope :without_tag, -> { left_outer_joins(:taggings).where(gutentag_taggings: {id: nil}) }
 
+    # Override +Alchemy::RelatableResource#deletable+ to also exclude
+    # attachments referenced from +/attachment/:id/download+ URLs inside
+    # ingredient values (e.g. Richtext markup, Link ingredients, raw Html).
+    # Those URLs are written by the file tab of the link dialog and are
+    # not tracked via the polymorphic +related_object+ association, so the
+    # base scope cannot see them.
+    #
+    # Uses a correlated +NOT EXISTS+ subquery that builds the per-row LIKE
+    # pattern with +Arel::Nodes::Concat+, which compiles to +||+ on
+    # SQLite/PostgreSQL and +CONCAT()+ on MySQL.
+    scope :deletable, -> do
+      ingredients = Alchemy::Ingredient.arel_table
+      pattern = Arel::Nodes::Concat.new(
+        Arel::Nodes::Concat.new(
+          Arel::Nodes.build_quoted("%/attachment/"),
+          arel_table[:id]
+        ),
+        Arel::Nodes.build_quoted("/download%")
+      )
+      referenced = ingredients
+        .project(1)
+        .where(ingredients[:value].matches(pattern))
+
+      where("#{table_name}.id NOT IN (#{RelatableResource::RELATED_INGREDIENTS_SUBQUERY})", type: name)
+        .where.not(referenced.exists)
+    end
+
     # We need to define this method here to have it available in the validations below.
     class << self
       # The class used to generate URLs for attachments
@@ -112,6 +139,13 @@ module Alchemy
       CGI.escape(file_name.gsub(/\.#{extension}$/, "").tr(".", " "))
     end
 
+    # Override +Alchemy::RelatableResource#deletable?+ to also consider
+    # +/attachment/:id/download+ links inside ingredient values (e.g.
+    # Richtext markup, Link ingredients, raw Html).
+    def deletable?
+      super && !referenced_in_ingredient_value?
+    end
+
     # Checks if the attachment is restricted, because it is attached on restricted pages only
     def restricted?
       pages.any? && pages.not_restricted.blank?
@@ -176,6 +210,12 @@ module Alchemy
       unless extension&.in?(self.class.allowed_filetypes)
         errors.add(:file, Alchemy.t("not a valid file"))
       end
+    end
+
+    def referenced_in_ingredient_value?
+      Alchemy::Ingredient
+        .where("value LIKE ?", "%/attachment/#{id}/download%")
+        .exists?
     end
 
     def set_name
