@@ -33,6 +33,11 @@ RSpec.shared_examples_for "being publishable" do |factory_name|
     it "only includes records without public_on date" do
       expect(subject).to eq [nil]
     end
+
+    it "delegates to the resolver" do
+      expect(Alchemy.config.publishable_resolver).to receive(:draft)
+      described_class.draft
+    end
   end
 
   describe ".scheduled" do
@@ -50,12 +55,22 @@ RSpec.shared_examples_for "being publishable" do |factory_name|
         public_two
       ])
     end
+
+    it "delegates to the resolver" do
+      expect(Alchemy.config.publishable_resolver).to receive(:scheduled)
+      subject
+    end
   end
 
   describe ".published" do
     let!(:public_one) { create(factory_name, public_on: Date.yesterday) }
     let!(:public_two) { create(factory_name, public_on: Date.tomorrow) }
     let!(:non_public) { create(factory_name, public_on: nil) }
+
+    it "delegates to the resolver" do
+      expect(Alchemy.config.publishable_resolver).to receive(:published)
+      described_class.published
+    end
 
     context "without time given" do
       subject { described_class.published }
@@ -87,13 +102,16 @@ RSpec.shared_examples_for "being publishable" do |factory_name|
     subject { record.scheduled? }
 
     let(:record) { build(factory_name, public_on:, public_until:) }
+    let(:public_on) { nil }
+    let(:public_until) { nil }
+
+    it "delegates to the resolver" do
+      expect_any_instance_of(Alchemy.config.publishable_resolver).to receive(:scheduled?)
+      subject
+    end
 
     context "when public_on is nil" do
-      let(:public_on) { nil }
-
       context "and public_until is nil" do
-        let(:public_until) { nil }
-
         it { expect(subject).to be(false) }
       end
 
@@ -144,6 +162,13 @@ RSpec.shared_examples_for "being publishable" do |factory_name|
 
   describe "#public?" do
     subject { page_version.public? }
+
+    let(:page_version) { build(factory_name) }
+
+    it "delegates to the resolver" do
+      expect_any_instance_of(Alchemy.config.publishable_resolver).to receive(:public?)
+      subject
+    end
 
     context "when public_on is not set" do
       let(:page_version) { build(factory_name, public_on: nil) }

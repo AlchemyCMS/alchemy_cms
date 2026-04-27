@@ -3,15 +3,10 @@ module Alchemy
     extend ActiveSupport::Concern
 
     included do
-      scope :draft, -> { where(public_on: nil) }
-      scope :scheduled, -> { where.not(public_on: nil) }
-
+      scope :draft, -> { Alchemy.config.publishable_resolver.draft(all) }
+      scope :scheduled, -> { Alchemy.config.publishable_resolver.scheduled(all) }
       scope :published, ->(at: Current.preview_time) {
-        scheduled
-          .where("#{table_name}.public_on <= :at", at:)
-          .where(public_until: nil).or(
-            where("#{table_name}.public_until > :at", at:)
-          )
+        Alchemy.config.publishable_resolver.published(all, at:)
       }
 
       validate do
@@ -25,42 +20,32 @@ module Alchemy
 
     # Determines if this record is public
     #
-    # Takes the two timestamps +public_on+ and +public_until+
-    # and returns true if the time given (+Time.current+ per default)
-    # is in this timespan.
-    #
-    # @param at [DateTime] (Time.current)
+    # @param at [DateTime] (Current.preview_time)
     # @returns Boolean
     def public?(at: Current.preview_time)
-      already_public_for?(at:) && still_public_for?(at:)
+      publishable_resolver.public?(at:)
     end
     alias_method :public, :public?
 
+    # Determines if this record has a future publication or expiration event
+    #
+    # @param at [DateTime] (Current.preview_time)
+    # @returns Boolean
     def scheduled?(at: Current.preview_time)
-      (public_on.present? && public_on > at) || (public_until.present? && public_until > at)
+      publishable_resolver.scheduled?(at:)
     end
 
     # Determines if this record is publishable
     #
-    # A record is publishable if a +public_on+ timestamp is set and not expired yet.
-    #
     # @returns Boolean
     def publishable?
-      !public_on.nil? && still_public_for?
+      publishable_resolver.publishable?
     end
 
-    # Determines if this record is already public for given time
-    # @param at [DateTime] (Time.current)
-    # @returns Boolean
-    def already_public_for?(at: Current.preview_time)
-      !public_on.nil? && public_on <= at
-    end
+    private
 
-    # Determines if this record is still public for given time
-    # @param at [DateTime] (Time.current)
-    # @returns Boolean
-    def still_public_for?(at: Current.preview_time)
-      public_until.nil? || public_until > at
+    def publishable_resolver
+      Alchemy.config.publishable_resolver.new(self)
     end
   end
 end
