@@ -2,12 +2,22 @@ module Alchemy
   module RelatableResource
     extend ActiveSupport::Concern
 
+    # SQL subquery selecting +related_object_id+ values for ingredients that
+    # reference a given polymorphic type. Intended to be composed into a
+    # +NOT IN (...)+ clause by +deletable+ and any overrides in including
+    # classes. Takes one named bind :type - the polymorphic type name,
+    # typically the class name of the including model
+    # (e.g. +"Alchemy::Attachment"+).
+    RELATED_INGREDIENTS_SUBQUERY = <<~SQL.squish
+      SELECT related_object_id
+      FROM alchemy_ingredients
+      WHERE related_object_id IS NOT NULL
+        AND related_object_type = :type
+    SQL
+
     included do
       scope :deletable, -> do
-        where(
-          "#{table_name}.id NOT IN (SELECT related_object_id FROM alchemy_ingredients WHERE related_object_id IS NOT NULL AND related_object_type = ?)",
-          name
-        )
+        where("#{table_name}.id NOT IN (#{RELATED_INGREDIENTS_SUBQUERY})", type: name)
       end
 
       has_many :related_ingredients,
