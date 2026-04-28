@@ -70,6 +70,32 @@ module Alchemy
         end
       end
 
+      describe "@deletable_attachment_ids" do
+        let!(:deletable_attachment) { create(:alchemy_attachment) }
+        let!(:referenced_attachment) { create(:alchemy_attachment) }
+
+        before do
+          create(
+            :alchemy_ingredient_richtext,
+            value: %(<a href="/attachment/#{referenced_attachment.id}/download">x</a>)
+          )
+        end
+
+        it "is a Set of ids of attachments on the current page that are deletable" do
+          get :index
+          expect(assigns(:deletable_attachment_ids)).to be_a(Set)
+          expect(assigns(:deletable_attachment_ids)).to include(deletable_attachment.id)
+          expect(assigns(:deletable_attachment_ids)).not_to include(referenced_attachment.id)
+        end
+
+        it "is scoped to the current page only" do
+          get :index, params: {per_page: 1}
+          # With per_page: 1 only one attachment is on the current page,
+          # so the set must have at most one element.
+          expect(assigns(:deletable_attachment_ids).size).to be <= 1
+        end
+      end
+
       describe "by_file_type filter" do
         let!(:png) { create(:alchemy_attachment) }
 

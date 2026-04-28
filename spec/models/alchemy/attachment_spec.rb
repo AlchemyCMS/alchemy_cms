@@ -21,6 +21,72 @@ module Alchemy
       resource_name: :attachment,
       ingredient_type: :file
 
+    describe ".deletable" do
+      let!(:richtext_linked_attachment) { create(:alchemy_attachment) }
+      let!(:link_linked_attachment) { create(:alchemy_attachment) }
+      let!(:unlinked_attachment) { create(:alchemy_attachment) }
+
+      before do
+        create(
+          :alchemy_ingredient_richtext,
+          value: %(<p>See <a href="/attachment/#{richtext_linked_attachment.id}/download/foo.pdf">this</a></p>)
+        )
+        create(
+          :alchemy_ingredient_link,
+          value: "/attachment/#{link_linked_attachment.id}/download"
+        )
+      end
+
+      it "excludes attachments linked from any ingredient download URL" do
+        expect(described_class.deletable).to include(unlinked_attachment)
+        expect(described_class.deletable).not_to include(richtext_linked_attachment)
+        expect(described_class.deletable).not_to include(link_linked_attachment)
+      end
+    end
+
+    describe "#deletable?" do
+      let(:attachment) { create(:alchemy_attachment) }
+
+      subject { attachment.deletable? }
+
+      context "when referenced by a /attachment/:id/download URL in a Richtext ingredient" do
+        before do
+          create(
+            :alchemy_ingredient_richtext,
+            value: %(<a href="/attachment/#{attachment.id}/download">x</a>)
+          )
+        end
+
+        it { is_expected.to be(false) }
+      end
+
+      context "when referenced by a /attachment/:id/download URL in a Link ingredient" do
+        before do
+          create(
+            :alchemy_ingredient_link,
+            value: "/attachment/#{attachment.id}/download"
+          )
+        end
+
+        it { is_expected.to be(false) }
+      end
+
+      context "when another ingredient links to a different attachment whose id shares a digit prefix" do
+        let(:other_id) { attachment.id * 10 }
+
+        before do
+          create(
+            :alchemy_ingredient_richtext,
+            value: %(<a href="/attachment/#{other_id}/download">x</a>)
+          )
+        end
+
+        it "does not falsely report as referenced" do
+          is_expected.to be(true)
+        end
+      end
+    end
+
     it "has file mime type accessor" do
       expect(attachment.file_mime_type).to eq("image/png")
     end
