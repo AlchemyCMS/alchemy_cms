@@ -1,5 +1,16 @@
 # Changelog
 
+## 8.1.11 (2026-04-28)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
+
+## What's Changed
+### Other Changes
+* [8.1-stable] Fix Attachment#deletable? false positives by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3860
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.1.10...v8.1.11
+
 ## 8.1.10 (2026-04-23)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
