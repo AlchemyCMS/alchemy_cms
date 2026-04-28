@@ -1,5 +1,15 @@
 # Changelog
 
+## 8.0.12 (2026-04-28)
+
+## What's Changed
+* [8.0-stable] fix(Configuration): Delegate to_json to to_h by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3806
+* [8.0-stable] chore: Wait for turbo in picture-descriptions feature spec by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3820
+* [8.0-stable] Fix Attachment#deletable? false positives by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3861
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.0.11...v8.0.12
+
 ## 8.0.11 (2026-03-27)
 
 ## What's Changed
