@@ -2,7 +2,7 @@
   <span class="picture_tool select">
     <%= check_box_tag "picture_ids[]", picture.id %>
   </span>
-  <% if picture.deletable? && can?(:destroy, picture) %>
+  <% if @deletable_picture_ids.include?(picture.id) && can?(:destroy, picture) %>
   <div class="picture_tool delete">
     <sl-tooltip content="<%= Alchemy.t('Delete image') %>">
       <%= link_to_confirm_dialog(

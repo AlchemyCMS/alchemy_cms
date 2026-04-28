@@ -41,6 +41,15 @@ module Alchemy
           .page(params[:page] || 1)
           .per(items_per_page)
 
+        # Preload deletable ids for the current page in a single query so the
+        # view can decide which delete buttons to enable without calling
+        # +deletable?+ (a two-query check) per row. We pass the already-loaded
+        # ids (via +map(&:id)+) rather than the relation itself, because passing
+        # a paginated relation produces +IN (SELECT ... LIMIT n)+, which older
+        # MariaDB versions reject.
+        @deletable_attachment_ids =
+          Attachment.where(id: @attachments.map(&:id)).deletable.pluck(:id).to_set
+
         if in_overlay?
           archive_overlay
         end

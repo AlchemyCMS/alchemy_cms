@@ -10,6 +10,8 @@ module Alchemy
 
       helper "alchemy/admin/tags"
 
+      before_action :load_pictures, only: :index
+
       before_action :load_resource,
         only: [:edit, :update, :url, :destroy]
 
@@ -20,6 +22,12 @@ module Alchemy
       before_action(only: :assign) do
         @picture = Picture.find(params[:id])
       end
+
+      # Preload deletable ids for the current page (index) or the current
+      # resource (update, which re-renders the +_picture+ partial via a
+      # turbo stream). One query replaces the per-row +deletable?+ check
+      # that would otherwise fire for every picture the view renders.
+      before_action :load_deletable_picture_ids, only: [:index, :update]
 
       add_alchemy_filter :by_file_format, type: :select, options: ->(query) do
         Alchemy::Picture.file_formats(query.result)
@@ -32,8 +40,6 @@ module Alchemy
       helper_method :picture_offset
 
       def index
-        @pictures = filtered_pictures(page: params[:page])
-
         if in_overlay?
           archive_overlay
         end
@@ -161,6 +167,21 @@ module Alchemy
       end
 
       private
+
+      def load_pictures
+        @pictures = filtered_pictures(page: params[:page])
+      end
+
+      # Preload deletable ids in a single query so the view can decide which
+      # delete buttons to enable without calling +deletable?+ (a two-query
+      # check) per row. We pass already-loaded ids (via +map(&:id)+) rather
+      # than the relation itself, because passing a paginated relation
+      # produces +IN (SELECT ... LIMIT n)+, which older MariaDB versions
+      # reject.
+      def load_deletable_picture_ids
+        ids = @pictures ? @pictures.map(&:id) : [@picture.id]
+        @deletable_picture_ids = Picture.where(id: ids).deletable.pluck(:id).to_set
+      end
 
       def picture_offset
         ((params[:page] || 1).to_i - 1) * items_per_page

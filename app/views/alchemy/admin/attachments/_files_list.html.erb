@@ -61,7 +61,7 @@
         file_attribute: 'file' %>
     <% end %>
     <% table.with_action(:destroy) do |attachment| %>
-      <% if attachment.deletable? %>
+      <% if @deletable_attachment_ids.include?(attachment.id) %>
         <sl-tooltip content="<%= Alchemy.t(:delete_file) %>">
           <%= link_to_confirm_dialog render_icon(:minus),
             Alchemy.t(:confirm_to_delete_file),
