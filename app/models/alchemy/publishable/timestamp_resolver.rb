@@ -52,7 +52,7 @@ module Alchemy
       # A record is publishable if a +public_on+ timestamp is set and not
       # expired yet.
       def publishable?
-        !publishable.public_on.nil? && still_public_for?
+        !publishable.public_on.nil? && still_public_for?(at: Time.current)
       end
 
       private
