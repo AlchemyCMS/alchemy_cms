@@ -46,7 +46,7 @@ module Alchemy
     #
     # @returns Boolean
     def publishable?
-      !public_on.nil? && still_public_for?
+      !public_on.nil? && still_public_for?(at: Time.current)
     end
 
     # Determines if this record is already public for given time
