@@ -48,4 +48,13 @@ tinymce.PluginManager.add("alchemy_link", function (editor) {
   // Replace the default link command with our own
   editor.addCommand("mceLink", openLinkDialog)
   editor.addShortcut("Meta+K", "", openLinkDialog)
+
+  // Override the default link menu item so the contextual menu
+  // (right-click) opens the Alchemy link dialog instead of TinyMCE's.
+  editor.ui.registry.addMenuItem("link", {
+    icon: "link",
+    text: "Link...",
+    shortcut: "Meta+K",
+    onAction: openLinkDialog
+  })
 })

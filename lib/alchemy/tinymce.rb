@@ -5,7 +5,6 @@ module Alchemy
     mattr_accessor :languages, :plugins
 
     DEFAULT_PLUGINS = %w[
-      alchemy_link
       anchor
       charmap
       code
@@ -13,6 +12,7 @@ module Alchemy
       fullscreen
       link
       lists
+      alchemy_link
     ]
 
     @@plugins = DEFAULT_PLUGINS
