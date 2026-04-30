@@ -47,24 +47,16 @@ module Alchemy
     # not tracked via the polymorphic +related_object+ association, so the
     # base scope cannot see them.
     #
-    # Uses a correlated +NOT EXISTS+ subquery that builds the per-row LIKE
-    # pattern with +Arel::Nodes::Concat+, which compiles to +||+ on
-    # SQLite/PostgreSQL and +CONCAT()+ on MySQL.
+    # Extracts referenced attachment IDs from ingredient values via Ruby
+    # regex to stay database-agnostic.
     scope :deletable, -> do
-      ingredients = Alchemy::Ingredient.arel_table
-      pattern = Arel::Nodes::Concat.new(
-        Arel::Nodes::Concat.new(
-          Arel::Nodes.build_quoted("%/attachment/"),
-          arel_table[:id]
-        ),
-        Arel::Nodes.build_quoted("/download%")
-      )
-      referenced = ingredients
-        .project(1)
-        .where(ingredients[:value].matches(pattern))
+      referenced_ids = Alchemy::Ingredient
+        .where("value LIKE '%/attachment/%/download%'")
+        .pluck(:value)
+        .flat_map { |v| v.scan(%r{/attachment/(\d+)/download}).flatten.map(&:to_i) }
 
-      where("#{table_name}.id NOT IN (#{RelatableResource::RELATED_INGREDIENTS_SUBQUERY})", type: name)
-        .where.not(referenced.exists)
+      scope = where("#{table_name}.id NOT IN (#{RelatableResource::RELATED_INGREDIENTS_SUBQUERY})", type: name)
+      referenced_ids.any? ? scope.where.not(id: referenced_ids) : scope
     end
 
     # We need to define this method here to have it available in the validations below.
