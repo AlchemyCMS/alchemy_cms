@@ -31,7 +31,7 @@
     "keymaster": "^1.6.2",
     "select2": "github:select2/select2#3.5.4",
     "sortablejs": "^1.15.7",
-    "tinymce": "^8.4.0"
+    "tinymce": "^8.5.0"
   },
   "devDependencies": {
     "@herb-tools/linter": "^0.8.10",
