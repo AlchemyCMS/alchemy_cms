@@ -31,7 +31,7 @@ export default function PictureSelector() {
   const selectAllButton = document.querySelector("#select_all_pictures")
   const selectedItemTools = document.querySelector(".selected_item_tools")
 
-  on("click", ".toolbar_buttons", "a#select_all_pictures", (event) => {
+  on("click", ".toolbar_buttons", "#select_all_pictures", (event) => {
     event.preventDefault()
 
     selectAllButton.classList.toggle("active")
@@ -61,7 +61,7 @@ export default function PictureSelector() {
 
     openDialog(url, {
       title: event.target.title,
-      size: "400x295"
+      size: "400x235"
     })
   })
 }
