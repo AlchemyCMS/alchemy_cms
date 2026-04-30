@@ -159,5 +159,15 @@ RSpec.describe Alchemy::Publishable::TimestampResolver do
 
       it { expect(resolver.publishable?).to be(false) }
     end
+
+    context "when Current.preview_time is set to a future time" do
+      let(:public_on) { Time.current - 1.day }
+      let(:public_until) { Time.current + 1.day }
+
+      it "uses Time.current instead of the preview_time" do
+        Alchemy::Current.preview_time = Time.current + 1.week
+        expect(resolver.publishable?).to be(true)
+      end
+    end
   end
 end
