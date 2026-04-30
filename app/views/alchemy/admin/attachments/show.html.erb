@@ -40,7 +40,7 @@
     <% case @attachment.file_mime_type %>
     <% when *Alchemy::Filetypes::IMAGE_FILE_TYPES %>
     <div class="attachment_preview_container">
-      <%= image_tag(@attachment.url) %>
+      <%= image_tag(@attachment.url, alt: @attachment.name) %>
     </div>
     <% when *Alchemy::Filetypes::AUDIO_FILE_TYPES %>
     <div class="attachment_preview_container">
