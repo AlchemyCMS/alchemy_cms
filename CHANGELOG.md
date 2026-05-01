@@ -1,5 +1,18 @@
 # Changelog
 
+## 8.1.12 (2026-05-01)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
+
+## What's Changed
+### Other Changes
+* [8.1-stable] perf(Attachment): Improve attachment deletable scope by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3871
+* [8.1-stable] fix(pages/table): Use file icon if not locked by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3877
+* [8.1-stable] fix(alchemy-message): Remove bottom margin of last paragraph by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3881
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.1.11...v8.1.12
+
 ## 8.1.11 (2026-04-28)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
