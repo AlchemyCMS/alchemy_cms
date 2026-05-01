@@ -1,11 +1,18 @@
 class ConvertSelectValueForMultiple < ActiveRecord::Migration[7.1]
   def up
     say_with_time "Converting Alchemy::Ingredients::Select values to multiple" do
-      update <<-SQL.squish
-        UPDATE alchemy_ingredients
-        SET value = '["' || value || '"]'
-        WHERE type = 'Alchemy::Ingredients::Select' AND value NOT LIKE '["%"]';
-      SQL
+      Alchemy::Ingredients::Select
+        .where.not("value LIKE ?", '["%')
+        .update_all(
+          Arel.sql(
+            case ActiveRecord::Base.connection.adapter_name
+            when /mysql|mariadb/i
+              "value = CONCAT('[\"', value, '\"]')"
+            else
+              "value = '[\"' || value || '\"]'"
+            end
+          )
+        )
     end
   end
 end
