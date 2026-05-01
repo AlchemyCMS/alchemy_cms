@@ -70,6 +70,15 @@ alchemy-message {
     font-size: var(--font-size_medium);
   }
 
+  h1,
+  h2,
+  h3,
+  p {
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
   a[href] {
     text-decoration-color: inherit;
     text-decoration-thickness: 1px;
