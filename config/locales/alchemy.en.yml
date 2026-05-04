@@ -834,6 +834,8 @@ en:
             base:
               restrict_dependent_destroy:
                 has_many: "There are still %{record} attached to this page. Please remove them first."
+            page_layout:
+              conflicting_wildcard_param_key: "has a conflicting wildcard param \"%{param}\" already used by the \"%{conflicting_layout}\" page layout"
             descendants:
               still_attached_to_nodes: "The following descendant pages are still attached to menu nodes: %{page_names}. Please remove them first."
         alchemy/element:

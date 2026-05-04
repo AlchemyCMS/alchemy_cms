@@ -330,6 +330,42 @@ module Alchemy
       end
     end
 
+    describe ".url_path" do
+      let(:page) { create(:alchemy_page, name: "Foo") }
+
+      subject { page.url_path }
+
+      it { is_expected.to eq("/foo") }
+
+      context "with optional parameters" do
+        subject { page.url_path({page: 2}) }
+
+        it { is_expected.to eq("/foo?page=2") }
+      end
+
+      context "with a custom url_path_class" do
+        let(:url_path_class) { Struct.new(:page, :params, :wildcard_params) { def call = "/bar" } }
+
+        before do
+          described_class.url_path_class = url_path_class
+        end
+
+        after do
+          described_class.url_path_class = Alchemy::Page::UrlPath
+        end
+
+        it { is_expected.to eq("/bar") }
+      end
+
+      context "with wildcard params" do
+        let(:page) { create(:alchemy_page, page_layout: "page_with_wildcard_url") }
+
+        subject { page.url_path(wildcard_params: {slug: 42}) }
+
+        it { is_expected.to eq("/42") }
+      end
+    end
+
     describe ".all_from_clipboard_for_select" do
       context "with clipboard holding pages having non unique page layout" do
         it "should return the pages" do
@@ -1876,6 +1912,59 @@ module Alchemy
         end
       end
 
+      context "with a page layout that has a wildcard_url" do
+        let(:parent) { create(:alchemy_page, name: "Products") }
+        let(:pattern_page) { create(:alchemy_page, parent: parent, name: "Product Details", page_layout: "page_with_wildcard_url") }
+
+        it "uses the wildcard_url pattern instead of the page name" do
+          expect(pattern_page.urlname).to eq("products/:slug")
+        end
+
+        it "uses the wildcard_url pattern as slug" do
+          expect(pattern_page.slug).to eq(":slug")
+        end
+
+        context "with a child page under a wildcard_url page" do
+          let(:child) { create(:alchemy_page, parent: pattern_page, name: "Comments") }
+
+          it "includes the parent's wildcard_url pattern in the path" do
+            expect(child.urlname).to eq("products/:slug/comments")
+          end
+        end
+      end
+
+      context "with conflicting wildcard param keys across layouts" do
+        let(:parent) { create(:alchemy_page, name: "Items") }
+
+        before do
+          PageDefinition.add(
+            name: "conflicting_layout",
+            wildcard_url: ":slug"
+          )
+        end
+
+        after { PageDefinition.reset! }
+
+        it "is invalid when another layout already uses the same param key" do
+          page = build(:alchemy_page, parent: parent, name: "Item", page_layout: "conflicting_layout")
+          expect(page).not_to be_valid
+          expect(page.errors[:page_layout]).to include(
+            a_string_matching(/param ":slug".*"page_with_wildcard_url"/)
+          )
+        end
+      end
+
+      context "with the same wildcard layout under different parents" do
+        let(:parent_a) { create(:alchemy_page, name: "Section A") }
+        let(:parent_b) { create(:alchemy_page, name: "Section B") }
+
+        it "allows creating pages with the same layout" do
+          create(:alchemy_page, parent: parent_a, name: "Detail A", page_layout: "page_with_wildcard_url")
+          page_b = build(:alchemy_page, parent: parent_b, name: "Detail B", page_layout: "page_with_wildcard_url")
+          expect(page_b).to be_valid
+        end
+      end
+
       context "if new urlname exists as a legacy url" do
         it "will delete obsolete legacy_urls" do
           expect(page.urlname).to eq("parentparent/parent/page")
@@ -1971,6 +2060,14 @@ module Alchemy
 
         it "should return nil" do
           expect(page.slug).to be_nil
+        end
+      end
+
+      context "with a page layout that has a wildcard_url" do
+        let(:page) { build(:alchemy_page, page_layout: "page_with_wildcard_url", urlname: "products/:slug") }
+
+        it "returns the wildcard_url pattern" do
+          expect(page.slug).to eq(":slug")
         end
       end
     end

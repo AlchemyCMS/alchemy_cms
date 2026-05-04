@@ -8,6 +8,8 @@ module Alchemy
 
       RESERVED_URLNAMES = %w[admin messages new]
 
+      delegate :wildcard_url, to: :definition
+
       included do
         before_validation :set_urlname,
           if: :renamed?,
@@ -18,6 +20,7 @@ module Alchemy
         validates :urlname,
           uniqueness: {scope: [:language_id, :layoutpage], if: -> { urlname.present? }, case_sensitive: false},
           exclusion: {in: RESERVED_URLNAMES}
+        validate :unique_wildcard_param_keys, if: :has_wildcard_url?
 
         after_update :update_descendants_urlnames,
           if: :saved_change_to_urlname?
@@ -42,12 +45,31 @@ module Alchemy
         end
       end
 
-      # Returns always the last part of a urlname path
+      # Returns wildcard url param or the last part of an urlname path
       def slug
         urlname.to_s.split("/").last
       end
 
+      def has_wildcard_url?
+        wildcard_url.present?
+      end
+
       private
+
+      def unique_wildcard_param_keys
+        conflicting = PageDefinition.all.find do |other|
+          other.name != page_layout && other.wildcard_url == wildcard_url
+        end
+
+        if conflicting
+          errors.add(
+            :page_layout,
+            :conflicting_wildcard_param_key,
+            param: wildcard_url,
+            conflicting_layout: conflicting.name
+          )
+        end
+      end
 
       def update_descendants_urlnames
         reload
@@ -67,13 +89,14 @@ module Alchemy
       end
 
       # Returns the full nested urlname.
-      #
+      # Uses the wildcard_url from the page definition if present,
+      # otherwise converts the slug or name to a url-friendly string.
       def nested_url_name
-        converted_url_name = convert_to_urlname(slug.blank? ? name : slug)
+        url_part = wildcard_url.presence || convert_to_urlname(slug.blank? ? name : slug)
         if parent&.language_root?
-          converted_url_name
+          url_part
         else
-          [parent&.urlname, converted_url_name].compact.join("/")
+          [parent&.urlname, url_part].compact.join("/")
         end
       end
     end
