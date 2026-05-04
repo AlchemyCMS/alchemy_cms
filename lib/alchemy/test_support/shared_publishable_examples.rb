@@ -212,4 +212,41 @@ RSpec.shared_examples_for "being publishable" do |factory_name|
       end
     end
   end
+
+  describe "#publishable?" do
+    context "when public_on is nil" do
+      let(:page_version) { build(factory_name, public_on: nil) }
+
+      it { expect(page_version.publishable?).to be(false) }
+    end
+
+    context "when public_on is set and public_until is nil" do
+      let(:page_version) { build(factory_name, public_on: Time.current) }
+
+      it { expect(page_version.publishable?).to be(true) }
+    end
+
+    context "when public_on is set and public_until is in the past" do
+      let(:page_version) do
+        build(factory_name,
+          public_on: Time.current - 2.days,
+          public_until: Time.current - 1.day)
+      end
+
+      it { expect(page_version.publishable?).to be(false) }
+    end
+
+    context "when Current.preview_time is set to a future time" do
+      let(:page_version) do
+        build(factory_name,
+          public_on: Time.current - 1.day,
+          public_until: Time.current + 1.day)
+      end
+
+      it "uses Time.current instead of the preview_time" do
+        Alchemy::Current.preview_time = Time.current + 1.week
+        expect(page_version.publishable?).to be(true)
+      end
+    end
+  end
 end
