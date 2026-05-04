@@ -7,6 +7,8 @@ module Alchemy
     module Definitions
       extend ActiveSupport::Concern
 
+      delegate :service, to: :definition
+
       module ClassMethods
         # Register a custom page layouts repository
         #

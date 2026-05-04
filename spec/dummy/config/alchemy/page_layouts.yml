@@ -59,5 +59,9 @@
     - menu
   layoutpage: true
 
+- name: with_service
+  service: DummyPageService
+  elements: [article]
+
 - name: <%= 'erb_' + 'layout' %>
   unique: true

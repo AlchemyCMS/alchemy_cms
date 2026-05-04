@@ -87,6 +87,15 @@ RSpec.describe Alchemy::Admin::PagesController do
     end
   end
 
+  describe "#show" do
+    let(:page) { create(:alchemy_page, page_layout: "with_service") }
+
+    it "assigns the service instance to @service" do
+      get :show, params: {id: page.id}
+      expect(assigns(:service)).to be_a(DummyPageService)
+    end
+  end
+
   describe "#publish" do
     let(:page) { create(:alchemy_page) }
 
