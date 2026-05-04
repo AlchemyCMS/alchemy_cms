@@ -9,7 +9,8 @@
     <div class="input check_boxes">
       <label class="control-label"><%= Alchemy.t(:page_status) %></label>
       <div class="control_group">
-        <%= render 'alchemy/admin/pages/publication_fields' %>
+        <%= render 'alchemy/admin/pages/schedule_fields' %>
+
         <%= page_status_checkbox(@page, :restricted) %>
         <% if Alchemy.config.sitemap.show_flag %>
           <%= page_status_checkbox(@page, :sitemap) %>

@@ -1,0 +1,14 @@
+<div class="input">
+  <div class="input-row">
+    <div class="input-column">
+      <label for="element_public_on"><%= Alchemy::Element.human_attribute_name(:public_on) %></label>
+      <%= f.datetime_local_field :public_on, include_seconds: false %>
+      <%= f.error :public_on %>
+    </div>
+    <div class="input-column">
+      <label for="element_public_until"><%= Alchemy::Element.human_attribute_name(:public_until) %></label>
+      <%= f.datetime_local_field :public_until, include_seconds: false %>
+      <%= f.error :public_until %>
+    </div>
+  </div>
+</div>
