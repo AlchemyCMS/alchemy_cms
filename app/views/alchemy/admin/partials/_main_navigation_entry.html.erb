@@ -2,7 +2,7 @@
   <%= content_tag :div, class: main_navigation_css_classes(navigation), data: navigation["data"] do %>
     <%= link_to url_for_module(alchemy_module) do %>
       <% if navigation["image"] %>
-        <%= image_tag(navigation["image"]) %>
+        <%= image_tag(navigation["image"], alt: nil) %>
       <% elsif navigation["inline_image"] %>
         <%== navigation["inline_image"] %>
       <% elsif navigation["icon"] %>

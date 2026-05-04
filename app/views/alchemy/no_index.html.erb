@@ -8,7 +8,7 @@
   </head>
   <body>
     <div class="container">
-      <%= image_tag("alchemy/alchemy-logo.svg") %>
+      <%= image_tag("alchemy/alchemy-logo.svg", alt: "AlchemyCMS Logo") %>
       <% if @page.nil? %>
         <h3>
           <%= Alchemy.t("There are no pages yet") %>

@@ -1,6 +1,6 @@
 <div class="zoomed-picture-background">
   <% if @picture.image_file %>
-    <%= image_tag @picture.url %>
+    <%= image_tag @picture.url, alt: @picture.alt_text %>
   <% else %>
     <alchemy-icon name="file-damage"></alchemy-icon>
   <% end %>
