@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.config.to_prepare do
-  Alchemy.register_ability(Alchemy::Devise::Ability)
+  Alchemy.config.abilities.add("Alchemy::Devise::Ability")
 
   Alchemy::Modules.register_module({
     name: "users",
