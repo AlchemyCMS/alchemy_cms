@@ -9,7 +9,7 @@
     <%= render 'alchemy/admin/legacy_page_urls/label', count: @page.legacy_urls.size %>
   </sl-tab>
   <sl-tab-panel name="page_properties">
-    <%= render 'form' %>
+    <%= render 'form', page: @page %>
   </sl-tab-panel>
   <sl-tab-panel name="nodes">
     <%= render 'alchemy/admin/nodes/page_nodes' %>
