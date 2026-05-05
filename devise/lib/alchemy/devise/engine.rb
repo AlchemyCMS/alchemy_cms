@@ -11,7 +11,7 @@ module Alchemy
       engine_name "alchemy_devise"
 
       initializer "alchemy_devise.user_class", before: "alchemy.userstamp" do
-        Alchemy.user_class_name = "Alchemy::User"
+        Alchemy.config.user_class = "Alchemy::User"
       end
 
       initializer "alchemy_devise.assets" do |app|
