@@ -1,0 +1,30 @@
+<alchemy-page-publication-fields>
+  <label class="checkbox">
+  <% if @page.attribute_fixed?(:public_on) || @page.attribute_fixed?(:public_until) %>
+    <sl-tooltip class="like-hint-tooltip" content="<%= Alchemy.t(:attribute_fixed) %>" placement="bottom-start">
+      <%= checkbox %>
+      <%= Alchemy::Page.human_attribute_name :public %>
+    </sl-tooltip>
+  <% else %>
+    <%= checkbox %>
+    <%= Alchemy::Page.human_attribute_name :public %>
+  <% end %>
+  </label>
+
+  <%= content_tag :div, class: [
+    @page.public_on.present? || @page.public_until.present? ? nil : 'hidden',
+    'page-publication-date-fields',
+    'input-row'
+  ] do %>
+    <div class="input-column">
+      <%= label :page, :public_on %>
+      <%= datetime_local_field :page, :public_on, include_seconds: false,
+        disabled: @page.attribute_fixed?(:public_on) %>
+    </div>
+    <div class="input-column">
+      <%= label :page, :public_until %>
+      <%= datetime_local_field :page, :public_until, include_seconds: false,
+        disabled: @page.attribute_fixed?(:public_until) %>
+    </div>
+  <% end %>
+</alchemy-page-publication-fields>
