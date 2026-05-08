@@ -3,7 +3,7 @@
     <tr>
       <th colspan="2"><%= Alchemy::Site.model_name.human(count: 2) %></th>
     </tr>
-    <% @sites.each do |site| %>
+    <% sites.each do |site| %>
     <tr class="<%= cycle('even', 'odd', name: 'sites') %>">
       <td>
         <% if alchemy.respond_to?(:login_url) %>
@@ -12,7 +12,7 @@
             alchemy.login_url(
               protocol: 'http://',
               host: site.host,
-              user: {login: current_alchemy_user.try(:login)}
+              user: {login: user.try(:login)}
             ), target: '_blank' %>
         <% else %>
           <%= site.name %>

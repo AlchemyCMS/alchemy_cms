@@ -1,4 +1,4 @@
 <div class="column left">
-  <%= render 'alchemy/admin/dashboard/widgets/locked_pages' %>
-  <%= render 'alchemy/admin/dashboard/widgets/recent_pages' %>
+  <%= render Alchemy::Admin::Dashboard::Widgets::LockedPages.new(user: current_alchemy_user) %>
+  <%= render Alchemy::Admin::Dashboard::Widgets::RecentPages.new(user: current_alchemy_user) %>
 </div>

@@ -415,6 +415,16 @@ module Alchemy
       end
     end
 
+    describe ".all_last_edited_from" do
+      let(:user) { create(:alchemy_dummy_user) }
+      let!(:edited_page_1) { create(:alchemy_page, updater: user).tap { _1.update_columns(updated_at: 1.day.ago) } }
+      let!(:edited_page_2) { create(:alchemy_page, updater: user) }
+
+      it "returns pages that were edited by the given user" do
+        expect(Page.all_last_edited_from(user)).to eq([edited_page_2, edited_page_1])
+      end
+    end
+
     describe ".locked" do
       let!(:locked_page) { create(:alchemy_page, :locked) }
 

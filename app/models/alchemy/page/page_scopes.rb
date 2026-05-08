@@ -63,11 +63,11 @@ module Alchemy
             )
           }
 
-        # Last 5 pages that where recently edited by given user
+        # Pages that where updated by given user sorted by update time
         #
         scope :all_last_edited_from,
           ->(user) {
-            where(updater_id: user.id).order("updated_at DESC").limit(5)
+            where(updater_id: user.id).order("updated_at DESC")
           }
 
         # Returns all pages that have the given +language_id+
