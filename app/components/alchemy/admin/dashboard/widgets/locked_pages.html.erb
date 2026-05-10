@@ -1,54 +1,51 @@
-<% colspan = multi_site? ? 5 : 4 %>
-<div class="widget">
-  <table class="list">
-    <tr>
-      <th colspan="<%= colspan %>"><%= Alchemy.t('Currently locked pages') %></th>
-    </tr>
+<%= render Alchemy::Admin::Dashboard::Widget.new(style: @style) do %>
+  <header>
+    <%= Alchemy.t('Currently locked pages') %>
+  </header>
   <% if @all_locked_pages.blank? %>
-    <tr>
-      <td colspan="<%= colspan %>"><%= Alchemy.t('no pages') %></td>
-    </tr>
+    <alchemy-message type="info">
+      <%= Alchemy.t('no pages') %>
+    </alchemy-message>
   <% else %>
-    <% @all_locked_pages.each do |page| %>
-    <tr class="<%= cycle('even', 'odd', name: 'locked_pages') %>">
-      <td>
-        <% if @user.id == page.locked_by %>
-        <%= link_to(page.name, alchemy.edit_admin_page_path(page)) %>
-        <% else %>
-        <%= page.name %>
-        <% end %>
-      </td>
-      <% if multi_site? %>
-        <td>
-          <small><%= page.site_name %></small>
-        </td>
-      <% end %>
-      <td>
-        <% if page.site_languages.many? %>
-          <small><%= page.language.code.upcase %></small>
-        <% end %>
-      </td>
-      <td>
-        <small>
-          <% if @user.id == page.locked_by %>
-            <%= Alchemy.t(:me) %>
-          <% else %>
-            <%= page.locker_name %>
+    <div class="table-scroll">
+      <table class="list">
+        <% @all_locked_pages.each do |page| %>
+        <tr>
+          <td class="page_name">
+            <span class="label-with-icon">
+              <%= render_icon("file-edit") %>
+              <%= link_to_if(@user.id == page.locked_by, page.name, alchemy.edit_admin_page_path(page)) %>
+            </span>
+          </td>
+          <% if multi_site? %>
+            <td class="site_name">
+              <small><%= page.site_name %></small>
+            </td>
           <% end %>
-        </small>
-      </td>
-      <td>
-        <% if (@user.id == page.locked_by) || can?(:manage, Alchemy::Current.site) %>
-          <%= form_tag(alchemy.unlock_admin_page_path(page, :redirect_to => alchemy.admin_dashboard_path)) do %>
-            <button class="icon_button small" title="<%= Alchemy.t(:explain_unlocking) %>">
-              <%= render_icon(:close, size: '1x') %>
-            </button>
+          <% if page.site_languages.many? %>
+            <td class="locale">
+              <small><%= page.language.code.upcase %></small>
+            </td>
           <% end %>
+          <td class="name">
+            <small>
+              <% if @user.id == page.locked_by %>
+                <%= Alchemy.t(:me) %>
+              <% else %>
+                <%= page.locker_name %>
+              <% end %>
+            </small>
+          </td>
+          <td class="button">
+            <% if (@user.id == page.locked_by) || can?(:manage, Alchemy::Current.site) %>
+              <%= button_to alchemy.unlock_admin_page_path(page, redirect_to: alchemy.admin_dashboard_path), class: "icon_button small", title: Alchemy.t(:explain_unlocking) do %>
+                <%= render_icon(:close, size: '1x') %>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
         <% end %>
-      </td>
-    </tr>
-    <% end %>
+      </table>
+    </div>
   <% end %>
-  </table>
-</div>
-<% reset_cycle('locked_pages') %>
+<% end %>

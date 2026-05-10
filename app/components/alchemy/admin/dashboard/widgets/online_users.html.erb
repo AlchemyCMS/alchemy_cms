@@ -1,21 +1,22 @@
-<div class="widget users">
-  <table class="list">
-    <tr>
-      <th colspan="2"><%= Alchemy.t('Who else is online') %></th>
-    </tr>
+<%= render Alchemy::Admin::Dashboard::Widget.new(style: @style) do %>
+  <header>
+    <%= Alchemy.t('Who else is online') %>
+    <aside><%= @online_users.count %></aside>
+  </header>
   <% if @online_users.blank? %>
-    <tr>
-      <td colspan="2"><%= Alchemy.t('no users') %></td>
-    </tr>
+    <alchemy-message type="info">
+      <%= Alchemy.t('no users') %>
+    </alchemy-message>
   <% else %>
-    <% @online_users.each do |user| %>
-      <tr class="<%= cycle('even', 'odd') %>">
-        <td><%= user.name %></td>
-        <td>
+    <table class="list">
+    <% online_users.each do |user| %>
+      <tr>
+        <td class="name"><%= user.name %></td>
+        <td class="right">
           <small><%= user.human_roles_string %></small>
         </td>
       </tr>
     <% end %>
+    </table>
   <% end %>
-  </table>
-</div>
+<% end %>

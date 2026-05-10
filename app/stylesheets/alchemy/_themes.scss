@@ -29,6 +29,12 @@
   --code-background-color: var(--a-darkest-grey);
   --code-border-color: var(--a-grey);
 
+  /* Dashboard */
+  --dashboard-widget-background-color: var(--a-darkest-grey);
+  --dashboard-widget-box-shadow: none;
+  --table-scroll-fade-color: rgba(0, 0, 0, 0);
+  --table-scroll-shadow-color: rgba(0, 0, 0, 0.6);
+
   /* Datepicker */
   --datepicker-bg-color: var(--a-dark-grey);
   --datepicker-border-color: var(--a-grey);
@@ -314,6 +320,12 @@
 
   --code-background-color: var(--color-grey_light);
   --code-border-color: var(--border-color);
+
+  /* Dashboard */
+  --dashboard-widget-background-color: var(--color-white);
+  --dashboard-widget-box-shadow: 0px 1px 2px 0px rgba(10, 10, 10, 0.1);
+  --table-scroll-fade-color: rgba(255, 255, 255, 0);
+  --table-scroll-shadow-color: rgba(0, 0, 0, 0.15);
 
   /* Datepicker */
   --datepicker-bg-color: var(--color-white);

@@ -1,25 +1,29 @@
-<div class="widget sites">
+<%= render Alchemy::Admin::Dashboard::Widget.new(style: @style) do %>
+  <header>
+    <%= Alchemy::Site.model_name.human(count: 2) %>
+    <aside><%= Alchemy::Site.count %></aside>
+  </header>
   <table class="list">
-    <tr>
-      <th colspan="2"><%= Alchemy::Site.model_name.human(count: 2) %></th>
-    </tr>
     <% sites.each do |site| %>
-    <tr class="<%= cycle('even', 'odd', name: 'sites') %>">
+    <tr>
       <td>
-        <% if alchemy.respond_to?(:login_url) %>
-          <%= link_to_unless site == Alchemy::Current.site,
-            site.name,
-            alchemy.login_url(
-              protocol: 'http://',
-              host: site.host,
-              user: {login: user.try(:login)}
-            ), target: '_blank' %>
-        <% else %>
-          <%= site.name %>
-        <% end %>
+        <span class="label-with-icon">
+          <alchemy-icon name="global"></alchemy-icon>
+          <% if alchemy.respond_to?(:login_url) %>
+            <%= link_to_unless site == Alchemy::Current.site,
+              site.name,
+              alchemy.login_url(
+                protocol: 'http://',
+                host: site.host,
+                user: {login: user.try(:login)}
+              ), target: '_blank' %>
+          <% else %>
+            <%= site.name %>
+          <% end %>
+        </span>
       </td>
-      <td><small><%= site.host %></small></td>
+      <td class="right"><small><%= site.host %></small></td>
     </tr>
     <% end %>
   </table>
-</div>
+<% end %>

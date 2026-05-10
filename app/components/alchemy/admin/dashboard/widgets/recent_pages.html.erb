@@ -1,34 +1,41 @@
-<div class="widget">
-  <table class="list">
-    <tr>
-      <th colspan="4"><%= Alchemy.t('Your last updated pages') %></th>
-    </tr>
+<%= render Alchemy::Admin::Dashboard::Widget.new(style: @style) do %>
+  <header>
+    <%= Alchemy.t('Your last updated pages') %>
+  </header>
   <% if @last_edited_pages.blank? %>
-    <tr class="even">
-      <td colspan="4"><%= Alchemy.t('no pages') %></td>
-    </tr>
+    <alchemy-message type="info">
+      <%= Alchemy.t('no pages') %>
+    </alchemy-message>
   <% else %>
-    <% @last_edited_pages.each do |page| %>
-    <tr class="<%= cycle('even', 'odd', :name => 'edited_pages') %>">
-      <td>
-        <%= link_to_if((page.locked_by.blank? || page.locked_by == @user.id), page.name, alchemy.edit_admin_page_path(page)) %>
-      </td>
-      <% if multi_site? %>
-      <td>
-        <small><%= page.site_name %></small>
-      </td>
-      <% end %>
-      <td>
-        <% if page.site_languages.many? %>
-        <small><%= page.language.code.upcase %></small>
+    <div class="table-scroll">
+      <table class="list">
+        <% @last_edited_pages.each do |page| %>
+        <tr>
+          <td class="page_name">
+            <span class="label-with-icon">
+              <%= render_icon(page.locked? ? "file-edit" : "file") %>
+              <%= link_to_if (page.locked_by.blank? || page.locked_by == user.id),
+                page.name,
+                alchemy.edit_admin_page_path(page),
+                data: {turbo_frame: "_top"} %>
+            </span>
+          </td>
+          <% if multi_site? %>
+            <td class="site_name">
+              <small><%= page.site_name %></small>
+            </td>
+          <% end %>
+          <% if page.site_languages.many? %>
+            <td class="locale">
+              <small><%= page.language.code.upcase %></small>
+            </td>
+          <% end %>
+          <td class="right">
+            <small><%= l(page.updated_at, format: :'alchemy.short_datetime') %></small>
+          </td>
+        </tr>
         <% end %>
-      </td>
-      <td>
-        <small><%= l(page.updated_at, format: :'alchemy.short_datetime') %></small>
-      </td>
-    </tr>
-    <% end %>
+      </table>
+    </div>
   <% end %>
-  </table>
-</div>
-<% reset_cycle('edited_pages') %>
+<% end %>
