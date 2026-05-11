@@ -35,6 +35,10 @@ de:
       select: Dieser Inhaltstyp stellt Werte dar aus denen der Redakteur wählen kann
       text: Dieser Inhaltstyp stellt eine einfache Zeile Text dar
   activerecord:
+    models:
+      dummy_user:
+        one: User
+        other: Users
     attributes:
       alchemy/picture_description:
         text: "Bildbeschreibung"
