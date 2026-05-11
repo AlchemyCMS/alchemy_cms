@@ -161,6 +161,22 @@ RSpec.describe Alchemy::ElementPreloader do
         }.to make_database_queries(count: 4)
       end
     end
+
+    context "with nested elements containing nil positions" do
+      let!(:parent_element) { create(:alchemy_element, :with_nestable_elements, page_version: page_version, autogenerate_nested_elements: false) }
+      let!(:nested_element) do
+        create(:alchemy_element, page_version: page_version, parent_element: parent_element).tap do |e|
+          e.update_column(:position, nil)
+        end
+      end
+      let!(:other_nested_element) { create(:alchemy_element, page_version: page_version, parent_element: parent_element, position: 1) }
+
+      it "does not raise and includes all nested elements" do
+        result = described_class.new(page_version: page_version).call
+        expect(result).to eq([parent_element])
+        expect(result.first.all_nested_elements).to match_array([nested_element, other_nested_element])
+      end
+    end
   end
 
   describe "related object preloading" do
