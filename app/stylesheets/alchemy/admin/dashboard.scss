@@ -49,6 +49,15 @@
       --col-span: 1;
     }
 
+    &.usage {
+      --table-row-height: var(--spacing-7);
+      min-height: 237px;
+
+      @media (min-width: vars.$xxlarge-screen-break-point) {
+        --col-span: 2;
+      }
+    }
+
     &.wide {
       --col-span: 4;
 

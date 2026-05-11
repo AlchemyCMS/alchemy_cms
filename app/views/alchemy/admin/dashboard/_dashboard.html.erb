@@ -3,6 +3,8 @@
 <div class="widgets">
   <%= render Alchemy::Admin::Dashboard::Widgets::LockedPages.new(user: current_alchemy_user, style: "wide") %>
   <%= render Alchemy::Admin::Dashboard::Widgets::RecentPages.new(user: current_alchemy_user, style: "wide") %>
+  <%= render Alchemy::Admin::Dashboard::Widgets::ElementUsage.new(style: "usage") %>
+  <%= render Alchemy::Admin::Dashboard::Widgets::PageUsage.new(style: "usage") %>
   <%= render Alchemy::Admin::Dashboard::Widgets::Sites.new(user: current_alchemy_user) %>
   <%= render Alchemy::Admin::Dashboard::Widgets::OnlineUsers.new(user: current_alchemy_user) %>
 </div>

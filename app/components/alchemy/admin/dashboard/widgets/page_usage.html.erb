@@ -1,0 +1,37 @@
+<div class="widget <%= @style %>">
+  <header>
+    <%= Alchemy.t(:page_usage, total:) %>
+    <aside>
+      <%= number_with_delimiter(total) %>
+    </aside>
+  </header>
+  <div class="table-scroll">
+    <table class="list usage-stats">
+      <% stats.each_with_index do |(name, count), i| %>
+        <% bar_pct = max.positive? ? (count / max * 100).round(2) : 0 %>
+        <% hue = (240 + i * 360.0 / stats.size).round % 360 %>
+        <% definition = Alchemy::PageDefinition.get(name) %>
+        <tr>
+          <td class="usage-stats--label">
+            <span class="label-with-icon">
+              <alchemy-icon name="file"></alchemy-icon>
+              <%= definition&.human_name %>
+            </span>
+          </td>
+          <td class="usage-stats--bar">
+            <span
+              class="bar"
+              style="width: <%= bar_pct %>%; --bar-hue: <%= hue %>">
+            </span>
+          </td>
+          <td class="usage-stats--value">
+            <%= number_to_percentage((count / total.to_f) * 100, precision: 2) %>
+          </td>
+          <td class="usage-stats--value">
+            <%= number_with_delimiter(count) %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
