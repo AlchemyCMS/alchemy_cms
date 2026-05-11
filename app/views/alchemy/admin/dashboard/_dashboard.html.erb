@@ -1,5 +1,12 @@
 <%= render "top" %>
 
+<div class="stats">
+  <%= render Alchemy::Admin::Dashboard::Widgets::PageCounts.new(style: "stat") %>
+  <%= render Alchemy::Admin::Dashboard::Widgets::UserCounts.new(style: "stat") %>
+  <%= render Alchemy::Admin::Dashboard::Widgets::PictureCounts.new(style: "stat") %>
+  <%= render Alchemy::Admin::Dashboard::Widgets::AttachmentCounts.new(style: "stat") %>
+</div>
+
 <div class="widgets">
   <%= render Alchemy::Admin::Dashboard::Widgets::LockedPages.new(user: current_alchemy_user, style: "wide") %>
   <%= render Alchemy::Admin::Dashboard::Widgets::RecentPages.new(user: current_alchemy_user, style: "wide") %>

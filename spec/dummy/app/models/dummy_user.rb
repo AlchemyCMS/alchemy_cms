@@ -20,6 +20,10 @@ class DummyUser < ActiveRecord::Base
     @name || email
   end
 
+  def admin?
+    alchemy_roles.include?("admin")
+  end
+
   def alchemy_display_name
     name
   end
