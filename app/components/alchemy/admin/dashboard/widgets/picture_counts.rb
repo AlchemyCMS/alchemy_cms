@@ -3,10 +3,6 @@ module Alchemy
     module Dashboard
       module Widgets
         class PictureCounts < StatWidget
-          def initialize(style:)
-            @style = style
-          end
-
           private
 
           def title = Alchemy::Picture.model_name.human(count: :many)

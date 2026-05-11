@@ -3,10 +3,6 @@ module Alchemy
     module Dashboard
       module Widgets
         class PageCounts < StatWidget
-          def initialize(style:)
-            @style = style
-          end
-
           private
 
           def link = alchemy.admin_pages_path

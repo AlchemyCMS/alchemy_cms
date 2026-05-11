@@ -1,9 +1,9 @@
-<%= render Alchemy::Admin::Dashboard::Widget.new(style: @style) do %>
+<div class="widget-body">
   <header>
     <%= Alchemy.t('Who else is online') %>
-    <aside><%= @online_users.count %></aside>
+    <aside><%= online_users&.count %></aside>
   </header>
-  <% if @online_users.blank? %>
+  <% if online_users.blank? %>
     <alchemy-message type="info">
       <%= Alchemy.t('no users') %>
     </alchemy-message>
@@ -19,4 +19,4 @@
     <% end %>
     </table>
   <% end %>
-<% end %>
+</div>

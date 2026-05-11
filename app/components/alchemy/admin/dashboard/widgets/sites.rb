@@ -3,14 +3,10 @@ module Alchemy
     module Dashboard
       module Widgets
         class Sites < ViewComponent::Base
-          delegate :alchemy, :multi_site?, to: :helpers
-          attr_reader :user
+          delegate :alchemy, :current_alchemy_user, to: :helpers
 
-          def initialize(user:)
-            @user = user
-          end
+          private
 
-          def render? = multi_site?
           def sites = Site.all
         end
       end

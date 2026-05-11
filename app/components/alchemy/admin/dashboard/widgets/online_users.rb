@@ -3,14 +3,15 @@ module Alchemy
     module Dashboard
       module Widgets
         class OnlineUsers < ViewComponent::Base
-          def initialize(user:)
-            @user = user
+          delegate :current_alchemy_user, to: :helpers
+
+          private
+
+          def online_users
             if Alchemy.config.user_class.respond_to?(:logged_in)
-              @online_users = Alchemy.config.user_class.logged_in.to_a - [@user]
+              Alchemy.config.user_class.logged_in.to_a - [current_alchemy_user]
             end
           end
-
-          def render? = Alchemy.config.user_class.respond_to?(:logged_in)
         end
       end
     end

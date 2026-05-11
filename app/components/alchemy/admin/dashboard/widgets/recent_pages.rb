@@ -3,13 +3,12 @@ module Alchemy
     module Dashboard
       module Widgets
         class RecentPages < ViewComponent::Base
-          delegate :alchemy, :render_icon, :multi_site?, to: :helpers
+          delegate :alchemy, :current_alchemy_user, :render_icon, :multi_site?, to: :helpers
 
-          def initialize(user:, style: "default")
-            @user = user
-            @style = style
-            @last_edited_pages = Page.all_last_edited_from(user).limit(5)
-          end
+          private
+
+          def user = current_alchemy_user
+          def last_edited_pages = Page.all_last_edited_from(user).limit(5)
         end
       end
     end

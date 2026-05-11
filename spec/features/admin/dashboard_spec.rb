@@ -2,128 +2,62 @@
 
 require "rails_helper"
 
-RSpec.describe "Dashboard feature", type: :system do
+RSpec.describe "The Dashboard", type: :system do
   let(:user) { create(:alchemy_dummy_user, :as_editor, name: "Joe Editor") }
 
   before do
     authorize_user(user)
   end
 
-  describe "Locked pages summary" do
-    let(:a_page) { create(:alchemy_page, :public) }
+  it "shows locked pages widget" do
+    visit admin_dashboard_path
+    expect(page).to have_css("#LockedPages")
+  end
 
-    it "should initially show no pages are locked" do
+  it "shows recent pages widget" do
+    visit admin_dashboard_path
+    expect(page).to have_css("#RecentPages")
+  end
+
+  it "shows element usage widget" do
+    visit admin_dashboard_path
+    expect(page).to have_css("#ElementUsage")
+  end
+
+  it "shows page usage widget" do
+    visit admin_dashboard_path
+    expect(page).to have_css("#PageUsage")
+  end
+
+  context "with multiple sites" do
+    let!(:default_site) { create(:alchemy_site, :default) }
+    let!(:another_site) { create(:alchemy_site, name: "Site", host: "site.com") }
+
+    it "shows sites widget" do
       visit admin_dashboard_path
-      locked_pages_widget = all('div[@class="widget"]').first
-      expect(locked_pages_widget).to have_content "Currently locked pages"
-      expect(locked_pages_widget).to have_content "no pages"
-    end
-
-    context "When locked by current user" do
-      it "should show locked by me" do
-        a_page.lock_to!(user)
-        visit admin_dashboard_path
-        locked_pages_widget = all('div[@class="widget"]').first
-        expect(locked_pages_widget).to have_content "Currently locked pages"
-        expect(locked_pages_widget).to have_content a_page.name
-        expect(locked_pages_widget).to have_content "Me"
-        expect(locked_pages_widget).to have_css %(button[title="#{Alchemy.t(:explain_unlocking)}"])
-        expect(locked_pages_widget).to have_css %(form[action="/admin/pages/#{a_page.id}/unlock?redirect_to=%2Fadmin%2Fdashboard"])
-      end
-    end
-
-    context "When locked by another user" do
-      let(:other_user) { create(:alchemy_dummy_user, :as_admin) }
-
-      it "shows the name of the user who locked the page" do
-        a_page.lock_to!(other_user)
-        visit admin_dashboard_path
-        locked_pages_widget = all('div[@class="widget"]').first
-        expect(locked_pages_widget).to have_content "Currently locked pages"
-        expect(locked_pages_widget).to have_content a_page.name
-        expect(locked_pages_widget).to have_content other_user.name
-        expect(locked_pages_widget).not_to have_css "button[title=\"#{Alchemy.t(:explain_unlocking)}\"]"
-      end
-    end
-
-    context "when logged in as admin" do
-      let(:user) { create(:alchemy_dummy_user, :as_admin, name: "Joe Editor") }
-      let(:other_user) { create(:alchemy_dummy_user, :as_admin) }
-
-      it "shows the name of the user who locked the page" do
-        a_page.lock_to!(other_user)
-        visit admin_dashboard_path
-        locked_pages_widget = all('div[@class="widget"]').first
-        expect(locked_pages_widget).to have_content "Currently locked pages"
-        expect(locked_pages_widget).to have_content a_page.name
-        expect(locked_pages_widget).to have_content other_user.name
-        expect(locked_pages_widget).to have_css "button[title=\"#{Alchemy.t(:explain_unlocking)}\"]"
-      end
+      expect(page).to have_css("#Sites")
     end
   end
 
-  describe "Sites widget" do
-    context "with multiple sites" do
-      let!(:default_site) { create(:alchemy_site, :default) }
-      let!(:another_site) { create(:alchemy_site, name: "Site", host: "site.com") }
-
-      it "lists all sites" do
-        visit admin_dashboard_path
-        sites_widget = all('div[@class="widget sites"]').first
-        expect(sites_widget).to have_content "Websites"
-        expect(sites_widget).to have_content "Default Site"
-        expect(sites_widget).to have_content "Site"
-      end
-
-      context "with alchemy url proxy object having `login_url`" do
-        before do
-          allow_any_instance_of(ActionDispatch::Routing::RoutesProxy).to receive(:login_url).and_return("http://site.com/admin/login")
-        end
-
-        it "links to login page of every site" do
-          visit admin_dashboard_path
-          sites_widget = all('div[@class="widget sites"]').first
-          expect(sites_widget).to have_selector 'a[href="http://site.com/admin/login"]'
-        end
-      end
+  context "with alchemy users" do
+    before do
+      allow(Alchemy.config.user_class).to receive(:logged_in) { [] }
     end
 
-    context "with only one site" do
-      it "does not display" do
-        visit admin_dashboard_path
-        sites_widget = all('div[@class="widget sites"]').first
-        expect(sites_widget).to be_nil
-      end
+    it "shows online users widget" do
+      visit admin_dashboard_path
+      expect(page).to have_css("#OnlineUsers")
     end
   end
 
-  describe "Online users" do
-    context "with alchemy users" do
-      let(:other_user) { build_stubbed(:alchemy_dummy_user) }
-
-      before do
-        expect(Alchemy.config.user_class).to receive(:logged_in) { [other_user] }
-      end
-
-      it "lists all online users besides current user" do
-        visit admin_dashboard_path
-        users_widget = all('div[@class="widget users"]').first
-        expect(users_widget).to have_content other_user.name
-        expect(users_widget).to have_content "Member"
-        expect(users_widget).not_to have_content user.name
-      end
+  context "with non alchemy user class" do
+    before do
+      stub_alchemy_config(user_class: "SomeUser")
     end
 
-    context "with non alchemy user class" do
-      before do
-        stub_alchemy_config(user_class: "SomeUser")
-      end
-
-      it "does not list online users" do
-        visit admin_dashboard_path
-        users_widget = all('div[@class="widget users"]').first
-        expect(users_widget).to be_nil
-      end
+    it "does not show online users widget" do
+      visit admin_dashboard_path
+      expect(page).to_not have_css("#OnlineUsers")
     end
   end
 end

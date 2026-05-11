@@ -3,10 +3,6 @@ module Alchemy
     module Dashboard
       module Widgets
         class ElementUsage < ViewComponent::Base
-          def initialize(style: "default")
-            @style = style
-          end
-
           private
 
           def stats = Alchemy::Element.published.group(:name).count.sort_by { |_, v| -v }

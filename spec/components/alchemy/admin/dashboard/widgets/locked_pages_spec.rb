@@ -8,6 +8,7 @@ RSpec.describe Alchemy::Admin::Dashboard::Widgets::LockedPages, type: :component
 
   before do
     vc_test_view_context.class.include Alchemy::Admin::BaseHelper
+    allow(vc_test_view_context).to receive(:current_alchemy_user).and_return(user)
     allow(vc_test_view_context).to receive(:multi_site?).and_return(false)
     allow(Alchemy::Page).to receive(:locked) do
       pages
@@ -15,7 +16,7 @@ RSpec.describe Alchemy::Admin::Dashboard::Widgets::LockedPages, type: :component
   end
 
   subject(:rendered) do
-    render_inline(described_class.new(user:))
+    render_inline(described_class.new)
     page
   end
 
@@ -23,7 +24,7 @@ RSpec.describe Alchemy::Admin::Dashboard::Widgets::LockedPages, type: :component
     let(:pages) { [] }
 
     it "renders the widget with note" do
-      expect(rendered).to have_css(".widget")
+      expect(rendered).to have_css(".widget-body")
       expect(rendered).to have_text(Alchemy.t("no pages"))
     end
   end

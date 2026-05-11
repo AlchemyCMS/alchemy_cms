@@ -3,12 +3,10 @@ module Alchemy
     module Dashboard
       module Widgets
         class LockedPages < ViewComponent::Base
-          delegate :alchemy, :can?, :render_icon, :multi_site?,
+          delegate :alchemy, :can?, :current_alchemy_user, :render_icon, :multi_site?,
             to: :helpers
 
-          def initialize(user:, style: "default")
-            @user = user
-            @style = style
+          def initialize
             @all_locked_pages = Page.locked
           end
 

@@ -1,4 +1,4 @@
-<%= render Alchemy::Admin::Dashboard::Widget.new(style: @style) do %>
+<div class="widget-body">
   <header>
     <%= Alchemy.t('Currently locked pages') %>
   </header>
@@ -14,7 +14,10 @@
           <td class="page_name">
             <span class="label-with-icon">
               <%= render_icon("file-edit") %>
-              <%= link_to_if(@user.id == page.locked_by, page.name, alchemy.edit_admin_page_path(page)) %>
+              <%= link_to_if current_alchemy_user.id == page.locked_by,
+                page.name,
+                alchemy.edit_admin_page_path(page),
+                data: {turbo_frame: "_top"} %>
             </span>
           </td>
           <% if multi_site? %>
@@ -29,7 +32,7 @@
           <% end %>
           <td class="name">
             <small>
-              <% if @user.id == page.locked_by %>
+              <% if current_alchemy_user.id == page.locked_by %>
                 <%= Alchemy.t(:me) %>
               <% else %>
                 <%= page.locker_name %>
@@ -37,7 +40,7 @@
             </small>
           </td>
           <td class="button">
-            <% if (@user.id == page.locked_by) || can?(:manage, Alchemy::Current.site) %>
+            <% if (current_alchemy_user.id == page.locked_by) || can?(:manage, Alchemy::Current.site) %>
               <%= button_to alchemy.unlock_admin_page_path(page, redirect_to: alchemy.admin_dashboard_path), class: "icon_button small", title: Alchemy.t(:explain_unlocking) do %>
                 <%= render_icon(:close, size: '1x') %>
               <% end %>
@@ -48,4 +51,4 @@
       </table>
     </div>
   <% end %>
-<% end %>
+</div>

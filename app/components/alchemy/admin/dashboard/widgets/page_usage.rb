@@ -3,10 +3,6 @@ module Alchemy
     module Dashboard
       module Widgets
         class PageUsage < ViewComponent::Base
-          def initialize(style: "default")
-            @style = style
-          end
-
           private
 
           def stats = Alchemy::Page.group(:page_layout).count.sort_by { |_, v| -v }

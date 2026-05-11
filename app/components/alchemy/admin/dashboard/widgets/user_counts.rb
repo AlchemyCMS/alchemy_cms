@@ -3,10 +3,6 @@ module Alchemy
     module Dashboard
       module Widgets
         class UserCounts < StatWidget
-          def initialize(style:)
-            @style = style
-          end
-
           private
 
           def link = Alchemy.config.admin_users_path

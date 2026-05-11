@@ -1,4 +1,4 @@
-<%= render Alchemy::Admin::Dashboard::Widget.new(style: @style) do %>
+<div class="widget-body">
   <header>
     <%= Alchemy::Site.model_name.human(count: 2) %>
     <aside><%= Alchemy::Site.count %></aside>
@@ -15,7 +15,7 @@
               alchemy.login_url(
                 protocol: 'http://',
                 host: site.host,
-                user: {login: user.try(:login)}
+                user: {login: current_alchemy_user.try(:login)}
               ), target: '_blank' %>
           <% else %>
             <%= site.name %>
@@ -26,4 +26,4 @@
     </tr>
     <% end %>
   </table>
-<% end %>
+</div>

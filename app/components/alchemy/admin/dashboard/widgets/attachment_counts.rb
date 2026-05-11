@@ -3,10 +3,6 @@ module Alchemy
     module Dashboard
       module Widgets
         class AttachmentCounts < StatWidget
-          def initialize(style:)
-            @style = style
-          end
-
           private
 
           def title = Alchemy::Attachment.model_name.human(count: :many)

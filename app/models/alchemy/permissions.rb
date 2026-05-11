@@ -94,7 +94,7 @@ module Alchemy
 
         # Controller actions
         can :leave, :alchemy_admin
-        can [:info, :help], :alchemy_admin_dashboard
+        can [:info, :help, :show], :alchemy_admin_dashboard
         can :manage, :alchemy_admin_clipboard
         can :update, :alchemy_admin_layoutpages
         can :tree, :alchemy_admin_pages

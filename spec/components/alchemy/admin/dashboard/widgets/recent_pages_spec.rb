@@ -4,25 +4,26 @@ require "rails_helper"
 
 RSpec.describe Alchemy::Admin::Dashboard::Widgets::RecentPages, type: :component do
   let(:user) { build_stubbed(:alchemy_dummy_user, :as_admin) }
-  let(:pages) { [] }
 
   before do
     allow(vc_test_view_context).to receive(:multi_site?).and_return(false)
+    allow(vc_test_view_context).to receive(:render_icon).and_return("icon")
+    allow(vc_test_view_context).to receive(:current_alchemy_user).and_return(user)
     allow(Alchemy::Page).to receive(:all_last_edited_from).with(user) do
       pages
     end
   end
 
   subject(:rendered) do
-    render_inline(described_class.new(user:))
+    render_inline(described_class.new)
     page
   end
 
   context "when there are no recently edited pages" do
-    let(:pages) { [] }
+    let(:pages) { double(limit: []) }
 
     it "renders the widget with note" do
-      expect(rendered).to have_css(".widget")
+      expect(rendered).to have_css(".widget-body")
       expect(rendered).to have_text(Alchemy.t("no pages"))
     end
   end
@@ -34,7 +35,7 @@ RSpec.describe Alchemy::Admin::Dashboard::Widgets::RecentPages, type: :component
         updated_at: 1.hour.ago,
         updater: user)
     end
-    let(:pages) { [recent_page] }
+    let(:pages) { double(limit: [recent_page]) }
 
     it "renders a link to each page" do
       expect(rendered).to have_link(recent_page.name)

@@ -1,15 +1,15 @@
-<%= render Alchemy::Admin::Dashboard::Widget.new(style: @style) do %>
+<div class="widget-body">
   <header>
     <%= Alchemy.t('Your last updated pages') %>
   </header>
-  <% if @last_edited_pages.blank? %>
+  <% if last_edited_pages.blank? %>
     <alchemy-message type="info">
       <%= Alchemy.t('no pages') %>
     </alchemy-message>
   <% else %>
     <div class="table-scroll">
       <table class="list">
-        <% @last_edited_pages.each do |page| %>
+        <% last_edited_pages.each do |page| %>
         <tr>
           <td class="page_name">
             <span class="label-with-icon">
@@ -38,4 +38,4 @@
       </table>
     </div>
   <% end %>
-<% end %>
+</div>
