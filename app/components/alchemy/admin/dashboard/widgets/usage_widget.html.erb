@@ -22,7 +22,7 @@
             </span>
           </td>
           <td class="usage-stats--bar">
-            <sl-tooltip content="<%= label %>: <%= entry.public_count %> <%= Alchemy.t(:published) %>, <%= entry.draft_count %> <%= Alchemy.t(:draft) %>">
+            <sl-tooltip content="<%= tooltip_content(entry) %>">
               <span class="bar" style="width: <%= bar_pct %>%; --bar-hue: <%= hue %>">
                 <span class="bar__public" style="width: <%= public_pct %>%"></span>
                 <span class="bar__draft" style="width: <%= draft_pct %>%"></span>

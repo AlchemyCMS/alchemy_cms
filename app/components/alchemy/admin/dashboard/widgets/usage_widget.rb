@@ -52,6 +52,10 @@ module Alchemy
             raise NotImplementedError
           end
 
+          def tooltip_content(entry)
+            "#{entry_label(entry)}: #{entry.public_count} #{Alchemy.t(:published)}, #{entry.draft_count} #{Alchemy.t(:draft)}"
+          end
+
           def entry_icon(entry)
             raise NotImplementedError
           end
