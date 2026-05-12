@@ -2,12 +2,34 @@ module Alchemy
   module Admin
     module Dashboard
       module Widgets
-        class ElementUsage < ViewComponent::Base
+        class ElementUsage < UsageWidget
           private
 
-          def stats = Alchemy::Element.published.group(:name).count.sort_by { |_, v| -v }
-          def total = stats.sum { |_, v| v }
-          def max = stats.map { |_, count| count }.max.to_f
+          def header_text(total:)
+            Alchemy.t(:element_usage, total:)
+          end
+
+          def definitions
+            Alchemy::ElementDefinition.all
+          end
+
+          def public_counts
+            @public_counts ||= Alchemy::Element.published.group(:name).count
+          end
+
+          def draft_counts
+            @draft_counts ||= Alchemy::Element
+              .where("alchemy_elements.public_on IS NULL OR alchemy_elements.public_until <= ?", Time.current)
+              .group(:name).count
+          end
+
+          def entry_label(entry)
+            Alchemy::Element.display_name_for(entry.name)
+          end
+
+          def entry_icon(entry)
+            entry.definition.icon_file
+          end
         end
       end
     end

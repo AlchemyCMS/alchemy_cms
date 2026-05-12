@@ -1,0 +1,42 @@
+<div class="widget-body">
+  <header>
+    <%= header_text(total:) %>
+    <aside>
+      <%= number_with_delimiter(total) %>
+    </aside>
+  </header>
+  <div class="table-scroll">
+    <table class="list usage-stats">
+      <% stats.each_with_index do |entry, i| %>
+        <% row_total = entry.total %>
+        <% bar_pct = max.positive? ? (row_total / max * 100).round(2) : 0 %>
+        <% public_pct = row_total.positive? ? (entry.public_count / row_total.to_f * 100).round(2) : 0 %>
+        <% draft_pct = (100 - public_pct).round(2) %>
+        <% hue = (240 + i * 360.0 / stats.size).round % 360 %>
+        <% label = entry_label(entry) %>
+        <tr>
+          <td class="usage-stats--label">
+            <span class="label-with-icon">
+              <%= entry_icon(entry) %>
+              <%= label %>
+            </span>
+          </td>
+          <td class="usage-stats--bar">
+            <sl-tooltip content="<%= label %>: <%= entry.public_count %> <%= Alchemy.t(:published) %>, <%= entry.draft_count %> <%= Alchemy.t(:draft) %>">
+              <span class="bar" style="width: <%= bar_pct %>%; --bar-hue: <%= hue %>">
+                <span class="bar__public" style="width: <%= public_pct %>%"></span>
+                <span class="bar__draft" style="width: <%= draft_pct %>%"></span>
+              </span>
+            </sl-tooltip>
+          </td>
+          <td class="usage-stats--value">
+            <%= number_to_percentage(total.positive? ? (row_total / total.to_f) * 100 : 0, precision: 2) %>
+          </td>
+          <td class="usage-stats--value">
+            <%= number_with_delimiter(row_total) %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
