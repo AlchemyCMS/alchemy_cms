@@ -61,7 +61,7 @@ module Alchemy
 
       elements_by_id.each_value do |element|
         children = elements_by_parent[element.id] || []
-        children = children.sort_by(&:position)
+        children = children.sort_by { |c| c.position.to_i }
 
         # Manually set the association target
         element.association(:all_nested_elements).target = children
