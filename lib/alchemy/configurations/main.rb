@@ -434,6 +434,16 @@ module Alchemy
       # The path to the page showing the user they're unauthorized
       option :unauthorized_path, :string, default: "/"
 
+      # === Admin Users Path
+      #
+      # The path to the admin users list.
+      #
+      # == Example
+      #
+      #     "/admin/users"
+      #
+      option :admin_users_path, :string
+
       # === Edit User Path
       #
       # The path to the edit user form.
