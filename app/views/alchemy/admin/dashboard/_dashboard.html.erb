@@ -1,17 +1,3 @@
 <%= render "top" %>
-
-<div class="stats">
-  <%= render Alchemy::Admin::Dashboard::Widget.new(id: "PageCounts", style: "stat") %>
-  <%= render Alchemy::Admin::Dashboard::Widget.new(id: "UserCounts", style: "stat") %>
-  <%= render Alchemy::Admin::Dashboard::Widget.new(id: "PictureCounts", style: "stat") %>
-  <%= render Alchemy::Admin::Dashboard::Widget.new(id: "AttachmentCounts", style: "stat") %>
-</div>
-
-<div class="widgets">
-  <%= render Alchemy::Admin::Dashboard::Widget.new(id: "LockedPages", style: "wide") %>
-  <%= render Alchemy::Admin::Dashboard::Widget.new(id: "RecentPages", style: "wide") %>
-  <%= render Alchemy::Admin::Dashboard::Widget.new(id: "ElementUsage", style: "usage", loading: "lazy") %>
-  <%= render Alchemy::Admin::Dashboard::Widget.new(id: "PageUsage", style: "usage", loading: "lazy") %>
-  <%= render Alchemy::Admin::Dashboard::Widget.new(id: "Sites", loading: "lazy") if multi_site? %>
-  <%= render Alchemy::Admin::Dashboard::Widget.new(id: "OnlineUsers", loading: "lazy") if Alchemy.config.user_class.respond_to?(:logged_in) %>
-</div>
+<%= render "stats" %>
+<%= render "widgets" %>
