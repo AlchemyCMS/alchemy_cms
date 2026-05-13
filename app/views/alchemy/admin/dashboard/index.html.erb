@@ -1,20 +1,3 @@
-<%= content_for :toolbar do %>
-  <div class="toolbar_buttons">
-    <%= render Alchemy::Admin::ToolbarButton.new(
-      icon: 'information',
-      label: Alchemy.t(:info),
-      url: alchemy.dashboard_info_path,
-      title: Alchemy.t(:info),
-      dialog_options: {
-        title: Alchemy.t(:info),
-        size: "420x380"
-      },
-      if_permitted_to: [:info, :alchemy_admin_dashboard],
-      hotkey: 'alt+i'
-    ) %>
-  </div>
-<% end %>
-
 <div id="dashboard">
   <%= render "dashboard" %>
 </div>

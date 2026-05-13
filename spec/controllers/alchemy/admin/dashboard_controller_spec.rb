@@ -18,9 +18,9 @@ module Alchemy
     end
 
     describe "#info" do
-      it "assigns @alchemy_version with the current Alchemy version" do
+      it "is deprecated" do
+        expect(Alchemy::Deprecation).to receive(:warn)
         get :info
-        expect(assigns(:alchemy_version)).to eq(Alchemy.version)
       end
     end
   end

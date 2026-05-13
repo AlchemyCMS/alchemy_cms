@@ -11,7 +11,9 @@ module Alchemy
       end
 
       def info
-        @alchemy_version = Alchemy.version
+        Alchemy::Deprecation.warn <<~WARN
+          Requesting `admin/dashboard/info` is deprecated. Please render Alchemy::Admin::Dashboard::Widgets::SystemInfo instead.
+        WARN
       end
     end
   end

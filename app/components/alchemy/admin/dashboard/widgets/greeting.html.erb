@@ -1,10 +1,9 @@
 <div class="greeting">
   <h1>
-    <% if @first_time -%>
-      <%= Alchemy.t(:welcome_note, name: @user.alchemy_display_name) %>
-    <% else -%>
-      <%= Alchemy.t(:welcome_back_note, name: @user.alchemy_display_name) %>
-    <% end -%>
+    <%= Alchemy.t(@first_time ? :welcome_note : :welcome_back_note, name: "") %>
+    <span class="user-name">
+      <%= @user.alchemy_display_name %>
+    </span>
   </h1>
   <% if @last_sign_at %>
     <p>
