@@ -1,0 +1,22 @@
+<div class="widget-body">
+  <header>
+    <%= Alchemy.t('Who else is online') %>
+    <aside><%= online_users&.count %></aside>
+  </header>
+  <% if online_users.blank? %>
+    <alchemy-message type="info">
+      <%= Alchemy.t('no users') %>
+    </alchemy-message>
+  <% else %>
+    <table class="list">
+    <% online_users.each do |user| %>
+      <tr>
+        <td class="name"><%= user.name %></td>
+        <td class="right">
+          <small><%= user.human_roles_string %></small>
+        </td>
+      </tr>
+    <% end %>
+    </table>
+  <% end %>
+</div>

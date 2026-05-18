@@ -1,3 +1,9 @@
 kl:
   alchemy:
     welcome_back_note: majQa' Dub
+
+  # Alchemy date formats
+  date:
+    formats:
+      alchemy:
+        default: "%Y-%m-%d"

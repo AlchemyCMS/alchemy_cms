@@ -65,6 +65,7 @@
   --font-size_small: 10px; /* 0.875rem */
   --font-size_medium: 12px; /* 1rem */
   --font-size_large: 16px; /* 1.25 rem */
+  --font-size_xlarge: 24px; /* 2 rem */
 
   --font-weight_normal: 500;
   --font-weight_bold: 700;
@@ -73,6 +74,7 @@
 
   /* Borders */
   --border-radius_medium: 3px;
+  --border-radius_large: 6px;
   --border-width_small: 1px;
   --border-style: solid;
   --border-default: var(--border-width_small) var(--border-style)

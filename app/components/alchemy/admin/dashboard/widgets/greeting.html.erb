@@ -1,0 +1,13 @@
+<div class="greeting">
+  <h1>
+    <%= Alchemy.t(@first_time ? :welcome_note : :welcome_back_note, name: "") %>
+    <span class="user-name">
+      <%= @user.alchemy_display_name %>
+    </span>
+  </h1>
+  <% if @last_sign_at %>
+    <p>
+      <%= Alchemy.t('Your last login was on', time: l(@last_sign_at, format: :'alchemy.default')) %>
+    </p>
+  <% end %>
+</div>

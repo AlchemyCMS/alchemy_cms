@@ -1,17 +1,17 @@
 <% content_for :title do %>
-  <%= "Styleguide" %>
+  Styleguide
 <% end %>
 
 <% content_for(:toolbar) do %>
   <%= render Alchemy::Admin::ToolbarButton.new(
     icon: :info,
     label: 'Info',
-    url: alchemy.dashboard_info_path,
+    url: alchemy.admin_styleguide_path,
     title: 'Info',
     hotkey: 'alt+i',
     dialog_options: {
       title: 'Info',
-      size: "430x400"
+      size: "650x400"
     },
     if_permitted_to: [:index, :alchemy_admin_styleguide]
   ) %>

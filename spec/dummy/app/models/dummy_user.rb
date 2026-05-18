@@ -20,6 +20,10 @@ class DummyUser < ActiveRecord::Base
     @name || email
   end
 
+  def admin?
+    alchemy_roles.include?("admin")
+  end
+
   def alchemy_display_name
     name
   end
@@ -27,4 +31,7 @@ class DummyUser < ActiveRecord::Base
   def human_roles_string
     alchemy_roles.map(&:humanize)
   end
+
+  def sign_in_count = 0
+  def last_sign_in_at = Date.yesterday
 end

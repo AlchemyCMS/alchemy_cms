@@ -132,6 +132,11 @@ th,
 
 td,
 .table .col {
+  &.button {
+    width: 40px;
+    text-align: center;
+  }
+
   &.file_name {
     white-space: nowrap;
   }
@@ -156,6 +161,10 @@ td,
     width: 150px;
   }
 
+  &.name {
+    width: 200px;
+  }
+
   &.email {
     width: 270px;
   }
@@ -175,6 +184,15 @@ td,
   &.url {
     width: 15%;
     white-space: nowrap;
+  }
+
+  &.site_name {
+    width: 200px;
+  }
+
+  &.locale {
+    width: 60px;
+    text-align: center;
   }
 
   &.status {

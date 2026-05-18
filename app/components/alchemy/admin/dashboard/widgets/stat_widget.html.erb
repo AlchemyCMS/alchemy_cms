@@ -1,0 +1,23 @@
+<div class="widget-body">
+  <div class="name">
+    <% label = capture do %>
+      <% if icon %>
+        <alchemy-icon name="<%= icon %>"></alchemy-icon>
+      <% end %>
+      <%= title %>
+    <% end %>
+    <% if link %>
+      <%= link_to label, link, class: "label-with-icon", data: {turbo_frame: "_top"} %>
+    <% else %>
+      <span class="label-with-icon"><%= label %></span>
+    <% end %>
+  </div>
+  <div class="count">
+    <%= number_with_delimiter(count) %>
+  </div>
+  <% if infos %>
+    <div class="infos">
+      <%= infos %>
+    </div>
+  <% end %>
+</div>

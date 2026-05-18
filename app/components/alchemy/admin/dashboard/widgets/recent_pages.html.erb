@@ -1,0 +1,41 @@
+<div class="widget-body">
+  <header>
+    <%= Alchemy.t('Your last updated pages') %>
+  </header>
+  <% if last_edited_pages.blank? %>
+    <alchemy-message type="info">
+      <%= Alchemy.t('no pages') %>
+    </alchemy-message>
+  <% else %>
+    <div class="table-scroll">
+      <table class="list">
+        <% last_edited_pages.each do |page| %>
+        <tr>
+          <td class="page_name">
+            <span class="label-with-icon">
+              <%= render_icon(page.locked? ? "file-edit" : "file") %>
+              <%= link_to_if (page.locked_by.blank? || page.locked_by == user.id),
+                page.name,
+                alchemy.edit_admin_page_path(page),
+                data: {turbo_frame: "_top"} %>
+            </span>
+          </td>
+          <% if multi_site? %>
+            <td class="site_name">
+              <small><%= page.site_name %></small>
+            </td>
+          <% end %>
+          <% if page.site_languages.many? %>
+            <td class="locale">
+              <small><%= page.language.code.upcase %></small>
+            </td>
+          <% end %>
+          <td class="right">
+            <small><%= l(page.updated_at, format: :'alchemy.short_datetime') %></small>
+          </td>
+        </tr>
+        <% end %>
+      </table>
+    </div>
+  <% end %>
+</div>
