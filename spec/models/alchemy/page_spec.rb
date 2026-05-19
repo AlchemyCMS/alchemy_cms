@@ -297,6 +297,28 @@ module Alchemy
             )
           end
         end
+
+        context "with a sibling page attached to a menu node" do
+          # Regression: awesome_nested_set's before_destroy closes the nested-set
+          # gap by shifting following siblings' lft/rgt leftward, so the next
+          # sibling lands exactly on the destroyed leaf's lft. The inclusive
+          # comparison the `descendants` helper uses then matches it as a
+          # descendant unless we restrict to strict bounds.
+          let!(:parent) { create(:alchemy_page) }
+          let!(:page) { create(:alchemy_page, parent: parent) }
+          let!(:sibling) { create(:alchemy_page, parent: parent) }
+          let!(:node) { create(:alchemy_node, page: sibling, parent: create(:alchemy_node)) }
+
+          it "allows destruction of the leaf page" do
+            expect(page.destroy).to be_truthy
+            expect(page.errors[:descendants]).to be_empty
+          end
+
+          it "does not destroy the sibling" do
+            page.destroy
+            expect(Alchemy::Page.exists?(sibling.id)).to be true
+          end
+        end
       end
     end
 
