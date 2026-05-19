@@ -14,6 +14,12 @@ export class RemoteSelect extends AlchemyHTMLElement {
     url: { default: "" }
   }
 
+  // Select2 manages its own DOM after initialization, so attribute changes
+  // must not trigger the default re-render which would destroy the widget.
+  static get observedAttributes() {
+    return []
+  }
+
   async connected() {
     await setupSelectLocale()
 
@@ -34,6 +40,11 @@ export class RemoteSelect extends AlchemyHTMLElement {
    * @param {Event} event
    */
   onChange(event) {
+    // Update selection attribute so re-attaching the select2 component to
+    // the same input (e.g. after dragndrop) does not reset the selection.
+    if (event.added) {
+      this.setAttribute("selection", JSON.stringify(event.added))
+    }
     this.dispatchCustomEvent("RemoteSelect.Change", {
       removed: event.removed,
       added: event.added
