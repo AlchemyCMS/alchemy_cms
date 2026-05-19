@@ -615,7 +615,17 @@ module Alchemy
     end
 
     def check_descendants_for_menu_nodes
-      pages_with_nodes = descendants.joins(:nodes).reorder("alchemy_pages.lft").distinct
+      # awesome_nested_set's before_destroy runs first and closes the gap left
+      # by this page, shifting the following siblings' lft/rgt leftward. For a
+      # leaf the next sibling then lands exactly on this page's lft, so the
+      # inclusive comparison the `descendants` helper uses (lft >= self.lft)
+      # would match it. Restrict to true descendants with strict bounds. Build
+      # on nested_set_scope so the acts_as_nested_set scope stays in sync.
+      pages_with_nodes = nested_set_scope
+        .where("alchemy_pages.lft > ? AND alchemy_pages.rgt < ?", lft, rgt)
+        .joins(:nodes)
+        .reorder("alchemy_pages.lft")
+        .distinct
       if pages_with_nodes.exists?
         errors.add(:descendants, :still_attached_to_nodes, page_names: pages_with_nodes.map(&:name).to_sentence)
         throw :abort
