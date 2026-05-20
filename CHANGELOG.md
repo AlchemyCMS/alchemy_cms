@@ -1,5 +1,13 @@
 # Changelog
 
+## 8.0.14 (2026-05-20)
+
+## What's Changed
+* [8.0-stable] fix(RemoteSelect): Persist selection on change by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3903
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.0.13...v8.0.14
+
 ## 8.0.13 (2026-05-01)
 
 ## What's Changed
