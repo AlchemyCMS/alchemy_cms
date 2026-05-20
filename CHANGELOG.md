@@ -1,5 +1,17 @@
 # Changelog
 
+## 8.1.13 (2026-05-20)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
+
+## What's Changed
+### Other Changes
+* [8.1-stable] Fix: Allow Multiple Select migration to work with MariaDB by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3887
+* [8.1-stable] fix(RemoteSelect): Persist selection on change by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3902
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.1.12...v8.1.13
+
 ## 8.1.12 (2026-05-01)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
