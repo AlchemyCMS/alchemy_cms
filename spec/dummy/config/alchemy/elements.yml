@@ -39,9 +39,10 @@
     - role: text
       type: Richtext
       settings:
+        editor: tiptap
         sanitizer:
           attributes: [href, target]
-          tags: [p, ol, ul, ul, li, em, strong]
+          tags: [p, ol, ul, li, em, strong]
 
 - name: search
   ingredients: []

@@ -220,6 +220,14 @@
     linear-gradient(-45deg, transparent 75%, var(--a-grey) 75%) 0 0.5em/1em 1em
       var(--a-dark-grey);
 
+  /* TipTap Editor */
+  --tiptap-button-bg-color: var(--button-bg-color);
+  --tiptap-button-active-bg-color: var(--color-blue_dark);
+  --tiptap-button-active-color: var(--color-white);
+  --tiptap-button-hover-bg-color: var(--icon-button-hover-bg-color);
+  --tiptap-content-background-color: var(--form-field-background-color);
+  --tiptap-toolbar-bg-color: var(--a-darker-grey);
+
   /* Toolbar */
   --toolbar-bg-color: var(--a-darker-grey);
   --toolbar-border-bottom: 1px solid var(--a-darkest-grey);
@@ -504,6 +512,13 @@
       1em,
     linear-gradient(-45deg, transparent 75%, var(--color-grey_light) 75%) 0
       0.5em/1em 1em var(--color-grey_medium);
+
+  /* TipTap Editor */
+  --tiptap-toolbar-bg-color: var(--color-grey_very_light);
+  --tiptap-button-active-bg-color: var(--color-blue_light);
+  --tiptap-button-active-color: var(--color-blue);
+  --tiptap-button-hover-bg-color: var(--color-blue_light);
+  --tiptap-content-background-color: var(--form-field-background-color);
 
   /* Toolbar */
   --toolbar-bg-color: var(--color-grey_light);

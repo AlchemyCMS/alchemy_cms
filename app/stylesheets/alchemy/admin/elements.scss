@@ -864,7 +864,8 @@ alchemy-color-select {
 }
 
 .ingredient-editor.richtext {
-  alchemy-tinymce {
+  alchemy-tinymce,
+  alchemy-tiptap {
     margin: var(--spacing-2) 0;
   }
 }

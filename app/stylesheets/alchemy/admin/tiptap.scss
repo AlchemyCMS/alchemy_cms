@@ -1,0 +1,127 @@
+/* app/assets/stylesheets/alchemy/admin/tiptap_editor.css */
+
+alchemy-tiptap {
+  display: block;
+}
+
+.tiptap-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-0);
+  padding: var(--spacing-1);
+  border: var(--toolbar-border-bottom);
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  background: var(--tiptap-toolbar-bg-color);
+}
+
+.tiptap-toolbar-group {
+  display: inline-flex;
+  gap: var(--spacing-0);
+}
+
+.tiptap-toolbar-separator {
+  width: 1px;
+  height: 20px;
+  margin: 0 var(--spacing-1);
+  background: var(--border-color);
+}
+
+.tiptap-toolbar-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  width: var(--icon-button-medium-width);
+  height: var(--icon-button-medium-height);
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: var(--button-border-radius);
+  background: 0 0;
+  color: var(--icon-color);
+  font-size: var(--font-size_medium);
+  font-weight: var(--button-font-weight);
+  cursor: pointer;
+  box-shadow: none;
+
+  &:hover {
+    background: var(--tiptap-button-hover-bg-color);
+  }
+
+  &.is-active {
+    background: var(--tiptap-button-active-bg-color);
+    color: var(--tiptap-button-active-color);
+  }
+
+  svg {
+    display: block;
+    fill: currentColor;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.tiptap-toolbar-button .tiptap-toolbar-select {
+  height: 28px;
+  padding: 0 4px;
+  border: 1px solid var(--border-color, #d1d5db);
+  border-radius: 3px;
+  background: var(--color-white, #fff);
+  font-size: 12px;
+}
+
+.tiptap-content {
+  border: 1px solid var(--border-color);
+  border-radius: 0 0 4px 4px;
+  min-height: 200px;
+  padding: var(--spacing-3);
+  background: var(--tiptap-content-background-color);
+}
+
+.tiptap-content:focus-within {
+  border-color: var(--focus-color);
+}
+
+.tiptap-content .ProseMirror {
+  min-height: 100px;
+
+  &:focus {
+    outline: none;
+    border: 0 none;
+    box-shadow: none;
+  }
+}
+
+.tiptap-content .ProseMirror p {
+  margin: 0 0 0.75em;
+}
+.tiptap-content .ProseMirror h1,
+.tiptap-content .ProseMirror h2,
+.tiptap-content .ProseMirror h3,
+.tiptap-content .ProseMirror h4 {
+  margin: 1em 0 0.5em;
+  font-weight: 600;
+}
+.tiptap-content .ProseMirror ul,
+.tiptap-content .ProseMirror ol {
+  padding-left: 1.5em;
+}
+.tiptap-content .ProseMirror blockquote {
+  padding-left: 1em;
+  border-left: 3px solid var(--border-color);
+}
+.tiptap-content .ProseMirror a {
+  color: var(--text-link-color);
+  text-decoration: underline;
+}
+.tiptap-content .ProseMirror code {
+  border: 1px solid var(--code-border-color);
+  border-radius: var(--border-radius_medium);
+  background: var(--code-background-color);
+  font-family: var(--font-mono);
+  margin: 0 0.25ex;
+  padding: 0.25em 0.5em;
+  vertical-align: baseline;
+}

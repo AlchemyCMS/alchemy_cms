@@ -106,6 +106,15 @@ export default [
     ]
   },
   {
+    input: "bundles/tiptap.js",
+    output: {
+      file: "vendor/javascript/tiptap.min.js",
+      name: "tiptap",
+      format: "esm"
+    },
+    plugins: [resolve(), terser()]
+  },
+  {
     input: "bundles/tom-select.js",
     output: {
       file: "vendor/javascript/tom-select.min.js"

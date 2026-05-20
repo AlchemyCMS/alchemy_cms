@@ -10,6 +10,7 @@ module Alchemy
         :sanitized_body
 
       allow_settings %i[
+        editor
         plain_text
         sanitizer
         tinymce
@@ -29,7 +30,7 @@ module Alchemy
       end
 
       def has_tinymce?
-        true
+        settings[:editor] != "tiptap"
       end
 
       def custom_tinymce_config
