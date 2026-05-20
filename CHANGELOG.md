@@ -1,5 +1,24 @@
 # Changelog
 
+## 8.2.4 (2026-05-19)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.2-stable -->
+
+## What's Changed
+### Bug Fixes
+* [8.2-stable] fix(Publishable): Use Time.current in publishable? by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3867
+### Other Changes
+* [8.2-stable] perf(Attachment): Improve attachment deletable scope by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3872
+* [8.2-stable] fix(pages/table): Use file icon if not locked by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3878
+* [8.2-stable] fix(alchemy-message): Remove bottom margin of last paragraph by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3879
+* [8.2-stable] Fix: Allow Multiple Select migration to work with MariaDB by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3888
+* [8.2-stable] Prevent ArgumentError in ElementPreloader by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3893
+* [8.2-stable] fix(RemoteSelect): Persist selection on change by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3901
+* [8.2-stable] Fix/leaf page destroy false positive descendant node check by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3904
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.2.3...v8.2.4
+
 ## 8.2.3 (2026-04-28)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.2-stable -->
