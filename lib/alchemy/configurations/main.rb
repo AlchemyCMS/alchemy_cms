@@ -468,6 +468,35 @@ module Alchemy
       # === Dashboard configuration
       #
       configuration :dashboard, Dashboard
+
+      # === Richtext Editors
+      #
+      # Editors available for Richtext ingredients.
+      # You can select the editor for each ingredient in the elements.yml file.
+      #
+      # Currently available editors are:
+      # - Alchemy::RichtextEditor::Tinymce (default)
+      # - Alchemy::RichtextEditor::Tiptap
+      #
+      # == Example
+      #
+      #    # config/alchemy/elements.yml
+      #    - name: article
+      #      ingredients:
+      #        - role: body
+      #          type: Richtext
+      #          settings:
+      #            editor: tiptap
+      #
+      option :richtext_editors, :collection, item_type: :class, collection_class: Set, default: %W[
+        Alchemy::RichtextEditor::Tinymce
+        Alchemy::RichtextEditor::Tiptap
+      ]
+
+      # === Default Richtext Editor
+      #
+      # The default richtext editor to use when no editor is specified in the ingredient settings.
+      option :default_richtext_editor, :string, default: "tinymce"
     end
   end
 end

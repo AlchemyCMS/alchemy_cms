@@ -3,18 +3,26 @@
 module Alchemy
   module Ingredients
     class RichtextEditor < BaseEditor
-      include Alchemy::RichtextEditor::Tiptap
-      include Alchemy::RichtextEditor::Tinymce
+      UnknownRichtextEditor = Class.new(ArgumentError)
+
+      Alchemy.config.richtext_editors.each do |editor|
+        include(editor)
+      end
 
       def input_field
-        if settings[:editor] == "tiptap"
-          tiptap_editor
+        editor = settings[:editor] || Alchemy.config.default_richtext_editor
+        if available_editors.include?(editor.to_s.downcase)
+          send("#{editor}_editor")
         else
-          tinymce_editor
+          raise UnknownRichtextEditor, "Unknown richtext editor: #{settings[:editor]}"
         end
       end
 
       private
+
+      def available_editors
+        Alchemy.config.richtext_editors.map { _1.to_s.demodulize.downcase }
+      end
 
       def editor_text_area
         text_area_tag form_field_name,
