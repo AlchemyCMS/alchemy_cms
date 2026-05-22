@@ -65,9 +65,18 @@ module Alchemy
       end
 
       def tiptap_config
-        config = TinymceAdapter.call(custom_tinymce_config)
+        config = settings[:tiptap] || {toolbar: default_toolbar}
         config["readonly"] = true.to_json if !editable?
         config
+      end
+
+      def default_toolbar
+        [
+          %w[bold italic underline strike],
+          %w[heading bulletList orderedList],
+          %w[alchemyLink unlink],
+          %w[undo redo]
+        ]
       end
     end
   end
