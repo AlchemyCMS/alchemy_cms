@@ -1,53 +1,10 @@
 # frozen_string_literal: true
 
 module Alchemy
+  # Copies an element and all of its nested elements.
+  #
+  # Used to duplicate elements (e.g. when pasting from the clipboard or copying a page).
   class DuplicateElement
-    SKIPPED_ATTRIBUTES_ON_COPY = [
-      "cached_tag_list",
-      "created_at",
-      "creator_id",
-      "position",
-      "id",
-      "folded",
-      "updated_at",
-      "updater_id"
-    ].freeze
-
-    attr_reader :source_element, :repository, :publishable_only
-
-    def initialize(source_element, repository: source_element.page_version.element_repository, publishable_only: false)
-      @source_element = source_element
-      @repository = repository
-      @publishable_only = publishable_only
-    end
-
-    def call(differences = {})
-      attributes = source_element.attributes.with_indifferent_access
-        .except(*SKIPPED_ATTRIBUTES_ON_COPY)
-        .merge(differences)
-        .merge(
-          autogenerate_ingredients: false,
-          autogenerate_nested_elements: false,
-          tags: source_element.tags
-        )
-
-      new_element = Element.new(attributes)
-      new_element.ingredients = source_element.ingredients.map(&:dup)
-      new_element.save!
-
-      nested_elements = repository.children_of(source_element)
-      nested_elements = nested_elements.publishable if publishable_only
-      Element.acts_as_list_no_update do
-        nested_elements.each.with_index(1) do |nested_element, position|
-          self.class.new(nested_element, repository: repository, publishable_only: publishable_only).call(
-            parent_element: new_element,
-            page_version: new_element.page_version,
-            position: position
-          )
-        end
-      end
-
-      new_element
-    end
+    include DuplicatesElements
   end
 end

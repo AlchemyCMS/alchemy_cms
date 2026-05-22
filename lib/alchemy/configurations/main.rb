@@ -477,6 +477,20 @@ module Alchemy
       # == Example
       #     Alchemy.config.publishable_resolver = "MyApp::CustomResolver"
       option :publishable_resolver, :class, default: "Alchemy::Publishable::TimestampResolver"
+
+      # === Element publisher
+      #
+      # The service class used to copy a publishable element onto a page's
+      # public version when publishing.
+      #
+      # The default (+Alchemy::PublishElement+) copies the element and its
+      # publishable nested elements. Extension gems can provide a subclass that
+      # overrides +#build_new_element+ to set attributes on the public copy
+      # before it is saved.
+      #
+      # == Example
+      #     Alchemy.config.element_publisher = "MyApp::CustomElementPublisher"
+      option :element_publisher, :class, default: "Alchemy::PublishElement"
     end
   end
 end
