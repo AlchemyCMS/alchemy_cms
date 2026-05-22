@@ -1,7 +1,7 @@
-<%= turbo_frame_tag @page do %>
-  <%= alchemy_form_for [:admin, @page], class: 'edit_page', remote: false do |f| %>
-    <% unless @page.language_root? || @page.layoutpage %>
-      <%= render Alchemy::Admin::PageSelect.new(@page.parent) do %>
+<%= turbo_frame_tag page do %>
+  <%= alchemy_form_for [:admin, page], class: 'edit_page', remote: false do |f| %>
+    <% unless page.language_root? || page.layoutpage %>
+      <%= render Alchemy::Admin::PageSelect.new(page.parent) do %>
         <%= f.input :parent_id, required: true %>
       <% end %>
     <% end %>
@@ -9,24 +9,24 @@
     <div class="input check_boxes">
       <label class="control-label"><%= Alchemy.t(:page_status) %></label>
       <div class="control_group">
-        <%= render 'alchemy/admin/pages/publication_fields' %>
-        <%= page_status_checkbox(@page, :restricted) %>
+        <%= render 'alchemy/admin/pages/publication_fields', page: %>
+        <%= page_status_checkbox(page, :restricted) %>
         <% if Alchemy.config.sitemap.show_flag %>
-          <%= page_status_checkbox(@page, :sitemap) %>
+          <%= page_status_checkbox(page, :sitemap) %>
         <% end %>
       </div>
     </div>
 
     <%= f.input :name, autofocus: true %>
     <%= f.input :urlname, as: 'string', input_html: {
-      value: @page.slug,
-      disabled: @page.has_wildcard_url?
+      value: page.slug,
+      disabled: page.has_wildcard_url?
     }, label: Alchemy::Page.human_attribute_name(:slug) %>
 
-    <%= f.fields_for :draft_version, @page.draft_version do |v| %>
+    <%= f.fields_for :draft_version, page.draft_version do |v| %>
       <alchemy-char-counter max-chars="60">
         <%= v.input :title, input_html: {
-          disabled: @page.attribute_fixed?(:title)
+          disabled: page.attribute_fixed?(:title)
         } %>
       </alchemy-char-counter>
     <% end %>
@@ -35,7 +35,7 @@
       <div class="input check_boxes">
         <label class="control-label"><%= Alchemy.t(:fulltext_search) %></label>
         <div class="control_group">
-          <%= page_status_checkbox(@page, :searchable) %>
+          <%= page_status_checkbox(page, :searchable) %>
         </div>
       </div>
     <% end %>
@@ -43,15 +43,15 @@
     <div class="input check_boxes">
       <label class="control-label"><%= Alchemy.t(:search_engines) %></label>
       <div class="control_group">
-        <%= page_status_checkbox(@page, :robot_index) %>
-        <%= page_status_checkbox(@page, :robot_follow) %>
+        <%= page_status_checkbox(page, :robot_index) %>
+        <%= page_status_checkbox(page, :robot_follow) %>
       </div>
     </div>
 
-    <%= f.fields_for :draft_version, @page.draft_version do |v| %>
+    <%= f.fields_for :draft_version, page.draft_version do |v| %>
       <alchemy-char-counter max-chars="160">
         <%= v.input :meta_description, as: 'text', input_html: {
-          disabled: @page.attribute_fixed?(:meta_description)
+          disabled: page.attribute_fixed?(:meta_description)
         } %>
       </alchemy-char-counter>
 
@@ -59,7 +59,7 @@
         as: 'text',
         hint: Alchemy.t('pages.update.comma_seperated'),
         input_html: {
-          disabled: @page.attribute_fixed?(:meta_keywords)
+          disabled: page.attribute_fixed?(:meta_keywords)
         } %>
     <% end %>
 
