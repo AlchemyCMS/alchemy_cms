@@ -31,3 +31,5 @@ yarn-debug.log*
 /spec/dummy/storage
 .claude/
 .worktrees/
+mempalace.yaml
+entities.json
