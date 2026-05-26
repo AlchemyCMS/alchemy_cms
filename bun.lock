@@ -5,7 +5,7 @@
     "": {
       "name": "alchemy_admin",
       "dependencies": {
-        "@rails/ujs": "^7.1.502",
+        "@rails/ujs": "^7.1.600",
         "@shoelace-style/shoelace": "^2.20.1",
         "@ungap/custom-elements": "^1.3.0",
         "clipboard": "^2.0.11",
@@ -719,7 +719,7 @@
 
     "select": ["select@1.1.2", "", {}, "sha512-OwpTSOfy6xSs1+pwcNrv0RBMOzI39Lp3qQKUTPVVPRjCdNa5JH/oPRiqsesIskK8TVgmRiHwO4KXlV2Li9dANA=="],
 
-    "select2": ["Select2@github:select2/select2#9f414ea", {}, "select2-select2-9f414ea"],
+    "select2": ["Select2@github:select2/select2#9f414ea", {}, "select2-select2-9f414ea", "sha512-R5qB2bRI5dA5sngHS2cY4yP1HWNTkWC1Gi5z7wBoce8M4Qy+Ja2gXPC6HsrrQOGbSXd74XQ547kM3oXalaG2fw=="],
 
     "serialize-javascript": ["serialize-javascript@7.0.4", "", {}, "sha512-DuGdB+Po43Q5Jxwpzt1lhyFSYKryqoNjQSA9M92tyw0lyHIOur+XCalOUe0KTJpyqzT8+fQ5A0Jf7vCx/NKmIg=="],
 
