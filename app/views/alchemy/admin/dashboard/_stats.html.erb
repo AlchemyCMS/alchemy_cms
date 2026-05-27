@@ -1,6 +1,7 @@
-<div class="stats">
-  <%= render Alchemy::Admin::Dashboard::Widget.new(id: "PageCounts", style: "stat") %>
-  <%= render Alchemy::Admin::Dashboard::Widget.new(id: "UserCounts", style: "stat") %>
-  <%= render Alchemy::Admin::Dashboard::Widget.new(id: "PictureCounts", style: "stat") %>
-  <%= render Alchemy::Admin::Dashboard::Widget.new(id: "AttachmentCounts", style: "stat") %>
-</div>
+<% if Alchemy.config.dashboard.stats.any? %>
+  <div class="stats">
+    <% Alchemy.config.dashboard.stats.each do |stat, args| %>
+      <%= render stat.new(**args) %>
+    <% end %>
+  </div>
+<% end %>

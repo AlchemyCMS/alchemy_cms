@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "alchemy/configuration"
+require "alchemy/configurations/dashboard"
 require "alchemy/configurations/default_language"
 require "alchemy/configurations/default_site"
 require "alchemy/configurations/importmap"
@@ -463,6 +464,10 @@ module Alchemy
       # == Example
       #     Alchemy.config.abilities.add("MyCustom::Ability")
       option :abilities, :collection, item_type: :class
+
+      # === Dashboard configuration
+      #
+      configuration :dashboard, Dashboard
     end
   end
 end
