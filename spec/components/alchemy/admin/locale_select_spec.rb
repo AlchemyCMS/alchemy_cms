@@ -41,8 +41,9 @@ RSpec.describe Alchemy::Admin::LocaleSelect, type: :component do
     context "with auto_submit false" do
       let(:render) { render_inline described_class.new(:admin_locale, auto_submit: false) }
 
-      it "should return a select without auto submit wrapper" do
+      it "should return a single select without form and auto submit wrapper" do
         expect(page).not_to have_selector("alchemy-auto-submit")
+        expect(page).not_to have_selector("form")
         expect(page).to have_selector("select[name='admin_locale']")
       end
     end
