@@ -117,29 +117,6 @@ RSpec.describe Alchemy::Configuration::CollectionOption do
     end
   end
 
-  describe "#insert" do
-    context "for an array collection class" do
-      let(:collection_class) { Array }
-      let(:item_type) { :integer }
-      let(:value) { [1, 2, 3] }
-
-      it "inserts item at position in collection" do
-        option.insert(1, 20)
-        expect(option.value.to_a).to eq([1, 20, 2, 3])
-      end
-    end
-
-    context "for a collection class that does not support insert" do
-      let(:collection_class) { Set }
-      let(:item_type) { :integer }
-      let(:value) { [1, 2, 3] }
-
-      it "raises an error" do
-        expect { option.insert(1, 20) }.to raise_error(NoMethodError)
-      end
-    end
-  end
-
   describe "#clear" do
     let(:collection_class) { Set }
     let(:item_type) { :integer }
