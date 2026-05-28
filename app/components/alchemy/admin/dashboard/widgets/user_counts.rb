@@ -7,8 +7,8 @@ module Alchemy
 
           def link = Alchemy.config.admin_users_path
           def icon = "group"
-          def title = Alchemy.user_class.model_name.human(count: :many)
-          def count = Alchemy.user_class.count
+          def title = Alchemy.config.user_class.model_name.human(count: :many)
+          def count = Alchemy.config.user_class.count
 
           def infos
             if Alchemy.config.user_class.respond_to?(:logged_in)
