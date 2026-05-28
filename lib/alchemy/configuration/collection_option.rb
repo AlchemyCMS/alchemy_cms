@@ -43,6 +43,10 @@ module Alchemy
         @value.delete to_item(value)
       end
 
+      def insert(index, value)
+        @value.insert(index, to_item(value))
+      end
+
       delegate :join, :[], to: :to_a
 
       delegate :clear, :empty?, to: :@value
