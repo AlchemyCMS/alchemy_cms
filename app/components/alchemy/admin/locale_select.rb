@@ -10,12 +10,12 @@ module Alchemy
       end
 
       def call
-        form_tag(helpers.url_for, method: :get) do
-          if auto_submit
+        if auto_submit
+          form_tag(helpers.url_for, method: :get) do
             content_tag("alchemy-auto-submit", locale_select)
-          else
-            locale_select
           end
+        else
+          locale_select
         end
       end
 
