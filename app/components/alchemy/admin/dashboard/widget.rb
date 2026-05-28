@@ -12,13 +12,24 @@ module Alchemy
           </div>
         ERB
 
-        def initialize(id:, loading: "eager", style: "default")
+        def initialize(id:, loading: "eager", style: "default", condition: nil)
           @id = id
           @loading = loading
           @style = style
+          @condition = condition
+
+          if condition && !condition.respond_to?(:call)
+            raise ArgumentError, ":condition argument must be a proc or lambda"
+          end
         end
 
         private
+
+        def render?
+          return true if @condition.nil?
+
+          instance_exec(&@condition)
+        end
 
         def url = alchemy.admin_dashboard_widget_path(id: @id)
       end
