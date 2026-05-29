@@ -88,7 +88,7 @@ RSpec.describe Alchemy::Configuration do
         configuration.picture_thumb_storage_class = String
       end.to raise_exception(
         Alchemy::Configuration::ConfigurationError,
-        "Invalid configuration value for picture_thumb_storage_class: String (expected String)"
+        "Invalid configuration value for picture_thumb_storage_class: String (expected String or Array)"
       )
     end
     it "allows getting the raw string" do
@@ -327,7 +327,7 @@ RSpec.describe Alchemy::Configuration do
         configuration.preview_sources = [Alchemy::Admin::PreviewUrl, Alchemy::Admin::PreviewUrl]
       end.to raise_exception(
         Alchemy::Configuration::ConfigurationError,
-        "Invalid configuration value for preview_sources: Alchemy::Admin::PreviewUrl (expected String)"
+        "Invalid configuration value for preview_sources: Alchemy::Admin::PreviewUrl (expected String or Array)"
       )
     end
   end
