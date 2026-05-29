@@ -4,6 +4,11 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    ignore:
+      # select2 is pinned to a git ref (github:select2/select2#3.5.4), which the
+      # lockfile records as a git commit SHA. Dependabot tries to resolve that
+      # SHA as an npm registry version and always fails, so skip it.
+      - dependency-name: "select2"
     groups:
       babel:
         dependency-type: "development"
