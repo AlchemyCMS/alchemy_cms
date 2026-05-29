@@ -4,11 +4,25 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    # Wait before opening update PRs so brand-new releases have time to be
+    # vetted, and so CI's minimum release age policy does not reject the
+    # freshly published versions Dependabot would otherwise propose.
+    cooldown:
+      default-days: 7
+      semver-major-days: 30
     ignore:
       # select2 is pinned to a git ref (github:select2/select2#3.5.4), which the
       # lockfile records as a git commit SHA. Dependabot tries to resolve that
       # SHA as an npm registry version and always fails, so skip it.
       - dependency-name: "select2"
+      # jQuery 4 breaks the pinned select2 3.5.4, so stay on the 3.x line until
+      # select2 is replaced.
+      - dependency-name: "jquery"
+        update-types: ["version-update:semver-major"]
+      # cropperjs 2.x removed the bundled stylesheet imported from admin.scss;
+      # the major upgrade needs manual migration before it can be taken.
+      - dependency-name: "cropperjs"
+        update-types: ["version-update:semver-major"]
     groups:
       rollup:
         dependency-type: "development"
