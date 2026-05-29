@@ -41,6 +41,28 @@ RSpec.describe Alchemy::Configuration::CollectionOption do
     end
   end
 
+  context "with an array of Data instances" do
+    let(:data_class) { Data.define(:id) }
+    let(:collection_class) { Array }
+    let(:item_type) { :data }
+    let(:value) { [data_class.new(id: "x")] }
+
+    describe "#item_class" do
+      subject { option.item_class }
+
+      before do
+        stub_const(
+          "Alchemy::Configuration::DataOption",
+          Class.new(Alchemy::Configuration::BaseOption) { def self.value_class = Data }
+        )
+      end
+
+      it "resolves :data to DataOption (not DatumOption via the inflector)" do
+        expect { option.value }.to_not raise_error
+      end
+    end
+  end
+
   describe "#<<" do
     let(:collection_class) { Set }
     let(:item_type) { :integer }
