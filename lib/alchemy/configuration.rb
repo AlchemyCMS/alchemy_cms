@@ -12,7 +12,6 @@ require "alchemy/configuration/pathname_option"
 require "alchemy/configuration/regexp_option"
 require "alchemy/configuration/string_option"
 require "alchemy/configuration/symbol_option"
-require "alchemy/configuration/view_component_option"
 
 module Alchemy
   class Configuration
