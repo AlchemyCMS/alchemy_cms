@@ -66,7 +66,7 @@ module Alchemy
       end
 
       def get_item_class(item_type)
-        "Alchemy::Configuration::#{item_type.to_s.classify}Option".constantize
+        "Alchemy::Configuration::#{item_type.to_s.camelcase}Option".constantize
       end
     end
   end
