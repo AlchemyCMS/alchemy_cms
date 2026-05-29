@@ -10,21 +10,6 @@ updates:
       # SHA as an npm registry version and always fails, so skip it.
       - dependency-name: "select2"
     groups:
-      babel:
-        dependency-type: "development"
-        patterns:
-          - "@babel/*"
-        update-types:
-          - "minor"
-          - "patch"
-      jest:
-        dependency-type: "development"
-        patterns:
-          - "jest*"
-          - "babel-jest"
-        update-types:
-          - "minor"
-          - "patch"
       rollup:
         dependency-type: "development"
         patterns:
