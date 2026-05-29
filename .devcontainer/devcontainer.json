@@ -3,7 +3,7 @@
   "dockerComposeFile": "../docker-compose.yml",
   "service": "web",
   "workspaceFolder": "/workspace",
-  "postCreateCommand": "bundle install && bun install && cd spec/dummy && bin/rails db:prepare",
+  "postCreateCommand": "bundle install && pnpm install && cd spec/dummy && bin/rails db:prepare",
   "forwardPorts": [3000],
   "customizations": {
     "vscode": {

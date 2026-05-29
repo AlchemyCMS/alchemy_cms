@@ -75,7 +75,7 @@ taken straight from the Ruby on Rails guide:
 
 If you modify JavaScript source files under `app/javascript/alchemy_admin/`, you must rebuild the bundle and commit the artifact:
 
-    $ bun run build:admin
+    $ pnpm run build:admin
 
 Commit the updated `app/assets/builds/alchemy/alchemy_admin.min.js` alongside your source changes. For local development, `bin/start` runs the watch process automatically.
 

@@ -14,7 +14,7 @@ AlchemyCMS is an open source Rails CMS engine with a flexible, YAML-driven conte
 bin/setup
 ```
 
-This installs dependencies (Ruby gems + Bun packages) and sets up the dummy app in `spec/dummy/`.
+This installs dependencies (Ruby gems + pnpm packages) and sets up the dummy app in `spec/dummy/`.
 
 ### Running Tests
 
@@ -32,21 +32,21 @@ bin/rspec spec/models/alchemy/page_spec.rb
 bundle exec rake alchemy:spec:prepare
 
 # Run JavaScript tests
-bun run test
+pnpm run test
 ```
 
 ### Building Frontend Assets
 
 ```bash
 # Build all assets (JavaScript, CSS, Handlebars templates, icons)
-bun run build
+pnpm run build
 
 # Build individual components
-bun run build:admin      # Bundle admin JavaScript (app/javascript/alchemy_admin/**)
-bun run build:js         # Bundle vendored dependencies (sortablejs, shoelace, tinymce, etc.)
-bun run build:css        # Sass compilation
-bun run handlebars:compile  # Compile Handlebars templates
-bun run build:icons      # Generate icon sprite
+pnpm run build:admin      # Bundle admin JavaScript (app/javascript/alchemy_admin/**)
+pnpm run build:js         # Bundle vendored dependencies (sortablejs, shoelace, tinymce, etc.)
+pnpm run build:css        # Sass compilation
+pnpm run handlebars:compile  # Compile Handlebars templates
+pnpm run build:icons      # Generate icon sprite
 ```
 
 ### Running the Dummy App
@@ -56,7 +56,7 @@ bun run build:icons      # Generate icon sprite
 bin/start
 ```
 
-This starts a Rails server and bun watch task in the dummy application for running a full dev environment.
+This starts a Rails server and pnpm watch task in the dummy application for running a full dev environment.
 
 ### Starting the Rails console
 
@@ -81,10 +81,10 @@ This starts the Rails console for running code in the context of the dummy appli
 bundle exec standardrb
 
 # JavaScript linting
-bun run eslint
+pnpm run eslint
 
 # Prettier linting
-bun run lint
+pnpm run lint
 ```
 
 ### Code Formatting
@@ -94,7 +94,7 @@ bun run lint
 bundle exec standardrb --fix
 
 # Prettier formatting
-bun run prettier --write app/javascript/**/*.js
+pnpm exec prettier --write app/javascript/**/*.js
 ```
 
 ## Architecture Overview
@@ -175,7 +175,7 @@ Use service objects for complex operations rather than bloating models.
 
 - **JavaScript**: Rollup for bundling (see `rollup.config.mjs`)
 - **CSS**: Sass with compression
-- **Package Manager**: Bun (modern npm alternative)
+- **Package Manager**: pnpm
 - **Templates**: Handlebars for client-side rendering
 
 ### JavaScript Patterns
