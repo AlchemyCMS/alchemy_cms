@@ -204,6 +204,10 @@ module Alchemy
       end
     end
 
+    def alt_text(language: Alchemy::Current.language)
+      description_for(language) || name&.humanize
+    end
+
     # Returns an uri escaped name.
     #
     def urlname

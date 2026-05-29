@@ -196,26 +196,26 @@
 <h4>Heading 4</h4>
 <h5>Heading 5</h5>
 
-<p>This is a paragraph, with <a href="#">a link</a>, a <kbd>keyboard shortcut</kbd> and an <code>inline code snippet</code>.</p>
+<p>This is a paragraph, with <a href="/admin/styleguide">a link</a>, a <kbd>keyboard shortcut</kbd> and an <code>inline code snippet</code>.</p>
 
 <h2>Messages</h2>
 
 <h3>Info Message</h3>
 
 <%= render_message do %>
-  <p>Lorem ipsum <strong>dolor</strong> sit amet, <a href="#">consectetur</a> adipiscing elit.</p>
+  <p>Lorem ipsum <strong>dolor</strong> sit amet, <a href="/admin/styleguide">consectetur</a> adipiscing elit.</p>
 <% end %>
 
 <h3>Warning Message</h3>
 
 <%= render_message :warning do %>
-  <p>Lorem ipsum dolor sit amet, <a href="#">consectetur</a> adipiscing elit.</p>
+  <p>Lorem ipsum dolor sit amet, <a href="/admin/styleguide">consectetur</a> adipiscing elit.</p>
 <% end %>
 
 <h3>Error Message</h3>
 
 <%= render_message :error do %>
-  <p>Lorem ipsum dolor sit amet, <a href="#">consectetur</a> adipiscing elit.</p>
+  <p>Lorem ipsum dolor sit amet, <a href="/admin/styleguide">consectetur</a> adipiscing elit.</p>
 <% end %>
 
 <h3>Growl Messages</h3>
@@ -238,7 +238,7 @@
   </a>
 </sl-tooltip>
 <a
-  href="#"
+  href="/admin/styleguide"
   is="alchemy-dialog-link"
   class="icon_button disabled"
 >
@@ -285,10 +285,10 @@
     <td>Even table cell 2</td>
     <td>Even table cell 3</td>
     <td class="tools">
-      <a href="#" class="icon_button">
+      <a href="/admin/styleguide" class="icon_button">
         <%= render_icon "delete-bin-2" %>
       </a>
-      <a href="#" class="icon_button">
+      <a href="/admin/styleguide" class="icon_button">
         <%= render_icon "edit" %>
       </a>
     </td>
@@ -301,10 +301,10 @@
     <td>Odd table cell 2</td>
     <td>Odd table cell 3</td>
     <td class="tools">
-      <a href="#" class="icon_button">
+      <a href="/admin/styleguide" class="icon_button">
         <%= render_icon "delete-bin-2" %>
       </a>
-      <a href="#" class="icon_button">
+      <a href="/admin/styleguide" class="icon_button">
         <%= render_icon "edit" %>
       </a>
     </td>

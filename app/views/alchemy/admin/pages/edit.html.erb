@@ -74,9 +74,9 @@
         </sl-tooltip>
       <% else %>
         <sl-tooltip content="<%= Alchemy.t(:cannot_visit_unpublic_page) %>">
-          <%= content_tag "a", class: "disabled icon_button" do %>
+          <button type="button" class="disabled icon_button">
             <%= render_icon('external-link') %>
-          <% end %>
+          </button>
         </sl-tooltip>
       <% end %>
     </div>
@@ -105,10 +105,9 @@
   <% end %>
   <div class="toolbar_button">
     <sl-tooltip content="<%= Alchemy.t('Reload Preview') %>">
-      <%= link_to render_icon(:refresh), nil, {
-        class: 'icon_button',
-        id: 'reload_preview_button'
-      } %>
+      <button class="icon_button" id="reload_preview_button" type="button">
+        <%= render_icon(:refresh) %>
+      </button>
     </sl-tooltip>
   </div>
 </div>
@@ -118,10 +117,9 @@
   <div class="toolbar_spacer"></div>
   <div class="toolbar_button">
     <sl-tooltip content="<%= Alchemy.t(:hide_elements) %>">
-      <%= link_to render_icon("menu-unfold"), nil, {
-        id: "element_window_button",
-        class: "icon_button"
-      } %>
+      <button id="element_window_button" class="icon_button" type="button">
+        <%= render_icon("menu-unfold") %>
+      </button>
     </sl-tooltip>
   </div>
 </div>

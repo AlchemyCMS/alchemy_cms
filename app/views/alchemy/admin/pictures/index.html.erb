@@ -44,13 +44,14 @@
     <div class="toolbar_spacer"></div>
     <div class="toolbar_button">
       <sl-tooltip content="<%= Alchemy.t("Select all") %>">
-        <%= link_to(
-          render_icon('checkbox-multiple'),
-          nil,
-          id: 'select_all_pictures',
-          class: 'icon_button',
-          'data-alchemy-hotkey' => 'alt+a'
-        ) %>
+        <button
+          id="select_all_pictures"
+          class="icon_button"
+          type="button"
+          data-alchemy-hotkey="alt+a"
+        >
+          <%= render_icon('checkbox-multiple') %>
+        </button>
       </sl-tooltip>
     </div>
   </div>

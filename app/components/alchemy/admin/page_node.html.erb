@@ -3,10 +3,7 @@
   <%= @page.folded? ? 'folded' : nil %>
 >
   <li class="sitemap-item <%= @page.page_layout %>">
-    <div
-      class="sitemap_page<% @page.locked? ? ' locked' : '' %>"
-      name="<%= @page.name %>"
-    >
+    <div class="sitemap_page" name="<%= @page.name %>">
       <div class="sitemap_left_images">
         <% if @page.children.any? || @page.folded? %>
           <button class="page_folder icon_button">
