@@ -1,0 +1,8 @@
+# Use a flat node_modules layout (like npm/yarn/bun) instead of pnpm's
+# symlinked store. This keeps Rails' evented file watcher (listen gem) from
+# following the .pnpm symlinks and warning about directories being watched
+# through two paths.
+nodeLinker: hoisted
+
+allowBuilds:
+  '@parcel/watcher': true

@@ -14,8 +14,8 @@ end
 FileUtils.chdir GEM_ROOT do
   system! "gem install bundler --conservative"
   system("bundle check") || system!("bundle install")
-  system("bun -v &> /dev/null") || system!("curl -fsSL https://bun.sh/install | bash")
-  system!("bun install")
+  system("pnpm -v &> /dev/null") || system!("corepack enable")
+  system!("pnpm install")
 end
 
 FileUtils.chdir APP_ROOT do

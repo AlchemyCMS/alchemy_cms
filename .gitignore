@@ -22,6 +22,7 @@ spec/dummy/uploads/
 /.bundle/
 .env
 node_modules
+.pnpm-store/
 yarn-error.log
 yarn-debug.log*
 .yarn-integrity

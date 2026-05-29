@@ -19,7 +19,7 @@ services:
     build:
       context: .
       dockerfile: .devcontainer/Dockerfile
-    command: bun run --bun build:css --watch
+    command: pnpm run build:css --watch
     volumes:
       - .:/workspace
       - node_modules:/workspace/node_modules
@@ -37,7 +37,7 @@ services:
     build:
       context: .
       dockerfile: .devcontainer/Dockerfile
-    command: bun run --bun build:admin:dev
+    command: pnpm run build:admin:dev
     volumes:
       - .:/workspace
       - node_modules:/workspace/node_modules
