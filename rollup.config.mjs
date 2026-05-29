@@ -98,6 +98,13 @@ export default [
     ]
   },
   {
+    input: "bundles/tom-select.js",
+    output: {
+      file: "vendor/javascript/tom-select.min.js"
+    },
+    plugins: [resolve(), terser()]
+  },
+  {
     input: "app/javascript/preview.js",
     output: {
       file: "app/assets/builds/alchemy/preview.min.js"

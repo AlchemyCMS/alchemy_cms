@@ -1,0 +1,240 @@
+// Theme for the Tom Select powered `<select is="alchemy-select">`.
+@use "../mixins";
+
+.tomselected {
+  display: none;
+}
+
+.ts-wrapper.alchemy_selectbox {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+
+  &.medium {
+    width: var(--select-medium-width);
+  }
+
+  &.large {
+    width: var(--select-large-width);
+  }
+
+  &.x-large {
+    width: var(--select-x-large-width);
+  }
+
+  &.input-hidden .ts-control > input {
+    left: -10000px;
+    opacity: 0;
+    position: absolute;
+  }
+
+  &.single {
+    &.input-active {
+      .ts-control input {
+        position: absolute;
+        background-color: rgb(
+          from var(--form-field-background-color) r g b / 33%
+        );
+
+        transition: none;
+
+        &.has-value {
+          position: absolute;
+          background-color: var(--form-field-background-color);
+        }
+      }
+    }
+  }
+
+  .ts-control {
+    --input-max-width: calc(100% - var(--spacing-4));
+    align-items: center;
+    background: var(--select-background-color);
+    padding: var(--form-field-padding);
+    border: var(--form-field-border-width) var(--form-field-border-style)
+      var(--select-border-color);
+    color: var(--select-text-color);
+    margin: var(--form-field-margin);
+    line-height: var(--form-field-line-height);
+    min-height: var(--form-field-height);
+    font-size: var(--form-field-font-size);
+    border-radius: var(--border-radius_medium);
+    cursor: pointer;
+
+    > .item {
+      margin: 0;
+      line-height: 21px;
+      max-width: 90%;
+    }
+
+    > input {
+      color: var(--form-field-text-color);
+      font-size: var(--form-field-font-size);
+      height: auto;
+      max-width: var(--input-max-width);
+      margin: 0;
+      padding: 0;
+      border-radius: 0;
+      border: 0;
+
+      &:focus {
+        box-shadow: none;
+        border: none;
+      }
+    }
+
+    input::placeholder {
+      color: var(--text-color-muted);
+    }
+  }
+
+  &.single {
+    &.input-active {
+      .ts-control {
+        background: var(--select-background-color);
+      }
+    }
+
+    &.has-items:has(.clear-button) .ts-control::after {
+      margin-left: 0;
+    }
+
+    .ts-control {
+      display: flex;
+      align-items: center;
+
+      &::after {
+        content: "";
+        display: inline-flex;
+        flex: 0 0 1em;
+        width: 1em;
+        height: 1em;
+        margin-left: auto;
+        background: var(--select-background-image) no-repeat center / contain;
+      }
+    }
+  }
+
+  &.focus .ts-control {
+    @include mixins.default-focus-style(
+      $box-shadow: 0 0 0 1px var(--focus-color)
+    );
+  }
+
+  &.disabled .ts-control {
+    background-color: var(--select-disabled-background-color);
+    border-color: var(--select-disabled-border-color);
+    color: var(--text-color-muted);
+    cursor: not-allowed;
+  }
+
+  &.multi {
+    .ts-control {
+      --input-max-width: 100%;
+      height: auto;
+      padding: var(--spacing-0);
+
+      > input {
+        padding: 5px 6px;
+        margin: 0;
+        width: auto;
+        min-width: 7rem;
+      }
+
+      > .item {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--spacing-0);
+        margin: var(--spacing-0);
+        padding: 0 var(--spacing-1);
+        color: var(--text-color);
+        background: var(--tag-background-color);
+        border: 0 none;
+        border-radius: var(--border-radius_medium);
+
+        .remove {
+          display: inline-flex;
+          align-items: center;
+          padding: 0 var(--spacing-0);
+          color: var(--icon-color);
+          text-decoration: none;
+
+          &:hover {
+            color: var(--text-color);
+          }
+        }
+      }
+
+      > .clear-button {
+        position: absolute;
+        top: 6.5px;
+        right: var(--spacing-1);
+      }
+
+      &:has(.clear-button) {
+        padding-right: var(--spacing-6);
+      }
+    }
+  }
+
+  &.has-items .clear-button {
+    display: inline-flex;
+  }
+
+  .clear-button {
+    --button-height: auto;
+    display: none;
+    background: none;
+    border: none;
+    box-shadow: none;
+    margin: 0 0 0 auto;
+    padding: var(--spacing-1);
+  }
+}
+
+.ts-dropdown-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+}
+
+.ts-dropdown {
+  position: absolute;
+  width: max-content;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background: var(--select-dropdown-background-color);
+  box-shadow: var(--select-dropdown-box-shadow);
+  color: var(--select-dropdown-text-color, var(--text-color));
+  border: 1px solid var(--select-dropdown-border-color);
+  border-radius: var(--border-radius_medium);
+
+  > .ts-dropdown-content {
+    border-radius: var(--border-radius_medium);
+    max-height: var(--select-dropdown-max-height, 80vh);
+    overflow-y: auto;
+  }
+
+  .option {
+    padding: var(--spacing-2);
+    cursor: pointer;
+
+    .highlight {
+      text-decoration: underline;
+    }
+
+    &.active {
+      background: var(--select-hover-bg-color, var(--color-blue_dark));
+      color: var(--select-hover-text-color, var(--color-white));
+    }
+  }
+
+  .no-results {
+    padding: var(--spacing-2);
+    color: var(--text-color-muted);
+  }
+}

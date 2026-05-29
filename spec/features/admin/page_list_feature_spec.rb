@@ -81,7 +81,7 @@ RSpec.describe "Admin page list", type: :system do
 
       specify "can filter table of pages by type", :js do
         visit admin_pages_path(view: "list")
-        select2("Contact", from: "Page type")
+        tom_select("Contact", from: "Page type")
         expect(page).to have_content("Filtered by")
         within("table.list") do
           expect(page.find("tr:nth-child(1) td.name", text: "Contact")).to be
@@ -109,7 +109,7 @@ RSpec.describe "Admin page list", type: :system do
 
       specify "can filter table of pages by page type", :js do
         visit admin_pages_path(view: "list")
-        select2("contact", from: "Page Type")
+        tom_select("contact", from: "Page Type")
         expect(page).to have_content("1 Page")
         within("table.list") do
           expect(page.find("tr:nth-child(1) td.name", text: "Contact")).to be

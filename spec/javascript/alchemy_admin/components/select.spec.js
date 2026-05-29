@@ -9,7 +9,7 @@ describe("alchemy-select", () => {
   /**
    * @type {HTMLElement | undefined}
    */
-  let select2Component = undefined
+  let wrapper = undefined
 
   beforeEach(() => {
     const html = `
@@ -21,16 +21,16 @@ describe("alchemy-select", () => {
     `
 
     component = renderComponent("alchemy-select", html)
-    select2Component = document.querySelector(".select2-container")
+    wrapper = document.querySelector(".ts-wrapper")
   })
 
-  describe("initialize Select2", () => {
-    it("should transform the component into a Select2 - component", () => {
-      expect(select2Component).toBeInstanceOf(HTMLElement)
+  describe("initialization", () => {
+    it("enhances the select with Tom Select", () => {
+      expect(wrapper).toBeInstanceOf(HTMLElement)
     })
 
-    it("should have the alchemy_selectbox - class", () => {
-      expect(select2Component?.className).toContain("alchemy_selectbox")
+    it("copies the alchemy_selectbox class onto the wrapper", () => {
+      expect(wrapper?.className).toContain("alchemy_selectbox")
     })
   })
 
@@ -56,9 +56,14 @@ describe("alchemy-select", () => {
         { id: "bar", text: "last" }
       ])
 
+      const texts = Array.from(component.options).map((option) => option.text)
       expect(component.options.length).toEqual(2)
-      expect(component.options[0].text).toEqual("bar")
-      expect(component.options[1].text).toEqual("last")
+      expect(texts).toContain("bar")
+      expect(texts).toContain("last")
+      // no empty prompt option was added
+      expect(
+        Array.from(component.options).some((option) => option.value === "")
+      ).toBe(false)
     })
 
     it("resets without any options", () => {
@@ -116,31 +121,28 @@ describe("alchemy-select", () => {
   })
 
   describe("with data-allow-clear set", () => {
-    it("adds clear button", () => {
+    it("adds a clear button", () => {
       const html = `<select is="alchemy-select" data-allow-clear>
         <option value="">Please Select</option>
         <option value="1">First</option>
         <option value="2">Second</option>
       </select>`
 
-      component = renderComponent("alchemy-select", html)
-      select2Component = document.querySelector(".select2-container")
-      expect(
-        select2Component.querySelector(".select2-search-choice-close")
-      ).toBeTruthy()
+      renderComponent("alchemy-select", html)
+      wrapper = document.querySelector(".ts-wrapper")
+
+      expect(wrapper.querySelector(".clear-button")).toBeTruthy()
     })
   })
 
   describe("without data-allow-clear set", () => {
-    it("removes clear button", () => {
-      expect(
-        select2Component.querySelector(".select2-search-choice-close")
-      ).toBeFalsy()
+    it("does not add a clear button", () => {
+      expect(wrapper.querySelector(".clear-button")).toBeFalsy()
     })
   })
 
   describe("with multiple attribute", () => {
-    it("does not remove close buttons", () => {
+    it("renders a multi-select wrapper", () => {
       const html = `<select is="alchemy-select" multiple>
         <option value="1" selected>First</option>
         <option value="2" selected>Second</option>
@@ -148,29 +150,91 @@ describe("alchemy-select", () => {
       </select>`
 
       component = renderComponent("alchemy-select", html)
-      select2Component = document.querySelector(".select2-container")
+      wrapper = document.querySelector(".ts-wrapper")
 
-      // For multiselect, we verify that the select has the multiple attribute
-      // and that Select2 was initialized
       expect(component.multiple).toBeTruthy()
-      expect(select2Component).toBeInstanceOf(HTMLElement)
+      expect(wrapper.classList.contains("multi")).toBeTruthy()
     })
-  })
 
-  describe("with multiple attribute and data-allow-clear", () => {
-    it("keeps multiselect functionality with allow clear", () => {
-      const html = `<select is="alchemy-select" multiple data-allow-clear>
+    it("allows removing selected items", () => {
+      const html = `<select is="alchemy-select" multiple>
         <option value="1" selected>First</option>
         <option value="2" selected>Second</option>
         <option value="3">Third</option>
       </select>`
 
-      component = renderComponent("alchemy-select", html)
-      select2Component = document.querySelector(".select2-container")
+      renderComponent("alchemy-select", html)
+      wrapper = document.querySelector(".ts-wrapper")
 
-      // Verify multiselect is active and Select2 is initialized
-      expect(component.multiple).toBeTruthy()
-      expect(select2Component).toBeInstanceOf(HTMLElement)
+      expect(wrapper.querySelector(".item .remove")).toBeTruthy()
+    })
+  })
+
+  describe("with a placeholder", () => {
+    it("starts empty when no option is selected, so the placeholder shows", () => {
+      const html = `<select is="alchemy-select" placeholder="Select one">
+        <option value="1">First</option>
+        <option value="2">Second</option>
+      </select>`
+
+      component = renderComponent("alchemy-select", html)
+
+      expect(component.tomselect.items).toEqual([])
+    })
+
+    it("keeps an explicitly selected option", () => {
+      const html = `<select is="alchemy-select" placeholder="Select one">
+        <option value="1">First</option>
+        <option value="2" selected>Second</option>
+      </select>`
+
+      component = renderComponent("alchemy-select", html)
+
+      expect(component.tomselect.items).toEqual(["2"])
+    })
+  })
+
+  describe("without a placeholder", () => {
+    it("keeps the first option selected when none is selected", () => {
+      const html = `<select is="alchemy-select">
+        <option value="1">First</option>
+        <option value="2">Second</option>
+      </select>`
+
+      component = renderComponent("alchemy-select", html)
+
+      expect(component.tomselect.items).toEqual(["1"])
+    })
+  })
+
+  describe("autofocus", () => {
+    it("focuses the control when the select has autofocus", () => {
+      const html = `<select is="alchemy-select" autofocus>
+        <option value="1">First</option>
+        <option value="2">Second</option>
+      </select>`
+
+      renderComponent("alchemy-select", html)
+
+      expect(document.activeElement).toEqual(
+        document.querySelector(".ts-control input")
+      )
+    })
+
+    it("does not focus the control without autofocus", () => {
+      expect(document.activeElement).not.toEqual(
+        wrapper.querySelector(".ts-control input")
+      )
+    })
+  })
+
+  describe("disconnectedCallback", () => {
+    it("tears down Tom Select when removed from the DOM", () => {
+      expect(document.querySelector(".ts-wrapper")).toBeTruthy()
+
+      component.remove()
+
+      expect(document.querySelector(".ts-wrapper")).toBeFalsy()
     })
   })
 })

@@ -173,7 +173,7 @@ RSpec.describe "Picture Library", type: :system do
 
     scenario "it's possible to filter pictures by format.", :js do
       visit alchemy.admin_pictures_path
-      select2 "PNG", from: "File Type"
+      tom_select "PNG", from: "File Type"
       within "#pictures" do
         expect(page).to have_content("Ping")
         expect(page).to_not have_content("Jay Peg")
