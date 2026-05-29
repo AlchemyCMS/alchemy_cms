@@ -1,8 +1,7 @@
-<div class="widgets">
-  <%= render Alchemy::Admin::Dashboard::Widget.new(id: "LockedPages", style: "wide") %>
-  <%= render Alchemy::Admin::Dashboard::Widget.new(id: "RecentPages", style: "wide") %>
-  <%= render Alchemy::Admin::Dashboard::Widget.new(id: "ElementUsage", style: "usage", loading: "lazy") %>
-  <%= render Alchemy::Admin::Dashboard::Widget.new(id: "PageUsage", style: "usage", loading: "lazy") %>
-  <%= render Alchemy::Admin::Dashboard::Widget.new(id: "Sites", loading: "lazy", condition: -> { helpers.multi_site? }) %>
-  <%= render Alchemy::Admin::Dashboard::Widget.new(id: "OnlineUsers", loading: "lazy", condition: -> { Alchemy.config.user_class.respond_to?(:logged_in) }) %>
-</div>
+<% if Alchemy.config.dashboard.widgets.any? %>
+  <div class="widgets">
+    <% Alchemy.config.dashboard.widgets.each do |widget, args| %>
+      <%= render widget.new(**args) %>
+    <% end %>
+  </div>
+<% end %>
