@@ -1943,10 +1943,6 @@ body.tox-dialog__disable-scroll {
   overflow: hidden;
 }
 
-.tox .tox-editor-header {
-  z-index: 1;
-}
-
 .tox:not(.tox-tinymce-inline) .tox-editor-header {
   box-shadow: none;
   transition: box-shadow 0.5s;
