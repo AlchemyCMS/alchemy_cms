@@ -12,7 +12,8 @@
         <% end %>
         <%= render Alchemy::Admin::ElementSelect.new(
           @elements,
-          field_name: form.field_name(:name)
+          field_name: form.field_name(:name),
+          autofocus: true
         ) %>
       </div>
       <%= form.hidden_field :parent_element_id, value: @parent_element.try(:id) %>

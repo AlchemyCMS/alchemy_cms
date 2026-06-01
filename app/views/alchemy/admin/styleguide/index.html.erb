@@ -173,6 +173,12 @@
       <option value="7">Option 7</option>
     </select>
   </div>
+
+
+  <div style="width: 20%">
+    <h3>Element Select</h3>
+    <%= render Alchemy::Admin::ElementSelect.new(Alchemy::Element.definitions) %>
+  </div>
 </div>
 
 <h2>Remote Selects</h2>
@@ -182,11 +188,6 @@
     <%= render Alchemy::Admin::PageSelect.new do %>
       <input name="page" class="full_width">
     <% end %>
-  </div>
-
-  <div style="width: 20%">
-    <h3>Element Select</h3>
-    <%= render Alchemy::Admin::ElementSelect.new(Alchemy::Element.definitions) %>
   </div>
 
   <div style="width: 20%">

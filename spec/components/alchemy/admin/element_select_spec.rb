@@ -27,8 +27,18 @@ RSpec.describe Alchemy::Admin::ElementSelect, type: :component do
 
   it "renders alchemy-element-select with input field" do
     expect(page).to have_selector(
-      "alchemy-element-select[placeholder='Select element'] input[autofocus][required][name='element[name]']"
+      "alchemy-element-select[placeholder='Select element'] input[required][name='element[name]']"
     )
+  end
+
+  context "with autofocus: true" do
+    subject(:render) do
+      render_inline described_class.new(element_definitions, field_name: "element[name]", autofocus: true)
+    end
+
+    it "renders input field with autofocus attribute" do
+      expect(page).to have_selector("input[autofocus]")
+    end
   end
 
   it "renders options for select2" do
