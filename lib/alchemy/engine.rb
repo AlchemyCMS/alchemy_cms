@@ -67,6 +67,11 @@ module Alchemy
         end
 
         if app.config.importmap.sweep_cache
+          # The importmap pins resolve to the bundled files in app/assets/builds,
+          # so the cache must be swept when those are rebuilt. Without this the
+          # cached importmap keeps emitting the previous digest after a rebuild
+          # and the asset 404s until the server is restarted.
+          watch_paths << Alchemy::Engine.root.join("app/assets/builds")
           Alchemy.importmap.cache_sweeper(watches: watch_paths)
           ActiveSupport.on_load(:action_controller_base) do
             before_action { Alchemy.importmap.cache_sweeper.execute_if_updated }
