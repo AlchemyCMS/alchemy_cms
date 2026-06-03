@@ -1,6 +1,60 @@
 require "rails_helper"
 
 RSpec.describe Alchemy do
+  describe ".version" do
+    subject { Alchemy.version }
+
+    it { is_expected.to eq(Alchemy::VERSION) }
+  end
+
+  describe ".gem_version" do
+    subject { Alchemy.gem_version }
+
+    it { is_expected.to eq(Gem::Version.new(Alchemy::VERSION)) }
+  end
+
+  describe ".git_revision_info" do
+    subject { Alchemy.git_revision_info }
+
+    let(:sources) { [source] }
+
+    before do
+      allow(Bundler).to receive(:locked_gems).and_return(double(sources: sources))
+    end
+
+    context "when the alchemy_cms gem is locked to a git source" do
+      let(:source) do
+        double(name: "alchemy_cms", revision: "abc1234def5678", branch: "main")
+      end
+
+      it "returns the revision and branch" do
+        is_expected.to eq(revision: "abc1234def5678", branch: "main")
+      end
+    end
+
+    context "when the alchemy_cms gem is not locked to a git source" do
+      let(:source) { double(name: "alchemy_cms") }
+
+      it { is_expected.to be_nil }
+    end
+
+    context "when there is no alchemy_cms source" do
+      let(:sources) { [double(name: "another_gem")] }
+
+      it { is_expected.to be_nil }
+    end
+
+    context "when reading the lockfile raises an error" do
+      let(:sources) { [] }
+
+      before do
+        allow(Bundler).to receive(:locked_gems).and_raise(StandardError)
+      end
+
+      it { is_expected.to be_nil }
+    end
+  end
+
   describe ".preview_sources" do
     subject { Alchemy.preview_sources }
 
