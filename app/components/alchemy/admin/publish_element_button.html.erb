@@ -21,21 +21,16 @@
       content="<%= element.scheduled? ? Alchemy.t(:edit_element_schedule) : Alchemy.t(:schedule_element) %>"
       <%= "disabled" if cannot?(:update, element) %>
     >
-      <sl-dropdown distance="5">
-        <sl-button
-          slot="trigger"
-          variant="<%= element.scheduled? ? "primary" : "default" %>"
-          size="small"
-          <%= "disabled" if cannot?(:update, element) %>
-          outline
-          pill
-        >
-          <alchemy-icon name="calendar-schedule" slot="suffix" size="1x"></alchemy-icon>
-        </sl-button>
-        <div class="alchemy-popover">
-          <%= render "alchemy/admin/elements/schedule", element: element %>
-        </div>
-      </sl-dropdown>
+      <sl-button
+        class="schedule-trigger"
+        variant="<%= element.scheduled? ? "primary" : "default" %>"
+        size="small"
+        <%= "disabled" if cannot?(:update, element) %>
+        outline
+        pill
+      >
+        <alchemy-icon name="calendar-schedule" slot="suffix" size="1x"></alchemy-icon>
+      </sl-button>
     </sl-tooltip>
   </sl-button-group>
 </alchemy-publish-element-button>

@@ -14,6 +14,8 @@
 
   <%= render 'alchemy/admin/elements/toolbar', element: element %>
 
+  <%= render "alchemy/admin/elements/schedule", element: element %>
+
   <% definition.message.tap do |message| %>
     <%= render_message(:info, sanitize(message)) if message %>
   <% end %>
