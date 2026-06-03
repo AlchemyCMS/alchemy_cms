@@ -4,9 +4,15 @@
   data-element-name="<%= name %>"
   filter-text="<%= filter_text %>"
   class="<%= css_classes.join(" ") %>"
-  <%= compact? ? "compact" : nil %>
-  <%= created ? "created" : nil %>
-  <%= fixed? ? "fixed" : nil %>
+  <% if compact? %>
+    compact
+  <% end %>
+  <% if created %>
+    created
+  <% end %>
+  <% if fixed? %>
+    fixed
+  <% end %>
 >
   <% unless fixed? %>
     <%= render 'alchemy/admin/elements/header', element: element %>
