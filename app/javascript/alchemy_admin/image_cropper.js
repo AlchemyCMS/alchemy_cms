@@ -17,6 +17,9 @@ export default class ImageCropper {
       settings.crop_size_form_field_id
     )
     this.elementId = settings.element_id
+    this.elementEditor = document.querySelector(
+      `[data-element-id='${this.elementId}']`
+    )
     this.dialog = Alchemy.currentDialog()
     if (this.dialog) {
       this.dialog.options.closed = () => this.destroy()
@@ -32,11 +35,7 @@ export default class ImageCropper {
       zoomable: false,
       checkCrossOrigin: false, // Prevent CORS issues
       checkOrientation: false, // Prevent loading the image via AJAX which can cause CORS issues
-      data: this.box,
-      cropend: () => {
-        const data = this.#cropper.getData(true)
-        this.update(data)
-      }
+      data: this.box
     }
   }
 
@@ -103,10 +102,9 @@ export default class ImageCropper {
 
   bind() {
     this.dialog.dialog_body.find('button[type="submit"]').on("click", () => {
-      const elementEditor = document.querySelector(
-        `[data-element-id='${this.elementId}']`
-      )
-      elementEditor.setDirty()
+      const data = this.#cropper.getData(true)
+      this.update(data)
+      this.elementEditor.setDirty()
       this.dialog.close()
       return false
     })
