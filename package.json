@@ -9,7 +9,7 @@
     "build:admin": "rollup -c rollup.admin.config.mjs",
     "build:admin:dev": "rollup -c rollup.admin.config.mjs --watch",
     "build:icons": "node bundles/remixicon.mjs",
-    "build:css": "sass --style=compressed --no-source-map --load-path app/assets/stylesheets --load-path vendor/assets/stylesheets --load-path node_modules/cropperjs/dist app/stylesheets/alchemy/admin.scss:app/assets/builds/alchemy/admin.css app/stylesheets/alchemy/admin/print.scss:app/assets/builds/alchemy/admin/print.css app/stylesheets/alchemy/welcome.scss:app/assets/builds/alchemy/welcome.css app/stylesheets/tinymce/skins/content/alchemy/content.scss:app/assets/builds/tinymce/skins/content/alchemy/content.min.css app/stylesheets/tinymce/skins/content/alchemy-dark/content.scss:app/assets/builds/tinymce/skins/content/alchemy-dark/content.min.css app/stylesheets/tinymce/skins/ui/alchemy-dark/content.scss:app/assets/builds/tinymce/skins/ui/alchemy-dark/content.min.css app/stylesheets/tinymce/skins/ui/alchemy/content.scss:app/assets/builds/tinymce/skins/ui/alchemy/content.min.css app/stylesheets/tinymce/skins/ui/alchemy/skin.scss:app/assets/builds/tinymce/skins/ui/alchemy/skin.min.css app/stylesheets/tinymce/skins/ui/alchemy-dark/skin.scss:app/assets/builds/tinymce/skins/ui/alchemy-dark/skin.min.css app/stylesheets/alchemy/admin/page-select.scss:app/assets/builds/alchemy/admin/page-select.css app/stylesheets/alchemy/dark-theme.scss:app/assets/builds/alchemy/dark-theme.css app/stylesheets/alchemy/light-theme.scss:app/assets/builds/alchemy/light-theme.css app/stylesheets/alchemy/theme.scss:app/assets/builds/alchemy/theme.css",
+    "build:css": "sass --style=compressed --no-source-map --quiet-deps --load-path app/assets/stylesheets --load-path vendor/assets/stylesheets --load-path node_modules/cropperjs/dist --load-path node_modules/tom-select/dist/scss app/stylesheets/alchemy/admin.scss:app/assets/builds/alchemy/admin.css app/stylesheets/alchemy/admin/print.scss:app/assets/builds/alchemy/admin/print.css app/stylesheets/alchemy/welcome.scss:app/assets/builds/alchemy/welcome.css app/stylesheets/tinymce/skins/content/alchemy/content.scss:app/assets/builds/tinymce/skins/content/alchemy/content.min.css app/stylesheets/tinymce/skins/content/alchemy-dark/content.scss:app/assets/builds/tinymce/skins/content/alchemy-dark/content.min.css app/stylesheets/tinymce/skins/ui/alchemy-dark/content.scss:app/assets/builds/tinymce/skins/ui/alchemy-dark/content.min.css app/stylesheets/tinymce/skins/ui/alchemy/content.scss:app/assets/builds/tinymce/skins/ui/alchemy/content.min.css app/stylesheets/tinymce/skins/ui/alchemy/skin.scss:app/assets/builds/tinymce/skins/ui/alchemy/skin.min.css app/stylesheets/tinymce/skins/ui/alchemy-dark/skin.scss:app/assets/builds/tinymce/skins/ui/alchemy-dark/skin.min.css app/stylesheets/alchemy/admin/page-select.scss:app/assets/builds/alchemy/admin/page-select.css app/stylesheets/alchemy/dark-theme.scss:app/assets/builds/alchemy/dark-theme.css app/stylesheets/alchemy/light-theme.scss:app/assets/builds/alchemy/light-theme.css app/stylesheets/alchemy/theme.scss:app/assets/builds/alchemy/theme.css",
     "handlebars:compile": "handlebars app/javascript/alchemy_admin/templates/*.hbs -f app/javascript/alchemy_admin/templates/compiled.js -o -m",
     "build": "pnpm run build:js && pnpm run build:admin && pnpm run build:css && pnpm run handlebars:compile && pnpm run build:icons"
   },
@@ -21,6 +21,7 @@
     "node": "24.x"
   },
   "dependencies": {
+    "@floating-ui/dom": "^1.7.6",
     "@rails/ujs": "^7.1.502",
     "@shoelace-style/shoelace": "^2.20.1",
     "@ungap/custom-elements": "^1.3.0",
@@ -32,7 +33,8 @@
     "keymaster": "^1.6.2",
     "select2": "github:select2/select2#3.5.4",
     "sortablejs": "^1.15.7",
-    "tinymce": "^8.5.1"
+    "tinymce": "^8.5.1",
+    "tom-select": "^2.6.1"
   },
   "devDependencies": {
     "@herb-tools/linter": "^0.8.10",

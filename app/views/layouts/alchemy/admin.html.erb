@@ -45,13 +45,13 @@
     </noscript>
     <alchemy-overlay text="<%= Alchemy.t(:please_wait) %>"></alchemy-overlay>
     <%= render "alchemy/admin/left_menu" %>
-    <% if current_alchemy_user %>
-      <%= render "alchemy/admin/top_menu", locked_pages: @locked_pages %>
-    <% end %>
     <%= render 'alchemy/admin/partials/flash_notices' %>
     <div id="main_content">
       <%= yield %>
     </div>
+    <% if current_alchemy_user %>
+      <%= render "alchemy/admin/top_menu", locked_pages: @locked_pages %>
+    <% end %>
     <%= render 'alchemy/admin/uploader/setup' %>
     <%= yield(:javascripts) %>
   <% end %>

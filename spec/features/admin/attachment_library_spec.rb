@@ -20,7 +20,7 @@ RSpec.describe "Attachment Library", type: :system do
 
     scenario "it's possible to filter attachments by type.", :js do
       visit alchemy.admin_attachments_path
-      select2 "PDF Document", from: "File Type"
+      tom_select "PDF Document", from: "File Type"
       within "#archive_all" do
         expect(page).to have_content("file")
         expect(page).to_not have_content("archive")

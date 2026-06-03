@@ -3,11 +3,12 @@ module Alchemy
     class ElementSelect < ViewComponent::Base
       delegate :alchemy, to: :helpers
 
-      attr_reader :elements, :field_name
+      attr_reader :elements, :field_name, :autofocus
 
-      def initialize(elements, field_name: "element[name]")
+      def initialize(elements, field_name: "element[name]", autofocus: false)
         @field_name = field_name
         @elements = elements
+        @autofocus = autofocus
       end
 
       def call
@@ -15,7 +16,7 @@ module Alchemy
           options: elements_options.to_json,
           placeholder: Alchemy.t(:select_element) do
           text_field_tag(field_name, nil, {
-            autofocus: true,
+            autofocus:,
             required: true,
             value: elements.many? ? nil : elements.first&.name,
             class: "alchemy_selectbox full_width"

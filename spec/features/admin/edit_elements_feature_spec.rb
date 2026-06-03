@@ -80,7 +80,7 @@ RSpec.describe "The edit elements feature", type: :system do
 
         expect(page).to have_css(".alchemy-dialog")
         within ".alchemy-dialog" do
-          expect(page).to have_select("Element")
+          expect(page).to have_alchemy_select("Element")
           expect(page).to have_css("[panel='paste_element_tab']")
         end
       end
@@ -109,7 +109,7 @@ RSpec.describe "The edit elements feature", type: :system do
           find("a.add-nestable-element-button").click
           expect(page).to have_css(".alchemy-dialog")
           within ".alchemy-dialog" do
-            expect(page).to have_select("Element")
+            expect(page).to have_alchemy_select("Element")
             expect(page).to have_css("[panel='paste_element_tab']")
           end
         end

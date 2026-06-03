@@ -1,4 +1,5 @@
 Alchemy.translations = {
+  Add: "Add",
   allowed_chars: "of %{count} chars",
   cancel: "Cancel",
   cancelled: "Cancelled",
@@ -23,6 +24,9 @@ Alchemy.translations = {
   "Uploaded bytes exceed file size": "Uploaded bytes exceed file size",
   "Abort upload": "Abort upload",
   "Cancel all uploads": "Cancel all uploads",
+  "Clear selection": "Clear selection",
+  Remove: "Remove",
+  "No results found": "No results found",
   None: "None",
   "No anchors found": "No anchors found",
   "Select a page first": "Select a page first",

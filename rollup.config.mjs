@@ -69,6 +69,13 @@ export default [
     }
   },
   {
+    input: "node_modules/@floating-ui/dom/dist/floating-ui.dom.esm.js",
+    plugins: [resolve(), terser()],
+    output: {
+      file: "vendor/javascript/floating-ui.min.js"
+    }
+  },
+  {
     input: "node_modules/@rails/ujs/app/assets/javascripts/rails-ujs.esm.js",
     output: {
       file: "vendor/javascript/rails-ujs.min.js"
@@ -80,6 +87,7 @@ export default [
     output: {
       file: "vendor/javascript/shoelace.min.js"
     },
+    external: ["@floating-ui/dom"],
     plugins: [resolve(), terser()]
   },
   {
@@ -96,6 +104,13 @@ export default [
       commonjs(),
       terser()
     ]
+  },
+  {
+    input: "bundles/tom-select.js",
+    output: {
+      file: "vendor/javascript/tom-select.min.js"
+    },
+    plugins: [resolve(), terser()]
   },
   {
     input: "app/javascript/preview.js",

@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@floating-ui/dom':
+        specifier: ^1.7.6
+        version: 1.7.6
       '@rails/ujs':
         specifier: ^7.1.502
         version: 7.1.600
@@ -44,6 +47,9 @@ importers:
       tinymce:
         specifier: ^8.5.1
         version: 8.5.1
+      tom-select:
+        specifier: ^2.6.1
+        version: 2.6.1
     devDependencies:
       '@herb-tools/linter':
         specifier: ^0.8.10
@@ -295,6 +301,12 @@ packages:
     peerDependencies:
       '@emnapi/core': ^1.7.1
       '@emnapi/runtime': ^1.7.1
+
+  '@orchidjs/sifter@1.1.0':
+    resolution: {integrity: sha512-mYwHCfr736cIWWdhhSZvDbf90AKt2xyrJspKFC3qyIJG1LtrJeJunYEqCGG4Aq2ijENbc4WkOjszcvNaIAS/pQ==}
+
+  '@orchidjs/unicode-variants@1.1.2':
+    resolution: {integrity: sha512-5DobW1CHgnBROOEpFlEXytED5OosEWESFvg/VYmH0143oXcijYTprRYJTs+55HzGM4IqxiLFSuqEzu9mPNwVsA==}
 
   '@oxc-project/types@0.132.0':
     resolution: {integrity: sha512-FESMOxil5Se014ui/Eq8fT5uHJo6nIRwH0PfJrZJXs6Gek3ZVFOrpUv3YIZT20m+extU98Hg1Ym72U58rlsxUQ==}
@@ -1746,6 +1758,9 @@ packages:
     resolution: {integrity: sha512-yHBe+zVfzNZ3QfTPW/Z6KK1G2t340gFjMHqI/4KKSt/abzYydzuCnpqdaF5gCCABby+9Yfbj59oR5F2Fd5CBzg==}
     hasBin: true
 
+  tom-select@2.6.1:
+    resolution: {integrity: sha512-d/1kngVOQTGcI/2pVDfDLYjtjUgSSd3fSgkYUpi0y+yRtQQu2kzljj3aUdqMfqc45cjPvDEpfDt/hSX4awDFTg==}
+
   tough-cookie@6.0.1:
     resolution: {integrity: sha512-LktZQb3IeoUWB9lqR5EWTHgW/VTITCXg4D21M+lvybRVdylLrRMnqaIONLVb5mav8vM19m44HIcGq4qASeu2Qw==}
     engines: {node: '>=16'}
@@ -2171,6 +2186,12 @@ snapshots:
       '@emnapi/runtime': 1.10.0
       '@tybys/wasm-util': 0.10.2
     optional: true
+
+  '@orchidjs/sifter@1.1.0':
+    dependencies:
+      '@orchidjs/unicode-variants': 1.1.2
+
+  '@orchidjs/unicode-variants@1.1.2': {}
 
   '@oxc-project/types@0.132.0': {}
 
@@ -3447,6 +3468,11 @@ snapshots:
   tldts@7.4.0:
     dependencies:
       tldts-core: 7.4.1
+
+  tom-select@2.6.1:
+    dependencies:
+      '@orchidjs/sifter': 1.1.0
+      '@orchidjs/unicode-variants': 1.1.2
 
   tough-cookie@6.0.1:
     dependencies:

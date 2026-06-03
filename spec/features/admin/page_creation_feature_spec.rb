@@ -28,7 +28,7 @@ RSpec.describe "Page creation", type: :system do
         visit admin_pages_path
 
         find(%(a.icon_button[href="/admin/pages/new?parent_id=#{homepage.id}"]), visible: true, match: :first).click
-        select2 "Standard", from: "Type"
+        tom_select "Standard", from: "Type"
         fill_in "Name", with: "Unique Name"
         click_button "create"
 

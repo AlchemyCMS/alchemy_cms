@@ -25,6 +25,23 @@ module Alchemy
         end
       end
 
+      # Tom Select capybara helper
+      def tom_select(value, options)
+        label = find_label_by_text(options[:from])
+
+        within label.find(:xpath, "..") do
+          find(".ts-control").click
+        end
+
+        # The dropdown is appended to the body, so search the whole page for it.
+        within_entire_page do
+          find(
+            ".ts-dropdown .option",
+            text: /#{Regexp.escape(value)}/i, match: :prefer_exact
+          ).click
+        end
+      end
+
       def select2_search(value, options)
         if options[:from]
           label = find_label_by_text(options[:from])

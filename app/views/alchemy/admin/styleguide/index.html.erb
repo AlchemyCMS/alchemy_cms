@@ -29,8 +29,7 @@
   <form class="simple_form alchemy" action="#" accept-charset="UTF-8" method="post">
     <div class="input select">
       <label class="select control-label" for="select">Select</label>
-      <select class="select" id="select" is="alchemy-select">
-        <option value="">Please choose</option>
+      <select class="select" id="select" is="alchemy-select" placeholder="Please choose">
         <option value="1">Option 1</option>
         <option selected value="2">Option 2</option>
         <option value="3">Option 3</option>
@@ -139,10 +138,19 @@
 
 <h2>Selects</h2>
 
-<div style="display: flex; gap: 1em;">
+<div style="display: flex; gap: 1em; flex-wrap: wrap">
+  <div style="width: 20%">
+    <h3>Native Select</h3>
+    <select class="full_width" autofocus>
+      <option value="1">Option 1</option>
+      <option value="2">Option 2</option>
+      <option value="3">Option 3</option>
+    </select>
+  </div>
+
   <div style="width: 20%">
     <h3>Select with Search</h3>
-    <select is="alchemy-select" class="full_width">
+    <select is="alchemy-select" class="full_width" data-allow-clear placeholder="Please choose">
       <option value="1">Option 1</option>
       <option value="2">Option 2</option>
       <option value="3">Option 3</option>
@@ -154,15 +162,32 @@
   </div>
 
   <div style="width: 20%">
-    <h3>Page Select</h3>
-    <%= render Alchemy::Admin::PageSelect.new do %>
-      <input name="page" class="full_width">
-    <% end %>
+    <h3>Multi Select</h3>
+    <select is="alchemy-select" multiple class="full_width" placeholder="Pick Options" data-allow-clear>
+      <option value="1">Option 1</option>
+      <option value="2">Option 2</option>
+      <option value="3">Option 3</option>
+      <option value="4">Option 4</option>
+      <option value="5">Option 5</option>
+      <option value="6">Option 6</option>
+      <option value="7">Option 7</option>
+    </select>
   </div>
+
 
   <div style="width: 20%">
     <h3>Element Select</h3>
     <%= render Alchemy::Admin::ElementSelect.new(Alchemy::Element.definitions) %>
+  </div>
+</div>
+
+<h2>Remote Selects</h2>
+<div style="display: flex; gap: 1em; flex-wrap: wrap">
+  <div style="width: 20%">
+    <h3>Page Select</h3>
+    <%= render Alchemy::Admin::PageSelect.new do %>
+      <input name="page" class="full_width">
+    <% end %>
   </div>
 
   <div style="width: 20%">
@@ -178,14 +203,13 @@
       <input name="attachment" class="full_width">
     <% end %>
   </div>
-</div>
 
-<h3>Tags Autocomplete</h3>
-
-<div style="width: 25%">
-  <%= render Alchemy::Admin::TagsAutocomplete.new do %>
-    <input type="text" class="full_width" autocomplete="off">
-  <% end %>
+  <div style="width: 20%">
+    <h3>Tags Autocomplete</h3>
+    <%= render Alchemy::Admin::TagsAutocomplete.new do %>
+      <input type="text" class="full_width" autocomplete="off">
+    <% end %>
+  </div>
 </div>
 
 <h2>Typography</h2>

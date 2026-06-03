@@ -97,7 +97,7 @@ RSpec.describe "Resources", type: :system do
             visit "/admin/events"
 
             within "#library_sidebar #filter_bar" do
-              select2("Starting today", from: "By Timeframe")
+              tom_select("Starting today", from: "By Timeframe")
             end
 
             within "div#archive_all table.list tbody" do
@@ -162,7 +162,7 @@ RSpec.describe "Resources", type: :system do
               end
 
               within "#library_sidebar #filter_bar" do
-                select2(location.name, from: "Location")
+                tom_select(location.name, from: "Location")
               end
 
               within "div#archive_all table.list tbody" do
