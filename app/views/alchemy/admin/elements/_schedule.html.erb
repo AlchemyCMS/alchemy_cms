@@ -1,4 +1,4 @@
-<div id="element-<%= element.id %>-schedule">
+<div id="element-<%= element.id %>-schedule" class="element-schedule-form" hidden>
   <% if element.errors.any? %>
     <alchemy-message type="error" icon="warn">
       <%= Alchemy.t(:default_message, scope: "forms.error_notification") %>

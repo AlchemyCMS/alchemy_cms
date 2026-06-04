@@ -2,42 +2,42 @@ export class PublishElementButton extends HTMLElement {
   #scheduleButtonVariant
 
   connectedCallback() {
+    this.publishButton = this.querySelector("sl-button[type='submit']")
+    this.scheduleButton = this.querySelector("sl-button.schedule-trigger")
+    this.scheduleForm = this.closest("alchemy-element-editor").querySelector(
+      ".element-schedule-form"
+    )
     this.#scheduleButtonVariant = this.scheduleButton.getAttribute("variant")
     this.publishButton.addEventListener("click", this)
-    this.dropdown.addEventListener("sl-show", this)
-    this.dropdown.addEventListener("sl-hide", this)
+    this.scheduleButton.addEventListener("click", this)
   }
 
   disconnectedCallback() {
     this.publishButton.removeEventListener("click", this)
-    this.dropdown.removeEventListener("sl-show", this)
-    this.dropdown.removeEventListener("sl-hide", this)
+    this.scheduleButton.removeEventListener("click", this)
   }
 
   handleEvent(event) {
-    switch (event.type) {
-      case "click":
+    switch (event.target) {
+      case this.publishButton:
         this.publishButton.loading = true
         break
-      case "sl-show":
-        this.scheduleButton.setAttribute("variant", "primary")
-        break
-      case "sl-hide":
-        this.scheduleButton.setAttribute("variant", this.#scheduleButtonVariant)
+      case this.scheduleButton:
+        if (this.scheduleForm.hidden) {
+          this.scheduleForm.hidden = false
+          this.scheduleButton.setAttribute("variant", "primary")
+          this.scheduleButton.setAttribute("outline", "")
+          this.scheduleButton.removeAttribute("outline")
+        } else {
+          this.scheduleForm.hidden = true
+          this.scheduleButton.setAttribute(
+            "variant",
+            this.#scheduleButtonVariant
+          )
+          this.scheduleButton.setAttribute("outline", "outline")
+        }
         break
     }
-  }
-
-  get publishButton() {
-    return this.querySelector("sl-button[type='submit']")
-  }
-
-  get dropdown() {
-    return this.querySelector("sl-dropdown")
-  }
-
-  get scheduleButton() {
-    return this.querySelector("sl-button[slot='trigger']")
   }
 }
 

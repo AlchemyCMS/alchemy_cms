@@ -320,11 +320,8 @@ button.element-toggle {
     &.not-fixed {
       .nestable-elements {
         box-shadow: inset 0 4px 8px -2px
-          var(--nestable-elements-box-shadow-color, hsl(0deg, 0%, 79%));
-        background-color: var(
-          --nestable-elements-background-color,
-          var(--color-grey_light)
-        );
+          var(--nestable-elements-box-shadow-color);
+        background-color: var(--nestable-elements-background-color);
         padding: var(--spacing-1);
       }
     }
@@ -564,6 +561,14 @@ button.element-toggle {
     width: var(--icon-button-medium-width);
     height: var(--icon-button-medium-height);
   }
+}
+
+.element-schedule-form {
+  padding: var(--spacing-2);
+  border-top: 1px solid var(--element-toolbar-border-color);
+  border-bottom: 1px solid var(--element-toolbar-border-color);
+  background-color: var(--nestable-elements-background-color);
+  box-shadow: inset 0 0 4px -2px var(--nestable-elements-box-shadow-color);
 }
 
 alchemy-publish-element-button {
