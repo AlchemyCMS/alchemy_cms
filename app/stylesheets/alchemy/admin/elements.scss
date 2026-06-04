@@ -381,7 +381,7 @@ button.element-toggle {
       pointer-events: none;
     }
 
-    .element-body {
+    .element-ingredient-editors {
       margin: var(--spacing-1) var(--spacing-2);
     }
 
@@ -436,7 +436,7 @@ button.element-toggle {
     }
   }
 
-  .element-body {
+  .element-ingredient-editors {
     margin: var(--spacing-2);
   }
 
@@ -458,11 +458,13 @@ button.element-toggle {
 
   .autocomplete_tag_list {
     display: block;
-    margin-top: var(--spacing-1);
-    padding: var(--spacing-1) 0;
+    padding: var(--spacing-2) var(--spacing-2) var(--spacing-3);
+    border-top: 1px solid var(--element-toolbar-border-color);
 
     label {
+      display: block;
       font-size: var(--font-size_small);
+      text-indent: 1px;
     }
 
     .select2-container {
@@ -596,22 +598,22 @@ alchemy-publish-element-button {
 
 .ingredient-group {
   width: 100%;
-  padding: var(--spacing-1) 0;
-  position: relative;
-  border-bottom: 1px solid var(--element-toolbar-border-color);
+  padding: var(--spacing-1) var(--spacing-2);
+  border-top: 1px solid var(--element-toolbar-border-color);
 
-  &:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
+  &:first-of-type {
+    margin-top: var(--spacing-1);
   }
 
   summary {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    font-weight: bold;
+    justify-content: start;
+    gap: var(--spacing-0);
     text-decoration: none;
     padding: var(--spacing-1) 1px;
+    margin-left: calc(-1 * var(--spacing-1));
+    cursor: pointer;
   }
 
   &[open] {
