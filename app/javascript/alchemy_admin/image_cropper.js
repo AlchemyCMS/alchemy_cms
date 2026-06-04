@@ -89,7 +89,20 @@ export default class ImageCropper {
   }
 
   reset() {
-    this.#cropper.setData(this.defaultBoxSize)
+    const cropper = this.#cropper
+    // Apply the default size. cropperjs clamps the crop box to its maximum size.
+    cropper.setData(this.defaultBoxSize)
+    // When the default box sits at the maximum crop box size, sub-pixel rounding
+    // makes cropperjs treat setData's box as oversized and revert its position
+    // (renderCropBox resets top/left to their old values). Re-apply the position
+    // in canvas coordinates afterwards – that does not touch the size, so it is
+    // not reverted and the mask actually moves to the default box.
+    const canvas = cropper.getCanvasData()
+    const scale = canvas.width / canvas.naturalWidth
+    cropper.setCropBoxData({
+      left: canvas.left + this.defaultBoxSize.x * scale,
+      top: canvas.top + this.defaultBoxSize.y * scale
+    })
     this.update(this.defaultBoxSize)
   }
 
