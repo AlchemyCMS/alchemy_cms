@@ -6,6 +6,8 @@ const { CropperMock, cropperInstance } = vi.hoisted(() => {
   const cropperInstance = {
     getData: vi.fn(),
     setData: vi.fn(),
+    getCanvasData: vi.fn(),
+    setCropBoxData: vi.fn(),
     destroy: vi.fn()
   }
   const CropperMock = vi.fn(function () {
@@ -107,6 +109,14 @@ describe("ImageCropper", () => {
         height: 150
       })
       cropperInstance.setData.mockReset()
+      cropperInstance.setCropBoxData.mockReset()
+      // Image displayed at half its natural size, offset 10px down in the canvas.
+      cropperInstance.getCanvasData.mockReturnValue({
+        left: 0,
+        top: 10,
+        width: 500,
+        naturalWidth: 1000
+      })
 
       document.body.innerHTML = `
         <div data-element-id="42" class="element-editor">
@@ -183,6 +193,34 @@ describe("ImageCropper", () => {
           width: 700,
           height: 400
         })
+      })
+
+      it("re-applies the box position in canvas coordinates", () => {
+        // setData reverts the position when the default box is at the maximum
+        // crop box size, so the position is re-applied via setCropBoxData using
+        // the canvas offset (top 10) and scale (width 500 / naturalWidth 1000).
+        buildCropper()
+        handlers['button[type="reset"]']()
+
+        expect(cropperInstance.setCropBoxData).toHaveBeenCalledWith({
+          left: 0 + 5 * 0.5,
+          top: 10 + 6 * 0.5
+        })
+      })
+
+      it("applies the size before re-applying the position", () => {
+        const callOrder = []
+        cropperInstance.setData.mockImplementation(() =>
+          callOrder.push("setData")
+        )
+        cropperInstance.setCropBoxData.mockImplementation(() =>
+          callOrder.push("setCropBoxData")
+        )
+
+        buildCropper()
+        handlers['button[type="reset"]']()
+
+        expect(callOrder).toEqual(["setData", "setCropBoxData"])
       })
 
       it("writes the default box into the form fields", () => {
