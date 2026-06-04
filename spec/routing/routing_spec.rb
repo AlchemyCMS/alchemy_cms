@@ -194,6 +194,26 @@ describe "The Routing" do
     end
   end
 
+  describe "dotfile requests" do
+    it "should not be handled by alchemy/pages controller" do
+      expect({
+        get: "/.well-known/security.txt"
+      }).not_to be_routable
+
+      expect({
+        get: "/.well-known/appspecific/com.chrome.devtools.json"
+      }).not_to be_routable
+
+      expect({
+        get: "/.env"
+      }).not_to be_routable
+
+      expect({
+        get: "/.git/config"
+      }).not_to be_routable
+    end
+  end
+
   describe "Turbo stream requests" do
     it do
       expect({

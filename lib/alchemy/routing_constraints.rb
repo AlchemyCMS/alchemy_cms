@@ -16,10 +16,20 @@ module Alchemy
       @request = request
       @params = @request.params
 
-      handable_format? && no_rails_route?
+      handable_format? && no_dotfile_route? && no_rails_route?
     end
 
     private
+
+    # We don't want to handle requests to dotfile URLs.
+    #
+    # A page urlname never starts with a dot, so any such request
+    # (/.well-known/ ACME challenges, /.env or /.git probes, etc.)
+    # should never be served by a page.
+    #
+    def no_dotfile_route?
+      !@params["urlname"].start_with?(".")
+    end
 
     # We only want html requests to be handled by us.
     #
