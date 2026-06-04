@@ -1,5 +1,19 @@
 # Changelog
 
+## 8.2.5 (2026-06-04)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.2-stable -->
+
+## What's Changed
+### Other Changes
+* [8.2-stable] fix(LocaleSelect): Only render form for auto_submit by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3918
+* [8.2-stable] fix(CollectionOption): Resolve item_type using camelcase by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3924
+* [8.2-stable] fix(routing): Ignore dotfile requests in pages routing by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3937
+* [8.2-stable] fix(Cropper): Reset crop mask to the default box position by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3938
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.2.4...v8.2.5
+
 ## 8.2.4 (2026-05-19)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.2-stable -->
