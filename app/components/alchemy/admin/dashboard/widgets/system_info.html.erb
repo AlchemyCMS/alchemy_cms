@@ -5,6 +5,7 @@
   <div class="version-info">
     <span class="version">
       <%= @alchemy_version %>
+      <%= git_source %>
     </span>
 
     <%= render Alchemy::Admin::UpdateCheck.new %>
