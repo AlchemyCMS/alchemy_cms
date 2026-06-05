@@ -23,7 +23,7 @@ export class IngredientGroup extends HTMLDetailsElement {
       this.toggleIcon.name = "arrow-down-s"
       if (!this.isInLocalStorage) expanded_ingredient_groups.push(this.id)
     } else {
-      this.toggleIcon.name = "arrow-left-s"
+      this.toggleIcon.name = "arrow-right-s"
       expanded_ingredient_groups = expanded_ingredient_groups.filter(
         (value) => value !== this.id
       )
