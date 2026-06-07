@@ -33,7 +33,7 @@
     "keymaster": "^1.6.2",
     "select2": "github:select2/select2#3.5.4",
     "sortablejs": "^1.15.7",
-    "tinymce": "^8.5.1",
+    "tinymce": "^8.6.0",
     "tom-select": "^2.6.1"
   },
   "devDependencies": {
