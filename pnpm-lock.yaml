@@ -45,8 +45,8 @@ importers:
         specifier: ^1.15.7
         version: 1.15.7
       tinymce:
-        specifier: ^8.5.1
-        version: 8.5.1
+        specifier: ^8.6.0
+        version: 8.6.0
       tom-select:
         specifier: ^2.6.1
         version: 2.6.1
@@ -1757,8 +1757,8 @@ packages:
     resolution: {integrity: sha512-wXR/dYpcqKmfWpEdZjiKJOwCNFndD0DMnrW/cYjVGttEkBfVgcLFHoNrlj47mjOVic9yyNu65alsgF4NQyTa2g==}
     engines: {node: '>=12.0.0'}
 
-  tinymce@8.5.1:
-    resolution: {integrity: sha512-Wd4OrokDEwlXppSR+ijXngLa2+s3v8NZax9WCvAHeQhqvFsj9tGt19PmrnAdGLiQFkBBYzdOLW23tsBTPMiJYw==}
+  tinymce@8.6.0:
+    resolution: {integrity: sha512-qODYoNL4cPIzNFpkEEQDm3DWI78I/nQXIPwUMHRN+q/LyT9Wzt7xis2Nfhk88kV6sibp6MJXPSaUDVNe02ZB/w==}
 
   tinyrainbow@3.1.0:
     resolution: {integrity: sha512-Bf+ILmBgretUrdJxzXM0SgXLZ3XfiaUuOj/IKQHuTXip+05Xn+uyEYdVg0kYDipTBcLrCVyUzAPz7QmArb0mmw==}
@@ -3485,7 +3485,7 @@ snapshots:
       fdir: 6.5.0(picomatch@4.0.4)
       picomatch: 4.0.4
 
-  tinymce@8.5.1: {}
+  tinymce@8.6.0: {}
 
   tinyrainbow@3.1.0: {}
 
