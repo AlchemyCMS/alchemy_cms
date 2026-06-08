@@ -1,7 +1,11 @@
+const MIN_WIDTH = 400
+const MAX_WIDTH = 1000
 class ElementsWindowHandle extends HTMLElement {
   #dragging = false
   #elementsWindow = null
   #previewWindow = null
+  #minWidth = MIN_WIDTH
+  #maxWidth = MAX_WIDTH
 
   connectedCallback() {
     this.addEventListener("mousedown", this)
@@ -34,6 +38,13 @@ class ElementsWindowHandle extends HTMLElement {
 
   onMouseDown() {
     this.#dragging = true
+    // Read the resolved min/max width the browser computed from the CSS
+    // custom properties (incl. calc() and active media queries) once, so the
+    // drag stays clamped to the same bounds the stylesheet defines.
+    const styles = getComputedStyle(this.elementsWindow)
+    this.#minWidth = parseFloat(styles.minWidth) || MIN_WIDTH
+    this.#maxWidth =
+      styles.maxWidth === "none" ? MAX_WIDTH : parseFloat(styles.maxWidth)
     this.elementsWindow.isDragged = true
     this.previewWindow.isDragged = true
     this.classList.add("is-dragged")
@@ -48,7 +59,11 @@ class ElementsWindowHandle extends HTMLElement {
 
   onDrag(pageX) {
     const elementWindowWidth = window.innerWidth - pageX
-    this.elementsWindow.resize(elementWindowWidth)
+    const width = Math.min(
+      Math.max(elementWindowWidth, this.#minWidth),
+      this.#maxWidth
+    )
+    this.elementsWindow.resize(width)
   }
 
   get elementsWindow() {
