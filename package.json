@@ -16,7 +16,7 @@
   "keywords": [],
   "author": "Thomas von Deyen",
   "license": "BSD-3-Clause",
-  "packageManager": "pnpm@11.4.0",
+  "packageManager": "pnpm@11.5.2",
   "engines": {
     "node": "24.x"
   },
