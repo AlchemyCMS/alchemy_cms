@@ -33,6 +33,10 @@
   --elements-window-width: calc(100vw - var(--main-menu-width));
 
   @media screen and (min-width: vars.$large-screen-break-point) {
+    --elements-window-min-width: 400px;
+  }
+
+  @media screen and (min-width: vars.$large-screen-break-point) {
     --elements-window-width: var(--elements-window-min-width);
   }
 
