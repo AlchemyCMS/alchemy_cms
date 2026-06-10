@@ -41,12 +41,20 @@ module Alchemy
 
       has_many :related_elements, through: :related_ingredients, source: :element
       has_many :related_pages, through: :related_elements, source: :page
+
+      after_touch :touch_related_ingredients, if: -> { related_ingredients.exists? }
     end
 
     # Returns true if object is not assigned to any ingredient.
     #
     def deletable?
       related_ingredients.none?
+    end
+
+    private
+
+    def touch_related_ingredients
+      InvalidateElementsCacheJob.perform_later(self.class.name, id)
     end
   end
 end
