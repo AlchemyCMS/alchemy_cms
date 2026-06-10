@@ -1,5 +1,16 @@
 # Changelog
 
+## 8.2.6 (2026-06-10)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.2-stable -->
+
+## What's Changed
+### Other Changes
+* [8.2-stable] fix(ElementsWindow): Respect min and max width while drag resizing by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/3946
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.2.5...v8.2.6
+
 ## 8.2.5 (2026-06-04)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.2-stable -->
