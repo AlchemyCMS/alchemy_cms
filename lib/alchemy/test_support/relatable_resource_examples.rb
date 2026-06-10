@@ -55,4 +55,24 @@ RSpec.shared_examples_for "a relatable resource" do |args|
       it { is_expected.to be(true) }
     end
   end
+
+  describe "after_touch" do
+    let(:related_object) { create(:"alchemy_#{args[:resource_name]}") }
+
+    context "when related ingredients exist" do
+      let!(:ingredient) { create(:"alchemy_ingredient_#{args[:ingredient_type]}", related_object:) }
+
+      it "enqueues InvalidateElementsCacheJob" do
+        expect {
+          related_object.touch
+        }.to have_enqueued_job(Alchemy::InvalidateElementsCacheJob).with(described_class.name, related_object.id)
+      end
+    end
+
+    context "when no related ingredients exist" do
+      it "does not enqueue InvalidateElementsCacheJob" do
+        expect { related_object.touch }.to_not have_enqueued_job(Alchemy::InvalidateElementsCacheJob)
+      end
+    end
+  end
 end
