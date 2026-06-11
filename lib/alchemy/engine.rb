@@ -17,7 +17,8 @@ module Alchemy
     end
 
     initializer "alchemy.assets" do |app|
-      if defined?(Sprockets)
+      if defined?(::Sprockets)
+        require_relative "sprockets/skip_builds_compression"
         require_relative "../non_stupid_digest_assets"
         NonStupidDigestAssets.whitelist += [/^tinymce\//]
         app.config.assets.precompile << "alchemy_manifest.js"
@@ -25,7 +26,7 @@ module Alchemy
     end
 
     initializer "alchemy.admin_stylesheets" do |app|
-      if defined?(Sprockets)
+      if defined?(::Sprockets)
         Alchemy.config.admin_stylesheets.each do |stylesheet|
           app.config.assets.precompile << stylesheet
         end
@@ -33,7 +34,7 @@ module Alchemy
     end
 
     initializer "alchemy.propshaft" do |app|
-      if defined?(Propshaft)
+      if defined?(::Propshaft)
         if app.config.assets.server
           # Monkey-patch Propshaft::Asset to enable access
           # of TinyMCE assets without a hash digest.

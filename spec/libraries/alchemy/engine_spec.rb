@@ -13,8 +13,7 @@ RSpec.describe Alchemy::Engine do
 
     context "when sprockets is not defined" do
       before do
-        Object.send(:remove_const, :Sprockets)
-      rescue NameError
+        hide_const("Sprockets")
       end
 
       it "does not add alchemy/admin/custom.css" do
