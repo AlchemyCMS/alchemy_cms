@@ -126,6 +126,9 @@ export class Dialog {
   init() {
     Hotkeys(this.dialog_body)
     this.watch_remote_forms()
+    window.requestAnimationFrame(() => {
+      this.dialog_body.find("[autofocus]").focus()
+    })
   }
 
   // Watches ajax requests inside of dialog body and replaces the content accordingly
