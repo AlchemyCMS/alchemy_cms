@@ -2111,7 +2111,7 @@ module Alchemy
 
       describe "#status" do
         it "returns a combined status hash" do
-          expect(page.status).to eq({public: true, restricted: false, locked: false})
+          expect(page.status).to eq({public: true, restricted: false, locked: false, scheduled: false})
         end
       end
 
@@ -2140,6 +2140,30 @@ module Alchemy
 
         it "returns a translated status string for restricted status" do
           expect(page.status_message(:restricted)).to eq("Page is accessible by all visitors.")
+        end
+
+        it "returns a translated status string for scheduled status" do
+          expect(page.status_message(:scheduled)).to eq("")
+        end
+
+        context "with a page that is scheduled to be public in the future" do
+          let(:page) do
+            create(:alchemy_page, :public, public_on: 2.days.from_now)
+          end
+
+          it "returns a translated status string for scheduled status" do
+            expect(page.status_message(:scheduled)).to match(/Page is visible from/)
+          end
+        end
+
+        context "with a page that is scheduled to be unpbulic in the future" do
+          let(:page) do
+            create(:alchemy_page, :public, public_until: 2.days.from_now)
+          end
+
+          it "returns a translated status string for scheduled status" do
+            expect(page.status_message(:scheduled)).to match(/Page is visible until/)
+          end
         end
       end
     end

@@ -247,6 +247,11 @@ alchemy-sitemap {
   justify-content: center;
   align-items: center;
   gap: var(--spacing-1);
+
+  alchemy-icon {
+    position: relative;
+    top: 0.1ex;
+  }
 }
 
 #page_filter_result {

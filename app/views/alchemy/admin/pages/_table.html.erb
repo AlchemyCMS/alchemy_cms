@@ -33,24 +33,7 @@
   <% end %>
   <% table.column :updated_at, sortable: true %>
   <% table.column :status, class_name: :right do |page| %>
-    <% if page.locked? %>
-      <span class="page_status locked">
-        <%= render_icon(:edit, size: "1x") %>
-        <%= page.status_title(:locked) %>
-      </span>
-    <% end %>
-    <% if page.restricted? %>
-      <span class="page_status">
-        <%= render_icon(:lock, size: "1x") %>
-        <%= page.status_title(:restricted) %>
-      </span>
-    <% end %>
-    <% unless page.public? %>
-      <span class="page_status">
-        <%= render_icon("cloud-off", size: "1x") %>
-        <%= page.status_title(:public) %>
-      </span>
-    <% end %>
+    <%= render Alchemy::Admin::PageStatusIndicators.new(page:) %>
   <% end %>
 
   <% table.with_action :info, Alchemy.t(:page_infos) do |page| %>

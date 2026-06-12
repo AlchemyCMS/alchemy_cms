@@ -65,26 +65,7 @@
       </div>
 
       <div class="page_infos">
-        <% if @page.locked? %>
-          <span class="page_status locked">
-            <alchemy-icon name="edit" size="1x"></alchemy-icon>
-            <%= @page.status_title(:locked) %>
-          </span>
-        <% end %>
-
-        <% if @page.restricted? %>
-          <span class="page_status">
-            <alchemy-icon name="lock" size="1x"></alchemy-icon>
-            <%= @page.status_title(:restricted) %>
-          </span>
-        <% end %>
-
-        <% unless @page.public? %>
-          <span class="page_status">
-            <alchemy-icon name="cloud-off" size="1x"></alchemy-icon>
-            <%= @page.status_title(:public) %>
-          </span>
-        <% end %>
+        <%= render Alchemy::Admin::PageStatusIndicators.new(page: @page) %>
       </div>
 
       <div class="sitemap_right_tools">
