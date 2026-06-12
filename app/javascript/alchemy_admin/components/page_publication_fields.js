@@ -10,16 +10,19 @@ export class PagePublicationFields extends HTMLElement {
 
   #onClick = (evt) => {
     const checkbox = evt.target
-    const now = new Date()
+    const date = new Date()
+    const now = new Date(
+      date.getTime() - date.getTimezoneOffset() * 60000
+    ).toISOString()
 
     if (checkbox.checked) {
       this.publicationDateFields.classList.remove("hidden")
-      this.publicOnPicker.flatpickr.setDate(now)
+      this.publicOnPicker.value = now.substring(0, now.indexOf("T") + 6)
     } else {
       this.publicationDateFields.classList.add("hidden")
-      this.publicOnPicker.flatpickr.clear()
+      this.publicOnPicker.value = ""
     }
-    this.publicUntilPicker.flatpickr?.clear()
+    this.publicUntilPicker.value = ""
   }
 
   get publicField() {
@@ -27,11 +30,11 @@ export class PagePublicationFields extends HTMLElement {
   }
 
   get publicOnPicker() {
-    return this.querySelector("alchemy-datepicker:has(#page_public_on)")
+    return this.querySelector("input#page_public_on")
   }
 
   get publicUntilPicker() {
-    return this.querySelector("alchemy-datepicker:has(#page_public_until)")
+    return this.querySelector("input#page_public_until")
   }
 
   get publicationDateFields() {
