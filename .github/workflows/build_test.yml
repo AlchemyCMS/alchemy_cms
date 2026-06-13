@@ -93,6 +93,10 @@ jobs:
             database: postgresql
             storage: active_storage
           - rails: "7.2"
+            ruby: "3.3"
+            database: mariadb
+            storage: dragonfly
+          - rails: "7.2"
             ruby: "3.4"
             database: sqlite
             storage: dragonfly
