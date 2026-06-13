@@ -89,10 +89,6 @@ jobs:
       matrix:
         include:
           - rails: "7.2"
-            ruby: "3.2"
-            database: mariadb
-            storage: dragonfly
-          - rails: "7.2"
             ruby: "3.3"
             database: postgresql
             storage: active_storage
