@@ -181,7 +181,8 @@ td,
     width: 10%;
   }
 
-  &.url {
+  &.url,
+  &.url_path {
     width: 15%;
     white-space: nowrap;
   }
@@ -201,6 +202,14 @@ td,
 
     .page_status {
       margin: 0 var(--spacing-1);
+
+      &:first-of-type {
+        margin-left: 0;
+      }
+
+      &:last-of-type {
+        margin-right: 0;
+      }
     }
   }
 

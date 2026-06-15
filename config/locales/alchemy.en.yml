@@ -577,6 +577,10 @@ en:
       restricted:
         "true": "Page is only accessible by members."
         "false": "Page is accessible by all visitors."
+      scheduled:
+        public_on: "Page is visible from %{public_on}"
+        public_until: "Page is visible until %{public_until}"
+        "false": ""
     page_status_titles:
       public:
         "true": "online"
@@ -587,6 +591,9 @@ en:
       restricted:
         "true": "restricted"
         "false": "accessible"
+      scheduled:
+        "true": "scheduled"
+        "false": ""
     page_status: "Status"
     page_title: "Title"
     page_type: "Type"

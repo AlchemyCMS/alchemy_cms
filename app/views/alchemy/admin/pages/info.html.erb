@@ -35,6 +35,12 @@
         <% end %>
         <%= @page.status_message(:public) %>
       </span>
+      <% if @page.scheduled? %>
+        <span class="page_status">
+          <alchemy-icon name="calendar-schedule" size="1x"></alchemy-icon>
+          <%= @page.status_message(:scheduled) %>
+        </span>
+      <% end %>
       <span class="page_status">
         <% if @page.restricted? %>
           <%= render_icon(:lock, size: "1x") %>
