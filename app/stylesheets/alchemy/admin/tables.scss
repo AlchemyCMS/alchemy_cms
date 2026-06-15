@@ -51,7 +51,7 @@ table {
   }
 
   &.icon {
-    width: 16px;
+    width: var(--spacing-6);
     text-align: center;
     background-color: transparent;
   }
@@ -231,8 +231,10 @@ td.count {
   padding-right: var(--spacing-4);
 }
 
+th.taggings_types,
 td.taggings_types {
-  width: 15%;
+  width: auto;
+  text-align: right;
 }
 
 .list .login_status {

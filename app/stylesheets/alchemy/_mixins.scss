@@ -84,13 +84,7 @@
 }
 
 @mixin form-label {
-  width: var(--form-left-column-width);
-  padding-right: var(--spacing-2);
-  padding-top: 0.6em;
-  margin-top: var(--spacing-1);
-  vertical-align: top;
   word-break: normal;
-  float: left;
   text-align: right;
   font-size: var(--font-size_medium);
   color: var(--form-field-label-color);
@@ -108,7 +102,7 @@
   border: 1px solid $border-color;
   color: $color;
   display: block;
-  clear: both;
+  grid-column: 2;
   border-radius: var(--border-radius_medium);
 }
 

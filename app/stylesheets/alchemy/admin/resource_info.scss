@@ -4,8 +4,6 @@
 .resource-details {
   display: flex;
   gap: var(--spacing-5);
-  --form-left-column-width: 30%;
-  --form-right-column-width: 70%;
 
   > .resource-preview {
     flex-grow: 0;
@@ -29,10 +27,6 @@
     aside {
       width: 50%;
     }
-
-    .resource_info .value p {
-      --max-width: 287px;
-    }
   }
 }
 
@@ -49,15 +43,22 @@
 .resource_info {
   .value {
     position: relative;
-    @include mixins.clearfix;
+    display: grid;
+    grid-template-columns: var(--form-left-column-width) var(
+        --form-right-column-width
+      );
+    align-items: baseline;
+    gap: 0 var(--spacing-2);
 
     > label {
       @include mixins.form-label;
+
+      alchemy-icon {
+        vertical-align: middle;
+      }
     }
 
     > p {
-      float: right;
-      width: var(--form-right-column-width);
       margin: var(--form-field-margin);
       padding: var(--spacing-1) var(--spacing-2);
       line-height: 21px;
@@ -66,7 +67,7 @@
       border-radius: var(--border-radius_medium);
 
       &:not(.value-block) {
-        @include mixins.truncate(var(--form-right-column-width), $wrap: nowrap);
+        @include mixins.truncate(100%, $wrap: nowrap);
       }
 
       &.value-block {
@@ -81,7 +82,6 @@
       > p {
         white-space: nowrap;
         padding-right: var(--spacing-10);
-        max-width: var(--max-width, 328px);
       }
     }
   }
@@ -109,12 +109,6 @@
   &.file-infos .value {
     label {
       text-align: left;
-      width: 30%;
-    }
-
-    p {
-      max-width: 70%;
-      width: 70%;
     }
   }
 }

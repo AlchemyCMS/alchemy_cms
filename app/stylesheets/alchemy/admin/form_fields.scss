@@ -46,7 +46,7 @@ textarea {
 
 .alchemy-char-counter {
   display: block;
-  clear: both;
+  grid-column: 2;
   text-align: right;
 
   &.too-long {
@@ -71,8 +71,8 @@ fieldset {
   color: var(--border-color);
 }
 
-.page-publication-date-fields {
-  margin: var(--spacing-2) 0;
+form .input .page-publication-date-fields.input-row {
+  margin: var(--spacing-4) 0 var(--spacing-2) 0;
 
   &.hidden {
     display: none;
