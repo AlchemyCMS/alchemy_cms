@@ -18,8 +18,6 @@ module Alchemy
         when /^alchemy\/page_layouts\/_(\w+)/
           page_definition = PageDefinition.get($1)
           page_definition.elements.map { "alchemy/elements/_#{_1}" }
-        when /^alchemy\/elements\/_(\w+)/
-          ingredient_types($1).map { "alchemy/ingredients/_#{_1.underscore}_view" }.tap(&:uniq!)
         else
           ActionView::DependencyTracker::ERBTracker.call(@name, @template)
         end
