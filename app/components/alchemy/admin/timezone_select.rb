@@ -22,7 +22,7 @@ module Alchemy
 
       def popover_content
         content_tag(:div, class: "alchemy-popover") do
-          form_tag(helpers.url_for, method: :get, class: "timezone-select") do
+          form_tag(request.path, method: :get, class: "timezone-select") do
             label_tag(:admin_timezone, Alchemy.t(:timezone)) +
               content_tag("alchemy-auto-submit") do
                 select_tag(
