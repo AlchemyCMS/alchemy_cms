@@ -32,7 +32,7 @@
   <% end %>
 
   <%= alchemy_form_for [:publish, :admin, element], remote: false, data: {turbo: true} do |f| %>
-    <%= render "alchemy/admin/elements/schedule_fields", element: %>
+    <%= render "alchemy/admin/elements/schedule_fields", element:, form: f %>
     <div class="submit">
       <button
         type="button"
