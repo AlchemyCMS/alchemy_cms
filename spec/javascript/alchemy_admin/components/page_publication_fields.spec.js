@@ -12,20 +12,20 @@ describe("alchemy-page-publication-fields", () => {
   let publicUntilField = undefined
   let publicationDateFields = undefined
 
-  let publicOnPicker = undefined
-  let publicUntilPicker = undefined
-
   beforeEach(() => {
+    // Freeze time and force a fixed timezone offset so the expected local
+    // value is deterministic. -120 means UTC+2, i.e. local time is two hours
+    // ahead of UTC.
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date("2026-06-12T10:00:00Z"))
+    vi.spyOn(Date.prototype, "getTimezoneOffset").mockReturnValue(-120)
+
     const html = `
       <alchemy-page-publication-fields>
         <input type="checkbox" id="page_public">
         <div class="page-publication-date-fields hidden">
-          <alchemy-datepicker>
-            <input type="text" id="page_public_on">
-          </alchemy-datepicker>
-          <alchemy-datepicker>
-            <input type="text" id="page_public_until">
-          </alchemy-datepicker>
+          <input type="datetime-local" id="page_public_on">
+          <input type="datetime-local" id="page_public_until">
         </div>
       </alchemy-page-publication-fields>
     `
@@ -33,24 +33,14 @@ describe("alchemy-page-publication-fields", () => {
     publicCheckbox = component.querySelector("#page_public")
     publicOnField = component.querySelector("#page_public_on")
     publicUntilField = component.querySelector("#page_public_until")
-    publicOnPicker = component.querySelector(
-      "alchemy-datepicker:has(#page_public_on)"
-    )
-    publicUntilPicker = component.querySelector(
-      "alchemy-datepicker:has(#page_public_until)"
-    )
     publicationDateFields = component.querySelector(
       ".page-publication-date-fields"
     )
+  })
 
-    // Mock flatpickr instance on the alchemy-datepicker components
-    publicOnPicker.flatpickr = {
-      setDate: vi.fn(),
-      clear: vi.fn()
-    }
-    publicUntilPicker.flatpickr = {
-      clear: vi.fn()
-    }
+  afterEach(() => {
+    vi.useRealTimers()
+    vi.restoreAllMocks()
   })
 
   describe("when public checkbox is checked", () => {
@@ -63,15 +53,14 @@ describe("alchemy-page-publication-fields", () => {
       expect(publicationDateFields.classList.contains("hidden")).toBeFalsy()
     })
 
-    it("sets the public_on date to now", () => {
-      expect(publicOnPicker.flatpickr.setDate).toHaveBeenCalled()
-      const calledWith = publicOnPicker.flatpickr.setDate.mock.calls[0][0]
-      expect(calledWith).toBeInstanceOf(Date)
+    it("sets the public_on field to the current local date and time", () => {
+      // UTC time is 10:00, local time (UTC+2) is 12:00. The datetime-local
+      // field must hold the local representation without a timezone suffix.
+      expect(publicOnField.value).toEqual("2026-06-12T12:00")
     })
 
     it("clears the public_until field", () => {
-      publicCheckbox.dispatchEvent(new Event("click", { bubbles: true }))
-      expect(publicUntilPicker.flatpickr.clear).toHaveBeenCalled()
+      expect(publicUntilField.value).toEqual("")
     })
   })
 
@@ -79,8 +68,8 @@ describe("alchemy-page-publication-fields", () => {
     beforeEach(() => {
       publicCheckbox.checked = false
       publicationDateFields.classList.remove("hidden")
-      publicOnField.value = "2025-01-01"
-      publicUntilField.value = "2025-12-31"
+      publicOnField.value = "2025-01-01T00:00"
+      publicUntilField.value = "2025-12-31T00:00"
       publicCheckbox.dispatchEvent(new Event("click", { bubbles: true }))
     })
 
@@ -88,16 +77,12 @@ describe("alchemy-page-publication-fields", () => {
       expect(publicationDateFields.classList.contains("hidden")).toBeTruthy()
     })
 
-    it("clears the public_on field via flatpickr", () => {
-      expect(publicOnPicker.flatpickr.clear).toHaveBeenCalled()
+    it("clears the public_on field", () => {
+      expect(publicOnField.value).toEqual("")
     })
 
-    it("clears the public_until field via flatpickr", () => {
-      expect(publicUntilPicker.flatpickr.clear).toHaveBeenCalled()
-    })
-
-    it("does not call flatpickr setDate", () => {
-      expect(publicOnPicker.flatpickr.setDate).not.toHaveBeenCalled()
+    it("clears the public_until field", () => {
+      expect(publicUntilField.value).toEqual("")
     })
   })
 
@@ -106,12 +91,8 @@ describe("alchemy-page-publication-fields", () => {
       const html = `
         <alchemy-page-publication-fields>
           <div class="page-publication-date-fields hidden">
-            <alchemy-datepicker>
-              <input type="text" id="page_public_on">
-            </alchemy-datepicker>
-            <alchemy-datepicker>
-              <input type="text" id="page_public_until">
-            </alchemy-datepicker>
+            <input type="datetime-local" id="page_public_on">
+            <input type="datetime-local" id="page_public_until">
           </div>
         </alchemy-page-publication-fields>
       `
@@ -127,19 +108,19 @@ describe("alchemy-page-publication-fields", () => {
       publicCheckbox.checked = true
       publicCheckbox.dispatchEvent(new Event("click", { bubbles: true }))
       expect(publicationDateFields.classList.contains("hidden")).toBeFalsy()
-      expect(publicOnPicker.flatpickr.setDate).toHaveBeenCalledTimes(1)
+      expect(publicOnField.value).toEqual("2026-06-12T12:00")
 
       // Uncheck
       publicCheckbox.checked = false
       publicCheckbox.dispatchEvent(new Event("click", { bubbles: true }))
       expect(publicationDateFields.classList.contains("hidden")).toBeTruthy()
-      expect(publicOnPicker.flatpickr.clear).toHaveBeenCalledTimes(1)
+      expect(publicOnField.value).toEqual("")
 
       // Check again
       publicCheckbox.checked = true
       publicCheckbox.dispatchEvent(new Event("click", { bubbles: true }))
       expect(publicationDateFields.classList.contains("hidden")).toBeFalsy()
-      expect(publicOnPicker.flatpickr.setDate).toHaveBeenCalledTimes(2)
+      expect(publicOnField.value).toEqual("2026-06-12T12:00")
     })
   })
 })
