@@ -57,6 +57,7 @@ module Alchemy
       def ingredient_by_role(role)
         element.ingredient_by_role(role)
       end
+      alias_method :ingredient, :ingredient_by_role
     end
 
     # Block-level helper for element views. Constructs a DOM element wrapping
