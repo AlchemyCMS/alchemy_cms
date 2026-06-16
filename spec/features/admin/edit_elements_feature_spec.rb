@@ -204,8 +204,8 @@ RSpec.describe "The edit elements feature", type: :system do
     it "can schedule element if the schedule button is clicked", :js do
       visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
       expect(page).to have_selector("alchemy-publish-element-button")
-      find("alchemy-publish-element-button sl-button[class=schedule-trigger]").click
-      within(".element-schedule-form") do
+      find("alchemy-publish-element-button sl-button[slot=trigger]").click
+      within("alchemy-publish-element-button .alchemy-popover") do
         expect(page).to have_selector("input[name='element[public_until]']")
         find("input[name='element[public_until]']", visible: :all).set(2.hours.from_now.strftime("%Y-%m-%d %H:%M"))
         click_button("Save")
@@ -228,8 +228,8 @@ RSpec.describe "The edit elements feature", type: :system do
         expect(page).to have_css("option[selected][value='#{future_time.iso8601}']")
       end
 
-      find("alchemy-publish-element-button sl-button[class=schedule-trigger]").click
-      within(".element-schedule-form") do
+      find("alchemy-publish-element-button sl-button[slot=trigger]").click
+      within("alchemy-publish-element-button .alchemy-popover") do
         click_button("Save")
       end
 
