@@ -49,6 +49,7 @@ module Alchemy
       "ingredients",
       "message",
       "nestable_elements",
+      "page_cache",
       "searchable",
       "taggable",
       "warning"

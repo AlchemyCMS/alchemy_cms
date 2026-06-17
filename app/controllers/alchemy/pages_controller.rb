@@ -189,7 +189,10 @@ module Alchemy
     end
 
     def set_expiration_headers
-      if must_not_cache?
+      if page_cache_disabled_by_elements?
+        # no-cache still allows storage and conditional 304 responses, which would skip element-level cache variants.
+        no_store
+      elsif must_not_cache?
         expires_now
       else
         expires_in @page.expiration_time, {public: !@page.restricted}.merge(caching_options)
@@ -247,7 +250,11 @@ module Alchemy
 
     # don't cache pages if we have flash message to display or the page has caching disabled
     def must_not_cache?
-      !caching_enabled? || !@page.cache_page? || flash.present?
+      !caching_enabled? || !@page.cache_page? || flash.present? || page_cache_disabled_by_elements?
+    end
+
+    def page_cache_disabled_by_elements?
+      @page&.find_elements&.any? { |element| element.definition.page_cache == false } || false
     end
 
     def caching_enabled?
