@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Alchemy::Admin::TimezoneSelect, type: :component do
   subject! do
-    allow(vc_test_view_context).to receive(:url_for) { "/admin/dashboard" }
+    allow(vc_test_request).to receive(:path) { "/admin/dashboard" }
     render_inline described_class.new
   end
 
@@ -24,5 +24,9 @@ RSpec.describe Alchemy::Admin::TimezoneSelect, type: :component do
     expect(page).to have_selector(
       "select[name='admin_timezone'] option[selected][value='#{Time.zone.name}']"
     )
+  end
+
+  it "submits the form to the current request path" do
+    expect(page).to have_selector("form.timezone-select[action='/admin/dashboard']")
   end
 end
