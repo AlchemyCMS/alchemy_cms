@@ -124,6 +124,46 @@ RSpec.describe "Page request caching" do
         end
       end
 
+      context "with an element-level page cache opt-out" do
+        around do |example|
+          Alchemy::ElementDefinition.add({"name" => "uncached_element", "page_cache" => false})
+          Alchemy::PageDefinition.add({"name" => "uncached_layout", "elements" => ["uncached_element"]})
+
+          example.run
+        ensure
+          Alchemy::ElementDefinition.reset!
+          Alchemy::PageDefinition.reset!
+        end
+
+        it "sets no-store when a published element disables page caching" do
+          create(:alchemy_element, name: "uncached_element", page_version: page.public_version)
+
+          get "/#{page.urlname}"
+
+          expect(response.headers).to have_key("Cache-Control")
+          expect(response.headers["Cache-Control"]).to eq("no-store")
+        end
+
+        it "keeps page caching when the page layout allows but does not contain an element that disables page caching" do
+          uncached_page = create(:alchemy_page, :public, page_layout: "uncached_layout")
+
+          get "/#{uncached_page.urlname}"
+
+          expect(response.headers).to have_key("Cache-Control")
+          expect(response.headers["Cache-Control"]).to eq("max-age=60, public, must-revalidate")
+        end
+
+        it "renders without conditional cache revalidation when a published element disables page caching" do
+          create(:alchemy_element, name: "uncached_element", page_version: page.public_version)
+
+          expect_any_instance_of(Alchemy::PagesController).not_to receive(:stale?)
+
+          get "/#{page.urlname}", headers: {"If-None-Match" => "\"cached-page\""}
+
+          expect(response.status).to eq(200)
+        end
+      end
+
       it "does not set last-modified header" do
         get "/#{page.urlname}"
         expect(response.headers).to_not have_key("Last-Modified")
