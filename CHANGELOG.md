@@ -1,5 +1,18 @@
 # Changelog
 
+## 8.1.14 (2026-06-17)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
+
+## What's Changed
+### Other Changes
+* [8.1-stable] fix(CollectionOption): Resolve item_type using camelcase by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3923
+* [8.1-stable] fix(layoutpage): Display page icon for not locked pages by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3963
+* [8.1-stable] fix(TemplateTracker): Remove ingredient views by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3966
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.1.13...v8.1.14
+
 ## 8.1.13 (2026-05-20)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
