@@ -1,5 +1,15 @@
 # Changelog
 
+## 8.0.15 (2026-06-18)
+
+## What's Changed
+* [8.0-stable] fix(layoutpage): Display page icon for not locked pages by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3962
+* [8.0-stable] fix(TemplateTracker): Remove ingredient views by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3965
+* [8.0] fix(api): authorize nested pages endpoint against restricted content by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3984
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.0.14...v8.0.15
+
 ## 8.0.14 (2026-05-20)
 
 ## What's Changed
