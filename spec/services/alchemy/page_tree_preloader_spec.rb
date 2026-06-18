@@ -42,8 +42,8 @@ RSpec.describe Alchemy::PageTreePreloader do
       expect(subject.language.association(:site)).to be_loaded
     end
 
-    it "does not preload locker association" do
-      expect(subject.association(:locker)).not_to be_loaded
+    it "preloads the locker association for an admin ability" do
+      expect(subject.association(:locker)).to be_loaded
     end
 
     context "with folded pages" do
@@ -84,20 +84,9 @@ RSpec.describe Alchemy::PageTreePreloader do
         expect(subject.children).to include(public_child)
         expect(subject.children).to_not include(restricted_child)
       end
-    end
 
-    context "with admin_includes: true" do
-      subject do
-        described_class.new(
-          page: root_page.reload,
-          ability: ability,
-          user: user,
-          admin_includes: true
-        ).call
-      end
-
-      it "preloads locker association" do
-        expect(subject.association(:locker)).to be_loaded
+      it "does not preload the locker association" do
+        expect(subject.association(:locker)).not_to be_loaded
       end
     end
   end
