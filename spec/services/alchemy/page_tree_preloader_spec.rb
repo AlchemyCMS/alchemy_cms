@@ -3,7 +3,10 @@
 require "rails_helper"
 
 RSpec.describe Alchemy::PageTreePreloader do
-  let(:user) { create(:alchemy_dummy_user) }
+  # An admin ability can read every page, so the structural tests below see the
+  # whole (otherwise unpublished) tree.
+  let(:user) { create(:alchemy_dummy_user, :as_admin) }
+  let(:ability) { Alchemy::Permissions.new(user) }
   let(:root_page) { create(:alchemy_page, :language_root) }
   let!(:child_page_1) { create(:alchemy_page, parent: root_page) }
   let!(:child_page_2) { create(:alchemy_page, parent: root_page) }
@@ -12,7 +15,7 @@ RSpec.describe Alchemy::PageTreePreloader do
   describe "#call" do
     # Reload root_page to ensure nested set values are current
     # (they become stale after children are added)
-    subject { described_class.new(page: root_page.reload, user: user).call }
+    subject { described_class.new(page: root_page.reload, ability: ability, user: user).call }
 
     it "returns root page" do
       expect(subject).to eq(root_page)
@@ -39,8 +42,8 @@ RSpec.describe Alchemy::PageTreePreloader do
       expect(subject.language.association(:site)).to be_loaded
     end
 
-    it "does not preload locker association" do
-      expect(subject.association(:locker)).not_to be_loaded
+    it "preloads the locker association for an admin ability" do
+      expect(subject.association(:locker)).to be_loaded
     end
 
     context "with folded pages" do
@@ -58,24 +61,32 @@ RSpec.describe Alchemy::PageTreePreloader do
     end
 
     context "without user" do
-      subject { described_class.new(page: root_page.reload).call }
+      subject { described_class.new(page: root_page.reload, ability: ability).call }
 
       it "returns pages with all children loaded" do
         expect(subject.children.first.children).to eq([grandchild_page])
       end
     end
 
-    context "with admin_includes: true" do
+    context "with an ability" do
+      let(:root_page) { create(:alchemy_page, :language_root, :public) }
+      let!(:public_child) { create(:alchemy_page, :public, parent: root_page) }
+      let!(:restricted_child) { create(:alchemy_page, :public, :restricted, parent: root_page) }
+
+      # A guest ability can only read published, non-restricted pages
+      let(:ability) { Alchemy::Permissions.new(nil) }
+
       subject do
-        described_class.new(
-          page: root_page.reload,
-          user: user,
-          admin_includes: true
-        ).call
+        described_class.new(page: root_page.reload, ability: ability).call
       end
 
-      it "preloads locker association" do
-        expect(subject.association(:locker)).to be_loaded
+      it "only includes pages the ability can read" do
+        expect(subject.children).to include(public_child)
+        expect(subject.children).to_not include(restricted_child)
+      end
+
+      it "does not preload the locker association" do
+        expect(subject.association(:locker)).not_to be_loaded
       end
     end
   end
