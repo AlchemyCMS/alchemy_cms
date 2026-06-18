@@ -67,6 +67,7 @@ module Alchemy
       def tree
         @root_page = Alchemy::PageTreePreloader.new(
           page: @current_language.root_page,
+          ability: current_ability,
           user: current_alchemy_user,
           admin_includes: true
         ).call
@@ -180,6 +181,7 @@ module Alchemy
             if was_folded
               @page = PageTreePreloader.new(
                 page: @page,
+                ability: current_ability,
                 user: current_alchemy_user,
                 admin_includes: true
               ).call

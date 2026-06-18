@@ -7,15 +7,17 @@ module Alchemy
   # It handles folded pages and preloads all necessary associations.
   #
   # @example Preload subtree from a specific page
-  #   preloader = Alchemy::PageTreePreloader.new(page: page, user: current_user)
+  #   preloader = Alchemy::PageTreePreloader.new(page: page, ability: current_ability, user: current_user)
   #   page_with_descendants = preloader.call
   #
   class PageTreePreloader
     # @param page [Page] Starting page for loading descendants
+    # @param ability [CanCan::Ability] Ability used to scope descendants to readable pages
     # @param user [User, nil] User for folding support
     # @param admin_includes [Boolean] Whether to include admin-only associations like :locker
-    def initialize(page:, user: nil, admin_includes: false)
+    def initialize(page:, ability:, user: nil, admin_includes: false)
       @page = page
+      @ability = ability
       @user = user
       @admin_includes = admin_includes
     end
@@ -24,7 +26,7 @@ module Alchemy
     #
     # @return [Array<Page>] Pages with preloaded children, or array with single page when using from:
     def call
-      pages = page.self_and_descendants
+      pages = page.self_and_descendants.accessible_by(ability, :read)
       folded_page_ids = load_folded_page_ids
       if folded_page_ids.any?
         pages = pages.where(
@@ -45,7 +47,7 @@ module Alchemy
 
     private
 
-    attr_reader :page, :user, :admin_includes
+    attr_reader :page, :user, :ability, :admin_includes
 
     # Load folded page IDs for the user
     def load_folded_page_ids
