@@ -425,6 +425,51 @@ describe("alchemy-element-editor", () => {
       })
     })
 
+    describe("if element is fixed (has no header)", () => {
+      let pageDirtyListener
+
+      beforeEach(() => {
+        editor = getComponent(`
+          <alchemy-element-editor
+            id="element_123"
+            data-element-id="123"
+            fixed
+          >
+            <form class="element-body">
+              <div class="element_errors"></div>
+              <div class="element-ingredient-editors"></div>
+            </form>
+            <div class="element-footer"></div>
+          </alchemy-element-editor>
+        `)
+        pageDirtyListener = vi.fn()
+        document.addEventListener("alchemy:page-dirty", pageDirtyListener)
+        const data = {
+          status: 200,
+          responseText: JSON.stringify({
+            notice: "Element saved",
+            previewText: "Some preview text",
+            ingredientAnchors: [],
+            pageHasUnpublishedChanges: true,
+            publishButtonTooltip: "There are unpublished changes"
+          })
+        }
+        editor.onSaveElement(data)
+      })
+
+      afterEach(() => {
+        document.removeEventListener("alchemy:page-dirty", pageDirtyListener)
+      })
+
+      it("does not raise when updating the missing title", () => {
+        expect(growl).toHaveBeenCalledWith("Element saved")
+      })
+
+      it("dispatches the page dirty event", () => {
+        expect(pageDirtyListener).toHaveBeenCalled()
+      })
+    })
+
     describe("if response has validation errors", () => {
       beforeEach(() => {
         editor = getComponent(`
@@ -619,6 +664,15 @@ describe("alchemy-element-editor", () => {
       expect(
         editor.querySelector(".element-header .preview_text_quote").textContent
       ).toBe("Foo bar")
+    })
+
+    describe("if element has no header (fixed element)", () => {
+      it("does not raise", () => {
+        editor = getComponent(`
+          <alchemy-element-editor id="element_123" fixed></alchemy-element-editor>
+        `)
+        expect(() => editor.setTitle("Foo bar")).not.toThrow()
+      })
     })
   })
 
