@@ -1,5 +1,14 @@
 # Changelog
 
+## 7.4.15 (2026-06-18)
+
+## What's Changed
+* [7.4] Fix double form submission in picture overlay by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3825
+* [7.4] fix(api): authorize nested pages endpoint against restricted content by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3983
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v7.4.14...v7.4.15
+
 ## 7.4.14 (2026-03-26)
 
 ## What's Changed
