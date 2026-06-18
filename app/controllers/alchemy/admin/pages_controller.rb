@@ -68,8 +68,7 @@ module Alchemy
         @root_page = Alchemy::PageTreePreloader.new(
           page: @current_language.root_page,
           ability: current_ability,
-          user: current_alchemy_user,
-          admin_includes: true
+          user: current_alchemy_user
         ).call
       end
 
@@ -182,8 +181,7 @@ module Alchemy
               @page = PageTreePreloader.new(
                 page: @page,
                 ability: current_ability,
-                user: current_alchemy_user,
-                admin_includes: true
+                user: current_alchemy_user
               ).call
             else
               head 200

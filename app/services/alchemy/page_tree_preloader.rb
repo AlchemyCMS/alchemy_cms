@@ -14,12 +14,10 @@ module Alchemy
     # @param page [Page] Starting page for loading descendants
     # @param ability [CanCan::Ability] Ability used to scope descendants to readable pages
     # @param user [User, nil] User for folding support
-    # @param admin_includes [Boolean] Whether to include admin-only associations like :locker
-    def initialize(page:, ability:, user: nil, admin_includes: false)
+    def initialize(page:, ability:, user: nil)
       @page = page
       @ability = ability
       @user = user
-      @admin_includes = admin_includes
     end
 
     # Preloads and returns the page tree
@@ -47,7 +45,7 @@ module Alchemy
 
     private
 
-    attr_reader :page, :user, :ability, :admin_includes
+    attr_reader :page, :user, :ability
 
     # Load folded page IDs for the user
     def load_folded_page_ids
@@ -95,7 +93,9 @@ module Alchemy
         },
         :public_version
       ]
-      associations.push(:locker) if admin_includes
+      # The admin sitemap (and the serializer's admin fields) render lock info,
+      # so only eager-load the locker when the user may administer pages.
+      associations.push(:locker) if ability.can?(:index, :alchemy_admin_pages)
       associations
     end
   end
