@@ -1,4 +1,4 @@
-web: env RUBY_DEBUG_OPEN=true bin/rails server
-css: bin/rails dartsass:watch
+web: env RUBY_DEBUG_OPEN=true LISTEN_GEM_ADAPTER_WARN_BEHAVIOR=silent bin/rails server
+css: env LISTEN_GEM_ADAPTER_WARN_BEHAVIOR=silent bin/rails dartsass:watch
 sass: cd ../../ && pnpm run build:css --watch
 js: cd ../../ && pnpm run build:admin:dev
