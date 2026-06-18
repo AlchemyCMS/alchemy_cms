@@ -16,6 +16,7 @@ end
 gem "pg", "~> 1.0" if ENV["DB"] == "postgresql"
 
 gem "alchemy_i18n", git: "https://github.com/AlchemyCMS/alchemy_i18n.git", branch: "4.2-stable"
+gem "i18n", "< 1.15" # >= 1.15 needs Ruby 3.2, but we still support Ruby 3.1
 
 group :development, :test do
   gem "execjs", "~> 2.9.1"

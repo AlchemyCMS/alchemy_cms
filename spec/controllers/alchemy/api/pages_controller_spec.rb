@@ -181,6 +181,113 @@ module Alchemy
           end
         end
 
+        context "with restricted and unpublished pages in the tree" do
+          let!(:restricted_page) do
+            create(:alchemy_page, :public, :restricted, name: "Restricted")
+          end
+
+          let!(:unpublished_page) do
+            create(:alchemy_page, name: "Unpublished")
+          end
+
+          def page_names(result)
+            names = []
+            collect = ->(pages) do
+              pages.each do |p|
+                names << p["name"]
+                collect.call(p["children"])
+              end
+            end
+            collect.call(result["pages"])
+            names
+          end
+
+          context "as a guest user" do
+            it "does not leak restricted pages" do
+              get :nested, params: {format: :json}
+
+              result = JSON.parse(response.body)
+              expect(page_names(result)).to_not include("Restricted")
+            end
+
+            it "does not leak unpublished pages" do
+              get :nested, params: {format: :json}
+
+              result = JSON.parse(response.body)
+              expect(page_names(result)).to_not include("Unpublished")
+            end
+
+            it "does not leak restricted page content via elements=true" do
+              element = create(
+                :alchemy_element,
+                name: "article",
+                page: restricted_page,
+                page_version: restricted_page.public_version
+              )
+              create(
+                :alchemy_ingredient_text,
+                element: element,
+                role: "intro",
+                value: "TOPSECRET_RESTRICTED_BODY_proof123"
+              )
+
+              get :nested, params: {elements: "true", format: :json}
+
+              expect(response.body).to_not include("TOPSECRET_RESTRICTED_BODY_proof123")
+            end
+
+            it "denies access to a restricted page requested by page_id" do
+              get :nested, params: {page_id: restricted_page.id, format: :json}
+
+              expect(response.status).to eq(403)
+            end
+
+            it "does not leak a published page nested under an unpublished page" do
+              # Publication is not inherited, so a published child can sit under
+              # an unpublished parent. The parent is filtered out for the guest,
+              # and its descendants must not be re-parented into the visible tree.
+              create(:alchemy_page, :public, parent: unpublished_page, name: "HiddenChild")
+
+              get :nested, params: {format: :json}
+
+              result = JSON.parse(response.body)
+              expect(page_names(result)).to_not include("HiddenChild")
+            end
+          end
+
+          context "as author" do
+            before do
+              authorize_user(build(:alchemy_dummy_user, :as_author))
+            end
+
+            it "still returns restricted and unpublished pages" do
+              get :nested, params: {format: :json}
+
+              result = JSON.parse(response.body)
+              expect(page_names(result)).to include("Restricted", "Unpublished")
+            end
+
+            it "returns restricted page content via elements=true" do
+              element = create(
+                :alchemy_element,
+                name: "article",
+                page: restricted_page,
+                page_version: restricted_page.public_version
+              )
+              create(
+                :alchemy_ingredient_text,
+                element: element,
+                role: "intro",
+                value: "TOPSECRET_RESTRICTED_BODY_proof123"
+              )
+
+              get :nested, params: {elements: "true", format: :json}
+
+              expect(response.body).to include("TOPSECRET_RESTRICTED_BODY_proof123")
+            end
+          end
+        end
+
         context "when a page_id is passed" do
           it "returns all pages as nested json from this page only" do
             get :nested, params: {page_id: page.id, format: :json}
