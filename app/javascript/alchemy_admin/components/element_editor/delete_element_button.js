@@ -3,7 +3,7 @@ import { removeTab } from "alchemy_admin/fixed_elements"
 import { growl } from "alchemy_admin/growler"
 import { reloadPreview } from "alchemy_admin/components/preview_window"
 import { openConfirmDialog } from "alchemy_admin/confirm_dialog"
-import { dispatchPageDirtyEvent } from "alchemy_admin/components/element_editor"
+import { dispatchPageDirtyEvent } from "alchemy_admin/utils/dispatch_page_dirty_event"
 
 export class DeleteElementButton extends HTMLElement {
   connectedCallback() {

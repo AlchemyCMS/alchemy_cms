@@ -2,7 +2,7 @@ import Sortable from "sortablejs"
 import { growl } from "alchemy_admin/growler"
 import { post } from "alchemy_admin/utils/ajax"
 import { reloadPreview } from "alchemy_admin/components/preview_window"
-import { dispatchPageDirtyEvent } from "alchemy_admin/components/element_editor"
+import { dispatchPageDirtyEvent } from "alchemy_admin/utils/dispatch_page_dirty_event"
 
 const SORTABLE_OPTIONS = {
   draggable: ".element-editor",

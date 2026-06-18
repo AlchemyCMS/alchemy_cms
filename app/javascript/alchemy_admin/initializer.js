@@ -1,5 +1,22 @@
 import Hotkeys from "alchemy_admin/hotkeys"
 import pleaseWaitOverlay from "alchemy_admin/please_wait_overlay"
+import { openDialog } from "alchemy_admin/dialog"
+
+// Opens the help dialog when the user presses the "?" key outside of a field.
+function showHelp(evt) {
+  if (
+    !$(evt.target).is("input, textarea") &&
+    String.fromCharCode(evt.which) === "?"
+  ) {
+    openDialog("/admin/help", {
+      title: Alchemy.t("help"),
+      size: "400x492"
+    })
+    return false
+  } else {
+    return true
+  }
+}
 
 export default function Initializer() {
   // We obviously have javascript enabled.
@@ -7,6 +24,10 @@ export default function Initializer() {
 
   // Initialize hotkeys.
   Hotkeys()
+
+  // (Re)bind the help dialog hotkey.
+  document.removeEventListener("keypress", showHelp)
+  document.addEventListener("keypress", showHelp)
 
   // Add observer for please wait overlay.
   document.querySelectorAll(".please_wait").forEach((element) => {
