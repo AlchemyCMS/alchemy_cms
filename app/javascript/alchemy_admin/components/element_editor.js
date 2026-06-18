@@ -250,7 +250,10 @@ export class ElementEditor extends HTMLElement {
    */
   setTitle(title) {
     const quote = this.querySelector(".element-header .preview_text_quote")
-    quote.textContent = title
+    // Fixed elements have no header, so there is no quote to update.
+    if (quote) {
+      quote.textContent = title
+    }
   }
 
   /**
