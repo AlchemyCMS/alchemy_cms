@@ -9,7 +9,21 @@ module Alchemy
     def pages
       tree = []
       path = [{id: object.parent_id, children: tree}]
-      page_list = object.self_and_descendants.includes(:public_version, {language: :site})
+      page_list = object.self_and_descendants
+        .accessible_by(opts[:ability], :read)
+        .includes(:public_version, {language: :site})
+        .to_a
+      # Drop pages whose parent was filtered out by the ability, so a
+      # restricted or unpublished branch does not leak its accessible
+      # descendants. self_and_descendants is ordered pre-order, so a parent
+      # always precedes its children and a single pass is sufficient.
+      kept_ids = Set.new([object.id])
+      page_list = page_list.select do |page|
+        next true if page.id == object.id
+        kept_ids.include?(page.parent_id).tap do |kept|
+          kept_ids << page.id if kept
+        end
+      end
       base_level = object.level - 1
       # Load folded pages in advance
       folded_user_pages = FoldedPage.folded_for_user(opts[:user]).pluck(:page_id)
@@ -83,6 +97,8 @@ module Alchemy
     end
 
     def page_elements(page)
+      return Alchemy::Element.none unless opts[:ability].can?(:read, page)
+
       elements = page.public_version&.elements || Alchemy::Element.none
       if opts[:elements] == "true"
         elements

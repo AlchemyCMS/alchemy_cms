@@ -16,6 +16,7 @@ end
 gem "pg", "~> 1.0" if ENV["DB"] == "postgresql"
 
 gem "alchemy_i18n", github: "AlchemyCMS/alchemy_i18n", branch: "main"
+gem "i18n", "< 1.15" # >= 1.15 needs Ruby 3.2, but we still support Ruby 3.1
 
 if ENV["ALCHEMY_STORAGE_ADAPTER"] == "active_storage"
   gem "ruby-vips"
