@@ -63,6 +63,12 @@ module Alchemy
     end
 
     def page_elements(page)
+      # Pages usually arrive wrapped in a PageTreePage delegator. Unwrap it so
+      # the ability matches the Alchemy::Page rules instead of the delegator
+      # class, while still supporting a plain Alchemy::Page being passed in.
+      authorized_page = page.try(:__getobj__) || page
+      return Alchemy::Element.none unless opts[:ability].can?(:read, authorized_page)
+
       elements = page.public_version&.elements || Alchemy::Element.none
       if opts[:elements] == "true"
         elements
