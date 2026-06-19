@@ -11,7 +11,7 @@ module Alchemy
 
       def call
         if auto_submit
-          form_tag(helpers.url_for, method: :get) do
+          form_tag(request.path, method: :get) do
             content_tag("alchemy-auto-submit", locale_select)
           end
         else
