@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
 
 ENV LD_PRELOAD=libjemalloc.so.2
 ENV RUBY_YJIT_ENABLE=1
+ENV LISTEN_GEM_ADAPTER_WARN_BEHAVIOR=silent
 
 RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - \
     && apt-get install -y nodejs \
@@ -21,5 +22,5 @@ COPY Gemfile Gemfile.lock* alchemy_cms.gemspec ./
 COPY lib/alchemy/version.rb lib/alchemy/version.rb
 RUN bundle install
 
-COPY package.json pnpm-lock.yaml* ./
+COPY package.json pnpm-*.yaml ./
 RUN pnpm install
