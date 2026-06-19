@@ -2,6 +2,34 @@ alchemy-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: var(--icon-size, var(--icon-size-md));
+  height: var(--icon-size, var(--icon-size-md));
+  opacity: 1;
+  transition: opacity var(--transition-duration) var(--transition-easing);
+
+  &:not(:defined) {
+    opacity: 0;
+  }
+
+  &[size="xs"] {
+    width: var(--icon-size-xs);
+    height: var(--icon-size-xs);
+  }
+
+  &[size="sm"] {
+    width: var(--icon-size-sm);
+    height: var(--icon-size-sm);
+  }
+
+  &[size="1x"] {
+    width: var(--icon-size-1x);
+    height: var(--icon-size-1x);
+  }
+
+  &[size="xl"] {
+    width: var(--icon-size-xl);
+    height: var(--icon-size-xl);
+  }
 
   &.disabled {
     opacity: 0.3;

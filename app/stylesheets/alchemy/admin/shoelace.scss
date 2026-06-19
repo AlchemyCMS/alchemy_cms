@@ -292,6 +292,14 @@ sl-dropdown {
     filter: drop-shadow(var(--dialog-box-shadow));
     border: 1px solid var(--border-color);
   }
+
+  // Until sl-dropdown upgrades it has no shadow DOM, so its default-slot panel
+  // (the .alchemy-popover) renders inline and visible; on definition Shoelace
+  // hides the panel, collapsing it and shifting the layout. Hide the panel
+  // content until defined — the [slot="trigger"] stays visible.
+  &:not(:defined) > :not([slot="trigger"]) {
+    display: none;
+  }
 }
 
 sl-tab-group {

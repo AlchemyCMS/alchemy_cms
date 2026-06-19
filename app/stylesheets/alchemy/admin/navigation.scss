@@ -307,3 +307,7 @@
     text-transform: uppercase;
   }
 }
+
+.alchemy-timezone-select {
+  width: 30px; // Reduce FOUC
+}
