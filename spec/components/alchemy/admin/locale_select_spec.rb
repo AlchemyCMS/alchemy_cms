@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe Alchemy::Admin::LocaleSelect, type: :component do
   subject! do
     expect(Alchemy::I18n).to receive(:available_locales) { locales }
-    allow(vc_test_view_context).to receive(:url_for) { "/admin/dashboard" }
+    allow(vc_test_request).to receive(:path) { "/admin/dashboard" }
     render
   end
 
@@ -36,6 +36,10 @@ RSpec.describe Alchemy::Admin::LocaleSelect, type: :component do
 
     it "should return a select with auto submit wrapper" do
       expect(page).to have_selector("alchemy-auto-submit select[name='admin_locale']")
+    end
+
+    it "submits the form to the current request path" do
+      expect(page).to have_selector("form[action='/admin/dashboard']")
     end
 
     context "with auto_submit false" do
