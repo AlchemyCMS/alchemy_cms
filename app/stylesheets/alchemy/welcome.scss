@@ -1,5 +1,8 @@
 @use "custom-properties";
-@use "fonts";
+
+html {
+  font-size: var(--base-font-size);
+}
 
 body {
   background-color: var(--color-blue_dark);
