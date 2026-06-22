@@ -47,7 +47,6 @@
   margin: $margin;
   -webkit-appearance: none;
   transition: all var(--transition-duration);
-  @include antialiased-font-smoothing;
 
   &:hover {
     text-decoration: none;
@@ -212,9 +211,4 @@
 @mixin border-right-radius($radius) {
   border-bottom-right-radius: $radius;
   border-top-right-radius: $radius;
-}
-
-@mixin antialiased-font-smoothing {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }

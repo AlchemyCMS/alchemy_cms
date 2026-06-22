@@ -143,7 +143,6 @@
     font-weight: var(--font-weight_semibold);
     color: var(--main-menu-text-color);
     transition: color var(--transition-duration) var(--transition-easing);
-    @include mixins.antialiased-font-smoothing;
     white-space: nowrap;
 
     &:focus {
