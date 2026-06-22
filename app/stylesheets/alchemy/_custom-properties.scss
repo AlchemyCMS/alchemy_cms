@@ -59,11 +59,11 @@
     Consolas, "DejaVu Sans Mono", monospace;
   --font-sans: system-ui, sans-serif;
 
-  /* Font Size - at the moment only in Pixel, because the base font size is 12px */
-  --font-size_small: 10px; /* 0.875rem */
-  --font-size_medium: 12px; /* 1rem */
-  --font-size_large: 16px; /* 1.25 rem */
-  --font-size_xlarge: 24px; /* 2 rem */
+  --base-font-size: 13px;
+  --font-size_small: 0.875rem;
+  --font-size_medium: 1rem;
+  --font-size_large: 1.25rem;
+  --font-size_xlarge: 2rem;
 
   --font-weight_normal: 500;
   --font-weight_semibold: 600;
