@@ -1,9 +1,12 @@
 <%= turbo_frame_tag @page do %>
   <%= alchemy_form_for [:admin, @page], url: alchemy.admin_layoutpage_path(@page), class: 'edit_page', remote: false do |f| %>
     <%= f.input :name, autofocus: true %>
-    <%= render Alchemy::Admin::TagsAutocomplete.new do %>
-      <%= f.input :tag_list, input_html: { value: f.object.tag_list.join(",") } %>
-    <% end %>
+    <div class="input">
+      <%= f.label :tag_list, class: "control-label" %>
+      <%= render Alchemy::Admin::TagsAutocomplete.new do %>
+        <%= f.text_field :tag_list, value: f.object.tag_list.join(",") %>
+      <% end %>
+    </div>
     <%= f.submit Alchemy.t(:save) %>
   <% end %>
 <% end %>

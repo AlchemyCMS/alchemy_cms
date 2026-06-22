@@ -14,10 +14,6 @@ form {
     padding: 0;
   }
 
-  &.edit_page textarea {
-    height: 67px;
-  }
-
   .control-label {
     @include mixins.form-label;
   }
@@ -29,38 +25,27 @@ form {
   }
 
   .input {
+    display: grid;
+    grid-template-columns: var(--form-left-column-width) minmax(
+        0,
+        var(--form-right-column-width)
+      );
+    align-items: baseline;
+    gap: 0 var(--spacing-2);
     padding: var(--spacing-1) 0;
-    @include mixins.clearfix;
-
-    input[type="url"],
-    input[type="number"],
-    input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    textarea,
-    select,
-    .select2-container,
-    .ts-wrapper,
-    .autocomplete_tag_list,
-    .tinymce_container {
-      width: var(--form-right-column-width);
-      float: right;
-    }
 
     textarea {
       padding-top: 7px;
+      height: 6rem;
     }
 
-    .input > select,
-    .input > .select2-container {
+    .input-row {
+      margin: 0;
+    }
+
+    .select2-container,
+    .select2-choices {
       width: 100%;
-    }
-
-    > .autocomplete_tag_list {
-      .select2-container,
-      .select2-choices {
-        width: 100%;
-      }
     }
 
     ::-webkit-input-placeholder {
@@ -69,39 +54,46 @@ form {
 
     select,
     .select2-container {
-      margin: var(--spacing-1) 0;
+      margin: var(--form-field-margin);
+    }
+
+    &:has(.select2-container:not(.select2-container-multi)) {
+      .control-label {
+        align-self: center;
+      }
     }
 
     &.boolean {
-      margin-left: var(--form-left-column-width);
+      height: var(--form-field-height);
+
+      input,
+      label {
+        grid-column: 2;
+        grid-row: 1;
+        width: max-content;
+        align-self: center;
+        margin: var(--form-field-margin);
+      }
 
       input {
-        margin: 0;
-        margin-right: var(--spacing-0);
-        margin-left: 1px;
-        vertical-align: middle;
+        margin-left: var(--spacing-0);
       }
 
       label {
-        width: 100%;
-        text-align: left;
-        padding: 0;
-        margin: 0;
-        float: none;
-        margin-left: var(--spacing-1);
-        vertical-align: middle;
+        margin-left: var(--spacing-6);
       }
     }
 
     label.checkbox {
       display: flex;
-      align-items: center;
+      align-items: baseline;
       gap: var(--spacing-1);
-      margin: var(--spacing-0) 0 var(--spacing-2);
+      margin: var(--spacing-1) 0;
+      width: max-content;
 
       input {
-        margin-right: var(--spacing-0);
-        margin-left: 1px;
+        align-self: center;
+        margin: 0 var(--spacing-0) 0 1px;
       }
     }
 
@@ -112,6 +104,19 @@ form {
         $color: var(--notice-error-text-color)
       );
       text-align: left;
+    }
+
+    &.tags {
+      .control_group {
+        gap: 0;
+      }
+    }
+
+    &.tinymce_container {
+      label {
+        position: relative;
+        top: calc(-1 * var(--spacing-1));
+      }
     }
   }
 
@@ -147,9 +152,8 @@ form {
   small.error {
     color: var(--notice-error-text-color);
     display: block;
-    margin-left: var(--form-left-column-width);
     line-height: 1.5em;
-    clear: both;
+    grid-column: 2;
     text-align: right;
     margin-bottom: 0.25em;
   }
@@ -205,47 +209,35 @@ form {
   }
 
   .inline-input {
+    display: grid;
     align-items: center;
-    display: flex;
+    grid-template-columns: var(--form-right-column-width) var(
+        --form-left-column-width
+      );
     margin: 0 calc(-1 * var(--spacing-1));
+    gap: var(--spacing-1);
 
     .left-column,
     .right-column {
-      padding: 0 var(--spacing-1);
-    }
-
-    .left-column {
-      width: var(--form-right-column-width);
-    }
-
-    .right-column {
-      width: var(--form-left-column-width);
+      min-width: 0;
     }
 
     button,
     .button,
-    input[type="url"],
-    input[type="text"],
-    input[type="email"],
-    input[type="submit"],
-    input[type="password"] {
+    input[type="submit"] {
       width: 100%;
     }
   }
 
   .control_group {
-    width: var(--form-right-column-width);
-    padding-top: var(--spacing-1);
-    float: right;
-  }
-
-  .check_boxes .control_group {
-    padding-top: 0.6em;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-1);
+    margin: var(--spacing-1) 0;
   }
 
   .input .hint {
     @include mixins.form-hint;
-    margin-left: var(--form-left-column-width);
 
     a[href] {
       color: var(--hint-text-link-color);
@@ -261,12 +253,33 @@ form {
   }
 
   .submit {
-    display: flex;
-    padding: var(--spacing-1) 0;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: var(--form-left-column-width) var(
+        --form-right-column-width
+      );
+    margin: var(--spacing-1) 0;
+    gap: 0 var(--spacing-2);
 
-    > button:last-of-type {
-      margin-left: auto;
+    > button {
+      grid-column: 2;
+      grid-row: 1;
+      width: max-content;
+
+      &:last-of-type {
+        margin-left: auto;
+      }
+    }
+  }
+
+  &.full_width .submit {
+    grid-template-columns: 1fr 1fr;
+
+    button {
+      width: 100%;
+
+      &:first-of-type {
+        grid-column: 1;
+      }
     }
   }
 
@@ -278,31 +291,31 @@ form {
   }
 
   .input-column {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
     width: 50%;
-    padding: 0 var(--spacing-1);
 
-    input[type] {
-      float: none;
-      width: 100%;
+    > label {
+      display: inline-block;
+      margin-bottom: var(--spacing-1);
+      text-align: left;
     }
+
+    select,
+    .select2-container {
+      margin: var(--form-field-margin);
+    }
+  }
+
+  &.full_width .input-column {
+    width: 100%;
   }
 
   .input-row {
     display: flex;
-
-    .input-column {
-      &:first-of-type {
-        padding-left: 0;
-      }
-
-      &:last-of-type {
-        padding-right: 0;
-      }
-    }
+    gap: var(--spacing-2);
+    justify-content: space-between;
+    margin: var(--spacing-2) 0;
   }
-}
-
-.input-column > label {
-  display: block;
-  margin-top: calc(var(--spacing-1) + 1);
 }

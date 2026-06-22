@@ -111,18 +111,28 @@
   padding: var(--spacing-2) var(--spacing-4) var(--spacing-2) var(--spacing-1);
   overflow: auto;
 
-  form .control-label {
-    text-align: left;
-  }
+  form {
+    .control-label {
+      display: block;
+      text-align: left;
+      line-height: var(--form-field-height);
+    }
 
-  form .input .hint {
-    margin-left: 0;
-  }
+    .input {
+      display: block;
 
-  form .input .select2-container,
-  form .input input[type="text"],
-  form .input textarea {
-    width: 100%;
+      alchemy-picture-description-select select {
+        margin: 0;
+      }
+
+      .hint {
+        margin-left: 0;
+      }
+
+      .select2-container {
+        width: 100%;
+      }
+    }
   }
 }
 

@@ -63,9 +63,12 @@
         } %>
     <% end %>
 
-    <%= render Alchemy::Admin::TagsAutocomplete.new do %>
-      <%= f.input :tag_list, input_html: { value: f.object.tag_list.join(",") } %>
-    <% end %>
+    <div class="input">
+      <%= f.label :tag_list, class: "control-label" %>
+      <%= render Alchemy::Admin::TagsAutocomplete.new do %>
+        <%= f.text_field :tag_list, value: f.object.tag_list.join(",") %>
+      <% end %>
+    </div>
 
     <%= hidden_field_tag :view, params[:view] %>
     <%= f.submit Alchemy.t(:save) %>

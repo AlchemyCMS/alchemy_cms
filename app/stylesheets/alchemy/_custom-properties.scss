@@ -92,7 +92,7 @@
     var(--button-border-color);
   --button-font-size: var(--font-size_medium);
   --button-font-weight: var(--font-weight_bold);
-  --button-height: 30px;
+  --button-height: 31px;
   --button-line-height: var(--form-field-line-height);
   --button-margin: var(--form-field-margin);
   --button-padding: var(--spacing-1) var(--spacing-5);
@@ -113,12 +113,12 @@
   --elements-window-transition-easing: ease-in-out;
 
   /* Form */
-  --form-left-column-width: 35%;
-  --form-right-column-width: 65%;
+  --form-left-column-width: 1fr;
+  --form-right-column-width: 2.25fr;
 
   /* Form Field */
   --form-field-margin: var(--spacing-1) 0;
-  --form-field-height: 31px;
+  --form-field-height: var(--button-height);
   --form-field-addon-width: 30px;
   --form-field-border-width: var(--border-width_small);
   --form-field-border-style: var(--border-style);

@@ -27,11 +27,9 @@
     font-size: var(--font-size_small);
   }
 
-  .submit {
-    gap: var(--spacing-2);
-
-    button {
-      width: 50%;
+  form {
+    label {
+      font-size: var(--font-size_small);
     }
   }
 }

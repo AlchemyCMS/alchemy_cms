@@ -31,7 +31,7 @@
     </alchemy-message>
   <% end %>
 
-  <%= alchemy_form_for [:publish, :admin, element], remote: false, data: {turbo: true} do |f| %>
+  <%= alchemy_form_for [:publish, :admin, element], remote: false, data: {turbo: true}, class: "full_width" do |f| %>
     <%= render "alchemy/admin/elements/schedule_fields", element:, form: f %>
     <div class="submit">
       <button

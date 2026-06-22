@@ -11,7 +11,7 @@
     <% if nodes.length > 0 %>
       <% nodes.each do |node| %>
         <tr class="even">
-          <td><%== "#{node.ancestors.map(&:name).join(seperator)}#{seperator}<strong>#{node.name}</strong>" %></td>
+          <td><%== node.ancestors.map(&:name).join(seperator) %><%== seperator %><strong><%== node.name %></strong></td>
           <td class="tools">
             <sl-tooltip content="<%= Alchemy.t("delete_node") %>">
               <%= link_to render_icon(:minus),
@@ -36,13 +36,15 @@
     <%= alchemy_form_for([:admin, @page.nodes.build], id: "new_node_form") do |f| %>
       <%= f.hidden_field :page_id, value: @page.id %>
       <%= f.hidden_field :language_id, value: @page.language_id %>
-
-      <%= render Alchemy::Admin::NodeSelect.new(nil, url: alchemy.api_nodes_path(language_id: @page.language_id, include: :ancestors)) do %>
-        <%= f.text_field :parent_id, class: 'alchemy_selectbox full_width' %>
-      <% end %>
-
-      <div class="submit">
-        <button is="alchemy-button"><%= Alchemy.t(:create_node) %></button>
+      <div class="inline-input">
+        <div class="left-column">
+          <%= render Alchemy::Admin::NodeSelect.new(nil, url: alchemy.api_nodes_path(language_id: @page.language_id, include: :ancestors)) do %>
+            <%= f.text_field :parent_id, class: 'alchemy_selectbox full_width' %>
+          <% end %>
+        </div>
+        <div class="right-column">
+          <button is="alchemy-button"><%= Alchemy.t(:create_node) %></button>
+        </div>
       </div>
     <% end %>
   </fieldset>
