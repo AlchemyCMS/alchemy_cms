@@ -71,7 +71,7 @@ th,
   text-align: left;
   vertical-align: top;
   border-bottom: 1px solid var(--table-border-color);
-  font-weight: bold;
+  font-weight: var(--font-weight_semibold);
 }
 
 tr.even td,
@@ -102,7 +102,7 @@ tr.odd td,
 
 td.heading {
   padding: var(--spacing-1) 0;
-  font-weight: bold;
+  font-weight: var(--font-weight_semibold);
   text-decoration: underline;
 }
 

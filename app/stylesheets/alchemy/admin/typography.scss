@@ -20,34 +20,31 @@ h3,
 .h3,
 h4,
 .h4 {
-  font-weight: bold;
+  font-weight: var(--font-weight_semibold);
 }
 
 h1,
 .h1 {
-  font-size: 1.5rem;
+  font-size: var(--font-size_xlarge);
 }
 
 h2,
 .h2 {
-  font-size: 1.25rem;
+  font-size: var(--font-size_large);
 }
 
 h3,
-.h3 {
-  font-size: 1.125rem;
-}
-
+.h3,
 h4,
 .h4,
 h5,
 .h5 {
-  font-size: 1rem;
+  font-size: var(--font-size_medium);
 }
 
 h5,
 .h5 {
-  font-weight: normal;
+  font-weight: var(--font-weight_normal);
 }
 
 p {
@@ -75,4 +72,9 @@ code {
   margin: 0 0.25ex;
   padding: 0.25em 0.5em;
   vertical-align: baseline;
+}
+
+strong,
+b {
+  font-weight: var(--font-weight_semibold);
 }

@@ -152,11 +152,10 @@
 
 @mixin tag-base($margin: var(--spacing-2) 0, $padding: var(--spacing-2)) {
   @include label-base($margin: $margin, $padding: $padding);
-  line-height: 1.3;
 
   &:before {
     display: inline-flex;
-    align-self: start;
+    align-self: center;
     flex-shrink: 0;
     content: "";
     background-image: var(--tag-background-image);

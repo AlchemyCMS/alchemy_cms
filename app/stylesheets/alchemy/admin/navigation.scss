@@ -140,7 +140,7 @@
     align-items: center;
     height: 46px;
     padding-left: 14px;
-    font-weight: bold;
+    font-weight: var(--font-weight_semibold);
     color: var(--main-menu-text-color);
     transition: color var(--transition-duration) var(--transition-easing);
     @include mixins.antialiased-font-smoothing;

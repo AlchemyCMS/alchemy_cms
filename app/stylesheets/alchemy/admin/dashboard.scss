@@ -22,8 +22,8 @@
     }
 
     h1 {
-      font-size: var(--font-size_large);
       margin-top: 0;
+      margin-bottom: var(--spacing-4);
     }
 
     p {
@@ -118,7 +118,7 @@
         padding: var(--spacing-4);
 
         .count {
-          font-weight: bold;
+          font-weight: var(--font-weight_semibold);
           font-size: var(--font-size_xlarge);
         }
       }
@@ -193,7 +193,7 @@
       align-items: center;
       justify-content: space-between;
       padding: var(--spacing-3) var(--spacing-4);
-      font-weight: var(--font-weight_bold);
+      font-weight: var(--font-weight_semibold);
       line-height: 1.6;
       border-bottom: 2px solid var(--table-border-color);
 
@@ -391,7 +391,7 @@
     }
 
     .version {
-      font-weight: var(--font-weight_bold);
+      font-weight: var(--font-weight_semibold);
     }
 
     .ruby-rails-version {
