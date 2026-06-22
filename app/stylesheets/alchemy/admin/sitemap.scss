@@ -252,6 +252,14 @@ alchemy-sitemap {
     position: relative;
     top: 0.1ex;
   }
+
+  .resource_info & {
+    align-items: baseline;
+
+    alchemy-icon {
+      top: 0.3ex;
+    }
+  }
 }
 
 #page_filter_result {
