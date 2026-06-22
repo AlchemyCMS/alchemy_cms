@@ -1,19 +1,34 @@
 name: alchemy_cms
 
 services:
+  deps:
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+    command: bash -c "bundle check || bundle install && pnpm install"
+    volumes:
+      - .:/workspace
+      - bundle:/usr/local/bundle
+      - node_modules:/workspace/node_modules
+
   web:
     build:
       context: .
       dockerfile: .devcontainer/Dockerfile
-    command: bash -c "cd spec/dummy && bin/rails db:prepare && bin/rails server -b 0.0.0.0"
+    command: bash -c "cd spec/dummy && rm -f tmp/pids/server.pid && bin/rails db:prepare && exec bin/rails server -b 0.0.0.0"
     ports:
       - "3000:3000"
     volumes:
       - .:/workspace
+      - bundle:/usr/local/bundle
       - node_modules:/workspace/node_modules
     depends_on:
-      - css
-      - js
+      deps:
+        condition: service_completed_successfully
+      css:
+        condition: service_started
+      js:
+        condition: service_started
 
   sass:
     build:
@@ -22,7 +37,11 @@ services:
     command: pnpm run build:css --watch
     volumes:
       - .:/workspace
+      - bundle:/usr/local/bundle
       - node_modules:/workspace/node_modules
+    depends_on:
+      deps:
+        condition: service_completed_successfully
 
   css:
     build:
@@ -31,7 +50,11 @@ services:
     command: bash -c "cd spec/dummy && bin/rails dartsass:watch"
     volumes:
       - .:/workspace
+      - bundle:/usr/local/bundle
       - node_modules:/workspace/node_modules
+    depends_on:
+      deps:
+        condition: service_completed_successfully
 
   js:
     build:
@@ -40,7 +63,12 @@ services:
     command: pnpm run build:admin:dev
     volumes:
       - .:/workspace
+      - bundle:/usr/local/bundle
       - node_modules:/workspace/node_modules
+    depends_on:
+      deps:
+        condition: service_completed_successfully
 
 volumes:
+  bundle:
   node_modules:
