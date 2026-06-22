@@ -1,18 +1,11 @@
 import IngredientAnchorLink from "alchemy_admin/ingredient_anchor_link"
 import { post } from "alchemy_admin/utils/ajax"
 import { createHtmlElement } from "alchemy_admin/utils/dom_helpers"
+import { dispatchPageDirtyEvent } from "alchemy_admin/utils/dispatch_page_dirty_event"
 import { growl } from "alchemy_admin/growler"
 
 import "alchemy_admin/components/element_editor/publish_element_button"
 import "alchemy_admin/components/element_editor/delete_element_button"
-
-export function dispatchPageDirtyEvent(data) {
-  document.dispatchEvent(
-    new CustomEvent("alchemy:page-dirty", {
-      detail: { tooltip: data.publishButtonTooltip }
-    })
-  )
-}
 
 export class ElementEditor extends HTMLElement {
   #form = null

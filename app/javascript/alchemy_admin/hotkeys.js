@@ -1,22 +1,6 @@
 import "keymaster"
-import { openDialog } from "alchemy_admin/dialog"
 
 const bindedHotkeys = []
-
-function showHelp(evt) {
-  if (
-    !$(evt.target).is("input, textarea") &&
-    String.fromCharCode(evt.which) === "?"
-  ) {
-    openDialog("/admin/help", {
-      title: Alchemy.t("help"),
-      size: "400x492"
-    })
-    return false
-  } else {
-    return true
-  }
-}
 
 export default function (scope = document) {
   // The scope can be a jQuery object because we still use jQuery in alchemy_admin/dialog.js.
@@ -26,8 +10,6 @@ export default function (scope = document) {
 
   // Unbind all previously registered hotkeys if we are not inside a dialog.
   if (scope === document) {
-    document.removeEventListener("keypress", showHelp)
-    document.addEventListener("keypress", showHelp)
     bindedHotkeys.forEach((hotkey) => key.unbind(hotkey))
   }
 
