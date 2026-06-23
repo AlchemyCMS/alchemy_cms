@@ -108,6 +108,12 @@ form {
     }
 
     &.tags {
+      .control-label {
+        align-self: start;
+        position: relative;
+        top: 0.8em;
+      }
+
       .control_group {
         gap: 0;
       }
