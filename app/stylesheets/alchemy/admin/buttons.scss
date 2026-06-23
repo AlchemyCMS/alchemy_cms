@@ -35,6 +35,7 @@ input.button {
     padding: var(--button-small-padding);
     line-height: var(--spacing-4);
     font-size: var(--font-size_small);
+    height: auto;
   }
 
   &.with_icon {
