@@ -138,7 +138,7 @@
   $padding: var(--spacing-1) var(--spacing-3)
 ) {
   display: inline-flex;
-  align-items: center;
+  align-items: baseline;
   gap: var(--spacing-1);
   vertical-align: middle;
   padding: $padding;
@@ -156,13 +156,15 @@
 
   &:before {
     display: inline-flex;
-    align-self: center;
+    align-self: baseline;
     flex-shrink: 0;
     content: "";
     background-image: var(--tag-background-image);
-    width: 12px;
-    height: 12px;
-    margin-top: var(--spacing-0);
+    width: var(--icon-size, var(--icon-size-1x));
+    height: var(--icon-size, var(--icon-size-1x));
+    margin-right: var(--spacing-0);
+    position: relative;
+    top: 0.25ex;
   }
 
   &:focus {

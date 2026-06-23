@@ -59,14 +59,27 @@
             background-image: var(--tag-active-background-image);
           }
         }
+
+        .taggings-count {
+          color: var(--badge-text-color);
+        }
       }
     }
+  }
+
+  .taggings-count {
+    background-color: var(--badge-background-color);
+    color: var(--badge-text-color);
+    padding: var(--spacing-0) var(--spacing-1);
+    font-size: var(--font-size_small);
+    font-weight: var(--font-weight_semibold);
+    border-radius: var(--border-radius_medium);
+    margin-left: auto;
   }
 }
 
 .tag {
   pointer-events: none;
-  font-size: var(--font-size_small);
   @include mixins.tag-base(
     $margin: var(--spacing-0) 0,
     $padding: var(--spacing-1) var(--spacing-2) var(--spacing-1)
