@@ -221,7 +221,6 @@ form {
     grid-template-columns: var(--form-right-column-width) var(
         --form-left-column-width
       );
-    margin: 0 calc(-1 * var(--spacing-1));
     gap: var(--spacing-1);
 
     .left-column,
