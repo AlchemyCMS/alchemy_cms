@@ -128,14 +128,9 @@
       padding: var(--spacing-1) 22px;
       background-image: var(--tag-background-image);
       background-repeat: no-repeat;
-      background-position: 6px;
+      background-position: var(--spacing-1);
       background-color: var(--tag-background-color);
       background-size: 1rem;
-
-      > div {
-        position: relative;
-        top: -1px;
-      }
     }
   }
 }
