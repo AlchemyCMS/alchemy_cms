@@ -1,5 +1,75 @@
 # Changelog
 
+## 8.3.0 (2026-06-23)
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### Breaking Changes
+* Remove AlchemyHTMLElement by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3846
+* CI: Remove Ruby 3.2 from test matrix by @tvdeyen with @Copilot in https://github.com/AlchemyCMS/alchemy_cms/pull/3955
+### New Features
+* Add support for wildcard urls by @kulturbande in https://github.com/AlchemyCMS/alchemy_cms/pull/3776
+* New Dashboard by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3894
+* feat: Split publication schedule forms by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3865
+* feat: Conditional dashboard widgets by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3915
+* feat(ClassOption): Allow array with arguments as value by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3920
+* feat: Configurable dashboard widgets by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3917
+* Migrate alchemy-select to tom-select by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3931
+* feat(SystemInfo): Display git source info by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3933
+* fix(Cropper): Only store crop data on apply by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3934
+* feat: New ingredient group styling by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3939
+* Update Tinymce to 8.6.0 by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3945
+* feat: Invalidate elements cache if related object changes by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3951
+* feat(pages): Show page schedule time by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3959
+* feat(element_view_for): Add `el.ingredient` alias by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3969
+* feat(element/schedule): Pass the form into the partial by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3970
+* feat(resource views): Pass resource variable into form by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3972
+* feat(Forms): Use CSS grid for form rows. by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3996
+* feat(Admin): Reduce FOUC by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4000
+### Bug Fixes
+* Fix custom elements setup and teardown by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3841
+* fix(assets): Skip SassC compression for prebuilt admin CSS by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3952
+* fix(Dialog): Autofocus fields after rendering by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3958
+### Dependencies
+* chore(deps-dev): bump vitest from 4.1.3 to 4.1.4 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3828
+* chore(deps-dev): update puma requirement from ~> 7.0 to ~> 8.0 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3829
+* chore(deps-dev): bump prettier from 3.8.1 to 3.8.2 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3831
+* chore(deps-dev): bump prettier from 3.8.2 to 3.8.3 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3837
+* chore(deps-dev): bump rollup from 4.60.1 to 4.60.2 in the rollup group by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3842
+* chore(deps-dev): bump vitest from 4.1.4 to 4.1.5 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3843
+* chore(deps-dev): bump eslint from 10.2.0 to 10.2.1 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3839
+* chore(deps-dev): bump jsdom from 29.0.2 to 29.1.0 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3858
+* chore(deps): bump tinymce from 8.4.0 to 8.5.0 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3868
+* chore(deps-dev): bump jsdom from 29.1.0 to 29.1.1 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3880
+* chore(deps-dev): bump eslint from 10.2.1 to 10.3.0 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3889
+* chore(deps-dev): bump rollup from 4.60.2 to 4.60.3 in the rollup group by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3891
+* chore(deps-dev): bump eslint from 10.3.0 to 10.4.0 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3898
+* chore(deps-dev): bump rollup from 4.60.3 to 4.60.4 in the rollup group across 1 directory by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3897
+* chore(deps-dev): bump vitest from 4.1.5 to 4.1.6 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3895
+* chore(deps): bump tinymce from 8.5.0 to 8.5.1 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3906
+* chore(deps-dev): bump vitest from 4.1.6 to 4.1.7 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3910
+* chore(deps): Allow image_processing 2.0 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3909
+* chore(deps-dev): bump sass from 1.99.0 to 1.100.0 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3911
+* chore(deps-dev): bump eslint from 10.4.0 to 10.4.1 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3943
+* chore(deps-dev): bump @rollup/plugin-commonjs from 29.0.2 to 29.0.3 in the rollup group by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3942
+* chore(deps-dev): bump vitest from 4.1.7 to 4.1.8 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3949
+* chore(deps-dev): bump rollup from 4.60.4 to 4.61.0 in the rollup group across 1 directory by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3948
+* chore(deps-dev): bump rollup from 4.61.0 to 4.61.1 in the rollup group by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3953
+* chore(deps-dev): update shoulda-matchers requirement from ~> 7.0 to ~> 8.0 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3954
+* chore(deps-dev): bump prettier from 3.8.3 to 3.8.4 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3975
+* chore(deps-dev): bump sass from 1.100.0 to 1.101.0 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3993
+* chore(deps-dev): bump eslint from 10.4.1 to 10.5.0 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/3999
+### Other Changes
+* chore(PageVersion): Use instance methods of Publishable by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3853
+* chore: Migrate bun to pnpm by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3925
+* chore: Lint for Ruby 3.3 by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3961
+* refactor(admin): break circular dependencies in admin bundle by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3994
+* build(docker): make compose dev stack build and boot reliably by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/3995
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.2.6...v8.3.0
+
 ## 8.2.0 (2026-04-08)
 
 <!-- Release notes generated using configuration in .github/release.yml at main -->
