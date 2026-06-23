@@ -195,6 +195,7 @@ select {
         box-shadow: none;
         color: var(--text-color);
         background-color: var(--tag-background-color);
+        font-weight: var(--label-font-weight);
       }
 
       .select2-search-field {

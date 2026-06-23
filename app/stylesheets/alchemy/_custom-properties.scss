@@ -60,7 +60,7 @@
   --font-sans: system-ui, sans-serif;
 
   --base-font-size: 13px;
-  --font-size_small: 0.875rem;
+  --font-size_small: 0.85rem;
   --font-size_medium: 1rem;
   --font-size_large: 1.25rem;
   --font-size_xlarge: 2rem;
@@ -139,11 +139,14 @@
 
   /* Icons */
   --icon-size-xs: 0.75rem;
-  --icon-size-sm: 0.875rem;
+  --icon-size-sm: 0.85rem;
   --icon-size-1x: 1rem;
   --icon-size-md: 1.3rem;
   --icon-size-xl: 1.5rem;
   --icon-size-xxl: 1.6rem;
+
+  /* Labels */
+  --label-font-weight: 500;
 
   /* Navigation */
   --main-menu-width: 170px;

@@ -90,6 +90,7 @@ form {
       gap: var(--spacing-1);
       margin: var(--spacing-1) 0;
       width: max-content;
+      font-weight: var(--label-font-weight);
 
       input {
         align-self: center;

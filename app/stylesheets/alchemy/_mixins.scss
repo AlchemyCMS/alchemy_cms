@@ -86,6 +86,7 @@
   word-break: normal;
   text-align: right;
   font-size: var(--font-size_medium);
+  font-weight: var(--label-font-weight);
   color: var(--form-field-label-color);
 }
 
@@ -151,6 +152,7 @@
 
 @mixin tag-base($margin: var(--spacing-2) 0, $padding: var(--spacing-2)) {
   @include label-base($margin: $margin, $padding: $padding);
+  font-weight: var(--label-font-weight);
 
   &:before {
     display: inline-flex;

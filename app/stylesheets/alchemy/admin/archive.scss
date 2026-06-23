@@ -358,6 +358,7 @@ div#library_sidebar {
     float: right;
     justify-content: end;
     width: 200px;
+    font-weight: var(--label-font-weight);
 
     select {
       max-width: 160px;
