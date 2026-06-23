@@ -23,7 +23,7 @@ module Alchemy
         end
 
         def message
-          render_message(:info, content_tag("h3", Alchemy.t(:choose_file_to_link)))
+          render_message(:info, Alchemy.t(:choose_file_to_link))
         end
 
         private

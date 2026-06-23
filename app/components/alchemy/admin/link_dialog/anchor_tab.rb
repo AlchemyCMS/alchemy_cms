@@ -20,7 +20,7 @@ module Alchemy
         end
 
         def message
-          render_message(:info, content_tag("p", Alchemy.t(:anchor_link_headline)))
+          render_message(:info, Alchemy.t(:anchor_link_headline))
         end
 
         private
