@@ -63,7 +63,7 @@
         } %>
     <% end %>
 
-    <div class="input">
+    <div class="input tags">
       <%= f.label :tag_list, class: "control-label" %>
       <%= render Alchemy::Admin::TagsAutocomplete.new do %>
         <%= f.text_field :tag_list, value: f.object.tag_list.join(",") %>

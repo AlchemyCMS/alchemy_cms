@@ -12,7 +12,7 @@
     <%= text_field_tag :pictures_name %>
   </div>
 
-  <%= render Alchemy::Admin::TagsAutocomplete.new(additional_class: "input") do %>
+  <%= render Alchemy::Admin::TagsAutocomplete.new(additional_class: "input tags") do %>
     <%= label_tag :pictures_tag_list, Alchemy.t(:tags), class: 'control-label' %>
     <%= text_field_tag :pictures_tag_list, @tags %>
     <small class="hint"><%= Alchemy.t('Please seperate the tags with commata') %></small>
