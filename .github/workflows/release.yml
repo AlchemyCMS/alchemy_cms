@@ -8,6 +8,9 @@ on:
       - main
       - '*-stable'
 
+env:
+  ALCHEMY_STORAGE_ADAPTER: none
+
 jobs:
   publish:
     if: github.event_name == 'workflow_dispatch' || (github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'release/v'))
