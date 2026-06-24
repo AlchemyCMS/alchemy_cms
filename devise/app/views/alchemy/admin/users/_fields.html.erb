@@ -12,10 +12,11 @@
 <%= f.input :password_confirmation, required: while_signup?, input_html: {autocomplete: while_signup? ? "new-password" : "off"} %>
 <%= f.input :timezone,
   collection: ActiveSupport::TimeZone.all, label_method: :to_s, value_method: :name,
+  include_blank: Alchemy.t("Default"),
   input_html: {
     is: "alchemy-select",
     data: {allow_clear: true}
-  } %>
+  }, hint: Alchemy.t("admin.users.preferred_timezone", server_timezone: Time.zone) %>
 <% if local_assigns[:user_roles] && can_update_role? %>
   <%= f.input :alchemy_roles,
     collection: user_roles,
