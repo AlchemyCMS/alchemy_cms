@@ -36,8 +36,11 @@
       object: f.object %>
   </div>
 <% end %>
-<%= f.input :send_credentials, as: 'boolean' %>
 <div class="submit">
+  <label class="checkbox">
+    <%= f.check_box :send_credentials %>
+    <%= Alchemy.config.user_class.human_attribute_name :send_credentials %>
+  </label>
   <button type="submit">
     <%= Alchemy.t(:save) %>
   </button>
