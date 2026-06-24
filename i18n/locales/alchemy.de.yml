@@ -562,7 +562,7 @@ de:
     create_language_tree_heading: "Einen leeren Sprachbaum erstellen"
     create_page: "Eine Unterseite anlegen"
     create_menu: "Ein Menü erstellen"
-    create_node: "Einen Menü-Eintrag hinzufügen"
+    create_node: "hinzufügen"
     custom_color: "Benutzerdefinierte Farbe"
     currently_edited_by: "Wird bearbeitet von"
     cut_element: "Element ausschneiden"
