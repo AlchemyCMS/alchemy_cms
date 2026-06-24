@@ -87,7 +87,7 @@ module Alchemy
       end
 
       def while_signup?
-        User.count == 0
+        @_while_signup ||= User.count == 0
       end
 
       def signup_admin_or_redirect

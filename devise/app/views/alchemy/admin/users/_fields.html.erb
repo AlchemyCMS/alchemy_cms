@@ -1,15 +1,15 @@
-<%= f.input :firstname, input_html: {autocomplete: "given-name"} %>
-<%= f.input :lastname, input_html: {autocomplete: "family-name"} %>
-<%= f.input :login, autofocus: true, required: f.object.login_required?, input_html: {autocomplete: "username"} %>
-<%= f.input :email, required: f.object.email_required?, input_html: {autocomplete: "email"} %>
+<%= f.input :firstname, input_html: {autocomplete: while_signup? ? "given-name" : "off"} %>
+<%= f.input :lastname, input_html: {autocomplete: while_signup? ? "family-name" : "off"} %>
+<%= f.input :login, autofocus: true, required: f.object.login_required?, input_html: {autocomplete: while_signup? ? "username" : "off"} %>
+<%= f.input :email, required: f.object.email_required?, input_html: {autocomplete: while_signup? ? "email" : "off"} %>
 <% if Alchemy::I18n.available_locales.many? %>
   <div class="input select">
     <%= f.label(:language) %>
     <%= render Alchemy::Admin::LocaleSelect.new(f.field_name(:language), auto_submit: false) %>
   </div>
 <% end %>
-<%= f.input :password, required: while_signup?, input_html: {autocomplete: "new-password"} %>
-<%= f.input :password_confirmation, required: while_signup?, input_html: {autocomplete: "new-password"} %>
+<%= f.input :password, required: while_signup?, input_html: {autocomplete: while_signup? ? "new-password" : "off"} %>
+<%= f.input :password_confirmation, required: while_signup?, input_html: {autocomplete: while_signup? ? "new-password" : "off"} %>
 <%= f.input :timezone,
   collection: ActiveSupport::TimeZone.all, label_method: :to_s, value_method: :name,
   input_html: {
