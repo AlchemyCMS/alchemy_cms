@@ -269,6 +269,19 @@ form {
         margin-left: auto;
       }
     }
+
+    label.checkbox {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-0);
+      width: max-content;
+      grid-column: 2;
+      grid-row: 1;
+
+      input {
+        margin-left: var(--spacing-0);
+      }
+    }
   }
 
   &.full_width .submit {
