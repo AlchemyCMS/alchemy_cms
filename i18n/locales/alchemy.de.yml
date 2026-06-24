@@ -831,7 +831,6 @@ de:
     show_elements_from_page: "Elemente dieser Seite anzeigen"
     show_eq: "EQ anzeigen"
     show_navigation: "Navigation anzeigen"
-    show_page_in_sitemap: "Seite in der XML-Sitemap anzeigen."
     signup_mail_delivery_error: "Einrichtungs-E-Mail konnte nicht verschickt werden. Bitte überprüfen Sie die Mail Einstellungen."
     small_thumbnails: "kleine Miniaturbilder"
     subject: "Betreff"
@@ -1203,7 +1202,7 @@ de:
         public_on: "Sichtbar ab"
         public_until: "Sichtbar bis"
         searchable: "durchsuchbar"
-        sitemap: "in der Seitenübersicht sichtbar"
+        sitemap: "Seite in der XML-Sitemap anzeigen"
         slug: "Slug"
         tag_list: Tags
         title: "Seitentitel"

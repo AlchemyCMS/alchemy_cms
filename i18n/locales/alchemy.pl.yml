@@ -770,7 +770,6 @@ pl:
     show_elements_from_page: "Pokaż wszystkie elementy tej strony"
     show_eq: "Pokaż EQ"
     show_navigation: "Pokaż w nawigacji"
-    show_page_in_sitemap: "Pokaż stronę w XML sitemap."
     signup_mail_delivery_error: "E-mail rejestracyjny nie mógł zostać dostarczony. Proszę sprawdzić ustawienia poczty."
     small_thumbnails: "Małe miniatury"
     subject: "Temat"
@@ -1117,7 +1116,7 @@ pl:
         searchable: "pokaż w wynikach wyszukiwania"
         robot_follow: "robot może podążać za linkami"
         robot_index: "zezwalaj robotowi na indeksowanie"
-        sitemap: "widoczna w mapie witryny"
+        sitemap: "Pokaż stronę w XML sitemap"
         slug: "Slug"
         tag_list: Tagi
         title: "Tytuł"

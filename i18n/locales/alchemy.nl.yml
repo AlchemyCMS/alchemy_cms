@@ -770,7 +770,6 @@ nl:
     show_elements_from_page: "Alle elementen van deze pagina weergeven"
     show_eq: "EQ weergeven"
     show_navigation: "In navigatie weergeven"
-    show_page_in_sitemap: "Pagina in XML-sitemap weergeven."
     signup_mail_delivery_error: "Registratiemail kan niet worden bezorgd. Controleer de e-mailinstellingen."
     small_thumbnails: "Kleine thumbnails"
     subject: "Onderwerp"
@@ -1117,7 +1116,7 @@ nl:
         searchable: "tonen in zoekresultaten"
         robot_follow: "robot mag URL's volgen"
         robot_index: "robot mag index volgen"
-        sitemap: "zichtbaar in sitemap"
+        sitemap: "Pagina in XML-sitemap weergeven"
         slug: "Slug"
         tag_list: Tags
         title: "Titel"

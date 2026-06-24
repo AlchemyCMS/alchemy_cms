@@ -770,7 +770,6 @@ nb-NO:
     show_elements_from_page: "Vis alle elementer fra denne siden"
     show_eq: "Vis EQ"
     show_navigation: "Vis i navigasjon"
-    show_page_in_sitemap: "Vis side i XML-sitemap."
     signup_mail_delivery_error: "Registrerings-e-post kunne ikke leveres. Vennligst sjekk e-postinnstillingene dine."
     small_thumbnails: "Små forhåndsvisninger"
     subject: "Emne"
@@ -1117,7 +1116,7 @@ nb-NO:
         searchable: "vis i søk"
         robot_follow: "robot kan følge koblinger"
         robot_index: "tillat robot å indeksere"
-        sitemap: "synlig i sidekart"
+        sitemap: "Vis side i XML-sitemap"
         slug: "Slug"
         tag_list: Tags
         title: "Tittel"
