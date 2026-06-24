@@ -825,8 +825,6 @@ ru:
         language: "Язык"
         locked: "Эта страница заблокирована другим пользователем."
         locked_by: "заблокирована"
-        meta_description: "Description"
-        meta_keywords: "Keywords"
         name: "Название"
         page_layout: "Тип страницы"
         page_type: "Тип страницы"
@@ -836,10 +834,13 @@ ru:
         robot_index: "робот может индексировать стрницу"
         sitemap: "Отображать страницу в XML-карте сайта"
         tag_list: "Метки"
-        title: "Заголовок"
         updated_at: "Обновлена"
         urlname: "URL-имя"
         visible: "отображается в навигации"
+      alchemy/page_version:
+        meta_description: "Description"
+        meta_keywords: "Keywords"
+        title: "Заголовок"
       alchemy/picture:
         image_file_name: "Имя файла"
         image_file_height: "Высота"

@@ -1104,8 +1104,6 @@ nb-NO:
         language: "Språk"
         locked: "Denne siden er låst av en annen bruker."
         locked_by: "låst av"
-        meta_description: "Beskrivelse"
-        meta_keywords: "Nøkkelord"
         name: "Navn"
         nodes: "Menyelementer"
         page_layout: "Sidetype"
@@ -1120,10 +1118,13 @@ nb-NO:
         sitemap: "Vis side i XML-sitemap"
         slug: "Slug"
         tag_list: Tags
-        title: "Tittel"
         updated_at: "Oppdatert"
         urlname: "URL-navn"
         visible: "synlig i navigasjon"
+      alchemy/page_version:
+        meta_description: "Beskrivelse"
+        meta_keywords: "Nøkkelord"
+        title: "Tittel"
       alchemy/picture:
         image_file_name: "Filnavn"
         image_file_height: "Høyde"

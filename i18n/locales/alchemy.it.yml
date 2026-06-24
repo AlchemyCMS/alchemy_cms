@@ -1106,8 +1106,6 @@ it:
         language: "Lingua"
         locked: "Questa pagina è bloccata da un altro utente."
         locked_by: "bloccata da"
-        meta_description: "Descrizione"
-        meta_keywords: "Parole chiave"
         name: "Nome"
         page_layout: "Tipo pagina"
         page_type: "Tipo pagina"
@@ -1122,10 +1120,13 @@ it:
         sitemap: "Mostra la pagina nella sitemap XML"
         slug: "Slug"
         tag_list: Tag
-        title: "Titolo"
         updated_at: "Aggiornata il"
         urlname: "Nome url"
         visible: "Visibile nella navigazione"
+      alchemy/page_version:
+        meta_description: "Descrizione"
+        meta_keywords: "Parole chiave"
+        title: "Titolo"
       alchemy/picture:
         image_file_name: "Nome del file"
         image_file_height: "Altezza"

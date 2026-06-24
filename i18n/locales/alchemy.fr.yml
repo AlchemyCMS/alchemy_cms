@@ -1138,8 +1138,6 @@ fr:
         language: "Langue"
         locked: "La page est verrouillée"
         locked_by: "Verrouillé par"
-        meta_description: "description de la page"
-        meta_keywords: "recherches"
         name: "Nom"
         nodes: "Entrées de menu"
         page_layout: "type de page"
@@ -1154,10 +1152,13 @@ fr:
         sitemap: "Afficher la page dans le sitemap XML"
         slug: "Slug"
         tag_list: Tags
-        title: "page de titre"
         updated_at: "Mise à jour le"
         urlname: "URL-Nom"
         visible: "visible dans la navigation"
+      alchemy/page_version:
+        meta_description: "description de la page"
+        meta_keywords: "recherches"
+        title: "page de titre"
       alchemy/picture:
         image_file_name: "Nom du fichier"
         image_file_height: "hauteur"

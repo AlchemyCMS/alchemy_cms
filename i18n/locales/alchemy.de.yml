@@ -1188,8 +1188,6 @@ de:
         language: "Sprache"
         locked: "Die Seite ist gesperrt"
         locked_by: "Gesperrt durch"
-        meta_description: "Seitenbeschreibung"
-        meta_keywords: "Suchbegriffe"
         name: "Name"
         page_layout: "Seitentyp"
         page_type: "Seitentyp"
@@ -1206,10 +1204,13 @@ de:
         sitemap: "Seite in der XML-Sitemap anzeigen"
         slug: "Slug"
         tag_list: Tags
-        title: "Seitentitel"
         updated_at: "Aktualisiert am"
         urlname: "URL-Name"
         visible: "in der Navigation sichtbar"
+      alchemy/page_version:
+        meta_description: "Meta-Beschreibung"
+        meta_keywords: "Meta-Keywords"
+        title: "Seitentitel"
       alchemy/picture:
         image_file_name: "Dateiname"
         image_file_height: "Höhe"

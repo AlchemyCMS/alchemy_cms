@@ -1104,8 +1104,6 @@ nl:
         language: "Taal"
         locked: "Deze pagina is vergrendeld door een andere gebruiker."
         locked_by: "vergrendeld door"
-        meta_description: "Omschrijving"
-        meta_keywords: "Sleutelwoorden"
         name: "Naam"
         nodes: "Menu-items"
         page_layout: "Paginatype"
@@ -1120,10 +1118,13 @@ nl:
         sitemap: "Pagina in XML-sitemap weergeven"
         slug: "Slug"
         tag_list: Tags
-        title: "Titel"
         updated_at: "Bijgewerkt op"
         urlname: "URL-naam"
         visible: "zichtbaar in navigatie"
+      alchemy/page_version:
+        meta_description: "Omschrijving"
+        meta_keywords: "Sleutelwoorden"
+        title: "Titel"
       alchemy/picture:
         image_file_name: "Bestandsnaam"
         image_file_height: "Hoogte"

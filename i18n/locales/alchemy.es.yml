@@ -1132,8 +1132,6 @@ es:
         language: "Idioma"
         locked: "Esta página está bloqueada por otro usuario."
         locked_by: "bloqueada por"
-        meta_description: "Descripción"
-        meta_keywords: "Palabras clave"
         name: "Nombre"
         nodes: "Entradas de menú"
         page_layout: "Tipo de página"
@@ -1148,10 +1146,13 @@ es:
         sitemap: "Mostrar página en el sitemap XML"
         slug: "Slug"
         tag_list: Etiquetas
-        title: "Título"
         updated_at: "Actualizado por"
         urlname: "Ruta URL"
         visible: "visible en la navegación"
+      alchemy/page_version:
+        meta_description: "Descripción"
+        meta_keywords: "Palabras clave"
+        title: "Título"
       alchemy/picture:
         image_file_name: "Nombre del archivo"
         image_file_height: "Altura"
