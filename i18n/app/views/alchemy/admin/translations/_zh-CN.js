@@ -1,4 +1,5 @@
 Alchemy.translations = {
+  Add: "新建",
   allowed_chars: "%{count} 个字符",
   cancel: "取消",
   cancelled: "已取消",
@@ -18,6 +19,7 @@ Alchemy.translations = {
   "File is too small": "文件太小",
   "File type not allowed": "文件类型不支持",
   "Maximum number of files exceeded": "超出最大允许的文件数。",
+  "No results found": "未找到结果。",
   "Uploaded bytes exceed file size": "上传得字节数超过文件大小",
   formats: {
     datetime: "Y-m-d H:i",

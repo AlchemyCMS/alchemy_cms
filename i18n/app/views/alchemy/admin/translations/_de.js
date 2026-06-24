@@ -1,4 +1,5 @@
 Alchemy.translations = {
+  Add: "Erstelle",
   allowed_chars: "von %{count} Zeichen",
   cancel: "Abbrechen",
   cancelled: "Abgebrochen",
@@ -23,6 +24,7 @@ Alchemy.translations = {
   "Maximum number of files exceeded":
     "Maximale Anzahl gleichzeitig erlaubter Datei-Uploads erreicht.",
   "No anchors found": "Keine Sprungmarken gefunden.",
+  "No results found": "Keine Ergebnisse.",
   None: "Keine",
   "Uploaded bytes exceed file size":
     "Maximale Größe der erlaubten Dateigröße erreicht.",

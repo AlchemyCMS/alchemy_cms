@@ -1,4 +1,5 @@
 Alchemy.translations = {
+  Add: "Crear",
   allowed_chars: "de %{count} caracteres",
   cancel: "Cancelar",
   cancelled: "Cancelado",
@@ -19,6 +20,7 @@ Alchemy.translations = {
   "File is too small": "El archivo es demasiado pequeño",
   "File type not allowed": "El tipo de archivo no está permitido",
   "Maximum number of files exceeded": "Número máximo de archivos excedido.",
+  "No results found": "No se encontraron resultados.",
   "Uploaded bytes exceed file size":
     "Los bytes subidos exceden el tamaño del archivo",
   formats: {

@@ -1,4 +1,5 @@
 Alchemy.translations = {
+  Add: "Créer",
   allowed_chars: "de %{count} caractères",
   cancel: "abandonner",
   cancelled: "annulé",
@@ -20,6 +21,7 @@ Alchemy.translations = {
   "File type not allowed": "Type de document non autorisé.",
   "Maximum number of files exceeded":
     "Le nombre maximum de fichiers est atteint.",
+  "No results found": "Aucun résultat trouvé.",
   "Uploaded bytes exceed file size":
     "Taille de fichier maximale autorisée atteint.",
   formats: {

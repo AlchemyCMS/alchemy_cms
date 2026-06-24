@@ -1,4 +1,5 @@
 Alchemy.translations = {
+  Add: "Aanmaken",
   allowed_chars: "of %{count} chars",
   cancel: "Annuleren",
   cancelled: "Afgebroken",
@@ -19,6 +20,7 @@ Alchemy.translations = {
   "File is too small": "File is too small",
   "File type not allowed": "File type not allowed",
   "Maximum number of files exceeded": "Uploadlimiet bereikt.",
+  "No results found": "Geen resultaten gevonden.",
   "Uploaded bytes exceed file size": "Uploaded bytes exceed file size",
   formats: {
     datetime: "Y-m-d H:i",
