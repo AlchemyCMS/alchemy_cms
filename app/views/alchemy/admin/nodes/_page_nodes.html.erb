@@ -2,7 +2,7 @@
   <table class="list">
     <tr>
       <th class="name">
-        <%= Alchemy::Node.model_name.human %>
+        <%= Alchemy::Node.model_name.human(count: @page.nodes.size) %>
       </th>
       <th class="tools"></th>
     </tr>
