@@ -817,6 +817,7 @@ zh-CN:
         meta_keywords: "关键字"
         name: "名字"
         page_layout: "页面类型"
+        page_type: "页面类型"
         public: "公共"
         restricted: "受限"
         robot_follow: "允许机器人追踪链接"

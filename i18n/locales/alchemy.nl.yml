@@ -1109,6 +1109,7 @@ nl:
         name: "Naam"
         nodes: "Menu-items"
         page_layout: "Paginatype"
+        page_type: "Paginatype"
         public: "publiek"
         public_on: "Zichtbaar vanaf"
         public_until: "Zichtbaar tot"

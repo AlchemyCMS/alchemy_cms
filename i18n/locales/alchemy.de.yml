@@ -1192,6 +1192,7 @@ de:
         meta_keywords: "Suchbegriffe"
         name: "Name"
         page_layout: "Seitentyp"
+        page_type: "Seitentyp"
         parent_id: "Übergeordnete Seite"
         parent: "Übergeordnete Seite"
         public: "veröffentlicht"

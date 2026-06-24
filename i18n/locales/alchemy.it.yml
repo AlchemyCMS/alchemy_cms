@@ -1110,6 +1110,7 @@ it:
         meta_keywords: "Parole chiave"
         name: "Nome"
         page_layout: "Tipo pagina"
+        page_type: "Tipo pagina"
         public: "pubblica"
         restricted: "riservata"
         robot_follow: "i robot possono seguire i link"

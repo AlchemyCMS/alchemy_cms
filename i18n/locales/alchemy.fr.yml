@@ -1143,6 +1143,7 @@ fr:
         name: "Nom"
         nodes: "Entrées de menu"
         page_layout: "type de page"
+        page_type: "type de page"
         public: "publié"
         public_on: "Visible à partir du"
         public_until: "Visible jusqu'au"

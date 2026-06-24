@@ -1137,6 +1137,7 @@ es:
         name: "Nombre"
         nodes: "Entradas de menú"
         page_layout: "Tipo de página"
+        page_type: "Tipo de página"
         public: "pública"
         public_on: "Visible desde"
         public_until: "Visible hasta"

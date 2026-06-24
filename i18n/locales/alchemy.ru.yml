@@ -829,6 +829,7 @@ ru:
         meta_keywords: "Keywords"
         name: "Название"
         page_layout: "Тип страницы"
+        page_type: "Тип страницы"
         public: "опубликована"
         restricted: "ограничена"
         robot_follow: "робот может посещать ссылки на странице"

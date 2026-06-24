@@ -1109,6 +1109,7 @@ nb-NO:
         name: "Navn"
         nodes: "Menyelementer"
         page_layout: "Sidetype"
+        page_type: "Sidetype"
         public: "offentlig"
         public_on: "Synlig fra"
         public_until: "Synlig til"

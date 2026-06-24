@@ -1109,6 +1109,7 @@ pl:
         name: "Nazwa"
         nodes: "Elementy menu"
         page_layout: "Typ strony"
+        page_type: "Typ strony"
         public: "publiczna"
         public_on: "Widoczna od"
         public_until: "Widoczna do"
