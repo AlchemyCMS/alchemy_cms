@@ -14,6 +14,8 @@ Alchemy.translations = {
   page_dirty_notice:
     "Er zijn wijzigingen op deze pagina aangebracht. Deze gaan verloren als u doorgaat.",
   "Please confirm": "Bevestig alstublieft",
+  "Preview failed to load":
+    "Voorbeeld kon niet worden geladen. Probeer het opnieuw.",
   url_validation_failed: "De url heeft geen geldig formaat.",
   warning: "Waarschuwing!",
   "File is too large": "Bestand is te groot.",
@@ -21,7 +23,16 @@ Alchemy.translations = {
   "File type not allowed": "Bestandstype niet toegestaan.",
   "Maximum number of files exceeded": "Uploadlimiet bereikt.",
   "No results found": "Geen resultaten gevonden.",
-  "Uploaded bytes exceed file size": "Geüploade bytes overschrijden de bestandsgrootte.",
+  "Uploaded bytes exceed file size":
+    "Geüploade bytes overschrijden de bestandsgrootte.",
+  "Abort upload": "Upload afbreken",
+  "Cancel all uploads": "Alle uploads annuleren",
+  "Clear selection": "Selectie wissen",
+  Remove: "Verwijderen",
+  None: "Geen",
+  "No anchors found": "Geen ankers gevonden.",
+  "Select a page first": "Selecteer eerst een pagina.",
+  Close: "Sluiten",
   formats: {
     datetime: "Y-m-d H:i",
     date: "Y-m-d",
