@@ -1,5 +1,18 @@
 # Changelog
 
+## 8.3.0 (2026-06-25)
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### New Features
+* Alchemy 8.3 by @tvdeyen in https://github.com/AlchemyCMS/alchemy_i18n/pull/98
+### Bug Fixes
+* Update translations for alchemy/page/sitemap and remove unused show_page_in_translation key by @antwertinger in https://github.com/AlchemyCMS/alchemy_i18n/pull/97
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_i18n/compare/v8.2.0...v8.3.0
+
 ## 8.2.0 (2026-04-13)
 
 <!-- Release notes generated using configuration in .github/release.yml at main -->
