@@ -1210,8 +1210,8 @@ textarea.has_tinymce {
 .element_errors {
   display: flex;
   gap: var(--spacing-1);
-  margin-top: var(--spacing-2);
-  margin-bottom: var(--spacing-2);
+  align-items: center;
+  margin: var(--spacing-2);
   background-color: var(--notice-error-background-color);
   padding: var(--spacing-2);
   border-radius: var(--border-radius_medium);
@@ -1221,10 +1221,6 @@ textarea.has_tinymce {
   p {
     margin: 0;
     line-height: 24px;
-  }
-
-  .icon {
-    fill: currentColor;
   }
 }
 
