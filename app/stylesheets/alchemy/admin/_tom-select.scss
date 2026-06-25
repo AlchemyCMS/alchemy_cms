@@ -167,11 +167,12 @@
 
       > .clear-button {
         position: absolute;
-        top: 6.5px;
+        top: 5.5px;
         right: var(--spacing-1);
       }
 
       &:has(.clear-button) {
+        position: relative;
         padding-right: var(--spacing-6);
       }
     }
