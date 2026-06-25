@@ -289,6 +289,12 @@ fr:
           label: "Tri"
           by_latest: "Plus récents"
           alphabetical: "A-Z"
+      dashboard:
+        widgets:
+          page_counts:
+            published: "Publiées"
+          user_counts:
+            online: "En ligne"
       elements:
         toolbar:
           hide: masquer
@@ -577,6 +583,7 @@ fr:
     download_csv: "CSV télécharger"
     download_file: "%{filename} télécharger"
     do_you_really_want_to_delete_this_tag?: "Voulez-vous vraiment supprimer ce tag ?"
+    draft: "Brouillon"
     drag_to_sort: "Garder le contact avec la souris et déplacer"
     edit: "modifier"
     edit_anchor: "Modifier l'ancre"
@@ -598,6 +605,7 @@ fr:
     element_scheduled:
       public_on: "visible à partir du %{public_on}"
       public_until: "visible jusqu'au %{public_until}"
+    element_usage: "Utilisation des éléments"
     enter_external_link: "Entrez l’adresse de la page à laquelle vous souhaitez mettre un lien."
     explain_cropping: "<p>Vous pouvez déplacer le cadre et redimensionner ensemble pour composer l’image.</p><p>Si vous êtes satisfait, veuillez cliquer sur Enregistrer.</p>"
     explain_publishing: "Supprimer la version mise en cache du serveur et de publier les changements actuels"
@@ -651,6 +659,7 @@ fr:
     last_upload_only: "Dernière téléchargées"
     left: "Gauche"
     legacy_url_info_text: "Un renvoi est une redirection une ancienne URL de l’URL actuelle de ce site. Ce transfert s’effectue avec<a href='https://support.google.com/webmasters/answer/93633' target='_blank'> un code de statut 301</a>."
+    legal_info: "Mentions légales"
     link_image: "Lien de l’image"
     link_overlay_tab_label:
       anchor: "Ancre"
@@ -736,6 +745,10 @@ fr:
       restricted:
         "true": "La page est protégée."
         "false": "La page n’est pas protégée."
+      scheduled:
+        public_on: "La page est visible à partir du %{public_on}"
+        public_until: "La page est visible jusqu’au %{public_until}"
+        "false": ""
     page_status_titles:
       locked:
         "true": "Verrouillé"
@@ -746,9 +759,13 @@ fr:
       restricted:
         "true": "Protégé"
         "false": "Non protégé"
+      scheduled:
+        "true": "Planifié"
+        "false": ""
     page_status: "Statut"
     page_title: "Titre"
     page_type: "Type"
+    page_usage: "Utilisation des pages"
     page_visible_in_navigation: "Visible à la navigation"
     page_was_created: "A été créé"
     page_was_updated: "A été traitée"
@@ -789,6 +806,7 @@ fr:
     preview_url: "Aperçu"
     publish_page_language_not_public: "Impossible de publier la page si la langue n'est pas publique"
     publish_page_not_allowed: "Vous n'avez pas la permission de publier cette page"
+    published: "publiées"
     recently_uploaded_only: "Récemment transféré"
     "regular method": "procédé conventionnel"
     remove: "supprimer"
@@ -840,7 +858,6 @@ fr:
     tag_list: Tags
     tags_get_created_if_used_the_first_time: "Une étiquette est automatiquement créé lorsque vous l’utilisez pour la première fois."
     this_picture_is_not_used_on_any_page: "Cette image est utilisée sur aucunne page."
-    this_picture_is_used_on_these_pages: "Cette image est utilisé sur la page suivente"
     timezone: "Fuseau horaire"
     title: "Titre"
     to_alchemy: "Passez à Alchemy"
@@ -1139,10 +1156,11 @@ fr:
         locked: "La page est verrouillée"
         locked_by: "Verrouillé par"
         meta_description: "description de la page"
-        meta_keywords: "recherches"
+        meta_keywords: "Mots-clés"
         name: "Nom"
         nodes: "Entrées de menu"
         page_layout: "type de page"
+        page_type: "type de page"
         public: "publié"
         public_on: "Visible à partir du"
         public_until: "Visible jusqu'au"
@@ -1153,10 +1171,14 @@ fr:
         sitemap: "Afficher la page dans le sitemap XML"
         slug: "Slug"
         tag_list: Tags
-        title: "page de titre"
+        title: "Titre de la page"
         updated_at: "Mise à jour le"
         urlname: "URL-Nom"
         visible: "visible dans la navigation"
+      alchemy/page_version:
+        meta_description: "description de la page"
+        meta_keywords: "recherches"
+        title: "page de titre"
       alchemy/picture:
         image_file_name: "Nom du fichier"
         image_file_height: "hauteur"
@@ -1213,5 +1235,7 @@ fr:
             base:
               restrict_dependent_destroy:
                 has_many: "Il y a encore des %{record} associé(e)s à cette page. Veuillez d’abord les supprimer."
+            page_layout:
+              conflicting_wildcard_param_key: 'a un paramètre joker conflictuel "%{param}", déjà utilisé par le type de page "%{conflicting_layout}"'
             descendants:
               still_attached_to_nodes: "Les sous-pages suivantes sont encore associées à des entrées de menu : %{page_names}. Veuillez d’abord les supprimer."

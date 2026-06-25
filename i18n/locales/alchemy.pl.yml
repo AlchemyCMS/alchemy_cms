@@ -284,7 +284,6 @@ pl:
     anchor: "Kotwica"
     anchor_link_headline: Możesz utworzyć link do kotwicy na bieżącej stronie.
     automatic_anchor_notice: Kotwica jest generowana automatycznie.
-    attached_to: "dołączone do"
     attribute_fixed: Wartość nie może być zmieniona dla tego typu strony
     back: "wstecz"
     create_tree_as_new_language: "Utwórz %{language} jako nowe drzewo języka"
@@ -783,7 +782,6 @@ pl:
     insert_image: "Wstaw obraz"
     tag_list: Tagi
     tags_get_created_if_used_the_first_time: "Tagi są tworzone automatycznie przy pierwszym użyciu."
-    this_picture_is_used_on_these_pages: "Ten obraz jest używany na następujących stronach"
     used_on_these_pages:
       attachment: "Ten plik jest używany w następujący sposób"
       picture: "Ten obraz jest używany w następujący sposób"
@@ -1104,11 +1102,10 @@ pl:
         language: "Język"
         locked: "Ta strona jest zablokowana przez innego użytkownika."
         locked_by: "zablokowana przez"
-        meta_description: "Opis"
-        meta_keywords: "Słowa kluczowe"
         name: "Nazwa"
         nodes: "Elementy menu"
         page_layout: "Typ strony"
+        page_type: "Typ strony"
         public: "publiczna"
         public_on: "Widoczna od"
         public_until: "Widoczna do"
@@ -1119,10 +1116,13 @@ pl:
         sitemap: "Pokaż stronę w XML sitemap"
         slug: "Slug"
         tag_list: Tagi
-        title: "Tytuł"
         updated_at: "Zaktualizowano"
         urlname: "Nazwa URL"
         visible: "widoczna w nawigacji"
+      alchemy/page_version:
+        meta_description: "Opis"
+        meta_keywords: "Słowa kluczowe"
+        title: "Tytuł"
       alchemy/picture:
         image_file_name: "Nazwa pliku"
         image_file_height: "Wysokość"

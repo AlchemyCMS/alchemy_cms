@@ -284,7 +284,6 @@ nb-NO:
     anchor: "Anker"
     anchor_link_headline: Du kan lenke til et anker på den aktuelle siden.
     automatic_anchor_notice: Ankeret genereres automatisk.
-    attached_to: "knyttet til"
     attribute_fixed: Verdi kan ikke endres for denne sidetypen
     back: "tilbake"
     create_tree_as_new_language: "Opprett %{language} som nytt språktre"
@@ -783,7 +782,6 @@ nb-NO:
     insert_image: "Sett inn bilde"
     tag_list: Tags
     tags_get_created_if_used_the_first_time: "Tags blir opprettet hvis brukt første gang."
-    this_picture_is_used_on_these_pages: "Dette bildet er i bruk på følgende sider"
     used_on_these_pages:
       attachment: "Denne filen brukes på følgende måte"
       picture: "Dette bildet brukes på følgende måte"
@@ -1104,11 +1102,10 @@ nb-NO:
         language: "Språk"
         locked: "Denne siden er låst av en annen bruker."
         locked_by: "låst av"
-        meta_description: "Beskrivelse"
-        meta_keywords: "Nøkkelord"
         name: "Navn"
         nodes: "Menyelementer"
         page_layout: "Sidetype"
+        page_type: "Sidetype"
         public: "offentlig"
         public_on: "Synlig fra"
         public_until: "Synlig til"
@@ -1119,10 +1116,13 @@ nb-NO:
         sitemap: "Vis side i XML-sitemap"
         slug: "Slug"
         tag_list: Tags
-        title: "Tittel"
         updated_at: "Oppdatert"
         urlname: "URL-navn"
         visible: "synlig i navigasjon"
+      alchemy/page_version:
+        meta_description: "Beskrivelse"
+        meta_keywords: "Nøkkelord"
+        title: "Tittel"
       alchemy/picture:
         image_file_name: "Filnavn"
         image_file_height: "Høyde"

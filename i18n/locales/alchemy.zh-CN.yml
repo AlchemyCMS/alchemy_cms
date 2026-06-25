@@ -584,7 +584,6 @@ zh-CN:
     insert_image: "插入图片"
     tag_list: 标签
     tags_get_created_if_used_the_first_time: "在第一次使用标签的同时会创建它。"
-    this_picture_is_used_on_these_pages: "这个图片用于如下页面"
     title: "标题"
     to_alchemy: "给Alchemy"
     "trash element": "把元素放入垃圾箱"
@@ -813,20 +812,22 @@ zh-CN:
         language: "语言"
         locked: "这个页面由其他用户锁定。"
         locked_by: "锁定人"
-        meta_description: "详细信息"
-        meta_keywords: "关键字"
         name: "名字"
         page_layout: "页面类型"
+        page_type: "页面类型"
         public: "公共"
         restricted: "受限"
         robot_follow: "允许机器人追踪链接"
         robot_index: "允许机器人索引"
         sitemap: "在 XML 站点地图中显示页面。"
         tag_list: 标签
-        title: "标题"
         updated_at: "更新于"
         urlname: "地址名"
         visible: "在导航栏可见"
+      alchemy/page_version:
+        meta_description: "详细信息"
+        meta_keywords: "关键字"
+        title: "标题"
       alchemy/picture:
         image_file_name: "文件名"
         image_file_height: "高"

@@ -285,7 +285,6 @@ nl:
     anchor_link_headline: U kunt naar een anchor op de huidige pagina linken.
     automatic_anchor_notice: De anchor wordt automatisch gegenereerd.
     attribute_fixed: Waarde kan niet worden gewijzigd
-    attached_to: "gekoppeld aan"
     back: "terug"
     create_tree_as_new_language: "%{language} aanmaken als nieuwe boomstructuur"
     locked_pages: "Actieve pagina's"
@@ -783,7 +782,6 @@ nl:
     insert_image: "Afbeelding toevoegen"
     tag_list: Tags
     tags_get_created_if_used_the_first_time: "Tags worden aangemaakt als ze de eerste keer worden gebruikt"
-    this_picture_is_used_on_these_pages: "Deze afbeelding wordt op de volgende pagina's gebruikt"
     used_on_these_pages:
       attachment: "Dit bestand wordt als volgt gebruikt"
       picture: "Deze afbeelding wordt als volgt gebruikt"
@@ -1104,11 +1102,10 @@ nl:
         language: "Taal"
         locked: "Deze pagina is vergrendeld door een andere gebruiker."
         locked_by: "vergrendeld door"
-        meta_description: "Omschrijving"
-        meta_keywords: "Sleutelwoorden"
         name: "Naam"
         nodes: "Menu-items"
         page_layout: "Paginatype"
+        page_type: "Paginatype"
         public: "publiek"
         public_on: "Zichtbaar vanaf"
         public_until: "Zichtbaar tot"
@@ -1119,10 +1116,13 @@ nl:
         sitemap: "Pagina in XML-sitemap weergeven"
         slug: "Slug"
         tag_list: Tags
-        title: "Titel"
         updated_at: "Bijgewerkt op"
         urlname: "URL-naam"
         visible: "zichtbaar in navigatie"
+      alchemy/page_version:
+        meta_description: "Omschrijving"
+        meta_keywords: "Sleutelwoorden"
+        title: "Titel"
       alchemy/picture:
         image_file_name: "Bestandsnaam"
         image_file_height: "Hoogte"

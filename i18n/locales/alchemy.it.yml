@@ -259,6 +259,12 @@ it:
           label: "Ordinamento"
           by_latest: "Più recenti"
           alphabetical: "A-Z"
+      dashboard:
+        widgets:
+          page_counts:
+            published: "Pubblicate"
+          user_counts:
+            online: "Online"
       elements:
         toolbar:
           hide: nascondi
@@ -528,6 +534,7 @@ it:
     download_csv: "Scarica CSV"
     download_file: "Scarica file '%{filename}'"
     do_you_really_want_to_delete_this_tag?: "Vuole veramente eliminare questo tag?"
+    draft: "Bozza"
     drag_to_sort: "Clicca e trascina per riordinare le immagini"
     edit: "modifica"
     edit_anchor: "Modifica ancora"
@@ -548,6 +555,7 @@ it:
     element_scheduled:
       public_on: "visibile dal %{public_on}"
       public_until: "visibile fino al %{public_until}"
+    element_usage: "Utilizzo elementi"
     edit_user: "Modifica le proprietà dell'utente."
     enter_external_link: "Inserisca l'URL con il quale vuole creare il link"
     explain_cropping: "<p>Muova la cornice e cambi la sua dimensione per configurare la sezione dell'immagine.</p><p>Clicchi su applica quando è soddisfatto.</p>"
@@ -602,6 +610,7 @@ it:
     last_upload_only: "Solo ultimo upload"
     left: "sinistra"
     legacy_url_info_text: "Un link è un redirect da una vecchia URL alla nuova URL di questa pagina. Questo redirect viene gestito tramite uno <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>status code 301</a>."
+    legal_info: "Note legali"
     link_image: "Crea collegamento a questa immagine."
     link_overlay_tab_label:
       anchor: "Ancora"
@@ -687,6 +696,10 @@ it:
       restricted:
         "true": "Pagina riservata."
         "false": "Pagina non riservata."
+      scheduled:
+        public_on: "La pagina è visibile dal %{public_on}"
+        public_until: "La pagina è visibile fino al %{public_until}"
+        "false": ""
     page_status_titles:
       locked:
         "true": "bloccata"
@@ -697,9 +710,13 @@ it:
       restricted:
         "true": "riservata"
         "false": "non riservata"
+      scheduled:
+        "true": "programmata"
+        "false": ""
     page_status: "Stato"
     page_title: "Titolo"
     page_type: "Tipologia"
+    page_usage: "Utilizzo pagine"
     page_visible_in_navigation: "visibile in navigazione"
     page_was_created: "È stata creata"
     page_was_updated: "È stata aggiornata"
@@ -741,6 +758,7 @@ it:
     preview_url: "Anteprima"
     publish_page_language_not_public: "Impossibile pubblicare la pagina se la lingua non è pubblica"
     publish_page_not_allowed: "Non ha il permesso di pubblicare questa pagina"
+    published: "pubblicate"
     recently_uploaded_only: "Solo caricate recentemente"
     "regular method": "Metodo normale"
     remove: "Rimuovi"
@@ -792,7 +810,6 @@ it:
     tag_list: Tag
     tags: "Tag"
     tags_get_created_if_used_the_first_time: "I tag vengono creati se usati per la prima volta."
-    this_picture_is_used_on_these_pages: "L'immagine è usata nelle seguenti pagine"
     timezone: "Fuso orario"
     title: "Titolo"
     to_alchemy: "Torna ad Alchemy"
@@ -983,6 +1000,8 @@ it:
             base:
               restrict_dependent_destroy:
                 has_many: "Ci sono ancora %{record} collegati a questa pagina. Li rimuova prima."
+            page_layout:
+              conflicting_wildcard_param_key: 'ha un parametro jolly in conflitto "%{param}", già utilizzato dal tipo di pagina "%{conflicting_layout}"'
             descendants:
               still_attached_to_nodes: "Le seguenti pagine discendenti sono ancora collegate a nodi menu: %{page_names}. Li rimuova prima."
     models:
@@ -1110,6 +1129,7 @@ it:
         meta_keywords: "Parole chiave"
         name: "Nome"
         page_layout: "Tipo pagina"
+        page_type: "Tipo pagina"
         public: "pubblica"
         restricted: "riservata"
         robot_follow: "i robot possono seguire i link"
@@ -1125,6 +1145,10 @@ it:
         updated_at: "Aggiornata il"
         urlname: "Nome url"
         visible: "Visibile nella navigazione"
+      alchemy/page_version:
+        meta_description: "Descrizione"
+        meta_keywords: "Parole chiave"
+        title: "Titolo"
       alchemy/picture:
         image_file_name: "Nome del file"
         image_file_height: "Altezza"

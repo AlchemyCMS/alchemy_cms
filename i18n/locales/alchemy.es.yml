@@ -310,6 +310,12 @@ es:
           label: "Ordenar"
           by_latest: "Más recientes"
           alphabetical: "A-Z"
+      dashboard:
+        widgets:
+          page_counts:
+            published: "Publicadas"
+          user_counts:
+            online: "En línea"
       elements:
         toolbar:
           hide: "Ocultar"
@@ -577,6 +583,7 @@ es:
     download_csv: "Descargar CSV"
     download_file: "Descargar archivo '%{filename}'"
     do_you_really_want_to_delete_this_tag?: "¿Desea realmente eliminar esta etiqueta?"
+    draft: "Borrador"
     drag_to_sort: "Arrastre para ordenar las imágenes"
     edit: "editar"
     edit_anchor: "Editar ancla"
@@ -598,6 +605,7 @@ es:
     element_scheduled:
       public_on: "visible desde %{public_on}"
       public_until: "visible hasta %{public_until}"
+    element_usage: "Uso de elementos"
     enter_external_link: "Por favor introduzca la URL con la que desea enlazar"
     explain_cropping: "<p>Mueva el marco y cambie el tamaño para ajustar la sección de la imagen.</p><p>Pulse en aplicar cuando esté satisfecho.</p>"
     explain_publishing: "Publicar la página y eliminar la versión cacheada del servidor."
@@ -651,6 +659,7 @@ es:
     last_upload_only: "Solo última subida"
     left: "Izquierda"
     legacy_url_info_text: "Un enlace es una redirección de una vieja URL a la URL actual de esta página. Esta redirección ocurre con un <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>código de estado 301</a>."
+    legal_info: "Aviso legal"
     link_image: "Enlazar esta imagen."
     link_overlay_tab_label:
       anchor: "Ancla"
@@ -736,6 +745,10 @@ es:
       restricted:
         "true": "La página está restringida."
         "false": "La página no está restringida."
+      scheduled:
+        public_on: "La página es visible a partir del %{public_on}"
+        public_until: "La página es visible hasta el %{public_until}"
+        "false": ""
     page_status_titles:
       locked:
         "true": "Bloqueada"
@@ -746,9 +759,13 @@ es:
       restricted:
         "true": "Restringida"
         "false": "No restringida"
+      scheduled:
+        "true": "Programada"
+        "false": ""
     page_status: "Estado"
     page_title: "Título"
     page_type: "Tipo"
+    page_usage: "Uso de páginas"
     page_visible_in_navigation: "Visible en el menú"
     page_was_created: "Creada"
     page_was_updated: "Actualizada"
@@ -789,6 +806,7 @@ es:
     preview_url: "Vista previa"
     publish_page_language_not_public: "No se puede publicar la página si el idioma no es público"
     publish_page_not_allowed: "No tiene permiso para publicar esta página"
+    published: "publicadas"
     recently_uploaded_only: "Sólo subido recientemente"
     "regular method": "Método regular"
     remove: "Eliminar"
@@ -840,7 +858,6 @@ es:
     tag_list: Etiquetas
     tags: "Etiquetas"
     tags_get_created_if_used_the_first_time: "Se crearán las etiquetas usadas por primera vez."
-    this_picture_is_used_on_these_pages: "Esta imagen se utiliza en las siguientes páginas"
     timezone: "Zona horaria"
     title: "Título"
     to_alchemy: "Ir a Alchemy"
@@ -1137,6 +1154,7 @@ es:
         name: "Nombre"
         nodes: "Entradas de menú"
         page_layout: "Tipo de página"
+        page_type: "Tipo de página"
         public: "pública"
         public_on: "Visible desde"
         public_until: "Visible hasta"
@@ -1151,6 +1169,10 @@ es:
         updated_at: "Actualizado por"
         urlname: "Ruta URL"
         visible: "visible en la navegación"
+      alchemy/page_version:
+        meta_description: "Descripción"
+        meta_keywords: "Palabras clave"
+        title: "Título"
       alchemy/picture:
         image_file_name: "Nombre del archivo"
         image_file_height: "Altura"
@@ -1232,6 +1254,7 @@ es:
               still_present: "todavía están vinculados a esta página. Por favor, elimínelos primero."
             page_layout:
               blank: "^Por favor elija un tipo de página."
+              conflicting_wildcard_param_key: 'tiene un parámetro comodín conflictivo "%{param}" que ya está siendo utilizado por el tipo de página "%{conflicting_layout}"'
             urlname:
               too_short: "^La ruta URL es demasiado corta (3 caracteres mínimo)."
               taken: "^Ruta URL ya en uso."

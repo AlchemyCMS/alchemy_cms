@@ -310,6 +310,12 @@ de:
           label: "Sortierung"
           by_latest: "Neueste zuerst"
           alphabetical: "A-Z"
+      dashboard:
+        widgets:
+          page_counts:
+            published: "Veröffentlicht"
+          user_counts:
+            online: "Online"
       elements:
         toolbar:
           hide: ausblenden
@@ -562,7 +568,7 @@ de:
     create_language_tree_heading: "Einen leeren Sprachbaum erstellen"
     create_page: "Eine Unterseite anlegen"
     create_menu: "Ein Menü erstellen"
-    create_node: "Einen Menü-Eintrag hinzufügen"
+    create_node: "hinzufügen"
     custom_color: "Benutzerdefinierte Farbe"
     currently_edited_by: "Wird bearbeitet von"
     cut_element: "Element ausschneiden"
@@ -577,6 +583,7 @@ de:
     download_csv: "CSV runterladen"
     download_file: "%{filename} runterladen"
     do_you_really_want_to_delete_this_tag?: "Wollen Sie dieses Tag wirklich löschen?"
+    draft: "Entwurf"
     drag_to_sort: "Mit der Maus halten und verschieben"
     edit: bearbeiten
     edit_anchor: "Sprungmarke bearbeiten"
@@ -597,6 +604,7 @@ de:
     element_scheduled:
       public_on: "sichtbar ab %{public_on}"
       public_until: "sichtbar bis %{public_until}"
+    element_usage: "Elementnutzung"
     enter_external_link: "Geben Sie hier die Adresse der Seite ein zu der Sie einen Link setzen wollen."
     explain_cropping: '<p>Sie können den Rahmen mit der Maus und den Pfeiltasten verschieben und in der Größe verändern, um einen eigenen Bildausschnitt festzulegen. Wenn Sie zufrieden sind, dann klicken Sie bitte auf "übernehmen".</p><p>Um zu dem zentrierten Bildausschnitt zurückzukehren, wie er im Layout vorgesehen wurde, klicken Sie bitte auf "zurücksezen" und "übernehmen" anschließend die Änderungen.</p>'
     explain_publishing: "Sie haben Änderungen die noch nicht veröffentlicht wurden."
@@ -651,6 +659,7 @@ de:
     last_upload_only: "Zuletzt hochgeladene"
     left: "links"
     legacy_url_info_text: "Ein Verweis ist eine Weiterleitung einer alten URL auf die aktuelle URL dieser Seite. Diese Weiterleitung findet mit einem <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>301-Status-Code</a> statt."
+    legal_info: "Rechtliche Hinweise"
     link_image: "Bild verlinken"
     link_overlay_tab_label:
       anchor: Sprungmarke
@@ -733,6 +742,10 @@ de:
       restricted:
         "true": "Die Seite ist beschränkt auf Mitglieder."
         "false": "Die Seite ist für jeden zugänglich."
+      scheduled:
+        public_on: "Die Seite ist sichtbar ab %{public_on}"
+        public_until: "Die Seite ist sichtbar bis %{public_until}"
+        "false": ""
     page_status_titles:
       locked:
         "true": "bearbeitet"
@@ -743,9 +756,13 @@ de:
       restricted:
         "true": "beschränkt"
         "false": "zugänglich"
+      scheduled:
+        "true": "geplant"
+        "false": ""
     page_status: "Status"
     page_title: "Titel"
     page_type: "Typ"
+    page_usage: "Seitennutzung"
     page_visible_in_navigation: "in der Navigation sichtbar"
     page_was_created: "Wurde erstellt"
     page_was_updated: "Wurde bearbeitet"
@@ -788,6 +805,7 @@ de:
     now: "Jetzt"
     publish_page_language_not_public: "Seite kann nicht veröffentlicht werden, wenn die Sprache nicht öffentlich ist"
     publish_page_not_allowed: "Sie haben nicht die Berechtigung, diese Seite zu veröffentlichen"
+    published: "veröffentlicht"
     public_available: Öffentlich verfügbar
     recently_uploaded_only: "Kürzlich hochgeladene"
     "regular method": "herkömmlichen Methode"
@@ -1064,6 +1082,8 @@ de:
             base:
               restrict_dependent_destroy:
                 has_many: "Es sind noch %{record} mit dieser Seite verknüpft. Bitte entfernen Sie diese zuerst."
+            page_layout:
+              conflicting_wildcard_param_key: 'hat einen widersprüchlichen Wildcard-Parameter "%{param}", der bereits vom Seitentyp "%{conflicting_layout}" verwendet wird'
             descendants:
               still_attached_to_nodes: "Die folgenden Unterseiten sind noch mit Menü-Einträgen verknüpft: %{page_names}. Bitte entfernen Sie diese zuerst."
             nodes:
@@ -1188,10 +1208,11 @@ de:
         language: "Sprache"
         locked: "Die Seite ist gesperrt"
         locked_by: "Gesperrt durch"
-        meta_description: "Seitenbeschreibung"
-        meta_keywords: "Suchbegriffe"
+        meta_description: "Meta-Beschreibung"
+        meta_keywords: "Meta-Keywords"
         name: "Name"
         page_layout: "Seitentyp"
+        page_type: "Seitentyp"
         parent_id: "Übergeordnete Seite"
         parent: "Übergeordnete Seite"
         public: "veröffentlicht"
@@ -1209,6 +1230,10 @@ de:
         updated_at: "Aktualisiert am"
         urlname: "URL-Name"
         visible: "in der Navigation sichtbar"
+      alchemy/page_version:
+        meta_description: "Meta-Beschreibung"
+        meta_keywords: "Meta-Keywords"
+        title: "Seitentitel"
       alchemy/picture:
         image_file_name: "Dateiname"
         image_file_height: "Höhe"
