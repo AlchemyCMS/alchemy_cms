@@ -22,6 +22,29 @@ RSpec.describe "Locked pages feature", type: :system do
     end
   end
 
+  it "unlocks the page and removes its tab when clicking unlock", :js do
+    visit alchemy.admin_pages_path
+
+    within "#locked_page_#{a_page.id}" do
+      find("button[title='#{Alchemy.t(:explain_unlocking)}']").click
+    end
+
+    expect(page).to have_no_selector("#locked_page_#{a_page.id}")
+    expect(a_page.reload).not_to be_locked
+  end
+
+  it "unlocks the page from the dashboard widget and removes its tab", :js do
+    visit alchemy.admin_dashboard_path
+
+    within "#LockedPages" do
+      find("button[title='#{Alchemy.t(:explain_unlocking)}']").click
+    end
+
+    expect(page).to have_no_selector("#locked_page_#{a_page.id}")
+    expect(page).to have_no_selector("#LockedPages a", text: a_page.name)
+    expect(a_page.reload).not_to be_locked
+  end
+
   context "with multiple languages" do
     let!(:language) do
       create(:alchemy_language, :klingon)
