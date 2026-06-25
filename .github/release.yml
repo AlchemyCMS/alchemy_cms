@@ -9,6 +9,7 @@ changelog:
       - backport-to-8.0-stable
       - backport-to-8.1-stable
       - backport-to-8.2-stable
+      - backport-to-8.3-stable
       - chore
 
   categories:
