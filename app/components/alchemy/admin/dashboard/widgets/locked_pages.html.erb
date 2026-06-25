@@ -20,16 +20,16 @@
                 data: {turbo_frame: "_top"} %>
             </span>
           </td>
-          <% if multi_site? %>
-            <td class="site_name">
+          <td class="site_name">
+            <% if multi_site? %>
               <small><%= page.site_name %></small>
-            </td>
-          <% end %>
-          <% if page.site_languages.many? %>
-            <td class="locale">
+            <% end %>
+          </td>
+          <td class="locale">
+            <% if page.site_languages.many? %>
               <small><%= page.language.code.upcase %></small>
-            </td>
-          <% end %>
+            <% end %>
+          </td>
           <td class="name">
             <small>
               <% if current_alchemy_user.id == page.locked_by %>
