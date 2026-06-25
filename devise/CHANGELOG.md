@@ -1,5 +1,18 @@
 # Changelog
 
+## 8.3.0 (2026-06-25)
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### New Features
+* Update Alchemy to 8.3 by @tvdeyen in https://github.com/AlchemyCMS/alchemy-devise/pull/282
+
+## New Contributors
+* @sascha-karnatz made their first contribution in https://github.com/AlchemyCMS/alchemy-devise/pull/279
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy-devise/compare/v8.2.2...v8.3.0
+
 ## 8.2.0 (2026-04-13)
 
 <!-- Release notes generated using configuration in .github/release.yml at main -->
