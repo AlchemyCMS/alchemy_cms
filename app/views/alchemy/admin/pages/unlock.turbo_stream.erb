@@ -1,0 +1,20 @@
+<alchemy-growl><%= @notice %></alchemy-growl>
+<%= turbo_stream.remove "locked_page_#{@page.id}" %>
+<% if @page.layoutpage %>
+  <%= turbo_stream.replace "page_#{@page.id}" do %>
+    <%= render "alchemy/admin/layoutpages/layoutpage", layoutpage: @page %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.replace "alchemy_pages_tree" do %>
+    <%= turbo_frame_tag "alchemy_pages_tree", src: alchemy.tree_admin_pages_path do %>
+      <alchemy-spinner></alchemy-spinner>
+    <% end %>
+  <% end %>
+<% end %>
+<% ["LockedPages", "RecentPages"].each do |widget| %>
+  <%= turbo_stream.replace widget do %>
+    <%= turbo_frame_tag widget, src: alchemy.admin_dashboard_widget_path(id: widget) do %>
+      <alchemy-spinner size="small"></alchemy-spinner>
+    <% end %>
+  <% end %>
+<% end %>

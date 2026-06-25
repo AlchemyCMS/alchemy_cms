@@ -41,7 +41,7 @@
           </td>
           <td class="button">
             <% if (current_alchemy_user.id == page.locked_by) || can?(:manage, Alchemy::Current.site) %>
-              <%= button_to alchemy.unlock_admin_page_path(page, redirect_to: alchemy.admin_dashboard_path), class: "icon_button small", title: Alchemy.t(:explain_unlocking) do %>
+              <%= button_to alchemy.unlock_admin_page_path(page), class: "icon_button small", title: Alchemy.t(:explain_unlocking) do %>
                 <%= render_icon(:close, size: '1x') %>
               <% end %>
             <% end %>
