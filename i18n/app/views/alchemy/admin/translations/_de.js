@@ -30,6 +30,11 @@ Alchemy.translations = {
     "Maximale Größe der erlaubten Dateigröße erreicht.",
   "Select a page first": "Zuerst eine Seite wählen.",
   "Successfully moved menu item": "Menü-Eintrag wurde erfolgreich bewegt.",
+  "Abort upload": "Upload abbrechen",
+  "Cancel all uploads": "Alle Uploads abbrechen",
+  "Clear selection": "Auswahl aufheben",
+  Remove: "Entfernen",
+  Close: "Schließen",
   formats: {
     datetime: "d.m.Y H:i",
     date: "d.m.Y",
