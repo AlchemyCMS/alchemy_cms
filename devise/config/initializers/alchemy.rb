@@ -20,4 +20,5 @@ Rails.application.config.to_prepare do
   Alchemy.config.logout_path = "/admin/logout"
   Alchemy.config.logout_method = Devise.sign_out_via.to_s
   Alchemy.config.edit_user_path = "/admin/users/:id/edit"
+  Alchemy.config.admin_users_path = "/admin/users"
 end

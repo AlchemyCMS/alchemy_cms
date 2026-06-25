@@ -3,3 +3,5 @@ en:
     admin:
       login:
         remember_me: "Remember me for %{days} days"
+      users:
+        preferred_timezone: Pick the users preferred timezone if it is different from %{server_timezone}

@@ -3,3 +3,5 @@ de:
     admin:
       login:
         remember_me: "Für %{days} Tage angemeldet bleiben"
+      users:
+        preferred_timezone: Wählen Sie eine bevorzugte Zeitzone, wenn sie sich von %{server_timezone} unterscheidet

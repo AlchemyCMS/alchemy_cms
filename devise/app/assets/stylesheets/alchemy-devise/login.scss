@@ -25,10 +25,11 @@ body.passwords {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  --form-right-column-width: 1.65fr;
 
   alchemy-message {
-    width: 300px;
-    margin-left: var(--form-left-column-width);
+    width: 281px;
+    margin-left: auto;
   }
 
   .no-js & {
@@ -40,17 +41,6 @@ body.passwords {
   }
 
   .submit {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--spacing-4);
-    margin-left: var(--form-left-column-width);
-    padding-left: var(--spacing-0);
-
-    &.align-right {
-      justify-content: end;
-    }
-
     > label {
       text-align: start;
 
@@ -63,6 +53,8 @@ body.passwords {
       display: inline-flex;
       align-items: center;
       gap: var(--spacing-0);
+      grid-column: 2;
+      grid-row: 1;
 
       &:hover {
         alchemy-icon {
