@@ -107,6 +107,12 @@ form {
     }
 
     &.tags {
+      .control-label {
+        align-self: start;
+        position: relative;
+        top: 0.95em;
+      }
+
       .control_group {
         gap: 0;
       }
@@ -214,7 +220,6 @@ form {
     grid-template-columns: var(--form-right-column-width) var(
         --form-left-column-width
       );
-    margin: 0 calc(-1 * var(--spacing-1));
     gap: var(--spacing-1);
 
     .left-column,
@@ -267,6 +272,19 @@ form {
 
       &:last-of-type {
         margin-left: auto;
+      }
+    }
+
+    label.checkbox {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-0);
+      width: max-content;
+      grid-column: 2;
+      grid-row: 1;
+
+      input {
+        margin-left: var(--spacing-0);
       }
     }
   }

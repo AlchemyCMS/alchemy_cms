@@ -21,7 +21,7 @@ RSpec.describe "Nodes management", type: :system, js: true do
     find("#new_node_form .select2-choice").click
     find(".select2-result:first-child").click
 
-    click_button "Add a menu node"
+    click_button "Add to menu"
   end
 
   it "lets a user add a menu node" do
@@ -40,7 +40,7 @@ RSpec.describe "Nodes management", type: :system, js: true do
     it "displays error message" do
       open_page_properties
 
-      click_button "Add a menu node"
+      click_button "Add to menu"
       within "alchemy-message[type='error']" do
         expect(page).to have_content("Menu Type can't be blank")
       end
