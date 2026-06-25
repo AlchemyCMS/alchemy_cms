@@ -162,7 +162,7 @@ alchemy-elements-window {
 
 .preview_text_element_name {
   font-size: var(--font-size_small);
-  font-weight: bold;
+  font-weight: var(--font-weight_semibold);
   line-height: 15px;
   margin-right: var(--spacing-0);
 }
@@ -363,10 +363,6 @@ button.element-toggle {
       z-index: 1;
       box-shadow: 0 1px 1px var(--border-color);
       transition: all var(--transition-duration);
-
-      sl-switch::part(label) {
-        display: none;
-      }
     }
 
     .element-header:hover + .element-toolbar,
@@ -1131,6 +1127,7 @@ select.long {
     display: flex;
     margin: var(--spacing-1) 0;
     font-size: var(--font-size_small);
+    font-weight: var(--label-font-weight);
     line-height: 15px;
     text-indent: 1px;
     color: var(--form-field-label-color);

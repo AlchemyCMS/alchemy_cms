@@ -71,7 +71,7 @@ th,
   text-align: left;
   vertical-align: top;
   border-bottom: 1px solid var(--table-border-color);
-  font-weight: bold;
+  font-weight: var(--font-weight_semibold);
 }
 
 tr.even td,
@@ -102,7 +102,7 @@ tr.odd td,
 
 td.heading {
   padding: var(--spacing-1) 0;
-  font-weight: bold;
+  font-weight: var(--font-weight_semibold);
   text-decoration: underline;
 }
 
@@ -219,7 +219,14 @@ td,
 
     .tag {
       margin: var(--spacing-1) 0;
-      padding: var(--spacing-1) var(--spacing-2);
+      padding: var(--spacing-0) var(--spacing-2);
+      font-size: var(--font-size_small);
+      gap: var(--spacing-0);
+      --icon-size: var(--icon-size-sm);
+
+      &::before {
+        top: 0.3ex;
+      }
     }
   }
 }

@@ -1,6 +1,11 @@
 @use "custom-properties";
 
 @mixin dark-theme {
+  /* Badges */
+  --badge-background-color: var(--a-dark-grey);
+  --badge-text-color: var(--text-color);
+
+  /* Body */
   --body-background-color: var(--a-dark-grey);
 
   /* Borders */
@@ -293,6 +298,11 @@
 }
 
 @mixin light-theme {
+  /* Badges */
+  --badge-background-color: var(--color-grey_light);
+  --badge-text-color: var(--text-color);
+
+  /* Body */
   --body-background-color: var(--color-grey_very_light);
 
   /* Borders */

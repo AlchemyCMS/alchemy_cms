@@ -26,7 +26,7 @@
   span,
   em {
     font-size: var(--font-size_medium);
-    font-weight: var(--font-weight_normal);
+    font-weight: var(--label-font-weight);
     color: var(--icon-color);
     padding: var(--spacing-1);
     margin: var(--spacing-0);
@@ -120,6 +120,7 @@
     display: flex;
     align-items: center;
     gap: var(--spacing-2);
+    font-weight: var(--label-font-weight);
   }
 
   @media screen and (max-width: vars.$large-screen-break-point) {

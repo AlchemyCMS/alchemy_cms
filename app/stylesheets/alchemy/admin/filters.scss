@@ -4,13 +4,18 @@ div#sorting_select {
 }
 
 .filter-input {
+  display: flex;
+  flex-direction: column;
   margin: var(--spacing-2) 0;
+
+  label {
+    font-weight: var(--label-font-weight);
+  }
 
   label:not(:has(input[type="checkbox"])) {
     display: block;
-    font-weight: bold;
     font-size: var(--font-size_medium);
-    margin-bottom: var(--spacing-2);
+    margin-bottom: var(--spacing-1);
   }
 
   label:has(input[type="checkbox"]) {
@@ -45,11 +50,12 @@ div#sorting_select {
   font-weight: normal;
 
   .applied-filter-label {
-    font-weight: var(--font-weight_bold);
+    font-weight: var(--font-weight_semibold);
   }
 
   .dismiss-filter {
     display: inline-flex;
+    align-items: center;
     justify-content: center;
     width: var(--spacing-4);
     color: var(--tag-active-text-color);

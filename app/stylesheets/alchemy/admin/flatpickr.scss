@@ -718,7 +718,7 @@ span.flatpickr-weekday {
   top: -1px;
 }
 .flatpickr-time input.flatpickr-hour {
-  font-weight: bold;
+  font-weight: var(--font-weight_semibold);
 }
 .flatpickr-time input.flatpickr-minute,
 .flatpickr-time input.flatpickr-second {
@@ -734,7 +734,7 @@ span.flatpickr-weekday {
   float: left;
   line-height: inherit;
   color: #393939;
-  font-weight: bold;
+  font-weight: var(--font-weight_semibold);
   width: 2%;
   -webkit-user-select: none;
   -moz-user-select: none;

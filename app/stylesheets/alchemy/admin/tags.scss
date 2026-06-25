@@ -8,7 +8,7 @@
 
   > label {
     display: block;
-    font-weight: bold;
+    font-weight: var(--label-font-weight);
     font-size: var(--font-size_medium);
     margin-bottom: var(--spacing-2);
   }
@@ -59,14 +59,27 @@
             background-image: var(--tag-active-background-image);
           }
         }
+
+        .taggings-count {
+          color: var(--badge-text-color);
+        }
       }
     }
+  }
+
+  .taggings-count {
+    background-color: var(--badge-background-color);
+    color: var(--badge-text-color);
+    padding: var(--spacing-0) var(--spacing-1);
+    font-size: var(--font-size_small);
+    font-weight: var(--font-weight_semibold);
+    border-radius: var(--border-radius_medium);
+    margin-left: auto;
   }
 }
 
 .tag {
   pointer-events: none;
-  font-size: var(--font-size_small);
   @include mixins.tag-base(
     $margin: var(--spacing-0) 0,
     $padding: var(--spacing-1) var(--spacing-2) var(--spacing-1)
@@ -128,14 +141,9 @@
       padding: var(--spacing-1) 22px;
       background-image: var(--tag-background-image);
       background-repeat: no-repeat;
-      background-position: 6px;
+      background-position: var(--spacing-1);
       background-color: var(--tag-background-color);
       background-size: 1rem;
-
-      > div {
-        position: relative;
-        top: -1px;
-      }
     }
   }
 }

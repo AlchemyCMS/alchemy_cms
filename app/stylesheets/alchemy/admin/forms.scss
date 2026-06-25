@@ -90,6 +90,7 @@ form {
       gap: var(--spacing-1);
       margin: var(--spacing-1) 0;
       width: max-content;
+      font-weight: var(--label-font-weight);
 
       input {
         align-self: center;
@@ -107,6 +108,12 @@ form {
     }
 
     &.tags {
+      .control-label {
+        align-self: start;
+        position: relative;
+        top: 0.8em;
+      }
+
       .control_group {
         gap: 0;
       }
@@ -214,7 +221,6 @@ form {
     grid-template-columns: var(--form-right-column-width) var(
         --form-left-column-width
       );
-    margin: 0 calc(-1 * var(--spacing-1));
     gap: var(--spacing-1);
 
     .left-column,

@@ -54,20 +54,17 @@
   --spacing-10: 40px;
 
   /* Font Families */
-  --font-mono:
-    Menlo, Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal,
-    monospace;
-  --font-sans:
-    "Open Sans", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana,
-    Tahoma, sans-serif;
+  --font-mono: ui-monospace, monospace;
+  --font-sans: system-ui, sans-serif;
 
-  /* Font Size - at the moment only in Pixel, because the base font size is 12px */
-  --font-size_small: 10px; /* 0.875rem */
-  --font-size_medium: 12px; /* 1rem */
-  --font-size_large: 16px; /* 1.25 rem */
-  --font-size_xlarge: 24px; /* 2 rem */
+  --base-font-size: 13px;
+  --font-size_small: 0.85rem;
+  --font-size_medium: 1rem;
+  --font-size_large: 1.25rem;
+  --font-size_xlarge: 2rem;
 
-  --font-weight_normal: 500;
+  --font-weight_normal: 400;
+  --font-weight_semibold: 600;
   --font-weight_bold: 700;
 
   --font-default: var(--font-size_medium) var(--font-sans);
@@ -91,7 +88,7 @@
   --button-border: var(--button-border-width) var(--button-border-style)
     var(--button-border-color);
   --button-font-size: var(--font-size_medium);
-  --button-font-weight: var(--font-weight_bold);
+  --button-font-weight: var(--font-weight_semibold);
   --button-height: 31px;
   --button-line-height: var(--form-field-line-height);
   --button-margin: var(--form-field-margin);
@@ -140,11 +137,14 @@
 
   /* Icons */
   --icon-size-xs: 0.75rem;
-  --icon-size-sm: 0.875rem;
+  --icon-size-sm: 0.85rem;
   --icon-size-1x: 1rem;
   --icon-size-md: 1.3rem;
   --icon-size-xl: 1.5rem;
   --icon-size-xxl: 1.6rem;
+
+  /* Labels */
+  --label-font-weight: 500;
 
   /* Navigation */
   --main-menu-width: 170px;

@@ -22,7 +22,7 @@ ul.list {
     &.list-header {
       overflow: hidden;
       background-color: transparent;
-      font-weight: bold;
+      font-weight: var(--font-weight_semibold);
       padding: 0 var(--spacing-2);
       margin: var(--spacing-1) 0 var(--spacing-2) 0;
 

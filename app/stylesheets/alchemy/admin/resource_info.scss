@@ -133,6 +133,7 @@
 
   h2.resource-info-headline {
     margin: var(--spacing-4) var(--spacing-3);
+    font-weight: var(--label-font-weight);
   }
 }
 
@@ -183,7 +184,7 @@
 
   a {
     color: var(--text-color);
-    font-weight: var(--font-weight_bold);
+    font-weight: var(--font-weight_semibold);
     text-decoration-color: transparent;
 
     &:hover {

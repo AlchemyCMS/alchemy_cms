@@ -10,6 +10,7 @@ alchemy-uploader {
 
   h2 {
     margin: var(--spacing-3) 0;
+    font-size: var(--font-size_medium);
   }
 }
 
@@ -357,6 +358,7 @@ div#library_sidebar {
     float: right;
     justify-content: end;
     width: 200px;
+    font-weight: var(--label-font-weight);
 
     select {
       max-width: 160px;
