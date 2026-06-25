@@ -14,6 +14,7 @@ Alchemy.translations = {
   page_found: "Pagina trovata",
   pages_found: "Pagine trovate",
   "Please confirm": "Per favore conferma",
+  "Preview failed to load": "Impossibile caricare l'anteprima. Riprova.",
   url_validation_failed: "Formato URL non valido.",
   warning: "Attenzione!",
   "File is too large": "Il file è troppo grande",
@@ -23,6 +24,14 @@ Alchemy.translations = {
   "No results found": "Nessun risultato trovato.",
   "Uploaded bytes exceed file size":
     "Il numero di byte caricati eccede la dimensione del file",
+  "Abort upload": "Interrompi caricamento",
+  "Cancel all uploads": "Annulla tutti i caricamenti",
+  "Clear selection": "Cancella selezione",
+  Remove: "Rimuovi",
+  None: "Nessuno",
+  "No anchors found": "Nessuna ancora trovata.",
+  "Select a page first": "Seleziona prima una pagina.",
+  Close: "Chiudi",
   formats: {
     datetime: "Y-m-d H:i",
     date: "Y-m-d",
