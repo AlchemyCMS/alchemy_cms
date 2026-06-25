@@ -34,8 +34,8 @@ Alchemy.translations = {
   "Select a page first": "Selecteer eerst een pagina.",
   Close: "Sluiten",
   formats: {
-    datetime: "Y-m-d H:i",
-    date: "Y-m-d",
+    datetime: "d-m-Y H:i",
+    date: "d-m-Y",
     time: "H:i",
     time_24hr: true,
   },
