@@ -31,8 +31,8 @@ Alchemy.translations = {
   "Select a page first": "请先选择页面。",
   Close: "关闭",
   formats: {
-    datetime: "Y-m-d H:i",
-    date: "Y-m-d",
+    datetime: "Y年m月d日 H:i",
+    date: "Y年m月d日",
     time: "H:i",
     time_24hr: true,
   },
