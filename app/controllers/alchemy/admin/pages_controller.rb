@@ -195,12 +195,13 @@ module Alchemy
       def unlock
         # fetching page via before filter
         @page.unlock!
-        flash[:notice] = Alchemy.t(:unlocked_page, name: @page.name)
-        @pages_locked_by_user = Page.from_current_site.locked_by(current_alchemy_user)
+        @notice = Alchemy.t(:unlocked_page, name: @page.name)
         respond_to do |format|
-          format.js
-          format.html do
-            redirect_to(unlock_redirect_path, allow_other_host: true)
+          format.turbo_stream do
+            if params[:redirect_to].present?
+              flash[:notice] = @notice
+              redirect_to(unlock_redirect_path, allow_other_host: true)
+            end
           end
         end
       end

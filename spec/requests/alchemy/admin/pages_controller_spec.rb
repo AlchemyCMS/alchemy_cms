@@ -557,7 +557,7 @@ module Alchemy
         let(:page) { create(:alchemy_page) }
         let(:user) { create(:alchemy_dummy_user, :as_editor) }
 
-        subject { post unlock_admin_page_path(page), xhr: true }
+        subject { post unlock_admin_page_path(page, format: :turbo_stream) }
 
         before do
           page.lock_to!(user)
@@ -568,37 +568,80 @@ module Alchemy
           expect { subject }.to change { page.reload.locked? }.from(true).to(false)
         end
 
-        context "requesting for html format" do
-          subject { post unlock_admin_page_path(page) }
+        it "responds with a turbo stream that removes the locked page tab" do
+          subject
+          expect(response.media_type).to eq(Mime[:turbo_stream])
+          expect(response.body).to include(%(action="remove"))
+          expect(response.body).to include(%(target="locked_page_#{page.id}"))
+        end
 
-          it "should redirect to admin_pages_path" do
-            is_expected.to redirect_to(admin_pages_path)
+        it "responds with a growl notice" do
+          subject
+          expect(response.body).to include("<alchemy-growl>")
+          expect(response.body).to include(page.name)
+        end
+
+        it "reloads the page tree frame" do
+          subject
+          expect(response.body).to include(%(target="alchemy_pages_tree"))
+          expect(response.body).to include(tree_admin_pages_path)
+        end
+
+        it "reloads the locked pages dashboard widget" do
+          subject
+          expect(response.body).to include(%(target="LockedPages"))
+          expect(response.body).to include(admin_dashboard_widget_path(id: "LockedPages"))
+        end
+
+        it "reloads the recent pages dashboard widget" do
+          subject
+          expect(response.body).to include(%(target="RecentPages"))
+          expect(response.body).to include(admin_dashboard_widget_path(id: "RecentPages"))
+        end
+
+        context "when the page is a layoutpage" do
+          let(:page) { create(:alchemy_page, :layoutpage) }
+
+          it "replaces the page row instead of reloading the tree" do
+            subject
+            expect(response.body).to include(%(target="page_#{page.id}"))
+            expect(response.body).not_to include(%(target="alchemy_pages_tree"))
+          end
+        end
+
+        context "if passing :redirect_to through params" do
+          subject { post unlock_admin_page_path(page, redirect_to: redirect_path, format: :turbo_stream) }
+
+          context "that is admin layout pages path" do
+            let(:redirect_path) { "/admin/layout_pages" }
+
+            it "redirects to the given path instead of rendering the stream" do
+              is_expected.to redirect_to("/admin/layout_pages")
+            end
           end
 
-          context "if passing :redirect_to through params" do
-            context "that is admin layout pages path" do
-              subject { post unlock_admin_page_path(page, redirect_to: "/admin/layout_pages") }
+          context "that is admin pages path" do
+            let(:redirect_path) { "/admin/pages" }
 
-              it "should redirect to the given path" do
-                is_expected.to redirect_to("/admin/layout_pages")
-              end
+            it "redirects to the given path instead of rendering the stream" do
+              is_expected.to redirect_to("/admin/pages")
             end
+          end
 
-            context "that is admin pages path" do
-              subject { post unlock_admin_page_path(page, redirect_to: "/admin/pages") }
+          context "that is another path" do
+            let(:redirect_path) { "/this/path" }
 
-              it "should redirect to the given path" do
-                is_expected.to redirect_to("/admin/pages")
-              end
+            it "redirects to admin_pages_path" do
+              is_expected.to redirect_to(admin_pages_path)
             end
+          end
+        end
 
-            context "that is another path" do
-              subject { post unlock_admin_page_path(page, redirect_to: "/this/path") }
+        context "requesting a non turbo stream format" do
+          subject { post unlock_admin_page_path(page) }
 
-              it "should redirect to admin_pages_path" do
-                is_expected.to redirect_to(admin_pages_path)
-              end
-            end
+          it "is not acceptable" do
+            expect { subject }.to raise_error(ActionController::UnknownFormat)
           end
         end
       end
