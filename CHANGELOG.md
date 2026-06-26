@@ -1,5 +1,17 @@
 # Changelog
 
+## 8.3.1 (2026-06-26)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.3-stable -->
+
+## What's Changed
+### Bug Fixes
+* [8.3-stable] Tweak forms by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4008
+* [8.3-stable] fix(pages): Unlock pages via Turbo Streams  by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4009
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.3.0...v8.3.1
+
 ## 8.3.0 (2026-06-23)
 
 <!-- Release notes generated using configuration in .github/release.yml at main -->
