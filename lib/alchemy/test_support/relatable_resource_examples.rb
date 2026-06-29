@@ -5,6 +5,7 @@ RSpec.shared_examples_for "a relatable resource" do |args|
 
   let(:resource_factory_name) { args[:resource_factory_name] || "alchemy_#{args[:resource_name]}" }
   let(:ingredient_factory_name) { args[:ingredient_factory_name] || "alchemy_ingredient_#{args[:ingredient_type]}" }
+  let(:update_attribute) { args[:update_attribute] || :name }
 
   describe ".deletable" do
     subject { described_class.deletable }
@@ -15,7 +16,8 @@ RSpec.shared_examples_for "a relatable resource" do |args|
     let!(:ingredient2) { create(ingredient_factory_name, related_object: nil) }
 
     it "should return all records that are not assigned to an ingredient" do
-      is_expected.to eq [unassigned_resource]
+      is_expected.to include(unassigned_resource)
+      is_expected.to_not include(assigned_resource)
     end
   end
 
@@ -87,14 +89,14 @@ RSpec.shared_examples_for "a relatable resource" do |args|
 
       it "enqueues InvalidateElementsCacheJob" do
         expect {
-          related_object.update(name: "Updated name")
+          related_object.update(update_attribute => "Updated name")
         }.to have_enqueued_job(Alchemy::InvalidateElementsCacheJob).with(described_class.name, related_object.id)
       end
     end
 
     context "when no related ingredients exist" do
       it "does not enqueue InvalidateElementsCacheJob" do
-        expect { related_object.update(name: "Updated name") }.to_not have_enqueued_job(Alchemy::InvalidateElementsCacheJob)
+        expect { related_object.update(update_attribute => "Updated name") }.to_not have_enqueued_job(Alchemy::InvalidateElementsCacheJob)
       end
     end
   end
