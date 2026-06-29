@@ -42,7 +42,11 @@ module Alchemy
       has_many :related_elements, through: :related_ingredients, source: :element
       has_many :related_pages, through: :related_elements, source: :page
 
-      after_touch :touch_related_ingredients, if: -> { related_ingredients.exists? }
+      # Fires on both updates and touches (touch flags the update callback),
+      # so element caches are invalidated whenever the resource changes.
+      # Deferring to after_commit avoids enqueuing on rollback and coalesces
+      # repeated touches within a transaction into a single job.
+      after_commit :touch_related_ingredients, on: :update, if: -> { related_ingredients.exists? }
     end
 
     # Returns true if object is not assigned to any ingredient.
