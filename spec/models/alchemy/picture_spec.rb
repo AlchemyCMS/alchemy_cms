@@ -18,8 +18,8 @@ module Alchemy
     end
 
     it_behaves_like "a relatable resource",
-      resource_name: :picture,
-      ingredient_type: :picture
+      resource_factory_name: "alchemy_picture",
+      ingredient_factory_name: "alchemy_ingredient_picture"
 
     it "is valid with valid attributes" do
       expect(picture).to be_valid

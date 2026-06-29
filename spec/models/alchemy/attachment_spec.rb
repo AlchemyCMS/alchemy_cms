@@ -18,8 +18,8 @@ module Alchemy
     end
 
     it_behaves_like "a relatable resource",
-      resource_name: :attachment,
-      ingredient_type: :file
+      resource_factory_name: "alchemy_attachment",
+      ingredient_factory_name: "alchemy_ingredient_file"
 
     describe ".deletable" do
       let!(:richtext_linked_attachment) { create(:alchemy_attachment) }
