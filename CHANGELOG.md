@@ -1,5 +1,16 @@
 # Changelog
 
+## 8.3.2 (2026-06-29)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.3-stable -->
+
+## What's Changed
+### Other Changes
+* [8.3-stable] fix(RelatableResource): Invalidate element caches on resource update by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4013
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.3.1...v8.3.2
+
 ## 8.3.1 (2026-06-26)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.3-stable -->
