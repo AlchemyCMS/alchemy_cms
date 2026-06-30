@@ -1,6 +1,6 @@
 import { RemoteSelect } from "alchemy_admin/components/remote_select"
 
-class PageSelect extends RemoteSelect {
+export class PageSelect extends RemoteSelect {
   get pageId() {
     return this.selection ? JSON.parse(this.selection)["id"] : undefined
   }
