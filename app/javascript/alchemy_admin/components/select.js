@@ -11,7 +11,7 @@ import {
 const DROPDOWN_WINDOW_MARGIN = 16
 const DROPDOWN_MIN_HEIGHT = 120
 
-class Select extends HTMLSelectElement {
+export class Select extends HTMLSelectElement {
   #tomSelect = null
 
   connectedCallback() {
@@ -60,6 +60,12 @@ class Select extends HTMLSelectElement {
 
   get placeholder() {
     return this.getAttribute("placeholder")
+  }
+
+  // Subclasses may return extra Tom Select render functions (e.g. custom
+  // `option`/`item` templates) to merge on top of the defaults below.
+  get renderers() {
+    return {}
   }
 
   #initTomSelect() {
@@ -183,7 +189,8 @@ class Select extends HTMLSelectElement {
         },
         no_results() {
           return `<div class="no-results">${translate("No results found")}</div>`
-        }
+        },
+        ...this.renderers
       }
     }
 

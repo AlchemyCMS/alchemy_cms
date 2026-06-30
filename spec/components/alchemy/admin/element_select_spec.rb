@@ -4,7 +4,8 @@ require "rails_helper"
 
 RSpec.describe Alchemy::Admin::ElementSelect, type: :component do
   before do
-    allow(Alchemy::Element).to receive(:icon_file)
+    allow_any_instance_of(Alchemy::ElementDefinition).to receive(:icon_file)
+      .and_return(%(<svg class="icon"></svg>).html_safe)
     render
   end
 
@@ -21,14 +22,25 @@ RSpec.describe Alchemy::Admin::ElementSelect, type: :component do
     ]
   end
 
-  it "renders input field without value attribute" do
-    expect(page).to have_selector("input[value='headline']")
+  it "renders a native select enhanced as alchemy-element-select" do
+    expect(page).to have_selector(
+      %(select[is="alchemy-element-select"][placeholder="Select element"][required][name="element[name]"]),
+      visible: :all
+    )
   end
 
-  it "renders alchemy-element-select with input field" do
+  it "renders an option per element with its display name" do
     expect(page).to have_selector(
-      "alchemy-element-select[placeholder='Select element'] input[required][name='element[name]']"
+      %(select[is="alchemy-element-select"] option[value="headline"]),
+      text: "Headline",
+      visible: :all
     )
+  end
+
+  it "renders the element icon and hint as option data attributes" do
+    option = page.find(%(select option[value="headline"]), visible: :all)
+    expect(option["data-icon"]).to eq(%(<svg class="icon"></svg>))
+    expect(option["data-hint"]).to eq("Use this for headlines.")
   end
 
   context "with autofocus: true" do
@@ -36,27 +48,14 @@ RSpec.describe Alchemy::Admin::ElementSelect, type: :component do
       render_inline described_class.new(element_definitions, field_name: "element[name]", autofocus: true)
     end
 
-    it "renders input field with autofocus attribute" do
-      expect(page).to have_selector("input[autofocus]")
+    it "renders the select with autofocus attribute" do
+      expect(page).to have_selector("select[autofocus]", visible: :all)
     end
   end
 
-  it "renders options for select2" do
-    component = page.find("alchemy-element-select")
-    options = JSON.parse(component["options"])
-    expect(options).to match_array([
-      {
-        "text" => "Headline",
-        "icon" => an_instance_of(String),
-        "hint" => "Use this for headlines.",
-        "id" => "headline"
-      }
-    ])
-  end
-
   context "with one element definition" do
-    it "renders input field without value attribute" do
-      expect(page).to have_selector("input[value='headline']")
+    it "preselects the only option" do
+      expect(page).to have_selector(%(option[value="headline"][selected]), visible: :all)
     end
   end
 
@@ -72,9 +71,9 @@ RSpec.describe Alchemy::Admin::ElementSelect, type: :component do
       ]
     end
 
-    it "renders input field without value attribute" do
-      expect(page).to have_selector("alchemy-element-select input")
-      expect(page).to_not have_selector("input[value]")
+    it "preselects no option" do
+      expect(page).to have_selector("select[is='alchemy-element-select'] option", count: 2, visible: :all)
+      expect(page).to_not have_selector("option[selected]", visible: :all)
     end
   end
 end

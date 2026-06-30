@@ -12,31 +12,33 @@ module Alchemy
       end
 
       def call
-        content_tag "alchemy-element-select",
-          options: elements_options.to_json,
-          placeholder: Alchemy.t(:select_element) do
-          text_field_tag(field_name, nil, {
-            autofocus:,
-            required: true,
-            value: elements.many? ? nil : elements.first&.name,
-            class: "alchemy_selectbox full_width"
-          })
-        end
+        content_tag "select", element_options,
+          is: "alchemy-element-select",
+          name: field_name,
+          required: true,
+          autofocus:,
+          placeholder: Alchemy.t(:select_element)
       end
 
       private
 
-      def elements_options
-        return [] if elements.nil?
+      def element_options
+        return "".html_safe if elements.nil?
 
-        elements.sort_by(&:name).map do |element|
-          {
-            text: Element.display_name_for(element.name),
-            hint: element.hint,
-            icon: element.icon_file,
-            id: element.name
-          }
-        end
+        # Preselect the only option, so adding a single available element type
+        # does not require an explicit selection.
+        preselect = !elements.many?
+
+        safe_join(
+          elements.sort_by(&:name).map do |element|
+            tag.option(
+              Element.display_name_for(element.name),
+              value: element.name,
+              selected: preselect,
+              data: {icon: element.icon_file, hint: element.hint}
+            )
+          end
+        )
       end
     end
   end

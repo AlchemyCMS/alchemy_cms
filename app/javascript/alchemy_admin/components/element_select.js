@@ -1,70 +1,30 @@
-import { hightlightTerm } from "alchemy_admin/components/remote_select"
+import { Select } from "alchemy_admin/components/select"
 
-const formatSelection = (option) => {
-  return `
-    <div class="element-select-name">
-      ${option.icon}<span>${option.text}</span>
-    </div>
-  `
-}
+const renderName = (icon, text) => `
+  <div class="element-select-name">
+    ${icon}<span>${text}</span>
+  </div>
+`
 
-const formatItem = (icon, text, hint) => {
-  const description = hint
-    ? `<div class="element-select-description">${hint}</div>`
-    : ""
-  return `
-    <div class="element-select-item">
-      ${formatSelection({ icon, text })}
-      ${description}
-    </div>
-  `
-}
-
-export class ElementSelect extends HTMLElement {
-  #select2 = null
-
-  connectedCallback() {
-    const results = this.options
-    const options = {
-      minimumResultsForSearch: 3,
-      dropdownAutoWidth: true,
-      data() {
-        return { results }
-      },
-      formatResult: (option, _el, search) => {
-        let text
-
-        if (option.id === "") return option.text
-        if (search.term !== "") {
-          text = hightlightTerm(option.text, search.term)
-        } else {
-          text = option.text
-        }
-
-        return formatItem(option.icon, text, option.hint)
-      },
-      formatSelection,
-      placeholder: this.placeholder
+export class ElementSelect extends Select {
+  get renderers() {
+    return {
+      item: (data, escape) => renderName(data.icon, escape(data.text)),
+      option: (data, escape) => {
+        const description = data.hint
+          ? `<div class="element-select-description">${escape(data.hint)}</div>`
+          : ""
+        return `
+          <div class="element-select-item">
+            ${renderName(data.icon, escape(data.text))}
+            ${description}
+          </div>
+        `
+      }
     }
-    this.#select2 = $(this.inputField).select2(options)
-  }
-
-  disconnectedCallback() {
-    this.#select2?.select2("destroy")
-    this.#select2 = null
-  }
-
-  get options() {
-    return JSON.parse(this.getAttribute("options"))
-  }
-
-  get placeholder() {
-    return this.getAttribute("placeholder")
-  }
-
-  get inputField() {
-    return this.querySelector("input")
   }
 }
 
-customElements.define("alchemy-element-select", ElementSelect)
+customElements.define("alchemy-element-select", ElementSelect, {
+  extends: "select"
+})
