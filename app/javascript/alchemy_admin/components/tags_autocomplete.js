@@ -1,6 +1,6 @@
 import { setupSelectLocale } from "alchemy_admin/i18n"
 
-class TagsAutocomplete extends HTMLElement {
+export class TagsAutocomplete extends HTMLElement {
   async connectedCallback() {
     await setupSelectLocale()
 

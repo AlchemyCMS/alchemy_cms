@@ -20,7 +20,7 @@ const formatItem = (icon, text, hint) => {
   `
 }
 
-class ElementSelect extends HTMLElement {
+export class ElementSelect extends HTMLElement {
   constructor() {
     super()
   }
