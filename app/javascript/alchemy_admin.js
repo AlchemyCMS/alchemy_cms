@@ -53,6 +53,11 @@ document.addEventListener("turbo:load", Initializer)
 
 // Public API for extensions
 export { RemoteSelect } from "alchemy_admin/components/remote_select"
+export { PageSelect } from "alchemy_admin/components/page_select"
+export { AttachmentSelect } from "alchemy_admin/components/attachment_select"
+export { ElementSelect } from "alchemy_admin/components/element_select"
+export { TagsAutocomplete } from "alchemy_admin/components/tags_autocomplete"
+export { Tinymce } from "alchemy_admin/components/tinymce"
 export { on } from "alchemy_admin/utils/events"
 
 // Page-specific modules - bundled to avoid dual-loading

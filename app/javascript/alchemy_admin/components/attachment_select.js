@@ -1,6 +1,6 @@
 import { RemoteSelect } from "alchemy_admin/components/remote_select"
 
-class AttachmentSelect extends RemoteSelect {
+export class AttachmentSelect extends RemoteSelect {
   _renderResult(item) {
     return this._renderListEntry(item)
   }
