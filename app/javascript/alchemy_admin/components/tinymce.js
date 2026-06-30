@@ -4,7 +4,7 @@ import { currentLocale } from "alchemy_admin/i18n"
 const DARK_THEME = "alchemy-dark"
 const LIGHT_THEME = "alchemy"
 
-class Tinymce extends HTMLElement {
+export class Tinymce extends HTMLElement {
   #min_height = null
 
   /**
