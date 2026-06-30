@@ -65,6 +65,9 @@
       margin: 0;
       line-height: 21px;
       max-width: 90%;
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     > input {
@@ -151,10 +154,13 @@
         background: var(--tag-background-color);
         border: 0 none;
         border-radius: var(--border-radius_medium);
+        max-width: unset;
+        white-space: normal;
 
         .remove {
           display: inline-flex;
           align-items: center;
+          align-self: start;
           padding: 0 var(--spacing-0);
           color: var(--icon-color);
           text-decoration: none;
