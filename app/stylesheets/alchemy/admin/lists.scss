@@ -20,6 +20,8 @@ ul.list {
     margin-bottom: 0;
 
     &.list-header {
+      display: flex;
+      justify-content: space-between;
       overflow: hidden;
       background-color: transparent;
       font-weight: bold;
@@ -45,17 +47,15 @@ ul.list {
     display: inline-flex;
     overflow: hidden;
     text-overflow: ellipsis;
-    vertical-align: middle;
+    align-items: center;
   }
 
   .list-primary {
-    float: left;
     max-width: 65%;
   }
 
   .list-secondary,
   .right {
-    float: right;
     text-align: left;
     width: 30%;
     color: var(--color-grey_dark);
