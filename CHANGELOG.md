@@ -1,5 +1,18 @@
 # Changelog
 
+## 8.3.2 (2026-06-30)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.3-stable -->
+
+## What's Changed
+### Bug Fixes
+* [8.3-stable] fix(RelatableResource): Invalidate element caches on resource update by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4013
+* [8.3-stable] fix: Expose admin components via importmap again by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4018
+* [8.3-stable] Fix lists css and tom-select overflowing text by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4021
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.3.1...v8.3.2
+
 ## 8.3.1 (2026-06-26)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.3-stable -->
