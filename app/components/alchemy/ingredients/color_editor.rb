@@ -4,18 +4,21 @@ module Alchemy
   module Ingredients
     class ColorEditor < BaseEditor
       def input_field
-        content_tag("alchemy-color-select") do
-          if colors.none?
+        if colors.none?
+          content_tag("alchemy-color-input", class: "color-select") do
             concat text_field_tag(
               form_field_name,
               value,
               disabled: !editable?
             )
             concat color_field_tag(nil, value, disabled: disabled?)
-          else
+          end
+        else
+          content_tag("div", class: "color-select") do
             concat select_tag(
               form_field_name,
               color_options.join.html_safe,
+              is: "alchemy-color-select",
               disabled: !editable?
             )
             concat color_field_tag(form_field_name, value, disabled: disabled?)

@@ -626,13 +626,13 @@ alchemy-publish-element-button {
   min-height: 100px;
 }
 
-alchemy-color-select {
+.color-select {
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   > input[type="text"],
-  > .select2-container {
+  > .ts-wrapper {
     width: 100%;
   }
 
@@ -653,15 +653,14 @@ alchemy-color-select {
 
   &:has(input[type="color"]:not([disabled])) {
     input[type="text"],
-    .select2-container,
-    .select2-choice {
+    .ts-control {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
     }
   }
 
   input[type="text"] + input[type="color"],
-  select + input[type="color"] {
+  .ts-wrapper + input[type="color"] {
     width: calc(2 * var(--form-field-addon-width));
     flex-shrink: 0;
     border-top-left-radius: 0;
@@ -670,9 +669,8 @@ alchemy-color-select {
   }
 }
 
-// place the select color options outside, because Select2
-// is opening the selection container outside the `alchemy-color-select`
-// component
+// place the select color options outside, because Tom Select
+// renders the dropdown outside the `.color-select` container
 .select-color-option {
   .color-indicator {
     background: var(--color) 100% 100% no-repeat;
