@@ -34,6 +34,11 @@ RSpec.describe Alchemy::Ingredients::ColorEditor, type: :component do
   context "with no color option" do
     let(:settings) { {} }
 
+    it "renders an alchemy-color-input with a text field and color picker" do
+      is_expected.to have_selector("alchemy-color-input.color-select > input[type='text']")
+      is_expected.to have_selector("alchemy-color-input.color-select > input[type='color']")
+    end
+
     it "renders a text input field and a color picker without name attribute" do
       is_expected.to have_selector("input[type='text'] + input[type='color']")
       is_expected.to_not have_selector("input[type='color'][name]")
@@ -42,6 +47,11 @@ RSpec.describe Alchemy::Ingredients::ColorEditor, type: :component do
 
   context "with color options as name/value pairs" do
     let(:settings) { {colors: [%w[Red red], %w[Blue blue]]} }
+
+    it "enhances the select as alchemy-color-select inside a color-select container" do
+      is_expected.to have_selector("div.color-select > select[is='alchemy-color-select']")
+    end
+
     it "renders a select with color option" do
       is_expected.to have_selector("select option[value='red']", text: "Red")
       is_expected.to have_selector("select option[value='blue']", text: "Blue")

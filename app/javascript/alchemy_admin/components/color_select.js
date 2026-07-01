@@ -1,29 +1,61 @@
-const formatItem = (object) => {
-  const optionEl = object.element[0]
-  const swatch = optionEl.dataset.swatch || optionEl.value
-  const customColor = optionEl.value === "custom_color"
-  const colorIndicator = customColor
-    ? `<alchemy-icon name="palette"></alchemy-icon>`
-    : `<span class="color-indicator" style="--color: ${swatch}"></span>`
+import { Select } from "alchemy_admin/components/select"
+
+const renderColorOption = (data, escape) => {
+  const swatch = data.swatch || data.value
+  const colorIndicator =
+    data.value === "custom_color"
+      ? `<alchemy-icon name="palette"></alchemy-icon>`
+      : `<span class="color-indicator" style="--color: ${escape(swatch)}"></span>`
 
   return `
     <div class="select-color-option">
       ${colorIndicator}
-      <span>${object.text}</span>
+      <span>${escape(data.text)}</span>
     </div>`
 }
 
-class ColorSelect extends HTMLElement {
-  #select2 = null
-
+// A color options select enhanced by Tom Select. It inherits from the shared
+// alchemy-select component to reuse the Tom Select setup, renders each option
+// and the selected item with a color swatch (or the custom-color icon), and
+// enables the adjacent color picker while a custom color is selected.
+export class ColorSelect extends Select {
   connectedCallback() {
-    if (this.select) {
-      this.#initializeSelect2()
-      this.#select2.on("change", this.#onSelectChange)
-    } else {
-      this.colorInput?.addEventListener("input", this)
-      this.textInput?.addEventListener("input", this)
-      this.#toggleColorPicker(true)
+    super.connectedCallback()
+    this.addEventListener("change", this.#onChange)
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback()
+    this.removeEventListener("change", this.#onChange)
+  }
+
+  get renderers() {
+    return {
+      item: renderColorOption,
+      option: renderColorOption
+    }
+  }
+
+  #onChange = () => {
+    const colorPicker = this.parentElement?.querySelector("input[type='color']")
+    if (colorPicker) {
+      colorPicker.disabled = this.value !== "custom_color"
+    }
+  }
+}
+
+customElements.define("alchemy-color-select", ColorSelect, {
+  extends: "select"
+})
+
+// Free-form color input used when no color options are configured. Keeps the
+// text field and the native color picker in sync and enables the picker.
+export class ColorInput extends HTMLElement {
+  connectedCallback() {
+    this.colorInput?.addEventListener("input", this)
+    this.textInput?.addEventListener("input", this)
+    if (this.colorInput) {
+      this.colorInput.disabled = false
     }
   }
 
@@ -41,29 +73,6 @@ class ColorSelect extends HTMLElement {
   disconnectedCallback() {
     this.colorInput?.removeEventListener("input", this)
     this.textInput?.removeEventListener("input", this)
-    if (this.#select2) {
-      this.#select2.off("change", this.#onSelectChange)
-      this.#select2.select2("destroy")
-      this.#select2 = null
-    }
-  }
-
-  #onSelectChange = (event) => {
-    this.#toggleColorPicker(event.val === "custom_color")
-  }
-
-  #initializeSelect2() {
-    this.select.classList.add("alchemy_selectbox")
-    const options = {
-      minimumResultsForSearch: 10,
-      formatResult: formatItem,
-      formatSelection: formatItem
-    }
-    this.#select2 = $(this.select).select2(options)
-  }
-
-  #toggleColorPicker(enabled = true) {
-    this.colorInput.disabled = !enabled
   }
 
   get colorInput() {
@@ -73,10 +82,6 @@ class ColorSelect extends HTMLElement {
   get textInput() {
     return this.querySelector("input[type='text']")
   }
-
-  get select() {
-    return this.querySelector("select")
-  }
 }
 
-customElements.define("alchemy-color-select", ColorSelect)
+customElements.define("alchemy-color-input", ColorInput)
