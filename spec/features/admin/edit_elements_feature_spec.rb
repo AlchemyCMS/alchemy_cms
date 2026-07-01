@@ -132,8 +132,8 @@ RSpec.describe "The edit elements feature", type: :system do
       button.click
       expect(page).to have_css(".alchemy-dialog")
       within ".alchemy-dialog" do
-        expect(page).to have_field("Element")
-        select2("Text", from: "Element")
+        expect(page).to have_field("Element", visible: :all)
+        tom_select("Text", from: "Element")
         click_button("Add")
       end
       expect(page).to have_selector(".element-editor[data-element-name='text']")

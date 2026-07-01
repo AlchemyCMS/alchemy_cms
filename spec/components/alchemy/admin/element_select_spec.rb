@@ -29,6 +29,10 @@ RSpec.describe Alchemy::Admin::ElementSelect, type: :component do
     )
   end
 
+  it "gives the select an id matching the field name, so the form label stays associated" do
+    expect(page).to have_selector(%(select#element_name[name="element[name]"]), visible: :all)
+  end
+
   it "renders an option per element with its display name" do
     expect(page).to have_selector(
       %(select[is="alchemy-element-select"] option[value="headline"]),
