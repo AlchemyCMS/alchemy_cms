@@ -97,7 +97,7 @@ RSpec.describe "Page editing feature", type: :system do
 
         scenario "can create a new article element" do
           within ".alchemy-dialog-body .simple_form" do
-            select2("Article", from: "Element")
+            tom_select("Article", from: "Element")
             click_button("Add")
           end
           expect(page).to_not have_selector(".alchemy-dialog-body")
@@ -110,7 +110,7 @@ RSpec.describe "Page editing feature", type: :system do
 
         scenario "can create a new fixed element" do
           within ".alchemy-dialog-body" do
-            select2("Left column", from: "Element")
+            tom_select("Left column", from: "Element")
             click_button("Add")
           end
 

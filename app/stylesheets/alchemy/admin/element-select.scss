@@ -23,7 +23,7 @@
   color: var(--text-color-muted);
   max-width: 270px;
 
-  .select2-highlighted & {
+  .ts-dropdown .option.active & {
     color: var(--select-hover-text-color);
   }
 }
