@@ -1,5 +1,16 @@
 # Changelog
 
+## 8.2.8 (2026-06-30)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.2-stable -->
+
+## What's Changed
+### Bug Fixes
+* [8.2-stable] fix: Expose admin components via importmap again by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/4019
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.2.7...v8.2.8
+
 ## 8.2.7 (2026-06-23)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.2-stable -->
