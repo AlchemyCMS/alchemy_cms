@@ -134,6 +134,8 @@
   &.multi {
     .ts-control {
       --input-max-width: 100%;
+      display: flex;
+      flex-wrap: wrap;
       height: auto;
       padding: var(--spacing-0);
 
@@ -243,5 +245,10 @@
   .no-results {
     padding: var(--spacing-2);
     color: var(--text-color-muted);
+  }
+
+  .create {
+    padding: var(--spacing-2);
+    cursor: pointer;
   }
 }

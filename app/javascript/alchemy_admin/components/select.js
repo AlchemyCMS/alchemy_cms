@@ -1,15 +1,9 @@
 import TomSelect from "tom-select"
 import { translate } from "alchemy_admin/i18n"
 import {
-  autoUpdate,
-  computePosition,
-  flip,
-  offset,
-  size
-} from "@floating-ui/dom"
-
-const DROPDOWN_WINDOW_MARGIN = 16
-const DROPDOWN_MIN_HEIGHT = 120
+  createDropdownPositioning,
+  dropdownMessages
+} from "alchemy_admin/utils/tom_select"
 
 export class Select extends HTMLSelectElement {
   #tomSelect = null
@@ -74,10 +68,7 @@ export class Select extends HTMLSelectElement {
     // Capture this before Tom Select initializes, since it rewrites the
     // select's selected option during setup.
     const hasSelectedOption = !!this.querySelector("option[selected]")
-    const dropdownMask = document.createElement("div")
-    dropdownMask.className = "ts-dropdown-mask"
-
-    let removeAutoUpdater = () => {}
+    const { onDropdownOpen, onDropdownClose } = createDropdownPositioning()
 
     if (this.multiple) {
       plugins.remove_button = {
@@ -117,62 +108,10 @@ export class Select extends HTMLSelectElement {
       },
       // remove the transition after selection of option.
       refreshThrottle: 0,
-      onDropdownOpen: async function () {
-        // Make the dropdown at least as wide as the control.
-        const styles = {
-          minWidth: `${this.control.offsetWidth}px`
-        }
-        // If the select is inside a dialog, we need to ensure the dropdown appears above it.
-        if (this.control.closest(".alchemy-dialog-body, .alchemy-popover")) {
-          styles.zIndex = "101"
-        }
-        Object.assign(this.dropdown.style, styles)
-        // Append the dropdown to the body to avoid overflow issues, especially in dialogs.
-        document.body.append(dropdownMask)
-        document.body.append(this.dropdown)
-        // Use Floating UI to position the dropdown relative to the control.
-        const updatePosition = async () => {
-          // Use Floating UI to calculate the dropdown position
-          const { x, y } = await computePosition(this.control, this.dropdown, {
-            middleware: [
-              // Flip to the opposite side if there’s not enough space
-              flip(),
-              // Make some space between the control and the dropdown to prevent overlap
-              offset(2),
-              // Ensure the dropdown fits within the viewport
-              size({
-                apply({ availableHeight, elements }) {
-                  Object.assign(
-                    elements.floating.querySelector(".ts-dropdown-content")
-                      .style,
-                    {
-                      maxHeight: `${Math.max(DROPDOWN_MIN_HEIGHT, availableHeight - DROPDOWN_WINDOW_MARGIN)}px`
-                    }
-                  )
-                }
-              })
-            ]
-          })
-          // Position the dropdown
-          Object.assign(this.dropdown.style, {
-            left: `${x}px`,
-            top: `${y}px`
-          })
-        }
-        // Update the dropdown position whenever the window resizes or scrolls.
-        removeAutoUpdater = autoUpdate(
-          this.control,
-          this.dropdown,
-          updatePosition
-        )
-      },
-      onDropdownClose: function () {
+      onDropdownOpen,
+      onDropdownClose() {
         this.control_input.classList.remove("has-value")
-        // Remove the dropdown from DOM when closed.
-        this.dropdown.remove()
-        dropdownMask.remove()
-        // Cleanup the position auto-update when the dropdown is closed.
-        removeAutoUpdater()
+        onDropdownClose.call(this)
       },
       allowEmptyOption: true,
       openOnFocus: false,
@@ -182,14 +121,7 @@ export class Select extends HTMLSelectElement {
       maxOptions: null,
       // Customize the "create" and "no results" dropdown messages with i18n.
       render: {
-        option_create(data, escape) {
-          return `<div class="create">
-            ${translate("Add")}<strong>${escape(data.input)}</strong>&hellip;
-          </div>`
-        },
-        no_results() {
-          return `<div class="no-results">${translate("No results found")}</div>`
-        },
+        ...dropdownMessages,
         ...this.renderers
       }
     }

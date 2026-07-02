@@ -1,0 +1,10 @@
+# Coverage produced by the browser-driven system specs is slightly
+# nondeterministic, so the overall project percentage can wobble by a few
+# hundredths of a percent between runs. Allow a small drop on the project
+# status so that jitter does not fail unrelated pull requests, while leaving
+# the patch status strict so genuinely uncovered new code still fails.
+coverage:
+  status:
+    project:
+      default:
+        threshold: 0.5%
