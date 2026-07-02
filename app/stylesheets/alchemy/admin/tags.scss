@@ -123,14 +123,14 @@
 }
 
 .autocomplete_tag_list {
-  .select2-container.select2-container-multi {
-    .select2-search-choice {
-      padding: var(--spacing-1) 22px;
-      background-image: var(--tag-background-image);
-      background-repeat: no-repeat;
-      background-position: var(--spacing-1);
-      background-color: var(--tag-background-color);
-      background-size: 1rem;
-    }
+  // Prefix each Tom Select tag pill with the tag glyph. The base pill styling
+  // in `_tom-select.scss` lays the item out as an inline flex row, so the icon
+  // slots in before the label as `[icon] [label] [remove]`.
+  .ts-control > .item::before {
+    content: "";
+    flex: 0 0 1rem;
+    width: 1rem;
+    height: 1rem;
+    background: var(--tag-background-image) no-repeat center / contain;
   }
 }

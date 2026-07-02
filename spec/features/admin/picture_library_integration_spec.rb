@@ -27,7 +27,7 @@ RSpec.describe "Picture Library", type: :system do
       click_on "edit_multiple_pictures"
 
       within ".alchemy-dialog" do
-        select2_search("newtag", from: "Tags")
+        add_tom_select_tag("newtag", from: "Tags")
         click_button "Save"
       end
 
@@ -62,7 +62,7 @@ RSpec.describe "Picture Library", type: :system do
       click_on "edit_multiple_pictures"
 
       within ".alchemy-dialog" do
-        select2_search("newtag", from: "Tags")
+        add_tom_select_tag("newtag", from: "Tags")
         click_button "Save"
       end
 

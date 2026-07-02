@@ -42,6 +42,17 @@ module Alchemy
         end
       end
 
+      # Tom Select capybara helper for adding a tag to an
+      # alchemy-tags-autocomplete field.
+      def add_tom_select_tag(value, options)
+        label = find_label_by_text(options[:from])
+
+        within label.find(:xpath, "..") do
+          find(".ts-control").click
+          find(".ts-control input").send_keys(value, :return)
+        end
+      end
+
       def select2_search(value, options)
         if options[:from]
           label = find_label_by_text(options[:from])
