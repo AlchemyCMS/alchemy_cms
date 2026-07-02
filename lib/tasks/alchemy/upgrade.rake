@@ -8,10 +8,11 @@ namespace :alchemy do
   task upgrade: [
     "alchemy:upgrade:prepare",
     "alchemy:upgrade:8.0:run",
-    "alchemy:upgrade:8.1:run"
+    "alchemy:upgrade:8.1:run",
+    "alchemy:upgrade:8.4:run"
   ] do
-    Alchemy::Upgrader["8.1"].run_migrations
-    Alchemy::Upgrader["8.1"].display_todos
+    Alchemy::Upgrader["8.4"].run_migrations
+    Alchemy::Upgrader["8.4"].display_todos
   end
 
   namespace :upgrade do
@@ -53,6 +54,17 @@ namespace :alchemy do
       ] do
         Alchemy::Upgrader["8.1"].run_migrations
         Alchemy::Upgrader["8.1"].migrate_page_metadata
+      end
+    end
+
+    namespace "8.4" do
+      task "run" => [
+        "alchemy:upgrade:8.4:add_dragonfly_gem"
+      ]
+
+      desc "Add dragonfly gem to the Gemfile if the app uses the dragonfly storage adapter"
+      task add_dragonfly_gem: [:environment] do
+        Alchemy::Upgrader["8.4"].add_dragonfly_gem
       end
     end
   end
