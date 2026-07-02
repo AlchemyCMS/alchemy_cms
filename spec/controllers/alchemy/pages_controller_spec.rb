@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "ostruct"
 require "rails_helper"
 
 module Alchemy
@@ -170,7 +169,7 @@ module Alchemy
         let(:product) { create(:alchemy_page, :public, name: "Screwdriver", urlname: "screwdriver", parent: products, language: default_language, autogenerate_elements: true) }
 
         before do
-          allow(Alchemy.config.user_class).to receive(:admins).and_return(OpenStruct.new(count: 1))
+          allow(Alchemy.config.user_class).to receive(:admins).and_return(double(count: 1))
           product.elements.find_by(name: "article").ingredients.texts.first.update_column(:value, "screwdriver")
         end
 
