@@ -10,44 +10,26 @@ namespace :alchemy do
 
     desc "Generates thumbnails for Alchemy Pictures."
     task picture_thumbnails: :environment do
-      puts "Regenerate #{Alchemy::Picture.count} picture thumbnails."
-      puts "Please wait..."
+      puts "Generating thumbnails for #{Alchemy::Picture.count} pictures..."
 
-      Alchemy::Picture.find_each do |picture|
-        next unless picture.has_convertible_format?
+      Alchemy::GenerateThumbnails.pictures { print "." }
 
-        puts Alchemy::PictureThumb.generate_thumbs!(picture)
-      end
-
-      puts "Done!"
+      puts "\nDone!"
     end
 
     desc "Generates thumbnails for Alchemy Picture Ingredients (set ELEMENTS=element1,element2 to only generate thumbnails for a subset of elements)."
     task ingredient_picture_thumbnails: :environment do
-      ingredient_pictures = Alchemy::Ingredients::Picture
-        .joins(:element)
-        .preload({related_object: :thumbs})
-        .merge(Alchemy::Element.published)
+      element_names = ENV["ELEMENTS"].presence&.split(",")
 
-      if ENV["ELEMENTS"].present?
-        ingredient_pictures = ingredient_pictures.merge(
-          Alchemy::Element.named(ENV["ELEMENTS"].split(","))
-        )
+      puts "Generating thumbnails for picture ingredients..."
+
+      count = 0
+      Alchemy::GenerateThumbnails.ingredients(element_names: element_names) do
+        count += 1
+        print "."
       end
 
-      puts "Regenerate #{ingredient_pictures.count} ingredient picture thumbnails."
-      puts "Please wait..."
-
-      ingredient_pictures.find_each do |ingredient_picture|
-        puts ingredient_picture.picture_url
-        puts ingredient_picture.thumbnail_url
-
-        ingredient_picture.settings.fetch(:srcset, []).each do |src|
-          puts ingredient_picture.picture_url(src)
-        end
-      end
-
-      puts "Done!"
+      puts "\nGenerated thumbnails for #{count} picture ingredients. Done!"
     end
   end
 end
