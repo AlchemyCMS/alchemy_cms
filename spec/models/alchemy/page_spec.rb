@@ -14,6 +14,10 @@ module Alchemy
     it { is_expected.to have_one(:draft_version) }
     it { is_expected.to have_one(:public_version) }
 
+    it_behaves_like "a relatable resource",
+      resource_factory_name: "alchemy_page",
+      ingredient_factory_name: "alchemy_ingredient_page"
+
     let(:language) { create(:alchemy_language, :german, default: true) }
     let(:klingon) { create(:alchemy_language, :klingon) }
     let(:language_root) { create(:alchemy_page, :language_root) }

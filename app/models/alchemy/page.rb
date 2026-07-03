@@ -45,6 +45,7 @@ require_dependency "alchemy/page/page_elements"
 module Alchemy
   class Page < BaseRecord
     include Alchemy::Taggable
+    include Alchemy::RelatableResource
 
     # These columns are deprecated in favor of page versions
     self.ignored_columns += [
