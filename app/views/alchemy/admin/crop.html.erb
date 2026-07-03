@@ -7,25 +7,25 @@
   <%= render_message do %>
     <%= simple_format Alchemy.t(:explain_cropping) %>
   <% end %>
-  <%= content_tag "alchemy-picture-thumbnail", nil,
-    src: @picture.url(flatten: true),
-    id: "imageToCrop" %>
-  <form>
-    <%= button_tag Alchemy.t(:apply), type: 'submit' %>
-    <%= button_tag Alchemy.t('Reset Imagemask'), class: 'reset_mask secondary', type: 'reset' %>
-  </form>
+  <% if @settings.present? %>
+    <alchemy-image-cropper
+      default-box="<%= @settings[:default_box].to_json %>"
+      crop-from-field-id="<%= params[:crop_from_form_field_id] %>"
+      crop-size-field-id="<%= params[:crop_size_form_field_id] %>"
+      element-id="<%= @element.id %>"
+      <% if @settings[:ratio] %>ratio="<%= @settings[:ratio] %>"<% end %>
+    >
+      <div class="thumbnail_background">
+        <%= image_tag @picture.url(flatten: true), alt: @picture.name %>
+      </div>
+      <form>
+        <%= button_tag Alchemy.t(:apply), type: 'submit' %>
+        <%= button_tag Alchemy.t('Reset Imagemask'), class: 'reset_mask secondary', type: 'reset' %>
+      </form>
+    </alchemy-image-cropper>
+  <% else %>
+    <%= content_tag "alchemy-picture-thumbnail", nil,
+      src: @picture.url(flatten: true) %>
+  <% end %>
 </div>
-<% end %>
-<% if @settings %>
-<script type="module">
-  import { ImageCropper } from "alchemy_admin/image_cropper";
-
-  const image = document.getElementById("imageToCrop")?.querySelector("img");
-
-  new ImageCropper(image, <%== @settings.merge(
-    crop_from_form_field_id: params[:crop_from_form_field_id],
-    crop_size_form_field_id: params[:crop_size_form_field_id],
-    element_id: @element.id
-  ).to_json %>);
-</script>
 <% end %>

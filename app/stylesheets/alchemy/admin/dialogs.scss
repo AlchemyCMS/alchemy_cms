@@ -75,6 +75,11 @@
   div#jscropper {
     padding: var(--spacing-2);
 
+    // The cropper wraps its image and buttons but should not affect layout.
+    alchemy-image-cropper {
+      display: contents;
+    }
+
     .thumbnail_background {
       width: 800px;
       height: 600px;
