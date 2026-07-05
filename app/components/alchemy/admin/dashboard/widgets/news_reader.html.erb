@@ -1,0 +1,38 @@
+<div class="widget-body">
+  <div class="name">
+    <span class="label-with-icon">
+      <alchemy-icon name="newspaper"></alchemy-icon>
+      <%= Alchemy.t("Alchemy News") %>
+    </span>
+  </div>
+  <% if entries.blank? %>
+    <alchemy-message type="info">
+      <%= Alchemy.t("no news") %>
+    </alchemy-message>
+  <% else %>
+    <alchemy-news-reader class="news-reader">
+      <div class="news-reader--track">
+        <% entries.each do |entry| %>
+          <article class="news-reader--item">
+            <div class="news-reader--content">
+              <% if entry[:image_url] %>
+                <%= link_to entry[:url], target: "_blank", rel: "noopener", class: "news-reader--image-link", tabindex: -1 do %>
+                  <img class="news-reader--image" src="<%= entry[:image_url] %>" alt="" loading="lazy">
+                <% end %>
+              <% end %>
+              <div class="news-reader--body">
+                <%= link_to entry[:title], entry[:url], target: "_blank", rel: "noopener", class: "news-reader--title" %>
+                <p class="news-reader--meta">
+                  <%= [entry[:published_at], entry[:author]].compact.join(" · ") %>
+                </p>
+                <% if entry[:summary] %>
+                  <p class="news-reader--summary"><%= truncate(entry[:summary], length: 100) %></p>
+                <% end %>
+              </div>
+            </div>
+          </article>
+        <% end %>
+      </div>
+    </alchemy-news-reader>
+  <% end %>
+</div>

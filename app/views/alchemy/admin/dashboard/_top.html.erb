@@ -1,4 +1,5 @@
 <div class="top-row">
   <%= render Alchemy::Admin::Dashboard::Widgets::Greeting.new(user: current_alchemy_user) %>
+  <%= render Alchemy::Admin::Dashboard::Widget.new(id: "NewsReader", style: "stat") %>
   <%= render Alchemy::Admin::Dashboard::Widgets::SystemInfo.new %>
 </div>

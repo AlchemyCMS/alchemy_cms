@@ -13,10 +13,6 @@
     flex: 1 1 50%;
     padding: var(--spacing-4) var(--spacing-3) var(--spacing-4);
 
-    @media (min-width: vars.$medium-screen-break-point) {
-      grid-column: span 2;
-    }
-
     @media (min-width: vars.$large-screen-break-point) {
       grid-column: span 2;
     }
@@ -47,6 +43,44 @@
     padding: var(--spacing-2);
     gap: var(--spacing-4);
     align-items: stretch;
+
+    .widget.stat {
+      // Allow the card to shrink to its grid track instead of expanding the
+      // column to fit the carousel's content width.
+      min-width: 0;
+
+      @media (min-width: vars.$medium-screen-break-point) {
+        --col-span: 2;
+      }
+
+      @media (min-width: vars.$large-screen-break-point) {
+        --col-span: 1;
+      }
+
+      // Fixed news header above the scrollable posts.
+      .name {
+        padding: var(--spacing-4);
+        color: var(--text-color);
+      }
+
+      // Fill the card and clip the image to the rounded corners.
+      // Scoped under .widget.stat to override the stat padding.
+      .widget-body {
+        position: relative;
+        flex: 1;
+        gap: 0;
+        padding: 0;
+        overflow: hidden;
+        border-radius: var(--border-radius_large);
+      }
+    }
+
+    // Fill the card height so the news reader can span it
+    turbo-frame {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
   }
 
   footer {
@@ -162,10 +196,6 @@
       }
 
       @media (min-width: vars.$large-screen-break-point) {
-        flex-direction: row;
-      }
-
-      @media (min-width: vars.$xxlarge-screen-break-point) {
         grid-column: 4;
       }
     }
@@ -241,6 +271,104 @@
         100% 10px,
         100% 10px;
       background-attachment: local, local, scroll, scroll;
+    }
+
+    .news-reader {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .news-reader--track {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    .news-reader--item {
+      flex: 0 0 100%;
+      min-width: 0;
+      padding: 0 var(--spacing-4);
+      color: var(--text-color);
+      scroll-snap-align: start;
+    }
+
+    .news-reader--content {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spacing-3);
+      min-width: 0;
+    }
+
+    .news-reader--image-link {
+      flex: 0 0 72px;
+      height: 72px;
+      overflow: hidden;
+      border-radius: var(--border-radius_medium);
+    }
+
+    .news-reader--image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .news-reader--body {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      gap: var(--spacing-1);
+      min-width: 0;
+    }
+
+    .news-reader--title {
+      color: inherit;
+      font-weight: var(--font-weight_bold);
+    }
+
+    .news-reader--meta {
+      margin: 0;
+      font-size: var(--font-size_small);
+      color: var(--text-color-muted);
+    }
+
+    .news-reader--summary {
+      margin: 0;
+      color: var(--text-color-muted);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .news-reader--dots {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-2);
+      margin-top: auto;
+      padding: var(--spacing-3);
+    }
+
+    .news-reader--dot {
+      width: 8px;
+      height: 8px;
+      padding: 0;
+      border: 0 none;
+      border-radius: 50%;
+      cursor: pointer;
+      background-color: var(--text-color-muted);
+      opacity: 0.5;
+
+      &.is-active {
+        background-color: var(--text-color);
+        opacity: 1;
+      }
     }
 
     h2 {
@@ -393,12 +521,6 @@
     gap: 0.5rem;
     align-items: center;
 
-    @media (min-width: vars.$large-screen-break-point) {
-      flex-basis: 50%;
-      align-items: start;
-      padding-left: var(--spacing-4);
-    }
-
     .version {
       font-weight: var(--font-weight_bold);
     }
@@ -417,15 +539,10 @@
     flex: 1 1 100%;
     justify-content: center;
 
-    @media (min-width: vars.$large-screen-break-point) {
-      flex-basis: 50%;
-      padding-right: var(--spacing-4);
-    }
-
     > svg {
       width: auto;
       max-width: 100%;
-      height: 60px;
+      height: 55px;
     }
   }
 }
