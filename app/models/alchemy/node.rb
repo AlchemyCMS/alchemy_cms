@@ -2,6 +2,8 @@
 
 module Alchemy
   class Node < BaseRecord
+    include Alchemy::RelatableResource
+
     VALID_URL_REGEX = /\A(\/|\D[a-z+\d.-]+:)/
     SKIPPED_ATTRIBUTES_ON_COPY = %w[id created_at updated_at creator_id updater_id lft rgt depth parent_id]
 

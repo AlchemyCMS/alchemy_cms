@@ -7,6 +7,10 @@ module Alchemy
     it { is_expected.to have_many(:node_ingredients) }
     it { is_expected.to respond_to(:menu_type) }
 
+    it_behaves_like "a relatable resource",
+      resource_factory_name: "alchemy_node",
+      ingredient_factory_name: "alchemy_ingredient_node"
+
     it "is only valid with language and name given" do
       expect(Node.new).to be_invalid
       expect(build(:alchemy_node)).to be_valid
