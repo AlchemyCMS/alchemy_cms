@@ -236,6 +236,9 @@ en:
             published: "published"
           user_counts:
             online: "online"
+          news_reader:
+            widget_title: "News"
+            no_news: "no news"
       elements:
         toolbar:
           hide: Hide
@@ -266,7 +269,6 @@ en:
     "Add a page": "Add a page"
     "Add global page": "Add global page"
     "Add page link": "Add page link"
-    "Alchemy News": "Alchemy News"
     "Alchemy is open software and itself uses open software and free resources:": "Alchemy is open software and itself uses open software and free resources:"
     "Alchemy is up to date": "Alchemy is up to date"
     "An error happened": "An error happened"
@@ -547,7 +549,6 @@ en:
     node_url_hint: "Please use either a leading slash (/) or an url with protocol (ie. https:)"
     no_image_for_cropper_found: "No image found. Please save the element first."
     no: "No"
-    "no news": "no news"
     "no pages": "no pages"
     "no users": "no users"
     no_default_language_found: "No default language found."

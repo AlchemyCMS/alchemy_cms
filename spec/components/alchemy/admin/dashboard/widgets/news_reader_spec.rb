@@ -60,7 +60,7 @@ RSpec.describe Alchemy::Admin::Dashboard::Widgets::NewsReader, type: :component 
 
   it "renders the header with an icon" do
     expect(rendered).to have_css(".name .label-with-icon alchemy-icon[name='newspaper']")
-    expect(rendered).to have_text(Alchemy.t("Alchemy News"))
+    expect(rendered).to have_text(Alchemy.t("admin.dashboard.widgets.news_reader.widget_title"))
   end
 
   it "renders a link for each entry" do
@@ -128,7 +128,7 @@ RSpec.describe Alchemy::Admin::Dashboard::Widgets::NewsReader, type: :component 
     end
 
     it "renders the empty state instead of raising" do
-      expect(rendered).to have_text(Alchemy.t("no news"))
+      expect(rendered).to have_text(Alchemy.t("admin.dashboard.widgets.news_reader.no_news"))
     end
   end
 
@@ -138,7 +138,7 @@ RSpec.describe Alchemy::Admin::Dashboard::Widgets::NewsReader, type: :component 
     end
 
     it "renders the empty state instead of raising" do
-      expect(rendered).to have_text(Alchemy.t("no news"))
+      expect(rendered).to have_text(Alchemy.t("admin.dashboard.widgets.news_reader.no_news"))
     end
   end
 end

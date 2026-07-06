@@ -2,12 +2,12 @@
   <div class="name">
     <span class="label-with-icon">
       <alchemy-icon name="newspaper"></alchemy-icon>
-      <%= Alchemy.t("Alchemy News") %>
+      <%= t(".widget_title") %>
     </span>
   </div>
   <% if entries.blank? %>
     <alchemy-message type="info">
-      <%= Alchemy.t("no news") %>
+      <%= t(".no_news") %>
     </alchemy-message>
   <% else %>
     <alchemy-news-reader class="news-reader">
@@ -17,7 +17,7 @@
             <div class="news-reader--content">
               <% if entry[:image_url] %>
                 <%= link_to entry[:url], target: "_blank", rel: "noopener", class: "news-reader--image-link", tabindex: -1 do %>
-                  <img class="news-reader--image" src="<%= entry[:image_url] %>" alt="" loading="lazy">
+                  <%= image_tag entry[:image_url], alt: entry[:title], loading: "lazy", class: "news-reader--image" %>
                 <% end %>
               <% end %>
               <div class="news-reader--body">
