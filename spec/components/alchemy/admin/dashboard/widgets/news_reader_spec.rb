@@ -141,4 +141,24 @@ RSpec.describe Alchemy::Admin::Dashboard::Widgets::NewsReader, type: :component 
       expect(rendered).to have_text(Alchemy.t("admin.dashboard.widgets.news_reader.no_news"))
     end
   end
+
+  context "when an entry has an unparseable published date" do
+    let(:feed) do
+      <<~XML
+        <?xml version="1.0" encoding="utf-8"?>
+        <feed xmlns="http://www.w3.org/2005/Atom">
+          <entry>
+            <title>News item</title>
+            <link rel="alternate" type="text/html" href="https://alchemy-cms.com/news/1"/>
+            <content type="html"></content>
+            <published>not a real date</published>
+          </entry>
+        </feed>
+      XML
+    end
+
+    it "renders the entry without a published date instead of raising" do
+      expect(rendered).to have_link("News item", href: "https://alchemy-cms.com/news/1")
+    end
+  end
 end
