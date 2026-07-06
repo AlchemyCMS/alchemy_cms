@@ -1,31 +1,30 @@
 import Cropper from "cropperjs"
+import { currentDialog } from "alchemy_admin/dialog"
 
-export default class ImageCropper {
-  #initialized = false
+export class ImageCropper extends HTMLElement {
   #cropper = null
   #cropFromField = null
   #cropSizeField = null
 
-  constructor(image, settings) {
-    this.image = image
-    this.defaultBox = settings.default_box
-    this.aspectRatio = settings.ratio
+  connectedCallback() {
+    this.image = this.querySelector("img")
+    this.form = this.querySelector("form")
     this.#cropFromField = document.getElementById(
-      settings.crop_from_form_field_id
+      this.getAttribute("crop-from-field-id")
     )
     this.#cropSizeField = document.getElementById(
-      settings.crop_size_form_field_id
+      this.getAttribute("crop-size-field-id")
     )
-    this.elementId = settings.element_id
     this.elementEditor = document.querySelector(
-      `[data-element-id='${this.elementId}']`
+      `[data-element-id='${this.getAttribute("element-id")}']`
     )
-    this.dialog = Alchemy.currentDialog()
-    if (this.dialog) {
-      this.dialog.options.closed = () => this.destroy()
-      this.bind()
-    }
-    this.init()
+    this.form.addEventListener("submit", this.#onSubmit)
+    this.form.addEventListener("reset", this.#onReset)
+    this.#cropper = new Cropper(this.image, this.cropperOptions)
+  }
+
+  disconnectedCallback() {
+    this.#cropper?.destroy()
   }
 
   get cropperOptions() {
@@ -37,6 +36,12 @@ export default class ImageCropper {
       checkOrientation: false, // Prevent loading the image via AJAX which can cause CORS issues
       data: this.box
     }
+  }
+
+  get aspectRatio() {
+    const ratio = this.getAttribute("ratio")
+    // NaN lets cropperjs use a free aspect ratio.
+    return ratio ? parseFloat(ratio) : NaN
   }
 
   get cropFrom() {
@@ -60,24 +65,13 @@ export default class ImageCropper {
         height: this.cropSize[1]
       }
     } else {
-      return this.defaultBoxSize
+      return this.defaultBox
     }
   }
 
-  get defaultBoxSize() {
-    return {
-      x: this.defaultBox[0],
-      y: this.defaultBox[1],
-      width: this.defaultBox[2],
-      height: this.defaultBox[3]
-    }
-  }
-
-  init() {
-    if (!this.#initialized) {
-      this.#cropper = new Cropper(this.image, this.cropperOptions)
-      this.#initialized = true
-    }
+  get defaultBox() {
+    const box = JSON.parse(this.getAttribute("default-box"))
+    return { x: box[0], y: box[1], width: box[2], height: box[3] }
   }
 
   update(coords) {
@@ -90,7 +84,7 @@ export default class ImageCropper {
   reset() {
     const cropper = this.#cropper
     // Apply the default size. cropperjs clamps the crop box to its maximum size.
-    cropper.setData(this.defaultBoxSize)
+    cropper.setData(this.defaultBox)
     // When the default box sits at the maximum crop box size, sub-pixel rounding
     // makes cropperjs treat setData's box as oversized and revert its position
     // (renderCropBox resets top/left to their old values). Re-apply the position
@@ -99,31 +93,23 @@ export default class ImageCropper {
     const canvas = cropper.getCanvasData()
     const scale = canvas.width / canvas.naturalWidth
     cropper.setCropBoxData({
-      left: canvas.left + this.defaultBoxSize.x * scale,
-      top: canvas.top + this.defaultBoxSize.y * scale
+      left: canvas.left + this.defaultBox.x * scale,
+      top: canvas.top + this.defaultBox.y * scale
     })
-    this.update(this.defaultBoxSize)
+    this.update(this.defaultBox)
   }
 
-  destroy() {
-    if (this.#cropper) {
-      this.#cropper.destroy()
-    }
-    this.#initialized = false
-    return true
+  #onSubmit = (event) => {
+    event.preventDefault()
+    this.update(this.#cropper.getData(true))
+    this.elementEditor?.setDirty()
+    currentDialog()?.close()
   }
 
-  bind() {
-    this.dialog.dialog_body.find('button[type="submit"]').on("click", () => {
-      const data = this.#cropper.getData(true)
-      this.update(data)
-      this.elementEditor.setDirty()
-      this.dialog.close()
-      return false
-    })
-    this.dialog.dialog_body.find('button[type="reset"]').on("click", () => {
-      this.reset()
-      return false
-    })
+  #onReset = (event) => {
+    event.preventDefault()
+    this.reset()
   }
 }
+
+customElements.define("alchemy-image-cropper", ImageCropper)
