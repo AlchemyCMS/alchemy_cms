@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "ostruct"
 require "rails_helper"
 
 module Alchemy

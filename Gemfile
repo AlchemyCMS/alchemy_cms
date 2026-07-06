@@ -19,6 +19,8 @@ gem "alchemy_i18n", github: "AlchemyCMS/alchemy_i18n", branch: "main"
 
 if ENV.fetch("ALCHEMY_STORAGE_ADAPTER", "active_storage") == "active_storage"
   gem "ruby-vips"
+else
+  gem "dragonfly", "~> 1.4"
 end
 
 group :development, :test do

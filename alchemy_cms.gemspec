@@ -47,7 +47,6 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency "awesome_nested_set", [">= 3.9.0", "< 4.0"]
   gem.add_runtime_dependency "cancancan", [">= 2.1", "< 4.0"]
   gem.add_runtime_dependency "csv", ["~> 3.3"]
-  gem.add_runtime_dependency "dragonfly", ["~> 1.4"]
   gem.add_runtime_dependency "gutentag", ">= 2.2.1", "< 4.0"
   gem.add_runtime_dependency "image_processing", ">= 1.14", "< 3.0"
   gem.add_runtime_dependency "importmap-rails", ["~> 2.0"]
