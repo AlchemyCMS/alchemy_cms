@@ -30,6 +30,15 @@ RSpec.describe Alchemy::GenerateThumbnails do
     it "yields each processed picture for progress reporting" do
       expect { |probe| described_class.pictures(&probe) }.to yield_with_args(picture)
     end
+
+    if Alchemy.storage_adapter.active_storage?
+      context "with async: true" do
+        it "enqueues an ActiveStorage::TransformJob for the variants instead of processing inline" do
+          expect { described_class.pictures(async: true) }
+            .to have_enqueued_job(ActiveStorage::TransformJob).at_least(:once)
+        end
+      end
+    end
   end
 
   describe ".ingredients" do
@@ -42,6 +51,15 @@ RSpec.describe Alchemy::GenerateThumbnails do
 
     it "yields each processed ingredient for progress reporting" do
       expect { |probe| described_class.ingredients(&probe) }.to yield_with_args(ingredient)
+    end
+
+    if Alchemy.storage_adapter.active_storage?
+      context "with async: true" do
+        it "enqueues an ActiveStorage::TransformJob for the variants instead of processing inline" do
+          expect { described_class.ingredients(async: true) }
+            .to have_enqueued_job(ActiveStorage::TransformJob).at_least(:once)
+        end
+      end
     end
 
     context "when the picture ingredient defines a srcset" do
