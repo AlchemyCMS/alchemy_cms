@@ -1,4 +1,5 @@
-<%= alchemy_form_for([:admin, node], id: "node_form") do |f| %>
+<alchemy-node-form>
+<%= alchemy_form_for([:admin, node]) do |f| %>
   <% if node.new_record? && node.root? %>
     <%= f.input :menu_type,
       collection: Alchemy::Current.language.available_menu_names.map { |n| [I18n.t(n, scope: [:alchemy, :menu_names]), n] },
@@ -30,23 +31,4 @@
   <%= f.hidden_field :language_id %>
   <%= f.submit button_label %>
 <% end %>
-
-<script type="module">
-  const nodeName = document.getElementById("node_name")
-  const nodeUrl = document.getElementById("node_url")
-  const form = document.getElementById("node_form")
-
-  form.addEventListener("Alchemy.RemoteSelect.Change", (event) => {
-    const page = event.detail.added
-
-    if (page) {
-      nodeName.setAttribute("placeholder", page.name)
-      nodeUrl.value = page.url_path
-      nodeUrl.setAttribute("disabled", "disabled")
-    } else {
-      nodeName.removeAttribute("placeholder")
-      nodeUrl.value = ""
-      nodeUrl.removeAttribute("disabled")
-    }
-  })
-</script>
+</alchemy-node-form>
