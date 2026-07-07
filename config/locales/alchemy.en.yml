@@ -236,6 +236,9 @@ en:
             published: "published"
           user_counts:
             online: "online"
+          news_reader:
+            widget_title: "News"
+            no_news: "no news"
       elements:
         toolbar:
           hide: Hide
