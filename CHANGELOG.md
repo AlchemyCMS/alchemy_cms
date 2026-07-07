@@ -1,5 +1,18 @@
 # Changelog
 
+## 8.3.3 (2026-07-07)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.3-stable -->
+
+## What's Changed
+### Bug Fixes
+* [8.3-stable] fix(admin): Resolve exposed components to their source files by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4028
+### Performance Improvements
+* [8.3-stable] Add index to alchemy_elements_alchemy_pages table by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4035
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.3.2...v8.3.3
+
 ## 8.3.2 (2026-06-30)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.3-stable -->
