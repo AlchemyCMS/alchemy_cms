@@ -11,7 +11,7 @@ RSpec.describe "Page creation", type: :system do
     context "without having a parent id in the params" do
       it "contains a parent select" do
         visit new_admin_page_path
-        expect(page).to have_css("#s2id_page_parent_id")
+        expect(page).to have_css("alchemy-page-select .ts-control")
       end
     end
 
@@ -19,7 +19,7 @@ RSpec.describe "Page creation", type: :system do
       it "contains a hidden parent_id field" do
         visit new_admin_page_path(parent_id: homepage)
         expect(page).to have_field("page_parent_id", type: "hidden")
-        expect(page).to_not have_css("#s2id_page_parent_id")
+        expect(page).to_not have_css("alchemy-page-select")
       end
     end
     context "with same name " do

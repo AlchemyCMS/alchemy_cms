@@ -34,7 +34,7 @@ RSpec.describe "Admin Menus Features", type: :system do
           click_link_with_tooltip Alchemy.t(:create_node)
         end
         within ".alchemy-dialog" do
-          select2_search contentpage.name, from: "Page"
+          tom_select_search contentpage.name, from: "Page"
           click_button "create"
         end
         expect(page).to have_selector(".node_name", text: contentpage.name)
@@ -47,11 +47,9 @@ RSpec.describe "Admin Menus Features", type: :system do
           click_link_with_tooltip Alchemy.t(:create_node)
         end
         within ".alchemy-dialog" do
-          select2_search layoutpage.name, from: "Page", select: false
+          tom_select_search layoutpage.name, from: "Page", select: false
         end
-        within ".select2-drop-active .select2-results" do
-          expect(page).to have_content("No matches found")
-        end
+        expect(page).to have_selector(".ts-dropdown .no-results", text: "No results found")
       end
     end
 

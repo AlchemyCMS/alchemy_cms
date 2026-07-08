@@ -6,7 +6,7 @@
   .icon {
     margin: 0 var(--spacing-1) 0 0;
 
-    .select2-highlighted & {
+    .ts-dropdown .option.active & {
       fill: var(--color-white);
     }
   }

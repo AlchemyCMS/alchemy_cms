@@ -30,7 +30,7 @@
     }
   }
 
-  .select2-highlighted & {
+  .ts-dropdown .option.active & {
     color: var(--highlight-color);
   }
 }
@@ -51,7 +51,7 @@
   color: var(--text-color-muted, hsla(224deg, 23%, 26%, 0.5));
   padding-right: var(--size-2);
 
-  .select2-highlighted & {
+  .ts-dropdown .option.active & {
     color: var(--highlight-color);
   }
 }
@@ -68,7 +68,7 @@
   padding: var(--size-1) var(--size-2);
   text-transform: uppercase;
 
-  .select2-highlighted & {
+  .ts-dropdown .option.active & {
     color: var(--color);
     background-color: var(--highlight-bg-color);
   }

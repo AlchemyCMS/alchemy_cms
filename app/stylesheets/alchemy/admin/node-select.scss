@@ -15,7 +15,7 @@
   }
 
   .icon {
-    .select2-highlighted & {
+    .ts-dropdown .option.active & {
       fill: var(--color-white);
     }
   }
@@ -37,7 +37,7 @@
   color: var(--text-color);
   font-size: var(--font-size_small);
 
-  .select2-highlighted & {
+  .ts-dropdown .option.active & {
     color: var(--color-white);
   }
 }

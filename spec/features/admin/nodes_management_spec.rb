@@ -18,8 +18,8 @@ RSpec.describe "Nodes management", type: :system, js: true do
   end
 
   def add_menu_item
-    find("#new_node_form .select2-choice").click
-    find(".select2-result:first-child").click
+    find("#new_node_form .ts-control").click
+    find(".ts-dropdown .option", match: :first).click
 
     click_button "Add to menu"
   end

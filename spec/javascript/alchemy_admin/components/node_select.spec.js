@@ -25,14 +25,12 @@ describe("alchemy-node-select", () => {
       )
     })
 
-    it("should initialize Select2", () => {
-      expect(
-        component.getElementsByClassName("select2-container").length
-      ).toEqual(1)
+    it("should initialize Tom Select", () => {
+      expect(component.getElementsByClassName("ts-wrapper").length).toEqual(1)
     })
 
-    it("should show a remove 'button'", () => {
-      expect(component.select2Config.allowClear).toBeTruthy()
+    it("should allow clearing the selection", () => {
+      expect(component.allowClear).toBeTruthy()
     })
   })
 
@@ -60,13 +58,10 @@ describe("alchemy-node-select", () => {
       expect(JSON.parse(component.selection)).toEqual(selection)
     })
 
-    it("should add the selection parameter to the select2 config", async () => {
-      return new Promise((resolve) => {
-        component.select2Config.initSelection(null, (json) => {
-          expect(json).toEqual(selection)
-          resolve()
-        })
-      })
+    it("should preselect the given item", () => {
+      expect(component.querySelector(".ts-control").textContent).toContain(
+        "Test Node"
+      )
     })
   })
 

@@ -24,16 +24,12 @@ describe("alchemy-page-select", () => {
       )
     })
 
-    it("should initialize Select2", () => {
-      expect(
-        component.getElementsByClassName("select2-container").length
-      ).toEqual(1)
+    it("should initialize Tom Select", () => {
+      expect(component.getElementsByClassName("ts-wrapper").length).toEqual(1)
     })
 
-    it("should not show a remove 'button'", () => {
-      expect(
-        document.querySelector(".select2-container.select2-allowclear")
-      ).toBeNull()
+    it("should not show a clear button", () => {
+      expect(component.querySelector(".clear-button")).toBeNull()
     })
   })
 
@@ -49,6 +45,79 @@ describe("alchemy-page-select", () => {
 
     it("should show a remove 'button'", () => {
       expect(component.allowClear).toBeTruthy()
+    })
+  })
+
+  describe("preselection", () => {
+    // The selection carries only partial page data (no site/language_code), which
+    // the rich dropdown option template can't render, so preselection must not
+    // crash and must still mark the field as having a selected item.
+    const selection = { id: 42, name: "Index", url_path: "/index" }
+
+    beforeEach(() => {
+      const html = `
+        <alchemy-page-select placeholder="Search page" selection='${JSON.stringify(selection)}'>
+          <input type="text">
+        </alchemy-page-select>
+      `
+      component = renderComponent("alchemy-page-select", html)
+    })
+
+    it("shows the selected item", () => {
+      expect(
+        component.querySelector(".ts-control .item").textContent
+      ).toContain("Index")
+    })
+
+    it("marks the field as having a selected item", () => {
+      expect(
+        component.querySelector(".ts-wrapper").classList.contains("has-items")
+      ).toBe(true)
+    })
+
+    it("submits the selected id", () => {
+      // The page editor renders the page id into the input, which is what gets
+      // submitted with the form.
+      const html = `
+        <alchemy-page-select placeholder="Search page" selection='${JSON.stringify(selection)}'>
+          <input type="text" value="42">
+        </alchemy-page-select>
+      `
+      component = renderComponent("alchemy-page-select", html)
+      expect(component.querySelector("input.tomselected").value).toEqual("42")
+    })
+
+    it("does not dispatch a change event for the preselection", () => {
+      const listener = vi.fn()
+      const html = `
+        <alchemy-page-select placeholder="Search page" selection='${JSON.stringify(selection)}'>
+          <input type="text">
+        </alchemy-page-select>
+      `
+      const el = document.createElement("div")
+      el.addEventListener("Alchemy.RemoteSelect.Change", listener)
+      document.body.appendChild(el)
+      el.innerHTML = html
+      expect(listener).not.toHaveBeenCalled()
+      el.remove()
+    })
+
+    // The link dialog renders a URL (page path + anchor) into this input and
+    // reads it back on submit. Tom Select must not turn it into a stray option
+    // or overwrite it with the selected id.
+    it("keeps a non-id input value (e.g. a link url) untouched", () => {
+      const html = `
+        <alchemy-page-select placeholder="Search page" selection='${JSON.stringify(selection)}'>
+          <input type="text" value="/index#start">
+        </alchemy-page-select>
+      `
+      component = renderComponent("alchemy-page-select", html)
+      expect(
+        component.querySelector(".ts-control .item").textContent
+      ).toContain("Index")
+      expect(component.querySelector("input.tomselected").value).toEqual(
+        "/index#start"
+      )
     })
   })
 

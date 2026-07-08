@@ -90,5 +90,12 @@ export const dropdownMessages = {
   },
   no_results() {
     return `<div class="no-results">${translate("No results found")}</div>`
-  }
+  },
+  // Shown at the bottom of the dropdown while the virtual scroll plugin appends
+  // the next page of results.
+  loading_more: () =>
+    `<div class="loading-more">${translate("Loading more results")}&hellip;</div>`,
+  // Shown at the bottom of the dropdown once every page has been loaded.
+  no_more_results: () =>
+    `<div class="no-more-results">${translate("No more results")}</div>`
 }

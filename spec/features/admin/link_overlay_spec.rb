@@ -87,8 +87,8 @@ RSpec.describe "Link overlay", type: :system do
       end
 
       within "[name='overlay_tab_internal_link']" do
-        expect(page).to have_selector("#s2id_internal_link")
-        select2_search(page2.name, from: "Page")
+        expect(page).to have_selector(".ts-control")
+        tom_select_search(page2.name, from: "Page")
         click_button "apply"
       end
 
@@ -152,8 +152,8 @@ RSpec.describe "Link overlay", type: :system do
       end
 
       within "[name='overlay_tab_file_link']" do
-        expect(page).to have_selector("#file_link")
-        select2_search(file.name, from: "File")
+        expect(page).to have_selector(".ts-control")
+        tom_select_search(file.name, from: "File")
         click_button "apply"
       end
 
@@ -169,6 +169,34 @@ RSpec.describe "Link overlay", type: :system do
       within_frame "alchemy_preview_window" do
         expect(page).to have_link("Link me", href: "/attachment/#{file.id}/download/#{file.file_name}")
       end
+    end
+
+    it "keeps the selected page and its anchor separate when editing a link" do
+      visit link_admin_pages_path(url: "#{page2.url_path}#some-anchor", selected_tab: "internal")
+
+      within "[name='overlay_tab_internal_link']" do
+        # The page select shows the page, not the raw url with the anchor.
+        expect(page).to have_selector("alchemy-page-select .ts-control .item", text: page2.name)
+        # The url (page path + anchor) is kept so the link can be applied.
+        expect(find("#internal_link", visible: :all).value).to eq("#{page2.url_path}#some-anchor")
+        find("alchemy-page-select .ts-control").click
+      end
+
+      # Opening the page select must not offer the raw url as a bogus option.
+      expect(page).to have_selector(".ts-dropdown .option")
+      expect(page).to_not have_selector(".ts-dropdown .option", text: "some-anchor")
+    end
+
+    it "shows a spinner in the control while the pages load" do
+      visit link_admin_pages_path(selected_tab: "internal")
+
+      within "[name='overlay_tab_internal_link']" do
+        find("alchemy-page-select .ts-control").click
+        # The spinner is hidden by default and revealed while results load.
+        expect(page).to have_selector(".ts-control sl-spinner", visible: true)
+      end
+
+      expect(page).to have_selector(".ts-dropdown .option")
     end
   end
 end
