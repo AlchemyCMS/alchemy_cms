@@ -2,13 +2,11 @@
 // contained in a form, so that Turbo can submit the form.
 class AutoSubmit extends HTMLElement {
   connectedCallback() {
-    // Still using jQuery here, because select2 does not emit
-    // the event from the original select element.
-    $(this).on("change", this.#onChange)
+    this.addEventListener("change", this.#onChange)
   }
 
   disconnectedCallback() {
-    $(this).off("change", this.#onChange)
+    this.removeEventListener("change", this.#onChange)
   }
 
   #onChange = (event) => {
