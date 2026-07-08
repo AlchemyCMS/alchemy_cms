@@ -31,7 +31,6 @@
     "handlebars": "^4.7.9",
     "jquery": "^3.7.1",
     "keymaster": "^1.6.2",
-    "select2": "github:select2/select2#3.5.4",
     "sortablejs": "^1.15.7",
     "tinymce": "^8.7.0",
     "tom-select": "^2.6.1"

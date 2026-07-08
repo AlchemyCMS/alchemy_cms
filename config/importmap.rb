@@ -5,7 +5,6 @@ pin "flatpickr", to: "flatpickr.min.js", preload: true # @4.6.13
 pin "handlebars", to: "handlebars.min.js", preload: true # @4.7.8
 pin "jquery", to: "jquery.min.js", preload: true
 pin "keymaster", to: "keymaster.min.js", preload: true
-pin "select2", to: "select2.min.js", preload: true
 pin "sortablejs", to: "sortable.min.js", preload: true # @1.15.1
 pin "@floating-ui/dom", to: "floating-ui.min.js", preload: true
 pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true

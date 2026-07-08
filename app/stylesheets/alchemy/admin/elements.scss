@@ -468,16 +468,6 @@ button.element-toggle {
       font-size: var(--font-size_small);
       text-indent: 1px;
     }
-
-    .select2-container {
-      width: 100%;
-
-      .select2-choices {
-        width: 100%;
-        margin-bottom: 0;
-        margin-top: var(--spacing-2);
-      }
-    }
   }
 
   hr {
@@ -1074,7 +1064,6 @@ select.long {
     textarea,
     .file,
     .picture_thumbnail,
-    .select2-container,
     .tinymce_container {
       box-shadow: 0 0 0 1px var(--element-dirty-border-color);
       border-color: var(--element-dirty-border-color);
@@ -1156,14 +1145,12 @@ select.long {
       margin-bottom: var(--spacing-2);
     }
 
-    select,
-    .select2-container {
+    select {
       width: 100%;
     }
 
     &.display_inline {
-      select,
-      .select2-container {
+      select {
         width: 170px;
       }
     }

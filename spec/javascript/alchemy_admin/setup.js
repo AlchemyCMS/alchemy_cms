@@ -5,31 +5,6 @@ import jQuery from "jquery"
 globalThis.$ = jQuery
 globalThis.jQuery = jQuery
 
-// Mock select2 to avoid network requests in jsdom environment
-globalThis.jQuery.fn.select2 = function (options) {
-  // Mock select2 initialization
-  const $element = this
-
-  // Add basic select2 classes and structure for tests
-  if (!$element.next(".select2-container").length) {
-    const container = jQuery(
-      '<div class="select2-container alchemy_selectbox"></div>'
-    )
-
-    // Add clear button if allowClear is enabled
-    if (options?.allowClear) {
-      container.append('<span class="select2-search-choice-close"></span>')
-    }
-
-    $element.after(container)
-  }
-
-  return $element
-}
-
-// Mock select2 static methods if needed
-globalThis.jQuery.fn.select2.defaults = {}
-
 // Mock TinyMCE to avoid network requests in jsdom environment
 globalThis.tinymce = {
   init: vi.fn().mockResolvedValue([]),
@@ -40,9 +15,6 @@ globalThis.tinymce = {
   }),
   remove: vi.fn()
 }
-
-// Mock select2 module to avoid network requests
-vi.mock("select2", () => ({}))
 
 // Mock dynamic imports to avoid network requests
 vi.mock("flatpickr/en.js", () => ({}))

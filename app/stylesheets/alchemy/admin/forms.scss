@@ -43,21 +43,17 @@ form {
       margin: 0;
     }
 
-    .select2-container,
-    .select2-choices {
-      width: 100%;
-    }
-
     ::-webkit-input-placeholder {
       line-height: 16px;
     }
 
-    select,
-    .select2-container {
+    select {
       margin: var(--form-field-margin);
     }
 
-    &:has(.select2-container:not(.select2-container-multi)) {
+    // Center the label against a single select control instead of aligning it to
+    // the baseline, which otherwise shifts when the search input gains focus.
+    &:has(.ts-wrapper.single) {
       .control-label {
         align-self: center;
       }
@@ -131,20 +127,8 @@ form {
     input[type="text"],
     input[type="email"],
     input[type="password"],
-    textarea,
-    .select2-choices {
+    textarea {
       @extend %field-with-error;
-    }
-
-    .select2-choice,
-    .select2-choices {
-      border-color: var(--notice-error-border-color);
-      color: var(--notice-error-text-color);
-      margin-bottom: var(--spacing-1);
-
-      input[type="text"] {
-        box-shadow: none;
-      }
     }
 
     label {
@@ -321,8 +305,7 @@ form {
       text-align: left;
     }
 
-    select,
-    .select2-container {
+    select {
       margin: var(--form-field-margin);
     }
   }

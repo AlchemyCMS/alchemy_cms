@@ -13,7 +13,6 @@ export default {
     "jquery",
     "@ungap/custom-elements",
     "@hotwired/turbo-rails",
-    "select2",
     "@rails/ujs",
     "clipboard",
     "cropperjs",
