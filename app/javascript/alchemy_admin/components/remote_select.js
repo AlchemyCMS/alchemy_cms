@@ -161,6 +161,10 @@ export class RemoteSelect extends HTMLElement {
       searchField: [],
       // Debounce the server requests while typing.
       loadThrottle: ajax.quietMillis,
+      // Refresh the input state (hide the selection, show the loading dropdown)
+      // on every keystroke without delay. The server request stays debounced by
+      // loadThrottle, so this only affects the immediate UI feedback.
+      refreshThrottle: 0,
       placeholder: this.placeholder,
       // Load the first page of results as soon as the field is focused, so the
       // dropdown shows results without having to type first (like Select2 did).
