@@ -39,8 +39,6 @@ services:
       - .:/workspace
       - /workspace/node_modules
       - storage:/workspace/spec/dummy/storage
-      - pictures:/workspace/spec/dummy/public/pictures
-      - uploads:/workspace/spec/dummy/uploads
     depends_on:
       setup:
         condition: service_completed_successfully
@@ -81,5 +79,3 @@ services:
 
 volumes:
   storage:
-  pictures:
-  uploads:

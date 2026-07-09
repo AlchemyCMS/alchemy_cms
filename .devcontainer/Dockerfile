@@ -59,14 +59,11 @@ ENV LISTEN_GEM_ADAPTER_WARN_BEHAVIOR=silent
 COPY --from=builder --chown=alchemy:alchemy /usr/local/bundle /usr/local/bundle
 COPY --from=builder --chown=alchemy:alchemy /workspace/node_modules /workspace/node_modules
 
-# Create the directories Compose mounts named volumes onto, owned by the alchemy
-# user. A fresh volume seeds from the image directory it covers, so this makes
-# the storage (which also holds the sqlite database), pictures and uploads
-# volumes writable instead of root-owned.
-RUN mkdir -p \
-      /workspace/spec/dummy/storage \
-      /workspace/spec/dummy/public/pictures \
-      /workspace/spec/dummy/uploads \
+# Create the storage directory Compose mounts the storage volume onto, owned by
+# the alchemy user. A fresh volume seeds from the image directory it covers, so
+# this makes the storage volume (which holds active_storage files and the sqlite
+# database) writable instead of root-owned.
+RUN mkdir -p /workspace/spec/dummy/storage \
     && chown -R alchemy:alchemy /workspace/spec
 
 USER alchemy
