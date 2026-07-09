@@ -1,7 +1,16 @@
 name: alchemy_cms
 
+# All services run the same image, which is built once by the `setup` service.
+# The other services reference it via this anchor and set `pull_policy: never`
+# so Compose uses the locally built image instead of trying to pull it from a
+# registry on a cold start (which it does concurrently with the build).
+x-app: &app
+  image: alchemy-dummy-app
+  pull_policy: never
+
 services:
-  deps:
+  setup:
+    image: alchemy-dummy-app
     build:
       context: .
       dockerfile: .devcontainer/Dockerfile
@@ -12,9 +21,7 @@ services:
       - node_modules:/workspace/node_modules
 
   web:
-    build:
-      context: .
-      dockerfile: .devcontainer/Dockerfile
+    <<: *app
     command: bash -c "cd spec/dummy && rm -f tmp/pids/server.pid && bin/rails db:prepare && exec bin/rails server -b 0.0.0.0"
     ports:
       - "3000:3000"
@@ -26,7 +33,7 @@ services:
       - pictures:/workspace/spec/dummy/public/pictures
       - uploads:/workspace/spec/dummy/uploads
     depends_on:
-      deps:
+      setup:
         condition: service_completed_successfully
       css:
         condition: service_started
@@ -34,42 +41,36 @@ services:
         condition: service_started
 
   sass:
-    build:
-      context: .
-      dockerfile: .devcontainer/Dockerfile
+    <<: *app
     command: pnpm run build:css --watch
     volumes:
       - .:/workspace
       - bundle:/usr/local/bundle
       - node_modules:/workspace/node_modules
     depends_on:
-      deps:
+      setup:
         condition: service_completed_successfully
 
   css:
-    build:
-      context: .
-      dockerfile: .devcontainer/Dockerfile
+    <<: *app
     command: bash -c "cd spec/dummy && bin/rails dartsass:watch"
     volumes:
       - .:/workspace
       - bundle:/usr/local/bundle
       - node_modules:/workspace/node_modules
     depends_on:
-      deps:
+      setup:
         condition: service_completed_successfully
 
   js:
-    build:
-      context: .
-      dockerfile: .devcontainer/Dockerfile
+    <<: *app
     command: pnpm run build:admin:dev
     volumes:
       - .:/workspace
       - bundle:/usr/local/bundle
       - node_modules:/workspace/node_modules
     depends_on:
-      deps:
+      setup:
         condition: service_completed_successfully
 
 volumes:
