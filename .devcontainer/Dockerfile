@@ -1,6 +1,10 @@
-FROM ruby:4.0
+ARG RUBY_VERSION=4.0.5
+FROM docker.io/library/ruby:${RUBY_VERSION}-slim
 
 RUN apt-get update && apt-get install -y \
+    build-essential \
+    curl \
+    git \
     libsqlite3-dev \
     libjemalloc2 \
     libvips \
