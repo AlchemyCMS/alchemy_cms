@@ -34,15 +34,14 @@ dependencies locally:
 
 **Using Docker (recommended):**
 
-        $ docker compose build
-        $ docker compose up
+        $ bin/start
 
-This starts the Rails dev server, Sass watcher, and JS bundle watcher.
+This builds the images and starts the Rails dev server, Sass watcher, and JS bundle watcher.
 
 **Local setup:**
 
         $ bin/setup
-        $ bin/start
+        $ bin/dev
 
 3. Run the tests. We only take pull requests with passing tests, and it's great
 to know that you have a clean slate:
@@ -77,7 +76,7 @@ If you modify JavaScript source files under `app/javascript/alchemy_admin/`, you
 
     $ pnpm run build:admin
 
-Commit the updated `app/assets/builds/alchemy/alchemy_admin.min.js` alongside your source changes. For local development, `bin/start` runs the watch process automatically.
+Commit the updated `app/assets/builds/alchemy/alchemy_admin.min.js` alongside your source changes. For local development, `bin/start` (Docker) or `bin/dev` runs the watch process automatically.
 
 Please follow these syntax guides:
 

@@ -354,10 +354,19 @@ $ bundle exec rake
 
 ### Start the dummy app
 
-You can even start the dummy app and use it to manually test your changes with:
+You can even start the dummy app and use it to manually test your changes.
+
+To run the whole stack in Docker (builds the images and starts the Rails
+server, Sass watcher, and JS bundle watcher):
 
 ```bash
 $ bin/start
+```
+
+Or, to run the dummy app locally without Docker:
+
+```bash
+$ bin/dev
 ```
 
 

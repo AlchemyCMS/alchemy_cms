@@ -1,17 +1,7 @@
-#!/usr/bin/env ruby
-require "fileutils"
+#!/usr/bin/env sh
 
-# path to dummy application root.
-APP_ROOT = File.expand_path("../spec/dummy", __dir__)
-
-# path to alchemy gem
-GEM_ROOT = File.expand_path("../", __dir__)
-
-def system!(*args)
-  system(*args) || abort("\n== Command #{args} failed ==")
-end
-
-FileUtils.chdir APP_ROOT do
-  puts "\n== Starting dummy app =="
-  exec "bin/dev"
-end
+# Start the full development environment in Docker: builds the images and
+# runs the Rails dev server, Sass watcher, and JS bundle watcher.
+#
+# To run the dummy app locally without Docker, use bin/dev instead.
+exec docker compose up --build "$@"

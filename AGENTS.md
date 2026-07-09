@@ -52,7 +52,8 @@ pnpm run build:icons      # Generate icon sprite
 ### Running the Dummy App
 
 ```bash
-# Start the development server (runs spec/dummy/bin/dev)
+# Start the full stack in Docker: builds images and runs the Rails server,
+# Sass watcher, and JS bundle watcher (docker compose up --build)
 bin/start
 ```
 
