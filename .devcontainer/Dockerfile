@@ -18,9 +18,11 @@ RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - \
 
 WORKDIR /workspace
 
-COPY Gemfile Gemfile.lock* alchemy_cms.gemspec ./
+# Gemfile.lock is a dev artifact; the gemspec is the source of truth. Resolve
+# the whole dependency tree fresh to the latest allowed versions on every build.
+COPY Gemfile alchemy_cms.gemspec ./
 COPY lib/alchemy/version.rb lib/alchemy/version.rb
-RUN bundle install
+RUN bundle update --all
 
 COPY package.json pnpm-*.yaml ./
 RUN pnpm install

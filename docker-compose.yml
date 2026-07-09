@@ -22,7 +22,10 @@ services:
     build:
       context: .
       dockerfile: .devcontainer/Dockerfile
-    command: bash -c "bundle check || bundle install && pnpm install"
+    # The image resolves the whole bundle fresh (bundle update --all). Regenerate
+    # the disposable host Gemfile.lock from the baked gems so it matches the image
+    # without needing a compiler at runtime, then install JS deps.
+    command: bash -c "rm -f Gemfile.lock && bundle install --local && pnpm install"
     volumes:
       - .:/workspace
       - /workspace/node_modules
