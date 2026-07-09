@@ -7,9 +7,13 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def current_user
-    return if Rails.env.test?
+  # In development authentication is handled by the alchemy-devise engine,
+  # which provides its own +current_user+ helper, so we must not shadow it.
+  unless Rails.env.development?
+    def current_user
+      return if Rails.env.test?
 
-    @_dummy_user ||= DummyUser.find_or_create_by(email: "dummy@alchemy.com")
+      @_dummy_user ||= DummyUser.find_or_create_by(email: "dummy@alchemy.com")
+    end
   end
 end

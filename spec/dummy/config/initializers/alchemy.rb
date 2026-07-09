@@ -41,8 +41,10 @@ end
 
 Alchemy.configure do |config|
   config.abilities.add("Ability")
-  config.user_class = "DummyUser"
-  config.signup_path = "/admin/pages" unless Rails.env.test?
+  # In development the alchemy-devise engine provides authentication and sets
+  # the user_class (and signup path) to its Alchemy::User. In the test suite
+  # the dummy app uses the DummyUser stub instead.
+  config.user_class = "DummyUser" if Rails.env.test?
   # == This is the global Alchemy configuration file
   #
 
