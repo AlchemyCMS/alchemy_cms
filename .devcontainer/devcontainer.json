@@ -3,7 +3,7 @@
   "dockerComposeFile": "../docker-compose.yml",
   "service": "web",
   "workspaceFolder": "/workspace",
-  "postCreateCommand": "bundle install && pnpm install && cd spec/dummy && bin/rails db:prepare",
+  "postCreateCommand": "rm -f Gemfile.lock && bundle install --local && pnpm install && cd spec/dummy && bin/rails db:prepare",
   "forwardPorts": [3000],
   "customizations": {
     "vscode": {
