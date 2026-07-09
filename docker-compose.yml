@@ -8,6 +8,14 @@ x-app: &app
   image: alchemy-dummy-app
   pull_policy: never
 
+# Gems and node_modules are baked into the image. Gems live outside the
+# `.:/workspace` bind mount, so they are served straight from the image with no
+# volume. node_modules sits under the bind mount, so an anonymous volume
+# (`- /workspace/node_modules`) shadows the host directory and surfaces the
+# image's copy instead of the host's (which has platform-specific binaries).
+# After changing dependencies, rebuild the image; refresh node_modules with
+# `docker compose up --build --renew-anon-volumes`.
+
 services:
   setup:
     image: alchemy-dummy-app
@@ -17,8 +25,7 @@ services:
     command: bash -c "bundle check || bundle install && pnpm install"
     volumes:
       - .:/workspace
-      - bundle:/usr/local/bundle
-      - node_modules:/workspace/node_modules
+      - /workspace/node_modules
 
   web:
     <<: *app
@@ -27,8 +34,7 @@ services:
       - "3000:3000"
     volumes:
       - .:/workspace
-      - bundle:/usr/local/bundle
-      - node_modules:/workspace/node_modules
+      - /workspace/node_modules
       - storage:/workspace/spec/dummy/storage
       - pictures:/workspace/spec/dummy/public/pictures
       - uploads:/workspace/spec/dummy/uploads
@@ -45,8 +51,7 @@ services:
     command: pnpm run build:css --watch
     volumes:
       - .:/workspace
-      - bundle:/usr/local/bundle
-      - node_modules:/workspace/node_modules
+      - /workspace/node_modules
     depends_on:
       setup:
         condition: service_completed_successfully
@@ -56,8 +61,7 @@ services:
     command: bash -c "cd spec/dummy && bin/rails dartsass:watch"
     volumes:
       - .:/workspace
-      - bundle:/usr/local/bundle
-      - node_modules:/workspace/node_modules
+      - /workspace/node_modules
     depends_on:
       setup:
         condition: service_completed_successfully
@@ -67,15 +71,12 @@ services:
     command: pnpm run build:admin:dev
     volumes:
       - .:/workspace
-      - bundle:/usr/local/bundle
-      - node_modules:/workspace/node_modules
+      - /workspace/node_modules
     depends_on:
       setup:
         condition: service_completed_successfully
 
 volumes:
-  bundle:
-  node_modules:
   storage:
   pictures:
   uploads:
