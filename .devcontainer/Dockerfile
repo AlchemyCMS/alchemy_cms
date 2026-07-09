@@ -44,9 +44,29 @@ RUN pnpm install
 # the active_storage adapter).
 FROM base
 
+# Run as a non-root user. USER_ID/GROUP_ID are build args so the UID can be
+# matched to the host on plain-Linux setups; on OrbStack the Mac bind mount is
+# writable regardless of the container UID.
+ARG USER_ID=1000
+ARG GROUP_ID=1000
+RUN groupadd -g ${GROUP_ID} alchemy \
+    && useradd -u ${USER_ID} -g alchemy -m alchemy
+
 ENV LD_PRELOAD=libjemalloc.so.2
 ENV RUBY_YJIT_ENABLE=1
 ENV LISTEN_GEM_ADAPTER_WARN_BEHAVIOR=silent
 
-COPY --from=builder /usr/local/bundle /usr/local/bundle
-COPY --from=builder /workspace/node_modules /workspace/node_modules
+COPY --from=builder --chown=alchemy:alchemy /usr/local/bundle /usr/local/bundle
+COPY --from=builder --chown=alchemy:alchemy /workspace/node_modules /workspace/node_modules
+
+# Create the directories Compose mounts named volumes onto, owned by the alchemy
+# user. A fresh volume seeds from the image directory it covers, so this makes
+# the storage (which also holds the sqlite database), pictures and uploads
+# volumes writable instead of root-owned.
+RUN mkdir -p \
+      /workspace/spec/dummy/storage \
+      /workspace/spec/dummy/public/pictures \
+      /workspace/spec/dummy/uploads \
+    && chown -R alchemy:alchemy /workspace/spec
+
+USER alchemy
