@@ -67,3 +67,8 @@ RUN mkdir -p /workspace/spec/dummy/storage \
     && chown -R alchemy:alchemy /workspace/spec
 
 USER alchemy
+
+# Bake the pinned pnpm into the alchemy user's corepack cache so it is not
+# downloaded at runtime in every service container. Keep the version in sync
+# with the packageManager field in package.json.
+RUN corepack prepare pnpm@11.5.2 --activate
