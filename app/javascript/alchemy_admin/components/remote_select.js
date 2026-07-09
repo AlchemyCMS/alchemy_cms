@@ -244,15 +244,24 @@ export class RemoteSelect extends HTMLElement {
   async #load(query, callback) {
     const ajax = this.ajaxConfig
     const url = this.#tomSelect.getUrl(query)
+    const page = Number(
+      new URL(url, window.location.origin).searchParams.get("page")
+    )
+    // A fresh search (first page) must replace the previous results, not append
+    // to them. The virtual_scroll plugin keeps the options preloaded for the
+    // empty query as permanent "defaults" and never clears them, so stale
+    // options would otherwise linger and the no-results message would never
+    // show. Drop everything but the current selection before the new results
+    // arrive.
+    if (!page || page === 1) {
+      this.#tomSelect.clearOptions()
+    }
     try {
       const response = await fetch(url, {
         headers: { Accept: "application/json", ...(ajax.params?.headers ?? {}) }
       })
       const { results, more } = ajax.results(await response.json())
       if (more) {
-        const page = Number(
-          new URL(url, window.location.origin).searchParams.get("page")
-        )
         this.#tomSelect.setNextUrl(query, this.#requestUrl(query, page + 1))
       }
       callback(results)
