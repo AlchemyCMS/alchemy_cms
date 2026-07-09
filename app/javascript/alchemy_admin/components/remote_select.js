@@ -182,11 +182,20 @@ export class RemoteSelect extends HTMLElement {
       onChange(value) {
         self.#onChange(value, this)
       },
+      onType(term) {
+        // While typing, give the search input an opaque background so it covers
+        // the selected item behind it. Without this the previous selection shows
+        // through the search box (see the `input-active` styles).
+        this.control_input.classList.toggle("has-value", term.length > 0)
+      },
       onDropdownOpen() {
         onDropdownOpen.call(this)
         self.onOpen()
       },
-      onDropdownClose,
+      onDropdownClose() {
+        this.control_input.classList.remove("has-value")
+        onDropdownClose.call(this)
+      },
       render: {
         option(item, _escape) {
           // A preselected item may only carry partial data (e.g. no site), which
