@@ -202,14 +202,7 @@ export class RemoteSelect extends HTMLElement {
       },
       render: {
         option(item, _escape) {
-          // A preselected item may only carry partial data (e.g. no site), which
-          // the rich option template can't render. Fall back to the simple result
-          // render, matching how a selected item is displayed.
-          try {
-            return self._renderListEntry(item, this.lastValue)
-          } catch {
-            return `<div>${self._renderResult(item)}</div>`
-          }
+          return self._renderListEntry(item, this.lastValue)
         },
         item(item, _escape) {
           return `<div>${self._renderResult(item)}</div>`

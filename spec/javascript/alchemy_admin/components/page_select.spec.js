@@ -49,9 +49,10 @@ describe("alchemy-page-select", () => {
   })
 
   describe("preselection", () => {
-    // The selection carries only partial page data (no site/language_code), which
-    // the rich dropdown option template can't render, so preselection must not
-    // crash and must still mark the field as having a selected item.
+    // A page the user cannot edit is serialized without site/language_code, so the
+    // selection can carry partial data. The rich option template renders it
+    // null-safe, so preselection must not crash and must still mark the field as
+    // having a selected item.
     const selection = { id: 42, name: "Index", url_path: "/index" }
 
     beforeEach(() => {
