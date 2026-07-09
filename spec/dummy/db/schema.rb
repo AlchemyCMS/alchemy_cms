@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_20_163927) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_09_125719) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -270,6 +270,39 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_20_163927) do
     t.datetime "updated_at", null: false
     t.index ["host", "public"], name: "alchemy_sites_public_hosts_idx"
     t.index ["host"], name: "index_alchemy_sites_on_host"
+  end
+
+  create_table "alchemy_users", force: :cascade do |t|
+    t.string "alchemy_roles", default: "member"
+    t.text "cached_tag_list"
+    t.datetime "created_at", precision: nil, null: false
+    t.integer "creator_id"
+    t.datetime "current_sign_in_at", precision: nil
+    t.string "current_sign_in_ip"
+    t.string "email"
+    t.string "encrypted_password", limit: 128, default: "", null: false
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "firstname"
+    t.string "language"
+    t.datetime "last_request_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
+    t.string "last_sign_in_ip"
+    t.string "lastname"
+    t.string "login"
+    t.string "password_salt", limit: 128, default: "", null: false
+    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.string "reset_password_token"
+    t.integer "sign_in_count", default: 0, null: false
+    t.string "timezone"
+    t.datetime "updated_at", precision: nil, null: false
+    t.integer "updater_id"
+    t.index ["alchemy_roles"], name: "index_alchemy_users_on_alchemy_roles"
+    t.index ["email"], name: "index_alchemy_users_on_email", unique: true
+    t.index ["firstname"], name: "index_alchemy_users_on_firstname"
+    t.index ["lastname"], name: "index_alchemy_users_on_lastname"
+    t.index ["login"], name: "index_alchemy_users_on_login", unique: true
+    t.index ["reset_password_token"], name: "index_alchemy_users_on_reset_password_token", unique: true
   end
 
   create_table "bookings", force: :cascade do |t|

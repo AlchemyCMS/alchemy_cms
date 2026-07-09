@@ -17,6 +17,11 @@ gem "pg", "~> 1.0" if ENV["DB"] == "postgresql"
 
 gem "alchemy_i18n", github: "AlchemyCMS/alchemy_i18n", branch: "main"
 
+# Devise based authentication for the dummy app, so auth can be exercised
+# against local Alchemy core changes. Kept out of the test env, which uses
+# the DummyUser stub instead.
+gem "alchemy-devise", github: "AlchemyCMS/alchemy-devise", branch: "main", group: :development
+
 if ENV.fetch("ALCHEMY_STORAGE_ADAPTER", "active_storage") == "active_storage"
   gem "ruby-vips"
 else
