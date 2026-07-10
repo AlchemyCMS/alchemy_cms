@@ -202,6 +202,14 @@ export class RemoteSelect extends HTMLElement {
       },
       render: {
         option(item, _escape) {
+          // The selected item is rendered as an option as well. It may still hold
+          // the preselection, which only carries enough data to label it, and the
+          // server only replaces it once it shows up in a fetched page. Render it
+          // like the control does, so the list entry template only ever sees the
+          // complete records the server returned.
+          if (this.items.includes(String(item[this.settings.valueField]))) {
+            return `<div>${self._renderResult(item)}</div>`
+          }
           return self._renderListEntry(item, this.lastValue)
         },
         item(item, _escape) {
