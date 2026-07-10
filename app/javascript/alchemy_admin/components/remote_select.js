@@ -179,7 +179,10 @@ export class RemoteSelect extends HTMLElement {
           // Track the preselected item first, so the change handler recognizes
           // it as unchanged and does not dispatch a spurious change event.
           self.#selectedItem = item
-          this.addOption(item)
+          // The preselection only carries enough data to label the item. Mark it,
+          // so the option template can tell it apart from the complete records
+          // the server returns. Loading the record drops the mark again.
+          this.addOption({ ...item, $preselection: true })
           this.addItem(item.id)
         }
       },
@@ -202,12 +205,10 @@ export class RemoteSelect extends HTMLElement {
       },
       render: {
         option(item, _escape) {
-          // The selected item is rendered as an option as well. It may still hold
-          // the preselection, which only carries enough data to label it, and the
-          // server only replaces it once it shows up in a fetched page. Render it
-          // like the control does, so the list entry template only ever sees the
-          // complete records the server returned.
-          if (this.items.includes(String(item[this.settings.valueField]))) {
+          // A preselection that the server has not returned yet only carries
+          // enough data to label the item, so render it like the control does.
+          // Everything else is a complete record and gets the list entry.
+          if (item.$preselection) {
             return `<div>${self._renderResult(item)}</div>`
           }
           return self._renderListEntry(item, this.lastValue)
@@ -278,6 +279,13 @@ export class RemoteSelect extends HTMLElement {
       if (more) {
         this.#tomSelect.setNextUrl(query, this.#requestUrl(query, page + 1))
       }
+      // The dropdown is sorted by the order the options were added. A preselected
+      // option was added before the request and would sort in front of the
+      // results, so stamp the order the server returned onto every record. An
+      // already known option keeps its own order otherwise.
+      results.forEach((result) => {
+        result.$order = ++this.#tomSelect.order
+      })
       callback(results)
     } catch {
       callback()
