@@ -299,13 +299,6 @@ export class RemoteSelect extends HTMLElement {
       if (more) {
         this.#tomSelect.setNextUrl(query, this.#requestUrl(query, page + 1))
       }
-      // The dropdown is sorted by the order the options were added. A preselected
-      // option was added before the request and would sort in front of the
-      // results, so stamp the order the server returned onto every record. An
-      // already known option keeps its own order otherwise.
-      results.forEach((result) => {
-        result.$order = ++this.#tomSelect.order
-      })
       callback(results)
     } catch {
       callback()
