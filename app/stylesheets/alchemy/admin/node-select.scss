@@ -1,61 +1,15 @@
-.node-select--node,
-.node-select--node-url {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+/* The node select renders the shared remote select layout (see
+ * remote-select.scss). Only the breadcrumb of ancestor names shown in the
+ * primary cell is specific to it.
+ */
+.node-select--ancestors {
+  font-weight: normal;
 }
 
-.node-select--node {
-  display: flex;
-  align-items: center;
-
-  > alchemy-icon {
-    flex: none;
-    margin: 0 var(--spacing-1) 0 0;
-  }
+.node-select--separator {
+  vertical-align: middle;
 
   .icon {
-    .ts-dropdown .option.active & {
-      fill: var(--color-white);
-    }
-  }
-}
-
-.node-select--node-display_name,
-.node-select--node-ancestors {
-  display: inline-flex;
-  align-items: center;
-}
-
-/* The name and the url give way to an ellipsis, so a deeply nested node does
- * not stretch the dropdown. The ancestors stay intact, they place the node.
- */
-.node-select--node-display_name {
-  min-width: 0;
-}
-
-.node-select--node-ancestors {
-  flex: none;
-}
-
-.node-select--node-name {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-weight: bold;
-}
-
-.node-select--node-url {
-  /* Shrink much faster than the name, the url only supports it. */
-  flex: 0 10 auto;
-  min-width: 0;
-  margin-left: auto;
-  padding: 0 var(--spacing-2);
-  color: var(--text-color);
-  font-size: var(--font-size_small);
-
-  .ts-dropdown .option.active & {
-    color: var(--color-white);
+    fill: currentColor;
   }
 }

@@ -145,6 +145,42 @@ describe("alchemy-page-select", () => {
     })
   })
 
+  describe("slots", () => {
+    beforeEach(() => {
+      const html = `
+        <alchemy-page-select>
+          <input type="text">
+        </alchemy-page-select>
+      `
+      component = renderComponent("alchemy-page-select", html)
+    })
+
+    const page = {
+      name: "Index",
+      url_path: "/index",
+      site: { name: "Default site" },
+      language_code: "en"
+    }
+
+    it("describes a dropdown option with the full grid", () => {
+      expect(component._entry(page, "Ind")).toEqual({
+        icon: "file-3",
+        primary: "<em>Ind</em>ex",
+        aside: "Default site",
+        secondary: { text: "/index", truncate: "head" },
+        secondaryAside: { badge: "en" }
+      })
+    })
+
+    it("describes the selected item as icon, name and url", () => {
+      expect(component._selectedEntry(page)).toEqual({
+        icon: "file-3",
+        primary: "Index",
+        secondary: { text: "/index", truncate: "head" }
+      })
+    })
+  })
+
   describe("query params", () => {
     beforeEach(() => {
       const html = `

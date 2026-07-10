@@ -11,6 +11,19 @@ export function hightlightTerm(name, term) {
 }
 
 /**
+ * Escapes a value for safe interpolation as HTML text content.
+ * @param {*} value
+ * @returns {string}
+ */
+export function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+}
+
+/**
  * Serializes a (possibly nested) params object into a Rails/Ransack style query
  * string, e.g. `{ q: { name_cont: "x" }, page: 1 }` => `q%5Bname_cont%5D=x&page=1`.
  * @param {object} params
@@ -373,28 +386,138 @@ export class RemoteSelect extends HTMLElement {
   }
 
   /**
-   * result which is visible if an item was selected
-   * @param {object} item
-   * @returns {string}
-   * @private
-   */
-  _renderResult() {
-    throw new Error(
-      "You need to define a _renderResult function on your sub class!"
-    )
-  }
-
-  /**
-   * html template for each list entry
+   * Renders a dropdown option from the slots a subclass describes in `_entry`.
+   * External subclasses that still override `_renderListEntry` directly keep
+   * their own markup and never reach this.
    * @param {object} item
    * @param {string} term
    * @returns {string}
    * @private
    */
-  _renderListEntry() {
+  _renderListEntry(item, term) {
+    return this.#renderEntry(this._entry(item, term))
+  }
+
+  /**
+   * Renders the selected item (shown in the control) from the slots a subclass
+   * describes in `_selectedEntry`. External subclasses that still override
+   * `_renderResult` directly keep their own markup and never reach this.
+   * @param {object} item
+   * @returns {string}
+   * @private
+   */
+  _renderResult(item) {
+    return this.#renderSelection(this._selectedEntry(item))
+  }
+
+  /**
+   * Describes the slots of a dropdown option. Subclasses override this and
+   * return an object with any of `icon`/`media`, `primary`, `aside`,
+   * `secondary`, and `secondaryAside`. See `#renderEntry` for the accepted
+   * value shapes.
+   * @param {object} item
+   * @param {string} term
+   * @returns {object}
+   * @protected
+   */
+  _entry() {
+    throw new Error("You need to define an _entry function on your sub class!")
+  }
+
+  /**
+   * Describes the slots of the selected item shown in the control. Subclasses
+   * override this and return an object with `icon`/`media`, `primary`, and
+   * `secondary`.
+   * @param {object} item
+   * @returns {object}
+   * @protected
+   */
+  _selectedEntry() {
     throw new Error(
-      "You need to define a _renderListEntry function on your sub class!"
+      "You need to define a _selectedEntry function on your sub class!"
     )
+  }
+
+  /**
+   * Builds the two row grid markup of a dropdown option from its slots.
+   * @param {object} slots
+   * @returns {string}
+   * @private
+   */
+  #renderEntry(slots) {
+    return `
+      <div class="remote-select--entry">
+        ${this.#leadColumn(slots)}
+        ${this.#cell("remote-select--primary", slots.primary, { raw: true })}
+        ${this.#cell("remote-select--aside", slots.aside)}
+        ${this.#cell("remote-select--secondary", slots.secondary)}
+        ${this.#cell("remote-select--secondary-aside", slots.secondaryAside)}
+      </div>
+    `
+  }
+
+  /**
+   * Builds the single row markup of the selected item from its slots. Only the
+   * leading column, the primary text, and the (fast shrinking) secondary text
+   * are shown; the compact control has no room for more.
+   * @param {object} slots
+   * @returns {string}
+   * @private
+   */
+  #renderSelection(slots) {
+    return `
+      <div class="remote-select--selection">
+        ${this.#leadColumn(slots)}
+        ${this.#cell("remote-select--selection-name", slots.primary, { raw: true })}
+        ${this.#cell("remote-select--selection-aside", slots.secondary)}
+      </div>
+    `
+  }
+
+  /**
+   * Builds the leading column, either an icon or a media thumbnail. The two are
+   * mutually exclusive; the icon wins if a subclass passes both.
+   * @param {object} slots
+   * @returns {string}
+   * @private
+   */
+  #leadColumn(slots) {
+    if (slots.icon) {
+      return `<alchemy-icon class="remote-select--icon" name="${escapeHtml(slots.icon)}"></alchemy-icon>`
+    }
+    if (slots.media) {
+      return `<img class="remote-select--media" src="${escapeHtml(slots.media)}" alt="">`
+    }
+    return ""
+  }
+
+  /**
+   * Renders a single cell from a slot value. Omitted or empty values render
+   * nothing. A string is escaped, unless `raw` is set (the primary text is
+   * pre-highlighted HTML). `{ text, truncate: "head" }` wraps the text in
+   * `<bdi>` and truncates it from the head. `{ badge }` renders the pill style.
+   * @param {string} className
+   * @param {(string|object)} value
+   * @param {{raw?: boolean}} [options]
+   * @returns {string}
+   * @private
+   */
+  #cell(className, value, { raw = false } = {}) {
+    if (value == null || value === "") return ""
+
+    if (typeof value === "object") {
+      if (value.badge != null && value.badge !== "") {
+        return `<span class="${className} remote-select--badge">${escapeHtml(value.badge)}</span>`
+      }
+      if (value.text == null || value.text === "") return ""
+      const text = raw ? value.text : escapeHtml(value.text)
+      if (value.truncate === "head") {
+        return `<span class="${className} remote-select--truncate-head"><bdi>${text}</bdi></span>`
+      }
+      return `<span class="${className}">${text}</span>`
+    }
+
+    return `<span class="${className}">${raw ? value : escapeHtml(value)}</span>`
   }
 
   /**

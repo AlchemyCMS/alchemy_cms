@@ -65,6 +65,43 @@ describe("alchemy-node-select", () => {
     })
   })
 
+  describe("slots", () => {
+    beforeEach(() => {
+      const html = `
+        <alchemy-node-select>
+          <input type="text">
+        </alchemy-node-select>
+      `
+      component = renderComponent("alchemy-node-select", html)
+    })
+
+    const node = {
+      name: "Products",
+      url: "/en/shop/products",
+      ancestors: [{ name: "Home" }, { name: "Shop" }]
+    }
+
+    it("describes an option with the ancestors breadcrumb and the url", () => {
+      const slots = component._entry(node, "Prod")
+      expect(slots.icon).toEqual("menu-2")
+      expect(slots.primary).toContain("Home")
+      expect(slots.primary).toContain("Shop")
+      expect(slots.primary).toContain("<em>Prod</em>ucts")
+      expect(slots.secondary).toEqual({
+        text: "/en/shop/products",
+        truncate: "head"
+      })
+    })
+
+    it("describes the selected item without the url", () => {
+      const slots = component._selectedEntry(node)
+      expect(slots.icon).toEqual("menu-2")
+      expect(slots.primary).toContain("Home")
+      expect(slots.primary).toContain("Products")
+      expect(slots.secondary).toBeUndefined()
+    })
+  })
+
   describe("query params", () => {
     beforeEach(() => {
       const html = `
