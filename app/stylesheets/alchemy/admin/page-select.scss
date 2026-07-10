@@ -23,6 +23,7 @@
   color: var(--color);
 
   alchemy-icon {
+    flex: none;
     margin-right: var(--size-2);
 
     .icon {
@@ -88,11 +89,20 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  /* Let the name and the url shrink, so they get an ellipsis instead of
+   * widening the whole dropdown.
+   */
+  min-width: 0;
 }
 
 .page-select--bottom {
   font-size: var(--small-font-size);
   padding-left: var(--size-1);
+}
+
+.page-select--page-name,
+.page-select--page-urlname {
+  min-width: 0;
 }
 
 .page-select--page-urlname {
@@ -110,6 +120,7 @@
   --border-radius: var(--border-radius_medium, 3px);
 
   display: inline-block;
+  flex: none;
   background-color: var(--bg-color);
   margin-left: auto;
   border-radius: var(--border-radius);
@@ -123,6 +134,7 @@
 }
 
 .page-select--site-name {
+  flex: none;
   margin-left: auto;
   padding: var(--size-2) 0 var(--size-2) var(--size-3);
   font-size: var(--small-font-size);

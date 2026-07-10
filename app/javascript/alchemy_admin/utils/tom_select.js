@@ -4,6 +4,7 @@ import {
   computePosition,
   flip,
   offset,
+  shift,
   size
 } from "@floating-ui/dom"
 
@@ -39,14 +40,24 @@ export function createDropdownPositioning() {
       const updatePosition = async () => {
         // Use Floating UI to calculate the dropdown position
         const { x, y } = await computePosition(this.control, this.dropdown, {
+          // Line the dropdown up with the left edge of the control. Without this
+          // it is centered on the control and a dropdown grown wide by long
+          // entries hangs over into the page left of the field.
+          placement: "bottom-start",
           middleware: [
-            // Flip to the opposite side if there’s not enough space
-            flip(),
             // Make some space between the control and the dropdown to prevent overlap
             offset(2),
+            // Flip to the opposite side if there’s not enough space
+            flip(),
+            // Keep the dropdown inside the window
+            shift({ padding: DROPDOWN_WINDOW_MARGIN }),
             // Ensure the dropdown fits within the viewport
             size({
-              apply({ availableHeight, elements }) {
+              padding: DROPDOWN_WINDOW_MARGIN,
+              apply({ availableWidth, availableHeight, elements }) {
+                Object.assign(elements.floating.style, {
+                  maxWidth: `${Math.max(elements.reference.offsetWidth, availableWidth)}px`
+                })
                 Object.assign(
                   elements.floating.querySelector(".ts-dropdown-content").style,
                   {
