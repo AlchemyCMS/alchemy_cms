@@ -4,4 +4,13 @@
 # runs the Rails dev server, Sass watcher, and JS bundle watcher.
 #
 # To run the dummy app locally without Docker, use bin/dev instead.
+
+# The container user must own the bind mounted workspace to write into it. On
+# macOS the bind mount is writable whatever the container uid is, but on Linux a
+# uid mismatch makes the workspace read-only, so build the image with the host's
+# ids. An explicitly exported USER_ID/GROUP_ID wins.
+USER_ID="${USER_ID:-$(id -u)}"
+GROUP_ID="${GROUP_ID:-$(id -g)}"
+export USER_ID GROUP_ID
+
 exec docker compose up --build "$@"
