@@ -30,7 +30,13 @@ export class PageSelect extends RemoteSelect {
    * @private
    */
   _renderResult(page) {
-    return page.text || page.name
+    return `
+      <div class="page-select--result">
+        <alchemy-icon name="file-3"></alchemy-icon>
+        <span class="page-select--result-name">${page.text || page.name}</span>
+        <span class="page-select--result-url">${page.url_path ?? ""}</span>
+      </div>
+    `
   }
 
   /**
