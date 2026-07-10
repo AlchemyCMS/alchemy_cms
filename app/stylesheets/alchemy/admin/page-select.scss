@@ -47,12 +47,17 @@
   --highlight-color: var(--color-grey_light, hsl(0deg, 0%, 94%));
 
   display: flex;
-  align-items: center;
+  /* The name and the url are set in different sizes, sit them on a common
+   * baseline instead of centering both of their boxes.
+   */
+  align-items: baseline;
   overflow: hidden;
   color: var(--color);
 
   alchemy-icon {
     flex: none;
+    /* The icon has no baseline of its own, it would hang off the bottom edge. */
+    align-self: center;
     margin-right: var(--size-2);
 
     .icon {
@@ -68,6 +73,10 @@
 .page-select--result-name,
 .page-select--result-url {
   min-width: 0;
+  /* Both inherit the line height of the item. Shrinking their line boxes to the
+   * text keeps the row as high as it is in the other remote selects.
+   */
+  line-height: normal;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
