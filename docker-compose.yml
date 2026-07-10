@@ -1,32 +1,46 @@
 name: alchemy_cms
 
+# All services run the same image, which is built once by the `setup` service.
+# The other services reference it via this anchor and set `pull_policy: never`
+# so Compose uses the locally built image instead of trying to pull it from a
+# registry on a cold start (which it does concurrently with the build).
+x-app: &app
+  image: alchemy-dummy-app
+  pull_policy: never
+
+# Gems and node_modules are baked into the image. Gems live outside the
+# `.:/workspace` bind mount, so they are served straight from the image with no
+# volume. node_modules sits under the bind mount, so an anonymous volume
+# (`- /workspace/node_modules`) shadows the host directory and surfaces the
+# image's copy instead of the host's (which has platform-specific binaries).
+# After changing dependencies, rebuild the image; refresh node_modules with
+# `docker compose up --build --renew-anon-volumes`.
+
 services:
-  deps:
+  setup:
+    image: alchemy-dummy-app
     build:
       context: .
       dockerfile: .devcontainer/Dockerfile
-    command: bash -c "bundle check || bundle install && pnpm install"
+    # The image resolves the whole bundle fresh (bundle update --all). Regenerate
+    # the disposable host Gemfile.lock from the baked gems so it matches the image
+    # without needing a compiler at runtime, then install JS deps.
+    command: bash -c "rm -f Gemfile.lock && bundle install --local && pnpm install"
     volumes:
       - .:/workspace
-      - bundle:/usr/local/bundle
-      - node_modules:/workspace/node_modules
+      - /workspace/node_modules
 
   web:
-    build:
-      context: .
-      dockerfile: .devcontainer/Dockerfile
+    <<: *app
     command: bash -c "cd spec/dummy && rm -f tmp/pids/server.pid && bin/rails db:prepare && exec bin/rails server -b 0.0.0.0"
     ports:
       - "3000:3000"
     volumes:
       - .:/workspace
-      - bundle:/usr/local/bundle
-      - node_modules:/workspace/node_modules
+      - /workspace/node_modules
       - storage:/workspace/spec/dummy/storage
-      - pictures:/workspace/spec/dummy/public/pictures
-      - uploads:/workspace/spec/dummy/uploads
     depends_on:
-      deps:
+      setup:
         condition: service_completed_successfully
       css:
         condition: service_started
@@ -34,47 +48,34 @@ services:
         condition: service_started
 
   sass:
-    build:
-      context: .
-      dockerfile: .devcontainer/Dockerfile
+    <<: *app
     command: pnpm run build:css --watch
     volumes:
       - .:/workspace
-      - bundle:/usr/local/bundle
-      - node_modules:/workspace/node_modules
+      - /workspace/node_modules
     depends_on:
-      deps:
+      setup:
         condition: service_completed_successfully
 
   css:
-    build:
-      context: .
-      dockerfile: .devcontainer/Dockerfile
+    <<: *app
     command: bash -c "cd spec/dummy && bin/rails dartsass:watch"
     volumes:
       - .:/workspace
-      - bundle:/usr/local/bundle
-      - node_modules:/workspace/node_modules
+      - /workspace/node_modules
     depends_on:
-      deps:
+      setup:
         condition: service_completed_successfully
 
   js:
-    build:
-      context: .
-      dockerfile: .devcontainer/Dockerfile
+    <<: *app
     command: pnpm run build:admin:dev
     volumes:
       - .:/workspace
-      - bundle:/usr/local/bundle
-      - node_modules:/workspace/node_modules
+      - /workspace/node_modules
     depends_on:
-      deps:
+      setup:
         condition: service_completed_successfully
 
 volumes:
-  bundle:
-  node_modules:
   storage:
-  pictures:
-  uploads:
