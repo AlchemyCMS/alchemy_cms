@@ -15,6 +15,10 @@ x-app: &app
 # image's copy instead of the host's (which has platform-specific binaries).
 # After changing dependencies, rebuild the image; refresh node_modules with
 # `docker compose up --build --renew-anon-volumes`.
+#
+# USER_ID/GROUP_ID select the uid/gid of the image's `alchemy` user, which has to
+# own the `.:/workspace` bind mount to be able to write into it. `bin/start` sets
+# them from the host user, so the documented entry point needs no configuration.
 
 services:
   setup:
@@ -22,6 +26,9 @@ services:
     build:
       context: .
       dockerfile: .devcontainer/Dockerfile
+      args:
+        USER_ID: ${USER_ID:-1000}
+        GROUP_ID: ${GROUP_ID:-1000}
     # The image resolves the whole bundle fresh (bundle update --all). Regenerate
     # the disposable host Gemfile.lock from the baked gems so it matches the image
     # without needing a compiler at runtime, then install JS deps.
