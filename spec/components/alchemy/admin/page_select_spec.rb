@@ -43,9 +43,7 @@ RSpec.describe Alchemy::Admin::PageSelect, type: :component do
       expect(selection).to eq(
         "id" => 123,
         "name" => "Test Page",
-        "url_path" => "/test-page",
-        "language_code" => alchemy_page.language_code,
-        "site" => {"name" => alchemy_page.site.name}
+        "url_path" => "/test-page"
       )
     end
   end

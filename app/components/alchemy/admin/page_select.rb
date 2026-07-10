@@ -32,9 +32,7 @@ module Alchemy
           selection = {
             id: @page.id,
             name: @page.name,
-            url_path: @page.url_path,
-            language_code: @page.language_code,
-            site: {name: @page.site&.name}
+            url_path: @page.url_path
           }
           options = options.merge({selection: selection.to_json})
         end
