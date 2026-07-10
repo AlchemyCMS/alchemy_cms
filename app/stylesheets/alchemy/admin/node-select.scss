@@ -10,6 +10,7 @@
   align-items: center;
 
   > alchemy-icon {
+    flex: none;
     margin: 0 var(--spacing-1) 0 0;
   }
 
@@ -26,11 +27,29 @@
   align-items: center;
 }
 
+/* The name and the url give way to an ellipsis, so a deeply nested node does
+ * not stretch the dropdown. The ancestors stay intact, they place the node.
+ */
+.node-select--node-display_name {
+  min-width: 0;
+}
+
+.node-select--node-ancestors {
+  flex: none;
+}
+
 .node-select--node-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-weight: bold;
 }
 
 .node-select--node-url {
+  /* Shrink much faster than the name, the url only supports it. */
+  flex: 0 10 auto;
+  min-width: 0;
   margin-left: auto;
   padding: 0 var(--spacing-2);
   color: var(--text-color);

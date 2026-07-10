@@ -10,6 +10,7 @@ import {
 
 const DROPDOWN_WINDOW_MARGIN = 16
 const DROPDOWN_MIN_HEIGHT = 120
+const DROPDOWN_MAX_WIDTH = 480
 
 // Dropdown positioning shared by the Tom Select based components. It appends the
 // dropdown to the body and keeps it positioned with Floating UI so it is not
@@ -55,8 +56,10 @@ export function createDropdownPositioning() {
             size({
               padding: DROPDOWN_WINDOW_MARGIN,
               apply({ availableWidth, availableHeight, elements }) {
+                // Keep long entries from stretching the dropdown across the
+                // window, but never make it narrower than the control.
                 Object.assign(elements.floating.style, {
-                  maxWidth: `${Math.max(elements.reference.offsetWidth, availableWidth)}px`
+                  maxWidth: `max(${elements.reference.offsetWidth}px, min(${availableWidth}px, var(--select-dropdown-max-width, ${DROPDOWN_MAX_WIDTH}px)))`
                 })
                 Object.assign(
                   elements.floating.querySelector(".ts-dropdown-content").style,
