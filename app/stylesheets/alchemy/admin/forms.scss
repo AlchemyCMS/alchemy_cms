@@ -66,7 +66,7 @@ form {
     &.boolean {
       height: var(--form-field-height);
 
-      input,
+      input[type="checkbox"],
       label {
         grid-column: 2;
         grid-row: 1;
@@ -75,23 +75,24 @@ form {
         margin: var(--form-field-margin);
       }
 
-      input {
+      input[type="checkbox"] {
         margin-left: var(--spacing-0);
       }
 
-      label {
+      input[type="checkbox"] + label {
         margin-left: var(--spacing-6);
       }
     }
 
-    label.checkbox {
+    label.checkbox,
+    label.boolean {
       display: flex;
       align-items: baseline;
       gap: var(--spacing-1);
       margin: var(--spacing-1) 0;
       width: max-content;
 
-      input {
+      input[type="checkbox"] {
         align-self: center;
         margin: 0 var(--spacing-0) 0 1px;
       }
@@ -278,12 +279,12 @@ form {
     label.checkbox {
       display: flex;
       align-items: center;
-      gap: var(--spacing-0);
+      gap: var(--spacing-1);
       width: max-content;
       grid-column: 2;
       grid-row: 1;
 
-      input {
+      input[type="checkbox"] {
         margin-left: var(--spacing-0);
       }
     }
