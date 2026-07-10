@@ -207,6 +207,29 @@ RSpec.describe "Link overlay", type: :system do
       expect(page).to have_selector(".ts-dropdown .no-results")
     end
 
+    it "clears the selected page from the results when the search has no match" do
+      visit link_admin_pages_path(url: page2.url_path, selected_tab: "internal")
+
+      within "[name='overlay_tab_internal_link']" do
+        expect(page).to have_selector("alchemy-page-select .ts-control .item", text: page2.name)
+        find("alchemy-page-select .ts-control").click
+      end
+
+      expect(page).to have_selector(".ts-dropdown .option", text: page2.name)
+
+      within "[name='overlay_tab_internal_link'] alchemy-page-select .ts-control" do
+        find("input").send_keys("Nonexistentpagexyz")
+      end
+
+      # The selected page is an option as well and must not survive the search.
+      expect(page).to_not have_selector(".ts-dropdown .option")
+      expect(page).to have_selector(".ts-dropdown .no-results")
+      # It stays selected though.
+      within "[name='overlay_tab_internal_link']" do
+        expect(page).to have_selector("alchemy-page-select .ts-control .item", text: page2.name)
+      end
+    end
+
     it "shows a spinner in the control while the pages load" do
       visit link_admin_pages_path(selected_tab: "internal")
 
