@@ -319,10 +319,26 @@ export class RemoteSelect extends HTMLElement {
       this.#selectedItem = null
       this.onChange({ added: null, removed: previous })
     } else if (!previous || String(previous.id) !== String(value)) {
-      const added = tomSelect.options[value] ?? null
+      const added = this.#itemData(tomSelect.options[value])
       this.#selectedItem = added
       this.onChange({ added, removed: previous })
     }
+  }
+
+  /**
+   * An option also carries the bookkeeping Tom Select keeps on it, among it the
+   * node it was rendered into. Serializing that into the selection attribute
+   * breaks the render cache once a component is attached to it again, so keep
+   * the record itself only.
+   * @param {?object} option
+   * @returns {?object}
+   * @private
+   */
+  #itemData(option) {
+    if (!option) return null
+    return Object.fromEntries(
+      Object.entries(option).filter(([key]) => !key.startsWith("$"))
+    )
   }
 
   /**

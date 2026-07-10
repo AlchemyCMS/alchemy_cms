@@ -122,6 +122,29 @@ describe("alchemy-page-select", () => {
     })
   })
 
+  describe("selecting a page", () => {
+    // Tom Select keeps its own bookkeeping on an option, among it the node it
+    // was rendered into. Serializing that into the selection attribute breaks
+    // the render cache once a component is attached to it again.
+    it("stores the record without the Tom Select internals", () => {
+      const html = `
+        <alchemy-page-select placeholder="Search page">
+          <input type="text">
+        </alchemy-page-select>
+      `
+      component = renderComponent("alchemy-page-select", html)
+      const tomSelect = component.getElementsByTagName("input")[0].tomselect
+      tomSelect.addOption({ id: 42, name: "Index", url_path: "/index" })
+      tomSelect.addItem("42")
+
+      const selection = JSON.parse(component.getAttribute("selection"))
+      expect(selection).toEqual({ id: 42, name: "Index", url_path: "/index" })
+      expect(
+        Object.keys(selection).filter((key) => key.startsWith("$"))
+      ).toEqual([])
+    })
+  })
+
   describe("query params", () => {
     beforeEach(() => {
       const html = `
