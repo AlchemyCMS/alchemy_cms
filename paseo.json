@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "web": {
+      "type": "service",
+      "command": "bin/start",
+      "port": 3000
+    }
+  }
+}
