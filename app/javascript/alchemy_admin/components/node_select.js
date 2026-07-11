@@ -1,4 +1,7 @@
-import { RemoteSelect } from "alchemy_admin/components/remote_select"
+import {
+  RemoteSelect,
+  escapeHtml
+} from "alchemy_admin/components/remote_select"
 
 class NodeSelect extends RemoteSelect {
   _searchQuery(term, page) {
@@ -11,37 +14,34 @@ class NodeSelect extends RemoteSelect {
     }
   }
 
-  _renderResult(item) {
-    return this._renderListEntry(item)
+  _entry(node, term) {
+    return {
+      icon: "menu-2",
+      primary: this.#breadcrumb(node) + this._hightlightTerm(node.name, term),
+      secondary: { text: node.url, truncate: "head" }
+    }
+  }
+
+  _selectedEntry(node) {
+    return {
+      icon: "menu-2",
+      primary: this.#breadcrumb(node) + escapeHtml(node.name)
+    }
   }
 
   /**
-   * html template for each list entry
+   * Renders the node's ancestors as a breadcrumb that precedes its name. The
+   * ancestors place the node in the tree, so a deeply nested node reads clearly.
    * @param {object} node
-   * @param {string} term
    * @returns {string}
-   * @private
    */
-  _renderListEntry(node, term) {
-    const ancestors = node.ancestors.map((a) => a.name)
-    const seperator = `<alchemy-icon name="arrow-right-s"></alchemy-icon>`
-
-    return `
-      <div class="node-select--node">
-        <alchemy-icon name="menu-2"></alchemy-icon>
-        <div class="node-select--node-display_name">
-          <span class="node-select--node-ancestors">
-            ${ancestors.length > 0 ? ancestors.join(seperator) + seperator : ""}
-          </span>
-          <span class="node-select--node-name">
-            ${this._hightlightTerm(node.name, term)}
-          </span>
-        </div>
-        <div class="node-select--node-url">
-          ${node.url || ""}
-        </div>
-      </div>
-    `
+  #breadcrumb(node) {
+    const ancestors = node.ancestors.map((ancestor) => ancestor.name)
+    if (ancestors.length === 0) return ""
+    const separator = `<alchemy-icon name="arrow-right-s" class="node-select--separator"></alchemy-icon>`
+    return `<span class="node-select--ancestors">${ancestors
+      .map(escapeHtml)
+      .join(separator)}</span>${separator}`
   }
 }
 

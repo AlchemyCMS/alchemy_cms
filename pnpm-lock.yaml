@@ -38,9 +38,6 @@ importers:
       keymaster:
         specifier: ^1.6.2
         version: 1.6.2
-      select2:
-        specifier: github:select2/select2#3.5.4
-        version: Select2@https://codeload.github.com/select2/select2/tar.gz/95a977f674b6938af55ec5f28b7772df93786c5c
       sortablejs:
         specifier: ^1.15.7
         version: 1.15.7
@@ -844,10 +841,6 @@ packages:
   '@xmldom/xmldom@0.8.13':
     resolution: {integrity: sha512-KRYzxepc14G/CEpEGc3Yn+JKaAeT63smlDr+vjB8jRfgTBBI9wRj/nkQEO+ucV8p8I9bfKLWp37uHgFrbntPvw==}
     engines: {node: '>=10.0.0'}
-
-  Select2@https://codeload.github.com/select2/select2/tar.gz/95a977f674b6938af55ec5f28b7772df93786c5c:
-    resolution: {gitHosted: true, integrity: sha512-42On0yUzjhE/vNTVRT/+3wUwIpKyUGEW31PA1gFRv0j+OjgXJgo4aJVWCfjEpMa+O34PYKCfEdUN0OWaAEQ/6Q==, tarball: https://codeload.github.com/select2/select2/tar.gz/95a977f674b6938af55ec5f28b7772df93786c5c}
-    version: 3.5.4
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -2602,8 +2595,6 @@ snapshots:
       tinyrainbow: 3.1.0
 
   '@xmldom/xmldom@0.8.13': {}
-
-  Select2@https://codeload.github.com/select2/select2/tar.gz/95a977f674b6938af55ec5f28b7772df93786c5c: {}
 
   acorn-jsx@5.3.2(acorn@8.17.0):
     dependencies:

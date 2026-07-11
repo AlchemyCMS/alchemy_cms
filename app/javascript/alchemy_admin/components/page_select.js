@@ -23,37 +23,22 @@ export class PageSelect extends RemoteSelect {
     }
   }
 
-  /**
-   * result which is visible if a page was selected
-   * @param {object} page
-   * @returns {string}
-   * @private
-   */
-  _renderResult(page) {
-    return page.text || page.name
+  _entry(page, term) {
+    return {
+      icon: "file-3",
+      primary: this._hightlightTerm(page.name, term),
+      aside: page.site?.name,
+      secondary: { text: page.url_path, truncate: "head" },
+      secondaryAside: { badge: page.language_code }
+    }
   }
 
-  /**
-   * html template for each list entry
-   * @param {object} page
-   * @param {string} term
-   * @returns {string}
-   * @private
-   */
-  _renderListEntry(page, term) {
-    return `
-      <div class="page-select--page">
-        <div class="page-select--top">
-          <alchemy-icon name="file-3"></alchemy-icon>
-          <span class="page-select--page-name">${this._hightlightTerm(page.name, term)}</span>
-          <span class="page-select--site-name">${page.site.name}</span>
-        </div>
-        <div class="page-select--bottom">
-          <span class="page-select--page-urlname">${page.url_path}</span>
-          <span class="page-select--language-code">${page.language_code}</span>
-        </div>
-      </div>
-    `
+  _selectedEntry(page) {
+    return {
+      icon: "file-3",
+      primary: page.text || page.name,
+      secondary: { text: page.url_path, truncate: "head" }
+    }
   }
 }
 

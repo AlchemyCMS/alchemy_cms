@@ -296,8 +296,8 @@ RSpec.describe "Page editing feature", type: :system do
 
       it "can change page parent" do
         within(".alchemy-dialog.modal") do
-          expect(page).to have_css("#s2id_page_parent_id")
-          select2_search(new_parent.name, from: "Parent")
+          expect(page).to have_css(".ts-wrapper")
+          tom_select_search(new_parent.name, from: "Parent")
           find(".edit_page .submit button").click
         end
         expect(page).to_not have_selector(".alchemy-dialog-overlay.open")

@@ -10,4 +10,16 @@ describe("dropdownMessages", () => {
       expect(html).toMatch(/Add\s+<strong>eins<\/strong>/)
     })
   })
+
+  describe("loading_more", () => {
+    it("renders a translated pagination message", () => {
+      expect(dropdownMessages.loading_more()).toContain("Loading more results")
+    })
+  })
+
+  describe("no_more_results", () => {
+    it("renders a translated end-of-list message", () => {
+      expect(dropdownMessages.no_more_results()).toContain("No more results")
+    })
+  })
 })

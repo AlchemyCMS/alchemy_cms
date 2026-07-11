@@ -25,11 +25,9 @@ export class ElementEditor extends HTMLElement {
     // We use of @rails/ujs for Rails remote forms
     this.addEventListener("ajax:complete", this)
 
-    // Dirty observer still needs to be jQuery
-    // in order to support select2.
     this.#form = this.form
     if (this.#form) {
-      $(this.#form).on("change", this.onChange)
+      this.#form.addEventListener("change", this.onChange)
     }
 
     this.#header = this.header
@@ -53,7 +51,7 @@ export class ElementEditor extends HTMLElement {
     this.removeEventListener("alchemy:element-update-title", this)
     this.removeEventListener("ajax:complete", this)
     if (this.#form) {
-      $(this.#form).off("change", this.onChange)
+      this.#form.removeEventListener("change", this.onChange)
       this.#form = null
     }
     this.#header?.removeEventListener("dblclick", this.#onHeaderDblclick)

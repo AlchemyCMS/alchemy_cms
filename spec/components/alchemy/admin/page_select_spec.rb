@@ -39,7 +39,12 @@ RSpec.describe Alchemy::Admin::PageSelect, type: :component do
     end
 
     it "should have a serialized page information" do
-      expect(page).to have_selector('alchemy-page-select[selection="{\"id\":123,\"name\":\"Test Page\",\"url_path\":\"/test-page\"}"]')
+      selection = JSON.parse(page.find("alchemy-page-select")["selection"])
+      expect(selection).to eq(
+        "id" => 123,
+        "name" => "Test Page",
+        "url_path" => "/test-page"
+      )
     end
   end
 

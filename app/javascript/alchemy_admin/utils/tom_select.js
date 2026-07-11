@@ -4,11 +4,13 @@ import {
   computePosition,
   flip,
   offset,
+  shift,
   size
 } from "@floating-ui/dom"
 
 const DROPDOWN_WINDOW_MARGIN = 16
 const DROPDOWN_MIN_HEIGHT = 120
+const DROPDOWN_MAX_WIDTH = 480
 
 // Dropdown positioning shared by the Tom Select based components. It appends the
 // dropdown to the body and keeps it positioned with Floating UI so it is not
@@ -39,14 +41,26 @@ export function createDropdownPositioning() {
       const updatePosition = async () => {
         // Use Floating UI to calculate the dropdown position
         const { x, y } = await computePosition(this.control, this.dropdown, {
+          // Line the dropdown up with the left edge of the control. Without this
+          // it is centered on the control and a dropdown grown wide by long
+          // entries hangs over into the page left of the field.
+          placement: "bottom-start",
           middleware: [
-            // Flip to the opposite side if there’s not enough space
-            flip(),
             // Make some space between the control and the dropdown to prevent overlap
             offset(2),
+            // Flip to the opposite side if there’s not enough space
+            flip(),
+            // Keep the dropdown inside the window
+            shift({ padding: DROPDOWN_WINDOW_MARGIN }),
             // Ensure the dropdown fits within the viewport
             size({
-              apply({ availableHeight, elements }) {
+              padding: DROPDOWN_WINDOW_MARGIN,
+              apply({ availableWidth, availableHeight, elements }) {
+                // Keep long entries from stretching the dropdown across the
+                // window, but never make it narrower than the control.
+                Object.assign(elements.floating.style, {
+                  maxWidth: `max(${elements.reference.offsetWidth}px, min(${availableWidth}px, var(--select-dropdown-max-width, ${DROPDOWN_MAX_WIDTH}px)))`
+                })
                 Object.assign(
                   elements.floating.querySelector(".ts-dropdown-content").style,
                   {
@@ -90,5 +104,12 @@ export const dropdownMessages = {
   },
   no_results() {
     return `<div class="no-results">${translate("No results found")}</div>`
-  }
+  },
+  // Shown at the bottom of the dropdown while the virtual scroll plugin appends
+  // the next page of results.
+  loading_more: () =>
+    `<div class="loading-more">${translate("Loading more results")}&hellip;</div>`,
+  // Shown at the bottom of the dropdown once every page has been loaded.
+  no_more_results: () =>
+    `<div class="no-more-results">${translate("No more results")}</div>`
 }

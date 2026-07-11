@@ -39,11 +39,3 @@ export function translate(key, replacement = undefined) {
   }
   return translation
 }
-
-export async function setupSelectLocale() {
-  const locale = currentLocale()
-  if (locale === "en") return
-
-  await import(`select2/${locale}.js`)
-  $.extend($.fn.select2.defaults, $.fn.select2.locales[locale])
-}

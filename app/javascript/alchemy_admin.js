@@ -1,9 +1,8 @@
-// We still use jQuery in some places (ie. select2)
+// We still use jQuery in some places
 import "handlebars"
 import "jquery"
 import "@ungap/custom-elements"
 import { Turbo } from "@hotwired/turbo-rails"
-import "select2"
 
 import Rails from "@rails/ujs"
 

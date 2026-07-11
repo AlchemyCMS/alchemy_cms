@@ -60,6 +60,20 @@
     font-size: var(--form-field-font-size);
     border-radius: var(--border-radius_medium);
     cursor: pointer;
+    position: relative;
+
+    // Loading spinner, revealed while the wrapper carries the `loading` class.
+    // Sized by the control's font size so it stays subtle.
+    sl-spinner {
+      display: none;
+      position: absolute;
+      right: var(--spacing-2);
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1em;
+      --indicator-color: var(--text-color-muted);
+      --track-color: transparent;
+    }
 
     > .item {
       margin: 0;
@@ -115,6 +129,17 @@
         margin-left: auto;
         background: var(--select-background-image) no-repeat center / contain;
       }
+    }
+  }
+
+  &.loading {
+    .ts-control sl-spinner {
+      display: inline-flex;
+    }
+
+    // Hide the dropdown arrow so the spinner shows in its place.
+    &.single .ts-control::after {
+      visibility: hidden;
     }
   }
 
@@ -232,7 +257,11 @@
     padding: var(--spacing-2);
     cursor: pointer;
 
-    .highlight {
+    .highlight,
+    em {
+      // The remote selects wrap the matched term in <em>; render it like the
+      // built-in .highlight of the other selects — underlined, not italic.
+      font-style: normal;
       text-decoration: underline;
     }
 
@@ -250,5 +279,13 @@
   .create {
     padding: var(--spacing-2);
     cursor: pointer;
+  }
+
+  // The virtual scroll plugin also tags these with the option class; keep them
+  // as muted, non-interactive messages.
+  .loading-more,
+  .no-more-results {
+    color: var(--text-color-muted);
+    cursor: default;
   }
 }

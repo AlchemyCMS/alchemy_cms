@@ -1,43 +1,19 @@
-.node-select--node,
-.node-select--node-url {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+/* The node select renders the shared remote select layout (see
+ * remote-select.scss). Only the breadcrumb of ancestor names shown in the
+ * primary cell is specific to it.
+ */
+.node-select--ancestors {
+  font-weight: normal;
 }
 
-.node-select--node {
-  display: flex;
-  align-items: center;
-  height: 21px;
-
-  > alchemy-icon {
-    margin: 0 var(--spacing-2) 0 var(--spacing-1);
-  }
+.node-select--separator {
+  vertical-align: middle;
+  /* Keep the chevron within the text line; a full-size icon would tower over
+   * the text and inflate the row, dropping the leading icon out of alignment.
+   */
+  --icon-size: var(--icon-size-sm);
 
   .icon {
-    .select2-highlighted & {
-      fill: var(--color-white);
-    }
-  }
-}
-
-.node-select--node-display_name,
-.node-select--node-ancestors {
-  display: inline-flex;
-  align-items: center;
-}
-
-.node-select--node-name {
-  font-weight: bold;
-}
-
-.node-select--node-url {
-  margin-left: auto;
-  padding: var(--spacing-1) var(--spacing-2);
-  color: var(--text-color);
-  font-size: var(--font-size_small);
-
-  .select2-highlighted & {
-    color: var(--color-white);
+    fill: currentColor;
   }
 }

@@ -1,7 +1,6 @@
 @use "defaults";
 @use "fonts";
 @use "admin/archive";
-@use "admin/attachment-select";
 @use "admin/attachments";
 @use "admin/base";
 @use "admin/buttons";
@@ -31,6 +30,7 @@
 @use "admin/pagination";
 @use "admin/popover";
 @use "admin/preview_window";
+@use "admin/remote-select";
 @use "admin/resource_info";
 @use "admin/search";
 @use "admin/selects";

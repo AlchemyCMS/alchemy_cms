@@ -25,14 +25,12 @@ describe("alchemy-node-select", () => {
       )
     })
 
-    it("should initialize Select2", () => {
-      expect(
-        component.getElementsByClassName("select2-container").length
-      ).toEqual(1)
+    it("should initialize Tom Select", () => {
+      expect(component.getElementsByClassName("ts-wrapper").length).toEqual(1)
     })
 
-    it("should show a remove 'button'", () => {
-      expect(component.select2Config.allowClear).toBeTruthy()
+    it("should allow clearing the selection", () => {
+      expect(component.allowClear).toBeTruthy()
     })
   })
 
@@ -60,13 +58,47 @@ describe("alchemy-node-select", () => {
       expect(JSON.parse(component.selection)).toEqual(selection)
     })
 
-    it("should add the selection parameter to the select2 config", async () => {
-      return new Promise((resolve) => {
-        component.select2Config.initSelection(null, (json) => {
-          expect(json).toEqual(selection)
-          resolve()
-        })
+    it("should preselect the given item", () => {
+      expect(component.querySelector(".ts-control").textContent).toContain(
+        "Test Node"
+      )
+    })
+  })
+
+  describe("slots", () => {
+    beforeEach(() => {
+      const html = `
+        <alchemy-node-select>
+          <input type="text">
+        </alchemy-node-select>
+      `
+      component = renderComponent("alchemy-node-select", html)
+    })
+
+    const node = {
+      name: "Products",
+      url: "/en/shop/products",
+      ancestors: [{ name: "Home" }, { name: "Shop" }]
+    }
+
+    it("describes an option with the ancestors breadcrumb and the url", () => {
+      const slots = component._entry(node, "Prod")
+      expect(slots.icon).toEqual("menu-2")
+      expect(slots.primary).toContain("Home")
+      expect(slots.primary).toContain("Shop")
+      expect(slots.primary).toContain("<em>Prod</em>ucts")
+      expect(slots.secondary).toEqual({
+        text: "/en/shop/products",
+        truncate: "head"
       })
+    })
+
+    it("describes the selected item without the url", () => {
+      const slots = component._selectedEntry(node)
+      expect(slots.icon).toEqual("menu-2")
+      expect(slots.primary).toContain("Home")
+      expect(slots.primary).toContain("Products")
+      expect(slots.secondary).toBeUndefined()
     })
   })
 
