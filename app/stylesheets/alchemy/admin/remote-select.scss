@@ -42,14 +42,15 @@
    * common baseline rather than centering both boxes.
    */
   align-items: baseline;
-  column-gap: var(--size-3);
+  column-gap: var(--size-2);
+  row-gap: var(--size-1);
   overflow: hidden;
 }
 
 .remote-select--selection {
   display: flex;
   align-items: baseline;
-  column-gap: var(--size-3);
+  column-gap: var(--size-2);
   overflow: hidden;
 }
 
