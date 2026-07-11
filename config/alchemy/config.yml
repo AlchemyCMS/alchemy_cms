@@ -27,10 +27,12 @@ cache_pages: true
 #
 #   show_root [Boolean] # Show language root page in sitemap?
 #   show_flag [Boolean] # Enables the Checkbox in Page#update overlay. So your customer can set the visibility of pages in the sitemap.
+#   max_age [Integer]   # How long the sitemap is cached, in seconds. Set to 0 to disable sitemap caching.
 #
 sitemap:
   show_root: true
   show_flag: false
+  max_age: 3600
 
 # === Default items per page in admin views
 #

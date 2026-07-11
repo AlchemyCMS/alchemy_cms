@@ -50,6 +50,7 @@ module Alchemy
       #
       #   show_root [Boolean] # Show language root page in sitemap?
       #   show_flag [Boolean] # Enables the Checkbox in Page#update overlay. So your customer can set the visibility of pages in the sitemap.
+      #   max_age [Integer]   # How long the sitemap is cached, in seconds. Set to 0 to disable sitemap caching.
       configuration :sitemap, Sitemap
 
       # === Default items per page in admin views
