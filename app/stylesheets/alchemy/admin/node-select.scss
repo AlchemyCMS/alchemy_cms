@@ -8,6 +8,10 @@
 
 .node-select--separator {
   vertical-align: middle;
+  /* Keep the chevron within the text line; a full-size icon would tower over
+   * the text and inflate the row, dropping the leading icon out of alignment.
+   */
+  --icon-size: var(--icon-size-sm);
 
   .icon {
     fill: currentColor;
