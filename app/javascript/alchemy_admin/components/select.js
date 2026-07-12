@@ -2,7 +2,8 @@ import TomSelect from "tom-select"
 import { translate } from "alchemy_admin/i18n"
 import {
   createDropdownPositioning,
-  dropdownMessages
+  dropdownMessages,
+  focusTomSelect
 } from "alchemy_admin/utils/tom_select"
 
 export class Select extends HTMLSelectElement {
@@ -25,6 +26,10 @@ export class Select extends HTMLSelectElement {
   disable() {
     this.setAttribute("disabled", "disabled")
     this.#tomSelect?.disable()
+  }
+
+  focus() {
+    focusTomSelect(this.#tomSelect, () => super.focus())
   }
 
   setOptions(data, prompt = undefined) {

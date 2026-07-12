@@ -34,6 +34,16 @@ describe("alchemy-select", () => {
     })
   })
 
+  describe("focus", () => {
+    it("focuses the Tom Select control instead of the hidden native select", () => {
+      component.focus()
+
+      expect(document.activeElement).toEqual(
+        wrapper.querySelector(".ts-control input")
+      )
+    })
+  })
+
   describe("setOptions", () => {
     it("adds the new entry and replace the old ones", () => {
       component.setOptions(

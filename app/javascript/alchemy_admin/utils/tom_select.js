@@ -12,6 +12,19 @@ const DROPDOWN_WINDOW_MARGIN = 16
 const DROPDOWN_MIN_HEIGHT = 120
 const DROPDOWN_MAX_WIDTH = 480
 
+// Tom Select hides the native element it enhances, so the element can not take
+// focus itself. Focus the Tom Select control instead, falling back to the
+// native focus while Tom Select has not initialized yet. Tom Select based custom
+// elements use this for their focus() override, so acting on an autofocus
+// attribute (e.g. from a dialog) lands on the visible control.
+export function focusTomSelect(tomSelect, focusFallback) {
+  if (tomSelect) {
+    tomSelect.focus()
+  } else {
+    focusFallback()
+  }
+}
+
 // Dropdown positioning shared by the Tom Select based components. It appends the
 // dropdown to the body and keeps it positioned with Floating UI so it is not
 // clipped inside dialogs or scrollable panels. The returned handlers are used as

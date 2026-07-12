@@ -2,7 +2,8 @@ import TomSelect from "tom-select"
 import { translate } from "alchemy_admin/i18n"
 import {
   createDropdownPositioning,
-  dropdownMessages
+  dropdownMessages,
+  focusTomSelect
 } from "alchemy_admin/utils/tom_select"
 
 export function hightlightTerm(name, term) {
@@ -72,11 +73,21 @@ export class RemoteSelect extends HTMLElement {
     // A spinner shown inside the control while results load. Tom Select toggles
     // the wrapper's `loading` class, which reveals it (see the stylesheet).
     this.#tomSelect.control.append(document.createElement("sl-spinner"))
+    // Open the dropdown on click, mirroring the native <alchemy-select> (Tom
+    // Select does not open on click on its own once openOnFocus is off).
+    this.#tomSelect.control.addEventListener(
+      "click",
+      this.#tomSelect.open.bind(this.#tomSelect)
+    )
   }
 
   disconnectedCallback() {
     this.#tomSelect?.destroy()
     this.#tomSelect = null
+  }
+
+  focus() {
+    focusTomSelect(this.#tomSelect, () => super.focus())
   }
 
   /**
@@ -179,9 +190,10 @@ export class RemoteSelect extends HTMLElement {
       // loadThrottle, so this only affects the immediate UI feedback.
       refreshThrottle: 0,
       placeholder: this.placeholder,
-      // Load the first page of results as soon as the field is focused, so the
-      // dropdown shows results without having to type first (like Select2 did).
-      preload: "focus",
+      // Behave like the local <alchemy-select>: focusing neither opens the
+      // dropdown nor fires a search. The first page of results is loaded when
+      // the dropdown opens (see onDropdownOpen), i.e. on click or typing.
+      openOnFocus: false,
       // Load even for an empty search term to show the initial result list.
       shouldLoad: () => true,
       firstUrl: (query) => this.#requestUrl(query, 1),
