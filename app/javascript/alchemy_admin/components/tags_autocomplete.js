@@ -3,7 +3,8 @@ import { translate } from "alchemy_admin/i18n"
 import { get } from "alchemy_admin/utils/ajax"
 import {
   createDropdownPositioning,
-  dropdownMessages
+  dropdownMessages,
+  focusTomSelect
 } from "alchemy_admin/utils/tom_select"
 
 export class TagsAutocomplete extends HTMLElement {
@@ -20,6 +21,10 @@ export class TagsAutocomplete extends HTMLElement {
   disconnectedCallback() {
     this.#tomSelect?.destroy()
     this.#tomSelect = null
+  }
+
+  focus() {
+    focusTomSelect(this.#tomSelect, () => super.focus())
   }
 
   get input() {

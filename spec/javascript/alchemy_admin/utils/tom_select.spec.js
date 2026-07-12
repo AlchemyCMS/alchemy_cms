@@ -1,4 +1,28 @@
-import { dropdownMessages } from "alchemy_admin/utils/tom_select"
+import { vi } from "vitest"
+import {
+  dropdownMessages,
+  focusTomSelect
+} from "alchemy_admin/utils/tom_select"
+
+describe("focusTomSelect", () => {
+  it("focuses the Tom Select control when it is initialized", () => {
+    const tomSelect = { focus: vi.fn() }
+    const focusFallback = vi.fn()
+
+    focusTomSelect(tomSelect, focusFallback)
+
+    expect(tomSelect.focus).toHaveBeenCalled()
+    expect(focusFallback).not.toHaveBeenCalled()
+  })
+
+  it("calls the fallback when Tom Select is not initialized", () => {
+    const focusFallback = vi.fn()
+
+    focusTomSelect(null, focusFallback)
+
+    expect(focusFallback).toHaveBeenCalled()
+  })
+})
 
 describe("dropdownMessages", () => {
   describe("option_create", () => {
