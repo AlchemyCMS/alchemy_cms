@@ -1,9 +1,4 @@
 import { vi } from "vitest"
-import jQuery from "jquery"
-
-// Make jQuery available globally
-globalThis.$ = jQuery
-globalThis.jQuery = jQuery
 
 // Mock TinyMCE to avoid network requests in jsdom environment
 globalThis.tinymce = {

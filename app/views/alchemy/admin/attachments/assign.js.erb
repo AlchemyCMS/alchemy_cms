@@ -1,15 +1,20 @@
 (function () {
-  var $form_field = $("#<%= @form_field_id -%>")
-  $("#assignable_<%= @assignable_id %> a").attr("href", "#").off("click")
-  $form_field.val("<%= @assignable_id %>")
-  $form_field.parent().find("> .file_name").text("<%= @attachment.name %>")
-  $form_field.parent().find("> .file_icon").html("<%= j render_icon(@attachment.icon_css_class) %>")
-  $form_field.parent().find("> .remove_file_link").removeClass("hidden")
+  const formField = document.getElementById("<%= @form_field_id -%>")
+  document
+    .querySelectorAll("#assignable_<%= @assignable_id %> a")
+    .forEach((link) => {
+      link.setAttribute("href", "#")
+      link.onclick = () => false
+    })
+  formField.value = "<%= @assignable_id %>"
+  const parent = formField.parentElement
+  parent.querySelector(":scope > .file_name").textContent = "<%= @attachment.name %>"
+  parent.querySelector(":scope > .file_icon").innerHTML = "<%= j render_icon(@attachment.icon_css_class) %>"
+  parent.querySelector(":scope > .remove_file_link").classList.remove("hidden")
   Alchemy.closeCurrentDialog(() => {
-    const field = $form_field[0]
-    const elementEditor = field.closest("alchemy-element-editor")
+    const elementEditor = formField.closest("alchemy-element-editor")
     if (elementEditor) {
-      elementEditor.setDirty(field)
+      elementEditor.setDirty(formField)
     }
   })
 })()

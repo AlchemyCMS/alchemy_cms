@@ -29,7 +29,6 @@
     "cropperjs": "^1.6.2",
     "flatpickr": "^4.6.13",
     "handlebars": "^4.7.9",
-    "jquery": "^3.7.1",
     "keymaster": "^1.6.2",
     "sortablejs": "^1.15.7",
     "tinymce": "^8.7.0",

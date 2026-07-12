@@ -10,7 +10,6 @@ export default {
   },
   external: [
     "handlebars",
-    "jquery",
     "@ungap/custom-elements",
     "@hotwired/turbo-rails",
     "@rails/ujs",

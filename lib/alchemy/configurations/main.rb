@@ -182,9 +182,8 @@ module Alchemy
       #
       # == Example:
       #
-      # Open all links set to overlay inside an jQuery UI Dialog Window.
-      #
-      #   jQuery(a[data-link-target="overlay"]).dialog();
+      # Open all links set to overlay in a dialog window in your frontend code,
+      # based on the `data-link-target="overlay"` attribute.
       #
       option :link_target_options, :collection, item_type: :string, default: %w[blank]
 

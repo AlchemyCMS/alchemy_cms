@@ -5,18 +5,19 @@ import pleaseWaitOverlay from "alchemy_admin/please_wait_overlay"
 function checkPageDirtyness(element) {
   let callback = () => {}
 
-  if ($(element).is("form")) {
+  if (element.matches("form")) {
     callback = function () {
-      const $form = $(
-        `<form action="${element.action}" method="POST" style="display: none" />`
-      )
-      $form.append($(element).find("input"))
-      $form.appendTo("body")
+      const form = document.createElement("form")
+      form.action = element.action
+      form.method = "POST"
+      form.style.display = "none"
+      element.querySelectorAll("input").forEach((input) => form.append(input))
+      document.body.append(form)
 
       pleaseWaitOverlay()
-      $form.trigger("submit")
+      form.requestSubmit()
     }
-  } else if ($(element).is("a")) {
+  } else if (element.matches("a")) {
     callback = () => Turbo.visit(element.pathname)
   }
 

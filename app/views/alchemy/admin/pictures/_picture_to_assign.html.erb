@@ -7,7 +7,7 @@
           form_field_id: @form_field_id
         ),
         remote: true,
-        onclick: '$(self).attr("href", "#").off("click"); return false',
+        onclick: 'return false',
         method: 'put',
       ) do %>
         <%= render Alchemy::Admin::PictureThumbnail.new(picture_to_assign, size: size) %>

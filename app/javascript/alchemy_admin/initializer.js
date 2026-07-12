@@ -5,7 +5,7 @@ import { openDialog } from "alchemy_admin/dialog"
 // Opens the help dialog when the user presses the "?" key outside of a field.
 function showHelp(evt) {
   if (
-    !$(evt.target).is("input, textarea") &&
+    !evt.target.matches("input, textarea") &&
     String.fromCharCode(evt.which) === "?"
   ) {
     openDialog("/admin/help", {
