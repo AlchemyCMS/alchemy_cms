@@ -267,7 +267,7 @@ RSpec.describe "Page editing feature", type: :system do
       within ".sitemap_page[name='#{a_page.name}']" do
         click_icon("settings-3")
       end
-      expect(page).to have_selector(".alchemy-dialog-overlay.open")
+      expect(page).to have_selector(".alchemy-dialog-container.open")
     end
 
     context "with validation errors" do
@@ -286,7 +286,7 @@ RSpec.describe "Page editing feature", type: :system do
           find("input#page_name").set("name with some %!x^)'([@!{}]|/?:# characters")
           find(".edit_page .submit button").click
         end
-        expect(page).to_not have_selector(".alchemy-dialog-overlay.open")
+        expect(page).to_not have_selector(".alchemy-dialog-container.open")
         expect(page).to have_selector("#sitemap a.sitemap_pagename_link", text: "name with some %!x^)'([@!{}]|/?:# characters")
       end
     end
@@ -300,7 +300,7 @@ RSpec.describe "Page editing feature", type: :system do
           tom_select_search(new_parent.name, from: "Parent")
           find(".edit_page .submit button").click
         end
-        expect(page).to_not have_selector(".alchemy-dialog-overlay.open")
+        expect(page).to_not have_selector(".alchemy-dialog-container.open")
         expect(page).to have_selector("#sitemap .sitemap_url", text: "/#{new_parent.urlname}/#{a_page.urlname}")
       end
     end

@@ -1,7 +1,7 @@
 @use "../mixins";
 
-.alchemy-image-overlay-container,
-.alchemy-dialog-container {
+dialog.alchemy-image-overlay-container,
+dialog.alchemy-dialog-container {
   position: fixed;
   overflow: auto;
   top: 0;
@@ -9,22 +9,30 @@
   z-index: 100;
   width: 100%;
   height: 100%;
-  text-align: center;
-  white-space: nowrap;
+  // Override the native <dialog> max-width/height (which cap it below the
+  // viewport) so the full-screen container really fills the viewport.
+  max-width: 100vw;
+  max-height: 100vh;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  // Center the dialog box in both axes. `safe` keeps an oversized dialog
+  // scrollable from the top instead of clipping it. Flexbox is used instead of
+  // a text-align/vertical-align trick so the centering does not inherit into
+  // content appended to the container (dropdowns, confirm dialogs).
+  display: flex;
+  align-items: safe center;
+  justify-content: safe center;
   opacity: 0;
   transform: scale(0.98);
   transition-property: transform, opacity;
   transition-duration: var(--dialog-transition-duration);
   transition-timing-function: ease-in;
 
-  // vertical aligment
-  &:before {
-    content: "";
-    width: 0;
-    height: 100%;
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: -0.25em;
+  &::backdrop {
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color var(--dialog-transition-duration) linear;
   }
 
   &.open {
@@ -33,39 +41,17 @@
   }
 }
 
-.alchemy-image-overlay,
-.alchemy-dialog-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 30;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0);
-  transition: background-color var(--dialog-transition-duration) linear;
-
-  &.closable {
-    cursor: pointer;
-  }
-}
-
-.alchemy-dialog-overlay {
-  &.open {
-    background-color: var(--dialog-overlay-color);
-  }
+.alchemy-dialog-container.open::backdrop {
+  background-color: var(--dialog-overlay-color);
 }
 
 .alchemy-dialog,
 .alchemy-image-overlay-dialog {
   position: relative;
   max-width: calc(100vw - var(--spacing-4));
-  display: inline-block;
-  vertical-align: middle;
-  text-align: left;
 }
 
 .alchemy-dialog {
-  white-space: normal;
   margin: var(--spacing-2);
   @include mixins.border-top-radius(var(--border-radius_medium));
   box-shadow: var(--dialog-box-shadow);

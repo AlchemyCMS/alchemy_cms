@@ -3,11 +3,6 @@ import "keymaster"
 const bindedHotkeys = []
 
 export default function (scope = document) {
-  // The scope can be a jQuery object because we still use jQuery in alchemy_admin/dialog.js.
-  if (scope instanceof jQuery) {
-    scope = scope[0]
-  }
-
   // Unbind all previously registered hotkeys if we are not inside a dialog.
   if (scope === document) {
     bindedHotkeys.forEach((hotkey) => key.unbind(hotkey))

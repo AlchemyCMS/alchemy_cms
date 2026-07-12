@@ -1,9 +1,7 @@
 @use "../mixins";
 
-.alchemy-image-overlay {
-  &.open {
-    background-color: var(--dialog-overlay-color);
-  }
+.alchemy-image-overlay-container.open::backdrop {
+  background-color: var(--dialog-overlay-color);
 }
 
 .alchemy-image-overlay-container,

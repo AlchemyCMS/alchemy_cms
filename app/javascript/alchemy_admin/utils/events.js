@@ -1,3 +1,8 @@
+// Dispatches a bubbling CustomEvent from the given element.
+export function dispatchCustomEvent(element, name, detail = {}) {
+  element.dispatchEvent(new CustomEvent(name, { bubbles: true, detail }))
+}
+
 export function on(eventName, baseSelector, targetSelector, callback) {
   document.querySelectorAll(baseSelector).forEach((baseNode) => {
     baseNode.addEventListener(eventName, (evt) => {

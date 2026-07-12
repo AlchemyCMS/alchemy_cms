@@ -24,24 +24,32 @@ describe("Dialog", () => {
 
   describe("init", () => {
     it("focuses the element with an autofocus attribute", () => {
-      dialog.dialog_body.html(
+      dialog.dialog_body.innerHTML =
         '<input id="without-focus"><input id="with-focus" autofocus>'
-      )
 
       dialog.init()
 
       expect(document.activeElement).toEqual(
-        dialog.dialog_body.find("#with-focus")[0]
+        dialog.dialog_body.querySelector("#with-focus")
       )
     })
 
-    it("does not change focus when no autofocus element is present", () => {
-      dialog.dialog_body.html('<input id="without-focus">')
+    it("focuses the form's submit button when no autofocus element is present", () => {
+      dialog.dialog_body.innerHTML =
+        '<form><input id="field"><button type="submit" id="submit">Go</button></form>'
+
+      dialog.init()
+
+      expect(document.activeElement).toEqual(
+        dialog.dialog_body.querySelector("#submit")
+      )
+    })
+
+    it("does not change focus without an autofocus element or form submit button", () => {
+      dialog.dialog_body.innerHTML = '<input id="without-focus">'
 
       expect(() => dialog.init()).not.toThrow()
-      expect(document.activeElement).not.toEqual(
-        dialog.dialog_body.find("#without-focus")[0]
-      )
+      expect(dialog.dialog_body.contains(document.activeElement)).toBe(false)
     })
   })
 })

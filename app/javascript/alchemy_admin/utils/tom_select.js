@@ -47,9 +47,13 @@ export function createDropdownPositioning() {
         styles.zIndex = "101"
       }
       Object.assign(this.dropdown.style, styles)
-      // Append the dropdown to the body to avoid overflow issues, especially in dialogs.
-      document.body.append(dropdownMask)
-      document.body.append(this.dropdown)
+      // Append the dropdown to the body to avoid overflow issues. Inside a
+      // native modal dialog it has to go into the dialog element instead,
+      // because content outside of the top layer would be inert and
+      // unreachable.
+      const dropdownRoot = this.control.closest("dialog") || document.body
+      dropdownRoot.append(dropdownMask)
+      dropdownRoot.append(this.dropdown)
       // Use Floating UI to position the dropdown relative to the control.
       const updatePosition = async () => {
         // Use Floating UI to calculate the dropdown position
