@@ -74,8 +74,10 @@ export class Dialog {
         this.#releaseFlashNotices()
         this.dialog_container.close()
         this.dialog_container.remove()
-        document.body.classList.remove("prevent-scrolling")
         currentDialogs.pop()
+        if (currentDialogs.length === 0) {
+          document.body.classList.remove("prevent-scrolling")
+        }
         if (this.options.closed != null) {
           this.options.closed()
         }

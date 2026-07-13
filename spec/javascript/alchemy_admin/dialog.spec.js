@@ -9,6 +9,7 @@ describe("Dialog", () => {
 
   beforeEach(() => {
     document.body.innerHTML = ""
+    document.body.className = ""
     // Run requestAnimationFrame callbacks synchronously so the autofocus
     // behaviour can be asserted without waiting for a real frame.
     vi.spyOn(window, "requestAnimationFrame").mockImplementation((cb) => {
@@ -20,6 +21,7 @@ describe("Dialog", () => {
 
   afterEach(() => {
     vi.restoreAllMocks()
+    vi.unstubAllGlobals()
   })
 
   describe("init", () => {
@@ -50,6 +52,41 @@ describe("Dialog", () => {
 
       expect(() => dialog.init()).not.toThrow()
       expect(dialog.dialog_body.contains(document.activeElement)).toBe(false)
+    })
+  })
+
+  describe("scroll lock", () => {
+    const closeAndFinishTransition = (dialogToClose) => {
+      dialogToClose.close()
+      dialogToClose.dialog_container.dispatchEvent(new Event("transitionend"))
+    }
+
+    beforeEach(() => {
+      // open() loads the content via fetch, which is irrelevant here. Keep it
+      // pending so the body is never replaced.
+      vi.stubGlobal(
+        "fetch",
+        vi.fn(() => new Promise(() => {}))
+      )
+    })
+
+    it("keeps the scroll lock until the last of the nested dialogs is closed", () => {
+      const outer = new Dialog("/outer")
+      const inner = new Dialog("/inner")
+
+      outer.open()
+      inner.open()
+
+      expect(document.body.classList.contains("prevent-scrolling")).toBe(true)
+
+      // The outer dialog is still open, so the page must not scroll behind it.
+      closeAndFinishTransition(inner)
+
+      expect(document.body.classList.contains("prevent-scrolling")).toBe(true)
+
+      closeAndFinishTransition(outer)
+
+      expect(document.body.classList.contains("prevent-scrolling")).toBe(false)
     })
   })
 })
