@@ -77,7 +77,8 @@
     import { on } from "alchemy_admin/utils/events";
 
     pictureSelector();
-    on("click", "#picture_archive", ".thumbnail_background", (event) => {
+    // A keyboard activated click targets the link, not the thumbnail inside it.
+    on("click", "#picture_archive", ".picture_thumbnail > a", (event) => {
       const url = event.target.closest("a")?.href;
       const overlay = new ImageOverlay(url, {
         size: `${window.clientWidth}x${window.clientHeight}`,
