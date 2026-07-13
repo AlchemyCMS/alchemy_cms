@@ -267,4 +267,31 @@ RSpec.describe "Picture Library", type: :system do
       end
     end
   end
+
+  describe "Opening a picture in the image overlay" do
+    let!(:picture) { create(:alchemy_picture, name: "Picture 1") }
+
+    scenario "opens the overlay when clicking the thumbnail", :js do
+      visit alchemy.admin_pictures_path
+
+      find("#picture_#{picture.id} alchemy-picture-thumbnail").click
+
+      expect(page).to have_css(".alchemy-image-overlay-container")
+    end
+
+    scenario "opens the overlay when the focused link is activated with enter", :js do
+      visit alchemy.admin_pictures_path
+
+      page.execute_script(<<~JS)
+        document
+          .querySelector("#picture_#{picture.id} alchemy-picture-thumbnail")
+          .closest("a")
+          .focus()
+      JS
+      page.driver.browser.action.send_keys(:enter).perform
+
+      expect(page).to have_css(".alchemy-image-overlay-container")
+      expect(page).to have_current_path(alchemy.admin_pictures_path)
+    end
+  end
 end
