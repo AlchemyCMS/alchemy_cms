@@ -142,14 +142,17 @@
 
 <% content_for :javascripts do %>
 <script type="module">
-  $(document).one('turbo:load', function() {
-    $('#unlock_page_form, #publish_page_form').on('submit', function(event) {
-      var not_dirty = Alchemy.checkPageDirtyness(this);
-      if (!not_dirty) Alchemy.pleaseWaitOverlay(false);
-      return not_dirty;
+  document.addEventListener("turbo:load", function() {
+    document.querySelectorAll('#unlock_page_form, #publish_page_form').forEach(function(form) {
+      form.addEventListener('submit', function(event) {
+        var not_dirty = Alchemy.checkPageDirtyness(this);
+        if (!not_dirty) {
+          Alchemy.pleaseWaitOverlay(false);
+          event.preventDefault();
+        }
+      });
     });
     Alchemy.PageLeaveObserver();
-  });
-
+  }, { once: true });
 </script>
 <% end %>
