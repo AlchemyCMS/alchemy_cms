@@ -1,11 +1,5 @@
 (function () {
   const formField = document.getElementById("<%= @form_field_id -%>")
-  document
-    .querySelectorAll("#assignable_<%= @assignable_id %> a")
-    .forEach((link) => {
-      link.setAttribute("href", "#")
-      link.onclick = () => false
-    })
   formField.value = "<%= @assignable_id %>"
   const parent = formField.parentElement
   parent.querySelector(":scope > .file_name").textContent = "<%= @attachment.name %>"

@@ -1,11 +1,5 @@
 (function () {
   const formField = document.getElementById("<%= @form_field_id -%>")
-  document
-    .querySelectorAll("#assignable_<%= @assignable_id %> a")
-    .forEach((link) => {
-      link.setAttribute("href", "#")
-      link.onclick = () => false
-    })
   formField.value = "<%= @assignable_id %>"
   formField.setAttribute("data-image-file-width", "<%= @picture.image_file_width %>")
   formField.setAttribute("data-image-file-height", "<%= @picture.image_file_height %>")
