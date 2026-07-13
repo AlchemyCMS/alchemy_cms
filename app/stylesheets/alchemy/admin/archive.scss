@@ -309,6 +309,25 @@ div#library_sidebar {
       box-shadow: 0 0 4px 4px var(--border-color);
     }
   }
+
+  .assign_picture {
+    // Not `display: contents`. The tooltip needs a box to anchor on.
+    display: flex;
+
+    > button {
+      display: flex;
+      height: auto;
+      margin: 0;
+      padding: 0;
+      background: none;
+      border: 0;
+      box-shadow: none;
+
+      &:focus {
+        @include mixins.default-focus-style;
+      }
+    }
+  }
 }
 
 #overlay_file_list {
@@ -332,13 +351,24 @@ div#library_sidebar {
     margin: 0;
     padding: var(--spacing-1) 0;
 
-    a {
+    .assign_file > button {
       @extend %text-overflow;
       display: flex;
       justify-content: space-between;
-      line-height: 25px;
-      text-decoration: none;
+      width: 100%;
+      height: auto;
+      margin: 0;
       padding: var(--spacing-1) var(--spacing-2);
+      background: none;
+      border: 0;
+      box-shadow: none;
+      color: inherit;
+      font: inherit;
+      line-height: 25px;
+
+      &:focus {
+        @include mixins.default-focus-style;
+      }
     }
 
     alchemy-icon {

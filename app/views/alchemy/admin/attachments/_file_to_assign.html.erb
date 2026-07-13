@@ -1,10 +1,10 @@
 <li class="assign_file_file <%= cycle('even', 'odd') %>">
-  <%= link_to alchemy.assign_admin_attachment_path(
+  <%= button_to alchemy.assign_admin_attachment_path(
       id: file_to_assign.id,
       form_field_id: @form_field_id
     ),
-    remote: true,
-    method: 'put' do %>
+    method: :put,
+    form_class: "assign_file" do %>
     <span class="list-primary">
       <%= render_icon(file_to_assign.icon_css_class) %>
       <%= file_to_assign.name %>
