@@ -57,6 +57,19 @@ globalThis.XMLHttpRequest = vi.fn(function () {
   this.removeEventListener = vi.fn()
 })
 
+// jsdom does not implement the dialog element's methods yet
+if (!window.HTMLDialogElement.prototype.showModal) {
+  window.HTMLDialogElement.prototype.show = function () {
+    this.open = true
+  }
+  window.HTMLDialogElement.prototype.showModal = function () {
+    this.open = true
+  }
+  window.HTMLDialogElement.prototype.close = function () {
+    this.open = false
+  }
+}
+
 // Mock matchMedia for components that use it
 Object.defineProperty(window, "matchMedia", {
   writable: true,

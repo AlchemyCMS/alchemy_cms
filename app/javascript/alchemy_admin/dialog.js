@@ -1,5 +1,7 @@
 import Hotkeys from "alchemy_admin/hotkeys"
 import Spinner from "alchemy_admin/spinner"
+import { createHtmlElement } from "alchemy_admin/utils/dom_helpers"
+import { dispatchCustomEvent } from "alchemy_admin/utils/events"
 
 // Collection of all current dialog instances
 const currentDialogs = []
@@ -16,6 +18,9 @@ const DEFAULTS = {
 }
 
 export class Dialog {
+  #previousFlashParent = null
+  #closing = false
+
   // Arguments:
   //  - url: The url to load the content from via ajax
   //  - options: A object holding options
@@ -24,9 +29,6 @@ export class Dialog {
   constructor(url, options = {}) {
     this.url = url
     this.options = { ...DEFAULTS, ...options }
-    this.$document = $(document)
-    this.$window = $(window)
-    this.$body = $("body")
     const size = this.options.size.split("x")
     this.width = parseInt(size[0], 10)
     this.height = parseInt(size[1], 10)
@@ -36,85 +38,136 @@ export class Dialog {
 
   // Opens the Dialog and loads the content via ajax.
   open() {
-    this.dialog.trigger("Alchemy.DialogOpen")
+    dispatchCustomEvent(this.dialog, "Alchemy.DialogOpen")
     this.bind_close_events()
+    if (this.options.modal) {
+      this.dialog_container.showModal()
+      this.#adoptFlashNotices()
+    } else {
+      this.dialog_container.show()
+    }
     window.requestAnimationFrame(() => {
-      this.dialog_container.addClass("open")
-      if (this.overlay != null) {
-        return this.overlay.addClass("open")
-      }
+      this.dialog_container.classList.add("open")
     })
-    this.$body.addClass("prevent-scrolling")
+    document.body.classList.add("prevent-scrolling")
     currentDialogs.push(this)
     this.load()
   }
 
   // Closes the Dialog and removes it from the DOM
   close() {
-    this.dialog.trigger("DialogClose.Alchemy")
-    this.$document.off("keydown")
-    this.dialog_container.removeClass("open")
-    if (this.overlay != null) {
-      this.overlay.removeClass("open")
+    // The container stays open during the closing transition, so close() can be
+    // called again mid-fade (mashing Esc, a double click on the close button or
+    // backdrop). Guard against re-entry, otherwise a second transitionend
+    // listener is registered and the teardown runs twice.
+    if (this.#closing) {
+      return true
     }
-    this.$document.on(
-      "webkitTransitionEnd transitionend oTransitionEnd",
+    this.#closing = true
+    dispatchCustomEvent(this.dialog, "DialogClose.Alchemy")
+    this.dialog_container.classList.remove("open")
+    this.dialog_container.addEventListener(
+      "transitionend",
       () => {
-        this.$document.off("webkitTransitionEnd transitionend oTransitionEnd")
+        // Move the flash notices back out before removing the container, so
+        // they are not destroyed together with the dialog.
+        this.#releaseFlashNotices()
+        this.dialog_container.close()
         this.dialog_container.remove()
-        if (this.overlay != null) {
-          this.overlay.remove()
+        currentDialogs.pop()
+        if (currentDialogs.length === 0) {
+          document.body.classList.remove("prevent-scrolling")
         }
-        this.$body.removeClass("prevent-scrolling")
-        currentDialogs.pop(this)
         if (this.options.closed != null) {
-          return this.options.closed()
+          this.options.closed()
         }
-      }
+      },
+      { once: true }
     )
     return true
+  }
+
+  // A modal <dialog> makes everything outside its subtree inert, so flash
+  // notices rendered on the body would be visible but not interactable while
+  // the dialog is open. Move them into the dialog, which is in the top layer
+  // and not inert, for the dialog's lifetime and restore them on close.
+  #adoptFlashNotices() {
+    const flashNotices = document.getElementById("flash_notices")
+    if (flashNotices) {
+      this.#previousFlashParent = flashNotices.parentElement
+      this.dialog_container.append(flashNotices)
+      this.#clearTransientNotices(flashNotices)
+    }
+  }
+
+  #releaseFlashNotices() {
+    const flashNotices = document.getElementById("flash_notices")
+    if (flashNotices && this.#previousFlashParent) {
+      this.#previousFlashParent.append(flashNotices)
+      this.#clearTransientNotices(flashNotices)
+    }
+  }
+
+  // Only the persistent error notices need to travel with the dialog to stay
+  // interactable. Moving the auto-dismissing ones would restart their dismiss
+  // timers (their connectedCallback re-arms the timer), making them linger, so
+  // remove them instead. A fade-out is skipped on purpose: the just-moved
+  // element has no transition baseline, so dismiss()'s transitionend would never
+  // fire and the node would be stranded invisible-but-present.
+  #clearTransientNotices(flashNotices) {
+    flashNotices
+      .querySelectorAll('alchemy-message[dismissable]:not([type="error"])')
+      .forEach((message) => message.remove())
   }
 
   // Loads the content via ajax and replaces the Dialog body with server response.
   load() {
     this.show_spinner()
-    $.get(this.url, (data) => {
-      this.replace(data)
-    }).fail((xhr) => {
-      this.show_error(xhr)
+    fetch(this.url, {
+      headers: { "X-Requested-With": "XMLHttpRequest" }
     })
+      .then(async (response) => {
+        const responseText = await response.text()
+        if (response.ok) {
+          this.replace(responseText)
+        } else {
+          this.show_error({
+            status: response.status,
+            statusText: response.statusText,
+            responseText
+          })
+        }
+      })
+      .catch(() => {
+        this.show_error({ status: 0 })
+      })
   }
 
   // Reloads the Dialog content
   reload() {
-    this.dialog_body.empty()
+    this.dialog_body.innerHTML = ""
     this.load()
   }
 
   // Replaces the dialog body with given content and initializes it.
   replace(data) {
     this.remove_spinner()
-    this.dialog_body.hide()
-    this.dialog_body.html(data)
+    this.dialog_body.style.display = "none"
+    this.dialog_body.innerHTML = data
     this.init()
-    this.dialog[0].dispatchEvent(
-      new CustomEvent("DialogReady.Alchemy", {
-        bubbles: true,
-        detail: {
-          body: this.dialog_body[0]
-        }
-      })
-    )
+    dispatchCustomEvent(this.dialog, "DialogReady.Alchemy", {
+      body: this.dialog_body
+    })
     if (this.options.ready != null) {
       this.options.ready(this.dialog_body)
     }
-    this.dialog_body.show()
+    this.dialog_body.style.display = ""
   }
 
   // Adds a spinner into Dialog body
   show_spinner() {
     this.spinner = new Spinner("medium")
-    this.spinner.spin(this.dialog_body[0])
+    this.spinner.spin(this.dialog_body)
   }
 
   // Removes the spinner from Dialog body
@@ -126,37 +179,51 @@ export class Dialog {
   init() {
     Hotkeys(this.dialog_body)
     this.watch_remote_forms()
-    window.requestAnimationFrame(() => {
-      this.dialog_body.find("[autofocus]").focus()
-    })
+    window.requestAnimationFrame(() => this.#focusInitialElement())
+  }
+
+  // Shoelace tab panels (link, page configure) only render a few frames after
+  // the content loaded, so their fields can not take focus yet. Hence the retry.
+  #focusInitialElement(attempts = 0) {
+    const target =
+      this.dialog_body.querySelector("[autofocus]") ??
+      this.dialog_body.querySelector("form [type='submit']")
+    target?.focus()
+    if (document.activeElement === this.close_button && attempts < 20) {
+      window.requestAnimationFrame(() =>
+        this.#focusInitialElement(attempts + 1)
+      )
+    }
   }
 
   // Watches ajax requests inside of dialog body and replaces the content accordingly
   watch_remote_forms() {
-    const $form = $('[data-remote="true"]', this.dialog_body)
+    this.dialog_body
+      .querySelectorAll('[data-remote="true"]')
+      .forEach((form) => {
+        form.addEventListener("ajax:success", (event) => {
+          const xhr = event.detail[2]
+          const content_type = xhr.getResponseHeader("Content-Type")
+          if (content_type.match(/javascript/)) {
+            return
+          } else {
+            this.dialog_body.innerHTML = xhr.responseText
+            this.init()
+          }
+        })
 
-    $form.on("ajax:success", (event) => {
-      const xhr = event.detail[2]
-      const content_type = xhr.getResponseHeader("Content-Type")
-      if (content_type.match(/javascript/)) {
-        return
-      } else {
-        this.dialog_body.html(xhr.responseText)
-        this.init()
-      }
-    })
-
-    $form.on("ajax:error", (event) => {
-      const statusText = event.detail[1]
-      const xhr = event.detail[2]
-      this.show_error(xhr, statusText)
-    })
+        form.addEventListener("ajax:error", (event) => {
+          const statusText = event.detail[1]
+          const xhr = event.detail[2]
+          this.show_error(xhr, statusText)
+        })
+      })
   }
 
   // Displays an error message
   show_error(xhr, statusText) {
     if (xhr.status === 422) {
-      this.dialog_body.html(xhr.responseText)
+      this.dialog_body.innerHTML = xhr.responseText
       this.init()
       return
     }
@@ -166,12 +233,10 @@ export class Dialog {
       statusText
     )
 
-    const $errorDiv = $(`<alchemy-message type="${error_type}">
+    this.dialog_body.innerHTML = `<alchemy-message type="${error_type}">
       <h1>${error_header}</h1>
       <p>${error_body}</p>
-    </alchemy-message>`)
-
-    this.dialog_body.html($errorDiv)
+    </alchemy-message>`
   }
 
   // Returns error message based on xhr status
@@ -206,55 +271,59 @@ export class Dialog {
   // Binds close events on:
   // - Close button
   // - Overlay (if the Dialog is a modal)
-  // - ESC Key
+  // - ESC Key (the dialog element's cancel event)
   bind_close_events() {
-    this.close_button.on("click", () => {
+    this.close_button.addEventListener("click", (e) => {
+      e.preventDefault()
       this.close()
     })
-    this.dialog_container.addClass("closable").on("click", (e) => {
-      if (e.target !== this.dialog_container.get(0)) {
-        return true
-      }
-      this.close()
-      return false
-    })
-    this.$document.keydown((e) => {
-      if (e.which === 27) {
+    this.dialog_container.classList.add("closable")
+    // Use pointerdown, not click: a click whose mousedown and mouseup land on
+    // different nodes is dispatched to their common ancestor — this element for
+    // anything inside the dialog — closing it although the backdrop was never
+    // hit, e.g. when selecting text and releasing outside.
+    this.dialog_container.addEventListener("pointerdown", (e) => {
+      if (e.target === this.dialog_container) {
         this.close()
-        return false
-      } else {
-        return true
       }
+    })
+    this.dialog_container.addEventListener("cancel", (e) => {
+      e.preventDefault()
+      this.close()
     })
   }
 
   // Builds the html structure of the Dialog
   build() {
-    this.dialog_container = $('<div class="alchemy-dialog-container" />')
-    this.dialog = $('<div class="alchemy-dialog" />')
-    this.dialog_body = $('<div class="alchemy-dialog-body" />')
-    this.dialog_header = $('<div class="alchemy-dialog-header" />')
-    this.dialog_title = $('<div class="alchemy-dialog-title" />')
-    this.close_button = $(
+    this.dialog_container = createHtmlElement(
+      '<dialog class="alchemy-dialog-container"></dialog>'
+    )
+    this.dialog = createHtmlElement('<div class="alchemy-dialog"></div>')
+    this.dialog_body = createHtmlElement(
+      '<div class="alchemy-dialog-body"></div>'
+    )
+    this.dialog_header = createHtmlElement(
+      '<div class="alchemy-dialog-header"></div>'
+    )
+    this.dialog_title = createHtmlElement(
+      '<div class="alchemy-dialog-title"></div>'
+    )
+    this.close_button = createHtmlElement(
       '<button class="alchemy-dialog-close"><alchemy-icon name="close"></alchemy-icon></button>'
     )
-    this.dialog_title.text(this.options.title)
+    this.dialog_title.textContent = this.options.title
     this.dialog_header.append(this.dialog_title)
     this.dialog_header.append(this.close_button)
     this.dialog.append(this.dialog_header)
     this.dialog.append(this.dialog_body)
     this.dialog_container.append(this.dialog)
     if (this.options.modal) {
-      this.dialog.addClass("modal")
+      this.dialog.classList.add("modal")
     }
     if (this.options.padding) {
-      this.dialog_body.addClass("padded")
+      this.dialog_body.classList.add("padded")
     }
-    if (this.options.modal) {
-      this.overlay = $('<div class="alchemy-dialog-overlay" />')
-      this.$body.append(this.overlay)
-    }
-    this.$body.append(this.dialog_container)
+    document.body.append(this.dialog_container)
   }
 
   // Sets the correct size of the dialog
@@ -262,29 +331,23 @@ export class Dialog {
   resize() {
     const { width, height } = this.getSize()
 
-    this.dialog.css({
-      width: width,
-      "min-height": height,
-      overflow: this.options.overflow
-    })
+    this.dialog.style.width = `${width}px`
+    this.dialog.style.minHeight = `${height}px`
+    this.dialog.style.overflow = this.options.overflow
 
     if (this.options.overflow === "hidden") {
-      this.dialog_body.css({
-        height: height,
-        overflow: "auto"
-      })
+      this.dialog_body.style.height = `${height}px`
+      this.dialog_body.style.overflow = "auto"
     } else {
-      this.dialog_body.css({
-        "min-height": height,
-        overflow: "visible"
-      })
+      this.dialog_body.style.minHeight = `${height}px`
+      this.dialog_body.style.overflow = "visible"
     }
   }
 
   getSize() {
     const padding = this.options.padding ? 16 : 0
-    const doc_width = this.$window.width()
-    const doc_height = this.$window.height()
+    const doc_width = window.innerWidth
+    const doc_height = window.innerHeight
 
     let width = this.width
     let height = this.height

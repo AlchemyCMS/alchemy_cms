@@ -1,4 +1,5 @@
 import { createHtmlElement } from "alchemy_admin/utils/dom_helpers"
+import { currentDialog } from "alchemy_admin/dialog"
 import { translate } from "alchemy_admin/i18n"
 
 const getDefaults = () => ({
@@ -37,7 +38,12 @@ class ConfirmDialog {
         </button>
       </sl-dialog>
     `)
-    document.body.append(this.dialog)
+    // A native <dialog> opened with showModal() sits in the top layer and makes
+    // everything outside its subtree inert. Append the confirm into the open
+    // dialog (if any) so it stays visible and interactable above it, instead of
+    // rendering below and unclickable on the body.
+    const container = currentDialog()?.dialog_container ?? document.body
+    container.append(this.dialog)
   }
 
   #bindEvents() {
