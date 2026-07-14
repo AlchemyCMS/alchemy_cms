@@ -58,6 +58,13 @@
   width: 100%;
   height: 100%;
 
+  // The frame must not generate a box, or the 100% height and the absolute
+  // positioning of the picture overlays would resolve against the frame
+  // instead of this element.
+  > turbo-frame {
+    display: contents;
+  }
+
   > .message {
     margin: var(--spacing-2);
     max-width: 400px;

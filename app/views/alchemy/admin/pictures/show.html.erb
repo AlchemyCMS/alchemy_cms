@@ -1,46 +1,46 @@
-<div class="zoomed-picture-background">
-  <% if @picture.image_file %>
-    <%= image_tag @picture.url %>
-  <% else %>
-    <alchemy-icon name="file-damage"></alchemy-icon>
-  <% end %>
-</div>
-
-<div class="picture-overlay-navigation">
-  <% if @previous %>
-    <%= link_to alchemy.admin_picture_path(
-        :previous,
-        search_filter_params.merge(
-          picture_index: @previous,
-          size: @size
-        ).to_h
-      ),
-      class: "previous-picture",
-      remote: true do %>
-      <%= render_icon "arrow-left-wide", size: "xl" %>
+<%= turbo_frame_tag "picture_overlay" do %>
+  <div class="zoomed-picture-background">
+    <% if @picture.image_file %>
+      <%= image_tag @picture.url %>
+    <% else %>
+      <alchemy-icon name="file-damage"></alchemy-icon>
     <% end %>
-  <% end %>
-  <% if @next %>
-    <%= link_to alchemy.admin_picture_path(
-        :next,
-        search_filter_params.merge(
-          picture_index: @next,
-          size: @size
-        ).to_h
-      ),
-      class: "next-picture",
-      remote: true do %>
-      <%= render_icon "arrow-right-wide", size: "xl" %>
+  </div>
+
+  <div class="picture-overlay-navigation">
+    <% if @previous %>
+      <%= link_to alchemy.admin_picture_path(
+          :previous,
+          search_filter_params.merge(
+            picture_index: @previous,
+            size: @size
+          ).to_h
+        ),
+        class: "previous-picture" do %>
+        <%= render_icon "arrow-left-wide", size: "xl" %>
+      <% end %>
     <% end %>
-  <% end %>
-</div>
+    <% if @next %>
+      <%= link_to alchemy.admin_picture_path(
+          :next,
+          search_filter_params.merge(
+            picture_index: @next,
+            size: @size
+          ).to_h
+        ),
+        class: "next-picture" do %>
+        <%= render_icon "arrow-right-wide", size: "xl" %>
+      <% end %>
+    <% end %>
+  </div>
 
-<div class="picture-details-overlay">
-  <%= render 'form', picture_index: @previous || @next || 0 %>
-  <hr>
-  <%= render 'infos' %>
-</div>
+  <div class="picture-details-overlay">
+    <%= render 'form', picture_index: @previous || @next || 0 %>
+    <hr>
+    <%= render 'infos' %>
+  </div>
 
-<div class="picture-overlay-handle">
-  <%= render_icon "contract-right" %>
-</div>
+  <div class="picture-overlay-handle">
+    <%= render_icon "contract-right" %>
+  </div>
+<% end %>
