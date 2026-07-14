@@ -10,6 +10,12 @@ table {
   &.list .tools {
     background-color: transparent;
     padding: var(--spacing-2);
+
+    .button_to {
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+    }
   }
 }
 

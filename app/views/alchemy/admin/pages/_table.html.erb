@@ -59,14 +59,12 @@
         ) -%>
   <% end %>
   <% table.with_action :copy, Alchemy.t(:copy_page) do |page| %>
-    <%= link_to(
+    <%= button_to(
           render_icon(:copy),
           alchemy.insert_admin_clipboard_path(
             remarkable_type: :pages,
             remarkable_id: page.id,
           ),
-          data: {turbo: true},
-          method: :post,
           class: "icon_button"
         ) %>
   <% end %>
