@@ -49,6 +49,18 @@ RSpec.describe "Resources", type: :system do
           expect(page).to have_selector("div#archive_all .pagination .page", count: 5)
         end
       end
+
+      it "reloads the items with the selected amount of items per page", :js do
+        stub_alchemy_config(items_per_page: 5)
+
+        visit "/admin/events"
+        expect(page).to have_selector("div#archive_all table.list tbody tr", count: 5)
+
+        select("10", from: "per_page")
+
+        expect(page).to have_selector("div#archive_all table.list tbody tr", count: 10)
+        expect(page).to have_select("per_page", selected: "10")
+      end
     end
 
     describe "filters" do
