@@ -1,0 +1,8 @@
+<turbo-stream
+  action="assign_attachment"
+  target="<%= @form_field_id %>"
+  attachment-id="<%= @assignable_id %>"
+  attachment-name="<%= @attachment.name %>"
+>
+  <template><%= render_icon(@attachment.icon_css_class) %></template>
+</turbo-stream>

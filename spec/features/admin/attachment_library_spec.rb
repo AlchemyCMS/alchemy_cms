@@ -70,6 +70,51 @@ RSpec.describe "Attachment Library", type: :system do
     end
   end
 
+  describe "Assigning an attachment", :js do
+    let!(:attachment) { create(:alchemy_attachment, name: "Pee Dee Eff", file: fixture_file_upload("file.pdf")) }
+    let(:element) { create(:alchemy_element, :with_ingredients, name: "download") }
+    let(:assign_requests) { Queue.new }
+
+    around do |example|
+      subscriber = ActiveSupport::Notifications.subscribe("process_action.action_controller") do |*, payload|
+        assign_requests << payload if payload[:action] == "assign"
+      end
+      example.run
+      ActiveSupport::Notifications.unsubscribe(subscriber)
+    end
+
+    scenario "assigns the attachment to the ingredient" do
+      visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
+
+      within "#element_#{element.id}" do
+        find("a[href*='/admin/attachments']").click
+      end
+      within ".alchemy-dialog" do
+        find("li", text: attachment.name).click
+      end
+
+      expect(page).to have_no_css(".alchemy-dialog")
+      expect(page).to have_css("#element_#{element.id}.dirty .file_name", text: attachment.name)
+      expect(page).to have_css("#element_#{element.id} .remove_file_link")
+      expect(find("[id$='attachment_id']", visible: :hidden).value).to eq(attachment.id.to_s)
+    end
+
+    scenario "double clicking an attachment only assigns it once" do
+      visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
+
+      within "#element_#{element.id}" do
+        find("a[href*='/admin/attachments']").click
+      end
+      within ".alchemy-dialog" do
+        find("li", text: attachment.name).double_click
+      end
+
+      expect(page).to have_no_css(".alchemy-dialog")
+      expect(page).to have_css("#element_#{element.id}.dirty .file_name", text: attachment.name)
+      expect(assign_requests.size).to eq(1)
+    end
+  end
+
   describe "Sorting attachments", :js do
     let!(:attachment_a) { create(:alchemy_attachment, name: "A File", created_at: 2.days.ago) }
     let!(:attachment_b) { create(:alchemy_attachment, name: "B File", created_at: 1.day.ago) }

@@ -16,6 +16,8 @@ import Spinner from "alchemy_admin/spinner"
 import { reloadPreview } from "alchemy_admin/components/preview_window"
 import { openConfirmDialog } from "alchemy_admin/confirm_dialog"
 
+import "alchemy_admin/turbo_stream_actions"
+
 // Web Components
 import "alchemy_admin/components"
 
