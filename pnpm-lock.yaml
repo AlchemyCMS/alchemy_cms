@@ -42,8 +42,8 @@ importers:
         specifier: ^8.7.0
         version: 8.7.0
       tom-select:
-        specifier: ^2.6.1
-        version: 2.6.1
+        specifier: ^2.6.2
+        version: 2.6.2
     devDependencies:
       '@herb-tools/linter':
         specifier: ^0.8.10
@@ -1769,8 +1769,8 @@ packages:
     resolution: {integrity: sha512-yHBe+zVfzNZ3QfTPW/Z6KK1G2t340gFjMHqI/4KKSt/abzYydzuCnpqdaF5gCCABby+9Yfbj59oR5F2Fd5CBzg==}
     hasBin: true
 
-  tom-select@2.6.1:
-    resolution: {integrity: sha512-d/1kngVOQTGcI/2pVDfDLYjtjUgSSd3fSgkYUpi0y+yRtQQu2kzljj3aUdqMfqc45cjPvDEpfDt/hSX4awDFTg==}
+  tom-select@2.6.2:
+    resolution: {integrity: sha512-eiXIkk82XzzUTOVQDFpy+ZGejuqdTvMukyUyeZBQaKnqW42UoTiTZnrod/eX0rkqJEc4rZY9DZ3zdjV07i29wQ==}
 
   tough-cookie@6.0.1:
     resolution: {integrity: sha512-LktZQb3IeoUWB9lqR5EWTHgW/VTITCXg4D21M+lvybRVdylLrRMnqaIONLVb5mav8vM19m44HIcGq4qASeu2Qw==}
@@ -3501,7 +3501,7 @@ snapshots:
     dependencies:
       tldts-core: 7.4.1
 
-  tom-select@2.6.1:
+  tom-select@2.6.2:
     dependencies:
       '@orchidjs/sifter': 1.1.0
       '@orchidjs/unicode-variants': 1.1.2
