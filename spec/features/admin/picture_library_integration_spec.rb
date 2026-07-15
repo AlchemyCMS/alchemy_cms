@@ -268,6 +268,52 @@ RSpec.describe "Picture Library", type: :system do
     end
   end
 
+  describe "Navigating pictures in the image overlay", :js do
+    let!(:picture_a) { create(:alchemy_picture, name: "A Picture", created_at: 1.day.ago) }
+    let!(:picture_b) { create(:alchemy_picture, name: "B Picture", created_at: 2.days.ago) }
+    let!(:picture_c) { create(:alchemy_picture, name: "C Picture", created_at: 3.days.ago) }
+
+    scenario "pages through the pictures with the navigation buttons" do
+      visit alchemy.admin_pictures_path
+      page.find("#picture_#{picture_a.id} > a").click
+
+      expect(page).to have_field("Name", with: "A Picture")
+
+      page.find(".next-picture").click
+      expect(page).to have_field("Name", with: "B Picture")
+
+      page.find(".next-picture").click
+      expect(page).to have_field("Name", with: "C Picture")
+
+      page.find(".previous-picture").click
+      expect(page).to have_field("Name", with: "B Picture")
+    end
+
+    scenario "pages through the pictures with the arrow keys" do
+      visit alchemy.admin_pictures_path
+      page.find("#picture_#{picture_a.id} > a").click
+
+      expect(page).to have_field("Name", with: "A Picture")
+
+      page.driver.browser.action.send_keys(:arrow_right).perform
+      expect(page).to have_field("Name", with: "B Picture")
+
+      page.driver.browser.action.send_keys(:arrow_left).perform
+      expect(page).to have_field("Name", with: "A Picture")
+    end
+
+    scenario "keeps the picture details toggle working after navigating" do
+      visit alchemy.admin_pictures_path
+      page.find("#picture_#{picture_a.id} > a").click
+
+      page.find(".next-picture").click
+      expect(page).to have_field("Name", with: "B Picture")
+
+      page.find(".picture-overlay-handle").click
+      expect(page).to have_css(".alchemy-image-overlay-dialog.hide-form")
+    end
+  end
+
   describe "Opening a picture in the image overlay" do
     let!(:picture) { create(:alchemy_picture, name: "Picture 1") }
 

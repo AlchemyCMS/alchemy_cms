@@ -2,6 +2,24 @@ import { Dialog } from "alchemy_admin/dialog"
 import { createHtmlElement } from "alchemy_admin/utils/dom_helpers"
 
 export default class ImageOverlay extends Dialog {
+  // The picture is rendered in a Turbo frame that replaces its content on every
+  // navigation, so the picture elements are looked up on demand instead of being
+  // bound once.
+  #clickHandler = (e) => {
+    if (e.target.closest(".picture-overlay-handle")) {
+      e.preventDefault()
+      this.dialog.classList.toggle("hide-form")
+      return
+    }
+    if (e.target.closest(".zoomed-picture-background")) {
+      e.stopPropagation()
+      if (e.target.nodeName === "IMG") {
+        return
+      }
+      this.close()
+    }
+  }
+
   #keydownHandler = (e) => {
     if (e.target.nodeName === "INPUT" || e.target.nodeName === "TEXTAREA") {
       return
@@ -19,37 +37,18 @@ export default class ImageOverlay extends Dialog {
   }
 
   init() {
-    this.dialog_body
-      .querySelector(".zoomed-picture-background")
-      ?.addEventListener("click", (e) => {
-        e.stopPropagation()
-        if (e.target.nodeName === "IMG") {
-          return
-        }
-        this.close()
-      })
-    this.dialog_body
-      .querySelector(".picture-overlay-handle")
-      ?.addEventListener("click", (e) => {
-        e.preventDefault()
-        this.dialog.classList.toggle("hide-form")
-      })
-    this.previous_button = this.dialog_body.querySelector(".previous-picture")
-    this.next_button = this.dialog_body.querySelector(".next-picture")
+    this.dialog_body.removeEventListener("click", this.#clickHandler)
+    this.dialog_body.addEventListener("click", this.#clickHandler)
     this.#initKeyboardNavigation()
     super.init()
   }
 
   previous() {
-    if (this.previous_button != null) {
-      this.previous_button.click()
-    }
+    this.dialog_body.querySelector(".previous-picture")?.click()
   }
 
   next() {
-    if (this.next_button != null) {
-      this.next_button.click()
-    }
+    this.dialog_body.querySelector(".next-picture")?.click()
   }
 
   close() {
@@ -78,8 +77,6 @@ export default class ImageOverlay extends Dialog {
   }
 
   #initKeyboardNavigation() {
-    // init() runs again after each remote navigation, so make sure the
-    // handler is only registered once.
     document.removeEventListener("keydown", this.#keydownHandler)
     document.addEventListener("keydown", this.#keydownHandler)
   }

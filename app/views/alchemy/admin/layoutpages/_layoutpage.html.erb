@@ -43,14 +43,12 @@
     <%- end -%>
     <%- if can?(:copy, layoutpage) -%>
       <sl-tooltip content="<%= Alchemy.t(:copy_page) %>">
-        <%= link_to(
+        <%= button_to(
           render_icon("file-copy"),
           alchemy.insert_admin_clipboard_path(
             remarkable_type: layoutpage.class.name.demodulize.underscore.pluralize,
             remarkable_id: layoutpage.id
           ),
-          remote: true,
-          method: 'post',
           class: "icon_button"
         ) %>
       </sl-tooltip>
