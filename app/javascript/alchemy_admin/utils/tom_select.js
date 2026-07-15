@@ -111,6 +111,27 @@ export function createDropdownPositioning() {
   }
 }
 
+// Configuration for Tom Select's `remove_button` plugin. The plugin renders its
+// control as a non-semantic element (a `<div role="button">` by default); render
+// a real `<button>` instead so assistive tech and the keyboard treat it as one.
+// The translated title also names the icon-only button via `aria-label`, like the
+// clear button does.
+export function removeButton() {
+  return {
+    title: translate("Remove"),
+    html(data) {
+      const button = document.createElement("button")
+      button.type = "button"
+      button.className = data.className
+      button.title = data.title
+      button.setAttribute("aria-label", data.title)
+      button.tabIndex = -1
+      button.textContent = data.label
+      return button
+    }
+  }
+}
+
 // Customize the "create" and "no results" dropdown messages with i18n. Shared by
 // the Tom Select based components as `render` functions.
 export const dropdownMessages = {

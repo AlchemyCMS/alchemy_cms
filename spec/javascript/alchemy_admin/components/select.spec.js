@@ -176,7 +176,12 @@ describe("alchemy-select", () => {
       renderComponent("alchemy-select", html)
       wrapper = document.querySelector(".ts-wrapper")
 
-      expect(wrapper.querySelector(".item .remove")).toBeTruthy()
+      const removeButton = wrapper.querySelector(".item .remove")
+      expect(removeButton).toBeTruthy()
+      // A real button, not the plugin's default non-semantic element, so it is
+      // announced and operable as a button.
+      expect(removeButton.tagName).toBe("BUTTON")
+      expect(removeButton.getAttribute("aria-label")).toBe("Remove")
     })
   })
 
