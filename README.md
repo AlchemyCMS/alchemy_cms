@@ -363,6 +363,13 @@ server, Sass watcher, and JS bundle watcher):
 $ bin/start
 ```
 
+After changing dependencies (`Gemfile` or `package.json`), rebuild the image and
+refresh the baked `node_modules` in one step:
+
+```bash
+$ bin/start --refresh
+```
+
 Or, to run the dummy app locally without Docker:
 
 ```bash
