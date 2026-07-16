@@ -536,10 +536,13 @@ export class ElementEditor extends HTMLElement {
   /**
    * The form element if present
    *
+   * Scoped to this element's own form so a wrapper element without ingredients
+   * does not return a nested child's form.
+   *
    * @returns {HTMLFormElement|undefined}
    */
   get form() {
-    return this.querySelector("form.element-body")
+    return this.querySelector(`#${this.id} > form.element-body`)
   }
 
   /**

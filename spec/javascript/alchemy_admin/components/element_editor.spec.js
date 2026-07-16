@@ -255,6 +255,39 @@ describe("alchemy-element-editor", () => {
       )
       expect(editor.elementErrors.classList).not.toContain("hidden")
     })
+
+    describe("if the element has no own form (a wrapper element)", () => {
+      it("does not react to a nested element's save", () => {
+        editor = getComponent(`
+          <alchemy-element-editor id="element_16" data-element-id="16" class="expanded">
+            <div class="element-header">
+              <div class="preview_text_quote"></div>
+            </div>
+            <div class="nested-elements">
+              <alchemy-element-editor id="element_17" data-element-id="17" class="expanded">
+                <form class="element-body">
+                  <div class="element_errors"></div>
+                  <div class="element-ingredient-editors"></div>
+                </form>
+              </alchemy-element-editor>
+            </div>
+          </alchemy-element-editor>
+        `)
+        const child = editor.querySelector("#element_17")
+        const parentSpy = vi.spyOn(editor, "onSaveElement")
+        const childSpy = vi.spyOn(child, "onSaveElement")
+
+        child.form.dispatchEvent(
+          new CustomEvent("turbo:submit-end", {
+            bubbles: true,
+            detail: { success: true }
+          })
+        )
+
+        expect(childSpy).toHaveBeenCalledTimes(1)
+        expect(parentSpy).not.toHaveBeenCalled()
+      })
+    })
   })
 
   describe("on change", () => {
