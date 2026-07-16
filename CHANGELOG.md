@@ -1,5 +1,19 @@
 # Changelog
 
+## 8.3.4 (2026-07-16)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.3-stable -->
+
+## What's Changed
+### Bug Fixes
+* [8.3-stable] fix: Single checkbox alignment by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/4052
+* [8.3-stable] fix(admin): Open the image overlay when a picture is activated with the keyboard by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4059
+### Other Changes
+* [8.3-stable] feat(pictures): Add task to bake EXIF orientation into legacy masters by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4068
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.3.3...v8.3.4
+
 ## 8.3.3 (2026-07-07)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.3-stable -->
