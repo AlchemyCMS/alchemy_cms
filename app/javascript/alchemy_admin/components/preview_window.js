@@ -18,7 +18,10 @@ class PreviewWindow extends HTMLIFrameElement {
     if (event.data.message === "Alchemy.previewReady") {
       this.#clearLoadTimeout()
       this.#stopSpinner()
-      this.#afterLoad?.call(this, event)
+      // Deliberately does not resolve #afterLoad: previewReady fires before the
+      // images are loaded, so the page is not yet tall enough to scroll and a
+      // scrollIntoView triggered now (e.g. focusing the saved element) is a
+      // no-op. The load event handler resolves it once the layout is final.
     }
   }
 

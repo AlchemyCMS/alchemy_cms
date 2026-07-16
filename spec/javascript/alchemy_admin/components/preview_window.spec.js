@@ -194,5 +194,37 @@ describe("alchemy-preview-window", () => {
       expect(reloadButton.innerHTML).toBe(originalContent)
       expect(growlSpy).not.toHaveBeenCalled()
     })
+
+    it("resolves the refresh promise on the iframe load event", async () => {
+      let resolved = false
+      previewWindow.refresh().then(() => {
+        resolved = true
+      })
+
+      previewWindow.dispatchEvent(new Event("load"))
+      await Promise.resolve()
+
+      expect(resolved).toBe(true)
+    })
+
+    it("does not resolve the refresh promise on previewReady", async () => {
+      // previewReady fires before the images are loaded, so a scroll triggered
+      // then (focusing the saved element) would be a no-op. The promise must
+      // wait for the load event.
+      let resolved = false
+      previewWindow.refresh().then(() => {
+        resolved = true
+      })
+
+      window.dispatchEvent(
+        new MessageEvent("message", {
+          data: { message: "Alchemy.previewReady" }
+        })
+      )
+      await Promise.resolve()
+      await Promise.resolve()
+
+      expect(resolved).toBe(false)
+    })
   })
 })
