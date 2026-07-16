@@ -13,8 +13,8 @@ x-app: &app
 # volume. node_modules sits under the bind mount, so an anonymous volume
 # (`- /workspace/node_modules`) shadows the host directory and surfaces the
 # image's copy instead of the host's (which has platform-specific binaries).
-# After changing dependencies, rebuild the image; refresh node_modules with
-# `docker compose up --build --renew-anon-volumes`.
+# After changing dependencies, rebuild the image and refresh node_modules with
+# `bin/start --refresh`.
 #
 # USER_ID/GROUP_ID select the uid/gid of the image's `alchemy` user, which has to
 # own the `.:/workspace` bind mount to be able to write into it. `bin/start` sets

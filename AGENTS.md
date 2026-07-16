@@ -59,6 +59,13 @@ bin/start
 
 This starts a Rails server and pnpm watch task in the dummy application for running a full dev environment.
 
+After changing dependencies (`Gemfile` or `package.json`), rebuild the image and
+refresh the baked `node_modules` in one step:
+
+```bash
+bin/start --refresh
+```
+
 ### Starting the Rails console
 
 ```bash

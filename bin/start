@@ -13,4 +13,17 @@ USER_ID="${USER_ID:-$(id -u)}"
 GROUP_ID="${GROUP_ID:-$(id -g)}"
 export USER_ID GROUP_ID
 
-exec docker compose up --build "$@"
+# node_modules is baked into the image but shadowed by an anonymous volume, so a
+# rebuilt image is not picked up until that volume is recreated. `--refresh`
+# renews it after changing dependencies; a plain start skips the reseed cost.
+renew=""
+args=""
+for arg in "$@"; do
+  if [ "$arg" = "--refresh" ]; then
+    renew="--renew-anon-volumes"
+  else
+    args="$args $arg"
+  fi
+done
+
+exec docker compose up --build $renew $args
