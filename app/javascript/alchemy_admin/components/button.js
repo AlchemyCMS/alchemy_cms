@@ -4,11 +4,6 @@ class Button extends HTMLButtonElement {
   connectedCallback() {
     if (this.form) {
       this.form.addEventListener("submit", this)
-
-      if (this.form.dataset.remote == "true") {
-        this.form.addEventListener("ajax:complete", this)
-      }
-
       this.form.addEventListener("turbo:submit-end", this)
     } else {
       console.warn("No form for button found!", this)
@@ -27,7 +22,6 @@ class Button extends HTMLButtonElement {
           this.disable()
         }
         break
-      case "ajax:complete":
       case "turbo:submit-end":
         this.enable()
         break

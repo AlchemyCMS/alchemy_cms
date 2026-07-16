@@ -166,6 +166,31 @@ RSpec.describe "The edit elements feature", type: :system do
           expect(page).to have_content(/Saved element/)
         end
       end
+
+      scenario "updates the preview text in the element header" do
+        visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
+        fill_in "Intro", with: "My intro text"
+        within ".element-footer" do
+          click_button("Save")
+        end
+        within ".element-header" do
+          expect(page).to have_content("My intro text")
+        end
+      end
+
+      scenario "marks the page as having unpublished changes" do
+        Alchemy::Page::Publisher.new(a_page).publish!(public_on: Time.current)
+        a_page.reload
+        a_page.draft_version.update_column(:updated_at, 1.hour.ago)
+        a_page.public_version.update_column(:updated_at, 1.minute.ago)
+
+        visit alchemy.edit_admin_page_path(a_page)
+        expect(page).to have_css("#publish_page_button sl-button[disabled]")
+        within ".element-footer" do
+          click_button("Save")
+        end
+        expect(page).to have_css("#publish_page_button sl-button:not([disabled])")
+      end
     end
 
     context "with invalid data" do
@@ -183,6 +208,15 @@ RSpec.describe "The edit elements feature", type: :system do
         within ".element_errors" do
           expect(page).to have_content(/Please check marked fields below/)
         end
+      end
+
+      scenario "marks the failing ingredient with an inline error" do
+        visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
+        fill_in "Headline", with: "123"
+        within ".element-footer" do
+          click_button("Save")
+        end
+        expect(page).to have_css(".ingredient-editor.validation_failed small.error")
       end
     end
   end

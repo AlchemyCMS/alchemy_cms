@@ -245,7 +245,7 @@ module Alchemy
 
       context "with element having ingredients" do
         subject do
-          put :update, params: {id: element.id, element: element_params}, xhr: true
+          put :update, params: {id: element.id, element: element_params}, format: :turbo_stream
         end
 
         let(:element) { create(:alchemy_element, :with_ingredients) }

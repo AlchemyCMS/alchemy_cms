@@ -56,31 +56,12 @@ module Alchemy
       # Updates the element and all ingredients in the element.
       #
       def update
-        if @element.update(element_params)
-          render json: {
-            notice: Alchemy.t(:element_saved),
-            previewText: Rails::Html::SafeListSanitizer.new.sanitize(@element.preview_text),
-            ingredientAnchors: @element.ingredients.filter_map do |ingredient|
-              if ingredient.settings[:anchor]
-                {
-                  ingredientId: ingredient.id,
-                  active: ingredient.dom_id.present?
-                }
-              end
-            end
-          }.merge(pagePublicationData(@element.page))
+        @element_validated = @element.update(element_params)
+        if @element_validated
+          render :update
         else
           @warning = Alchemy.t("Validation failed")
-          render json: {
-            warning: @warning,
-            errorMessage: Alchemy.t(:ingredient_validations_headline),
-            ingredientsWithErrors: @element.ingredients_with_errors.map do |ingredient|
-              {
-                id: ingredient.id,
-                errorMessage: ingredient.errors.messages[:value].to_sentence
-              }
-            end
-          }, status: 422
+          render :update, status: 422
         end
       end
 

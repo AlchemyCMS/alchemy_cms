@@ -8,7 +8,6 @@
   <button
     form="element_<%= element.id %>_form"
     is="alchemy-button"
-    data-turbo="false"
     type="submit"
     <%= "disabled" if cannot?(:update, element) %>
   >
