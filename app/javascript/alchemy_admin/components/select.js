@@ -3,7 +3,8 @@ import { translate } from "alchemy_admin/i18n"
 import {
   createDropdownPositioning,
   dropdownMessages,
-  focusTomSelect
+  focusTomSelect,
+  removeButton
 } from "alchemy_admin/utils/tom_select"
 
 export class Select extends HTMLSelectElement {
@@ -76,9 +77,7 @@ export class Select extends HTMLSelectElement {
     const { onDropdownOpen, onDropdownClose } = createDropdownPositioning()
 
     if (this.multiple) {
-      plugins.remove_button = {
-        title: translate("Remove")
-      }
+      plugins.remove_button = removeButton()
     }
 
     if (this.allowClear) {

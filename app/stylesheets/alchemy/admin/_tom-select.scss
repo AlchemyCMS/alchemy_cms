@@ -185,6 +185,11 @@
         white-space: normal;
 
         .remove {
+          appearance: none;
+          border: none;
+          background: none;
+          cursor: pointer;
+          font: inherit;
           display: inline-flex;
           align-items: center;
           align-self: start;

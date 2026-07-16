@@ -1,10 +1,10 @@
 import TomSelect from "tom-select"
-import { translate } from "alchemy_admin/i18n"
 import { get } from "alchemy_admin/utils/ajax"
 import {
   createDropdownPositioning,
   dropdownMessages,
-  focusTomSelect
+  focusTomSelect,
+  removeButton
 } from "alchemy_admin/utils/tom_select"
 
 export class TagsAutocomplete extends HTMLElement {
@@ -34,9 +34,7 @@ export class TagsAutocomplete extends HTMLElement {
   get settings() {
     return {
       plugins: {
-        remove_button: {
-          title: translate("Remove")
-        }
+        remove_button: removeButton()
       },
       // The autocomplete endpoint returns each tag as `{ id, text }`.
       valueField: "id",
