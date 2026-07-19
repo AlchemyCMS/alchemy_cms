@@ -30,7 +30,7 @@ describe "alchemy/admin/partials/_main_navigation_entry.html.erb" do
   it "renders navigation with data attribute" do
     render
 
-    expect(rendered).to have_selector('div[data-turbo="false"]')
+    expect(rendered).to have_selector('alchemy-main-navi-entry[data-turbo="false"]')
   end
 
   context "with no data attribute" do
@@ -51,7 +51,7 @@ describe "alchemy/admin/partials/_main_navigation_entry.html.erb" do
     it "renders navigation without data attribute" do
       render
 
-      expect(rendered).not_to have_selector('div[data-turbo="false"]')
+      expect(rendered).not_to have_selector('alchemy-main-navi-entry[data-turbo="false"]')
     end
   end
 end

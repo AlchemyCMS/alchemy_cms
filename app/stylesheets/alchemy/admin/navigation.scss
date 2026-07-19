@@ -15,24 +15,28 @@
 #left_menu {
   z-index: 30;
   height: 100vh;
+  height: 100dvh;
   position: fixed;
   top: 0;
   left: 0;
   width: var(--main-menu-width);
   background-color: var(--main-menu-bg-color);
+  display: flex;
+  flex-direction: column;
   @extend .disable-user-select;
 }
 
 #main_navi {
-  max-height: 100vh;
+  // Consume the space left over by the logout entry and scroll within it.
+  // min-height: 0 lets this flex item shrink below its content so the
+  // overflow actually scrolls instead of pushing the logout entry away.
+  flex: 1;
+  min-height: 0;
   padding-top: var(--spacing-7);
-  padding-bottom: 80px;
-
-  @media screen and (max-width: vars.$medium-screen-break-point) {
-    overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
+  padding-bottom: var(--spacing-2);
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .main_navi_entry {
@@ -156,7 +160,10 @@
 }
 
 .sub_navigation {
-  position: absolute;
+  // Fixed rather than absolute so the hidden flyouts do not add to the
+  // scrollable overflow of the menu column (an absolutely positioned descendant
+  // would). The entry component positions the open flyout via Floating UI.
+  position: fixed;
   width: auto;
   left: var(--main-menu-width);
   top: 0;
@@ -166,11 +173,6 @@
 }
 
 .subnavi_tab {
-  &:first-of-type {
-    border-left: 1px solid var(--main-menu-active-bg-color);
-    margin-left: -1px;
-  }
-
   a {
     padding-left: var(--spacing-4);
     padding-right: var(--spacing-4);

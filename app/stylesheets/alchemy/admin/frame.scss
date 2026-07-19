@@ -41,10 +41,8 @@ div#overlay_text_box {
 }
 
 #logout {
-  position: absolute;
   z-index: 1;
-  bottom: 0;
-  left: 0;
+  flex: 0 0 auto;
   width: 100%;
 
   .main_navi_entry {
