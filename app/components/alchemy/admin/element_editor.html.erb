@@ -29,7 +29,7 @@
   <% end %>
 
   <% if editable? %>
-    <%= form_for [alchemy, :admin, element], remote: true,
+    <%= form_for [alchemy, :admin, element],
       html: {id: "element_#{id}_form".html_safe, class: 'element-body'} do |f| %>
 
       <div id="element_<%= id %>_errors" class="element_errors hidden">

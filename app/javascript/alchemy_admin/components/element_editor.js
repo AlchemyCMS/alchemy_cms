@@ -1,7 +1,4 @@
-import IngredientAnchorLink from "alchemy_admin/ingredient_anchor_link"
 import { post } from "alchemy_admin/utils/ajax"
-import { createHtmlElement } from "alchemy_admin/utils/dom_helpers"
-import { dispatchPageDirtyEvent } from "alchemy_admin/utils/dispatch_page_dirty_event"
 import { growl } from "alchemy_admin/growler"
 
 import "alchemy_admin/components/element_editor/publish_element_button"
@@ -22,12 +19,12 @@ export class ElementEditor extends HTMLElement {
     this.addEventListener("click", this)
     // Triggered by child elements
     this.addEventListener("alchemy:element-update-title", this)
-    // We use of @rails/ujs for Rails remote forms
-    this.addEventListener("ajax:complete", this)
 
     this.#form = this.form
     if (this.#form) {
       this.#form.addEventListener("change", this.onChange)
+      this.#form.addEventListener("turbo:submit-start", this)
+      this.#form.addEventListener("turbo:submit-end", this)
     }
 
     this.#header = this.header
@@ -49,9 +46,10 @@ export class ElementEditor extends HTMLElement {
   disconnectedCallback() {
     this.removeEventListener("click", this)
     this.removeEventListener("alchemy:element-update-title", this)
-    this.removeEventListener("ajax:complete", this)
     if (this.#form) {
       this.#form.removeEventListener("change", this.onChange)
+      this.#form.removeEventListener("turbo:submit-start", this)
+      this.#form.removeEventListener("turbo:submit-end", this)
       this.#form = null
     }
     this.#header?.removeEventListener("dblclick", this.#onHeaderDblclick)
@@ -68,12 +66,11 @@ export class ElementEditor extends HTMLElement {
           this.onClickElement()
         }
         break
-      case "ajax:complete":
-        if (event.target === this.body) {
-          const xhr = event.detail[0]
-          event.stopPropagation()
-          this.onSaveElement(xhr)
-        }
+      case "turbo:submit-start":
+        this.setClean()
+        break
+      case "turbo:submit-end":
+        this.onSaveElement(event.detail.success)
         break
       case "alchemy:element-update-title":
         if (!this.hasEditors && event.target == this.firstChild) {
@@ -126,46 +123,20 @@ export class ElementEditor extends HTMLElement {
   }
 
   /**
-   * Sets the element to saved state
-   * Updates title
-   * JS event bubbling will also update the parents element quote.
-   * Shows error messages if ingredient validations fail
-   * @argument {XMLHttpRequest} xhr
+   * Applies the client-side effects of a save once the turbo stream rendered.
+   *
+   * The notice, error markup, header title, anchor icons and publish button are
+   * server-rendered turbo streams. Only the preview refresh (which must focus
+   * this element afterwards) and the error box toggle remain client-side.
+   * @argument {boolean} success
    */
-  onSaveElement(xhr) {
-    const data = JSON.parse(xhr.responseText)
-    // Reset errors that might be visible from last save attempt
-    this.setClean()
-    // If validation failed
-    if (xhr.status === 422) {
-      const warning = data.warning
-      // Create error messages
-      // Mark ingredients as failed
-      data.ingredientsWithErrors.forEach((ingredient) => {
-        const ingredientEditor = this.querySelector(
-          `[data-ingredient-id="${ingredient.id}"]`
-        )
-        const errorDisplay = createHtmlElement(
-          `<small class="error">${ingredient.errorMessage}</small>`
-        )
-        ingredientEditor?.appendChild(errorDisplay)
-        ingredientEditor?.classList.add("validation_failed")
-      })
-      // Show message
-      growl(warning, "warn")
-      this.elementErrors.classList.remove("hidden")
-    } else {
-      growl(data.notice)
+  onSaveElement(success) {
+    if (success) {
       this.previewWindow?.refresh().then(() => {
         this.focusElementPreview()
       })
-      this.updateTitle(data.previewText)
-      data.ingredientAnchors.forEach((anchor) => {
-        IngredientAnchorLink.updateIcon(anchor.ingredientId, anchor.active)
-      })
-      if (data.pageHasUnpublishedChanges) {
-        dispatchPageDirtyEvent(data)
-      }
+    } else {
+      this.elementErrors.classList.remove("hidden")
     }
   }
 
@@ -565,10 +536,13 @@ export class ElementEditor extends HTMLElement {
   /**
    * The form element if present
    *
+   * Scoped to this element's own form so a wrapper element without ingredients
+   * does not return a nested child's form.
+   *
    * @returns {HTMLFormElement|undefined}
    */
   get form() {
-    return this.querySelector("form.element-body")
+    return this.querySelector(`#${this.id} > form.element-body`)
   }
 
   /**

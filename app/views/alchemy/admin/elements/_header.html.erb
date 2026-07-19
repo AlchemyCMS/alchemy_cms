@@ -14,9 +14,7 @@
   <span class="element-title">
     <span class="preview_text_element_name"><%= element.display_name %></span>
     <%= render_hint_for(element, size: "1x", fixed_width: false) %>
-    <span class="preview_text_quote">
-      <%= sanitize(element.preview_text.presence || '&nbsp;') %>
-    </span>
+    <%= render "alchemy/admin/elements/preview_text_quote", element: element %>
   </span>
   <span class="element-status-icons">
     <% unless element.public? || element.scheduled? %>

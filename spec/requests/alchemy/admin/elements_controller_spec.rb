@@ -68,15 +68,34 @@ RSpec.describe Alchemy::Admin::ElementsController do
       end
 
       it "returns 422 status" do
-        patch admin_element_path(id: element.id)
+        patch admin_element_path(id: element.id, format: :turbo_stream)
         expect(response.status).to eq 422
+      end
+
+      it "responds with a warning growl turbo stream" do
+        patch admin_element_path(id: element.id, format: :turbo_stream)
+        expect(response.media_type).to eq("text/vnd.turbo-stream.html")
+        expect(response.body).to include("<alchemy-growl type=\"warn\">")
       end
     end
 
     context "if validation succeeded" do
-      it "returns publishButtonTooltip" do
-        patch admin_element_path(id: element.id)
-        expect(response.parsed_body["publishButtonTooltip"]).to eq(Alchemy.t(:explain_publishing))
+      it "replaces the publish page button reflecting the publishing state" do
+        patch admin_element_path(id: element.id, format: :turbo_stream)
+        expect(response.media_type).to eq("text/vnd.turbo-stream.html")
+        expect(response.body).to include("publish_page_button")
+        expect(response.body).to include(Alchemy.t(:explain_publishing))
+      end
+
+      context "with a nested element" do
+        let(:parent) { create(:alchemy_element, name: "slider") }
+        let(:element) { create(:alchemy_element, name: "slide", parent_element: parent) }
+
+        it "replaces the preview text quote of the element and its parent" do
+          patch admin_element_path(id: element.id, format: :turbo_stream)
+          expect(response.body).to include("element_#{element.id}_preview_text_quote")
+          expect(response.body).to include("element_#{parent.id}_preview_text_quote")
+        end
       end
     end
   end

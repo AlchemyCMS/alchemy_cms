@@ -39,30 +39,6 @@ describe("alchemy-button", () => {
     )
   })
 
-  describe("on remote forms", () => {
-    it("re-enables button on ajax complete", () => {
-      const html = `
-        <form data-remote="true">
-          <button type="submit" is="alchemy-button">Save</button>
-        </form>
-      `
-      const button = renderComponent("alchemy-button", html)
-
-      const submit = new Event("submit", { bubbles: true })
-      button.form.dispatchEvent(submit)
-
-      expect(button.getAttribute("disabled")).toEqual("disabled")
-
-      const ajaxComplete = new CustomEvent("ajax:complete", { bubbles: true })
-      button.form.dispatchEvent(ajaxComplete)
-
-      expect(button.getAttribute("disabled")).toBeNull()
-      expect(button.getAttribute("tabindex")).toBeNull()
-      expect(button.classList.contains("disabled")).toBeFalsy()
-      expect(button.innerHTML).toEqual("Save")
-    })
-  })
-
   describe("on turbo forms", () => {
     it("re-enables button on turbo:submit-end", () => {
       const html = `

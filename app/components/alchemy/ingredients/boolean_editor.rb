@@ -14,6 +14,7 @@ module Alchemy
               render_hint_for(ingredient, size: "1x", fixed_width: false)
             ])
           }
+          concat validation_error
         end
       end
     end

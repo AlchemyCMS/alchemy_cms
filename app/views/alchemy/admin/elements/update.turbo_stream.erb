@@ -1,0 +1,31 @@
+<% unless @element_validated %>
+  <alchemy-growl type="warn"><%= @warning %></alchemy-growl>
+
+  <% @element.ingredients_with_errors.each do |ingredient| %>
+    <%= turbo_stream.replace ingredient do %>
+      <%= render Alchemy::Admin::IngredientEditor.new(ingredient: ingredient) %>
+    <% end %>
+  <% end %>
+<% else %>
+  <alchemy-growl><%= Alchemy.t(:element_saved) %></alchemy-growl>
+
+  <%# Re-render the preview text quote of the element and all its ancestors,
+      whose quotes are derived from their nested elements' preview text. %>
+  <% el = @element %>
+  <% while el %>
+    <%= turbo_stream.replace "element_#{el.id}_preview_text_quote" do %>
+      <%= render "alchemy/admin/elements/preview_text_quote", element: el %>
+    <% end %>
+    <% el = el.parent_element %>
+  <% end %>
+
+  <%= turbo_stream.replace "publish_page_button" do %>
+    <%= render Alchemy::Admin::PublishPageButton.new(page: @element.page) %>
+  <% end %>
+
+  <% @element.ingredients.each do |ingredient| %>
+    <% if ingredient.settings[:anchor] %>
+      <alchemy-action name="updateAnchorIcon" params="<%= [ingredient.id, ingredient.dom_id.present?].to_json %>"></alchemy-action>
+    <% end %>
+  <% end %>
+<% end %>

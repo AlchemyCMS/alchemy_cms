@@ -74,6 +74,32 @@ RSpec.describe Alchemy::Ingredients::BaseEditor, type: :component do
 
       it { is_expected.to have_selector(".with-anchor") }
     end
+
+    context "when the ingredient has validation errors" do
+      before do
+        ingredient.errors.add(:value, "can't be blank")
+      end
+
+      it { is_expected.to have_selector(".validation_failed") }
+    end
+  end
+
+  describe "validation errors" do
+    context "when the ingredient has errors on value" do
+      before do
+        ingredient.errors.add(:value, "can't be blank")
+      end
+
+      it "renders an inline error message" do
+        is_expected.to have_selector("small.error", text: "can't be blank")
+      end
+    end
+
+    context "when the ingredient has no errors" do
+      it "renders no inline error message" do
+        is_expected.to have_no_selector("small.error")
+      end
+    end
   end
 
   describe "data attributes" do

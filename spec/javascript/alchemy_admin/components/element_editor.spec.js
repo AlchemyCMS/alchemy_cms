@@ -1,5 +1,4 @@
 import { vi } from "vitest"
-import IngredientAnchorLink from "alchemy_admin/ingredient_anchor_link"
 import { ElementEditor } from "alchemy_admin/components/element_editor"
 import { renderComponent } from "./component.helper"
 import { growl } from "alchemy_admin/growler"
@@ -16,13 +15,6 @@ vi.mock("alchemy_admin/image_loader", () => {
     default: {
       init: vi.fn()
     }
-  }
-})
-
-vi.mock("alchemy_admin/ingredient_anchor_link", () => {
-  return {
-    __esModule: true,
-    default: { updateIcon: vi.fn() }
   }
 })
 
@@ -215,66 +207,85 @@ describe("alchemy-element-editor", () => {
     })
   })
 
-  describe("on ajax:complete", () => {
-    describe("if event was triggered on this element", () => {
-      it("sets element to saved state", () => {
-        const event = new CustomEvent("ajax:complete", {
-          bubbles: true,
-          detail: [
-            {
-              status: 200,
-              responseText: JSON.stringify({ ingredientAnchors: [] })
-            }
-          ]
-        })
-        editor.dirty = true
-        editor.body.dispatchEvent(event)
-        expect(editor.dirty).toBeFalsy()
-      })
+  describe("on turbo:submit-start", () => {
+    it("resets the element to a clean state", () => {
+      editor.dirty = true
+      editor.form.dispatchEvent(
+        new CustomEvent("turbo:submit-start", { bubbles: true })
+      )
+      expect(editor.dirty).toBeFalsy()
     })
 
-    describe("if event was triggered on child element", () => {
-      it("does not set parent element to saved", () => {
+    describe("if triggered on a child element form", () => {
+      it("does not reset the parent element", () => {
         editor = getComponent(`
           <alchemy-element-editor id="element_456" data-element-id="456" class="expanded">
-            <div class="element-header">
-              <div class="preview_text_quote">Lorem Ipsum</div>
-            </div>
+            <form class="element-body">
+              <div class="element_errors"></div>
+              <div class="element-ingredient-editors"></div>
+            </form>
             <div class="nested-elements">
-              <alchemy-element-editor id="element_123" data-element-id="123" class="expanded">
-              </alchemy-element-editor>
-              <alchemy-element-editor id="element_789" data-element-id="789" class="dirty">
-                <div class="element-header">
-                  <div class="preview_text_quote">Child Lorem ipsum</div>
-                </div>
+              <alchemy-element-editor id="element_789" data-element-id="789" class="expanded">
                 <form class="element-body">
-                  <div class="element_errors">
-                    <ul class="error-messages"></ul>
-                  </div>
+                  <div class="element_errors"></div>
+                  <div class="element-ingredient-editors"></div>
                 </form>
               </alchemy-element-editor>
             </div>
           </alchemy-element-editor>
         `)
-        const event = new CustomEvent("ajax:complete", {
-          bubbles: true,
-          detail: [
-            {
-              status: 200,
-              responseText: JSON.stringify({
-                previewText: "Child Element",
-                ingredientAnchors: []
-              })
-            }
-          ]
-        })
+        editor.dirty = true
         const childElement = editor.querySelector("#element_789")
-        childElement.dirty = true
-        childElement.body.dispatchEvent(event)
-        expect(
-          editor.header.querySelector(".preview_text_quote").textContent
-        ).toBe("Lorem Ipsum")
-        expect(childElement.dirty).toBeFalsy()
+        childElement.form.dispatchEvent(
+          new CustomEvent("turbo:submit-start", { bubbles: true })
+        )
+        expect(editor.dirty).toBeTruthy()
+      })
+    })
+  })
+
+  describe("on turbo:submit-end", () => {
+    it("shows the element errors when the save failed", () => {
+      editor.elementErrors.classList.add("hidden")
+      editor.form.dispatchEvent(
+        new CustomEvent("turbo:submit-end", {
+          bubbles: true,
+          detail: { success: false }
+        })
+      )
+      expect(editor.elementErrors.classList).not.toContain("hidden")
+    })
+
+    describe("if the element has no own form (a wrapper element)", () => {
+      it("does not react to a nested element's save", () => {
+        editor = getComponent(`
+          <alchemy-element-editor id="element_16" data-element-id="16" class="expanded">
+            <div class="element-header">
+              <div class="preview_text_quote"></div>
+            </div>
+            <div class="nested-elements">
+              <alchemy-element-editor id="element_17" data-element-id="17" class="expanded">
+                <form class="element-body">
+                  <div class="element_errors"></div>
+                  <div class="element-ingredient-editors"></div>
+                </form>
+              </alchemy-element-editor>
+            </div>
+          </alchemy-element-editor>
+        `)
+        const child = editor.querySelector("#element_17")
+        const parentSpy = vi.spyOn(editor, "onSaveElement")
+        const childSpy = vi.spyOn(child, "onSaveElement")
+
+        child.form.dispatchEvent(
+          new CustomEvent("turbo:submit-end", {
+            bubbles: true,
+            detail: { success: true }
+          })
+        )
+
+        expect(childSpy).toHaveBeenCalledTimes(1)
+        expect(parentSpy).not.toHaveBeenCalled()
       })
     })
   })
@@ -363,156 +374,27 @@ describe("alchemy-element-editor", () => {
   })
 
   describe("onSaveElement", () => {
-    describe("if response is successful", () => {
-      beforeEach(() => {
-        editor = getComponent(`
-          <alchemy-element-editor
-            id="element_123"
-            data-element-id="123"
-          >
-            <div class="element-header">
-              <div class="preview_text_quote">Lorem ipsum</div>
-            </div>
-            <form class="element-body">
-              <div class="element_errors">
-                <p>Please check fields below</p>
-              </div>
-              <div class="element-ingredient-editors">
-                <div class="ingredient-editor validation_failed" data-ingredient-id="666">
-                  <small class="error">Please enter a value</small>
-                </div>
-              </div>
-            </form>
-            <div class="element-footer"></div>
-          </alchemy-element-editor>
-        `)
-        const data = {
-          status: 200,
-          responseText: JSON.stringify({
-            notice: "Element saved",
-            ingredientAnchors: [{ ingredientId: 55, active: true }]
-          })
-        }
-        editor.dirty = true
-        editor.onSaveElement(data)
-      })
+    describe("if the save succeeded", () => {
+      it("refreshes the preview and focuses the element", async () => {
+        const refresh = vi.fn().mockResolvedValue()
+        vi.spyOn(editor, "previewWindow", "get").mockReturnValue({ refresh })
+        const focusSpy = vi
+          .spyOn(editor, "focusElementPreview")
+          .mockImplementation(() => {})
 
-      it("sets element clean", () => {
-        expect(editor.dirty).toBeFalsy
-      })
+        editor.onSaveElement(true)
 
-      it("resets validation errors", () => {
-        const errorsDisplay = editor.querySelector("small.error")
-        expect(errorsDisplay).toBe(null)
-      })
-
-      it("hides element errors", () => {
-        expect(editor.elementErrors.classList).toContain("hidden")
-      })
-
-      it("removes ingredient invalid state", () => {
-        expect(
-          editor.querySelector(`[data-ingredient-id="666"]`).classList
-        ).not.toContain("validation_failed")
-      })
-
-      it("updates ingredient anchors icon", () => {
-        expect(IngredientAnchorLink.updateIcon).toHaveBeenCalledWith(55, true)
-      })
-
-      it("growls success", () => {
-        expect(growl).toHaveBeenCalledWith("Element saved")
+        expect(refresh).toHaveBeenCalled()
+        await Promise.resolve()
+        expect(focusSpy).toHaveBeenCalled()
       })
     })
 
-    describe("if element is fixed (has no header)", () => {
-      let pageDirtyListener
-
-      beforeEach(() => {
-        editor = getComponent(`
-          <alchemy-element-editor
-            id="element_123"
-            data-element-id="123"
-            fixed
-          >
-            <form class="element-body">
-              <div class="element_errors"></div>
-              <div class="element-ingredient-editors"></div>
-            </form>
-            <div class="element-footer"></div>
-          </alchemy-element-editor>
-        `)
-        pageDirtyListener = vi.fn()
-        document.addEventListener("alchemy:page-dirty", pageDirtyListener)
-        const data = {
-          status: 200,
-          responseText: JSON.stringify({
-            notice: "Element saved",
-            previewText: "Some preview text",
-            ingredientAnchors: [],
-            pageHasUnpublishedChanges: true,
-            publishButtonTooltip: "There are unpublished changes"
-          })
-        }
-        editor.onSaveElement(data)
-      })
-
-      afterEach(() => {
-        document.removeEventListener("alchemy:page-dirty", pageDirtyListener)
-      })
-
-      it("does not raise when updating the missing title", () => {
-        expect(growl).toHaveBeenCalledWith("Element saved")
-      })
-
-      it("dispatches the page dirty event", () => {
-        expect(pageDirtyListener).toHaveBeenCalled()
-      })
-    })
-
-    describe("if response has validation errors", () => {
-      beforeEach(() => {
-        editor = getComponent(`
-          <alchemy-element-editor
-            id="element_123"
-            data-element-id="123"
-          >
-            <form class="element-body">
-              <div class="element_errors">
-                <p>Please check fields below</p>
-              </div>
-              <div class="element-ingredient-editors">
-                <div class="ingredient-editor" data-ingredient-id="666"></div>
-              </div>
-            </form>
-            <div class="element-footer"></div>
-          </alchemy-element-editor>
-        `)
-        const data = {
-          status: 422,
-          responseText: JSON.stringify({
-            warning: "Something is not right",
-            ingredientsWithErrors: [
-              { id: 666, errorMessage: "Please enter a value" }
-            ]
-          })
-        }
-        editor.onSaveElement(data)
-      })
-
-      it("displays errors", () => {
-        const errorsDisplay = editor.querySelector("small.error")
-        expect(errorsDisplay.textContent).toBe("Please enter a value")
-      })
-
-      it("marks ingredients as invalid", () => {
-        expect(
-          editor.querySelector(`[data-ingredient-id="666"]`).classList
-        ).toContain("validation_failed")
-      })
-
-      it("growls a warning", () => {
-        expect(growl).toHaveBeenCalledWith("Something is not right", "warn")
+    describe("if the save failed", () => {
+      it("shows the element errors", () => {
+        editor.elementErrors.classList.add("hidden")
+        editor.onSaveElement(false)
+        expect(editor.elementErrors.classList).not.toContain("hidden")
       })
     })
   })

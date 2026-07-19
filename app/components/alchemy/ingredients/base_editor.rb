@@ -37,6 +37,7 @@ module Alchemy
           concat ingredient_id_field
           concat ingredient_label
           concat input_field
+          concat validation_error
         end
       end
 
@@ -101,8 +102,16 @@ module Alchemy
           partial_name,
           ingredient.deprecated? ? "deprecated" : nil,
           settings[:linkable] ? "linkable" : nil,
-          settings[:anchor] ? "with-anchor" : nil
+          settings[:anchor] ? "with-anchor" : nil,
+          ingredient.errors[:value].any? ? "validation_failed" : nil
         ].compact
+      end
+
+      # Renders the inline validation error shown below a failing ingredient input.
+      def validation_error
+        return if ingredient.errors[:value].empty?
+
+        tag.small(ingredient.errors[:value].to_sentence, class: "error")
       end
 
       def data_attributes
