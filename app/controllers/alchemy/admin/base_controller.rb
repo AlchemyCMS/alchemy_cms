@@ -87,8 +87,6 @@ module Alchemy
         @notice = error.message[0..255]
         if request.format.json?
           render json: {message: @notice}, status: 500
-        elsif request.xhr?
-          render action: "error_notice"
         else
           @trace = error.backtrace[0..50]
           render "500", status: 500
@@ -146,10 +144,6 @@ module Alchemy
           ))
         end
         respond_to do |format|
-          format.js do
-            @redirect_url = redirect_path
-            render :redirect
-          end
           format.turbo_stream do
             redirect_to(redirect_path, allow_other_host: false, status: :see_other)
           end

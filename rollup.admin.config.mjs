@@ -12,7 +12,6 @@ export default {
     "handlebars",
     "@ungap/custom-elements",
     "@hotwired/turbo-rails",
-    "@rails/ujs",
     "clipboard",
     "cropperjs",
     "flatpickr",
