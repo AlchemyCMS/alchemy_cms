@@ -1,5 +1,5 @@
 <%= turbo_frame_tag page do %>
-  <%= alchemy_form_for [:admin, page], class: 'edit_page', remote: false do |f| %>
+  <%= alchemy_form_for [:admin, page], class: 'edit_page' do |f| %>
     <% unless page.language_root? || page.layoutpage %>
       <%= render Alchemy::Admin::PageSelect.new(page.parent) do %>
         <%= f.input :parent_id, required: true %>

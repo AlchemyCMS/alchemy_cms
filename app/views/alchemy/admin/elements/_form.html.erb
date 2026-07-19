@@ -4,7 +4,7 @@
   <% end %>
 <%- else -%>
   <%= turbo_frame_tag @element do %>
-    <%= alchemy_form_for [:admin, @element], remote: false do |form| %>
+    <%= alchemy_form_for [:admin, @element] do |form| %>
       <%= form.hidden_field :page_version_id %>
       <div class="input">
         <%= form.label(:name, class: "control-label required") do %>
