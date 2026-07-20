@@ -175,7 +175,7 @@
       > .item {
         display: inline-flex;
         align-items: center;
-        gap: var(--spacing-0);
+        gap: var(--spacing-1);
         margin: var(--spacing-0);
         padding: 0 var(--spacing-1);
         color: var(--text-color);
@@ -197,7 +197,7 @@
           align-self: start;
           height: var(--item-height);
           margin: 0;
-          padding: 0 var(--spacing-0);
+          padding: 0;
           color: var(--icon-color);
           text-decoration: none;
 
