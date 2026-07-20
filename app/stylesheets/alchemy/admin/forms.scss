@@ -1,5 +1,6 @@
 @use "../extends";
 @use "../mixins";
+@use "../variables" as vars;
 
 form {
   #main_content > &.alchemy {
@@ -319,5 +320,58 @@ form {
     gap: var(--spacing-2);
     justify-content: space-between;
     margin: var(--spacing-2) 0;
+  }
+
+  @media screen and (max-width: vars.$small-screen-break-point) {
+    .input,
+    .submit {
+      grid-template-columns: 1fr;
+    }
+
+    .input {
+      row-gap: var(--spacing-1);
+
+      .control-label {
+        text-align: left;
+      }
+
+      // Children pinned to the second column would otherwise spawn an implicit
+      // column and pull the field back up next to the label.
+      .hint,
+      small.error,
+      .alchemy-char-counter {
+        grid-column: 1;
+      }
+
+      small.error,
+      .alchemy-char-counter {
+        text-align: left;
+      }
+
+      &.boolean {
+        input[type="checkbox"],
+        label {
+          grid-column: 1;
+        }
+      }
+
+      // Labels nudged to align with the field on the baseline grid overlap it
+      // once stacked.
+      &.tags .control-label,
+      &.tinymce_container label {
+        top: 0;
+      }
+    }
+
+    .submit {
+      > button,
+      label.checkbox {
+        grid-column: 1;
+      }
+    }
+
+    &.simple_form .buttons {
+      margin-left: 0;
+    }
   }
 }
