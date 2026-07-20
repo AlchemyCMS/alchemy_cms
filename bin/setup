@@ -15,7 +15,12 @@ FileUtils.chdir GEM_ROOT do
   # Docker Compose reads .env for the uid/gid baked into the image's container
   # user, which must match the host to write into the bind mounted workspace on
   # Linux. Written per machine and gitignored so any compose invocation matches.
-  File.write(".env", "USER_ID=#{Process.uid}\nGROUP_ID=#{Process.gid}\n")
+  # On macOS the bind mount is writable whatever the container uid is, and
+  # forwarding the host gid (e.g. 20) would collide with a base-image group, so
+  # leave the image default in place there.
+  unless RUBY_PLATFORM.include?("darwin")
+    File.write(".env", "USER_ID=#{Process.uid}\nGROUP_ID=#{Process.gid}\n")
+  end
 
   system! "gem install bundler --conservative"
   system("bundle check") || system!("bundle install")

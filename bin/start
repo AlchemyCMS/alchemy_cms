@@ -6,12 +6,16 @@
 # To run the dummy app locally without Docker, use bin/dev instead.
 
 # The container user must own the bind mounted workspace to write into it. On
-# macOS the bind mount is writable whatever the container uid is, but on Linux a
-# uid mismatch makes the workspace read-only, so build the image with the host's
-# ids. An explicitly exported USER_ID/GROUP_ID wins.
-USER_ID="${USER_ID:-$(id -u)}"
-GROUP_ID="${GROUP_ID:-$(id -g)}"
-export USER_ID GROUP_ID
+# Linux a uid mismatch makes the workspace read-only, so build the image with
+# the host's ids. On macOS the bind mount is writable whatever the container uid
+# is, and forwarding the host gid (e.g. 20) would collide with an existing
+# base-image group, so leave the image default in place. An explicitly exported
+# USER_ID/GROUP_ID still wins on either platform.
+if [ "$(uname -s)" != "Darwin" ]; then
+  USER_ID="${USER_ID:-$(id -u)}"
+  GROUP_ID="${GROUP_ID:-$(id -g)}"
+  export USER_ID GROUP_ID
+fi
 
 # node_modules is baked into the image but shadowed by an anonymous volume, so a
 # rebuilt image is not picked up until that volume is recreated. `--refresh`
