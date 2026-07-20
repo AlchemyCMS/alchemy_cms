@@ -8,23 +8,35 @@ body.passwords {
   #errors {
     margin-left: 157px;
   }
+
+  #main_content {
+    padding-top: var(--spacing-2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 .logo-box {
-  width: 250px;
-  margin: 0 10px 1.5em 200px;
+  display: flex;
+  justify-content: end;
+  align-items: end;
+  margin-bottom: 1.5em;
 
   svg {
     width: 200px;
     height: auto;
   }
+
+  small {
+    width: 50px;
+  }
 }
 
 .login_signup_box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
+  max-width: 460px;
+  margin: auto;
   --form-right-column-width: 1.65fr;
 
   alchemy-message {
@@ -40,27 +52,54 @@ body.passwords {
     margin-left: 157px;
   }
 
-  .submit {
-    > label {
-      text-align: start;
+  @media (max-width: 500px) {
+    .input,
+    .submit {
+      grid-template-columns: 1fr;
 
-      input[type="checkbox"] {
-        margin: 0 var(--spacing-0) 0 0;
+      label {
+        text-align: start;
+        margin-bottom: var(--spacing-1);
       }
     }
+  }
 
+  .submit {
     > a {
       display: inline-flex;
       align-items: center;
       gap: var(--spacing-0);
-      grid-column: 2;
-      grid-row: 1;
+      width: fit-content;
 
       &:hover {
         alchemy-icon {
           transform: translateX(-2px);
           transition: transform var(--transition-duration);
         }
+      }
+    }
+  }
+
+  @media (min-width: 501px) {
+    right: 5%;
+
+    .submit {
+      grid-template-columns: var(--form-left-column-width) minmax(
+          282px,
+          var(--form-right-column-width)
+        );
+
+      > label {
+        text-align: start;
+
+        input[type="checkbox"] {
+          margin: 0 var(--spacing-0) 0 0;
+        }
+      }
+
+      > a {
+        grid-column: 2;
+        grid-row: 1;
       }
     }
   }
