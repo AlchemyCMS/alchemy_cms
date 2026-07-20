@@ -47,6 +47,7 @@
   }
 
   .ts-control {
+    --item-height: 21px;
     --input-max-width: calc(100% - var(--spacing-4));
     align-items: center;
     background: var(--select-background-color);
@@ -77,7 +78,7 @@
 
     > .item {
       margin: 0;
-      line-height: 21px;
+      line-height: var(--item-height);
       max-width: 90%;
       overflow-x: hidden;
       text-overflow: ellipsis;
@@ -188,11 +189,14 @@
           appearance: none;
           border: none;
           background: none;
+          box-shadow: none;
           cursor: pointer;
           font: inherit;
           display: inline-flex;
           align-items: center;
           align-self: start;
+          height: var(--item-height);
+          margin: 0;
           padding: 0 var(--spacing-0);
           color: var(--icon-color);
           text-decoration: none;
@@ -205,7 +209,7 @@
 
       > .clear-button {
         position: absolute;
-        top: 5.5px;
+        top: 4.5px;
         right: var(--spacing-1);
       }
 

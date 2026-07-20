@@ -126,7 +126,7 @@ export function removeButton() {
       button.title = data.title
       button.setAttribute("aria-label", data.title)
       button.tabIndex = -1
-      button.textContent = data.label
+      button.innerHTML = `<alchemy-icon name="close" size="sm"></alchemy-icon>`
       return button
     }
   }
