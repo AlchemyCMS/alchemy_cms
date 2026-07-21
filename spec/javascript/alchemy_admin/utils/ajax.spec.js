@@ -76,6 +76,61 @@ describe("ajax utilities", () => {
       })
     })
 
+    it("visits the login page if the session expired", async () => {
+      global.Turbo = { visit: vi.fn() }
+      global.fetch.mockResolvedValueOnce({
+        ok: false,
+        status: 401,
+        headers: { get: () => JSON_CONTENT_TYPE },
+        json: async () => ({
+          message: "Please log in",
+          redirect_url: "/login"
+        })
+      })
+
+      const outcome = await Promise.race([
+        ajax("DELETE", "/test").then(
+          () => "resolved",
+          () => "rejected"
+        ),
+        new Promise((resolve) => setTimeout(() => resolve("pending"), 20))
+      ])
+
+      expect(global.Turbo.visit).toHaveBeenCalledWith("/login")
+      // Callers must not run their error handling while we navigate away
+      expect(outcome).toBe("pending")
+    })
+
+    it("throws if the session expired without a place to log in", async () => {
+      global.Turbo = { visit: vi.fn() }
+      global.fetch.mockResolvedValueOnce({
+        ok: false,
+        status: 401,
+        headers: { get: () => JSON_CONTENT_TYPE },
+        json: async () => ({ message: "Please log in" })
+      })
+
+      await expect(ajax("DELETE", "/test")).rejects.toEqual({
+        message: "Please log in"
+      })
+      expect(global.Turbo.visit).not.toHaveBeenCalled()
+    })
+
+    it("does not visit anywhere for other error responses", async () => {
+      global.Turbo = { visit: vi.fn() }
+      global.fetch.mockResolvedValueOnce({
+        ok: false,
+        status: 403,
+        headers: { get: () => JSON_CONTENT_TYPE },
+        json: async () => ({ message: "You are not authorized" })
+      })
+
+      await expect(ajax("DELETE", "/test")).rejects.toEqual({
+        message: "You are not authorized"
+      })
+      expect(global.Turbo.visit).not.toHaveBeenCalled()
+    })
+
     it("handles non-JSON responses gracefully", async () => {
       global.fetch.mockResolvedValueOnce({
         ok: true,

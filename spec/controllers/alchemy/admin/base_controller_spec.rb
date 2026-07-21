@@ -77,16 +77,26 @@ describe Alchemy::Admin::BaseController do
 
       context "for a json request" do
         before do
-          expect(controller).to receive(:request) do
-            double(format: double(json?: true))
-          end
+          request.headers["Accept"] = "application/json"
         end
 
-        it "returns 'not authorized' message" do
+        it "returns 'please log in' message and where to log in if no user" do
+          controller.send(:permission_denied, CanCan::AccessDenied.new)
+          expect(controller).to have_received(:render).with(
+            json: {
+              message: Alchemy.t("Please log in"),
+              redirect_url: Alchemy.config.login_path
+            },
+            status: :unauthorized
+          )
+        end
+
+        it "returns 'not authorized' message for a logged in user" do
+          authorize_user(build(:alchemy_dummy_user))
           controller.send(:permission_denied, CanCan::AccessDenied.new)
           expect(controller).to have_received(:render).with(
             json: {message: Alchemy.t("You are not authorized")},
-            status: 401
+            status: :forbidden
           )
         end
       end

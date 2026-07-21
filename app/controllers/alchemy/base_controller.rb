@@ -53,9 +53,7 @@ module Alchemy
           #{current_alchemy_user.inspect}
         WARN
       end
-      if request.format.json?
-        render json: {message: Alchemy.t("You are not authorized")}, status: 401
-      elsif current_alchemy_user
+      if current_alchemy_user
         handle_redirect_for_user
       else
         handle_redirect_for_guest
@@ -63,6 +61,10 @@ module Alchemy
     end
 
     def handle_redirect_for_user
+      if api_request?
+        return render json: {message: Alchemy.t("You are not authorized")}, status: :forbidden
+      end
+
       flash[:warning] = Alchemy.t("You are not authorized")
       if can?(:index, :alchemy_admin_dashboard)
         redirect_or_render_notice
@@ -72,17 +74,7 @@ module Alchemy
     end
 
     def redirect_or_render_notice
-      if request.xhr?
-        respond_to do |format|
-          format.js do
-            render plain: flash.discard(:warning), status: 403
-          end
-          format.html do
-            render partial: "alchemy/admin/partials/flash",
-              locals: {message: flash[:warning], flash_type: "warning"}
-          end
-        end
-      elsif turbo_frame_request?
+      if turbo_frame_request?
         render "403", status: 403
       else
         redirect_to(alchemy.admin_dashboard_path)
@@ -91,12 +83,28 @@ module Alchemy
 
     def handle_redirect_for_guest
       flash[:info] = Alchemy.t("Please log in")
-      if request.xhr?
-        render :permission_denied
+      if api_request?
+        render json: {
+          message: Alchemy.t("Please log in"),
+          redirect_url: Alchemy.config.login_path
+        }, status: :unauthorized
+      elsif turbo_frame_request?
+        # Redirecting would be followed inside the frame and render the login
+        # page in the dialog. Turbo runs a stream action from any response,
+        # whatever status or Accept header, so it can break out of the frame.
+        render turbo_stream: helpers.turbo_stream_action_tag(
+          :dialog_visit, url: Alchemy.config.login_path
+        ), status: :unauthorized
       else
         store_location
         redirect_to Alchemy.config.login_path
       end
+    end
+
+    # Requests from our own admin JavaScript, that expect a machine readable
+    # response instead of a page to render.
+    def api_request?
+      request.format.json? || request.xhr?
     end
 
     # Logs the current exception to the error log.

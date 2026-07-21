@@ -79,7 +79,16 @@ export default async function ajax(
 
   if (response.ok) {
     return { data: responseData, status: response.status }
-  } else {
-    throw responseData || new Error("An error occurred during the transaction")
   }
+
+  // The session expired while the tab was open. Send the user to the login
+  // page instead of leaving them with an error they cannot act on. Never
+  // settle, so callers skip their error handling: the login page is what the
+  // user needs to see, not a growl about a request they cannot retry.
+  if (response.status === 401 && responseData?.redirect_url) {
+    Turbo.visit(responseData.redirect_url)
+    return new Promise(() => {})
+  }
+
+  throw responseData || new Error("An error occurred during the transaction")
 }
