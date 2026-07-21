@@ -1,6 +1,18 @@
 import { Turbo } from "@hotwired/turbo-rails"
 import { closeCurrentDialog } from "alchemy_admin/dialog"
 
+// A dialog form submits into the dialog frame, so a redirect would be followed
+// inside the dialog and render the target page in it. The server answers a
+// successful submission with this action instead: close the dialog, then visit
+// the destination the action would have redirected to.
+Turbo.StreamActions.dialog_visit = function () {
+  const url = this.getAttribute("url")
+
+  if (!closeCurrentDialog(() => Turbo.visit(url))) {
+    Turbo.visit(url)
+  }
+}
+
 // The editors observe their form field for mutations, so it must not be replaced.
 
 Turbo.StreamActions.assign_picture = function () {

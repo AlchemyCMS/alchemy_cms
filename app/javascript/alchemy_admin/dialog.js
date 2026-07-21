@@ -6,6 +6,10 @@ import { dispatchCustomEvent } from "alchemy_admin/utils/events"
 // Collection of all current dialog instances
 const currentDialogs = []
 
+// Id of the Turbo Frame wrapping the dialog content.
+// Keep in sync with Alchemy::Admin::DIALOG_FRAME_ID.
+export const DIALOG_FRAME_ID = "alchemy_dialog_frame"
+
 const DEFAULTS = {
   header_height: 36,
   size: "400x300",
@@ -121,10 +125,14 @@ export class Dialog {
   }
 
   // Loads the content via ajax and replaces the Dialog body with server response.
+  //
+  // The Turbo-Frame header tells the server this content is rendered for a
+  // dialog, so it wraps the response in the dialog frame (see set_layout). The
+  // same action requested as a full page is not wrapped.
   load() {
     this.show_spinner()
     fetch(this.url, {
-      headers: { "X-Requested-With": "XMLHttpRequest" }
+      headers: { "Turbo-Frame": DIALOG_FRAME_ID }
     })
       .then(async (response) => {
         const responseText = await response.text()
@@ -178,7 +186,6 @@ export class Dialog {
   // Initializes the Dialog body
   init() {
     Hotkeys(this.dialog_body)
-    this.watch_remote_forms()
     window.requestAnimationFrame(() => this.#focusInitialElement())
   }
 
@@ -194,30 +201,6 @@ export class Dialog {
         this.#focusInitialElement(attempts + 1)
       )
     }
-  }
-
-  // Watches ajax requests inside of dialog body and replaces the content accordingly
-  watch_remote_forms() {
-    this.dialog_body
-      .querySelectorAll('[data-remote="true"]')
-      .forEach((form) => {
-        form.addEventListener("ajax:success", (event) => {
-          const xhr = event.detail[2]
-          const content_type = xhr.getResponseHeader("Content-Type")
-          if (content_type.match(/javascript/)) {
-            return
-          } else {
-            this.dialog_body.innerHTML = xhr.responseText
-            this.init()
-          }
-        })
-
-        form.addEventListener("ajax:error", (event) => {
-          const statusText = event.detail[1]
-          const xhr = event.detail[2]
-          this.show_error(xhr, statusText)
-        })
-      })
   }
 
   // Displays an error message

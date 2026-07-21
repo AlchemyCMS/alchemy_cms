@@ -41,8 +41,9 @@ RSpec.describe Alchemy::Admin::FormHelper do
           allow(helper).to receive(:request).and_return(double(xhr?: true))
         end
 
-        it "makes the form remote" do
-          expect(subject).to have_css("form[data-remote]")
+        it "does not make the form remote so it submits via Turbo" do
+          expect(subject).to have_css("form")
+          expect(subject).to_not have_css("form[data-remote]")
         end
       end
     end

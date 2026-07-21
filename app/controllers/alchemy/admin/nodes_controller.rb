@@ -18,7 +18,7 @@ module Alchemy
       end
 
       def create
-        if turbo_frame_request?
+        if turbo_frame_request_id == "page_nodes"
           @page = Alchemy::Page.find(resource_params[:page_id])
           @node = @page.nodes.build(resource_params)
           if @node.valid?
