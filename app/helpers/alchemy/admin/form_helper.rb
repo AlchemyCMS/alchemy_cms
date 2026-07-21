@@ -10,13 +10,11 @@ module Alchemy
       # == Defaults
       #
       # * It uses Alchemy::Forms::Builder as builder
-      # * It makes a remote request, if the request was XHR request.
       # * It adds the alchemy class to form
       #
       def alchemy_form_for(object, *args, &block)
         options = args.extract_options!
         options[:builder] = Alchemy::Forms::Builder
-        options.key?(:remote) || options[:remote] = request.xhr?
         options[:html] = {
           id: options.delete(:id),
           class: ["alchemy", options.delete(:class)].compact.join(" "),

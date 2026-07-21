@@ -2,6 +2,11 @@
 
 module Alchemy
   module Admin
+    # Turbo Frame id wrapping admin dialog content. A form inside submits into
+    # this frame, so its request carries the id and the server can tell a dialog
+    # submission apart from the same form rendered on its own page.
+    DIALOG_FRAME_ID = "alchemy_dialog_frame"
+
     class BaseController < Alchemy::BaseController
       include Userstamp
       include Locale
@@ -27,7 +32,7 @@ module Alchemy
 
       def leave
         authorize! :leave, :alchemy_admin
-        render template: "/alchemy/admin/leave", layout: !request.xhr?
+        render template: "/alchemy/admin/leave", layout: !turbo_frame_request?
       end
 
       private
@@ -53,9 +58,19 @@ module Alchemy
         URI(referer).path
       end
 
-      # Disable layout rendering for xhr requests.
+      # Disable layout rendering for xhr and Turbo Frame requests.
+      #
+      # Content requested by the dialog's Turbo Frame is wrapped in that frame,
+      # so Turbo can render it. Only the dialog's own request carries this
+      # frame id, so the same action rendered as a full page stays unwrapped.
       def set_layout
-        (request.xhr? || turbo_frame_request?) ? false : "alchemy/admin"
+        if turbo_frame_request_id == DIALOG_FRAME_ID
+          "alchemy/admin/dialog"
+        elsif request.xhr? || turbo_frame_request?
+          false
+        else
+          "alchemy/admin"
+        end
       end
 
       # Handles exceptions
@@ -122,16 +137,24 @@ module Alchemy
       #
       def do_redirect_to(url_or_path)
         redirect_path = safe_redirect_path(url_or_path)
+        # A dialog form submits into the dialog frame, so a redirect would be
+        # followed inside it and render the target page within the dialog. Let
+        # the dialog close itself and visit the destination instead.
+        if turbo_frame_request_id == DIALOG_FRAME_ID
+          return render(turbo_stream: helpers.turbo_stream_action_tag(
+            :dialog_visit, url: redirect_path
+          ))
+        end
         respond_to do |format|
           format.js do
             @redirect_url = redirect_path
             render :redirect
           end
           format.turbo_stream do
-            redirect_to(redirect_path, allow_other_host: false)
+            redirect_to(redirect_path, allow_other_host: false, status: :see_other)
           end
           format.html do
-            redirect_to(redirect_path, allow_other_host: false)
+            redirect_to(redirect_path, allow_other_host: false, status: :see_other)
           end
         end
       end

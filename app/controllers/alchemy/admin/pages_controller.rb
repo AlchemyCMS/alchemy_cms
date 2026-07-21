@@ -85,7 +85,7 @@ module Alchemy
       end
 
       def info
-        render layout: !request.xhr?
+        render layout: !turbo_frame_request?
       end
 
       def new

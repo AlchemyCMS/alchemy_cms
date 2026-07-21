@@ -241,7 +241,7 @@ module Alchemy
           expect(Alchemy::Node.count).to eq(1)
           delete admin_node_path(node), as: :turbo_stream
           expect(Alchemy::Node.count).to eq(0)
-          expect(response.code).to eq("302")
+          expect(response.code).to eq("303")
         end
       end
     end
