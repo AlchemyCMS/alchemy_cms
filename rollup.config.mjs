@@ -62,13 +62,6 @@ export default [
     }
   },
   {
-    input: "node_modules/@rails/ujs/app/assets/javascripts/rails-ujs.esm.js",
-    output: {
-      file: "vendor/javascript/rails-ujs.min.js"
-    },
-    plugins: [terser()]
-  },
-  {
     input: "bundles/shoelace.js",
     output: {
       file: "vendor/javascript/shoelace.min.js"

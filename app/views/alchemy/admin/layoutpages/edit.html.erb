@@ -1,5 +1,5 @@
 <%= turbo_frame_tag @page do %>
-  <%= alchemy_form_for [:admin, @page], url: alchemy.admin_layoutpage_path(@page), class: 'edit_page', remote: false do |f| %>
+  <%= alchemy_form_for [:admin, @page], url: alchemy.admin_layoutpage_path(@page), class: 'edit_page' do |f| %>
     <%= f.input :name, autofocus: true %>
     <div class="input tags">
       <%= f.label :tag_list, class: "control-label" %>

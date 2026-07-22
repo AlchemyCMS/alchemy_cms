@@ -15,37 +15,5 @@ RSpec.describe Alchemy::Admin::FormHelper do
     it "enables browser validations" do
       expect(subject).not_to have_css("form[novalidate]")
     end
-
-    context "if options[:remote] is given" do
-      context "and set to true" do
-        subject { helper.alchemy_form_for(resource, remote: true) {} }
-
-        it "makes the form remote" do
-          expect(subject).to have_css("form[data-remote]")
-        end
-      end
-
-      context "and set to false" do
-        subject { helper.alchemy_form_for(resource, remote: false) {} }
-
-        it "makes the form non-remote" do
-          expect(subject).to have_css("form")
-          expect(subject).to_not have_css("form[data-remote]")
-        end
-      end
-    end
-
-    context "if options[:remote] is not given" do
-      context "and request is xhr" do
-        before do
-          allow(helper).to receive(:request).and_return(double(xhr?: true))
-        end
-
-        it "does not make the form remote so it submits via Turbo" do
-          expect(subject).to have_css("form")
-          expect(subject).to_not have_css("form[data-remote]")
-        end
-      end
-    end
   end
 end

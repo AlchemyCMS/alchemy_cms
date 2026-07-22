@@ -4,7 +4,6 @@
     current_page:  a page object for the currently displayed page
     num_pages:     total number of pages
     per_page:      number of items to fetch per page
-    remote:        data-remote
 -%>
 <% if current_page.last? -%>
   <span class="next_page disabled">
@@ -12,7 +11,7 @@
   </span>
 <% else -%>
   <sl-tooltip content="<%= Alchemy.t(:next_page, scope: 'pagination') %>" placement="top-end">
-    <%= link_to url, rel: 'next', remote: remote, class: 'next_page' do %>
+    <%= link_to url, rel: 'next', class: 'next_page' do %>
       <%= render_icon("arrow-right-s") %>
     <% end %>
   </sl-tooltip>

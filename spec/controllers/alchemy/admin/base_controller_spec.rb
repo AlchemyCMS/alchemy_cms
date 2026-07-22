@@ -132,24 +132,11 @@ describe Alchemy::Admin::BaseController do
       end
     end
 
-    context "for a xhr request" do
-      before do
-        expect(controller).to receive(:request) do
-          double(xhr?: true, format: double(json?: false))
-        end.twice
-      end
-
-      it "renders error notice" do
-        subject
-        expect(controller).to have_received(:render).with(action: "error_notice")
-      end
-    end
-
     context "for a html request" do
       before do
         expect(controller).to receive(:request) do
-          double(xhr?: false, format: double(json?: false))
-        end.twice
+          double(format: double(json?: false))
+        end
         error.set_backtrace(%(foo))
       end
 

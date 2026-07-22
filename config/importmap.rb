@@ -8,7 +8,6 @@ pin "sortablejs", to: "sortable.min.js", preload: true # @1.15.1
 pin "@floating-ui/dom", to: "floating-ui.min.js", preload: true
 pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true
 pin "shoelace", to: "shoelace.min.js", preload: true
-pin "@rails/ujs", to: "rails-ujs.min.js", preload: true # @7.1.2
 pin "tinymce", to: "tinymce.min.js", preload: true
 pin "tom-select", to: "tom-select.min.js", preload: true
 

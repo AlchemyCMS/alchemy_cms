@@ -58,7 +58,7 @@ module Alchemy
         URI(referer).path
       end
 
-      # Disable layout rendering for xhr and Turbo Frame requests.
+      # Disable layout rendering for Turbo Frame requests.
       #
       # Content requested by the dialog's Turbo Frame is wrapped in that frame,
       # so Turbo can render it. Only the dialog's own request carries this
@@ -66,7 +66,7 @@ module Alchemy
       def set_layout
         if turbo_frame_request_id == DIALOG_FRAME_ID
           "alchemy/admin/dialog"
-        elsif request.xhr? || turbo_frame_request?
+        elsif turbo_frame_request?
           false
         else
           "alchemy/admin"
@@ -87,8 +87,6 @@ module Alchemy
         @notice = error.message[0..255]
         if request.format.json?
           render json: {message: @notice}, status: 500
-        elsif request.xhr?
-          render action: "error_notice"
         else
           @trace = error.backtrace[0..50]
           render "500", status: 500
@@ -146,10 +144,6 @@ module Alchemy
           ))
         end
         respond_to do |format|
-          format.js do
-            @redirect_url = redirect_path
-            render :redirect
-          end
           format.turbo_stream do
             redirect_to(redirect_path, allow_other_host: false, status: :see_other)
           end

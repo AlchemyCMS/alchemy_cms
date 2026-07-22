@@ -7,7 +7,6 @@
         picture_index: picture_index
       ).to_h
     ),
-    remote: false,
     class: "picture-form" do |f| %>
     <%= f.input :name %>
     <%= render "alchemy/admin/pictures/picture_description_field", f: f %>

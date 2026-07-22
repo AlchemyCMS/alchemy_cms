@@ -2,8 +2,6 @@ import "handlebars"
 import "@ungap/custom-elements"
 import { Turbo } from "@hotwired/turbo-rails"
 
-import Rails from "@rails/ujs"
-
 import { translate } from "alchemy_admin/i18n"
 import { currentDialog, closeCurrentDialog } from "alchemy_admin/dialog"
 import Dirty from "alchemy_admin/dirty"
@@ -45,8 +43,6 @@ Object.assign(Alchemy, {
   Spinner,
   reloadPreview
 })
-
-Rails.start()
 Turbo.config.forms.confirm = openConfirmDialog
 document.addEventListener("turbo:load", Initializer)
 
