@@ -1,5 +1,6 @@
 import { get } from "alchemy_admin/utils/ajax"
 import { translate } from "alchemy_admin/i18n"
+import { growl } from "alchemy_admin/growler"
 
 class DomIdSelect extends HTMLElement {
   dataItem(hash) {
@@ -22,17 +23,22 @@ class DomIdApiSelect extends DomIdSelect {
   }
 
   async #fetchDomIds() {
-    const result = await get(Alchemy.routes.api_ingredients_path, {
-      page_id: this.#pageId
-    })
-    const options = result.data.ingredients
-      .filter((ingredient) => ingredient.data?.dom_id)
-      .map((ingredient) => this.dataItem(ingredient.data.dom_id))
-    const prompt =
-      options.length > 0 ? translate("None") : translate("No anchors found")
+    try {
+      const result = await get(Alchemy.routes.api_ingredients_path, {
+        page_id: this.#pageId
+      })
+      const options = result.data.ingredients
+        .filter((ingredient) => ingredient.data?.dom_id)
+        .map((ingredient) => this.dataItem(ingredient.data.dom_id))
+      const prompt =
+        options.length > 0 ? translate("None") : translate("No anchors found")
 
-    this.selectElement.setOptions(options, prompt)
-    this.selectElement.enable()
+      this.selectElement.setOptions(options, prompt)
+      this.selectElement.enable()
+    } catch (error) {
+      growl(error.message || error, "error")
+      console.error(error)
+    }
   }
 
   #reset() {

@@ -1,5 +1,6 @@
 import TomSelect from "tom-select"
 import { get } from "alchemy_admin/utils/ajax"
+import { growl } from "alchemy_admin/growler"
 import {
   createDropdownPositioning,
   dropdownMessages,
@@ -64,7 +65,11 @@ export class TagsAutocomplete extends HTMLElement {
       load: (query, callback) => {
         get(this.getAttribute("url"), { term: query })
           .then((response) => callback(response.data))
-          .catch(() => callback())
+          .catch((error) => {
+            growl(error.message || error, "error")
+            // Tom Select stays in loading state until the callback runs.
+            callback()
+          })
       },
       ...createDropdownPositioning(),
       render: {

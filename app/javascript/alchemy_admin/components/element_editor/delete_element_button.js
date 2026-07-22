@@ -17,8 +17,13 @@ export class DeleteElementButton extends HTMLElement {
   async handleEvent() {
     const confirmed = await openConfirmDialog(this.message)
     if (confirmed) {
-      const response = await ajax("DELETE", this.url)
-      this.#removeElement(response.data)
+      try {
+        const response = await ajax("DELETE", this.url)
+        this.#removeElement(response.data)
+      } catch (error) {
+        growl(error.message || error, "error")
+        console.error(error)
+      }
     }
   }
 
