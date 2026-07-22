@@ -12,9 +12,9 @@ RSpec.describe "Resource requests" do
     }
   end
 
-  describe "create from a dialog" do
-    before { authorize_user(:as_admin) }
+  before { authorize_user(:as_admin) }
 
+  describe "create from a dialog" do
     context "with invalid params" do
       it "re-renders the form wrapped in the dialog frame with a 422" do
         post "/admin/events", params: {event: {name: ""}}, headers: dialog_headers
@@ -40,8 +40,6 @@ RSpec.describe "Resource requests" do
   end
 
   describe "create outside a dialog" do
-    before { authorize_user(:as_admin) }
-
     it "re-renders the form unwrapped with a 422" do
       post "/admin/events", params: {event: {name: ""}}
 
