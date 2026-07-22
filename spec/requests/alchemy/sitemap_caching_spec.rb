@@ -7,11 +7,14 @@ RSpec.describe "XML sitemap caching" do
 
   let(:max_age) { Alchemy.config.sitemap.max_age }
 
-  # The test environment uses a :null_store, which would make every
-  # Rails.cache.fetch a miss and render the cache assertions meaningless.
-  let(:cache_store) { ActiveSupport::Cache::MemoryStore.new }
-
-  before { allow(Rails).to receive(:cache).and_return(cache_store) }
+  # The test environment configures a :null_store, which would make every
+  # fragment lookup a miss and render the cache assertions meaningless.
+  around do |example|
+    original_store = ActionController::Base.cache_store
+    ActionController::Base.cache_store = ActiveSupport::Cache::MemoryStore.new
+    example.run
+    ActionController::Base.cache_store = original_store
+  end
 
   # Counts template renders so we can tell a cache hit from a re-render.
   def rendered_templates
@@ -21,6 +24,18 @@ RSpec.describe "XML sitemap caching" do
       yield
     end
     templates
+  end
+
+  # The urls are wrapped in a fragment cache, so the template itself still
+  # renders on a hit. Fragment writes only happen on a miss, which is what
+  # tells a reused fragment from a rebuilt one.
+  def fragment_writes
+    writes = 0
+    subscriber = ->(*) { writes += 1 }
+    ActiveSupport::Notifications.subscribed(subscriber, "write_fragment.action_controller") do
+      yield
+    end
+    writes
   end
 
   context "when caching is enabled" do
@@ -61,13 +76,13 @@ RSpec.describe "XML sitemap caching" do
       expect(response.body).to be_empty
     end
 
-    it "renders the sitemap only once for repeated requests" do
-      templates = rendered_templates do
+    it "builds the sitemap only once for repeated requests" do
+      writes = fragment_writes do
         get "/sitemap.xml"
         get "/sitemap.xml"
       end
 
-      expect(templates.grep(/sitemap/).length).to eq(1)
+      expect(writes).to eq(1)
     end
 
     it "responds with 304 without rendering the sitemap" do
@@ -137,12 +152,12 @@ RSpec.describe "XML sitemap caching" do
       before { stub_alchemy_config(cache_pages: false) }
 
       it "still caches the sitemap" do
-        templates = rendered_templates do
+        writes = fragment_writes do
           get "/sitemap.xml"
           get "/sitemap.xml"
         end
 
-        expect(templates.grep(/sitemap/).length).to eq(1)
+        expect(writes).to eq(1)
       end
     end
 
