@@ -36,6 +36,10 @@ module Alchemy
         settings[:tinymce] || {}
       end
 
+      def sanitizer_settings
+        settings[:sanitizer] || {}
+      end
+
       private
 
       def strip_content
@@ -47,10 +51,6 @@ module Alchemy
           value,
           sanitizer_settings
         )
-      end
-
-      def sanitizer_settings
-        settings[:sanitizer] || {}
       end
     end
   end
