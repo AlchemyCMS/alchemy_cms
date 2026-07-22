@@ -203,7 +203,7 @@ The admin interface uses a **hybrid architecture**:
 
 **Rails Integration**:
 - Turbo for navigation (replacing Turbolinks)
-- Rails UJS for legacy forms (new forms should prefer Turbo Frames)
+- Turbo Frames and Streams for forms
 - Custom events: `Alchemy.${name}` namespace
 - View Component: Used to populate Ruby values into custom JS elements.
 
