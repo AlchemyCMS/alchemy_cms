@@ -1,5 +1,13 @@
 # Changelog
 
+## 8.0.16 (2026-07-22)
+
+## What's Changed
+* [8.0-stable] fix(ingredients): Escape and sanitize author supplied ingredient values by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4086
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.0.15...v8.0.16
+
 ## 8.0.15 (2026-06-18)
 
 ## What's Changed
