@@ -1,5 +1,16 @@
 # Changelog
 
+## 8.3.5 (2026-07-22)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.3-stable -->
+
+## What's Changed
+### Security
+* [8.3-stable] fix(ingredients): Escape and sanitize author supplied ingredient values by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4084
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.3.4...v8.3.5
+
 ## 8.3.4 (2026-07-16)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.3-stable -->
