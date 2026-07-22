@@ -1,5 +1,20 @@
 # Changelog
 
+## 8.2.9 (2026-07-22)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.2-stable -->
+
+## What's Changed
+### Bug Fixes
+* [8.2-stable] fix(admin): Resolve exposed components to their source files by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4027
+### Performance Improvements
+* [8.2-stable] Add index to alchemy_elements_alchemy_pages table by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4034
+### Security
+* [8.2-stable] fix(ingredients): Escape and sanitize author supplied ingredient values by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4083
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.2.8...v8.2.9
+
 ## 8.2.8 (2026-06-30)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.2-stable -->
