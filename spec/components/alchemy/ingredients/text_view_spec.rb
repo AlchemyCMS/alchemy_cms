@@ -136,4 +136,14 @@ RSpec.describe Alchemy::Ingredients::TextView, type: :component do
       end
     end
   end
+
+  context "with a value containing html" do
+    let(:ingredient) { Alchemy::Ingredients::Text.new(value: "<script>alert('XSS')</script>") }
+
+    it "escapes the value" do
+      render_inline described_class.new(ingredient)
+      expect(rendered_content).to include("&lt;script&gt;")
+      expect(rendered_content).to_not include("<script>")
+    end
+  end
 end
