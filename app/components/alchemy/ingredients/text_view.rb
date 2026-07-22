@@ -18,7 +18,7 @@ module Alchemy
 
       def call
         if disable_link?
-          dom_id.present? ? anchor : value
+          dom_id.present? ? anchor : h(value)
         else
           link_to(value, url_for(link), {
             id: dom_id.presence,
@@ -26,7 +26,7 @@ module Alchemy
             target: link_target_value(link_target),
             rel: link_rel_value(link_target)
           }.merge(html_options))
-        end.html_safe
+        end
       end
 
       private
