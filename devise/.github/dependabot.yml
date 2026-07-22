@@ -26,3 +26,13 @@ updates:
         update-types:
           - "minor"
           - "patch"
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    # Wait before opening update PRs so brand-new releases have time to be
+    # vetted, and so CI's minimum release age policy does not reject the
+    # freshly published versions Dependabot would otherwise propose.
+    cooldown:
+      default-days: 7
+      semver-major-days: 30
