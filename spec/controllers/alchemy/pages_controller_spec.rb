@@ -373,5 +373,36 @@ module Alchemy
         end
       end
     end
+
+    # TODO: Remove in Alchemy 9.0 together with Alchemy::PagesController#sitemap
+    describe "#sitemap" do
+      render_views
+
+      # Alchemy routes /sitemap.xml to Alchemy::SitemapController now, so this
+      # stands in for an app that kept pointing its own route at this action.
+      routes do
+        ActionDispatch::Routing::RouteSet.new.tap do |set|
+          set.draw do
+            get "/sitemap.xml", to: "alchemy/pages#sitemap", format: "xml"
+          end
+        end
+      end
+
+      let!(:sitemap_page) { create(:alchemy_page, :public, sitemap: true) }
+
+      it "is deprecated" do
+        expect(Alchemy::Deprecation).to receive(:warn)
+        get :sitemap, format: :xml
+      end
+
+      it "still renders the sitemap" do
+        allow(Alchemy::Deprecation).to receive(:warn)
+        get :sitemap, format: :xml
+
+        xml_doc = Nokogiri::XML(response.body)
+        expect(xml_doc.namespaces["xmlns"]).to eq("http://www.sitemaps.org/schemas/sitemap/0.9")
+        expect(xml_doc.css("urlset url loc").length).to eq(2)
+      end
+    end
   end
 end

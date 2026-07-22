@@ -1,6 +1,8 @@
+<%- cache_if @sitemap_cache_key, @sitemap_cache_key, expires_in: @sitemap_max_age do -%>
 <%- @pages.each do |page| -%>
 <url>
   <loc><%= show_alchemy_page_url(page) %></loc>
   <lastmod><%= page.updated_at.utc.iso8601 %></lastmod>
 </url>
+<%- end -%>
 <%- end -%>
