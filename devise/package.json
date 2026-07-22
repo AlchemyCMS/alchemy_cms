@@ -7,5 +7,6 @@
   },
   "devDependencies": {
     "sass": "^1.77.8"
-  }
+  },
+  "packageManager": "pnpm@11.14.0"
 }
