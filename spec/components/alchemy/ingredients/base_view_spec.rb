@@ -46,4 +46,14 @@ RSpec.describe Alchemy::Ingredients::BaseView do
       end
     end
   end
+
+  describe "#call", type: :component do
+    let(:ingredient) { Alchemy::Ingredients::Text.new(role: "headline", value: "<script>alert('XSS')</script>") }
+
+    it "escapes the value" do
+      render_inline described_class.new(ingredient)
+      expect(rendered_content).to include("&lt;script&gt;")
+      expect(rendered_content).to_not include("<script>")
+    end
+  end
 end
