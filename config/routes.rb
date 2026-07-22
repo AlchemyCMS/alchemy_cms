@@ -5,7 +5,7 @@ require "alchemy/routing_constraints"
 Alchemy::Engine.routes.draw do
   root to: "pages#index"
 
-  get "/sitemap.xml", to: "pages#sitemap", format: "xml"
+  get "/sitemap.xml", to: "sitemap#show", format: "xml"
 
   scope Alchemy.admin_path, constraints: Alchemy.admin_constraints do
     get "/", to: redirect("#{Alchemy.admin_path}/dashboard"), as: :admin

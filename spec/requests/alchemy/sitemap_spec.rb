@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Requests for PagesController#sitemap" do
+RSpec.describe "Requests for SitemapController#show" do
   let!(:page) { create(:alchemy_page, :public, sitemap: true) }
 
   it "renders valid xml sitemap" do
