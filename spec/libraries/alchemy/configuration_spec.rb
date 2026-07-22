@@ -351,7 +351,7 @@ RSpec.describe Alchemy::Configuration do
 
     it "can be converted to a Hash" do
       expect(configuration.to_h).to eq(
-        sitemap_configs: [{show_root: true, show_flag: false}]
+        sitemap_configs: [{show_root: true, show_flag: false, max_age: 3600}]
       )
     end
   end
