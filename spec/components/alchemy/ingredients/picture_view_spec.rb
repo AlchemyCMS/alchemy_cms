@@ -68,6 +68,23 @@ RSpec.describe Alchemy::Ingredients::PictureView, type: :component do
       end
     end
 
+    context "having script tags" do
+      let(:ingredient) do
+        stub_model Alchemy::Ingredients::Picture,
+          role: "image",
+          picture: picture,
+          data: {
+            caption: "Cute<br />cat<script>alert('XSS')</script>"
+          }
+      end
+
+      it "sanitizes the caption, but keeps allowed tags" do
+        render_view
+        expect(rendered_content).to include("Cute<br>cat")
+        expect(rendered_content).to_not include("<script>")
+      end
+    end
+
     it "does not pass default options to picture url" do
       expect(ingredient).to receive(:picture_url).with({}) { picture_url }
       render_view
