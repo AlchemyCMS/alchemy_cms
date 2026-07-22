@@ -130,10 +130,11 @@ module Alchemy
       Alchemy.config.sitemap.max_age
     end
 
-    # A max_age of zero (or less) disables sitemap caching, because it would
-    # leave the time bucket undefined.
+    # The sitemap has its own cache setting and does not follow the page cache.
+    # A max_age of zero (or less) disables it, because it would leave the time
+    # bucket undefined.
     def sitemap_caching_enabled?
-      caching_enabled? && sitemap_max_age.to_i.positive?
+      perform_caching && sitemap_max_age.to_i.positive?
     end
 
     # Redirects to requested action without locale prefixed

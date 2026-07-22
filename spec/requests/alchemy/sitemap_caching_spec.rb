@@ -24,8 +24,8 @@ RSpec.describe "XML sitemap caching" do
   end
 
   context "when caching is enabled" do
-    before { Rails.application.config.action_controller.perform_caching = true }
-    after { Rails.application.config.action_controller.perform_caching = false }
+    before { ActionController::Base.perform_caching = true }
+    after { ActionController::Base.perform_caching = false }
 
     it "sets a public cache-control header with the configured max-age" do
       get "/sitemap.xml"
@@ -132,6 +132,20 @@ RSpec.describe "XML sitemap caching" do
       expect(response.body).to_not include("http://example.com/")
     end
 
+    # The sitemap is not a page, and sitemap.max_age is its own switch.
+    context "with page caching turned off" do
+      before { stub_alchemy_config(cache_pages: false) }
+
+      it "still caches the sitemap" do
+        templates = rendered_templates do
+          get "/sitemap.xml"
+          get "/sitemap.xml"
+        end
+
+        expect(templates.grep(/sitemap/).length).to eq(1)
+      end
+    end
+
     context "with an empty sitemap" do
       before { Alchemy::Page.update_all(sitemap: false) }
 
@@ -148,11 +162,11 @@ RSpec.describe "XML sitemap caching" do
 
   context "when max_age is zero" do
     before do
-      Rails.application.config.action_controller.perform_caching = true
+      ActionController::Base.perform_caching = true
       allow(Alchemy.config.sitemap).to receive(:max_age).and_return(0)
     end
 
-    after { Rails.application.config.action_controller.perform_caching = false }
+    after { ActionController::Base.perform_caching = false }
 
     it "renders the sitemap uncached" do
       get "/sitemap.xml"
@@ -164,7 +178,7 @@ RSpec.describe "XML sitemap caching" do
   end
 
   context "when caching is disabled" do
-    before { Rails.application.config.action_controller.perform_caching = false }
+    before { ActionController::Base.perform_caching = false }
 
     it "does not set a public cache-control header" do
       get "/sitemap.xml"
