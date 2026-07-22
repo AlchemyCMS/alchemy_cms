@@ -1,5 +1,18 @@
 # Changelog
 
+## 8.1.15 (2026-07-22)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
+
+## What's Changed
+### Performance Improvements
+* [8.1-stable] Add index to alchemy_elements_alchemy_pages table by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4033
+### Security
+* [8.1-stable] fix(ingredients): Escape and sanitize author supplied ingredient values by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4082
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.1.14...v8.1.15
+
 ## 8.1.14 (2026-06-18)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.1-stable -->
