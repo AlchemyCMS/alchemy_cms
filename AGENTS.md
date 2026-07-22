@@ -190,11 +190,6 @@ Use service objects for complex operations rather than bloating models.
 
 The admin interface uses a **hybrid architecture**:
 
-**Legacy jQuery** (still used for):
-- Select2 dropdowns
-- Event delegation
-- AJAX operations
-
 **Modern Web Components** (preferred for new features):
 - Custom elements in `app/javascript/alchemy_admin/components/`
 - Extend `HTMLElement` directly; do all DOM work in `connectedCallback`
