@@ -11,10 +11,6 @@ updates:
       default-days: 7
       semver-major-days: 30
     ignore:
-      # jQuery is still used by some legacy admin code that has not been verified
-      # against jQuery 4, so stay on the 3.x line for now.
-      - dependency-name: "jquery"
-        update-types: ["version-update:semver-major"]
       # cropperjs 2.x removed the bundled stylesheet imported from admin.scss;
       # the major upgrade needs manual migration before it can be taken.
       - dependency-name: "cropperjs"

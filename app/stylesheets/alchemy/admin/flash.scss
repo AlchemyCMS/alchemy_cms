@@ -3,7 +3,8 @@ div#flash_notices {
   right: 50%;
   transform: translateX(50%);
   z-index: 400000;
-  width: 400px;
+  width: calc(400px + var(--main-menu-width));
+  padding-left: var(--main-menu-width);
   top: var(--spacing-1);
 
   alchemy-message {
