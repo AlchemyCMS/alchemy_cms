@@ -104,11 +104,14 @@ export class Dialog {
     }
   }
 
+  // The notices are not cleared on the way back. Anything transient left at
+  // this point was raised by the dialog itself, typically the growl of the
+  // response that closes it, and has to outlive the dialog. Moving it re-arms
+  // its dismiss timer, which is what a just-raised notice wants anyway.
   #releaseFlashNotices() {
     const flashNotices = document.getElementById("flash_notices")
     if (flashNotices && this.#previousFlashParent) {
       this.#previousFlashParent.append(flashNotices)
-      this.#clearTransientNotices(flashNotices)
     }
   }
 
