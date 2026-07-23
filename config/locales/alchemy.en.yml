@@ -367,6 +367,7 @@ en:
     "Site successfully updated": "Website successfully updated."
     "Size": "Size"
     "Successfully deleted element": "Successfully deleted %{element}"
+    updated_ingredient: "Successfully updated %{ingredient}"
     "Tags": "Tags"
     "This page is locked": "This page is currently locked by %{name}"
     "Title": "Title"
