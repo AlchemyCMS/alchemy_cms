@@ -132,7 +132,7 @@ module Alchemy
             .to receive(:update_without_password)
             .with(ActionController::Parameters.new(params_hash).permit!).and_return(true)
 
-          post :update, params: {id: user.id, user: params_hash, format: :js}
+          post :update, params: {id: user.id, user: params_hash, format: :turbo_stream}
         end
       end
 
@@ -145,7 +145,7 @@ module Alchemy
           }
           expect(user).to receive(:update).with(ActionController::Parameters.new(params_hash).permit!)
 
-          post :update, params: {id: user.id, user: params_hash, format: :js}
+          post :update, params: {id: user.id, user: params_hash, format: :turbo_stream}
         end
       end
 
@@ -190,7 +190,7 @@ module Alchemy
           expect(user)
             .to receive(:update_without_password)
             .with(ActionController::Parameters.new({"alchemy_roles" => ["Administrator"]}).permit!)
-          post :update, params: {id: user.id, user: {alchemy_roles: ["Administrator"]}, format: :js}
+          post :update, params: {id: user.id, user: {alchemy_roles: ["Administrator"]}, format: :turbo_stream}
         end
       end
 
@@ -208,7 +208,7 @@ module Alchemy
 
         it "updates user without role" do
           expect(user).to receive(:update_without_password).with(ActionController::Parameters.new.permit!)
-          post :update, params: {id: user.id, user: {alchemy_roles: ["Administrator"]}, format: :js}
+          post :update, params: {id: user.id, user: {alchemy_roles: ["Administrator"]}, format: :turbo_stream}
         end
       end
     end

@@ -123,7 +123,7 @@ module Alchemy
 
       it "delivers the admin welcome mail." do
         expect(Notifications).to receive(:alchemy_user_created)
-          .and_return(OpenStruct.new(deliver: true))
+          .and_return(double(deliver_later: true))
 
         user.deliver_welcome_mail
       end
@@ -133,7 +133,7 @@ module Alchemy
 
         it "delivers the admin welcome mail." do
           expect(Notifications).to receive(:alchemy_user_created)
-            .and_return(OpenStruct.new(deliver: true))
+            .and_return(double(deliver_later: true))
 
           user.deliver_welcome_mail
         end
@@ -144,7 +144,7 @@ module Alchemy
 
         it "delivers the welcome mail." do
           expect(Notifications).to receive(:member_created)
-            .and_return(OpenStruct.new(deliver: true))
+            .and_return(double(deliver_later: true))
 
           user.deliver_welcome_mail
         end
