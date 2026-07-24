@@ -32,6 +32,66 @@ RSpec.describe Alchemy::LiveReloadWatcher do
     end
   end
 
+  # Two watchers over the same tree fight over one socket, and the gem offers no
+  # hook to skip its own. The dummy app disables it for the length of that one
+  # initializer instead, so both halves have to stay paired and in that window.
+  describe "toggling the gem's own watcher" do
+    def initializer(name)
+      Rails.application.initializers.detect { _1.name == name }
+    end
+
+    around do |example|
+      was_enabled = RailsLiveReload.config.enabled
+      example.run
+      RailsLiveReload.config.enabled = was_enabled
+    end
+
+    context "in development" do
+      before do
+        allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new("development"))
+        RailsLiveReload.config.enabled = true
+      end
+
+      it "disables the gem's watcher before the gem starts it" do
+        initializer("dummy.disable_live_reload_watcher").run(Rails.application)
+
+        expect(RailsLiveReload.config.enabled).to be(false)
+      end
+
+      it "restores the previous setting once the gem is past it" do
+        initializer("dummy.disable_live_reload_watcher").run(Rails.application)
+        initializer("dummy.restore_live_reload").run(Rails.application)
+
+        expect(RailsLiveReload.config.enabled).to be(true)
+      end
+    end
+
+    context "outside of development" do
+      before { RailsLiveReload.config.enabled = true }
+
+      it "leaves the gem's watcher alone" do
+        initializer("dummy.disable_live_reload_watcher").run(Rails.application)
+
+        expect(RailsLiveReload.config.enabled).to be(true)
+      end
+    end
+
+    # Disabling any earlier would skip the middleware that injects the client
+    # script, so the pair has to sit in the window between the two.
+    it "runs between the gem's middleware and its watcher" do
+      order = Rails.application.initializers.tsort.map(&:name).map(&:to_s)
+
+      expect(order.index("dummy.disable_live_reload_watcher")).to be_between(
+        order.index("rails_live_reload.middleware"),
+        order.index("rails_live_reload.watcher")
+      ).exclusive
+      expect(order.index("dummy.restore_live_reload")).to be_between(
+        order.index("rails_live_reload.watcher"),
+        order.index("rails_live_reload.configure_metrics")
+      ).exclusive
+    end
+  end
+
   describe "the configured patterns" do
     it "ignores the directories written while serving a request" do
       expect(RailsLiveReload.ignore_patterns).to include(
