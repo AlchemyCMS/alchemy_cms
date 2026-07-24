@@ -3,14 +3,16 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(*)
-    can :manage, Event
-    can :index, :admin_events
-    can :manage, Location
-    can :index, :admin_locations
-    can :manage, Series
-    can :index, :admin_series
-    can :manage, Booking
-    can :index, :admin_bookings
+  def initialize(user)
+    if user&.admin?
+      can :manage, Event
+      can :index, :admin_events
+      can :manage, Location
+      can :index, :admin_locations
+      can :manage, Series
+      can :index, :admin_series
+      can :manage, Booking
+      can :index, :admin_bookings
+    end
   end
 end

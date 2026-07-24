@@ -6,7 +6,7 @@ describe Alchemy::Admin::DashboardController do
   routes { Alchemy::Engine.routes }
 
   context "in admin backend" do
-    let(:dummy_user) { mock_model(Alchemy.config.user_class, alchemy_roles: %w[admin], language: "de") }
+    let(:dummy_user) { mock_model(Alchemy.config.user_class, alchemy_roles: %w[admin], language: "de", admin?: true) }
 
     before { authorize_user(dummy_user) }
 
@@ -49,7 +49,7 @@ describe Alchemy::Admin::DashboardController do
       end
 
       context "if user has no preferred locale" do
-        let(:dummy_user) { mock_model(Alchemy.config.user_class, alchemy_roles: %w[admin], language: nil) }
+        let(:dummy_user) { mock_model(Alchemy.config.user_class, alchemy_roles: %w[admin], language: nil, admin?: true) }
 
         context "if locale is available" do
           before do
@@ -66,7 +66,7 @@ describe Alchemy::Admin::DashboardController do
 
           context "if user language is an instance of a model" do
             let(:language) { create(:alchemy_language) }
-            let(:dummy_user) { mock_model(Alchemy.config.user_class, alchemy_roles: %w[admin], language: language) }
+            let(:dummy_user) { mock_model(Alchemy.config.user_class, alchemy_roles: %w[admin], language: language, admin?: true) }
 
             context "if language doesn't return a valid locale symbol" do
               it "should use the browsers language setting" do

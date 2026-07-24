@@ -9,14 +9,14 @@ RSpec.describe Alchemy::Admin::ResourcesController do
     expect(controller.respond_to?(:resource_window_size)).to be_truthy
   end
 
+  before do
+    authorize_user(:as_admin)
+  end
+
   describe "#index" do
     let(:params) { {} }
     let!(:peter) { create(:event, name: "Peter") }
     let!(:lustig) { create(:event, name: "Lustig") }
-
-    before do
-      authorize_user(:as_admin)
-    end
 
     it "returns all records" do
       get :index, params: params
