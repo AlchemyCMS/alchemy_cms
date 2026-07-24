@@ -159,12 +159,6 @@ module Alchemy
           Alchemy.config.user_class.stampable(stamper_class_name: Alchemy.config.user_class_name)
         end
       end
-
-      if defined?(RailsLiveReload) && Rails.env.development?
-        require "alchemy/dev_support/live_reload_watcher"
-
-        Alchemy::LiveReloadWatcher.init
-      end
     end
 
     initializer "alchemy.webp-mime_type" do |app|
