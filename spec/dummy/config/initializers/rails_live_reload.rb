@@ -16,10 +16,8 @@ if defined?(RailsLiveReload)
     # directories written while merely serving a request have to be ignored.
     # Everything below spec/ is ignored except the dummy app's own sources, so
     # that its logs, databases and uploads cannot wake the watcher.
-    if config.respond_to?(:ignore)
-      config.ignore %r{^spec/(?!dummy/(app|config/locales)/)}
-      config.ignore %r{^node_modules/}
-      config.ignore %r{^(db|storage|coverage)/}
-    end
+    config.ignore %r{^spec/(?!dummy/(app|config/locales)/)}
+    config.ignore %r{^node_modules/}
+    config.ignore %r{^(db|storage|coverage)/}
   end
 end
