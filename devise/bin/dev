@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+require "fileutils"
+
+FileUtils.chdir File.expand_path("../spec/dummy", __dir__) do
+  puts "\n== Starting dummy app =="
+  exec "bin/dev"
+end
