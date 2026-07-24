@@ -2,34 +2,35 @@
   <%= stylesheet_link_tag "alchemy-devise" %>
 <% end %>
 
+<% content_for(:main_menu_style) { 'collapsed-menu' } %>
+
 <div class="login_signup_box">
-  <%= render "alchemy/admin/user_sessions/logo" %>
-<% if @user.errors.blank? %>
-  <%= render_message do %>
-    <p>
+  <%= render "alchemy/admin/user_sessions/logo" do %>
+    <% if @user.errors.blank? %>
       <strong><%= Alchemy.t('Password reset') %></strong>
-    </p>
-    <p><%= Alchemy.t('Please enter your email address') %></p>
+      <strong><%= Alchemy.t('Please enter your email address') %></strong>
+    <% end %>
   <% end %>
-<% else %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-<% end %>
-  <%= alchemy_form_for :user, url: admin_reset_password_path, html: {method: 'post'} do |f| %>
-    <%= f.input :email,
-      autofocus: true,
-      required: true,
-      input_html: {
-        autocomplete: "email",
-        value: params[:email]
-      } %>
-    <div class="submit">
-      <%= link_to alchemy.admin_login_path do %>
-        <%= render_icon("arrow-left-s", size: "1x") %>
-        <%= Alchemy.t(:login) %>
-      <% end %>
-      <button type="submit">
-        <%= Alchemy.t("Send reset instructions") %>
-      </button>
-    </div>
-  <% end %>
+
+  <div class="panel">
+    <%= render "devise/shared/error_messages", resource: resource %>
+    <%= alchemy_form_for :user, url: admin_reset_password_path, html: {method: 'post'} do |f| %>
+      <%= f.input :email,
+        autofocus: true,
+        required: true,
+        input_html: {
+          autocomplete: "email",
+          value: params[:email]
+        } %>
+      <div class="submit">
+        <%= link_to alchemy.admin_login_path do %>
+          <%= render_icon("arrow-left-s", size: "1x") %>
+          <%= Alchemy.t(:login) %>
+        <% end %>
+        <button type="submit">
+          <%= Alchemy.t("Send reset instructions") %>
+        </button>
+      </div>
+    <% end %>
+  </div>
 </div>

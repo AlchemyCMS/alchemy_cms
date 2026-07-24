@@ -1,5 +1,9 @@
 body.user_sessions,
 body.passwords {
+  background-image: url("https://picsum.photos/1920/1200.webp?grayscale");
+  background-size: cover;
+  background-position: center;
+
   #errors,
   .message.info {
     border-color: transparent;
@@ -15,41 +19,59 @@ body.passwords {
     flex-direction: column;
     justify-content: center;
   }
+
+  &::after {
+    content: "Image from Unsplash";
+    position: absolute;
+    bottom: var(--spacing-2);
+    right: var(--spacing-2);
+    font-size: var(--font-size_small);
+    color: var(--body-background-color);
+  }
 }
 
 .logo-box {
   display: flex;
-  justify-content: end;
-  align-items: end;
-  margin-bottom: 1.5em;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-4);
+  background-color: hsl(from var(--body-background-color) h s l / 50%);
+  backdrop-filter: blur(5px);
+  border-radius: var(--border-radius_large);
+  box-shadow: var(--dialog-box-shadow);
+  padding: var(--spacing-4);
+  margin-bottom: var(--spacing-6);
+  text-shadow: 0 0 2px var(--body-background-color);
 
   svg {
     width: 200px;
     height: auto;
   }
-
-  small {
-    width: 50px;
-  }
 }
 
 .login_signup_box {
   position: relative;
-  max-width: 460px;
+  max-width: 450px;
   margin: auto;
   --form-right-column-width: 1.65fr;
-
-  alchemy-message {
-    width: 281px;
-    margin-left: auto;
-  }
 
   .no-js & {
     display: none;
   }
 
-  .message {
-    margin-left: 157px;
+  alchemy-message {
+    margin-bottom: 1.5em;
+  }
+
+  .panel {
+    --panel-background-color: var(--body-background-color);
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    box-shadow: var(--dialog-box-shadow);
+    border-radius: var(--border-radius_large);
+    border-color: transparent;
   }
 
   @media (max-width: 500px) {
@@ -81,11 +103,9 @@ body.passwords {
   }
 
   @media (min-width: 501px) {
-    right: 5%;
-
     .submit {
       grid-template-columns: var(--form-left-column-width) minmax(
-          282px,
+          254px,
           var(--form-right-column-width)
         );
 

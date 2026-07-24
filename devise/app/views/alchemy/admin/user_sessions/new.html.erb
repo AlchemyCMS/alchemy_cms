@@ -2,31 +2,32 @@
   <%= stylesheet_link_tag "alchemy-devise" %>
 <% end %>
 
-<div class="login_signup_box">
-  <%= render "alchemy/admin/user_sessions/logo" %>
-  <%= render_message do %>
-    <p>
-      <strong><%= Alchemy.t('modules.user_sessions') %></strong>
-    </p>
-    <p><%= Alchemy.t('welcome_please_identify_notice') %></p>
-  <% end %>
-  <%= alchemy_form_for :user, url: {action: 'create'}, id: 'login', data: { turbo: false } do |f| %>
-    <%= f.input Devise.authentication_keys.first, autofocus: true, required: true,
-      input_html: {autocomplete: Devise.authentication_keys.first == :email ? "email" : "username"} %>
-    <%= f.input :password, required: true, input_html: {autocomplete: "current-password"} %>
-    <% if devise_mapping.rememberable? %>
-      <div class="input">
-        <span class="control-label">&nbsp;</span>
+<% content_for(:main_menu_style) { 'collapsed-menu' } %>
 
-        <%= f.label :remember_me, class: "checkbox" do %>
-          <%= f.check_box :remember_me, checked: true %>
-          <%= Alchemy.t(:remember_me, scope: 'admin.login', days: Devise.remember_for.in_days.to_i) %>
-        <% end %>
+<div class="login_signup_box">
+  <%= render "alchemy/admin/user_sessions/logo" do %>
+    <strong><%= Alchemy.t('welcome_please_identify_notice') %></strong>
+  <% end %>
+
+  <div class="panel">
+    <%= alchemy_form_for :user, url: {action: 'create'}, id: 'login', data: { turbo: false } do |f| %>
+      <%= f.input Devise.authentication_keys.first, autofocus: true, required: true,
+        input_html: {autocomplete: Devise.authentication_keys.first == :email ? "email" : "username"} %>
+      <%= f.input :password, required: true, input_html: {autocomplete: "current-password"} %>
+      <% if devise_mapping.rememberable? %>
+        <div class="input">
+          <span class="control-label">&nbsp;</span>
+
+          <%= f.label :remember_me, class: "checkbox" do %>
+            <%= f.check_box :remember_me, checked: true %>
+            <%= Alchemy.t(:remember_me, scope: 'admin.login', days: Devise.remember_for.in_days.to_i) %>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="submit">
+        <%= link_to Alchemy.t('Forgot your password?'), admin_new_password_path %>
+        <button type="submit"><%= Alchemy.t(:login) %></button>
       </div>
     <% end %>
-    <div class="submit">
-      <%= link_to Alchemy.t('Forgot your password?'), admin_new_password_path %>
-      <button type="submit"><%= Alchemy.t(:login) %></button>
-    </div>
-  <% end %>
+  </div>
 </div>

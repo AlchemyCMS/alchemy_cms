@@ -2,32 +2,32 @@
   <%= stylesheet_link_tag "alchemy-devise" %>
 <% end %>
 
+<% content_for(:main_menu_style) { 'collapsed-menu' } %>
+
 <div class="login_signup_box">
-  <%= render "alchemy/admin/user_sessions/logo" %>
-<% if @user.errors.blank? %>
-  <%= render_message do %>
-    <p>
-      <strong><%= Alchemy.t('Password reset') %></strong>
-    </p>
-    <p><%= Alchemy.t('Please enter a new password') %></p>
+  <%= render "alchemy/admin/user_sessions/logo" do %>
+    <% if @user.errors.blank? %>
+      <strong><%= Alchemy.t('Please enter a new password') %></strong>
+    <% end %>
   <% end %>
-<% else %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-<% end %>
-  <%= alchemy_form_for resource, as: resource_name, url: admin_update_password_path, method: 'patch' do |f| %>
-    <%= f.hidden_field :reset_password_token %>
-    <%= f.input :password, autofocus: true, label: Alchemy.t("New password"),
-      required: true, input_html: {autocomplete: "new-password"} %>
-    <%= f.input :password_confirmation, label: Alchemy.t("Confirm new password"),
-      required: true, input_html: {autocomplete: "new-password"} %>
-    <div class="submit">
-      <%= link_to alchemy.admin_login_path do %>
-        <%= render_icon("arrow-left-s", size: "1x") %>
-        <%= Alchemy.t(:login) %>
-      <% end %>
-      <button type="submit">
-        <%= Alchemy.t("Change password") %>
-      </button>
-    </div>
-  <% end %>
+
+  <div class="panel">
+    <%= render "devise/shared/error_messages", resource: resource %>
+    <%= alchemy_form_for resource, as: resource_name, url: admin_update_password_path, method: 'patch' do |f| %>
+      <%= f.hidden_field :reset_password_token %>
+      <%= f.input :password, autofocus: true, label: Alchemy.t("New password"),
+        required: true, input_html: {autocomplete: "new-password"} %>
+      <%= f.input :password_confirmation, label: Alchemy.t("Confirm new password"),
+        required: true, input_html: {autocomplete: "new-password"} %>
+      <div class="submit">
+        <%= link_to alchemy.admin_login_path do %>
+          <%= render_icon("arrow-left-s", size: "1x") %>
+          <%= Alchemy.t(:login) %>
+        <% end %>
+        <button type="submit">
+          <%= Alchemy.t("Change password") %>
+        </button>
+      </div>
+    <% end %>
+  </div>
 </div>
