@@ -1,4 +1,4 @@
-module Alchemy
+module Dummy
   class LiveReloadWatcher < RailsLiveReload::Watcher
     # Directories that can hold files matching the configured watch patterns.
     # Globbing the whole engine root would also walk node_modules, the dummy

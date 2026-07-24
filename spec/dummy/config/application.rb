@@ -66,9 +66,9 @@ module Dummy
     # place, and so it replaces rather than joins the watcher disabled above.
     config.after_initialize do
       if Rails.env.development? && RailsLiveReload.enabled?
-        require "alchemy/dev_support/live_reload_watcher"
+        require_relative "../lib/live_reload_watcher"
 
-        Alchemy::LiveReloadWatcher.init
+        Dummy::LiveReloadWatcher.init
       end
     end
   end

@@ -2,9 +2,11 @@
 
 require "rails_helper"
 require "tmpdir"
-require "alchemy/dev_support/live_reload_watcher"
 
-RSpec.describe Alchemy::LiveReloadWatcher do
+# Only required from an initializer in development, so the spec has to load it.
+require Rails.root.join("lib/live_reload_watcher").to_s
+
+RSpec.describe Dummy::LiveReloadWatcher do
   # Both the subclass and the initializers ordered around the gem's own reach
   # into rails_live_reload internals that it does not document. An upgrade that
   # moves them has to fail here, rather than in a browser that quietly stops
