@@ -160,10 +160,40 @@ module Alchemy
         end
       end
 
-      if defined?(RailsLiveReload) && Rails.env.development?
+      if Alchemy::Engine.watch_engine_files? && RailsLiveReload.enabled?
         require "alchemy/dev_support/live_reload_watcher"
 
         Alchemy::LiveReloadWatcher.init
+      end
+    end
+
+    # Alchemy is developed from a checkout when the application root lies inside
+    # the engine root. Only then is watching the engine's own files useful, and
+    # only then does our watcher cover the application as well. Installed as a
+    # gem the engine root never changes, so rails_live_reload's own watcher is
+    # the useful one and is left in place.
+    def self.watch_engine_files?
+      defined?(RailsLiveReload) && Rails.env.development? &&
+        Rails.application.root.to_s.start_with?("#{root}/")
+    end
+
+    # rails_live_reload always starts a watcher rooted at the application, which
+    # duplicates ours and fights it over the same socket. It has no hook to skip
+    # it, so it is disabled for the length of that single initializer.
+    initializer "alchemy.disable_live_reload_watcher",
+      after: "rails_live_reload.middleware",
+      before: "rails_live_reload.watcher" do
+      if Alchemy::Engine.watch_engine_files?
+        @live_reload_enabled = RailsLiveReload.enabled?
+        RailsLiveReload.config.enabled = false
+      end
+    end
+
+    initializer "alchemy.restore_live_reload",
+      after: "rails_live_reload.watcher",
+      before: "rails_live_reload.configure_metrics" do
+      if Alchemy::Engine.watch_engine_files?
+        RailsLiveReload.config.enabled = @live_reload_enabled
       end
     end
 
