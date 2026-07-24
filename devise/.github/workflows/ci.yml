@@ -8,25 +8,22 @@ on:
 
 jobs:
   RSpec:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         alchemy_branch:
-          - "8.3-stable"
+          - main
         ruby:
-          - "3.3"
           - "3.4"
           - "4.0"
         rails:
-          - "7.2"
           - "8.0"
           - "8.1"
         database:
           - mysql
           - postgresql
           - sqlite
-
     env:
       DB: ${{ matrix.database }}
       DB_USER: alchemy_user
@@ -101,7 +98,7 @@ jobs:
           path: spec/dummy/tmp/screenshots
 
   Lint:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
