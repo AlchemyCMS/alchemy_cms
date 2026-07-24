@@ -45,4 +45,28 @@ RSpec.describe Alchemy::Ingredients::RichtextView, type: :component do
       end
     end
   end
+
+  context "without ingredient.settings[:sanitizer]" do
+    it "renders the value unsanitized" do
+      is_expected.to have_selector("h1")
+    end
+  end
+
+  context "with ingredient.settings[:sanitizer]" do
+    before do
+      allow(ingredient).to receive(:settings).and_return({sanitizer: {tags: ["p"]}})
+    end
+
+    it "renders only the allowed tags" do
+      is_expected.to have_content("Lorem ipsum dolor sit amet consectetur adipiscing elit.")
+      is_expected.to_not have_selector("h1")
+      is_expected.to have_selector("p")
+    end
+
+    it "applies the current settings, even if the ingredient was not saved since" do
+      allow(ingredient).to receive(:settings).and_return({sanitizer: {tags: ["h1"]}})
+      is_expected.to have_selector("h1")
+      is_expected.to_not have_selector("p")
+    end
+  end
 end
