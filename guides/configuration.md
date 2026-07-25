@@ -125,7 +125,9 @@ end
 ### link_target_options
 `Array<String>` (Default: `["blank"]`)
 
-Values for the link target select in the link dialog. The value is added as a `data-link-target` attribute.
+Values for the link target select in the link dialog. Each value is stored with a leading underscore and rendered as the link's `target` attribute, so `blank` becomes `target="_blank"`.
+
+If you render a link ingredient in your own view, pass the stored value through `Alchemy::Ingredients::LinkTarget#link_target_value` instead of comparing it yourself. It also maps the legacy `blank` value, stored before the underscore was added.
 
 ### link_dialog_tabs
 
