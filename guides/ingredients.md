@@ -77,7 +77,7 @@ Use this for headlines, product names, or short labels. The editor renders a sin
 ### Example
 
 ~~~ yaml
-- name: button
+- role: button
   type: Text
   settings:
     linkable: true
@@ -109,7 +109,7 @@ Use this for HTML headings. The editor renders a single-line input field with le
 ### Example
 
 ~~~ yaml
-- name: headline
+- role: headline
   type: Headline
   settings:
     levels: [2, 3]
@@ -143,7 +143,7 @@ The editor renders a textarea with an embedded TinyMCE editor.
 ### Example
 
 ~~~ yaml
-- name: text
+- role: text
   type: Richtext
   settings:
     tinymce:
@@ -176,7 +176,7 @@ See the [rendering images](render_images) guide for more on Alchemy's image rend
 ### Example
 
 ~~~ yaml
-- name: hero_image
+- role: hero_image
   type: Picture
   settings:
     size: 1200x600
@@ -213,7 +213,7 @@ A list of media conditions for the image sources. Best used with the `srcset` se
 CSS classes the editor can choose from. The class labels are [translatable](i18n#picture-css-classes).
 
 ~~~ yaml
-- name: hero_image
+- role: hero_image
   type: Picture
   settings:
     css_classes: ['left', 'right', 'no_float']
@@ -241,7 +241,7 @@ Stores a value selected from a list of options. The editor renders a select box.
 ### Example
 
 ~~~ yaml
-- name: width
+- role: width
   type: Select
   default: '300'
   settings:
@@ -266,7 +266,7 @@ If set to `true`, renders the select box inline in the element editor.
 Allow the editor to select multiple values. When enabled, the value is stored as a JSON array internally. The `value` method returns an array instead of a string.
 
 ~~~ yaml
-- name: categories
+- role: categories
   type: Select
   settings:
     select_values:
@@ -347,7 +347,7 @@ Values are not restricted to hex codes -- you can use any string: hex values, CS
 Use the `colors` setting to offer a palette of predefined options:
 
 ~~~ yaml
-- name: brand_color
+- role: brand_color
   type: Color
   settings:
     colors:
@@ -363,7 +363,7 @@ When using simple strings, the value is used as both the label and the swatch pr
 Define colors as hashes to control the label, stored value, and swatch preview independently:
 
 ~~~ yaml
-- name: theme_color
+- role: theme_color
   type: Color
   settings:
     colors:
@@ -385,7 +385,7 @@ The `swatch` controls the color shown in the select dropdown. This is useful whe
 When using predefined colors, you can allow a free color picker alongside the palette:
 
 ~~~ yaml
-- name: accent_color
+- role: accent_color
   type: Color
   settings:
     colors:
@@ -406,7 +406,7 @@ The view renders a download link (`<a>` tag) to the attachment.
 ### Example
 
 ~~~ yaml
-- name: download
+- role: download
   type: File
   settings:
     only: ['pdf', 'zip']
@@ -443,7 +443,7 @@ The view renders an HTML `<audio>` element with a `<source>` child.
 ### Example
 
 ~~~ yaml
-- name: podcast_player
+- role: podcast_player
   type: Audio
   settings:
     controls: true
@@ -490,7 +490,7 @@ The view renders an HTML `<video>` element with a `<source>` child.
 ### Example
 
 ~~~ yaml
-- name: background_video
+- role: background_video
   type: Video
   settings:
     autoplay: true
