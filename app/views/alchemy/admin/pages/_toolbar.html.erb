@@ -2,9 +2,10 @@
   <%= render "alchemy/admin/partials/site_select" %>
   <%= render "alchemy/admin/partials/language_tree_select" %>
   <%= render Alchemy::Admin::ToolbarButton.new(
-    icon: "file-add",
+    icon: "add",
     url: alchemy.new_admin_page_path(language: @current_language),
     hotkey: 'alt+n',
+    primary: true,
     tooltip_placement: "top-start",
     dialog_options: {
       title: Alchemy.t('Add a page'),

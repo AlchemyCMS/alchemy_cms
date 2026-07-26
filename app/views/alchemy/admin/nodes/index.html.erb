@@ -7,8 +7,9 @@
     <%= render 'alchemy/admin/partials/site_select' %>
     <%= render 'alchemy/admin/partials/language_tree_select' %>
     <%= render Alchemy::Admin::ToolbarButton.new(
-      icon: 'menu-add',
+      icon: 'add',
       label: Alchemy.t(:create_menu),
+      primary: true,
       url: alchemy.new_admin_node_path,
       hotkey: 'alt+n',
       tooltip_placement: "top-start",
@@ -17,7 +18,7 @@
         size: '450x120'
       },
       if_permitted_to: [:create, Alchemy::Node]
-    ) if @root_nodes.any? %>
+    ) %>
     <div class="toolbar_spacer"></div>
     <%= render "alchemy/admin/clipboard/button", remarkable_type: "nodes" %>
   </div>

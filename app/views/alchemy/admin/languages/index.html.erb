@@ -1,20 +1,18 @@
-<% label_title = Alchemy.t("Create #{resource_name}", default: Alchemy.t('Create')) %>
-
 <% content_for :toolbar do %>
   <div class="toolbar_buttons">
     <%= render 'alchemy/admin/partials/site_select' %>
     <%= render Alchemy::Admin::ToolbarButton.new(
       icon: :plus,
-      label: label_title,
+      label: Alchemy.t("Add a language"),
+      primary: true,
       url: new_resource_path,
-      title: label_title,
       hotkey: 'alt+n',
       dialog_options: {
-        title: label_title,
+        title: Alchemy.t("Create language"),
         size: "430x415"
       },
       if_permitted_to: [:create, Alchemy::Language]
-    ) if @languages.any? %>
+    ) %>
   </div>
   <%= render 'alchemy/admin/partials/search_form' %>
 <% end %>
