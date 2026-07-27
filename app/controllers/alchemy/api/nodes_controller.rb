@@ -6,7 +6,7 @@ module Alchemy
     before_action :authorize_access, only: [:move, :toggle_folded]
 
     def index
-      @nodes = Node.all
+      @nodes = Node.accessible_by(current_ability, :index)
       @nodes = @nodes.includes(:parent)
       @nodes = @nodes.where(language_id: params[:language_id]) if params[:language_id]
       @nodes = @nodes.ransack(params[:filter]).result.order(:lft)

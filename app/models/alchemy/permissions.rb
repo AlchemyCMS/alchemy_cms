@@ -44,6 +44,11 @@ module Alchemy
         can :read, Alchemy::Page, Alchemy::Page.published.not_restricted.from_current_site do |p|
           p.public? && !p.restricted? && p.site == Alchemy::Current.site
         end
+
+        can :read, Alchemy::Node, Alchemy::Node.available_to_guests do |node|
+          node.language.public? && node.language.site_id == Alchemy::Current.site&.id &&
+            (node.page.nil? || (node.page.public? && !node.page.restricted?))
+        end
       end
     end
 
@@ -66,6 +71,11 @@ module Alchemy
 
         can :read, Alchemy::Page, Alchemy::Page.published.from_current_site do |p|
           p.public? && p.site == Alchemy::Current.site
+        end
+
+        can :read, Alchemy::Node, Alchemy::Node.available_to_members do |node|
+          node.language.public? && node.language.site_id == Alchemy::Current.site&.id &&
+            (node.page.nil? || node.page.public?)
         end
       end
     end
