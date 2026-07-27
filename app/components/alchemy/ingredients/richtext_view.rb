@@ -3,6 +3,8 @@ module Alchemy
     class RichtextView < BaseView
       attr_reader :plain_text
 
+      delegate :sanitizer_settings, to: :ingredient
+
       # @param ingredient [Alchemy::Ingredient]
       # @param plain_text [Boolean] (false) Whether to show as plain text or with markup
       def initialize(ingredient, plain_text: nil, html_options: {})
@@ -13,6 +15,8 @@ module Alchemy
       def call
         if plain_text
           ingredient.stripped_body
+        elsif sanitizer_settings.present?
+          sanitize(value.to_s, **sanitizer_settings)
         else
           value.to_s.html_safe
         end.html_safe
