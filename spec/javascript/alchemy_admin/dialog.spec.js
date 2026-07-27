@@ -89,4 +89,33 @@ describe("Dialog", () => {
       expect(document.body.classList.contains("prevent-scrolling")).toBe(false)
     })
   })
+
+  describe("cancel event", () => {
+    beforeEach(() => {
+      vi.stubGlobal(
+        "fetch",
+        vi.fn(() => new Promise(() => {}))
+      )
+      dialog.open()
+    })
+
+    it("closes when the container's own cancel event fires (Esc key)", () => {
+      const close = vi.spyOn(dialog, "close")
+
+      dialog.dialog_container.dispatchEvent(new Event("cancel"))
+
+      expect(close).toHaveBeenCalled()
+    })
+
+    it("stays open when a nested file input's cancel event bubbles up", () => {
+      dialog.dialog_body.innerHTML = '<input type="file">'
+      const close = vi.spyOn(dialog, "close")
+
+      dialog.dialog_body
+        .querySelector("input")
+        .dispatchEvent(new Event("cancel", { bubbles: true }))
+
+      expect(close).not.toHaveBeenCalled()
+    })
+  })
 })

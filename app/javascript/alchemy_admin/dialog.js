@@ -274,6 +274,12 @@ export class Dialog {
       }
     })
     this.dialog_container.addEventListener("cancel", (e) => {
+      // The <dialog>'s own cancel event (Esc) targets the container, but a file
+      // input's native cancel event (dismissing the OS file picker) bubbles up
+      // to the same node. Only the former should close the dialog.
+      if (e.target !== this.dialog_container) {
+        return
+      }
       e.preventDefault()
       this.close()
     })
