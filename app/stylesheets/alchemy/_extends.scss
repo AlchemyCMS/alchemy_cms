@@ -53,11 +53,3 @@
     cursor: not-allowed;
   }
 }
-
-%gradiated-toolbar {
-  display: flex;
-  background: var(--toolbar-bg-color);
-  padding: var(--toolbar-padding);
-  height: var(--toolbar-height);
-  border-bottom: var(--toolbar-border-bottom);
-}

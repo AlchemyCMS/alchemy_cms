@@ -1,12 +1,16 @@
 @use "../extends";
 @use "../variables" as vars;
 
-#toolbar {
-  @extend %gradiated-toolbar;
+.toolbar {
+  display: flex;
   align-items: center;
   gap: var(--spacing-2);
   margin-right: 0px;
   position: relative;
+  background: var(--toolbar-bg-color);
+  padding: var(--toolbar-padding);
+  height: var(--toolbar-height);
+  border-bottom: var(--toolbar-border-bottom);
 
   .toolbar_button {
     --button-height: var(--icon-button-height);
@@ -88,10 +92,6 @@
   select {
     width: var(--select-x-large-width);
   }
-}
-
-#overlay_toolbar {
-  @extend %gradiated-toolbar;
 }
 
 .button_group {

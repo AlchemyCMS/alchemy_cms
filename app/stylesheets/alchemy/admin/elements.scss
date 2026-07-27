@@ -73,7 +73,6 @@ alchemy-elements-window-handle {
 }
 
 .elements-window-toolbar {
-  @extend %gradiated-toolbar;
   padding: var(--spacing-2);
 
   .right {
