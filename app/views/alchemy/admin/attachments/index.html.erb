@@ -2,12 +2,13 @@
   <div class="toolbar_buttons">
     <% if can? :create, Alchemy::Attachment %>
       <div class="toolbar_button">
-        <%= render 'alchemy/admin/uploader/button',
+        <%= render Alchemy::Admin::UploaderButton.new(
           redirect_url: alchemy.admin_attachments_path(q: {
             last_upload: true
           }),
           object: Alchemy::Attachment.new,
-          file_attribute: 'file' %>
+          file_attribute: 'file'
+        ) %>
       </div>
     <% end %>
   </div>
