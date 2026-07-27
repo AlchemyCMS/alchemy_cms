@@ -70,7 +70,7 @@ module Alchemy
         end
 
         can :read, Alchemy::Page, Alchemy::Page.published.from_current_site do |p|
-          p.public? && p.site == Alchemy::Current.site
+          p.public? && p.site == Alchemy::Current.site && p.readable_by?(@user)
         end
 
         can :read, Alchemy::Node, Alchemy::Node.available_to_members do |node|
