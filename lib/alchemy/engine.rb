@@ -178,13 +178,12 @@ module Alchemy
       end
 
       if app.config.active_storage
-        # Rails sends svg images as attachment instead of inline.
-        # We want to display svgs and not download them.
-        unless app.config.active_storage.content_types_allowed_inline.include? svg
-          app.config.active_storage.content_types_allowed_inline += [svg]
-        end
-        # Rails renders SVG as binary for security reasons.
-        # We sanitize SVGs on upload and therefore can serve them as image.
+        # Serve SVGs with their real image/svg+xml content type so they render
+        # in <img> tags. We deliberately do NOT add svg to
+        # +content_types_allowed_inline+: an SVG opened as a top-level document
+        # executes its embedded scripts, so it must be served with an
+        # attachment (download) disposition rather than inline. <img> ignores
+        # Content-Disposition, so image display is unaffected.
         if app.config.active_storage.content_types_to_serve_as_binary.include? svg
           app.config.active_storage.content_types_to_serve_as_binary.delete(svg)
         end
