@@ -9,6 +9,9 @@
   position: relative;
 
   .toolbar_button {
+    --button-height: var(--icon-button-height);
+    --button-margin: 0;
+
     form {
       margin: 0;
       display: inline-flex;

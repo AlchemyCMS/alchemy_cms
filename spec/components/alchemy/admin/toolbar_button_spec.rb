@@ -134,6 +134,27 @@ RSpec.describe Alchemy::Admin::ToolbarButton, type: :component do
         expect(page).to have_css("a.active")
       end
     end
+
+    context "with primary set to true" do
+      let(:component) do
+        described_class.new(
+          url: admin_dashboard_path,
+          icon: "info",
+          label: "Show Info",
+          primary: true
+        )
+      end
+
+      it "renders the label inline next to the icon" do
+        render_inline component
+        expect(page).to have_css("a.button.with_icon", text: "Show Info")
+      end
+
+      it "does not wrap the link in a tooltip" do
+        render_inline component
+        expect(page).not_to have_css("sl-tooltip")
+      end
+    end
   end
 
   context "without permission" do

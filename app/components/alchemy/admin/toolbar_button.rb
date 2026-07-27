@@ -32,23 +32,6 @@ module Alchemy
     #   Skip the permission check. NOT RECOMMENDED!
     #
     class ToolbarButton < ViewComponent::Base
-      erb_template <<-ERB
-        <div class="toolbar_button" id="<%= id %>">
-          <sl-tooltip content="<%= label %>" placement="<%= tooltip_placement %>" <%= "disabled" if disabled? %>>
-            <% if disabled? %>
-              <%= tag.a(render_icon(icon, style: icon_style), class: css_classes + ["disabled"], tabindex: "-1") %>
-            <% else %>
-              <%= link_to(render_icon(icon, style: icon_style), url, {
-                class: css_classes,
-                "data-dialog-options" => dialog ? dialog_options.to_json : nil,
-                "data-alchemy-hotkey" => hotkey,
-                :is => dialog ? "alchemy-dialog-link" : nil
-              }.merge(link_options)) %>
-            <% end %>
-          </sl-tooltip>
-        </div>
-      ERB
-
       delegate :cannot?, :link_to, :link_to_dialog, :render_icon, to: :helpers
 
       attr_reader :url,
@@ -63,7 +46,8 @@ module Alchemy
         :link_options,
         :id,
         :icon_style,
-        :tooltip_placement
+        :tooltip_placement,
+        :primary
 
       def initialize(
         url:,
@@ -79,7 +63,8 @@ module Alchemy
         link_options: {},
         id: nil,
         icon_style: "line",
-        tooltip_placement: "top-start"
+        tooltip_placement: "top-start",
+        primary: false
       )
         @url = url
         @icon = icon
@@ -94,15 +79,53 @@ module Alchemy
         @id = id
         @icon_style = icon_style
         @tooltip_placement = tooltip_placement
+        @primary = primary
+      end
+
+      def call
+        tag.div class: "toolbar_button", id: do
+          if primary
+            link_tag
+          else
+            content_tag "sl-tooltip", content: label, placement: tooltip_placement, disabled: disabled? do
+              link_tag
+            end
+          end
+        end
       end
 
       private
+
+      def link_tag
+        if disabled?
+          tag.a(link_text, class: css_classes, tabindex: "-1")
+        else
+          link_to link_text, url, {
+            :class => css_classes,
+            "data-dialog-options" => dialog ? dialog_options.to_json : nil,
+            "data-alchemy-hotkey" => hotkey,
+            :is => dialog ? "alchemy-dialog-link" : nil
+          }.merge(link_options)
+        end
+      end
+
+      def link_text
+        primary ? icon_tag + label : icon_tag
+      end
+
+      def icon_tag = render_icon(icon, style: icon_style)
 
       def disabled?
         @_disabled ||= !skip_permission_check && cannot?(*permission_options)
       end
 
-      def css_classes = ["icon_button", active && "active"].compact
+      def css_classes
+        [
+          primary ? "button with_icon" : "icon_button",
+          disabled? ? "disabled" : nil,
+          active ? "active" : nil
+        ].compact
+      end
 
       def permission_options = if_permitted_to.presence || permissions_from_url
 
