@@ -22,6 +22,27 @@ module Alchemy
       foreign_key: :related_object_id,
       inverse_of: :related_object
 
+    # All nodes of the current site whose language is published.
+    scope :from_current_public_site, -> {
+      joins(:language)
+        .where(Alchemy::Language.table_name => {site_id: Alchemy::Current.site})
+        .merge(Alchemy::Language.published)
+    }
+
+    # Nodes an anonymous visitor may see: external links or nodes attached to a
+    # published, unrestricted page, scoped to the current site.
+    scope :available_to_guests, -> {
+      from_current_public_site.where(page: nil)
+        .or(from_current_public_site.where(page: Alchemy::Page.published.not_restricted))
+    }
+
+    # Like #available_to_guests but including nodes attached to restricted pages,
+    # which logged in members are allowed to see.
+    scope :available_to_members, -> {
+      from_current_public_site.where(page: nil)
+        .or(from_current_public_site.where(page: Alchemy::Page.published))
+    }
+
     before_validation :translate_root_menu_name, if: -> { root? }
     before_validation :set_menu_type_from_root, unless: -> { root? }
 
