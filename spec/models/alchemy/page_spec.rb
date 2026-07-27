@@ -246,16 +246,79 @@ module Alchemy
           end
         end
 
+        context "with children getting restricted roles changed" do
+          before do
+            page.save
+            @child1 = create(:alchemy_page, name: "Child 1", parent: page)
+            @grandchild = create(:alchemy_page, name: "Grandchild", parent: @child1)
+            page.reload
+            page.update!(restricted: true, permitted_roles: %w[restricted_test])
+          end
+
+          it "passes its restricted roles to all its children" do
+            expect(@child1.reload.permitted_roles).to eq(%w[restricted_test])
+            expect(@grandchild.reload.permitted_roles).to eq(%w[restricted_test])
+          end
+
+          context "and the roles change again while already restricted" do
+            before do
+              page.reload.update!(permitted_roles: %w[member])
+            end
+
+            it "passes the new roles down" do
+              expect(@child1.reload.permitted_roles).to eq(%w[member])
+              expect(@grandchild.reload.permitted_roles).to eq(%w[member])
+            end
+          end
+
+          context "and the page gets unrestricted again" do
+            before do
+              page.reload.update!(restricted: false)
+            end
+
+            it "unrestricts its children" do
+              expect(@child1.reload.restricted?).to be(false)
+              expect(@grandchild.reload.restricted?).to be(false)
+            end
+          end
+        end
+
         context "with restricted parent" do
           let(:new_page) { create(:alchemy_page, name: "New Page", parent: page) }
 
           before do
             page.save
-            page.update!(restricted: true)
+            page.update!(restricted: true, permitted_roles: %w[member restricted_test])
           end
 
           it "child is also restricted" do
             expect(new_page.restricted?).to be_truthy
+          end
+
+          it "child inherits the restricted roles" do
+            expect(new_page.permitted_roles).to eq(%w[member restricted_test])
+          end
+
+          it "child can remove an inherited role" do
+            new_page.update!(permitted_roles: %w[member])
+            expect(new_page.reload.permitted_roles).to eq(%w[member])
+          end
+
+          it "child can not remove all of its roles" do
+            expect(new_page.update(permitted_roles: [])).to be(false)
+            expect(new_page.reload.permitted_roles).to eq(%w[member restricted_test])
+          end
+
+          it "child keeps its own roles on subsequent saves" do
+            new_page.update!(permitted_roles: %w[member])
+            new_page.reload.update!(name: "Renamed")
+            expect(new_page.reload.permitted_roles).to eq(%w[member])
+          end
+
+          it "child is overruled again when the parent changes its roles" do
+            new_page.update!(permitted_roles: %w[member])
+            page.reload.update!(permitted_roles: %w[restricted_test])
+            expect(new_page.reload.permitted_roles).to eq(%w[restricted_test])
           end
         end
 
@@ -1620,6 +1683,67 @@ module Alchemy
 
           it { is_expected.to be(true) }
         end
+      end
+    end
+
+    describe "permitted_roles validation" do
+      context "on a restricted page" do
+        let(:page) { build(:alchemy_page, restricted: true) }
+
+        it "is valid with at least one role" do
+          page.permitted_roles = %w[member]
+          expect(page).to be_valid
+        end
+
+        it "is invalid without any role" do
+          page.permitted_roles = []
+          expect(page).to_not be_valid
+          expect(page.errors[:permitted_roles]).to be_present
+        end
+      end
+
+      context "on an unrestricted page" do
+        let(:page) { build(:alchemy_page, restricted: false) }
+
+        it "is valid without any role" do
+          page.permitted_roles = []
+          expect(page).to be_valid
+        end
+      end
+    end
+
+    describe "#permitted_roles" do
+      it "defaults to the member role" do
+        expect(Alchemy::Page.new.permitted_roles).to eq(%w[member])
+      end
+
+      it "splits the stored string into an array" do
+        page = Alchemy::Page.new
+        page[:permitted_roles] = "member  restricted_test"
+        expect(page.permitted_roles).to eq(%w[member restricted_test])
+      end
+
+      it "returns an empty array if no roles are stored" do
+        expect(Alchemy::Page.new(permitted_roles: nil).permitted_roles).to eq([])
+      end
+    end
+
+    describe "#permitted_roles=" do
+      let(:page) { Alchemy::Page.new }
+
+      it "stores an array as space separated string" do
+        page.permitted_roles = %w[member restricted_test]
+        expect(page[:permitted_roles]).to eq("member restricted_test")
+      end
+
+      it "ignores blank entries" do
+        page.permitted_roles = ["", "member"]
+        expect(page.permitted_roles).to eq(%w[member])
+      end
+
+      it "accepts a string" do
+        page.permitted_roles = "member restricted_test"
+        expect(page.permitted_roles).to eq(%w[member restricted_test])
       end
     end
 
