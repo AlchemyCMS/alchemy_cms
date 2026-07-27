@@ -19,6 +19,7 @@
 #  depth            :integer
 #  locked_by        :integer
 #  restricted       :boolean          default(FALSE)
+#  restricted_roles :string           default("member"), not null
 #  robot_index      :boolean          default(TRUE)
 #  robot_follow     :boolean          default(TRUE)
 #  sitemap          :boolean          default(TRUE)
@@ -150,8 +151,10 @@ module Alchemy
     before_save :set_language_code,
       if: -> { language.present? }
 
-    before_save :set_restrictions_to_child_pages,
-      if: :restricted_changed?
+    # Runs after save, so descendants inheriting from this page see the new
+    # values instead of the ones still stored in the database.
+    after_save :set_restrictions_to_child_pages,
+      if: -> { saved_change_to_restricted? || saved_change_to_restricted_roles? }
 
     before_save :inherit_restricted_status,
       if: -> { parent && parent.restricted? }
@@ -378,12 +381,15 @@ module Alchemy
 
     def set_restrictions_to_child_pages
       descendants.each do |child|
-        child.update(restricted: restricted?)
+        child.update(restricted: restricted?, restricted_roles: self[:restricted_roles])
       end
     end
 
     def inherit_restricted_status
       self.restricted = parent.restricted?
+      # Roles are only seeded from the parent. An existing page keeps the roles
+      # assigned to it, until the parent pushes its own roles down again.
+      self[:restricted_roles] = parent[:restricted_roles] if new_record?
     end
 
     # Returns the first published child
@@ -467,6 +473,20 @@ module Alchemy
       return true unless has_limited_editors?
 
       (editor_roles & user.alchemy_roles).any?
+    end
+
+    # The roles a user needs to hold in order to read this page while it is restricted.
+    #
+    # Stored as a space separated string to stay database agnostic.
+    #
+    def restricted_roles
+      self[:restricted_roles].to_s.split(/\s+/)
+    end
+
+    # Accepts an array of role names (as sent by the admin form) or a raw string.
+    #
+    def restricted_roles=(roles)
+      self[:restricted_roles] = roles.is_a?(Array) ? roles.select(&:present?).join(" ") : roles
     end
 
     # Returns the value of +public_on+ attribute from public version
