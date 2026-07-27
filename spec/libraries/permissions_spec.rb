@@ -17,6 +17,10 @@ describe Alchemy::Permissions do
   let(:published_element) { mock_model(Alchemy::Element, restricted?: false, public?: true) }
   let(:restricted_element) { mock_model(Alchemy::Element, restricted?: true, public?: true) }
   let(:language) { build(:alchemy_language) }
+  let(:public_node) { build(:alchemy_node, name: nil, page: public_page) }
+  let(:external_node) { build(:alchemy_node, :with_url) }
+  let(:restricted_node) { build(:alchemy_node, name: nil, page: restricted_page) }
+  let(:unpublished_node) { build(:alchemy_node, name: nil, page: unpublic_page) }
 
   context "A guest user" do
     let(:user) { nil }
@@ -43,6 +47,13 @@ describe Alchemy::Permissions do
       is_expected.not_to be_able_to(:show, restricted_element)
       is_expected.to be_able_to(:index, published_element)
       is_expected.not_to be_able_to(:index, restricted_element)
+    end
+
+    it "can only see nodes linking to public not restricted pages or external urls" do
+      is_expected.to be_able_to(:read, public_node)
+      is_expected.to be_able_to(:read, external_node)
+      is_expected.not_to be_able_to(:read, restricted_node)
+      is_expected.not_to be_able_to(:read, unpublished_node)
     end
   end
 
@@ -71,6 +82,13 @@ describe Alchemy::Permissions do
       is_expected.to be_able_to(:show, restricted_element)
       is_expected.to be_able_to(:index, published_element)
       is_expected.to be_able_to(:index, restricted_element)
+    end
+
+    it "can also see nodes linking to restricted pages" do
+      is_expected.to be_able_to(:read, public_node)
+      is_expected.to be_able_to(:read, external_node)
+      is_expected.to be_able_to(:read, restricted_node)
+      is_expected.not_to be_able_to(:read, unpublished_node)
     end
   end
 
