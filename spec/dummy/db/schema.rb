@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_09_125719) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_27_092848) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -203,6 +203,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_09_125719) do
     t.integer "parent_id"
     t.datetime "published_at", precision: nil
     t.boolean "restricted", default: false, null: false
+    t.string "restricted_roles", default: "member", null: false
     t.integer "rgt"
     t.boolean "robot_follow", default: true, null: false
     t.boolean "robot_index", default: true, null: false
