@@ -38,6 +38,81 @@ module Alchemy
       it { is_expected.to contain_exactly("main_menu", "footer_menu") }
     end
 
+    describe ".from_current_public_site" do
+      subject { described_class.from_current_public_site }
+
+      let(:default_language) { Alchemy::Language.default || create(:alchemy_language) }
+      let(:other_site) { create(:alchemy_site) }
+      let(:other_site_language) { create(:alchemy_language, :german, site: other_site) }
+      let(:non_public_language) { create(:alchemy_language, :klingon, public: false) }
+
+      let!(:current_site_node) { create(:alchemy_node, language: default_language) }
+      let!(:other_site_node) { create(:alchemy_node, language: other_site_language) }
+      let!(:non_public_language_node) { create(:alchemy_node, language: non_public_language) }
+
+      it "only returns nodes of the current site in a published language" do
+        is_expected.to contain_exactly(current_site_node)
+      end
+    end
+
+    describe ".available_to_guests" do
+      subject { described_class.available_to_guests }
+
+      let(:default_language) { Alchemy::Language.default || create(:alchemy_language) }
+      let(:other_site) { create(:alchemy_site) }
+      let(:other_site_language) { create(:alchemy_language, :german, site: other_site) }
+      let(:non_public_language) { create(:alchemy_language, :klingon, public: false) }
+
+      let!(:public_page_node) do
+        create(:alchemy_node, name: nil, language: default_language,
+          page: create(:alchemy_page, :public, language: default_language))
+      end
+      let!(:external_node) { create(:alchemy_node, :with_url, language: default_language) }
+      let!(:restricted_page_node) do
+        create(:alchemy_node, name: nil, language: default_language,
+          page: create(:alchemy_page, :public, :restricted, language: default_language))
+      end
+      let!(:unpublished_page_node) do
+        create(:alchemy_node, name: nil, language: default_language,
+          page: create(:alchemy_page, language: default_language))
+      end
+      let!(:other_site_node) { create(:alchemy_node, :with_url, language: other_site_language) }
+      let!(:non_public_language_node) { create(:alchemy_node, :with_url, language: non_public_language) }
+
+      it "returns external nodes and nodes with a published, unrestricted page of the current site" do
+        is_expected.to contain_exactly(public_page_node, external_node)
+      end
+    end
+
+    describe ".available_to_members" do
+      subject { described_class.available_to_members }
+
+      let(:default_language) { Alchemy::Language.default || create(:alchemy_language) }
+      let(:other_site) { create(:alchemy_site) }
+      let(:other_site_language) { create(:alchemy_language, :german, site: other_site) }
+      let(:non_public_language) { create(:alchemy_language, :klingon, public: false) }
+
+      let!(:public_page_node) do
+        create(:alchemy_node, name: nil, language: default_language,
+          page: create(:alchemy_page, :public, language: default_language))
+      end
+      let!(:external_node) { create(:alchemy_node, :with_url, language: default_language) }
+      let!(:restricted_page_node) do
+        create(:alchemy_node, name: nil, language: default_language,
+          page: create(:alchemy_page, :public, :restricted, language: default_language))
+      end
+      let!(:unpublished_page_node) do
+        create(:alchemy_node, name: nil, language: default_language,
+          page: create(:alchemy_page, language: default_language))
+      end
+      let!(:other_site_node) { create(:alchemy_node, :with_url, language: other_site_language) }
+      let!(:non_public_language_node) { create(:alchemy_node, :with_url, language: non_public_language) }
+
+      it "also returns nodes with a restricted page but still excludes unpublished, foreign site and non-public language nodes" do
+        is_expected.to contain_exactly(public_page_node, external_node, restricted_page_node)
+      end
+    end
+
     describe "#url" do
       it "is valid with leading slash" do
         expect(build(:alchemy_node, url: "/something")).to be_valid
