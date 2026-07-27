@@ -205,6 +205,23 @@ Alchemy.configure do |config|
   #
   # config.user_roles = ["member", "author", "editor", "admin"]
 
+  # === Restricted roles
+  #
+  # The roles that can be assigned to a restricted page.
+  #
+  # A restricted page is only readable by users holding one of the roles
+  # selected on that page. Assigning no role at all locks everybody out.
+  #
+  # ==== Translating restricted roles
+  #
+  # Restricted roles can be translated inside your language yml file under:
+  #
+  #   alchemy:
+  #     restricted_roles:
+  #       rolename: Name of the role
+  #
+  # config.restricted_roles = ["member"]
+
   # === Uploader Settings
   #
   #   upload_limit       [Integer]    # Set an amount of files upload limit of files which can be uploaded at once. Set 0 for unlimited.

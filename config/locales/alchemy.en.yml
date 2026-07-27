@@ -214,6 +214,10 @@ en:
       editor: "Editor"
       admin: "Administrator"
 
+    # == Restricted roles translations
+    restricted_roles:
+      member: "Member"
+
     link_target_options:
       default: Same Window
       blank: New Window/Tab

@@ -167,6 +167,26 @@ module Alchemy
       #
       option :user_roles, :collection, item_type: :string, default: %w[member author editor admin]
 
+      # === Restricted roles
+      #
+      # The roles that can be assigned to a restricted page.
+      #
+      # A restricted page is only readable by users holding one of the roles
+      # selected on that page. Assigning no role at all locks everybody out.
+      #
+      # These are not necessarily the same as +user_roles+, since membership
+      # tiers usually do not come with editorial permissions.
+      #
+      # ==== Translating restricted roles
+      #
+      # Restricted roles can be translated inside your language yml file under:
+      #
+      #   alchemy:
+      #     restricted_roles:
+      #       rolename: Name of the role
+      #
+      option :restricted_roles, :collection, item_type: :string, default: %w[member]
+
       # === Uploader Settings
       #
       #   upload_limit       [Integer]    # Set an amount of files upload limit of files which can be uploaded at once. Set 0 for unlimited.
