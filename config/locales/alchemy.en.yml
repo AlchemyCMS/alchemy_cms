@@ -583,7 +583,7 @@ en:
         "true": "Page is being edited at the moment."
         "false": ""
       restricted:
-        "true": "Page is only accessible by members."
+        "true": "Page is only accessible by users with one of its roles."
         "false": "Page is accessible by all visitors."
       scheduled:
         public_on: "Page is visible from %{public_on}"
@@ -976,6 +976,7 @@ en:
         public_on: Visible from
         public_until: Visible until
         restricted: "restricted"
+        restricted_roles: "except for users with one of these roles"
         searchable: "show in search"
         robot_follow: "robot may follow links"
         robot_index: "allow robot to index"

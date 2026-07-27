@@ -1,0 +1,8 @@
+<alchemy-conditional-field control="page_restricted" class="page-restricted-roles">
+  <%= label :page, :restricted_roles %>
+  <%= select :page, :restricted_roles, role_options, {}, {
+    multiple: true,
+    is: "alchemy-select",
+    disabled: disabled?
+  } %>
+</alchemy-conditional-field>

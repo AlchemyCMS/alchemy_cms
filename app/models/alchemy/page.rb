@@ -94,6 +94,7 @@ module Alchemy
       :layoutpage,
       :menu_id,
       {
+        restricted_roles: [],
         draft_version_attributes: [:id] + PageVersion::METADATA_ATTRIBUTES.map(&:to_sym)
       }
     ]

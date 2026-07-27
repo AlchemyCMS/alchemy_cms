@@ -271,6 +271,33 @@ module Alchemy
           end
         end
 
+        context "with restricted roles" do
+          it "stores the selected roles" do
+            patch admin_page_path(page, format: :turbo_stream),
+              params: {page: {restricted: true, restricted_roles: ["", "member", "restricted_test"]}}
+
+            expect(page.reload.restricted_roles).to eq(%w[member restricted_test])
+          end
+
+          it "keeps the roles when they are not submitted" do
+            page.update!(restricted: true, restricted_roles: %w[member])
+
+            patch admin_page_path(page, format: :turbo_stream),
+              params: {page: {name: "New Name"}}
+
+            expect(page.reload.restricted_roles).to eq(%w[member])
+          end
+
+          it "can clear the roles" do
+            page.update!(restricted: true, restricted_roles: %w[member])
+
+            patch admin_page_path(page, format: :turbo_stream),
+              params: {page: {restricted: true, restricted_roles: [""]}}
+
+            expect(page.reload.restricted_roles).to eq([])
+          end
+        end
+
         context "scheduling with timezone" do
           it "converts datetime-local values from user timezone to UTC" do
             patch admin_page_path(page, format: :turbo_stream),
