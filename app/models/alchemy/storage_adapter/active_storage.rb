@@ -11,6 +11,17 @@ module Alchemy
           base.after_create_commit if: :svg? do
             SanitizeSvgJob.perform_later(self, file_accessor: :image_file)
           end
+
+          # The image file's dirty state is cleared by the time
+          # +after_update_commit+ runs, so capture it here to know whether the
+          # blob was actually replaced (rather than only its metadata updated).
+          base.before_update do
+            @image_file_replaced = image_file.changed?
+          end
+
+          base.after_update_commit if: -> { @image_file_replaced && svg? } do
+            SanitizeSvgJob.perform_later(self, file_accessor: :image_file)
+          end
         end
       end
 
@@ -18,6 +29,17 @@ module Alchemy
         def self.included(base)
           base.has_one_attached :file
           base.after_create_commit if: :svg? do
+            SanitizeSvgJob.perform_later(self, file_accessor: :file)
+          end
+
+          # The file's dirty state is cleared by the time
+          # +after_update_commit+ runs, so capture it here to know whether the
+          # blob was actually replaced (rather than only its metadata updated).
+          base.before_update do
+            @file_replaced = file.changed?
+          end
+
+          base.after_update_commit if: -> { @file_replaced && svg? } do
             SanitizeSvgJob.perform_later(self, file_accessor: :file)
           end
         end
