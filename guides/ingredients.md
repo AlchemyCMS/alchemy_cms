@@ -163,6 +163,11 @@ See the [TinyMCE customization guide](how_to_customize_tinymce#per-ingredient-cu
 
 Customize the TinyMCE editor for this ingredient.
 
+#### sanitizer
+`Hash`
+
+Restrict which HTML tags and attributes the rendered value may contain. When set, the value is sanitized at render time; without it the value is rendered as-is. Accepts `tags` and `attributes` arrays. See the [TinyMCE customization guide](how_to_customize_tinymce#html-sanitization) for details.
+
 ## Picture
 
 Stores a reference to a picture from the Alchemy library.

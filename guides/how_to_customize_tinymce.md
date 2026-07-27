@@ -158,9 +158,9 @@ Alchemy automatically switches between a light (`alchemy`) and dark (`alchemy-da
 
 ## HTML Sanitization
 
-Alchemy sanitizes richtext content before saving using Rails' [SafeListSanitizer](https://api.rubyonrails.org/classes/Rails/HTML/SafeListSanitizer.html). By default, Rails allows a generous set of tags (`p`, `strong`, `em`, `a`, `ul`, `ol`, `li`, `h1`-`h6`, `blockquote`, `br`, `img`, `span`, and more).
+A Richtext ingredient is a trusted-content field: by default its value is rendered as-is, so whatever markup is saved ends up unescaped in the page.
 
-To be more restrictive, configure which tags and attributes are allowed per ingredient:
+To restrict what gets rendered, configure a `sanitizer:` setting on the ingredient. When it is present, Alchemy sanitizes the value at render time with Rails' [SafeListSanitizer](https://github.com/rails/rails-html-sanitizer#safelistsanitizer), keeping only the tags and attributes you list:
 
 ~~~ yaml
 - name: text
@@ -182,6 +182,11 @@ To be more restrictive, configure which tags and attributes are allowed per ingr
         - target
         - class
 ~~~
+
+::: warning
+Without a `sanitizer:` setting the value is rendered unescaped. Configure a `sanitizer:` on every Richtext ingredient and allow only the tags and attributes that element actually needs.
+:::
+
 ## Configuration Syntax
 
 Any [TinyMCE configuration option](https://www.tiny.cloud/docs/tinymce/latest/editor-important-options/) can be used. When setting options in Ruby (initializer), convert JavaScript syntax to Ruby hashes:
