@@ -3,15 +3,16 @@ module Alchemy
     class UploaderButton < ViewComponent::Base
       delegate :alchemy, to: :helpers
 
-      attr_reader :object, :file_attribute, :accept, :dropzone, :redirect_url
+      attr_reader :object, :file_attribute, :accept, :dropzone, :redirect_url, :inline_label
 
-      def initialize(object:, file_attribute:, redirect_url:, accept: nil, dropzone: nil, label: nil)
+      def initialize(object:, file_attribute:, redirect_url:, accept: nil, dropzone: nil, label: nil, inline_label: false)
         @object = object
         @file_attribute = file_attribute
         @redirect_url = redirect_url
         @dropzone = dropzone || "#main_content"
         @label = label
         @accept = accept || ((file_types.to_a == ["*"]) ? nil : file_types.map { |type| ".#{type}" }.join(", "))
+        @inline_label = inline_label
       end
 
       def call
@@ -38,9 +39,15 @@ module Alchemy
 
       def upload_label(f)
         f.label file_attribute, data: {alchemy_hotkey: "alt+n"} do
-          content_tag "sl-tooltip", content: tooltip, placement: "top-start" do
-            tag.span class: "icon_button", tabindex: "0" do
-              render Alchemy::Admin::Icon.new("upload-2")
+          if inline_label
+            tag.span class: "button with_icon", tabindex: "0" do
+              render(Alchemy::Admin::Icon.new("upload-2")) + tooltip
+            end
+          else
+            content_tag "sl-tooltip", content: tooltip, placement: "top-start" do
+              tag.span class: "icon_button", tabindex: "0" do
+                render Alchemy::Admin::Icon.new("upload-2")
+              end
             end
           end
         end
