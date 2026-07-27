@@ -1,16 +1,13 @@
-<% label_title = Alchemy.t("Create #{resource_name}", default: Alchemy.t('Create')) %>
-
 <% content_for(:toolbar) do %>
   <div class="toolbar_buttons">
     <%= render Alchemy::Admin::ToolbarButton.new(
       icon: "add",
-      label: label_title,
+      label: Alchemy.t("Add #{resource_name}"),
       url: new_resource_path,
-      title: label_title,
       hotkey: 'alt+n',
       tooltip_placement: "top-start",
       dialog_options: {
-        title: label_title,
+        title: Alchemy.t("Create #{resource_name}", default: Alchemy.t('Create')),
         size: resource_window_size
       },
       if_permitted_to: [:create, resource_model]

@@ -2,90 +2,36 @@
 
 require "rails_helper"
 
-describe "alchemy/admin/uploader/_button.html.erb" do
+RSpec.describe "alchemy/admin/uploader/_button.html.erb" do
   let(:object) { Alchemy::Picture.new }
   let(:file_attribute) { :image_file }
   let(:redirect_url) { "/admin/pictures" }
+  let(:component) { instance_double(Alchemy::Admin::UploaderButton, render_in: "") }
+
+  subject(:render_partial) do
+    render partial: "alchemy/admin/uploader/button",
+      locals: {object:, file_attribute:, redirect_url:}
+  end
 
   before do
-    allow(view).to receive(:admin_pictures_path).and_return("/admin/pictures")
-    allow(view).to receive(:admin_attachments_path).and_return("/admin/attachments")
-    view.extend Alchemy::BaseHelper
+    allow(Alchemy::Deprecation).to receive(:warn)
+    allow(Alchemy::Admin::UploaderButton).to receive(:new).and_return(component)
   end
 
-  it "renders a alchemy-uploader component" do
-    render partial: "alchemy/admin/uploader/button",
-      locals: {object: object, file_attribute: file_attribute, redirect_url: redirect_url}
-    expect(rendered).to have_selector("alchemy-uploader[redirect-url='/admin/pictures']")
+  it "renders the UploaderButton component with the forwarded arguments" do
+    expect(Alchemy::Admin::UploaderButton).to receive(:new).with(
+      object:,
+      file_attribute:,
+      redirect_url:,
+      accept: nil,
+      dropzone: nil,
+      label: nil
+    ).and_return(component)
+    render_partial
   end
 
-  context "when wildcard is configured (all file types allowed)" do
-    before do
-      allow(Alchemy.config.uploader.allowed_filetypes).to receive(:alchemy_pictures) do
-        ["*"]
-      end
-    end
-
-    it "does not render the accept attribute" do
-      render partial: "alchemy/admin/uploader/button",
-        locals: {object: object, file_attribute: file_attribute, redirect_url: redirect_url}
-
-      expect(rendered).to have_selector('input[type="file"].fileupload')
-      expect(rendered).not_to have_selector('input[type="file"][accept]')
-    end
-  end
-
-  context "when specific file types are configured" do
-    before do
-      allow(Alchemy.config.uploader.allowed_filetypes).to receive(:alchemy_pictures) do
-        ["jpg", "png", "gif"]
-      end
-    end
-
-    it "renders the accept attribute with the correct file extensions" do
-      render partial: "alchemy/admin/uploader/button",
-        locals: {object: object, file_attribute: file_attribute, redirect_url: redirect_url}
-
-      expect(rendered).to have_selector('input[type="file"].fileupload')
-      expect(rendered).to have_selector('input[type="file"][accept=".jpg, .png, .gif"]')
-    end
-  end
-
-  context "with Attachment object and wildcard" do
-    let(:object) { Alchemy::Attachment.new }
-    let(:file_attribute) { :file }
-
-    before do
-      allow(Alchemy.config.uploader.allowed_filetypes).to receive(:alchemy_attachments) do
-        ["*"]
-      end
-    end
-
-    it "does not render the accept attribute" do
-      render partial: "alchemy/admin/uploader/button",
-        locals: {object: object, file_attribute: file_attribute, redirect_url: redirect_url}
-
-      expect(rendered).to have_selector('input[type="file"].fileupload')
-      expect(rendered).not_to have_selector('input[type="file"][accept]')
-    end
-  end
-
-  context "with Attachment object and specific file types" do
-    let(:object) { Alchemy::Attachment.new }
-    let(:file_attribute) { :file }
-
-    before do
-      allow(Alchemy.config.uploader.allowed_filetypes).to receive(:alchemy_attachments) do
-        ["pdf", "doc", "docx"]
-      end
-    end
-
-    it "renders the accept attribute with the correct file extensions" do
-      render partial: "alchemy/admin/uploader/button",
-        locals: {object: object, file_attribute: file_attribute, redirect_url: redirect_url}
-
-      expect(rendered).to have_selector('input[type="file"].fileupload')
-      expect(rendered).to have_selector('input[type="file"][accept=".pdf, .doc, .docx"]')
-    end
+  it "warns about the deprecation" do
+    expect(Alchemy::Deprecation).to receive(:warn)
+    render_partial
   end
 end

@@ -2,13 +2,14 @@
   <div class="toolbar_buttons">
     <% if can? :create, Alchemy::Picture %>
       <div class="toolbar_button">
-        <%= render 'alchemy/admin/uploader/button',
+        <%= render Alchemy::Admin::UploaderButton.new(
           object: Alchemy::Picture.new,
           file_attribute: 'image_file',
           redirect_url: alchemy.admin_pictures_path(
             size: @size,
             q: { last_upload: true }
-          ) %>
+          )
+        ) %>
       </div>
       <div class="toolbar_spacer"></div>
     <% end %>

@@ -1,17 +1,10 @@
-<% file_types = Alchemy.config.uploader.allowed_filetypes[object.class.model_name.collection] || ['*'] %>
-<% accept ||= file_types.to_a == ["*"] ? nil : file_types.map {|type| ".#{type}"}.join(", ") %>
-
-<alchemy-uploader redirect-url="<%= redirect_url %>" dropzone="<%= local_assigns[:dropzone] || "#main_content" %>">
-  <%= form_for [:admin, object], html: { multipart: true, class: 'upload-button' } do |f| %>
-    <%= f.file_field file_attribute,
-      class: 'fileupload fileupload--field', multiple: true, accept: accept,
-      name: "#{f.object_name}[#{file_attribute}]", tabindex: '-1' %>
-    <%= hidden_field_tag("#{f.object_name}[upload_hash]", Time.current.hash) if object.respond_to?(:upload_hash) %>
-    <%= f.label file_attribute, data: { alchemy_hotkey: 'alt+n' } do %>
-      <%= content_tag "sl-tooltip", content: local_assigns[:label] ||
-                Alchemy.t(:button_label, scope: [:uploader, object.class.model_name.i18n_key]), placement: "top-start" do %>
-        <span class="icon_button" tabindex="0"><%= render_icon "upload-2" %></span>
-      <% end %>
-    <% end %>
-  <% end %>
-</alchemy-uploader>
+<% Alchemy::Deprecation.warn(
+  "Rendering the `alchemy/admin/uploader/button` partial is deprecated! `render Alchemy::Admin::UploaderButton.new` instead."
+) %>
+<%= render Alchemy::Admin::UploaderButton.new(
+  object:,
+  file_attribute:,
+  redirect_url:,
+  accept: local_assigns[:accept],
+  dropzone: local_assigns[:dropzone],
+  label: local_assigns[:label]) %>
