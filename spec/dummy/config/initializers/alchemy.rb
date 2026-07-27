@@ -203,7 +203,7 @@ Alchemy.configure do |config|
   #     user_roles:
   #       rolename: Name of the role
   #
-  # config.user_roles = ["member", "author", "editor", "admin"]
+  config.user_roles = ["member", "author", "editor", "admin", "restricted_test"]
 
   # === Restricted roles
   #
@@ -220,7 +220,7 @@ Alchemy.configure do |config|
   #     restricted_roles:
   #       rolename: Name of the role
   #
-  # config.restricted_roles = ["member"]
+  config.restricted_roles = ["member", "restricted_test"]
 
   # === Uploader Settings
   #

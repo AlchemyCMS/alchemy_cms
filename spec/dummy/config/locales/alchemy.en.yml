@@ -15,6 +15,10 @@ en:
           values:
             starting_today: Starting Today
             future: Future
+    restricted_roles:
+      restricted_test: Restricted Test
+    user_roles:
+      restricted_test: Restricted Test
     element_names:
       gallery_picture: Gallery picture
     ingredient_roles:
