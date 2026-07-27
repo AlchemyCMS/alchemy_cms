@@ -1747,6 +1747,50 @@ module Alchemy
       end
     end
 
+    describe "#readable_by?" do
+      subject { page.readable_by?(user) }
+
+      let(:user) { mock_model("DummyUser", alchemy_roles: %w[member]) }
+
+      context "for an unrestricted page" do
+        let(:page) { build(:alchemy_page, restricted: false, permitted_roles: []) }
+
+        it { is_expected.to be(true) }
+      end
+
+      context "for a restricted page the user has a role for" do
+        let(:page) { build(:alchemy_page, restricted: true, permitted_roles: %w[member]) }
+
+        it { is_expected.to be(true) }
+      end
+
+      context "for a restricted page the user has no role for" do
+        let(:page) { build(:alchemy_page, restricted: true, permitted_roles: %w[restricted_test]) }
+
+        it { is_expected.to be(false) }
+      end
+
+      context "for a restricted page without any role" do
+        let(:page) { build(:alchemy_page, restricted: true, permitted_roles: []) }
+
+        it { is_expected.to be(false) }
+      end
+
+      context "for a user without roles" do
+        let(:user) { mock_model("DummyUser", alchemy_roles: nil) }
+        let(:page) { build(:alchemy_page, restricted: true) }
+
+        it { is_expected.to be(false) }
+      end
+
+      context "without a user" do
+        let(:user) { nil }
+        let(:page) { build(:alchemy_page, restricted: true) }
+
+        it { is_expected.to be(false) }
+      end
+    end
+
     describe "#public_on=" do
       let(:time) { 1.hour.ago }
 

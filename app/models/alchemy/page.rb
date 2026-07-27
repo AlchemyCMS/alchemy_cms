@@ -490,6 +490,19 @@ module Alchemy
       self[:permitted_roles] = roles.is_a?(Array) ? roles.select(&:present?).join(" ") : roles
     end
 
+    # Checks if the given user is allowed to read this page.
+    #
+    # Unrestricted pages are readable by everyone. A restricted page is only
+    # readable by users holding one of the page's +permitted_roles+. A restricted
+    # page without any role locks everybody out, which is why at least one role
+    # is validated to be present.
+    #
+    def readable_by?(user)
+      return true unless restricted?
+
+      (permitted_roles & Array(user&.alchemy_roles).map(&:to_s)).any?
+    end
+
     # Returns the value of +public_on+ attribute from public version
     #
     # If it's a fixed attribute then the fixed value is returned instead
