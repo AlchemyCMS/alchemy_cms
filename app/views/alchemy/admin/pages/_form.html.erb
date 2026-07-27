@@ -11,6 +11,7 @@
       <div class="control_group">
         <%= render 'alchemy/admin/pages/publication_fields', page: %>
         <%= page_status_checkbox(page, :restricted) %>
+        <%= render Alchemy::Admin::PagePermittedRolesSelect.new(page: page, form: f) %>
         <% if Alchemy.config.sitemap.show_flag %>
           <%= page_status_checkbox(page, :sitemap) %>
         <% end %>

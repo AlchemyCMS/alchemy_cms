@@ -271,6 +271,46 @@ module Alchemy
           end
         end
 
+        context "with restricted roles" do
+          it "stores the selected roles" do
+            patch admin_page_path(page, format: :turbo_stream),
+              params: {page: {restricted: true, permitted_roles: ["", "member", "restricted_test"]}}
+
+            expect(page.reload.permitted_roles).to eq(%w[member restricted_test])
+          end
+
+          it "keeps the roles when they are not submitted" do
+            page.update!(restricted: true, permitted_roles: %w[member])
+
+            patch admin_page_path(page, format: :turbo_stream),
+              params: {page: {name: "New Name"}}
+
+            expect(page.reload.permitted_roles).to eq(%w[member])
+          end
+
+          it "can not clear the roles of a restricted page" do
+            page.update!(restricted: true, permitted_roles: %w[member])
+
+            patch admin_page_path(page),
+              params: {page: {restricted: true, permitted_roles: [""]}}
+
+            expect(response).to have_http_status(:unprocessable_content)
+            expect(response.body).to include(
+              "needs at least one role a restricted page is accessible for"
+            )
+            expect(page.reload.permitted_roles).to eq(%w[member])
+          end
+
+          it "can clear the roles of an unrestricted page" do
+            page.update!(restricted: true, permitted_roles: %w[member])
+
+            patch admin_page_path(page, format: :turbo_stream),
+              params: {page: {restricted: false, permitted_roles: [""]}}
+
+            expect(page.reload.permitted_roles).to eq([])
+          end
+        end
+
         context "scheduling with timezone" do
           it "converts datetime-local values from user timezone to UTC" do
             patch admin_page_path(page, format: :turbo_stream),
