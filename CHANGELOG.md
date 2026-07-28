@@ -1,5 +1,18 @@
 # Changelog
 
+## 8.3.6 (2026-07-28)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.3-stable -->
+
+## What's Changed
+### Security
+* [8.3-stable] fix(richtext): Apply the sanitizer setting to rendered output by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4103
+* [8.3] authorize nodes#index to prevent navigation tree disclosure by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4100
+* [8.3-stable] fix(active_storage): harden SVG attachment/picture handling against stored XSS by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4105
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.3.5...v8.3.6
+
 ## 8.3.5 (2026-07-22)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.3-stable -->
