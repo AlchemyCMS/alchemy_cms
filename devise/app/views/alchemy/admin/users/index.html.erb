@@ -5,9 +5,9 @@
 <%= content_for :toolbar do %>
   <%= render Alchemy::Admin::ToolbarButton.new(
     icon: :plus,
-    label: Alchemy.t(:create_user),
+    label: Alchemy.t(:add_user),
+    primary: true,
     url: alchemy.new_admin_user_path,
-    title: Alchemy.t(:create_user),
     hotkey: 'alt+n',
     tooltip_placement: "top-start",
     dialog_options: {
