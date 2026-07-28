@@ -29,6 +29,19 @@ module Alchemy
         expect(response.headers["Content-Disposition"]).to match(/inline/)
       end
 
+      context "with an SVG attachment", if: Alchemy.storage_adapter.active_storage? do
+        let(:attachment) do
+          create(:alchemy_attachment, file: fixture_file_upload("icon.svg", "image/svg+xml"))
+        end
+
+        it "serves it with its image content type but forces a download" do
+          get :show, params: {id: attachment.id}
+          expect(response.status).to eq(200)
+          expect(response.headers["Content-Type"]).to match(%r{image/svg\+xml})
+          expect(response.headers["Content-Disposition"]).to match(/attachment/)
+        end
+      end
+
       context "adds Content-Length to header" do
         it "when downloading attachment" do
           get :download, params: {id: attachment.id}

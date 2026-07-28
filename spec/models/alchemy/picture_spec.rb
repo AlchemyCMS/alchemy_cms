@@ -591,5 +591,45 @@ module Alchemy
         end
       end
     end
+
+    describe "after update", if: Alchemy.storage_adapter.active_storage? do
+      let(:svg_file) { fixture_file_upload("icon.svg", "image/svg+xml") }
+
+      context "when the image file is replaced with an SVG" do
+        let(:picture) { create(:alchemy_picture) }
+
+        before { picture }
+
+        it "enqueues SanitizeSvgJob" do
+          expect {
+            picture.update(image_file: svg_file)
+          }.to have_enqueued_job(StorageAdapter::ActiveStorage::SanitizeSvgJob)
+        end
+      end
+
+      context "when an existing SVG file is replaced with another SVG" do
+        let(:picture) { create(:alchemy_picture, image_file: svg_file) }
+
+        before { picture }
+
+        it "enqueues SanitizeSvgJob" do
+          expect {
+            picture.update(image_file: fixture_file_upload("icon.svg", "image/svg+xml"))
+          }.to have_enqueued_job(StorageAdapter::ActiveStorage::SanitizeSvgJob)
+        end
+      end
+
+      context "when a non-file attribute is updated on an SVG picture" do
+        let(:picture) { create(:alchemy_picture, image_file: svg_file) }
+
+        before { picture }
+
+        it "does not enqueue SanitizeSvgJob" do
+          expect {
+            picture.update(name: "new name")
+          }.not_to have_enqueued_job(StorageAdapter::ActiveStorage::SanitizeSvgJob)
+        end
+      end
+    end
   end
 end
