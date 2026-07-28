@@ -175,6 +175,39 @@ describe("alchemy-uploader", () => {
     })
   })
 
+  describe("with a dropzone", () => {
+    beforeEach(() => {
+      document.body.innerHTML = `
+        <div id="archive"></div>
+        <alchemy-uploader dropzone="#archive" layout="card">
+          <form enctype="multipart/form-data" action="/admin/fake_upload_path">
+            <input type="file" multiple name="file-input-name"/>
+          </form>
+        </alchemy-uploader>
+      `
+      component = document.querySelector("alchemy-uploader")
+    })
+
+    it("renders the progress inside the dropzone", () => {
+      component.uploadFiles([firstFile])
+      const archive = document.querySelector("#archive")
+      expect(archive.querySelector("alchemy-upload-progress")).toBeTruthy()
+    })
+
+    it("reflects the layout onto the progress", () => {
+      component.uploadFiles([firstFile])
+      const progress = document.querySelector("alchemy-upload-progress")
+      expect(progress.getAttribute("layout")).toBe("card")
+    })
+
+    it("defaults the layout to row", () => {
+      component.removeAttribute("layout")
+      component.uploadFiles([firstFile])
+      const progress = document.querySelector("alchemy-upload-progress")
+      expect(progress.getAttribute("layout")).toBe("row")
+    })
+  })
+
   describe("Validate", () => {
     describe("upload limit", () => {
       beforeEach(() => {

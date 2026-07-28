@@ -5,6 +5,7 @@
         <%= render Alchemy::Admin::UploaderButton.new(
           object: Alchemy::Picture.new,
           file_attribute: 'image_file',
+          layout: 'card',
           redirect_url: alchemy.admin_pictures_path(
             size: @size,
             q: { last_upload: true }

@@ -3,20 +3,21 @@ module Alchemy
     class UploaderButton < ViewComponent::Base
       delegate :alchemy, to: :helpers
 
-      attr_reader :object, :file_attribute, :accept, :dropzone, :redirect_url, :inline_label
+      attr_reader :object, :file_attribute, :accept, :dropzone, :redirect_url, :layout, :inline_label
 
-      def initialize(object:, file_attribute:, redirect_url:, accept: nil, dropzone: nil, label: nil, inline_label: false)
+      def initialize(object:, file_attribute:, redirect_url:, accept: nil, dropzone: nil, label: nil, layout: nil, inline_label: false)
         @object = object
         @file_attribute = file_attribute
         @redirect_url = redirect_url
         @dropzone = dropzone || "#main_content"
         @label = label
+        @layout = layout
         @accept = accept || ((file_types.to_a == ["*"]) ? nil : file_types.map { |type| ".#{type}" }.join(", "))
         @inline_label = inline_label
       end
 
       def call
-        content_tag "alchemy-uploader", "redirect-url": redirect_url, dropzone: do
+        content_tag "alchemy-uploader", "redirect-url": redirect_url, dropzone:, layout: do
           form_for [alchemy, :admin, object], html: {multipart: true, class: "upload-button"} do |f|
             safe_join([upload_hash_field(f), file_input(f), upload_label(f)].compact)
           end

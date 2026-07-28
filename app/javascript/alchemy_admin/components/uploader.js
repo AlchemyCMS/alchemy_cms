@@ -154,21 +154,35 @@ export class Uploader extends HTMLElement {
   #createProgress(fileUploads) {
     if (this.uploadProgress) {
       this.uploadProgress.cancel()
-      document.body.removeChild(this.uploadProgress)
+      this.uploadProgress.remove()
     }
     this.uploadProgress = new Progress()
     this.uploadProgress.initialize(fileUploads)
+    this.uploadProgress.setAttribute("layout", this.layout)
     this.uploadProgress.onComplete = (status) => {
       this.dispatchEvent(
         new CustomEvent(`Alchemy.upload.${status}`, { bubbles: true })
       )
     }
 
-    document.body.append(this.uploadProgress)
+    this.#progressContainer.append(this.uploadProgress)
+  }
+
+  // The dropzone doubles as the progress container so the upload indicators
+  // render inside the archive (and inside dialogs). Falls back to the body for
+  // uploaders without a dropzone (e.g. the attachment replace button).
+  get #progressContainer() {
+    return this.#dropzoneElement ?? document.body
   }
 
   get dropzone() {
     return this.getAttribute("dropzone")
+  }
+
+  // Shape of the upload indicators. Defaults to "row" so uploads fit naturally
+  // into resource table views; set layout="card" for the thumbnail grid.
+  get layout() {
+    return this.getAttribute("layout") || "row"
   }
 
   /**

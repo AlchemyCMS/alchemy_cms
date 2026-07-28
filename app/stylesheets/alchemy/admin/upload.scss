@@ -41,6 +41,16 @@
   }
 }
 
+// #main_content scrolls, so the absolute drop indicator (pinned to the top of
+// the scrollable content) scrolls out of view. Pin it to the visible viewport
+// area instead, inset past the top and main menu.
+#main_content.dragover::after {
+  position: fixed;
+  inset: var(--top-menu-height) 0 0 var(--main-menu-width);
+  width: auto;
+  height: auto;
+}
+
 alchemy-upload-progress {
   --border-radius: var(--border-radius_medium);
   --pogress_value-width: calc(232px - var(--spacing-2));
@@ -55,9 +65,13 @@ alchemy-upload-progress {
     );
   height: auto;
   left: 0;
+  max-height: 100%;
   opacity: 0;
+  // Only scroll vertically; setting overflow-y alone forces overflow-x to auto,
+  // which shows a spurious horizontal scrollbar for the grid's sub-pixel overflow.
+  overflow: hidden auto;
   padding: var(--spacing-4);
-  position: fixed;
+  position: absolute;
   transition: var(--transition-duration) ease-in-out;
   width: 100%;
   z-index: 150;
@@ -158,6 +172,52 @@ alchemy-upload-progress {
     &::part(base) {
       top: calc(50% - var(--height) / 2);
     }
+  }
+}
+
+// Inside the scrolling, menu-padded #main_content (a z-index:0 stacking context
+// below the fixed main menu) an absolutely positioned progress hides behind the
+// menu and scrolls away. Pin it to the viewport, inset past the main menu.
+#main_content > alchemy-upload-progress {
+  position: fixed;
+  left: var(--main-menu-width);
+  right: 0;
+  width: auto;
+}
+
+// Mimic the picture archive grid: each upload is a thumbnail-shaped card.
+alchemy-upload-progress[layout="card"] {
+  .single-uploads {
+    grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+  }
+
+  alchemy-file-upload {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+
+    img {
+      height: 120px;
+      width: 100%;
+    }
+
+    .description {
+      align-self: stretch;
+    }
+
+    button {
+      position: absolute;
+      top: var(--spacing-1);
+      right: var(--spacing-1);
+      margin-left: 0;
+    }
+  }
+}
+
+// Default: each upload is a stacked row, fitting resource table views.
+alchemy-upload-progress[layout="row"] {
+  .single-uploads {
+    grid-template-columns: 1fr;
   }
 }
 
