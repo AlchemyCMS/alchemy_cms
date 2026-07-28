@@ -80,6 +80,61 @@ module Alchemy
           end
         end
       end
+
+      context "with restricted, unpublished and foreign nodes present" do
+        let(:result) { JSON.parse(response.body) }
+
+        let(:default_language) { Alchemy::Language.default || create(:alchemy_language) }
+        let(:public_page) { create(:alchemy_page, :public, language: default_language) }
+        let(:restricted_page) { create(:alchemy_page, :public, :restricted, language: default_language) }
+        let(:unpublished_page) { create(:alchemy_page, language: default_language) }
+
+        let(:other_site) { create(:alchemy_site) }
+        let(:other_site_language) { create(:alchemy_language, :german, site: other_site) }
+        let(:hidden_language) { create(:alchemy_language, :klingon, public: false) }
+
+        let!(:public_node) { create(:alchemy_node, page: public_page, name: nil, language: default_language) }
+        let!(:external_node) { create(:alchemy_node, :with_url, language: default_language) }
+        let!(:restricted_node) { create(:alchemy_node, page: restricted_page, name: nil, language: default_language) }
+        let!(:unpublished_node) { create(:alchemy_node, page: unpublished_page, name: nil, language: default_language) }
+        let!(:other_site_node) { create(:alchemy_node, :with_url, language: other_site_language) }
+        let!(:hidden_language_node) { create(:alchemy_node, :with_url, language: hidden_language) }
+
+        context "as guest user" do
+          it "only returns current site nodes linking to public unrestricted pages or external urls" do
+            get alchemy.api_nodes_path(params: {format: :json})
+
+            expect(result["data"].map { |n| n["id"] }).to match_array([
+              public_node.id,
+              external_node.id
+            ])
+          end
+        end
+
+        context "as member user" do
+          before { authorize_user(build(:alchemy_dummy_user)) }
+
+          it "also returns nodes linking to restricted pages" do
+            get alchemy.api_nodes_path(params: {format: :json})
+
+            expect(result["data"].map { |n| n["id"] }).to match_array([
+              public_node.id,
+              external_node.id,
+              restricted_node.id
+            ])
+          end
+        end
+
+        context "as author user" do
+          before { authorize_user(build(:alchemy_dummy_user, :as_author)) }
+
+          it "returns all nodes" do
+            get alchemy.api_nodes_path(params: {format: :json})
+
+            expect(result["data"].map { |n| n["id"] }).to match_array(Alchemy::Node.pluck(:id))
+          end
+        end
+      end
     end
 
     describe "#move" do
