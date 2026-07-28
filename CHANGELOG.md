@@ -1,5 +1,13 @@
 # Changelog
 
+## 7.4.16 (2026-07-28)
+
+## What's Changed
+* [7.4] authorize nodes#index to prevent navigation tree disclosure by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4099
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v7.4.15...v7.4.16
+
 ## 7.4.15 (2026-06-18)
 
 ## What's Changed
