@@ -7,8 +7,8 @@
       <%= Alchemy.t(:successfully_scheduled_element) %>
     </alchemy-growl>
   <% end %>
-  <alchemy-action name="closeCurrentDialog"></alchemy-action>
-  <alchemy-action name="reloadPreview"></alchemy-action>
+  <turbo-stream action="close_current_dialog"></turbo-stream>
+  <turbo-stream action="reload_preview"></turbo-stream>
   <%= turbo_stream.replace "element_#{@element.id}" do %>
     <%= render Alchemy::Admin::ElementEditor.new(
       element: @element

@@ -1,5 +1,9 @@
 import { Turbo } from "@hotwired/turbo-rails"
 import { closeCurrentDialog } from "alchemy_admin/dialog"
+import { reloadPreview } from "alchemy_admin/components/preview_window"
+import { removeTab } from "alchemy_admin/fixed_elements"
+import IngredientAnchorLink from "alchemy_admin/ingredient_anchor_link"
+import pleaseWaitOverlay from "alchemy_admin/please_wait_overlay"
 
 // A dialog form submits into the dialog frame, so a redirect would be followed
 // inside the dialog and render the target page in it. The server answers a
@@ -55,4 +59,30 @@ Turbo.StreamActions.assign_attachment = function () {
   closeCurrentDialog(() => {
     formField.closest("alchemy-element-editor")?.setDirty(formField)
   })
+}
+
+// An intermediate action that closes the current dialog. This will be gone once
+// all dialogs resolve through a promise and no longer have to be closed
+// implicitly.
+Turbo.StreamActions.close_current_dialog = function () {
+  closeCurrentDialog()
+}
+
+Turbo.StreamActions.reload_preview = function () {
+  reloadPreview()
+}
+
+Turbo.StreamActions.remove_fixed_element = function () {
+  removeTab(this.getAttribute("element-id"))
+}
+
+Turbo.StreamActions.update_anchor_icon = function () {
+  IngredientAnchorLink.updateIcon(
+    this.getAttribute("ingredient-id"),
+    this.getAttribute("active") === "true"
+  )
+}
+
+Turbo.StreamActions.hide_please_wait_overlay = function () {
+  pleaseWaitOverlay(false)
 }
