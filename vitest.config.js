@@ -12,7 +12,11 @@ export default defineConfig({
     alias: {
       alchemy_admin: path.resolve(__dirname, "app/javascript/alchemy_admin"),
       assets: path.resolve(__dirname, "vendor/assets/javascripts"),
-      vendor: path.resolve(__dirname, "vendor/javascript")
+      vendor: path.resolve(__dirname, "vendor/javascript"),
+      "@hotwired/turbo-rails": path.resolve(
+        __dirname,
+        "spec/javascript/alchemy_admin/turbo_rails_stub.js"
+      )
     }
   },
   define: {

@@ -1,10 +1,10 @@
 <alchemy-growl>
   <%= Alchemy.t(:updated_ingredient, ingredient: @ingredient.translated_role) %>
 </alchemy-growl>
-<alchemy-action name="closeCurrentDialog"></alchemy-action>
-<alchemy-action name="reloadPreview"></alchemy-action>
+<turbo-stream action="close_current_dialog"></turbo-stream>
+<turbo-stream action="reload_preview"></turbo-stream>
 <% if @ingredient.settings[:anchor] %>
-<alchemy-action name="updateAnchorIcon" params="<%= [@ingredient.id, @ingredient.dom_id.present?].to_json %>"></alchemy-action>
+<turbo-stream action="update_anchor_icon" ingredient-id="<%= @ingredient.id %>" active="<%= @ingredient.dom_id.present? %>"></turbo-stream>
 <% end %>
 <% if @ingredient.type == "Alchemy::Ingredients::Picture" && @ingredient.css_class.present? %>
   <%= turbo_stream.replace @ingredient do %>

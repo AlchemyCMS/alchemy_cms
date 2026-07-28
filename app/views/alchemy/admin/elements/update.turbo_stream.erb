@@ -25,7 +25,7 @@
 
   <% @element.ingredients.each do |ingredient| %>
     <% if ingredient.settings[:anchor] %>
-      <alchemy-action name="updateAnchorIcon" params="<%= [ingredient.id, ingredient.dom_id.present?].to_json %>"></alchemy-action>
+      <turbo-stream action="update_anchor_icon" ingredient-id="<%= ingredient.id %>" active="<%= ingredient.dom_id.present? %>"></turbo-stream>
     <% end %>
   <% end %>
 <% end %>
