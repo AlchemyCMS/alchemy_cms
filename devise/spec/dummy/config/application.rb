@@ -28,6 +28,11 @@ module Dummy
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
+    # Rails 8.1 eagerly requires the configured variant processor's transformer
+    # at boot. The dragonfly adapter doesn't use ActiveStorage variants, so
+    # disable it there to avoid needing an image backend; active_storage uses vips.
+    config.active_storage.variant_processor = :disabled
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
