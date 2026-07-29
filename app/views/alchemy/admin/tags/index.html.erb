@@ -3,8 +3,8 @@
     <%= render Alchemy::Admin::ToolbarButton.new(
       icon: :plus,
       label: Alchemy.t('New Tag'),
+      primary: true,
       url: alchemy.new_admin_tag_path,
-      title: Alchemy.t('New Tag'),
       hotkey: 'alt+n',
       tooltip_placement: "top-start",
       dialog_options: {

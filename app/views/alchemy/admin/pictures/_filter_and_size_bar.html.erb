@@ -4,6 +4,7 @@
       <%= render Alchemy::Admin::UploaderButton.new(
         object: Alchemy::Picture.new,
         dropzone: '#assign_image_list',
+        inline_label: true,
         file_attribute: 'image_file',
         redirect_url: alchemy.admin_pictures_path(
           size: search_filter_params[:size],

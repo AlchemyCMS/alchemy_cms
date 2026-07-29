@@ -78,6 +78,43 @@ RSpec.describe Alchemy::Admin::UploaderButton, type: :component do
     end
   end
 
+  describe "label" do
+    context "by default" do
+      it "renders an icon button wrapped in a tooltip" do
+        render
+        expect(page).to have_selector("sl-tooltip span.icon_button")
+        expect(page).not_to have_selector("span.button.with_icon")
+      end
+    end
+
+    context "when inline_label is true" do
+      subject(:render) do
+        render_inline(described_class.new(object:, file_attribute:, redirect_url:, inline_label: true))
+      end
+
+      it "renders the label inline next to the icon" do
+        render
+        expect(page).to have_selector("span.button.with_icon", text: "Upload images")
+      end
+
+      it "does not wrap the button in a tooltip" do
+        render
+        expect(page).not_to have_selector("sl-tooltip")
+      end
+    end
+
+    context "with a custom label" do
+      subject(:render) do
+        render_inline(described_class.new(object:, file_attribute:, redirect_url:, label: "Add picture", inline_label: true))
+      end
+
+      it "renders the custom label" do
+        render
+        expect(page).to have_selector("span.button.with_icon", text: "Add picture")
+      end
+    end
+  end
+
   describe "upload_hash field" do
     context "when the object responds to upload_hash" do
       it "renders a hidden upload_hash field" do

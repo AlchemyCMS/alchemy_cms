@@ -42,8 +42,7 @@
   justify-content: center;
 }
 
-#toolbar,
-#overlay_toolbar {
+.toolbar {
   .search_form {
     position: absolute;
     top: 0;
@@ -55,7 +54,7 @@
     height: inherit;
   }
 
-  .search_input_field {
+  input.search_input_field {
     width: 0;
     height: 100%;
     border: none;

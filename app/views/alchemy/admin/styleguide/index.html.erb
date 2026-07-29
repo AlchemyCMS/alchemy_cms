@@ -4,15 +4,24 @@
 
 <% content_for(:toolbar) do %>
   <%= render Alchemy::Admin::ToolbarButton.new(
-    icon: :info,
-    label: 'Info',
+    icon: :add,
+    label: 'Inline toolbar button',
+    primary: true,
     url: alchemy.admin_styleguide_path,
-    title: 'Info',
-    hotkey: 'alt+i',
+    title: 'Create',
+    hotkey: 'alt+n',
     dialog_options: {
       title: 'Info',
       size: "650x400"
     },
+    if_permitted_to: [:index, :alchemy_admin_styleguide]
+  ) %>
+  <%= render Alchemy::Admin::ToolbarButton.new(
+    icon: :copy,
+    label: 'Icon only toolbar button',
+    url: alchemy.admin_styleguide_path,
+    title: 'Duplicate',
+    hotkey: 'alt+c',
     if_permitted_to: [:index, :alchemy_admin_styleguide]
   ) %>
 <% end %>

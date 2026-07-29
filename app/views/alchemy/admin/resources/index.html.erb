@@ -3,6 +3,7 @@
     <%= render Alchemy::Admin::ToolbarButton.new(
       icon: "add",
       label: Alchemy.t("Add #{resource_name}"),
+      primary: true,
       url: new_resource_path,
       hotkey: 'alt+n',
       tooltip_placement: "top-start",

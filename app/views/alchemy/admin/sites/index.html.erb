@@ -1,20 +1,18 @@
-<% label_title = Alchemy.t("Create #{resource_name}", default: Alchemy.t('Create')) %>
-
 <% content_for :toolbar do %>
   <div class="toolbar_buttons">
     <%= render Alchemy::Admin::ToolbarButton.new(
       icon: :plus,
-      label: label_title,
+      label: Alchemy.t("Add a site"),
+      primary: true,
       url: new_resource_path,
-      title: label_title,
       hotkey: 'alt+n',
       tooltip_placement: "top-start",
       dialog_options: {
-        title: label_title,
+        title: Alchemy.t("Create site"),
         size: "430x415"
       },
       if_permitted_to: [:create, Alchemy::Site]
-    ) if @sites.any? %>
+    ) %>
   </div>
   <%= render 'alchemy/admin/partials/search_form' %>
 <% end %>

@@ -689,11 +689,11 @@ en:
     unlocked_page: "Unlocked page %{name}."
     uploader:
       alchemy/attachment:
-        button_label: Upload file(s)
+        button_label: Upload files
         upload_success: "File %{name} successfully uploaded"
         upload_failure: "File %{name} upload error: %{error}"
       alchemy/picture:
-        button_label: Upload image(s)
+        button_label: Upload images
         upload_success: "Picture %{name} uploaded successfully"
         upload_failure: "Error while uploading %{name}: %{error}"
       error: "Could not upload file! %{error}"

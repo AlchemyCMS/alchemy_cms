@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "archive_overlay" do %>
-  <div id="overlay_toolbar">
+  <div class="toolbar">
     <div class="toolbar_buttons">
       <% if can? :create, Alchemy::Attachment %>
         <div class="toolbar_button">
@@ -7,6 +7,7 @@
             object: Alchemy::Attachment.new,
             dropzone: '#assign_file_list',
             file_attribute: 'file',
+            inline_label: true,
             accept: Array(search_filter_params[:only]).map { |extension|
               Marcel::MimeType.for(extension:)
             }.join(",").presence,
