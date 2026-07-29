@@ -136,10 +136,6 @@ module Alchemy
         puts "  #{something}"
       end
 
-      def gem_config_path
-        @_config_path ||= File.expand_path("../../../../config/alchemy", __dir__)
-      end
-
       def app_config_path
         @_app_config_path ||= app_root.join("config")
       end
