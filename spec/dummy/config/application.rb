@@ -32,9 +32,13 @@ module Dummy
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-    # config.active_storage.variant_processor = :mini_magick
+    # Rails 8.1 eagerly requires the configured variant processor's transformer
+    # at boot. The dragonfly adapter doesn't use ActiveStorage variants, so
+    # disable it there to avoid needing an image backend; active_storage uses vips.
     if ENV["ALCHEMY_STORAGE_ADAPTER"] == "active_storage"
       config.active_storage.variant_processor = :vips
+    else
+      config.active_storage.variant_processor = :disabled
     end
 
     # This app lives inside the engine root, so rails_live_reload's own watcher
