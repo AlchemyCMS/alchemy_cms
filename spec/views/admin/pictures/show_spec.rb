@@ -45,6 +45,14 @@ describe "alchemy/admin/pictures/show.html.erb" do
     expect(rendered).to have_selector('img[src*="gif"]')
   end
 
+  it "displays the translated image file type" do
+    assign(:assignments, [])
+
+    render
+
+    expect(rendered).to have_content("GIF Image")
+  end
+
   it "separates the tags with a comma" do
     allow(picture).to receive(:tag_list).and_return(["one", "two", "three"])
     assign(:assignments, [])

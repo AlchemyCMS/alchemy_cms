@@ -12,6 +12,10 @@
     <p><%= number_to_human_size @picture.image_file_size %></p>
   </div>
   <div class="value">
+    <label><%= Alchemy::Picture.human_attribute_name(:image_file_format) %></label>
+    <p><%= Alchemy.t(@picture.image_file_format, scope: [:filters, :picture, :by_file_format, :values]) %></p>
+  </div>
+  <div class="value">
     <label><%= Alchemy::Picture.human_attribute_name(:created_at) %></label>
     <p><%= l(@picture.created_at, format: :"alchemy.default") %></p>
   </div>

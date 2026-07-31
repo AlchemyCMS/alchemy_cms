@@ -986,6 +986,7 @@ en:
         image_file_height: "Height"
         image_file_width: "Width"
         image_file_dimensions: "Dimensions"
+        image_file_format: "File type"
         image_file_size: "Filesize"
         name: "Name"
         tag_list: Tags
