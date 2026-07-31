@@ -24,27 +24,25 @@
   </div>
 <% end %>
 
-<div id="archive_all">
-  <h1 id="node_filter_result">Node filter display</h1>
-  <% if @root_nodes.any? %>
-    <% @root_nodes.each do |root_node| %>
-      <ul class="nodes_tree list">
-        <%= render 'node', node: root_node %>
-      </ul>
-    <% end %>
-  <% else %>
-    <div class="panel no-resource-found">
-      <%= render_message do %>
-        <%== Alchemy.t('alchemy/node', scope: :no_resource_found) %>
-      <% end %>
-      <%= render 'form', node: Alchemy::Node.new(
-          site: Alchemy::Current.site,
-          language: Alchemy::Current.language
-        ),
-        button_label: Alchemy.t(:create) %>
-    </div>
+<h1 id="node_filter_result">Node filter display</h1>
+<% if @root_nodes.any? %>
+  <% @root_nodes.each do |root_node| %>
+    <ul class="nodes_tree list">
+      <%= render 'node', node: root_node %>
+    </ul>
   <% end %>
-</div>
+<% else %>
+  <div class="panel no-resource-found">
+    <%= render_message do %>
+      <%== Alchemy.t('alchemy/node', scope: :no_resource_found) %>
+    <% end %>
+    <%= render 'form', node: Alchemy::Node.new(
+        site: Alchemy::Current.site,
+        language: Alchemy::Current.language
+      ),
+      button_label: Alchemy.t(:create) %>
+  </div>
+<% end %>
 
 <script type="module">
   import { NodeTree } from "alchemy_admin/node_tree"

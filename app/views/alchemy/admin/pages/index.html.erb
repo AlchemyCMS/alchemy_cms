@@ -3,7 +3,6 @@
 <% end %>
 
 <%= content_tag :div,
-  id: "archive_all",
   class: [@view == "list" && "resources-table-wrapper with_tag_filter"] do %>
   <% if @view == "list" %>
     <%= render "alchemy/admin/resources/table_header", resources_instance_variable: @pages %>

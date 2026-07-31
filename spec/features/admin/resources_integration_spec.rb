@@ -26,7 +26,7 @@ RSpec.describe "Resources", type: :system do
     it "should list existing resource-items nicely formatted" do
       event
       visit "/admin/events"
-      expect(page).to have_selector("div#archive_all table.list")
+      expect(page).to have_selector("div#main_content table.list")
     end
 
     describe "pagination" do
@@ -38,15 +38,15 @@ RSpec.describe "Resources", type: :system do
         stub_alchemy_config(items_per_page: 5)
 
         visit "/admin/events"
-        expect(page).to have_selector("div#archive_all table.list tbody tr", count: 5)
-        expect(page).to have_selector("div#archive_all .pagination .page", count: 3)
+        expect(page).to have_selector("div#main_content table.list tbody tr", count: 5)
+        expect(page).to have_selector("div#main_content .pagination .page", count: 3)
       end
 
       context "params containing per_page" do
         it "should limit the items per page based on the given value" do
           visit "/admin/events?per_page=3"
-          expect(page).to have_selector("div#archive_all table.list tbody tr", count: 3)
-          expect(page).to have_selector("div#archive_all .pagination .page", count: 5)
+          expect(page).to have_selector("div#main_content table.list tbody tr", count: 3)
+          expect(page).to have_selector("div#main_content .pagination .page", count: 5)
         end
       end
 
@@ -54,11 +54,11 @@ RSpec.describe "Resources", type: :system do
         stub_alchemy_config(items_per_page: 5)
 
         visit "/admin/events"
-        expect(page).to have_selector("div#archive_all table.list tbody tr", count: 5)
+        expect(page).to have_selector("div#main_content table.list tbody tr", count: 5)
 
         select("10", from: "per_page")
 
-        expect(page).to have_selector("div#archive_all table.list tbody tr", count: 10)
+        expect(page).to have_selector("div#main_content table.list tbody tr", count: 10)
         expect(page).to have_select("per_page", selected: "10")
       end
     end
@@ -87,7 +87,7 @@ RSpec.describe "Resources", type: :system do
           it "only shows the selected resources and shows selected filter" do
             visit "/admin/events"
 
-            within "div#archive_all table.list tbody" do
+            within "div#main_content table.list tbody" do
               expect(page).to have_selector("tr", count: 2)
               expect(page).to have_content("today 1")
               expect(page).to have_content("today 2")
@@ -112,7 +112,7 @@ RSpec.describe "Resources", type: :system do
               tom_select("Starting today", from: "By Timeframe")
             end
 
-            within "div#archive_all table.list tbody" do
+            within "div#main_content table.list tbody" do
               expect(page).to have_selector("tr", count: 2)
               expect(page).to have_content("today 1")
               expect(page).to have_content("today 2")
@@ -127,7 +127,7 @@ RSpec.describe "Resources", type: :system do
           it "can combine multiple filters" do
             visit "/admin/events?q[by_timeframe]=starting_today&q[by_location_id]=#{location.id}"
 
-            within "div#archive_all table.list tbody" do
+            within "div#main_content table.list tbody" do
               expect(page).to have_selector("tr", count: 1)
               expect(page).to have_content("today 2")
               expect(page).to_not have_content("today 1")
@@ -141,7 +141,7 @@ RSpec.describe "Resources", type: :system do
 
             select("4", from: "per_page")
 
-            within "div#archive_all table.list tbody" do
+            within "div#main_content table.list tbody" do
               expect(page).to have_selector("tr", count: 2)
               expect(page).to have_content("today 1")
               expect(page).to have_content("today 2")
@@ -157,7 +157,7 @@ RSpec.describe "Resources", type: :system do
 
             select("4", from: "per_page")
 
-            within "div#archive_all table.list tbody" do
+            within "div#main_content table.list tbody" do
               expect(page).to have_selector("tr", count: 2)
               expect(page).to have_content("today 1")
               expect(page).to have_content("today 2")
@@ -169,7 +169,7 @@ RSpec.describe "Resources", type: :system do
             it "should filter the list to only show matching items", :js do
               visit "/admin/events"
 
-              within "div#archive_all table.list tbody" do
+              within "div#main_content table.list tbody" do
                 expect(page).to have_selector("tr", count: 2)
               end
 
@@ -177,7 +177,7 @@ RSpec.describe "Resources", type: :system do
                 tom_select(location.name, from: "Location")
               end
 
-              within "div#archive_all table.list tbody" do
+              within "div#main_content table.list tbody" do
                 expect(page).to have_selector("tr", count: 1)
                 expect(page).to have_content("today 2")
               end
@@ -219,13 +219,13 @@ RSpec.describe "Resources", type: :system do
           it "should filter the list to only show matching items" do
             visit "/admin/events"
 
-            within "div#archive_all table.list tbody" do
+            within "div#main_content table.list tbody" do
               expect(page).to have_selector("tr", count: 3)
             end
 
             find("#library_sidebar .tag-list a", text: "onsite (1)").click
 
-            within "div#archive_all table.list tbody" do
+            within "div#main_content table.list tbody" do
               expect(page).to have_selector("tr", count: 1)
               expect(page).to have_selector("td", text: "onsite event")
             end
