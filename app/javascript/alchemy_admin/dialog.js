@@ -263,6 +263,10 @@ export class Dialog {
       e.preventDefault()
       this.close()
     })
+    this.dialog_container.addEventListener("close", (e) => {
+      e.preventDefault()
+      this.close()
+    })
     this.dialog_container.classList.add("closable")
     // Use pointerdown, not click: a click whose mousedown and mouseup land on
     // different nodes is dispatched to their common ancestor — this element for
