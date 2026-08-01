@@ -1,57 +1,84 @@
-<h2><%= Alchemy.t('Global shortcuts') %></h2>
-<ul class="shortcuts">
-  <li>
-    <kbd>?</kbd>
-    <%= Alchemy.t('Open help window', scope: 'help.shortcuts') %>
-  </li>
-  <li>
-    <kbd>esc</kbd>
-    <%= Alchemy.t('Close current dialog', scope: 'help.shortcuts') %>
-  </li>
-  <li>
-    <kbd>alt</kbd><kbd>q</kbd>
-    <%= Alchemy.t('Open logout dialog', scope: 'help.shortcuts') %>
-  </li>
-  <li>
-    <kbd>alt</kbd><kbd>f</kbd>
-    <%= Alchemy.t('Focus search field', scope: 'help.shortcuts') %>
-  </li>
-  <li>
-    <kbd>alt</kbd><kbd>n</kbd>
-    <%= Alchemy.t('Create a new record', scope: 'help.shortcuts') %>
-  </li>
-</ul>
-<h2><%= Alchemy.t('Page edit shortcuts') %></h2>
-<ul class="shortcuts">
-  <li>
-    <kbd>alt</kbd><kbd>i</kbd>
-    <%= Alchemy.t('Show page infos', scope: 'help.shortcuts') %>
-  </li>
-  <li>
-    <kbd>alt</kbd><kbd>n</kbd>
-    <%= Alchemy.t('Create new element', scope: 'help.shortcuts') %>
-  </li>
-  <li>
-    <kbd>alt</kbd><kbd>e</kbd>
-    <%= Alchemy.t('Edit page properties', scope: 'help.shortcuts') %>
-  </li>
-  <li>
-    <kbd>alt</kbd><kbd>r</kbd>
-    <%= Alchemy.t('Reload the preview', scope: 'help.shortcuts') %>
-  </li>
-  <li>
-    <kbd>alt</kbd><kbd>x</kbd>
-    <%= Alchemy.t('Leave the page', scope: 'help.shortcuts') %>
-  </li>
-</ul>
-<h2><%= Alchemy.t('Library shortcuts') %></h2>
-<ul class="shortcuts">
-  <li>
-    <kbd>alt</kbd><kbd>n</kbd>
-    <%= Alchemy.t('Open upload form', scope: 'help.shortcuts') %>
-  </li>
-  <li>
-    <kbd>alt</kbd><kbd>a</kbd>
-    <%= Alchemy.t('Select all pictures', scope: 'help.shortcuts') %>
-  </li>
-</ul>
+<div class="help-container">
+  <div>
+    <h2><%= Alchemy.t('Global shortcuts') %></h2>
+    <ul class="shortcuts">
+      <li>
+        <kbd>?</kbd>
+        <%= Alchemy.t('Open help window', scope: 'help.shortcuts') %>
+      </li>
+      <li>
+        <kbd>esc</kbd>
+        <%= Alchemy.t('Close current dialog', scope: 'help.shortcuts') %>
+      </li>
+      <li>
+        <kbd>alt</kbd><kbd>q</kbd>
+        <%= Alchemy.t('Open logout dialog', scope: 'help.shortcuts') %>
+      </li>
+      <li>
+        <kbd>alt</kbd><kbd>f</kbd>
+        <%= Alchemy.t('Focus search field', scope: 'help.shortcuts') %>
+      </li>
+      <li>
+        <kbd>alt</kbd><kbd>n</kbd>
+        <%= Alchemy.t('Create a new record', scope: 'help.shortcuts') %>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <h2><%= Alchemy.t('Page edit shortcuts') %></h2>
+    <ul class="shortcuts">
+      <li>
+        <kbd>alt</kbd><kbd>i</kbd>
+        <%= Alchemy.t('Show page infos', scope: 'help.shortcuts') %>
+      </li>
+      <li>
+        <kbd>alt</kbd><kbd>n</kbd>
+        <%= Alchemy.t('Create new element', scope: 'help.shortcuts') %>
+      </li>
+      <li>
+        <kbd>alt</kbd><kbd>e</kbd>
+        <%= Alchemy.t('Edit page properties', scope: 'help.shortcuts') %>
+      </li>
+      <li>
+        <kbd>alt</kbd><kbd>r</kbd>
+        <%= Alchemy.t('Reload the preview', scope: 'help.shortcuts') %>
+      </li>
+      <li>
+        <kbd>alt</kbd><kbd>x</kbd>
+        <%= Alchemy.t('Leave the page', scope: 'help.shortcuts') %>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <h2><%= Alchemy.t('Library shortcuts') %></h2>
+    <ul class="shortcuts">
+      <li>
+        <kbd>alt</kbd><kbd>n</kbd>
+        <%= Alchemy.t('Open upload form', scope: 'help.shortcuts') %>
+      </li>
+      <li>
+        <kbd>alt</kbd><kbd>a</kbd>
+        <%= Alchemy.t('Select all pictures', scope: 'help.shortcuts') %>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <h2><%= Alchemy.t("help.resources") %></h2>
+    <div class="help-resource-links">
+      <a class="button ghost with_icon" href="https://guides.alchemy-cms.com" target="_blank" rel="noopener">
+        <alchemy-icon name="external-link"></alchemy-icon>
+        <%= Alchemy.t("help.resource_links.guidelines") %>
+      </a>
+      <a class="button ghost with_icon" href="https://www.alchemy-cms.com" target="_blank" rel="noopener">
+        <alchemy-icon name="external-link"></alchemy-icon>
+        <%= Alchemy.t("help.resource_links.homepage") %>
+      </a>
+    </div>
+  </div>
+</div>
+
+<form method="dialog">
+  <div class="submit">
+    <button type="submit"><%= Alchemy.t(:close) %></button>
+  </div>
+</form>

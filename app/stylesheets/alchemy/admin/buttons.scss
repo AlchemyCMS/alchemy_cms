@@ -47,6 +47,17 @@ a.button {
       fill: currentColor;
     }
   }
+
+  &.ghost {
+    background-color: transparent;
+    border-color: var(--button-ghost-border-color), var(--text-color);
+    color: var(--button-ghost-text-color, var(--text-color));
+
+    &:hover:not([disabled]):not(.disabled) {
+      border-color: var(--button-ghost-hover-color, var(--text-link-color));
+      color: var(--button-ghost-hover-color, var(--text-link-color));
+    }
+  }
 }
 
 .icon_button {

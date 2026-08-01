@@ -3,12 +3,25 @@
 
   <div id="logout">
     <div class="main_navi_entry">
+      <%= link_to_dialog(
+        safe_join([
+          render_icon(:question, class: 'module'),
+          tag.label(Alchemy.t("Help"))
+        ]),
+        alchemy.help_path,
+        {
+          title: Alchemy.t("AlchemyCMS Help"),
+          size: "500x400"
+        }
+      ) %>
+    </div>
+    <div class="main_navi_entry">
       <% if current_alchemy_user %>
         <%= link_to_dialog(
-          %(
-            #{render_icon('logout-box-r', class: 'module')}
-            <label>#{Alchemy.t(:leave)}</label>
-          ).html_safe,
+          safe_join([
+            render_icon('logout-box-r', class: 'module'),
+            tag.label(Alchemy.t(:leave))
+          ]),
           alchemy.leave_admin_path, {
             size: "320x140",
             title: Alchemy.t("Leave Alchemy")
