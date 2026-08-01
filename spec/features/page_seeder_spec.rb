@@ -40,6 +40,13 @@ RSpec.describe "Page seeding", type: :system do
         expect(home_page.draft_version).to be_present
       end
 
+      it "creates only one draft version per page" do
+        seed
+        Alchemy::Page.find_each do |page|
+          expect(page.versions.draft.count).to eq(1)
+        end
+      end
+
       context "when more then one content root page is present" do
         let(:seeds_file) do
           "spec/fixtures/pages_with_two_roots.yml"
