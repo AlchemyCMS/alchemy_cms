@@ -15,6 +15,10 @@ module Alchemy
           Requesting `admin/dashboard/info` is deprecated. Please render Alchemy::Admin::Dashboard::Widgets::SystemInfo instead.
         WARN
       end
+
+      def license
+        @license = Alchemy::Engine.root.join("LICENSE").read
+      end
     end
   end
 end

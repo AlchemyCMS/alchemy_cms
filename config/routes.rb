@@ -11,6 +11,7 @@ Alchemy::Engine.routes.draw do
     get "/", to: redirect("#{Alchemy.admin_path}/dashboard"), as: :admin
     get "/dashboard", to: "admin/dashboard#index", as: :admin_dashboard
     get "/dashboard/info", to: "admin/dashboard#info", as: :dashboard_info
+    get "/dashboard/license", to: "admin/dashboard#license", as: :dashboard_license
     get "/dashboard/widgets/:id", to: "admin/dashboard/widgets#show", as: :admin_dashboard_widget
     get "/help", to: "admin/dashboard#help", as: :help
     get "/update_check" => "admin/update_checks#show", :as => :update_check

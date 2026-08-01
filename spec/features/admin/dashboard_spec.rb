@@ -29,6 +29,23 @@ RSpec.describe "The Dashboard", type: :system do
     expect(page).to have_css("#PageUsage")
   end
 
+  it "shows the license with an icon and a dialog link" do
+    visit admin_dashboard_path
+    within(".system-info .license") do
+      expect(page).to have_css("alchemy-icon[name='certificate-2']")
+      link = find("a", text: "BSD-3-Clause")
+      expect(link[:href]).to end_with(Alchemy::Engine.routes.url_helpers.dashboard_license_path)
+    end
+  end
+
+  it "opens the LICENSE in a dialog", :js do
+    visit admin_dashboard_path
+    within(".system-info") { click_link("BSD-3") }
+    within(".alchemy-dialog") do
+      expect(page).to have_content("Redistribution and use in source and binary forms")
+    end
+  end
+
   context "with multiple sites" do
     let!(:default_site) { create(:alchemy_site, :default) }
     let!(:another_site) { create(:alchemy_site, name: "Site", host: "site.com") }

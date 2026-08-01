@@ -5,13 +5,18 @@ module Alchemy
     module Dashboard
       module Widgets
         class SystemInfo < ViewComponent::Base
-          delegate :alchemy, :render_message, to: :helpers
+          delegate :alchemy, :render_message, :render_icon, :link_to_dialog, to: :helpers
 
           def initialize
             @alchemy_version = Alchemy.version
           end
 
           private
+
+          def license
+            license_id = Gem.loaded_specs["alchemy_cms"]&.license
+            Alchemy.t(license_id, scope: :licenses) if license_id
+          end
 
           def logo
             @_logo_file ||= File.read(logo_file_path).html_safe
