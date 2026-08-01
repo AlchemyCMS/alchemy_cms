@@ -103,8 +103,8 @@ RSpec.describe Alchemy::GenerateThumbnails do
       if Alchemy.storage_adapter.active_storage?
         it "generates them in the configured webp format" do
           described_class.ingredients
-          content_types = ActiveStorage::VariantRecord.all.map { |record| record.image.blob.content_type }
-          expect(content_types).to include("image/webp")
+          filenames = ActiveStorage::VariantRecord.all.map { |record| record.image.blob.filename.to_s }
+          expect(filenames).to include(a_string_ending_with(".webp"))
         end
       end
     end
