@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "rails_helper"
+require "alchemy/tasks/generate_thumbnails"
 
 RSpec.describe Alchemy::GenerateThumbnails do
   # Adapter-agnostic count of persisted thumbnail artifacts.

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "alchemy/tasks/generate_thumbnails"
+
 namespace :alchemy do
   namespace :generate do
     desc "Generates all thumbnails for Alchemy Pictures and Picture Ingredients."
