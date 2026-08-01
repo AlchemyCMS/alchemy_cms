@@ -44,6 +44,7 @@ const icons = [
   "Device/computer-line",
   "Document/article-line",
   "Document/book-3-line",
+  "Document/certificate-2-line",
   "Document/clipboard-fill",
   "Document/clipboard-line",
   "Document/file-3-line",

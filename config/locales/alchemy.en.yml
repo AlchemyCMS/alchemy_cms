@@ -513,6 +513,9 @@ en:
     language_pages_copied: "Language tree successfully copied."
     left: "left"
     legacy_url_info_text: "A link is a redirect from an old URL to the current URL of this page. This redirect happens with a <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>301 status code</a>."
+    license: "License"
+    licenses:
+      BSD-3-Clause: "BSD-3-Clause"
     link_image: "Link this image."
     link_overlay_tab_label:
       anchor: "Anchor"

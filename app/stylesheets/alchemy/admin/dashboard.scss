@@ -210,6 +210,7 @@
         width: var(--icon-size, var(--icon-size-md));
         height: var(--icon-size, var(--icon-size-md));
         flex-shrink: 0;
+        color: var(--icon-color);
       }
     }
   }
@@ -532,6 +533,12 @@
       --icon-size: var(--icon-size-sm);
       font-size: var(--font-size_small);
     }
+
+    .license {
+      --icon-gap: var(--spacing-1);
+      --icon-size: var(--icon-size-sm);
+      font-size: var(--font-size_small);
+    }
   }
 
   .logo {
@@ -587,4 +594,10 @@ ul.shortcuts {
   li {
     margin: 1em 0;
   }
+}
+
+.license-text {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
 }

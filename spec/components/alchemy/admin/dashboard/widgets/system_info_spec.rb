@@ -3,6 +3,11 @@
 require "rails_helper"
 
 RSpec.describe Alchemy::Admin::Dashboard::Widgets::SystemInfo, type: :component do
+  before do
+    allow(vc_test_view_context).to receive(:render_icon).and_return("icon")
+    allow(vc_test_view_context).to receive(:link_to_dialog).and_return("license link")
+  end
+
   subject(:rendered) do
     render_inline(described_class.new)
     page

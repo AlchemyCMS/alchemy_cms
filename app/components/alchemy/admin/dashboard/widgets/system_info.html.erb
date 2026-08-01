@@ -25,8 +25,13 @@
       </span>
     </span>
 
-    <a href="#legal_info" data-turbo="false">
-      <small><%= Alchemy.t(:legal_info) %></small>
-    </a>
+    <span class="label-with-icon license">
+      <%= render_icon("certificate-2") %>
+      <%= link_to_dialog(
+            license,
+            alchemy.dashboard_license_path,
+            {title: Alchemy.t(:license), size: "600x500"}
+          ) %>
+    </span>
   </div>
 </div>

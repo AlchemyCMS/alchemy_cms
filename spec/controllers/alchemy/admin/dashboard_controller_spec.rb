@@ -23,5 +23,12 @@ module Alchemy
         get :info
       end
     end
+
+    describe "#license" do
+      it "reads the LICENSE file" do
+        get :license
+        expect(assigns(:license)).to include("Redistribution and use in source and binary forms")
+      end
+    end
   end
 end
