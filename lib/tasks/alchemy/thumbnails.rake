@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "alchemy/tasks/generate_thumbnails"
+
 namespace :alchemy do
   namespace :generate do
     desc "Generates all thumbnails for Alchemy Pictures and Picture Ingredients."
@@ -8,46 +10,31 @@ namespace :alchemy do
       "alchemy:generate:ingredient_picture_thumbnails"
     ]
 
-    desc "Generates thumbnails for Alchemy Pictures."
+    desc "Generates thumbnails for Alchemy Pictures (set ASYNC=true to enqueue them as background jobs, active_storage only)."
     task picture_thumbnails: :environment do
-      puts "Regenerate #{Alchemy::Picture.count} picture thumbnails."
-      puts "Please wait..."
+      async = ActiveModel::Type::Boolean.new.cast(ENV["ASYNC"]) && Alchemy.storage_adapter.active_storage?
 
-      Alchemy::Picture.find_each do |picture|
-        next unless picture.has_convertible_format?
+      puts "#{async ? "Enqueuing" : "Generating"} thumbnails for #{Alchemy::Picture.count} pictures..."
 
-        puts Alchemy::PictureThumb.generate_thumbs!(picture)
-      end
+      Alchemy::GenerateThumbnails.pictures(async: async) { print "." }
 
-      puts "Done!"
+      puts "\nDone!"
     end
 
-    desc "Generates thumbnails for Alchemy Picture Ingredients (set ELEMENTS=element1,element2 to only generate thumbnails for a subset of elements)."
+    desc "Generates thumbnails for Alchemy Picture Ingredients (set ELEMENTS=element1,element2 to only generate thumbnails for a subset of elements, set ASYNC=true to enqueue them as background jobs, active_storage only)."
     task ingredient_picture_thumbnails: :environment do
-      ingredient_pictures = Alchemy::Ingredients::Picture
-        .joins(:element)
-        .preload({related_object: :thumbs})
-        .merge(Alchemy::Element.published)
+      element_names = ENV["ELEMENTS"].presence&.split(",")
+      async = ActiveModel::Type::Boolean.new.cast(ENV["ASYNC"]) && Alchemy.storage_adapter.active_storage?
 
-      if ENV["ELEMENTS"].present?
-        ingredient_pictures = ingredient_pictures.merge(
-          Alchemy::Element.named(ENV["ELEMENTS"].split(","))
-        )
+      puts "#{async ? "Enqueuing" : "Generating"} thumbnails for picture ingredients..."
+
+      count = 0
+      Alchemy::GenerateThumbnails.ingredients(element_names: element_names, async: async) do
+        count += 1
+        print "."
       end
 
-      puts "Regenerate #{ingredient_pictures.count} ingredient picture thumbnails."
-      puts "Please wait..."
-
-      ingredient_pictures.find_each do |ingredient_picture|
-        puts ingredient_picture.picture_url
-        puts ingredient_picture.thumbnail_url
-
-        ingredient_picture.settings.fetch(:srcset, []).each do |src|
-          puts ingredient_picture.picture_url(src)
-        end
-      end
-
-      puts "Done!"
+      puts "\n#{async ? "Enqueued" : "Generated"} thumbnails for #{count} picture ingredients. Done!"
     end
   end
 end
