@@ -99,7 +99,7 @@ tr.odd td,
 }
 
 .list tr .tools {
-  width: 40px;
+  width: 1%; // keep it small and let the content decide the width
 
   &.long {
     width: 60px;
