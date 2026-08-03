@@ -3,12 +3,19 @@
     <%= render "fields", f: f, user_roles: @user_roles %>
   <% end %>
 <% else %>
-  <%= content_for :toolbar do %>
-    <sl-tooltip content="<%= Alchemy.t(:back) %>">
-      <%= link_to request.referer || alchemy.admin_dashboard_path, class: "icon_button" do %>
-        <alchemy-icon name="arrow-left-s"></alchemy-icon>
-      <% end %>
-    </sl-tooltip>
+  <% content_for :toolbar do %>
+    <div class="toolbar_buttons">
+      <sl-tooltip content="<%= Alchemy.t(:back) %>">
+        <%= render Alchemy::Admin::ToolbarButton.new(
+          label: Alchemy.t(:back),
+          primary: true,
+          icon: "arrow-left-s",
+          url: request.referer || alchemy.admin_dashboard_path,
+          skip_permission_check: true,
+          dialog: false
+        ) %>
+      </sl-tooltip>
+    </div>
   <% end %>
 
   <div class="panel">
