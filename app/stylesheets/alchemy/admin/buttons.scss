@@ -3,7 +3,7 @@
 
 button,
 input[type="submit"],
-.button {
+a.button {
   position: relative;
   @include mixins.button-defaults;
 

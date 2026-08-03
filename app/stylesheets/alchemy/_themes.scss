@@ -152,8 +152,10 @@
   --pagination-disabled-text-color: var(--a-light-grey);
 
   /* Panels */
-  --panel-background-color: var(--a-darker-grey);
+  --panel-background-color: var(--body-background-color);
   --panel-border-color: var(--a-grey);
+  --panel-box-shadow: 0 var(--spacing-0) var(--spacing-2)
+    hsla(0deg, 0%, 0%, 0.5);
 
   --picture-thumbnail-background-color: var(--a-dark-grey);
   --picture-thumbnail-toolbar-bg-color: var(--a-darker-grey);
@@ -428,8 +430,9 @@
   --pagination-disabled-text-color: #c0c0c0;
 
   /* Panels */
-  --panel-background-color: var(--color-grey_light);
-  --panel-border-color: var(--border-color);
+  --panel-background-color: var(--body-background-color);
+  --panel-border-color: var(--color-grey_light);
+  --panel-box-shadow: var(--dashboard-widget-box-shadow);
 
   --picture-tool-background-color: var(--color-white);
   --picture-tool-hover-background-color: var(--color-grey_very_light);
