@@ -1,0 +1,10 @@
+.help-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.help-resource-links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-4);
+}

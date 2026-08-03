@@ -10,7 +10,7 @@ function showHelp(evt) {
   ) {
     openDialog("/admin/help", {
       title: Alchemy.t("help"),
-      size: "400x492"
+      size: "500x400"
     })
     return false
   } else {
