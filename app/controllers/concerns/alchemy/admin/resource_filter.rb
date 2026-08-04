@@ -76,7 +76,7 @@ module Alchemy
       def permitted_ransack_search_fields
         [
           resource_handler.search_field_name
-        ] + alchemy_filters.map(&:name)
+        ] + alchemy_filters.flat_map(&:permitted_search_params)
       end
 
       def resource_has_filters

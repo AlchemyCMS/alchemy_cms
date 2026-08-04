@@ -149,4 +149,10 @@ RSpec.describe Alchemy::Admin::Filters::Select do
       end
     end
   end
+
+  describe "#permitted_search_params" do
+    it "permits both the scalar and array shape of the field, since multiple may be enabled dynamically" do
+      expect(checkbox.permitted_search_params).to eq(["by_page_layout", {"by_page_layout" => []}])
+    end
+  end
 end

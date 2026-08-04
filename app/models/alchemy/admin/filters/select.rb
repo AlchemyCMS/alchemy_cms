@@ -35,6 +35,12 @@ module Alchemy
           )
         end
 
+        # `multiple` can be enabled dynamically via a Proc, so both the
+        # scalar and array shape of the submitted value need to be permitted.
+        def permitted_search_params
+          [name, {name => []}]
+        end
+
         private
 
         def multiple?(params)
