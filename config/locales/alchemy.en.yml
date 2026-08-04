@@ -500,7 +500,6 @@ en:
         guidelines: "Guidelines"
         homepage: "Homepage"
     hide_element_content: "Hide this elements content."
-    homepage_does_not_exist: "This language has no homepage yet"
     dashboard: "Dashboard"
     image_alt_tag: "Alt-tag"
     image_caption: "Caption"
@@ -561,14 +560,30 @@ en:
     "no users": "no users"
     no_default_language_found: "No default language found."
     no_element_given: "No element given."
-    no_files_in_archive: "You do not have any files in your archive."
-    no_images_in_archive: "You don't have any images in your archive."
     no_more_elements_to_add: "No more elements available."
     no_resource_found:
-      default: "No %{resource} found. Please add your first one below."
-      alchemy/language: "<h2>Your website does not have any languages yet.</h2><p>You need at least one language to work with. Please create one below.</p>"
-      alchemy/node: "<h2>You do not have any menus yet.</h2><p>With menus your users can navigate your website. You can have multiple menus on your website. How many depends on your website template.</p><p>Please chose which menu you want to create first.</p>"
-      alchemy/site: "<h2>You do not have any websites yet.</h2><p>In order to serve requests you need to create a website first.</p><p>This form has been filled with sensible defaults that work in most cases.</p>"
+      default: |
+        <h2>You have no %{resource} yet.</h2>
+      alchemy/attachment: |
+        <h2>You do not have any files in your archive yet.</h2>
+        <p>Use the button below or drag files into this window to upload your first file.</p>
+      alchemy/language: |
+        <h2>Your website does not have any languages yet.</h2>
+        <p>You need at least one language to work with. Please create one below.</p>
+      alchemy/node: |
+        <h2>You do not have any menus yet.</h2>
+        <p>With menus your users can navigate your website. You can have multiple menus on your website. How many depends on your website template.</p>
+        <p>Please chose which menu you want to create first.</p>
+      alchemy/page: |
+        <h2>This language has no homepage yet</h2>
+        <p>Please create one below.</p>
+      alchemy/picture: |
+        <h2>You don't have any images in your archive yet.</h2>
+        <p>Use the button below or drag images into this window to upload your first image.</p>
+      alchemy/site: |
+        <h2>You do not have any websites yet.</h2>
+        <p>In order to serve requests you need to create a website first.</p>
+        <p>This form has been filled with sensible defaults that work in most cases.</p>
     no_search_results: "Your search did not return any results."
     no_unpublished_changes: "No unpublished changes"
     "not a valid image": "This is not an valid image."

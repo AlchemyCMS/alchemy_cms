@@ -1,0 +1,29 @@
+.empty-state {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.empty-state-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin-top: var(--spacing-2);
+  width: 100%;
+
+  > svg {
+    width: var(--icon-size-xl);
+    height: auto;
+  }
+
+  .empty-state-notice {
+    text-align: center;
+    padding-bottom: var(--spacing-4);
+    border-bottom: 1px solid var(--panel-border-color);
+    margin-bottom: var(--spacing-4);
+    text-shadow: var(--text-shadow-light);
+  }
+}

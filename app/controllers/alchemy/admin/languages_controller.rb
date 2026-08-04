@@ -51,7 +51,7 @@ module Alchemy
       def load_current_site
         @current_site = Alchemy::Current.site
         if @current_site.nil?
-          flash[:warning] = Alchemy.t("Please create a site first.")
+          flash[:info] = Alchemy.t("Please create a site first.")
           do_redirect_to admin_sites_path
         end
       end

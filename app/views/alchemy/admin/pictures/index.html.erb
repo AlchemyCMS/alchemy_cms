@@ -63,8 +63,16 @@
 
 <div id="picture_archive">
   <% if Alchemy::Picture.none? %>
-    <%= render_message do %>
-      <%= Alchemy.t(:no_images_in_archive) %>
+    <%= render 'alchemy/admin/resources/empty_state' do %>
+      <%= render Alchemy::Admin::UploaderButton.new(
+          object: Alchemy::Picture.new,
+          file_attribute: 'image_file',
+          redirect_url: alchemy.admin_pictures_path(
+            size: @size,
+            q: { last_upload: true }
+          ),
+          inline_label: true
+        ) %>
     <% end %>
   <% else %>
     <div class="resources-header">

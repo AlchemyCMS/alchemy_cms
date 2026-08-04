@@ -4,7 +4,7 @@
 button,
 input[type="submit"],
 a.button,
-.toolbar_button .button {
+alchemy-uploader .button {
   position: relative;
   @include mixins.button-defaults;
 

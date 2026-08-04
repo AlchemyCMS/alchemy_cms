@@ -17,33 +17,38 @@
   <%= render 'alchemy/admin/partials/search_form' %>
 <% end %>
 
-<% if @tags.any? %>
+<% if Alchemy::Tag.any? %>
   <%= render 'alchemy/admin/resources/table_header' %>
 
-  <div class="resources-table-wrapper">
-    <%= render Alchemy::Admin::Resource::Table.new(@tags, query: @query, search_filter_params: search_filter_params) do |table| %>
-      <% table.icon_column "tag" %>
-      <% table.column :name, sortable: true %>
-      <% table.column :taggings_types do |tag| %>
-        <% tag.taggings.collect(&:taggable).compact.uniq(&:class).each do |taggable| %>
-          <span class="label">
-            <%= taggable.class.model_name.human %>
-          </span>
+  <% if @tags.any? %>
+    <div class="resources-table-wrapper">
+      <%= render Alchemy::Admin::Resource::Table.new(@tags, query: @query, search_filter_params: search_filter_params) do |table| %>
+        <% table.icon_column "tag" %>
+        <% table.column :name, sortable: true %>
+        <% table.column :taggings_types do |tag| %>
+          <% tag.taggings.collect(&:taggable).compact.uniq(&:class).each do |taggable| %>
+            <span class="label">
+              <%= taggable.class.model_name.human %>
+            </span>
+          <% end %>
         <% end %>
+        <% table.column :taggings_count, sortable: true, class_name: "count" %>
+
+        <% table.delete_button tooltip: Alchemy.t(:delete_tag), confirm_message: Alchemy.t(:do_you_really_want_to_delete_this_tag?) %>
+        <% table.edit_button tooltip: Alchemy.t(:edit_tag), dialog_size: "360x410" %>
       <% end %>
-      <% table.column :taggings_count, sortable: true, class_name: "count" %>
+    </div>
 
-      <% table.delete_button tooltip: Alchemy.t(:delete_tag), confirm_message: Alchemy.t(:do_you_really_want_to_delete_this_tag?) %>
-      <% table.edit_button tooltip: Alchemy.t(:edit_tag), dialog_size: "360x410" %>
+    <%= render "alchemy/admin/resources/pagination", resources: @tags %>
+  <% elsif search_filter_params.present? %>
+    <%= render_message do %>
+      <%= Alchemy.t('No Tags found') %>
     <% end %>
-  </div>
-
-  <%= render "alchemy/admin/resources/pagination", resources: @tags %>
+  <% end %>
 <% else %>
-  <%= render_message do %>
-    <h2><%= Alchemy.t('No Tags found') %></h2>
-    <% if search_filter_params.blank? %>
-      <p><%= Alchemy.t(:tags_get_created_if_used_the_first_time) %></p>
+  <%= render "alchemy/admin/resources/empty_state" do %>
+    <%= render_message do %>
+      <%= Alchemy.t(:tags_get_created_if_used_the_first_time) %>
     <% end %>
   <% end %>
 <% end %>

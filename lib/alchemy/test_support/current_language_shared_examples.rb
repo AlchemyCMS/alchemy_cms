@@ -24,7 +24,7 @@ RSpec.shared_examples_for "a controller that loads current language" do |args|
         it "shows flash warning with redirect" do
           Alchemy::Language.destroy_all
           get :index, params: {site_id: site_1.id}
-          expect(flash[:warning]).to eq Alchemy.t("Please create a language first.")
+          expect(flash[:info]).to eq Alchemy.t("Please create a language first.")
           expect(response).to redirect_to admin_languages_path
         end
       end
