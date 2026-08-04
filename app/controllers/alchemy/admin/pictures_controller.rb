@@ -27,9 +27,12 @@ module Alchemy
       # that would otherwise fire for every picture the view renders.
       before_action :load_deletable_picture_ids, only: [:index, :update]
 
-      add_alchemy_filter :by_file_format, type: :select, options: ->(query) do
-        Alchemy::Picture.file_formats(query.result)
-      end
+      add_alchemy_filter :by_file_format, type: :select,
+        multiple: ->(params) { params[:only].presence&.many? || params[:except].present? },
+        include_blank: ->(params) { params[:only].blank? && params[:except].blank? },
+        options: ->(query) do
+          Alchemy::Picture.file_formats(query.result)
+        end
       add_alchemy_filter :recent, type: :checkbox
       add_alchemy_filter :last_upload, type: :checkbox
       add_alchemy_filter :without_tag, type: :checkbox

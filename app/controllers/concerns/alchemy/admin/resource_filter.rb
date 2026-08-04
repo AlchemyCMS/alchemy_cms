@@ -21,6 +21,8 @@ module Alchemy
         #   add_alchemy_filter :by_location, type: :select, options: ->(query) { Location.pluck(:name, :id) }
         #   add_alchemy_filter :future, type: :checkbox
         #   add_alchemy_filter :by_timeframe, type: :select, options: ["today", "tomorrow"]
+        #   add_alchemy_filter :by_tag, type: :select, options: ->(query) { Tag.pluck(:name) }, multiple: true, include_blank: false
+        #   add_alchemy_filter :by_tag, type: :select, options: ->(query) { Tag.pluck(:name) }, multiple: ->(params) { params[:only].present? }
         def add_alchemy_filter(name, type:, **args)
           alchemy_filters << "Alchemy::Admin::Filters::#{type.to_s.camelize}".constantize.new(
             name:,
