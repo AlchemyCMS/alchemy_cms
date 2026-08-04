@@ -6,16 +6,19 @@ module Alchemy
       include UploaderResponses
       include ArchiveOverlay
 
-      add_alchemy_filter :by_file_type, type: :select, options: ->(_query, params) do
-        case params&.to_h
-        in {except:}
-          Attachment.file_types - Attachment.file_types(from_extensions: except)
-        in {only:}
-          Attachment.file_types(from_extensions: only)
-        else
-          Attachment.file_types
+      add_alchemy_filter :by_file_type, type: :select,
+        multiple: ->(params) { params[:only].presence&.many? || params[:except].present? },
+        include_blank: ->(params) { params[:only].blank? && params[:except].blank? },
+        options: ->(_query, params) do
+          case params&.to_h
+          in {except:}
+            Attachment.file_types - Attachment.file_types(from_extensions: except)
+          in {only:}
+            Attachment.file_types(from_extensions: only)
+          else
+            Attachment.file_types
+          end
         end
-      end
 
       add_alchemy_filter :recent, type: :checkbox
       add_alchemy_filter :last_upload, type: :checkbox

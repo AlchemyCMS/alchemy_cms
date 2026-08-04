@@ -10,9 +10,13 @@ module Alchemy
         # @param name [String] The name of the filter.
         # @param resource_name [String] The name of the resource.
         # @param options [Proc, Array] A proc that returns the options for the select, or an array of options.
-        def initialize(name:, resource_name:, options:)
+        # @param multiple [Boolean, Proc] Whether multiple values can be selected, or a proc called with the search filter params that returns a Boolean.
+        # @param include_blank [Boolean, String, Proc] Whether (or with what label) to include a blank option, or a proc called with the search filter params that returns a Boolean/String.
+        def initialize(name:, resource_name:, options:, multiple: false, include_blank: true)
           super(name:, resource_name:)
           @options = options_to_proc(options)
+          @multiple = bool_or_proc(multiple)
+          @include_blank = bool_or_proc(include_blank)
         end
 
         # Returns a select filter component.
@@ -31,18 +35,27 @@ module Alchemy
           )
         end
 
+        # `multiple` can be enabled dynamically via a Proc, so both the
+        # scalar and array shape of the submitted value need to be permitted.
+        def permitted_search_params
+          [name, {name => []}]
+        end
+
         private
 
         def multiple?(params)
-          params[:only].presence&.many? || params[:except].present?
+          @multiple.call(params)
         end
 
         def include_blank(params)
-          if params[:only].present? || params[:except].present?
-            false
-          else
-            Alchemy.t(:all, scope: [:filters, resource_name, name])
-          end
+          value = @include_blank.call(params)
+          return value unless value == true
+
+          Alchemy.t(:all, scope: [:filters, resource_name, name])
+        end
+
+        def bool_or_proc(value)
+          value.is_a?(Proc) ? value : ->(_params) { value }
         end
 
         def options_to_proc(options)

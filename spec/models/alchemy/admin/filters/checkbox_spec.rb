@@ -39,4 +39,10 @@ RSpec.describe Alchemy::Admin::Filters::Checkbox do
       expect(component.checked).to be true
     end
   end
+
+  describe "#permitted_search_params" do
+    it "permits the field name as a scalar value" do
+      expect(checkbox.permitted_search_params).to eq(["published"])
+    end
+  end
 end

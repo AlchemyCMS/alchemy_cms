@@ -100,24 +100,59 @@ RSpec.describe Alchemy::Admin::Filters::Select do
       end
     end
 
-    context "when params[:only] is multiple values" do
-      let(:params) { {q: {by_page_layout: "standard"}, only: ["standard", "news"]} }
+    context "when multiple/include_blank are not given" do
+      it "defaults to multiple: false and a translated blank option" do
+        expect(component.multiple).to be false
+        expect(component.include_blank).to eq("All page types")
+      end
+    end
 
-      it "returns a select filter input component with multiple selection enabled and no blank option" do
-        expect(component).to be_a(Alchemy::Admin::Resource::SelectFilter)
+    context "when multiple is given as a boolean" do
+      let(:checkbox) { described_class.new(name:, resource_name:, options:, multiple: true) }
+
+      it "returns a select filter input component with multiple selection enabled" do
         expect(component.multiple).to be true
+      end
+    end
+
+    context "when multiple is given as a proc" do
+      let(:params) { {q: {by_page_layout: "standard"}, only: ["standard", "news"]} }
+      let(:checkbox) { described_class.new(name:, resource_name:, options:, multiple: ->(params) { params[:only].present? }) }
+
+      it "calls the proc with the search filter params" do
+        expect(component.multiple).to be true
+      end
+    end
+
+    context "when include_blank is given as a boolean" do
+      let(:checkbox) { described_class.new(name:, resource_name:, options:, include_blank: false) }
+
+      it "returns a select filter input component without a blank option" do
         expect(component.include_blank).to be false
       end
     end
 
-    context "when params[:only] is a single value" do
-      let(:params) { {q: {by_page_layout: "standard"}, only: ["standard"]} }
+    context "when include_blank is given as a string" do
+      let(:checkbox) { described_class.new(name:, resource_name:, options:, include_blank: "Choose one") }
 
-      it "returns a select filter input component with multiple selection disabled and no blank option" do
-        expect(component).to be_a(Alchemy::Admin::Resource::SelectFilter)
-        expect(component.multiple).to be false
+      it "returns a select filter input component with the given blank option label" do
+        expect(component.include_blank).to eq("Choose one")
+      end
+    end
+
+    context "when include_blank is given as a proc" do
+      let(:params) { {q: {by_page_layout: "standard"}, only: ["standard"]} }
+      let(:checkbox) { described_class.new(name:, resource_name:, options:, include_blank: ->(params) { params[:only].blank? }) }
+
+      it "calls the proc with the search filter params" do
         expect(component.include_blank).to be false
       end
+    end
+  end
+
+  describe "#permitted_search_params" do
+    it "permits both the scalar and array shape of the field, since multiple may be enabled dynamically" do
+      expect(checkbox.permitted_search_params).to eq(["by_page_layout", {"by_page_layout" => []}])
     end
   end
 end

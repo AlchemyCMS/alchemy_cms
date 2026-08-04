@@ -11,6 +11,13 @@ module Alchemy
           @resource_name = resource_name
         end
 
+        # The strong parameters entries needed to permit this filter's value(s)
+        # under `q`. Override in subclasses whose input can submit a shape
+        # other than a single scalar value (e.g. an array from `<select multiple>`).
+        def permitted_search_params
+          [name]
+        end
+
         def applied_filter_component(search_filter_params:, resource_url_proxy:, query:)
           Alchemy::Admin::Resource::AppliedFilter.new(
             link: dismiss_filter_url(search_filter_params, resource_url_proxy),
