@@ -306,7 +306,22 @@ const sidebar = VERSIONS.reduce((obj, version) => {
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "AlchemyCMS",
-  head: [["link", { rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]],
+  head: [
+    ["link", { rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    [
+      "script",
+      {
+        async: "",
+        src: "https://analytics.blish.cloud/js/pa-CubCE1Mo6pmiWreeps0Sd.js",
+      },
+    ],
+    [
+      "script",
+      {},
+      `window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+      plausible.init()`,
+    ],
+  ],
   description:
     "Alchemy is the Open Source Rails CMS framework for the component based web that can be used as classic server side rendered or headless CMS.",
   // https://vitepress.dev/reference/default-theme-config
