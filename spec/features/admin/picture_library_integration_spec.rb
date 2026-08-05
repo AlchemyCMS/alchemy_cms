@@ -145,7 +145,7 @@ RSpec.describe "Picture Library", type: :system do
       click_on "tag1 (1)"
       click_on "tag2 (1)"
 
-      expect(page).to have_content("You don't have any images in your archive")
+      expect(page).to have_content("Your search did not return any results")
     end
   end
 

@@ -17,10 +17,10 @@
   <%= render 'alchemy/admin/partials/search_form' %>
 <% end %>
 
-<div class="resources-table-wrapper">
+<% if @tags.any? %>
   <%= render 'alchemy/admin/resources/table_header' %>
-  <% if @tags.any? %>
 
+  <div class="resources-table-wrapper">
     <%= render Alchemy::Admin::Resource::Table.new(@tags, query: @query, search_filter_params: search_filter_params) do |table| %>
       <% table.icon_column "tag" %>
       <% table.column :name, sortable: true %>
@@ -36,17 +36,14 @@
       <% table.delete_button tooltip: Alchemy.t(:delete_tag), confirm_message: Alchemy.t(:do_you_really_want_to_delete_this_tag?) %>
       <% table.edit_button tooltip: Alchemy.t(:edit_tag), dialog_size: "360x410" %>
     <% end %>
+  </div>
 
-    <%= render "alchemy/admin/resources/pagination", resources: @tags %>
-
-  <% else %>
-
+  <%= render "alchemy/admin/resources/pagination", resources: @tags %>
+<% else %>
   <%= render_message do %>
     <h2><%= Alchemy.t('No Tags found') %></h2>
-    <% if search_filter_params[:q].blank? %>
+    <% if search_filter_params.blank? %>
       <p><%= Alchemy.t(:tags_get_created_if_used_the_first_time) %></p>
     <% end %>
   <% end %>
-
-  <% end %>
-</div>
+<% end %>

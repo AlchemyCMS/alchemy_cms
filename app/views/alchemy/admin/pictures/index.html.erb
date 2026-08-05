@@ -61,16 +61,33 @@
     additional_params: [:size] %>
 <% end %>
 
-<div id="picture_archive" class="resources-table-wrapper with_tag_filter">
-  <div class="resources-header">
-    <h2>
-      <%= @pictures.total_count %>
-      <%= Alchemy::Picture.model_name.human(count: @pictures.total_count) %>
-    </h2>
-    <%= render "alchemy/admin/resources/applied_filters" %>
-  </div>
-  <%= render 'archive' %>
+<div id="picture_archive">
+  <% if Alchemy::Picture.none? %>
+    <%= render_message do %>
+      <%= Alchemy.t(:no_images_in_archive) %>
+    <% end %>
+  <% else %>
+    <div class="resources-header">
+      <h2>
+        <%= @pictures.total_count %>
+        <%= Alchemy::Picture.model_name.human(count: @pictures.total_count) %>
+      </h2>
+      <%= render "alchemy/admin/resources/applied_filters" %>
+    </div>
+
+    <% if @pictures.none? && @recent_pictures.blank? && search_filter_params.present? %>
+      <%= render_message do %>
+        <%= Alchemy.t(:no_search_results) %>
+      <% end %>
+    <% else %>
+      <%= render "archive" %>
+    <% end %>
+
+    <%= render "alchemy/admin/resources/pagination", resources: @pictures %>
+  <% end %>
 </div>
+
+<%= render "library_sidebar" %>
 
 <% content_for :javascripts do %>
   <script type="module">

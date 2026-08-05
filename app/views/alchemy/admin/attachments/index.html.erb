@@ -17,8 +17,24 @@
   <%= render 'alchemy/admin/partials/search_form' %>
 <% end %>
 
-<div class="with_tag_filter resources-table-wrapper">
-  <%= render 'alchemy/admin/resources/table_header' %>
-  <%= render 'files_list' %>
-  <%= render 'library_sidebar' %>
-</div>
+<% if Alchemy::Attachment.none? %>
+  <%= render_message do %>
+    <%= Alchemy.t(:no_files_in_archive) %>
+  <% end %>
+<% else %>
+  <%= render "alchemy/admin/resources/table_header" %>
+
+  <% if @attachments.none? && search_filter_params.present? %>
+    <%= render_message do %>
+      <%= Alchemy.t(:no_search_results) %>
+    <% end %>
+  <% else %>
+    <div class="resources-table-wrapper">
+      <%= render "files_list" %>
+    </div>
+  <% end %>
+
+  <%= render "alchemy/admin/resources/pagination", resources: @attachments %>
+<% end %>
+
+<%= render "library_sidebar" %>
