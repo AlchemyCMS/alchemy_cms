@@ -150,7 +150,7 @@ RSpec.describe "Page request caching" do
           get "/#{uncached_page.urlname}"
 
           expect(response.headers).to have_key("Cache-Control")
-          expect(response.headers["Cache-Control"]).to eq("max-age=60, public, must-revalidate")
+          expect(response.headers["Cache-Control"]).to eq("max-age=600, public, must-revalidate")
         end
 
         it "renders without conditional cache revalidation when a published element disables page caching" do
