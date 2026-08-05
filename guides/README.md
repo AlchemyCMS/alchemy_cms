@@ -15,7 +15,7 @@ The actual guides sourcefiles live in the `/guides` folder.
 Run
 
 ```bash
-bun install
+pnpm install
 ```
 
 to install [VitePress](https://vitepress.dev/).
@@ -23,7 +23,7 @@ to install [VitePress](https://vitepress.dev/).
 To run a local preview server, run
 
 ```bash
-bun run guides:preview
+pnpm run guides:preview
 ```
 
 The server will be available at [http://localhost:8080](http://localhost:8080).
@@ -33,7 +33,7 @@ The server will be available at [http://localhost:8080](http://localhost:8080).
 Build the guides html files with:
 
 ```bash
-bun run guides:build
+pnpm run guides:build
 ```
 
 ## Deployment
