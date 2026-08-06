@@ -590,6 +590,24 @@ module Alchemy
           }.not_to have_enqueued_job(StorageAdapter::ActiveStorage::SanitizeSvgJob)
         end
       end
+
+      context "with a convertible image file" do
+        it "enqueues an ActiveStorage::TransformJob for each thumbnail size" do
+          expect {
+            create(:alchemy_picture, image_file: image_file)
+          }.to have_enqueued_job(ActiveStorage::TransformJob).exactly(3).times
+        end
+      end
+
+      context "with a non-convertible file" do
+        let(:svg_file) { fixture_file_upload("icon.svg", "image/svg+xml") }
+
+        it "does not enqueue an ActiveStorage::TransformJob" do
+          expect {
+            create(:alchemy_picture, image_file: svg_file)
+          }.not_to have_enqueued_job(ActiveStorage::TransformJob)
+        end
+      end
     end
 
     describe "after update", if: Alchemy.storage_adapter.active_storage? do

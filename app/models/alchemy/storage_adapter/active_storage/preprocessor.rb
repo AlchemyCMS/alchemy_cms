@@ -23,9 +23,13 @@ module Alchemy
       attr_reader :attachable
 
       class << self
-        def generate_thumbs!(attachable)
-          Alchemy::Picture::THUMBNAIL_SIZES.values.each do |size|
-            process_thumb(attachable, size: size, flatten: true)
+        def generate_thumbs!(picture)
+          format = picture.image_file_extension || "jpg"
+          Alchemy::Picture::THUMBNAIL_SIZES.each_value do |size|
+            transformations = Alchemy::DragonflyToImageProcessing.call(
+              flatten: true, format: format, size: size
+            )
+            ::ActiveStorage::TransformJob.perform_later(picture.image_file.blob, transformations)
           end
         end
 
