@@ -30,18 +30,30 @@ RSpec.describe Alchemy::StorageAdapter::ActiveStorage::Preprocessor, if: Alchemy
   end
 
   describe ".generate_thumbs!" do
-    let(:sizes) { {small: "100x100", large: "800x800"} }
+    let(:blob) { instance_double(ActiveStorage::Blob) }
+    let(:image_file) { double("image_file", blob: blob) }
+    let(:picture) { double("picture", image_file: image_file, image_file_extension: "png") }
 
     before do
-      stub_const("Alchemy::Picture::THUMBNAIL_SIZES", sizes)
-      allow(described_class).to receive(:process_thumb)
+      stub_const("Alchemy::Picture::THUMBNAIL_SIZES", {
+        small: "80x60",
+        medium: "160x120",
+        large: "240x180"
+      })
+      allow(ActiveStorage::TransformJob).to receive(:perform_later)
     end
 
-    it "calls process_thumb for each thumbnail size" do
-      described_class.generate_thumbs!(attachable)
-      sizes.values.each do |size|
-        expect(described_class).to have_received(:process_thumb).with(attachable, size: size, flatten: true)
-      end
+    it "enqueues a TransformJob for each thumbnail size" do
+      described_class.generate_thumbs!(picture)
+      expect(ActiveStorage::TransformJob).to have_received(:perform_later).exactly(3).times
+    end
+
+    it "enqueues the medium thumbnail with the same transformations the archive requests" do
+      described_class.generate_thumbs!(picture)
+      expect(ActiveStorage::TransformJob).to have_received(:perform_later).with(
+        blob,
+        {resize_to_limit: [160, 120, {sharpen: false}], format: "png", saver: {quality: 85}}
+      )
     end
   end
 

@@ -5,7 +5,6 @@ module Alchemy
         def self.included(base)
           base.has_one_attached :image_file do |attachable|
             Alchemy.storage_adapter.preprocessor_class.new(attachable).call
-            Alchemy.storage_adapter.preprocessor_class.generate_thumbs!(attachable)
           end
 
           base.after_create_commit if: :svg? do
