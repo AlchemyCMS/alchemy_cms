@@ -35,10 +35,13 @@ module Dummy
     # Rails 8.1 eagerly requires the configured variant processor's transformer
     # at boot. The dragonfly adapter doesn't use ActiveStorage variants, so
     # disable it there to avoid needing an image backend; active_storage uses vips.
-    if ENV["ALCHEMY_STORAGE_ADAPTER"] == "active_storage"
-      config.active_storage.variant_processor = :vips
+    # Mirror the engine's adapter resolution, which defaults to active_storage
+    # when the env var is unset (see Alchemy::Engine), so the default setup gets
+    # a working variant processor rather than a disabled one.
+    config.active_storage.variant_processor = if ENV.fetch("ALCHEMY_STORAGE_ADAPTER", "active_storage") == "active_storage"
+      :vips
     else
-      config.active_storage.variant_processor = :disabled
+      :disabled
     end
 
     # This app lives inside the engine root, so rails_live_reload's own watcher
