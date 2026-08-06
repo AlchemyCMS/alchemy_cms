@@ -1,5 +1,3 @@
-<%= render "library_sidebar" %>
-
 <% forwarded_params = search_filter_params.merge(
   page: params[:page],
   size: @size.presence
@@ -25,19 +23,7 @@
       class: 'secondary button with_icon'
     ) %>
   </div>
-  <% if @pictures.blank? && @recent_pictures.blank? && search_filter_params[:q].blank? %>
-    <%= render_message do %>
-      <%= Alchemy.t(:no_images_in_archive) %>
-    <% end %>
-  <% elsif @pictures.blank? && @recent_pictures.blank? %>
-    <%= render_message do %>
-      <%= Alchemy.t(:no_search_results) %>
-    <% end %>
-  <% else %>
-    <div id="pictures" class="picture-size--<%= @size %>">
-      <%= render partial: "picture", collection: @pictures, locals: {picture_offset: picture_offset} %>
-    </div>
-  <% end %>
+  <div id="pictures" class="picture-size--<%= @size %>">
+    <%= render partial: "picture", collection: @pictures, locals: {picture_offset: picture_offset} %>
+  </div>
 <% end %>
-
-<%= render "alchemy/admin/resources/pagination", resources: @pictures %>

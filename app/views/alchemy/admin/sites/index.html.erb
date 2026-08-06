@@ -17,22 +17,29 @@
   <%= render 'alchemy/admin/partials/search_form' %>
 <% end %>
 
-<div class="resources-table-wrapper">
+<% if Alchemy::Site.any? %>
+  <%= render 'alchemy/admin/resources/table_header', query: @query %>
+
   <% if @sites.any? %>
-    <%= render 'alchemy/admin/resources/table_header' %>
-    <%= render 'alchemy/admin/resources/resource_table', icon: "global" %>
-  <% elsif search_filter_params[:q].present? %>
-    <%= render_message { Alchemy.t('Nothing found') } %>
-  <% else %>
-    <div class="panel no-resource-found">
-      <%= render_message do %>
-        <%== Alchemy.t('alchemy/site', scope: :no_resource_found) %>
-      <% end %>
-      <%= render 'form', site: Alchemy::Site.new(
-          name: Alchemy.config.default_site.name,
-          host: Alchemy.config.default_site.host,
-          public: true
-        ) %>
+    <div class="resources-table-wrapper">
+      <%= render 'alchemy/admin/resources/resource_table', icon: "global", query: @query %>
     </div>
+  <% elsif search_filter_params.present? %>
+    <%= render_message do %>
+      <%= Alchemy.t(:no_search_results) %>
+    <% end %>
   <% end %>
-</div>
+
+  <%= render "alchemy/admin/resources/pagination", resources: resources_instance_variable %>
+<% else %>
+  <div class="panel no-resource-found">
+    <%= render_message do %>
+      <%== Alchemy.t('alchemy/site', scope: :no_resource_found) %>
+    <% end %>
+    <%= render 'form', site: Alchemy::Site.new(
+        name: Alchemy.config.default_site.name,
+        host: Alchemy.config.default_site.host,
+        public: true
+      ) %>
+  </div>
+<% end %>

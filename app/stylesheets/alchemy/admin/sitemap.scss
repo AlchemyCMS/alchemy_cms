@@ -71,7 +71,7 @@ alchemy-sitemap {
 }
 
 #sitemap {
-  padding: 0 0 104px 0;
+  padding: 0 0 var(--spacing-4) 0;
 
   .page-icon {
     display: inline-flex;
@@ -102,6 +102,7 @@ alchemy-sitemap {
 
   li {
     padding-left: 0;
+    list-style: none;
 
     li {
       padding-left: var(--sitemap-line-height);

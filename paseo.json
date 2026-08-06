@@ -1,4 +1,7 @@
 {
+  "worktree": {
+    "setup": "bin/setup"
+  },
   "scripts": {
     "web": {
       "type": "service",
