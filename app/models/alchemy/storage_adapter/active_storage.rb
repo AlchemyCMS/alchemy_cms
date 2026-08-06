@@ -11,6 +11,10 @@ module Alchemy
             SanitizeSvgJob.perform_later(self, file_accessor: :image_file)
           end
 
+          base.after_create_commit if: :has_convertible_format? do
+            Alchemy.storage_adapter.preprocessor_class.generate_thumbs!(self)
+          end
+
           # The image file's dirty state is cleared by the time
           # +after_update_commit+ runs, so capture it here to know whether the
           # blob was actually replaced (rather than only its metadata updated).
