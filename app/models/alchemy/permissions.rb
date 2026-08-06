@@ -74,9 +74,9 @@ module Alchemy
           p.public? && p.site == Alchemy::Current.site && p.readable_by?(@user)
         end
 
-        can :read, Alchemy::Node, Alchemy::Node.available_to_members do |node|
+        can :read, Alchemy::Node, Alchemy::Node.available_to(@user) do |node|
           node.language.public? && node.language.site_id == Alchemy::Current.site&.id &&
-            (node.page.nil? || node.page.public?)
+            (node.page.nil? || (node.page.public? && node.page.readable_by?(@user)))
         end
       end
     end

@@ -43,6 +43,15 @@ module Alchemy
         .or(from_current_public_site.where(page: Alchemy::Page.published))
     }
 
+    # Nodes the given user may see: external links or nodes attached to a
+    # published page the user is allowed to read. Mirrors +Page#readable_by?+
+    # so a node never reveals a page the user cannot open. Passing +nil+ yields
+    # the same result as #available_to_guests.
+    scope :available_to, ->(user) {
+      from_current_public_site.where(page: nil)
+        .or(from_current_public_site.where(page: Alchemy::Page.published.readable_by(user)))
+    }
+
     before_validation :translate_root_menu_name, if: -> { root? }
     before_validation :set_menu_type_from_root, unless: -> { root? }
 

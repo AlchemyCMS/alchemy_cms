@@ -117,6 +117,44 @@ module Alchemy
       end
     end
 
+    describe ".available_to" do
+      def user_with(*roles)
+        double("User", alchemy_roles: roles)
+      end
+
+      let(:default_language) { Alchemy::Language.default || create(:alchemy_language) }
+
+      let!(:public_page_node) do
+        create(:alchemy_node, name: nil, language: default_language,
+          page: create(:alchemy_page, :public, language: default_language))
+      end
+      let!(:external_node) { create(:alchemy_node, :with_url, language: default_language) }
+      let!(:member_page_node) do
+        create(:alchemy_node, name: nil, language: default_language,
+          page: create(:alchemy_page, :public, :restricted, language: default_language))
+      end
+      let!(:role_page_node) do
+        create(:alchemy_node, name: nil, language: default_language,
+          page: create(:alchemy_page, :public, restricted: true,
+            permitted_roles: %w[restricted_test], language: default_language))
+      end
+
+      it "returns external nodes and nodes to pages readable with the users roles" do
+        expect(described_class.available_to(user_with("member")))
+          .to contain_exactly(public_page_node, external_node, member_page_node)
+      end
+
+      it "includes nodes to pages restricted to one of the users additional roles" do
+        expect(described_class.available_to(user_with("member", "restricted_test")))
+          .to contain_exactly(public_page_node, external_node, member_page_node, role_page_node)
+      end
+
+      it "excludes every restricted page node for no user" do
+        expect(described_class.available_to(nil))
+          .to contain_exactly(public_page_node, external_node)
+      end
+    end
+
     describe "#url" do
       it "is valid with leading slash" do
         expect(build(:alchemy_node, url: "/something")).to be_valid
