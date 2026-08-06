@@ -259,7 +259,13 @@ module Alchemy
     end
 
     def page_cache_disabled_by_elements?
-      @page&.find_elements&.any? { |element| element.definition.page_cache == false } || false
+      return @page_cache_disabled_by_elements if defined?(@page_cache_disabled_by_elements)
+
+      opt_out_names = Alchemy::Element.definitions.filter_map { |d| d.name if d.page_cache == false }
+      @page_cache_disabled_by_elements = !!(
+        opt_out_names.any? &&
+          @page&.public_version&.elements&.published&.exists?(name: opt_out_names)
+      )
     end
 
     def caching_enabled?
