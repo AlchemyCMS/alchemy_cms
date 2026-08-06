@@ -91,13 +91,11 @@ alchemy-uploader {
   }
 
   > a {
-    width: 100%;
-    height: 100%;
-
-    alchemy-picture-thumbnail {
-      width: 100%;
-      height: 100%;
-    }
+    width: var(--picture-width, 100%);
+    height: var(--picture-height, 100%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .picture_name {
