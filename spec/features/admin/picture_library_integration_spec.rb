@@ -320,7 +320,7 @@ RSpec.describe "Picture Library", type: :system do
     scenario "opens the overlay when clicking the thumbnail", :js do
       visit alchemy.admin_pictures_path
 
-      find("#picture_#{picture.id} alchemy-picture-thumbnail").click
+      find("#picture_#{picture.id} > a").click
 
       expect(page).to have_css(".alchemy-image-overlay-container")
     end

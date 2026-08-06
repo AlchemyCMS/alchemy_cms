@@ -26,11 +26,8 @@
 <% elsif search_filter_params.present? %>
   <%= render_message { Alchemy.t('Nothing found') } %>
 <% else %>
-  <div class="panel no-resource-found">
-    <%= render_message do %>
-      <%== Alchemy.t('alchemy/language', scope: :no_resource_found) %>
-    <% end %>
-    <%= render 'form', language: Alchemy::Language.new(
+  <%= render "alchemy/admin/resources/empty_state" do %>
+    <%= render "form", language: Alchemy::Language.new(
         name: Alchemy.config.default_language.name,
         code: Alchemy.config.default_language.code,
         page_layout: Alchemy.config.default_language.page_layout,
@@ -40,5 +37,5 @@
         public: true
       )
     %>
-  </div>
+  <% end %>
 <% end %>

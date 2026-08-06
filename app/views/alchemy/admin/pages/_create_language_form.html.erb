@@ -1,8 +1,4 @@
-<div class="panel">
-  <%= render_message do %>
-    <p><%= Alchemy.t(:homepage_does_not_exist) %></p>
-  <% end %>
-
+<%= render "alchemy/admin/resources/empty_state" do %>
   <%- if @languages_with_page_tree.size >= 1 -%>
     <%= form_tag(alchemy.copy_language_tree_admin_pages_path) do %>
       <h3><%= Alchemy.t(:copy_language_tree_heading) %></h3>
@@ -37,4 +33,4 @@
     <%= form.hidden_field :public, value: Alchemy::Language.all.size == 1 %>
     <%= form.submit Alchemy.t(:create), autofocus: true %>
   <% end %>
-</div>
+<% end %>

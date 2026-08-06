@@ -32,16 +32,13 @@
     </ul>
   <% end %>
 <% else %>
-  <div class="panel no-resource-found">
-    <%= render_message do %>
-      <%== Alchemy.t('alchemy/node', scope: :no_resource_found) %>
-    <% end %>
+  <%= render "alchemy/admin/resources/empty_state" do %>
     <%= render 'form', node: Alchemy::Node.new(
         site: Alchemy::Current.site,
         language: Alchemy::Current.language
       ),
       button_label: Alchemy.t(:create) %>
-  </div>
+  <% end %>
 <% end %>
 
 <script type="module">

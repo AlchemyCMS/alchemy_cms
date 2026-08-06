@@ -15,7 +15,7 @@ describe Alchemy::Admin::SitesController do
         post :create, params: {site: {host: "*"}}
         site = Alchemy::Site.last
         expect(response).to redirect_to admin_languages_path(site_id: site)
-        expect(flash[:notice]).to eq("Please create a default language for this site.")
+        expect(flash[:info]).to eq("Please create a default language for this site.")
       end
     end
 

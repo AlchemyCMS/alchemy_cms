@@ -12,7 +12,7 @@ RSpec.describe "Modules", type: :system do
         first("a", text: "Events").click
       end
       within "#main_content" do
-        expect(page).to have_content("0 Events")
+        expect(page).to have_content("You have no Events yet")
       end
     end
   end

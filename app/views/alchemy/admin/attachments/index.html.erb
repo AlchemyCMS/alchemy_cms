@@ -18,8 +18,15 @@
 <% end %>
 
 <% if Alchemy::Attachment.none? %>
-  <%= render_message do %>
-    <%= Alchemy.t(:no_files_in_archive) %>
+  <%= render 'alchemy/admin/resources/empty_state' do %>
+    <%= render Alchemy::Admin::UploaderButton.new(
+      redirect_url: alchemy.admin_attachments_path(q: {
+        last_upload: true
+      }),
+      object: Alchemy::Attachment.new,
+      file_attribute: 'file',
+      inline_label: true
+    ) %>
   <% end %>
 <% else %>
   <%= render "alchemy/admin/resources/table_header" %>

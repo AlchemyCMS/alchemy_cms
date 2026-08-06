@@ -101,6 +101,12 @@ div#overlay_text_box {
   height: 100%;
   overflow: auto;
 
+  .centered & {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   &:has(.resources-table-wrapper) {
     padding-top: var(--top-menu-height);
     padding-right: 0;
