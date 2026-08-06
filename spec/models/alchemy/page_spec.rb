@@ -771,6 +771,76 @@ module Alchemy
       end
     end
 
+    describe ".readable_by" do
+      def user_with(*roles)
+        double("User", alchemy_roles: roles)
+      end
+
+      let!(:public_page) { create(:alchemy_page, name: "Public", restricted: false) }
+      let!(:member_page) { create(:alchemy_page, name: "Member only", restricted: true, permitted_roles: %w[member]) }
+      let!(:special_page) { create(:alchemy_page, name: "Special only", restricted: true, permitted_roles: %w[restricted_test]) }
+      let!(:roleless_page) do
+        build(:alchemy_page, name: "Roleless", restricted: true, permitted_roles: []).tap do |page|
+          page.save!(validate: false)
+        end
+      end
+
+      it "returns unrestricted pages and restricted pages matching a role" do
+        result = Page.readable_by(user_with("member"))
+        expect(result).to include(public_page, member_page)
+        expect(result).to_not include(special_page, roleless_page)
+      end
+
+      it "matches any of the users roles" do
+        result = Page.readable_by(user_with("member", "restricted_test"))
+        expect(result).to include(public_page, member_page, special_page)
+        expect(result).to_not include(roleless_page)
+      end
+
+      it "returns only unrestricted pages for a user without roles" do
+        result = Page.readable_by(user_with)
+        expect(result).to include(public_page)
+        expect(result).to_not include(member_page, special_page, roleless_page)
+      end
+
+      it "returns only unrestricted pages for no user at all" do
+        expect(Page.readable_by(nil)).to include(public_page)
+        expect(Page.readable_by(nil)).to_not include(member_page, special_page, roleless_page)
+      end
+
+      it "matches whole role tokens only" do
+        # `restricted` must not match the stored `restricted_test`
+        expect(Page.readable_by(user_with("restricted"))).to_not include(special_page)
+      end
+
+      # The stored roles are matched with LIKE, so a role name must not be able
+      # to act as a wildcard. A validation normally keeps roles configured, so
+      # these store the roles raw to exercise the scope against values an
+      # attacker might try to pass in directly.
+      context "escaping LIKE wildcards in the queried role" do
+        def restricted_page_storing(name, raw_roles)
+          create(:alchemy_page, name: name, restricted: true, permitted_roles: %w[member]).tap do |page|
+            page.update_column(:permitted_roles, raw_roles)
+          end
+        end
+
+        it "treats an underscore as a literal, not a single character wildcard" do
+          page = restricted_page_storing("Underscore", %w[ab])
+          expect(Page.readable_by(user_with("a_"))).to_not include(page)
+        end
+
+        it "treats a percent sign as a literal, not a wildcard" do
+          page = restricted_page_storing("Percent", %w[member])
+          expect(Page.readable_by(user_with("%"))).to_not include(page)
+        end
+
+        it "still matches a role that legitimately contains an underscore" do
+          page = restricted_page_storing("Real underscore", %w[restricted_test])
+          expect(Page.readable_by(user_with("restricted_test"))).to include(page)
+        end
+      end
+    end
+
     # InstanceMethods (a-z)
 
     describe "#available_element_definitions" do
@@ -1710,6 +1780,18 @@ module Alchemy
           expect(page).to be_valid
         end
       end
+
+      context "with a role that is not configured" do
+        let(:page) { build(:alchemy_page, restricted: true) }
+
+        it "is invalid and names the unknown roles" do
+          page.permitted_roles = %w[member media_user]
+          expect(page).to_not be_valid
+          expect(page.errors[:permitted_roles]).to include(
+            "contains roles that are not configured: media_user"
+          )
+        end
+      end
     end
 
     describe "#permitted_roles" do
@@ -1717,9 +1799,8 @@ module Alchemy
         expect(Alchemy::Page.new.permitted_roles).to eq(%w[member])
       end
 
-      it "splits the stored string into an array" do
-        page = Alchemy::Page.new
-        page[:permitted_roles] = "member  restricted_test"
+      it "returns the stored roles as an array" do
+        page = Alchemy::Page.new(permitted_roles: %w[member restricted_test])
         expect(page.permitted_roles).to eq(%w[member restricted_test])
       end
 
@@ -1731,9 +1812,9 @@ module Alchemy
     describe "#permitted_roles=" do
       let(:page) { Alchemy::Page.new }
 
-      it "stores an array as space separated string" do
+      it "stores an array of role names" do
         page.permitted_roles = %w[member restricted_test]
-        expect(page[:permitted_roles]).to eq("member restricted_test")
+        expect(page.permitted_roles).to eq(%w[member restricted_test])
       end
 
       it "ignores blank entries" do
@@ -1741,9 +1822,9 @@ module Alchemy
         expect(page.permitted_roles).to eq(%w[member])
       end
 
-      it "accepts a string" do
-        page.permitted_roles = "member restricted_test"
-        expect(page.permitted_roles).to eq(%w[member restricted_test])
+      it "keeps roles that are not configured, so a validation can reject them" do
+        page.permitted_roles = %w[member media_user]
+        expect(page.permitted_roles).to eq(%w[member media_user])
       end
     end
 

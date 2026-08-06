@@ -201,7 +201,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_29_082848) do
     t.string "name"
     t.string "page_layout"
     t.integer "parent_id"
-    t.string "permitted_roles", default: "member", null: false
+    t.text "permitted_roles", default: "[\"member\"]", null: false
     t.datetime "published_at", precision: nil
     t.boolean "restricted", default: false, null: false
     t.integer "rgt"

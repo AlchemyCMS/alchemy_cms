@@ -52,9 +52,9 @@ RSpec.describe Alchemy::Admin::PagePermittedRolesSelect, type: :component do
       allow(alchemy_page).to receive(:permitted_roles) { %w[media_user] }
     end
 
-    it "offers it as a selected option, so it survives the next save" do
+    it "does not offer it, only the configured roles are selectable" do
       render_inline component
-      expect(page).to have_css("select option[value='media_user'][selected]", text: "Media user")
+      expect(page).to_not have_css("select option[value='media_user']")
       expect(page).to have_css("select option[value='member']")
     end
   end

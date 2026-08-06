@@ -69,7 +69,8 @@ module Alchemy
           e.public?
         end
 
-        can :read, Alchemy::Page, Alchemy::Page.published.from_current_site do |p|
+        can :read, Alchemy::Page,
+          Alchemy::Page.published.from_current_site.readable_by(@user) do |p|
           p.public? && p.site == Alchemy::Current.site && p.readable_by?(@user)
         end
 

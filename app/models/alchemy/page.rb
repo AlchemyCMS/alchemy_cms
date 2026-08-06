@@ -19,7 +19,7 @@
 #  depth            :integer
 #  locked_by        :integer
 #  restricted       :boolean          default(FALSE)
-#  permitted_roles  :string           default("member"), not null
+#  permitted_roles  :text             default("[\"member\"]"), not null
 #  robot_index      :boolean          default(TRUE)
 #  robot_follow     :boolean          default(TRUE)
 #  sitemap          :boolean          default(TRUE)
@@ -138,6 +138,13 @@ module Alchemy
 
     has_many :page_ingredients, class_name: "Alchemy::Ingredients::Page", foreign_key: :related_object_id, dependent: :nullify
 
+    # Stored as a JSON array in a plain text column, so the value is byte
+    # identical on every supported database and the +readable_by+ scope can
+    # match a single quoted role with a portable LIKE. No +type: Array+, as
+    # that would serialize an empty array to NULL and violate the not null
+    # constraint; the writer already guarantees an array is stored.
+    serialize :permitted_roles, coder: JSON
+
     before_destroy :check_descendants_for_menu_nodes
 
     before_validation :set_language,
@@ -147,6 +154,7 @@ module Alchemy
     validates_format_of :page_layout, with: /\A[a-z0-9_-]+\z/, unless: -> { page_layout.blank? }
     validates_presence_of :parent, unless: -> { layoutpage? || language_root? }
     validates_presence_of :permitted_roles, if: :restricted?
+    validate :permitted_roles_are_configured
 
     after_initialize :ensure_draft_version, if: :new_record?
 
@@ -383,7 +391,7 @@ module Alchemy
 
     def set_restrictions_to_child_pages
       descendants.each do |child|
-        child.update(restricted: restricted?, permitted_roles: self[:permitted_roles])
+        child.update(restricted: restricted?, permitted_roles: permitted_roles)
       end
     end
 
@@ -391,7 +399,14 @@ module Alchemy
       self.restricted = parent.restricted?
       # Roles are only seeded from the parent. An existing page keeps the roles
       # assigned to it, until the parent pushes its own roles down again.
-      self[:permitted_roles] = parent[:permitted_roles] if new_record?
+      self.permitted_roles = parent.permitted_roles if new_record?
+    end
+
+    def permitted_roles_are_configured
+      unknown = permitted_roles - Alchemy.config.user_roles.map(&:to_s)
+      return if unknown.empty?
+
+      errors.add(:permitted_roles, :inclusion, roles: unknown.to_sentence)
     end
 
     # Returns the first published child
@@ -477,18 +492,12 @@ module Alchemy
       (editor_roles & user.alchemy_roles).any?
     end
 
-    # The roles that are permitted to read this page while it is restricted.
-    #
-    # Stored as a space separated string to stay database agnostic.
-    #
-    def permitted_roles
-      self[:permitted_roles].to_s.split(/\s+/)
-    end
-
-    # Accepts an array of role names (as sent by the admin form) or a raw string.
+    # Accepts an array of role names (as sent by the admin form) and normalizes
+    # it to an array of unique, non blank strings. Whether the roles are
+    # actually configured is enforced by a validation, not silently here.
     #
     def permitted_roles=(roles)
-      self[:permitted_roles] = roles.is_a?(Array) ? roles.select(&:present?).join(" ") : roles
+      super(Array(roles).map(&:to_s).select(&:present?).uniq)
     end
 
     # Checks if the given user is allowed to read this page.
