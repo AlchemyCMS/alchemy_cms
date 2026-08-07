@@ -39,6 +39,7 @@ module Alchemy
     # Like #available_to_guests but including nodes attached to restricted pages,
     # which logged in members are allowed to see.
     scope :available_to_members, -> {
+      Alchemy::Deprecation.warn("Node.available_to_members is deprecated and will be removed in Alchemy 9.0. Use Node.available_to(user) instead.")
       from_current_public_site.where(page: nil)
         .or(from_current_public_site.where(page: Alchemy::Page.published))
     }
