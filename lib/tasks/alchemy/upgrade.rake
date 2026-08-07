@@ -59,12 +59,18 @@ namespace :alchemy do
 
     namespace "8.4" do
       task "run" => [
-        "alchemy:upgrade:8.4:add_dragonfly_gem"
+        "alchemy:upgrade:8.4:add_dragonfly_gem",
+        "alchemy:upgrade:8.4:mention_menu_partials_readable_children"
       ]
 
       desc "Add dragonfly gem to the Gemfile if the app uses the dragonfly storage adapter"
       task add_dragonfly_gem: [:environment] do
         Alchemy::Upgrader["8.4"].add_dragonfly_gem
+      end
+
+      desc "Mention that menu partials must be updated to hide restricted pages"
+      task mention_menu_partials_readable_children: [:environment] do
+        Alchemy::Upgrader["8.4"].mention_menu_partials_readable_children
       end
     end
   end

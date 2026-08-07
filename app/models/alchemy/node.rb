@@ -67,6 +67,18 @@ module Alchemy
       read_attribute(:name).presence || page&.name
     end
 
+    # Direct children whose attached page the given user is allowed to read.
+    #
+    # Nodes without a page (external links) are always included. Menu partials
+    # render through this so a restricted page never appears in navigation for
+    # a user who cannot open it. +permitted_roles+ is a column, so +readable_by?+
+    # adds no query per node beyond the eager loaded page.
+    def readable_children(user)
+      children.includes(:page, :children).select do |node|
+        node.page.nil? || node.page.readable_by?(user)
+      end
+    end
+
     class << self
       # Returns all root nodes for current language
       def language_root_nodes
