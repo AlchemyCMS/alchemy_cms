@@ -246,16 +246,79 @@ module Alchemy
           end
         end
 
+        context "with children getting restricted roles changed" do
+          before do
+            page.save
+            @child1 = create(:alchemy_page, name: "Child 1", parent: page)
+            @grandchild = create(:alchemy_page, name: "Grandchild", parent: @child1)
+            page.reload
+            page.update!(restricted: true, permitted_roles: %w[restricted_test])
+          end
+
+          it "passes its restricted roles to all its children" do
+            expect(@child1.reload.permitted_roles).to eq(%w[restricted_test])
+            expect(@grandchild.reload.permitted_roles).to eq(%w[restricted_test])
+          end
+
+          context "and the roles change again while already restricted" do
+            before do
+              page.reload.update!(permitted_roles: %w[member])
+            end
+
+            it "passes the new roles down" do
+              expect(@child1.reload.permitted_roles).to eq(%w[member])
+              expect(@grandchild.reload.permitted_roles).to eq(%w[member])
+            end
+          end
+
+          context "and the page gets unrestricted again" do
+            before do
+              page.reload.update!(restricted: false)
+            end
+
+            it "unrestricts its children" do
+              expect(@child1.reload.restricted?).to be(false)
+              expect(@grandchild.reload.restricted?).to be(false)
+            end
+          end
+        end
+
         context "with restricted parent" do
           let(:new_page) { create(:alchemy_page, name: "New Page", parent: page) }
 
           before do
             page.save
-            page.update!(restricted: true)
+            page.update!(restricted: true, permitted_roles: %w[member restricted_test])
           end
 
           it "child is also restricted" do
             expect(new_page.restricted?).to be_truthy
+          end
+
+          it "child inherits the restricted roles" do
+            expect(new_page.permitted_roles).to eq(%w[member restricted_test])
+          end
+
+          it "child can remove an inherited role" do
+            new_page.update!(permitted_roles: %w[member])
+            expect(new_page.reload.permitted_roles).to eq(%w[member])
+          end
+
+          it "child can not remove all of its roles" do
+            expect(new_page.update(permitted_roles: [])).to be(false)
+            expect(new_page.reload.permitted_roles).to eq(%w[member restricted_test])
+          end
+
+          it "child keeps its own roles on subsequent saves" do
+            new_page.update!(permitted_roles: %w[member])
+            new_page.reload.update!(name: "Renamed")
+            expect(new_page.reload.permitted_roles).to eq(%w[member])
+          end
+
+          it "child is overruled again when the parent changes its roles" do
+            new_page.update!(permitted_roles: %w[member])
+            page.reload.update!(permitted_roles: %w[restricted_test])
+            expect(new_page.reload.permitted_roles).to eq(%w[restricted_test])
           end
         end
 
@@ -705,6 +768,76 @@ module Alchemy
 
       it "should return restricted pages" do
         expect(Page.restricted.to_a).to eq([restricted])
+      end
+    end
+
+    describe ".readable_by" do
+      def user_with(*roles)
+        double("User", alchemy_roles: roles)
+      end
+
+      let!(:public_page) { create(:alchemy_page, name: "Public", restricted: false) }
+      let!(:member_page) { create(:alchemy_page, name: "Member only", restricted: true, permitted_roles: %w[member]) }
+      let!(:special_page) { create(:alchemy_page, name: "Special only", restricted: true, permitted_roles: %w[restricted_test]) }
+      let!(:roleless_page) do
+        build(:alchemy_page, name: "Roleless", restricted: true, permitted_roles: []).tap do |page|
+          page.save!(validate: false)
+        end
+      end
+
+      it "returns unrestricted pages and restricted pages matching a role" do
+        result = Page.readable_by(user_with("member"))
+        expect(result).to include(public_page, member_page)
+        expect(result).to_not include(special_page, roleless_page)
+      end
+
+      it "matches any of the users roles" do
+        result = Page.readable_by(user_with("member", "restricted_test"))
+        expect(result).to include(public_page, member_page, special_page)
+        expect(result).to_not include(roleless_page)
+      end
+
+      it "returns only unrestricted pages for a user without roles" do
+        result = Page.readable_by(user_with)
+        expect(result).to include(public_page)
+        expect(result).to_not include(member_page, special_page, roleless_page)
+      end
+
+      it "returns only unrestricted pages for no user at all" do
+        expect(Page.readable_by(nil)).to include(public_page)
+        expect(Page.readable_by(nil)).to_not include(member_page, special_page, roleless_page)
+      end
+
+      it "matches whole role tokens only" do
+        # `restricted` must not match the stored `restricted_test`
+        expect(Page.readable_by(user_with("restricted"))).to_not include(special_page)
+      end
+
+      # The stored roles are matched with LIKE, so a role name must not be able
+      # to act as a wildcard. A validation normally keeps roles configured, so
+      # these store the roles raw to exercise the scope against values an
+      # attacker might try to pass in directly.
+      context "escaping LIKE wildcards in the queried role" do
+        def restricted_page_storing(name, raw_roles)
+          create(:alchemy_page, name: name, restricted: true, permitted_roles: %w[member]).tap do |page|
+            page.update_column(:permitted_roles, raw_roles)
+          end
+        end
+
+        it "treats an underscore as a literal, not a single character wildcard" do
+          page = restricted_page_storing("Underscore", %w[ab])
+          expect(Page.readable_by(user_with("a_"))).to_not include(page)
+        end
+
+        it "treats a percent sign as a literal, not a wildcard" do
+          page = restricted_page_storing("Percent", %w[member])
+          expect(Page.readable_by(user_with("%"))).to_not include(page)
+        end
+
+        it "still matches a role that legitimately contains an underscore" do
+          page = restricted_page_storing("Real underscore", %w[restricted_test])
+          expect(Page.readable_by(user_with("restricted_test"))).to include(page)
+        end
       end
     end
 
@@ -1620,6 +1753,122 @@ module Alchemy
 
           it { is_expected.to be(true) }
         end
+      end
+    end
+
+    describe "permitted_roles validation" do
+      context "on a restricted page" do
+        let(:page) { build(:alchemy_page, restricted: true) }
+
+        it "is valid with at least one role" do
+          page.permitted_roles = %w[member]
+          expect(page).to be_valid
+        end
+
+        it "is invalid without any role" do
+          page.permitted_roles = []
+          expect(page).to_not be_valid
+          expect(page.errors[:permitted_roles]).to be_present
+        end
+      end
+
+      context "on an unrestricted page" do
+        let(:page) { build(:alchemy_page, restricted: false) }
+
+        it "is valid without any role" do
+          page.permitted_roles = []
+          expect(page).to be_valid
+        end
+      end
+
+      context "with a role that is not configured" do
+        let(:page) { build(:alchemy_page, restricted: true) }
+
+        it "is invalid and names the unknown roles" do
+          page.permitted_roles = %w[member media_user]
+          expect(page).to_not be_valid
+          expect(page.errors[:permitted_roles]).to include(
+            "contains roles that are not configured: media_user"
+          )
+        end
+      end
+    end
+
+    describe "#permitted_roles" do
+      it "defaults to the member role" do
+        expect(Alchemy::Page.new.permitted_roles).to eq(%w[member])
+      end
+
+      it "returns the stored roles as an array" do
+        page = Alchemy::Page.new(permitted_roles: %w[member restricted_test])
+        expect(page.permitted_roles).to eq(%w[member restricted_test])
+      end
+
+      it "returns an empty array if no roles are stored" do
+        expect(Alchemy::Page.new(permitted_roles: nil).permitted_roles).to eq([])
+      end
+    end
+
+    describe "#permitted_roles=" do
+      let(:page) { Alchemy::Page.new }
+
+      it "stores an array of role names" do
+        page.permitted_roles = %w[member restricted_test]
+        expect(page.permitted_roles).to eq(%w[member restricted_test])
+      end
+
+      it "ignores blank entries" do
+        page.permitted_roles = ["", "member"]
+        expect(page.permitted_roles).to eq(%w[member])
+      end
+
+      it "keeps roles that are not configured, so a validation can reject them" do
+        page.permitted_roles = %w[member media_user]
+        expect(page.permitted_roles).to eq(%w[member media_user])
+      end
+    end
+
+    describe "#readable_by?" do
+      subject { page.readable_by?(user) }
+
+      let(:user) { mock_model("DummyUser", alchemy_roles: %w[member]) }
+
+      context "for an unrestricted page" do
+        let(:page) { build(:alchemy_page, restricted: false, permitted_roles: []) }
+
+        it { is_expected.to be(true) }
+      end
+
+      context "for a restricted page the user has a role for" do
+        let(:page) { build(:alchemy_page, restricted: true, permitted_roles: %w[member]) }
+
+        it { is_expected.to be(true) }
+      end
+
+      context "for a restricted page the user has no role for" do
+        let(:page) { build(:alchemy_page, restricted: true, permitted_roles: %w[restricted_test]) }
+
+        it { is_expected.to be(false) }
+      end
+
+      context "for a restricted page without any role" do
+        let(:page) { build(:alchemy_page, restricted: true, permitted_roles: []) }
+
+        it { is_expected.to be(false) }
+      end
+
+      context "for a user without roles" do
+        let(:user) { mock_model("DummyUser", alchemy_roles: nil) }
+        let(:page) { build(:alchemy_page, restricted: true) }
+
+        it { is_expected.to be(false) }
+      end
+
+      context "without a user" do
+        let(:user) { nil }
+        let(:page) { build(:alchemy_page, restricted: true) }
+
+        it { is_expected.to be(false) }
       end
     end
 

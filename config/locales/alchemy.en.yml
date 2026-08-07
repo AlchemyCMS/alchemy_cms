@@ -601,7 +601,7 @@ en:
         "true": "Page is being edited at the moment."
         "false": ""
       restricted:
-        "true": "Page is only accessible by members."
+        "true": "Page is only accessible by users with one of its roles."
         "false": "Page is accessible by all visitors."
       scheduled:
         public_on: "Page is visible from %{public_on}"
@@ -877,6 +877,9 @@ en:
               conflicting_wildcard_param_key: 'has a conflicting wildcard param "%{param}" already used by the "%{conflicting_layout}" page layout'
             descendants:
               still_attached_to_nodes: "The following descendant pages are still attached to menu nodes: %{page_names}. Please remove them first."
+            permitted_roles:
+              blank: "needs at least one role a restricted page is accessible for"
+              inclusion: "contains roles that are not configured: %{roles}"
         alchemy/element:
           attributes:
             page_version_id:
@@ -994,6 +997,7 @@ en:
         public_on: Visible from
         public_until: Visible until
         restricted: "restricted"
+        permitted_roles: "except for users with one of these roles"
         searchable: "show in search"
         robot_follow: "robot may follow links"
         robot_index: "allow robot to index"

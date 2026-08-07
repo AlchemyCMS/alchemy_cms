@@ -87,6 +87,10 @@ module Alchemy
         let(:default_language) { Alchemy::Language.default || create(:alchemy_language) }
         let(:public_page) { create(:alchemy_page, :public, language: default_language) }
         let(:restricted_page) { create(:alchemy_page, :public, :restricted, language: default_language) }
+        let(:role_restricted_page) do
+          create(:alchemy_page, :public, restricted: true, permitted_roles: %w[restricted_test],
+            name: "Role restricted", language: default_language)
+        end
         let(:unpublished_page) { create(:alchemy_page, language: default_language) }
 
         let(:other_site) { create(:alchemy_site) }
@@ -96,6 +100,7 @@ module Alchemy
         let!(:public_node) { create(:alchemy_node, page: public_page, name: nil, language: default_language) }
         let!(:external_node) { create(:alchemy_node, :with_url, language: default_language) }
         let!(:restricted_node) { create(:alchemy_node, page: restricted_page, name: nil, language: default_language) }
+        let!(:role_restricted_node) { create(:alchemy_node, page: role_restricted_page, name: nil, language: default_language) }
         let!(:unpublished_node) { create(:alchemy_node, page: unpublished_page, name: nil, language: default_language) }
         let!(:other_site_node) { create(:alchemy_node, :with_url, language: other_site_language) }
         let!(:hidden_language_node) { create(:alchemy_node, :with_url, language: hidden_language) }
@@ -114,13 +119,28 @@ module Alchemy
         context "as member user" do
           before { authorize_user(build(:alchemy_dummy_user)) }
 
-          it "also returns nodes linking to restricted pages" do
+          it "returns nodes to restricted pages readable with their role, but not those restricted to another role" do
             get alchemy.api_nodes_path(params: {format: :json})
 
             expect(result["data"].map { |n| n["id"] }).to match_array([
               public_node.id,
               external_node.id,
               restricted_node.id
+            ])
+          end
+        end
+
+        context "as member user with an additional role" do
+          before { authorize_user(build(:alchemy_dummy_user, alchemy_roles: %w[member restricted_test])) }
+
+          it "also returns nodes to pages restricted to that role" do
+            get alchemy.api_nodes_path(params: {format: :json})
+
+            expect(result["data"].map { |n| n["id"] }).to match_array([
+              public_node.id,
+              external_node.id,
+              restricted_node.id,
+              role_restricted_node.id
             ])
           end
         end

@@ -207,6 +207,29 @@ RSpec.describe "Show page feature:", type: :system do
         visit restricted_page.urlname
         expect(current_path).to eq("/#{restricted_page.urlname}")
       end
+
+      context "and the page is restricted to another role" do
+        before do
+          restricted_page.update!(permitted_roles: %w[restricted_test])
+        end
+
+        it "I am not able to visit the page" do
+          visit restricted_page.urlname
+          expect(current_path).to_not eq("/#{restricted_page.urlname}")
+        end
+      end
+    end
+
+    context "as a member user having the pages role" do
+      before do
+        authorize_user(create(:alchemy_dummy_user, alchemy_roles: %w[member restricted_test]))
+        restricted_page.update!(permitted_roles: %w[restricted_test])
+      end
+
+      it "I am able to visit the page" do
+        visit restricted_page.urlname
+        expect(current_path).to eq("/#{restricted_page.urlname}")
+      end
     end
   end
 end

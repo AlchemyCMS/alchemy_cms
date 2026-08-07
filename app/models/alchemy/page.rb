@@ -19,6 +19,7 @@
 #  depth            :integer
 #  locked_by        :integer
 #  restricted       :boolean          default(FALSE)
+#  permitted_roles  :text             default("[\"member\"]"), not null
 #  robot_index      :boolean          default(TRUE)
 #  robot_follow     :boolean          default(TRUE)
 #  sitemap          :boolean          default(TRUE)
@@ -93,6 +94,7 @@ module Alchemy
       :layoutpage,
       :menu_id,
       {
+        permitted_roles: [],
         draft_version_attributes: [:id] + PageVersion::METADATA_ATTRIBUTES.map(&:to_sym)
       }
     ]
@@ -136,6 +138,13 @@ module Alchemy
 
     has_many :page_ingredients, class_name: "Alchemy::Ingredients::Page", foreign_key: :related_object_id, dependent: :nullify
 
+    # Stored as a JSON array in a plain text column, so the value is byte
+    # identical on every supported database and the +readable_by+ scope can
+    # match a single quoted role with a portable LIKE. No +type: Array+, as
+    # that would serialize an empty array to NULL and violate the not null
+    # constraint; the writer already guarantees an array is stored.
+    serialize :permitted_roles, coder: JSON
+
     before_destroy :check_descendants_for_menu_nodes
 
     before_validation :set_language,
@@ -144,14 +153,18 @@ module Alchemy
     validates_presence_of :page_layout
     validates_format_of :page_layout, with: /\A[a-z0-9_-]+\z/, unless: -> { page_layout.blank? }
     validates_presence_of :parent, unless: -> { layoutpage? || language_root? }
+    validates_presence_of :permitted_roles, if: :restricted?
+    validate :permitted_roles_are_configured
 
     after_initialize :ensure_draft_version, if: :new_record?
 
     before_save :set_language_code,
       if: -> { language.present? }
 
-    before_save :set_restrictions_to_child_pages,
-      if: :restricted_changed?
+    # Runs after save, so descendants inheriting from this page see the new
+    # values instead of the ones still stored in the database.
+    after_save :set_restrictions_to_child_pages,
+      if: -> { saved_change_to_restricted? || saved_change_to_permitted_roles? }
 
     before_save :inherit_restricted_status,
       if: -> { parent && parent.restricted? }
@@ -378,12 +391,22 @@ module Alchemy
 
     def set_restrictions_to_child_pages
       descendants.each do |child|
-        child.update(restricted: restricted?)
+        child.update(restricted: restricted?, permitted_roles: permitted_roles)
       end
     end
 
     def inherit_restricted_status
       self.restricted = parent.restricted?
+      # Roles are only seeded from the parent. An existing page keeps the roles
+      # assigned to it, until the parent pushes its own roles down again.
+      self.permitted_roles = parent.permitted_roles if new_record?
+    end
+
+    def permitted_roles_are_configured
+      unknown = permitted_roles - Alchemy.config.user_roles.map(&:to_s)
+      return if unknown.empty?
+
+      errors.add(:permitted_roles, :inclusion, roles: unknown.to_sentence)
     end
 
     # Returns the first published child
@@ -467,6 +490,27 @@ module Alchemy
       return true unless has_limited_editors?
 
       (editor_roles & user.alchemy_roles).any?
+    end
+
+    # Accepts an array of role names (as sent by the admin form) and normalizes
+    # it to an array of unique, non blank strings. Whether the roles are
+    # actually configured is enforced by a validation, not silently here.
+    #
+    def permitted_roles=(roles)
+      super(Array(roles).map(&:to_s).select(&:present?).uniq)
+    end
+
+    # Checks if the given user is allowed to read this page.
+    #
+    # Unrestricted pages are readable by everyone. A restricted page is only
+    # readable by users holding one of the page's +permitted_roles+. A restricted
+    # page without any role locks everybody out, which is why at least one role
+    # is validated to be present.
+    #
+    def readable_by?(user)
+      return true unless restricted?
+
+      (permitted_roles & Array(user&.alchemy_roles).map(&:to_s)).any?
     end
 
     # Returns the value of +public_on+ attribute from public version

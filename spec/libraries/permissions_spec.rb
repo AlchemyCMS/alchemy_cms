@@ -14,12 +14,19 @@ describe Alchemy::Permissions do
   let(:public_page) { build(:alchemy_page, :public, restricted: false) }
   let(:unpublic_page) { build(:alchemy_page) }
   let(:restricted_page) { build(:alchemy_page, :public, restricted: true) }
+  let(:role_restricted_page) do
+    build(:alchemy_page, :public, restricted: true, permitted_roles: %w[restricted_test])
+  end
+  let(:roleless_restricted_page) do
+    build(:alchemy_page, :public, restricted: true, permitted_roles: [])
+  end
   let(:published_element) { mock_model(Alchemy::Element, restricted?: false, public?: true) }
   let(:restricted_element) { mock_model(Alchemy::Element, restricted?: true, public?: true) }
   let(:language) { build(:alchemy_language) }
   let(:public_node) { build(:alchemy_node, name: nil, page: public_page) }
   let(:external_node) { build(:alchemy_node, :with_url) }
   let(:restricted_node) { build(:alchemy_node, name: nil, page: restricted_page) }
+  let(:role_restricted_node) { build(:alchemy_node, name: nil, page: role_restricted_page) }
   let(:unpublished_node) { build(:alchemy_node, name: nil, page: unpublic_page) }
 
   context "A guest user" do
@@ -84,11 +91,59 @@ describe Alchemy::Permissions do
       is_expected.to be_able_to(:index, restricted_element)
     end
 
-    it "can also see nodes linking to restricted pages" do
+    it "can see nodes linking to restricted pages readable with their role" do
       is_expected.to be_able_to(:read, public_node)
       is_expected.to be_able_to(:read, external_node)
       is_expected.to be_able_to(:read, restricted_node)
       is_expected.not_to be_able_to(:read, unpublished_node)
+    end
+
+    it "can not see nodes linking to pages restricted to a role they do not have" do
+      is_expected.not_to be_able_to(:read, role_restricted_node)
+    end
+
+    it "can not visit pages restricted to a role they do not have" do
+      is_expected.not_to be_able_to(:show, role_restricted_page)
+      is_expected.not_to be_able_to(:index, role_restricted_page)
+    end
+
+    it "can not visit restricted pages without any role" do
+      is_expected.not_to be_able_to(:show, roleless_restricted_page)
+      is_expected.not_to be_able_to(:index, roleless_restricted_page)
+    end
+
+    it "can query accessible pages" do
+      expect { Alchemy::Page.accessible_by(ability, :read).to_a }.to_not raise_error
+    end
+  end
+
+  context "A member with an additional role" do
+    let(:user) { build(:alchemy_dummy_user, alchemy_roles: %w[member restricted_test]) }
+
+    it "can visit pages restricted to any of their roles" do
+      is_expected.to be_able_to(:show, public_page)
+      is_expected.to be_able_to(:show, restricted_page)
+      is_expected.to be_able_to(:show, role_restricted_page)
+    end
+
+    it "can see nodes linking to pages restricted to any of their roles" do
+      is_expected.to be_able_to(:read, restricted_node)
+      is_expected.to be_able_to(:read, role_restricted_node)
+    end
+
+    it "can not visit restricted pages without any role" do
+      is_expected.not_to be_able_to(:show, roleless_restricted_page)
+    end
+  end
+
+  context "A user having only the additional role" do
+    let(:user) { build(:alchemy_dummy_user, alchemy_roles: %w[restricted_test]) }
+
+    # Restricted roles grant access within the member rules. They do not
+    # promote a user to a member on their own.
+    it "can not visit any restricted page" do
+      is_expected.not_to be_able_to(:show, restricted_page)
+      is_expected.not_to be_able_to(:show, role_restricted_page)
     end
   end
 

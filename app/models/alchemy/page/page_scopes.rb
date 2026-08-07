@@ -45,6 +45,29 @@ module Alchemy
         #
         scope :restricted, -> { where(restricted: true) }
 
+        # All pages readable by the given user. Mirrors the +readable_by?+
+        # predicate for a whole relation, so +accessible_by+ and the per
+        # instance check stay in sync.
+        #
+        # Unrestricted pages are readable by everyone. Restricted pages are only
+        # readable when one of their +permitted_roles+ matches a role of the
+        # user. Roles are stored as a JSON array, so a single quoted role token
+        # is matched with a portable LIKE. +sanitize_sql_like+ escapes any LIKE
+        # wildcards in the role name so a role cannot smuggle in a +%+ or +_+;
+        # the escape character is +!+ instead of the usual backslash to avoid
+        # MySQL treating it as a string escape.
+        #
+        scope :readable_by,
+          ->(user) {
+            roles = Array(user&.alchemy_roles).map(&:to_s).select(&:present?)
+            return not_restricted if roles.empty?
+
+            column = "#{Alchemy::Page.table_name}.permitted_roles"
+            conditions = roles.map { "#{column} LIKE ? ESCAPE '!'" }.join(" OR ")
+            patterns = roles.map { |role| "%\"#{Alchemy::Page.sanitize_sql_like(role, "!")}\"%" }
+            not_restricted.or(restricted.where(conditions, *patterns))
+          }
+
         # All public pages
         #
         scope :published,

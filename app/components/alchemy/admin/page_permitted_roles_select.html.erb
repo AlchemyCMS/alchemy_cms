@@ -1,0 +1,11 @@
+<alchemy-conditional-field control="page_restricted">
+  <%= form.input :permitted_roles,
+    collection: role_options,
+    include_blank: false,
+    wrapper_html: {class: "input-column"},
+    input_html: {
+      multiple: true,
+      is: "alchemy-select",
+      disabled: disabled?
+    } %>
+</alchemy-conditional-field>

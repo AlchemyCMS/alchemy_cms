@@ -87,6 +87,10 @@ module Alchemy
           let!(:site_2_page) { create(:alchemy_page, :public, language: language_2) }
           let!(:unpublished_page) { create(:alchemy_page, language: default_language) }
           let!(:restricted_page) { create(:alchemy_page, :public, :restricted, language: default_language) }
+          let!(:role_restricted_page) do
+            create(:alchemy_page, :public, restricted: true, permitted_roles: %w[restricted_test],
+              name: "Role restricted", language: default_language)
+          end
 
           context "as guest user" do
             it "only returns published unrestricted pages for current site" do
@@ -103,12 +107,28 @@ module Alchemy
               authorize_user(build(:alchemy_dummy_user))
             end
 
-            it "only returns all published pages for current site" do
+            it "returns published pages readable by the member role, but not those restricted to another role" do
               get :index, format: :json
               expect(result["pages"].map { |r| r["id"] }).to match_array([
                 page.parent_id,
                 page.id,
                 restricted_page.id
+              ])
+            end
+          end
+
+          context "as member user with an additional role" do
+            before do
+              authorize_user(build(:alchemy_dummy_user, alchemy_roles: %w[member restricted_test]))
+            end
+
+            it "also returns pages restricted to that role" do
+              get :index, format: :json
+              expect(result["pages"].map { |r| r["id"] }).to match_array([
+                page.parent_id,
+                page.id,
+                restricted_page.id,
+                role_restricted_page.id
               ])
             end
           end
