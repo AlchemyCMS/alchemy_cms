@@ -65,6 +65,11 @@ module Alchemy
       subject { helper.render_menu(menu_type) }
 
       let(:menu_type) { "main_menu" }
+      let(:user) { nil }
+
+      before do
+        allow(helper).to receive(:current_alchemy_user).and_return(user)
+      end
 
       context "if menu exists" do
         let(:menu) { create(:alchemy_node, menu_type: menu_type) }
@@ -120,6 +125,28 @@ module Alchemy
           is_expected.not_to have_selector('ul.nav > li.nav-item > a.nav-link[href="/klingon"]')
         end
       end
+
+      context "with a node linking to a restricted page" do
+        let(:menu) { create(:alchemy_node, menu_type: menu_type) }
+        let!(:restricted_page) { create(:alchemy_page, :public, :restricted, name: "Secret") }
+        let!(:node) { create(:alchemy_node, parent: menu, page: restricted_page, name: nil) }
+
+        context "as a guest" do
+          let(:user) { nil }
+
+          it "does not render the restricted page's node" do
+            is_expected.to_not have_selector("a.nav-link", text: "Secret")
+          end
+        end
+
+        context "as a member permitted to read it" do
+          let(:user) { build(:alchemy_dummy_user) }
+
+          it "renders the restricted page's node" do
+            is_expected.to have_selector("a.nav-link", text: "Secret")
+          end
+        end
+      end
     end
 
     describe "#render_breadcrumb" do
@@ -129,6 +156,7 @@ module Alchemy
 
       before do
         allow(helper).to receive(:multi_language?).and_return(false)
+        allow(helper).to receive(:current_alchemy_user).and_return(user)
         allow(helper).to receive(:current_ability).and_return(Alchemy::Permissions.new(user))
       end
 
@@ -138,6 +166,30 @@ module Alchemy
 
       it "should render a breadcrumb to current page" do
         is_expected.to have_selector(".active.last[contains('#{page.name}')]")
+      end
+
+      context "with a restricted ancestor page" do
+        before do
+          page # create the (unrestricted) page and parent first
+          parent.update_columns(restricted: true, name: "A restricted ancestor")
+        end
+
+        context "as a guest" do
+          let(:user) { nil }
+
+          it "does not leak the restricted ancestor" do
+            is_expected.to have_selector("*[contains(\"#{page.name}\")]")
+            is_expected.to_not have_selector("*[contains(\"#{parent.name}\")]")
+          end
+        end
+
+        context "as a member permitted to read it" do
+          let(:user) { build(:alchemy_dummy_user) }
+
+          it "includes the restricted ancestor" do
+            is_expected.to have_selector("*[contains(\"#{parent.name}\")]")
+          end
+        end
       end
 
       context "with options[:separator] given" do

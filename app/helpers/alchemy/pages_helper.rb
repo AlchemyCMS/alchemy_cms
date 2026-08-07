@@ -126,6 +126,11 @@ module Alchemy
         pages = pages.where.not(id: without.try(:collect, &:id) || without.id)
       end
 
+      # Drop ancestors the current user is not allowed to read, so a restricted
+      # page never leaks its name and url through the breadcrumb. permitted_roles
+      # is a column, so readable_by? adds no query per page.
+      pages = pages.select { |page| page.readable_by?(current_alchemy_user) }
+
       render "alchemy/breadcrumb/wrapper", pages: pages, options: options
     end
 

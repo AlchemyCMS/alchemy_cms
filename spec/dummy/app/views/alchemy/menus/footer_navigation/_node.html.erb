@@ -1,4 +1,5 @@
-<%= content_tag :li, class: ['nav-item', node.children.any? ? 'dropdown' : nil].compact do %>
+<% children = node.readable_children(current_alchemy_user) %>
+<%= content_tag :li, class: ['nav-item', children.any? ? 'dropdown' : nil].compact do %>
   <%= link_to_if node.url,
     node.name,
     Alchemy::Current.preview_page? ? 'javascript: void(0)' : node.url,
@@ -6,9 +7,9 @@
     title: node.title,
     target: node.external? ? '_blank' : nil,
     rel: node.nofollow? ? 'nofollow' : nil %>
-  <% if node.children.any? %>
+  <% if children.any? %>
     <ul class="dropdown-menu">
-      <%= render node.children.includes(:page, :children), as: 'node' %>
+      <%= render children, as: 'node' %>
     </ul>
   <% end %>
 <% end %>

@@ -41,4 +41,14 @@ RSpec.describe Alchemy::Upgrader::EightFour do
       end
     end
   end
+
+  describe "#mention_menu_partials_readable_children" do
+    it "adds a todo asking to update the menu partials" do
+      expect(upgrader).to receive(:todo).with(
+        /readable_children/,
+        "Update your menu partials for restricted pages"
+      )
+      upgrader.mention_menu_partials_readable_children
+    end
+  end
 end

@@ -201,6 +201,33 @@ module Alchemy
       end
     end
 
+    describe "#readable_children" do
+      subject { menu.readable_children(user) }
+
+      let(:user) { nil }
+      let(:menu) { create(:alchemy_node) }
+      let!(:public_child) { create(:alchemy_node, parent: menu, page: create(:alchemy_page, :public)) }
+      let!(:external_child) { create(:alchemy_node, :with_url, parent: menu) }
+      let!(:restricted_child) do
+        create(:alchemy_node, parent: menu, page: create(:alchemy_page, :public, :restricted))
+      end
+
+      context "for a guest" do
+        it "returns children with a readable or no page and excludes restricted ones" do
+          expect(subject).to include(public_child, external_child)
+          expect(subject).to_not include(restricted_child)
+        end
+      end
+
+      context "for a member permitted to read the restricted page" do
+        let(:user) { build(:alchemy_dummy_user) }
+
+        it "also includes the restricted child" do
+          expect(subject).to include(public_child, external_child, restricted_child)
+        end
+      end
+    end
+
     describe "#name" do
       subject { node.name }
 
