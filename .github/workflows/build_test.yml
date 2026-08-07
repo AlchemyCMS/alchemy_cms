@@ -213,6 +213,9 @@ jobs:
           slug: AlchemyCMS/alchemy_cms
           disable_search: true
           files: ./coverage/coverage.xml
+          # Flag each database leg so Codecov can carry a leg's coverage forward
+          # when its upload flakes, instead of counting it as uncovered.
+          flags: ${{ matrix.database }}
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
