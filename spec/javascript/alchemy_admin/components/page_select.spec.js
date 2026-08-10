@@ -1,5 +1,6 @@
 import { renderComponent } from "./component.helper"
-import "alchemy_admin/components/page_select"
+import { PageSelect } from "alchemy_admin/components/page_select"
+import { RemoteSelect } from "alchemy_admin/components/remote_select"
 
 describe("alchemy-page-select", () => {
   /**
@@ -142,6 +143,15 @@ describe("alchemy-page-select", () => {
       expect(
         Object.keys(selection).filter((key) => key.startsWith("$"))
       ).toEqual([])
+    })
+  })
+
+  describe("multiple selection", () => {
+    // The multiple selection behavior (serialization, tracking, events) lives on
+    // RemoteSelect and is covered by its spec. Here we only ensure PageSelect
+    // inherits it.
+    it("inherits multiple selection support from RemoteSelect", () => {
+      expect(PageSelect.prototype instanceof RemoteSelect).toBe(true)
     })
   })
 

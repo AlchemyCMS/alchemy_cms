@@ -209,6 +209,18 @@
   </div>
 
   <div style="width: 20%">
+    <h3>Page Select (multiple)</h3>
+    <%# A GET form so submitting serializes the page_ids[] params into the URL and
+        the submitted pages come back as the preselection. %>
+    <form method="get" style="display: flex; flex-direction: column; gap: 0.5em">
+      <%= render Alchemy::Admin::PageSelect.new(Alchemy::Page.where(id: params[:page_ids]), multiple: true) do %>
+        <select name="page_ids[]" multiple class="full_width"></select>
+      <% end %>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <div style="width: 20%">
     <h3>Node Select</h3>
     <%= render Alchemy::Admin::NodeSelect.new do %>
       <input name="node" class="full_width">

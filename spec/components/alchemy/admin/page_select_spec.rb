@@ -78,6 +78,32 @@ RSpec.describe Alchemy::Admin::PageSelect, type: :component do
     end
   end
 
+  context "with multiple" do
+    subject(:render) do
+      render_inline(described_class.new(multiple: true))
+    end
+
+    it "should have a multiple attribute" do
+      expect(page).to have_selector("alchemy-page-select[multiple]")
+    end
+  end
+
+  context "with multiple pages" do
+    let(:first_page) { create(:alchemy_page, name: "First") }
+    let(:second_page) { create(:alchemy_page, name: "Second") }
+    subject(:render) do
+      render_inline(described_class.new([first_page, second_page], multiple: true))
+    end
+
+    it "should have the pages serialized as an array" do
+      selection = JSON.parse(page.find("alchemy-page-select")["selection"])
+      expect(selection).to eq([
+        {"id" => first_page.id, "name" => "First", "url_path" => first_page.url_path},
+        {"id" => second_page.id, "name" => "Second", "url_path" => second_page.url_path}
+      ])
+    end
+  end
+
   context "with query parameter" do
     subject(:render) do
       render_inline(described_class.new(nil, query_params: {foo: :bar}))

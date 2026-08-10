@@ -93,7 +93,10 @@ describe("RemoteSelect", () => {
       })
 
       it("renders a badge as a pill", () => {
-        component.entrySlots = { primary: "Home", secondaryAside: { badge: "en" } }
+        component.entrySlots = {
+          primary: "Home",
+          secondaryAside: { badge: "en" }
+        }
         const badge = parse(component._renderListEntry({}, "")).querySelector(
           ".remote-select--secondary-aside"
         )
@@ -111,7 +114,9 @@ describe("RemoteSelect", () => {
         const entry = parse(component._renderListEntry({}, ""))
         expect(entry.querySelector(".remote-select--aside")).toBeNull()
         expect(entry.querySelector(".remote-select--secondary")).toBeNull()
-        expect(entry.querySelector(".remote-select--secondary-aside")).toBeNull()
+        expect(
+          entry.querySelector(".remote-select--secondary-aside")
+        ).toBeNull()
       })
     })
 
@@ -146,6 +151,36 @@ describe("RemoteSelect", () => {
     })
   })
 
+  describe("tomSelectConfig", () => {
+    // Reading the config must not connect the element, so Tom Select does not
+    // initialize (a multiple select wraps a <select>, not an <input>).
+    const build = (attributes, element) => {
+      const el = document.createElement("alchemy-test-remote-select")
+      Object.entries(attributes).forEach(([name, value]) =>
+        el.setAttribute(name, value)
+      )
+      el.innerHTML = element
+      return el
+    }
+
+    it("configures a single select by default", () => {
+      const config = build({}, `<input type="text">`).tomSelectConfig
+      expect(config.maxItems).toBe(1)
+      expect(config.closeAfterSelect).toBe(true)
+      expect(config.plugins.remove_button).toBeUndefined()
+    })
+
+    it("configures a multiple select when the multiple attribute is set", () => {
+      const config = build(
+        { multiple: "" },
+        `<select multiple></select>`
+      ).tomSelectConfig
+      expect(config.maxItems).toBeNull()
+      expect(config.closeAfterSelect).toBe(false)
+      expect(config.plugins.remove_button).toBeDefined()
+    })
+  })
+
   describe("onChange", () => {
     beforeEach(() => {
       const html = `
@@ -159,9 +194,7 @@ describe("RemoteSelect", () => {
     it("updates the selection attribute when an item is added", () => {
       const added = { id: 1, name: "A page" }
       component.onChange({ added, removed: null })
-      expect(component.getAttribute("selection")).toEqual(
-        JSON.stringify(added)
-      )
+      expect(component.getAttribute("selection")).toEqual(JSON.stringify(added))
     })
 
     it("does not change the selection attribute when nothing is added", () => {
@@ -181,6 +214,83 @@ describe("RemoteSelect", () => {
         added,
         removed: null
       })
+    })
+  })
+
+  describe("multiple selection", () => {
+    let select = undefined
+    let form = undefined
+
+    beforeEach(() => {
+      component = renderComponent(
+        "alchemy-test-remote-select",
+        `<form>
+          <alchemy-test-remote-select multiple>
+            <select multiple name="ids[]"></select>
+          </alchemy-test-remote-select>
+        </form>`
+      )
+      form = component.closest("form")
+      select = component.querySelector("select")
+      select.tomselect.addOption({ id: 1, name: "One" })
+      select.tomselect.addOption({ id: 2, name: "Two" })
+    })
+
+    it("shows every selected item in the control", () => {
+      select.tomselect.addItem("1")
+      select.tomselect.addItem("2")
+      expect(component.querySelectorAll(".ts-control .item").length).toEqual(2)
+    })
+
+    it("serializes the selected ids into the array param", () => {
+      select.tomselect.addItem("1")
+      select.tomselect.addItem("2")
+      expect(new FormData(form).getAll("ids[]")).toEqual(["1", "2"])
+    })
+
+    it("stores the selection as an array of records", () => {
+      select.tomselect.addItem("1")
+      select.tomselect.addItem("2")
+      expect(JSON.parse(component.getAttribute("selection"))).toEqual([
+        { id: 1, name: "One" },
+        { id: 2, name: "Two" }
+      ])
+    })
+
+    it("drops a removed item from the stored selection", () => {
+      select.tomselect.addItem("1")
+      select.tomselect.addItem("2")
+      select.tomselect.removeItem("1")
+      expect(JSON.parse(component.getAttribute("selection"))).toEqual([
+        { id: 2, name: "Two" }
+      ])
+    })
+
+    it("dispatches a change event for each added item", () => {
+      const listener = vi.fn()
+      component.addEventListener("Alchemy.RemoteSelect.Change", listener)
+      select.tomselect.addItem("1")
+      expect(listener).toHaveBeenCalledOnce()
+      expect(listener.mock.calls[0][0].detail).toEqual({
+        added: { id: 1, name: "One" },
+        removed: null
+      })
+    })
+  })
+
+  describe("multiple preselection", () => {
+    it("shows every preselected item", () => {
+      const selection = [
+        { id: 1, name: "One" },
+        { id: 2, name: "Two" }
+      ]
+      component = renderComponent(
+        "alchemy-test-remote-select",
+        `<alchemy-test-remote-select multiple selection='${JSON.stringify(selection)}'>
+          <select multiple name="ids[]"></select>
+        </alchemy-test-remote-select>`
+      )
+      expect(component.querySelectorAll(".ts-control .item").length).toEqual(2)
     })
   })
 })
