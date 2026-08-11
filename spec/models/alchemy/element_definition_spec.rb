@@ -25,6 +25,7 @@ module Alchemy
       it { is_expected.to have_key(:taggable) }
       it { is_expected.to have_key(:compact) }
       it { is_expected.to have_key(:fixed) }
+      it { is_expected.to have_key(:page_cache) }
       it { is_expected.to have_key(:ingredients) }
       it { is_expected.to have_key(:nestable_elements) }
       it { is_expected.to have_key(:autogenerate) }
@@ -33,6 +34,16 @@ module Alchemy
       it { is_expected.to have_key(:warning) }
       it { is_expected.to have_key(:hint) }
       it { is_expected.to have_key(:searchable) }
+    end
+
+    describe "#page_cache" do
+      it "defaults to true" do
+        expect(described_class.new.page_cache).to be(true)
+      end
+
+      it "can be disabled" do
+        expect(described_class.new(page_cache: false).page_cache).to be(false)
+      end
     end
 
     describe "validations" do
