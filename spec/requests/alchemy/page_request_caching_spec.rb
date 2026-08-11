@@ -10,10 +10,10 @@ RSpec.describe "Page request caching" do
       Rails.application.config.action_controller.perform_caching = false
     end
 
-    it "sets no-cache header" do
+    it "sets no-store header" do
       get "/#{page.urlname}"
       expect(response.headers).to have_key("Cache-Control")
-      expect(response.headers["Cache-Control"]).to eq("no-cache")
+      expect(response.headers["Cache-Control"]).to eq("no-store")
     end
   end
 
@@ -74,10 +74,10 @@ RSpec.describe "Page request caching" do
           allow_any_instance_of(Alchemy::Page).to receive(:cache_page?) { false }
         end
 
-        it "sets no-cache cache-control header" do
+        it "sets no-store cache-control header" do
           get "/#{page.urlname}"
           expect(response.headers).to have_key("Cache-Control")
-          expect(response.headers["Cache-Control"]).to eq("no-cache")
+          expect(response.headers["Cache-Control"]).to eq("no-store")
         end
       end
 
@@ -88,7 +88,7 @@ RSpec.describe "Page request caching" do
 
         it "returns false" do
           get "/#{page.urlname}"
-          expect(response.headers["cache-control"]).to eq("no-cache")
+          expect(response.headers["cache-control"]).to eq("no-store")
         end
       end
 
@@ -175,10 +175,10 @@ RSpec.describe "Page request caching" do
         allow_any_instance_of(Alchemy::Page).to receive(:cache_page?) { false }
       end
 
-      it "sets no-cache header" do
+      it "sets no-store header" do
         get "/#{page.urlname}"
         expect(response.headers).to have_key("Cache-Control")
-        expect(response.headers["Cache-Control"]).to eq("no-cache")
+        expect(response.headers["Cache-Control"]).to eq("no-store")
       end
 
       it "does not set last-modified header" do
@@ -194,10 +194,10 @@ RSpec.describe "Page request caching" do
         end
       end
 
-      it "sets no-cache header" do
+      it "sets no-store header" do
         get "/#{page.urlname}"
         expect(response.headers).to have_key("Cache-Control")
-        expect(response.headers["Cache-Control"]).to eq("no-cache")
+        expect(response.headers["Cache-Control"]).to eq("no-store")
       end
 
       it "does not set last-modified header" do
