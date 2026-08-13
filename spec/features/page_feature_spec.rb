@@ -154,7 +154,7 @@ RSpec.describe "Show page feature:", type: :system do
   describe "Handling of non-existing pages" do
     before do
       # We need a admin user or the signup page will show up
-      allow(Alchemy.config.user_class).to receive(:admins).and_return([1, 2])
+      allow(Alchemy.config.user_class).to receive(:alchemy_admins).and_return([1, 2])
     end
 
     it "should render public/404.html" do

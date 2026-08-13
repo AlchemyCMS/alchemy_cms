@@ -1,35 +1,25 @@
 # frozen_string_literal: true
 
 class DummyUser < ActiveRecord::Base
+  include Alchemy::UserMethods
+
   has_many :folded_pages, class_name: "Alchemy::FoldedPage"
-  attr_writer :alchemy_roles, :name
+  attr_writer :name
 
   def self.logged_in
     []
   end
 
-  def self.admins
+  def self.alchemy_admins
     [first].compact
-  end
-
-  def alchemy_roles
-    @alchemy_roles || %w[admin]
   end
 
   def name
     @name || email
   end
 
-  def admin?
-    alchemy_roles.include?("admin")
-  end
-
   def alchemy_display_name
     name
-  end
-
-  def human_roles_string
-    alchemy_roles.map(&:humanize)
   end
 
   def sign_in_count = 0

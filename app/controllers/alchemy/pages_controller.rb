@@ -217,7 +217,9 @@ module Alchemy
     end
 
     def signup_required?
-      if Alchemy.config.user_class.respond_to?(:admins)
+      if Alchemy.config.user_class.respond_to?(:alchemy_admins)
+        Alchemy.config.user_class.alchemy_admins.empty?
+      elsif Alchemy.config.user_class.respond_to?(:admins)
         Alchemy.config.user_class.admins.empty?
       end
     end
