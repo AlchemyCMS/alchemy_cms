@@ -4,7 +4,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    if user&.admin?
+    if user&.alchemy_admin?
       can :manage, Event
       can :index, :admin_events
       can :manage, Location

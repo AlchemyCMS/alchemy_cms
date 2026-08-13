@@ -1,0 +1,17 @@
+class AddAlchemyFieldsTo<%= table_name.camelcase %>Table < ActiveRecord::Migration[7.2]
+  disable_ddl_transaction! if connection.adapter_name.match?(/postgres/i)
+
+  def change
+    add_column <%= table_name.inspect %>, :alchemy_roles, :text, if_not_exists: true, default: "member", comment: "Space separated list of Alchemy roles this user has"
+    add_column <%= table_name.inspect %>, :updater_id, :integer, if_not_exists: true, comment: "ID of the user that last updated this record"
+    add_column <%= table_name.inspect %>, :creator_id, :integer, if_not_exists: true, comment: "ID of the user that created this record"
+    add_index <%= table_name.inspect %>, :updater_id, if_not_exists: true, algorithm: algorithm
+    add_index <%= table_name.inspect %>, :creator_id, if_not_exists: true, algorithm: algorithm
+  end
+
+  private
+
+  def algorithm
+    connection.adapter_name.match?(/postgres/i) ? :concurrently : nil
+  end
+end

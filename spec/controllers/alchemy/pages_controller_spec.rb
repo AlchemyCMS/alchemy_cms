@@ -22,14 +22,49 @@ module Alchemy
         autogenerate_elements: true
     end
 
-    before do
-      allow(controller).to receive(:signup_required?).and_return(false)
-    end
-
     describe "#index" do
       context "without a site or language present" do
-        it "returns a no_index page" do
-          expect(get(:index)).to render_template("alchemy/no_index")
+        context "with no admin users present" do
+          context "user class respond to alchemy_admins" do
+            before do
+              allow(Alchemy.config.user_class).to receive(:alchemy_admins).and_return(double(empty?: true))
+            end
+
+            it "returns a welcome page" do
+              expect(get(:index)).to render_template("alchemy/welcome")
+            end
+          end
+
+          context "user class does not respond to alchemy_admins" do
+            context "user class respond to admins" do
+              before do
+                allow(Alchemy.config.user_class).to receive(:respond_to?).with(:alchemy_admins).and_return(false)
+                allow(Alchemy.config.user_class).to receive(:respond_to?).with(:admins).and_return(true)
+                allow(Alchemy.config.user_class).to receive(:admins).and_return(double(empty?: true))
+                allow(Alchemy::Deprecation).to receive(:warn)
+              end
+
+              it "returns a welcome page" do
+                expect(get(:index)).to render_template("alchemy/welcome")
+              end
+
+              it "warns that the admins method is deprecated" do
+                expect(Alchemy::Deprecation).to receive(:warn).with(/admins` is deprecated/)
+                get(:index)
+              end
+            end
+
+            context "user class does not respond to admins" do
+              before do
+                allow(Alchemy.config.user_class).to receive(:respond_to?).with(:alchemy_admins).and_return(false)
+                allow(Alchemy.config.user_class).to receive(:respond_to?).with(:admins).and_return(false)
+              end
+
+              it "returns no_index page" do
+                expect(get(:index)).to render_template("alchemy/no_index")
+              end
+            end
+          end
         end
       end
 
@@ -169,7 +204,7 @@ module Alchemy
         let(:product) { create(:alchemy_page, :public, name: "Screwdriver", urlname: "screwdriver", parent: products, language: default_language, autogenerate_elements: true) }
 
         before do
-          allow(Alchemy.config.user_class).to receive(:admins).and_return(double(count: 1))
+          allow(Alchemy.config.user_class).to receive(:alchemy_admins).and_return(double(count: 1))
           product.elements.find_by(name: "article").ingredients.texts.first.update_column(:value, "screwdriver")
         end
 
