@@ -59,17 +59,26 @@ export class RemoteSelect extends HTMLElement {
   // The currently selected item, used to compute the added/removed delta that
   // consumers of the RemoteSelect.Change event rely on.
   #selectedItem = null
+  // In multiple mode the same delta is computed against this map of the
+  // currently selected records, keyed by their id.
+  #selectedItems = new Map()
 
   connectedCallback() {
-    this.input.classList.add("alchemy_selectbox")
-    // Preselection is driven by the `selection` attribute, not by the input's
-    // value. Clear the value during setup so Tom Select does not turn it into a
-    // stray option and does not overwrite it with the selected id — the link
-    // dialog renders a URL in this input and reads it back. Restore it afterwards.
-    const inputValue = this.input.value
-    this.input.value = ""
-    this.#tomSelect = new TomSelect(this.input, this.tomSelectConfig)
-    this.input.value = inputValue
+    const element = this.input
+    element.classList.add("alchemy_selectbox")
+    if (element instanceof HTMLInputElement) {
+      // Preselection is driven by the `selection` attribute, not by the input's
+      // value. Clear the value during setup so Tom Select does not turn it into a
+      // stray option and does not overwrite it with the selected id — the link
+      // dialog renders a URL in this input and reads it back. Restore it afterwards.
+      const inputValue = element.value
+      element.value = ""
+      this.#tomSelect = new TomSelect(element, this.tomSelectConfig)
+      element.value = inputValue
+    } else {
+      // A multiple select wraps a <select>, which has no such value to protect.
+      this.#tomSelect = new TomSelect(element, this.tomSelectConfig)
+    }
     // A spinner shown inside the control while results load. Tom Select toggles
     // the wrapper's `loading` class, which reveals it (see the stylesheet).
     this.#tomSelect.control.append(document.createElement("sl-spinner"))
@@ -96,8 +105,20 @@ export class RemoteSelect extends HTMLElement {
    */
   onChange(event) {
     // Update selection attribute so re-attaching the component to the same
-    // input (e.g. after dragndrop) does not reset the selection.
-    if (event.added) {
+    // input (e.g. after dragndrop) does not reset the selection. In multiple
+    // mode it holds the array of the currently selected records.
+    if (this.multiple) {
+      if (event.added) {
+        this.#selectedItems.set(String(event.added.id), event.added)
+      }
+      if (event.removed) {
+        this.#selectedItems.delete(String(event.removed.id))
+      }
+      this.setAttribute(
+        "selection",
+        JSON.stringify([...this.#selectedItems.values()])
+      )
+    } else if (event.added) {
       this.setAttribute("selection", JSON.stringify(event.added))
     }
     this.dispatchCustomEvent("RemoteSelect.Change", {
@@ -128,6 +149,10 @@ export class RemoteSelect extends HTMLElement {
     return this.hasAttribute("allow-clear")
   }
 
+  get multiple() {
+    return this.hasAttribute("multiple")
+  }
+
   get selection() {
     return this.getAttribute("selection")
   }
@@ -145,7 +170,10 @@ export class RemoteSelect extends HTMLElement {
   }
 
   get input() {
-    return this.getElementsByTagName("input")[0]
+    // The wrapped control is an <input> in single mode and a <select> in
+    // multiple mode. Tom Select keeps the original element in place and inserts
+    // its own control after it, so the original always comes first.
+    return this.querySelector("input, select")
   }
 
   /**
@@ -156,6 +184,10 @@ export class RemoteSelect extends HTMLElement {
     const self = this
     const ajax = this.ajaxConfig
     const plugins = { virtual_scroll: {} }
+
+    if (this.multiple) {
+      plugins.remove_button = {}
+    }
 
     if (this.allowClear) {
       plugins.clear_button = {
@@ -175,10 +207,11 @@ export class RemoteSelect extends HTMLElement {
       plugins,
       // The server returns each item with an `id` used as the option value.
       valueField: "id",
-      // Only a single item can be selected.
-      maxItems: 1,
-      // Close the dropdown after selecting, like a single native select.
-      closeAfterSelect: true,
+      // A single item unless the multiple attribute lifts the limit.
+      maxItems: this.multiple ? null : 1,
+      // Close the dropdown after selecting a single item; in multiple mode keep
+      // it open so several items can be picked in a row.
+      closeAfterSelect: !this.multiple,
       // Show every item returned by the server, not just the first 50.
       maxOptions: null,
       // Searching is done on the server, so keep every returned option.
@@ -199,14 +232,27 @@ export class RemoteSelect extends HTMLElement {
       firstUrl: (query) => this.#requestUrl(query, 1),
       load: (query, callback) => this.#load(query, callback),
       onInitialize() {
-        if (self.selection) {
+        if (!self.selection) return
+        // The preselection only carries enough data to label an item. Mark each
+        // one, so the option template can tell it apart from the complete records
+        // the server returns. Loading the record drops the mark again.
+        if (self.multiple) {
+          const items = JSON.parse(self.selection)
+          // Track the preselected items first, so the change handler recognizes
+          // them as unchanged. Adding them silently avoids a spurious change
+          // event while still rendering the items and marking the options.
+          self.#selectedItems = new Map(
+            items.map((item) => [String(item.id), item])
+          )
+          items.forEach((item) => {
+            this.addOption({ ...item, $preselection: true })
+            this.addItem(item.id, true)
+          })
+        } else {
           const item = JSON.parse(self.selection)
           // Track the preselected item first, so the change handler recognizes
           // it as unchanged and does not dispatch a spurious change event.
           self.#selectedItem = item
-          // The preselection only carries enough data to label the item. Mark it,
-          // so the option template can tell it apart from the complete records
-          // the server returns. Loading the record drops the mark again.
           this.addOption({ ...item, $preselection: true })
           this.addItem(item.id)
         }
@@ -338,6 +384,10 @@ export class RemoteSelect extends HTMLElement {
    * @private
    */
   #onChange(value, tomSelect) {
+    if (this.multiple) {
+      this.#onChangeMultiple(value, tomSelect)
+      return
+    }
     const previous = this.#selectedItem
     if (value === "" || value == null) {
       if (!previous) return
@@ -348,6 +398,33 @@ export class RemoteSelect extends HTMLElement {
       this.#selectedItem = added
       this.onChange({ added, removed: previous })
     }
+  }
+
+  /**
+   * Computes the per item added/removed deltas from a multiple Tom Select change
+   * (whose value is the array of selected ids) by diffing it against the tracked
+   * selection, and forwards each delta to the `onChange` handler.
+   * @param {string[]} values
+   * @param {TomSelect} tomSelect
+   * @private
+   */
+  #onChangeMultiple(values, tomSelect) {
+    const ids = (values ?? []).map(String)
+    const previous = new Set(this.#selectedItems.keys())
+    const current = new Set(ids)
+    previous.forEach((id) => {
+      if (!current.has(id)) {
+        this.onChange({ added: null, removed: this.#selectedItems.get(id) })
+      }
+    })
+    ids.forEach((id) => {
+      if (!previous.has(id)) {
+        this.onChange({
+          added: this.#itemData(tomSelect.options[id]),
+          removed: null
+        })
+      }
+    })
   }
 
   /**
