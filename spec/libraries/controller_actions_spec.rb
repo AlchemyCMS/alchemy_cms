@@ -40,6 +40,32 @@ describe "Alchemy::ControllerActions", type: "controller" do
     end
   end
 
+  describe "#set_current_alchemy_user" do
+    after { Alchemy::Current.user = nil }
+
+    context "when a current user is present" do
+      let(:user) { double("User") }
+
+      before { allow(controller).to receive(:current_user).and_return(user) }
+
+      it "stores it in Current.user" do
+        controller.send :set_current_alchemy_user
+        expect(Alchemy::Current.user).to eq(user)
+      end
+    end
+
+    context "when no current_user_method is implemented" do
+      before do
+        stub_alchemy_config(current_user_method: :not_implemented_method)
+      end
+
+      it "leaves Current.user nil" do
+        controller.send :set_current_alchemy_user
+        expect(Alchemy::Current.user).to be_nil
+      end
+    end
+  end
+
   describe "#set_alchemy_language" do
     let!(:default_language) { create(:alchemy_language, code: :en) }
     let(:klingon) { create(:alchemy_language, :klingon) }

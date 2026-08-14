@@ -7,6 +7,7 @@ module Alchemy
     included do
       before_action :set_current_alchemy_site
       before_action :set_alchemy_language
+      before_action :set_current_alchemy_user
 
       helper "alchemy/pages"
 
@@ -57,6 +58,18 @@ module Alchemy
     #
     def set_current_alchemy_site
       Current.site = current_alchemy_site
+    end
+
+    # Stores the current user in +Current.user+ so models and services can
+    # access the acting user without threading it through every call.
+    #
+    # Apps without a configured +current_user_method+ leave it +nil+ instead
+    # of raising, so the public frontend keeps working without authentication.
+    #
+    def set_current_alchemy_user
+      Current.user = current_alchemy_user
+    rescue NoCurrentUserFoundError
+      Current.user = nil
     end
 
     # Sets the current language for Alchemy.

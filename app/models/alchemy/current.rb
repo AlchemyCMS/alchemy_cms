@@ -1,6 +1,6 @@
 module Alchemy
   class Current < ActiveSupport::CurrentAttributes
-    attribute :preview_page, :preview_time, :page, :language, :site
+    attribute :preview_page, :preview_time, :page, :language, :site, :user
 
     def language
       super || Language.default
