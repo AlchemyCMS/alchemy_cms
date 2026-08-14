@@ -159,4 +159,15 @@ RSpec.describe Alchemy::Current do
       end
     end
   end
+
+  describe ".user" do
+    let(:user) { double("User") }
+
+    before { described_class.user = user }
+    after { described_class.user = nil }
+
+    it "returns the current user" do
+      expect(described_class.user).to eq(user)
+    end
+  end
 end
