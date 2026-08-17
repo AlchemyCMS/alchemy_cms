@@ -96,6 +96,7 @@ div#overlay_text_box {
   padding-right: var(--spacing-2);
   padding-bottom: var(--spacing-2);
   padding-left: calc(var(--main-menu-width) + var(--spacing-2));
+  position: relative;
   z-index: 0;
   width: 100%;
   height: 100%;

@@ -25,6 +25,7 @@ RSpec.describe "alchemy/admin/uploader/_button.html.erb" do
       redirect_url:,
       accept: nil,
       dropzone: nil,
+      layout: nil,
       label: nil
     ).and_return(component)
     render_partial
