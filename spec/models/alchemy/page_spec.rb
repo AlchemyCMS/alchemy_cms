@@ -2263,6 +2263,75 @@ module Alchemy
       end
     end
 
+    describe "#cache_control" do
+      subject { page.cache_control }
+
+      let(:page) { build(:alchemy_page, :public, page_layout: "standard") }
+
+      it "returns the layout's CacheControl for a public page" do
+        expect(subject).to be_a(Alchemy::CacheControl)
+        expect(subject.max_age).to eq(60)
+        expect(subject.public?).to be(true)
+      end
+
+      context "when the layout disables caching" do
+        let(:page) { build(:alchemy_page, :public, page_layout: "contact") }
+
+        it "is no_store" do
+          expect(subject.no_store?).to be(true)
+        end
+      end
+
+      context "when the layout is a search results page" do
+        let(:page) { build(:alchemy_page, :public, page_layout: "search") }
+
+        it "is no_store" do
+          expect(subject.no_store?).to be(true)
+        end
+      end
+
+      context "when the page is restricted" do
+        before { allow(page).to receive(:restricted?) { true } }
+
+        context "and the layout uses the default cache setting" do
+          let(:page) { build(:alchemy_page, :public, page_layout: "everything") }
+
+          it "is no_store (restricted default is never cached)" do
+            expect(subject.no_store?).to be(true)
+          end
+        end
+
+        context "and the layout explicitly configures caching" do
+          let(:page) { build(:alchemy_page, :public, page_layout: "standard") }
+
+          it "downgrades public to private" do
+            expect(subject.private?).to be(true)
+            expect(subject.max_age).to eq(60)
+          end
+        end
+      end
+
+      context "with a published element that tightens caching" do
+        around do |example|
+          Alchemy::ElementDefinition.add({"name" => "private_element", "page_cache" => {"visibility" => "private"}})
+          Alchemy::PageDefinition.add({"name" => "with_private_element", "cache" => 3600, "elements" => ["private_element"]})
+          example.run
+        ensure
+          Alchemy::ElementDefinition.reset!
+          Alchemy::PageDefinition.reset!
+        end
+
+        let(:page) { create(:alchemy_page, :public, page_layout: "with_private_element") }
+
+        it "combines to the most restrictive (private, layout max_age)" do
+          create(:alchemy_element, name: "private_element", page_version: page.public_version)
+
+          expect(page.cache_control.private?).to be(true)
+          expect(page.cache_control.max_age).to eq(3600)
+        end
+      end
+    end
+
     describe "#cache_page?" do
       let(:page) { build(:alchemy_page, :public, page_layout: "news") }
 
