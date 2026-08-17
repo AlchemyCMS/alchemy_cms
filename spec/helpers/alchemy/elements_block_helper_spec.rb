@@ -128,6 +128,34 @@ module Alchemy
           expect(subject.ingredient(:headline)).to eq(ingredient)
         end
       end
+
+      describe "#nested_elements" do
+        context "with visible and hidden nested children" do
+          let(:page_version) { create(:alchemy_page_version) }
+          let(:element) do
+            create(:alchemy_element, name: "slider", page_version: page_version,
+              autogenerate_nested_elements: false)
+          end
+          let!(:first_slide) do
+            create(:alchemy_element, name: "slide", parent_element: element, page_version: page_version)
+          end
+          let!(:second_slide) do
+            create(:alchemy_element, name: "slide", parent_element: element, page_version: page_version)
+          end
+          let!(:hidden_slide) do
+            create(:alchemy_element, name: "slide", parent_element: element,
+              page_version: page_version, public_on: 1.day.from_now)
+          end
+
+          it "returns only the element's visible nested children" do
+            expect(subject.nested_elements).to match_array([first_slide, second_slide])
+          end
+
+          it "returns the children in position order" do
+            expect(subject.nested_elements).to eq([first_slide, second_slide])
+          end
+        end
+      end
     end
   end
 end

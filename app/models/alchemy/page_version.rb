@@ -30,7 +30,7 @@ module Alchemy
     before_destroy :delete_elements
 
     def element_repository
-      ElementsRepository.new(elements)
+      @element_repository ||= ElementsRepository.new(elements)
     end
 
     private

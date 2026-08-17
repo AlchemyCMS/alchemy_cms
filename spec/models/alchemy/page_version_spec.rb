@@ -73,5 +73,9 @@ describe Alchemy::PageVersion do
       expect(Alchemy::ElementsRepository).to receive(:new).with(page_version.elements).and_call_original
       expect(subject).to be_a(Alchemy::ElementsRepository)
     end
+
+    it "memoizes the repository so nested rendering reuses one in-memory load" do
+      expect(page_version.element_repository).to be(page_version.element_repository)
+    end
   end
 end

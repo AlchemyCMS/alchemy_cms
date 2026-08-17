@@ -190,6 +190,54 @@ module Alchemy
         end
       end
 
+      describe "nested element rendering" do
+        render_views
+
+        let(:nested_page) do
+          create(:alchemy_page, :public, name: "Nested", urlname: "nested",
+            page_layout: "standard", parent: default_language_root, language: default_language)
+        end
+
+        # Builds a chain of `gallery` containers `depth` levels deep, each
+        # holding a `text` leaf, on the page's public version.
+        def build_nested_chain(page, depth)
+          page.public_version.elements.destroy_all
+          parent = nil
+          depth.times do
+            container = create(:alchemy_element, name: "gallery",
+              page_version: page.public_version, parent_element: parent)
+            create(:alchemy_element, :with_ingredients, name: "text",
+              page_version: page.public_version, parent_element: container)
+            parent = container
+          end
+          page.reload
+        end
+
+        before do
+          allow(Alchemy.config.user_class).to receive(:admins).and_return(double(count: 1))
+        end
+
+        it "reuses the preloaded element set instead of querying per nesting level" do
+          build_nested_chain(nested_page, 6)
+          element_selects = 0
+          sub = ActiveSupport::Notifications.subscribe("sql.active_record") do |*args|
+            payload = args.last
+            next if payload[:cached]
+            element_selects += 1 if /SELECT.*FROM ["`]?alchemy_elements["`]?/i.match?(payload[:sql])
+          end
+          get :show, params: {urlname: "nested"}
+          ActiveSupport::Notifications.unsubscribe(sub)
+          expect(element_selects).to eq(1)
+        end
+
+        it "renders the deeply nested leaf content" do
+          build_nested_chain(nested_page, 4)
+          get :show, params: {urlname: "nested"}
+          expect(Capybara.string(response.body))
+            .to have_css("div.gallery_images div.gallery_images div.gallery_images div.gallery_images")
+        end
+      end
+
       context "when a non-existent page is requested" do
         it "should rescue a RoutingError with rendering a 404 page." do
           expect {
