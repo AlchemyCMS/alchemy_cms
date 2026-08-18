@@ -58,6 +58,16 @@ module Alchemy
         element.ingredient_by_role(role)
       end
       alias_method :ingredient, :ingredient_by_role
+
+      # The element's visible nested children.
+      #
+      # Reads them from the page version's shared in-memory element repository
+      # instead of the +nested_elements+ association, so rendering a deeply
+      # nested element tree does not issue one query per parent.
+      #
+      def nested_elements
+        element.page_version.element_repository.children_of(element).visible.to_a
+      end
     end
 
     # Block-level helper for element views. Constructs a DOM element wrapping

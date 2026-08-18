@@ -10,7 +10,7 @@
     <%- end -%>
   <%- end -%>
   <%- if @element['nestable_elements'].present? -%>
-    <%%= render <%= @element_name %>.nested_elements.published %>
+    <%%= render el.nested_elements %>
   <%- end -%>
   <%% end -%>
 <%% end -%>
