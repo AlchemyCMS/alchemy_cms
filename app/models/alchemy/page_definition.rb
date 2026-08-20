@@ -12,7 +12,7 @@ module Alchemy
     attribute :autogenerate, default: []
     attribute :layoutpage, :boolean, default: false
     attribute :unique, :boolean, default: false
-    attribute :cache, default: true
+    attribute :cache, Alchemy::CacheControlType.new, default: true
     attribute :insert_elements_at, :string, default: "bottom"
     attribute :fixed_attributes, default: {}
     attribute :searchable, :boolean, default: true

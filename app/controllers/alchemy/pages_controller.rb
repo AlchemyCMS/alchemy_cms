@@ -199,8 +199,10 @@ module Alchemy
         # reuse it after a 304, which serves stale content (e.g. flash messages) and
         # skips re-rendering elements that opted out of page caching.
         no_store
+      elsif page_cache_control.no_cache?
+        expires_now
       else
-        expires_in @page.expiration_time, {public: !@page.restricted}.merge(caching_options)
+        expires_in @page.expiration_time, {public: page_cache_control.public?}.merge(caching_options)
       end
     end
 
@@ -248,24 +250,26 @@ module Alchemy
     def render_fresh_page?
       must_not_cache? || stale?(
         etag: page_etag,
-        public: !@page.restricted,
+        public: cache_public?,
         template: "pages/show"
       )
     end
 
-    # don't cache pages if we have flash message to display or the page has caching disabled
-    def must_not_cache?
-      !caching_enabled? || !@page.cache_page? || flash.present? || page_cache_disabled_by_elements?
+    # A no-cache response is never marked public (Rails only pairs no-cache with
+    # public, and "public" adds nothing to an always-revalidated response), so we
+    # keep the header a clean "no-cache".
+    def cache_public?
+      !page_cache_control.no_cache? && page_cache_control.public?
     end
 
-    def page_cache_disabled_by_elements?
-      return @page_cache_disabled_by_elements if defined?(@page_cache_disabled_by_elements)
+    # don't cache pages if app caching is off, a flash message is present, or the
+    # page's effective Cache-Control forbids storing the response.
+    def must_not_cache?
+      !caching_enabled? || flash.present? || page_cache_control.no_store?
+    end
 
-      opt_out_names = Alchemy::Element.definitions.filter_map { |d| d.name if d.page_cache == false }
-      @page_cache_disabled_by_elements = !!(
-        opt_out_names.any? &&
-          @page&.public_version&.elements&.published&.exists?(name: opt_out_names)
-      )
+    def page_cache_control
+      @page.cache_control
     end
 
     def caching_enabled?

@@ -13,7 +13,7 @@ module Alchemy
     attribute :taggable, :boolean, default: false
     attribute :compact, :boolean, default: false
     attribute :fixed, :boolean, default: false
-    attribute :page_cache, :boolean, default: true
+    attribute :page_cache, Alchemy::CacheControlType.new, default: true
     attribute :ingredients, default: []
     attribute :nestable_elements, default: []
     attribute :autogenerate, default: []
