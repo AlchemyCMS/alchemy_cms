@@ -109,6 +109,22 @@ RSpec.describe Alchemy::UserMethods do
     it "should return an array of user roles" do
       expect(user.alchemy_roles).to eq(["member"])
     end
+
+    context "when the alchemy_roles column is missing" do
+      before do
+        allow(user.class).to receive(:columns_hash).and_return({})
+      end
+
+      it "logs a warning" do
+        expect(Alchemy::Logger).to receive(:warn).with(/alchemy_roles.*column is missing/m)
+        user.alchemy_roles
+      end
+
+      it "falls back to the default member role" do
+        allow(Alchemy::Logger).to receive(:warn)
+        expect(user.alchemy_roles).to eq(["member"])
+      end
+    end
   end
 
   describe "#alchemy_roles=" do
