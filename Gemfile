@@ -40,7 +40,7 @@ group :development, :test do
     gem "simplecov-cobertura", "~> 3.0"
   else
     gem "launchy"
-    gem "annotate"
+    gem "annotaterb"
     gem "bumpy"
     gem "yard"
     gem "redcarpet"

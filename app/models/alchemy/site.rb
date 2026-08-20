@@ -5,13 +5,18 @@
 # Table name: alchemy_sites
 #
 #  id                       :integer          not null, primary key
+#  aliases                  :text
 #  host                     :string
 #  name                     :string
+#  public                   :boolean          default(FALSE), not null
+#  redirect_to_primary_host :boolean          default(FALSE), not null
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
-#  public                   :boolean          default(FALSE)
-#  aliases                  :text
-#  redirect_to_primary_host :boolean
+#
+# Indexes
+#
+#  alchemy_sites_public_hosts_idx  (host,public)
+#  index_alchemy_sites_on_host     (host)
 #
 
 module Alchemy

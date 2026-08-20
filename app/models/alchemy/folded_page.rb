@@ -5,9 +5,13 @@
 # Table name: alchemy_folded_pages
 #
 #  id      :integer          not null, primary key
+#  folded  :boolean          default(FALSE), not null
 #  page_id :integer          not null
 #  user_id :integer          not null
-#  folded  :boolean          default(FALSE)
+#
+# Indexes
+#
+#  index_alchemy_folded_pages_on_page_id_and_user_id  (page_id,user_id) UNIQUE
 #
 
 module Alchemy

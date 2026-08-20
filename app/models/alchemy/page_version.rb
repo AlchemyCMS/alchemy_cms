@@ -1,5 +1,28 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: alchemy_page_versions
+#
+#  id               :integer          not null, primary key
+#  meta_description :text
+#  meta_keywords    :text
+#  public_on        :datetime
+#  public_until     :datetime
+#  title            :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  page_id          :integer          not null
+#
+# Indexes
+#
+#  index_alchemy_page_versions_on_page_id                     (page_id)
+#  index_alchemy_page_versions_on_public_on_and_public_until  (public_on,public_until)
+#
+# Foreign Keys
+#
+#  page_id  (page_id => alchemy_pages.id) ON DELETE => cascade
+#
 module Alchemy
   class PageVersion < BaseRecord
     include Alchemy::Publishable
