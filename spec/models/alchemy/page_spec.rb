@@ -2329,6 +2329,21 @@ module Alchemy
           expect(page.cache_control.private?).to be(true)
           expect(page.cache_control.max_age).to eq(3600)
         end
+
+        # PostgreSQL rejects SELECT DISTINCT combined with an ORDER BY on a
+        # column that isn't selected (the elements' default position order).
+        it "does not combine DISTINCT with ORDER BY when querying elements" do
+          create(:alchemy_element, name: "private_element", page_version: page.public_version)
+
+          statements = []
+          collector = ->(*, payload) { statements << payload[:sql] }
+          ActiveSupport::Notifications.subscribed(collector, "sql.active_record") do
+            page.cache_control
+          end
+
+          offending = statements.select { |sql| sql.match?(/DISTINCT/i) && sql.match?(/ORDER BY/i) }
+          expect(offending).to be_empty, "SELECT DISTINCT combined with ORDER BY: #{offending.inspect}"
+        end
       end
     end
 

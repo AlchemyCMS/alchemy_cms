@@ -206,7 +206,7 @@ module Alchemy
         constrained = Alchemy::Element.definitions.reject { |d| d.page_cache.default? }
         return [] if constrained.empty?
 
-        present_names = public_version&.elements&.published&.where(name: constrained.map(&:name))&.distinct&.pluck(:name) || []
+        present_names = public_version&.elements&.published&.where(name: constrained.map(&:name))&.pluck(:name) || []
         constrained.select { |d| present_names.include?(d.name) }.map(&:page_cache)
       end
     end
