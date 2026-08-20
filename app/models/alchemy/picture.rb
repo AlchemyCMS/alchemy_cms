@@ -5,19 +5,26 @@
 # Table name: alchemy_pictures
 #
 #  id                :integer          not null, primary key
-#  name              :string
-#  image_file_name   :string
-#  image_file_width  :integer
+#  image_file_format :string
 #  image_file_height :integer
+#  image_file_name   :string
+#  image_file_size   :integer
+#  image_file_uid    :string
+#  image_file_width  :integer
+#  name              :string
+#  upload_hash       :string
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  creator_id        :integer
 #  updater_id        :integer
-#  upload_hash       :string
-#  cached_tag_list   :text
-#  image_file_uid    :string
-#  image_file_size   :integer
-#  image_file_format :string
+#
+# Indexes
+#
+#  index_alchemy_pictures_on_created_at       (created_at)
+#  index_alchemy_pictures_on_creator_id       (creator_id)
+#  index_alchemy_pictures_on_image_file_name  (image_file_name)
+#  index_alchemy_pictures_on_name             (name)
+#  index_alchemy_pictures_on_updater_id       (updater_id)
 #
 
 module Alchemy

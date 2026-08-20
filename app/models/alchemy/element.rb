@@ -5,20 +5,33 @@
 # Table name: alchemy_elements
 #
 #  id                :integer          not null, primary key
+#  fixed             :boolean          default(FALSE), not null
+#  folded            :boolean          default(FALSE), not null
 #  name              :string
 #  position          :integer
-#  page_version_id   :integer          not null
-#  public_on         :timestamp
-#  public_until      :timestamp
-#  fixed             :boolean          default(FALSE)
-#  folded            :boolean          default(FALSE)
-#  unique            :boolean          default(FALSE)
+#  public_on         :datetime
+#  public_until      :datetime
+#  unique            :boolean          default(FALSE), not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  creator_id        :integer
-#  updater_id        :integer
-#  cached_tag_list   :text
+#  page_version_id   :integer          not null
 #  parent_element_id :integer
+#  updater_id        :integer
+#
+# Indexes
+#
+#  idx_alchemy_elements_on_page_version_id_and_parent_element_id  (page_version_id,parent_element_id)
+#  idx_alchemy_elements_on_page_version_id_and_position           (page_version_id,position)
+#  index_alchemy_elements_on_creator_id                           (creator_id)
+#  index_alchemy_elements_on_fixed                                (fixed)
+#  index_alchemy_elements_on_page_version_id                      (page_version_id)
+#  index_alchemy_elements_on_public_on_and_public_until           (public_on,public_until)
+#  index_alchemy_elements_on_updater_id                           (updater_id)
+#
+# Foreign Keys
+#
+#  page_version_id  (page_version_id => alchemy_page_versions.id) ON DELETE => cascade
 #
 
 require_dependency "alchemy/element/definitions"

@@ -1,5 +1,23 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: alchemy_picture_thumbs
+#
+#  id         :integer          not null, primary key
+#  signature  :string           not null
+#  uid        :text             not null
+#  picture_id :integer          not null
+#
+# Indexes
+#
+#  index_alchemy_picture_thumbs_on_picture_id  (picture_id)
+#  index_alchemy_picture_thumbs_on_signature   (signature) UNIQUE
+#
+# Foreign Keys
+#
+#  picture_id  (picture_id => alchemy_pictures.id)
+#
 module Alchemy
   # The persisted version of a rendered picture variant
   #

@@ -1,5 +1,43 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: alchemy_nodes
+#
+#  id          :integer          not null, primary key
+#  depth       :integer          default(0), not null
+#  external    :boolean          default(FALSE), not null
+#  folded      :boolean          default(FALSE), not null
+#  lft         :integer          not null
+#  menu_type   :string           not null
+#  name        :string
+#  nofollow    :boolean          default(FALSE), not null
+#  rgt         :integer          not null
+#  title       :string
+#  url         :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  creator_id  :integer
+#  language_id :integer          not null
+#  page_id     :integer
+#  parent_id   :integer
+#  updater_id  :integer
+#
+# Indexes
+#
+#  index_alchemy_nodes_on_creator_id   (creator_id)
+#  index_alchemy_nodes_on_language_id  (language_id)
+#  index_alchemy_nodes_on_lft          (lft)
+#  index_alchemy_nodes_on_page_id      (page_id)
+#  index_alchemy_nodes_on_parent_id    (parent_id)
+#  index_alchemy_nodes_on_rgt          (rgt)
+#  index_alchemy_nodes_on_updater_id   (updater_id)
+#
+# Foreign Keys
+#
+#  language_id  (language_id => alchemy_languages.id)
+#  page_id      (page_id => alchemy_pages.id) ON DELETE => restrict
+#
 module Alchemy
   class Node < BaseRecord
     include Alchemy::RelatableResource

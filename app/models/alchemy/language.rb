@@ -5,19 +5,31 @@
 # Table name: alchemy_languages
 #
 #  id             :integer          not null, primary key
-#  name           :string
-#  language_code  :string
+#  country_code   :string           default(""), not null
+#  default        :boolean          default(FALSE), not null
 #  frontpage_name :string
+#  language_code  :string
+#  locale         :string
+#  name           :string
 #  page_layout    :string           default("intro")
-#  public         :boolean          default(FALSE)
+#  public         :boolean          default(FALSE), not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  creator_id     :integer
-#  updater_id     :integer
-#  default        :boolean          default(FALSE)
-#  country_code   :string           default(""), not null
 #  site_id        :integer          not null
-#  locale         :string
+#  updater_id     :integer
+#
+# Indexes
+#
+#  index_alchemy_languages_on_creator_id                      (creator_id)
+#  index_alchemy_languages_on_language_code                   (language_code)
+#  index_alchemy_languages_on_language_code_and_country_code  (language_code,country_code)
+#  index_alchemy_languages_on_site_id                         (site_id)
+#  index_alchemy_languages_on_updater_id                      (updater_id)
+#
+# Foreign Keys
+#
+#  site_id  (site_id => alchemy_sites.id)
 #
 
 require_dependency "alchemy/site"

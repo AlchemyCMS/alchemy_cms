@@ -1,5 +1,21 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: alchemy_page_mutexes
+#
+#  id         :integer          not null, primary key
+#  created_at :datetime
+#  page_id    :integer          not null
+#
+# Indexes
+#
+#  index_alchemy_page_mutexes_on_page_id  (page_id) UNIQUE
+#
+# Foreign Keys
+#
+#  page_id  (page_id => alchemy_pages.id)
+#
 module Alchemy
   class PageMutex < BaseRecord
     class LockFailed < StandardError; end

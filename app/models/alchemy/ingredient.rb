@@ -1,5 +1,31 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: alchemy_ingredients
+#
+#  id                  :integer          not null, primary key
+#  data                :json
+#  related_object_type :string
+#  role                :string           not null
+#  type                :string           not null
+#  value               :text
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  element_id          :integer          not null
+#  related_object_id   :integer
+#
+# Indexes
+#
+#  idx_alchemy_ingredient_relation                   (related_object_id,related_object_type)
+#  index_alchemy_ingredients_on_element_id           (element_id)
+#  index_alchemy_ingredients_on_element_id_and_role  (element_id,role) UNIQUE
+#  index_alchemy_ingredients_on_type                 (type)
+#
+# Foreign Keys
+#
+#  element_id  (element_id => alchemy_elements.id) ON DELETE => cascade
+#
 module Alchemy
   class Ingredient < BaseRecord
     class DefinitionError < StandardError; end

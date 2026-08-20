@@ -4,36 +4,45 @@
 #
 # Table name: alchemy_pages
 #
-#  id               :integer          not null, primary key
-#  name             :string
-#  urlname          :string
-#  title            :string           (deprecated - use draft_version.title)
-#  language_code    :string
-#  language_root    :boolean
-#  page_layout      :string
-#  meta_keywords    :text             (deprecated - use draft_version.meta_keywords)
-#  meta_description :text             (deprecated - use draft_version.meta_description)
-#  lft              :integer
-#  rgt              :integer
-#  parent_id        :integer
-#  depth            :integer
-#  locked_by        :integer
-#  restricted       :boolean          default(FALSE)
-#  permitted_roles  :text             default("[\"member\"]"), not null
-#  robot_index      :boolean          default(TRUE)
-#  robot_follow     :boolean          default(TRUE)
-#  sitemap          :boolean          default(TRUE)
-#  layoutpage       :boolean          default(FALSE)
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  creator_id       :integer
-#  updater_id       :integer
-#  language_id      :integer
-#  cached_tag_list  :text
-#  published_at     :datetime
-#  public_on        :datetime
-#  public_until     :datetime
-#  locked_at        :datetime
+#  id              :integer          not null, primary key
+#  depth           :integer
+#  language_code   :string
+#  language_root   :boolean          default(FALSE), not null
+#  layoutpage      :boolean          default(FALSE), not null
+#  lft             :integer
+#  locked_at       :datetime
+#  locked_by       :integer
+#  name            :string
+#  page_layout     :string
+#  permitted_roles :text             default("[\"member\"]"), not null
+#  published_at    :datetime
+#  restricted      :boolean          default(FALSE), not null
+#  rgt             :integer
+#  robot_follow    :boolean          default(TRUE), not null
+#  robot_index     :boolean          default(TRUE), not null
+#  searchable      :boolean          default(TRUE), not null
+#  sitemap         :boolean          default(TRUE), not null
+#  urlname         :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  creator_id      :integer
+#  language_id     :integer          not null
+#  parent_id       :integer
+#  updater_id      :integer
+#
+# Indexes
+#
+#  index_alchemy_pages_on_creator_id               (creator_id)
+#  index_alchemy_pages_on_language_id              (language_id)
+#  index_alchemy_pages_on_locked_at_and_locked_by  (locked_at,locked_by)
+#  index_alchemy_pages_on_rgt                      (rgt)
+#  index_alchemy_pages_on_updater_id               (updater_id)
+#  index_pages_on_parent_id_and_lft                (parent_id,lft)
+#  index_pages_on_urlname                          (urlname)
+#
+# Foreign Keys
+#
+#  language_id  (language_id => alchemy_languages.id)
 #
 
 require_dependency "alchemy/page/fixed_attributes"
