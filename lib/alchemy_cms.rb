@@ -44,7 +44,6 @@ require_relative "alchemy/on_page_layout"
 require_relative "alchemy/on_page_layout/callbacks_runner"
 require_relative "alchemy/paths"
 require_relative "alchemy/tinymce"
-require_relative "alchemy/taggable"
 require_relative "alchemy/version"
 
 # Finally require Alchemy itself
