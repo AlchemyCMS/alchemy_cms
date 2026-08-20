@@ -54,7 +54,22 @@ module Alchemy
     end
 
     def alchemy_roles
-      read_attribute(:alchemy_roles).split(" ")
+      if self.class.columns_hash["alchemy_roles"]
+        read_attribute(:alchemy_roles).to_s.split(" ")
+      else
+        Alchemy::Logger.warn <<-WARN.strip_heredoc
+          The `alchemy_roles` column is missing in the #{self.class.table_name} table!
+
+          Please run
+
+            rails generate alchemy:user_columns_migration
+
+          to add it.
+
+          Falling back to default role: `member`.
+        WARN
+        ["member"]
+      end
     end
 
     def alchemy_roles=(roles)
