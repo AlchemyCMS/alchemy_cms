@@ -249,4 +249,26 @@ RSpec.describe Alchemy::ElementsRepository do
 
     it { is_expected.to match_array([nested_element]) }
   end
+
+  describe "#to_ary" do
+    it "returns the elements as an array" do
+      expect(repo.to_ary).to eq(elements)
+    end
+
+    it "makes the repository usable as a Rails render collection" do
+      expect(repo).to respond_to(:to_ary)
+    end
+  end
+
+  describe "#size" do
+    it "returns the number of elements" do
+      expect(repo.size).to eq(elements.size)
+    end
+  end
+
+  describe "#length" do
+    it "returns the number of elements" do
+      expect(repo.length).to eq(elements.length)
+    end
+  end
 end

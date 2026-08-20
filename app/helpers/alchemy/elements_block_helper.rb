@@ -65,8 +65,12 @@ module Alchemy
       # instead of the +nested_elements+ association, so rendering a deeply
       # nested element tree does not issue one query per parent.
       #
+      # Returns an +Alchemy::ElementsRepository+ so callers can keep chaining
+      # scopes (e.g. +nested_elements.named(:slide)+) while still rendering it
+      # directly as a collection (+render el.nested_elements+).
+      #
       def nested_elements
-        element.page_version.element_repository.children_of(element).visible.to_a
+        element.page_version.element_repository.children_of(element).visible
       end
     end
 
