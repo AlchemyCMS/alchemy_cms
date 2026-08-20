@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_29_082848) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_13_142318) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -314,9 +314,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_29_082848) do
   end
 
   create_table "dummy_users", force: :cascade do |t|
+    t.text "alchemy_roles", default: "member"
+    t.integer "creator_id"
     t.string "email"
     t.string "password"
+    t.integer "updater_id"
+    t.index ["creator_id"], name: "index_dummy_users_on_creator_id"
     t.index ["email"], name: "index_dummy_users_on_email"
+    t.index ["updater_id"], name: "index_dummy_users_on_updater_id"
   end
 
   create_table "events", force: :cascade do |t|

@@ -14,8 +14,6 @@ module Alchemy
 
       before_action :load_locked_pages
 
-      helper_method :is_admin?
-
       check_authorization
 
       rescue_from Exception do |exception|
@@ -105,13 +103,6 @@ module Alchemy
         end
       end
 
-      # Returns true if the current_alchemy_user (The logged-in Alchemy User) has the admin role.
-      def is_admin?
-        return false if !current_alchemy_user
-
-        current_alchemy_user.admin?
-      end
-
       # Displays errors in a #errors div if any errors are present on the object.
       # Or redirects to the given redirect url.
       #
@@ -167,7 +158,7 @@ module Alchemy
       end
 
       def load_locked_pages
-        @locked_pages = Page.locked_by(current_alchemy_user).order(:locked_at)
+        @locked_pages ||= current_alchemy_user&.locked_pages
       end
 
       # Returns the current site for admin controllers.
