@@ -50,6 +50,10 @@ module Alchemy
         control = described_class.parse(60)
         expect(described_class.parse(control)).to equal(control)
       end
+
+      it "falls back to the default for unsupported values" do
+        expect(described_class.parse("nonsense").default?).to be(true)
+      end
     end
 
     describe "#&" do
@@ -100,6 +104,13 @@ module Alchemy
       it "compares by directives, ignoring default?" do
         expect(described_class.parse(true)).to eq(described_class.new(visibility: :public))
         expect(described_class.parse(60)).not_to eq(described_class.parse(30))
+      end
+    end
+
+    describe "#hash" do
+      it "is equal for equal directives, so instances dedupe as hash keys" do
+        expect(described_class.parse(60).hash).to eq(described_class.parse(60).hash)
+        expect([described_class.parse(60), described_class.parse(60)].uniq.size).to eq(1)
       end
     end
   end

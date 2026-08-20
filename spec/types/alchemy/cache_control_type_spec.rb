@@ -74,6 +74,15 @@ module Alchemy
         )
       end
 
+      it "raises for a non-boolean no_cache/no_store" do
+        expect { type.assert_valid_value(no_cache: "yes") }.to raise_error(
+          ArgumentError, /no_cache.*true or false/i
+        )
+        expect { type.assert_valid_value(no_store: "nope") }.to raise_error(
+          ArgumentError, /no_store.*true or false/i
+        )
+      end
+
       it "raises for an unsupported type" do
         expect { type.assert_valid_value([1, 2]) }.to raise_error(
           ArgumentError, /not a valid cache setting/i
