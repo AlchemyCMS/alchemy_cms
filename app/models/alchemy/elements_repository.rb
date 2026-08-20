@@ -125,6 +125,17 @@ module Alchemy
       elements.each(&)
     end
 
+    # Allows the repository to be passed to the ActionView collection renderer
+    # (+render repository+), which detects a collection by +to_ary+.
+    def to_ary
+      elements
+    end
+
+    def size
+      elements.size
+    end
+    alias_method :length, :size
+
     private
 
     attr_reader :elements

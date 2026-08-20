@@ -152,7 +152,12 @@ module Alchemy
           end
 
           it "returns the children in position order" do
-            expect(subject.nested_elements).to eq([first_slide, second_slide])
+            expect(subject.nested_elements.to_a).to eq([first_slide, second_slide])
+          end
+
+          it "returns an element repository that can be further scoped" do
+            expect(subject.nested_elements).to be_an(Alchemy::ElementsRepository)
+            expect(subject.nested_elements.named(:slide).to_a).to eq([first_slide, second_slide])
           end
         end
       end
