@@ -274,11 +274,11 @@ module Alchemy
     describe "#element_tags" do
       subject { element_tags(element, options) }
 
-      let(:element) { build_stubbed(:alchemy_element) }
+      let(:element) { create(:alchemy_element, name: "article") }
       let(:options) { {} }
 
       context "element having tags" do
-        before { element.tag_list = "peter, lustig" }
+        before { element.update!(tag_list: "peter, lustig") }
 
         context "with no formatter lambda given" do
           it "should return tag list as HTML data attribute" do
@@ -297,6 +297,41 @@ module Alchemy
 
       context "element not having tags" do
         it { is_expected.to be_blank }
+      end
+
+      context "for several persisted taggable elements without tags" do
+        before { create_list(:alchemy_element, 3, name: "article") }
+
+        it "issues no tag queries" do
+          elements = Alchemy::Element.all.to_a
+          tag_queries = 0
+          sub = ActiveSupport::Notifications.subscribe("sql.active_record") do |*args|
+            payload = args.last
+            next if payload[:cached]
+            tag_queries += 1 if /FROM ["`]?gutentag_(tags|taggings)["`]?/i.match?(payload[:sql])
+          end
+          elements.each { |el| element_tags_attributes(el) }
+          ActiveSupport::Notifications.unsubscribe(sub)
+          expect(tag_queries).to eq(0)
+        end
+      end
+
+      context "for a persisted taggable element with tags" do
+        before { create(:alchemy_element, name: "article", tag_list: "red, yellow") }
+
+        it "renders the tags from the cache without a tag query" do
+          element = Alchemy::Element.last
+          tag_queries = 0
+          sub = ActiveSupport::Notifications.subscribe("sql.active_record") do |*args|
+            payload = args.last
+            next if payload[:cached]
+            tag_queries += 1 if /FROM ["`]?gutentag_(tags|taggings)["`]?/i.match?(payload[:sql])
+          end
+          result = element_tags_attributes(element)
+          ActiveSupport::Notifications.unsubscribe(sub)
+          expect(result).to eq("data-element-tags" => "red yellow")
+          expect(tag_queries).to eq(0)
+        end
       end
     end
   end

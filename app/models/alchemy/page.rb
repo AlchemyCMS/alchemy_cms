@@ -5,6 +5,7 @@
 # Table name: alchemy_pages
 #
 #  id              :integer          not null, primary key
+#  cached_tag_list :text             default("[]"), not null
 #  depth           :integer
 #  language_code   :string
 #  language_root   :boolean          default(FALSE), not null

@@ -64,7 +64,7 @@ module Alchemy
 
       it "sets new position for given element" do
         post :order, params: {element_id: element_3, position: 2}
-        expect(Element.all.pluck(:id, :position)).to eq([
+        expect(Element.all.pluck(:id, :position)).to match_array([
           [element_1.id, 1],
           [element_3.id, 2],
           [element_2.id, 3]

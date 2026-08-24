@@ -23,4 +23,22 @@ RSpec.describe Alchemy::ElementSerializer do
       "updated_at" => element.updated_at.as_json
     )
   end
+
+  context "with tags" do
+    let(:element) { create(:alchemy_element, name: "article", tag_list: "red, yellow") }
+
+    it "serializes the tags from the cache without a tag query" do
+      reloaded = Alchemy::Element.find(element.id)
+      tag_queries = 0
+      sub = ActiveSupport::Notifications.subscribe("sql.active_record") do |*args|
+        payload = args.last
+        next if payload[:cached]
+        tag_queries += 1 if /FROM ["`]?gutentag_(tags|taggings)["`]?/i.match?(payload[:sql])
+      end
+      json = JSON.parse(described_class.new(reloaded).to_json)
+      ActiveSupport::Notifications.unsubscribe(sub)
+      expect(json["tag_list"]).to eq(%w[red yellow])
+      expect(tag_queries).to eq(0)
+    end
+  end
 end

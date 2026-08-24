@@ -4,16 +4,17 @@
 #
 # Table name: alchemy_attachments
 #
-#  id             :integer          not null, primary key
-#  file_mime_type :string
-#  file_name      :string
-#  file_size      :integer
-#  file_uid       :string
-#  name           :string
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  creator_id     :integer
-#  updater_id     :integer
+#  id              :integer          not null, primary key
+#  cached_tag_list :text             default("[]"), not null
+#  file_mime_type  :string
+#  file_name       :string
+#  file_size       :integer
+#  file_uid        :string
+#  name            :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  creator_id      :integer
+#  updater_id      :integer
 #
 # Indexes
 #

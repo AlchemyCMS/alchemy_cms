@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_29_082848) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_20_153412) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -40,6 +40,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_29_082848) do
   end
 
   create_table "alchemy_attachments", force: :cascade do |t|
+    t.text "cached_tag_list", default: "[]", null: false
     t.datetime "created_at", null: false
     t.integer "creator_id"
     t.string "file_mime_type"
@@ -56,6 +57,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_29_082848) do
   end
 
   create_table "alchemy_elements", force: :cascade do |t|
+    t.text "cached_tag_list", default: "[]", null: false
     t.datetime "created_at", null: false
     t.integer "creator_id"
     t.boolean "fixed", default: false, null: false
@@ -186,6 +188,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_29_082848) do
   end
 
   create_table "alchemy_pages", force: :cascade do |t|
+    t.text "cached_tag_list", default: "[]", null: false
     t.datetime "created_at", null: false
     t.integer "creator_id"
     t.integer "depth"
@@ -242,6 +245,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_29_082848) do
   end
 
   create_table "alchemy_pictures", force: :cascade do |t|
+    t.text "cached_tag_list", default: "[]", null: false
     t.datetime "created_at", null: false
     t.integer "creator_id"
     t.string "image_file_format"
