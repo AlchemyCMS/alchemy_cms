@@ -31,8 +31,7 @@ module Alchemy
     # Replaces tag with new tag on all models tagged with tag.
     def self.replace(tag, new_tag)
       tag.taggings.collect(&:taggable).each do |taggable|
-        taggable.tag_list.delete(tag.name)
-        taggable.tag_list << new_tag.name
+        taggable.tag_names = taggable.tag_names - [tag.name] + [new_tag.name]
         taggable.save
       end
     end

@@ -31,6 +31,10 @@ RSpec.describe Alchemy::DuplicateElement do
     expect(subject.tag_list).to eq(element.tag_list)
   end
 
+  it "the copy should have the source element's cached tag list" do
+    expect(subject.cached_tag_list).to eq(element.cached_tag_list)
+  end
+
   context "with nested elements" do
     let(:element) do
       create(:alchemy_element, :with_ingredients, :with_nestable_elements, {

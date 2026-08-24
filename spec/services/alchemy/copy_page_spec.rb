@@ -47,6 +47,10 @@ RSpec.describe Alchemy::CopyPage do
       expect(subject.tag_list).not_to be_empty
       expect(subject.tag_list).to match_array(page.tag_list)
     end
+
+    it "the copy should have source cached_tag_list" do
+      expect(subject.reload.cached_tag_list).to match_array(page.cached_tag_list)
+    end
   end
 
   context "page with elements" do
