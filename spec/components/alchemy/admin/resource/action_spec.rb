@@ -8,11 +8,11 @@ RSpec.describe Alchemy::Admin::Resource::Action, type: :component do
   let(:block) { lambda { |item| "Foo" } }
   let(:custom_resource) { Struct.new(:name, :description) }
   let(:resource) { custom_resource.new("Foo", "Bar") }
-  let(:component) { described_class.new(name, tooltip, &block) }
+  let(:component) { described_class.new(name, tooltip, resource, &block) }
 
   subject(:render) do
     with_controller_class(Admin::EventsController) do
-      render_inline(component.with_resource(resource))
+      render_inline(component)
     end
   end
 

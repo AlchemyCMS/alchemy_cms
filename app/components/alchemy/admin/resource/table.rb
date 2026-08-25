@@ -137,13 +137,13 @@ module Alchemy
         # A fresh cell instance is built for every resource because ViewComponent
         # instances are single-use and may not be rendered more than once.
         def cell_for(cell, resource)
-          Cell.new(cell.css_classes, &cell.block).with_resource(resource)
+          Cell.new(cell.css_classes, resource, &cell.block)
         end
 
         # A fresh action instance is built for every resource because ViewComponent
         # instances are single-use and may not be rendered more than once.
         def action_for(action, resource)
-          Action.new(action.name, action.tooltip, &action.block).with_resource(resource)
+          Action.new(action.name, action.tooltip, resource, &action.block)
         end
 
         ##
