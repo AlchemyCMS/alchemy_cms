@@ -10,9 +10,11 @@ module Alchemy
       include Alchemy::Admin::PreviewTime
 
       before_action :load_element, only: [:update, :destroy, :collapse, :expand, :publish]
-      authorize_resource class: Alchemy::Element
+      authorize_resource class: Alchemy::Element, except: [:index]
 
       def index
+        authorize! :edit_content, @page
+
         preloaded = Alchemy::ElementPreloader
           .new(page_version: @page_version)
           .call
