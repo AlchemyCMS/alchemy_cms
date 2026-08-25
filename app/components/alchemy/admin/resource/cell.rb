@@ -7,6 +7,8 @@ module Alchemy
       #
       # @param [String, nil] :css_classes
       #   css classes that are show at the table cell
+      # @param [Object, nil] :resource
+      #   the resource of the row the cell belongs to
       # @param [Lambda] :block
       #   a block to include a button or a link
       #
@@ -19,14 +21,10 @@ module Alchemy
           </td>
         ERB
 
-        def initialize(css_classes, &block)
+        def initialize(css_classes, resource = nil, &block)
           @css_classes = css_classes
-          @block = block
-        end
-
-        def with_resource(resource)
           @resource = resource
-          self
+          @block = block
         end
       end
     end
