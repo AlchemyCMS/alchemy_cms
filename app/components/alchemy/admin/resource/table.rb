@@ -69,12 +69,12 @@ module Alchemy
                 <% collection.each do |resource| %>
                   <tr class="<%= cycle('even', 'odd') %>">
                     <% cells.each do |cell| %>
-                       <%= render cell.with_resource(resource) %>
+                       <%= render cell_for(cell, resource) %>
                     <% end %>
                     <% if actions? %>
                       <td class="tools">
                         <% actions.each do |action| %>
-                          <%= render action.with_resource(resource) %>
+                          <%= render action_for(action, resource) %>
                         <% end %>
                       </td>
                     <% end %>
@@ -133,6 +133,18 @@ module Alchemy
         end
 
         private
+
+        # A fresh cell instance is built for every resource because ViewComponent
+        # instances are single-use and may not be rendered more than once.
+        def cell_for(cell, resource)
+          Cell.new(cell.css_classes, &cell.block).with_resource(resource)
+        end
+
+        # A fresh action instance is built for every resource because ViewComponent
+        # instances are single-use and may not be rendered more than once.
+        def action_for(action, resource)
+          Action.new(action.name, action.tooltip, &action.block).with_resource(resource)
+        end
 
         ##
         # if no cells are available the resource_helper will be used, to generate the
