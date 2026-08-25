@@ -207,7 +207,7 @@ RSpec.describe "Page editing feature", type: :system do
     context "in preview frame" do
       it "the menubar does not render on the page" do
         visit alchemy.admin_page_path(a_page)
-        expect(page).not_to have_selector("#alchemy_menubar")
+        expect(page).not_to have_selector("alchemy-menubar")
       end
 
       context "with menu available" do
