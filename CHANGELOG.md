@@ -1,5 +1,21 @@
 # Changelog
 
+## 8.3.7 (2026-08-25)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.3-stable -->
+
+## What's Changed
+### Security
+* fix: Authorize admin elements controller index action. https://github.com/AlchemyCMS/alchemy_cms/security/advisories/GHSA-jf87-rrw4-2344
+### Bug Fixes
+* [8.3-stable] fix: create only one draft version per seeded page by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4120
+* [8.3-stable] fix(Resource::Table): Build a fresh cell/action per row by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4156
+### Other Changes
+* [8.3] fix(Menubar): Normalize line-height by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4157
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.3.6...v8.3.7
+
 ## 8.3.6 (2026-07-28)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.3-stable -->

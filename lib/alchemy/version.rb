@@ -3,7 +3,7 @@
 module Alchemy
   extend self
 
-  VERSION = "8.3.6"
+  VERSION = "8.3.7"
 
   def version
     VERSION
