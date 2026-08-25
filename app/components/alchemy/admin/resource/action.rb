@@ -10,6 +10,8 @@ module Alchemy
       #   name of an action to evaluate if the user can perform these action on the given object
       # @param [String, nil] :tooltip
       #   show a tooltip around the button
+      # @param [Object, nil] :resource
+      #   the resource of the row the action belongs to
       # @param [Lambda] :block
       #   a block to include a button or a link
       #
@@ -30,15 +32,11 @@ module Alchemy
           <% end %>
         ERB
 
-        def initialize(name = nil, tooltip = nil, &block)
+        def initialize(name = nil, tooltip = nil, resource = nil, &block)
           @name = name
           @tooltip = tooltip
-          @block = block
-        end
-
-        def with_resource(resource)
           @resource = resource
-          self
+          @block = block
         end
       end
     end
