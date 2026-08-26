@@ -18,14 +18,12 @@ module Alchemy
         raise UnsupportedPageVersion unless version.in? PAGE_VERSIONS
 
         [
-          :tags,
           {
             :language => :site,
             version => {
               elements: [
                 :page,
                 :touchable_pages,
-                :tags,
                 {
                   ingredients: :related_object
                 }
