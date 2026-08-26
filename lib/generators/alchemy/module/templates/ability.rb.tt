@@ -2,7 +2,7 @@ class <%= @controller_class %>Ability
   include CanCan::Ability
 
   def initialize(user)
-    if user.present? && user.is_admin?
+    if user&.is_alchemy_admin?
       can :manage, <%= @class_name %>
       can :manage, :admin_<%= @controller_name %>
     end
