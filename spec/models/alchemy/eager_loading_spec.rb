@@ -9,14 +9,12 @@ RSpec.describe Alchemy::EagerLoading do
 
       it "returns public version includes" do
         is_expected.to match_array([
-          :tags,
           {
             language: :site,
             public_version: {
               elements: [
                 :page,
                 :touchable_pages,
-                :tags,
                 {
                   ingredients: :related_object
                 }
@@ -32,14 +30,12 @@ RSpec.describe Alchemy::EagerLoading do
 
       it "returns version includes" do
         is_expected.to match_array([
-          :tags,
           {
             language: :site,
             draft_version: {
               elements: [
                 :page,
                 :touchable_pages,
-                :tags,
                 {
                   ingredients: :related_object
                 }

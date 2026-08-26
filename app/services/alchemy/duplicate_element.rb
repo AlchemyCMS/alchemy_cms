@@ -4,6 +4,7 @@ module Alchemy
   class DuplicateElement
     SKIPPED_ATTRIBUTES_ON_COPY = [
       "cached_tag_list",
+      "tag_names",
       "created_at",
       "creator_id",
       "position",
@@ -27,11 +28,13 @@ module Alchemy
         .merge(differences)
         .merge(
           autogenerate_ingredients: false,
-          autogenerate_nested_elements: false,
-          tags: source_element.tags
+          autogenerate_nested_elements: false
         )
 
       new_element = Element.new(attributes)
+      # Only assign tags when the source has any, so copying untagged elements
+      # (the common case) does not trigger gutentag's tag reconciliation.
+      new_element.tag_list = source_element.tag_list if source_element.tag_list.present?
       new_element.ingredients = source_element.ingredients.map(&:dup)
       new_element.save!
 

@@ -35,6 +35,26 @@ RSpec.describe Alchemy::DuplicateElement do
     expect(subject.cached_tag_list).to eq(element.cached_tag_list)
   end
 
+  context "when copying untagged elements" do
+    let(:page_version) { create(:alchemy_page_version) }
+    let(:element) do
+      create(:alchemy_element, :with_nestable_elements, page_version: page_version)
+    end
+
+    before do
+      2.times do
+        create(:alchemy_element, name: "slide", parent_element: element, page_version: page_version)
+      end
+    end
+
+    it "reads the source tags from the cache, not the tags association" do
+      source = Alchemy::Element.find(element.id)
+      repository = source.page_version.element_repository
+      described_class.new(source, repository: repository).call
+      expect(source.association(:tags)).not_to be_loaded
+    end
+  end
+
   context "with nested elements" do
     let(:element) do
       create(:alchemy_element, :with_ingredients, :with_nestable_elements, {
