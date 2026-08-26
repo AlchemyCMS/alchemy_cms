@@ -31,11 +31,7 @@ module Alchemy
       def expiration_time
         return 0 unless cache_page?
 
-        if definition.cache.to_s.match?(/\d+/)
-          definition.cache.to_i
-        else
-          Alchemy.config.page_cache.max_age
-        end
+        cache_control.max_age || Alchemy.config.page_cache.max_age
       end
 
       def rootpage?
@@ -174,9 +170,46 @@ module Alchemy
       # @returns Boolean
       #
       def cache_page?
-        return false if !public? || restricted?
+        !cache_control.no_store?
+      end
 
-        definition.cache != false && definition.searchresults != true
+      # The effective Cache-Control directives for this page: the page layout's
+      # `cache` setting combined (most restrictively) with the `page_cache` of any
+      # published element on the page, then narrowed for restricted / non-public /
+      # search-results pages.
+      #
+      # @returns [Alchemy::CacheControl]
+      def cache_control
+        return @cache_control if defined?(@cache_control)
+
+        control = [definition.cache, *element_cache_controls].reduce(:&)
+
+        control = Alchemy::CacheControl.parse(false) if !public? || definition.searchresults
+
+        if restricted?
+          control = if definition.cache.default?
+            Alchemy::CacheControl.parse(false)
+          else
+            control.restrict_visibility
+          end
+        end
+
+        @cache_control = control
+      end
+
+      private
+
+      # CacheControl of every visible element on the page whose definition
+      # declares a non-default `page_cache`. Reads through the page version's
+      # element repository so it reuses already-loaded elements instead of
+      # firing its own query, and only inspects elements at all when at least
+      # one definition is non-default.
+      def element_cache_controls
+        constrained = Alchemy::Element.definitions.reject { |d| d.page_cache.default? }
+        return [] if constrained.empty?
+
+        present_names = public_version&.element_repository&.visible&.named(*constrained.map(&:name))&.map(&:name) || []
+        constrained.select { |d| present_names.include?(d.name) }.map(&:page_cache)
       end
     end
   end

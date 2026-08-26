@@ -37,12 +37,23 @@ module Alchemy
     end
 
     describe "#page_cache" do
-      it "defaults to true" do
-        expect(described_class.new.page_cache).to be(true)
+      it "defaults to an unconstrained CacheControl" do
+        expect(described_class.new.page_cache).to be_a(Alchemy::CacheControl)
+        expect(described_class.new.page_cache.default?).to be(true)
       end
 
-      it "can be disabled" do
-        expect(described_class.new(page_cache: false).page_cache).to be(false)
+      it "casts false to a no_store CacheControl" do
+        expect(described_class.new(page_cache: false).page_cache.no_store?).to be(true)
+      end
+
+      it "casts a hash into a CacheControl" do
+        control = described_class.new(page_cache: {visibility: "private", max_age: 60}).page_cache
+        expect(control.private?).to be(true)
+        expect(control.max_age).to eq(60)
+      end
+
+      it "raises for an invalid hash" do
+        expect { described_class.new(page_cache: {bogus: true}) }.to raise_error(ArgumentError)
       end
     end
 

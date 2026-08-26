@@ -71,7 +71,7 @@ RSpec.describe "Page request caching" do
 
       context "when page must not be cached" do
         before do
-          allow_any_instance_of(Alchemy::Page).to receive(:cache_page?) { false }
+          allow_any_instance_of(Alchemy::Page).to receive(:cache_control) { Alchemy::CacheControl.parse(false) }
         end
 
         it "sets no-store cache-control header" do
@@ -164,6 +164,67 @@ RSpec.describe "Page request caching" do
         end
       end
 
+      context "with hash-based cache directives" do
+        around do |example|
+          Alchemy::PageDefinition.add({"name" => "private_cache_layout", "cache" => {"visibility" => "private", "max_age" => 120}})
+          Alchemy::PageDefinition.add({"name" => "no_cache_layout", "cache" => {"no_cache" => true}})
+          example.run
+        ensure
+          Alchemy::PageDefinition.reset!
+        end
+
+        it "sets a private max-age header" do
+          private_page = create(:alchemy_page, :public, page_layout: "private_cache_layout")
+
+          get "/#{private_page.urlname}"
+
+          expect(response.headers["Cache-Control"]).to eq("max-age=120, private, must-revalidate")
+        end
+
+        it "sets a no-cache header and still allows revalidation" do
+          no_cache_page = create(:alchemy_page, :public, page_layout: "no_cache_layout")
+
+          expect_any_instance_of(Alchemy::PagesController).to receive(:stale?).and_call_original
+
+          get "/#{no_cache_page.urlname}"
+
+          expect(response.headers["Cache-Control"]).to eq("no-cache")
+        end
+      end
+
+      # Elements can only tighten a page's caching, never loosen it: a more
+      # permissive element directive must not override the page layout.
+      context "when a published element is less restrictive than the page" do
+        around do |example|
+          Alchemy::ElementDefinition.add({"name" => "cacheable_element", "page_cache" => 3600})
+          Alchemy::ElementDefinition.add({"name" => "public_element", "page_cache" => {"visibility" => "public"}})
+          Alchemy::PageDefinition.add({"name" => "disabled_layout", "cache" => false, "elements" => ["cacheable_element"]})
+          Alchemy::PageDefinition.add({"name" => "private_layout", "cache" => {"visibility" => "private", "max_age" => 120}, "elements" => ["public_element"]})
+          example.run
+        ensure
+          Alchemy::ElementDefinition.reset!
+          Alchemy::PageDefinition.reset!
+        end
+
+        it "keeps the page's no-store when the element enables caching" do
+          disabled_page = create(:alchemy_page, :public, page_layout: "disabled_layout")
+          create(:alchemy_element, name: "cacheable_element", page_version: disabled_page.public_version)
+
+          get "/#{disabled_page.urlname}"
+
+          expect(response.headers["Cache-Control"]).to eq("no-store")
+        end
+
+        it "keeps the page private when the element is public" do
+          private_page = create(:alchemy_page, :public, page_layout: "private_layout")
+          create(:alchemy_element, name: "public_element", page_version: private_page.public_version)
+
+          get "/#{private_page.urlname}"
+
+          expect(response.headers["Cache-Control"]).to eq("max-age=120, private, must-revalidate")
+        end
+      end
+
       it "does not set last-modified header" do
         get "/#{page.urlname}"
         expect(response.headers).to_not have_key("Last-Modified")
@@ -172,7 +233,7 @@ RSpec.describe "Page request caching" do
 
     context "but page should not be cached" do
       before do
-        allow_any_instance_of(Alchemy::Page).to receive(:cache_page?) { false }
+        allow_any_instance_of(Alchemy::Page).to receive(:cache_control) { Alchemy::CacheControl.parse(false) }
       end
 
       it "sets no-store header" do
