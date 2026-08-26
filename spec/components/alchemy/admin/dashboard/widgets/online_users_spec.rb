@@ -32,7 +32,7 @@ RSpec.describe Alchemy::Admin::Dashboard::Widgets::OnlineUsers, type: :component
       let(:users) { [another_user] }
 
       let(:another_user) do
-        mock_model("DummyUser", name: "Another User", human_roles_string: "Administrator")
+        mock_model("DummyUser", name: "Another User", human_alchemy_roles: "Administrator")
       end
 
       it "renders online_users" do

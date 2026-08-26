@@ -5,9 +5,13 @@ module Alchemy
     ARCHIVE_FILE_TYPES = ["application/zip", "application/x-rar"]
 
     AUDIO_FILE_TYPES = [
+      "audio/aac",
+      "audio/flac",
       "audio/mpeg",
       "audio/mp4",
+      "audio/ogg",
       "audio/wav",
+      "audio/webm",
       "audio/x-wav"
     ]
 
@@ -29,6 +33,7 @@ module Alchemy
       "video/x-flv",
       "video/mp4",
       "video/mpeg",
+      "video/ogg",
       "video/quicktime",
       "video/webm",
       "video/x-msvideo",

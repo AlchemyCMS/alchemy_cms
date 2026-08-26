@@ -72,8 +72,7 @@ module Alchemy
     # Associations to preload for element rendering
     def element_includes
       [
-        {ingredients: :related_object},
-        :tags
+        {ingredients: :related_object}
       ]
     end
 

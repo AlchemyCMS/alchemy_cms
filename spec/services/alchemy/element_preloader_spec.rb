@@ -32,10 +32,6 @@ RSpec.describe Alchemy::ElementPreloader do
       it "preloads ingredients association" do
         expect(subject.first.association(:ingredients)).to be_loaded
       end
-
-      it "preloads tags association" do
-        expect(subject.first.association(:tags)).to be_loaded
-      end
     end
 
     context "with nested elements (2 levels)" do
@@ -63,7 +59,6 @@ RSpec.describe Alchemy::ElementPreloader do
       it "preloads associations on nested elements" do
         nested = subject.first.all_nested_elements.first
         expect(nested.association(:ingredients)).to be_loaded
-        expect(nested.association(:tags)).to be_loaded
       end
     end
 
@@ -147,7 +142,7 @@ RSpec.describe Alchemy::ElementPreloader do
 
       it "loads all nested elements without N+1 queries" do
         # Queries are bounded regardless of element count (8 elements created)
-        # language (eager loaded via page), all elements, ingredients, tags
+        # language (eager loaded via page), all elements, ingredients
         expect {
           result = described_class.new(page_version: page_version).call
 
@@ -158,7 +153,7 @@ RSpec.describe Alchemy::ElementPreloader do
               nested.all_nested_elements.to_a
             end
           end
-        }.to make_database_queries(count: 4)
+        }.to make_database_queries(count: 3)
       end
     end
 

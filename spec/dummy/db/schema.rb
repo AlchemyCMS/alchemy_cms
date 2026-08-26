@@ -318,9 +318,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_20_153412) do
   end
 
   create_table "dummy_users", force: :cascade do |t|
+    t.text "alchemy_roles", default: "member"
+    t.integer "creator_id"
     t.string "email"
     t.string "password"
+    t.integer "updater_id"
+    t.index ["creator_id"], name: "index_dummy_users_on_creator_id"
     t.index ["email"], name: "index_dummy_users_on_email"
+    t.index ["updater_id"], name: "index_dummy_users_on_updater_id"
   end
 
   create_table "events", force: :cascade do |t|

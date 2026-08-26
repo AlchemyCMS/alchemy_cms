@@ -162,19 +162,19 @@ Alchemy.configure do |config|
 end
 ```
 
-The only thing Alchemy needs to know from your user class is the `alchemy_roles` method.
+Alchemy needs a `alchemy_roles` column in your database for the RBAC to work.
 
-This method has to return an `Array` (or `ActiveRecord::Relation`) with at least one of the following roles: `member`, `author`, `editor`, `admin`.
+Alchemy provides a migration generator that adds these tables to your users table.
 
-##### Example
+```
+$ bin/rails g alchemy:user_columns_migration --table-name=my-users-table
+```
+
+Then include this module in your model.
 
 ```ruby
-# app/models/user.rb
-
-def alchemy_roles
-  if admin?
-    %w(admin)
-  end
+class User
+  include Alchemy::UserMethods
 end
 ```
 

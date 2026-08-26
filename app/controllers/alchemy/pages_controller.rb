@@ -219,7 +219,13 @@ module Alchemy
     end
 
     def signup_required?
-      if Alchemy.config.user_class.respond_to?(:admins)
+      if Alchemy.config.user_class.respond_to?(:alchemy_admins)
+        Alchemy.config.user_class.alchemy_admins.empty?
+      elsif Alchemy.config.user_class.respond_to?(:admins)
+        Alchemy::Deprecation.warn(
+          "Using `#{Alchemy.config.user_class}.admins` is deprecated. " \
+          "Include `Alchemy::UserMethods` into your user class to provide `alchemy_admins` instead."
+        )
         Alchemy.config.user_class.admins.empty?
       end
     end
