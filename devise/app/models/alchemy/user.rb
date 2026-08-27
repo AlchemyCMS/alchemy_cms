@@ -21,18 +21,19 @@ module Alchemy
     devise(*Alchemy::Devise.config.devise_modules)
 
     include Alchemy::Taggable
+    include Alchemy::UserMethods
 
     attr_accessor :send_credentials
 
     has_many :folded_pages
 
     validates :login, uniqueness: {case_sensitive: false}, presence: :login_required?
-    validates_presence_of :alchemy_roles
 
-    # Unlock all locked pages before destroy.
-    before_destroy :unlock_pages!
+    scope :admins, -> {
+      Alchemy::Deprecation.warn("#{name}.admins is deprecated. Please use #{name}.alchemy_admins instead.")
+      alchemy_admins
+    }
 
-    scope :admins, -> { where(arel_table[:alchemy_roles].matches("%admin%")) }
     scope :logged_in, -> { where("last_request_at > ?", logged_in_timeout.seconds.ago) }
     scope :logged_out, -> { where("last_request_at is NULL or last_request_at <= ?", logged_in_timeout.seconds.ago) }
 
@@ -61,9 +62,8 @@ module Alchemy
         ]
       end
 
-      def human_rolename(role)
-        Alchemy.t("user_roles.#{role}")
-      end
+      deprecate human_rolename: :human_alchemy_rolename, deprecator: Alchemy::Deprecation
+      alias_method :human_rolename, :human_alchemy_rolename
 
       def logged_in_timeout
         Alchemy.config.get(:auto_logout_time).minutes.to_i
@@ -73,53 +73,26 @@ module Alchemy
     def role_symbols
       alchemy_roles.map(&:to_sym)
     end
+    deprecate :role_symbols, deprecator: Alchemy::Deprecation
 
     def role
       alchemy_roles.first
     end
-
-    def alchemy_roles
-      read_attribute(:alchemy_roles).split(" ")
-    end
-
-    def alchemy_roles=(roles_string)
-      if roles_string.is_a? Array
-        write_attribute(:alchemy_roles, roles_string.join(" "))
-      elsif roles_string.is_a? String
-        write_attribute(:alchemy_roles, roles_string)
-      end
-    end
+    deprecate :role, deprecator: Alchemy::Deprecation
 
     def add_role(role)
       self.alchemy_roles = alchemy_roles.push(role.to_s).uniq
     end
+    deprecate add_role: :"alchemy_roles=", deprecator: Alchemy::Deprecation
 
-    # Returns true if the user ahs admin role
-    def is_admin?
-      has_role? "admin"
-    end
+    alias_method :is_admin?, :alchemy_admin?
+    deprecate is_admin?: :alchemy_admin?, deprecator: Alchemy::Deprecation
 
-    alias_method :admin?, :is_admin?
+    alias_method :has_role?, :has_alchemy_role?
+    deprecate has_role?: :has_alchemy_role?, deprecator: Alchemy::Deprecation
 
-    # Returns true if the user has the given role.
-    def has_role?(role)
-      alchemy_roles.include? role.to_s
-    end
-
-    # Calls unlock on all locked pages
-    def unlock_pages!
-      pages_locked_by_me.map(&:unlock!)
-    end
-
-    # Returns all pages locked by user.
-    #
-    # A page gets locked, if the user requests to edit the page.
-    #
-    def pages_locked_by_me
-      Page.locked_by(self).order(:updated_at)
-    end
-
-    alias_method :locked_pages, :pages_locked_by_me
+    alias_method :human_roles_string, :human_alchemy_roles
+    deprecate human_roles_string: :human_alchemy_roles, deprecator: Alchemy::Deprecation
 
     # Returns the firstname and lastname as a string
     #
@@ -160,11 +133,8 @@ module Alchemy
       !logged_in?
     end
 
-    def human_roles_string
-      alchemy_roles.map do |role|
-        self.class.human_rolename(role)
-      end.to_sentence
-    end
+    alias_method :pages_locked_by_me, :locked_pages
+    deprecate pages_locked_by_me: :locked_pages, deprecator: Alchemy::Deprecation
 
     def store_request_time!
       update_column(:last_request_at, Time.now)
@@ -173,7 +143,7 @@ module Alchemy
     # Delivers a welcome mail depending from user's role.
     #
     def deliver_welcome_mail
-      if has_role?("author") || has_role?("editor") || has_role?("admin")
+      if has_alchemy_role?("author") || has_alchemy_role?("editor") || has_alchemy_role?("admin")
         Notifications.alchemy_user_created(self).deliver_later
       else
         Notifications.member_created(self).deliver_later

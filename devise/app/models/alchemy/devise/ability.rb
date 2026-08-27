@@ -26,19 +26,19 @@ module Alchemy
       private
 
       def member?
-        @user.try(:has_role?, :member)
+        @user.try(:has_alchemy_role?, :member)
       end
 
       def author?
-        @user.try(:has_role?, :author)
+        @user.try(:has_alchemy_role?, :author)
       end
 
       def editor?
-        @user.try(:has_role?, :editor)
+        @user.try(:has_alchemy_role?, :editor)
       end
 
       def admin?
-        @user.try(:has_role?, :admin)
+        @user.try(:has_alchemy_role?, :admin)
       end
     end
   end

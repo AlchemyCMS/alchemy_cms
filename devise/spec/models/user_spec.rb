@@ -107,14 +107,18 @@ module Alchemy
 
       describe ".admins" do
         it "should only return users with admin role" do
-          expect(User.admins).to include(user)
+          Alchemy::Deprecation.silence do
+            expect(User.admins).to include(user)
+          end
         end
       end
     end
 
     describe ".human_rolename" do
       it "return a translated role name" do
-        expect(User.human_rolename("member")).to eq("Member")
+        Alchemy::Deprecation.silence do
+          expect(User.human_rolename("member")).to eq("Member")
+        end
       end
     end
 
@@ -154,17 +158,27 @@ module Alchemy
     describe "#human_roles_string" do
       it "should return a humanized roles string." do
         user.alchemy_roles = ["member", "admin"]
-        expect(user.human_roles_string).to eq("Member and Administrator")
+        Alchemy::Deprecation.silence do
+          expect(user.human_roles_string).to eq("Member and Administrator")
+        end
       end
     end
 
     describe "#role_symbols" do
       it "should return an array of user role symbols" do
-        expect(user.role_symbols).to eq([:member])
+        Alchemy::Deprecation.silence do
+          expect(user.role_symbols).to eq([:member])
+        end
       end
     end
 
     describe "#has_role?" do
+      around do |example|
+        Alchemy::Deprecation.silence do
+          example.run
+        end
+      end
+
       context "with given role" do
         it "should return true." do
           expect(user.has_role?("member")).to be_truthy
@@ -185,6 +199,12 @@ module Alchemy
     end
 
     describe "#role" do
+      around do |example|
+        Alchemy::Deprecation.silence do
+          example.run
+        end
+      end
+
       context "when user doesn't have any roles" do
         before { user.alchemy_roles = [] }
 
@@ -226,6 +246,12 @@ module Alchemy
     end
 
     describe "#add_role" do
+      around do |example|
+        Alchemy::Deprecation.silence do
+          example.run
+        end
+      end
+
       it "should add the given role to roles array" do
         user.add_role "admin"
         expect(user.alchemy_roles).to eq(["member", "admin"])
@@ -312,7 +338,9 @@ module Alchemy
       it "should return all pages that are locked by user" do
         user.save!
         page.lock_to!(user)
-        expect(user.locked_pages).to include(page)
+        Alchemy::Deprecation.silence do
+          expect(user.locked_pages).to include(page)
+        end
       end
     end
 
@@ -325,15 +353,18 @@ module Alchemy
       end
 
       it "should unlock all users lockes pages" do
-        user.unlock_pages!
-        expect(user.locked_pages).to be_empty
+        expect {
+          user.unlock_pages!
+        }.to change { user.locked_pages.count }.from(1).to(0)
       end
     end
 
     describe "#is_admin?" do
       it "should return true if the user has admin role" do
         user.alchemy_roles = "admin"
-        expect(user.is_admin?).to be_truthy
+        Alchemy::Deprecation.silence do
+          expect(user.is_admin?).to be_truthy
+        end
       end
     end
 
