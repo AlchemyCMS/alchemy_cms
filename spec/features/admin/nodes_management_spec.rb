@@ -70,4 +70,24 @@ RSpec.describe "Nodes management", type: :system, js: true do
       end
     end
   end
+
+  context "with a evil menu node" do
+    let!(:evil_node) do
+      create(:alchemy_node,
+        name: "<alert>Evil!</alert>",
+        parent: a_menu,
+        page: a_page)
+    end
+
+    before do
+      a_menu.update_columns(name: "<alert>Evil!</alert>")
+    end
+
+    it "does not execute injected code" do
+      open_page_properties
+      within "#page_nodes table" do
+        expect(page).to_not have_selector("alert", text: "Evil!")
+      end
+    end
+  end
 end
