@@ -128,7 +128,8 @@ form {
   }
 
   .field_with_errors {
-    input[type="text"],
+    &:not(:has(.ts-control)) input[type="text"],
+    .ts-control,
     input[type="email"],
     input[type="password"],
     textarea,

@@ -229,6 +229,7 @@
   .option {
     padding: var(--spacing-2);
     cursor: pointer;
+    min-height: 2.75em;
 
     .highlight {
       text-decoration: underline;
