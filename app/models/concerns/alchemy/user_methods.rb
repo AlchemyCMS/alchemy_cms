@@ -3,6 +3,8 @@ module Alchemy
     extend ActiveSupport::Concern
 
     included do
+      attribute :alchemy_roles, default: "member"
+
       # Unlock all locked pages before destroy.
       before_destroy :unlock_pages!
 

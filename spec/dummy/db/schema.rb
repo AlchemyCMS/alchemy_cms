@@ -40,7 +40,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_20_153412) do
   end
 
   create_table "alchemy_attachments", force: :cascade do |t|
-    t.text "cached_tag_list", default: "[]", null: false
+    t.text "cached_tag_list", null: false
     t.datetime "created_at", null: false
     t.integer "creator_id"
     t.string "file_mime_type"
@@ -57,7 +57,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_20_153412) do
   end
 
   create_table "alchemy_elements", force: :cascade do |t|
-    t.text "cached_tag_list", default: "[]", null: false
+    t.text "cached_tag_list", null: false
     t.datetime "created_at", null: false
     t.integer "creator_id"
     t.boolean "fixed", default: false, null: false
@@ -188,7 +188,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_20_153412) do
   end
 
   create_table "alchemy_pages", force: :cascade do |t|
-    t.text "cached_tag_list", default: "[]", null: false
+    t.text "cached_tag_list", null: false
     t.datetime "created_at", null: false
     t.integer "creator_id"
     t.integer "depth"
@@ -204,7 +204,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_20_153412) do
     t.string "name"
     t.string "page_layout"
     t.integer "parent_id"
-    t.text "permitted_roles", default: "[\"member\"]", null: false
+    t.text "permitted_roles", null: false
     t.datetime "published_at", precision: nil
     t.boolean "restricted", default: false, null: false
     t.integer "rgt"
@@ -245,7 +245,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_20_153412) do
   end
 
   create_table "alchemy_pictures", force: :cascade do |t|
-    t.text "cached_tag_list", default: "[]", null: false
+    t.text "cached_tag_list", null: false
     t.datetime "created_at", null: false
     t.integer "creator_id"
     t.string "image_file_format"
@@ -318,7 +318,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_20_153412) do
   end
 
   create_table "dummy_users", force: :cascade do |t|
-    t.text "alchemy_roles", default: "member"
+    t.text "alchemy_roles"
     t.integer "creator_id"
     t.string "email"
     t.string "password"

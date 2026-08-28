@@ -12,6 +12,7 @@ module Alchemy
       # has a cached_tag_list column. serialize defers until the schema loads,
       # so declaring it unconditionally never touches the DB at boot and is
       # harmless for taggables without the column.
+      base.attribute :cached_tag_list, default: -> { [] }
       base.serialize :cached_tag_list, coder: JSON
       base.before_save :remember_tag_name_change
       base.after_save :cache_tag_list
