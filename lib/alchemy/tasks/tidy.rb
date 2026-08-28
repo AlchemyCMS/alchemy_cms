@@ -64,8 +64,8 @@ module Alchemy
       def remove_duplicate_legacy_urls
         puts "\n## Removing duplicate legacy URLs"
         keep_ids = Alchemy::LegacyPageUrl
-          .select("MAX(id)")
           .group(:page_id, :urlname)
+          .pluck(Arel.sql("MAX(id)"))
         count = Alchemy::LegacyPageUrl
           .where.not(id: keep_ids)
           .delete_all
