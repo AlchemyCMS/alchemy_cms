@@ -34,7 +34,7 @@ jobs:
       ALCHEMY_BRANCH: ${{ matrix.alchemy_branch }}
     services:
       postgres:
-        image: postgres:11
+        image: postgres:latest
         env:
           POSTGRES_USER: ${{ env.DB_USER }}
           POSTGRES_PASSWORD: ${{ env.DB_PASSWORD }}
