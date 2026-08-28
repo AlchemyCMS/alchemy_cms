@@ -195,6 +195,26 @@ describe("alchemy-preview-window", () => {
       expect(growlSpy).not.toHaveBeenCalled()
     })
 
+    it("uses the load-timeout attribute (in seconds) for the fallback", () => {
+      previewWindow.setAttribute("load-timeout", "2")
+
+      previewWindow.refresh()
+      expect(reloadButton.innerHTML).toContain("alchemy-spinner")
+
+      // Before the configured 2s timeout the spinner is still running
+      vi.advanceTimersByTime(1999)
+      expect(reloadButton.innerHTML).toContain("alchemy-spinner")
+      expect(growlSpy).not.toHaveBeenCalled()
+
+      // At 2s the fallback fires
+      vi.advanceTimersByTime(1)
+      expect(reloadButton.innerHTML).not.toContain("alchemy-spinner")
+      expect(growlSpy).toHaveBeenCalledWith(
+        "Preview failed to load. Please try again.",
+        "warning"
+      )
+    })
+
     it("resolves the refresh promise on the iframe load event", async () => {
       let resolved = false
       previewWindow.refresh().then(() => {

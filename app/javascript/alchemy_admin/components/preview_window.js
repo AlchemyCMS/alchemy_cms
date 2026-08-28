@@ -63,12 +63,12 @@ class PreviewWindow extends HTMLIFrameElement {
       this.src = this.url
     }
 
-    // Set 5s timeout as fallback - if iframe doesn't load, stop spinner anyway
+    // Set timeout as fallback - if iframe doesn't load, stop spinner anyway
     this.#clearLoadTimeout()
     this.#loadTimeout = setTimeout(() => {
       this.#stopSpinner()
       growl(translate("Preview failed to load"), "warning")
-    }, 5000)
+    }, this.loadTimeout)
 
     return new Promise((resolve) => {
       this.#afterLoad = resolve
@@ -127,6 +127,11 @@ class PreviewWindow extends HTMLIFrameElement {
 
   get url() {
     return this.getAttribute("url")
+  }
+
+  get loadTimeout() {
+    const seconds = parseInt(this.getAttribute("load-timeout"), 10)
+    return (Number.isNaN(seconds) ? 5 : seconds) * 1000
   }
 
   get sizeSelect() {
