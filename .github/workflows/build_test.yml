@@ -204,7 +204,7 @@ jobs:
         run: |
           bundle exec rspec
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
         if: matrix.rails == '8.0' && matrix.ruby == '3.4'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
