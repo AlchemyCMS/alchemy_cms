@@ -93,6 +93,10 @@ RSpec.describe Alchemy::Configurations::Main do
   end
 
   describe "defaults" do
+    it "has default value for preview_load_timeout" do
+      expect(subject.preview_load_timeout).to eq(5)
+    end
+
     it "has default value for user_class_primary_key" do
       expect(subject.user_class_primary_key).to eq(:id)
     end

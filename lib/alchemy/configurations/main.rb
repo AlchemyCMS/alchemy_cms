@@ -82,6 +82,14 @@ module Alchemy
       #
       configuration :preview, Preview
 
+      # === Preview load timeout
+      #
+      # The number of seconds the admin preview window waits for the preview
+      # frame to load before it stops the loading spinner and warns the user
+      # that the preview failed to load.
+      #
+      option :preview_load_timeout, :integer, default: 5
+
       # === Picture rendering settings
       #
       # Alchemy uses Dragonfly to render images. Settings for image rendering are specific to elements and are defined in elements.yml
