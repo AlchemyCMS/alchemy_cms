@@ -11,12 +11,17 @@ class AddCachedTagListToTaggables < ActiveRecord::Migration[7.2]
 
   def up
     TAGGABLE_MODELS.each do |model_name|
-      add_column model_name.constantize.table_name, :cached_tag_list, :text,
-        default: "[]", null: false, if_not_exists: true
+      add_column model_name.constantize.table_name, :cached_tag_list, :text, if_not_exists: true
     end
 
     say_with_time "Backfilling cached_tag_list from existing taggings" do
       backfill
+    end
+
+    TAGGABLE_MODELS.each do |model_name|
+      table = model_name.constantize.table_name
+      execute("UPDATE #{quote_table_name(table)} SET cached_tag_list = '[]' WHERE cached_tag_list IS NULL")
+      change_column_null table, :cached_tag_list, false
     end
   end
 

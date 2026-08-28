@@ -153,6 +153,7 @@ module Alchemy
     # match a single quoted role with a portable LIKE. No +type: Array+, as
     # that would serialize an empty array to NULL and violate the not null
     # constraint; the writer already guarantees an array is stored.
+    attribute :permitted_roles, default: -> { ["member"] }
     serialize :permitted_roles, coder: JSON
 
     before_destroy :check_descendants_for_menu_nodes

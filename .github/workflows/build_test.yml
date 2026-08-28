@@ -128,6 +128,10 @@ jobs:
             ruby: "3.4"
             database: sqlite
             storage: active_storage
+          - rails: "8.0"
+            ruby: "3.4"
+            database: mysql
+            storage: active_storage
 
     env:
       DB: ${{ matrix.database }}
@@ -157,6 +161,15 @@ jobs:
           MARIADB_DATABASE: alchemy_cms_dummy_test
           MARIADB_ROOT_PASSWORD: password
         options: --health-cmd="mariadb-admin ping" --health-interval=1s --health-timeout=1s --health-retries=30
+      mysql:
+        image: mysql:latest
+        ports: ["3306:3306"]
+        env:
+          MYSQL_USER: alchemy_user
+          MYSQL_PASSWORD: password
+          MYSQL_DATABASE: alchemy_cms_dummy_test
+          MYSQL_ROOT_PASSWORD: password
+        options: --health-cmd="mysqladmin ping" --health-interval=1s --health-timeout=1s --health-retries=30
     steps:
       - uses: actions/checkout@v6
       - name: Set up Ruby
@@ -178,8 +191,8 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -qq --fix-missing libpq-dev
-      - name: Install MariaDB headers
-        if: matrix.database == 'mariadb'
+      - name: Install MySQL headers
+        if: matrix.database == 'mariadb' || matrix.database == 'mysql'
         run: |
           sudo apt-get update -qq
           sudo apt-get install -qq --fix-missing libmysqlclient-dev
