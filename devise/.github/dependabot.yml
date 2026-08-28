@@ -36,3 +36,8 @@ updates:
     cooldown:
       default-days: 7
       semver-major-days: 30
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      # Check for updates to GitHub Actions every week
+      interval: "weekly"
