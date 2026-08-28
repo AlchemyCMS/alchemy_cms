@@ -67,7 +67,7 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build assets
         run: pnpm run build
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: build-artifacts
           path: |
@@ -214,7 +214,7 @@ jobs:
           # Flag each database leg so Codecov can carry a leg's coverage forward
           # when its upload flakes, instead of counting it as uncovered.
           flags: ${{ matrix.database }}
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: Screenshots-${{ matrix.database }}-${{ matrix.ruby }}-${{ matrix.rails }}
