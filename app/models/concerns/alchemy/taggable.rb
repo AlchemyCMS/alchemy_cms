@@ -20,8 +20,11 @@ module Alchemy
     # The public list of tag names. Reads the denormalized cache column so the
     # common read paths (rendering, serializing) issue no query. Models without
     # the cache column fall back to gutentag's lazy-loading tag_names.
+    #
+    # The cache column is nil for untagged records on MySQL, which cannot
+    # default a text column, so coerce it to an empty array.
     def tag_list
-      caches_tag_list? ? cached_tag_list : tag_names
+      caches_tag_list? ? (cached_tag_list || []) : tag_names
     end
 
     # Set a list of tags

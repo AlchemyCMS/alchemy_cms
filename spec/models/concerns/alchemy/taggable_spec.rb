@@ -28,6 +28,14 @@ RSpec.describe Alchemy::Taggable do
       expect(element.reload.cached_tag_list).to match_array(%w[blue yellow])
     end
 
+    # MySQL cannot default a text column, so the cache column is nil for
+    # untagged records instead of the empty array other adapters store.
+    it "returns an empty array when the cache column is nil" do
+      element = create(:alchemy_element, name: "article")
+      allow(element).to receive(:cached_tag_list).and_return(nil)
+      expect(element.tag_list).to eq([])
+    end
+
     it "does not query the tags when saving an untagged record" do
       element = create(:alchemy_element, name: "article")
       tag_queries = 0
