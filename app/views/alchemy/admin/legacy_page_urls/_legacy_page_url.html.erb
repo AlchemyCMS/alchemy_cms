@@ -3,12 +3,12 @@
   <div class="col tools">
     <sl-tooltip content="<%= Alchemy.t(:edit) %>">
       <%= link_to render_icon(:edit),
-        edit_admin_legacy_page_url_path(legacy_page_url, page_id: @page.id),
+        edit_admin_legacy_page_url_path(legacy_page_url, page_id: legacy_page_url.page_id),
         class: "icon_button", data: { turbo_frame: dom_id(legacy_page_url)} %>
     </sl-tooltip>
     <sl-tooltip content="<%= Alchemy.t(:remove) %>">
       <%= link_to render_icon(:minus),
-        admin_legacy_page_url_path(legacy_page_url, page_id: @page.id),
+        admin_legacy_page_url_path(legacy_page_url, page_id: legacy_page_url.page_id),
         class: "icon_button",
         data: { turbo_method: :delete, turbo_confirm: Alchemy.t('Are you sure?') } %>
     </sl-tooltip>

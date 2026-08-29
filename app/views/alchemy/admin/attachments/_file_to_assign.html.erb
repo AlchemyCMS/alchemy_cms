@@ -1,7 +1,8 @@
+<% form_field_id = local_assigns[:form_field_id] %>
 <li class="assign_file_file <%= cycle('even', 'odd') %>">
   <%= button_to alchemy.assign_admin_attachment_path(
       id: file_to_assign.id,
-      form_field_id: @form_field_id
+      form_field_id: form_field_id
     ),
     method: :put,
     form_class: "assign_file" do %>

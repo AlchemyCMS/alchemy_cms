@@ -59,6 +59,7 @@
   </div>
 
   <%= render 'alchemy/admin/partials/search_form',
+    query: @query,
     additional_params: [:size] %>
 <% end %>
 
@@ -81,7 +82,7 @@
         <%= @pictures.total_count %>
         <%= Alchemy::Picture.model_name.human(count: @pictures.total_count) %>
       </h2>
-      <%= render "alchemy/admin/resources/applied_filters" %>
+      <%= render "alchemy/admin/resources/applied_filters", query: @query %>
     </div>
 
     <% if @pictures.none? && @recent_pictures.blank? && search_filter_params.present? %>
@@ -89,14 +90,14 @@
         <%= Alchemy.t(:no_search_results) %>
       <% end %>
     <% else %>
-      <%= render "archive" %>
+      <%= render "archive", size: @size, pictures: @pictures, deletable_picture_ids: @deletable_picture_ids %>
     <% end %>
 
     <%= render "alchemy/admin/resources/pagination", resources: @pictures %>
   <% end %>
 </div>
 
-<%= render "library_sidebar" %>
+<%= render "library_sidebar", query: @query %>
 
 <% content_for :javascripts do %>
   <script type="module">

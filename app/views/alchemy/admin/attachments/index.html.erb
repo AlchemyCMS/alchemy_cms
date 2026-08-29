@@ -14,7 +14,7 @@
     <% end %>
   </div>
 
-  <%= render 'alchemy/admin/partials/search_form' %>
+  <%= render 'alchemy/admin/partials/search_form', query: @query %>
 <% end %>
 
 <% if Alchemy::Attachment.none? %>
@@ -29,7 +29,7 @@
     ) %>
   <% end %>
 <% else %>
-  <%= render "alchemy/admin/resources/table_header" %>
+  <%= render "alchemy/admin/resources/table_header", query: @query %>
 
   <% if @attachments.none? && search_filter_params.present? %>
     <%= render_message do %>
@@ -37,11 +37,11 @@
     <% end %>
   <% else %>
     <div class="resources-table-wrapper">
-      <%= render "files_list" %>
+      <%= render "files_list", attachments: @attachments, query: @query, deletable_attachment_ids: @deletable_attachment_ids %>
     </div>
   <% end %>
 
   <%= render "alchemy/admin/resources/pagination", resources: @attachments %>
 <% end %>
 
-<%= render "library_sidebar" %>
+<%= render "library_sidebar", query: @query %>

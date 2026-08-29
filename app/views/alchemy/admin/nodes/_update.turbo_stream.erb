@@ -1,9 +1,10 @@
+<% page = local_assigns[:page] %>
 <% key = flash.keys.first %>
 <alchemy-growl message="<%= flash[key] %>" type="<%= key %>"></alchemy-growl>
 
 <%= turbo_stream.replace "page_nodes" do %>
-  <%= render "page_nodes" %>
+  <%= render "page_nodes", page: page %>
 <% end %>
 <%= turbo_stream.update_all '[panel="nodes"]' do %>
-  <%= render('alchemy/admin/nodes/label', count: @page.nodes.select(&:persisted?).length) %>
+  <%= render('alchemy/admin/nodes/label', count: page.nodes.select(&:persisted?).length) %>
 <% end %>

@@ -1,7 +1,7 @@
 <div id="filter_bar">
   <alchemy-auto-submit>
     <% alchemy_filters.each do |filter| %>
-      <%= render filter.input_component(search_filter_params, @query) %>
+      <%= render filter.input_component(search_filter_params, local_assigns[:query]) %>
     <% end %>
   </alchemy-auto-submit>
 </div>

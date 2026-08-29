@@ -3,5 +3,5 @@
     <%= resources_instance_variable.total_count %>
     <%= resource_model.model_name.human(count: resources_instance_variable.total_count) %>
   </h2>
-  <%= render "alchemy/admin/resources/applied_filters" %>
+  <%= render "alchemy/admin/resources/applied_filters", query: local_assigns[:query] %>
 </div>

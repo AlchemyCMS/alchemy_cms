@@ -48,7 +48,8 @@ module Alchemy
                 tag.div(class: "edit_images_bottom") do
                   render(
                     "alchemy/ingredients/shared/picture_tools",
-                    picture_editor: self
+                    picture_editor: self,
+                    page: ingredient.element.page
                   )
                 end
               )

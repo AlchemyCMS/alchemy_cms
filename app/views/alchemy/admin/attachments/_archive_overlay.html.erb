@@ -1,3 +1,6 @@
+<% attachments = local_assigns[:attachments] %>
+<% form_field_id = local_assigns[:form_field_id] %>
+<% query = local_assigns[:query] %>
 <%= turbo_frame_tag "archive_overlay" do %>
   <div class="toolbar">
     <div class="toolbar_buttons">
@@ -12,7 +15,7 @@
               Marcel::MimeType.for(extension:)
             }.join(",").presence,
             redirect_url: admin_attachments_path(
-              form_field_id: @form_field_id,
+              form_field_id: form_field_id,
               only: search_filter_params[:only],
               except: search_filter_params[:except],
               q: search_filter_params[:q].merge(
@@ -24,17 +27,17 @@
       <% end %>
     </div>
 
-    <%= render 'alchemy/admin/partials/overlay_search_form' %>
+    <%= render 'alchemy/admin/partials/overlay_search_form', query: query, form_field_id: form_field_id, size: local_assigns[:size] %>
   </div>
 
   <div
     id="assign_file_list"
     class="with_padding<%= search_filter_params[:tagged_with].present? ? ' filtered' : '' %>"
   >
-    <%= render 'library_sidebar' %>
+    <%= render 'library_sidebar', query: query %>
 
     <div id="overlay_file_list" class="with_tag_list">
-      <%= render 'overlay_file_list' %>
+      <%= render 'overlay_file_list', attachments: attachments, form_field_id: form_field_id %>
     </div>
   </div>
 <% end %>

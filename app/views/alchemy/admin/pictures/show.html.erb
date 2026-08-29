@@ -35,9 +35,9 @@
   </div>
 
   <div class="picture-details-overlay">
-    <%= render 'form', picture_index: @previous || @next || 0 %>
+    <%= render 'form', picture_index: @previous || @next || 0, picture: @picture, size: @size, picture_description: @picture_description %>
     <hr>
-    <%= render 'infos' %>
+    <%= render 'infos', picture: @picture, assignments: @assignments %>
   </div>
 
   <div class="picture-overlay-handle">

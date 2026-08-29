@@ -1,4 +1,6 @@
-<% if @attachments.empty? %>
+<% attachments = local_assigns[:attachments] %>
+<% form_field_id = local_assigns[:form_field_id] %>
+<% if attachments.empty? %>
   <%= render_message do %>
     <% if search_filter_params.present? %>
       <%= Alchemy.t(:no_search_results) %>
@@ -16,7 +18,7 @@
         <%= Alchemy::Attachment.human_attribute_name('file_mime_type') %>
       </span>
     </li>
-    <%= render partial: 'file_to_assign', collection: @attachments %>
+    <%= render partial: 'file_to_assign', collection: attachments, locals: {form_field_id: form_field_id} %>
   </ul>
-  <%= render "alchemy/admin/resources/pagination", resources: @attachments, hide_per_page_select: true %>
+  <%= render "alchemy/admin/resources/pagination", resources: attachments, hide_per_page_select: true %>
 <% end %>

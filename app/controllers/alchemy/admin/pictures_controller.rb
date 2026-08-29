@@ -192,6 +192,10 @@ module Alchemy
         session[:alchemy_pictures_size] = @size
       end
 
+      def archive_overlay_locals
+        super.merge(pictures: @pictures, size: @size, query: @query)
+      end
+
       def pictures_per_page_for_size
         case @size
         when "small" then 60

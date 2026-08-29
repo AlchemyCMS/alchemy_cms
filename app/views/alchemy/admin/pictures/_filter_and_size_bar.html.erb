@@ -1,3 +1,4 @@
+<% form_field_id = local_assigns[:form_field_id] %>
 <div class="toolbar_buttons">
   <% if can? :create, Alchemy::Picture %>
     <div class="toolbar_button">
@@ -10,7 +11,7 @@
         redirect_url: alchemy.admin_pictures_path(
           size: search_filter_params[:size],
           q: { last_upload: true },
-          form_field_id: @form_field_id
+          form_field_id: form_field_id
         )
       ) %>
     </div>
@@ -23,7 +24,7 @@
         alchemy.admin_pictures_path(
           search_filter_params.merge(
             size: "small",
-            form_field_id: @form_field_id
+            form_field_id: form_field_id
           ).to_h
         ),
         class: "icon_button"
@@ -35,7 +36,7 @@
         alchemy.admin_pictures_path(
           search_filter_params.merge(
             size: "medium",
-            form_field_id: @form_field_id
+            form_field_id: form_field_id
           ).to_h
         ),
         class: "icon_button"
@@ -47,7 +48,7 @@
         alchemy.admin_pictures_path(
           search_filter_params.merge(
             size: "large",
-            form_field_id: @form_field_id
+            form_field_id: form_field_id
           ).to_h
         ),
         class: "icon_button"

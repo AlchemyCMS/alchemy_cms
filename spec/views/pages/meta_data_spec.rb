@@ -20,7 +20,10 @@ module Alchemy
     end
 
     context "when current page is set" do
-      before { view.instance_variable_set(:@page, page) }
+      before do
+        view.instance_variable_set(:@page, page)
+        allow(Alchemy::Current).to receive(:page).and_return(page)
+      end
 
       describe "meta keywords" do
         context "are set" do

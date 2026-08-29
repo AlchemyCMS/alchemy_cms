@@ -1,10 +1,11 @@
+<% form_field_id = local_assigns[:form_field_id] %>
 <div class="picture_thumbnail" name="<%= picture_to_assign.name %>" id="assignable_<%= picture_to_assign.id %>">
   <% if picture_to_assign.image_file %>
     <sl-tooltip content="<%= Alchemy.t(:assign_image) %>">
       <%= button_to(
         alchemy.assign_admin_picture_path(
           id: picture_to_assign.id,
-          form_field_id: @form_field_id
+          form_field_id: form_field_id
         ),
         method: :put,
         form_class: "assign_picture"
