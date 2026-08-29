@@ -1,0 +1,44 @@
+# Pin the Herb version so upgrading the linter does not silently enable
+# newly-added rules. Bump this deliberately when adopting new rules.
+version: 0.10.3
+
+linter:
+  enabled: true
+
+  rules:
+    # Rules below report pre-existing offenses in the codebase. They are
+    # disabled for now so this change stays scoped to a single rule:
+    # erb-no-instance-variables-in-partials (enabled by default). Adopt each
+    # of these separately by fixing its offenses and removing the entry.
+    erb-no-unsafe-script-interpolation:
+      enabled: false
+    html-anchor-require-href:
+      enabled: false
+    html-require-script-nonce:
+      enabled: false
+    parser-no-errors:
+      enabled: false
+    erb-no-duplicate-branch-elements:
+      enabled: false
+    erb-no-output-in-attribute-position:
+      enabled: false
+    html-img-require-alt:
+      enabled: false
+    erb-no-unsafe-raw:
+      enabled: false
+    erb-no-unused-expressions:
+      enabled: false
+    erb-no-interpolated-class-names:
+      enabled: false
+    html-no-space-in-tag:
+      enabled: false
+    erb-no-unused-literals:
+      enabled: false
+    erb-no-empty-control-flow:
+      enabled: false
+    actionview-no-silent-helper:
+      enabled: false
+    html-no-unescaped-entities:
+      enabled: false
+    erb-no-commented-out-output-tags:
+      enabled: false
