@@ -28,12 +28,12 @@ jobs:
     steps:
       - name: Generate token
         id: generate_token
-        uses: actions/create-github-app-token@v2
+        uses: actions/create-github-app-token@v3
         with:
           app-id: ${{ vars.ALCHEMY_BOT_APP_ID }}
           private-key: ${{ secrets.ALCHEMY_BOT_APP_PRIVATE_KEY }}
       - name: Backport pull request
-        uses: sorenlouv/backport-github-action@v10.2.0
+        uses: sorenlouv/backport-github-action@v12.0.4
         with:
           github_token: ${{ steps.generate_token.outputs.token }}
           auto_backport_label_prefix: backport-to-
