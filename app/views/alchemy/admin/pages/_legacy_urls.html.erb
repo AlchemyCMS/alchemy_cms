@@ -1,12 +1,13 @@
+<% page = local_assigns[:page] %>
 <%= render_message do %>
   <p><%== Alchemy.t(:legacy_url_info_text) %></p>
 <% end %>
 
 <%= turbo_frame_tag("legacy_page_urls") do %>
-  <%= render "alchemy/admin/legacy_page_urls/table", legacy_page_urls: @page.legacy_urls %>
+  <%= render "alchemy/admin/legacy_page_urls/table", legacy_page_urls: page.legacy_urls %>
 <% end %>
 
 <fieldset>
   <legend><%= Alchemy.t('Add page link') %></legend>
-  <%= render 'alchemy/admin/legacy_page_urls/new', legacy_page_url: @page.legacy_urls.build %>
+  <%= render 'alchemy/admin/legacy_page_urls/new', legacy_page_url: page.legacy_urls.build %>
 </fieldset>

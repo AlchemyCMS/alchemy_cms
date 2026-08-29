@@ -23,8 +23,12 @@ module Alchemy
         @form_field_id = params[:form_field_id]
 
         respond_to do |format|
-          format.html { render partial: "archive_overlay" }
+          format.html { render partial: "archive_overlay", locals: archive_overlay_locals }
         end
+      end
+
+      def archive_overlay_locals
+        {form_field_id: @form_field_id}
       end
     end
   end

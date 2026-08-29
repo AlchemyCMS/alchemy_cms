@@ -1,13 +1,16 @@
+<% query = local_assigns[:query] %>
+<% form_field_id = local_assigns[:form_field_id] %>
+<% size = local_assigns[:size] %>
 <%- clear_url ||= url_for({ action: 'index' }.merge(
   q: search_filter_params[:q]&.except(resource_handler.search_field_name),
   only: search_filter_params[:only],
   except: search_filter_params[:except],
-  form_field_id: @form_field_id,
-  size: @size
+  form_field_id: form_field_id,
+  size: size
 )) -%>
 
-<%= search_form_for @query, url: url_for(action: 'index', size: @size), html: {class: 'search_form', id: "resource_search"} do |f| %>
-  <%= hidden_field_tag :form_field_id, @form_field_id %>
+<%= search_form_for query, url: url_for(action: 'index', size: size), html: {class: 'search_form', id: "resource_search"} do |f| %>
+  <%= hidden_field_tag :form_field_id, form_field_id %>
   <% Array(params[:only]).each do |only| %>
     <%= hidden_field_tag("only[]", only, form: "resource_search", id: nil) %>
   <% end %>

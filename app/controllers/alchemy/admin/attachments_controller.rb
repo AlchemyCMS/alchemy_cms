@@ -88,6 +88,10 @@ module Alchemy
 
       private
 
+      def archive_overlay_locals
+        super.merge(attachments: @attachments, query: @query)
+      end
+
       def default_sort_order
         "created_at desc"
       end

@@ -1,12 +1,13 @@
+<% page = local_assigns[:page] %>
 <%= turbo_frame_tag("page_nodes") do %>
   <table class="list">
     <tr>
       <th class="name">
-        <%= Alchemy::Node.model_name.human(count: @page.nodes.size) %>
+        <%= Alchemy::Node.model_name.human(count: page.nodes.size) %>
       </th>
       <th class="tools"></th>
     </tr>
-    <% nodes = @page.nodes.select(&:persisted?) %>
+    <% nodes = page.nodes.select(&:persisted?) %>
     <% seperator = '<alchemy-icon name="arrow-right-s" style="vertical-align: text-bottom"></alchemy-icon>'.html_safe %>
     <% if nodes.length > 0 %>
       <% nodes.each do |node| %>
@@ -35,12 +36,12 @@
   <fieldset>
     <legend><%= Alchemy.t('Create node on parent:') %></legend>
 
-    <%= alchemy_form_for([:admin, @page.nodes.build], id: "new_node_form") do |f| %>
-      <%= f.hidden_field :page_id, value: @page.id %>
-      <%= f.hidden_field :language_id, value: @page.language_id %>
+    <%= alchemy_form_for([:admin, page.nodes.build], id: "new_node_form") do |f| %>
+      <%= f.hidden_field :page_id, value: page.id %>
+      <%= f.hidden_field :language_id, value: page.language_id %>
       <div class="inline-input">
         <div class="left-column">
-          <%= render Alchemy::Admin::NodeSelect.new(nil, url: alchemy.api_nodes_path(language_id: @page.language_id, include: :ancestors)) do %>
+          <%= render Alchemy::Admin::NodeSelect.new(nil, url: alchemy.api_nodes_path(language_id: page.language_id, include: :ancestors)) do %>
             <%= f.text_field :parent_id, class: 'alchemy_selectbox full_width' %>
           <% end %>
         </div>

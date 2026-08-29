@@ -1,4 +1,6 @@
-<%= render Alchemy::Admin::Resource::Table.new(@attachments, query: @query) do |table| %>
+<% attachments = local_assigns[:attachments] %>
+<% deletable_attachment_ids = local_assigns[:deletable_attachment_ids] %>
+<%= render Alchemy::Admin::Resource::Table.new(attachments, query: local_assigns[:query]) do |table| %>
   <% table.icon_column { |attachment| attachment.icon_css_class } %>
   <% table.column :name, sortable: true do |attachment| %>
     <% if can?(:show, attachment) %>
@@ -52,7 +54,7 @@
       file_attribute: 'file' %>
   <% end %>
   <% table.with_action(:destroy) do |attachment| %>
-    <% if @deletable_attachment_ids.include?(attachment.id) %>
+    <% if deletable_attachment_ids.include?(attachment.id) %>
       <sl-tooltip content="<%= Alchemy.t(:delete_file) %>">
         <%= link_to_confirm_dialog render_icon(:minus),
           Alchemy.t(:confirm_to_delete_file),

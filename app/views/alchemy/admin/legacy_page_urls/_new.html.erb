@@ -5,7 +5,7 @@
         <%= legacy_page_url.errors.full_messages.join %>
       <% end %>
     <% end %>
-    <%= hidden_field_tag :page_id, @page.id %>
+    <%= hidden_field_tag :page_id, legacy_page_url.page_id %>
     <div class="inline-input">
       <div class="left-column">
         <%= f.text_field :urlname, placeholder: Alchemy::LegacyPageUrl.human_attribute_name(:urlname) %>

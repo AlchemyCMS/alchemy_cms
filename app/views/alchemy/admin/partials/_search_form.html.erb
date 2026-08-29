@@ -2,7 +2,7 @@
   q: search_filter_params[:q]&.except(resource_handler.search_field_name))
 ) -%>
 
-<%= search_form_for @query, url: resource_url_proxy.url_for(action: "index"), id: "resource_search", class: 'search_form' do |f| %>
+<%= search_form_for local_assigns[:query], url: resource_url_proxy.url_for(action: "index"), id: "resource_search", class: 'search_form' do |f| %>
   <div class="search_field">
     <button type="submit">
       <%= render_icon('search') %>

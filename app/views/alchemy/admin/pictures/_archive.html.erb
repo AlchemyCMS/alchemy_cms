@@ -1,6 +1,9 @@
+<% size = local_assigns[:size] %>
+<% pictures = local_assigns[:pictures] %>
+<% deletable_picture_ids = local_assigns[:deletable_picture_ids] %>
 <% forwarded_params = search_filter_params.merge(
   page: params[:page],
-  size: @size.presence
+  size: size.presence
 ).to_h %>
 
 <%= form_tag delete_multiple_admin_pictures_path(forwarded_params), method: :delete do %>
@@ -23,7 +26,7 @@
       class: 'secondary button with_icon'
     ) %>
   </div>
-  <div id="pictures" class="picture-size--<%= @size %>">
-    <%= render partial: "picture", collection: @pictures, locals: {picture_offset: picture_offset} %>
+  <div id="pictures" class="picture-size--<%= size %>">
+    <%= render partial: "picture", collection: pictures, locals: {picture_offset: picture_offset, size: size, deletable_picture_ids: deletable_picture_ids} %>
   </div>
 <% end %>

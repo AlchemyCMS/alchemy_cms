@@ -1,15 +1,17 @@
-<%= turbo_frame_tag(@picture) do %>
-  <%= alchemy_form_for @picture,
+<% picture = local_assigns[:picture] %>
+<% size = local_assigns[:size] %>
+<%= turbo_frame_tag(picture) do %>
+  <%= alchemy_form_for picture,
     url: alchemy.admin_picture_path(
-      @picture,
+      picture,
       search_filter_params.merge(
-        size: @size,
+        size: size,
         picture_index: picture_index
       ).to_h
     ),
     class: "picture-form" do |f| %>
     <%= f.input :name %>
-    <%= render "alchemy/admin/pictures/picture_description_field", f: f %>
+    <%= render "alchemy/admin/pictures/picture_description_field", f: f, picture: picture, picture_description: local_assigns[:picture_description] %>
     <%= render Alchemy::Admin::TagsAutocomplete.new(additional_class: "input tags") do %>
       <%= f.label :tag_list %>
       <%= f.text_field :tag_list, value: f.object.tag_list.join(",") %>

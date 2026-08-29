@@ -1,9 +1,11 @@
+<% current_language = local_assigns[:current_language] %>
+<% view = local_assigns[:view] %>
 <div class="toolbar_buttons">
   <%= render "alchemy/admin/partials/site_select" %>
   <%= render "alchemy/admin/partials/language_tree_select" %>
   <%= render Alchemy::Admin::ToolbarButton.new(
     icon: "add",
-    url: alchemy.new_admin_page_path(language: @current_language),
+    url: alchemy.new_admin_page_path(language: current_language),
     hotkey: 'alt+n',
     primary: true,
     tooltip_placement: "top-start",
@@ -35,7 +37,7 @@
       <%= link_to(
         render_icon(:"menu-2"),
         alchemy.admin_pages_path(view: "tree"),
-        class: ["icon_button", @view != "list" && "active"].compact
+        class: ["icon_button", view != "list" && "active"].compact
       ) %>
     </sl-tooltip>
   </div>
@@ -44,12 +46,13 @@
       <%= link_to(
         render_icon("sort-desc", style: false),
         alchemy.admin_pages_path(view: "list"),
-        class: ["icon_button", @view == "list" && "active"].compact
+        class: ["icon_button", view == "list" && "active"].compact
       ) %>
     </sl-tooltip>
   </div>
 </div>
 <% search_filter_params[:view] = "list" %>
 <%= render "alchemy/admin/partials/search_form",
+  query: local_assigns[:query],
   url: alchemy.admin_pages_path(search_filter_params.except(:q, :page)),
   additional_params: [:view] %>

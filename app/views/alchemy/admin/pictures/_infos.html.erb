@@ -1,28 +1,29 @@
+<% picture = local_assigns[:picture] %>
 <div class="resource_info file-infos">
   <div class="value">
     <label><%= Alchemy::Picture.human_attribute_name(:image_file_name) %></label>
-    <p><%= @picture.image_file_name %></p>
+    <p><%= picture.image_file_name %></p>
   </div>
   <div class="value">
     <label><%= Alchemy::Picture.human_attribute_name(:image_file_dimensions) %></label>
-    <p><%= @picture.image_file_dimensions %>px</p>
+    <p><%= picture.image_file_dimensions %>px</p>
   </div>
   <div class="value">
     <label><%= Alchemy::Picture.human_attribute_name(:image_file_size) %></label>
-    <p><%= number_to_human_size @picture.image_file_size %></p>
+    <p><%= number_to_human_size picture.image_file_size %></p>
   </div>
   <div class="value">
     <label><%= Alchemy::Picture.human_attribute_name(:image_file_format) %></label>
-    <p><%= Alchemy.t(@picture.image_file_format, scope: [:filters, :picture, :by_file_format, :values]) %></p>
+    <p><%= Alchemy.t(picture.image_file_format, scope: [:filters, :picture, :by_file_format, :values]) %></p>
   </div>
   <div class="value">
     <label><%= Alchemy::Picture.human_attribute_name(:created_at) %></label>
-    <p><%= l(@picture.created_at, format: :"alchemy.default") %></p>
+    <p><%= l(picture.created_at, format: :"alchemy.default") %></p>
   </div>
 </div>
 
 <hr>
 
 <%= render "alchemy/admin/resources/resource_usage_info",
-  assignments: @assignments,
+  assignments: local_assigns[:assignments],
   resource_name: :picture %>

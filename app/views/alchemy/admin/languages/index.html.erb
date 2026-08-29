@@ -14,13 +14,13 @@
       if_permitted_to: [:create, Alchemy::Language]
     ) %>
   </div>
-  <%= render 'alchemy/admin/partials/search_form' %>
+  <%= render 'alchemy/admin/partials/search_form', query: @query %>
 <% end %>
 
 <% if @languages.any? %>
-  <%= render "alchemy/admin/resources/table_header" %>
+  <%= render "alchemy/admin/resources/table_header", query: @query %>
   <div class="resources-table-wrapper">
-    <%= render "table" %>
+    <%= render "table", languages: @languages, query: @query %>
   </div>
   <%= render "alchemy/admin/resources/pagination", resources: @languages %>
 <% elsif search_filter_params.present? %>

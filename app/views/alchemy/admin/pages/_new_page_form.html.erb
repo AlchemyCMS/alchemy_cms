@@ -1,20 +1,23 @@
-<%= alchemy_form_for([:admin, @page]) do |f| %>
-  <% if @page.parent_id || @page.layoutpage %>
+<% page = local_assigns[:page] %>
+<% current_language = local_assigns[:current_language] %>
+<% page_layouts = local_assigns[:page_layouts] %>
+<%= alchemy_form_for([:admin, page]) do |f| %>
+  <% if page.parent_id || page.layoutpage %>
     <%= f.hidden_field(:parent_id) %>
   <% else %>
-    <% @page.parent = @current_language.root_page %>
-    <%= render Alchemy::Admin::PageSelect.new(@page.parent) do %>
+    <% page.parent = current_language.root_page %>
+    <%= render Alchemy::Admin::PageSelect.new(page.parent) do %>
       <%= f.input :parent_id, as: :string %>
     <% end %>
   <% end %>
   <%= f.hidden_field(:language_id) %>
   <%= f.hidden_field(:layoutpage) %>
   <%= f.input :page_layout,
-    collection: @page_layouts,
+    collection: page_layouts,
     label: Alchemy.t(:page_type),
-    include_blank: @page_layouts.length == 1 ? nil : Alchemy.t('Please choose'),
+    include_blank: page_layouts.length == 1 ? nil : Alchemy.t('Please choose'),
     required: true,
-    selected: @page_layouts.length == 1 ? @page_layouts.first : @page.page_layout,
+    selected: page_layouts.length == 1 ? page_layouts.first : page.page_layout,
     input_html: {is: 'alchemy-select'} %>
   <%= f.input :name %>
   <%= f.submit Alchemy.t(:create) %>

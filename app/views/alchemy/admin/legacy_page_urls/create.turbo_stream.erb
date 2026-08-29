@@ -1,5 +1,5 @@
 <% if @legacy_page_url.valid? %>
-  <%= render "update" %>
+  <%= render "update", page: @page, message: @message %>
 <% else %>
   <%= turbo_stream.replace "new_legacy_page_url" do %>
     <%= render 'new',

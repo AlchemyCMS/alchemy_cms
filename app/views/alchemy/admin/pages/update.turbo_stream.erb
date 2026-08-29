@@ -11,7 +11,7 @@
   <turbo-stream action="reload_preview"></turbo-stream>
 <% else %>
   <%= turbo_stream.replace "locked_page_#{@page.id}" do %>
-    <%= render("alchemy/admin/pages/locked_page", locked_page: @page) %>
+    <%= render("alchemy/admin/pages/locked_page", locked_page: @page, page: @page) %>
   <% end %>
 
   <% if @view == "list" %>
