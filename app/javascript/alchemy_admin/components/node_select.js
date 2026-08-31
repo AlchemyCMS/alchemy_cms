@@ -1,7 +1,5 @@
-import {
-  RemoteSelect,
-  escapeHtml
-} from "alchemy_admin/components/remote_select"
+import { RemoteSelect } from "alchemy_admin/components/remote_select"
+import { escape_html } from "tom-select/utils"
 
 class NodeSelect extends RemoteSelect {
   _searchQuery(term, page) {
@@ -25,7 +23,7 @@ class NodeSelect extends RemoteSelect {
   _selectedEntry(node) {
     return {
       icon: "menu-2",
-      primary: this.#breadcrumb(node) + escapeHtml(node.name)
+      primary: this.#breadcrumb(node) + escape_html(node.name)
     }
   }
 
@@ -40,7 +38,7 @@ class NodeSelect extends RemoteSelect {
     if (ancestors.length === 0) return ""
     const separator = `<alchemy-icon name="arrow-right-s" class="node-select--separator"></alchemy-icon>`
     return `<span class="node-select--ancestors">${ancestors
-      .map(escapeHtml)
+      .map(escape_html)
       .join(separator)}</span>${separator}`
   }
 }
