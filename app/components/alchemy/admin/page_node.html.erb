@@ -65,7 +65,7 @@
       </div>
 
       <div class="page_infos">
-        <%= render Alchemy::Admin::PageStatusIndicators.new(page: @page) %>
+        <%= render Alchemy.config.admin_components.page_status_indicators.new(page: @page) %>
       </div>
 
       <div class="sitemap_right_tools">

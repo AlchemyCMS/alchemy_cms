@@ -315,6 +315,24 @@ RSpec.describe Alchemy::Admin::ElementEditor, type: :component do
       expect(page).to have_selector("alchemy-publish-element-button")
     end
 
+    it "renders the publish component configured in the admin component registry" do
+      stub_const("StubPublishButton", Class.new(ViewComponent::Base) do
+        def initialize(element:)
+          @element = element
+        end
+
+        def call
+          '<div class="stub-publish-button"></div>'.html_safe
+        end
+      end)
+      allow(Alchemy.config.admin_components).to receive(:element_publish_button).and_return(StubPublishButton)
+
+      render_inline(described_class.new(element: element))
+
+      expect(page).to have_selector(".stub-publish-button")
+      expect(page).not_to have_selector("alchemy-publish-element-button")
+    end
+
     context "with message given in element definition" do
       let(:element) { create(:alchemy_element, name: "with_message") }
 

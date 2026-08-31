@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "alchemy/configuration"
+require "alchemy/configurations/admin_components"
 require "alchemy/configurations/dashboard"
 require "alchemy/configurations/default_language"
 require "alchemy/configurations/default_site"
@@ -486,6 +487,13 @@ module Alchemy
       # === Dashboard configuration
       #
       configuration :dashboard, Dashboard
+
+      # === Admin component registry
+      #
+      # Overridable admin ViewComponents keyed by role, so extensions can swap
+      # a component for their own.
+      #
+      configuration :admin_components, AdminComponents
 
       # === Publishable resolver
       #
