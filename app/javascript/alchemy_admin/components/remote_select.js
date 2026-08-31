@@ -1,4 +1,5 @@
 import TomSelect from "tom-select"
+import { escape_html } from "tom-select/utils"
 import { translate } from "alchemy_admin/i18n"
 import {
   createDropdownPositioning,
@@ -6,22 +7,27 @@ import {
   focusTomSelect
 } from "alchemy_admin/utils/tom_select"
 
-export function hightlightTerm(name, term) {
-  if (!term) return name
-  return name.replace(new RegExp(term, "gi"), (match) => `<em>${match}</em>`)
-}
-
 /**
- * Escapes a value for safe interpolation as HTML text content.
- * @param {*} value
+ * Escapes a string for literal use inside a `RegExp`, so a term with
+ * metacharacters (e.g. `(`) matches itself instead of being compiled as a
+ * pattern, which could match the wrong text or throw a SyntaxError.
+ * @param {string} value
  * @returns {string}
  */
-export function escapeHtml(value) {
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
+export function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+}
+
+export function hightlightTerm(name, term) {
+  // The result is rendered raw as the option's primary text, so the name must
+  // be escaped before the term markup is woven in — otherwise a crafted name
+  // (e.g. a menu node title) is a stored XSS sink.
+  const escapedName = escape_html(name)
+  if (!term) return escapedName
+  return escapedName.replace(
+    new RegExp(escapeRegExp(term), "gi"),
+    (match) => `<em>${match}</em>`
+  )
 }
 
 /**
@@ -572,10 +578,10 @@ export class RemoteSelect extends HTMLElement {
    */
   #leadColumn(slots) {
     if (slots.icon) {
-      return `<alchemy-icon class="remote-select--icon" name="${escapeHtml(slots.icon)}"></alchemy-icon>`
+      return `<alchemy-icon class="remote-select--icon" name="${escape_html(slots.icon)}"></alchemy-icon>`
     }
     if (slots.media) {
-      return `<img class="remote-select--media" src="${escapeHtml(slots.media)}" alt="">`
+      return `<img class="remote-select--media" src="${escape_html(slots.media)}" alt="">`
     }
     return ""
   }
@@ -596,17 +602,17 @@ export class RemoteSelect extends HTMLElement {
 
     if (typeof value === "object") {
       if (value.badge != null && value.badge !== "") {
-        return `<span class="${className} remote-select--badge">${escapeHtml(value.badge)}</span>`
+        return `<span class="${className} remote-select--badge">${escape_html(value.badge)}</span>`
       }
       if (value.text == null || value.text === "") return ""
-      const text = raw ? value.text : escapeHtml(value.text)
+      const text = raw ? value.text : escape_html(value.text)
       if (value.truncate === "head") {
         return `<span class="${className} remote-select--truncate-head"><bdi>${text}</bdi></span>`
       }
       return `<span class="${className}">${text}</span>`
     }
 
-    return `<span class="${className}">${raw ? value : escapeHtml(value)}</span>`
+    return `<span class="${className}">${raw ? value : escape_html(value)}</span>`
   }
 
   /**

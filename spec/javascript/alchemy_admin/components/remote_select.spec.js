@@ -1,7 +1,11 @@
 import { renderComponent } from "./component.helper"
 
 import "alchemy_admin/components/page_select"
-import { RemoteSelect } from "alchemy_admin/components/remote_select"
+import {
+  RemoteSelect,
+  hightlightTerm,
+  escapeRegExp
+} from "alchemy_admin/components/remote_select"
 
 // A minimal subclass so the slot render helpers can be exercised through every
 // slot shape without depending on a real select's data.
@@ -292,5 +296,54 @@ describe("RemoteSelect", () => {
       )
       expect(component.querySelectorAll(".ts-control .item").length).toEqual(2)
     })
+  })
+})
+
+describe("hightlightTerm", () => {
+  const render = (html) => {
+    const el = document.createElement("div")
+    el.innerHTML = html
+    return el
+  }
+
+  it("escapes HTML in the name so a payload does not become an element", () => {
+    const el = render(hightlightTerm("<img src=x onerror=alert(1)>", ""))
+    expect(el.querySelector("img")).toBeNull()
+    expect(el.textContent).toEqual("<img src=x onerror=alert(1)>")
+  })
+
+  it("highlights the matching term with an em", () => {
+    const el = render(hightlightTerm("Home", "om"))
+    expect(el.querySelector("em").textContent).toEqual("om")
+    expect(el.textContent).toEqual("Home")
+  })
+
+  it("highlights the term without unescaping the surrounding name", () => {
+    const el = render(hightlightTerm("<b>Home</b>", "Home"))
+    expect(el.querySelector("b")).toBeNull()
+    expect(el.querySelector("em").textContent).toEqual("Home")
+    expect(el.textContent).toEqual("<b>Home</b>")
+  })
+
+  it("treats a term with regex metacharacters literally instead of throwing", () => {
+    expect(() => hightlightTerm("a(b", "(")).not.toThrow()
+    const el = render(hightlightTerm("a(b", "("))
+    expect(el.querySelector("em").textContent).toEqual("(")
+  })
+})
+
+describe("escapeRegExp", () => {
+  it("escapes regex metacharacters so they match literally", () => {
+    expect(escapeRegExp("a(b")).toEqual("a\\(b")
+  })
+
+  it("leaves a plain string unchanged", () => {
+    expect(escapeRegExp("home")).toEqual("home")
+  })
+
+  it("produces a pattern that matches the term literally", () => {
+    const pattern = new RegExp(escapeRegExp("a.c"))
+    expect(pattern.test("a.c")).toBe(true)
+    expect(pattern.test("axc")).toBe(false)
   })
 })
