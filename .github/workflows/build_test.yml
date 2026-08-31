@@ -180,7 +180,7 @@ jobs:
           rubygems: "latest"
       - name: Restore apt cache
         id: apt-cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: /var/cache/apt/archives
           key: ${{ runner.os }}-apt-v2-${{ matrix.database }}-${{ matrix.storage }}
