@@ -1,3 +1,4 @@
+<%# locals: () %>
 <% if Alchemy::Attachment.tag_counts.any? %>
   <h3><%= Alchemy.t("Filter by tag") %></h3>
   <%= render Alchemy::Admin::ListFilter.new(".tag-list li", placeholder: Alchemy.t("Filter tags")) %>

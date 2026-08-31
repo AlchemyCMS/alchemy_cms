@@ -1,6 +1,4 @@
-<% query = local_assigns[:query] %>
-<% form_field_id = local_assigns[:form_field_id] %>
-<% size = local_assigns[:size] %>
+<%# locals: (query:, form_field_id:, size:, clear_url: nil) %>
 <%- clear_url ||= url_for({ action: 'index' }.merge(
   q: search_filter_params[:q]&.except(resource_handler.search_field_name),
   only: search_filter_params[:only],

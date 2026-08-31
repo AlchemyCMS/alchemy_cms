@@ -1,6 +1,4 @@
-<% languages_with_page_tree = local_assigns[:languages_with_page_tree] %>
-<% language = local_assigns[:language] %>
-<% page_layouts = local_assigns[:page_layouts] %>
+<%# locals: (languages_with_page_tree:, language:, page_layouts:) %>
 <%= render "alchemy/admin/resources/empty_state" do %>
   <%- if languages_with_page_tree.size >= 1 -%>
     <%= form_tag(alchemy.copy_language_tree_admin_pages_path) do %>

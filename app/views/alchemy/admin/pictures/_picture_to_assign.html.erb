@@ -1,4 +1,4 @@
-<% form_field_id = local_assigns[:form_field_id] %>
+<%# locals: (picture_to_assign:, size:, form_field_id:) %>
 <div class="picture_thumbnail" name="<%= picture_to_assign.name %>" id="assignable_<%= picture_to_assign.id %>">
   <% if picture_to_assign.image_file %>
     <sl-tooltip content="<%= Alchemy.t(:assign_image) %>">

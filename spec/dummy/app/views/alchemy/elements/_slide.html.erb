@@ -1,3 +1,4 @@
+<%# locals: (slide:, element: nil, counter: 1, options: {}, **rest) %>
 <%- cache(slide) do -%>
   <%= element_view_for(slide) do |el| -%>
     <%= el.render :picture %>

@@ -1,3 +1,4 @@
+<%# locals: (text:, element: nil, counter: 1, options: {}, **rest) %>
 <%- cache(text) do -%>
   <%= element_view_for(text) do |el| -%>
     <%= el.render :text %>

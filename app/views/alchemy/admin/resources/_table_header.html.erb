@@ -1,7 +1,8 @@
+<%# locals: (query:, **rest) %>
 <div class="resources-header">
   <h2>
     <%= resources_instance_variable.total_count %>
     <%= resource_model.model_name.human(count: resources_instance_variable.total_count) %>
   </h2>
-  <%= render "alchemy/admin/resources/applied_filters", query: local_assigns[:query] %>
+  <%= render "alchemy/admin/resources/applied_filters", query: %>
 </div>

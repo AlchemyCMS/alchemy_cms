@@ -1,6 +1,4 @@
-<% element = local_assigns[:element] %>
-<% elements = local_assigns[:elements] %>
-<% parent_element = local_assigns[:parent_element] %>
+<%# locals: (element:, elements:, parent_element:) %>
 <%- if elements.blank? -%>
   <%= render_message do %>
     <%= Alchemy.t(:no_more_elements_to_add) %>

@@ -1,6 +1,4 @@
-<% page = local_assigns[:page] %>
-<% current_language = local_assigns[:current_language] %>
-<% page_layouts = local_assigns[:page_layouts] %>
+<%# locals: (page:, current_language:, page_layouts:) %>
 <%= alchemy_form_for([:admin, page]) do |f| %>
   <% if page.parent_id || page.layoutpage %>
     <%= f.hidden_field(:parent_id) %>

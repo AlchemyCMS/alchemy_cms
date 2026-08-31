@@ -1,5 +1,6 @@
+<%# locals: (locked_pages:, page: nil) %>
 <div id="top_menu">
-  <%= render "alchemy/admin/header", locked_pages: locked_pages, page: local_assigns[:page] %>
+  <%= render "alchemy/admin/header", locked_pages: locked_pages, page: page %>
   <div class="toolbar">
     <%= yield(:toolbar) %>
   </div>

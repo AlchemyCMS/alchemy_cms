@@ -1,3 +1,4 @@
+<%# locals: (header:, element: nil, counter: 1, options: {}, **rest) %>
 <%- cache(header) do -%>
   <%= element_view_for(header) do |el| -%>
     <%= el.render :image %>

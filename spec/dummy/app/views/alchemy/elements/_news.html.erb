@@ -1,3 +1,4 @@
+<%# locals: (news:, element: nil, counter: 1, options: {}, **rest) %>
 <%= element_view_for(news) do |el| %>
   <div class="date">
     <%= el.render :date, date_format: "%d.%m.%Y" %>

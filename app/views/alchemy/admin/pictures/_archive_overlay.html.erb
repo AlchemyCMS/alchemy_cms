@@ -1,7 +1,4 @@
-<% pictures = local_assigns[:pictures] %>
-<% size = local_assigns[:size] %>
-<% form_field_id = local_assigns[:form_field_id] %>
-<% query = local_assigns[:query] %>
+<%# locals: (pictures:, size:, form_field_id:, query:) %>
 <%= turbo_frame_tag "archive_overlay" do %>
   <div class="toolbar">
     <%= render 'filter_and_size_bar', form_field_id: form_field_id %>

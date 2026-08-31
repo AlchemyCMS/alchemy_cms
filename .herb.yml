@@ -6,6 +6,12 @@ linter:
   enabled: true
 
   rules:
+    # Every partial must declare its inputs with a `<%# locals: (...) %>`
+    # magic comment, so a missing local raises loudly instead of silently
+    # becoming nil via local_assigns.
+    erb-strict-locals-required:
+      enabled: true
+
     # Rules below report pre-existing offenses in the codebase. They are
     # disabled for now so this change stays scoped to a single rule:
     # erb-no-instance-variables-in-partials (enabled by default). Adopt each

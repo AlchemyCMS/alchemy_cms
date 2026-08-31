@@ -1,3 +1,4 @@
+<%# locals: (download:, element: nil, counter: 1, options: {}, **rest) %>
 <%- cache(download) do -%>
   <%= element_view_for(download) do |el| -%>
     <%= el.render :file %>

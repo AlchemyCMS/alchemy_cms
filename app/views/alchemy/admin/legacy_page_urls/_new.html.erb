@@ -1,3 +1,4 @@
+<%# locals: (legacy_page_url:) %>
 <%= turbo_frame_tag "new_legacy_page_url" do %>
   <%= alchemy_form_for [:admin, legacy_page_url] do |f| %>
     <% if legacy_page_url.errors.any? %>

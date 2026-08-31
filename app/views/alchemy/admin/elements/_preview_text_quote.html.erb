@@ -1,3 +1,4 @@
+<%# locals: (element:) %>
 <span id="element_<%= element.id %>_preview_text_quote" class="preview_text_quote">
   <%= sanitize(element.preview_text.presence || '&nbsp;') %>
 </span>

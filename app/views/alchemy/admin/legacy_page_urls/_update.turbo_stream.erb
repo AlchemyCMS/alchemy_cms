@@ -1,4 +1,4 @@
-<% page = local_assigns[:page] %>
+<%# locals: (page:, message: nil) %>
 <%= turbo_stream.update "legacy_urls_label" do %>
   <%= render "label", count: page.legacy_urls.size %>
 <% end %>
@@ -9,5 +9,5 @@
   <%= render 'new', legacy_page_url: page.legacy_urls.build %>
 <% end %>
 <alchemy-growl>
-  <%= local_assigns[:message] %>
+  <%= message %>
 </alchemy-growl>

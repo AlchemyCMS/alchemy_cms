@@ -13,6 +13,6 @@
   </alchemy-growl>
 <% end -%>
 
-<%= turbo_stream.replace "clipboard_button", partial: "button" %>
+<%= turbo_stream.replace "clipboard_button", partial: "button", locals: {remarkable_type: remarkable_type} %>
 
 <%= render "update_nested_element_button", item: @item %>
