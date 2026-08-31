@@ -1,0 +1,16 @@
+<span class="element-status-icons">
+  <% unless element.public? || element.scheduled? %>
+    <alchemy-icon name="cloud-off" size="1x"></alchemy-icon>
+    <span class="element-hidden-label">
+      <%= Alchemy.t(:element_hidden) %>
+    </span>
+  <% end %>
+  <sl-tooltip
+    class="element-scheduled-icon"
+    content="<%= scheduled_tooltip %>"
+    <%= "hidden" unless element.scheduled? %>
+  >
+    <alchemy-icon name="calendar-schedule" size="1x"></alchemy-icon>
+    <%= scheduled_label %>
+  </sl-tooltip>
+</span>
