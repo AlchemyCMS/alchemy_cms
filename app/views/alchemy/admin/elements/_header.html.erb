@@ -16,7 +16,7 @@
     <%= render_hint_for(element, size: "1x", fixed_width: false) %>
     <%= render "alchemy/admin/elements/preview_text_quote", element: element %>
   </span>
-  <%= render Alchemy::Admin::ElementStatusIndicators.new(element:) %>
+  <%= render Alchemy.config.admin_components.element_status_indicators.new(element:) %>
   <sl-tooltip content="<%= Alchemy.t(element.folded? ? :show_element_content : :hide_element_content) %>">
     <%= button_tag(class: "element-toggle") do %>
       <% if element.compact? %>

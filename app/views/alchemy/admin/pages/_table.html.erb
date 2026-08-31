@@ -33,7 +33,7 @@
   <% end %>
   <% table.column :updated_at, sortable: true %>
   <% table.column :status, class_name: :right do |page| %>
-    <%= render Alchemy::Admin::PageStatusIndicators.new(page:) %>
+    <%= render Alchemy.config.admin_components.page_status_indicators.new(page:) %>
   <% end %>
 
   <% table.with_action :info, Alchemy.t(:page_infos) do |page| %>

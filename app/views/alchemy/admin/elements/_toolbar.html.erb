@@ -43,5 +43,5 @@
       </button>
     </alchemy-delete-element-button>
   </sl-tooltip>
-  <%= render Alchemy::Admin::PublishElementButton.new(element:) %>
+  <%= render Alchemy.config.admin_components.element_publish_button.new(element:) %>
 </div>
