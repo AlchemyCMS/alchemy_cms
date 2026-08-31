@@ -1,4 +1,5 @@
-<%= render Alchemy::Admin::Resource::Table.new(local_assigns[:languages], query: local_assigns[:query], search_filter_params: search_filter_params) do |table| %>
+<%# locals: (languages:, query:) %>
+<%= render Alchemy::Admin::Resource::Table.new(languages, query: query, search_filter_params: search_filter_params) do |table| %>
   <% table.icon_column "translate-2", style: false %>
   <% table.column :name, sortable: true %>
   <% table.column :language_code, sortable: true %>

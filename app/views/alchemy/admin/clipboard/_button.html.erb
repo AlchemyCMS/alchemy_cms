@@ -1,3 +1,4 @@
+<%# locals: (remarkable_type:, tooltip_placement: "top-start") %>
 <%= render Alchemy::Admin::ToolbarButton.new(
   url: alchemy.admin_clipboard_path(remarkable_type: remarkable_type),
   label: Alchemy.t("Show clipboard"),
@@ -8,6 +9,6 @@
     size: "400x305"
   },
   id: "clipboard_button",
-  tooltip_placement: local_assigns.fetch(:tooltip_placement, "top-start"),
+  tooltip_placement: tooltip_placement,
   if_permitted_to: [:index, :alchemy_admin_clipboard]
 ) %>

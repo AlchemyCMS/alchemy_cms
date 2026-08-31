@@ -1,4 +1,5 @@
+<%# locals: (locked_pages:, page: nil) %>
 <div id="header">
-  <%= render "alchemy/admin/pages/locked_pages", locked_pages: locked_pages, page: local_assigns[:page] %>
+  <%= render "alchemy/admin/pages/locked_pages", locked_pages: locked_pages, page: page %>
   <%= render "alchemy/admin/user_info" %>
 </div>

@@ -1,3 +1,4 @@
+<%# locals: (node:, button_label:) %>
 <alchemy-node-form>
 <%= alchemy_form_for([:admin, node]) do |f| %>
   <% if node.new_record? && node.root? %>

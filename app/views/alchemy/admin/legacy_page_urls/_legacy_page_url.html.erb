@@ -1,3 +1,4 @@
+<%# locals: (legacy_page_url:) %>
 <%= turbo_frame_tag(legacy_page_url, class: ["row", cycle("even", "odd")]) do %>
   <div class="col name"><%= legacy_page_url.urlname %></div>
   <div class="col tools">

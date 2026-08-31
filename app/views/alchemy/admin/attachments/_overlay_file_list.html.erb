@@ -1,5 +1,4 @@
-<% attachments = local_assigns[:attachments] %>
-<% form_field_id = local_assigns[:form_field_id] %>
+<%# locals: (attachments:, form_field_id:) %>
 <% if attachments.empty? %>
   <%= render_message do %>
     <% if search_filter_params.present? %>

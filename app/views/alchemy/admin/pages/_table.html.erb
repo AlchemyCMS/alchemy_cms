@@ -1,4 +1,5 @@
-<%= render Alchemy::Admin::Resource::Table.new(local_assigns[:pages], query: local_assigns[:query], search_filter_params: search_filter_params) do |table| %>
+<%# locals: (pages:, query:) %>
+<%= render Alchemy::Admin::Resource::Table.new(pages, query:, search_filter_params: search_filter_params) do |table| %>
   <% table.column :icon, header: "" do |page| %>
     <% if can?(:edit_content, page) %>
       <% if page.locked? %>

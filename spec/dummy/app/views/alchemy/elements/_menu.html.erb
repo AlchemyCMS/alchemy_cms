@@ -1,3 +1,4 @@
+<%# locals: (menu:, element: nil, counter: 1, options: {}, **rest) %>
 <%- cache(menu) do -%>
   <%= element_view_for(menu) do |el| -%>
     <%= el.render :menu %>

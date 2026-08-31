@@ -1,3 +1,4 @@
+<%# locals: () %>
 <% if Alchemy::Picture.tag_counts.any? %>
   <label><%= Alchemy.t("Filter by tag") %></label>
   <%= render Alchemy::Admin::ListFilter.new(".tag-list li", placeholder: Alchemy.t("Filter tags")) %>

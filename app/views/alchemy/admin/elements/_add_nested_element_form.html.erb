@@ -1,3 +1,4 @@
+<%# locals: (element:) %>
 <%= content_tag :div, class: 'add-nested-element', data: { element_id: element.id } do %>
   <% if element.nestable_elements.length == 1 &&
     (nestable_element = element.nestable_elements.first) &&

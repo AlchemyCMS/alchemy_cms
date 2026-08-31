@@ -1,6 +1,7 @@
+<%# locals: (query:) %>
 <div id="library_sidebar">
   <%= render "sorting_select" %>
-  <%= render "filter_bar", query: local_assigns[:query] if resource_has_filters %>
+  <%= render "filter_bar", query: query if resource_has_filters %>
 
   <div class="tag-list"><%= render "tag_list" %></div>
 </div>

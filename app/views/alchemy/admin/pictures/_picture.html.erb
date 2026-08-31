@@ -1,5 +1,4 @@
-<% size = local_assigns[:size] %>
-<% deletable_picture_ids = local_assigns[:deletable_picture_ids] %>
+<%# locals: (picture:, size:, deletable_picture_ids:, picture_offset: nil, picture_index: nil, picture_iteration: nil) %>
 <div class="picture_thumbnail <%= size %>" id="picture_<%= picture.id %>">
   <span class="picture_tool select">
     <%= check_box_tag "picture_ids[]", picture.id %>

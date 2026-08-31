@@ -1,6 +1,4 @@
-<% attachments = local_assigns[:attachments] %>
-<% form_field_id = local_assigns[:form_field_id] %>
-<% query = local_assigns[:query] %>
+<%# locals: (attachments:, form_field_id:, query:, size: nil) %>
 <%= turbo_frame_tag "archive_overlay" do %>
   <div class="toolbar">
     <div class="toolbar_buttons">
@@ -27,7 +25,7 @@
       <% end %>
     </div>
 
-    <%= render 'alchemy/admin/partials/overlay_search_form', query: query, form_field_id: form_field_id, size: local_assigns[:size] %>
+    <%= render 'alchemy/admin/partials/overlay_search_form', query: query, form_field_id: form_field_id, size: size %>
   </div>
 
   <div

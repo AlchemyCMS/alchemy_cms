@@ -1,3 +1,4 @@
+<%# locals: (object:, file_attribute:, redirect_url:, accept: nil, dropzone: nil, layout: nil, label: nil) %>
 <% Alchemy::Deprecation.warn(
   "Rendering the `alchemy/admin/uploader/button` partial is deprecated! `render Alchemy::Admin::UploaderButton.new` instead."
 ) %>
@@ -5,7 +6,7 @@
   object:,
   file_attribute:,
   redirect_url:,
-  accept: local_assigns[:accept],
-  dropzone: local_assigns[:dropzone],
-  layout: local_assigns[:layout],
-  label: local_assigns[:label]) %>
+  accept:,
+  dropzone:,
+  layout:,
+  label:) %>

@@ -1,3 +1,4 @@
+<%# locals: (contactform:, element: nil, counter: 1, options: {}, **rest) %>
 <%- cache(contactform) do -%>
   <%= element_view_for(contactform) do |el| -%>
     <form action="/messages" method="POST">

@@ -1,3 +1,4 @@
+<%# locals: (slider:, element: nil, counter: 1, options: {}, **rest) %>
 <%- cache(slider) do -%>
   <%= element_view_for(slider) do |el| -%>
     <%= render el.nested_elements %>

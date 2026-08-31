@@ -1,6 +1,7 @@
+<%# locals: (resources:, hide_per_page_select: false) %>
 <div class="pagination-wrapper">
   <%= paginate resources, theme: "alchemy" %>
-  <% unless local_assigns[:hide_per_page_select] %>
+  <% unless hide_per_page_select %>
     <%= render "alchemy/admin/resources/per_page_select" %>
   <% end %>
 </div>

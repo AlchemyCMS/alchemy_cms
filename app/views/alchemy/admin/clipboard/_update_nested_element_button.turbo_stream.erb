@@ -1,5 +1,5 @@
+<%# locals: (item:) %>
 <%# Update add nested element forms for any elements that accept ONLY this as a nested element %>
-<% item = local_assigns[:item] %>
 <% if item.class == Alchemy::Element %>
   <%
     item.page.draft_version.elements.expanded.select do |element|

@@ -1,3 +1,4 @@
+<%# locals: (object:, file_attribute:, redirect_url:, accept: nil) %>
 <% file_types = Alchemy.config.uploader.allowed_filetypes[object.class.model_name.collection] || ['*'] %>
 <% accept ||= file_types.to_a == ["*"] ? nil : file_types.map {|type| ".#{type}"}.join(", ") %>
 

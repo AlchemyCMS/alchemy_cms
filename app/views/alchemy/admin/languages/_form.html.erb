@@ -1,3 +1,4 @@
+<%# locals: (language:, resource: nil) %>
 <%= alchemy_form_for [alchemy, :admin, language] do |f| %>
   <%= f.input :name, autofocus: true %>
   <%= f.input :language_code, placeholder: Alchemy.t(:language_code_placeholder) %>

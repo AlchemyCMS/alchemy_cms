@@ -1,4 +1,4 @@
-<% picture = local_assigns[:picture] %>
+<%# locals: (picture:, assignments:) %>
 <div class="resource_info file-infos">
   <div class="value">
     <label><%= Alchemy::Picture.human_attribute_name(:image_file_name) %></label>
@@ -25,5 +25,5 @@
 <hr>
 
 <%= render "alchemy/admin/resources/resource_usage_info",
-  assignments: local_assigns[:assignments],
+  assignments: assignments,
   resource_name: :picture %>

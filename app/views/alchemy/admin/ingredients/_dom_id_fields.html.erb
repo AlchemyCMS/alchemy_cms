@@ -1,3 +1,4 @@
+<%# locals: (f:, ingredient:) %>
 <% disabled = ingredient.settings[:anchor].to_s != "true" %>
 <%= f.input :dom_id,
   disabled: disabled,

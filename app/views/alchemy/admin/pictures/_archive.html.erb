@@ -1,6 +1,4 @@
-<% size = local_assigns[:size] %>
-<% pictures = local_assigns[:pictures] %>
-<% deletable_picture_ids = local_assigns[:deletable_picture_ids] %>
+<%# locals: (size:, pictures:, deletable_picture_ids:) %>
 <% forwarded_params = search_filter_params.merge(
   page: params[:page],
   size: size.presence

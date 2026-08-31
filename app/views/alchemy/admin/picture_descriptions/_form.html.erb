@@ -1,3 +1,4 @@
+<%# locals: (description_field_name_prefix:, picture_description:) %>
 <% if picture_description.persisted? %>
   <%= hidden_field description_field_name_prefix, :id, value: picture_description.id %>
 <% else %>

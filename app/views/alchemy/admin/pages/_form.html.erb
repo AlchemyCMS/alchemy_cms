@@ -1,3 +1,4 @@
+<%# locals: (page:) %>
 <%= turbo_frame_tag page do %>
   <%= alchemy_form_for [:admin, page], class: 'edit_page' do |f| %>
     <% unless page.language_root? || page.layoutpage %>

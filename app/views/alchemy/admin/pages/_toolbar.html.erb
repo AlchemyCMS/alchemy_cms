@@ -1,5 +1,4 @@
-<% current_language = local_assigns[:current_language] %>
-<% view = local_assigns[:view] %>
+<%# locals: (current_language:, view:, query:) %>
 <div class="toolbar_buttons">
   <%= render "alchemy/admin/partials/site_select" %>
   <%= render "alchemy/admin/partials/language_tree_select" %>
@@ -53,6 +52,6 @@
 </div>
 <% search_filter_params[:view] = "list" %>
 <%= render "alchemy/admin/partials/search_form",
-  query: local_assigns[:query],
+  query:,
   url: alchemy.admin_pages_path(search_filter_params.except(:q, :page)),
   additional_params: [:view] %>

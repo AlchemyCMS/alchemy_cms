@@ -1,5 +1,6 @@
+<%# locals: (locked_pages:, page:) %>
 <% if locked_pages.present? %>
   <div id="locked_pages">
-    <%= render partial: 'alchemy/admin/pages/locked_page', collection: locked_pages, locals: { page: local_assigns[:page] } %>
+    <%= render partial: 'alchemy/admin/pages/locked_page', collection: locked_pages, locals: { page: } %>
   </div>
 <% end %>

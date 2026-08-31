@@ -1,3 +1,4 @@
+<%# locals: (site:, resource: nil) %>
 <%= alchemy_form_for site, url: resource_path(site, search_filter_params) do |f| %>
   <%= f.input :host, hint: resource_handler.help_text_for(name: :host)&.html_safe %>
   <%= f.input :name %>
