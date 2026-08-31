@@ -69,7 +69,7 @@ module Alchemy
       def set_roles
         if can_update_role?
           @user_roles = User::ROLES.map do |role|
-            [User.human_rolename(role), role]
+            [User.human_alchemy_rolename(role), role]
           end
         end
       end

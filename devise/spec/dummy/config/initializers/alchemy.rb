@@ -179,8 +179,11 @@ Alchemy.configure do |config|
 
   # === Link Target Options
   #
-  # Values for the link target selectbox inside the page link overlay.
-  # The value gets attached as a data-link-target attribute to the link.
+  # Values for the link target selectbox inside the link dialog.
+  #
+  # Each value is stored with a leading underscore, so that it can be used as
+  # the link's `target` attribute right away: `blank` is stored as `_blank` and
+  # rendered as `target="_blank"`.
   #
   # config.link_target_options = ["blank"]
 
