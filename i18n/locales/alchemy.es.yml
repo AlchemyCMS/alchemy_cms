@@ -198,9 +198,13 @@ es:
       application/x-rar: "Archivo RAR"
       application/x-shockwave-flash: "Video de Flash"
       application/zip: "Archivo ZIP"
+      audio/aac: "Audio AAC"
+      audio/flac: "Audio FLAC"
       audio/mp4: "Audio MP4"
       audio/mpeg: "Audio MP3"
+      audio/ogg: "Audio Ogg"
       audio/wav: "Audio WAV"
+      audio/webm: "Audio WebM"
       audio/x-wav: "Audio WAV"
       image/avif: "Imagen AVIF"
       image/gif: "Imagen GIF"
@@ -214,6 +218,7 @@ es:
       "text/x-vcard": "vCard"
       video/mp4: "Video MP4"
       video/mpeg: "Video MPEG"
+      video/ogg: "Video Ogg"
       video/quicktime: "Video de Quicktime"
       video/webm: "Video WebM"
       video/x-flv: "Video de Flash"
@@ -316,6 +321,9 @@ es:
             published: "Publicadas"
           user_counts:
             online: "En línea"
+          news_reader:
+            widget_title: "Noticias"
+            no_news: "sin noticias"
       elements:
         toolbar:
           hide: "Ocultar"
@@ -481,6 +489,7 @@ es:
     "Successfully added content": "%{content} añadido correctamente"
     "Successfully deleted content": "%{content} eliminado correctamente"
     "Successfully deleted element": "%{element} eliminado correctamente"
+    updated_ingredient: "%{ingredient} actualizado correctamente"
     "Successfully saved content position": "Posición del contenido guardada correctamente"
     "Tags": "Etiquetas"
     "There are no pages yet": "Aún no hay páginas"
@@ -527,6 +536,7 @@ es:
     assign_file: "Asignar un archivo"
     assign_file_from_archive: "Asigne un archivo de su librería"
     assign_image: "Asignar una imagen"
+    attached_to: "vinculado a"
     attachment_filename_notice: "* Por favor no use ningún carácter especial para el nombre del archivo."
     auto_play: "Reproducir video después de cargar"
     big_thumbnails: "Miniaturas grandes"
@@ -635,6 +645,10 @@ es:
         "Leave the page": "Salir de la página"
         "Open upload form": "Abrir formulario de subida"
         "Select all pictures": "Seleccionar todas las imágenes"
+      resources: Recursos
+      resource_links:
+        guidelines: "Guías"
+        homepage: "Página de inicio"
     hide_element_content: "Ocultar los contenidos del elemento."
     homepage_does_not_exist: "Este idioma aún no tiene página de inicio"
     in_use: "En uso"
@@ -660,6 +674,9 @@ es:
     left: "Izquierda"
     legacy_url_info_text: "Un enlace es una redirección de una vieja URL a la URL actual de esta página. Esta redirección ocurre con un <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>código de estado 301</a>."
     legal_info: "Aviso legal"
+    license: "Licencia"
+    licenses:
+      BSD-3-Clause: "BSD-3-Clause"
     link_image: "Enlazar esta imagen."
     link_overlay_tab_label:
       anchor: "Ancla"
@@ -708,8 +725,17 @@ es:
     no_more_elements_to_add: "No hay más elementos disponibles."
     no_resource_found:
       default: "No se encontraron %{resource}. Por favor, añada el primero a continuación."
+      alchemy/attachment: |
+        <h2>Aún no tiene ningún documento en su archivo.</h2>
+        <p>Utilice el botón de abajo o arrastre documentos a esta ventana para subir su primer documento.</p>
       alchemy/language: "<h2>Su sitio web aún no tiene idiomas.</h2><p>Necesita al menos un idioma para trabajar. Por favor, cree uno a continuación.</p>"
       alchemy/node: "<h2>Aún no tiene menús.</h2><p>Con los menús sus usuarios pueden navegar por su sitio web. Puede tener varios menús. Cuántos depende de la plantilla de su sitio web.</p><p>Por favor, elija qué menú desea crear primero.</p>"
+      alchemy/page: |
+        <h2>Este idioma aún no tiene página de inicio</h2>
+        <p>Por favor, cree una a continuación.</p>
+      alchemy/picture: |
+        <h2>Aún no tiene ninguna imagen en su archivo.</h2>
+        <p>Utilice el botón de abajo o arrastre imágenes a esta ventana para subir su primera imagen.</p>
       alchemy/site: "<h2>Aún no tiene sitios web.</h2><p>Para servir solicitudes necesita crear un sitio web primero.</p><p>Este formulario se ha rellenado con valores predeterminados que funcionan en la mayoría de los casos.</p>"
     no_search_results: "Su búsqueda no produjo ningún resultado."
     no_unpublished_changes: "Sin cambios no publicados"
@@ -844,6 +870,7 @@ es:
     show_elements_from_page: "Mostrar todos los elementos de esta página"
     show_eq: "Mostrar EQ"
     show_navigation: "Mostrar en navegación"
+    show_page_in_sitemap: "Mostrar página en el sitemap XML."
     signup_mail_delivery_error: "El correo de registro no se pudo enviar. Por favor revise su configuración de correo."
     small_thumbnails: "Miniaturas pequeñas"
     subject: "Asunto"
@@ -858,6 +885,7 @@ es:
     tag_list: Etiquetas
     tags: "Etiquetas"
     tags_get_created_if_used_the_first_time: "Se crearán las etiquetas usadas por primera vez."
+    this_picture_is_used_on_these_pages: "Esta imagen se usa en las siguientes páginas"
     timezone: "Zona horaria"
     title: "Título"
     to_alchemy: "Ir a Alchemy"
@@ -1159,6 +1187,7 @@ es:
         public_on: "Visible desde"
         public_until: "Visible hasta"
         restricted: "restringida"
+        permitted_roles: "excepto para los usuarios con uno de estos roles"
         robot_follow: "robot puede seguir enlaces"
         robot_index: "permitir indexar al robot"
         searchable: "indexable"
@@ -1178,6 +1207,7 @@ es:
         image_file_height: "Altura"
         image_file_width: "Anchura"
         image_file_dimensions: "Dimensiones"
+        image_file_format: "Tipo de archivo"
         image_file_size: "Tamaño del archivo"
         name: "Nombre"
         tag_list: Etiquetas
@@ -1255,6 +1285,9 @@ es:
             page_layout:
               blank: "^Por favor elija un tipo de página."
               conflicting_wildcard_param_key: 'tiene un parámetro comodín conflictivo "%{param}" que ya está siendo utilizado por el tipo de página "%{conflicting_layout}"'
+            permitted_roles:
+              blank: "necesita al menos un rol para el que una página restringida sea accesible"
+              inclusion: "contiene roles que no están configurados: %{roles}"
             urlname:
               too_short: "^La ruta URL es demasiado corta (3 caracteres mínimo)."
               taken: "^Ruta URL ya en uso."
