@@ -15,6 +15,8 @@ zh-CN:
     #       sidebar_menu: Side bar menu (?)
     #
     menu_names:
+      main_menu: "主菜单"
+      footer_menu: "页脚菜单"
 
     # == Translations for page_layout names
     # Just use the page_layouts name like defined inside the config/alchemy/page_layouts.yml file and translate it.
@@ -147,14 +149,24 @@ zh-CN:
 
     # == Mime Types translations
     # These are human readable mime types used for the document-type row in archive files.
-    mime_types:
+    mime_types: &mime_types
       audio/mp4: "MP4音频"
       application/msword: "Word文档"
+      application/msexcel: "Excel表格"
+      application/mspowerpoint: "PowerPoint演示文稿"
       application/rtf: "RTF文档"
+      audio/aac: "AAC音频"
+      audio/flac: "FLAC音频"
       audio/mpeg: "MP3音频"
+      audio/ogg: "Ogg音频"
+      audio/wav: "WAV音频"
+      audio/webm: "WebM音频"
+      audio/x-wav: "WAV音频"
       text/plain: "Text文档"
       video/mp4: "MP4视频"
       video/mpeg: "MPEG视频"
+      video/ogg: "Ogg视频"
+      video/webm: "WebM视频"
       application/pdf: "PDF文档"
       application/x-flash-video: "Flash视频"
       video/x-flv: "Flash视频"
@@ -163,16 +175,86 @@ zh-CN:
       application/x-rar: "RAR压缩文档"
       application/vnd:
         ms-excel: "Excel文档"
+        ms-powerpoint: "PowerPoint演示文稿"
+        ms-word: "Word文档"
+        openxmlformats-officedocument:
+          presentationml:
+            presentation: "PowerPoint 2007演示文稿"
+          spreadsheetml:
+            sheet: "Excel 2007表格"
+          wordprocessingml:
+            document: "Word 2007文档"
       video/quicktime: "Quicktime视频"
+      image/avif: "AVIF图片"
       image/x-psd: "Photoshop文件"
       image/gif: "GIF图片"
       image/png: "PNG图片"
       image/jpeg: "JPG图片"
+      image/svg+xml: "SVG图片"
+      image/webp: "WebP图片"
       video/x-msvideo: "AVI视频"
       video/x-ms-wmv: "Windows Media视频"
       image/tiff: "TIFF图片"
       "text/x-vcard": "vCard"
       application/vcard: "vCard"
+
+    # === Translations for filter names and values
+    filters:
+      page:
+        by_page_layout:
+          all: "所有页面类型"
+          name: "页面类型"
+        status:
+          all: "不过滤"
+          name: "状态"
+          values:
+            not_public: "未发布"
+            published: "已发布"
+            restricted: "受限"
+        not_public:
+          name: "未发布"
+        published:
+          name: "已发布"
+        restricted:
+          name: "受限"
+        updated_at_lteq:
+          name: "更新时间早于"
+        updated_at_gteq:
+          name: "更新时间晚于"
+      picture:
+        by_file_format:
+          all: "显示所有文件类型"
+          name: "文件类型"
+          values:
+            <<: *mime_types
+            gif: "GIF图片"
+            jpeg: "JPG图片"
+            png: "PNG图片"
+            svg: "SVG图片"
+            tiff: "TIFF图片"
+            webp: "WebP图片"
+        last_upload:
+          name: "仅最近一次上传"
+        recent:
+          name: "仅最近上传的"
+        without_tag:
+          name: "不含标签"
+        deletable:
+          name: "未使用"
+      attachment:
+        by_file_type:
+          name: "文件类型"
+          values:
+            <<: *mime_types
+          all: "显示所有文件类型"
+        last_upload:
+          name: "仅最近一次上传"
+        recent:
+          name: "仅最近上传的"
+        without_tag:
+          name: "不含标签"
+        deletable:
+          name: "未使用"
 
     link_target_options:
       default: 同一个窗口
@@ -181,7 +263,44 @@ zh-CN:
 
     resource_help_texts:
       site:
+        host: 请输入 <a href="https://en.wikipedia.org/wiki/Fully_qualified_domain_name" target="_blank">FQDN</a> 或使用星号 (*) 允许所有域名访问此站点。
         aliases: 请用空格或换行符分隔额外域名。
+
+    admin:
+      attachments:
+        sorting_select:
+          label: "排序"
+          by_latest: "最新"
+          alphabetical: "A-Z"
+      dashboard:
+        widgets:
+          page_counts:
+            published: "已发布"
+          user_counts:
+            online: "在线"
+          news_reader:
+            widget_title: "新闻"
+            no_news: "暂无新闻"
+      elements:
+        toolbar:
+          hide: "隐藏"
+        schedule:
+          visibility_status:
+            public_html: "此元素<b>当前可见</b>。"
+            hidden_html: "此元素<b>当前隐藏</b>。"
+          public_no_schedule: "设置一个“可见截止”日期以自动隐藏它。"
+          public_scheduled_html: "它将在 <b>%{public_until}</b> 隐藏。"
+          hidden_no_schedule: "更改日期以使其再次可见。"
+          hidden_scheduled_html: "它将从 <b>%{public_on}</b> 起可见。"
+          hidden_window_html: "它将从 <b>%{public_on}</b> 起可见，直到 <b>%{public_until}</b>。"
+      pictures:
+        sorting_select:
+          label: "排序"
+          by_latest: "最新"
+          alphabetical: "A-Z"
+      publish_page_button:
+        publish_page: "发布页面"
+        publish_changes: "发布更改"
 
     add_nested_element: "Add %{name}"
     anchor: "锚点"
@@ -415,6 +534,10 @@ zh-CN:
         "Leave the page": "离开页面"
         "Open upload form": "打开上传表单"
         "Select all pictures": "选择所有图片"
+      resources: "资源"
+      resource_links:
+        guidelines: "指南"
+        homepage: "主页"
     hide_element_content: "隐藏这个元素的内容。"
     dashboard: "面板"
     image_alt_tag: "Alt-标签"
@@ -437,6 +560,7 @@ zh-CN:
     legacy_url_info_text: "链接就是一个从旧网址跳转到页面现在网址的跳转。这个跳转会有一个 <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>301状态码</a>。"
     link_image: "链接这个图片"
     link_overlay_tab_label:
+      anchor: "锚点"
       contactform: "联系表单"
       external: "外部"
       file: "文件"
@@ -459,9 +583,12 @@ zh-CN:
       languages: "语言"
       layoutpages: "全局页面"
       library: "库"
+      menus: "菜单"
       pages: "页面"
       tags: "标签"
       sites: "站点"
+      user_sessions: "登录"
+      users: "用户"
     name: "名字"
     names: "名字"
     navigation_name: "导航名"
@@ -500,6 +627,10 @@ zh-CN:
       restricted:
         "true": "页面有限制。"
         "false": "页面没有限制。"
+      scheduled:
+        public_on: "页面从 %{public_on} 起可见"
+        public_until: "页面在 %{public_until} 前可见"
+        "false": ""
     page_status_titles:
       public:
         "true": "公开"
@@ -510,6 +641,9 @@ zh-CN:
       restricted:
         "true": "限制"
         "false": "未限制"
+      scheduled:
+        "true": "已计划"
+        "false": ""
     page_status: "状态"
     page_title: "标题"
     page_type: "类别"
@@ -536,6 +670,10 @@ zh-CN:
     position_in_text: "文本中位置"
     preview_size: "预览大小"
     preview_sizes:
+      "auto": "自动"
+      "360": "手机 (360px)"
+      "640": "小平板电脑 (640px)"
+      "1440": "桌面电脑 (1440px)"
       "240": "240px (小屏幕手机)"
       "320": "320px (iPhone)"
       "480": "480px (小平板电脑)"
@@ -600,6 +738,7 @@ zh-CN:
         button_label: 上传图片
         upload_success: "图片 %{name} 已成功上传"
         upload_failure: "上传出错 %{name}: %{error}"
+      error: "无法上传文件！%{error}"
     url_name: "URL-名字"
     visible: "可见"
     want_to_create_new_language: "你想要创建一个新的的空语言树吗？"
@@ -630,6 +769,150 @@ zh-CN:
     "Update available": "有最新更新"
     "Update status unavailable": "没有最新更新"
     "Uploading": "正在上传"
+
+    "Add a page": "添加页面"
+    "Add a language": "添加语言"
+    "Add a site": "添加站点"
+    "AlchemyCMS Help": "AlchemyCMS 帮助"
+    "Before creating your first page you need an admin user": "在创建第一个页面之前，你需要一个管理员用户"
+    "Collapse all elements": "折叠所有元素"
+    "Create admin user": "创建管理员用户"
+    "Create node on parent:": "附加到菜单"
+    "Create your first page": "创建你的第一个页面"
+    "Current site": "当前站点"
+    "Delete element": "删除元素"
+    "Do you really want to clear the clipboard?": "你确认要清空剪贴板？"
+    "Element": "元素"
+    "File preview": "文件预览"
+    "Filter elements": "过滤元素"
+    "Filter tags": "过滤标签"
+    "Help": "帮助"
+    "Hierarchical": "分层"
+    "More resources": "更多资源"
+    "New node": "新建菜单节点"
+    "No menu node for this page found": "未找到此页面的菜单节点"
+    "No pages found": "未找到页面"
+    "No users found": "未找到用户。"
+    "Page preview": "页面预览"
+    "Please create a default language for this site.": "请为此站点创建一个默认语言。"
+    "Please create a language first.": "请先创建一个语言。"
+    "Please create a site first.": "请先创建一个站点。"
+    "Publish your homepage": "发布你的主页"
+    "Read the guidelines": "阅读指南"
+    "Select a page first": "请先选择一个页面"
+    "Show error details": "显示错误详情"
+    "Sortable List": "可排序列表"
+    "Successfully deleted element": "成功删除 %{element}"
+    "There are no pages yet": "还没有任何页面"
+    "There are no published pages yet": "还没有已发布的页面"
+    "You are not authorized.": "你未被授权。"
+    "You have successfully installed Alchemy": "你已成功安装 Alchemy"
+    "Your current user role is not permitted to access this resource.": "你当前的用户角色无权访问此资源。"
+    "Your user role does not allow you to copy this node": "你的用户角色不允许复制此节点"
+    "Your user role does not allow you to edit this page": "你的用户角色不允许编辑此页面"
+    anchor_link_headline: "你可以链接到当前页面上的锚点。"
+    attached_to: "附加到"
+    automatic_anchor_notice: "锚点是自动生成的。"
+    cannot_signup_more_then_once: "你不能重复注册。"
+    cannot_visit_unpublic_page: "请在访问页面前先发布它。"
+    choose_image: "选择图片"
+    clear_schedule: "清除计划"
+    close: "关闭"
+    confirm_to_delete_menu: "你确认要删除这个菜单？"
+    confirm_to_delete_node: "你确认要删除这个菜单节点？"
+    confirm_to_delete_user: "你确认要删除这个用户？"
+    confirm_to_flush_cache: "你确认要清空页面缓存？这可能需要一些时间，并会使首次页面请求变慢。"
+    confirm_to_proceed: "你想要继续吗？"
+    copy_node: "复制这个菜单节点"
+    create_menu: "添加一个菜单"
+    create_node: "添加到菜单"
+    create_user: "创建一个新用户"
+    custom_color: "自定义颜色"
+    delete_menu: "删除这个菜单"
+    delete_node: "删除这个菜单节点"
+    delete_user: "删除这个用户"
+    draft: "草稿"
+    edit: "编辑"
+    edit_anchor: "编辑锚点"
+    edit_element_schedule: "编辑可见性计划"
+    edit_menu: "编辑菜单"
+    edit_node: "编辑菜单节点"
+    edit_user: "编辑用户属性。"
+    element_deprecated: "警告！这个元素已被弃用并将很快被移除。请不要再使用它。"
+    element_hidden: "已隐藏"
+    element_scheduled:
+      public_on: "从 %{public_on} 起可见"
+      public_until: "在 %{public_until} 前可见"
+    element_usage: "元素使用情况"
+    filter: "过滤"
+    filtered_by: "过滤条件"
+    fulltext_search: "全文搜索"
+    in_use: "使用中"
+    ingredient_deprecated: "警告！这个字段已被弃用并将很快被移除。请不要再使用它。"
+    ingredient_values:
+      boolean:
+        "true": "是"
+        "false": "否"
+    items_per_page: "每页 %{model_name}"
+    license: "许可证"
+    licenses:
+      BSD-3-Clause: "BSD-3-Clause"
+    menu: "菜单"
+    no_future_publication_dates: "没有未来的发布日期"
+    no_resource_found:
+      default: |
+        <h2>你还没有任何 %{resource}。</h2>
+      alchemy/attachment: |
+        <h2>你的库中还没有任何文件。</h2>
+        <p>使用下方的按钮或将文件拖入此窗口以上传你的第一个文件。</p>
+      alchemy/language: |
+        <h2>你的网站还没有任何语言。</h2>
+        <p>你至少需要一个语言才能开始工作。请在下方创建一个。</p>
+      alchemy/node: |
+        <h2>你还没有任何菜单。</h2>
+        <p>通过菜单，你的用户可以浏览你的网站。你的网站可以拥有多个菜单，具体数量取决于你的网站模板。</p>
+        <p>请选择你想先创建哪个菜单。</p>
+      alchemy/page: |
+        <h2>这个语言还没有主页</h2>
+        <p>请在下方创建一个。</p>
+      alchemy/picture: |
+        <h2>你的库中还没有任何图片。</h2>
+        <p>使用下方的按钮或将图片拖入此窗口以上传你的第一张图片。</p>
+      alchemy/site: |
+        <h2>你还没有任何网站。</h2>
+        <p>为了处理请求，你需要先创建一个网站。</p>
+        <p>此表单已填入在大多数情况下都适用的合理默认值。</p>
+    no_unpublished_changes: "没有未发布的更改"
+    node_url_hint: "请使用前导斜杠 (/) 或带协议的网址 (例如 https:)"
+    "not a valid file": "这不是一个合法的文件"
+    not_found: "未找到"
+    not_in_use_yet:
+      attachment: "这个文件尚未被使用。"
+      picture: "这张图片尚未被使用。"
+    now: "现在"
+    page: "页面"
+    page_usage: "页面使用情况"
+    picture_update_failed: "图片无法保存。"
+    picture_updated_successfully: "图片已保存。"
+    pictures_will_be_deleted_now: "图片现在将被删除"
+    preview_time: "预览时间"
+    preview_url: "预览"
+    publish_page_language_not_public: "如果语言未公开，则无法发布页面"
+    publish_page_not_allowed: "你没有发布此页面的权限"
+    published: "已发布"
+    schedule_element: "计划可见性"
+    search_node: "搜索菜单节点"
+    search_page: "搜索页面"
+    search_tag: "搜索标签"
+    show_page_in_sitemap: "在 XML 站点地图中显示页面。"
+    successfully_scheduled_element: "成功计划元素。"
+    tags: "标签"
+    this_picture_is_used_on_these_pages: "这张图片被用于以下页面"
+    timezone: "时区"
+    updated_ingredient: "成功更新 %{ingredient}"
+    used_on_these_pages:
+      attachment: "这个文件的使用情况如下"
+      picture: "这张图片的使用情况如下"
 
     # Kaminari pagination translations
     pagination:
@@ -666,6 +949,7 @@ zh-CN:
         datepicker: "%Y-%m-%d"
         datetimepicker: "%Y-%m-%d %H:%M"
         default: "%Y-%m-%d %H:%M"
+        ingredient_date: "%Y-%m-%d"
         element_date: "%Y-%m-%d %H:%M"
         essence_dat: "%Y-%m-%d"
         page_status: "%m.%d.%Y %H:%M"
@@ -675,6 +959,9 @@ zh-CN:
 
   # Translations for error messages.
   errors:
+    attributes:
+      public_until:
+        must_be_after_public_on: "必须晚于“可见起始”日期"
     models:
       alchemy/content:
         attributes:
@@ -686,6 +973,10 @@ zh-CN:
         attributes:
           name:
             blank: "^请选择一个元素。"
+      alchemy/ingredient:
+        attributes:
+          role:
+            taken: "在这个元素中已经被使用。"
       alchemy/language:
         attributes:
           language_code:
@@ -707,6 +998,7 @@ zh-CN:
         attributes:
           image_file:
             blank: "请添加一个图片。"
+            too_big: "不能大于 %{maximum}MB"
       alchemy/user:
         attributes:
           email:
@@ -720,6 +1012,7 @@ zh-CN:
       alchemy/message:
         one: 消息
         other: 消息
+      alchemy/admin/preview_url: 内部
     attributes:
       alchemy/message:
         salutation: "联系方式"
@@ -734,6 +1027,38 @@ zh-CN:
 
   # Translations for Alchemy database models
   activerecord:
+    errors:
+      models:
+        alchemy/node:
+          attributes:
+            base:
+              node_ingredients_present: "此菜单项正在以下页面的 Alchemy 元素中使用：%{page_names}。"
+        alchemy/site:
+          attributes:
+            base:
+              restrict_dependent_destroy:
+                has_many: "仍有 %{record} 附加到此站点。请先移除它们。"
+        alchemy/language:
+          attributes:
+            base:
+              restrict_dependent_destroy:
+                has_many: "仍有 %{record} 附加到此语言。请先移除它们。"
+        alchemy/page:
+          attributes:
+            base:
+              restrict_dependent_destroy:
+                has_many: "仍有 %{record} 附加到此页面。请先移除它们。"
+            page_layout:
+              conflicting_wildcard_param_key: '存在与“%{conflicting_layout}”页面布局已使用的通配符参数“%{param}”冲突'
+            descendants:
+              still_attached_to_nodes: "以下子页面仍附加到菜单节点：%{page_names}。请先移除它们。"
+            permitted_roles:
+              blank: "受限页面至少需要一个可访问的角色"
+              inclusion: "包含未配置的角色：%{roles}"
+        alchemy/element:
+          attributes:
+            page_version_id:
+              must_match_parent: "必须与父元素的页面版本相同"
     models:
       gutentag/tag:
         one: 标签
@@ -744,12 +1069,18 @@ zh-CN:
       alchemy/element:
         one: "元素"
         other: "元素"
+      alchemy/ingredients/headline:
+        one: 标题
+        other: 标题
       alchemy/legacy_page_url:
         one: "链接"
         other: "链接"
       alchemy/language:
         one: "语言"
         other: "语言"
+      alchemy/node:
+        one: "菜单节点"
+        other: "菜单节点"
       alchemy/page:
         one: "页面"
         other: "页面"
@@ -759,11 +1090,17 @@ zh-CN:
       alchemy/picture:
         one: 图片
         other: 图片
+      alchemy/picture_description:
+        one: 图片描述
+        other: 图片描述
       alchemy/user:
         one: User
         other: User
     attributes:
       acts_as_taggable_on/tag:
+        taggings_types: 用于
+        taggings_count: 使用统计
+      gutentag/tag:
         taggings_types: 用于
         taggings_count: 使用统计
       alchemy/attachment:
@@ -780,6 +1117,29 @@ zh-CN:
         name: "名字"
         public: "可见"
         tag_list: 标签
+        public_on: 可见起始
+        public_until: 可见截止
+      alchemy/ingredient:
+        dom_id: 锚点
+      alchemy/ingredients/file:
+        css_class: 样式
+      alchemy/ingredients/headline:
+        value: 标题
+        level: 级别
+        size: 大小
+      alchemy/ingredients/picture:
+        caption: "标题"
+        title: "标题"
+        alt_tag: "替换文本"
+        link: 链接
+        link_class_name: "链接CSS类"
+        link_title: 链接标题
+        css_class: 样式
+        link_target: 链接目标
+        render_size: 渲染大小
+        crop_from: 剪切起点
+        crop_size: 剪切大小
+        picture_id: 图片
       alchemy/essence_file:
         css_class: 样式
       alchemy/essence_picture:
@@ -805,24 +1165,42 @@ zh-CN:
         public: "公共"
         locale: 本地化
         code: ISO代码
+        nodes: 菜单节点
       alchemy/legacy_page_url:
         urlname: "网址路径"
+      alchemy/node:
+        menu_type: 菜单类型
+        name: "名字"
+        title: "标题"
+        nofollow: "搜索引擎不得追踪"
+        url: "URL"
+        page: "页面"
+        external: "在新标签页中打开链接"
       alchemy/page:
         created_at: "创建时间"
         language: "语言"
         locked: "这个页面由其他用户锁定。"
         locked_by: "锁定人"
+        meta_description: "详细信息"
+        meta_keywords: "关键字"
         name: "名字"
+        nodes: "菜单节点"
         page_layout: "页面类型"
         page_type: "页面类型"
         public: "公共"
+        public_on: 可见起始
+        public_until: 可见截止
         restricted: "受限"
+        permitted_roles: "拥有以下角色之一的用户除外"
+        searchable: "在搜索中显示"
         robot_follow: "允许机器人追踪链接"
         robot_index: "允许机器人索引"
         sitemap: "在 XML 站点地图中显示页面。"
         tag_list: 标签
+        title: "标题"
         updated_at: "更新于"
         urlname: "地址名"
+        slug: "别名"
         visible: "在导航栏可见"
       alchemy/page_version:
         meta_description: "详细信息"
@@ -833,9 +1211,12 @@ zh-CN:
         image_file_height: "高"
         image_file_width: "宽"
         image_file_dimensions: "尺寸"
+        image_file_format: "文件类型"
         image_file_size: "文件大小"
         name: "名字"
         tag_list: 标签
+      alchemy/picture_description:
+        text: "描述"
       alchemy/site:
         name: "名字"
         host: "主要服务器"
