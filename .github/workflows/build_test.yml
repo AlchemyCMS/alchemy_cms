@@ -7,13 +7,7 @@ concurrency:
 on:
   push:
     branches:
-      - main
-      - 8.0-stable
-      - 7.4-stable
-      - 7.3-stable
-      - 7.2-stable
-      - 7.1-stable
-      - 7.0-stable
+      - 8.4-stable
   pull_request:
 
 jobs:
