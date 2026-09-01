@@ -6,6 +6,7 @@ on:
     types: [closed]
     branches:
       - main
+      - '*-stable'
 
 jobs:
   publish:
