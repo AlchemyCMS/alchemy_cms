@@ -162,9 +162,13 @@ pl:
       application/x-rar: "Archiwum RAR"
       application/x-shockwave-flash: "Film Flash"
       application/zip: "Archiwum ZIP"
+      audio/aac: "Audio AAC"
+      audio/flac: "Audio FLAC"
       audio/mp4: "Audio MPEG-4"
       audio/mpeg: "Audio MP3"
+      audio/ogg: "Audio Ogg"
       audio/wav: "Audio WAV"
+      audio/webm: "Audio WebM"
       audio/x-wav: "Audio WAV"
       image/avif: "Obraz AVIF"
       image/gif: "Obraz GIF"
@@ -178,6 +182,7 @@ pl:
       text/x-vcard: "vCard"
       video/mp4: "Wideo MPEG-4"
       video/mpeg: "Wideo MPEG"
+      video/ogg: "Wideo Ogg"
       video/quicktime: "Wideo Quicktime"
       video/webm: "Wideo WebM"
       video/x-flv: "Wideo Flash"
@@ -260,6 +265,15 @@ pl:
           label: "Sortowanie"
           by_latest: "Najnowsze"
           alphabetical: "A-Z"
+      dashboard:
+        widgets:
+          page_counts:
+            published: "opublikowane"
+          user_counts:
+            online: "online"
+          news_reader:
+            widget_title: "Aktualności"
+            no_news: "brak aktualności"
       elements:
         toolbar:
           hide: Ukryj
@@ -428,6 +442,7 @@ pl:
     "Successfully added content": "Dodano %{content}"
     "Successfully deleted content": "Usunięto %{content}"
     "Successfully deleted element": "%{element} został usunięty"
+    updated_ingredient: "Pomyślnie zaktualizowano %{ingredient}"
     "Successfully saved content position": "Pozycja została zapisana"
     "Tags": "Tagi"
     tags: "Tagi"
@@ -475,6 +490,7 @@ pl:
     assign_file: "Przypisz plik"
     assign_file_from_archive: "przypisz plik z archiwum"
     assign_image: "Przypisz obraz"
+    attached_to: "dołączony do"
     attachment_filename_notice: "* Proszę nie używać znaków specjalnych w nazwie pliku."
     auto_play: "Odtwarzaj film po załadowaniu"
     big_thumbnails: "Duże miniatury"
@@ -579,6 +595,10 @@ pl:
         "Leave the page": "Opuść stronę"
         "Open upload form": "Otwórz formularz przesyłania"
         "Select all pictures": "Zaznacz wszystkie obrazy"
+      resources: Zasoby
+      resource_links:
+        guidelines: "Przewodniki"
+        homepage: "Strona domowa"
     hide_element_content: "Ukryj treść tego elementu."
     homepage_does_not_exist: "Ten język nie ma jeszcze strony głównej"
     in_use: "W użyciu"
@@ -602,6 +622,9 @@ pl:
     last_upload_only: "Tylko z ostatniego przesłania"
     left: "lewo"
     legacy_url_info_text: "Link to przekierowanie ze starego URL na bieżący URL tej strony. To przekierowanie odbywa się z kodem statusu <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>301</a>."
+    license: "Licencja"
+    licenses:
+      BSD-3-Clause: "BSD-3-Clause"
     link_image: "Dodaj link do tego obrazu."
     link_overlay_tab_label:
       anchor: "Kotwica"
@@ -650,8 +673,17 @@ pl:
     no_more_elements_to_add: "Brak dostępnych elementów do dodania."
     no_resource_found:
       default: "Nie znaleziono %{resource}. Dodaj pierwszy poniżej."
+      alchemy/attachment: |
+        <h2>Nie masz jeszcze żadnych plików w archiwum.</h2>
+        <p>Użyj przycisku poniżej lub przeciągnij pliki do tego okna, aby przesłać pierwszy plik.</p>
       alchemy/language: "<h2>Twoja witryna nie ma jeszcze żadnych języków.</h2><p>Potrzebujesz co najmniej jednego języka. Proszę utworzyć go poniżej.</p>"
       alchemy/node: "<h2>Nie masz jeszcze żadnych menu.</h2><p>Za pomocą menu użytkownicy mogą nawigować po Twojej witrynie. Możesz mieć wiele menu. Ich liczba zależy od szablonu witryny.</p><p>Proszę wybrać, które menu chcesz utworzyć jako pierwsze.</p>"
+      alchemy/page: |
+        <h2>Ten język nie ma jeszcze strony głównej</h2>
+        <p>Proszę utworzyć ją poniżej.</p>
+      alchemy/picture: |
+        <h2>Nie masz jeszcze żadnych obrazów w archiwum.</h2>
+        <p>Użyj przycisku poniżej lub przeciągnij obrazy do tego okna, aby przesłać pierwszy obraz.</p>
       alchemy/site: "<h2>Nie masz jeszcze żadnych witryn.</h2><p>Aby obsługiwać żądania, musisz najpierw utworzyć witrynę.</p><p>Ten formularz został wypełniony sensownymi wartościami domyślnymi, które działają w większości przypadków.</p>"
     no_search_results: "Wyszukiwanie nie zwróciło żadnych wyników."
     no_unpublished_changes: "Brak nieopublikowanych zmian"
@@ -683,6 +715,10 @@ pl:
       restricted:
         "true": "Strona jest zastrzeżona."
         "false": "Strona nie jest zastrzeżona."
+      scheduled:
+        public_on: "Strona jest widoczna od %{public_on}"
+        public_until: "Strona jest widoczna do %{public_until}"
+        "false": ""
     page_status_titles:
       public:
         "true": "opublikowana"
@@ -693,6 +729,9 @@ pl:
       restricted:
         "true": "zastrzeżona"
         "false": "dostępna"
+      scheduled:
+        "true": "zaplanowana"
+        "false": ""
     page_status: "Status"
     page_title: "Tytuł"
     page_type: "Typ"
@@ -769,6 +808,7 @@ pl:
     show_elements_from_page: "Pokaż wszystkie elementy tej strony"
     show_eq: "Pokaż EQ"
     show_navigation: "Pokaż w nawigacji"
+    show_page_in_sitemap: "Pokaż stronę w XML Sitemap."
     signup_mail_delivery_error: "E-mail rejestracyjny nie mógł zostać dostarczony. Proszę sprawdzić ustawienia poczty."
     small_thumbnails: "Małe miniatury"
     subject: "Temat"
@@ -782,6 +822,7 @@ pl:
     insert_image: "Wstaw obraz"
     tag_list: Tagi
     tags_get_created_if_used_the_first_time: "Tagi są tworzone automatycznie przy pierwszym użyciu."
+    this_picture_is_used_on_these_pages: "Ten obraz jest używany na następujących stronach"
     used_on_these_pages:
       attachment: "Ten plik jest używany w następujący sposób"
       picture: "Ten obraz jest używany w następujący sposób"
@@ -981,8 +1022,13 @@ pl:
             base:
               restrict_dependent_destroy:
                 has_many: "Nadal istnieją %{record} powiązane z tą stroną. Proszę je najpierw usunąć."
+            page_layout:
+              conflicting_wildcard_param_key: 'ma sprzeczny parametr wildcard "%{param}" już używany przez typ strony "%{conflicting_layout}"'
             descendants:
               still_attached_to_nodes: "Następujące podstrony są nadal powiązane z elementami menu: %{page_names}. Proszę je najpierw usunąć."
+            permitted_roles:
+              blank: "wymaga co najmniej jednej roli, dla której zastrzeżona strona jest dostępna"
+              inclusion: "zawiera role, które nie są skonfigurowane: %{roles}"
     models:
       gutentag/tag:
         one: Tag
@@ -1102,6 +1148,8 @@ pl:
         language: "Język"
         locked: "Ta strona jest zablokowana przez innego użytkownika."
         locked_by: "zablokowana przez"
+        meta_description: "Opis"
+        meta_keywords: "Słowa kluczowe"
         name: "Nazwa"
         nodes: "Elementy menu"
         page_layout: "Typ strony"
@@ -1110,12 +1158,14 @@ pl:
         public_on: "Widoczna od"
         public_until: "Widoczna do"
         restricted: "zastrzeżona"
+        permitted_roles: "z wyjątkiem użytkowników z jedną z tych ról"
         searchable: "pokaż w wynikach wyszukiwania"
         robot_follow: "robot może podążać za linkami"
         robot_index: "zezwalaj robotowi na indeksowanie"
         sitemap: "Pokaż stronę w XML sitemap"
         slug: "Slug"
         tag_list: Tagi
+        title: "Tytuł"
         updated_at: "Zaktualizowano"
         urlname: "Nazwa URL"
         visible: "widoczna w nawigacji"
@@ -1128,6 +1178,7 @@ pl:
         image_file_height: "Wysokość"
         image_file_width: "Szerokość"
         image_file_dimensions: "Wymiary"
+        image_file_format: "Typ pliku"
         image_file_size: "Rozmiar pliku"
         name: "Nazwa"
         tag_list: Tagi
