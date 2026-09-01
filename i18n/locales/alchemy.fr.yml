@@ -172,9 +172,13 @@ fr:
       application/x-rar: "Archive RAR"
       application/x-shockwave-flash: "vidéo flash"
       application/zip: "Archive ZIP"
+      audio/aac: "Audio AAC"
+      audio/flac: "Audio FLAC"
       audio/mp4: "Audio MP4"
       audio/mpeg: "Audio MP3"
+      audio/ogg: "Audio Ogg"
       audio/wav: "Audio WAV"
+      audio/webm: "Audio WebM"
       audio/x-wav: "Audio WAV"
       image/avif: "image AVIF"
       image/gif: "image GIF"
@@ -188,6 +192,7 @@ fr:
       "text/x-vcard": "vCard"
       video/mp4: "vidéo MP4"
       video/mpeg: "vidéo MPEG"
+      video/ogg: "vidéo Ogg"
       video/quicktime: "vidéo Quicktime"
       video/webm: "vidéo WebM"
       video/x-flv: "vidéo flash"
@@ -295,6 +300,9 @@ fr:
             published: "Publiées"
           user_counts:
             online: "En ligne"
+          news_reader:
+            widget_title: "Actualités"
+            no_news: "aucune actualité"
       elements:
         toolbar:
           hide: masquer
@@ -470,6 +478,7 @@ fr:
     "Successfully added content": "%{content} a été ajouté"
     "Successfully deleted content": "%{content} a été effacé"
     "Successfully deleted element": "%{element} supprimé avec succès"
+    updated_ingredient: "%{ingredient} a été mis à jour avec succès"
     "Successfully saved content position": "La position est enregistrée."
     "Switch to Flash® Uploader": "Changer vers le Flash® Uploader"
     sitemap_editor_info: "Le plan du site est généré automatiquement"
@@ -523,6 +532,7 @@ fr:
     assign_file: "attribuer fichier"
     assign_file_from_archive: "Attribuer fichier de l’archive"
     assign_image: "Inserer image."
+    attached_to: "associé à"
     attachment_filename_notice: "* S’il vous plaît ne pas utiliser de caractères spéciaux ou d’accentuations dans le nom du fichier."
     auto_play: "Jouer le film automatiquement"
     big_thumbnails: "grandes vignettes"
@@ -635,6 +645,10 @@ fr:
         "Leave the page": "Quiter la page"
         "Open upload form": "Télécharger un fichier"
         "Select all pictures": "Choisir toutes les images"
+      resources: Ressources
+      resource_links:
+        guidelines: "Guides"
+        homepage: "Page d'accueil"
     hide_element_content: "Pliez élément"
     in_use: "En cours d'utilisation"
     info: "Info"
@@ -659,6 +673,9 @@ fr:
     last_upload_only: "Dernière téléchargées"
     left: "Gauche"
     legacy_url_info_text: "Un renvoi est une redirection une ancienne URL de l’URL actuelle de ce site. Ce transfert s’effectue avec<a href='https://support.google.com/webmasters/answer/93633' target='_blank'> un code de statut 301</a>."
+    license: "Licence"
+    licenses:
+      BSD-3-Clause: "BSD-3-Clause"
     legal_info: "Mentions légales"
     link_image: "Lien de l’image"
     link_overlay_tab_label:
@@ -708,8 +725,17 @@ fr:
     no_more_elements_to_add: "Aucun élément disponible."
     no_resource_found:
       default: "Aucun(e) %{resource} trouvé(e). Veuillez en créer un(e) ci-dessous."
+      alchemy/attachment: |
+        <h2>Vous n'avez pas encore de fichiers dans votre archive.</h2>
+        <p>Utilisez le bouton ci-dessous ou glissez des fichiers dans cette fenêtre pour télécharger votre premier fichier.</p>
       alchemy/language: "<h2>Votre site web ne possède pas encore de langue.</h2><p>Vous avez besoin d'au moins une langue pour travailler. Veuillez en créer une ci-dessous.</p>"
       alchemy/node: "<h2>Vous n'avez pas encore de menus.</h2><p>Les menus permettent à vos utilisateurs de naviguer sur votre site. Vous pouvez avoir plusieurs menus sur votre site. Le nombre dépend du modèle de votre site.</p><p>Veuillez choisir le menu que vous souhaitez créer en premier.</p>"
+      alchemy/page: |
+        <h2>Cette langue n'a pas encore de page d'accueil.</h2>
+        <p>Veuillez en créer une ci-dessous.</p>
+      alchemy/picture: |
+        <h2>Vous n'avez pas encore d'images dans votre archive.</h2>
+        <p>Utilisez le bouton ci-dessous ou glissez des images dans cette fenêtre pour télécharger votre première image.</p>
       alchemy/site: "<h2>Vous n'avez pas encore de site web.</h2><p>Pour pouvoir répondre aux requêtes, vous devez d'abord créer un site web.</p><p>Ce formulaire a été pré-rempli avec des valeurs par défaut qui fonctionnent dans la plupart des cas.</p>"
     no_search_results: "Aucun résultat de recherche."
     no_unpublished_changes: "Aucune modification non publiée"
@@ -844,6 +870,7 @@ fr:
     show_elements_from_page: "Voir les articles sur cette page"
     show_eq: "afficher EQ"
     show_navigation: "Afficher la navigation"
+    show_page_in_sitemap: "Afficher la page dans le plan du site XML."
     signup_mail_delivery_error: "Mise en place e-mail n’a pas pu être envoyé. S’il vous plaît vérifier les paramètres de messagerie."
     small_thumbnails: "Petites images de miniature"
     subject: "Concerne"
@@ -857,6 +884,7 @@ fr:
     insert_image: "Inserer image"
     tag_list: Tags
     tags_get_created_if_used_the_first_time: "Une étiquette est automatiquement créé lorsque vous l’utilisez pour la première fois."
+    this_picture_is_used_on_these_pages: "Cette image est utilisée sur les pages suivantes"
     this_picture_is_not_used_on_any_page: "Cette image est utilisée sur aucunne page."
     timezone: "Fuseau horaire"
     title: "Titre"
@@ -1165,6 +1193,7 @@ fr:
         public_on: "Visible à partir du"
         public_until: "Visible jusqu'au"
         restricted: "Mot de passe protégé"
+        permitted_roles: "sauf pour les utilisateurs possédant l'un de ces rôles"
         robot_follow: "laissez le robot suivre les liens"
         robot_index: "index par Robot"
         searchable: "afficher dans la recherche"
@@ -1184,6 +1213,7 @@ fr:
         image_file_height: "hauteur"
         image_file_width: "largeur"
         image_file_dimensions: "dimensions"
+        image_file_format: "Type de fichier"
         image_file_size: "taille du fichier"
         name: "nom"
         tag_list: Tags
@@ -1239,3 +1269,6 @@ fr:
               conflicting_wildcard_param_key: 'a un paramètre joker conflictuel "%{param}", déjà utilisé par le type de page "%{conflicting_layout}"'
             descendants:
               still_attached_to_nodes: "Les sous-pages suivantes sont encore associées à des entrées de menu : %{page_names}. Veuillez d’abord les supprimer."
+            permitted_roles:
+              blank: "nécessite au moins un rôle pour lequel une page protégée est accessible"
+              inclusion: "contient des rôles qui ne sont pas configurés : %{roles}"
