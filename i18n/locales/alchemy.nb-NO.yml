@@ -162,9 +162,13 @@ nb-NO:
       application/x-rar: "RAR-arkivfil"
       application/x-shockwave-flash: "Flash-film"
       application/zip: "ZIP-arkivfil"
+      audio/aac: "AAC-lyd"
+      audio/flac: "FLAC-lyd"
       audio/mp4: "MPEG-4-lyd"
       audio/mpeg: "MP3-lyd"
+      audio/ogg: "Ogg-lyd"
       audio/wav: "WAV-lyd"
+      audio/webm: "WebM-lyd"
       audio/x-wav: "WAV-lyd"
       image/avif: "AVIF-bilde"
       image/gif: "GIF-bilde"
@@ -178,6 +182,7 @@ nb-NO:
       text/x-vcard: "vCard"
       video/mp4: "MPEG-4-video"
       video/mpeg: "MPEG-video"
+      video/ogg: "Ogg-video"
       video/quicktime: "Quicktime-video"
       video/webm: "WebM-video"
       video/x-flv: "Flash-video"
@@ -260,6 +265,15 @@ nb-NO:
           label: "Sortering"
           by_latest: "Nyeste"
           alphabetical: "A-Å"
+      dashboard:
+        widgets:
+          page_counts:
+            published: "publisert"
+          user_counts:
+            online: "online"
+          news_reader:
+            widget_title: "Nyheter"
+            no_news: "ingen nyheter"
       elements:
         toolbar:
           hide: Skjul
@@ -428,6 +442,7 @@ nb-NO:
     "Successfully added content": "La til %{content}"
     "Successfully deleted content": "Sletting av %{content} vellykket"
     "Successfully deleted element": "%{element} ble slettet"
+    updated_ingredient: "%{ingredient} ble oppdatert"
     "Successfully saved content position": "Lagring av innholdsposisjon vellykket"
     "Tags": "Tags"
     tags: "Tags"
@@ -475,6 +490,7 @@ nb-NO:
     assign_file: "Tildel en fil"
     assign_file_from_archive: "Tildel en fil fra arkivet"
     assign_image: "Tildel et bilde"
+    attached_to: "knyttet til"
     attachment_filename_notice: "* Vennligst ikke bruk spesialtegn i filnavnet."
     auto_play: "Spill film etter lasting"
     big_thumbnails: "Store forhåndsvisninger"
@@ -579,6 +595,10 @@ nb-NO:
         "Leave the page": "Forlat side"
         "Open upload form": "Åpne opplastingsskjema"
         "Select all pictures": "Velg alle bilder"
+      resources: Ressurser
+      resource_links:
+        guidelines: "Veiledninger"
+        homepage: "Hjemmeside"
     hide_element_content: "Skjul dette elementets innhold."
     homepage_does_not_exist: "Dette språket har ingen forside ennå"
     in_use: "I bruk"
@@ -602,6 +622,9 @@ nb-NO:
     last_upload_only: "Kun siste opplasting"
     left: "venstre"
     legacy_url_info_text: "En lenke er en viderekobling fra en gammel URL til den gjeldende URL-en for denne siden. Denne viderekoblingen skjer med en <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>301-statuskode</a>."
+    license: "Lisens"
+    licenses:
+      BSD-3-Clause: "BSD-3-Clause"
     link_image: "Lenke bilde"
     link_overlay_tab_label:
       anchor: "Anker"
@@ -650,8 +673,17 @@ nb-NO:
     no_more_elements_to_add: "Ingen flere elementer tilgjengelig."
     no_resource_found:
       default: "Ingen %{resource} funnet. Legg til den første nedenfor."
+      alchemy/attachment: |
+        <h2>Du har ingen filer i arkivet ennå.</h2>
+        <p>Bruk knappen nedenfor eller dra filer inn i dette vinduet for å laste opp din første fil.</p>
       alchemy/language: "<h2>Nettstedet ditt har ingen språk ennå.</h2><p>Du trenger minst ett språk for å jobbe med. Vennligst opprett et nedenfor.</p>"
       alchemy/node: "<h2>Du har ingen menyer ennå.</h2><p>Med menyer kan brukerne navigere på nettstedet ditt. Du kan ha flere menyer. Hvor mange avhenger av nettstedmalen din.</p><p>Vennligst velg hvilken meny du vil opprette først.</p>"
+      alchemy/page: |
+        <h2>Dette språket har ingen forside ennå</h2>
+        <p>Vennligst opprett en nedenfor.</p>
+      alchemy/picture: |
+        <h2>Du har ingen bilder i arkivet ennå.</h2>
+        <p>Bruk knappen nedenfor eller dra bilder inn i dette vinduet for å laste opp ditt første bilde.</p>
       alchemy/site: "<h2>Du har ingen nettsteder ennå.</h2><p>For å kunne håndtere forespørsler må du først opprette et nettsted.</p><p>Dette skjemaet er fylt ut med fornuftige standardverdier som fungerer i de fleste tilfeller.</p>"
     no_search_results: "Søket ditt ga ingen resultater."
     no_unpublished_changes: "Ingen upubliserte endringer"
@@ -683,6 +715,10 @@ nb-NO:
       restricted:
         "true": "Side er begrenset."
         "false": "Side er ikke begrenset."
+      scheduled:
+        public_on: "Side er synlig fra %{public_on}"
+        public_until: "Side er synlig til %{public_until}"
+        "false": ""
     page_status_titles:
       locked:
         "true": "låst"
@@ -693,6 +729,9 @@ nb-NO:
       restricted:
         "true": "begrenset"
         "false": "ubegrenset"
+      scheduled:
+        "true": "planlagt"
+        "false": ""
     page_status: "Status"
     page_title: "Tittel"
     page_type: "Type"
@@ -769,6 +808,7 @@ nb-NO:
     show_elements_from_page: "Vis alle elementer fra denne siden"
     show_eq: "Vis EQ"
     show_navigation: "Vis i navigasjon"
+    show_page_in_sitemap: "Vis side i XML-sitemap."
     signup_mail_delivery_error: "Registrerings-e-post kunne ikke leveres. Vennligst sjekk e-postinnstillingene dine."
     small_thumbnails: "Små forhåndsvisninger"
     subject: "Emne"
@@ -782,6 +822,7 @@ nb-NO:
     insert_image: "Sett inn bilde"
     tag_list: Tags
     tags_get_created_if_used_the_first_time: "Tags blir opprettet hvis brukt første gang."
+    this_picture_is_used_on_these_pages: "Dette bildet brukes på følgende sider"
     used_on_these_pages:
       attachment: "Denne filen brukes på følgende måte"
       picture: "Dette bildet brukes på følgende måte"
@@ -981,8 +1022,13 @@ nb-NO:
             base:
               restrict_dependent_destroy:
                 has_many: "Det er fortsatt %{record} knyttet til denne siden. Vennligst fjern dem først."
+            page_layout:
+              conflicting_wildcard_param_key: 'har en jokertegnparameter «%{param}» i konflikt som allerede brukes av sidetypen «%{conflicting_layout}»'
             descendants:
               still_attached_to_nodes: "Følgende undersider er fortsatt knyttet til menyelementer: %{page_names}. Vennligst fjern dem først."
+            permitted_roles:
+              blank: "trenger minst én rolle som en begrenset side er tilgjengelig for"
+              inclusion: "inneholder roller som ikke er konfigurert: %{roles}"
     models:
       gutentag/tag:
         one: Tag
@@ -1102,6 +1148,8 @@ nb-NO:
         language: "Språk"
         locked: "Denne siden er låst av en annen bruker."
         locked_by: "låst av"
+        meta_description: "Beskrivelse"
+        meta_keywords: "Nøkkelord"
         name: "Navn"
         nodes: "Menyelementer"
         page_layout: "Sidetype"
@@ -1110,12 +1158,14 @@ nb-NO:
         public_on: "Synlig fra"
         public_until: "Synlig til"
         restricted: "begrenset"
+        permitted_roles: "unntatt brukere med en av disse rollene"
         searchable: "vis i søk"
         robot_follow: "robot kan følge koblinger"
         robot_index: "tillat robot å indeksere"
         sitemap: "Vis side i XML-sitemap"
         slug: "Slug"
         tag_list: Tags
+        title: "Tittel"
         updated_at: "Oppdatert"
         urlname: "URL-navn"
         visible: "synlig i navigasjon"
@@ -1128,6 +1178,7 @@ nb-NO:
         image_file_height: "Høyde"
         image_file_width: "Bredde"
         image_file_dimensions: "Dimensjoner"
+        image_file_format: "Filtype"
         image_file_size: "Filstørrelse"
         name: "Navn"
         tag_list: Tags
