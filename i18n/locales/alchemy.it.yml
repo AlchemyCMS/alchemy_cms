@@ -162,9 +162,13 @@ it:
       application/x-rar: "Archivio RAR"
       application/x-shockwave-flash: "Film Flash"
       application/zip: "Archivio ZIP"
+      audio/aac: "Audio AAC"
+      audio/flac: "Audio FLAC"
       audio/mp4: "Audio MPEG-4"
       audio/mpeg: "Audio MP3"
+      audio/ogg: "Audio Ogg"
       audio/wav: "Audio WAV"
+      audio/webm: "Audio WebM"
       audio/x-wav: "Audio WAV"
       image/avif: "Immagine AVIF"
       image/gif: "Immagine GIF"
@@ -178,6 +182,7 @@ it:
       "text/x-vcard": "vCard"
       video/mp4: "Video MPEG-4"
       video/mpeg: "Video MPEG"
+      video/ogg: "Video Ogg"
       video/quicktime: "Video Quicktime"
       video/webm: "Video WebM"
       video/x-flv: "Video Flash"
@@ -265,6 +270,9 @@ it:
             published: "Pubblicate"
           user_counts:
             online: "Online"
+          news_reader:
+            widget_title: "News"
+            no_news: "nessuna news"
       elements:
         toolbar:
           hide: nascondi
@@ -429,6 +437,7 @@ it:
     "Successfully deleted content": "%{content} eliminato con successo"
     "Successfully deleted element": "%{element} è stato eliminato"
     "Successfully saved content position": "Posizione del contenuto salvata con successo"
+    updated_ingredient: "%{ingredient} aggiornato con successo"
     "Tags": "Tag"
     "These pictures could not be deleted, because they were in use": "Queste immagini non possono essere eliminate poiché erano in uso: %{names}"
     "There are no pages yet": "Non ci sono ancora pagine"
@@ -474,6 +483,7 @@ it:
     assign_file: "Assegna un file"
     assign_file_from_archive: "assegni un file dal Suo archivio"
     assign_image: "Assegna un'immagine"
+    attached_to: "allegato a"
     attachment_filename_notice: "* Non utilizzare alcun carattere speciale per il nome del file."
     auto_play: "Riproduci il video dopo il caricamento"
     big_thumbnails: "Miniature grandi"
@@ -586,6 +596,10 @@ it:
         "Leave the page": "Lascia la pagina"
         "Open upload form": "Apri form di upload"
         "Select all pictures": "Seleziona tutte le immagini"
+      resources: "Risorse"
+      resource_links:
+        guidelines: "Guide"
+        homepage: "Homepage"
     hide_element_content: "Nascondi il contenuto di questi elementi."
     homepage_does_not_exist: "Questa lingua non ha ancora una homepage"
     in_use: "In uso"
@@ -611,6 +625,9 @@ it:
     left: "sinistra"
     legacy_url_info_text: "Un link è un redirect da una vecchia URL alla nuova URL di questa pagina. Questo redirect viene gestito tramite uno <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>status code 301</a>."
     legal_info: "Note legali"
+    license: "Licenza"
+    licenses:
+      BSD-3-Clause: "BSD-3-Clause"
     link_image: "Crea collegamento a questa immagine."
     link_overlay_tab_label:
       anchor: "Ancora"
@@ -659,8 +676,17 @@ it:
     no_more_elements_to_add: "Nessun elemento disponibile."
     no_resource_found:
       default: "Nessun %{resource} trovato. Aggiunga il primo qui sotto."
+      alchemy/attachment: |
+        <h2>Non ha ancora alcun file nel Suo archivio.</h2>
+        <p>Utilizzi il pulsante qui sotto o trascini i file in questa finestra per caricare il Suo primo file.</p>
       alchemy/language: "<h2>Il Suo sito web non ha ancora lingue.</h2><p>È necessaria almeno una lingua per lavorare. Ne crei una qui sotto.</p>"
       alchemy/node: "<h2>Non ha ancora alcun menu.</h2><p>Con i menu gli utenti possono navigare il Suo sito web. Può avere più menu sul Suo sito. Il numero dipende dal template del Suo sito.</p><p>Scelga quale menu desidera creare per primo.</p>"
+      alchemy/page: |
+        <h2>Questa lingua non ha ancora una homepage</h2>
+        <p>Ne crei una qui sotto.</p>
+      alchemy/picture: |
+        <h2>Non ha ancora alcuna immagine nel Suo archivio.</h2>
+        <p>Utilizzi il pulsante qui sotto o trascini le immagini in questa finestra per caricare la Sua prima immagine.</p>
       alchemy/site: "<h2>Non ha ancora alcun sito web.</h2><p>Per servire le richieste è necessario creare prima un sito web.</p><p>Questo modulo è stato compilato con valori predefiniti che funzionano nella maggior parte dei casi.</p>"
     no_search_results: "La Sua ricerca non ha prodotto alcun risultato."
     no_unpublished_changes: "Nessuna modifica non pubblicata"
@@ -796,6 +822,7 @@ it:
     show_elements_from_page: "Mostra tutti gli elementi di questa pagina"
     show_eq: "Mostra EQ"
     show_navigation: "Mostra in navigazione"
+    show_page_in_sitemap: "Mostra la pagina nella Sitemap XML."
     signup_mail_delivery_error: "Non è stato possibile consegnare la mail di signup. Ricontrolla le impostazioni dell'email."
     small_thumbnails: "Thumbnail piccoli"
     subject: "Oggetto"
@@ -828,6 +855,7 @@ it:
         upload_success: "Immagine %{name} caricata con successo"
         upload_failure: "Errore nel caricare %{name}: %{error}"
       error: "Impossibile caricare il file! %{error}"
+    this_picture_is_used_on_these_pages: "Questa immagine è utilizzata nelle seguenti pagine"
     used_on_these_pages:
       attachment: "Questo file è utilizzato come segue"
       picture: "Questa immagine è utilizzata come segue"
@@ -1004,6 +1032,9 @@ it:
               conflicting_wildcard_param_key: 'ha un parametro jolly in conflitto "%{param}", già utilizzato dal tipo di pagina "%{conflicting_layout}"'
             descendants:
               still_attached_to_nodes: "Le seguenti pagine discendenti sono ancora collegate a nodi menu: %{page_names}. Li rimuova prima."
+            permitted_roles:
+              blank: "deve avere almeno un ruolo per cui una pagina riservata è accessibile"
+              inclusion: "contiene ruoli che non sono configurati: %{roles}"
     models:
       gutentag/tag:
         one: Tag
@@ -1132,6 +1163,7 @@ it:
         page_type: "Tipo pagina"
         public: "pubblica"
         restricted: "riservata"
+        permitted_roles: "eccetto per gli utenti con uno di questi ruoli"
         robot_follow: "i robot possono seguire i link"
         robot_index: "consenti ai robot di indicizzare la pagina"
         nodes: "Nodi menu"
@@ -1154,6 +1186,7 @@ it:
         image_file_height: "Altezza"
         image_file_width: "Larghezza"
         image_file_dimensions: "Dimensioni"
+        image_file_format: "Tipo di file"
         image_file_size: "Dimensione del file"
         name: "Nome"
         tag_list: Tag

@@ -198,9 +198,13 @@ de:
       application/x-rar: "RAR-Archiv"
       application/x-shockwave-flash: "Flash-Film"
       application/zip: "ZIP-Archiv"
+      audio/aac: "AAC-Audio"
+      audio/flac: "FLAC-Audio"
       audio/mp4: "MPEG-4-Audio"
       audio/mpeg: "MP3-Audio"
+      audio/ogg: "Ogg-Audio"
       audio/wav: "WAV-Audio"
+      audio/webm: "WebM-Audio"
       audio/x-wav: "WAV-Audio"
       image/avif: "AVIF-Bild"
       image/gif: "GIF-Bild"
@@ -214,6 +218,7 @@ de:
       text/x-vcard: "vCard"
       video/mp4: "MPEG-4-Video"
       video/mpeg: "MPEG-Video"
+      video/ogg: "Ogg-Video"
       video/quicktime: "Quicktime-Video"
       video/webm: "WebM-Video"
       video/x-flv: "Flash-Video"
@@ -316,6 +321,9 @@ de:
             published: "Veröffentlicht"
           user_counts:
             online: "Online"
+          news_reader:
+            widget_title: "News"
+            no_news: "Keine Neuigkeiten"
       elements:
         toolbar:
           hide: ausblenden
@@ -476,6 +484,7 @@ de:
     "Successfully added content": "%{content} wurde hinzugefügt"
     "Successfully deleted content": "%{content} wurde gelöscht"
     "Successfully deleted element": "%{element} wurde gelöscht"
+    updated_ingredient: "%{ingredient} wurde aktualisiert"
     "Successfully saved content position": "Die Position wurde gespeichert."
     "Tags": "Tags"
     tags: "Tags"
@@ -524,6 +533,7 @@ de:
     assign_file: "Datei zuweisen"
     assign_file_from_archive: "Datei aus dem Archiv zuweisen"
     assign_image: "Bild hinzufügen."
+    attached_to: "angehängt an"
     attachment_filename_notice: "* Bitte verwenden Sie keine Sonderzeichen oder Umlaute in dem Dateinamen."
     auto_play: "Film automatisch abspielen"
     big_thumbnails: "große Miniaturbilder"
@@ -635,6 +645,10 @@ de:
         "Leave the page": "Seite verlassen"
         "Open upload form": "Datei hochladen"
         "Select all pictures": "Alle Bilder auswählen"
+      resources: "Ressourcen"
+      resource_links:
+        guidelines: "Leitfäden"
+        homepage: "Homepage"
     hide_element_content: "Element einklappen"
     in_use: "In Verwendung"
     info: "Info"
@@ -660,6 +674,9 @@ de:
     left: "links"
     legacy_url_info_text: "Ein Verweis ist eine Weiterleitung einer alten URL auf die aktuelle URL dieser Seite. Diese Weiterleitung findet mit einem <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>301-Status-Code</a> statt."
     legal_info: "Rechtliche Hinweise"
+    license: "Lizenz"
+    licenses:
+      BSD-3-Clause: "BSD-3-Clause"
     link_image: "Bild verlinken"
     link_overlay_tab_label:
       anchor: Sprungmarke
@@ -709,8 +726,17 @@ de:
     no_more_elements_to_add: "Keine weiteren Elemente verfügbar."
     no_resource_found:
       default: "Bisher kein(e) %{resource} vorhanden. Erstellen Sie ein(e) %{resource} unten."
+      alchemy/attachment: |
+        <h2>Sie haben noch keine Dateien in Ihrem Archiv.</h2>
+        <p>Nutzen Sie die Schaltfläche unten oder ziehen Sie Dateien in dieses Fenster, um Ihre erste Datei hochzuladen.</p>
       alchemy/language: "<h2>Ihre Website enthält noch keine Sprachen.</h2><p>Sie benötigen mindestens eine Sprache, mit der Sie arbeiten können. Bitte erstellen Sie hier eine.</p>"
       alchemy/node: "<h2>Sie haben bisher keine Menüs.</h2><p>Mittels Menüs können Benutzer Ihre Webseite navigieren. Sie können mehrere Menüs auf Ihrer Website anzeigen. Wie viele hängt von Ihrem Website-Template ab.</p><p>Bitte wählen Sie aus welches Menü Sie erstellen wollen.</p>"
+      alchemy/page: |
+        <h2>Diese Sprache hat noch keine Startseite</h2>
+        <p>Bitte erstellen Sie hier eine.</p>
+      alchemy/picture: |
+        <h2>Sie haben noch keine Bilder in Ihrem Archiv.</h2>
+        <p>Nutzen Sie die Schaltfläche unten oder ziehen Sie Bilder in dieses Fenster, um Ihr erstes Bild hochzuladen.</p>
       alchemy/site: "<h2>Sie haben bisher keine Websites.</h2><p>Um Anfragen bedienen zu können, müssen Sie zunächst eine Website erstellen.</p><p>Dieses Formular wurde mit sinnvollen Standardwerten ausgefüllt, die in den meisten Fällen funktionieren.</p>"
     no_search_results: "Keine Suchergebnisse."
     no_unpublished_changes: "Kein unveröffentlichten Änderungen."
@@ -849,6 +875,7 @@ de:
     show_elements_from_page: "Elemente dieser Seite anzeigen"
     show_eq: "EQ anzeigen"
     show_navigation: "Navigation anzeigen"
+    show_page_in_sitemap: "Seite in der XML-Sitemap anzeigen."
     signup_mail_delivery_error: "Einrichtungs-E-Mail konnte nicht verschickt werden. Bitte überprüfen Sie die Mail Einstellungen."
     small_thumbnails: "kleine Miniaturbilder"
     subject: "Betreff"
@@ -862,6 +889,7 @@ de:
     insert_image: "Bild einfügen"
     tag_list: Tags
     tags_get_created_if_used_the_first_time: "Ein Tag wird automatisch erstellt, sobald Sie es das erste mal verwenden."
+    this_picture_is_used_on_these_pages: "Dieses Bild wird auf den folgenden Seiten verwendet"
     used_on_these_pages:
       attachment: "Diese Datei wird folgendermaßen verwendet"
       picture: "Dieses Bild wird folgendermaßen verwendet"
@@ -1086,6 +1114,9 @@ de:
               conflicting_wildcard_param_key: 'hat einen widersprüchlichen Wildcard-Parameter "%{param}", der bereits vom Seitentyp "%{conflicting_layout}" verwendet wird'
             descendants:
               still_attached_to_nodes: "Die folgenden Unterseiten sind noch mit Menü-Einträgen verknüpft: %{page_names}. Bitte entfernen Sie diese zuerst."
+            permitted_roles:
+              blank: "muss mindestens eine Rolle enthalten, für die eine geschützte Seite zugänglich ist"
+              inclusion: "enthält Rollen, die nicht konfiguriert sind: %{roles}"
             nodes:
               still_present: "sind immer noch mit dieser Seite verbunden. Bitte entfernen Sie diese zuerst."
     models:
@@ -1217,6 +1248,7 @@ de:
         parent: "Übergeordnete Seite"
         public: "veröffentlicht"
         restricted: "Passwort geschützt"
+        permitted_roles: "außer für Benutzer mit einer dieser Rollen"
         robot_follow: "den Robot Links folgen lassen"
         robot_index: "durch Robot indizieren"
         nodes: "Menü-Einträge"
@@ -1239,6 +1271,7 @@ de:
         image_file_height: "Höhe"
         image_file_width: "Breite"
         image_file_dimensions: "Abmessungen"
+        image_file_format: "Dateityp"
         image_file_size: "Dateigröße"
         name: "Name"
         tag_list: Tags
