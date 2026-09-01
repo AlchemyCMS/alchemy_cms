@@ -49,8 +49,9 @@ module Alchemy
         if @element.save
           render :create, status: 201
         else
+          @parent_element = @element.parent_element
           @element.page_version = @page_version
-          @elements = @page.available_element_definitions
+          @elements = @page.available_elements_within_current_scope(@parent_element)
           render :new, status: 422
         end
       end
