@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-24.04
     name: Check assets changes
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0 # Fetch all history
       - name: Get changed files
@@ -55,7 +55,7 @@ jobs:
     needs: check_assets_changes
     if: needs.check_assets_changes.outputs.assets_changed == 'true'
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
       - name: Setup Node
@@ -171,7 +171,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: password
         options: --health-cmd="mysqladmin ping" --health-interval=1s --health-timeout=1s --health-retries=30
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -180,7 +180,7 @@ jobs:
           rubygems: "latest"
       - name: Restore apt cache
         id: apt-cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: /var/cache/apt/archives
           key: ${{ runner.os }}-apt-v2-${{ matrix.database }}-${{ matrix.storage }}
@@ -247,7 +247,7 @@ jobs:
     env:
       NODE_ENV: test
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
       - name: Setup Node
@@ -299,7 +299,7 @@ jobs:
         with:
           app-id: ${{ vars.ALCHEMY_BOT_APP_ID }}
           private-key: ${{ secrets.ALCHEMY_BOT_APP_PRIVATE_KEY }}
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           token: ${{ steps.generate_token.outputs.token }}
           ref: ${{ github.head_ref }}
