@@ -5,7 +5,7 @@
 # Table name: alchemy_elements
 #
 #  id                :integer          not null, primary key
-#  cached_tag_list   :text             default("[]"), not null
+#  cached_tag_list   :text             not null
 #  fixed             :boolean          default(FALSE), not null
 #  folded            :boolean          default(FALSE), not null
 #  name              :string
