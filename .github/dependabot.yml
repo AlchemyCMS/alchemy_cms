@@ -62,3 +62,7 @@ updates:
     schedule:
       # Check for updates to GitHub Actions every week
       interval: "weekly"
+    groups:
+      all-actions:
+        patterns:
+          - "*"
