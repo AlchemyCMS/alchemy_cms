@@ -5,7 +5,7 @@
 # Table name: alchemy_attachments
 #
 #  id              :integer          not null, primary key
-#  cached_tag_list :text             default("[]"), not null
+#  cached_tag_list :text             not null
 #  file_mime_type  :string
 #  file_name       :string
 #  file_size       :integer

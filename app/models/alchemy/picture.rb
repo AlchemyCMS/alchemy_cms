@@ -5,7 +5,7 @@
 # Table name: alchemy_pictures
 #
 #  id                :integer          not null, primary key
-#  cached_tag_list   :text             default("[]"), not null
+#  cached_tag_list   :text             not null
 #  image_file_format :string
 #  image_file_height :integer
 #  image_file_name   :string

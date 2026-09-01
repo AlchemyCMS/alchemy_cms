@@ -5,7 +5,7 @@
 # Table name: alchemy_pages
 #
 #  id              :integer          not null, primary key
-#  cached_tag_list :text             default("[]"), not null
+#  cached_tag_list :text             not null
 #  depth           :integer
 #  language_code   :string
 #  language_root   :boolean          default(FALSE), not null
@@ -15,7 +15,7 @@
 #  locked_by       :integer
 #  name            :string
 #  page_layout     :string
-#  permitted_roles :text             default("[\"member\"]"), not null
+#  permitted_roles :text             not null
 #  published_at    :datetime
 #  restricted      :boolean          default(FALSE), not null
 #  rgt             :integer
