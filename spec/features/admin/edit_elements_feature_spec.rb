@@ -138,6 +138,26 @@ RSpec.describe "The edit elements feature", type: :system do
       end
       expect(page).to have_selector(".element-editor[data-element-name='text']")
     end
+
+    scenario "a validation error keeps the form scoped to the parent element", :js do
+      visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
+      page.find(".add-nestable-element-button").click
+      expect(page).to have_css(".alchemy-dialog")
+
+      # Submitting without choosing an element fails the name validation
+      within ".alchemy-dialog" do
+        click_button("Add")
+        # The re-rendered form still lets us add a nested element and does not
+        # widen the list to every element allowed on the page.
+        tom_select("Text", from: "Element")
+        click_button("Add")
+      end
+
+      expect(page).to have_css(".alchemy-dialog", count: 0)
+      expect(page).to have_selector(
+        "#element_#{element.id}_nested_elements .element-editor[data-element-name='text']"
+      )
+    end
   end
 
   describe "Copy element", :js do
