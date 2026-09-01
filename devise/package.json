@@ -6,7 +6,7 @@
     "build": "sass --style=compressed --no-source-map --load-path app/assets/stylesheets app/assets/stylesheets/alchemy-devise.scss:app/assets/builds/alchemy-devise.css"
   },
   "devDependencies": {
-    "sass": "^1.102.0"
+    "sass": "^1.103.1"
   },
   "packageManager": "pnpm@11.14.0"
 }
