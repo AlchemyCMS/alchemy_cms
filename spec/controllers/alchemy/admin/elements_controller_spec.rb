@@ -293,6 +293,26 @@ module Alchemy
           end
         end
 
+        context "if an invalid nested element could not be saved" do
+          let!(:parent) do
+            create(:alchemy_element, :with_nestable_elements, page_version: page_version)
+          end
+
+          subject do
+            post :create, params: {element: {name: "", page_version_id: page_version.id, parent_element_id: parent.id}}
+          end
+
+          it "assigns the parent element" do
+            subject
+            expect(assigns(:parent_element)).to eq(parent)
+          end
+
+          it "assigns only the elements nestable within the parent" do
+            subject
+            expect(assigns(:elements).map(&:name)).to match_array(parent.definition.nestable_elements)
+          end
+        end
+
         context "with ingredient validations" do
           subject do
             post :create, params: {element: {page_version_id: page_version.id, name: "all_you_can_eat"}}, xhr: true
