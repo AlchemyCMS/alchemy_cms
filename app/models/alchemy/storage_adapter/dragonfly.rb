@@ -148,6 +148,12 @@ module Alchemy
       # @param [Alchemy::Attachment]
       # @return [String]
       def file_extension(attachment)
+        extension = File.extname(file_name(attachment).to_s).delete_prefix(".").downcase
+        return extension if extension.present?
+
+        # Marcel returns the canonical extension for a mime type, which is not
+        # always the one the file was named after: `audio/mpeg` yields `mpga`,
+        # not `mp3`. Only reach for it when the name has no extension at all.
         content_type = file_mime_type(attachment)
         Marcel::Magic.new(content_type).extensions.first if content_type
       end
