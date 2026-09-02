@@ -1,5 +1,19 @@
 # Changelog
 
+## 8.3.8 (2026-09-02)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.3-stable -->
+
+## What's Changed
+### Security
+* [8.3-stable] fix(page nodes_table): Sanitize Node name by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4175
+* [8.3] fix(remote-select): escape record data in select2 templates by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4199
+### Other Changes
+* [8.3-stable] fix(tom-select): Add min height to empty options by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/4179
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.3.7...v8.3.8
+
 ## 8.3.7 (2026-08-25)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.3-stable -->
