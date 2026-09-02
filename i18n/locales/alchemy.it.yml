@@ -305,6 +305,7 @@ it:
     "Add page link": "Aggiungi un collegamento alla pagina"
     "Alchemy is open software and itself uses open software and free resources:": "Alchemy è software open ed usa software open e risorse liberamente disponibili:"
     "Alchemy is up to date": "Alchemy è aggiornato"
+    "AlchemyCMS Help": "Aiuto AlchemyCMS"
     "An error happened": "Si è verificato un errore"
     "Attachment Preview": "Anteprima file"
     "Before creating your first page you need an admin user": "Prima di creare la Sua prima pagina è necessario un utente amministratore"
@@ -348,6 +349,7 @@ it:
     "Flush page cache": "Svuota la cache delle pagine"
     "Flush picture cache": "Svuota la cache delle immagini"
     "Global shortcuts": "Shortcuts globali"
+    "Help": "Aiuto"
     "Hierarchical": "Gerarchico"
     "Hide childpages": "Nascondi le pagine figlie"
     hide_elements: nascondi_elementi
