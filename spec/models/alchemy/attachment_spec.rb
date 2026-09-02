@@ -352,6 +352,20 @@ module Alchemy
         end
       end
 
+      context "having an uppercased extension" do
+        let(:file) { fixture_file_upload("image2.PNG") }
+
+        before do
+          allow(Alchemy.config.uploader.allowed_filetypes).to receive(:alchemy_attachments) do
+            ["png"]
+          end
+        end
+
+        it "should be valid" do
+          expect(attachment).to be_valid
+        end
+      end
+
       context "having a png and everything allowed" do
         before do
           allow(Alchemy.config.uploader.allowed_filetypes).to receive(:alchemy_attachments) do

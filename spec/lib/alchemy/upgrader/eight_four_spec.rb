@@ -42,6 +42,43 @@ RSpec.describe Alchemy::Upgrader::EightFour do
     end
   end
 
+  describe "#notify_attachment_filetypes_default" do
+    subject { upgrader.notify_attachment_filetypes_default }
+
+    context "when the app uses the new default allowlist" do
+      it "adds a todo about the change" do
+        expect(upgrader).to receive(:todo).with(kind_of(String), kind_of(String))
+        subject
+      end
+    end
+
+    context "when the app configured its own allowlist" do
+      before do
+        allow(Alchemy.config.uploader.allowed_filetypes).to receive(:alchemy_attachments) do
+          %w[pdf docx png]
+        end
+      end
+
+      it "does not add a todo" do
+        expect(upgrader).not_to receive(:todo)
+        subject
+      end
+    end
+
+    context "when the app still allows every file type" do
+      before do
+        allow(Alchemy.config.uploader.allowed_filetypes).to receive(:alchemy_attachments) do
+          ["*"]
+        end
+      end
+
+      it "adds a todo about the change" do
+        expect(upgrader).to receive(:todo).with(/still accepts every file type/, kind_of(String))
+        subject
+      end
+    end
+  end
+
   describe "#upgrade_nested_elements_rendering" do
     subject { upgrader.upgrade_nested_elements_rendering }
 
