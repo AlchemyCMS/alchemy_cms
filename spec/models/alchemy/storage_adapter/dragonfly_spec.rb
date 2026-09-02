@@ -255,6 +255,47 @@ RSpec.describe Alchemy::StorageAdapter::Dragonfly, if: Alchemy.storage_adapter.d
     end
   end
 
+  describe ".file_extension" do
+    subject { described_class.file_extension(attachment) }
+
+    let(:attachment) do
+      Alchemy::Attachment.new.tap do |attachment|
+        attachment.write_attribute(:file_name, file_name)
+        attachment.write_attribute(:file_mime_type, file_mime_type)
+      end
+    end
+
+    context "when the mime type maps to a different canonical extension" do
+      let(:file_name) { "song.mp3" }
+      let(:file_mime_type) { "audio/mpeg" }
+
+      it { is_expected.to eq("mp3") }
+    end
+
+    context "with an uppercased extension" do
+      let(:file_name) { "REPORT.PDF" }
+      let(:file_mime_type) { "application/pdf" }
+
+      it { is_expected.to eq("pdf") }
+    end
+
+    context "when the file name has no extension" do
+      let(:file_name) { "report" }
+      let(:file_mime_type) { "application/pdf" }
+
+      it "falls back to the mime type" do
+        is_expected.to eq("pdf")
+      end
+    end
+
+    context "without a file name or mime type" do
+      let(:file_name) { nil }
+      let(:file_mime_type) { nil }
+
+      it { is_expected.to be_nil }
+    end
+  end
+
   describe ".has_convertible_format?" do
     subject { Alchemy.storage_adapter.has_convertible_format?(picture) }
 
