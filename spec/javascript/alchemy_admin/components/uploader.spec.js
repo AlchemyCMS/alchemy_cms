@@ -22,10 +22,10 @@ describe("alchemy-uploader", () => {
   let component = undefined
 
   const firstFile = new File(["a".repeat(1100)], "foo.txt", {
-    type: "application/txt"
+    type: "text/plain"
   })
   const secondFile = new File(["a".repeat(200)], "bar.txt", {
-    type: "application/txt"
+    type: "text/plain"
   })
 
   /**
