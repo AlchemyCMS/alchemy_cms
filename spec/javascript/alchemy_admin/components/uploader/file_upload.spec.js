@@ -403,7 +403,11 @@ describe("alchemy-file-upload", () => {
     beforeEach(() => {
       Alchemy.uploader_defaults.file_size_limit = 100
       Alchemy.uploader_defaults.allowed_filetypes.alchemy_attachments = ["*"]
-      Alchemy.uploader_defaults.allowed_filetypes.alchemy_pictures = ["webp", "png", "svg"]
+      Alchemy.uploader_defaults.allowed_filetypes.alchemy_pictures = [
+        "webp",
+        "png",
+        "svg"
+      ]
     })
 
     describe("file size", () => {
@@ -505,7 +509,10 @@ describe("alchemy-file-upload", () => {
 
         describe("allowed_filetype_attachments based of file types", () => {
           beforeEach(() => {
-            Alchemy.uploader_defaults.allowed_filetypes.alchemy_attachments = ["txt", "foo"]
+            Alchemy.uploader_defaults.allowed_filetypes.alchemy_attachments = [
+              "txt",
+              "foo"
+            ]
             renderComponent(invalidFile)
           })
 
@@ -525,12 +532,72 @@ describe("alchemy-file-upload", () => {
 
         describe("allowed_filetype_attachments as wildcard", () => {
           beforeEach(() => {
-            Alchemy.uploader_defaults.allowed_filetypes.alchemy_attachments = ["*"]
+            Alchemy.uploader_defaults.allowed_filetypes.alchemy_attachments = [
+              "*"
+            ]
             renderComponent(invalidFile)
           })
 
           it("should be valid", () => {
             expect(component.valid).toBeTruthy()
+          })
+        })
+
+        describe("file types whose MIME subtype is not the extension", () => {
+          it("allows an Office Open XML document", () => {
+            Alchemy.uploader_defaults.allowed_filetypes.alchemy_attachments = [
+              "docx"
+            ]
+            renderComponent(
+              new File(["a".repeat(100)], "foo.docx", {
+                type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+              })
+            )
+
+            expect(component.valid).toBeTruthy()
+          })
+
+          it("allows a plain text file", () => {
+            Alchemy.uploader_defaults.allowed_filetypes.alchemy_attachments = [
+              "txt"
+            ]
+            renderComponent(
+              new File(["a".repeat(100)], "foo.txt", { type: "text/plain" })
+            )
+
+            expect(component.valid).toBeTruthy()
+          })
+        })
+
+        describe("an uppercased extension", () => {
+          beforeEach(() => {
+            Alchemy.uploader_defaults.allowed_filetypes.alchemy_attachments = [
+              "pdf"
+            ]
+            renderComponent(
+              new File(["a".repeat(100)], "FOO.PDF", {
+                type: "application/pdf"
+              })
+            )
+          })
+
+          it("should be valid", () => {
+            expect(component.valid).toBeTruthy()
+          })
+        })
+
+        describe("a file without an extension", () => {
+          beforeEach(() => {
+            Alchemy.uploader_defaults.allowed_filetypes.alchemy_attachments = [
+              "pdf"
+            ]
+            renderComponent(
+              new File(["a".repeat(100)], "foo", { type: "application/pdf" })
+            )
+          })
+
+          it("should be invalid", () => {
+            expect(component.valid).toBeFalsy()
           })
         })
       })
