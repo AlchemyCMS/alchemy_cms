@@ -5,7 +5,7 @@
 # Table name: alchemy_pages
 #
 #  id              :integer          not null, primary key
-#  cached_tag_list :text             not null
+#  cached_tag_list :text
 #  depth           :integer
 #  language_code   :string
 #  language_root   :boolean          default(FALSE), not null
@@ -15,7 +15,7 @@
 #  locked_by       :integer
 #  name            :string
 #  page_layout     :string
-#  permitted_roles :text             not null
+#  permitted_roles :text
 #  published_at    :datetime
 #  restricted      :boolean          default(FALSE), not null
 #  rgt             :integer
@@ -151,8 +151,8 @@ module Alchemy
     # Stored as a JSON array in a plain text column, so the value is byte
     # identical on every supported database and the +readable_by+ scope can
     # match a single quoted role with a portable LIKE. No +type: Array+, as
-    # that would serialize an empty array to NULL and violate the not null
-    # constraint; the writer already guarantees an array is stored.
+    # that would serialize an empty array to NULL, which +readable_by?+ cannot
+    # intersect; the writer already guarantees an array is stored.
     attribute :permitted_roles, default: -> { ["member"] }
     serialize :permitted_roles, coder: JSON
 
