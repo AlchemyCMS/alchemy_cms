@@ -2,10 +2,12 @@
 
 # This migration comes from alchemy (originally 20260820120000)
 class AddCachedTagListToTaggables < ActiveRecord::Migration[7.2]
-  # Required: remove_column rebuilds the table on SQLite via DROP TABLE, which
-  # cascade deletes every child row. The adapter's PRAGMA foreign_keys = OFF
-  # guard only works outside a transaction.
-  disable_ddl_transaction!
+  # Only SQLite needs this: it has no real ALTER TABLE, so the remove_column
+  # calls in down rebuild the tables via DROP TABLE, whose implicit DELETE
+  # cascades into every child row, emptying alchemy_ingredients among others.
+  # The adapter's PRAGMA foreign_keys = OFF guard against that is a silent
+  # no-op inside a transaction.
+  disable_ddl_transaction! if connection.adapter_name.match?(/sqlite/i)
 
   TAGGABLE_MODELS = %w[
     Alchemy::Element
@@ -15,12 +17,16 @@ class AddCachedTagListToTaggables < ActiveRecord::Migration[7.2]
   ]
 
   def up
-    TAGGABLE_MODELS.each do |model_name|
-      add_column model_name.constantize.table_name, :cached_tag_list, :text, if_not_exists: true
-    end
+    # Adding nullable columns is a plain ALTER TABLE ADD COLUMN, so up can keep
+    # the atomicity the declaration above gives up for both directions.
+    connection.transaction do
+      TAGGABLE_MODELS.each do |model_name|
+        add_column model_name.constantize.table_name, :cached_tag_list, :text, if_not_exists: true
+      end
 
-    say_with_time "Backfilling cached_tag_list from existing taggings" do
-      backfill
+      say_with_time "Backfilling cached_tag_list from existing taggings" do
+        backfill
+      end
     end
   end
 
