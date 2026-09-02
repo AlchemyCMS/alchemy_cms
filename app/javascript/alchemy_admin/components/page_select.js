@@ -1,4 +1,7 @@
-import { RemoteSelect } from "alchemy_admin/components/remote_select"
+import {
+  RemoteSelect,
+  escapeHtml
+} from "alchemy_admin/components/remote_select"
 
 export class PageSelect extends RemoteSelect {
   get pageId() {
@@ -30,7 +33,7 @@ export class PageSelect extends RemoteSelect {
    * @private
    */
   _renderResult(page) {
-    return page.text || page.name
+    return escapeHtml(page.text || page.name)
   }
 
   /**
@@ -46,11 +49,11 @@ export class PageSelect extends RemoteSelect {
         <div class="page-select--top">
           <alchemy-icon name="file-3"></alchemy-icon>
           <span class="page-select--page-name">${this._hightlightTerm(page.name, term)}</span>
-          <span class="page-select--site-name">${page.site.name}</span>
+          <span class="page-select--site-name">${escapeHtml(page.site.name)}</span>
         </div>
         <div class="page-select--bottom">
-          <span class="page-select--page-urlname">${page.url_path}</span>
-          <span class="page-select--language-code">${page.language_code}</span>
+          <span class="page-select--page-urlname">${escapeHtml(page.url_path)}</span>
+          <span class="page-select--language-code">${escapeHtml(page.language_code)}</span>
         </div>
       </div>
     `

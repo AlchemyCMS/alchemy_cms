@@ -1,7 +1,41 @@
 import { setupSelectLocale } from "alchemy_admin/i18n"
 
+/**
+ * Escapes a string for use within HTML. Select2 hands the return value of
+ * `formatResult`/`formatSelection` straight to jQuery, so everything woven into
+ * those templates has to be escaped here.
+ * @param {string} value
+ * @returns {string}
+ */
+export function escapeHtml(value) {
+  return `${value}`
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+}
+
+/**
+ * Escapes a string for literal use inside a `RegExp`, so a term with
+ * metacharacters (e.g. `(`) matches itself instead of being compiled as a
+ * pattern, which could match the wrong text or throw a SyntaxError.
+ * @param {string} value
+ * @returns {string}
+ */
+export function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+}
+
 export function hightlightTerm(name, term) {
-  return name.replace(new RegExp(term, "gi"), (match) => `<em>${match}</em>`)
+  // The result is rendered raw as the entry's name, so the name must be escaped
+  // before the term markup is woven in — otherwise a crafted name (e.g. a menu
+  // node title) is a stored XSS sink.
+  const escapedName = escapeHtml(name)
+  if (!term) return escapedName
+  return escapedName.replace(
+    new RegExp(escapeRegExp(term), "gi"),
+    (match) => `<em>${match}</em>`
+  )
 }
 
 export class RemoteSelect extends HTMLElement {
