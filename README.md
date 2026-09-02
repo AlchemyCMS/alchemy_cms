@@ -307,6 +307,38 @@ Please use [capistrano-alchemy](https://github.com/AlchemyCMS/capistrano-alchemy
 If you don't use Capistrano you have to **make sure** that the `uploads`, `tmp/cache/assets`, `public/assets` and `public/pictures` folders get **shared between deployments**, otherwise you **will loose data**. No, not really, but you know, just keep them in sync.
 
 
+## 🗃 Writing Migrations
+
+**On SQLite, a migration that rebuilds a table silently deletes data from other tables.**
+
+SQLite has no real `ALTER TABLE`, so Rails implements the operations below by recreating the table: it copies the rows aside, runs `DROP TABLE`, and copies them back.
+
+- `change_column`
+- `change_column_null`
+- `change_column_default`
+- `rename_column`
+- `remove_column` and `remove_columns`
+- `add_timestamps`
+- `add_column` with `null: false` and **no** `default:`
+
+With foreign keys enforced, SQLite's `DROP TABLE` performs an implicit `DELETE`, which fires `ON DELETE CASCADE`. The rebuilt table keeps its rows, because they come back from the copy, but **every cascading descendant is deleted permanently**. Since Alchemy cascades from pages down to ingredients, rebuilding `alchemy_pages` empties `alchemy_page_versions`, `alchemy_elements` and `alchemy_ingredients`.
+
+Rails tries to prevent this by disabling foreign keys for the rebuild, but that only works outside a transaction, and migrations run inside one by default. The safeguard is therefore silently ineffective.
+
+So when a migration touches a table that has cascading children:
+
+1. **Avoid the rebuild if you can.** `add_column` with both `null: false` and a `default:` is a plain `ALTER TABLE ADD COLUMN`. A nullable column combined with a model level default behaves the same on every adapter, and is the only option for MySQL `text` columns, which cannot carry a literal default.
+2. **If a rebuild is unavoidable**, including `remove_column` in `down`, declare `disable_ddl_transaction!` in the migration. Because it no longer rolls back as a single unit, make sure the migration is safe to run again after a partial failure.
+3. **Test against a populated database** and check that child records survive. An empty database hides the problem completely.
+
+You can check the migrations in this repository with:
+
+```bash
+ruby bin/check-destructive-migrations
+```
+
+This also runs in CI, and fails when a migration rebuilds a table without `disable_ddl_transaction!`.
+
 ## 🚧 Testing
 
 If you want to contribute to Alchemy ([and we encourage you to do so](CONTRIBUTING.md)) we have a strong test suite that helps you to not break anything.

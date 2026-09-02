@@ -301,6 +301,37 @@ Pages and nodes use `awesome_nested_set` for tree hierarchies:
 - Avoid manual parent_id manipulation
 - Use scoped queries: `Alchemy::Page.where(language: lang)`
 
+### Writing Migrations (data loss hazard)
+
+**SQLite silently destroys data when a migration rebuilds a table.** It has no
+real `ALTER TABLE`, so Rails implements these operations by copying the rows
+aside, running `DROP TABLE`, and copying them back:
+
+`change_column` · `change_column_null` · `change_column_default` ·
+`rename_column` · `remove_column` · `remove_columns` · `add_timestamps` ·
+`add_column` with `null: false` and **no** `default:`
+
+With foreign keys enforced, SQLite's `DROP TABLE` performs an implicit
+`DELETE`, which fires `ON DELETE CASCADE`. The rebuilt table keeps its rows,
+but **every cascading descendant is deleted permanently**. Rebuilding
+`alchemy_pages` empties `alchemy_page_versions`, `alchemy_elements` and
+`alchemy_ingredients`. Rails guards the rebuild with `PRAGMA foreign_keys =
+OFF`, but that pragma is a **silent no-op inside a transaction**, and
+migrations run in a transaction by default — so the guard never applies.
+
+Rules for any migration touching a table with cascading children:
+- Prefer avoiding the rebuild: `add_column` with both `null: false` and a
+  `default:` is a plain `ALTER TABLE ADD COLUMN`. A nullable column plus a
+  model-level `attribute :foo, default: -> { ... }` behaves identically on every
+  adapter, and is the only option for MySQL `text` columns, which cannot carry a
+  literal default.
+- If a rebuild is unavoidable (including `remove_column` in `down`), declare
+  `disable_ddl_transaction!` so the pragma takes effect — then make the
+  migration safe to re-run, since it no longer rolls back as a unit.
+- Verify with `ruby bin/check-destructive-migrations` (also enforced in CI).
+- Always test a migration against a **populated** database and assert child row
+  counts survive. An empty dummy database hides this entirely.
+
 ### Versioning Workflow
 
 When working with page content:
