@@ -14,6 +14,17 @@ jobs:
   check_bot_commit:
     uses: ./.github/workflows/check-bot-commit.yml
 
+  check_migrations:
+    permissions:
+      contents: read
+    runs-on: ubuntu-24.04
+    name: Check migrations
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ruby/setup-ruby@v1
+      - name: Check for destructive migrations
+        run: ruby bin/check-destructive-migrations
+
   check_assets_changes:
     permissions:
       contents: read
@@ -261,14 +272,14 @@ jobs:
   build-test-success:
     name: "Build & Test Success"
     if: always()
-    needs: [check_bot_commit, RSpec, Vitest]
+    needs: [check_bot_commit, check_migrations, RSpec, Vitest]
     runs-on: ubuntu-latest
     permissions:
       contents: read
     steps:
       - name: Check results
         run: |
-          for result in "${{ needs.RSpec.result }}" "${{ needs.Vitest.result }}"; do
+          for result in "${{ needs.check_migrations.result }}" "${{ needs.RSpec.result }}" "${{ needs.Vitest.result }}"; do
             if [[ "$result" != "success" && "$result" != "skipped" ]]; then
               echo "Failed: $result"
               exit 1
