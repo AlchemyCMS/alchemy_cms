@@ -2,6 +2,8 @@ import { renderComponent } from "./component.helper"
 
 import "alchemy_admin/components/node_select"
 
+const PAYLOAD = "<img src=x onerror=alert(1)>"
+
 describe("alchemy-node-select", () => {
   /**
    *
@@ -86,6 +88,52 @@ describe("alchemy-node-select", () => {
 
     it("should add the query parameter to the API call", () => {
       expect(component.ajaxConfig.data("test").filter.foo).toEqual("bar")
+    })
+  })
+
+  describe("_renderListEntry", () => {
+    const render = (node, term = "") => {
+      const el = document.createElement("div")
+      el.innerHTML = component._renderListEntry(node, term)
+      return el
+    }
+
+    beforeEach(() => {
+      const html = `
+        <alchemy-node-select>
+          <input type="text">
+        </alchemy-node-select>
+      `
+      component = renderComponent("alchemy-node-select", html)
+    })
+
+    it("escapes the node name", () => {
+      const name = `Home ${PAYLOAD}`
+      const el = render({ name, url: null, ancestors: [] }, "Home")
+      expect(el.querySelector("img")).toBeNull()
+      expect(
+        el.querySelector(".node-select--node-name").textContent.trim()
+      ).toEqual(name)
+    })
+
+    it("escapes the ancestor names", () => {
+      const el = render({
+        name: "Child",
+        url: null,
+        ancestors: [{ name: PAYLOAD }]
+      })
+      expect(el.querySelector("img")).toBeNull()
+      expect(
+        el.querySelector(".node-select--node-ancestors").textContent
+      ).toContain(PAYLOAD)
+    })
+
+    it("escapes the node url", () => {
+      const el = render({ name: "Home", url: PAYLOAD, ancestors: [] })
+      expect(el.querySelector("img")).toBeNull()
+      expect(
+        el.querySelector(".node-select--node-url").textContent.trim()
+      ).toEqual(PAYLOAD)
     })
   })
 })

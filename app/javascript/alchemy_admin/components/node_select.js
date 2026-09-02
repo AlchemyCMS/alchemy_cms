@@ -1,4 +1,7 @@
-import { RemoteSelect } from "alchemy_admin/components/remote_select"
+import {
+  RemoteSelect,
+  escapeHtml
+} from "alchemy_admin/components/remote_select"
 
 class NodeSelect extends RemoteSelect {
   _searchQuery(term, page) {
@@ -23,7 +26,7 @@ class NodeSelect extends RemoteSelect {
    * @private
    */
   _renderListEntry(node, term) {
-    const ancestors = node.ancestors.map((a) => a.name)
+    const ancestors = node.ancestors.map((a) => escapeHtml(a.name))
     const seperator = `<alchemy-icon name="arrow-right-s"></alchemy-icon>`
 
     return `
@@ -38,7 +41,7 @@ class NodeSelect extends RemoteSelect {
           </span>
         </div>
         <div class="node-select--node-url">
-          ${node.url || ""}
+          ${escapeHtml(node.url || "")}
         </div>
       </div>
     `

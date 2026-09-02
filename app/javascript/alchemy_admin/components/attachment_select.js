@@ -1,4 +1,7 @@
-import { RemoteSelect } from "alchemy_admin/components/remote_select"
+import {
+  RemoteSelect,
+  escapeHtml
+} from "alchemy_admin/components/remote_select"
 
 export class AttachmentSelect extends RemoteSelect {
   _renderResult(item) {
@@ -15,7 +18,7 @@ export class AttachmentSelect extends RemoteSelect {
   _renderListEntry(attachment, term) {
     return `
       <div class="attachment-select--attachment">
-        <alchemy-icon name="${attachment.icon_css_class}"></alchemy-icon>
+        <alchemy-icon name="${escapeHtml(attachment.icon_css_class)}"></alchemy-icon>
         <span class="attachment-select--attachment-name">${this._hightlightTerm(attachment.name, term)}</span>
       </div>
     `
