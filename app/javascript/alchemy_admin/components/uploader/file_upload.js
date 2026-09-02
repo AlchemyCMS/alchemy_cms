@@ -93,11 +93,14 @@ export class FileUpload extends HTMLElement {
       ? config.allowed_filetypes.alchemy_pictures
       : config.allowed_filetypes.alchemy_attachments
 
+    // The allowlist holds filename extensions, so we cannot derive the format
+    // from the MIME type: `application/msword` is not `doc` and every Office
+    // Open XML type only yields `vnd`.
+    const extension = this.file?.name.match(/\.([^.]+)$/)?.[1].toLowerCase()
+
     const isFileFormatSupported =
       allowedFiletypes.includes("*") ||
-      allowedFiletypes.includes(
-        this.file?.type.replace(/^\w+\/(\w+)(\+\w+)?/i, "$1")
-      )
+      allowedFiletypes.some((type) => type.toLowerCase() === extension)
 
     if (!isFileFormatSupported) {
       errorMessage = translate("File type not allowed")
