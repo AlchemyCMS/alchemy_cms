@@ -1,4 +1,9 @@
 class AddPublicationTimestampsToAlchemyElements < ActiveRecord::Migration[7.2]
+  # Required: remove_column rebuilds the table on SQLite via DROP TABLE, which
+  # cascade deletes every child row. The adapter's PRAGMA foreign_keys = OFF
+  # guard only works outside a transaction.
+  disable_ddl_transaction!
+
   def up
     add_column :alchemy_elements, :public_on, :datetime
     add_column :alchemy_elements, :public_until, :datetime
