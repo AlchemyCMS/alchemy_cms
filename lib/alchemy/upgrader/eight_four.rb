@@ -12,6 +12,41 @@ module Alchemy
         run %(bundle add dragonfly --version "~> 1.4")
       end
 
+      # The attachment uploader used to accept every file type.
+      def notify_attachment_filetypes_default
+        default = Alchemy::Configurations::Uploader::AllowedFileTypes::DEFAULT_ATTACHMENT_FILE_TYPES
+        current = Alchemy.config.uploader.allowed_filetypes.alchemy_attachments.to_a
+        return unless current == default || current.include?("*")
+
+        closing = if current.include?("*")
+          <<~TEXT.strip
+            Your app configures `["*"]`, so it still accepts every file type.
+            Please consider adopting the new default.
+          TEXT
+        else
+          <<~TEXT.strip
+            Setting it back to `["*"]` restores the old behaviour and disables
+            file type validation entirely.
+          TEXT
+        end
+
+        todo(<<~TODO.strip, "Attachment uploads are now restricted to an allowlist")
+          The `uploader.allowed_filetypes.alchemy_attachments` setting used to
+          default to `["*"]`, which accepts every file type, including
+          executables. It now defaults to a list of document, media and archive
+          formats:
+
+          #{default.each_slice(8).map { |slice| "  #{slice.join(" ")}" }.join("\n")}
+
+          Please check whether your editors upload file types that are not on
+          this list. If they do, add them in `config/initializers/alchemy.rb`:
+
+            config.uploader.allowed_filetypes.alchemy_attachments = %w[#{default.first(3).join(" ")} ...]
+
+          #{closing}
+        TODO
+      end
+
       # Element partials that render nested elements through the
       # +nested_elements+ association issue one database query per parent
       # element. Rendering through the block helper's +nested_elements+

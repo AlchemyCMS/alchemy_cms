@@ -60,7 +60,8 @@ namespace :alchemy do
     namespace "8.4" do
       task "run" => [
         "alchemy:upgrade:8.4:add_dragonfly_gem",
-        "alchemy:upgrade:8.4:upgrade_nested_elements_rendering"
+        "alchemy:upgrade:8.4:upgrade_nested_elements_rendering",
+        "alchemy:upgrade:8.4:notify_attachment_filetypes_default"
       ]
 
       desc "Add dragonfly gem to the Gemfile if the app uses the dragonfly storage adapter"
@@ -71,6 +72,11 @@ namespace :alchemy do
       desc "Rewrite element partials to render nested elements through the block helper"
       task upgrade_nested_elements_rendering: [:environment] do
         Alchemy::Upgrader["8.4"].upgrade_nested_elements_rendering
+      end
+
+      desc "Notify about the new attachment upload allowlist default"
+      task notify_attachment_filetypes_default: [:environment] do
+        Alchemy::Upgrader["8.4"].notify_attachment_filetypes_default
       end
     end
   end
