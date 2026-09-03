@@ -6,16 +6,13 @@
   <%= turbo_frame_tag @element do %>
     <%= alchemy_form_for [:admin, @element] do |form| %>
       <%= form.hidden_field :page_version_id %>
-      <div class="input">
-        <%= form.label(:name, class: "control-label required") do %>
-          <%= Alchemy.t(:element_of_type) %><abbr>*</abbr>
-        <% end %>
+      <%= form.input :name, label: Alchemy.t(:element_of_type) do %>
         <%= render Alchemy::Admin::ElementSelect.new(
           @elements,
           field_name: form.field_name(:name),
           autofocus: true
         ) %>
-      </div>
+      <% end %>
       <%= form.hidden_field :parent_element_id, value: @parent_element.try(:id) %>
       <%= form.submit Alchemy.t(:add) %>
     <%- end -%>
