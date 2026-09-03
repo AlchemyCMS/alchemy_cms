@@ -147,6 +147,7 @@ RSpec.describe "The edit elements feature", type: :system do
       # Submitting without choosing an element fails the name validation
       within ".alchemy-dialog" do
         click_button("Add")
+        expect(page).to have_css("small.error", text: "can't be blank")
         # The re-rendered form still lets us add a nested element and does not
         # widen the list to every element allowed on the page.
         tom_select("Text", from: "Element")
