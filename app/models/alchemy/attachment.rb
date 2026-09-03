@@ -206,7 +206,7 @@ module Alchemy
     private
 
     def file_type_allowed
-      unless extension&.in?(self.class.allowed_filetypes)
+      unless extension&.downcase&.in?(self.class.allowed_filetypes.map(&:downcase))
         errors.add(:file, Alchemy.t("not a valid file"))
       end
     end

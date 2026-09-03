@@ -4,7 +4,21 @@ module Alchemy
   module Configurations
     class Uploader < Alchemy::Configuration
       class AllowedFileTypes < Alchemy::Configuration
-        option :alchemy_attachments, :collection, item_type: :string, default: ["*"]
+        # Document, media and archive formats Alchemy knows how to display.
+        # Executables and other active content are deliberately absent.
+        DEFAULT_ATTACHMENT_FILE_TYPES = %w[
+          pdf
+          doc docx odt rtf txt
+          xls xlsx ods csv
+          ppt pptx odp
+          vcf
+          zip
+          avif gif jpeg jpg png psd svg tif tiff webp
+          aac flac m4a mp3 oga ogg wav weba
+          avi flv m4v mov mp4 mpeg mpg ogv webm wmv
+        ].freeze
+
+        option :alchemy_attachments, :collection, item_type: :string, default: DEFAULT_ATTACHMENT_FILE_TYPES
         option :alchemy_pictures, :collection, item_type: :string, default: %w[jpg jpeg gif png svg webp]
 
         def set(configuration_hash)
