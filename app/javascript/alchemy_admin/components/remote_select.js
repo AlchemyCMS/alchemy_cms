@@ -4,7 +4,8 @@ import { translate } from "alchemy_admin/i18n"
 import {
   createDropdownPositioning,
   dropdownMessages,
-  focusTomSelect
+  focusTomSelect,
+  teardownTomSelect
 } from "alchemy_admin/utils/tom_select"
 
 /**
@@ -97,7 +98,7 @@ export class RemoteSelect extends HTMLElement {
   }
 
   disconnectedCallback() {
-    this.#tomSelect?.destroy()
+    teardownTomSelect(this.#tomSelect)
     this.#tomSelect = null
   }
 
