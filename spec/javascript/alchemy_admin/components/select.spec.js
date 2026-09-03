@@ -251,5 +251,14 @@ describe("alchemy-select", () => {
 
       expect(document.querySelector(".ts-wrapper")).toBeFalsy()
     })
+
+    it("removes the dropdown mask when removed while the dropdown is open", () => {
+      component.tomselect.open()
+      expect(document.querySelector(".ts-dropdown-mask")).toBeTruthy()
+
+      component.remove()
+
+      expect(document.querySelector(".ts-dropdown-mask")).toBeFalsy()
+    })
   })
 })

@@ -1,7 +1,8 @@
 import { vi } from "vitest"
 import {
   dropdownMessages,
-  focusTomSelect
+  focusTomSelect,
+  teardownTomSelect
 } from "alchemy_admin/utils/tom_select"
 
 describe("focusTomSelect", () => {
@@ -21,6 +22,24 @@ describe("focusTomSelect", () => {
     focusTomSelect(null, focusFallback)
 
     expect(focusFallback).toHaveBeenCalled()
+  })
+})
+
+describe("teardownTomSelect", () => {
+  it("closes the dropdown before destroying the instance", () => {
+    const calls = []
+    const tomSelect = {
+      close: (setTextboxValue) => calls.push(["close", setTextboxValue]),
+      destroy: () => calls.push(["destroy"])
+    }
+
+    teardownTomSelect(tomSelect)
+
+    expect(calls).toEqual([["close", false], ["destroy"]])
+  })
+
+  it("does nothing when Tom Select is not initialized", () => {
+    expect(() => teardownTomSelect(null)).not.toThrow()
   })
 })
 
