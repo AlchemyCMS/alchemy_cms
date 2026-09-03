@@ -5,7 +5,8 @@ import {
   createDropdownPositioning,
   dropdownMessages,
   focusTomSelect,
-  removeButton
+  removeButton,
+  teardownTomSelect
 } from "alchemy_admin/utils/tom_select"
 
 export class TagsAutocomplete extends HTMLElement {
@@ -20,7 +21,7 @@ export class TagsAutocomplete extends HTMLElement {
   }
 
   disconnectedCallback() {
-    this.#tomSelect?.destroy()
+    teardownTomSelect(this.#tomSelect)
     this.#tomSelect = null
   }
 
