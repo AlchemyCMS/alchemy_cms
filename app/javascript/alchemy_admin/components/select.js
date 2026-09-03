@@ -4,7 +4,8 @@ import {
   createDropdownPositioning,
   dropdownMessages,
   focusTomSelect,
-  removeButton
+  removeButton,
+  teardownTomSelect
 } from "alchemy_admin/utils/tom_select"
 
 export class Select extends HTMLSelectElement {
@@ -140,7 +141,7 @@ export class Select extends HTMLSelectElement {
   }
 
   #destroyTomSelect() {
-    this.#tomSelect?.destroy()
+    teardownTomSelect(this.#tomSelect)
     this.#tomSelect = null
   }
 }

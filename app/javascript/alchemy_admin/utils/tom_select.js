@@ -25,6 +25,16 @@ export function focusTomSelect(tomSelect, focusFallback) {
   }
 }
 
+// Tom Select's `destroy()` removes the dropdown, but it never closes it, so the
+// `dropdown_close` handler below would not run. Close first, so a select that is
+// torn down while its dropdown is open (e.g. because a Turbo render replaces the
+// form) does not leave the full window dropdown mask behind, swallowing every
+// click.
+export function teardownTomSelect(tomSelect) {
+  tomSelect?.close(false)
+  tomSelect?.destroy()
+}
+
 // Dropdown positioning shared by the Tom Select based components. It appends the
 // dropdown to the body and keeps it positioned with Floating UI so it is not
 // clipped inside dialogs or scrollable panels. The returned handlers are used as
