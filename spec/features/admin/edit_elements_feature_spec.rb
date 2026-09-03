@@ -149,6 +149,7 @@ RSpec.describe "The edit elements feature", type: :system do
         click_button("Add")
         # The re-rendered form still lets us add a nested element and does not
         # widen the list to every element allowed on the page.
+        expect(page).to have_css("small.error", text: "can't be blank")
         select2("Text", from: "Element")
         click_button("Add")
       end

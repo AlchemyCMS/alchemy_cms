@@ -27,8 +27,14 @@ RSpec.describe Alchemy::Admin::ElementSelect, type: :component do
 
   it "renders alchemy-element-select with input field" do
     expect(page).to have_selector(
-      "alchemy-element-select[placeholder='Select element'] input[required][name='element[name]']"
+      "alchemy-element-select[placeholder='Select element'] input[name='element[name]']"
     )
+  end
+
+  # Select2 hides this input, so a required attribute would make the browser
+  # refuse to submit the form without ever showing a message.
+  it "renders input field without required attribute" do
+    expect(page).to_not have_selector("input[required]")
   end
 
   context "with autofocus: true" do

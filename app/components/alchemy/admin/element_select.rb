@@ -17,7 +17,6 @@ module Alchemy
           placeholder: Alchemy.t(:select_element) do
           text_field_tag(field_name, nil, {
             autofocus:,
-            required: true,
             value: elements.many? ? nil : elements.first&.name,
             class: "alchemy_selectbox full_width"
           })
