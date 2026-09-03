@@ -197,6 +197,10 @@ class Select extends HTMLSelectElement {
   }
 
   #destroyTomSelect() {
+    // Tom Select's destroy() removes the dropdown, but it never closes it, so
+    // the onDropdownClose handler does not run and the full window dropdown
+    // mask would be left behind, swallowing every click.
+    this.#tomSelect?.close(false)
     this.#tomSelect?.destroy()
     this.#tomSelect = null
   }
