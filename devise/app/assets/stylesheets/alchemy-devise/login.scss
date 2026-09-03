@@ -37,7 +37,7 @@ body.passwords {
   align-items: center;
   justify-content: center;
   gap: var(--spacing-4);
-  background-color: hsl(from var(--body-background-color) h s l / 50%);
+  background-color: color-mix(in srgb, var(--body-background-color) 50%, transparent);
   backdrop-filter: blur(5px);
   border-radius: var(--border-radius_large);
   box-shadow: var(--dialog-box-shadow);
