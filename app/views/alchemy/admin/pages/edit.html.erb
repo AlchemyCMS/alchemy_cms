@@ -142,7 +142,7 @@
 <% end %>
 
 <% content_for :javascripts do %>
-<script type="module">
+<%= tag.script(type: "module", nonce: content_security_policy_nonce) do %>
   document.addEventListener("turbo:load", function() {
     document.querySelectorAll('#unlock_page_form, #publish_page_form').forEach(function(form) {
       form.addEventListener('submit', function(event) {
@@ -155,5 +155,5 @@
     });
     Alchemy.PageLeaveObserver();
   }, { once: true });
-</script>
+<% end %>
 <% end %>
