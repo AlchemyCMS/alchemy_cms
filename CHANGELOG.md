@@ -1,5 +1,24 @@
 # Changelog
 
+## 8.3.9 (2026-09-04)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.3-stable -->
+
+## What's Changed
+### Bug Fixes
+* [8.3-stable] fix(uploader): validate uploads by filename extension by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/4207
+* [8.3-stable] fix(migrations): only drop the DDL transaction where SQLite rebuilds by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/4213
+### Security
+* fix(csv export): escape formulas in admin resource exports [8.3-stable] by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4222
+### Other Changes
+* [8.3-stable] fix(dragonfly): derive the attachment extension from the file name by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4208
+* [8.3-stable] fix(tom-select): close the dropdown before destroying a select by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4217
+* [8.3-stable] fix(admin): scope nested element form to parent on validation error by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4219
+* [8.3-stable] fix(admin): show validation errors on the new element form by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/4218
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.3.8...v8.3.9
+
 ## 8.3.8 (2026-09-02)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.3-stable -->
