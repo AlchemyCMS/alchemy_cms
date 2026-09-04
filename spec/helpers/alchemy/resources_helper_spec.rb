@@ -388,4 +388,36 @@ describe Alchemy::ResourcesHelper do
       expect(test_controller.resource_name).to eq("my_resource")
     end
   end
+
+  describe "#csv_value" do
+    it "returns a harmless value unchanged" do
+      expect(test_controller.csv_value("Hello")).to eq("Hello")
+    end
+
+    it "casts the value into a string" do
+      expect(test_controller.csv_value(1)).to eq("1")
+    end
+
+    ["=", "+", "-", "@", "\uFF1D", "\uFF0B", "\uFF0D", "\uFF20", "\t", "\r", "\n"].each do |character|
+      it "prefixes a value starting with #{character.inspect} with a tab" do
+        expect(test_controller.csv_value("#{character}1+1")).to eq("\t#{character}1+1")
+      end
+    end
+
+    it "does not prefix a value containing a formula character in the middle" do
+      expect(test_controller.csv_value("1+1=2")).to eq("1+1=2")
+    end
+
+    it "does not prefix a negative integer" do
+      expect(test_controller.csv_value("-5")).to eq("-5")
+    end
+
+    it "does not prefix a negative decimal" do
+      expect(test_controller.csv_value("-5.0")).to eq("-5.0")
+    end
+
+    it "prefixes a negative number that continues into an expression" do
+      expect(test_controller.csv_value("-2+3")).to eq("\t-2+3")
+    end
+  end
 end
