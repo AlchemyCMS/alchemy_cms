@@ -12,6 +12,7 @@ module Alchemy
       include Locale
       include Timezone
 
+      before_action :set_content_security_policy
       before_action :load_locked_pages
 
       check_authorization
@@ -34,6 +35,25 @@ module Alchemy
       end
 
       private
+
+      # Applies Alchemy's own Content Security Policy, but only if the host
+      # application has opted in, and has not configured a policy of its own,
+      # and the request is for one of Alchemy's own controllers.
+      #
+      # That last condition matters because controllers of the host
+      # application can inherit from this class. Their views would not be ours
+      # to make assumptions about.
+      def set_content_security_policy
+        policy_class = Alchemy.config.admin_content_security_policy
+        return unless policy_class
+        return unless controller_path.start_with?("alchemy/")
+        return if request.content_security_policy
+
+        policy = policy_class.new(request)
+        request.content_security_policy_nonce_generator ||= policy.nonce_generator
+        request.content_security_policy = policy.call
+        request.content_security_policy_report_only = policy.report_only?
+      end
 
       def safe_redirect_path(path = params[:redirect_to], fallback: admin_path)
         if is_safe_redirect_path?(path)

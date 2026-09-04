@@ -47,6 +47,14 @@ module Alchemy
         TODO
       end
 
+      def notify_admin_content_security_policy
+        todo(<<~TODO.strip, "The admin now sends a Content Security Policy")
+          If you have inline scripts or anything else in your admin that a CSP
+          would block, subclass `Alchemy::Admin::ContentSecurityPolicy`, or set
+          `config.admin_content_security_policy = nil` to turn it off.
+        TODO
+      end
+
       # Element partials that render nested elements through the
       # +nested_elements+ association issue one database query per parent
       # element. Rendering through the block helper's +nested_elements+
