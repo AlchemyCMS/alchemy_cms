@@ -244,4 +244,15 @@ Alchemy.configure do |config|
 
   # The sizes for the preview size select in the page editor.
   # config.page_preview_sizes = [360, 640, 768, 1024, 1280, 1440]
+
+  # === Admin Content Security Policy
+  #
+  # The class building the Content Security Policy Alchemy sends with its own
+  # admin responses. Set it to nil to send no policy at all.
+  #
+  # Alchemy never replaces a policy your application has configured itself.
+  # Your asset host, your admin stylesheets and modules pinned to a CDN are
+  # allowed automatically. Subclass it to allow anything else.
+  #
+  # config.admin_content_security_policy = "Alchemy::Admin::ContentSecurityPolicy"
 end
