@@ -97,6 +97,7 @@ module Alchemy
     validates :menu_type, presence: true
     validates :name, presence: true, if: -> { page.nil? }
     validates :url, format: {with: VALID_URL_REGEX}, unless: -> { url.nil? }
+    validates_with Alchemy::SafeUrlValidator, attributes: [:url]
 
     # Returns the name
     #
