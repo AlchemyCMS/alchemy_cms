@@ -51,5 +51,17 @@ RSpec.describe Alchemy::Configurations::FormatMatchers do
     it "does not match relative paths" do
       expect("relative/path").not_to match(format_matchers.link_url)
     end
+
+    it "does not match executable schemes" do
+      expect("javascript:alert(1)").not_to match(format_matchers.link_url)
+      expect("data:text/html;base64,PHN2Zz4=").not_to match(format_matchers.link_url)
+      expect("vbscript:msgbox(1)").not_to match(format_matchers.link_url)
+    end
+
+    # A shape match like "[a-z]+://" accepts this, because the "//" reads as an
+    # authority while JavaScript reads it as a line comment.
+    it "does not match a javascript url disguised as an authority" do
+      expect("javascript://%0aalert(1)").not_to match(format_matchers.link_url)
+    end
   end
 end

@@ -207,6 +207,22 @@ module Alchemy
       #
       option :link_target_options, :collection, item_type: :string, default: %w[blank]
 
+      # === Allowed url schemes
+      #
+      # Url schemes editors are allowed to store in menu nodes and linkable
+      # ingredients. Any other scheme is rejected, because a scheme like
+      # `javascript:` turns an editable url into script execution in your
+      # site's own origin.
+      #
+      # Urls without a scheme (absolute and relative paths, anchors, queries
+      # and protocol relative urls) are always allowed.
+      #
+      # == Example:
+      #
+      #   config.allowed_url_schemes = %w[http https mailto]
+      #
+      option :allowed_url_schemes, :collection, item_type: :string, default: %w[http https mailto tel ftp]
+
       # === Format matchers
       #
       # Named aliases for regular expressions that can be used in various places.

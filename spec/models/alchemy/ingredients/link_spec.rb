@@ -4,6 +4,7 @@ require "rails_helper"
 
 RSpec.describe Alchemy::Ingredients::Link do
   it_behaves_like "an alchemy ingredient"
+  it_behaves_like "a linkable alchemy ingredient", :value
 
   let(:element) { build(:alchemy_element) }
 

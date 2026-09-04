@@ -12,6 +12,8 @@ module Alchemy
 
       allow_settings %i[text]
 
+      validates_with Alchemy::SafeUrlValidator, attributes: [:value]
+
       alias_method :link, :value
     end
   end

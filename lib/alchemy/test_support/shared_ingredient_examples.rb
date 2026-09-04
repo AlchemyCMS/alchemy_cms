@@ -80,3 +80,55 @@ RSpec.shared_examples_for "an alchemy ingredient" do
     it { is_expected.to be_a("#{described_class}View".constantize) }
   end
 end
+
+# Shared by the ingredients that store an editor supplied url.
+#
+#   it_behaves_like "a linkable alchemy ingredient", :link
+#
+RSpec.shared_examples_for "a linkable alchemy ingredient" do |url_attribute|
+  describe "url scheme validation" do
+    let(:element) { build(:alchemy_element, name: "article") }
+
+    subject(:ingredient) do
+      described_class.new(element: element, role: "headline")
+    end
+
+    # captured in a let, a block parameter is not in scope inside a def
+    let(:attribute) { url_attribute }
+
+    def errors_for(url)
+      ingredient.public_send(:"#{attribute}=", url)
+      ingredient.valid?
+      ingredient.errors[attribute]
+    end
+
+    it "allows a blank url" do
+      expect(errors_for(nil)).to be_empty
+    end
+
+    it "allows an allowed scheme" do
+      expect(errors_for("https://example.com")).to be_empty
+      expect(errors_for("mailto:jane@example.com")).to be_empty
+    end
+
+    it "allows a relative url" do
+      expect(errors_for("/a/path")).to be_empty
+      expect(errors_for("#an-anchor")).to be_empty
+    end
+
+    it "rejects an executable scheme" do
+      expect(errors_for("javascript:alert(document.domain)")).to be_present
+      expect(errors_for("data:text/html;base64,PHN2Zz4=")).to be_present
+      expect(errors_for("vbscript:msgbox(1)")).to be_present
+    end
+
+    it "rejects an executable scheme obfuscated by whitespace" do
+      expect(errors_for(" javascript:alert(1)")).to be_present
+      expect(errors_for("java\tscript:alert(1)")).to be_present
+    end
+
+    it "rejects a javascript url disguised as an authority" do
+      expect(errors_for("javascript://%0aalert(1)")).to be_present
+    end
+  end
+end
