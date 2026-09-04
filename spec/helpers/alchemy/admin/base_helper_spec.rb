@@ -198,11 +198,45 @@ module Alchemy
         expect(subject).to be_a(Regexp)
       end
 
+      it "does not match an executable scheme out of the box" do
+        expect(subject).to_not match("javascript:alert(1)")
+        expect(subject).to_not match("javascript://%0aalert(1)")
+      end
+
       context "if the expression from config is nil" do
         before { stub_alchemy_config(format_matchers: {link_url: nil}) }
 
         it "returns the default expression" do
           expect(subject).to_not be_nil
+        end
+
+        it "matches urls with an allowed scheme" do
+          expect(subject).to match("https://example.com")
+          expect(subject).to match("mailto:jane@example.com")
+          expect(subject).to match("tel:+4912345")
+          expect(subject).to match("/an/absolute/path")
+        end
+
+        it "does not match an executable scheme" do
+          expect(subject).to_not match("javascript:alert(1)")
+          expect(subject).to_not match("data:text/html;base64,PHN2Zz4=")
+        end
+
+        # "[a-z]+://" style shape matching accepts this: the "//" reads as an
+        # authority, while JavaScript reads it as a line comment.
+        it "does not match a javascript url disguised as an authority" do
+          expect(subject).to_not match("javascript://%0aalert(1)")
+        end
+
+        it "does not match a url without scheme or leading slash" do
+          expect(subject).to_not match("something")
+        end
+
+        # The expression is handed to the link dialog as a JavaScript literal,
+        # where Ruby's \A and \z anchors are a syntax error.
+        it "only uses anchors JavaScript understands" do
+          expect(subject.source).to_not include('\A')
+          expect(subject.source).to_not include('\z')
         end
       end
     end

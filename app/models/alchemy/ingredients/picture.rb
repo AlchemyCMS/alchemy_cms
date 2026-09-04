@@ -38,6 +38,8 @@ module Alchemy
         upsample
       ]
 
+      validates_with Alchemy::SafeUrlValidator, attributes: [:link]
+
       delegate :description_for, :name, to: :picture, allow_nil: true
 
       def alt_text(language: Alchemy::Current.language)

@@ -164,8 +164,53 @@ module Alchemy
         expect(build(:alchemy_node, url: "something")).to be_invalid
       end
 
-      it "is valid with leading protocol scheme" do
-        expect(build(:alchemy_node, url: "i2+ts-z.app:widget.io")).to be_valid
+      it "is valid with an allowed protocol scheme" do
+        expect(build(:alchemy_node, url: "mailto:jane@example.com")).to be_valid
+        expect(build(:alchemy_node, url: "tel:+4912345")).to be_valid
+      end
+
+      it "is invalid with a scheme that is not allowed" do
+        expect(build(:alchemy_node, url: "i2+ts-z.app:widget.io")).to be_invalid
+      end
+
+      it "is invalid with an executable scheme" do
+        expect(build(:alchemy_node, url: "javascript:alert(document.domain)")).to be_invalid
+        expect(build(:alchemy_node, url: "data:text/html;base64,PHN2Zz4=")).to be_invalid
+        expect(build(:alchemy_node, url: "vbscript:msgbox(1)")).to be_invalid
+      end
+
+      it "is invalid with an executable scheme obfuscated by whitespace" do
+        expect(build(:alchemy_node, url: " javascript:alert(1)")).to be_invalid
+        expect(build(:alchemy_node, url: "java\tscript:alert(1)")).to be_invalid
+      end
+
+      it "is invalid with a javascript url disguised as an authority" do
+        expect(build(:alchemy_node, url: "javascript://%0aalert(1)")).to be_invalid
+      end
+
+      context "with a page attached" do
+        # #url returns the page path while a page is attached, so a raw url
+        # stored alongside it only becomes live once the page is detached.
+        it "rejects a stored unsafe url when the page gets detached" do
+          node = create(:alchemy_node, :with_page, name: "Detachable")
+          node.update_columns(url: "javascript:alert(1)")
+          node.reload
+          node.page = nil
+          expect(node).to be_invalid
+        end
+      end
+
+      context "with allowed_url_schemes configured" do
+        around do |example|
+          previous = Alchemy.config.allowed_url_schemes.to_a
+          Alchemy.config.allowed_url_schemes = previous + ["i2+ts-z.app"]
+          example.run
+          Alchemy.config.allowed_url_schemes = previous
+        end
+
+        it "is valid with the configured scheme" do
+          expect(build(:alchemy_node, url: "i2+ts-z.app:widget.io")).to be_valid
+        end
       end
 
       context "with page attached" do
