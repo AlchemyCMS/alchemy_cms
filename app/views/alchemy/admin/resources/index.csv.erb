@@ -1,13 +1,13 @@
-<% csv = CSV.generate(col_sep: ";", row_sep: "\r\n") do |row| %>
+<% csv = CSV.generate(col_sep: ";", row_sep: "\r\n", force_quotes: true) do |row| %>
   <% row << ["Id"] + resource_handler.attributes.collect do |a|
-              resource_handler.model.human_attribute_name(a[:name])
+              csv_value(resource_handler.model.human_attribute_name(a[:name]))
             end %>
   <% resources_instance_variable.each do |resource| %>
     <% row << [resource.id] + resource_handler.attributes.map do |a|
                 if a[:type] == :boolean
                   resource.send(a[:name]) ? 'x' : ''
                 else
-                  render_attribute(resource, a, {truncate: false}).to_s.strip
+                  csv_value(render_attribute(resource, a, {truncate: false}).to_s.strip)
                 end
               end %>
   <% end %>
