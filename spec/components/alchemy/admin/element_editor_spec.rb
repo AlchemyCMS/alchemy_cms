@@ -386,6 +386,20 @@ RSpec.describe Alchemy::Admin::ElementEditor, type: :component do
       end
     end
 
+    context "with preview text containing HTML" do
+      before do
+        allow(element).to receive(:preview_text) { "<h1>Hello</h1><img src=x>" }
+      end
+
+      it "renders it as plain text" do
+        render_inline(described_class.new(element: element))
+
+        expect(page).to have_css(".preview_text_quote", text: "Hello")
+        expect(page).to have_no_css(".preview_text_quote h1")
+        expect(page).to have_no_css(".preview_text_quote img")
+      end
+    end
+
     context "with element beeing taggable" do
       let(:element) { create(:alchemy_element, name: "taggable") }
 
