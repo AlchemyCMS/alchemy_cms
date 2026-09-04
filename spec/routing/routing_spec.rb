@@ -260,6 +260,15 @@ describe "The Routing" do
           action: "switch"
         )
       end
+
+      it "should not route to a create_language action" do
+        expect({
+          get: "/admin/pages/create_language"
+        }).not_to route_to(
+          controller: "alchemy/admin/pages",
+          action: "create_language"
+        )
+      end
     end
 
     context "customized" do
