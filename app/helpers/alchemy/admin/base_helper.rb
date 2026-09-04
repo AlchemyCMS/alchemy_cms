@@ -272,8 +272,11 @@ module Alchemy
       end
 
       # Returns the regular expression used for external url validation in link dialog.
+      #
+      # Anchored with ^ instead of \A because the link dialog receives this as a
+      # JavaScript literal, where Ruby's anchors are a syntax error.
       def link_url_regexp
-        Alchemy.config.format_matchers.link_url || /^(mailto:|\/|[a-z]+:\/\/)/
+        Alchemy.config.format_matchers.link_url || Alchemy::Configurations::FormatMatchers::LINK_URL
       end
 
       # Renders a hint with tooltip

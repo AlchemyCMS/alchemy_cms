@@ -795,6 +795,8 @@ en:
 
   # Translations for error messages.
   errors:
+    messages:
+      invalid_url_scheme: "uses the not allowed scheme %{scheme}:"
     attributes:
       public_until:
         must_be_after_public_on: "must be after visible from date"

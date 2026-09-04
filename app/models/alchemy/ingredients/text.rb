@@ -23,6 +23,8 @@ module Alchemy
         input_type
         linkable
       ]
+
+      validates_with Alchemy::SafeUrlValidator, attributes: [:link]
     end
   end
 end
