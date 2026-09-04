@@ -144,7 +144,7 @@ describe Alchemy::Admin::LanguagesController do
 
   describe "#switch" do
     subject(:switch) do
-      get :switch, params: {language_id: language.id}
+      post :switch, params: {language_id: language.id}
     end
 
     let(:language) { create(:alchemy_language, :klingon) }

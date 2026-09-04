@@ -2,7 +2,7 @@
 <% if can?(:switch_language, Alchemy::Page) && languages.many? %>
 <div class="toolbar_button">
   <sl-tooltip content="<%= Alchemy.t("Language tree") %>">
-    <%= form_tag switch_admin_languages_path, method: 'get' do %>
+    <%= form_tag switch_admin_languages_path do %>
       <alchemy-auto-submit>
         <%= select_tag(
           :language_id,
