@@ -268,6 +268,19 @@ RSpec.describe "The edit elements feature", type: :system do
       expect(page).to have_content("Successfully scheduled element")
       expect(page).to have_selector("sl-tooltip.element-scheduled-icon:not([hidden])")
     end
+
+    it "clears the schedule fields if the clear button is clicked", :js do
+      visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
+      expect(page).to have_selector("alchemy-publish-element-button")
+      find("alchemy-publish-element-button sl-button[slot=trigger]").click
+      within("alchemy-publish-element-button .alchemy-popover") do
+        field = find("input[name='element[public_until]']", visible: :all)
+        field.set(2.hours.from_now.strftime("%Y-%m-%d %H:%M"))
+        expect(field.value).to be_present
+        click_button("Clear Schedule")
+        expect(field.value).to be_empty
+      end
+    end
   end
 
   describe "Preview time select" do
