@@ -242,6 +242,24 @@ describe "The Routing" do
           id: "3"
         )
       end
+
+      it "should route to language switch" do
+        expect({
+          post: "/admin/languages/switch"
+        }).to route_to(
+          controller: "alchemy/admin/languages",
+          action: "switch"
+        )
+      end
+
+      it "should not switch the language on GET requests" do
+        expect({
+          get: "/admin/languages/switch"
+        }).not_to route_to(
+          controller: "alchemy/admin/languages",
+          action: "switch"
+        )
+      end
     end
 
     context "customized" do
