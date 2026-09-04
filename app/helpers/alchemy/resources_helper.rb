@@ -99,6 +99,31 @@ module Alchemy
       end
     end
 
+    # Returns the value prepared for a cell of a CSV export.
+    #
+    # Spreadsheet applications evaluate a cell starting with one of these characters
+    # as a formula, turning exported content into code that runs on the machine
+    # opening the file. The tab keeps the cell text and, unlike the more common
+    # single quote, survives Excel saving and re-opening the file, which strips
+    # quotes and would reactivate the formula. It only works inside a quoted field,
+    # so the export generates with `force_quotes`.
+    #
+    # A bare negative number is exempt, because spreadsheets read it as a number
+    # instead of a formula, so escaping it would only break arithmetic on the
+    # exported column. An expression like `-2+3` is a formula and stays escaped.
+    #
+    # @see https://owasp.org/www-community/attacks/CSV_Injection
+    #
+    # @param [Object] value
+    # @return [String]
+    #
+    def csv_value(value)
+      value = value.to_s
+      return value if value.match?(/\A-\d+(\.\d+)?\z/)
+
+      value.match?(/\A[-=+@\t\r\n\uFF0D\uFF1D\uFF0B\uFF20]/) ? "\t#{value}" : value
+    end
+
     # Returns a options hash for simple_form input fields.
     def resource_attribute_field_options(attribute)
       options = {hint: resource_handler.help_text_for(attribute)}
