@@ -85,7 +85,7 @@ Alchemy::Engine.routes.draw do
     resources :legacy_page_urls
     resources :languages do
       collection do
-        get :switch
+        post :switch
       end
     end
 
