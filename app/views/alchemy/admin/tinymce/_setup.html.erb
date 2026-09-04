@@ -8,7 +8,7 @@
   <link rel="preload" href="<%= asset_path("#{tinymce_base_path}/plugins/#{plugin}/plugin.min.js") %>" as="script">
 <% end %>
 
-<script>
+<%= tag.script(nonce: content_security_policy_nonce) do %>
   var tinyMCEPreInit = <%== {
     base: ActionController::Base.config.asset_host ?
       asset_url(tinymce_base_path, host: ActionController::Base.config.asset_host) :
@@ -18,4 +18,4 @@
   Alchemy.TinymceDefaults = <%== Alchemy::Tinymce.init.merge(
     plugins: Alchemy::Tinymce.plugins.join(",")
   ).to_json %>;
-</script>
+<% end %>

@@ -117,7 +117,7 @@
     </div>
   </template>
 
-  <script type="module" data-turbo-eval="false">
+  <%= tag.script(type: "module", data: {turbo_eval: false}, nonce: helpers.content_security_policy_nonce) do %>
     class Menubar extends HTMLElement {
       connectedCallback() {
         const template = this.querySelector("template")
@@ -153,5 +153,5 @@
     }
 
     customElements.define("alchemy-menubar", Menubar)
-  </script>
+  <% end %>
 </alchemy-menubar>
