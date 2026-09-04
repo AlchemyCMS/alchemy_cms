@@ -1,6 +1,6 @@
 <% if Alchemy::Current.preview_page? %>
-  <script type="text/javascript">
+  <%= tag.script(type: "text/javascript", nonce: content_security_policy_nonce) do %>
     Alchemy = { locale: "<%= session[:alchemy_locale] %>" };
-  </script>
+  <% end %>
   <%= javascript_include_tag("alchemy/preview.min") %>
 <% end %>

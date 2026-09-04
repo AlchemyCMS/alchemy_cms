@@ -1,4 +1,4 @@
-<script>
+<%= tag.script(nonce: content_security_policy_nonce) do %>
   Alchemy.routes = {
 
     admin_picture_path: function(id) {
@@ -45,4 +45,4 @@
     api_elements_path: '<%= alchemy.api_elements_path %>',
     api_ingredients_path: '<%= alchemy.api_ingredients_path %>'
   };
-</script>
+<% end %>

@@ -1,3 +1,3 @@
-<script>
+<%= tag.script(nonce: content_security_policy_nonce) do %>
   Alchemy.uploader_defaults = <%== Alchemy.config.uploader.to_json %>
-</script>
+<% end %>
