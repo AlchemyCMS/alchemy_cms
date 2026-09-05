@@ -61,7 +61,8 @@ namespace :alchemy do
       task "run" => [
         "alchemy:upgrade:8.4:add_dragonfly_gem",
         "alchemy:upgrade:8.4:upgrade_nested_elements_rendering",
-        "alchemy:upgrade:8.4:notify_attachment_filetypes_default"
+        "alchemy:upgrade:8.4:notify_attachment_filetypes_default",
+        "alchemy:upgrade:8.4:notify_admin_content_security_policy"
       ]
 
       desc "Add dragonfly gem to the Gemfile if the app uses the dragonfly storage adapter"
@@ -77,6 +78,11 @@ namespace :alchemy do
       desc "Notify about the new attachment upload allowlist default"
       task notify_attachment_filetypes_default: [:environment] do
         Alchemy::Upgrader["8.4"].notify_attachment_filetypes_default
+      end
+
+      desc "Notify about the new admin Content Security Policy"
+      task notify_admin_content_security_policy: [:environment] do
+        Alchemy::Upgrader["8.4"].notify_admin_content_security_policy
       end
     end
   end
