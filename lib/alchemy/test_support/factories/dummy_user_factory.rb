@@ -4,7 +4,10 @@ FactoryBot.define do
   factory :alchemy_dummy_user, class: "DummyUser" do
     sequence(:email) { |n| "john.#{n}@doe.com" }
     password { "s3cr3t" }
-    alchemy_roles { ["member"] }
+
+    trait :as_member do
+      alchemy_roles { ["member"] }
+    end
 
     trait :as_admin do
       alchemy_roles { ["admin"] }
