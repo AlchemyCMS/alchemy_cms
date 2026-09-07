@@ -3,8 +3,6 @@ module Alchemy
     extend ActiveSupport::Concern
 
     included do
-      attribute :alchemy_roles, default: "member"
-
       # Unlock all locked pages before destroy.
       before_destroy :unlock_pages!
 
@@ -26,7 +24,6 @@ module Alchemy
       }
 
       validates :alchemy_roles,
-        presence: true,
         inclusion: {
           in: Alchemy.config.user_roles,
           message: "is not included in #{Alchemy.config.user_roles.join(", ")}"

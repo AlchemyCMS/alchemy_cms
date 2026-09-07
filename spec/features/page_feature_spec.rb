@@ -200,7 +200,7 @@ RSpec.describe "Show page feature:", type: :system do
 
     context "as a member user" do
       before do
-        authorize_user(create(:alchemy_dummy_user))
+        authorize_user(create(:alchemy_dummy_user, :as_member))
       end
 
       it "I am able to visit the page" do
