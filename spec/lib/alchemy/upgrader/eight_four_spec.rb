@@ -79,6 +79,15 @@ RSpec.describe Alchemy::Upgrader::EightFour do
     end
   end
 
+  describe "#notify_admin_content_security_policy" do
+    subject { upgrader.notify_admin_content_security_policy }
+
+    it "adds a todo about the new policy" do
+      expect(upgrader).to receive(:todo).with(kind_of(String), kind_of(String))
+      subject
+    end
+  end
+
   describe "#upgrade_nested_elements_rendering" do
     subject { upgrader.upgrade_nested_elements_rendering }
 

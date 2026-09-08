@@ -511,6 +511,18 @@ module Alchemy
       #
       configuration :admin_components, AdminComponents
 
+      # === Admin Content Security Policy
+      #
+      # The class building the Content Security Policy Alchemy sends with its
+      # own admin responses. Set to +nil+ to send no policy at all.
+      #
+      # It never replaces a policy the host application has configured, and it
+      # only applies to Alchemy's own controllers.
+      #
+      #    Alchemy.config.admin_content_security_policy = "MyApp::AdminContentSecurityPolicy"
+      #
+      option :admin_content_security_policy, :class, default: "Alchemy::Admin::ContentSecurityPolicy"
+
       # === Publishable resolver
       #
       # The class used to resolve publication state for Publishable records

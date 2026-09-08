@@ -21,6 +21,7 @@ require "view_component"
 
 # Require globally used Alchemy mixins
 require_relative "alchemy/ability_helper"
+require_relative "alchemy/admin/content_security_policy"
 require_relative "alchemy/admin/locale"
 require_relative "alchemy/admin/timezone"
 require_relative "alchemy/admin/preview_time"

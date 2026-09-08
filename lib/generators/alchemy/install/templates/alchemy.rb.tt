@@ -256,6 +256,17 @@ Alchemy.configure do |config|
   # Additional stylesheets to be included in the Alchemy admin UI
   # config.admin_stylesheets.add("my_app/admin_extension")
 
+  # === Admin Content Security Policy
+  #
+  # The class building the Content Security Policy Alchemy sends with its own
+  # admin responses. Set it to nil to send no policy at all.
+  #
+  # Alchemy never replaces a policy your application has configured itself.
+  # Your asset host, your admin stylesheets and modules pinned to a CDN are
+  # allowed automatically. Subclass it to allow anything else.
+  #
+  # config.admin_content_security_policy = <%= @default_config.raw_admin_content_security_policy.inspect %>
+
   # Define page publish targets
   #
   # A publish target is a ActiveJob that gets performed
