@@ -8,3 +8,4 @@ TomSelect.define("remove_button", remove_button)
 TomSelect.define("virtual_scroll", virtual_scroll)
 
 export default TomSelect
+export * from "tom-select/dist/esm/utils.js"
