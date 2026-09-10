@@ -3,20 +3,13 @@
 require "rails_helper"
 
 RSpec.describe Alchemy::UserMethods do
-  let(:user) { build_stubbed(:alchemy_dummy_user) }
+  let(:user) { build(:alchemy_dummy_user) }
 
-  it "should have at least member role" do
-    expect(user.alchemy_roles).not_to be_blank
-    expect(user.alchemy_roles).to include("member")
+  it "should not have a default role" do
+    expect(user.alchemy_roles).to be_blank
   end
 
   describe "validations" do
-    it "should validate alchemy_roles" do
-      user.alchemy_roles = nil
-      expect(user).not_to be_valid
-      expect(user.errors[:alchemy_roles]).to include("can't be blank")
-    end
-
     it "should validate alchemy_roles inclusion" do
       user.alchemy_roles = ["invalid_role"]
       expect(user).not_to be_valid
@@ -28,7 +21,7 @@ RSpec.describe Alchemy::UserMethods do
     let!(:user) { create(:alchemy_dummy_user, :as_admin) }
 
     describe ".alchemy_admins" do
-      let!(:member) { create(:alchemy_dummy_user, alchemy_roles: "member") }
+      let!(:member) { create(:alchemy_dummy_user, :as_member) }
 
       it "should only return users with admin role" do
         expect(Alchemy.config.user_class.alchemy_admins).to include(user)
@@ -86,6 +79,8 @@ RSpec.describe Alchemy::UserMethods do
   end
 
   describe "#has_alchemy_role?" do
+    let(:user) { build(:alchemy_dummy_user, :as_member) }
+
     context "with given role" do
       it "should return true." do
         expect(user.has_alchemy_role?("member")).to be_truthy
@@ -106,6 +101,8 @@ RSpec.describe Alchemy::UserMethods do
   end
 
   describe "#alchemy_roles" do
+    let(:user) { build(:alchemy_dummy_user, :as_member) }
+
     it "should return an array of user roles" do
       expect(user.alchemy_roles).to eq(["member"])
     end

@@ -104,7 +104,7 @@ module Alchemy
 
           context "as member user" do
             before do
-              authorize_user(build(:alchemy_dummy_user))
+              authorize_user(build(:alchemy_dummy_user, :as_member))
             end
 
             it "returns published pages readable by the member role, but not those restricted to another role" do
