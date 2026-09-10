@@ -117,7 +117,7 @@ module Alchemy
         end
 
         context "as member user" do
-          before { authorize_user(build(:alchemy_dummy_user)) }
+          before { authorize_user(build(:alchemy_dummy_user, :as_member)) }
 
           it "returns nodes to restricted pages readable with their role, but not those restricted to another role" do
             get alchemy.api_nodes_path(params: {format: :json})

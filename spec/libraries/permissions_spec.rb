@@ -65,7 +65,7 @@ describe Alchemy::Permissions do
   end
 
   context "A member" do
-    let(:user) { build(:alchemy_dummy_user) }
+    let(:user) { build(:alchemy_dummy_user, :as_member) }
 
     it "can download all attachments" do
       is_expected.to be_able_to(:download, attachment)
