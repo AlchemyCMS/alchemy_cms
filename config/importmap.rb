@@ -24,6 +24,14 @@ pin "alchemy_admin/components/tinymce"
 pin "alchemy_admin/components/remote_select"
 pin "alchemy_admin/components/select"
 pin "alchemy_admin/i18n"
+# Dependencies of the standalone components above. The admin bundle inlines
+# these, but the source files import them by name, so importing a component on
+# its own fails without pins of their own.
+pin "alchemy_admin/growler"
+pin "alchemy_admin/utils/ajax"
+pin "alchemy_admin/utils/dom_helpers"
+pin "alchemy_admin/utils/tom_select"
+pin "tom-select/utils", to: "tom-select.min.js"
 pin "alchemy_admin/image_overlay", to: "alchemy/alchemy_admin.min.js"
 pin "alchemy_admin/picture_selector", to: "alchemy/alchemy_admin.min.js"
 pin "alchemy_admin/node_tree", to: "alchemy/alchemy_admin.min.js"
