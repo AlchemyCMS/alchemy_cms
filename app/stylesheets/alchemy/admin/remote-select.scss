@@ -42,7 +42,7 @@
    * common baseline rather than centering both boxes.
    */
   align-items: baseline;
-  column-gap: var(--size-2);
+  column-gap: var(--size-3);
   row-gap: var(--size-1);
   overflow: hidden;
 }
@@ -50,7 +50,7 @@
 .remote-select--selection {
   display: flex;
   align-items: baseline;
-  column-gap: var(--size-2);
+  column-gap: var(--size-3);
   overflow: hidden;
 }
 
@@ -71,9 +71,10 @@
 .remote-select--media {
   grid-column: 1;
   grid-row: 1 / -1;
-  align-self: start;
-  width: var(--remote-select-media-size, 32px);
-  height: var(--remote-select-media-size, 32px);
+  align-self: center;
+  width: var(--remote-select-media-size, 20px);
+  height: var(--remote-select-media-size, 20px);
+  border-radius: var(--border-radius_medium);
   object-fit: cover;
 }
 
@@ -101,10 +102,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  /* Shrink the line box to the text, so the row stays as high as it is in the
-   * other remote selects despite the mixed font sizes.
-   */
-  line-height: normal;
 }
 
 .remote-select--aside {
