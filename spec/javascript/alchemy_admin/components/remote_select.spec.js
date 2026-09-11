@@ -282,6 +282,39 @@ describe("RemoteSelect", () => {
     })
   })
 
+  describe("single preselection", () => {
+    // Renders into a form that is already listening, because the preselection
+    // is restored while the component upgrades.
+    const renderIntoForm = (html) => {
+      document.body.innerHTML = `<form></form>`
+      const form = document.querySelector("form")
+      const listener = vi.fn()
+      form.addEventListener("change", listener)
+      form.innerHTML = html
+      return { form, listener }
+    }
+
+    const html = `
+      <alchemy-test-remote-select selection='{"id":1,"name":"One"}'>
+        <input type="text" name="page_id">
+      </alchemy-test-remote-select>
+    `
+
+    it("shows the preselected item", () => {
+      renderIntoForm(html)
+      component = document.querySelector("alchemy-test-remote-select")
+      expect(component.querySelectorAll(".ts-control .item").length).toEqual(1)
+    })
+
+    it("does not fire a change event on the surrounding form", () => {
+      // The element editor listens for change on its form and would mark the
+      // element dirty, so every element holding a preselected page, node or
+      // file would come up with unsaved changes right after loading.
+      const { listener } = renderIntoForm(html)
+      expect(listener).not.toHaveBeenCalled()
+    })
+  })
+
   describe("multiple preselection", () => {
     it("shows every preselected item", () => {
       const selection = [
