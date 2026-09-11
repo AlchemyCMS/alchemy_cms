@@ -258,10 +258,11 @@ export class RemoteSelect extends HTMLElement {
         } else {
           const item = JSON.parse(self.selection)
           // Track the preselected item first, so the change handler recognizes
-          // it as unchanged and does not dispatch a spurious change event.
+          // it as unchanged. Adding it silently avoids a spurious change event
+          // while still rendering the item and marking the option.
           self.#selectedItem = item
           this.addOption({ ...item, $preselection: true })
-          this.addItem(item.id)
+          this.addItem(item.id, true)
         }
       },
       onChange(value) {
