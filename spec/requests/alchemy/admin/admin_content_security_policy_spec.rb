@@ -34,6 +34,11 @@ RSpec.describe "Admin Content Security Policy" do
     expect(policy).to include("style-src-attr 'unsafe-inline'")
   end
 
+  it "allows images from any https host, because the storage host is not knowable" do
+    get alchemy.admin_dashboard_path
+    expect(policy[/img-src [^;]*/]).to eq("img-src 'self' data: blob: https:")
+  end
+
   it "nonces every inline script it renders" do
     get alchemy.admin_dashboard_path
     nonce = policy[/'nonce-([^']+)'/, 1]
@@ -101,6 +106,12 @@ RSpec.describe "Admin Content Security Policy" do
       ActionController::Base.asset_host = ->(_source, request) { "https://#{request.host}" }
       get alchemy.admin_dashboard_path
       expect(policy).to match(%r{script-src [^;]*https://www\.example\.com})
+    end
+
+    it "does not repeat itself in img-src, which allows every https host already" do
+      ActionController::Base.asset_host = "https://assets.example.com"
+      get alchemy.admin_dashboard_path
+      expect(policy[/img-src [^;]*/]).to eq("img-src 'self' data: blob: https:")
     end
 
     it "raises a helpful error instead of dropping an unusable host" do

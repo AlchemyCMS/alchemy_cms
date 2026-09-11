@@ -14,6 +14,11 @@ module Alchemy
     # back to an admin path, unless a preview host is configured, in which case
     # that host is added to +frame-src+.
     #
+    # +img-src+ is the exception: it allows any https host, because the host
+    # serving the pictures is not knowable here. Narrow it in a subclass, or
+    # keep pictures same origin with
+    # +config.active_storage.resolve_model_to_route = :rails_storage_proxy+.
+    #
     # Assets your application adds through +admin_stylesheets+ or through
     # +Alchemy.importmap+ are picked up automatically, so a module pinned to a
     # CDN does not need any extra configuration. Subclass to allow anything
@@ -59,7 +64,10 @@ module Alchemy
           # Inline style attributes cannot carry a nonce. Turbo sets them for
           # its progress bar, and so do several of our bundled dependencies.
           policy.style_src_attr :unsafe_inline
-          policy.img_src :self, :data, :blob, *asset_hosts
+          # Pictures come from wherever the storage backend puts them, which
+          # cannot be read from here. ActiveStorage redirects to a signed
+          # service URL, and a redirect still has to match the host.
+          policy.img_src :self, :data, :blob, :https
           policy.font_src :self, :data, *asset_hosts
           policy.media_src :self, :blob, *asset_hosts
           policy.connect_src :self, *asset_hosts
