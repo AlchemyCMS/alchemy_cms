@@ -114,10 +114,7 @@ export class Select extends HTMLSelectElement {
       // remove the transition after selection of option.
       refreshThrottle: 0,
       onDropdownOpen,
-      onDropdownClose() {
-        this.control_input.classList.remove("has-value")
-        onDropdownClose.call(this)
-      },
+      onDropdownClose,
       allowEmptyOption: true,
       openOnFocus: false,
       // Keep options in their original order instead of sorting by value.
