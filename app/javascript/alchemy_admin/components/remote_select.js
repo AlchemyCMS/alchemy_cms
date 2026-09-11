@@ -286,10 +286,7 @@ export class RemoteSelect extends HTMLElement {
         }
         self.onOpen()
       },
-      onDropdownClose() {
-        this.control_input.classList.remove("has-value")
-        onDropdownClose.call(this)
-      },
+      onDropdownClose,
       render: {
         option(item, _escape) {
           // A preselection that the server has not returned yet only carries

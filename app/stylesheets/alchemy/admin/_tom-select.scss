@@ -30,17 +30,26 @@
 
   &.single {
     &.input-active {
-      .ts-control input {
-        position: absolute;
-        background-color: rgb(
-          from var(--form-field-background-color) r g b / 33%
-        );
+      .ts-control {
+        .remote-select--media,
+        .remote-select--icon {
+          opacity: 0.25;
+          transition: opacity var(--transition-duration);
+        }
 
-        transition: none;
-
-        &.has-value {
+        input {
           position: absolute;
-          background-color: var(--form-field-background-color);
+          background-color: rgb(
+            from var(--form-field-background-color) r g b / 50%
+          );
+          backdrop-filter: grayscale(100%);
+          height: 20px; // Need to be as large as the media of the selected item in order to cover it while searching.
+          transition: background-color;
+
+          &.has-value {
+            position: absolute;
+            background-color: var(--form-field-background-color);
+          }
         }
       }
     }

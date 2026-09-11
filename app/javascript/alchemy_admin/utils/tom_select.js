@@ -112,6 +112,8 @@ export function createDropdownPositioning() {
       )
     },
     onDropdownClose() {
+      this.control_input.classList.remove("has-value")
+      this.control_input.blur()
       // Remove the dropdown from DOM when closed.
       this.dropdown.remove()
       dropdownMask.remove()
