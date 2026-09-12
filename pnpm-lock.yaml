@@ -76,17 +76,17 @@ importers:
         specifier: ^4.63.1
         version: 4.63.1
       sass:
-        specifier: ^1.103.1
-        version: 1.103.1
+        specifier: ^1.104.0
+        version: 1.104.0
       svg-sprite:
         specifier: ^2.0.4
         version: 2.0.4
       vite:
         specifier: ^8.2.2
-        version: 8.2.2(jiti@2.7.0)(sass@1.103.1)(terser@5.48.0)(yaml@2.9.0)
+        version: 8.2.2(jiti@2.7.0)(sass@1.104.0)(terser@5.48.0)(yaml@2.9.0)
       vitest:
         specifier: ^4.1.11
-        version: 4.1.11(jsdom@29.1.1)(vite@8.2.2(jiti@2.7.0)(sass@1.103.1)(terser@5.48.0)(yaml@2.9.0))
+        version: 4.1.11(jsdom@29.1.1)(vite@8.2.2(jiti@2.7.0)(sass@1.104.0)(terser@5.48.0)(yaml@2.9.0))
 
 packages:
 
@@ -1529,6 +1529,10 @@ packages:
     resolution: {integrity: sha512-RvwwcruNjI1ncT5xRakeyS9Lf8lcItv34KD+aif+VH9kduAyfYBipGh12274xtenIPZ119/R9BdTBa8gAwSh0A==}
     engines: {node: '>=12'}
 
+  picomatch@4.0.7:
+    resolution: {integrity: sha512-qcJu88Q2IWqJsDD529JKMdwGm/dvInW4HvQnRwiH9JtihJvzGOscDtHE3x1pBKeUOTysQ8kVmLnJ2kJu7yhcGA==}
+    engines: {node: '>=12'}
+
   pify@2.3.0:
     resolution: {integrity: sha512-udgsAY+fTnvv7kI7aaxbqwWNb0AHiB0qBO89PZKPkoTmGOgdbrHDKD+0B2X4uTfJ/FT1R09r9gTsjUjNJotuog==}
     engines: {node: '>=0.10.0'}
@@ -1633,8 +1637,8 @@ packages:
     resolution: {integrity: sha512-b3rppTKm9T+PsVCBEOUR46GWI7fdOs00VKZ1+9c1EWDaDMvjQc6tUwuFyIprgGgTcWoVHSKrU8H31ZHA2e0RHA==}
     engines: {node: '>=10'}
 
-  sass@1.103.1:
-    resolution: {integrity: sha512-9icZURbP51S6S0QGoyaeqk9uB06GNWxsFYWfH5RgpFgqK5FA8tJcM3AdVxrZEVJ7dz+L87nG95gBKf4VuaMHGw==}
+  sass@1.104.0:
+    resolution: {integrity: sha512-btHMApW2bgolvClhRW8AlQJzgI9lUB3pPSofBQQT+E46GWvf9o0TVQ13SYv5riWZVFyPN+JNz3TKW9XhBlc10w==}
     engines: {node: '>=20.19.0'}
     hasBin: true
 
@@ -2244,7 +2248,7 @@ snapshots:
       detect-libc: 2.1.2
       is-glob: 4.0.3
       node-addon-api: 7.1.1
-      picomatch: 4.0.5
+      picomatch: 4.0.7
     optionalDependencies:
       '@parcel/watcher-android-arm64': 2.6.0
       '@parcel/watcher-darwin-arm64': 2.6.0
@@ -2538,13 +2542,13 @@ snapshots:
       chai: 6.2.2
       tinyrainbow: 3.1.1
 
-  '@vitest/mocker@4.1.11(vite@8.2.2(jiti@2.7.0)(sass@1.103.1)(terser@5.48.0)(yaml@2.9.0))':
+  '@vitest/mocker@4.1.11(vite@8.2.2(jiti@2.7.0)(sass@1.104.0)(terser@5.48.0)(yaml@2.9.0))':
     dependencies:
       '@vitest/spy': 4.1.11
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      vite: 8.2.2(jiti@2.7.0)(sass@1.103.1)(terser@5.48.0)(yaml@2.9.0)
+      vite: 8.2.2(jiti@2.7.0)(sass@1.104.0)(terser@5.48.0)(yaml@2.9.0)
 
   '@vitest/pretty-format@4.1.11':
     dependencies:
@@ -3226,6 +3230,9 @@ snapshots:
 
   picomatch@4.0.5: {}
 
+  picomatch@4.0.7:
+    optional: true
+
   pify@2.3.0: {}
 
   postcss-import@16.1.1(postcss@8.5.26):
@@ -3359,7 +3366,7 @@ snapshots:
 
   safe-stable-stringify@2.5.0: {}
 
-  sass@1.103.1:
+  sass@1.104.0:
     dependencies:
       chokidar: 5.0.0
       immutable: 5.1.9
@@ -3534,7 +3541,7 @@ snapshots:
       remove-trailing-separator: 1.1.0
       replace-ext: 1.0.1
 
-  vite@8.2.2(jiti@2.7.0)(sass@1.103.1)(terser@5.48.0)(yaml@2.9.0):
+  vite@8.2.2(jiti@2.7.0)(sass@1.104.0)(terser@5.48.0)(yaml@2.9.0):
     dependencies:
       lightningcss: 1.33.0
       picomatch: 4.0.5
@@ -3544,14 +3551,14 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
       jiti: 2.7.0
-      sass: 1.103.1
+      sass: 1.104.0
       terser: 5.48.0
       yaml: 2.9.0
 
-  vitest@4.1.11(jsdom@29.1.1)(vite@8.2.2(jiti@2.7.0)(sass@1.103.1)(terser@5.48.0)(yaml@2.9.0)):
+  vitest@4.1.11(jsdom@29.1.1)(vite@8.2.2(jiti@2.7.0)(sass@1.104.0)(terser@5.48.0)(yaml@2.9.0)):
     dependencies:
       '@vitest/expect': 4.1.11
-      '@vitest/mocker': 4.1.11(vite@8.2.2(jiti@2.7.0)(sass@1.103.1)(terser@5.48.0)(yaml@2.9.0))
+      '@vitest/mocker': 4.1.11(vite@8.2.2(jiti@2.7.0)(sass@1.104.0)(terser@5.48.0)(yaml@2.9.0))
       '@vitest/pretty-format': 4.1.11
       '@vitest/runner': 4.1.11
       '@vitest/snapshot': 4.1.11
@@ -3568,7 +3575,7 @@ snapshots:
       tinyexec: 1.3.0
       tinyglobby: 0.2.17
       tinyrainbow: 3.1.1
-      vite: 8.2.2(jiti@2.7.0)(sass@1.103.1)(terser@5.48.0)(yaml@2.9.0)
+      vite: 8.2.2(jiti@2.7.0)(sass@1.104.0)(terser@5.48.0)(yaml@2.9.0)
       why-is-node-running: 2.3.0
     optionalDependencies:
       jsdom: 29.1.1
