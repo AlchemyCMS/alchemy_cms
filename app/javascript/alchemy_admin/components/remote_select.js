@@ -1,5 +1,6 @@
 import TomSelect from "tom-select"
 import { escape_html } from "tom-select/utils"
+import { growl } from "alchemy_admin/growler"
 import { translate } from "alchemy_admin/i18n"
 import {
   createDropdownPositioning,
@@ -371,12 +372,21 @@ export class RemoteSelect extends HTMLElement {
       const response = await fetch(url, {
         headers: { Accept: "application/json", ...(ajax.params?.headers ?? {}) }
       })
+      // fetch only rejects on a network error, so an error response has to be
+      // turned into one. Its body often parses as JSON just fine and would
+      // otherwise reach the callback as an empty result set.
+      if (!response.ok) {
+        throw new Error(`${response.status} ${response.statusText}`)
+      }
       const { results, more } = ajax.results(await response.json())
       if (more) {
         this.#tomSelect.setNextUrl(query, this.#requestUrl(query, page + 1))
       }
       callback(results)
-    } catch {
+    } catch (error) {
+      growl(error.message || error, "error")
+      console.error(`[alchemy] Loading ${url} failed`, error)
+      // Tom Select only clears its loading state once the callback ran.
       callback()
     }
   }

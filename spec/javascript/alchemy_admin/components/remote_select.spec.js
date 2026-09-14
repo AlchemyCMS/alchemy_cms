@@ -282,6 +282,63 @@ describe("RemoteSelect", () => {
     })
   })
 
+  describe("a failing load", () => {
+    const renderAndSearch = async () => {
+      document.body.innerHTML = `
+        <div id="flash_notices"></div>
+        <alchemy-test-remote-select url="/api/things">
+          <input type="text" name="thing_id">
+        </alchemy-test-remote-select>`
+      const select = document.querySelector("input").tomselect
+      select.open()
+      await new Promise((resolve) => setTimeout(resolve, 400))
+      return select
+    }
+
+    beforeEach(() => {
+      vi.spyOn(console, "error").mockImplementation(() => {})
+    })
+
+    it("reports a response body that is not JSON", async () => {
+      global.fetch = vi.fn(() =>
+        Promise.resolve({
+          ok: true,
+          status: 200,
+          statusText: "OK",
+          json: () => Promise.reject(new SyntaxError("Unexpected token <"))
+        })
+      )
+      await renderAndSearch()
+      expect(console.error).toHaveBeenCalled()
+      expect(
+        document.querySelector("#flash_notices alchemy-message")?.textContent
+      ).toContain("Unexpected token <")
+    })
+
+    it("reports an error response that carries a valid JSON body", async () => {
+      global.fetch = vi.fn(() =>
+        Promise.resolve({
+          ok: false,
+          status: 401,
+          statusText: "Unauthorized",
+          json: () => Promise.resolve({ error: "Invalid API key" })
+        })
+      )
+      await renderAndSearch()
+      expect(console.error).toHaveBeenCalled()
+      expect(
+        document.querySelector("#flash_notices alchemy-message")?.textContent
+      ).toContain("401 Unauthorized")
+    })
+
+    it("stops the loading state so the control does not spin forever", async () => {
+      global.fetch = vi.fn(() => Promise.reject(new Error("Network down")))
+      const select = await renderAndSearch()
+      expect(select.loading).toEqual(0)
+      expect(select.wrapper.classList.contains("loading")).toBe(false)
+    })
+  })
+
   describe("single preselection", () => {
     // Renders into a form that is already listening, because the preselection
     // is restored while the component upgrades.
