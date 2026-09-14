@@ -116,6 +116,27 @@ module Alchemy
       def allowed_settings
         @allowed_settings ||= []
       end
+
+      # Preload associations needed when this ingredient type is rendered as
+      # part of a page. Called by +Alchemy::PageLoader+ with all instances of
+      # this ingredient type found on the page version.
+      #
+      # Override in ingredient subclasses that need to bulk-preload data for
+      # their instances. This is the right place to preload associations on the
+      # ingredient itself, on its +related_object+, or on any other data the
+      # ingredient accesses during rendering (including computed data that has
+      # no +related_object+, such as products fetched by a custom query).
+      #
+      # +Alchemy::PageLoader+ also calls +alchemy_element_preloads+ on each
+      # distinct +related_object+ class separately; you only need to override
+      # this method when the related_object class's own hook is insufficient
+      # (e.g. for computed data or cross-ingredient batching).
+      #
+      # @param ingredients [Array<Alchemy::Ingredient>] all instances of this
+      #   ingredient type found on the page version being loaded
+      def alchemy_ingredient_preloads(ingredients)
+        # Default: no-op. Override in subclasses that need preloading.
+      end
     end
 
     # The value or the related object if present

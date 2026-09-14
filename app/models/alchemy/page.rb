@@ -221,6 +221,25 @@ module Alchemy
         %w[name urlname]
       end
 
+      # Preload associations needed when a page is used as the related_object of
+      # an +Alchemy::Ingredients::Page+ ingredient and rendered as part of a
+      # page being loaded by +Alchemy::PageLoader+.
+      #
+      # +Alchemy::Page::UrlPath+ — used whenever a link to the page is built —
+      # accesses +page.language.site+ in its constructor and then
+      # +site.languages+ in +call+. Without preloading, rendering N page
+      # ingredients fires 2N extra queries regardless of nesting depth.
+      #
+      # @param pages [Array<Alchemy::Page>]
+      def alchemy_element_preloads(pages)
+        return if pages.blank?
+
+        ActiveRecord::Associations::Preloader.new(
+          records: pages,
+          associations: {language: {site: :languages}}
+        ).call
+      end
+
       # @return the language root page for given language id.
       # @param language_id [Fixnum]
       #

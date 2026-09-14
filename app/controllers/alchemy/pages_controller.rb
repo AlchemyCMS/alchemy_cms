@@ -137,6 +137,11 @@ module Alchemy
         params.merge!(result.extracted_params)
       end
       Current.page = @page
+
+      if @page
+        version = Current.preview_page? ? :draft_version : :public_version
+        PageLoader.call(page: @page, version: version)
+      end
     end
 
     def enforce_locale
