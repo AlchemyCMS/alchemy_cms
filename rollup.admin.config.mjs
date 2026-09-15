@@ -18,7 +18,9 @@ export default {
     "keymaster",
     "sortablejs",
     "shoelace",
-    "tinymce"
+    "tinymce",
+    "tom-select",
+    "@floating-ui/dom"
   ],
   plugins: [
     resolve({
