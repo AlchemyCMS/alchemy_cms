@@ -282,6 +282,42 @@ describe("RemoteSelect", () => {
     })
   })
 
+  describe("while a search is loading", () => {
+    it("keeps showing the results it already has", async () => {
+      let respond
+      const body = (data) => ({
+        ok: true,
+        status: 200,
+        statusText: "OK",
+        json: () =>
+          Promise.resolve({
+            data,
+            meta: { page: 1, per_page: 25, total_count: data.length }
+          })
+      })
+      global.fetch = vi.fn(
+        () =>
+          new Promise((resolve) => (respond = () => resolve(body([{ id: 2 }]))))
+      )
+      document.body.innerHTML = `
+        <alchemy-test-remote-select url="/api/things">
+          <input type="text" name="thing_id">
+        </alchemy-test-remote-select>`
+      const select = document.querySelector("input").tomselect
+      select.open()
+      await new Promise((resolve) => setTimeout(resolve, 400))
+      respond()
+      await new Promise((resolve) => setTimeout(resolve, 50))
+      const before = Object.keys(select.options).length
+
+      select.control_input.value = "a term"
+      select.onInput(new Event("input"))
+      await new Promise((resolve) => setTimeout(resolve, 400))
+
+      expect(Object.keys(select.options).length).toEqual(before)
+    })
+  })
+
   describe("a failing load", () => {
     const renderAndSearch = async () => {
       document.body.innerHTML = `
