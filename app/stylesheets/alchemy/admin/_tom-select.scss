@@ -291,6 +291,11 @@
     }
   }
 
+  .loading-results {
+    padding: var(--spacing-2);
+    color: var(--text-color-muted);
+  }
+
   .no-results {
     padding: var(--spacing-2);
     color: var(--text-color-muted);
