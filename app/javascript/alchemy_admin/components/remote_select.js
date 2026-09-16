@@ -277,12 +277,7 @@ export class RemoteSelect extends HTMLElement {
       },
       onDropdownOpen() {
         onDropdownOpen.call(this)
-        // The options still hold the results of the last search, and the initial
-        // preload only ever runs once. Start over, so opening the dropdown shows
-        // the first page again. Typing opens it too, but then a request is
-        // already on its way and we must not discard it.
         if (!this.loading) {
-          self.#reset(this)
           this.load(this.lastValue ?? "")
         }
         self.onOpen()
@@ -335,18 +330,6 @@ export class RemoteSelect extends HTMLElement {
   }
 
   /**
-   * Forgets everything that was loaded, so the next request starts at the first
-   * page again. The selected item keeps its value, only the option it was
-   * rendered from is dropped, the server sends it again if it matches.
-   * @param {TomSelect} tomSelect
-   * @private
-   */
-  #reset(tomSelect) {
-    tomSelect.clearOptions(() => false)
-    tomSelect.clearPagination?.()
-  }
-
-  /**
    * Loads results from the server and registers the next page url for the
    * virtual scroll plugin.
    * @param {string} query
@@ -359,15 +342,6 @@ export class RemoteSelect extends HTMLElement {
     const page = Number(
       new URL(url, window.location.origin).searchParams.get("page")
     )
-    // A fresh search (first page) must replace the previous results, not append
-    // to them. The virtual_scroll plugin keeps the options preloaded for the
-    // empty query as permanent "defaults" and never clears them, and the
-    // selected item survives the default clearing, so a search without a match
-    // would keep showing stale options instead of the no results message. Drop
-    // them all, the server sends back whatever still matches.
-    if (!page || page === 1) {
-      this.#reset(this.#tomSelect)
-    }
     try {
       const response = await fetch(url, {
         headers: { Accept: "application/json", ...(ajax.params?.headers ?? {}) }
