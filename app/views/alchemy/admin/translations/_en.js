@@ -27,6 +27,7 @@ Alchemy.translations = {
   "Clear selection": "Clear selection",
   Remove: "Remove",
   "No results found": "No results found",
+  "Please wait, loading": "Please wait, loading",
   "Loading more results": "Loading more results",
   "No more results": "No more results",
   None: "None",
