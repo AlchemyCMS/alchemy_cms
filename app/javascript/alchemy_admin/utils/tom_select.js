@@ -152,6 +152,12 @@ export const dropdownMessages = {
       ${translate("Add")} <strong>${escape(data.input)}</strong>&hellip;
     </div>`
   },
+  // Tom Select prepends this above the results it already has, which would
+  // shift them.
+  loading() {
+    if (Object.keys(this.options).length > 0) return
+    return `<div class="loading-results">${translate("Please wait, loading")}&hellip;</div>`
+  },
   no_results() {
     return `<div class="no-results">${translate("No results found")}</div>`
   },
