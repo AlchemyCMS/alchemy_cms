@@ -2,15 +2,19 @@
 
 module Alchemy
   module IngredientPreloaders
-    # Preloads storage associations on +Alchemy::Picture+ records that are the
+    # Preloads associations on +Alchemy::Picture+ records that are the
     # +related_object+ of +Alchemy::Ingredients::Picture+ ingredients.
     #
-    # Under ActiveStorage this fires two queries:
-    #   SELECT … FROM active_storage_attachments WHERE … name = 'image_file' AND record_id IN (…)
-    #   SELECT … FROM active_storage_blobs WHERE id IN (…)
+    # Storage associations (one or two queries depending on adapter):
+    #   ActiveStorage: image_file_attachment → blob
+    #   Dragonfly:     thumbs
     #
-    # Under Dragonfly one query is fired:
-    #   SELECT … FROM alchemy_picture_thumbs WHERE picture_id IN (…)
+    # Descriptions (one query):
+    #   SELECT … FROM alchemy_picture_descriptions WHERE picture_id IN (…)
+    #
+    # Preloading +:descriptions+ ensures that +Picture#description_for(language)+
+    # reads from the in-memory collection rather than issuing a +find_by+ per
+    # picture, which would otherwise produce an N+1 query when rendering alt text.
     #
     # @example Wired in automatically via Alchemy.config.ingredient_preloaders
     class PicturePreloader
@@ -19,6 +23,11 @@ module Alchemy
         return if pictures.blank?
 
         Alchemy.storage_adapter.preload_picture_associations(pictures)
+
+        ActiveRecord::Associations::Preloader.new(
+          records: pictures,
+          associations: :descriptions
+        ).call
       end
     end
   end
