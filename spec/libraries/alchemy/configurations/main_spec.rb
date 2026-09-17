@@ -125,8 +125,32 @@ RSpec.describe Alchemy::Configurations::Main do
       expect(map).to be_a(Alchemy::Configuration::ClassMapOption)
     end
 
-    it "defaults to an empty map" do
-      expect(map.empty?).to be true
+    it "is not empty by default" do
+      expect(map.empty?).to be false
+    end
+
+    it "maps Picture ingredients to PicturePreloader by default" do
+      expect(map["Alchemy::Ingredients::Picture"]).to be Alchemy::IngredientPreloaders::PicturePreloader
+    end
+
+    it "maps File ingredients to AttachmentPreloader by default" do
+      expect(map["Alchemy::Ingredients::File"]).to be Alchemy::IngredientPreloaders::AttachmentPreloader
+    end
+
+    it "maps Audio ingredients to AttachmentPreloader by default" do
+      expect(map["Alchemy::Ingredients::Audio"]).to be Alchemy::IngredientPreloaders::AttachmentPreloader
+    end
+
+    it "maps Video ingredients to AttachmentPreloader by default" do
+      expect(map["Alchemy::Ingredients::Video"]).to be Alchemy::IngredientPreloaders::AttachmentPreloader
+    end
+
+    it "maps Page ingredients to PagePreloader by default" do
+      expect(map["Alchemy::Ingredients::Page"]).to be Alchemy::IngredientPreloaders::PagePreloader
+    end
+
+    it "maps Node ingredients to NodePreloader by default" do
+      expect(map["Alchemy::Ingredients::Node"]).to be Alchemy::IngredientPreloaders::NodePreloader
     end
 
     context "when set via the setter" do
