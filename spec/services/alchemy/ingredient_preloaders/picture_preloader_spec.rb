@@ -25,6 +25,15 @@ RSpec.describe Alchemy::IngredientPreloaders::PicturePreloader do
         expect(Alchemy.storage_adapter).to receive(:preload_picture_associations).with(pictures)
         described_class.call(pictures)
       end
+
+      it "preloads descriptions" do
+        allow(ActiveRecord::Associations::Preloader).to receive(:new).and_call_original
+        expect(ActiveRecord::Associations::Preloader).to receive(:new).with(
+          records: pictures,
+          associations: :descriptions
+        ).and_call_original
+        described_class.call(pictures)
+      end
     end
   end
 end
