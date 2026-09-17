@@ -536,6 +536,31 @@ module Alchemy
       # == Example
       #     Alchemy.config.publishable_resolver = "MyApp::CustomResolver"
       option :publishable_resolver, :class, default: "Alchemy::Publishable::TimestampResolver"
+
+      # === Ingredient preloaders
+      #
+      # A map of Ingredient class names to Preloader class names. When an
+      # Ingredient class is listed here, the associated Preloader will be
+      # invoked during element preloading to avoid N+1 queries.
+      #
+      # Keys are plain strings (the Ingredient class name). Values are class
+      # name strings that are lazily constantized on first access, so the
+      # Preloader classes do not need to be defined before boot.
+      #
+      # Runtime additions via +[]=+ or +merge!+ are supported:
+      #
+      #   Alchemy.config.ingredient_preloaders["Alchemy::Ingredients::Picture"] =
+      #     "MyApp::Preloaders::PicturePreloader"
+      #
+      # == Example (initializer)
+      #
+      #   Alchemy.configure do |config|
+      #     config.ingredient_preloaders = {
+      #       "Alchemy::Ingredients::Picture" => "MyApp::Preloaders::PicturePreloader"
+      #     }
+      #   end
+      #
+      option :ingredient_preloaders, :class_map, default: {}
     end
   end
 end

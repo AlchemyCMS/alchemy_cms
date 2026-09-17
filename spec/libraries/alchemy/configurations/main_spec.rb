@@ -117,4 +117,38 @@ RSpec.describe Alchemy::Configurations::Main do
       expect(subject.logout_method).to eq("delete")
     end
   end
+
+  describe "#ingredient_preloaders" do
+    subject(:map) { configuration.ingredient_preloaders }
+
+    it "returns a ClassMapOption" do
+      expect(map).to be_a(Alchemy::Configuration::ClassMapOption)
+    end
+
+    it "defaults to an empty map" do
+      expect(map.empty?).to be true
+    end
+
+    context "when set via the setter" do
+      before do
+        stub_const("MyPreloader", Class.new)
+        configuration.ingredient_preloaders = {"Alchemy::Ingredients::Text" => "MyPreloader"}
+      end
+
+      it "stores the mapping" do
+        expect(map["Alchemy::Ingredients::Text"]).to be MyPreloader
+      end
+    end
+
+    context "when entries are added at runtime" do
+      before do
+        stub_const("MyPreloader", Class.new)
+        map["Alchemy::Ingredients::Text"] = "MyPreloader"
+      end
+
+      it "makes the new mapping available immediately" do
+        expect(map["Alchemy::Ingredients::Text"]).to be MyPreloader
+      end
+    end
+  end
 end
