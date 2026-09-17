@@ -936,7 +936,7 @@ de:
     "stay logged in": "angemeldet bleiben"
     "or to completely": "oder Sich komplett"
     "Are you sure?": "Sind Sie sicher?"
-    "Create": "Hinzufügen"
+    "Create": "%{resource_name} erstellen"
     "Edit": "Bearbeiten"
     "Delete": "Löschen"
     "Show error details": Fehlerdetails anzeigen

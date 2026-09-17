@@ -868,7 +868,7 @@ pl:
     "stay logged in": "pozostać w systemie"
     "or to completely": "czy całkowicie"
     "Are you sure?": "Czy na pewno?"
-    "Create": "Utwórz"
+    "Create": "Utwórz %{resource_name}"
     "Edit": "Edytuj"
     "Delete": "Usuń"
     "Successfully created": "Utworzono pomyślnie"

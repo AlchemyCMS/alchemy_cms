@@ -929,7 +929,7 @@ fr:
     "or to completely": "ou vous-même complètement"
     "Please wait. Flash® is loading...": "S’il vous plaît attendre. Uploader Flash ® est en cours de chargement..."
     "Are you sure?": "Etes-vous sûr ?"
-    "Create": "ajouter"
+    "Create": "Créer %{resource_name}"
     "Edit": "Modifier"
     "Delete": "supprimer"
     "Successfully created": "créé avec succès"
