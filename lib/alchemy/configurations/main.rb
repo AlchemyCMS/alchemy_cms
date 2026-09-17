@@ -540,8 +540,8 @@ module Alchemy
       # === Ingredient preloaders
       #
       # A map of Ingredient class names to Preloader class names. When an
-      # Ingredient class is listed here, the associated Preloader will be
-      # invoked during element preloading to avoid N+1 queries.
+      # Ingredient class is listed here, its associated Preloader's +.call+
+      # method will be invoked during element preloading to avoid N+1 queries.
       #
       # Keys are plain strings (the Ingredient class name). Values are class
       # name strings that are lazily constantized on first access, so the
@@ -549,18 +549,27 @@ module Alchemy
       #
       # Runtime additions via +[]=+ or +merge!+ are supported:
       #
-      #   Alchemy.config.ingredient_preloaders["Alchemy::Ingredients::Picture"] =
-      #     "MyApp::Preloaders::PicturePreloader"
+      #   Alchemy.config.ingredient_preloaders["MyApp::Ingredients::Custom"] =
+      #     "MyApp::Preloaders::CustomPreloader"
       #
-      # == Example (initializer)
+      # == Example (initializer, overriding a built-in default)
       #
       #   Alchemy.configure do |config|
-      #     config.ingredient_preloaders = {
-      #       "Alchemy::Ingredients::Picture" => "MyApp::Preloaders::PicturePreloader"
-      #     }
+      #     config.ingredient_preloaders["Alchemy::Ingredients::Picture"] =
+      #       "MyApp::Preloaders::EnhancedPicturePreloader"
       #   end
       #
-      option :ingredient_preloaders, :class_map, default: {}
+      # Each Preloader class must implement a +.call(records)+ class method
+      # that accepts an array of the related objects for that ingredient type.
+      #
+      option :ingredient_preloaders, :class_map, default: {
+        "Alchemy::Ingredients::Picture" => "Alchemy::IngredientPreloaders::PicturePreloader",
+        "Alchemy::Ingredients::File" => "Alchemy::IngredientPreloaders::AttachmentPreloader",
+        "Alchemy::Ingredients::Audio" => "Alchemy::IngredientPreloaders::AttachmentPreloader",
+        "Alchemy::Ingredients::Video" => "Alchemy::IngredientPreloaders::AttachmentPreloader",
+        "Alchemy::Ingredients::Page" => "Alchemy::IngredientPreloaders::PagePreloader",
+        "Alchemy::Ingredients::Node" => "Alchemy::IngredientPreloaders::NodePreloader"
+      }
     end
   end
 end
