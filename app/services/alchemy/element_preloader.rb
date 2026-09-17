@@ -37,7 +37,7 @@ module Alchemy
         .sort_by(&:position)
       return [] if root_elements.empty?
 
-      preload_related_objects(root_elements)
+      ElementsPreloader.call(all_elements.values)
 
       root_elements
     end
@@ -50,7 +50,7 @@ module Alchemy
     def load_all_elements
       Element
         .where(page_version_id: page_version.id)
-        .includes(*element_includes)
+        .includes(ingredients: :related_object)
         .index_by(&:id)
     end
 
@@ -67,40 +67,6 @@ module Alchemy
         element.association(:all_nested_elements).target = children
         element.association(:all_nested_elements).loaded!
       end
-    end
-
-    # Associations to preload for element rendering
-    def element_includes
-      [
-        {ingredients: :related_object}
-      ]
-    end
-
-    # Preload related objects for all ingredients in elements
-    # Allows related objects to preload their associations (e.g., picture thumbnails)
-    def preload_related_objects(root_elements)
-      related_objects_by_class = collect_related_objects(root_elements)
-      return if related_objects_by_class.empty?
-
-      related_objects_by_class.each do |klass, objects|
-        if klass.respond_to?(:alchemy_element_preloads)
-          klass.alchemy_element_preloads(objects)
-        end
-      end
-    end
-
-    # Collect unique related objects from element tree, grouped by class
-    def collect_related_objects(elements, collected = Hash.new { |h, k| h[k] = {} })
-      elements.each do |element|
-        element.ingredients.each do |ingredient|
-          obj = ingredient.related_object
-          collected[obj.class][obj.id] = obj if obj
-        end
-        if element.association(:all_nested_elements).loaded?
-          collect_related_objects(element.all_nested_elements, collected)
-        end
-      end
-      collected.transform_values(&:values)
     end
   end
 end
