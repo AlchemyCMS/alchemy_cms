@@ -114,6 +114,43 @@ describe Alchemy::ResourcesHelper do
     end
   end
 
+  describe "#create_resource_label" do
+    subject { test_controller.create_resource_label }
+
+    around do |example|
+      I18n.with_locale(:en) { example.run }
+    end
+
+    before do
+      allow(test_controller).to receive(:resource_name).and_return(resource_name)
+      allow(test_controller).to receive(:resource_model).and_return(resource_model)
+    end
+
+    context "with a resource-specific translation" do
+      let(:resource_name) { "language" }
+      let(:resource_model) { Alchemy::Language }
+
+      it "prefers the resource-specific label over the generic label" do
+        is_expected.to eq("Create a new language")
+      end
+    end
+
+    context "without a resource-specific translation" do
+      let(:resource_name) { "picture" }
+      let(:resource_model) { Alchemy::Picture }
+
+      it "interpolates the human model name into the generic label" do
+        is_expected.to eq("Create Picture")
+      end
+
+      it "uses the model's customized human name rather than the resource name" do
+        allow(resource_model.model_name).to receive(:human).and_return("Image")
+
+        is_expected.to eq("Create Image")
+      end
+    end
+  end
+
   describe "#resource_window_size" do
     it "returns overlay size string depending on resource attributes length" do
       allow(test_controller).to receive(:resource_handler).and_return double(attributes: double(length: 4))

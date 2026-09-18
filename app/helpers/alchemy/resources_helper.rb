@@ -15,6 +15,20 @@ module Alchemy
       @resource_window_size ||= "480x#{100 + resource_handler.attributes.length * 40}"
     end
 
+    # Returns the translated label for the resource dialog title and button text
+    # Add a scoped label by adding a "Create <resource-name>" translation key
+    # or rely on the generic "Create" translation key with interpolated `%{resource_name}`
+    # generated from `resouce_model.model_name.human`.
+    def create_resource_label
+      Alchemy.t(
+        "Create #{resource_name}",
+        default: Alchemy.t(
+          "Create",
+          resource_name: resource_model.model_name.human
+        )
+      )
+    end
+
     def resource_instance_variable
       instance_variable_get(:"@#{resource_name}")
     end
