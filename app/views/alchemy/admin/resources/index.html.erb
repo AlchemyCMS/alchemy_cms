@@ -2,13 +2,13 @@
   <div class="toolbar_buttons">
     <%= render Alchemy::Admin::ToolbarButton.new(
       icon: "add",
-      label: Alchemy.t("Add #{resource_name}"),
+      label: create_resource_label,
       primary: true,
       url: new_resource_path,
       hotkey: 'alt+n',
       tooltip_placement: "top-start",
       dialog_options: {
-        title: Alchemy.t("Create #{resource_name}", default: Alchemy.t('Create')),
+        title: create_resource_label,
         size: resource_window_size
       },
       if_permitted_to: [:create, resource_model]
@@ -40,10 +40,10 @@
 <% else %>
   <%= render "alchemy/admin/resources/empty_state" do %>
     <%= link_to_dialog(
-      render_icon(:add) + Alchemy.t("Add #{resource_name}"),
+      render_icon(:add) + create_resource_label,
       new_resource_path,
       {
-        title: Alchemy.t("Create #{resource_name}", default: Alchemy.t('Create')),
+        title: create_resource_label,
         size: resource_window_size
       },
       class: "button with_icon"

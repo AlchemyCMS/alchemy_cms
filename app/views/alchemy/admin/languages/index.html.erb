@@ -3,12 +3,12 @@
     <%= render 'alchemy/admin/partials/site_select' %>
     <%= render Alchemy::Admin::ToolbarButton.new(
       icon: :plus,
-      label: Alchemy.t("Add a language"),
+      label: create_resource_label,
       primary: true,
       url: new_resource_path,
       hotkey: 'alt+n',
       dialog_options: {
-        title: Alchemy.t("Create language"),
+        title: create_resource_label,
         size: "430x415"
       },
       if_permitted_to: [:create, Alchemy::Language]
