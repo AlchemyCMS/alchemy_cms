@@ -6,6 +6,8 @@ Translation files for [AlchemyCMS](https://github.com/AlchemyCMS/alchemy_cms) 8.
 
 | Alchemy CMS | alchemy_i18n | Branch        |
 |-------------|-------------|---------------|
+| 8.4         | >= 8.4.0    | `8.4-stable`  |
+| 8.3         | >= 8.2.0    | `8.2-stable`  |
 | 8.2         | >= 8.2.0    | `8.2-stable`  |
 | 8.0         | 5.x         | `5.1-stable`  |
 | 7.x         | 4.3.x       | `4.3-stable`  |
