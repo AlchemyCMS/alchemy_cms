@@ -742,7 +742,7 @@ en:
     "stay logged in": "Stay Logged In"
     "or to completely": "or completely"
     "Are you sure?": "Are you sure?"
-    "Create": "Create"
+    "Create": "Create %{resource_name}"
     "Edit": "Edit"
     "Delete": "Delete"
     "Successfully created": "Successfully created"

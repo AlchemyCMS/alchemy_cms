@@ -2,13 +2,13 @@
   <div class="toolbar_buttons">
     <%= render Alchemy::Admin::ToolbarButton.new(
       icon: :plus,
-      label: Alchemy.t("Add a site"),
+      label: create_resource_label,
       primary: true,
       url: new_resource_path,
       hotkey: 'alt+n',
       tooltip_placement: "top-start",
       dialog_options: {
-        title: Alchemy.t("Create site"),
+        title: create_resource_label,
         size: "430x415"
       },
       if_permitted_to: [:create, Alchemy::Site]

@@ -36,9 +36,21 @@ de:
       text: Dieser Inhaltstyp stellt eine einfache Zeile Text dar
   activerecord:
     models:
+      booking:
+        one: Buchung
+        other: Buchungen
       dummy_user:
         one: User
         other: Users
+      event:
+        one: Termin
+        other: Termine
+      location:
+        one: Ort
+        other: Orte
+      series:
+        one: Reihe
+        other: Reihen
     attributes:
       alchemy/picture_description:
         text: "Bildbeschreibung"
