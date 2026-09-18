@@ -868,7 +868,7 @@ nb-NO:
     "stay logged in": "forbli innlogget"
     "or to completely": "eller fullstendig"
     "Are you sure?": "Er du sikker?"
-    "Create": "Opprett"
+    "Create": "Opprett %{resource_name}"
     "Edit": "Rediger"
     "Delete": "Slett"
     "Successfully created": "Opprettet"

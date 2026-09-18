@@ -868,7 +868,7 @@ nl:
     "stay logged in": "ingelogd blijven"
     "or to completely": "of compleet"
     "Are you sure?": "Weet u het zeker?"
-    "Create": "Aanmaken"
+    "Create": "%{resource_name} aanmaken"
     "Edit": "Aanpassen"
     "Delete": "Verwijderen"
     "Successfully created": "Aangemaakt"

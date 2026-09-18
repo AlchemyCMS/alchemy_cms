@@ -758,7 +758,7 @@ zh-CN:
     "stay logged in": "保持登录状态"
     "or to completely": "或者到完成？"
     "Are you sure?": "你确定？"
-    "Create": "创建"
+    "Create": "创建 %{resource_name}"
     "Edit": "编辑"
     "Delete": "删除"
     "Successfully created": "创建成功"
@@ -771,8 +771,6 @@ zh-CN:
     "Uploading": "正在上传"
 
     "Add a page": "添加页面"
-    "Add a language": "添加语言"
-    "Add a site": "添加站点"
     "AlchemyCMS Help": "AlchemyCMS 帮助"
     "Before creating your first page you need an admin user": "在创建第一个页面之前，你需要一个管理员用户"
     "Collapse all elements": "折叠所有元素"

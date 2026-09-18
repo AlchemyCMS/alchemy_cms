@@ -928,7 +928,7 @@ es:
     "stay logged in": "permanecer conectado"
     "or to completely": "o finalmente"
     "Are you sure?": "¿Está seguro?"
-    "Create": "Crear"
+    "Create": "Crear %{resource_name}"
     "Edit": "Editar"
     "Delete": "Eliminar"
     "Successfully created": "Creado correctamente"

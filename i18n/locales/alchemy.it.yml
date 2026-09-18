@@ -880,7 +880,7 @@ it:
     "stay logged in": "rimani connesso"
     "or to completely": "oppure vuole completamente"
     "Are you sure?": "Sei sicuro?"
-    "Create": "Crea"
+    "Create": "Crea %{resource_name}"
     "Edit": "Modifica"
     "Delete": "Elimina"
     "Successfully created": "Creato con successo"

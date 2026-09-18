@@ -727,7 +727,7 @@ de:
     no_images_in_archive: "Sie haben keine Bilder in Ihrem Archiv"
     no_more_elements_to_add: "Keine weiteren Elemente verfügbar."
     no_resource_found:
-      default: "Bisher kein(e) %{resource} vorhanden. Erstellen Sie ein(e) %{resource} unten."
+      default: "Bisher sind noch keine %{resource} vorhanden."
       alchemy/attachment: |
         <h2>Sie haben noch keine Dateien in Ihrem Archiv.</h2>
         <p>Nutzen Sie die Schaltfläche unten oder ziehen Sie Dateien in dieses Fenster, um Ihre erste Datei hochzuladen.</p>
@@ -936,7 +936,7 @@ de:
     "stay logged in": "angemeldet bleiben"
     "or to completely": "oder Sich komplett"
     "Are you sure?": "Sind Sie sicher?"
-    "Create": "Hinzufügen"
+    "Create": "%{resource_name} erstellen"
     "Edit": "Bearbeiten"
     "Delete": "Löschen"
     "Show error details": Fehlerdetails anzeigen

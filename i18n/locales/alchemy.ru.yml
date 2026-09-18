@@ -604,7 +604,7 @@ ru:
     "stay logged in": "временно выйти"
     "or to completely": "или полностью"
     "Are you sure?": "Вы уверены?"
-    "Create": "Создать"
+    "Create": "Создать %{resource_name}"
     "Edit": "Редактировать"
     "Delete": "Удалить"
     "Successfully created": "Успешно создано"
