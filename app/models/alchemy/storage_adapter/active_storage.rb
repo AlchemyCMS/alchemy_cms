@@ -222,6 +222,15 @@ module Alchemy
         ).call
       end
 
+      # Preload attachment associations on already-loaded records
+      # @param [Array<Alchemy::Attachment>] attachments
+      def preload_attachment_associations(attachments)
+        ActiveRecord::Associations::Preloader.new(
+          records: attachments,
+          associations: {file_attachment: :blob}
+        ).call
+      end
+
       # @param [Alchemy::Attachment]
       # @return [TrueClass, FalseClass]
       def set_attachment_name?(attachment)

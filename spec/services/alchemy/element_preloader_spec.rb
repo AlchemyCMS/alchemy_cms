@@ -186,9 +186,9 @@ RSpec.describe Alchemy::ElementPreloader do
         picture_ingredient&.update!(related_object: picture)
       end
 
-      it "calls alchemy_element_preloads on related object classes" do
-        expect(Alchemy::Picture).to receive(:alchemy_element_preloads).with(
-          array_including(picture)
+      it "delegates to ElementsPreloader with the flat list of all elements" do
+        expect(Alchemy::ElementsPreloader).to receive(:call).with(
+          array_including(element)
         )
 
         described_class.new(page_version: page_version).call
@@ -207,9 +207,9 @@ RSpec.describe Alchemy::ElementPreloader do
         picture_ingredient&.update!(related_object: picture)
       end
 
-      it "calls alchemy_element_preloads with objects from nested elements" do
-        expect(Alchemy::Picture).to receive(:alchemy_element_preloads).with(
-          array_including(picture)
+      it "delegates to ElementsPreloader with both root and nested elements" do
+        expect(Alchemy::ElementsPreloader).to receive(:call).with(
+          array_including(slider, slide)
         )
 
         described_class.new(page_version: page_version).call
