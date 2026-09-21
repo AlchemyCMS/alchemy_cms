@@ -89,7 +89,8 @@ module Alchemy
       end
 
       def install_gutentag_migrations
-        rake "gutentag:install:migrations"
+        rake "gutentag:install:migrations", abort_on_failure: true
+        generate "gutentag:migration_versions", abort_on_failure: true
       end
 
       def setup_database
