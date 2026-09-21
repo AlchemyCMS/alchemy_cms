@@ -1,7 +1,21 @@
 en:
+  activerecord:
+    attributes:
+      alchemy/user:
+        current_password: "Your password"
+    errors:
+      models:
+        alchemy/user:
+          attributes:
+            current_password:
+              blank: "is required to change roles"
+              invalid: "is not correct"
   alchemy:
     admin:
       login:
         remember_me: "Remember me for %{days} days"
       users:
+        confirm_password_for_role_change:
+          create: In order to create a user with the %{roles} role you have to confirm with your own password.
+          update: In order to change the %{roles} role of %{user} you have to confirm with your own password.
         preferred_timezone: Pick the users preferred timezone if it is different from %{server_timezone}

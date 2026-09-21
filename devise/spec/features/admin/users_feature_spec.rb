@@ -89,6 +89,59 @@ RSpec.describe "Admin users feature." do
       it_behaves_like "allowing to set users language"
     end
 
+    describe "granting a role" do
+      it "carries the entered attributes through the password confirmation" do
+        visit new_admin_user_path
+        fill_in "user_firstname", with: "Mallory"
+        fill_in "user_lastname", with: "Newadmin"
+        fill_in "user_login", with: "mallory"
+        fill_in "user_email", with: "mallory@example.com"
+        fill_in "user_password", with: "n3wp4ssw0rd"
+        fill_in "user_password_confirmation", with: "n3wp4ssw0rd"
+        # Administrator on top of the preselected default, so both roles have to survive
+        select "Administrator", from: "user_alchemy_roles"
+        click_button "Save"
+
+        expect(page).to have_selector("#user_current_password")
+        expect(Alchemy::User.find_by(login: "mallory")).to be_nil
+
+        fill_in "user_password", with: "n3wp4ssw0rd"
+        fill_in "user_password_confirmation", with: "n3wp4ssw0rd"
+        fill_in "user_current_password", with: "s3cr3t"
+        click_button "Save"
+
+        user = Alchemy::User.find_by(login: "mallory")
+        expect(user).to be_present
+        expect(user.firstname).to eq("Mallory")
+        expect(user.lastname).to eq("Newadmin")
+        expect(user.email).to eq("mallory@example.com")
+        expect(user.alchemy_roles).to eq(["member", "admin"])
+      end
+    end
+
+    describe "changing a role" do
+      let(:member) { create(:alchemy_author_user) }
+
+      it "carries the other edited attributes through the password confirmation" do
+        visit edit_admin_user_path(member)
+        fill_in "user_firstname", with: "Renamed"
+        select "Administrator", from: "user_alchemy_roles"
+        unselect "Author", from: "user_alchemy_roles"
+        click_button "Save"
+
+        expect(page).to have_selector("#user_current_password")
+        expect(page).to_not have_selector("#user_firstname")
+        expect(member.reload.alchemy_roles).to eq(["author"])
+
+        fill_in "user_current_password", with: "s3cr3t"
+        click_button "Save"
+
+        member.reload
+        expect(member.alchemy_roles).to eq(["admin"])
+        expect(member.firstname).to eq("Renamed")
+      end
+    end
+
     describe "users list" do
       let!(:users) { create_list(:alchemy_user, 2) }
 

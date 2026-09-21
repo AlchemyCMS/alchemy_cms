@@ -36,6 +36,13 @@
       object: f.object %>
   </div>
 <% end %>
+<% if password_confirmation_required? %>
+  <%= render "confirm_password_notice", f: f %>
+  <%= f.input :current_password,
+    as: :password,
+    required: true,
+    input_html: {autocomplete: "current-password"} %>
+<% end %>
 <div class="submit">
   <label class="checkbox">
     <%= f.check_box :send_credentials %>

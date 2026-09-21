@@ -62,6 +62,27 @@ If your app uses an old encryption that needs the +devise-encryptable+ gem you a
 Alchemy::Devise.config.devise_modules << :encryptable
 ```
 
+## Role changes
+
+Granting or revoking the `admin` role asks the admin performing the change to
+confirm their own password, both when creating a user and when editing one.
+Since `admin` is the only role that can manage users, every other role and
+every other user attribute can be edited with a valid session alone.
+
+Roles that need a password are configurable:
+
+```ruby
+# config/initializers/alchemy.rb
+Alchemy::Devise.config.privileged_user_roles << "editor"
+```
+
+Set this to `false` to grant roles with a valid session alone:
+
+```ruby
+# config/initializers/alchemy.rb
+Alchemy::Devise.config.require_password_for_role_change = false
+```
+
 ## Testing
 
 If you want to contribute (and you should ^_^), you need to run the tests locally on your machine.
