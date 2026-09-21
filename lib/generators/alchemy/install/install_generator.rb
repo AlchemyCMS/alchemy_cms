@@ -90,6 +90,7 @@ module Alchemy
 
       def install_gutentag_migrations
         rake "gutentag:install:migrations"
+        generate "gutentag:migration_versions"
       end
 
       def setup_database
