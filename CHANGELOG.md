@@ -1,5 +1,16 @@
 # Changelog
 
+## 8.3.10 (2026-09-22)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.3-stable -->
+
+## What's Changed
+### Bug Fixes
+* [8.3] fix(elements/schedule): Safe guard nil public_on dates by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4281
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.3.9...v8.3.10
+
 ## 8.3.9 (2026-09-04)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.3-stable -->
