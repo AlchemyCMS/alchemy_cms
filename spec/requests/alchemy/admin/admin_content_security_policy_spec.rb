@@ -140,6 +140,16 @@ RSpec.describe "Admin Content Security Policy" do
     expect(policy).to include("frame-src 'self' https://preview.example.com")
   end
 
+  it "is applied to a controller that includes the concern without inheriting from us" do
+    get "/csp_opt_in"
+    expect(policy).to be_present
+  end
+
+  it "is not applied to a host application controller inheriting from our base controller" do
+    get "/admin/events"
+    expect(policy).to be_nil
+  end
+
   it "never replaces a policy the host application configured" do
     host_policy = ActionDispatch::ContentSecurityPolicy.new { |p| p.default_src :https }
     allow_any_instance_of(ActionDispatch::Request)
