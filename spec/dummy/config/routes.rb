@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   get "/login" => "login#new", :as => "login"
+  get "/csp_opt_in" => "csp_opt_in#index"
 
   namespace :ns do
     resources :locations, only: :index
