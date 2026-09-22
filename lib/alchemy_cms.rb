@@ -21,7 +21,6 @@ require "view_component"
 
 # Require globally used Alchemy mixins
 require_relative "alchemy/ability_helper"
-require_relative "alchemy/admin/content_security_policy"
 require_relative "alchemy/admin/preview_url"
 require_relative "alchemy/auth_accessors"
 require_relative "alchemy/cache_digests/template_tracker"
