@@ -10,6 +10,14 @@ module Alchemy
     end
   end
 
+  describe ".l" do
+    it "delegates to Alchemy::I18n.localize" do
+      time = Time.current
+      expect(Alchemy::I18n).to receive(:localize).with(time, format: "foo")
+      Alchemy.l(time, format: "foo")
+    end
+  end
+
   describe I18n do
     describe ".available_locales" do
       subject { I18n.available_locales }
@@ -88,6 +96,40 @@ module Alchemy
       it "assigns the given locales to @@available_locales" do
         I18n.available_locales = [:kl, :nl, :cn]
         expect(I18n.class_variable_get(:@@available_locales)).to eq([:kl, :nl, :cn])
+      end
+    end
+
+    describe ".localize" do
+      subject(:localize) { Alchemy::I18n.localize(date) }
+
+      let(:date) { Date.new(2026, 9, 22) }
+
+      context "with just a date given" do
+        it "localizes by default alchemy date format" do
+          is_expected.to eq("2026-09-22")
+        end
+      end
+
+      context "with date and format given" do
+        subject(:localize) { Alchemy::I18n.localize(date, format: ":foo") }
+
+        it "localizes by given format" do
+          is_expected.to eq(":foo")
+        end
+      end
+
+      context "with time given" do
+        let(:date) { Time.new(2026, 9, 22, 11, 43, 0, 0) }
+
+        it "localizes with default alchemy time format" do
+          is_expected.to eq("22-09-2026 11:43am")
+        end
+      end
+
+      context "with nil given" do
+        let(:date) { nil }
+
+        it { is_expected.to be_nil }
       end
     end
   end
