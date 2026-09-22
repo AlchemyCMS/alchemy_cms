@@ -9,7 +9,7 @@
         <p><%= sanitize t(".visibility_status.public_html") %></p>
         <% if element.scheduled? && element.public_until.present? %>
           <%= sanitize t(".public_scheduled_html",
-            public_until: l(element.public_until, format: :"alchemy.element_date")) %>
+            public_until: Alchemy.l(element.public_until, format: :"alchemy.element_date")) %>
         <% else %>
           <%= t(".public_no_schedule") %>
         <% end %>
@@ -18,11 +18,11 @@
         <% if element.scheduled? %>
           <% if element.public_until.present? %>
             <%= sanitize t(".hidden_window_html",
-              public_on: l(element.public_on, format: :"alchemy.element_date"),
-              public_until: l(element.public_until, format: :"alchemy.element_date")) %>
+              public_on: Alchemy.l(element.public_on, format: :"alchemy.element_date"),
+              public_until: Alchemy.l(element.public_until, format: :"alchemy.element_date")) %>
           <% else %>
             <%= sanitize t(".hidden_scheduled_html",
-              public_on: l(element.public_on, format: :"alchemy.element_date")) %>
+              public_on: Alchemy.l(element.public_on, format: :"alchemy.element_date")) %>
           <% end %>
         <% else %>
           <%= t(".hidden_no_schedule") %>
