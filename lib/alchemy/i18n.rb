@@ -15,6 +15,20 @@ module Alchemy
     def t(msg, **kwargs)
       Alchemy::I18n.translate(msg, **kwargs)
     end
+
+    # Alchemy shortcut localization method
+    #
+    # Instead of having to call:
+    #
+    #     Alchemy::I18n.localize(datetime)
+    #
+    # You can use this shortcut method:
+    #
+    #     Alchemy.l(datetime)
+    #
+    def l(datetime, **kwargs)
+      Alchemy::I18n.localize(datetime, **kwargs)
+    end
   end
 
   module I18n
@@ -51,6 +65,18 @@ module Alchemy
         humanize_default_string!(msg, options)
         scope = alchemy_scoped_scope(options)
         ::I18n.t(msg, **options.merge(scope: scope))
+      end
+
+      # Returns a localized time string for the given time and format.
+      #
+      # @param datetime [Time|Date|nil]
+      # @param format [Symbol] (:"alchemy.default")
+      #
+      # @return [String|nil]
+      def localize(datetime, format: :"alchemy.default")
+        return nil if datetime.nil?
+
+        ::I18n.l(datetime, format:)
       end
 
       def available_locales
