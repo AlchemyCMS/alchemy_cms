@@ -9,7 +9,6 @@ export default {
     sourcemap: true
   },
   external: [
-    "handlebars",
     "@ungap/custom-elements",
     "@hotwired/turbo-rails",
     "clipboard",
