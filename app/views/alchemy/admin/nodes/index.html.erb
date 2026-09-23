@@ -26,11 +26,13 @@
 
 <h1 id="node_filter_result">Node filter display</h1>
 <% if @root_nodes.any? %>
-  <% @root_nodes.each do |root_node| %>
-    <ul class="nodes_tree list">
-      <%= render 'node', node: root_node %>
-    </ul>
-  <% end %>
+  <alchemy-node-tree>
+    <% @root_nodes.each do |root_node| %>
+      <ul class="nodes_tree list">
+        <%= render 'node', node: root_node %>
+      </ul>
+    <% end %>
+  </alchemy-node-tree>
 <% else %>
   <%= render "alchemy/admin/resources/empty_state" do %>
     <%= render 'form', node: Alchemy::Node.new(
@@ -39,10 +41,4 @@
       ),
       button_label: Alchemy.t(:create) %>
   <% end %>
-<% end %>
-
-<%= tag.script(type: "module", nonce: content_security_policy_nonce) do %>
-  import { NodeTree } from "alchemy_admin/node_tree"
-
-  NodeTree()
 <% end %>
