@@ -1,4 +1,5 @@
 import { vi } from "vitest"
+import { Turbo } from "@hotwired/turbo-rails"
 import { Dialog } from "alchemy_admin/dialog"
 
 vi.mock("alchemy_admin/spinner")
@@ -116,6 +117,53 @@ describe("Dialog", () => {
         .dispatchEvent(new Event("cancel", { bubbles: true }))
 
       expect(close).not.toHaveBeenCalled()
+    })
+  })
+
+  describe("load", () => {
+    const respondWith = ({ status, contentType, body }) => {
+      vi.stubGlobal(
+        "fetch",
+        vi.fn(() =>
+          Promise.resolve({
+            ok: status < 400,
+            status,
+            statusText: "Unauthorized",
+            headers: { get: () => contentType },
+            text: () => Promise.resolve(body)
+          })
+        )
+      )
+    }
+
+    it("renders a turbo stream response instead of showing the error", async () => {
+      respondWith({
+        status: 401,
+        contentType: "text/vnd.turbo-stream.html; charset=utf-8",
+        body: '<turbo-stream action="dialog_visit" url="/admin/login"></turbo-stream>'
+      })
+      const renderStreamMessage = vi.spyOn(Turbo, "renderStreamMessage")
+
+      dialog.open()
+      await vi.waitFor(() => expect(renderStreamMessage).toHaveBeenCalled())
+
+      expect(renderStreamMessage).toHaveBeenCalledWith(
+        '<turbo-stream action="dialog_visit" url="/admin/login"></turbo-stream>'
+      )
+      expect(dialog.dialog_body.innerHTML).not.toContain("alchemy-message")
+    })
+
+    it("shows the error for a failed html response", async () => {
+      respondWith({
+        status: 500,
+        contentType: "text/html; charset=utf-8",
+        body: "Boom"
+      })
+
+      dialog.open()
+      await vi.waitFor(() =>
+        expect(dialog.dialog_body.innerHTML).toContain("alchemy-message")
+      )
     })
   })
 })
