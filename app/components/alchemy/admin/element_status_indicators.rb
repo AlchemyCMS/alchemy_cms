@@ -17,14 +17,14 @@ module Alchemy
         Alchemy.t(
           element.public_on&.future? ? :public_on : :public_until,
           scope: :element_scheduled,
-          public_on: element.public_on && ::I18n.l(element.public_on, format: :"alchemy.default"),
-          public_until: element.public_until && ::I18n.l(element.public_until, format: :"alchemy.default")
+          public_on: Alchemy.l(element.public_on),
+          public_until: Alchemy.l(element.public_until)
         )
       end
 
       def scheduled_label
         date = element.public_on&.future? ? element.public_on : element.public_until
-        date && ::I18n.l(date, format: :"alchemy.short_datetime")
+        Alchemy.l(date, format: :"alchemy.short_datetime")
       end
     end
   end

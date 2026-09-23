@@ -39,7 +39,7 @@ module Alchemy
           future_public_until = elements.where("public_until > ?", now).pluck(:public_until)
           times = (future_public_on | future_public_until)
           times.sort!
-          times.map { |time| [l(time, format: :"alchemy.element_date"), time.iso8601] }
+          times.map { |time| [Alchemy.l(time, format: :"alchemy.element_date"), time.iso8601] }
         end
       end
 

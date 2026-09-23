@@ -17,7 +17,7 @@
   </div>
   <div class="value">
     <label><%= Alchemy::Picture.human_attribute_name(:created_at) %></label>
-    <p><%= l(@picture.created_at, format: :"alchemy.default") %></p>
+    <p><%= Alchemy.l(@picture.created_at) %></p>
   </div>
 </div>
 

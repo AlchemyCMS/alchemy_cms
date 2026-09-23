@@ -17,7 +17,7 @@ module Alchemy
         if date_format == "rfc822"
           datetime.to_fs(:rfc822)
         else
-          ::I18n.l(datetime, format: date_format)
+          Alchemy.l(datetime, format: date_format)
         end.html_safe
       end
     end

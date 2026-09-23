@@ -90,7 +90,7 @@ module Alchemy
       #
       def status_message(status_type)
         if status_type == :scheduled && scheduled?
-          Alchemy.t(public_on&.future? ? :public_on : :public_until, scope: "page_states.scheduled", public_on: public_on && ::I18n.l(public_on, format: :"alchemy.default"), public_until: public_until && ::I18n.l(public_until, format: :"alchemy.default"))
+          Alchemy.t(public_on&.future? ? :public_on : :public_until, scope: "page_states.scheduled", public_on: Alchemy.l(public_on), public_until: Alchemy.l(public_until))
         else
           Alchemy.t(status[status_type].to_s, scope: "page_states.#{status_type}")
         end
