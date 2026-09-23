@@ -1,5 +1,3 @@
-import { checkPageDirtyness } from "alchemy_admin/dirty"
-
 class PublishPageButton extends HTMLElement {
   connectedCallback() {
     this.addEventListener("submit", this)
@@ -17,11 +15,7 @@ class PublishPageButton extends HTMLElement {
         this.markDirty(event.detail)
         break
       case "submit":
-        if (checkPageDirtyness(event.target)) {
-          this.button.loading = true
-        } else {
-          event.preventDefault()
-        }
+        this.button.loading = true
         break
     }
   }

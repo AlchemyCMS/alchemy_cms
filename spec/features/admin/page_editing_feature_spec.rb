@@ -134,12 +134,14 @@ RSpec.describe "Page editing feature", type: :system do
         expect(page).to have_selector("alchemy-element-editor")
       end
 
-      context "with no unsaved changes" do
-        it "publishes the page right away" do
-          find("#publish_page_form sl-button[type='submit']").click
-          expect(page).to have_content Alchemy.t(:page_published, name: a_page.name)
-        end
+      # Shoelace anchors a tooltip to its first slotted element. The guard has no
+      # box of its own, so it has to stay outside of one, or the tooltip anchors
+      # to a zero sized rect at the viewport origin.
+      it "leaves the unlock tooltip anchored to its form" do
+        expect(page).to have_selector("sl-tooltip > #unlock_page_form")
+      end
 
+      context "with no unsaved changes" do
         it "unlocks the page right away" do
           find("#unlock_page_form button").click
           expect(page).to have_current_path(alchemy.admin_pages_path)
@@ -159,24 +161,14 @@ RSpec.describe "Page editing feature", type: :system do
           expect(page).to have_selector("alchemy-element-editor.dirty")
         end
 
-        it "publishes the page after the changes have been confirmed" do
+        # Publishing keeps the author on the page, so nothing is lost and there
+        # is nothing to warn about.
+        it "publishes the page without asking" do
           find("#publish_page_form sl-button[type='submit']").click
-          within "sl-dialog" do
-            expect(page).to have_content(page_dirty_notice)
-            find("button[type=submit]").click
-          end
-          expect(page).to have_content Alchemy.t(:page_published, name: a_page.name)
-        end
 
-        it "does not publish the page when the confirmation is cancelled" do
-          find("#publish_page_form sl-button[type='submit']").click
-          within "sl-dialog" do
-            find("button[type=reset]").click
-          end
+          expect(page).to have_content Alchemy.t(:page_published, name: a_page.name)
           expect(page).to have_no_selector("sl-dialog")
-          expect(page).to have_current_path(alchemy.edit_admin_page_path(a_page))
-          expect(page).to have_selector("#publish_page_form sl-button:not([loading])")
-          expect(a_page.reload).to_not be_public
+          expect(page).to have_no_selector("alchemy-overlay.visible")
         end
 
         it "unlocks the page after the changes have been confirmed" do

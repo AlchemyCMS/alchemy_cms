@@ -4,15 +4,17 @@
 
 <% content_for(:toolbar) do %>
 <div class="toolbar_buttons">
-  <alchemy-unlock-page-button class="toolbar_button">
-    <sl-tooltip content="<%= Alchemy.t(:explain_unlocking) %>" placement="top-start">
-      <%= form_tag alchemy.unlock_admin_page_path(@page, redirect_to: @layoutpage ? alchemy.admin_layoutpages_path : alchemy.admin_pages_path), id: 'unlock_page_form' do %>
-        <button class="icon_button" data-alchemy-hotkey="alt+x">
-          <%= render_icon('expand-left') %>
-        </button>
-      <% end %>
-    </sl-tooltip>
-  </alchemy-unlock-page-button>
+  <div class="toolbar_button">
+    <alchemy-dirty-guard>
+      <sl-tooltip content="<%= Alchemy.t(:explain_unlocking) %>" placement="top-start">
+        <%= form_tag alchemy.unlock_admin_page_path(@page, redirect_to: @layoutpage ? alchemy.admin_layoutpages_path : alchemy.admin_pages_path), id: 'unlock_page_form' do %>
+          <button class="icon_button" data-alchemy-hotkey="alt+x">
+            <%= render_icon('expand-left') %>
+          </button>
+        <% end %>
+      </sl-tooltip>
+    </alchemy-dirty-guard>
+  </div>
   <div class="toolbar_spacer"></div>
   <div class="toolbar_button">
     <sl-tooltip content="<%= Alchemy.t(:page_infos) %>">
