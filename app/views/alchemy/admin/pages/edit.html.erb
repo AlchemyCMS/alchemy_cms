@@ -140,11 +140,3 @@
 <%= turbo_frame_tag "alchemy_elements_window", src: alchemy.admin_elements_path(page_version_id: @page_version.id, alchemy_preview_time: params[:alchemy_preview_time]) do %>
   <alchemy-spinner></alchemy-spinner>
 <% end %>
-
-<% content_for :javascripts do %>
-<%= tag.script(type: "module", nonce: content_security_policy_nonce) do %>
-  document.addEventListener("turbo:load", function() {
-    Alchemy.PageLeaveObserver();
-  }, { once: true });
-<% end %>
-<% end %>

@@ -145,6 +145,11 @@ RSpec.describe "Page editing feature", type: :system do
           expect(page).to have_current_path(alchemy.admin_pages_path)
           expect(a_page.reload).to_not be_locked
         end
+
+        it "follows a main navigation entry right away" do
+          find("#main_navi a[href='#{alchemy.admin_languages_path}']").click
+          expect(page).to have_current_path(alchemy.admin_languages_path)
+        end
       end
 
       context "with unsaved changes" do
@@ -191,6 +196,32 @@ RSpec.describe "Page editing feature", type: :system do
           expect(page).to have_no_selector("sl-dialog")
           expect(page).to have_current_path(alchemy.edit_admin_page_path(a_page))
           expect(a_page.reload).to be_locked
+        end
+
+        it "asks before following a main navigation entry" do
+          find("#main_navi a[href='#{alchemy.admin_languages_path}']").click
+
+          expect(page).to have_selector("sl-dialog", text: page_dirty_notice)
+          within("sl-dialog") { find("button[type=reset]").click }
+
+          expect(page).to have_current_path(alchemy.edit_admin_page_path(a_page))
+        end
+
+        it "asks before following a sub navigation link" do
+          find("#main_navi alchemy-main-navi-entry > a[href='#{alchemy.admin_pages_path}']").hover
+          find("#main_navi a[href='#{alchemy.admin_layoutpages_path}']").click
+
+          expect(page).to have_selector("sl-dialog", text: page_dirty_notice)
+          within("sl-dialog") { find("button[type=reset]").click }
+
+          expect(page).to have_current_path(alchemy.edit_admin_page_path(a_page))
+        end
+
+        it "does not ask before opening the help dialog" do
+          find("#logout a[href='#{alchemy.help_path}']").click
+
+          expect(page).to have_selector(".alchemy-dialog-container.open")
+          expect(page).to have_no_selector("sl-dialog")
         end
       end
     end
