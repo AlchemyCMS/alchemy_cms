@@ -119,6 +119,81 @@ RSpec.describe "Page editing feature", type: :system do
         end
       end
     end
+
+    describe "the unsaved changes guard", :js do
+      # A persisted user, so that visiting the page actually locks it to them.
+      let(:editor) { create(:alchemy_dummy_user, :as_editor) }
+      let!(:element) { create(:alchemy_element, page_version: a_page.draft_version) }
+      let(:page_dirty_notice) do
+        "You have unsaved changes on this page. They will be lost if you continue."
+      end
+
+      before do
+        authorize_user(editor)
+        visit alchemy.edit_admin_page_path(a_page)
+        expect(page).to have_selector("alchemy-element-editor")
+      end
+
+      context "with no unsaved changes" do
+        it "publishes the page right away" do
+          find("#publish_page_form sl-button[type='submit']").click
+          expect(page).to have_content Alchemy.t(:page_published, name: a_page.name)
+        end
+
+        it "unlocks the page right away" do
+          find("#unlock_page_form button").click
+          expect(page).to have_current_path(alchemy.admin_pages_path)
+          expect(a_page.reload).to_not be_locked
+        end
+      end
+
+      context "with unsaved changes" do
+        before do
+          fill_in "Intro", with: "Unsaved intro"
+          find_field("Intro").send_keys(:tab)
+          expect(page).to have_selector("alchemy-element-editor.dirty")
+        end
+
+        it "publishes the page after the changes have been confirmed" do
+          find("#publish_page_form sl-button[type='submit']").click
+          within "sl-dialog" do
+            expect(page).to have_content(page_dirty_notice)
+            find("button[type=submit]").click
+          end
+          expect(page).to have_content Alchemy.t(:page_published, name: a_page.name)
+        end
+
+        it "does not publish the page when the confirmation is cancelled" do
+          find("#publish_page_form sl-button[type='submit']").click
+          within "sl-dialog" do
+            find("button[type=reset]").click
+          end
+          expect(page).to have_no_selector("sl-dialog")
+          expect(page).to have_current_path(alchemy.edit_admin_page_path(a_page))
+          expect(page).to have_selector("#publish_page_form sl-button:not([loading])")
+          expect(a_page.reload).to_not be_public
+        end
+
+        it "unlocks the page after the changes have been confirmed" do
+          find("#unlock_page_form button").click
+          within "sl-dialog" do
+            find("button[type=submit]").click
+          end
+          expect(page).to have_current_path(alchemy.admin_pages_path)
+          expect(a_page.reload).to_not be_locked
+        end
+
+        it "does not unlock the page when the confirmation is cancelled" do
+          find("#unlock_page_form button").click
+          within "sl-dialog" do
+            find("button[type=reset]").click
+          end
+          expect(page).to have_no_selector("sl-dialog")
+          expect(page).to have_current_path(alchemy.edit_admin_page_path(a_page))
+          expect(a_page.reload).to be_locked
+        end
+      end
+    end
   end
 
   context "as admin" do

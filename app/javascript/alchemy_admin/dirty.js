@@ -2,7 +2,7 @@ import { openConfirmDialog } from "alchemy_admin/confirm_dialog"
 import { translate } from "alchemy_admin/i18n"
 import pleaseWaitOverlay from "alchemy_admin/please_wait_overlay"
 
-function checkPageDirtyness(element) {
+export function checkPageDirtyness(element) {
   let callback = () => {}
 
   if (element.matches("form")) {
