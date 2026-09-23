@@ -1,5 +1,161 @@
 # Changelog
 
+## 8.4.0 (2026-09-23)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.4-stable -->
+
+## What's Changed
+### Breaking Changes
+* Make dragonfly an optional dependency by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4036
+* Replace RemoteSelect with Tom Select by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4046
+* refactor(admin): Remove jQuery from the admin frontend by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4057
+* feat: Add `Alchemy::UserMethods` module by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4144
+### New Features
+* refactor(alchemy-image-cropper): replace inline crop script with a custom element by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4038
+* feat: Make Page and Node relatable resources by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4039
+* feat(admin): stack form labels above fields on small viewports by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4075
+* feat(sitemap): cache the XML sitemap by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4054
+* feat: Use inline labels for primary actions  by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4108
+* feat(admin): show image file type in picture info dialog by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4117
+* fix(tasks): pre-generate thumbnails for active_storage by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4037
+* feat: Add a help button by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4123
+* Select filter: multiple/include_blank as Boolean or Proc by @mamhoff in https://github.com/AlchemyCMS/alchemy_cms/pull/4130
+* feat: Add new empty state by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4132
+* Permitted roles for restricted pages by @sascha-karnatz in https://github.com/AlchemyCMS/alchemy_cms/pull/4112
+* Add element-level opt-out for page caching by @robinboening in https://github.com/AlchemyCMS/alchemy_cms/pull/3980
+* feat(remote-select): add multiple selection support by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4139
+* Add current user to Alchemy::Current by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4146
+* feat(attachments): Support more audio and video media types by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4161
+* feat(cache): control Cache-Control headers per page layout and element by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4150
+* [8.4-stable] fix(uploader): restrict attachment uploads to an allowlist by default by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4211
+### Bug Fixes
+* fix(elements): return element repository from block helper nested_elements by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4151
+* [8.4-stable] fix(migrations): stop text column migrations from destroying data on SQLite by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4201
+* [8.4-stable] fix(uploader): validate uploads by filename extension by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4204
+* [8.4-stable] fix(migrations): only drop the DDL transaction where SQLite rebuilds by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4212
+* [8.4-stable] fix(remote-select): restore the preselection silently by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4252
+### Performance Improvements
+* perf(elements): reuse preloaded element set for nested rendering by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4148
+* perf(taggable): cache the tag list to remove the tags N+1 by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4153
+* perf(taggable): drop now-redundant tag eager loading by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4162
+### Security
+* [8.4-stable] fix(remote-select): escape names in autocomplete highlight by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4184
+* fix(csv export): escape formulas in admin resource exports [8.4-stable] by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4221
+* [8.4-stable] fix(security): reject executable url schemes in nodes and ingredients by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4234
+* [8.4-stable] feat(csp): send a Content Security Policy with admin responses by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4238
+### Dependencies
+* chore(deps-dev): bump vitest from 4.1.8 to 4.1.9 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4016
+* chore(deps-dev): bump rollup from 4.61.1 to 4.62.2 in the rollup group by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4015
+* chore(deps-dev): bump prettier from 3.8.4 to 3.8.5 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4040
+* chore(deps-dev): bump eslint from 10.5.0 to 10.6.0 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4041
+* chore(deps-dev): bump prettier from 3.8.5 to 3.9.4 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4043
+* chore(deps): bump tinymce from 8.6.0 to 8.7.0 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4050
+* chore(deps-dev): bump vitest from 4.1.9 to 4.1.10 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4062
+* chore(deps): bump tom-select from 2.6.1 to 2.6.2 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4064
+* bump prettier from 3.9.4 to 3.9.5 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4071
+* chore(deps-dev): bump eslint from 10.6.0 to 10.7.0 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4072
+* chore(deps): bump @floating-ui/dom from 1.7.6 to 1.8.0 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4077
+* chore(deps): bump tinymce from 8.7.0 to 8.8.1 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4092
+* chore(deps-dev): bump sass from 1.101.0 to 1.101.3 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4111
+* chore(deps-dev): bump prettier from 3.9.5 to 3.9.6 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4110
+* chore(deps-dev): bump sass from 1.101.3 to 1.101.4 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4114
+* chore(deps-dev): bump sass from 1.101.4 to 1.101.7 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4116
+* chore(deps-dev): bump eslint from 10.7.0 to 10.8.0 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4118
+* chore(deps-dev): bump sass from 1.101.7 to 1.102.0 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4127
+* chore(deps): bump tinymce from 8.8.1 to 8.8.2 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4126
+* chore(deps-dev): bump rollup from 4.62.2 to 4.62.3 in the rollup group across 1 directory by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4125
+* chore(deps-dev): bump vite from 8.1.5 to 8.2.0 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4135
+* chore(deps-dev): bump rollup from 4.62.3 to 4.62.4 in the rollup group by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4140
+* chore(deps-dev): bump vite from 8.2.0 to 8.2.1 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4145
+* chore(deps-dev): bump eslint from 10.8.0 to 10.8.1 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4147
+* chore(deps-dev): bump vitest from 4.1.10 to 4.1.11 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4159
+* chore(deps-dev): bump rollup from 4.62.4 to 4.62.5 in the rollup group by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4164
+* chore(deps-dev): bump vite from 8.2.1 to 8.2.2 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4165
+* chore(deps-dev): bump sass from 1.102.0 to 1.103.1 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4166
+* chore(deps): bump actions/setup-node from 6 to 7 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4170
+* chore(deps): bump actions/upload-artifact from 4 to 7 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4168
+* chore(deps): bump codecov/codecov-action from 5 to 7 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4169
+* chore(deps): bump actions/stale from 5 to 11 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4171
+* chore(deps): bump actions/create-github-app-token from 2 to 3 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4172
+* chore(deps-dev): bump eslint from 10.8.1 to 10.9.0 by @dependabot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4180
+* [8.4-stable] chore(deps): bump cropperjs from 1.6.2 to 1.6.3 by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4192
+### Other Changes
+* refactor(alchemy-element-select): replace Select2 with Tom Select by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4024
+* refactor(alchemy-color-select): replace Select2 with Tom Select by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4026
+* refactor(alchemy-tags-autocomplete): replace Select2 with Tom Select by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4029
+* Add Alchemy News reader dashboard widget by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4042
+* refactor(alchemy-node-form): replace inline node form script with a custom element by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4044
+* fix(admin): Delegate focus to the Tom Select control by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4056
+* refactor(admin): Convert Dialog to native dialog element by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4055
+* refactor(admin): Remove orphaned page layout filter partial by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4060
+* Assign pictures and attachments via Turbo Streams by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4061
+* Convert the remaining Rails UJS remotes to Turbo by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4063
+* refactor(admin): Render the Tom Select remove button as a button element by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4065
+* chore(dev): make Docker dev rebuilds easier and uid-safe by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4067
+* Save element editor via a Turbo Stream by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4069
+* feat(admin): make the main navigation menu scrollable by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4073
+* refactor(admin): submit dialog forms with Turbo instead of UJS by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4078
+* fix(admin): guide admin JS clients through permission denials by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4079
+* Remove @rails/ujs by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4074
+* refactor: Extract Alchemy::SitemapController by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4080
+* fix: Flash notices position by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4093
+* feat(admin): Notify after updating an ingredient by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4095
+* chore: Fix dummy app ability by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4094
+* refactor(dev): Run a single live reload watcher by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4096
+* Docs(config): describe how link_target_options values are applied by @Dirk82 in https://github.com/AlchemyCMS/alchemy_cms/pull/4097
+* chore: Convert uploader button into a view component by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4098
+* fix(admin): keep dialog open when file picker is cancelled by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4101
+* refactor(admin): migrate alchemy-action to Turbo StreamActions by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4109
+* chore: Remove bundled config.yml in favor of Ruby config defaults by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4113
+* chore: Remove useless `archive_all` DOM id by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4115
+* feat(dashboard): Show license and LICENSE dialog in system info widget by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4121
+* New panel style by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4122
+* Add alchemy-conditional-field web component by @sascha-karnatz in https://github.com/AlchemyCMS/alchemy_cms/pull/4128
+* Rebuild admin resource table frame by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4131
+* ci(codecov): flag coverage legs and wait for all uploads by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4136
+* ci: make the ruby 4.0 build required by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4137
+* fix(uploader): render upload progress inside the dropzone by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4143
+* chore: Test with latest postgres (18) by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4149
+* chore: Add annotaterb and annotate model schemas by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4152
+* fix(Menubar): Normalize line-height by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4154
+* refactor(Publishable): Extract resolution into configurable resolver by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4160
+* fix(taggable): guard tag_list against a nil cache column by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4176
+* feat(preview): make preview load timeout configurable by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4177
+* fix(mysql): Do not add defaults in text columns by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4174
+* feat: Add admin component registry by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4182
+* [8.4-stable] docs(models): regenerate schema annotations after dropping text defaults by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4195
+* [8.4-stable] fix(admin): scope nested element form to parent on validation error by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4197
+* [8.4-stable] fix(dragonfly): derive the attachment extension from the file name by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4209
+* [8.4-stable] fix(admin): show validation errors on the new element form by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4216
+* [8.4-stable] fix(tom-select): close the dropdown before destroying a select by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4220
+* [8.4-stable] fix(admin): render element preview text as plain text by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4224
+* [8.4-stable] feat(csp): add nonces to inline script tags by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4229
+* [8.4-stable] fix(admin): make the language switch a POST request by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4230
+* [8.4-stable] refactor(admin): move clear schedule behaviour into a web component by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4231
+* [8.4-stable] chore(admin): remove dead create_language route by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4232
+* [8.4-stable] chore(deps): bump tinymce from 8.8.2 to 8.9.0 by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4241
+* [8.4-stable] fix(importmap): pin transitive dependencies of standalone components by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4249
+* [8.4-stable] fix: Remove default role from user by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4250
+* fix(csp): allow images from any https host by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4253
+* [8.4-stable] fix(remote-select): UX improvements by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4256
+* [8.4-stable] fix(remote-select): report a failed load instead of showing no results by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4260
+* [8.4-stable] perf(admin): stop inlining tom-select and floating-ui into the bundle by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4262
+* [8.4-stable] fix(remote-select): show a message while the dropdown loads by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4266
+* [8.4-stable] fix(remote-select): stop clearing options and mark the selected one by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4267
+* [8.4-stable] chore(deps): bump tinymce from 8.9.0 to 8.9.1 by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4269
+* [8.4-stable] fix(resource button label): Use existing translation keys by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4274
+* [8.4-stable] feat(installer): Patch gutentag migration versions by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4276
+* [8.4-stable] feat: Add `Alchemy.l` helper by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4280
+* [8.4-stable] fix(dummy): Pin gutentag migrations to the oldest supported Rails by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4286
+* [8.4-stable] refactor(csp): extract policy application into a concern by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4287
+* [8.4-stable] refactor: Move autoloadable code out of lib into app by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4288
+* [8.4-stable] refactor: Use Alchemy.l for localizing dates and times by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4290
+
+## New Contributors
+* @Dirk82 made their first contribution in https://github.com/AlchemyCMS/alchemy_cms/pull/4097
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.3.10...v8.4.0
+
 ## 8.3.0 (2026-06-23)
 
 <!-- Release notes generated using configuration in .github/release.yml at main -->
