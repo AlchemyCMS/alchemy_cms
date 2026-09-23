@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "alchemy/admin/preview_url"
 require "importmap-rails"
 require "alchemy/configurations/main"
 require "alchemy/config_missing"
