@@ -241,7 +241,7 @@ describe Alchemy::ResourcesHelper do
       end
 
       it "formats the time with alchemy default format" do
-        expect(test_controller).to receive(:l).with(now, format: :"alchemy.default")
+        expect(Alchemy).to receive(:l).with(now, format: :"alchemy.default")
         subject
       end
 
@@ -249,7 +249,7 @@ describe Alchemy::ResourcesHelper do
         let(:options) { {datetime_format: "OTHR"} }
 
         it "uses this format" do
-          expect(test_controller).to receive(:l).with(now, format: "OTHR")
+          expect(Alchemy).to receive(:l).with(now, format: "OTHR")
           subject
         end
       end
@@ -270,7 +270,7 @@ describe Alchemy::ResourcesHelper do
       end
 
       it "formats the time with alchemy datetime format" do
-        expect(test_controller).to receive(:l).with(now, format: :"alchemy.time")
+        expect(Alchemy).to receive(:l).with(now, format: :"alchemy.time")
         subject
       end
 
@@ -278,7 +278,7 @@ describe Alchemy::ResourcesHelper do
         let(:options) { {time_format: "OTHR"} }
 
         it "uses this format" do
-          expect(test_controller).to receive(:l).with(now, format: "OTHR")
+          expect(Alchemy).to receive(:l).with(now, format: "OTHR")
           subject
         end
       end

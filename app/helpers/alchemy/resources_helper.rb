@@ -98,7 +98,7 @@ module Alchemy
         else
           options[:time_format] || :"alchemy.time"
         end
-        value = l(attribute_value, format: localization_format)
+        value = Alchemy.l(attribute_value, format: localization_format)
       elsif attribute[:type] == :boolean
         value = attribute_value ? '<alchemy-icon name="check"></alchemy-icon>'.html_safe : nil
       else

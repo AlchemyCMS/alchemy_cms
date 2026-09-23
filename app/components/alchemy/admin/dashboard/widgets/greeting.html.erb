@@ -7,7 +7,7 @@
   </h1>
   <% if @last_sign_at %>
     <p>
-      <%= Alchemy.t('Your last login was on', time: l(@last_sign_at, format: :'alchemy.default')) %>
+      <%= Alchemy.t('Your last login was on', time: Alchemy.l(@last_sign_at)) %>
     </p>
   <% end %>
 </div>
