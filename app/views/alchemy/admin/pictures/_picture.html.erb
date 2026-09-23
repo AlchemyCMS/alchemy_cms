@@ -27,7 +27,7 @@
         picture_index: picture_index.to_i + 1,
         size: @size.presence
       ).to_h
-    ) do %>
+    ), is: "alchemy-image-overlay-link" do %>
       <%= render Alchemy::Admin::PictureThumbnail.new(picture, size: @size) %>
     <% end %>
   <% else %>

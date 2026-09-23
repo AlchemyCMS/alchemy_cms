@@ -36,6 +36,10 @@ export default class ImageOverlay extends Dialog {
     }
   }
 
+  // The overlay always fills the viewport via its stylesheet, so the inline
+  // dimensions the generic dialog applies would only cap it.
+  resize() {}
+
   init() {
     this.dialog_body.removeEventListener("click", this.#clickHandler)
     this.dialog_body.addEventListener("click", this.#clickHandler)
