@@ -4,5 +4,6 @@
 // turbo_stream_actions.js to register its custom stream actions under test.
 export const Turbo = {
   StreamActions: {},
-  visit() {}
+  visit() {},
+  renderStreamMessage() {}
 }
