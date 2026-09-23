@@ -6,6 +6,7 @@ module Alchemy
   module Admin
     class UserSessionsController < ::Devise::SessionsController
       include Alchemy::Admin::Locale
+      include Alchemy::Admin::CspProtection
 
       protect_from_forgery prepend: true
 

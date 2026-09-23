@@ -6,6 +6,7 @@ module Alchemy
   module Admin
     class PasswordsController < ::Devise::PasswordsController
       include Alchemy::Admin::Locale
+      include Alchemy::Admin::CspProtection
 
       helper "Alchemy::Admin::Base"
 
