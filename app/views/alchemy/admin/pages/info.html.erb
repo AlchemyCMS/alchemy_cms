@@ -53,10 +53,10 @@
   </div>
   <div class="value">
     <label><%= Alchemy.t(:page_was_created) %></label>
-    <p><%= Alchemy.t(:from_at) % {by: @page.creator_name, at: l(@page.created_at, format: :'alchemy.page_status')} %></p>
+    <p><%= Alchemy.t(:from_at) % {by: @page.creator_name, at: Alchemy.l(@page.created_at, format: :'alchemy.page_status')} %></p>
   </div>
   <div class="value">
     <label><%= Alchemy.t(:page_was_updated) %></label>
-    <p><%= Alchemy.t(:from_at) % {by: @page.updater_name, at: l(@page.updated_at, format: :'alchemy.page_status')} %></p>
+    <p><%= Alchemy.t(:from_at) % {by: @page.updater_name, at: Alchemy.l(@page.updated_at, format: :'alchemy.page_status')} %></p>
   </div>
 </div>

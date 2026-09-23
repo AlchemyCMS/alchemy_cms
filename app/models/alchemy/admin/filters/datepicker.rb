@@ -45,7 +45,7 @@ module Alchemy
           when :time
             ::I18n.t(:time, scope: [:time, :formats, :alchemy])
           end
-          ::I18n.l(date, format: format)
+          Alchemy.l(date, format: format)
         end
       end
     end
