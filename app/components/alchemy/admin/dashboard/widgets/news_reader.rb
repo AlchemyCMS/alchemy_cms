@@ -43,7 +43,7 @@ module Alchemy
 
           def published_at(entry)
             date = entry.xpath("published").text
-            ::I18n.l(Date.parse(date), format: :default) if date.present?
+            Alchemy.l(Date.parse(date))
           rescue ArgumentError
             nil
           end
