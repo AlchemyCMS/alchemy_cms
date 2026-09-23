@@ -58,4 +58,3 @@ export { on } from "alchemy_admin/utils/events"
 // Page-specific modules - bundled to avoid dual-loading
 export { default as ImageOverlay } from "alchemy_admin/image_overlay"
 export { default as pictureSelector } from "alchemy_admin/picture_selector"
-export { default as NodeTree } from "alchemy_admin/node_tree"

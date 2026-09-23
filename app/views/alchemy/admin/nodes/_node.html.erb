@@ -1,97 +1,102 @@
-<%= content_tag :li, class: 'menu-item', data: { id: node.id, parent_id: node.parent_id, folded: node.folded?, type: "node" } do %>
-  <%= content_tag :div, class: [
-    'sitemap_node',
-    node.external? ? 'external' : 'internal',
-    "sitemap_node-level_#{node.depth}"
-  ] do %>
-    <span class="nodes_tree-left_images">
-      &nbsp;
-    </span>
-    <div class="node_name">
-      <%= node.name || '&nbsp;'.html_safe %>
-      <span class="node_page">
-      <% if node.page %>
-        <%= render_icon "file-3" %>
-        <%= link_to [:edit, :admin, node.page], title: Alchemy.t(:edit_page) do %>
-          <%= node.page.name %>
-        <% end %>
-      <% end %>
+<alchemy-menu-node node-id="<%= node.id %>" <%= "folded" if node.folded? %>>
+  <%= content_tag :li, class: 'menu-item', data: { id: node.id, parent_id: node.parent_id } do %>
+    <%= content_tag :div, class: [
+      'sitemap_node',
+      node.external? ? 'external' : 'internal',
+      "sitemap_node-level_#{node.depth}"
+    ] do %>
+      <span class="nodes_tree-left_images">
+        <alchemy-node-folder
+          <%= "folded" if node.folded? %>
+          <%= "hidden" unless node.children.any? || node.folded? %>
+        ></alchemy-node-folder>
       </span>
-      <% if node.url %>
-        <span class="node_url">
-          <%= link_to node.url, node.url, target: '_blank', title: node.url %>
-          <% if node.external? %>
-            <%= render_icon "external-link", size: "sm" %>
+      <div class="node_name">
+        <%= node.name || '&nbsp;'.html_safe %>
+        <span class="node_page">
+        <% if node.page %>
+          <%= render_icon "file-3" %>
+          <%= link_to [:edit, :admin, node.page], title: Alchemy.t(:edit_page) do %>
+            <%= node.page.name %>
           <% end %>
+        <% end %>
         </span>
-      <% end %>
-    </div>
-    <span class="nodes_tree-right_tools">
-      <% if can?(:edit, node) %>
-        <sl-tooltip content="<%= node.root? ? Alchemy.t(:edit_menu) : Alchemy.t(:edit_node) %>">
-          <%= link_to_dialog(
-            render_icon(:edit),
-            alchemy.edit_admin_node_path(node),
-            {
-              title: node.root? ? Alchemy.t(:edit_menu) : Alchemy.t(:edit_node),
-              size: node.root? ? '450x120' : '450x360'
-            },
-            class: "icon_button"
-          ) %>
-        </sl-tooltip>
-      <% end %>
-      <% if can?(:copy, node) %>
-      <sl-tooltip content="<%= Alchemy.t(:copy_node) %>">
-        <%= link_to(
-          render_icon("file-copy"),
-          alchemy.insert_admin_clipboard_path(
-            remarkable_type: :nodes,
-            remarkable_id: node.id,
-          ),
-          "data-turbo-method": :post,
-          class: "icon_button"
-        ) %>
-      </sl-tooltip>
-      <% else %>
-      <div class="sitemap_tool disabled">
-        <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to copy this node") %>" class="like-hint-tooltip" placement="bottom-start">
-          <%= render_icon("file-copy") %>
-        </sl-tooltip>
+        <% if node.url %>
+          <span class="node_url">
+            <%= link_to node.url, node.url, target: '_blank', title: node.url %>
+            <% if node.external? %>
+              <%= render_icon "external-link", size: "sm" %>
+            <% end %>
+          </span>
+        <% end %>
       </div>
-      <% end %>
-      <% if can?(:destroy, node) %>
-        <sl-tooltip content="<%= node.root? ? Alchemy.t(:delete_menu) : Alchemy.t(:delete_node) %>">
-          <%= link_to_confirm_dialog(
-            render_icon("delete-bin-2"),
-            node.root? ? Alchemy.t(:confirm_to_delete_menu) : Alchemy.t(:confirm_to_delete_node),
-            url_for(
-              controller: 'nodes',
-              action: 'destroy',
-              id: node.id
-            ),
-            {
+      <span class="nodes_tree-right_tools">
+        <% if can?(:edit, node) %>
+          <sl-tooltip content="<%= node.root? ? Alchemy.t(:edit_menu) : Alchemy.t(:edit_node) %>">
+            <%= link_to_dialog(
+              render_icon(:edit),
+              alchemy.edit_admin_node_path(node),
+              {
+                title: node.root? ? Alchemy.t(:edit_menu) : Alchemy.t(:edit_node),
+                size: node.root? ? '450x120' : '450x360'
+              },
               class: "icon_button"
-            },
-          ) %>
-        </sl-tooltip>
-      <% end %>
-      <% if can?(:create, Alchemy::Node) %>
-        <sl-tooltip content="<%= Alchemy.t(:create_node) %>" placement="top-end">
-          <%= link_to_dialog(
-            render_icon(:add),
-            alchemy.new_admin_node_path(parent_id: node.id),
-            {
-              title: Alchemy.t(:create_node),
-              size: '450x360',
-              overflow: true
-            },
+            ) %>
+          </sl-tooltip>
+        <% end %>
+        <% if can?(:copy, node) %>
+        <sl-tooltip content="<%= Alchemy.t(:copy_node) %>">
+          <%= link_to(
+            render_icon("file-copy"),
+            alchemy.insert_admin_clipboard_path(
+              remarkable_type: :nodes,
+              remarkable_id: node.id,
+            ),
+            "data-turbo-method": :post,
             class: "icon_button"
           ) %>
         </sl-tooltip>
-      <% end %>
-    </span>
+        <% else %>
+        <div class="sitemap_tool disabled">
+          <sl-tooltip content="<%= Alchemy.t("Your user role does not allow you to copy this node") %>" class="like-hint-tooltip" placement="bottom-start">
+            <%= render_icon("file-copy") %>
+          </sl-tooltip>
+        </div>
+        <% end %>
+        <% if can?(:destroy, node) %>
+          <sl-tooltip content="<%= node.root? ? Alchemy.t(:delete_menu) : Alchemy.t(:delete_node) %>">
+            <%= link_to_confirm_dialog(
+              render_icon("delete-bin-2"),
+              node.root? ? Alchemy.t(:confirm_to_delete_menu) : Alchemy.t(:confirm_to_delete_node),
+              url_for(
+                controller: 'nodes',
+                action: 'destroy',
+                id: node.id
+              ),
+              {
+                class: "icon_button"
+              },
+            ) %>
+          </sl-tooltip>
+        <% end %>
+        <% if can?(:create, Alchemy::Node) %>
+          <sl-tooltip content="<%= Alchemy.t(:create_node) %>" placement="top-end">
+            <%= link_to_dialog(
+              render_icon(:add),
+              alchemy.new_admin_node_path(parent_id: node.id),
+              {
+                title: Alchemy.t(:create_node),
+                size: '450x360',
+                overflow: true
+              },
+              class: "icon_button"
+            ) %>
+          </sl-tooltip>
+        <% end %>
+      </span>
+    <% end %>
+    <%= content_tag :ul, class: "children #{' folded' if node.folded?}", data: { record_id: node.id } do %>
+      <%= render partial: 'node', collection: node.children.includes(:page, :children) %>
+    <% end %>
   <% end %>
-  <%= content_tag :ul, class: "children #{' folded' if node.folded?}", data: { record_id: node.id } do %>
-    <%= render partial: 'node', collection: node.children.includes(:page, :children) %>
-  <% end %>
-<% end %>
+</alchemy-menu-node>
