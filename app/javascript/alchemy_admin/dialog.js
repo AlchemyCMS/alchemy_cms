@@ -1,3 +1,4 @@
+import { Turbo } from "@hotwired/turbo-rails"
 import Hotkeys from "alchemy_admin/hotkeys"
 import Spinner from "alchemy_admin/spinner"
 import { createHtmlElement } from "alchemy_admin/utils/dom_helpers"
@@ -9,6 +10,8 @@ const currentDialogs = []
 // Id of the Turbo Frame wrapping the dialog content.
 // Keep in sync with Alchemy::Admin::DIALOG_FRAME_ID.
 export const DIALOG_FRAME_ID = "alchemy_dialog_frame"
+
+const TURBO_STREAM_CONTENT_TYPE = "text/vnd.turbo-stream.html"
 
 const DEFAULTS = {
   header_height: 36,
@@ -139,7 +142,17 @@ export class Dialog {
     })
       .then(async (response) => {
         const responseText = await response.text()
-        if (response.ok) {
+        // A stream answers a request the frame must not render, whatever the
+        // status: an expired session sends a `dialog_visit` to the login page.
+        // Without this the stream is never run and the dialog shows a 401 the
+        // user cannot act on.
+        if (
+          response.headers
+            .get("content-type")
+            ?.includes(TURBO_STREAM_CONTENT_TYPE)
+        ) {
+          Turbo.renderStreamMessage(responseText)
+        } else if (response.ok) {
           this.replace(responseText)
         } else {
           this.show_error({
