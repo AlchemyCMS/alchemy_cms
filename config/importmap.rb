@@ -2,7 +2,6 @@ pin "@ungap/custom-elements", to: "ungap-custom-elements.min.js", preload: true 
 pin "clipboard", to: "clipboard.min.js", preload: true
 pin "cropperjs", to: "cropperjs.min.js", preload: true
 pin "flatpickr", to: "flatpickr.min.js", preload: true # @4.6.13
-pin "handlebars", to: "handlebars.min.js", preload: true # @4.7.8
 pin "keymaster", to: "keymaster.min.js", preload: true
 pin "sortablejs", to: "sortable.min.js", preload: true # @1.15.1
 pin "@floating-ui/dom", to: "floating-ui.min.js", preload: true
@@ -34,5 +33,4 @@ pin "alchemy_admin/utils/tom_select"
 pin "tom-select/utils", to: "tom-select.min.js"
 pin "alchemy_admin/image_overlay", to: "alchemy/alchemy_admin.min.js"
 pin "alchemy_admin/picture_selector", to: "alchemy/alchemy_admin.min.js"
-pin "alchemy_admin/node_tree", to: "alchemy/alchemy_admin.min.js"
 pin "alchemy_admin/utils/events", to: "alchemy/alchemy_admin.min.js"

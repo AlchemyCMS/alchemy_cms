@@ -1,4 +1,3 @@
-import "handlebars"
 import "@ungap/custom-elements"
 import { Turbo } from "@hotwired/turbo-rails"
 
@@ -18,9 +17,6 @@ import "alchemy_admin/turbo_stream_actions"
 
 // Web Components
 import "alchemy_admin/components"
-
-// Handlebars Templates
-import "alchemy_admin/templates/compiled"
 
 // Shoelace Setup
 import "alchemy_admin/shoelace_theme"
@@ -58,4 +54,3 @@ export { on } from "alchemy_admin/utils/events"
 // Page-specific modules - bundled to avoid dual-loading
 export { default as ImageOverlay } from "alchemy_admin/image_overlay"
 export { default as pictureSelector } from "alchemy_admin/picture_selector"
-export { default as NodeTree } from "alchemy_admin/node_tree"
