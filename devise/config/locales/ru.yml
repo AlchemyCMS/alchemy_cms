@@ -1,0 +1,18 @@
+ru:
+  activerecord:
+    attributes:
+      alchemy/user:
+        current_password: "Ваш пароль"
+    errors:
+      models:
+        alchemy/user:
+          attributes:
+            current_password:
+              blank: "необходим для изменения ролей"
+              invalid: "неверен"
+  alchemy:
+    admin:
+      users:
+        confirm_password_for_role_change:
+          create: "Чтобы создать пользователя с ролью %{roles}, подтвердите действие своим паролем."
+          update: "Чтобы изменить роль %{roles} у пользователя %{user}, подтвердите действие своим паролем."
