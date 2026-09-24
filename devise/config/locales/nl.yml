@@ -1,0 +1,18 @@
+nl:
+  activerecord:
+    attributes:
+      alchemy/user:
+        current_password: "Je wachtwoord"
+    errors:
+      models:
+        alchemy/user:
+          attributes:
+            current_password:
+              blank: "is vereist om rollen te wijzigen"
+              invalid: "is niet juist"
+  alchemy:
+    admin:
+      users:
+        confirm_password_for_role_change:
+          create: "Om een gebruiker met de rol %{roles} aan te maken moet je met je eigen wachtwoord bevestigen."
+          update: "Om de rol %{roles} van %{user} te wijzigen moet je met je eigen wachtwoord bevestigen."
