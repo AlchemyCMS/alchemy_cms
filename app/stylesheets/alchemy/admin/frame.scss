@@ -2,6 +2,12 @@
 @use "navigation";
 @use "../variables" as vars;
 
+// The guard only listens for events. It must not become a box of its own,
+// or it takes the place its content holds in a flex or grid parent.
+alchemy-dirty-guard {
+  display: contents;
+}
+
 alchemy-overlay {
   visibility: hidden;
   position: fixed;

@@ -2,6 +2,37 @@ import { openConfirmDialog } from "alchemy_admin/confirm_dialog"
 import { translate } from "alchemy_admin/i18n"
 import pleaseWaitOverlay from "alchemy_admin/please_wait_overlay"
 
+// Warns before a wrapped form or link takes the user away from a page that has
+// unsaved element changes.
+//
+// Guards in the capture phase, so that a cancelled navigation never reaches
+// Turbo's document level handlers, nor any component the guard sits in.
+//
+// Wrap an sl-tooltip, never the element inside it: Shoelace anchors to its
+// first slotted child, and this element has no box of its own to anchor to.
+class DirtyGuard extends HTMLElement {
+  connectedCallback() {
+    this.addEventListener("submit", this.#guard, true)
+    this.addEventListener("click", this.#guard, true)
+  }
+
+  disconnectedCallback() {
+    this.removeEventListener("submit", this.#guard, true)
+    this.removeEventListener("click", this.#guard, true)
+  }
+
+  #guard = (event) => {
+    const target =
+      event.type === "submit" ? event.target : event.target.closest("a")
+    if (!target) return
+
+    if (!checkPageDirtyness(target)) {
+      event.preventDefault()
+      event.stopPropagation()
+    }
+  }
+}
+
 function checkPageDirtyness(element) {
   let callback = () => {}
 
@@ -40,17 +71,4 @@ function checkPageDirtyness(element) {
   return true
 }
 
-function PageLeaveObserver() {
-  document.querySelectorAll("#main_navi a").forEach((element) => {
-    element.addEventListener("click", (event) => {
-      if (!checkPageDirtyness(event.currentTarget)) {
-        event.preventDefault()
-      }
-    })
-  })
-}
-
-export default {
-  checkPageDirtyness,
-  PageLeaveObserver
-}
+customElements.define("alchemy-dirty-guard", DirtyGuard)

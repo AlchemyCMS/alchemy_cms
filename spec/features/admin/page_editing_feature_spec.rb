@@ -119,6 +119,104 @@ RSpec.describe "Page editing feature", type: :system do
         end
       end
     end
+
+    describe "the unsaved changes guard", :js do
+      # A persisted user, so that visiting the page actually locks it to them.
+      let(:editor) { create(:alchemy_dummy_user, :as_editor) }
+      let!(:element) { create(:alchemy_element, page_version: a_page.draft_version) }
+      let(:page_dirty_notice) do
+        "You have unsaved changes on this page. They will be lost if you continue."
+      end
+
+      before do
+        authorize_user(editor)
+        visit alchemy.edit_admin_page_path(a_page)
+        expect(page).to have_selector("alchemy-element-editor")
+      end
+
+      # Shoelace anchors a tooltip to its first slotted element. The guard has no
+      # box of its own, so it has to stay outside of one, or the tooltip anchors
+      # to a zero sized rect at the viewport origin.
+      it "leaves the unlock tooltip anchored to its form" do
+        expect(page).to have_selector("sl-tooltip > #unlock_page_form")
+      end
+
+      context "with no unsaved changes" do
+        it "unlocks the page right away" do
+          find("#unlock_page_form button").click
+          expect(page).to have_current_path(alchemy.admin_pages_path)
+          expect(a_page.reload).to_not be_locked
+        end
+
+        it "follows a main navigation entry right away" do
+          find("#main_navi a[href='#{alchemy.admin_languages_path}']").click
+          expect(page).to have_current_path(alchemy.admin_languages_path)
+        end
+      end
+
+      context "with unsaved changes" do
+        before do
+          fill_in "Intro", with: "Unsaved intro"
+          find_field("Intro").send_keys(:tab)
+          expect(page).to have_selector("alchemy-element-editor.dirty")
+        end
+
+        # Publishing keeps the author on the page, so nothing is lost and there
+        # is nothing to warn about.
+        it "publishes the page without asking" do
+          find("#publish_page_form sl-button[type='submit']").click
+
+          expect(page).to have_content Alchemy.t(:page_published, name: a_page.name)
+          expect(page).to have_no_selector("sl-dialog")
+          expect(page).to have_no_selector("alchemy-overlay.visible")
+        end
+
+        it "unlocks the page after the changes have been confirmed" do
+          find("#unlock_page_form button").click
+          within "sl-dialog" do
+            find("button[type=submit]").click
+          end
+          expect(page).to have_current_path(alchemy.admin_pages_path)
+          expect(a_page.reload).to_not be_locked
+        end
+
+        it "does not unlock the page when the confirmation is cancelled" do
+          find("#unlock_page_form button").click
+          within "sl-dialog" do
+            find("button[type=reset]").click
+          end
+          expect(page).to have_no_selector("sl-dialog")
+          expect(page).to have_current_path(alchemy.edit_admin_page_path(a_page))
+          expect(a_page.reload).to be_locked
+        end
+
+        it "asks before following a main navigation entry" do
+          find("#main_navi a[href='#{alchemy.admin_languages_path}']").click
+
+          expect(page).to have_selector("sl-dialog", text: page_dirty_notice)
+          within("sl-dialog") { find("button[type=reset]").click }
+
+          expect(page).to have_current_path(alchemy.edit_admin_page_path(a_page))
+        end
+
+        it "asks before following a sub navigation link" do
+          find("#main_navi alchemy-main-navi-entry > a[href='#{alchemy.admin_pages_path}']").hover
+          find("#main_navi a[href='#{alchemy.admin_layoutpages_path}']").click
+
+          expect(page).to have_selector("sl-dialog", text: page_dirty_notice)
+          within("sl-dialog") { find("button[type=reset]").click }
+
+          expect(page).to have_current_path(alchemy.edit_admin_page_path(a_page))
+        end
+
+        it "does not ask before opening the help dialog" do
+          find("#logout a[href='#{alchemy.help_path}']").click
+
+          expect(page).to have_selector(".alchemy-dialog-container.open")
+          expect(page).to have_no_selector("sl-dialog")
+        end
+      end
+    end
   end
 
   context "as admin" do
