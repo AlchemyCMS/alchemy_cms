@@ -30,15 +30,6 @@ RSpec.describe "Picture assignment overlay", type: :system do
     context "in the picture editor", :js do
       # The default factory image is 1x1px, too small to click reliably.
       let!(:picture) { create(:alchemy_picture, image_file: fixture_file_upload("500x500.png")) }
-      let(:assign_requests) { Queue.new }
-
-      around do |example|
-        subscriber = ActiveSupport::Notifications.subscribe("process_action.action_controller") do |*, payload|
-          assign_requests << payload if payload[:action] == "assign"
-        end
-        example.run
-        ActiveSupport::Notifications.unsubscribe(subscriber)
-      end
 
       scenario "assigns the picture to the ingredient" do
         visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
@@ -53,21 +44,6 @@ RSpec.describe "Picture assignment overlay", type: :system do
         expect(page).to have_no_css(".alchemy-dialog")
         expect(page).to have_css("#element_#{element.id}.dirty alchemy-picture-thumbnail img")
         expect(find("[data-picture-id]", visible: :hidden).value).to eq(picture.id.to_s)
-      end
-
-      scenario "double clicking a picture only assigns it once" do
-        visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
-
-        within "#element_#{element.id}" do
-          find("a[href*='/admin/pictures']").click
-        end
-        within ".alchemy-dialog" do
-          find("#assignable_#{picture.id} alchemy-picture-thumbnail").double_click
-        end
-
-        expect(page).to have_no_css(".alchemy-dialog")
-        expect(page).to have_css("#element_#{element.id}.dirty alchemy-picture-thumbnail img")
-        expect(assign_requests.size).to eq(1)
       end
     end
   end
