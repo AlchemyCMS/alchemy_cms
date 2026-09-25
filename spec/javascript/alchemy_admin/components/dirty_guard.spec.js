@@ -1,20 +1,28 @@
 import { vi } from "vitest"
 
-vi.mock("alchemy_admin/dirty", () => ({
+vi.mock("alchemy_admin/confirm_dialog", () => ({
   __esModule: true,
-  checkPageDirtyness: vi.fn()
+  openConfirmDialog: vi.fn()
+}))
+
+vi.mock("alchemy_admin/please_wait_overlay", () => ({
+  __esModule: true,
+  default: vi.fn()
 }))
 
 import "alchemy_admin/components/dirty_guard"
-import { checkPageDirtyness } from "alchemy_admin/dirty"
+import { openConfirmDialog } from "alchemy_admin/confirm_dialog"
+import pleaseWaitOverlay from "alchemy_admin/please_wait_overlay"
 import { renderComponent } from "./component.helper.js"
 
 describe("alchemy-dirty-guard", () => {
   let html = `
+    <alchemy-element-editor id="element_editor"></alchemy-element-editor>
     <div id="outer">
       <alchemy-dirty-guard>
-        <form id="guarded_form" action="/admin/pages/1/publish">
-          <button type="submit">Publish</button>
+        <form id="guarded_form" action="/admin/pages/1/unlock" method="post">
+          <input type="hidden" name="authenticity_token" value="s3cr3t">
+          <button type="submit">Unlock</button>
         </form>
         <a id="guarded_link" href="/admin/languages">
           <span id="link_label">Languages</span>
@@ -26,6 +34,13 @@ describe("alchemy-dirty-guard", () => {
   let component
   let outerSubmit
   let outerClick
+  let requestSubmit
+  let submittedForms
+
+  const flush = () => new Promise((resolve) => setTimeout(resolve))
+
+  const makeDirty = () =>
+    document.querySelector("#element_editor").classList.add("dirty")
 
   const submitForm = () => {
     const event = new Event("submit", { bubbles: true, cancelable: true })
@@ -41,7 +56,13 @@ describe("alchemy-dirty-guard", () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
-    checkPageDirtyness.mockReturnValue(true)
+    globalThis.Turbo = { visit: vi.fn() }
+    submittedForms = []
+    requestSubmit = vi
+      .spyOn(HTMLFormElement.prototype, "requestSubmit")
+      .mockImplementation(function () {
+        submittedForms.push(this)
+      })
     component = renderComponent("alchemy-dirty-guard", html)
     outerSubmit = vi.fn()
     outerClick = vi.fn()
@@ -50,94 +71,138 @@ describe("alchemy-dirty-guard", () => {
     outer.addEventListener("click", outerClick)
   })
 
-  describe("submitting a wrapped form", () => {
-    it("checks the form for unsaved changes", () => {
-      submitForm()
+  afterEach(() => {
+    requestSubmit.mockRestore()
+    delete globalThis.Turbo
+    window.onbeforeunload = null
+  })
 
-      expect(checkPageDirtyness).toHaveBeenCalledWith(
-        document.querySelector("#guarded_form")
-      )
-    })
-
-    it("lets the submit through when the page is clean", () => {
+  describe("without unsaved changes", () => {
+    it("lets a form submit through", () => {
       const event = submitForm()
 
       expect(event.defaultPrevented).toBe(false)
       expect(outerSubmit).toHaveBeenCalled()
+      expect(openConfirmDialog).not.toHaveBeenCalled()
     })
 
-    describe("when the page is dirty", () => {
-      beforeEach(() => checkPageDirtyness.mockReturnValue(false))
-
-      it("prevents the submit", () => {
-        const event = submitForm()
-
-        expect(event.defaultPrevented).toBe(true)
-      })
-
-      it("stops the event before components around the guard react", () => {
-        submitForm()
-
-        expect(outerSubmit).not.toHaveBeenCalled()
-      })
-    })
-  })
-
-  describe("clicking a wrapped link", () => {
-    it("checks the link for unsaved changes", () => {
-      clickOn("#guarded_link")
-
-      expect(checkPageDirtyness).toHaveBeenCalledWith(
-        document.querySelector("#guarded_link")
-      )
-    })
-
-    it("checks the link when one of its children was clicked", () => {
-      clickOn("#link_label")
-
-      expect(checkPageDirtyness).toHaveBeenCalledWith(
-        document.querySelector("#guarded_link")
-      )
-    })
-
-    it("lets the click through when the page is clean", () => {
+    it("lets a link click through", () => {
       const event = clickOn("#guarded_link")
 
       expect(event.defaultPrevented).toBe(false)
       expect(outerClick).toHaveBeenCalled()
+      expect(openConfirmDialog).not.toHaveBeenCalled()
     })
+  })
 
-    describe("when the page is dirty", () => {
-      beforeEach(() => checkPageDirtyness.mockReturnValue(false))
+  describe("with unsaved changes", () => {
+    beforeEach(makeDirty)
 
-      it("prevents the click", () => {
-        const event = clickOn("#guarded_link")
+    describe("submitting a wrapped form", () => {
+      it("prevents the submit and asks for confirmation", () => {
+        openConfirmDialog.mockResolvedValue(false)
+        const event = submitForm()
 
         expect(event.defaultPrevented).toBe(true)
+        expect(openConfirmDialog).toHaveBeenCalledWith(
+          "page_dirty_notice",
+          expect.any(Object)
+        )
       })
 
       it("stops the event before components around the guard react", () => {
+        openConfirmDialog.mockResolvedValue(false)
+        submitForm()
+
+        expect(outerSubmit).not.toHaveBeenCalled()
+      })
+
+      it("submits the form's inputs to its action once confirmed", async () => {
+        openConfirmDialog.mockResolvedValue(true)
+        submitForm()
+        await flush()
+
+        expect(submittedForms).toHaveLength(1)
+        const [submitted] = submittedForms
+        expect(new URL(submitted.action).pathname).toBe("/admin/pages/1/unlock")
+        expect(submitted.method).toBe("post")
+        expect(
+          submitted.querySelector("input[name='authenticity_token']").value
+        ).toBe("s3cr3t")
+        expect(pleaseWaitOverlay).toHaveBeenCalled()
+      })
+
+      it("does nothing when the confirmation is cancelled", async () => {
+        openConfirmDialog.mockResolvedValue(false)
+        submitForm()
+        await flush()
+
+        expect(submittedForms).toHaveLength(0)
+        expect(pleaseWaitOverlay).not.toHaveBeenCalled()
+      })
+    })
+
+    describe("clicking a wrapped link", () => {
+      it("prevents the click and asks for confirmation", () => {
+        openConfirmDialog.mockResolvedValue(false)
+        const event = clickOn("#guarded_link")
+
+        expect(event.defaultPrevented).toBe(true)
+        expect(openConfirmDialog).toHaveBeenCalled()
+      })
+
+      it("guards the link when one of its children was clicked", () => {
+        openConfirmDialog.mockResolvedValue(false)
+        const event = clickOn("#link_label")
+
+        expect(event.defaultPrevented).toBe(true)
+        expect(openConfirmDialog).toHaveBeenCalled()
+      })
+
+      it("stops the event before components around the guard react", () => {
+        openConfirmDialog.mockResolvedValue(false)
         clickOn("#guarded_link")
 
         expect(outerClick).not.toHaveBeenCalled()
       })
+
+      it("visits the link once confirmed", async () => {
+        openConfirmDialog.mockResolvedValue(true)
+        clickOn("#guarded_link")
+        await flush()
+
+        expect(Turbo.visit).toHaveBeenCalledWith("/admin/languages")
+      })
+
+      it("does not visit the link when the confirmation is cancelled", async () => {
+        openConfirmDialog.mockResolvedValue(false)
+        clickOn("#guarded_link")
+        await flush()
+
+        expect(Turbo.visit).not.toHaveBeenCalled()
+      })
     })
-  })
 
-  describe("clicking something that is neither a link nor a submit", () => {
-    beforeEach(() => checkPageDirtyness.mockReturnValue(false))
+    it("clears the unload warning once confirmed", async () => {
+      window.onbeforeunload = () => {}
+      openConfirmDialog.mockResolvedValue(true)
+      clickOn("#guarded_link")
+      await flush()
 
-    it("does not check for unsaved changes", () => {
+      expect(window.onbeforeunload).toBeFalsy()
+    })
+
+    it("ignores clicks on anything that is not a link", () => {
       const event = clickOn("#bare_button")
 
-      expect(checkPageDirtyness).not.toHaveBeenCalled()
       expect(event.defaultPrevented).toBe(false)
+      expect(openConfirmDialog).not.toHaveBeenCalled()
     })
   })
 
   describe("disconnectedCallback", () => {
     it("stops guarding", () => {
-      checkPageDirtyness.mockReturnValue(false)
+      makeDirty()
       const form = document.querySelector("#guarded_form")
       const outer = document.querySelector("#outer")
       component.remove()
@@ -146,8 +211,8 @@ describe("alchemy-dirty-guard", () => {
       const event = new Event("submit", { bubbles: true, cancelable: true })
       form.dispatchEvent(event)
 
-      expect(checkPageDirtyness).not.toHaveBeenCalled()
       expect(event.defaultPrevented).toBe(false)
+      expect(openConfirmDialog).not.toHaveBeenCalled()
     })
   })
 })
