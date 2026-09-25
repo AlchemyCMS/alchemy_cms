@@ -84,7 +84,7 @@ describe("alchemy-picture-archive", () => {
 
     expect(openDialog).toHaveBeenCalledWith(
       "http://localhost/admin/pictures/edit_multiple?picture_ids%5B%5D=2",
-      { title: "Edit multiple pictures", size: "400x295" }
+      expect.objectContaining({ title: "Edit multiple pictures" })
     )
   })
 

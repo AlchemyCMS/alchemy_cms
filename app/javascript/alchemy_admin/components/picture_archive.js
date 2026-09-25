@@ -58,7 +58,7 @@ export class PictureArchive extends HTMLElement {
 
     openDialog(this.#editMultiplePicturesUrl(link.href), {
       title: link.title,
-      size: "400x295"
+      size: "500x242"
     })
   }
 
