@@ -927,7 +927,7 @@ en:
         other: Picture Descriptions
       alchemy/user:
         one: User
-        other: User
+        other: Users
     attributes:
       gutentag/tag:
         taggings_types: Used for
