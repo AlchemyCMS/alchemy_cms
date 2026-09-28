@@ -5,13 +5,15 @@
 <% content_for(:toolbar) do %>
 <div class="toolbar_buttons">
   <div class="toolbar_button">
-    <sl-tooltip content="<%= Alchemy.t(:explain_unlocking) %>" placement="top-start">
-      <%= form_tag alchemy.unlock_admin_page_path(@page, redirect_to: @layoutpage ? alchemy.admin_layoutpages_path : alchemy.admin_pages_path), id: 'unlock_page_form' do %>
-        <button class="icon_button" data-alchemy-hotkey="alt+x">
-          <%= render_icon('expand-left') %>
-        </button>
-      <% end %>
-    </sl-tooltip>
+    <alchemy-dirty-guard>
+      <sl-tooltip content="<%= Alchemy.t(:explain_unlocking) %>" placement="top-start">
+        <%= form_tag alchemy.unlock_admin_page_path(@page, redirect_to: @layoutpage ? alchemy.admin_layoutpages_path : alchemy.admin_pages_path), id: 'unlock_page_form' do %>
+          <button class="icon_button" data-alchemy-hotkey="alt+x">
+            <%= render_icon('expand-left') %>
+          </button>
+        <% end %>
+      </sl-tooltip>
+    </alchemy-dirty-guard>
   </div>
   <div class="toolbar_spacer"></div>
   <div class="toolbar_button">
@@ -139,21 +141,4 @@
 
 <%= turbo_frame_tag "alchemy_elements_window", src: alchemy.admin_elements_path(page_version_id: @page_version.id, alchemy_preview_time: params[:alchemy_preview_time]) do %>
   <alchemy-spinner></alchemy-spinner>
-<% end %>
-
-<% content_for :javascripts do %>
-<%= tag.script(type: "module", nonce: content_security_policy_nonce) do %>
-  document.addEventListener("turbo:load", function() {
-    document.querySelectorAll('#unlock_page_form, #publish_page_form').forEach(function(form) {
-      form.addEventListener('submit', function(event) {
-        var not_dirty = Alchemy.checkPageDirtyness(this);
-        if (!not_dirty) {
-          Alchemy.pleaseWaitOverlay(false);
-          event.preventDefault();
-        }
-      });
-    });
-    Alchemy.PageLeaveObserver();
-  }, { once: true });
-<% end %>
 <% end %>
