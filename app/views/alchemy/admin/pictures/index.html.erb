@@ -62,7 +62,7 @@
     additional_params: [:size] %>
 <% end %>
 
-<div id="picture_archive">
+<alchemy-picture-archive>
   <% if Alchemy::Picture.none? %>
     <%= render 'alchemy/admin/resources/empty_state' do %>
       <%= render Alchemy::Admin::UploaderButton.new(
@@ -94,26 +94,6 @@
 
     <%= render "alchemy/admin/resources/pagination", resources: @pictures %>
   <% end %>
-</div>
+</alchemy-picture-archive>
 
 <%= render "library_sidebar" %>
-
-<% content_for :javascripts do %>
-  <%= tag.script(type: "module", nonce: content_security_policy_nonce) do %>
-    import { ImageOverlay } from "alchemy_admin/image_overlay";
-    import { pictureSelector } from "alchemy_admin/picture_selector";
-    import { on } from "alchemy_admin/utils/events";
-
-    pictureSelector();
-    // A keyboard activated click targets the link, not the thumbnail inside it.
-    on("click", "#picture_archive", ".picture_thumbnail > a", (event) => {
-      const url = event.target.closest("a")?.href;
-      const overlay = new ImageOverlay(url, {
-        size: `${window.clientWidth}x${window.clientHeight}`,
-        padding: false
-      });
-      overlay.open();
-      event.preventDefault();
-    });
-  <% end %>
-<% end %>
