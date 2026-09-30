@@ -1,7 +1,6 @@
 {
   "prTitle": "[{{targetBranch}}] {{sourcePullRequest.title}}",
   "copySourcePRLabels": [
-    "bug",
-    "enhancement"
+    "bug", "enhancement", "performance"
   ]
 }
