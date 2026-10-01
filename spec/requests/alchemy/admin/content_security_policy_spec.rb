@@ -10,9 +10,10 @@ RSpec.describe "Content Security Policy" do
   end
 
   # Script tags that carry no src attribute, and therefore need a nonce to run
-  # under a policy that does not allow 'unsafe-inline'.
+  # under a policy that does not allow 'unsafe-inline'. JSON data blocks are
+  # never executed, so the policy does not apply to them.
   def inline_scripts_without_nonce
-    response.body.scan(/<script(?![^>]*\ssrc=)[^>]*>/)
+    response.body.scan(/<script(?![^>]*\ssrc=)(?![^>]*\stype="application\/json")[^>]*>/)
       .reject { _1.include?('nonce="test-nonce"') }
   end
 

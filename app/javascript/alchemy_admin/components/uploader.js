@@ -6,6 +6,7 @@
 import { Progress } from "alchemy_admin/components/uploader/progress"
 import { FileUpload } from "alchemy_admin/components/uploader/file_upload"
 import { translate } from "alchemy_admin/i18n"
+import { readJSONScript } from "alchemy_admin/utils/json_script"
 import { getToken } from "alchemy_admin/utils/ajax"
 
 export class Uploader extends HTMLElement {
@@ -110,13 +111,14 @@ export class Uploader extends HTMLElement {
   uploadFiles(files) {
     // prepare file progress bars and server request
     let fileUploadCount = 0
+    const config = readJSONScript("alchemy_uploader_defaults")
 
     const fileUploads = files.map((file) => {
       const request = new XMLHttpRequest()
       const fileUpload = new FileUpload()
       fileUpload.initialize(file, request)
 
-      if (Alchemy.uploader_defaults.upload_limit - 1 < fileUploadCount) {
+      if (config.upload_limit - 1 < fileUploadCount) {
         fileUpload.valid = false
         fileUpload.errorMessage = translate("Maximum number of files exceeded")
       } else if (fileUpload.valid) {

@@ -3,6 +3,16 @@ import { vi } from "vitest"
 import { Progress } from "alchemy_admin/components/uploader/progress"
 import { FileUpload } from "alchemy_admin/components/uploader/file_upload"
 
+let uploaderConfig
+
+vi.mock("alchemy_admin/utils/json_script", () => {
+  return {
+    readJSONScript: vi.fn((id) =>
+      id === "alchemy_uploader_defaults" ? uploaderConfig : undefined
+    )
+  }
+})
+
 vi.mock("alchemy_admin/growler", () => {
   return {
     growl: vi.fn()
@@ -112,14 +122,12 @@ describe("alchemy-upload-progress", () => {
       warn: vi.fn()
     }
 
-    Alchemy = {
-      uploader_defaults: {
-        file_size_limit: 100,
-        upload_limit: 50,
-        allowed_filetypes: {
-          alchemy_pictures: ["webp", "png", "svg"],
-          alchemy_attachments: ["*"]
-        }
+    uploaderConfig = {
+      file_size_limit: 100,
+      upload_limit: 50,
+      allowed_filetypes: {
+        alchemy_pictures: ["webp", "png", "svg"],
+        alchemy_attachments: ["*"]
       }
     }
   })
