@@ -241,6 +241,54 @@ module Alchemy
       end
     end
 
+    describe "#alchemy_admin_js_translations" do
+      subject { helper.alchemy_admin_js_translations(locale) }
+
+      let(:locale) { :en }
+
+      it "returns the English translations" do
+        is_expected.to include(help: "Help")
+      end
+
+      context "for a locale that translates only some of the keys" do
+        let(:locale) { :kl }
+
+        before do
+          ::I18n.backend.store_translations(:kl, alchemy: {javascript: {help: "Ikiorasi"}})
+        end
+
+        it "falls back to English for the untranslated ones" do
+          is_expected.to include(help: "Ikiorasi", warning: "Warning!")
+        end
+      end
+
+      context "for a locale without any JavaScript translations" do
+        let(:locale) { :pl }
+
+        it "returns the English translations" do
+          is_expected.to include(help: "Help")
+        end
+      end
+
+      context "with a legacy JavaScript translations partial" do
+        let(:locale) { :kl }
+        let(:view_path) { Dir.mktmpdir }
+
+        before do
+          FileUtils.mkdir_p(File.join(view_path, "alchemy/admin/translations"))
+          File.write(File.join(view_path, "alchemy/admin/translations/_kl.js"), "Alchemy.translations = {}")
+          helper.lookup_context.prepend_view_paths([view_path])
+        end
+
+        after { FileUtils.remove_entry(view_path) }
+
+        it "warns that it is not rendered anymore" do
+          expect(Alchemy::Deprecation).to receive(:warn).with(/_kl\.js/)
+          subject
+        end
+      end
+    end
+
     describe "#hint_with_tooltip" do
       subject { helper.hint_with_tooltip("My hint") }
 
