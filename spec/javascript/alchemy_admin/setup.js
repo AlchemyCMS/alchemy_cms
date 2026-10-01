@@ -94,7 +94,6 @@ globalThis.Alchemy = {
     this.open = vi.fn()
   }),
   currentDialog: vi.fn(),
-  uploader_defaults: {},
   PreviewWindow: {
     postMessage: vi.fn(),
     refresh: vi.fn()
