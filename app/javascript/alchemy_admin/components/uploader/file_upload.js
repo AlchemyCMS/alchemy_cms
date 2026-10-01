@@ -1,6 +1,7 @@
 import { formatFileSize } from "alchemy_admin/utils/format"
 import { translate } from "alchemy_admin/i18n"
 import { growl } from "alchemy_admin/growler"
+import { readJSONScript } from "alchemy_admin/utils/json_script"
 
 export class FileUpload extends HTMLElement {
   // public — used by callers (Uploader, Progress, tests)
@@ -78,10 +79,10 @@ export class FileUpload extends HTMLElement {
   }
 
   /**
-   * validate given file with the `Alchemy.uploader_defaults` - configuration
+   * validate given file with the uploader configuration
    */
   #validateFile() {
-    const config = Alchemy.uploader_defaults
+    const config = readJSONScript("alchemy_uploader_defaults")
     const maxFileSize = config.file_size_limit * Math.pow(1024, 2) // in Byte
     let errorMessage = undefined
 
