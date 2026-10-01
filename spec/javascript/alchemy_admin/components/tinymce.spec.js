@@ -3,6 +3,17 @@ import "../mocks/matchMedia.js"
 import "alchemy_admin/components/tinymce"
 import "vendor/tinymce.min"
 import { mockIntersectionObserver } from "jsdom-testing-mocks"
+import { vi } from "vitest"
+
+let tinymceConfig
+
+vi.mock("alchemy_admin/utils/json_script", () => {
+  return {
+    readJSONScript: vi.fn((id) =>
+      id === "alchemy_tinymce_defaults" ? tinymceConfig : undefined
+    )
+  }
+})
 
 describe("alchemy-tinymce", () => {
   const intersectionObserver = mockIntersectionObserver()
@@ -16,10 +27,9 @@ describe("alchemy-tinymce", () => {
 
   beforeAll(() => {
     setupLanguage()
-    // The tinymce configuration is set in the global Alchemy object
-    // because we translate the configuration from the Rails backend
-    // into the JS world.
-    Alchemy.TinymceDefaults = {
+    // The tinymce configuration is rendered by the Rails backend
+    // into a JSON script tag.
+    tinymceConfig = {
       skin: "alchemy",
       icons: "remixicons",
       width: "auto",
@@ -133,7 +143,7 @@ describe("alchemy-tinymce", () => {
     `
 
     beforeEach(() => {
-      Alchemy.TinymceDefaults = {
+      tinymceConfig = {
         toolbar: ["1", "2"],
         statusbar: true,
         min_height: 220

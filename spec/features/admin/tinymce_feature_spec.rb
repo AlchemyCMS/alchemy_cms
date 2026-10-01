@@ -9,8 +9,10 @@ RSpec.describe "TinyMCE Editor", type: :system do
 
   it "base path should be set to tinymce asset folder" do
     visit admin_dashboard_path
-    expect(page).to have_content(
-      'var tinyMCEPreInit = {"base":"/assets/tinymce","suffix":".min"};'
+    expect(page).to have_css(
+      "script#alchemy_tinymce_defaults",
+      text: '"base_url":"/assets/tinymce","suffix":".min"',
+      visible: false
     )
   end
 
@@ -24,8 +26,10 @@ RSpec.describe "TinyMCE Editor", type: :system do
 
     it "base path should be set to tinymce asset folder" do
       visit admin_dashboard_path
-      expect(page).to have_content(
-        'var tinyMCEPreInit = {"base":"http://myhost.com/assets/tinymce","suffix":".min"};'
+      expect(page).to have_css(
+        "script#alchemy_tinymce_defaults",
+        text: '"base_url":"http://myhost.com/assets/tinymce","suffix":".min"',
+        visible: false
       )
     end
   end
