@@ -3,6 +3,19 @@ import { ElementEditor } from "alchemy_admin/components/element_editor"
 import { renderComponent } from "./component.helper"
 import { growl } from "alchemy_admin/growler"
 
+vi.mock("alchemy_admin/routes", () => {
+  return {
+    routes: {
+      collapse_admin_element_path(id) {
+        return `/admin/elements/${id}/collapse`
+      },
+      expand_admin_element_path(id) {
+        return `/admin/elements/${id}/expand`
+      }
+    }
+  }
+})
+
 vi.mock("alchemy_admin/growler", () => {
   return {
     growl: vi.fn()
@@ -94,14 +107,6 @@ describe("alchemy-element-editor", () => {
         this.stop = vi.fn()
       }),
       growl: vi.fn(),
-      routes: {
-        collapse_admin_element_path(id) {
-          return `/admin/elements/${id}/collapse`
-        },
-        expand_admin_element_path(id) {
-          return `/admin/elements/${id}/expand`
-        }
-      },
       PreviewWindow: {
         postMessage: vi.fn(),
         refresh: vi.fn()

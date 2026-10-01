@@ -89,7 +89,6 @@ globalThis.Alchemy = {
   translations: {},
   locale: "en",
   growl: vi.fn(),
-  routes: {},
   LinkDialog: vi.fn(function () {
     this.open = vi.fn()
   }),

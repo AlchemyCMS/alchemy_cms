@@ -1,5 +1,6 @@
 import { translate } from "alchemy_admin/i18n"
 import { Dialog } from "alchemy_admin/dialog"
+import { routes } from "alchemy_admin/routes"
 
 // Matches a URL fragment (#anchor) at the end of a string.
 // Covers RFC 3986 unreserved characters (ALPHA, DIGIT, "-", ".", "_", "~")
@@ -13,7 +14,7 @@ export class LinkDialog extends Dialog {
   #onCreateLink
 
   constructor(link) {
-    const url = new URL(Alchemy.routes.link_admin_pages_path, window.location)
+    const url = new URL(routes.link_admin_pages_path, window.location)
     const parameterMapping = {
       url: link.url,
       selected_tab: link.type,
