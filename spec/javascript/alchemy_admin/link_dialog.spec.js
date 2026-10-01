@@ -3,11 +3,13 @@ import { LinkDialog } from "alchemy_admin/link_dialog"
 
 vi.mock("alchemy_admin/spinner")
 vi.mock("alchemy_admin/hotkeys")
+vi.mock("alchemy_admin/routes", () => ({
+  routes: { link_admin_pages_path: "/admin/pages/link" }
+}))
 
 describe("LinkDialog", () => {
   beforeEach(() => {
     document.body.innerHTML = ""
-    Alchemy.routes.link_admin_pages_path = "/admin/pages/link"
   })
 
   /**

@@ -1,5 +1,6 @@
 import { patch } from "alchemy_admin/utils/ajax"
 import { growl } from "alchemy_admin/growler"
+import { routes } from "alchemy_admin/routes"
 
 /**
  * Custom element for menu nodes in the nodes tree
@@ -25,7 +26,7 @@ export class AlchemyMenuNode extends HTMLElement {
     event.preventDefault()
 
     try {
-      await patch(Alchemy.routes.node.toggle_folded_api_path(this.nodeId))
+      await patch(routes.node.toggle_folded_api_path(this.nodeId))
       this.folded = !this.folded
     } catch (error) {
       growl(error.message || error, "error")

@@ -3,6 +3,7 @@ import { growl } from "alchemy_admin/growler"
 import { patch } from "alchemy_admin/utils/ajax"
 import { translate } from "alchemy_admin/i18n"
 import pleaseWaitOverlay from "alchemy_admin/please_wait_overlay"
+import { routes } from "alchemy_admin/routes"
 
 /**
  * Custom element for the sitemap container
@@ -160,7 +161,7 @@ export class AlchemySitemap extends HTMLElement {
     // evt.item is the <alchemy-page-node> element being dragged
     const pageNode = evt.item
     const pageId = pageNode.pageId
-    const url = Alchemy.routes.move_admin_page_path(pageId)
+    const url = routes.move_admin_page_path(pageId)
     const data = {
       target_parent_id: evt.to.dataset.parentId,
       new_position: evt.newIndex

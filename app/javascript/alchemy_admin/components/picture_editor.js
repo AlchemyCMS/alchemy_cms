@@ -2,6 +2,7 @@ import debounce from "alchemy_admin/utils/debounce"
 import max from "alchemy_admin/utils/max"
 import { get } from "alchemy_admin/utils/ajax"
 import { growl } from "alchemy_admin/growler"
+import { routes } from "alchemy_admin/routes"
 
 const UPDATE_DELAY = 125
 const IMAGE_PLACEHOLDER = '<alchemy-icon name="image" size="xl"></alchemy-icon>'
@@ -56,7 +57,7 @@ export class PictureEditor extends HTMLElement {
     if (!this.pictureId) return
 
     this.pictureThumbnail.loading = true
-    get(Alchemy.routes.url_admin_picture_path(this.pictureId), {
+    get(routes.url_admin_picture_path(this.pictureId), {
       crop: this.imageCropperEnabled,
       crop_from: this.cropFrom,
       crop_size: this.cropSize,

@@ -12,10 +12,13 @@ vi.mock("alchemy_admin/growler", () => ({
   growl: vi.fn()
 }))
 
-// Add missing Alchemy globals (Alchemy is already set up in setup.js)
-Alchemy.routes.node = {
-  toggle_folded_api_path: (id) => `/api/nodes/${id}/toggle_folded`
-}
+vi.mock("alchemy_admin/routes", () => ({
+  routes: {
+    node: {
+      toggle_folded_api_path: (id) => `/api/nodes/${id}/toggle_folded`
+    }
+  }
+}))
 
 describe("AlchemyMenuNode", () => {
   let container
