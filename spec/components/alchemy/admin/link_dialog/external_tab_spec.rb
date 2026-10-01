@@ -21,6 +21,11 @@ RSpec.describe Alchemy::Admin::LinkDialog::ExternalTab, type: :component do
     end
   end
 
+  it "renders the link url expression for the link dialog to validate with" do
+    expect(page.find(:css, "input[name=external_link]")["data-link-url-regexp"])
+      .to eq(Alchemy::Configurations::FormatMatchers::LINK_URL.inspect)
+  end
+
   context "tab selected" do
     let(:is_selected) { true }
 
