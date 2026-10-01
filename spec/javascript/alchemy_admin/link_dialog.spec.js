@@ -54,6 +54,65 @@ describe("LinkDialog", () => {
     return promise
   }
 
+  /**
+   * Renders the external tab the way the server does and submits its form.
+   * Returns the promise of the dialog, which only resolves if the url is valid.
+   */
+  function submitExternalForm(
+    url,
+    literal = "/^((mailto|tel):|(https?|ftp):\\/\\/|\\/)/"
+  ) {
+    const dialog = new LinkDialog({ url, type: "external" })
+    const promise = dialog.open()
+
+    dialog.replace(`
+      <div id="errors" style="display: none"><ul></ul></div>
+      <div data-link-form-type="internal"></div>
+      <div data-link-form-type="file">
+        <alchemy-attachment-select></alchemy-attachment-select>
+      </div>
+      <div data-link-form-type="external">
+        <input id="external_link" value="${url}" ${literal ? `data-link-url-regexp="${literal}"` : ""} />
+        <input id="external_link_title" value="" />
+        <select id="external_link_target"><option value="">Default</option></select>
+      </div>
+    `)
+
+    const form = document.querySelector('[data-link-form-type="external"]')
+    form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }))
+
+    return promise
+  }
+
+  describe("submitting an external link", () => {
+    beforeEach(() => {
+      Alchemy.t = vi.fn((key) => key)
+    })
+
+    it("creates the link if the url matches", async () => {
+      const result = await submitExternalForm("https://example.com")
+      expect(result.url).toBe("https://example.com")
+    })
+
+    it("shows a validation error if the url does not match", () => {
+      submitExternalForm("javascript:alert(1)")
+      expect(document.getElementById("errors").style.display).toBe("block")
+    })
+
+    it("creates the link if the external tab renders no expression", async () => {
+      const result = await submitExternalForm("javascript:alert(1)", null)
+      expect(result.url).toBe("javascript:alert(1)")
+    })
+
+    it("keeps the flags of the configured expression", async () => {
+      const result = await submitExternalForm(
+        "HTTPS://example.com",
+        "/^https:/i"
+      )
+      expect(result.url).toBe("HTTPS://example.com")
+    })
+  })
+
   describe("submitting an internal link with anchor", () => {
     it("strips anchor with hyphens before appending new anchor", async () => {
       const result = await submitInternalForm("/page#my-section", "#new-section")

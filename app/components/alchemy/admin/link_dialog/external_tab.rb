@@ -33,7 +33,8 @@ module Alchemy
 
         def url_input
           label = label_tag("external_link", "URL", class: "control-label")
-          input = text_field_tag "external_link", is_selected? ? @url : ""
+          input = text_field_tag "external_link", is_selected? ? @url : "",
+            data: {link_url_regexp: link_url_regexp.inspect}
           content_tag("div", label + input, class: "input text")
         end
       end
