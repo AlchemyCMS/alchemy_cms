@@ -55,7 +55,29 @@
         79
       ],
       "note": ""
+    },
+    {
+      "warning_type": "Format Validation",
+      "warning_code": 30,
+      "fingerprint": "c9db7cc83a6210bf4a715ce9f9ffabca1145d51db9fc1ca1e45d965e7151751b",
+      "check_name": "ValidationRegex",
+      "message": "Insufficient validation for `url` using `/\\A(\\/|\\D[a-z+\\d.-]+:)/`. Use `\\A` and `\\z` as anchors",
+      "file": "app/models/alchemy/node.rb",
+      "line": 99,
+      "link": "https://brakemanscanner.org/docs/warning_types/format_validation/",
+      "code": ":url, { :format => ({ :with => /\\A(\\/|\\D[a-z+\\d.-]+:)/ }), :unless => (lambda do\n url.nil?\n end) }",
+      "render_path": null,
+      "location": {
+        "type": "model",
+        "model": "Alchemy::Node"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        777
+      ],
+      "note": "VALID_URL_REGEX deliberately only checks the url prefix (a path or a scheme). It is anchored with \\A, so the multiline bypass does not apply, and executable schemes are rejected by Alchemy::SafeUrlValidator."
     }
   ],
-  "brakeman_version": "7.1.2"
+  "brakeman_version": "8.1.0"
 }
