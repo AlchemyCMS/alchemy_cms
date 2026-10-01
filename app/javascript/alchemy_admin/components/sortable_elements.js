@@ -3,6 +3,7 @@ import { growl } from "alchemy_admin/growler"
 import { post } from "alchemy_admin/utils/ajax"
 import { reloadPreview } from "alchemy_admin/components/preview_window"
 import { dispatchPageDirtyEvent } from "alchemy_admin/utils/dispatch_page_dirty_event"
+import { routes } from "alchemy_admin/routes"
 
 const SORTABLE_OPTIONS = {
   draggable: ".element-editor",
@@ -36,7 +37,7 @@ function onSort(event) {
   // or sorted in the same list. Not on the old list in order to avoid incrementing
   // the position of the other elements.
   if (event.target === event.to) {
-    post(Alchemy.routes.order_admin_elements_path, params).then((response) => {
+    post(routes.order_admin_elements_path, params).then((response) => {
       const data = response.data
       growl(data.message)
       if (data.pageHasUnpublishedChanges) {

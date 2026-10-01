@@ -15,8 +15,9 @@ vi.mock("alchemy_admin/growler", () => ({
   growl: vi.fn()
 }))
 
-// Add missing Alchemy globals (Alchemy is already set up in setup.js)
-Alchemy.routes.fold_admin_page_path = (id) => `/admin/pages/${id}/fold`
+vi.mock("alchemy_admin/routes", () => ({
+  routes: { fold_admin_page_path: (id) => `/admin/pages/${id}/fold` }
+}))
 
 // Mock Turbo
 global.Turbo = {
