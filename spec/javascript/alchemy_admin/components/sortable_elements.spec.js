@@ -17,6 +17,14 @@ vi.mock("sortablejs", () => {
   }
 })
 
+vi.mock("alchemy_admin/routes", () => {
+  return {
+    routes: {
+      order_admin_elements_path: "/admin/elements/order"
+    }
+  }
+})
+
 vi.mock("alchemy_admin/growler", () => {
   return {
     growl: vi.fn()
@@ -75,11 +83,6 @@ describe("alchemy-sortable-elements", () => {
   `
 
   beforeEach(() => {
-    Alchemy = {
-      routes: {
-        order_admin_elements_path: "/admin/elements/order"
-      }
-    }
     vi.clearAllMocks()
   })
 

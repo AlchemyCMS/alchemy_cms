@@ -9,6 +9,16 @@ vi.mock("alchemy_admin/utils/ajax", () => {
   }
 })
 
+let uploaderConfig
+
+vi.mock("alchemy_admin/utils/json_script", () => {
+  return {
+    readJSONScript: vi.fn((id) =>
+      id === "alchemy_uploader_defaults" ? uploaderConfig : undefined
+    )
+  }
+})
+
 vi.mock("alchemy_admin/growler", () => {
   return {
     growl: vi.fn()
@@ -60,14 +70,14 @@ describe("alchemy-uploader", () => {
 
   beforeEach(() => {
     Alchemy = {
-      growl: vi.fn(),
-      uploader_defaults: {
-        file_size_limit: 100,
-        upload_limit: 50,
-        allowed_filetypes: {
-          alchemy_pictures: ["webp", "png", "svg"],
-          alchemy_attachments: ["*"]
-        }
+      growl: vi.fn()
+    }
+    uploaderConfig = {
+      file_size_limit: 100,
+      upload_limit: 50,
+      allowed_filetypes: {
+        alchemy_pictures: ["webp", "png", "svg"],
+        alchemy_attachments: ["*"]
       }
     }
 
@@ -212,7 +222,7 @@ describe("alchemy-uploader", () => {
     describe("upload limit", () => {
       beforeEach(() => {
         vi.clearAllMocks() // Clear mocks before this specific test
-        Alchemy.uploader_defaults.upload_limit = 2
+        uploaderConfig.upload_limit = 2
         component.uploadFiles([firstFile, secondFile, new File([], "foo")])
       })
 
@@ -249,7 +259,7 @@ describe("alchemy-uploader", () => {
   describe("file not valid", () => {
     beforeEach(() => {
       vi.clearAllMocks() // Clear mocks before this specific test
-      Alchemy.uploader_defaults.allowed_filetypes.alchemy_attachments = ["txt"]
+      uploaderConfig.allowed_filetypes.alchemy_attachments = ["txt"]
       component.uploadFiles([
         new File([], "foo.pdf", { type: "application/pdf" }),
         firstFile,

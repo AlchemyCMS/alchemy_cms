@@ -23,8 +23,9 @@ vi.mock("alchemy_admin/i18n", () => ({
   translate: vi.fn((key) => key)
 }))
 
-// Add missing Alchemy globals (Alchemy is already set up in setup.js)
-Alchemy.routes.move_admin_page_path = (id) => `/admin/pages/${id}/move`
+vi.mock("alchemy_admin/routes", () => ({
+  routes: { move_admin_page_path: (id) => `/admin/pages/${id}/move` }
+}))
 
 describe("AlchemySitemap", () => {
   let element
