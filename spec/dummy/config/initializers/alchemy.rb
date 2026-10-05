@@ -248,7 +248,7 @@ Alchemy.configure do |config|
   # === Admin Content Security Policy
   #
   # The class building the Content Security Policy Alchemy sends with its own
-  # admin responses. Set it to nil to send no policy at all.
+  # admin responses. No policy is sent by default, until Alchemy 9.0.
   #
   # Alchemy never replaces a policy your application has configured itself.
   # Your asset host, your admin stylesheets and modules pinned to a CDN are

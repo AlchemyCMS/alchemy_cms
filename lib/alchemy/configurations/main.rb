@@ -514,14 +514,15 @@ module Alchemy
       # === Admin Content Security Policy
       #
       # The class building the Content Security Policy Alchemy sends with its
-      # own admin responses. Set to +nil+ to send no policy at all.
+      # own admin responses. Defaults to +nil+, which sends no policy at all.
+      # It will be enabled by default in Alchemy 9.0.
       #
       # It never replaces a policy the host application has configured, and it
       # only applies to Alchemy's own controllers.
       #
-      #    Alchemy.config.admin_content_security_policy = "MyApp::AdminContentSecurityPolicy"
+      #    Alchemy.config.admin_content_security_policy = "Alchemy::Admin::ContentSecurityPolicy"
       #
-      option :admin_content_security_policy, :class, default: "Alchemy::Admin::ContentSecurityPolicy"
+      option :admin_content_security_policy, :class, default: nil
 
       # === Publishable resolver
       #

@@ -4,9 +4,9 @@ module Alchemy
   module Admin
     # The Content Security Policy Alchemy applies to its own admin responses.
     #
-    # Configured by default. Set it to nil to send no policy at all:
+    # Not configured by default. Opt in with:
     #
-    #     Alchemy.config.admin_content_security_policy = nil
+    #     Alchemy.config.admin_content_security_policy = "Alchemy::Admin::ContentSecurityPolicy"
     #
     # 'self' follows the origin the admin is served from, so mounting it under
     # its own subdomain through +Alchemy.admin_constraints+ needs no extra

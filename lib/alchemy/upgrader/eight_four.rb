@@ -48,10 +48,14 @@ module Alchemy
       end
 
       def notify_admin_content_security_policy
-        todo(<<~TODO.strip, "The admin now sends a Content Security Policy")
+        todo(<<~TODO.strip, "The admin can send a Content Security Policy")
+          Alchemy 9.0 will send a Content Security Policy with its admin
+          responses by default. Opt in now to find out what it would block:
+
+            config.admin_content_security_policy = "Alchemy::Admin::ContentSecurityPolicy"
+
           If you have inline scripts or anything else in your admin that a CSP
-          would block, subclass `Alchemy::Admin::ContentSecurityPolicy`, or set
-          `config.admin_content_security_policy = nil` to turn it off.
+          would block, subclass `Alchemy::Admin::ContentSecurityPolicy`.
         TODO
       end
 
