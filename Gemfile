@@ -68,3 +68,6 @@ gem "gem-release", "~> 2.2"
 gem "i18n-debug", "~> 1.2", require: false # Set to `"i18n/debug"` if you want to debug missing translations
 
 gem "brakeman", "~> 8.0", require: false
+
+# Rails is not ready yet
+gem "json", "< 3", require: false
