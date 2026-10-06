@@ -1,10 +1,23 @@
 import { translate } from "alchemy_admin/i18n"
 import { Dialog } from "alchemy_admin/dialog"
+import { routes } from "alchemy_admin/routes"
 
 // Matches a URL fragment (#anchor) at the end of a string.
 // Covers RFC 3986 unreserved characters (ALPHA, DIGIT, "-", ".", "_", "~")
 // which are the characters valid in URL fragments and common in DOM element IDs.
 const ANCHOR_REGEX = /#[\w.~-]+$/
+
+// The server renders the expression as a JavaScript literal, so that whatever
+// a host application configures keeps the meaning it had as an inline script.
+// A replaced external tab may not render it, the server validates urls anyway.
+function isLinkUrl(url) {
+  const literal =
+    document.getElementById("external_link")?.dataset.linkUrlRegexp
+  if (!literal) return true
+
+  const end = literal.lastIndexOf("/")
+  return new RegExp(literal.slice(1, end), literal.slice(end + 1)).test(url)
+}
 
 // Represents the link Dialog that appears, if a user clicks the link buttons
 // in TinyMCE or on an Ingredient that has links enabled (e.g. Picture)
@@ -13,7 +26,7 @@ export class LinkDialog extends Dialog {
   #onCreateLink
 
   constructor(link) {
-    const url = new URL(Alchemy.routes.link_admin_pages_path, window.location)
+    const url = new URL(routes.link_admin_pages_path, window.location)
     const parameterMapping = {
       url: link.url,
       selected_tab: link.type,
@@ -109,7 +122,7 @@ export class LinkDialog extends Dialog {
     if (linkType === "internal" && elementAnchor.value !== "") {
       // remove possible fragments on the url and attach the fragment (which contains the #)
       url = url.replace(ANCHOR_REGEX, "") + elementAnchor.value
-    } else if (linkType === "external" && !url.match(Alchemy.link_url_regexp)) {
+    } else if (linkType === "external" && !isLinkUrl(url)) {
       // show validation error and prevent link creation
       this.#showValidationError()
       return

@@ -1,6 +1,7 @@
 import { patch } from "alchemy_admin/utils/ajax"
 import { growl } from "alchemy_admin/growler"
 import Spinner from "alchemy_admin/spinner"
+import { routes } from "alchemy_admin/routes"
 
 const BUTTON = "BUTTON"
 const SPAN = "SPAN"
@@ -38,7 +39,7 @@ export class AlchemyPageNode extends HTMLElement {
 
     try {
       await patch(
-        Alchemy.routes.fold_admin_page_path(this.pageId),
+        routes.fold_admin_page_path(this.pageId),
         null,
         "text/vnd.turbo-stream.html"
       )

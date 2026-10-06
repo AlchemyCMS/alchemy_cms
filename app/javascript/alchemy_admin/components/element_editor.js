@@ -3,6 +3,7 @@ import { growl } from "alchemy_admin/growler"
 
 import "alchemy_admin/components/element_editor/publish_element_button"
 import "alchemy_admin/components/element_editor/delete_element_button"
+import { routes } from "alchemy_admin/routes"
 
 export class ElementEditor extends HTMLElement {
   #form = null
@@ -255,7 +256,7 @@ export class ElementEditor extends HTMLElement {
     const spinner = new Alchemy.Spinner("small")
     spinner.spin(this.toggleButton)
     this.toggleIcon?.classList?.add("hidden")
-    return post(Alchemy.routes.collapse_admin_element_path(this.elementId))
+    return post(routes.collapse_admin_element_path(this.elementId))
       .then((response) => {
         const data = response.data
 
@@ -300,7 +301,7 @@ export class ElementEditor extends HTMLElement {
       this.toggleIcon?.classList.add("hidden")
 
       return new Promise((resolve, reject) => {
-        post(Alchemy.routes.expand_admin_element_path(this.elementId))
+        post(routes.expand_admin_element_path(this.elementId))
           .then((response) => {
             const data = response.data
 
