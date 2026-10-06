@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_20_153412) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_16_000004) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -76,6 +76,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_20_153412) do
     t.index ["fixed"], name: "index_alchemy_elements_on_fixed"
     t.index ["page_version_id", "parent_element_id"], name: "idx_alchemy_elements_on_page_version_id_and_parent_element_id"
     t.index ["page_version_id", "position"], name: "idx_alchemy_elements_on_page_version_id_and_position"
+    t.index ["page_version_id", "public_on", "public_until", "position"], name: "idx_alchemy_elements_on_version_publication_position"
     t.index ["page_version_id"], name: "index_alchemy_elements_on_page_version_id"
     t.index ["public_on", "public_until"], name: "index_alchemy_elements_on_public_on_and_public_until"
     t.index ["updater_id"], name: "index_alchemy_elements_on_updater_id"
@@ -128,6 +129,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_20_153412) do
     t.index ["creator_id"], name: "index_alchemy_languages_on_creator_id"
     t.index ["language_code", "country_code"], name: "index_alchemy_languages_on_language_code_and_country_code"
     t.index ["language_code"], name: "index_alchemy_languages_on_language_code"
+    t.index ["site_id", "default"], name: "idx_alchemy_languages_on_site_id_and_default"
     t.index ["site_id"], name: "index_alchemy_languages_on_site_id"
     t.index ["updater_id"], name: "index_alchemy_languages_on_updater_id"
   end
@@ -184,6 +186,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_20_153412) do
     t.string "title"
     t.datetime "updated_at", null: false
     t.index ["page_id"], name: "index_alchemy_page_versions_on_page_id"
+    t.index ["page_id", "public_on", "public_until"], name: "idx_alchemy_page_versions_on_page_id_and_publication"
     t.index ["public_on", "public_until"], name: "index_alchemy_page_versions_on_public_on_and_public_until"
   end
 
@@ -217,6 +220,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_20_153412) do
     t.integer "updater_id"
     t.string "urlname"
     t.index ["creator_id"], name: "index_alchemy_pages_on_creator_id"
+    t.index ["language_id", "layoutpage"], name: "idx_alchemy_pages_on_language_id_and_layoutpage"
     t.index ["language_id"], name: "index_alchemy_pages_on_language_id"
     t.index ["locked_at", "locked_by"], name: "index_alchemy_pages_on_locked_at_and_locked_by"
     t.index ["parent_id", "lft"], name: "index_pages_on_parent_id_and_lft"
