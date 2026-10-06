@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_04_11_155901) do
+ActiveRecord::Schema[8.0].define(version: 2026_10_06_122633) do
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
     t.string "file_name"
     t.string "file_mime_type"
-    t.integer "file_size"
+    t.bigint "file_size"
     t.integer "creator_id"
     t.integer "updater_id"
     t.datetime "created_at", null: false
