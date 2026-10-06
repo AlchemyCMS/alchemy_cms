@@ -2,6 +2,7 @@ import Sortable from "sortablejs"
 import { patch } from "alchemy_admin/utils/ajax"
 import { growl } from "alchemy_admin/growler"
 import { translate } from "alchemy_admin/i18n"
+import { routes } from "alchemy_admin/routes"
 
 /**
  * Custom element for the nodes tree container
@@ -28,7 +29,7 @@ export class AlchemyNodeTree extends HTMLElement {
       return
     }
 
-    const url = Alchemy.routes.node.move_api_path(event.item.nodeId)
+    const url = routes.node.move_api_path(event.item.nodeId)
     const data = {
       target_parent_id: event.to.dataset.recordId,
       new_position: event.newIndex

@@ -1,5 +1,6 @@
 import "tinymce"
 import { currentLocale } from "alchemy_admin/i18n"
+import { readJSONScript } from "alchemy_admin/utils/json_script"
 
 const DARK_THEME = "alchemy-dark"
 const LIGHT_THEME = "alchemy"
@@ -172,7 +173,7 @@ export class Tinymce extends HTMLElement {
 
     const config = {
       content_css: this.preferredTheme,
-      ...Alchemy.TinymceDefaults,
+      ...readJSONScript("alchemy_tinymce_defaults"),
       ...customConfig,
       language: currentLocale(),
       selector: `#${this.editorId}`,

@@ -42,7 +42,7 @@ RSpec.describe "Admin Content Security Policy" do
   it "nonces every inline script it renders" do
     get alchemy.admin_dashboard_path
     nonce = policy[/'nonce-([^']+)'/, 1]
-    inline_scripts = response.body.scan(/<script(?![^>]*\ssrc=)[^>]*>/)
+    inline_scripts = response.body.scan(/<script(?![^>]*\ssrc=)(?![^>]*\stype="application\/json")[^>]*>/)
     expect(inline_scripts).to all(include(%(nonce="#{nonce}")))
   end
 

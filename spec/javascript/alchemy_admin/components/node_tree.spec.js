@@ -22,10 +22,13 @@ vi.mock("alchemy_admin/i18n", () => ({
   translate: vi.fn((key) => key)
 }))
 
-// Add missing Alchemy globals (Alchemy is already set up in setup.js)
-Alchemy.routes.node = {
-  move_api_path: (id) => `/api/nodes/${id}/move`
-}
+vi.mock("alchemy_admin/routes", () => ({
+  routes: {
+    node: {
+      move_api_path: (id) => `/api/nodes/${id}/move`
+    }
+  }
+}))
 
 describe("AlchemyNodeTree", () => {
   let container

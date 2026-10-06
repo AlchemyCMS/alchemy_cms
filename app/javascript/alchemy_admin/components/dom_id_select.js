@@ -1,6 +1,7 @@
 import { get } from "alchemy_admin/utils/ajax"
 import { translate } from "alchemy_admin/i18n"
 import { growl } from "alchemy_admin/growler"
+import { routes } from "alchemy_admin/routes"
 
 class DomIdSelect extends HTMLElement {
   dataItem(hash) {
@@ -24,7 +25,7 @@ class DomIdApiSelect extends DomIdSelect {
 
   async #fetchDomIds() {
     try {
-      const result = await get(Alchemy.routes.api_ingredients_path, {
+      const result = await get(routes.api_ingredients_path, {
         page_id: this.#pageId
       })
       const options = result.data.ingredients

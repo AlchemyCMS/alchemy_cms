@@ -1,48 +1,24 @@
-<%= tag.script(nonce: content_security_policy_nonce) do %>
-  Alchemy.routes = {
-
-    admin_picture_path: function(id) {
-      return '<%= alchemy.admin_picture_path(id: 1) %>'.replace(/1/, id);
+<%= tag.script(type: "application/json", id: "alchemy_routes") do %>
+  <%== {
+    collection: {
+      order_admin_elements_path: alchemy.order_admin_elements_path,
+      link_admin_pages_path: alchemy.link_admin_pages_path,
+      api_pages_path: alchemy.api_pages_path,
+      api_elements_path: alchemy.api_elements_path,
+      api_ingredients_path: alchemy.api_ingredients_path
     },
-
-    url_admin_picture_path: function(id) {
-      return '<%= alchemy.url_admin_picture_path(id: 1) %>'.replace(/1/, id);
-    },
-
-    collapse_admin_element_path: function(id) {
-      return '<%= alchemy.collapse_admin_element_path(id: 1) %>'.replace(/1/, id);
-    },
-
-    expand_admin_element_path: function(id) {
-      return '<%= alchemy.expand_admin_element_path(id: 1) %>'.replace(/1/, id);
-    },
-
-    publish_admin_element_path: function(id) {
-      return '<%= alchemy.publish_admin_element_path(id: 1) %>'.replace(/1/, id);
-    },
-
-    node: {
-      toggle_folded_api_path: function(id) {
-        return '<%= alchemy.toggle_folded_api_node_path(id: 1) %>'.replace(/1/, id);
-      },
-
-      move_api_path: function(id) {
-        return '<%= alchemy.move_api_node_path(id: 1) %>'.replace(/1/, id);
-      },
-    },
-
-    move_admin_page_path: function(id) {
-      return '<%= alchemy.move_api_page_path(id: 1) %>'.replace(/1/, id);
-    },
-
-    fold_admin_page_path: function(id) {
-      return '<%= alchemy.fold_admin_page_path(id: 1) %>'.replace(/1/, id);
-    },
-
-    order_admin_elements_path: '<%= alchemy.order_admin_elements_path %>',
-    link_admin_pages_path: '<%= alchemy.link_admin_pages_path %>',
-    api_pages_path: '<%= alchemy.api_pages_path %>',
-    api_elements_path: '<%= alchemy.api_elements_path %>',
-    api_ingredients_path: '<%= alchemy.api_ingredients_path %>'
-  };
+    member: {
+      admin_picture_path: alchemy.admin_picture_path(id: 1),
+      url_admin_picture_path: alchemy.url_admin_picture_path(id: 1),
+      collapse_admin_element_path: alchemy.collapse_admin_element_path(id: 1),
+      expand_admin_element_path: alchemy.expand_admin_element_path(id: 1),
+      publish_admin_element_path: alchemy.publish_admin_element_path(id: 1),
+      move_admin_page_path: alchemy.move_api_page_path(id: 1),
+      fold_admin_page_path: alchemy.fold_admin_page_path(id: 1),
+      node: {
+        toggle_folded_api_path: alchemy.toggle_folded_api_node_path(id: 1),
+        move_api_path: alchemy.move_api_node_path(id: 1)
+      }
+    }
+  }.to_json %>
 <% end %>
