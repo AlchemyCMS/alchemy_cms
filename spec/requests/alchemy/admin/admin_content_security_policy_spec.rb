@@ -7,13 +7,18 @@ RSpec.describe "Admin Content Security Policy" do
 
   around do |example|
     configured = Alchemy.config.raw_admin_content_security_policy
+    Alchemy.config.admin_content_security_policy = "Alchemy::Admin::ContentSecurityPolicy"
     example.run
     Alchemy.config.admin_content_security_policy = configured
   end
 
   def policy = response.headers["Content-Security-Policy"]
 
-  it "is applied by default" do
+  it "is not configured by default" do
+    expect(Alchemy::Configurations::Main.new.admin_content_security_policy).to be_nil
+  end
+
+  it "is applied when configured" do
     get alchemy.admin_dashboard_path
     expect(policy).to be_present
   end

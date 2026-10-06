@@ -80,7 +80,7 @@ namespace :alchemy do
         Alchemy::Upgrader["8.4"].notify_attachment_filetypes_default
       end
 
-      desc "Notify about the new admin Content Security Policy"
+      desc "Notify about the opt-in admin Content Security Policy"
       task notify_admin_content_security_policy: [:environment] do
         Alchemy::Upgrader["8.4"].notify_admin_content_security_policy
       end
