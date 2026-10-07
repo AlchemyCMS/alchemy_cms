@@ -228,6 +228,13 @@ module Alchemy
         ).call
       end
 
+      # Dragonfly stores all attachment metadata in database columns, so no
+      # association preloading is needed for attachments.
+      # @param [Array<Alchemy::Attachment>] attachments
+      def preload_attachment_associations(_attachments)
+        # no-op
+      end
+
       # @param [Alchemy::Attachment]
       # @return [TrueClass, FalseClass]
       def set_attachment_name?(attachment)

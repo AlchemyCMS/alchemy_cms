@@ -4,6 +4,7 @@ require "active_support"
 require "active_support/core_ext/string"
 
 require "alchemy/configuration/boolean_option"
+require "alchemy/configuration/class_map_option"
 require "alchemy/configuration/collection_option"
 require "alchemy/configuration/configuration_option"
 require "alchemy/configuration/class_option"
@@ -60,7 +61,14 @@ module Alchemy
     def to_h
       self.class.defined_options.map do |option|
         value = send(option)
-        [option, value.respond_to?(:to_serializable_array) ? value.to_serializable_array : value]
+        serialized = if value.respond_to?(:to_serializable_array)
+          value.to_serializable_array
+        elsif value.respond_to?(:to_serializable_hash)
+          value.to_serializable_hash
+        else
+          value
+        end
+        [option, serialized]
       end.concat(
         self.class.defined_configurations.map do |configuration|
           [configuration, send(configuration).to_h]
