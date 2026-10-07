@@ -38,12 +38,37 @@ describe("preview", () => {
     listenerSpy.mock.calls.forEach((args) => window.removeEventListener(...args))
     vi.restoreAllMocks()
     document.body.innerHTML = ""
+    // Restores the prototype getter stubbed out by stillParsing().
+    delete document.readyState
   })
+
+  function stillParsing() {
+    Object.defineProperty(document, "readyState", {
+      configurable: true,
+      get: () => "loading"
+    })
+  }
 
   it("does not create a global Alchemy object", async () => {
     await loadPreview()
 
     expect(window.Alchemy).toBeUndefined()
+  })
+
+  it("binds elements that are parsed after the script tag", async () => {
+    stillParsing()
+    document.body.innerHTML = ""
+
+    await loadPreview()
+
+    // Host layouts may render page content below the alchemy/edit_mode
+    // partial, so it does not exist yet when the script runs.
+    document.body.innerHTML = `<div data-alchemy-element="3">Element three</div>`
+    document.dispatchEvent(new Event("DOMContentLoaded"))
+
+    element(3).dispatchEvent(new MouseEvent("mouseover"))
+
+    expect(element(3).style.outline).toEqual(HOVER_OUTLINE)
   })
 
   it("notifies the parent window that the preview is ready", async () => {
