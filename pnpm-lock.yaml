@@ -73,17 +73,17 @@ importers:
         specifier: ^4.63.5
         version: 4.63.5
       sass:
-        specifier: ^1.105.0
-        version: 1.105.0
+        specifier: ^1.105.1
+        version: 1.105.1
       svg-sprite:
         specifier: ^2.0.4
         version: 2.0.4
       vite:
         specifier: ^8.3.1
-        version: 8.3.1(jiti@2.7.0)(sass@1.105.0)(terser@5.48.0)(yaml@2.9.0)
+        version: 8.3.1(jiti@2.7.0)(sass@1.105.1)(terser@5.48.0)(yaml@2.9.0)
       vitest:
         specifier: ^5.0.3
-        version: 5.0.3(jsdom@29.1.1)(vite@8.3.1(jiti@2.7.0)(sass@1.105.0)(terser@5.48.0)(yaml@2.9.0))
+        version: 5.0.3(jsdom@29.1.1)(vite@8.3.1(jiti@2.7.0)(sass@1.105.1)(terser@5.48.0)(yaml@2.9.0))
 
 packages:
 
@@ -1606,8 +1606,8 @@ packages:
     resolution: {integrity: sha512-b3rppTKm9T+PsVCBEOUR46GWI7fdOs00VKZ1+9c1EWDaDMvjQc6tUwuFyIprgGgTcWoVHSKrU8H31ZHA2e0RHA==}
     engines: {node: '>=10'}
 
-  sass@1.105.0:
-    resolution: {integrity: sha512-4EjSuRTyG8M4yRXXY1PT9OUV5zz23xBxJkbIAprohKHqf6HOU4MCpE3U3vAC+iO1gxobBjESNbcj8rYAQZWnyA==}
+  sass@1.105.1:
+    resolution: {integrity: sha512-1CnAWPyrrnVQzXGB/DUep1vYCKCm1CIBr+YxjjiW6wk9qtzemnGP4qicH56T2F9S4Hjtv/Ne3jDz8JqfdDU4oA==}
     engines: {node: '>=20.19.0'}
     hasBin: true
 
@@ -1643,6 +1643,10 @@ packages:
 
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
+    engines: {node: '>=0.10.0'}
+
+  source-map-js@1.2.2:
+    resolution: {integrity: sha512-KGj/8Y43x35aZVDtt+J4mK1hoLGHULMYfSkODJNQjNDC3oW1PqPoxMwo0pLUsWM/UEGzON/NxeHywEfNXNP3Vw==}
     engines: {node: '>=0.10.0'}
 
   source-map-support@0.5.21:
@@ -2485,14 +2489,14 @@ snapshots:
 
   '@ungap/custom-elements@1.3.0': {}
 
-  '@vitest/mocker@5.0.3(vite@8.3.1(jiti@2.7.0)(sass@1.105.0)(terser@5.48.0)(yaml@2.9.0))':
+  '@vitest/mocker@5.0.3(vite@8.3.1(jiti@2.7.0)(sass@1.105.1)(terser@5.48.0)(yaml@2.9.0))':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       '@vitest/spy': 5.0.3
       estree-walker: 3.0.3
       magic-string: 1.4.2
     optionalDependencies:
-      vite: 8.3.1(jiti@2.7.0)(sass@1.105.0)(terser@5.48.0)(yaml@2.9.0)
+      vite: 8.3.1(jiti@2.7.0)(sass@1.105.1)(terser@5.48.0)(yaml@2.9.0)
 
   '@vitest/spy@5.0.3': {}
 
@@ -3160,7 +3164,7 @@ snapshots:
     dependencies:
       nanoid: 3.3.19
       picocolors: 1.1.1
-      source-map-js: 1.2.1
+      source-map-js: 1.2.2
 
   prelude-ls@1.2.1: {}
 
@@ -3278,11 +3282,11 @@ snapshots:
 
   safe-stable-stringify@2.5.0: {}
 
-  sass@1.105.0:
+  sass@1.105.1:
     dependencies:
       chokidar: 5.0.0
       immutable: 5.1.9
-      source-map-js: 1.2.1
+      source-map-js: 1.2.2
     optionalDependencies:
       '@parcel/watcher': 2.6.0
 
@@ -3307,6 +3311,8 @@ snapshots:
   sortablejs@1.15.7: {}
 
   source-map-js@1.2.1: {}
+
+  source-map-js@1.2.2: {}
 
   source-map-support@0.5.21:
     dependencies:
@@ -3444,7 +3450,7 @@ snapshots:
       remove-trailing-separator: 1.1.0
       replace-ext: 1.0.1
 
-  vite@8.3.1(jiti@2.7.0)(sass@1.105.0)(terser@5.48.0)(yaml@2.9.0):
+  vite@8.3.1(jiti@2.7.0)(sass@1.105.1)(terser@5.48.0)(yaml@2.9.0):
     dependencies:
       lightningcss: 1.33.0
       picomatch: 4.0.7
@@ -3454,14 +3460,14 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
       jiti: 2.7.0
-      sass: 1.105.0
+      sass: 1.105.1
       terser: 5.48.0
       yaml: 2.9.0
 
-  vitest@5.0.3(jsdom@29.1.1)(vite@8.3.1(jiti@2.7.0)(sass@1.105.0)(terser@5.48.0)(yaml@2.9.0)):
+  vitest@5.0.3(jsdom@29.1.1)(vite@8.3.1(jiti@2.7.0)(sass@1.105.1)(terser@5.48.0)(yaml@2.9.0)):
     dependencies:
       '@types/chai': 5.2.3
-      '@vitest/mocker': 5.0.3(vite@8.3.1(jiti@2.7.0)(sass@1.105.0)(terser@5.48.0)(yaml@2.9.0))
+      '@vitest/mocker': 5.0.3(vite@8.3.1(jiti@2.7.0)(sass@1.105.1)(terser@5.48.0)(yaml@2.9.0))
       chai: 6.3.0
       es-module-lexer: 2.3.2
       expect-type: 1.4.0
@@ -3472,7 +3478,7 @@ snapshots:
       tinybench: 6.2.0
       tinyexec: 1.3.1
       tinyglobby: 0.2.17
-      vite: 8.3.1(jiti@2.7.0)(sass@1.105.0)(terser@5.48.0)(yaml@2.9.0)
+      vite: 8.3.1(jiti@2.7.0)(sass@1.105.1)(terser@5.48.0)(yaml@2.9.0)
       why-is-node-running: 3.2.1
     optionalDependencies:
       jsdom: 29.1.1
