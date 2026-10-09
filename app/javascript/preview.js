@@ -16,11 +16,12 @@ const STYLES = {
 }
 
 let elements = []
+let selection = null
 
 // Mark element in preview frame as selected and scrolls to it.
 function selectElement(element) {
   blurElements(element)
-  element.classList.add("selected")
+  selection = element
   Object.assign(element.style, STYLES.selected)
   element.scrollIntoView({
     behavior: "smooth",
@@ -32,10 +33,10 @@ function selectElement(element) {
 function blurElements(selectedElement) {
   elements.forEach((element) => {
     if (element !== selectedElement) {
-      element.classList.remove("selected")
       Object.assign(element.style, STYLES.reset)
     }
   })
+  selection = null
 }
 
 function getElement(elementId) {
@@ -68,12 +69,12 @@ function focusElementEditor(element) {
 
 function observeElement(element) {
   element.addEventListener("mouseover", () => {
-    if (!element.classList.contains("selected")) {
+    if (element !== selection) {
       Object.assign(element.style, STYLES.hover)
     }
   })
   element.addEventListener("mouseout", () => {
-    if (!element.classList.contains("selected")) {
+    if (element !== selection) {
       Object.assign(element.style, STYLES.reset)
     }
   })
