@@ -20,6 +20,50 @@ RSpec.describe "Page editing feature", type: :system do
         visit alchemy.edit_admin_page_path(a_page)
         expect(page).to have_selector("iframe[src='#{admin_page_path(a_page)}']")
       end
+
+      context "with an element on the page" do
+        # The element needs rendered content, or its preview markup collapses to
+        # zero height and there is nothing to point the mouse at.
+        let!(:element) do
+          create(:alchemy_element, :with_ingredients, page_version: a_page.draft_version).tap do |el|
+            el.ingredient_by_role(:headline).update!(value: "Headline in the preview")
+          end
+        end
+        let(:element_selector) { "[data-alchemy-element='#{element.id}']" }
+        let(:editor_selector) { "alchemy-element-editor#element_#{element.id}" }
+
+        before do
+          visit alchemy.edit_admin_page_path(a_page)
+          expect(page).to have_selector(editor_selector)
+        end
+
+        it "outlines the element when hovered" do
+          within_frame("alchemy_preview_window") do
+            find(element_selector).hover
+            expect(page).to have_selector("#{element_selector}[style*='outline']")
+          end
+        end
+
+        it "selects the element editor when the element is clicked" do
+          within_frame("alchemy_preview_window") do
+            # Hovering first waits for the preview script to have bound its
+            # listeners, so the click below cannot land before they exist.
+            find(element_selector).hover
+            expect(page).to have_selector("#{element_selector}[style*='outline']")
+            find(element_selector).click
+          end
+
+          expect(page).to have_selector("#{editor_selector}.selected")
+        end
+
+        it "selects the element when its editor is clicked" do
+          find("#element-header-#{element.id} .element-title").click
+
+          within_frame("alchemy_preview_window") do
+            expect(page).to have_selector("#{element_selector}[style*='rgb(144, 185, 208)']")
+          end
+        end
+      end
     end
 
     describe "single preview source", :js do
