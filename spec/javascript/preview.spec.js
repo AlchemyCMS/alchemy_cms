@@ -35,7 +35,9 @@ describe("preview", () => {
   })
 
   afterEach(() => {
-    listenerSpy.mock.calls.forEach((args) => window.removeEventListener(...args))
+    listenerSpy.mock.calls.forEach((args) =>
+      window.removeEventListener(...args)
+    )
     vi.restoreAllMocks()
     document.body.innerHTML = ""
     // Restores the prototype getter stubbed out by stillParsing().
@@ -103,10 +105,11 @@ describe("preview", () => {
     it("keeps a selected element outlined as selected", async () => {
       await loadPreview()
 
-      element(1).classList.add("selected")
+      element(1).click()
       element(1).dispatchEvent(new MouseEvent("mouseover"))
+      element(1).dispatchEvent(new MouseEvent("mouseout"))
 
-      expect(element(1).style.outline).toEqual("")
+      expect(element(1).style.outline).toEqual(SELECTED_OUTLINE)
     })
   })
 
@@ -127,7 +130,6 @@ describe("preview", () => {
 
       element(2).click()
 
-      expect(element(2).classList.contains("selected")).toBe(true)
       expect(element(2).style.outline).toEqual(SELECTED_OUTLINE)
       expect(element(2).scrollIntoView).toHaveBeenCalledWith({
         behavior: "smooth",
@@ -141,7 +143,6 @@ describe("preview", () => {
       element(1).click()
       element(2).click()
 
-      expect(element(1).classList.contains("selected")).toBe(false)
       expect(element(1).style.outline).toEqual("")
     })
   })
@@ -156,7 +157,7 @@ describe("preview", () => {
         })
       )
 
-      expect(element(2).classList.contains("selected")).toBe(true)
+      expect(element(2).style.outline).toEqual(SELECTED_OUTLINE)
     })
 
     it("warns if no element with the given id exists", async () => {
@@ -187,8 +188,21 @@ describe("preview", () => {
         })
       )
 
-      expect(element(1).classList.contains("selected")).toBe(false)
       expect(element(1).style.outline).toEqual("")
+    })
+
+    it("outlines a formerly selected element on hover again", async () => {
+      await loadPreview()
+
+      element(1).click()
+      window.dispatchEvent(
+        new MessageEvent("message", {
+          data: { message: "Alchemy.blurElements" }
+        })
+      )
+      element(1).dispatchEvent(new MouseEvent("mouseover"))
+
+      expect(element(1).style.outline).toEqual(HOVER_OUTLINE)
     })
   })
 
