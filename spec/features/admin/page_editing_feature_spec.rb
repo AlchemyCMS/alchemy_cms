@@ -60,7 +60,7 @@ RSpec.describe "Page editing feature", type: :system do
           find("#element-header-#{element.id} .element-title").click
 
           within_frame("alchemy_preview_window") do
-            expect(page).to have_selector("#{element_selector}.selected")
+            expect(page).to have_selector("#{element_selector}[style*='rgb(144, 185, 208)']")
           end
         end
       end
