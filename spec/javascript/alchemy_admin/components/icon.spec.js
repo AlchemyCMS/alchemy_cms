@@ -1,7 +1,14 @@
+import { vi } from "vitest"
 import "alchemy_admin/components/icon"
 import { renderComponent } from "./component.helper"
 
 describe("alchemy-icon", () => {
+  it("can be loaded again after the element got defined", async () => {
+    vi.resetModules()
+
+    await expect(import("alchemy_admin/components/icon")).resolves.toBeDefined()
+  })
+
   it("renders an icon with default style", () => {
     const html = `
       <link rel="preload" href="/assets/remixicon.symbol.svg" as="image">
