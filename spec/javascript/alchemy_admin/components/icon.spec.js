@@ -49,4 +49,15 @@ describe("alchemy-icon", () => {
       '<svg class="icon icon--medium"><use href="/assets/remixicon.symbol.svg#ri-image-line"></use></svg>'
     )
   })
+
+  it("renders an icon without a sprite preload link", () => {
+    const html = `
+      <alchemy-icon name="image"></alchemy-icon>
+    `
+    const icon = renderComponent("alchemy-icon", html)
+
+    expect(icon.innerHTML).toEqual(
+      '<svg class="icon"><use href="#ri-image-line"></use></svg>'
+    )
+  })
 })
