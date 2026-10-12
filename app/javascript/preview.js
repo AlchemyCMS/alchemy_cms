@@ -78,12 +78,17 @@ function observeElement(element) {
       Object.assign(element.style, STYLES.reset)
     }
   })
-  element.addEventListener("click", (event) => {
+}
+
+function onClick(event) {
+  const element = event.target.closest("[data-alchemy-element]")
+
+  if (element) {
     event.stopPropagation()
     event.preventDefault()
     selectElement(element)
     focusElementEditor(element)
-  })
+  }
 }
 
 function init() {
@@ -99,6 +104,8 @@ function init() {
         console.info("Received unknown message!", event.data)
     }
   })
+
+  window.addEventListener("click", onClick, { capture: true })
 
   elements = Array.from(document.querySelectorAll("[data-alchemy-element]"))
   elements.forEach(observeElement)
