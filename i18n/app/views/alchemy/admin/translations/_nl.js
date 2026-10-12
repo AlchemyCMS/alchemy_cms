@@ -23,6 +23,9 @@ Alchemy.translations = {
   "File type not allowed": "Bestandstype niet toegestaan.",
   "Maximum number of files exceeded": "Uploadlimiet bereikt.",
   "No results found": "Geen resultaten gevonden.",
+  "Please wait, loading": "Even geduld, bezig met laden",
+  "Loading more results": "Meer resultaten laden",
+  "No more results": "Geen resultaten meer",
   "Uploaded bytes exceed file size":
     "Geüploade bytes overschrijden de bestandsgrootte.",
   "Abort upload": "Upload afbreken",
