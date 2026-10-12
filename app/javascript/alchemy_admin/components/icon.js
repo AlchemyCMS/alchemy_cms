@@ -49,4 +49,8 @@ class Icon extends HTMLElement {
   }
 }
 
-customElements.define("alchemy-icon", Icon)
+// Standalone components import this module next to the admin bundle, which
+// already defined the element from its own copy.
+if (!customElements.get("alchemy-icon")) {
+  customElements.define("alchemy-icon", Icon)
+}
