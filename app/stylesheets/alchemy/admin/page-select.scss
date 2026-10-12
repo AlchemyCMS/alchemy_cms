@@ -1,5 +1,6 @@
 /* The page select renders the shared remote select layout. It is compiled
- * standalone and linked by the Alchemy::Admin::PageSelect component, so it only
- * needs to pull in the shared stylesheet.
+ * standalone and linked by the Alchemy::Admin::PageSelect component, so it also
+ * pulls in the Tom Select theme for pages that do not load the admin stylesheet.
  */
 @use "remote-select";
+@use "tom-select";
