@@ -10,13 +10,14 @@
           <li>
             <h3>
               <%= render_icon 'file' %>
-              <p><%= link_to page.name, edit_admin_page_path(page) %></p>
+              <p><%= link_to page.name, edit_admin_page_path(page), data: {turbo_frame: "_top"} %></p>
             </h3>
             <ul>
               <% related_ingredients.group_by(&:element).each do |element, related_ingredients| %>
                 <li class="<%= cycle('even', 'odd') %>">
                   <% page_link = link_to element.display_name_with_preview_text,
-                                  edit_admin_page_path(page, anchor: "element_#{element.id}") %>
+                                  edit_admin_page_path(page, anchor: "element_#{element.id}"),
+                                  data: {turbo_frame: "_top"} %>
                   <% ingredients = related_ingredients.map(&:translated_role).to_sentence %>
                   <%= element.definition.icon_file %>
                   <p>

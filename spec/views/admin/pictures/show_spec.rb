@@ -73,5 +73,13 @@ describe "alchemy/admin/pictures/show.html.erb" do
       expect(rendered).to have_css(".resource_page_list li a", text: picture_ingredient.element.page.name)
       expect(rendered).to have_content picture_ingredient.translated_role
     end
+
+    it "links to the page and element outside of the overlay turbo frame" do
+      assign(:assignments, picture.related_ingredients.joins(element: :page))
+
+      render
+
+      expect(rendered).to have_css(".resource_page_list a[data-turbo-frame='_top']", count: 2)
+    end
   end
 end
