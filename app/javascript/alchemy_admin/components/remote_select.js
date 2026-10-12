@@ -1,4 +1,5 @@
 import TomSelect from "tom-select"
+import "alchemy_admin/components/icon"
 import { escape_html } from "tom-select/utils"
 import { growl } from "alchemy_admin/growler"
 import { translate } from "alchemy_admin/i18n"

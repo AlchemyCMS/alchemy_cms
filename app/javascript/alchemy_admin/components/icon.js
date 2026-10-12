@@ -5,9 +5,10 @@ class Icon extends HTMLElement {
 
   constructor() {
     super()
-    this.spriteUrl = document
-      .querySelector('link[rel="preload"][as="image"]')
-      .getAttribute("href")
+    this.spriteUrl =
+      document
+        .querySelector('link[rel="preload"][as="image"]')
+        ?.getAttribute("href") ?? ""
   }
 
   connectedCallback() {
