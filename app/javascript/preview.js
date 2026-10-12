@@ -91,6 +91,14 @@ function onClick(event) {
   }
 }
 
+// Client side routers navigate from click handlers on the link itself, so
+// link clicks have to be taken before the event reaches the page.
+function onLinkClick(event) {
+  if (event.target.closest("a")) {
+    onClick(event)
+  }
+}
+
 function init() {
   window.addEventListener("message", (event) => {
     switch (event.data.message) {
@@ -105,7 +113,8 @@ function init() {
     }
   })
 
-  window.addEventListener("click", onClick, { capture: true })
+  window.addEventListener("click", onLinkClick, { capture: true })
+  window.addEventListener("click", onClick)
 
   elements = Array.from(document.querySelectorAll("[data-alchemy-element]"))
   elements.forEach(observeElement)

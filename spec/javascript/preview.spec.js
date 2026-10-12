@@ -163,6 +163,20 @@ describe("preview", () => {
       expect(element(2).style.outline).toEqual(SELECTED_OUTLINE)
     })
 
+    it("lets interactive content inside the element handle the click", async () => {
+      element(2).innerHTML = `<button type="button">Next slide</button>`
+      const onButtonClick = vi.fn()
+      element(2)
+        .querySelector("button")
+        .addEventListener("click", onButtonClick)
+      await loadPreview()
+
+      element(2).querySelector("button").click()
+
+      expect(onButtonClick).toHaveBeenCalled()
+      expect(element(2).style.outline).toEqual(SELECTED_OUTLINE)
+    })
+
     it("selects the innermost of nested elements", async () => {
       element(1).innerHTML = `<div data-alchemy-element="3">Nested</div>`
       await loadPreview()
