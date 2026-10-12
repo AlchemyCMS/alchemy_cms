@@ -1,4 +1,5 @@
 import TomSelect from "tom-select"
+import "alchemy_admin/components/icon"
 import { translate } from "alchemy_admin/i18n"
 import {
   createDropdownPositioning,
