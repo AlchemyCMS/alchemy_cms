@@ -45,6 +45,17 @@ describe("ajax utilities", () => {
       expect(response.data).toEqual({ success: true })
     })
 
+    it("keeps query parameters already present in the path", async () => {
+      global.fetch.mockResolvedValueOnce(successResponse)
+
+      await ajax("GET", "/test?context=topics&term=old", { term: "new" })
+
+      expect(global.fetch).toHaveBeenCalledWith(
+        "http://localhost:3000/test?context=topics&term=new",
+        expect.anything()
+      )
+    })
+
     it("sends a POST request with JSON body", async () => {
       global.fetch.mockResolvedValueOnce(successResponse)
 
