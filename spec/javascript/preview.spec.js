@@ -145,6 +145,37 @@ describe("preview", () => {
 
       expect(element(1).style.outline).toEqual("")
     })
+
+    it("keeps client side routers from navigating", async () => {
+      element(2).innerHTML = `<a href="/other-page">Link</a>`
+      let navigated = false
+      // Mirrors how routers like vue-router guard their link click handlers
+      element(2)
+        .querySelector("a")
+        .addEventListener("click", (event) => {
+          if (!event.defaultPrevented) navigated = true
+        })
+      await loadPreview()
+
+      element(2).querySelector("a").click()
+
+      expect(navigated).toBe(false)
+      expect(element(2).style.outline).toEqual(SELECTED_OUTLINE)
+    })
+
+    it("selects the innermost of nested elements", async () => {
+      element(1).innerHTML = `<div data-alchemy-element="3">Nested</div>`
+      await loadPreview()
+
+      element(3).click()
+
+      expect(element(3).style.outline).toEqual(SELECTED_OUTLINE)
+      expect(element(1).style.outline).toEqual("")
+      expect(postMessageSpy).toHaveBeenCalledWith(
+        { message: "Alchemy.focusElementEditor", element_id: "3" },
+        window.location.origin
+      )
+    })
   })
 
   describe("Alchemy.focusElement message", () => {
