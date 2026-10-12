@@ -93,5 +93,27 @@ describe("i18n", () => {
         spy.mockRestore()
       })
     })
+
+    describe("if there is no global Alchemy object", () => {
+      let alchemy
+
+      beforeEach(() => {
+        alchemy = globalThis.Alchemy
+        delete globalThis.Alchemy
+      })
+
+      afterEach(() => {
+        globalThis.Alchemy = alchemy
+      })
+
+      it("Returns passed string and logs a warning", () => {
+        const spy = vi.spyOn(console, "warn").mockImplementation(() => {})
+        expect(translate("help")).toEqual("help")
+        expect(spy.mock.calls).toEqual([
+          ["Translations for locale en not found!"]
+        ])
+        spy.mockRestore()
+      })
+    })
   })
 })
