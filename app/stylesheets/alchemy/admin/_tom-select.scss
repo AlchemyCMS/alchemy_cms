@@ -1,8 +1,16 @@
 // Theme for the Tom Select powered `<select is="alchemy-select">`.
 @use "../mixins";
+@use "icons";
 
 .tomselected {
   display: none;
+}
+
+// Inside the admin the generic text input styles size the search input. The
+// standalone stylesheets lack them, leaving Tom Select's `size="1"` input a few
+// pixels wide. Zero specificity, so every admin rule sizing the input still wins.
+:where(.ts-wrapper.alchemy_selectbox .ts-control) > input {
+  width: 100%;
 }
 
 .ts-wrapper.alchemy_selectbox {

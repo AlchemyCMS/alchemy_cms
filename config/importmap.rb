@@ -26,6 +26,7 @@ pin "alchemy_admin/i18n"
 # Dependencies of the standalone components above. The admin bundle inlines
 # these, but the source files import them by name, so importing a component on
 # its own fails without pins of their own.
+pin "alchemy_admin/components/icon"
 pin "alchemy_admin/growler"
 pin "alchemy_admin/utils/ajax"
 pin "alchemy_admin/utils/dom_helpers"

@@ -9,7 +9,9 @@ function prepareURL(path, data, method) {
   const url = new URL(window.location.origin + path)
 
   if (data && isGetRequest(method)) {
-    url.search = new URLSearchParams(data).toString()
+    new URLSearchParams(data).forEach((value, key) => {
+      url.searchParams.set(key, value)
+    })
   }
 
   return url.toString()
