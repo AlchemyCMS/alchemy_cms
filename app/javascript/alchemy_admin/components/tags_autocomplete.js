@@ -1,4 +1,5 @@
 import TomSelect from "tom-select"
+import "alchemy_admin/components/icon"
 import { get } from "alchemy_admin/utils/ajax"
 import { growl } from "alchemy_admin/growler"
 import {
