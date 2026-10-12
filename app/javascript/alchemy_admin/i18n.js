@@ -11,7 +11,9 @@ function nestedTranslation(translations, key) {
 
 function getTranslation(key) {
   const locale = currentLocale()
-  const translations = Alchemy.translations
+  // Host engines import components standalone, outside of the admin layout
+  // that defines the global.
+  const translations = window.Alchemy?.translations
 
   if (!translations) {
     console.warn(`Translations for locale ${locale} not found!`)
