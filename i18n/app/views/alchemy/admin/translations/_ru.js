@@ -24,6 +24,9 @@ Alchemy.translations = {
   "Maximum number of files exceeded":
     "Исчерпано максимальное количество файлов.",
   "No results found": "Ничего не найдено.",
+  "Please wait, loading": "Подождите, загрузка",
+  "Loading more results": "Загрузка данных",
+  "No more results": "Больше результатов нет",
   "Uploaded bytes exceed file size": "Превышен максимальный размер файла",
   "Abort upload": "Прервать загрузку",
   "Cancel all uploads": "Отменить все загрузки",

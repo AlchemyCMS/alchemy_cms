@@ -25,6 +25,9 @@ Alchemy.translations = {
     "Maximale Anzahl gleichzeitig erlaubter Datei-Uploads erreicht.",
   "No anchors found": "Keine Sprungmarken gefunden.",
   "No results found": "Keine Ergebnisse.",
+  "Please wait, loading": "Bitte warten, wird geladen",
+  "Loading more results": "Lade mehr Ergebnisse",
+  "No more results": "Keine weiteren Ergebnisse",
   None: "Keine",
   "Uploaded bytes exceed file size":
     "Maximale Größe der erlaubten Dateigröße erreicht.",
