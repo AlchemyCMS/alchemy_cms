@@ -1,3 +1,5 @@
+require "alchemy/version"
+
 module AlchemyI18n
-  VERSION = "9.0.0.dev"
+  VERSION = Alchemy::VERSION
 end

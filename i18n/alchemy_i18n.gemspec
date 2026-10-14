@@ -1,4 +1,5 @@
 $:.push File.expand_path("lib", __dir__)
+$:.unshift File.expand_path("../lib", __dir__)
 
 # Maintain your gem's version:
 require "alchemy_i18n/version"
@@ -23,9 +24,9 @@ Gem::Specification.new do |s|
   ]
 
   s.metadata["homepage_uri"] = s.homepage
-  s.metadata["source_code_uri"] = "https://github.com/AlchemyCMS/alchemy_i18n"
-  s.metadata["changelog_uri"] = "https://github.com/AlchemyCMS/alchemy_i18n/blob/main/CHANGELOG.md"
+  s.metadata["source_code_uri"] = "https://github.com/AlchemyCMS/alchemy_cms/tree/main/i18n"
+  s.metadata["changelog_uri"] = "https://github.com/AlchemyCMS/alchemy_cms/blob/main/CHANGELOG.md"
 
-  s.add_dependency "alchemy_cms", [">= 8.0.0.c", "< 9"]
+  s.add_dependency "alchemy_cms", AlchemyI18n::VERSION
   s.add_dependency "rails-i18n"
 end
