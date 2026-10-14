@@ -1,5 +1,0 @@
-{
-  "worktree": {
-    "setup": "bundle install"
-  }
-}
