@@ -5,7 +5,7 @@ class NodeSelect extends RemoteSelect {
   _searchQuery(term, page) {
     return {
       filter: {
-        name_or_page_name_cont: term,
+        name_or_page_name_i_cont: term,
         ...JSON.parse(this.queryParams)
       },
       page: page
