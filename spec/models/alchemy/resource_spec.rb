@@ -229,7 +229,7 @@ module Alchemy
       subject { resource.search_field_name }
 
       it "returns a ransack compatible search query" do
-        is_expected.to eq("description_or_hidden_value_or_name_cont")
+        is_expected.to eq("description_or_hidden_value_or_name_i_cont")
       end
     end
 

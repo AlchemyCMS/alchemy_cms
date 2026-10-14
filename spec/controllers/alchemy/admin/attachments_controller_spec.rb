@@ -8,12 +8,12 @@ module Alchemy
       let(:q) do
         if Alchemy.storage_adapter.dragonfly?
           {
-            file_name_or_name_cont: "kitten",
+            file_name_or_name_i_cont: "kitten",
             by_file_type: "pdf"
           }
         elsif Alchemy.storage_adapter.active_storage?
           {
-            file_blob_filename_or_name_cont: "kitten",
+            file_blob_filename_or_name_i_cont: "kitten",
             by_file_type: "pdf"
           }
         end
