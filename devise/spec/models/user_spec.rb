@@ -41,7 +41,7 @@ module Alchemy
     describe ".ransack" do
       subject do
         User.ransack(
-          "email_or_login_or_firstname_or_lastname_cont" => query
+          "email_or_login_or_firstname_or_lastname_i_cont" => query
         ).result
       end
 
