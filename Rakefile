@@ -33,7 +33,13 @@ RSpec::Core::RakeTask.new(:spec)
 
 task default: ["alchemy:spec:prepare", :spec]
 
+namespace :alchemy_i18n do
+  Bundler::GemHelper.new(File.expand_path("i18n", __dir__), "alchemy_i18n").install
+end
+
 Bundler::GemHelper.install_tasks
+task build: "alchemy_i18n:build"
+task release: "alchemy_i18n:release:rubygem_push"
 
 namespace :alchemy do
   namespace :spec do
