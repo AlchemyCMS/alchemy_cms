@@ -443,7 +443,7 @@ export class RemoteSelect extends HTMLElement {
   _searchQuery(term, page) {
     return {
       q: {
-        name_cont: term,
+        name_i_cont: term,
         ...JSON.parse(this.queryParams)
       },
       page: page
