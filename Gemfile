@@ -15,7 +15,7 @@ if ENV["DB"] == "mysql" || ENV["DB"] == "mariadb"
 end
 gem "pg", "~> 1.0" if ENV["DB"] == "postgresql"
 
-gem "alchemy_i18n", github: "AlchemyCMS/alchemy_i18n", branch: "main"
+gem "alchemy_i18n", path: "i18n"
 
 # Devise based authentication for the dummy app, so auth can be exercised
 # against local Alchemy core changes. Kept out of the test env, which uses
