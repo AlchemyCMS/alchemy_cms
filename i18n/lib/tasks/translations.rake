@@ -1,12 +1,12 @@
 require "yaml"
 
+ALCHEMY_CMS_PATH = ENV.fetch("ALCHEMY_CMS_PATH", Alchemy::Engine.root.to_s)
+EN_LOCALE_PATH = File.join(ALCHEMY_CMS_PATH, "config/locales/alchemy.en.yml")
+LOCALES_DIR = File.expand_path("../../locales", __dir__)
+
+LOCALE_FILES = Dir.glob(File.join(LOCALES_DIR, "alchemy.*.yml")).sort
+
 namespace :translations do
-  ALCHEMY_CMS_PATH = ENV.fetch("ALCHEMY_CMS_PATH", Alchemy::Engine.root.to_s)
-  EN_LOCALE_PATH = File.join(ALCHEMY_CMS_PATH, "config/locales/alchemy.en.yml")
-  LOCALES_DIR = File.expand_path("../../locales", __dir__)
-
-  LOCALE_FILES = Dir.glob(File.join(LOCALES_DIR, "alchemy.*.yml")).sort
-
   def flatten_keys(hash, prefix = "")
     hash.each_with_object({}) do |(key, value), result|
       full_key = prefix.empty? ? key.to_s : "#{prefix}.#{key}"
@@ -51,9 +51,9 @@ namespace :translations do
 
         # Extract the key (first argument)
         key = case args_str
-        when /\A:(\w+[?!]?)/  then $1
-        when /\A"([^"]+)"/    then $1
-        when /\A'([^']+)'/    then $1
+        when /\A:(\w+[?!]?)/ then $1
+        when /\A"([^"]+)"/ then $1
+        when /\A'([^']+)'/ then $1
         else next
         end
 
@@ -108,7 +108,6 @@ namespace :translations do
     missing_from_en_set = missing_from_en.to_set
     missing_from_code.reject! { |k| missing_from_en_set.include?(k) }
 
-
     if missing_from_en.any?
       puts "=== Missing from EN locale file (#{missing_from_en.size}) ==="
       missing_from_en.sort.each { |k| puts "  #{k}: #{en_flat[k].inspect}" }
@@ -133,7 +132,7 @@ namespace :translations do
     end
 
     en_flat = load_en_keys
-    en_count = en_flat.reject { |_, v| v.nil? }.size
+    en_count = en_flat.count { |_, v| !v.nil? }
 
     puts "Reference: EN locale (#{en_count} keys)"
     puts "-" * 50
@@ -151,11 +150,9 @@ namespace :translations do
   task :validate do
     errors = []
     LOCALE_FILES.each do |file|
-      begin
-        YAML.load_file(file, aliases: true)
-      rescue => e
-        errors << "#{File.basename(file)}: #{e.message}"
-      end
+      YAML.load_file(file, aliases: true)
+    rescue => e
+      errors << "#{File.basename(file)}: #{e.message}"
     end
 
     if errors.any?

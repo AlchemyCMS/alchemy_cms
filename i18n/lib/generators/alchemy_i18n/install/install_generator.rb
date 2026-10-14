@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'rails'
-require 'alchemy/i18n'
+require "rails"
+require "alchemy/i18n"
 
 module AlchemyI18n
   module Generators
@@ -27,8 +27,8 @@ module AlchemyI18n
       end
 
       def add_russian_gem
-        if locales.include?('ru')
-          gem 'russian', '~> 0.6'
+        if locales.include?("ru")
+          gem "russian", "~> 0.6"
         end
       end
 
