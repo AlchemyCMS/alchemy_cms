@@ -80,22 +80,30 @@ function observeElement(element) {
   })
 }
 
-function onClick(event) {
+function selectClickedElement(event) {
   const element = event.target.closest("[data-alchemy-element]")
 
   if (element) {
-    event.stopPropagation()
-    event.preventDefault()
     selectElement(element)
     focusElementEditor(element)
   }
+
+  return element
+}
+
+function navigates(target) {
+  if (target.closest("a")) return true
+
+  const control = target.closest("button, input")
+  return Boolean(control?.form) && ["submit", "image"].includes(control.type)
 }
 
 // Client side routers navigate from click handlers on the link itself, so
-// link clicks have to be taken before the event reaches the page.
-function onLinkClick(event) {
-  if (event.target.closest("a")) {
-    onClick(event)
+// navigating clicks have to be taken before the event reaches the page.
+function onNavigatingClick(event) {
+  if (navigates(event.target) && selectClickedElement(event)) {
+    event.stopPropagation()
+    event.preventDefault()
   }
 }
 
@@ -113,8 +121,8 @@ function init() {
     }
   })
 
-  window.addEventListener("click", onLinkClick, { capture: true })
-  window.addEventListener("click", onClick)
+  window.addEventListener("click", onNavigatingClick, { capture: true })
+  window.addEventListener("click", selectClickedElement)
 
   elements = Array.from(document.querySelectorAll("[data-alchemy-element]"))
   elements.forEach(observeElement)
