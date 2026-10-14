@@ -164,7 +164,7 @@ describe("preview", () => {
     })
 
     it("lets interactive content inside the element handle the click", async () => {
-      element(2).innerHTML = `<button type="button">Next slide</button>`
+      element(2).innerHTML = `<button>Next slide</button>`
       const onButtonClick = vi.fn()
       element(2)
         .querySelector("button")
@@ -174,6 +174,38 @@ describe("preview", () => {
       element(2).querySelector("button").click()
 
       expect(onButtonClick).toHaveBeenCalled()
+      expect(element(2).style.outline).toEqual(SELECTED_OUTLINE)
+    })
+
+    it("lets details inside the element toggle", async () => {
+      element(2).innerHTML = `<details><summary>More</summary>Text</details>`
+      await loadPreview()
+
+      element(2).querySelector("summary").click()
+
+      expect(element(2).querySelector("details").open).toBe(true)
+      expect(element(2).style.outline).toEqual(SELECTED_OUTLINE)
+    })
+
+    it("lets form controls inside the element change", async () => {
+      element(2).innerHTML = `<input type="checkbox">`
+      await loadPreview()
+
+      element(2).querySelector("input").click()
+
+      expect(element(2).querySelector("input").checked).toBe(true)
+      expect(element(2).style.outline).toEqual(SELECTED_OUTLINE)
+    })
+
+    it("keeps forms inside the element from being submitted", async () => {
+      element(2).innerHTML = `<form><button>Send</button></form>`
+      const onSubmit = vi.fn((event) => event.preventDefault())
+      element(2).querySelector("form").addEventListener("submit", onSubmit)
+      await loadPreview()
+
+      element(2).querySelector("button").click()
+
+      expect(onSubmit).not.toHaveBeenCalled()
       expect(element(2).style.outline).toEqual(SELECTED_OUTLINE)
     })
 
