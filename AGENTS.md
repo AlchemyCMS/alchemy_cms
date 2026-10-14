@@ -372,6 +372,7 @@ This runs automated upgrade tasks. Read the output carefully for manual steps.
 - **Lib**: `lib/alchemy/` (core engine code)
 - **Config**: `config/alchemy/` (YAML definitions)
 - **Generators**: `lib/generators/alchemy/`
+- **Translations**: `i18n/` (the `alchemy_i18n` gem, released together with `alchemy_cms` under the same version; see `i18n/CLAUDE.md`)
 
 ## Resources
 

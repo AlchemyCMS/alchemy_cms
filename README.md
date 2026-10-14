@@ -235,7 +235,7 @@ We also provide an [extension for Cloudinary](https://github.com/AlchemyCMS/alch
 
 ## 🌍 Localization
 
-Alchemy ships with one default English translation for the admin interface. If you want to use the admin interface in other languages please have a look at the [`alchemy_i18n` project](https://github.com/AlchemyCMS/alchemy_i18n).
+Alchemy ships with one default English translation for the admin interface. If you want to use the admin interface in other languages please have a look at the [`alchemy_i18n` gem](i18n/).
 
 ## ✨ Upgrading
 

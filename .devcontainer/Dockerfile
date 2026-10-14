@@ -34,6 +34,8 @@ RUN apt-get update && apt-get install -y \
 # the whole dependency tree fresh to the latest allowed versions on every build.
 COPY Gemfile alchemy_cms.gemspec ./
 COPY lib/alchemy/version.rb lib/alchemy/version.rb
+COPY i18n/alchemy_i18n.gemspec i18n/
+COPY i18n/lib/alchemy_i18n/version.rb i18n/lib/alchemy_i18n/version.rb
 RUN bundle update --all
 
 COPY package.json pnpm-*.yaml ./
