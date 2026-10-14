@@ -1,7 +1,7 @@
 require "yaml"
 
 namespace :translations do
-  ALCHEMY_CMS_PATH = ENV.fetch("ALCHEMY_CMS_PATH", File.expand_path("~/code/alchemy_cms"))
+  ALCHEMY_CMS_PATH = ENV.fetch("ALCHEMY_CMS_PATH", Alchemy::Engine.root.to_s)
   EN_LOCALE_PATH = File.join(ALCHEMY_CMS_PATH, "config/locales/alchemy.en.yml")
   LOCALES_DIR = File.expand_path("../../locales", __dir__)
 
