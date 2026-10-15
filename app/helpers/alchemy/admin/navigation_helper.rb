@@ -11,211 +11,40 @@ module Alchemy
       #   The Hash representing a Alchemy module
       #
       def alchemy_main_navigation_entry(alchemy_module)
-        validate_controller_existence!(alchemy_module)
-        render(
-          "alchemy/admin/partials/main_navigation_entry",
-          alchemy_module: alchemy_module,
-          navigation: alchemy_module["navigation"]
+        render Alchemy::Admin::MainNavigation::Entry.new(
+          item: Alchemy::Configurations::MenuItem.from_legacy_hash(alchemy_module)
         )
       end
-
-      # Used for checking the main navi permissions
-      #
-      # To let your module be navigatable by the user you have to provide an Ability for it.
-      #
-      # === Example:
-      #
-      #   # module.yml
-      #   name: 'my_module'
-      #   navigation: {
-      #     controller: 'my/admin/posts'
-      #     action: 'index'
-      #   }
-      #
-      #   # ability.rb
-      #   can :index, :my_admin_posts
-      #
-      def navigate_module(navigation)
-        [
-          navigation["action"].to_sym,
-          navigation["controller"].to_s.gsub(/\A\//, "").tr("/", "_").to_sym
-        ]
-      end
-
-      # CSS classes for main navigation entry.
-      #
-      def main_navigation_css_classes(navigation)
-        [
-          "main_navi_entry",
-          admin_mainnavi_active?(navigation) ? "active" : nil,
-          navigation.key?("sub_navigation") ? "has_sub_navigation" : nil
-        ].compact
-      end
-
-      # Returns true if given navi entry is in params controller and action
-      #
-      # == Example
-      #   <%= entry_active?({controller: 'admin/users', action: 'index'}) %>
-      #
-      # @param [Hash]
-      #   A Alchemy module definition navigation entry
-      #
-      def entry_active?(entry)
-        is_entry_controller_active?(entry) && is_entry_action_active?(entry)
-      end
+      deprecate alchemy_main_navigation_entry: "Render `Alchemy::Admin::MainNavigation::Entry` instead",
+        deprecator: Alchemy::Deprecation
 
       # Returns url for given Alchemy module.
-      #
-      # If the module is inside an engine it calls the +url_for+ helper on the engines routing proxy.
-      #
-      # If the module is inside the host rails app it calls the +url_for+ helper on the main_app routing proxy.
       #
       # @param [Hash]
       #   A Alchemy module definition
       #
       def url_for_module(alchemy_module)
-        route_from_engine_or_main_app(
-          alchemy_module["engine_name"],
-          url_options_for_module(alchemy_module)
-        )
+        Alchemy::Configurations::MenuItem.from_legacy_hash(alchemy_module).path(self)
       end
-
-      # Returns url for given Alchemy module sub navigation entry.
-      #
-      # If the module is inside an engine it calls the +url_for+ helper on the engines routing proxy.
-      #
-      # If the module is inside the host rails app it calls the +url_for+ helper on the main_app routing proxy.
-      #
-      # @param [Hash]
-      #   A Alchemy module sub navigation definition
-      #
-      def url_for_module_sub_navigation(navigation)
-        alchemy_module = module_definition_for(navigation)
-        return if alchemy_module.nil?
-
-        route_from_engine_or_main_app(
-          alchemy_module["engine_name"],
-          url_options_for_navigation_entry(navigation)
-        )
-      end
+      deprecate url_for_module: "Use `Alchemy::Configurations::MenuItem#path` instead",
+        deprecator: Alchemy::Deprecation
 
       # Alchemy modules for main navigation.
       #
       # Sorted by position attribute, if given.
       #
       def sorted_alchemy_modules
-        sorted = []
-        not_sorted = []
-        alchemy_modules.map do |m|
-          if m["position"].blank?
-            not_sorted << m
-          else
-            sorted << m
-          end
-        end
-        sorted.sort_by { |m| m["position"] } + not_sorted
+        Alchemy::Admin::MainNavigation::Menu.new.items.map(&:to_legacy_hash)
       end
+      deprecate sorted_alchemy_modules: "Use `Alchemy.config.menu` instead",
+        deprecator: Alchemy::Deprecation
 
       private
-
-      # Calls +url_for+ helper on engine if present or on host app.
-      #
-      # @param [String]
-      #   A name of an engine
-      # @param [Hash]
-      #   url options hash passed to +url_for+ helper
-      #
-      def route_from_engine_or_main_app(engine_name, url_options)
-        if engine_name.present?
-          send(engine_name).url_for(url_options)
-        else
-          main_app.url_for(url_options)
-        end
-      end
-
-      # Returns a url options hash for given Alchemy module.
-      #
-      # @param [Hash]
-      #   A Alchemy module definition
-      #
-      def url_options_for_module(alchemy_module)
-        url_options_for_navigation_entry(alchemy_module["navigation"] || {})
-      end
-
-      # Validates the existence of a given controller configuration.
-      #
-      # @param String
-      #   The controller name
-      def validate_controller_existence!(definition_hash)
-        controllers = [definition_hash["navigation"]["controller"]]
-
-        if definition_hash["navigation"]["sub_navigation"].is_a?(Array)
-          controllers.concat(definition_hash["navigation"]["sub_navigation"].map { |x| x["controller"] })
-        end
-
-        controllers.each do |controller|
-          controller_const_name = "#{controller.camelize}Controller"
-          controller_const_name.constantize
-        rescue NameError
-          raise "Error in AlchemyCMS module definition: '#{definition_hash["name"]}'. Could not find the " \
-            "matching controller class #{controller_const_name} for the specified controller: '#{controller}'"
-        end
-      end
-
-      # Returns a url options hash for given navigation entry.
-      #
-      # @param [Hash]
-      #   A Alchemy module navigation entry
-      #
-      def url_options_for_navigation_entry(entry)
-        {
-          controller: entry["controller"],
-          action: entry["action"],
-          only_path: true,
-          params: entry["params"]
-        }.delete_if { |_k, v| v.nil? }
-      end
 
       # Retrieves the current Alchemy module from controller and index action.
       #
       def current_alchemy_module
         module_definition_for(controller: params[:controller], action: "index")
-      end
-
-      # Returns true if the current controller and action is in a modules navigation definition.
-      #
-      def admin_mainnavi_active?(navigation)
-        # Has the given navigation entry a active sub navigation?
-        has_active_entry?(navigation["sub_navigation"] || []) ||
-          # Has the given navigation entry a active nested navigation?
-          has_active_entry?(navigation["nested"] || []) ||
-          # Is the navigation entry active?
-          entry_active?(navigation || {})
-      end
-
-      # Returns true if the given entry's controller is current controller
-      #
-      def is_entry_controller_active?(entry)
-        entry["controller"].gsub(/\A\//, "") == params[:controller] ||
-          entry.fetch("nested_controllers", []).include?(params[:controller])
-      end
-
-      # Returns true if the given entry's action is current controllers action
-      #
-      # Also checks if given entry has a +nested_actions+ key, if so it checks if one of them is current controller's action
-      #
-      def is_entry_action_active?(entry)
-        entry["action"] == params[:action] ||
-          entry.fetch("nested_actions", []).include?(params[:action])
-      end
-
-      # Returns true if an entry of given entries is active.
-      #
-      # @param [Array]
-      #   Alchemy module navigation entries.
-      #
-      def has_active_entry?(entries)
-        entries.any? { |entry| entry_active?(entry) }
       end
     end
   end
