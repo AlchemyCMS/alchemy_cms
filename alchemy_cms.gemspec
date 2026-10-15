@@ -11,8 +11,8 @@ Gem::Specification.new do |gem|
   gem.authors = ["Thomas von Deyen", "Robin Boening", "Marc Schettke", "Hendrik Mans", "Carsten Fregin", "Martin Meyerhoff"]
   gem.email = ["alchemy@blish.cloud"]
   gem.homepage = "https://alchemy-cms.com"
-  gem.summary = "A powerful, userfriendly and flexible CMS for Rails"
-  gem.description = "Alchemy is a powerful, userfriendly and flexible Rails CMS."
+  gem.summary = "A semantically structured and full-featured CMS Engine for Rails"
+  gem.description = "Alchemy is a semantically structured and full-featured Rails CMS Engine."
   gem.required_ruby_version = ">= 3.1.0"
   gem.license = "BSD-3-Clause"
   gem.files = Dir[
