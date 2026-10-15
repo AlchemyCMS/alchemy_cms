@@ -100,12 +100,12 @@ module Alchemy
           default: Alchemy.t("Successfully #{verb}"))
       end
 
-      def is_alchemy_module?
-        !alchemy_module.nil? && !alchemy_module["engine_name"].nil?
-      end
-
       def alchemy_module
-        @alchemy_module ||= module_definition_for(controller: controller_path, action: "index")
+        @alchemy_module ||= {
+          "engine_name" => Rails::Engine.subclasses.detect { |engine|
+            engine.routes.equal?(self.class._routes)
+          }&.engine_name
+        }
       end
 
       def load_resource

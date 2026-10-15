@@ -2,10 +2,6 @@
 
 require "rails_helper"
 
-class ::RegisterModuleDummyController
-  ### mock the existence of the controller
-end
-
 module Alchemy
   class ModulesTestController < ApplicationController
     include Modules
@@ -14,138 +10,45 @@ module Alchemy
   describe Modules do
     let(:controller) { ModulesTestController.new }
 
-    describe "#module_definition_for" do
-      subject { controller.module_definition_for(params_or_name) }
-
-      before do
-        allow(controller).to receive(:alchemy_modules) { [dashboard_module] }
-      end
-
-      let(:dashboard_module) do
-        {
-          "engine_name" => "alchemy",
-          "name" => "dashboard",
-          "navigation" => {
-            "controller" => "alchemy/admin/dashboard",
-            "action" => "index"
-          }
-        }
-      end
-
-      context "with a string given as name" do
-        let(:params_or_name) { "dashboard" }
-
-        it "returns the module definition" do
-          is_expected.to eq(dashboard_module)
-        end
-      end
-
-      context "with a hash given as name" do
-        let(:params_or_name) do
-          {
-            controller: "alchemy/admin/dashboard",
-            action: "index"
-          }
-        end
-
-        it "returns the module definition" do
-          is_expected.to eq(dashboard_module)
-        end
-
-        context "with leading slash in controller name" do
-          let(:params_or_name) do
-            {
-              controller: "/alchemy/admin/dashboard",
-              action: "index"
-            }
-          end
-
-          it "returns the module definition" do
-            is_expected.to eq(dashboard_module)
-          end
-        end
-
-        context "with controller name in subnavigation" do
-          let(:dashboard_module) do
-            {
-              "engine_name" => "alchemy",
-              "name" => "dashboard",
-              "navigation" => {
-                "controller" => "some/thing",
-                "action" => "foo",
-                "sub_navigation" => [
-                  {
-                    "controller" => "alchemy/admin/dashboard",
-                    "action" => "index"
-                  }
-                ]
-              }
-            }
-          end
-
-          it "returns the module definition" do
-            is_expected.to eq(dashboard_module)
-          end
-        end
-
-        context "with controller name in nested" do
-          let(:dashboard_module) do
-            {
-              "engine_name" => "alchemy",
-              "name" => "dashboard",
-              "navigation" => {
-                "controller" => "some/thing",
-                "action" => "foo",
-                "nested" => [
-                  {
-                    "controller" => "alchemy/admin/dashboard",
-                    "action" => "index"
-                  }
-                ]
-              }
-            }
-          end
-
-          it "returns the module definition" do
-            is_expected.to eq(dashboard_module)
-          end
-        end
-      end
-
-      context "with nil given as name" do
-        let(:params_or_name) { nil }
-
-        it do
-          expect { subject }.to raise_error(ArgumentError)
-        end
-      end
+    before do
+      stub_alchemy_config(menu: Alchemy::Configurations::Main.new.menu)
     end
 
     describe ".register_module" do
-      let(:alchemy_module) do
-        {
-          "name" => "module",
-          "navigation" => {
-            "controller" => "register_module_dummy",
-            "action" => "index"
-          }
-        }
+      it "is deprecated" do
+        expect(Alchemy::Deprecation).to receive(:warn)
+        Modules.register_module(name: "module", navigation: {controller: "/admin/events", action: "index"})
+      end
+    end
+
+    describe ".alchemy_modules" do
+      it "is deprecated" do
+        expect(Alchemy::Deprecation).to receive(:warn)
+        Modules.alchemy_modules
+      end
+    end
+
+    describe "#alchemy_modules" do
+      it "is deprecated" do
+        expect(Alchemy::Deprecation).to receive(:warn)
+        controller.alchemy_modules
+      end
+    end
+
+    describe "#module_definition_for" do
+      it "is deprecated" do
+        expect(Alchemy::Deprecation).to receive(:warn)
+        controller.module_definition_for("dashboard")
       end
 
-      it "registers a module definition into global list of modules" do
-        Modules.register_module(alchemy_module)
-        expect(Modules.alchemy_modules).to include(alchemy_module)
+      it "is deprecated when looking up by controller and action" do
+        expect(Alchemy::Deprecation).to receive(:warn)
+        controller.module_definition_for(controller: "admin/events", action: "index")
       end
 
-      it "registers a module definition only once" do
-        2.times do
-          Modules.register_module(alchemy_module)
-        end
-        expect(
-          Modules.class_variable_get(:@@alchemy_modules).count do |m|
-            m["name"] == alchemy_module["name"]
-          end
-        ).to eq(1)
+      it "is deprecated when called with something else" do
+        expect(Alchemy::Deprecation).to receive(:warn)
+        expect { controller.module_definition_for(1) }.to raise_error(ArgumentError)
       end
     end
   end
