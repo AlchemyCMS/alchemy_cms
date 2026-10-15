@@ -1,50 +1,31 @@
 # frozen_string_literal: true
 
-Rails.application.config.to_prepare do
-  Alchemy::Modules.register_module(
-    name: "events",
-    navigation: {
-      name: "Events",
-      controller: "/admin/events",
-      action: "index",
-      icon: "calendar",
-      sub_navigation: [{
-        name: "Events",
-        controller: "/admin/events",
-        action: "index"
-      }, {
-        name: "Locations",
-        controller: "/admin/locations",
-        action: "index"
-      }, {
-        name: "Series",
-        controller: "/admin/series",
-        action: "index"
-      }, {
-        name: "Bookings",
-        controller: "/admin/bookings",
-        action: "index"
-      }]
-    }
-  )
-  Alchemy::Modules.register_module(
-    name: "styleguide",
-    engine_name: "alchemy",
-    navigation: {
-      name: "Styleguide",
-      controller: "/alchemy/admin/styleguide",
-      action: "index",
-      icon: "palette"
-    }
-  )
-end
-
 Alchemy.configure do |config|
   config.abilities.add("Ability")
   # In development the alchemy-devise engine provides authentication and sets
   # the user_class (and signup path) to its Alchemy::User. In the test suite
   # the dummy app uses the DummyUser stub instead.
   config.user_class = "DummyUser" if Rails.env.test?
+  config.menu.add(
+    name: "events",
+    title: "Events",
+    icon: "calendar",
+    url: -> { main_app.admin_events_path },
+    condition: -> { can?(:index, :admin_events) },
+    children: [
+      {title: "Events", url: -> { main_app.admin_events_path }, condition: -> { can?(:index, :admin_events) }},
+      {title: "Locations", url: -> { main_app.admin_locations_path }, condition: -> { can?(:index, :admin_locations) }},
+      {title: "Series", url: -> { main_app.admin_series_index_path }, condition: -> { can?(:index, :admin_series) }},
+      {title: "Bookings", url: -> { main_app.admin_bookings_path }, condition: -> { can?(:index, :admin_bookings) }}
+    ]
+  )
+  config.menu.add(
+    name: "styleguide",
+    title: "Styleguide",
+    icon: "palette",
+    url: -> { alchemy.admin_styleguide_path },
+    condition: -> { can?(:index, :alchemy_admin_styleguide) }
+  )
   # == This is the global Alchemy configuration file
   #
 
