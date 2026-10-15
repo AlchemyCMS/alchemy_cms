@@ -1196,6 +1196,25 @@ button::-moz-focus-inner {
   stroke: #e74c3c;
 }
 
+.tox div.tox-swatch:not(.tox-swatch--remove) svg {
+  display: none;
+  fill: #222f3e;
+  height: 24px;
+  margin: calc((30px - 24px) / 2) calc((30px - 24px) / 2);
+  width: 24px;
+}
+
+.tox div.tox-swatch:not(.tox-swatch--remove) svg path {
+  fill: #fff;
+  paint-order: stroke;
+  stroke: #222f3e;
+  stroke-width: 2px;
+}
+
+.tox div.tox-swatch:not(.tox-swatch--remove).tox-collection__item--enabled svg {
+  display: block;
+}
+
 .tox .tox-swatches__picker-btn {
   align-items: center;
   background-color: transparent;
