@@ -690,6 +690,9 @@ it:
         <h2>Non ha ancora alcuna immagine nel Suo archivio.</h2>
         <p>Utilizzi il pulsante qui sotto o trascini le immagini in questa finestra per caricare la Sua prima immagine.</p>
       alchemy/site: "<h2>Non ha ancora alcun sito web.</h2><p>Per servire le richieste è necessario creare prima un sito web.</p><p>Questo modulo è stato compilato con valori predefiniti che funzionano nella maggior parte dei casi.</p>"
+      layoutpages: |
+        <h2>Questa lingua non ha ancora pagine globali</h2>
+        <p>Le pagine globali contengono contenuti condivisi tra tutte le pagine, come intestazioni o piè di pagina.</p>
     no_search_results: "La Sua ricerca non ha prodotto alcun risultato."
     no_unpublished_changes: "Nessuna modifica non pubblicata"
     not_found: "non trovato"

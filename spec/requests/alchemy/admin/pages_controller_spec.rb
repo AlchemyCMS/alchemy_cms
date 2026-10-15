@@ -49,6 +49,16 @@ module Alchemy
           end
         end
 
+        context "in list view without language root page" do
+          let!(:language) { create(:alchemy_language) }
+
+          it "renders the empty state" do
+            get admin_pages_path(view: "list")
+            expect(response.body).to include("This language has no homepage yet")
+            expect(response.body).to_not include("No pages found")
+          end
+        end
+
         context "without current language present" do
           it "it redirects to the languages admin" do
             get admin_pages_path

@@ -739,6 +739,9 @@ es:
         <h2>Aún no tiene ninguna imagen en su archivo.</h2>
         <p>Utilice el botón de abajo o arrastre imágenes a esta ventana para subir su primera imagen.</p>
       alchemy/site: "<h2>Aún no tiene sitios web.</h2><p>Para servir solicitudes necesita crear un sitio web primero.</p><p>Este formulario se ha rellenado con valores predeterminados que funcionan en la mayoría de los casos.</p>"
+      layoutpages: |
+        <h2>Este idioma aún no tiene páginas globales</h2>
+        <p>Las páginas globales contienen contenido que se comparte en todas las páginas, como cabeceras o pies de página.</p>
     no_search_results: "Su búsqueda no produjo ningún resultado."
     no_unpublished_changes: "Sin cambios no publicados"
     "not a valid file": "No es un archivo válido."

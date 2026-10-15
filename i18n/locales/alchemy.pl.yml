@@ -687,6 +687,9 @@ pl:
         <h2>Nie masz jeszcze żadnych obrazów w archiwum.</h2>
         <p>Użyj przycisku poniżej lub przeciągnij obrazy do tego okna, aby przesłać pierwszy obraz.</p>
       alchemy/site: "<h2>Nie masz jeszcze żadnych witryn.</h2><p>Aby obsługiwać żądania, musisz najpierw utworzyć witrynę.</p><p>Ten formularz został wypełniony sensownymi wartościami domyślnymi, które działają w większości przypadków.</p>"
+      layoutpages: |
+        <h2>Ten język nie ma jeszcze stron globalnych</h2>
+        <p>Strony globalne zawierają treści współdzielone przez wszystkie strony, takie jak nagłówki lub stopki.</p>
     no_search_results: "Wyszukiwanie nie zwróciło żadnych wyników."
     no_unpublished_changes: "Brak nieopublikowanych zmian"
     "not a valid image": "To nie jest prawidłowy obraz."

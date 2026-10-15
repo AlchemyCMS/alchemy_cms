@@ -687,6 +687,9 @@ nl:
         <h2>U heeft nog geen afbeeldingen in uw archief.</h2>
         <p>Gebruik de onderstaande knop of sleep afbeeldingen naar dit venster om uw eerste afbeelding te uploaden.</p>
       alchemy/site: "<h2>U heeft nog geen websites.</h2><p>Om verzoeken te kunnen afhandelen moet u eerst een website aanmaken.</p><p>Dit formulier is ingevuld met standaardwaarden die in de meeste gevallen werken.</p>"
+      layoutpages: |
+        <h2>Deze taal heeft nog geen globale pagina's</h2>
+        <p>Globale pagina's bevatten inhoud die op alle pagina's wordt gedeeld, zoals kop- of voetteksten.</p>
     no_search_results: "Geen zoekresultaten."
     no_unpublished_changes: "Geen ongepubliceerde wijzigingen"
     "not a valid image": "Geen geldige afbeelding"
