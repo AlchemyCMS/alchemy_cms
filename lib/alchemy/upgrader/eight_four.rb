@@ -113,6 +113,111 @@ module Alchemy
           TODO
         end
       end
+
+      NAVIGATION_PARTIALS = %w[
+        app/views/alchemy/admin/_main_navi.html.erb
+        app/views/alchemy/admin/partials/_main_navigation_entry.html.erb
+        app/views/alchemy/admin/partials/_sub_navigation.html.erb
+      ].freeze
+
+      # +Alchemy::Modules.register_module+ is deprecated in favor of
+      # +Alchemy.config.menu+. Calls with a static literal argument are
+      # rewritten, everything else has to be migrated by hand.
+      def upgrade_menu_config
+        rewritten = []
+        manual = []
+        rewriter = begin
+          require "prism"
+          RegisterModuleRewriter.new
+        rescue LoadError
+          nil
+        end
+
+        Dir.glob(Rails.root.join("config/initializers/**/*.rb")).sort.each do |file|
+          content = File.read(file)
+          next unless content.include?("register_module")
+
+          unless rewriter
+            manual << file
+            next
+          end
+
+          new_content, rewritten_count, manual_count = rewriter.rewrite(content)
+          if rewritten_count > 0
+            File.write(file, new_content)
+            rewritten << file
+          end
+          manual << file if manual_count > 0
+        end
+
+        overridden_partials = NAVIGATION_PARTIALS.map { |partial| Rails.root.join(partial).to_s }.select { |file| File.exist?(file) }
+
+        list = ->(files) { files.map { |file| "  - #{Pathname.new(file).relative_path_from(Rails.root)}" }.join("\n") }
+
+        if rewritten.any?
+          todo(<<~TODO.strip, "`register_module` calls were rewritten to `Alchemy.config.menu.add`")
+            `Alchemy::Modules.register_module` is deprecated and will be removed in
+            Alchemy 9.0. We rewrote its calls in the following initializers to
+            `Alchemy.config.menu.add`:
+
+            #{list.call(rewritten)}
+
+            Please review these changes and commit them.
+          TODO
+        end
+
+        if manual.any?
+          todo(<<~TODO.strip, "The admin main navigation is now configured with `Alchemy.config.menu`")
+            `Alchemy::Modules.register_module` is deprecated and will be removed in
+            Alchemy 9.0. The following initializers call it in a way we could not
+            rewrite automatically:
+
+            #{list.call(manual)}
+
+            Please replace these `register_module` calls with
+            `Alchemy.config.menu.add` in `config/initializers/alchemy.rb`:
+
+              Alchemy.configure do |config|
+                config.menu.add(
+                  name: "events",
+                  title: "Events",
+                  icon: "calendar",
+                  url: -> { main_app.admin_events_path },
+                  condition: -> { can?(:index, :admin_events) },
+                  children: [
+                    {
+                      title: "Locations",
+                      url: -> { main_app.admin_locations_path },
+                      condition: -> { can?(:index, :admin_locations) }
+                    }
+                  ]
+                )
+              end
+
+            `url` and `condition` are evaluated in the view context. The keys of
+            the former `navigation` hash now live on the entry itself, its `name`
+            is now `title`, `sub_navigation` is now `children`, `icon-style` is now
+            `icon_style`, `data: {turbo: false}` is now `turbo: false`, and `params`
+            is no longer supported.
+
+            Call `config.menu.add` once at boot and not inside `to_prepare`, as it
+            does not skip entries that are already present like `register_module`
+            did.
+          TODO
+        end
+
+        if overridden_partials.any?
+          todo(<<~TODO.strip, "The admin main navigation partials have been replaced")
+            Your app overrides the following partials, which have been replaced by
+            the `Alchemy::Admin::MainNavigation` components and are no longer
+            rendered:
+
+            #{list.call(overridden_partials)}
+
+            Please adapt your changes.
+          TODO
+        end
+      end
     end
   end
 end

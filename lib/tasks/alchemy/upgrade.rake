@@ -62,7 +62,8 @@ namespace :alchemy do
         "alchemy:upgrade:8.4:add_dragonfly_gem",
         "alchemy:upgrade:8.4:upgrade_nested_elements_rendering",
         "alchemy:upgrade:8.4:notify_attachment_filetypes_default",
-        "alchemy:upgrade:8.4:notify_admin_content_security_policy"
+        "alchemy:upgrade:8.4:notify_admin_content_security_policy",
+        "alchemy:upgrade:8.4:upgrade_menu_config"
       ]
 
       desc "Add dragonfly gem to the Gemfile if the app uses the dragonfly storage adapter"
@@ -83,6 +84,11 @@ namespace :alchemy do
       desc "Notify about the opt-in admin Content Security Policy"
       task notify_admin_content_security_policy: [:environment] do
         Alchemy::Upgrader["8.4"].notify_admin_content_security_policy
+      end
+
+      desc "Rewrite register_module calls to the new menu configuration"
+      task upgrade_menu_config: [:environment] do
+        Alchemy::Upgrader["8.4"].upgrade_menu_config
       end
     end
   end
