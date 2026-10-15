@@ -13,7 +13,6 @@ Gem::Specification.new do |gem|
   gem.homepage = "https://alchemy-cms.com"
   gem.summary = "A powerful, userfriendly and flexible CMS for Rails"
   gem.description = "Alchemy is a powerful, userfriendly and flexible Rails CMS."
-  gem.requirements << "ImageMagick (libmagick), v6.6 or greater."
   gem.required_ruby_version = ">= 3.1.0"
   gem.license = "BSD-3-Clause"
   gem.files = Dir[
