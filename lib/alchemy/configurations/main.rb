@@ -8,6 +8,7 @@ require "alchemy/configurations/default_site"
 require "alchemy/configurations/importmap"
 require "alchemy/configurations/format_matchers"
 require "alchemy/configurations/mailer"
+require "alchemy/configurations/menu"
 require "alchemy/configurations/menu_item"
 require "alchemy/configurations/page_cache"
 require "alchemy/configurations/preview"
@@ -326,6 +327,34 @@ module Alchemy
       #    end
       #
       option :admin_importmaps, :collection, collection_class: Set, item_type: :configuration, config_class: Alchemy::Configurations::Importmap, default: []
+
+      # The entries of the admin main navigation
+      #
+      # +url+ and +condition+ are evaluated in the view context.
+      #
+      # Entries without a +condition+ (and without a legacy +controller+ and
+      # +action+) are shown to every admin user.
+      #
+      # == Example
+      #
+      #    Alchemy.configure do |config|
+      #      config.menu.add(
+      #        name: "events",
+      #        title: "Events",
+      #        icon: "calendar",
+      #        url: -> { main_app.admin_events_path },
+      #        condition: -> { can?(:index, :admin_events) },
+      #        children: [
+      #          {
+      #            title: "Locations",
+      #            url: -> { main_app.admin_locations_path },
+      #            condition: -> { can?(:index, :admin_locations) }
+      #          }
+      #        ]
+      #      )
+      #    end
+      #
+      option :menu, :collection, item_type: :configuration, config_class: Alchemy::Configurations::MenuItem, default: Alchemy::Configurations::Menu::DEFAULT
 
       # Additional stylesheets to be included in the Alchemy admin UI
       #
