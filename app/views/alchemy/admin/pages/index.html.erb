@@ -2,19 +2,17 @@
   <%= render "alchemy/admin/pages/toolbar" %>
 <% end %>
 
-<% if @view == "list" %>
+<% if @view == "list" && @current_language.root_page %>
   <%= render "alchemy/admin/resources/table_header", resources_instance_variable: @pages %>
 
   <% if @pages.any? %>
     <div class="resources-table-wrapper">
       <%= render "table" %>
     </div>
-  <% elsif search_filter_params.present? %>
+  <% else %>
     <%= render_message do %>
       <%= Alchemy.t("No pages found") %>
     <% end %>
-  <% elsif can?(:create, Alchemy::Page) %>
-    <%= render partial: "create_language_form" %>
   <% end %>
 
   <%= render "alchemy/admin/resources/pagination", resources: @pages %>
@@ -23,18 +21,16 @@
     <%= render "filter_bar" if resource_has_filters %>
     <%= render "tag_list" if resource_has_tags %>
   </div>
+<% elsif @root_page %>
+  <h2 id="page_filter_result">Page filter display</h2>
+  <%= turbo_frame_tag "alchemy_pages_tree", src: alchemy.tree_admin_pages_path do %>
+    <alchemy-spinner></alchemy-spinner>
+  <% end %>
+<% elsif can?(:create, Alchemy::Page) %>
+  <%= render partial: "create_language_form" %>
 <% else %>
-  <% if @root_page %>
-    <h2 id="page_filter_result">Page filter display</h2>
-    <%= turbo_frame_tag "alchemy_pages_tree", src: alchemy.tree_admin_pages_path do %>
-      <alchemy-spinner></alchemy-spinner>
-    <% end %>
-  <% elsif can?(:create, Alchemy::Page) %>
-    <%= render partial: "create_language_form" %>
-  <% else %>
-    <%= render_message :warn do %>
-      <h2>No language root page found.</h2>
-      <p>Please ask the admin to create one.</p>
-    <% end %>
+  <%= render_message :warn do %>
+    <h2>No language root page found.</h2>
+    <p>Please ask the admin to create one.</p>
   <% end %>
 <% end %>

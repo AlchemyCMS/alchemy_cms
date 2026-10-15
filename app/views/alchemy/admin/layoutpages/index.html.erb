@@ -20,10 +20,28 @@
 </div>
 <% end %>
 
-<h4 id="sitemap_heading">
-  <span class="page_name"><%= Alchemy::Page.human_attribute_name(:name) %></span>
-</h4>
+<% if @layout_pages.any? %>
+  <h4 id="sitemap_heading">
+    <span class="page_name"><%= Alchemy::Page.human_attribute_name(:name) %></span>
+  </h4>
 
-<ul class="list" id="layoutpages">
-  <%= render partial: "layoutpage", collection: @layout_pages %>
-</ul>
+  <ul class="list" id="layoutpages">
+    <%= render partial: "layoutpage", collection: @layout_pages %>
+  </ul>
+<% else %>
+  <%= render "alchemy/admin/resources/empty_state",
+    notice: Alchemy.t(:layoutpages, scope: :no_resource_found) do %>
+    <% if can?(:create, Alchemy::Page) %>
+      <%= link_to_dialog(
+        render_icon(:add) + Alchemy.t("Add global page"),
+        alchemy.new_admin_page_path(language: @current_language, layoutpage: true),
+        {
+          title: Alchemy.t("Add global page"),
+          size: "340x170",
+          overflow: true
+        },
+        class: "button with_icon"
+      ) %>
+    <% end %>
+  <% end %>
+<% end %>
