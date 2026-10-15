@@ -14,6 +14,34 @@ RSpec.describe "Resource requests" do
 
   before { authorize_user(:as_admin) }
 
+  describe "resource handler engine" do
+    it "comes from the engine routes of a core resource" do
+      get alchemy.admin_tags_path
+      expect(controller.send(:resource_handler).engine_name).to eq("alchemy")
+    end
+
+    it "comes from the engine routes of a core resource requested with a format" do
+      get alchemy.admin_tags_path(format: :csv)
+      expect(controller.send(:resource_handler).engine_name).to eq("alchemy")
+    end
+
+    it "comes from the engine routes of a sub navigation resource" do
+      get alchemy.admin_attachments_path
+      expect(controller.send(:resource_handler).engine_name).to eq("alchemy")
+    end
+
+    it "is empty for host app resources" do
+      get "/admin/events"
+      expect(controller.send(:resource_handler).engine_name).to be_nil
+    end
+
+    it "comes from the engine routes on a non-index route" do
+      get alchemy.new_admin_tag_path
+      expect(response).to have_http_status(200)
+      expect(controller.send(:resource_handler).engine_name).to eq("alchemy")
+    end
+  end
+
   describe "create from a dialog" do
     context "with invalid params" do
       it "re-renders the form wrapped in the dialog frame with a 422" do
