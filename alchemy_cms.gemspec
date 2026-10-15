@@ -79,18 +79,18 @@ Gem::Specification.new do |gem|
 
     - Complete the installation in an existing Rails application:
 
-      $ bin/rake alchemy:install
+      $ bin/rails alchemy:install
 
     - Complete the upgrade of an existing Alchemy installation:
 
-      $ bin/rake alchemy:upgrade
+      $ bin/rails alchemy:upgrade
 
     and follow the onscreen instructions.
 
     Need help? Try:
 
     * https://stackoverflow.com/questions/tagged/alchemy-cms
-    * https://slackin.alchemy-cms.com
+    * https://alchemy-cms.slack.com
     -------------------------------------------------------------
 
   MSG
