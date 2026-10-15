@@ -1,19 +1,17 @@
-Rails.application.config.to_prepare do
-  Alchemy::Modules.register_module({
-    name: '<%= @module_name %>',
-    order: 1,
-    navigation: {
-      name: 'modules.<%= @module_name %>',
-      controller: '/admin/<%= @module_name %>',
-      action: 'index',
-      image: 'alchemy/<%= @module_name %>_module.png',
-      sub_navigation: [{
-        name: 'modules.<%= @module_name %>',
-        controller: '/admin/<%= @module_name %>',
-        action: 'index'
-      }]
-    }
-  })
-
-  Alchemy.register_ability(<%= @controller_class %>Ability)
+Alchemy.configure do |config|
+  config.menu.add(
+    name: "<%= @module_name %>",
+    title: "modules.<%= @module_name %>",
+    image: "alchemy/<%= @module_name %>_module.png",
+    url: -> { main_app.admin_<%= @index_route %>_path },
+    condition: -> { can?(:index, :admin_<%= @controller_name %>) },
+    children: [
+      {
+        title: "modules.<%= @module_name %>",
+        url: -> { main_app.admin_<%= @index_route %>_path },
+        condition: -> { can?(:index, :admin_<%= @controller_name %>) }
+      }
+    ]
+  )
+  config.abilities.add("<%= @controller_class %>Ability")
 end

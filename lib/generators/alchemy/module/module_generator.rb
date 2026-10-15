@@ -14,6 +14,7 @@ module Alchemy
         @class_name = @module_name.singularize.classify
         @controller_name = @module_name.tableize
         @controller_class = @controller_name.classify.pluralize
+        @index_route = (@controller_name.singularize == @controller_name) ? "#{@controller_name}_index" : @controller_name
       end
 
       def make_route
