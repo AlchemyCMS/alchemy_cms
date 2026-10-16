@@ -1,0 +1,19 @@
+{
+  "engines": {
+    "node": "24"
+  },
+  "packageManager": "pnpm@11.14.0",
+  "scripts": {
+    "guides:dev": "vitepress dev",
+    "guides:build": "vitepress build",
+    "guides:preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.0",
+    "vue": "^3.5.42"
+  },
+  "dependencies": {
+    "vitepress-plugin-llmstxt": "^0.5.1"
+  },
+  "license": "MIT"
+}

@@ -24,9 +24,12 @@ jobs:
   check_bot_commit:
     uses: ./.github/workflows/check-bot-commit.yml
 
+  check_guides_only:
+    uses: ./.github/workflows/check-guides-only.yml
+
   brakeman-scan:
-    needs: [check_bot_commit]
-    if: needs.check_bot_commit.outputs.is_bot != 'true'
+    needs: [check_bot_commit, check_guides_only]
+    if: needs.check_bot_commit.outputs.is_bot != 'true' && needs.check_guides_only.outputs.guides_only != 'true'
     name: Brakeman Scan
     runs-on: ubuntu-24.04
     steps:
@@ -56,14 +59,16 @@ jobs:
   brakeman-success:
     name: "Brakeman Success"
     if: always()
-    needs: [check_bot_commit, brakeman-scan]
+    needs: [check_bot_commit, check_guides_only, brakeman-scan]
     runs-on: ubuntu-latest
     permissions:
       contents: read
     steps:
       - name: Check results
         run: |
-          if [[ "${{ needs.brakeman-scan.result }}" != "success" && "${{ needs.brakeman-scan.result }}" != "skipped" ]]; then
-            echo "Failed: ${{ needs.brakeman-scan.result }}"
-            exit 1
-          fi
+          for result in "${{ needs.check_guides_only.result }}" "${{ needs.brakeman-scan.result }}"; do
+            if [[ "$result" != "success" && "$result" != "skipped" ]]; then
+              echo "Failed: $result"
+              exit 1
+            fi
+          done

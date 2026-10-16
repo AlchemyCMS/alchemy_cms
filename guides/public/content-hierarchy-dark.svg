@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" font-family="Inter, system-ui, sans-serif" font-size="14">
+  <!-- Site -->
+  <rect x="20" y="10" width="680" height="400" fill="#1e1e1e" stroke="#444c56" stroke-width="1.5" rx="6" />
+  <text x="40" y="36" font-weight="600" fill="#e6edf3">Site</text>
+
+  <!-- Language -->
+  <rect x="50" y="50" width="630" height="350" fill="#1e1e1e" stroke="#444c56" stroke-width="1.5" rx="6" />
+  <text x="70" y="76" font-weight="600" fill="#e6edf3">Language</text>
+
+  <!-- Page -->
+  <rect x="80" y="90" width="580" height="296" fill="#1e1e1e" stroke="#444c56" stroke-width="1.5" rx="6" />
+  <text x="100" y="116" font-weight="600" fill="#e6edf3">Page</text>
+  <text x="148" y="116" fill="#8b949e" font-size="12">(nested tree)</text>
+
+  <!-- Draft PageVersion -->
+  <rect x="110" y="130" width="240" height="240" fill="#1e1e1e" stroke="#444c56" stroke-width="1.5" rx="6" stroke-dasharray="6 3" />
+  <text x="130" y="156" font-weight="600" fill="#e6edf3">PageVersion</text>
+  <text x="232" y="156" fill="#8b949e" font-size="12">draft</text>
+
+  <!-- Draft Elements -->
+  <rect x="130" y="170" width="200" height="84" fill="#1e1e1e" stroke="#444c56" stroke-width="1.5" rx="6" />
+  <text x="150" y="196" font-weight="600" fill="#e6edf3">Element</text>
+
+  <rect x="150" y="210" width="76" height="30" fill="#1e1e1e" stroke="#444c56" stroke-width="1.5" rx="6" />
+  <text x="162" y="230" fill="#adbac7" font-size="12">Text</text>
+
+  <rect x="236" y="210" width="76" height="30" fill="#1e1e1e" stroke="#444c56" stroke-width="1.5" rx="6" />
+  <text x="244" y="230" fill="#adbac7" font-size="12">Picture</text>
+
+  <!-- Draft Nested Element -->
+  <rect x="130" y="264" width="200" height="94" fill="#1e1e1e" stroke="#444c56" stroke-width="1.5" rx="6" />
+  <text x="150" y="290" font-weight="600" fill="#e6edf3">Element</text>
+  <text x="210" y="290" fill="#8b949e" font-size="12">(nested)</text>
+
+  <rect x="150" y="304" width="76" height="30" fill="#1e1e1e" stroke="#444c56" stroke-width="1.5" rx="6" />
+  <text x="155" y="324" fill="#adbac7" font-size="12">Richtext</text>
+
+  <rect x="236" y="304" width="76" height="30" fill="#1e1e1e" stroke="#444c56" stroke-width="1.5" rx="6" />
+  <text x="244" y="324" fill="#adbac7" font-size="12">Boolean</text>
+
+  <!-- Public PageVersion -->
+  <rect x="380" y="130" width="260" height="240" fill="#1e1e1e" stroke="#444c56" stroke-width="1.5" rx="6" />
+  <text x="400" y="156" font-weight="600" fill="#e6edf3">PageVersion</text>
+  <text x="502" y="156" fill="#8b949e" font-size="12">public</text>
+
+  <rect x="400" y="170" width="220" height="84" fill="#1e1e1e" stroke="#444c56" stroke-width="1.5" rx="6" />
+  <text x="420" y="196" font-weight="600" fill="#e6edf3">Element</text>
+
+  <rect x="420" y="210" width="76" height="30" fill="#1e1e1e" stroke="#444c56" stroke-width="1.5" rx="6" />
+  <text x="432" y="230" fill="#adbac7" font-size="12">Text</text>
+
+  <rect x="506" y="210" width="76" height="30" fill="#1e1e1e" stroke="#444c56" stroke-width="1.5" rx="6" />
+  <text x="514" y="230" fill="#adbac7" font-size="12">Picture</text>
+
+  <rect x="400" y="264" width="220" height="94" fill="#1e1e1e" stroke="#444c56" stroke-width="1.5" rx="6" />
+  <text x="420" y="290" font-weight="600" fill="#e6edf3">Element</text>
+  <text x="480" y="290" fill="#8b949e" font-size="12">(nested)</text>
+
+  <rect x="420" y="304" width="76" height="30" fill="#1e1e1e" stroke="#444c56" stroke-width="1.5" rx="6" />
+  <text x="425" y="324" fill="#adbac7" font-size="12">Richtext</text>
+
+  <rect x="506" y="304" width="76" height="30" fill="#1e1e1e" stroke="#444c56" stroke-width="1.5" rx="6" />
+  <text x="514" y="324" fill="#adbac7" font-size="12">Boolean</text>
+
+  <!-- Publish arrow -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6e7681" />
+    </marker>
+  </defs>
+  <line x1="350" y1="250" x2="375" y2="250" stroke="#6e7681" stroke-width="1.5" marker-end="url(#arrow)" />
+  <text x="346" y="242" text-anchor="middle" fill="#8b949e" font-size="12">publish</text>
+</svg>

@@ -13,9 +13,12 @@ jobs:
   check_bot_commit:
     uses: ./.github/workflows/check-bot-commit.yml
 
+  check_guides_only:
+    uses: ./.github/workflows/check-guides-only.yml
+
   Standard:
-    needs: [check_bot_commit]
-    if: needs.check_bot_commit.outputs.is_bot != 'true'
+    needs: [check_bot_commit, check_guides_only]
+    if: needs.check_bot_commit.outputs.is_bot != 'true' && needs.check_guides_only.outputs.guides_only != 'true'
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout code
@@ -29,8 +32,8 @@ jobs:
       - name: Lint Ruby files
         run: bundle exec standardrb
   ESLint:
-    needs: [check_bot_commit]
-    if: needs.check_bot_commit.outputs.is_bot != 'true'
+    needs: [check_bot_commit, check_guides_only]
+    if: needs.check_bot_commit.outputs.is_bot != 'true' && needs.check_guides_only.outputs.guides_only != 'true'
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
@@ -47,8 +50,8 @@ jobs:
       - name: Lint code
         run: pnpm run eslint
   Prettier:
-    needs: [check_bot_commit]
-    if: needs.check_bot_commit.outputs.is_bot != 'true'
+    needs: [check_bot_commit, check_guides_only]
+    if: needs.check_bot_commit.outputs.is_bot != 'true' && needs.check_guides_only.outputs.guides_only != 'true'
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
@@ -65,8 +68,8 @@ jobs:
       - name: Lint code
         run: pnpm run lint
   Herb:
-    needs: [check_bot_commit]
-    if: needs.check_bot_commit.outputs.is_bot != 'true'
+    needs: [check_bot_commit, check_guides_only]
+    if: needs.check_bot_commit.outputs.is_bot != 'true' && needs.check_guides_only.outputs.guides_only != 'true'
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
@@ -86,12 +89,12 @@ jobs:
   lint-success:
     name: "Lint Success"
     if: always()
-    needs: [check_bot_commit, Standard, ESLint, Prettier, Herb]
+    needs: [check_bot_commit, check_guides_only, Standard, ESLint, Prettier, Herb]
     runs-on: ubuntu-latest
     steps:
       - name: Check results
         run: |
-          for result in "${{ needs.Standard.result }}" "${{ needs.ESLint.result }}" "${{ needs.Prettier.result }}" "${{ needs.Herb.result }}"; do
+          for result in "${{ needs.check_guides_only.result }}" "${{ needs.Standard.result }}" "${{ needs.ESLint.result }}" "${{ needs.Prettier.result }}" "${{ needs.Herb.result }}"; do
             if [[ "$result" != "success" && "$result" != "skipped" ]]; then
               echo "Failed: $result"
               exit 1
