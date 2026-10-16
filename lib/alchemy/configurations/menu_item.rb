@@ -110,34 +110,6 @@ module Alchemy
         end
       end
 
-      def to_legacy_hash
-        {
-          "name" => name,
-          "engine_name" => engine_name,
-          "position" => position,
-          "navigation" => to_legacy_navigation
-        }.compact
-      end
-
-      def to_legacy_navigation
-        {
-          "name" => title,
-          "controller" => controller,
-          "action" => action,
-          "url" => url,
-          "condition" => condition,
-          "icon" => icon,
-          "icon-style" => icon_style,
-          "image" => image,
-          "inline_image" => inline_image,
-          "data" => turbo ? nil : {turbo: false},
-          "nested_controllers" => nested_controllers.to_a.presence,
-          "nested_actions" => nested_actions.to_a.presence,
-          "sub_navigation" => children.map(&:to_legacy_navigation).presence,
-          "nested" => nested.map(&:to_legacy_navigation).presence
-        }.compact
-      end
-
       private
 
       def local_path(view_context)
