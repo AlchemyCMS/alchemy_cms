@@ -1,0 +1,4 @@
+/node_modules
+guides/.vitepress/dist
+guides/.vitepress/cache
+.claude/

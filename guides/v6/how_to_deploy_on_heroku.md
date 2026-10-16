@@ -1,0 +1,251 @@
+# Heroku deployment
+
+[Heroku](https://heroku.com) is a cloud platform as a service. You can start with a free plan and run it for lifetime. In this guide you will learn how to deploy your existing Alchemy Site on Heroku. After finishing this guide you will know:
+
+* How to prepare your local Alchemy installation for Heroku
+* How to deploy code changes to Heroku
+
+## Prerequisites
+
+We assume you already have a running Alchemy application on your local machine. In the following steps we call it `my-project`. Please replace it name with your actual name. All following shell commands need to be executed within your applications folder from the command shell.
+
+We also assume you already have an account on Heroku. [Otherwise signup now.](https://signup.heroku.com)
+
+You need the [Heroku Toolbelt](https://devcenter.heroku.com/articles/getting-started-with-ruby#set-up) for your OS installed to get access to the Heroku Command Line utility. Login with the heroku command from your command shell as described in the devcenter.
+
+The last thing we assume is you already have an Amazon AWS account. [Otherwise signup now.](https://aws.amazon.com)
+
+## Amazon (AWS) setup
+
+### Create S3 buckets
+
+Heroku does not provide data storage on its filesystem (beside a small amount for the application code and some temporary data). So we have to store our pictures and attachments outside of Heroku. Amazon S3 comes for the rescue. We need two S3 buckets, one for Alchemy pictures and another for Alchemy attachments.
+
+Please create two S3 buckets now and name them as follows:
+
+* `my-project-alchemy-pictures`
+* `my-project-alchemy-attachments`
+
+Please make sure to save the keys (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`) Amazon gives you and keep them safe.
+
+## Heroku setup
+
+### Create a new application
+
+Create a [new Application from your Dashboard](https://dashboard.heroku.com/new).
+
+### Install Memcache add-on
+
+We use Memcache to store and deliver cropped pictures and the page cache. This is important because otherwise page publishing and image cropping will not work accordingly.
+
+Lets add MemCachier to the application.
+
+~~~ bash
+heroku addons:create memcachier:dev
+~~~
+
+This installs MemCachier with a 25M cache store for free.
+
+### Set environment variables
+
+Run the following commands on your command shell to set some environment variables on your heroku account to provide the S3 key and bucket names. Make sure to replace `my-project` and `your-key` with the correct information.
+
+~~~ bash
+heroku config:set AWS_REGION=bucket-region
+heroku config:set AWS_ACCESS_KEY_ID=your-key-id
+heroku config:set AWS_SECRET_ACCESS_KEY=your-key
+heroku config:set AWS_PICTURES_BUCKET=my-project-alchemy-pictures
+heroku config:set AWS_ATTACHMENTS_BUCKET=my-project-alchemy-attachments
+~~~
+
+## Code adjustments
+
+### Add gems
+
+We need to add a few gems to the `Gemfile` of the Application.
+
+~~~ ruby
+gem 'thin'
+
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+  gem 'rack-cache', require: 'rack/cache'
+  gem "dragonfly-s3_data_store"
+  gem 'dalli'
+  gem 'kgio'
+end
+~~~
+
+Now bundle the gems
+
+~~~ bash
+bundle install
+~~~
+
+::: tip
+Heroku uses PostgreSQL. If you want to use a different database for your development environment you need to define `group: "development"` for the relevant database adapter gem.
+:::
+
+### Use thin webserver instead of webrick
+
+Webrick is not the best choice for running rails applications in production. Lets tell Heroku we want to use thin instead. Create a new file in your applications root directory named `Procfile` and paste the following line.
+
+~~~ ruby
+web: bundle exec thin start -p $PORT -e $RACK_ENV
+~~~
+
+### Create initializer
+
+Create a new initializer `config/initializers/alchemy_file_storage.rb` in your application code to overwrite the information how and where Alchemy pictures and attachments are stored. You can just paste the following code and adjust the region if necessary. Be aware to use the same region as you did when creating the buckets.
+
+We set up the application to use Amazon S3 storage on production while using the filesystem in other environments.
+
+~~~ ruby
+if Rails.env.production?
+  require 'dragonfly'
+  require 'dragonfly/s3_data_store'
+
+  aws_defaults = {
+    access_key_id: Rails.configuration.aws_access_key_id,
+    secret_access_key: Rails.configuration.aws_secret_access_key,
+    region: Rails.configuration.aws_region,
+    storage_headers: {'x-amz-acl' => 'public-read'},
+    url_scheme: 'https'
+  }
+
+  Dragonfly.app(:alchemy_pictures).configure do
+    plugin :imagemagick
+    datastore :s3,
+      { bucket_name: Rails.configuration.aws_pictures_bucket }.merge(aws_defaults)
+  end
+
+  Dragonfly.app(:alchemy_attachments).configure do
+    datastore :s3,
+      { bucket_name: Rails.configuration.aws_attachments_bucket }.merge(aws_defaults)
+  end
+end
+~~~
+
+### Configure rack-cache for production environment
+
+~~~ ruby
+# Enable Rack::Cache to put a simple HTTP cache in front of your application
+# Add `rack-cache` to your Gemfile before enabling this.
+# For large-scale production use, consider using a caching reverse proxy like
+# NGINX, varnish or squid.
+config.action_dispatch.rack_cache = true
+# use the Dalli client for its cache-store
+config.cache_store = :dalli_store
+client = Dalli::Client.new((ENV["MEMCACHIER_SERVERS"] || "").split(","),
+                         :username => ENV["MEMCACHIER_USERNAME"],
+                         :password => ENV["MEMCACHIER_PASSWORD"],
+                         :failover => true,
+                         :socket_timeout => 1.5,
+                         :socket_failure_delay => 0.2,
+                         :value_max_bytes => 10485760)
+config.action_dispatch.rack_cache = {
+  :metastore    => client,
+  :entitystore  => client
+}
+config.static_cache_control = "public, max-age=311040000"
+~~~
+
+### Make S3 informations accessible to Rails configuration
+
+Paste the following lines to your `config/environments/production.rb` inside the configure block. The Rails application gets access to the S3 information provided via environment variables.
+
+~~~ ruby
+config.aws_region = ENV['AWS_REGION']
+config.aws_access_key_id = ENV['AWS_ACCESS_KEY_ID']
+config.aws_secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
+config.aws_pictures_bucket = ENV['AWS_PICTURES_BUCKET']
+config.aws_attachments_bucket = ENV['AWS_ATTACHMENTS_BUCKET']
+~~~
+
+### Prepare your seeds.rb
+
+In order to populate the remote database with basic information (which is needed for running Alchemy) please paste the following to your `db/seeds.rb`. You can skip this step if you already have it.
+
+~~~ ruby
+Alchemy::Seeder.seed!
+~~~
+
+## Git repository
+
+### Create a new repo
+
+If your application code is already checked-in to a git repository you can skip this. Otherwise initialize a new git repository now.
+
+~~~ bash
+git init
+~~~
+
+### Make sure you do not store certain files in your git repo
+
+We do not want certain files in git. Please make sure you ignore at least following files/folders in your `.gitignore` file.
+
+~~~ bash
+/tmp/*
+/log/*
+/uploads
+/public/assets
+/public/pictures
+/config/database.yml
+.DS_Store
+/db/*.sqlite3
+~~~
+
+### Commit your files to the git repository
+
+~~~ bash
+git add .
+git commit -am "Initial commit"
+~~~
+
+::: tip
+Never store any critical informations like database or ssh passwords in your git repository, even if you have a private one.
+:::
+
+### Add heroku as a git remote
+
+You need to add heroku as a remote git repository. Each time you push the master branch to heroku the application will be deployed.
+
+~~~ bash
+heroku git:remote -a my-project
+~~~
+
+## Deployment
+
+### First deployment
+
+Lets deploy the application to heroku the first time! Its easy as pushing our repository to the heroku git remote.
+
+~~~ bash
+git push heroku master
+~~~
+
+### Migrate and seed the database
+
+We need to migrate the database and populate it with Alchemy seed data.
+
+~~~ bash
+heroku run rake db:migrate
+heroku run rake db:seed
+~~~
+
+### Verify the deployment
+
+Open a browser and enter the domain Heroku gave you. Usually its a subdomain consisting of your project name and the domain herokuapp.com (e.g.: https://my-project.herokuapp.com)
+
+::: tip
+You can always get your domain from the settings on Heroku. E.g.: https://dashboard.heroku.com/apps/my-project/settings (replace my-project with the correct name)
+:::
+
+### Deploy the app later on
+
+Each time you want to deploy to Heroku just push your git commits to the heroku remote:
+
+~~~ bash
+git push heroku master
+~~~
