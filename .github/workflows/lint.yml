@@ -87,7 +87,7 @@ jobs:
     name: "Lint Success"
     if: always()
     needs: [check_bot_commit, Standard, ESLint, Prettier, Herb]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Check results
         run: |
