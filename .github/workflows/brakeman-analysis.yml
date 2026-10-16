@@ -60,7 +60,7 @@ jobs:
     name: "Brakeman Success"
     if: always()
     needs: [check_bot_commit, check_guides_only, brakeman-scan]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
     steps:
