@@ -77,4 +77,4 @@ gem "i18n-debug", "~> 1.2", require: false # Set to `"i18n/debug"` if you want t
 gem "brakeman", "~> 8.0", require: false
 
 # Rails is not ready yet
-gem "json", "< 3", require: false
+gem "json", "< 4", require: false
