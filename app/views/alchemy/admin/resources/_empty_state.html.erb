@@ -7,15 +7,17 @@
     </svg>
 
     <div class="empty-state-notice">
-      <%== Alchemy.t(
-        resource_model.model_name.i18n_key,
-        scope: :no_resource_found,
-        default: Alchemy.t(
-          :default,
+      <%== local_assigns.fetch(:notice) do
+        Alchemy.t(
+          resource_model.model_name.i18n_key,
           scope: :no_resource_found,
-          resource: resource_model.model_name.human(count: :many)
+          default: Alchemy.t(
+            :default,
+            scope: :no_resource_found,
+            resource: resource_model.model_name.human(count: :many)
+          )
         )
-      ) %>
+      end %>
     </div>
   </div>
 

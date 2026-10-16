@@ -589,6 +589,9 @@ en:
         <h2>You do not have any websites yet.</h2>
         <p>In order to serve requests you need to create a website first.</p>
         <p>This form has been filled with sensible defaults that work in most cases.</p>
+      layoutpages: |
+        <h2>This language has no global pages yet</h2>
+        <p>Global pages hold content that is shared across all pages, like headers or footers.</p>
     no_search_results: "Your search did not return any results."
     no_unpublished_changes: "No unpublished changes"
     "not a valid image": "This is not an valid image."

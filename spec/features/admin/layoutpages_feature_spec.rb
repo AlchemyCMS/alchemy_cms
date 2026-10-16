@@ -20,4 +20,17 @@ RSpec.describe "Layoutpages", type: :system do
     expect(page).to have_content("Copied #{layoutpage.name} to clipboard")
     expect(page).to have_css("alchemy-icon[name='clipboard'][icon-style='fill']")
   end
+
+  context "without global pages" do
+    let!(:layoutpage) { nil }
+
+    it "renders the empty state" do
+      visit alchemy.admin_layoutpages_path
+
+      within ".empty-state" do
+        expect(page).to have_content("This language has no global pages yet")
+        expect(page).to have_link("Add global page")
+      end
+    end
+  end
 end
