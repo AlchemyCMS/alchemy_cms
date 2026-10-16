@@ -261,6 +261,50 @@ zh-CN:
       blank: 新窗口/选项卡
       overlay: 覆盖
 
+    # == Translations used by the admin JavaScript
+    # Note: "Yes" and "No" have to stay quoted. YAML reads them as booleans otherwise.
+    javascript:
+      Add: "新建"
+      allowed_chars: "%{count} 个字符"
+      cancel: "取消"
+      cancelled: "已取消"
+      click_to_edit: "单击来编辑"
+      complete: "完成"
+      element_dirty_notice: "这个元素还有未保存的更改。你确定要折叠？"
+      help: "帮助"
+      ok: "确定"
+      page_dirty_notice: "这个页面还有未保存的更改。如果继续你将会丢掉你所做的更改。"
+      page_found: "找到页面"
+      pages_found: "找到页面"
+      url_validation_failed: "页面地址格式错误。"
+      warning: "警告!"
+      "Abort upload": "中止上传"
+      "Cancel all uploads": "取消所有上传"
+      "Clear selection": "清除选择"
+      "Close": "关闭"
+      "File is too large": "文件太大"
+      "File is too small": "文件太小"
+      "File type not allowed": "文件类型不支持"
+      "Loading more results": "加载结果中"
+      "Maximum number of files exceeded": "超出最大允许的文件数。"
+      "No": "否"
+      "No anchors found": "未找到锚点。"
+      "No more results": "没有更多结果"
+      "No results found": "未找到结果。"
+      "None": "无"
+      "Please confirm": "请确认"
+      "Please wait, loading": "请等待，加载中"
+      "Preview failed to load": "预览加载失败。请重试。"
+      "Remove": "移除"
+      "Select a page first": "请先选择页面。"
+      "Uploaded bytes exceed file size": "上传得字节数超过文件大小"
+      "Yes": "是"
+      formats:
+        datetime: "Y年m月d日 H:i"
+        date: "Y年m月d日"
+        time: "H:i"
+        time_24hr: true
+
     resource_help_texts:
       site:
         host: 请输入 <a href="https://en.wikipedia.org/wiki/Fully_qualified_domain_name" target="_blank">FQDN</a> 或使用星号 (*) 允许所有域名访问此站点。
