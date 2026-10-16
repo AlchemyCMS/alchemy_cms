@@ -739,6 +739,9 @@ fr:
         <h2>Vous n'avez pas encore d'images dans votre archive.</h2>
         <p>Utilisez le bouton ci-dessous ou glissez des images dans cette fenêtre pour télécharger votre première image.</p>
       alchemy/site: "<h2>Vous n'avez pas encore de site web.</h2><p>Pour pouvoir répondre aux requêtes, vous devez d'abord créer un site web.</p><p>Ce formulaire a été pré-rempli avec des valeurs par défaut qui fonctionnent dans la plupart des cas.</p>"
+      layoutpages: |
+        <h2>Cette langue n'a pas encore de pages globales.</h2>
+        <p>Les pages globales contiennent du contenu partagé par toutes les pages, comme les en-têtes ou les pieds de page.</p>
     no_search_results: "Aucun résultat de recherche."
     no_unpublished_changes: "Aucune modification non publiée"
     "not a valid file": "Fichier non valide."

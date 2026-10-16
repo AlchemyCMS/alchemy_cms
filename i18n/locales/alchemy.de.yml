@@ -740,6 +740,9 @@ de:
         <h2>Sie haben noch keine Bilder in Ihrem Archiv.</h2>
         <p>Nutzen Sie die Schaltfläche unten oder ziehen Sie Bilder in dieses Fenster, um Ihr erstes Bild hochzuladen.</p>
       alchemy/site: "<h2>Sie haben bisher keine Websites.</h2><p>Um Anfragen bedienen zu können, müssen Sie zunächst eine Website erstellen.</p><p>Dieses Formular wurde mit sinnvollen Standardwerten ausgefüllt, die in den meisten Fällen funktionieren.</p>"
+      layoutpages: |
+        <h2>Diese Sprache hat noch keine globalen Seiten</h2>
+        <p>Globale Seiten enthalten Inhalte, die auf allen Seiten geteilt werden, wie z.B. Kopf- oder Fußzeilen.</p>
     no_search_results: "Keine Suchergebnisse."
     no_unpublished_changes: "Kein unveröffentlichten Änderungen."
     not_found: "ohne"

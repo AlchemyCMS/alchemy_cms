@@ -687,6 +687,9 @@ nb-NO:
         <h2>Du har ingen bilder i arkivet ennå.</h2>
         <p>Bruk knappen nedenfor eller dra bilder inn i dette vinduet for å laste opp ditt første bilde.</p>
       alchemy/site: "<h2>Du har ingen nettsteder ennå.</h2><p>For å kunne håndtere forespørsler må du først opprette et nettsted.</p><p>Dette skjemaet er fylt ut med fornuftige standardverdier som fungerer i de fleste tilfeller.</p>"
+      layoutpages: |
+        <h2>Dette språket har ingen globale sider ennå</h2>
+        <p>Globale sider inneholder innhold som deles på tvers av alle sider, som topptekster eller bunntekster.</p>
     no_search_results: "Søket ditt ga ingen resultater."
     no_unpublished_changes: "Ingen upubliserte endringer"
     "not a valid image": "Dette er ikke et gyldig bilde."
