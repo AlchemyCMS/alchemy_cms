@@ -1,0 +1,9 @@
+# Only label pull requests that change nothing but the sub-project, because
+# .github/release.yml drops `guides` pull requests from the release notes.
+guides:
+  - changed-files:
+      - all-globs-to-all-files: "guides/**"
+
+i18n:
+  - changed-files:
+      - all-globs-to-all-files: "i18n/**"

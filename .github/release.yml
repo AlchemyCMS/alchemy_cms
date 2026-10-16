@@ -11,12 +11,17 @@ changelog:
       - backport-to-8.2-stable
       - backport-to-8.3-stable
       - chore
+      - guides
 
   categories:
     - title: "Breaking Changes"
       labels:
         - breaking-change
         - breaking
+
+    - title: "Translations"
+      labels:
+        - i18n
 
     - title: "New Features"
       labels:
