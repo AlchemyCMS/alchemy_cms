@@ -269,54 +269,6 @@ RSpec.describe Alchemy::Configurations::MenuItem do
     end
   end
 
-  describe "#to_legacy_hash" do
-    it "returns the nested, string keyed shape of the old module definitions" do
-      item = described_class.new(
-        name: "languages",
-        engine_name: "alchemy",
-        position: 4,
-        title: "modules.languages",
-        controller: "/alchemy/admin/languages",
-        action: "index",
-        icon: "translate-2",
-        icon_style: "none",
-        children: [{title: "modules.languages", controller: "/alchemy/admin/languages", action: "index"}],
-        nested: [{controller: "/alchemy/admin/languages", action: "edit"}]
-      )
-
-      expect(item.to_legacy_hash).to eq(
-        "name" => "languages",
-        "engine_name" => "alchemy",
-        "position" => 4,
-        "navigation" => {
-          "name" => "modules.languages",
-          "controller" => "/alchemy/admin/languages",
-          "action" => "index",
-          "icon" => "translate-2",
-          "icon-style" => "none",
-          "sub_navigation" => [
-            {"name" => "modules.languages", "controller" => "/alchemy/admin/languages", "action" => "index"}
-          ],
-          "nested" => [
-            {"controller" => "/alchemy/admin/languages", "action" => "edit"}
-          ]
-        }
-      )
-    end
-
-    it "emits the turbo data attribute when turbo is disabled" do
-      item = described_class.new(name: "events", controller: "/admin/events", action: "index", turbo: false)
-      expect(item.to_legacy_hash["navigation"]["data"]).to eq(turbo: false)
-    end
-
-    it "emits the url and condition callables" do
-      url = -> { alchemy.admin_pages_path }
-      condition = -> { can?(:index, :alchemy_admin_pages) }
-      item = described_class.new(name: "pages", url:, condition:)
-      expect(item.to_legacy_hash["navigation"]).to include("url" => url, "condition" => condition)
-    end
-  end
-
   describe ".from_legacy_hash" do
     subject(:item) { described_class.from_legacy_hash(legacy_hash) }
 
@@ -360,7 +312,7 @@ RSpec.describe Alchemy::Configurations::MenuItem do
     end
 
     it "round-trips through to_legacy_hash" do
-      expect(item.to_legacy_hash).to eq(legacy_hash)
+      expect(Alchemy::Modules.to_legacy_hash(item)).to eq(legacy_hash)
     end
 
     context "with a float position" do
@@ -445,7 +397,7 @@ RSpec.describe Alchemy::Configurations::MenuItem do
           condition: -> { can?(:index, :alchemy_admin_pages) }
         )
       end
-      let(:legacy_hash) { original.to_legacy_hash }
+      let(:legacy_hash) { Alchemy::Modules.to_legacy_hash(original) }
 
       it "keeps the url" do
         expect(item.path(view_context)).to eq("/admin/pages")

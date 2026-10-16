@@ -34,7 +34,7 @@ module Alchemy
       # Sorted by position attribute, if given.
       #
       def sorted_alchemy_modules
-        Alchemy::Admin::MainNavigation::Menu.new.items.map(&:to_legacy_hash)
+        Alchemy::Admin::MainNavigation::Menu.new.items.map { |menu_item| Alchemy::Modules.to_legacy_hash(menu_item) }
       end
       deprecate sorted_alchemy_modules: "Use `Alchemy.config.menu` instead",
         deprecator: Alchemy::Deprecation
