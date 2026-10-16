@@ -137,7 +137,7 @@ jobs:
       RUBY_YJIT_ENABLE: "1"
     services:
       postgres:
-        image: postgres:17
+        image: ${{ matrix.database == 'postgresql' && 'postgres:17' || '' }}
         env:
           POSTGRES_USER: alchemy_user
           POSTGRES_PASSWORD: password
@@ -145,7 +145,7 @@ jobs:
         ports: ["5432:5432"]
         options: --health-cmd pg_isready --health-interval 1s --health-timeout 1s --health-retries 30
       mariadb:
-        image: mariadb:latest
+        image: ${{ matrix.database == 'mariadb' && 'mariadb:latest' || '' }}
         ports: ["3307:3306"]
         env:
           MARIADB_USER: alchemy_user
