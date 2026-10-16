@@ -88,6 +88,116 @@ RSpec.describe Alchemy::Upgrader::EightFour do
     end
   end
 
+  describe "#upgrade_menu_config" do
+    subject { upgrader.upgrade_menu_config }
+
+    around do |example|
+      Dir.mktmpdir do |dir|
+        @root = Pathname(dir)
+        example.run
+      end
+    end
+
+    let(:root) { @root }
+    let(:initializer) { root.join("config/initializers/alchemy_events.rb") }
+
+    before do
+      allow(Rails).to receive(:root).and_return(root)
+      initializer.dirname.mkpath
+      initializer.write(initializer_content)
+      allow(upgrader).to receive(:todo)
+    end
+
+    context "with a literal register_module call" do
+      let(:initializer_content) do
+        <<~RUBY
+          Alchemy::Modules.register_module(name: "events", navigation: {name: "Events", controller: "/admin/events", action: "index"})
+        RUBY
+      end
+
+      it "rewrites the initializer" do
+        subject
+        expect(initializer.read).to eq(<<~RUBY)
+          Alchemy.config.menu.add(
+            name: "events",
+            title: "Events",
+            controller: "/admin/events",
+            action: "index"
+          )
+        RUBY
+      end
+
+      it "adds a todo to review the rewritten files" do
+        subject
+        expect(upgrader).to have_received(:todo).with(%r{config/initializers/alchemy_events\.rb}, kind_of(String)).once
+      end
+    end
+
+    context "with a non literal register_module call" do
+      let(:initializer_content) do
+        <<~RUBY
+          Alchemy::Modules.register_module(Events.alchemy_module)
+        RUBY
+      end
+
+      it "leaves the initializer untouched" do
+        subject
+        expect(initializer.read).to eq(initializer_content)
+      end
+
+      it "adds a todo to migrate the call manually" do
+        subject
+        expect(upgrader).to have_received(:todo).with(%r{config/initializers/alchemy_events\.rb.*config\.menu\.add}m, kind_of(String)).once
+      end
+    end
+
+    context "with an overridden navigation partial" do
+      let(:initializer_content) { "" }
+
+      before do
+        partial = root.join("app/views/alchemy/admin/partials/_main_navigation_entry.html.erb")
+        partial.dirname.mkpath
+        partial.write("<li></li>")
+      end
+
+      it "adds a todo about the replaced partials" do
+        subject
+        expect(upgrader).to have_received(:todo).with(%r{app/views/alchemy/admin/partials/_main_navigation_entry\.html\.erb}, kind_of(String)).once
+      end
+    end
+
+    context "without register_module calls and overridden partials" do
+      let(:initializer_content) { "Alchemy.config.menu.add(name: \"events\")\n" }
+
+      it "adds no todo" do
+        subject
+        expect(upgrader).not_to have_received(:todo)
+      end
+    end
+
+    context "when Prism is not available" do
+      let(:initializer_content) do
+        <<~RUBY
+          Alchemy::Modules.register_module(name: "events", navigation: {name: "Events"})
+        RUBY
+      end
+
+      before do
+        allow(upgrader).to receive(:require).with("prism").and_raise(LoadError)
+      end
+
+      it "leaves the initializer untouched" do
+        subject
+        expect(initializer.read).to eq(initializer_content)
+      end
+
+      it "adds a todo to migrate the call manually" do
+        subject
+        expect(upgrader).to have_received(:todo).with(%r{config/initializers/alchemy_events\.rb.*config\.menu\.add}m, kind_of(String)).once
+      end
+    end
+  end
+
   describe "#upgrade_nested_elements_rendering" do
     subject { upgrader.upgrade_nested_elements_rendering }
 

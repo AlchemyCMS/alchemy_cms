@@ -2,7 +2,7 @@
 
 Modules add custom sections to the Alchemy admin interface. Use them to manage your own models (events, products, orders) with Alchemy's built-in CRUD interface, authentication, and authorization.
 
-You only need three things: a controller, a module registration, and routes.
+You only need three things: a controller, a menu entry, and routes.
 
 ## Generator
 
@@ -18,7 +18,7 @@ This generates:
 |------|---------|
 | `app/controllers/admin/events_controller.rb` | Admin controller inheriting from `ResourcesController` |
 | `app/models/events_ability.rb` | CanCanCan ability for authorization |
-| `config/initializers/alchemy_event.rb` | Module registration and ability registration |
+| `config/initializers/alchemy_event.rb` | Menu entry and ability registration |
 
 It also adds the admin routes to `config/routes.rb`.
 
@@ -57,98 +57,103 @@ end
 Alchemy uses a catch-all route for pages. Always mount your routes before `Alchemy::Engine`, otherwise they won't be reachable.
 :::
 
-## Module Registration
+## Menu Entry
 
-Register your module so it appears in the admin navigation. Wrap the registration in `config.to_prepare` to ensure it runs on each code reload in development:
+<Badge type="tip" text="8.4+" /> Add your module to the admin navigation with `config.menu.add`:
 
 ~~~ ruby
 # config/initializers/alchemy_event.rb
-Rails.application.config.to_prepare do
-  Alchemy::Modules.register_module(
+Alchemy.configure do |config|
+  config.menu.add(
     name: "events",
-    navigation: {
-      name: "Events",
-      controller: "/admin/events",
-      action: "index",
-      icon: "calendar"
-    }
+    title: "Events",
+    icon: "calendar",
+    url: -> { main_app.admin_events_path },
+    condition: -> { can?(:index, :admin_events) }
   )
 end
 ~~~
 
-### Module Definition Options
+`url` and `condition` are evaluated in the view context, so they can use route helpers like `main_app` or your engine's routing proxy, and the `can?` permission check.
+
+::: warning
+Add menu entries once, at boot. Unlike the old `register_module`, `config.menu.add` does not skip entries that are already present, so calling it inside a `to_prepare` block would add the entry again on every code reload in development.
+:::
+
+### Menu Entry Options
 
 | Option | Type | Description |
 |--------|------|-------------|
-| `name` | `String` | Unique module identifier |
-| `navigation` | `Hash` | Navigation configuration (see [Navigation](#navigation)) |
-| `engine_name` | `String` | Rails engine name for URL generation (omit for host app modules) |
-| `position` | `Integer` | Sort order in the navigation sidebar (lower numbers appear higher) |
-
-## Navigation
-
-The `navigation` hash controls how your module appears in the admin sidebar.
-
-### Navigation Options
-
-| Option | Type | Description |
-|--------|------|-------------|
-| `name` | `String` | Display name or I18n key (e.g. `"modules.events"`) |
-| `controller` | `String` | Controller path with leading slash |
-| `action` | `String` | Controller action (typically `"index"`) |
+| `name` | `String` | Unique identifier of the entry |
+| `title` | `String` | Display name or I18n key (e.g. `"modules.events"`) |
+| `url` | `Proc` | Returns the link target. Evaluated in the view context |
+| `condition` | `Proc` | Returns whether the entry is shown. Evaluated in the view context. Entries without a condition are shown to every admin user |
+| `position` | `Numeric` | Sort order in the navigation sidebar (lower numbers appear higher). The core entries use `1` to `7`, so `4.5` places an entry between Languages and Sites. Entries without a position are listed last |
 | `icon` | `String` | A [Remix icon](https://remixicon.com) name (e.g. `"calendar"`, `"shopping-bag"`) |
-| `icon-style` | `String` | Remix icon style: `"line"` (default), `"fill"`, or `"none"` |
+| `icon_style` | `String` | Remix icon style: `"line"` (default), `"fill"`, or `"none"` |
 | `inline_image` | `String` | Raw HTML or inline SVG for a custom icon (used instead of `icon`) |
 | `image` | `String` | Path to an image asset for the icon (used instead of `icon`) |
-| `params` | `Hash` | Additional URL parameters |
-| `data` | `Hash` | HTML5 data attributes on the navigation entry |
-| `sub_navigation` | `Array` | Array of sub-navigation entries (see [Sub-navigation](#sub-navigation)) |
+| `turbo` | `Boolean` | Set to `false` to load the entry's page without Turbo (Default: `true`) |
+| `match_path` | `Regexp` | Marks the entry as active when the request path matches it |
+| `children` | `Array` | Sub-navigation entries (see [Sub-Navigation](#sub-navigation)) |
 
 ::: info NOTE
 The icon options are checked in order: `image`, `inline_image`, `icon`. If none is set, a default table icon is rendered.
 :::
 
-### Sub-Navigation
-
-Add tabs within your module using `sub_navigation`:
+An entry is highlighted as active when the current page is its url or any page below it, so `/admin/events/1/edit` highlights an entry linking to `/admin/events`. Use `match_path` if your module's pages live elsewhere:
 
 ~~~ ruby
-Alchemy::Modules.register_module(
+config.menu.add(
   name: "events",
-  navigation: {
-    name: "Events",
-    controller: "/admin/events",
-    action: "index",
-    icon: "calendar",
-    sub_navigation: [
-      {
-        name: "Events",
-        controller: "/admin/events",
-        action: "index"
-      },
-      {
-        name: "Locations",
-        controller: "/admin/locations",
-        action: "index"
-      }
-    ]
-  }
+  title: "Events",
+  url: -> { main_app.admin_events_path },
+  match_path: %r{\A/admin/(events|bookings)}
 )
 ~~~
+
+### Sub-Navigation
+
+Add tabs within your module using `children`. Each child takes the same options as a menu entry:
+
+~~~ ruby
+config.menu.add(
+  name: "events",
+  title: "Events",
+  icon: "calendar",
+  url: -> { main_app.admin_events_path },
+  condition: -> { can?(:index, :admin_events) },
+  children: [
+    {
+      title: "Events",
+      url: -> { main_app.admin_events_path },
+      condition: -> { can?(:index, :admin_events) }
+    },
+    {
+      title: "Locations",
+      url: -> { main_app.admin_locations_path },
+      condition: -> { can?(:index, :admin_locations) }
+    }
+  ]
+)
+~~~
+
+The main entry is also active while one of its children is.
 
 ::: info NOTE
 Each sub-navigation entry needs its own controller and routes.
 :::
 
-### Translating Navigation Names
+### Translating Titles
 
-Navigation names are translated through I18n under the `alchemy` namespace. Use a key like `modules.events` to make it translatable:
+Titles are translated through I18n under the `alchemy` namespace. Use a key like `modules.events` to make it translatable:
 
 ~~~ ruby
-navigation: {
-  name: "modules.events",
+config.menu.add(
+  name: "events",
+  title: "modules.events",
   ...
-}
+)
 ~~~
 
 ~~~ yaml
@@ -189,29 +194,16 @@ class EventsAbility
 end
 ~~~
 
-The symbol `:admin_events` is derived from the controller path -- `/admin/events` becomes `:admin_events`. This is what Alchemy checks when deciding whether to show the navigation entry.
+The symbol `:admin_events` is derived from the controller path -- `/admin/events` becomes `:admin_events`. Use it in the menu entry's `condition`, so the entry is only shown to users who may use the module.
 
-Register the ability in the same initializer as the module:
-
-### Alchemy 8.1+ <Badge type="tip" text="8.1+" />
+Register the ability in the same initializer as the menu entry:
 
 ~~~ ruby
 # config/initializers/alchemy_event.rb
-Rails.application.config.to_prepare do
-  Alchemy::Modules.register_module(...)
+Alchemy.configure do |config|
+  config.abilities.add("EventsAbility")
 
-  Alchemy.config.abilities.add("EventsAbility")
-end
-~~~
-
-### Alchemy 8.0 <Badge type="warning" text="8.0" />
-
-~~~ ruby
-# config/initializers/alchemy_event.rb
-Rails.application.config.to_prepare do
-  Alchemy::Modules.register_module(...)
-
-  Alchemy.register_ability(EventsAbility)
+  config.menu.add(...)
 end
 ~~~
 
@@ -373,23 +365,32 @@ This replaces the `location_id` column in the table and form with a select box s
 
 ## Modules in Engines
 
-If you are packaging your module as a Rails engine, add `engine_name` to the registration so Alchemy uses the engine's routing proxy for URL generation:
+If you are packaging your module as a Rails engine, link the menu entry through your engine's routing proxy and add it from an engine initializer:
 
 ~~~ ruby
-Alchemy::Modules.register_module(
-  name: "shop",
-  engine_name: "my_shop",
-  navigation: {
-    name: "Shop",
-    controller: "/my_shop/admin/products",
-    action: "index",
-    icon: "shopping-bag"
-  }
-)
+# lib/my_shop/engine.rb
+module MyShop
+  class Engine < ::Rails::Engine
+    isolate_namespace MyShop
+    engine_name "my_shop"
+
+    initializer "my_shop.admin_menu" do
+      Alchemy.configure do |config|
+        config.menu.add(
+          name: "shop",
+          title: "Shop",
+          icon: "shopping-bag",
+          url: -> { my_shop.admin_products_path },
+          condition: -> { can?(:index, :my_shop_admin_products) }
+        )
+      end
+    end
+  end
+end
 ~~~
 
 ::: info NOTE
-The `engine_name` must match the name set in your `Rails::Engine` class.
+The routing proxy (`my_shop` above) is named after the `engine_name` set in your `Rails::Engine` class. Resource controllers in your engine use the engine's routes automatically.
 :::
 
 Mount your engine **before** Alchemy in the host app's routes:
@@ -405,3 +406,26 @@ end
 ::: tip
 The [alchemy-devise](extensions#alchemy-devise) and [alchemy-solidus](extensions#alchemy-solidus) extensions are good examples of engine-based modules. See [Extensions](extensions) for more.
 :::
+
+## Migrating from `register_module`
+
+Before Alchemy 8.4, modules were added to the navigation with `Alchemy::Modules.register_module`. It still works, but is deprecated and will be removed in Alchemy 9.0.
+
+The upgrade task rewrites `register_module` calls that use a plain hash into `config.menu.add` and lists everything it could not rewrite:
+
+~~~ bash
+bin/rails alchemy:upgrade
+~~~
+
+To migrate a call by hand, move the keys of the `navigation` hash to the entry itself and replace `controller` and `action` with `url` and `condition`:
+
+| `register_module` | `config.menu.add` |
+|-------------------|-------------------|
+| `navigation: {name: ...}` | `title: ...` |
+| `navigation: {controller: ..., action: ...}` | `url: -> { ... }` and `condition: -> { can?(...) }` |
+| `navigation: {sub_navigation: [...]}` | `children: [...]` |
+| `navigation: {"icon-style": ...}` | `icon_style: ...` |
+| `navigation: {data: {turbo: false}}` | `turbo: false` |
+| `navigation: {params: {...}}` | No longer supported, add the parameters to the `url` instead |
+
+The partials `alchemy/admin/_main_navi`, `alchemy/admin/partials/_main_navigation_entry` and `alchemy/admin/partials/_sub_navigation` have been replaced by the `Alchemy::Admin::MainNavigation` components. If your app overrides one of them, move your changes into a menu entry or into the `:alchemy_main_navigation` content block, which is still rendered at the end of the navigation.
