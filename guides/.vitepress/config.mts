@@ -306,6 +306,7 @@ const sidebar = VERSIONS.reduce((obj, version) => {
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "AlchemyCMS",
+  srcExclude: ["README.md"],
   head: [
     ["link", { rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
     [
@@ -372,6 +373,6 @@ export default defineConfig({
   lastUpdated: true,
   ignoreDeadLinks: "localhostLinks",
   vite: {
-    plugins: [llmstxtPlugin()],
+    plugins: [llmstxtPlugin({ ignore: ["README.md"] })],
   },
 })

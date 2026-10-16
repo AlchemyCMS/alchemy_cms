@@ -1,6 +1,6 @@
 [build]
   command = "./build.sh"
-  publish = "guides/.vitepress/dist"
+  publish = ".vitepress/dist"
 [[redirects]]
   from = "/stable/elements.html"
   to = "/elements.html"

@@ -1,4 +1,4 @@
 /node_modules
-guides/.vitepress/dist
-guides/.vitepress/cache
+.vitepress/dist
+.vitepress/cache
 .claude/

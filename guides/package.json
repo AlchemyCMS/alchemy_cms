@@ -4,9 +4,9 @@
   },
   "packageManager": "pnpm@11.14.0",
   "scripts": {
-    "guides:dev": "vitepress dev guides",
-    "guides:build": "vitepress build guides",
-    "guides:preview": "vitepress preview guides"
+    "guides:dev": "vitepress dev",
+    "guides:build": "vitepress build",
+    "guides:preview": "vitepress preview"
   },
   "devDependencies": {
     "vitepress": "^1.6.0",
