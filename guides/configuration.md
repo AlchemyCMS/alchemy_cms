@@ -208,6 +208,23 @@ Minutes of inactivity before the admin session expires. Used by [alchemy-devise]
 
 Number of items per page in admin list views (uses Kaminari).
 
+### menu
+`Array<Alchemy::Configurations::MenuItem>` <Badge type="tip" text="8.4+" />
+
+The entries of the admin main navigation. Alchemy's own entries (Dashboard, Pages, Menus, Languages, Sites, Tags and Library) are the default. Add entries for your own modules with `config.menu.add`:
+
+~~~ ruby
+config.menu.add(
+  name: "events",
+  title: "Events",
+  icon: "calendar",
+  url: -> { main_app.admin_events_path },
+  condition: -> { can?(:index, :admin_events) }
+)
+~~~
+
+See [Creating Modules](how_to_create_modules#menu-entry) for all options.
+
 ## Admin JavaScript and CSS
 
 Alchemy uses [importmap-rails](https://github.com/rails/importmap-rails) for JavaScript modules in the admin. You can extend the admin interface with custom modules and stylesheets.
