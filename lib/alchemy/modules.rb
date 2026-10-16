@@ -2,10 +2,6 @@
 
 module Alchemy
   module Modules
-    mattr_accessor :alchemy_modules
-
-    @@alchemy_modules = YAML.load_file(File.expand_path("../../config/alchemy/modules.yml", __dir__))
-
     class << self
       def included(base)
         base.send :helper_method, :alchemy_modules, :module_definition_for
@@ -25,10 +21,51 @@ module Alchemy
       #     }
       #
       def register_module(module_definition)
-        definition_hash = module_definition.deep_stringify_keys
+        menu_item = Alchemy::Configurations::MenuItem.from_legacy_hash(module_definition)
+        return if menu_item.name.present? && Alchemy.config.menu.any? { |item| item.name == menu_item.name }
 
-        @@alchemy_modules |= [definition_hash]
+        Alchemy.config.menu.add(menu_item)
       end
+      deprecate register_module: "Use `Alchemy.config.menu.add` instead", deprecator: Alchemy::Deprecation
+
+      def alchemy_modules
+        Alchemy.config.menu.map { |menu_item| to_legacy_hash(menu_item) }
+      end
+      deprecate alchemy_modules: "Use `Alchemy.config.menu` instead", deprecator: Alchemy::Deprecation
+
+      def to_legacy_hash(menu_item)
+        {
+          "name" => menu_item.name,
+          "engine_name" => menu_item.engine_name,
+          "position" => menu_item.position,
+          "navigation" => to_legacy_navigation(menu_item)
+        }.compact
+      end
+
+      private
+
+      def to_legacy_navigation(menu_item)
+        {
+          "name" => menu_item.title,
+          "controller" => menu_item.controller,
+          "action" => menu_item.action,
+          "url" => menu_item.url,
+          "condition" => menu_item.condition,
+          "icon" => menu_item.icon,
+          "icon-style" => menu_item.icon_style,
+          "image" => menu_item.image,
+          "inline_image" => menu_item.inline_image,
+          "data" => menu_item.turbo ? nil : {turbo: false},
+          "nested_controllers" => menu_item.nested_controllers.to_a.presence,
+          "nested_actions" => menu_item.nested_actions.to_a.presence,
+          "sub_navigation" => menu_item.children.map { |child| to_legacy_navigation(child) }.presence,
+          "nested" => menu_item.nested.map { |entry| to_legacy_navigation(entry) }.presence
+        }.compact
+      end
+    end
+
+    def alchemy_modules
+      Alchemy::Modules.alchemy_modules
     end
 
     # Get the module definition for given module name
@@ -37,56 +74,21 @@ module Alchemy
     # It then tries to find the module defintion from controller name and action name
     #
     def module_definition_for(name_or_params)
-      case name_or_params
+      menu_item = case name_or_params
       when String
-        alchemy_modules.detect { |m| m["name"] == name_or_params }
+        Alchemy.config.menu.detect { |item| item.name == name_or_params }
       when Hash
-        name_or_params.stringify_keys!
-        alchemy_modules.detect do |alchemy_module|
-          module_navi = alchemy_module.fetch("navigation", {})
-          definition_from_mainnavi(module_navi, name_or_params) ||
-            definition_from_subnavi(module_navi, name_or_params) ||
-            definition_from_nested(module_navi, name_or_params)
+        params = name_or_params.stringify_keys
+        Alchemy.config.menu.detect do |item|
+          [item, *item.children, *item.nested].any? do |entry|
+            entry.matches_controller?(controller: params["controller"], action: params["action"])
+          end
         end
       else
         raise ArgumentError, "Could not find module definition for #{name_or_params}"
       end
+      Alchemy::Modules.to_legacy_hash(menu_item) if menu_item
     end
-
-    private
-
-    def definition_from_mainnavi(module_navi, params)
-      controller_matches?(module_navi, params) && action_matches?(module_navi, params)
-    end
-
-    def definition_from_subnavi(module_navi, params)
-      subnavi = module_navi["sub_navigation"]
-      return if subnavi.nil?
-
-      subnavi.any? do |navi|
-        controller_matches?(navi, params) && action_matches?(navi, params)
-      end
-    end
-
-    def definition_from_nested(module_navi, params)
-      nested = module_navi["nested"]
-      return if nested.nil?
-
-      nested.any? do |navi|
-        controller_matches?(navi, params) && action_matches?(navi, params)
-      end
-    end
-
-    def controller_matches?(navi, params)
-      remove_slash(navi["controller"]) == remove_slash(params["controller"])
-    end
-
-    def action_matches?(navi, params)
-      navi["action"] == params["action"]
-    end
-
-    def remove_slash(str)
-      str.gsub(/^\//, "")
-    end
+    deprecate module_definition_for: "Use `Alchemy.config.menu` instead", deprecator: Alchemy::Deprecation
   end
 end
