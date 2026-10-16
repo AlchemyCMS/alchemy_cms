@@ -1,0 +1,29 @@
+name: Check Guides Only
+
+on:
+  workflow_call:
+    outputs:
+      guides_only:
+        value: ${{ jobs.check.outputs.guides_only }}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      guides_only: ${{ steps.check.outputs.guides_only }}
+    steps:
+      - uses: actions/checkout@v7
+        if: github.event_name == 'pull_request'
+        with:
+          fetch-depth: 2
+      - id: check
+        if: github.event_name == 'pull_request'
+        run: |
+          # HEAD is the pull request's merge commit, so HEAD^1 is the base branch.
+          git diff --name-only HEAD^1 HEAD > changed_files
+          cat changed_files
+          if [ -s changed_files ] && ! grep -qv '^guides/' changed_files; then
+            echo "guides_only=true" >> "$GITHUB_OUTPUT"
+          fi
