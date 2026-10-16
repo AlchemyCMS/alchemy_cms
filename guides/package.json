@@ -1,6 +1,6 @@
 {
   "engines": {
-    "node": "22"
+    "node": "24"
   },
   "packageManager": "pnpm@11.14.0",
   "scripts": {
