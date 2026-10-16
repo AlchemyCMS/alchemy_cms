@@ -273,7 +273,7 @@ jobs:
     name: "Build & Test Success"
     if: always()
     needs: [check_bot_commit, check_migrations, RSpec, Vitest]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
     steps:
