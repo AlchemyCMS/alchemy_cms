@@ -150,7 +150,7 @@ jobs:
       RUBY_YJIT_ENABLE: "1"
     services:
       postgres:
-        image: postgres:latest
+        image: ${{ matrix.database == 'postgresql' && 'postgres:latest' || '' }}
         env:
           POSTGRES_USER: alchemy_user
           POSTGRES_PASSWORD: password
@@ -158,7 +158,7 @@ jobs:
         ports: ["5432:5432"]
         options: --health-cmd pg_isready --health-interval 1s --health-timeout 1s --health-retries 30
       mariadb:
-        image: mariadb:latest
+        image: ${{ matrix.database == 'mariadb' && 'mariadb:latest' || '' }}
         ports: ["3307:3306"]
         env:
           MARIADB_USER: alchemy_user
@@ -167,7 +167,7 @@ jobs:
           MARIADB_ROOT_PASSWORD: password
         options: --health-cmd="mariadb-admin ping" --health-interval=1s --health-timeout=1s --health-retries=30
       mysql:
-        image: mysql:latest
+        image: ${{ matrix.database == 'mysql' && 'mysql:latest' || '' }}
         ports: ["3306:3306"]
         env:
           MYSQL_USER: alchemy_user
