@@ -351,7 +351,7 @@ export default defineConfig({
     sidebar,
     editLink: {
       pattern:
-        "https://github.com/AlchemyCMS/alchemy-guides/edit/main/guides/:path",
+        "https://github.com/AlchemyCMS/alchemy_cms/edit/main/guides/:path",
     },
     footer: {
       message: `
