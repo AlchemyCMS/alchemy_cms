@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "vitepress": "^1.6.0",
-    "vue": "^3.5.42"
+    "vue": "^3.5.43"
   },
   "dependencies": {
     "vitepress-plugin-llmstxt": "^0.5.1"
