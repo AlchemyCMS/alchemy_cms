@@ -30,16 +30,21 @@ RUN apt-get update && apt-get install -y \
     libsqlite3-dev \
     && rm -rf /var/lib/apt/lists/*
 
+COPY package.json pnpm-*.yaml ./
+RUN pnpm install
+
 # Gemfile.lock is a dev artifact; the gemspec is the source of truth. Resolve
 # the whole dependency tree fresh to the latest allowed versions on every build.
+# The resulting lockfile ships with the gems, because re-resolving at runtime
+# can pick a newer git revision (e.g. alchemy-devise main) than the image holds.
 COPY Gemfile alchemy_cms.gemspec ./
 COPY lib/alchemy/version.rb lib/alchemy/version.rb
 COPY i18n/alchemy_i18n.gemspec i18n/
 COPY i18n/lib/alchemy_i18n/version.rb i18n/lib/alchemy_i18n/version.rb
-RUN bundle update --all
-
-COPY package.json pnpm-*.yaml ./
-RUN pnpm install
+# Upstream releases never change the inputs above, so a changing value is
+# needed to bust the layer cache and pick them up.
+ARG GEMS_RESOLVED_AT
+RUN bundle update --all && cp Gemfile.lock /usr/local/bundle/Gemfile.lock
 
 # Final stage: the base environment with the built gems and node_modules copied
 # in. No compiler toolchain and no ImageMagick (image processing uses libvips via

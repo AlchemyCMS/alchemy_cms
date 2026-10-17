@@ -17,17 +17,27 @@ if [ "$(uname -s)" != "Darwin" ]; then
   export USER_ID GROUP_ID
 fi
 
-# node_modules is baked into the image but shadowed by an anonymous volume, so a
-# rebuilt image is not picked up until that volume is recreated. `--refresh`
-# renews it after changing dependencies; a plain start skips the reseed cost.
-renew=""
+# A plain start reuses the existing image and volumes, so it is fast and never
+# picks up dependency changes. `--refresh` rebuilds the image with the latest
+# allowed gems and the locked npm packages, then reseeds node_modules.
+refresh=""
 args=""
 for arg in "$@"; do
   if [ "$arg" = "--refresh" ]; then
-    renew="--renew-anon-volumes"
+    refresh=1
   else
     args="$args $arg"
   fi
 done
 
-exec docker compose up --build $renew $args
+if [ -n "$refresh" ]; then
+  GEMS_RESOLVED_AT="$(date +%s)"
+  export GEMS_RESOLVED_AT
+  docker compose build || exit 1
+  # Every service shadows node_modules with its own anonymous volume. Remove
+  # them together with the containers so each one is reseeded from the new
+  # image; --renew-anon-volumes would leave the old volumes orphaned instead.
+  docker compose rm --stop --force --volumes
+fi
+
+exec docker compose up $args
