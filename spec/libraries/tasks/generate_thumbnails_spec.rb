@@ -89,6 +89,25 @@ RSpec.describe Alchemy::GenerateThumbnails do
       end
     end
 
+    context "when the picture ingredient defines a srcset with formats" do
+      before do
+        # Under Dragonfly the archive thumbnails persist on create and the
+        # crop-less 160x120 thumbnail would dedup with the archive medium;
+        # clear them so the count reflects only the ingredient's variants.
+        Alchemy::PictureThumb.delete_all if Alchemy.storage_adapter.dragonfly?
+        allow_any_instance_of(Alchemy::Ingredients::Picture).to receive(:settings).and_return(
+          ActiveSupport::HashWithIndifferentAccess.new(
+            size: "1200x480",
+            srcset: ["80x60", {size: "80x60", format: "webp"}]
+          )
+        )
+      end
+
+      it "generates a variant for each srcset format" do
+        expect { described_class.ingredients }.to change { thumbnail_count }.by(4)
+      end
+    end
+
     context "when restricted to element names that do not match" do
       it "does not generate thumbnails for other elements" do
         expect {
