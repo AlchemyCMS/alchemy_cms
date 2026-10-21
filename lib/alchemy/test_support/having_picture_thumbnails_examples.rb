@@ -183,10 +183,142 @@ RSpec.shared_examples_for "having picture thumbnails" do
       end
     end
 
+    context "having format setting" do
+      before do
+        allow(record).to receive(:settings) { {format: "webp"} }
+      end
+
+      context "with picture having a convertible format" do
+        before do
+          allow(picture).to receive(:has_convertible_format?) { true }
+        end
+
+        it "includes this format" do
+          expect(picture_url_options[:format]).to eq "webp"
+        end
+
+        context "with format option given" do
+          subject(:picture_url_options) { record.picture_url_options(format: "png") }
+
+          it "prefers the option" do
+            expect(picture_url_options[:format]).to eq "png"
+          end
+        end
+      end
+
+      context "with picture not having a convertible format" do
+        before do
+          allow(picture).to receive(:has_convertible_format?) { false }
+          allow(picture).to receive(:default_render_format) { "svg" }
+        end
+
+        it "includes the pictures default render format" do
+          expect(picture_url_options[:format]).to eq "svg"
+        end
+
+        context "with format option given" do
+          subject(:picture_url_options) { record.picture_url_options(format: "png") }
+
+          it "still includes the pictures default render format" do
+            expect(picture_url_options[:format]).to eq "svg"
+          end
+        end
+      end
+    end
+
+    context "with size option given" do
+      subject(:picture_url_options) { record.picture_url_options(size: "100x100") }
+
+      before do
+        allow(record).to receive(:settings) { {size: "30x70"} }
+      end
+
+      it "prefers the option" do
+        expect(picture_url_options[:size]).to eq "100x100"
+      end
+    end
+
     context "without picture assigned" do
       let(:picture) { nil }
 
       it { is_expected.to be_a(Hash) }
+    end
+  end
+
+  describe "#picture_srcset_variant_options" do
+    subject(:picture_srcset_variant_options) { record.picture_srcset_variant_options }
+
+    let(:picture) do
+      build(:alchemy_picture).tap do |picture|
+        allow(picture).to receive(:has_convertible_format?) { true }
+        allow(picture).to receive(:default_render_format) { "jpg" }
+      end
+    end
+
+    before do
+      allow(record).to receive(:settings) do
+        {
+          size: "1200x800",
+          srcset: ["360x360", {size: "360x360", format: "webp"}]
+        }.with_indifferent_access
+      end
+    end
+
+    it "returns url options for each srcset entry" do
+      expect(picture_srcset_variant_options.map { |options| options.slice(:size, :format) }).to eq([
+        {"size" => "360x360", "format" => "jpg"},
+        {"size" => "360x360", "format" => "webp"}
+      ])
+    end
+
+    context "with format setting" do
+      before do
+        allow(record).to receive(:settings) do
+          {format: "png", srcset: ["360x360", {size: "360x360", format: "webp"}]}.with_indifferent_access
+        end
+      end
+
+      it "uses the format setting for entries without format" do
+        expect(picture_srcset_variant_options.map { |options| options[:format] }).to eq(["png", "webp"])
+      end
+    end
+
+    context "without picture assigned" do
+      let(:picture) { nil }
+
+      it { is_expected.to eq([]) }
+    end
+  end
+
+  describe "#picture_srcset_options" do
+    subject(:picture_srcset_options) { record.picture_srcset_options }
+
+    let(:picture) do
+      create(:alchemy_picture).tap do |picture|
+        allow(picture).to receive(:has_convertible_format?) { true }
+        allow(picture).to receive(:default_render_format) { "jpg" }
+      end
+    end
+
+    before do
+      allow(record).to receive(:settings) do
+        {srcset: ["360x240", {size: "360x240", format: "webp"}]}.with_indifferent_access
+      end
+    end
+
+    it "returns url, dimensions and mime type for each srcset entry", :aggregate_failures do
+      expect(picture_srcset_options.map { |src| src.except(:url) }).to eq([
+        {desc: "360w", width: "360", height: "240", type: "image/jpeg"},
+        {desc: "360w", width: "360", height: "240", type: "image/webp"}
+      ])
+      expect(picture_srcset_options[0][:url]).to match(/\.jpg/)
+      expect(picture_srcset_options[1][:url]).to match(/\.webp/)
+    end
+
+    context "without picture assigned" do
+      let(:picture) { nil }
+
+      it { is_expected.to eq([]) }
     end
   end
 

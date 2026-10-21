@@ -202,10 +202,34 @@ The size to downscale the image to, e.g. `400x300`.
 
 Crop the image to the given size. This also enables the built-in cropper tool.
 
+#### format
+`String`
+
+The format to render the image in: `jpg`, `png`, `gif` or `webp`. Only applied if the picture can be converted, so SVG files are rendered as they are. Defaults to the global `image_output_format` [configuration](render_images#configuration).
+
+~~~ yaml
+- role: hero_image
+  type: Picture
+  settings:
+    format: webp
+~~~
+
 #### srcset
-`Array<String>`
+`Array<String, Hash>`
 
 A list of image sizes to use as sources. Best used with the `sizes` setting for responsive images.
+
+<Badge type="tip" text="8.4+" /> An entry can also be a hash with a `size` and its own `format`. Entries without a format use the `format` setting. See [responsive images](render_images#responsive-images).
+
+~~~ yaml
+- role: hero_image
+  type: Picture
+  settings:
+    srcset:
+      - 400x200
+      - size: 800x400
+        format: webp
+~~~
 
 #### sizes
 `Array<String>`
