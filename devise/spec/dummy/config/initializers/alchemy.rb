@@ -166,13 +166,21 @@ Alchemy.configure do |config|
   #   upload_limit       [Integer]    # Set an amount of files upload limit of files which can be uploaded at once. Set 0 for unlimited.
   #   file_size_limit*   [Integer]    # Set a file size limit in mega bytes for a per file limit.
   #
-  # *) Allow filetypes to upload. Pass * to allow all kind of files.
+  # *) Allow filetypes to upload. Passing * disables file type validation and
+  #    allows every kind of file, including executables.
   #
   # config.uploader.tap do |uploader|
   #   uploader.upload_limit = 50
   #   uploader.file_size_limit = 100
   #   uploader.allowed_filetypes.tap do |file_types|
-  #     file_types.alchemy_attachments = ["*"]
+  #     file_types.alchemy_attachments = %w[
+  #       pdf doc docx odt rtf txt xls xlsx
+  #       ods csv ppt pptx odp vcf zip avif
+  #       gif jpeg jpg png psd svg tif tiff
+  #       webp aac flac m4a mp3 oga ogg wav
+  #       weba avi flv m4v mov mp4 mpeg mpg
+  #       ogv webm wmv
+  #     ]
   #     file_types.alchemy_pictures = ["jpg", "jpeg", "gif", "png", "svg", "webp"]
   #   end
   # end
@@ -199,7 +207,7 @@ Alchemy.configure do |config|
   # config.format_matchers.tap do |format|
   #   format.email = /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
   #   format.url = /\A[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/ix
-  #   format.link_url = /^(tel:|mailto:|\/|[a-z]+:\/\/)/
+  #   format.link_url = /^((mailto|tel):|(https?|ftp):\/\/|\/)/
   # end
 
   # The layout used for rendering the +alchemy/admin/pages#show+ action.
@@ -250,6 +258,17 @@ Alchemy.configure do |config|
 
   # Additional stylesheets to be included in the Alchemy admin UI
   # config.admin_stylesheets.add("my_app/admin_extension")
+
+  # === Admin Content Security Policy
+  #
+  # The class building the Content Security Policy Alchemy sends with its own
+  # admin responses. Set it to nil to send no policy at all.
+  #
+  # Alchemy never replaces a policy your application has configured itself.
+  # Your asset host, your admin stylesheets and modules pinned to a CDN are
+  # allowed automatically. Subclass it to allow anything else.
+  #
+  # config.admin_content_security_policy = "Alchemy::Admin::ContentSecurityPolicy"
 
   # Define page publish targets
   #
