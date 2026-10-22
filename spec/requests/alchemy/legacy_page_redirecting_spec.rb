@@ -75,4 +75,32 @@ RSpec.describe "Redirecting to legacy page urls" do
       expect(response).to redirect_to("/#{second_page.urlname}")
     end
   end
+
+  context "when the page was replaced and the old page renamed and unpublished" do
+    let(:parent) { create(:alchemy_page, :public, name: "Basiselemente") }
+    let!(:new_page) { create(:alchemy_page, :public, name: "Fotos 2025", parent: parent) }
+    let!(:old_page) { create(:alchemy_page, :public, name: "Fotos", parent: parent) }
+
+    before do
+      new_page.legacy_urls.create!(urlname: "basiselemente/fotos")
+      old_page.update!(urlname: "fotos_alt")
+      old_page.update!(public_on: nil)
+    end
+
+    it "redirects to the published page instead of the newest legacy url" do
+      get "/basiselemente/fotos"
+      expect(response).to redirect_to("/#{new_page.urlname}")
+    end
+
+    context "and an unpublished page took over the urlname" do
+      before do
+        create(:alchemy_page, name: "Fotos neu", urlname: "fotos", parent: parent)
+      end
+
+      it "redirects to the published page" do
+        get "/basiselemente/fotos"
+        expect(response).to redirect_to("/#{new_page.urlname}")
+      end
+    end
+  end
 end
