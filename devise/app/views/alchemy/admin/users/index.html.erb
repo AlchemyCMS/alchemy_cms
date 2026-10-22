@@ -1,0 +1,37 @@
+<%= content_for :stylesheets do %>
+  <%= stylesheet_link_tag "alchemy-devise" %>
+<% end %>
+
+<%= content_for :toolbar do %>
+  <div class="toolbar_buttons">
+    <%= render Alchemy::Admin::ToolbarButton.new(
+      icon: :plus,
+      label: Alchemy.t(:create_user),
+      primary: true,
+      url: alchemy.new_admin_user_path,
+      hotkey: 'alt+n',
+      tooltip_placement: "top-start",
+      dialog_options: {
+        title: Alchemy.t(:create_user),
+        size: "460x190"
+      },
+      if_permitted_to: [:create, Alchemy::User]
+    ) %>
+  </div>
+  <%= render "alchemy/admin/partials/search_form" %>
+<% end %>
+
+<div id="archive_all" class="resources-table-wrapper">
+<% if @users.any? %>
+  <%= render "alchemy/admin/resources/table_header" %>
+  <%= render "resource_table", users: @users, query: @query %>
+  <%= render "alchemy/admin/resources/pagination", resources: @users %>
+<% elsif params[:query] %>
+
+  <div class="info">
+    <%= render_icon('info') %>
+    <%= Alchemy.t('No users found') %>
+  </div>
+
+<% end %>
+</div>

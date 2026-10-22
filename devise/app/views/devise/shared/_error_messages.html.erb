@@ -1,0 +1,12 @@
+<% if resource.errors.any? %>
+  <alchemy-message data-turbo-temporary type="error">
+    <h2>
+      <%= Alchemy.t("default_message", scope: "forms.error_notification") %>
+    </h2>
+    <ul>
+      <% resource.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </alchemy-message>
+<% end %>

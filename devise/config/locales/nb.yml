@@ -1,0 +1,18 @@
+nb:
+  activerecord:
+    attributes:
+      alchemy/user:
+        current_password: "Passordet ditt"
+    errors:
+      models:
+        alchemy/user:
+          attributes:
+            current_password:
+              blank: "kreves for å endre roller"
+              invalid: "er ikke riktig"
+  alchemy:
+    admin:
+      users:
+        confirm_password_for_role_change:
+          create: "For å opprette en bruker med rollen %{roles} må du bekrefte med ditt eget passord."
+          update: "For å endre rollen %{roles} til %{user} må du bekrefte med ditt eget passord."

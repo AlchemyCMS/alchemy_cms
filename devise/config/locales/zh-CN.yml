@@ -1,0 +1,18 @@
+zh-CN:
+  activerecord:
+    attributes:
+      alchemy/user:
+        current_password: "您的密码"
+    errors:
+      models:
+        alchemy/user:
+          attributes:
+            current_password:
+              blank: "是更改角色所必需的"
+              invalid: "不正确"
+  alchemy:
+    admin:
+      users:
+        confirm_password_for_role_change:
+          create: "要创建具有 %{roles} 角色的用户，您必须使用自己的密码进行确认。"
+          update: "要更改 %{user} 的 %{roles} 角色，您必须使用自己的密码进行确认。"

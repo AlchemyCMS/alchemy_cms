@@ -1,0 +1,114 @@
+nb:
+  devise:
+    confirmations:
+      confirmed: Din konto har blitt aktivert og du er nå logget inn
+      new:
+        resend_confirmation_instructions: Send bekreftelsesinstruksjoner på nytt
+      send_instructions: Du vil snart motta en epost med instruksjoner for å aktivere din konto.
+      send_paranoid_instructions: Om vi har din e-post allerede vil du om få minutter motta en e-post med instruksjoner for å bekrefte kontoen.
+    failure:
+      already_authenticated: Du er allerede innlogget.
+      inactive: Din konto er ikke aktivert.
+      invalid: "Ugyldig %{authentication_keys} eller passord."
+      last_attempt: Du har ett forsøk til før din konto blir sperret.
+      locked: Din konto er sperret.
+      not_found_in_database: "Ugyldig %{authentication_keys} eller passord."
+      timeout: Din sesjon er utløpt. Logg inn igjen for å gå videre.
+      unauthenticated: Du må logge inn eller registrere deg for å gå videre.
+      unconfirmed: Du må bekrefte kontoen din for å kunne fortsette.
+    mailer:
+      confirmation_instructions:
+        action: Aktiver min konto
+        greeting: "Velkommen %{recipient}!"
+        instruction: "Du kan aktivere din konto ved å trykke på lenken nedenfor."
+        subject: Bekreftelsesinstruksjoner
+      email_changed:
+        greeting: "Hei! %{recipient}!"
+        message: "Vi kontakter deg for å varsle at e-post adressen din har blitt endret til %{email}."
+        message_unconfirmed: "Vi kontakter deg for å informere om at din epost er endret til %{email}"
+        subject: E-post adressen din ble endret
+      password_change:
+        greeting: "Hei %{recipient}!"
+        message: Vi ønsker å melde fra om at ditt passord har blitt forandret.
+        subject: Passordbytte
+      reset_password_instructions:
+        action: Bytt passord
+        greeting: "Hei, %{recipient}!"
+        instruction: "Noen har bedt om en link for å endre passordet ditt, og dette kan gjøres på lenken under."
+        instruction_2: Vennligst se bort fra denne e-posten hvis du ikke ba om dette.
+        instruction_3: Passordet ditt endres ikke før du følger linken over og velger et nytt passord.
+        subject: Instruksjoner for å tilbakestille passordet
+      unlock_instructions:
+        action: Gjenåpne min konto
+        greeting: "Hei, %{recipient}!"
+        instruction: "Trykk på linken under for å gjenåpne din konto."
+        message: Kontoen din har blitt sperret grunnet et høyt antall mislykkede innloggingsforsøk.
+        subject: Gjenåpning av konto
+    omniauth_callbacks:
+      failure: 'Kunne ikke autorisere deg fra %{kind} fordi "%{reason}".'
+      success: "Vellykket autorisering fra %{kind}."
+    passwords:
+      edit:
+        change_my_password: Endre mitt passord
+        change_your_password: Endre ditt passord
+        confirm_new_password: Bekreft nytt passord
+        new_password: Nytt passord
+      new:
+        forgot_your_password: "Har du glemt passordet?"
+        send_me_reset_password_instructions: Send instrukser for å tilbakestille passordet
+      no_token: "For å få tilgang til denne siden må du ha fått en epost om å tilbakestille passordet. Hvis det er tilfelle, sørg for at hele lenken blir brukt."
+      send_instructions: Du vil snart motta en epost med instruksjoner for å tilbakestille passordet ditt.
+      send_paranoid_instructions: "Hvis e-postadressen allerede finnes hos oss, vil du motta en lenke for å sette passordet på nytt"
+      updated: Ditt passord er endret og du er nå innlogget.
+      updated_not_active: Passordet er endret.
+    registrations:
+      destroyed: Takk for laget. Din konto er nå slettet.
+      edit:
+        are_you_sure: "Er du sikker?"
+        cancel_my_account: Slett min konto
+        currently_waiting_confirmation_for_email: "Vi avventer bekreftelse for %{email}"
+        leave_blank_if_you_don_t_want_to_change_it: la være tomt hvis du ikke ønsker å endre dette
+        title: "Rediger %{resource}"
+        unhappy: "Misfornøyd?"
+        update: Lagre
+        we_need_your_current_password_to_confirm_your_changes: vi trenger ditt nåværende passord for å bekrefte endringene
+      new:
+        sign_up: Registrering
+      signed_up: Velkommen! Din registrering er vellykket.
+      signed_up_but_inactive: Du er nå registrert. Men vi kan ikke logge deg inn før kontoen blir aktivert.
+      signed_up_but_locked: Du er nå registrert. Men vi kan ikke logge deg inn fordi kontoen er sperret.
+      signed_up_but_unconfirmed: En bekreftelsesmelding er sendt til e-postadressen. Vennligst åpne lenken for å aktivere kontoen.
+      update_needs_confirmation: "Brukerkontoen er nå oppdatert, men vi må bekrefte den nye e-postadressen. Vennligst sjekk din e-post og klikk på lenken for å bekrefte din nye e-postadresse."
+      updated: Din brukerkonto er oppdatert.
+      updated_but_not_signed_in: "Kontoen din har blitt oppdatert, på grunn av passord endring må du logge inn på nytt."
+    sessions:
+      already_signed_out: Du er nå logget ut.
+      new:
+        sign_in: Logg inn
+      signed_in: Du er nå innlogget.
+      signed_out: Du er nå logget ut.
+    shared:
+      links:
+        back: Tilbake
+        didn_t_receive_confirmation_instructions: "Har du ikke mottatt bekreftelsesinstruksjoner?"
+        didn_t_receive_unlock_instructions: "Har du ikke mottatt instruksjoner for å tilbakestille passordet?"
+        forgot_your_password: "Har du glemt passordet ditt?"
+        sign_in: Logg inn
+        sign_in_with_provider: "Logg inn med %{provider}"
+        sign_up: Registrering
+      minimum_password_length:
+        one: "(Minimum %{count} tegn)"
+        other: "(Minimum %{count} tegn)"
+    unlocks:
+      new:
+        resend_unlock_instructions: Send instrukser for gjenåpning av konto på nytt
+      send_instructions: Du vil snart motta en epost med instruksjon for å gjenåpne din konto.
+      send_paranoid_instructions: "Hvis kontoen eksisterer, vil du om få minutter motta en e-post med instruksjoner om hvordan du låser opp den."
+      unlocked: Din konto er gjenåpnet og du er nå innlogget.
+  errors:
+    messages:
+      already_confirmed: har allerede blitt bekreftet. Prøv å logge inn.
+      confirmation_period_expired: "må bekreftes innen %{period}, vennligst be om et nytt"
+      expired: "har utløpt, vennligst forespør en ny"
+      not_found: ikke funnet
+      not_locked: var ikke sperret
