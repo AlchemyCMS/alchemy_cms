@@ -23,4 +23,4 @@ end
 
 gem "propshaft", "~> 1.1"
 
-gem "json", "< 3", require: false
+gem "json", "< 4", require: false
