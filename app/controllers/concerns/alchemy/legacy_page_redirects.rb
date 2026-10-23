@@ -3,8 +3,8 @@
 module Alchemy
   # Handles Legacy page redirects
   #
-  # If the page could not be found via its urlname we try to find
-  # a legacy page url for requested url to redirect to.
+  # If the page could not be found via its urlname or is not public we try to find
+  # a legacy page url of a published page for requested url to redirect to.
   #
   module LegacyPageRedirects
     extend ActiveSupport::Concern
@@ -22,7 +22,7 @@ module Alchemy
     end
 
     def redirect_to_legacy_url?
-      (@page.nil? || request.format.nil?) && last_legacy_url
+      (@page.nil? || !@page.public? || request.format.nil?) && last_legacy_url
     end
 
     # Use the bare minimum to redirect to legacy page
@@ -48,7 +48,7 @@ module Alchemy
         Page.table_name => {
           language_id: Current.language.id
         }
-      )
+      ).where(page_id: Page.published.select(:id))
     end
 
     def last_legacy_url
