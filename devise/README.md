@@ -1,11 +1,12 @@
 ## Devise based authentication for AlchemyCMS
 
-[![CI](https://github.com/AlchemyCMS/alchemy-devise/actions/workflows/ci.yml/badge.svg)](https://github.com/AlchemyCMS/alchemy-devise/actions/workflows/ci.yml)
-[![Brakeman Scan](https://github.com/AlchemyCMS/alchemy-devise/actions/workflows/brakeman-analysis.yml/badge.svg)](https://github.com/AlchemyCMS/alchemy-devise/actions/workflows/brakeman-analysis.yml)
-
-[![Gem Version](https://badge.fury.io/rb/alchemy-devise.svg)](http://badge.fury.io/rb/alchemy-devise) [![codecov](https://codecov.io/gh/AlchemyCMS/alchemy-devise/graph/badge.svg?token=b47JTwIYJG)](https://codecov.io/gh/AlchemyCMS/alchemy-devise)
+[![Gem Version](https://badge.fury.io/rb/alchemy-devise.svg)](http://badge.fury.io/rb/alchemy-devise)
 
 AlchemyCMS has no authentication in its core. So it is possible to bring your own authentication and use it to authorize users in AlchemyCMS. If you don't have your own authentication, you can use this gem.
+
+Since Alchemy CMS 9.0, `alchemy-devise` is developed inside the [Alchemy CMS repository](https://github.com/AlchemyCMS/alchemy_cms/tree/main/devise)
+and released together with `alchemy_cms` using the same version.
+Older versions are maintained in the [`alchemy-devise` repository](https://github.com/AlchemyCMS/alchemy-devise).
 
 ## Install
 
@@ -87,35 +88,27 @@ Alchemy::Devise.config.require_password_for_role_change = false
 
 If you want to contribute (and you should ^_^), you need to run the tests locally on your machine.
 
-Just follow these pretty rails standard way of testing projects:
+The gem has its own bundle and dummy app, so run all commands from the `devise` directory of the Alchemy CMS repository.
+The bundle uses `alchemy_cms` from the parent directory, so the tests always run against the Alchemy CMS code next to it.
 
 ### 1. Once to prepare the test suite:
 
-Clone the repo to your local harddrive. Then
-
 ```bash
+$ cd devise
 $ bundle install
-$ rake alchemy:spec:prepare
+$ RAILS_ENV=test bundle exec rake alchemy:spec:prepare
 ```
 
 ### 2. Run the tests with:
 
 ```bash
-$ rspec
+$ bundle exec rspec
 ```
-
-_Optional:_ Even shorter
-
-```bash
-$ rake
-```
-
-That prepares the database and runs the Rspec task in one step.
 
 Getting Help
 ------------
 
-* If you have bugs, please use the [issue tracker on Github](https://github.com/AlchemyCMS/alchemy-devise/issues).
+* If you have bugs, please use the [issue tracker on Github](https://github.com/AlchemyCMS/alchemy_cms/issues).
 * For Q&A and general usage, please use the [Slack](https://slackin.alchemy-cms.com)
 
 Resources
@@ -123,12 +116,11 @@ Resources
 
 * Homepage: <https://alchemy-cms.com>
 * Live-Demo: <https://alchemy-demo.herokuapp.com> (user: demo, password: demo123)
-* API Documentation: <https://www.rubydoc.info/github/AlchemyCMS/alchemy-devise>
-* Issue-Tracker: <https://github.com/AlchemyCMS/alchemy-devise/issues>
-* Sourcecode: <https://github.com/AlchemyCMS/alchemy-devise>
+* Issue-Tracker: <https://github.com/AlchemyCMS/alchemy_cms/issues>
+* Sourcecode: <https://github.com/AlchemyCMS/alchemy_cms/tree/main/devise>
 * Slack: <https://slackin.alchemy-cms.com>
 
 License
 -------
 
-* BSD: <https://github.com/AlchemyCMS/alchemy-devise/LICENSE>
+* BSD: [LICENSE](LICENSE)

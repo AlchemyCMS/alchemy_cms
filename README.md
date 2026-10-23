@@ -127,7 +127,7 @@ $ bundle add alchemy_cms
 #### Set the authentication user
 
 Now you have to decide, if you want to use your own user model or if you want to use
-the Devise based user model that Alchemy provides and was extracted [into its own gem](https://github.com/AlchemyCMS/alchemy-devise).
+the Devise based user model that Alchemy provides in the [`alchemy-devise` gem](devise/).
 
 ##### Use Alchemy user
 
