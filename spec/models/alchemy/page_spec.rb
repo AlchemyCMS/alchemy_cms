@@ -2885,5 +2885,24 @@ module Alchemy
         expect(page.menus).to include(root_node)
       end
     end
+
+    describe ".alchemy_element_preloads" do
+      let!(:page1) { create(:alchemy_page) }
+      let!(:page2) { create(:alchemy_page) }
+
+      it "preloads language.site.languages to avoid N+1 when building url_path" do
+        described_class.alchemy_element_preloads([page1, page2])
+
+        [page1, page2].each do |page|
+          expect(page.association(:language)).to be_loaded
+          expect(page.language.association(:site)).to be_loaded
+          expect(page.language.site.association(:languages)).to be_loaded
+        end
+      end
+
+      it "does not raise with an empty array" do
+        expect { described_class.alchemy_element_preloads([]) }.not_to raise_error
+      end
+    end
   end
 end

@@ -9,7 +9,7 @@ module Alchemy
     #
     def index
       @pages = Alchemy::Page.accessible_by(current_ability, :index)
-      @pages = @pages.includes(*page_includes)
+      @pages = @pages.includes(*index_page_includes)
       @pages = @pages.ransack(params[:q]).result
 
       if params[:page]
@@ -70,11 +70,12 @@ module Alchemy
 
     def load_page
       @page = load_page_by_id || load_page_by_urlname || raise(ActiveRecord::RecordNotFound)
+      PageLoader.call(page: @page, version: :public_version)
     end
 
     def load_page_by_id
       # The route param is called :urlname although it might be an integer
-      Page.where(id: params[:urlname]).includes(page_includes).first
+      Page.where(id: params[:urlname]).includes(:tags, language: :site).first
     end
 
     def load_page_by_urlname
@@ -83,7 +84,7 @@ module Alchemy
       Current.language.pages.where(
         urlname: params[:urlname],
         language_code: params[:locale] || Current.language.code
-      ).includes(page_includes).first
+      ).includes(:tags, language: :site).first
     end
 
     def meta_data
@@ -110,7 +111,7 @@ module Alchemy
       params[:page]&.to_i
     end
 
-    def page_includes
+    def index_page_includes
       [
         :tags,
         {

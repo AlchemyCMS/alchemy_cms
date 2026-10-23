@@ -15,12 +15,10 @@ module Alchemy
       def index
         authorize! :edit_content, @page
 
-        preloaded = Alchemy::ElementPreloader
-          .new(page_version: @page_version)
-          .call
+        Alchemy::PageLoader.call(page: @page, version: :draft_version)
 
-        @elements = preloaded.reject(&:fixed?)
-        @fixed_elements = preloaded.select(&:fixed?)
+        @elements = @page_version.element_repository.not_nested.unfixed.to_a
+        @fixed_elements = @page_version.element_repository.not_nested.fixed.to_a
       end
 
       def new
