@@ -64,7 +64,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "rails-controller-testing", ["~> 1.0"]
   gem.add_development_dependency "rspec-activemodel-mocks", ["~> 1.0"]
   gem.add_development_dependency "rspec-rails", ["~> 8.0"]
-  gem.add_development_dependency "simplecov", ["~> 0.20"]
+  gem.add_development_dependency "simplecov", "~> 1.3"
   gem.add_development_dependency "selenium-webdriver", ["~> 4.10"]
   gem.add_development_dependency "webmock", ["~> 3.3"]
   gem.add_development_dependency "shoulda-matchers", "~> 8.0"
