@@ -4,7 +4,7 @@
   "service": "web",
   "workspaceFolder": "/workspace",
   "remoteUser": "alchemy",
-  "postCreateCommand": "rm -f Gemfile.lock && bundle install --local && pnpm install && cd spec/dummy && bin/rails db:prepare",
+  "postCreateCommand": "cp /usr/local/bundle/Gemfile.lock Gemfile.lock && pnpm install && cd spec/dummy && bin/rails db:prepare",
   "forwardPorts": [3000],
   "customizations": {
     "vscode": {

@@ -7,6 +7,11 @@ name: alchemy_cms
 x-app: &app
   image: alchemy-dummy-app
   pull_policy: never
+  # `pnpm run` would otherwise try to reinstall drifted node_modules, which
+  # fails without a TTY. Until `bin/start --refresh`, keep running on the
+  # installed packages.
+  environment:
+    pnpm_config_verify_deps_before_run: warn
 
 # Gems and node_modules are baked into the image. Gems live outside the
 # `.:/workspace` bind mount, so they are served straight from the image with no
@@ -29,17 +34,19 @@ services:
       args:
         USER_ID: ${USER_ID:-1000}
         GROUP_ID: ${GROUP_ID:-1000}
-    # The image resolves the whole bundle fresh (bundle update --all). Regenerate
-    # the disposable host Gemfile.lock from the baked gems so it matches the image
-    # without needing a compiler at runtime, then install JS deps.
-    command: bash -c "rm -f Gemfile.lock && bundle install --local && pnpm install"
+        GEMS_RESOLVED_AT: ${GEMS_RESOLVED_AT:-}
+    # The image resolves the whole bundle fresh (bundle update --all). Copy the
+    # lockfile baked next to its gems over the disposable host Gemfile.lock so it
+    # matches the image exactly.
+    command: cp /usr/local/bundle/Gemfile.lock Gemfile.lock
     volumes:
       - .:/workspace
-      - /workspace/node_modules
 
   web:
     <<: *app
     command: bash -c "cd spec/dummy && rm -f tmp/pids/server.pid && bin/rails db:prepare && exec bin/rails server -b 0.0.0.0"
+    labels:
+      - dev.orbstack.domains=alchemy.local@3000
     ports:
       - "3000:3000"
     volumes:
