@@ -52,7 +52,7 @@ jobs:
           fi
           git diff --name-only "$BASE_SHA" ${{ github.sha }} > changed_files
           cat changed_files
-          if grep -qE '(package\.json|^app/javascript/|^app/stylesheets/)' changed_files; then
+          if grep -qE '(package\.json|^app/javascript/|^app/stylesheets/|^devise/app/assets/stylesheets/)' changed_files; then
             echo "any_changed=true" > $GITHUB_OUTPUT
           else
             echo "any_changed=false" > $GITHUB_OUTPUT
@@ -86,6 +86,7 @@ jobs:
           path: |
             vendor/javascript
             app/assets/builds/alchemy/
+            devise/app/assets/builds/
             pnpm-lock.yaml
 
   RSpec:
@@ -329,12 +330,12 @@ jobs:
           name: build-artifacts
       - name: Check for changes
         id: git-status
-        run: git diff --quiet vendor/javascript app/assets/builds/alchemy/ pnpm-lock.yaml || echo "changed=true" >> $GITHUB_OUTPUT
+        run: git diff --quiet vendor/javascript app/assets/builds/alchemy/ devise/app/assets/builds/ pnpm-lock.yaml || echo "changed=true" >> $GITHUB_OUTPUT
       - name: Commit and push
         if: steps.git-status.outputs.changed == 'true'
         run: |
           git config --local user.name 'AlchemyCMS - CI Bot'
           git config --local user.email 'alchemy@blish.cloud'
-          git add vendor/javascript app/assets/builds/alchemy/ pnpm-lock.yaml
+          git add vendor/javascript app/assets/builds/alchemy/ devise/app/assets/builds/ pnpm-lock.yaml
           git commit -m "Update build artifacts" -m "Rebuilt assets after source or dependency changes."
           git push https://x-access-token:${{ steps.generate_token.outputs.token }}@github.com/${{ github.repository }}.git HEAD:${{ github.head_ref }}
