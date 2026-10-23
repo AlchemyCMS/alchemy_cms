@@ -1,4 +1,6 @@
 class AddAlchemyRolesToAlchemyUsers < ActiveRecord::Migration[4.2]
+  disable_ddl_transaction! if connection.adapter_name.match?(/sqlite/i)
+
   def up
     # Updating old :roles column (since Alchemy CMS v2.6)
     if column_exists?(:alchemy_users, :roles)
