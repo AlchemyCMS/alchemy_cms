@@ -2,10 +2,10 @@
 
 Alchemy.configure do |config|
   config.abilities.add("Ability")
-  # In development the alchemy-devise engine provides authentication and sets
-  # the user_class (and signup path) to its Alchemy::User. In the test suite
-  # the dummy app uses the DummyUser stub instead.
-  config.user_class = "DummyUser" if Rails.env.test?
+  # When loaded, the alchemy-devise engine provides authentication and sets
+  # the user_class (and signup path) to its Alchemy::User. The core test
+  # suite uses the DummyUser stub instead.
+  config.user_class = "DummyUser" if Rails.env.test? && !defined?(Alchemy::Devise::Engine)
   config.menu.add(
     name: "events",
     title: "Events",

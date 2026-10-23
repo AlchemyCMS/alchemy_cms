@@ -2,4 +2,3 @@ parallel: true
 ruby_version: 3.3
 ignore:
   - "spec/dummy/**/*"
-  - "devise/spec/dummy/**/*"

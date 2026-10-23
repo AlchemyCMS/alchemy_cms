@@ -20,15 +20,6 @@ Gem::Specification.new do |s|
   s.add_dependency "devise", ">= 4.9", "< 6.0"
   s.add_dependency "flickwerk", ["~> 0.3.6"]
 
-  s.add_development_dependency "capybara"
-  s.add_development_dependency "capybara-screenshot", "~> 1.0"
-  s.add_development_dependency "factory_bot_rails"
-  s.add_development_dependency "rails-controller-testing"
-  s.add_development_dependency "rspec-activemodel-mocks", "~> 1.0"
-  s.add_development_dependency "rspec-rails", "~> 8.0"
-  s.add_development_dependency "selenium-webdriver", "~> 4.40"
-  s.add_development_dependency "simplecov"
-
   s.post_install_message = <<~MSG
     In order to complete the installation or the upgrade of Alchemy::Devise run:
 

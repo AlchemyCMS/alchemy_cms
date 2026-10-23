@@ -88,20 +88,21 @@ Alchemy::Devise.config.require_password_for_role_change = false
 
 If you want to contribute (and you should ^_^), you need to run the tests locally on your machine.
 
-The gem has its own bundle and dummy app, so run all commands from the `devise` directory of the Alchemy CMS repository.
-The bundle uses `alchemy_cms` from the parent directory, so the tests always run against the Alchemy CMS code next to it.
+The gem shares the bundle and the dummy app of the Alchemy CMS repository, so prepare the test database from the repository root.
+The dummy app only loads `alchemy-devise` for these specs, because the Alchemy CMS specs use a stub user instead,
+so run them from the `devise` directory, separately from the Alchemy CMS specs.
 
 ### 1. Once to prepare the test suite:
 
 ```bash
-$ cd devise
 $ bundle install
-$ RAILS_ENV=test bundle exec rake alchemy:spec:prepare
+$ bundle exec rake alchemy:spec:prepare
 ```
 
 ### 2. Run the tests with:
 
 ```bash
+$ cd devise
 $ bundle exec rspec
 ```
 

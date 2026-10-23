@@ -4,8 +4,9 @@ require_relative "spec_helper"
 
 # Configure Rails Environment
 ENV["RAILS_ENV"] ||= "test"
+ENV["ALCHEMY_DEVISE"] = "true"
 
-require File.expand_path("../dummy/config/environment.rb", __FILE__)
+require_relative "../../spec/dummy/config/environment"
 require "rails-controller-testing"
 require "rspec/rails"
 require "rspec/active_model/mocks"
