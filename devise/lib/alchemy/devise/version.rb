@@ -1,5 +1,7 @@
+require "alchemy/version"
+
 module Alchemy
   module Devise
-    VERSION = "9.0.0.dev"
+    VERSION = Alchemy::VERSION
   end
 end

@@ -1,4 +1,5 @@
 $:.push File.expand_path("../lib", __FILE__)
+$:.unshift File.expand_path("../lib", __dir__)
 
 # Maintain your gem's version:
 require "alchemy/devise/version"
@@ -15,7 +16,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "CHANGELOG.md", "README.md"]
 
-  s.add_dependency "alchemy_cms", [">= 8.4.0.a", "< 9.0"]
+  s.add_dependency "alchemy_cms", Alchemy::Devise::VERSION
   s.add_dependency "devise", ">= 4.9", "< 6.0"
   s.add_dependency "flickwerk", ["~> 0.3.6"]
 
