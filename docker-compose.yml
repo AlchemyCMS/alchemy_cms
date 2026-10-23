@@ -45,6 +45,8 @@ services:
   web:
     <<: *app
     command: bash -c "cd spec/dummy && rm -f tmp/pids/server.pid && bin/rails db:prepare && exec bin/rails server -b 0.0.0.0"
+    labels:
+      - dev.orbstack.domains=alchemy.local@3000
     ports:
       - "3000:3000"
     volumes:
