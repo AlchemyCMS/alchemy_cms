@@ -23,6 +23,10 @@ changelog:
       labels:
         - i18n
 
+    - title: "alchemy-devise"
+      labels:
+        - devise
+
     - title: "New Features"
       labels:
         - enhancement

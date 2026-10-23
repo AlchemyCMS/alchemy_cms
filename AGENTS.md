@@ -373,6 +373,7 @@ This runs automated upgrade tasks. Read the output carefully for manual steps.
 - **Config**: `config/alchemy/` (YAML definitions)
 - **Generators**: `lib/generators/alchemy/`
 - **Translations**: `i18n/` (the `alchemy_i18n` gem, released together with `alchemy_cms` under the same version; see `i18n/CLAUDE.md`)
+- **Authentication**: `devise/` (the `alchemy-devise` gem, released together with `alchemy_cms` under the same version; it has its own `Gemfile` and dummy app, so run its specs from inside `devise/` with `RAILS_ENV=test bundle exec rake alchemy:spec:prepare` and `bundle exec rspec`)
 
 ## Resources
 

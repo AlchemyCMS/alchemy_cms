@@ -7,3 +7,7 @@ guides:
 i18n:
   - changed-files:
       - all-globs-to-all-files: "i18n/**"
+
+devise:
+  - changed-files:
+      - all-globs-to-all-files: "devise/**"

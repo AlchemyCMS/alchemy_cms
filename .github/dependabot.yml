@@ -28,6 +28,31 @@ updates:
     directory: "/guides"
     schedule:
       interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/devise"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 7
+      semver-major-days: 30
+  - package-ecosystem: "bundler"
+    directory: "/devise"
+    schedule:
+      interval: "weekly"
+    groups:
+      dev-dependencies:
+        dependency-type: "development"
+        patterns:
+          - "capybara*"
+          - "listen"
+          - "factory*"
+          - "puma"
+          - "rails-controller-testing"
+          - "rspec-*"
+          - "simplecov"
+        update-types:
+          - "minor"
+          - "patch"
   - package-ecosystem: "bundler"
     directory: "/"
     schedule:

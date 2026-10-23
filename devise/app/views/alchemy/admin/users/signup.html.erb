@@ -1,0 +1,20 @@
+<%= content_for :stylesheets do %>
+  <%= stylesheet_link_tag "alchemy-devise" %>
+<% end %>
+
+<% content_for(:main_menu_style) { 'collapsed-menu' } %>
+
+<div class="login_signup_box">
+  <%= render "alchemy/admin/user_sessions/logo" do %>
+    <p>
+      <strong><%= Alchemy.t('Welcome to Alchemy') %></strong>
+    </p>
+    <p><%= Alchemy.t("Please Signup") %></p>
+  <% end %>
+
+  <div class="panel">
+    <%= alchemy_form_for [:admin, @user] do |f| %>
+      <%= render 'fields', f: f %>
+    <% end %>
+  </div>
+</div>

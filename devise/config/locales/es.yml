@@ -1,0 +1,18 @@
+es:
+  activerecord:
+    attributes:
+      alchemy/user:
+        current_password: "Tu contraseña"
+    errors:
+      models:
+        alchemy/user:
+          attributes:
+            current_password:
+              blank: "es necesaria para cambiar los roles"
+              invalid: "no es correcta"
+  alchemy:
+    admin:
+      users:
+        confirm_password_for_role_change:
+          create: "Para crear un usuario con el rol %{roles} debes confirmar con tu propia contraseña."
+          update: "Para cambiar el rol %{roles} de %{user} debes confirmar con tu propia contraseña."

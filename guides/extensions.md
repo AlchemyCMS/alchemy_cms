@@ -13,7 +13,7 @@ AlchemyCMS has a rich ecosystem of official and community extensions that add fu
 
 Devise-based user authentication for AlchemyCMS. If you don't bring your own authentication, you can use this gem to authorize users in the Alchemy admin.
 
-<ExtensionLinks gem="alchemy-devise" github="https://github.com/AlchemyCMS/alchemy-devise" />
+<ExtensionLinks gem="alchemy-devise" github="https://github.com/AlchemyCMS/alchemy_cms/tree/main/devise" />
 
 ## E-commerce
 
