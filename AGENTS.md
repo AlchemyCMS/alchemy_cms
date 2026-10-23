@@ -19,8 +19,12 @@ This installs dependencies (Ruby gems + pnpm packages) and sets up the dummy app
 ### Running Tests
 
 ```bash
-# Run all tests (prepares database + runs RSpec suite)
+# Run all tests (prepares database + runs the core and devise specs)
 bundle exec rake
+
+# Prepare the database and run a single suite
+bundle exec rake alchemy:test:core
+bundle exec rake alchemy:test:devise
 
 # Run RSpec only (core and devise specs, each in its own RSpec process)
 bin/rspec
