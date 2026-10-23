@@ -365,7 +365,7 @@ $ bin/setup
 To prepare the tests of your Alchemy fork please make sure to run the preparation task:
 
 ```bash
-$ bundle exec rake alchemy:spec:prepare
+$ bundle exec rake alchemy:test:prepare
 ```
 
 to set up the database for testing.

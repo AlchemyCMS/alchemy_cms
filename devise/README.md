@@ -96,7 +96,7 @@ so `bin/rspec` runs them from the `devise` directory, separately from the Alchem
 
 ```bash
 $ bundle install
-$ bundle exec rake alchemy:spec:prepare
+$ bundle exec rake alchemy:test:prepare
 ```
 
 ### 2. Run the tests with:

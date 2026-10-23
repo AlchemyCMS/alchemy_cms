@@ -48,7 +48,7 @@ task build: "alchemy_devise:build"
 task release: "alchemy_devise:release:rubygem_push"
 
 namespace :alchemy do
-  namespace :spec do
+  namespace :test do
     desc "Prepares database for testing Alchemy"
     task :prepare do
       system(
@@ -64,16 +64,14 @@ namespace :alchemy do
         BASH
       ) || fail
     end
-  end
 
-  namespace :test do
     desc "Prepares the database and runs the Alchemy core specs"
-    task core: "alchemy:spec:prepare" do
+    task core: :prepare do
       sh "bin/rspec", "spec"
     end
 
     desc "Prepares the database and runs the alchemy-devise specs"
-    task devise: "alchemy:spec:prepare" do
+    task devise: :prepare do
       sh "bin/rspec", "devise/spec"
     end
 

@@ -227,7 +227,7 @@ jobs:
           name: build-artifacts
       - name: Prepare database
         run: |
-          bundle exec rake alchemy:spec:prepare
+          bundle exec rake alchemy:test:prepare
       - name: Run tests
         run: |
           bundle exec rspec

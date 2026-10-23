@@ -34,7 +34,7 @@ bin/rspec spec/models/alchemy/page_spec.rb
 bin/rspec devise/spec/models/user_spec.rb
 
 # Prepare test database (required before first test run)
-bundle exec rake alchemy:spec:prepare
+bundle exec rake alchemy:test:prepare
 
 # Run JavaScript tests
 pnpm run test
