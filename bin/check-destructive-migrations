@@ -51,6 +51,7 @@ GUARD = "if_exists:"
 # and are not ours to fix.
 PATTERNS = [
   "db/migrate/*.rb",
+  "devise/db/migrate/*.rb",
   "spec/dummy/db/migrate/*.alchemy.rb",
   "lib/generators/**/templates/*.rb.tt"
 ].freeze
