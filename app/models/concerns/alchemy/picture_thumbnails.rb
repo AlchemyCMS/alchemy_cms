@@ -37,27 +37,75 @@ module Alchemy
     def picture_url(options = {})
       return if picture.nil?
 
-      picture.url(picture_url_options.merge(options)) || "missing-image.png"
+      picture.url(picture_url_options(options)) || "missing-image.png"
     end
 
     # Picture rendering options
     #
-    # Returns the +default_render_format+ of the associated +Alchemy::Picture+
-    # together with the +crop_from+ and +crop_size+ values
+    # Returns the render format of the associated +Alchemy::Picture+
+    # together with the +crop_from+ and +crop_size+ values.
+    #
+    # The render format is taken from the +format+ option, the +format+ setting
+    # of the ingredient definition or the +default_render_format+ of the picture.
+    # A format is only applied if the picture can be converted.
+    #
+    # @param options [Hash] Options that override the defaults (i.e. +size+ or +format+ of a srcset entry)
     #
     # @return [HashWithIndifferentAccess]
-    def picture_url_options
+    def picture_url_options(options = {})
       return {} if picture.nil?
 
+      options = options.symbolize_keys
       crop = !!settings[:crop]
 
       {
-        format: picture.default_render_format,
         crop: crop,
         crop_from: crop && crop_from.presence || nil,
         crop_size: crop && crop_size.presence || nil,
         size: settings[:size]
-      }.with_indifferent_access
+      }.merge(options.except(:format)).merge(
+        format: picture_render_format(options[:format] || settings[:format])
+      ).with_indifferent_access
+    end
+
+    # Picture rendering options for each entry of the +srcset+ setting
+    #
+    # Entries can either be a size string (i.e. +"800x600"+) or a hash
+    # with +size+ and optional +format+ keys.
+    #
+    # @param srcset [Array<String, Hash>] Defaults to the +srcset+ setting
+    #
+    # @return [Array<HashWithIndifferentAccess>]
+    def picture_srcset_variant_options(srcset = settings.fetch(:srcset, []))
+      return [] if picture.nil?
+
+      srcset.map do |src|
+        picture_url_options(src.is_a?(Hash) ? src : {size: src})
+      end
+    end
+
+    # Url, dimensions and mime type for each entry of the +srcset+ setting
+    #
+    # === Example:
+    #
+    #   picture_srcset_options
+    #   # => [{url: "/pictures/1/360x360/cats.webp", desc: "360w", width: "360", height: "360", type: "image/webp"}]
+    #
+    # @param srcset [Array<String, Hash>] Defaults to the +srcset+ setting
+    #
+    # @return [Array<Hash>]
+    def picture_srcset_options(srcset = settings.fetch(:srcset, []))
+      picture_srcset_variant_options(srcset).map do |options|
+        width, height = options[:size].to_s.split("x", 2)
+
+        {
+          url: picture_url(options),
+          desc: width.present? ? "#{width}w" : "#{height}h",
+          width: width,
+          height: height,
+          type: Mime::Type.lookup_by_extension(options[:format]).to_s
+        }
+      end
     end
 
     # Returns an url for the thumbnail representation of the assigned picture
@@ -108,6 +156,14 @@ module Alchemy
     end
 
     private
+
+    def picture_render_format(format)
+      if format.present? && picture.has_convertible_format?
+        format.to_s
+      else
+        picture.default_render_format
+      end
+    end
 
     # An Image smaller than dimensions
     # can not be cropped to given size - unless upsample is true.

@@ -96,10 +96,8 @@ module Alchemy
       end
 
       def srcset_options
-        srcset.map do |size|
-          url = ingredient.picture_url(size: size)
-          width, height = size.split("x")
-          width.present? ? "#{url} #{width}w" : "#{url} #{height}h"
+        ingredient.picture_srcset_options(srcset).map do |source|
+          "#{source[:url]} #{source[:desc]}"
         end
       end
 
