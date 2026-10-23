@@ -90,7 +90,7 @@ If you want to contribute (and you should ^_^), you need to run the tests locall
 
 The gem shares the bundle and the dummy app of the Alchemy CMS repository, so prepare the test database from the repository root.
 The dummy app only loads `alchemy-devise` for these specs, because the Alchemy CMS specs use a stub user instead,
-so run them from the `devise` directory, separately from the Alchemy CMS specs.
+so `bin/rspec` runs them from the `devise` directory, separately from the Alchemy CMS specs.
 
 ### 1. Once to prepare the test suite:
 
@@ -102,8 +102,7 @@ $ bundle exec rake alchemy:spec:prepare
 ### 2. Run the tests with:
 
 ```bash
-$ cd devise
-$ bundle exec rspec
+$ bin/rspec devise/spec
 ```
 
 Getting Help

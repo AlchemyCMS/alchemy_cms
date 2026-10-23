@@ -22,11 +22,12 @@ This installs dependencies (Ruby gems + pnpm packages) and sets up the dummy app
 # Run all tests (prepares database + runs RSpec suite)
 bundle exec rake
 
-# Run RSpec only
+# Run RSpec only (core and devise specs, each in its own RSpec process)
 bin/rspec
 
 # Run specific test file
 bin/rspec spec/models/alchemy/page_spec.rb
+bin/rspec devise/spec/models/user_spec.rb
 
 # Prepare test database (required before first test run)
 bundle exec rake alchemy:spec:prepare
@@ -373,7 +374,7 @@ This runs automated upgrade tasks. Read the output carefully for manual steps.
 - **Config**: `config/alchemy/` (YAML definitions)
 - **Generators**: `lib/generators/alchemy/`
 - **Translations**: `i18n/` (the `alchemy_i18n` gem, released together with `alchemy_cms` under the same version; see `i18n/CLAUDE.md`)
-- **Authentication**: `devise/` (the `alchemy-devise` gem, released together with `alchemy_cms` under the same version; it shares the root bundle and `spec/dummy`, which only loads it for the devise specs, so run them separately from inside `devise/` with `bundle exec rspec`)
+- **Authentication**: `devise/` (the `alchemy-devise` gem, released together with `alchemy_cms` under the same version; it shares the root bundle and `spec/dummy`, which only loads it for the devise specs, so `bin/rspec` runs them separately from inside `devise/`)
 
 ## Resources
 
