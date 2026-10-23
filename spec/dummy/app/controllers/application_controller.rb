@@ -7,9 +7,9 @@ class ApplicationController < ActionController::Base
 
   private
 
-  # In development authentication is handled by the alchemy-devise engine,
-  # which provides its own +current_user+ helper, so we must not shadow it.
-  unless Rails.env.development?
+  # When loaded, the alchemy-devise engine handles authentication and
+  # provides its own +current_user+ helper, so we must not shadow it.
+  unless defined?(Alchemy::Devise::Engine)
     def current_user
       return if Rails.env.test?
 

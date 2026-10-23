@@ -1,1 +1,0 @@
-Spring.application_root = ''

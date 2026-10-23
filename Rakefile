@@ -31,7 +31,7 @@ require "rspec/core/rake_task"
 
 RSpec::Core::RakeTask.new(:spec)
 
-task default: ["alchemy:spec:prepare", :spec]
+task default: "alchemy:test:all"
 
 namespace :alchemy_i18n do
   Bundler::GemHelper.new(File.expand_path("i18n", __dir__), "alchemy_i18n").install
@@ -48,7 +48,7 @@ task build: "alchemy_devise:build"
 task release: "alchemy_devise:release:rubygem_push"
 
 namespace :alchemy do
-  namespace :spec do
+  namespace :test do
     desc "Prepares database for testing Alchemy"
     task :prepare do
       system(
@@ -64,6 +64,19 @@ namespace :alchemy do
         BASH
       ) || fail
     end
+
+    desc "Prepares the database and runs the Alchemy core specs"
+    task core: :prepare do
+      sh "bin/rspec", "spec"
+    end
+
+    desc "Prepares the database and runs the alchemy-devise specs"
+    task devise: :prepare do
+      sh "bin/rspec", "devise/spec"
+    end
+
+    desc "Prepares the database and runs all specs"
+    task all: [:core, :devise]
   end
 
   namespace :changelog do

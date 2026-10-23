@@ -1,3 +1,53 @@
 #!/usr/bin/env ruby
-require 'bundler/setup'
-load Gem.bin_path('rspec-core', 'rspec')
+
+ROOT = File.expand_path("..", __dir__)
+
+# The devise specs boot the dummy app with alchemy-devise loaded, the core specs
+# without it, so each one runs in its own RSpec process from its own directory.
+LIBS = %w[. devise]
+
+# Ignore line info, e.g. foo/bar.rb:123 would become foo/bar.rb
+without_line = ->(path) { path.split(":", 2).first }
+
+# Let all paths be absolute, if the file is missing try prepending one of the LIBS,
+# this allows calling `bin/rspec spec/features/login_feature_spec.rb` without
+# needing to add the devise/ prefix.
+expand_existing = ->(path) {
+  [
+    File.expand_path(path),
+    *LIBS.map { |lib| File.expand_path(path, File.expand_path(lib, ROOT)) }
+  ].find { |p| File.exist?(without_line[p]) }
+}
+
+# Is it a spec file or directory, or a CLI option?
+is_spec = ->(arg) { !arg.start_with?("-") && expand_existing[arg] }
+
+# Find the library for this path, the core specs live in the repository root
+find_lib = ->(path) {
+  path = without_line[path]
+  LIBS.reverse.find do |lib|
+    dir = File.expand_path(lib, ROOT)
+    path == dir || path.start_with?(dir + "/")
+  end
+}
+
+spec_files, options = ARGV.partition(&is_spec) # Separate specs and options
+
+specs = {}
+
+if spec_files.any?
+  specs = spec_files.map(&expand_existing).group_by(&find_lib)
+else
+  # If no files are provided run all specs in each lib.
+  LIBS.each { |lib| specs[lib] = [] }
+end
+
+# Run specs for each lib separately
+specs.each do |lib, files|
+  Dir.chdir(File.expand_path(lib, ROOT)) do
+    command = ["bundle", "exec", "rspec", *options, *files]
+    warn "$ cd #{lib}; #{command.join(" ")}; cd -"
+    system(*command)
+    exit $?.exitstatus unless $?.success?
+  end
+end
