@@ -36,6 +36,8 @@ COPY Gemfile alchemy_cms.gemspec ./
 COPY lib/alchemy/version.rb lib/alchemy/version.rb
 COPY i18n/alchemy_i18n.gemspec i18n/
 COPY i18n/lib/alchemy_i18n/version.rb i18n/lib/alchemy_i18n/version.rb
+COPY devise/alchemy-devise.gemspec devise/
+COPY devise/lib/alchemy/devise/version.rb devise/lib/alchemy/devise/version.rb
 RUN bundle update --all
 
 COPY package.json pnpm-*.yaml ./
