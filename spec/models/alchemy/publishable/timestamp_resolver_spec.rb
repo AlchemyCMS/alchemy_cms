@@ -33,6 +33,27 @@ RSpec.describe Alchemy::Publishable::TimestampResolver do
       )
       expect(result).to match_array([past, future])
     end
+
+    context "with public_until set" do
+      let!(:expired) { create(:alchemy_page_version, public_on: 2.days.ago, public_until: 1.day.ago) }
+      let!(:current_window) { create(:alchemy_page_version, public_on: 1.day.ago, public_until: 1.day.from_now) }
+      let!(:future_window) { create(:alchemy_page_version, public_on: 1.day.from_now, public_until: 3.days.from_now) }
+      let!(:unscheduled) { create(:alchemy_page_version, public_on: nil, public_until: 3.days.from_now) }
+
+      let(:records) { Alchemy::PageVersion.where(id: [expired.id, current_window.id, future_window.id, unscheduled.id]) }
+
+      it "returns only records whose window includes the current time" do
+        expect(described_class.published(records, at: Time.current)).to eq([current_window])
+      end
+
+      it "returns only records whose window includes the given time" do
+        expect(described_class.published(records, at: 2.days.from_now)).to eq([future_window])
+      end
+
+      it "agrees with #public?" do
+        expect(described_class.published(records, at: Time.current)).to match_array(records.select(&:public?))
+      end
+    end
   end
 
   describe ".draft" do

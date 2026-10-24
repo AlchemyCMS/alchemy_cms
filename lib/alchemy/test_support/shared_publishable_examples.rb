@@ -96,6 +96,16 @@ RSpec.shared_examples_for "being publishable" do |factory_name|
         ])
       end
     end
+
+    context "with a publication window that has not started yet" do
+      let!(:future_window) do
+        create(factory_name, public_on: Date.tomorrow, public_until: Date.tomorrow + 2.days)
+      end
+
+      it "does not return the record" do
+        expect(described_class.published.where(id: future_window.id)).to be_empty
+      end
+    end
   end
 
   describe "#scheduled?" do
