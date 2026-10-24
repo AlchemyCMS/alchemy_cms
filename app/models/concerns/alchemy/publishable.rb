@@ -9,9 +9,7 @@ module Alchemy
       scope :published, ->(at: Time.current) {
         scheduled
           .where("#{table_name}.public_on <= :at", at:)
-          .where(public_until: nil).or(
-            where("#{table_name}.public_until > :at", at:)
-          )
+          .where("#{table_name}.public_until IS NULL OR #{table_name}.public_until > :at", at:)
       }
     end
 
