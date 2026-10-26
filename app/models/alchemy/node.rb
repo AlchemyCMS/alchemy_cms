@@ -107,7 +107,34 @@ module Alchemy
       read_attribute(:name).presence || page&.name
     end
 
+    # Associations needed to render a single node:
+    # +#name+ falls back to +page.name+ and +#url+ calls +page.url_path+,
+    # which reads +page.language.site.languages+.
+    ELEMENT_PRELOADS = {page: {language: {site: :languages}}}.freeze
+
     class << self
+      # Preload associations needed when nodes are rendered from
+      # +Alchemy::Ingredients::Node+ ingredients.
+      #
+      # Preloads the page chain used by +#name+ and +#url+ for the nodes
+      # themselves and for two levels of children, so that rendering a node
+      # with its children and grandchildren (e.g. a menu, or a JSON:API
+      # request including +node.children.children+) does not issue queries
+      # per node.
+      #
+      # @param nodes [Array<Node>] Collection of nodes to preload for
+      def alchemy_element_preloads(nodes)
+        return if nodes.blank?
+
+        ActiveRecord::Associations::Preloader.new(
+          records: nodes,
+          associations: [
+            ELEMENT_PRELOADS,
+            {children: [ELEMENT_PRELOADS, {children: ELEMENT_PRELOADS}]}
+          ]
+        ).call
+      end
+
       # Returns all root nodes for current language
       def language_root_nodes
         raise "No language found" if Current.language.nil?

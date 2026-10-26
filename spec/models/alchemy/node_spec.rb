@@ -155,6 +155,51 @@ module Alchemy
       end
     end
 
+    describe ".alchemy_element_preloads" do
+      let(:language) { Alchemy::Language.default || create(:alchemy_language) }
+      let!(:root) { create(:alchemy_node, language: language) }
+      let!(:child) { create(:alchemy_node, :with_page, language: language, parent: root) }
+      let!(:grandchild) { create(:alchemy_node, :with_page, language: language, parent: child) }
+
+      it "preloads the page with its language, site and site languages" do
+        node = described_class.find(child.id)
+        described_class.alchemy_element_preloads([node])
+
+        expect(node.association(:page)).to be_loaded
+        expect(node.page.association(:language)).to be_loaded
+        expect(node.page.language.association(:site)).to be_loaded
+        expect(node.page.language.site.association(:languages)).to be_loaded
+      end
+
+      it "preloads two levels of children" do
+        node = described_class.find(root.id)
+        described_class.alchemy_element_preloads([node])
+
+        expect(node.association(:children)).to be_loaded
+        expect(node.children).to eq([child])
+        expect(node.children.first.association(:children)).to be_loaded
+        expect(node.children.first.children).to eq([grandchild])
+      end
+
+      it "renders names and urls of the node tree without further queries" do
+        node = described_class.find(root.id)
+        described_class.alchemy_element_preloads([node])
+
+        expect {
+          [node, *node.children, *node.children.flat_map(&:children)].each do |n|
+            n.name
+            n.url
+          end
+        }.to_not make_database_queries
+      end
+
+      context "with empty nodes array" do
+        it "returns early without errors" do
+          expect { described_class.alchemy_element_preloads([]) }.not_to raise_error
+        end
+      end
+    end
+
     describe "#url" do
       it "is valid with leading slash" do
         expect(build(:alchemy_node, url: "/something")).to be_valid
