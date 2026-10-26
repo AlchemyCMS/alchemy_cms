@@ -21,7 +21,7 @@ Read more about Alchemy on the [website](https://alchemy-cms.com) and in the [gu
 > [!CAUTION]
 > This main branch is a **development branch** that *can* contain bugs.
 >
-> For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms), or the [latest stable branch (8.0-stable)](https://github.com/AlchemyCMS/alchemy_cms/tree/8.0-stable).**
+> For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms), or the [latest stable branch (8.4-stable)](https://github.com/AlchemyCMS/alchemy_cms/tree/8.4-stable).**
 
 ## 🏆 Main sponsor
 
