@@ -626,6 +626,16 @@ module Alchemy
         expect(published).to_not include(non_public_page)
         expect(published).to_not include(page_with_non_public_language)
       end
+
+      context "with a page scheduled for a future publication window" do
+        let!(:scheduled_page) do
+          create(:alchemy_page, :public, public_on: Date.tomorrow, public_until: Date.tomorrow + 2.days)
+        end
+
+        it "does not return the page" do
+          expect(published).to_not include(scheduled_page)
+        end
+      end
     end
 
     describe ".not_public" do
@@ -1682,7 +1692,7 @@ module Alchemy
 
         context "and a public version is available" do
           let(:public_version) do
-            create(:alchemy_page_version, public_until: 1.day.from_now)
+            create(:alchemy_page_version, public_on: Time.current, public_until: 1.day.from_now)
           end
 
           it "returns public_until from public version" do
