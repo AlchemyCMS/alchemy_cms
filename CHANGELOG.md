@@ -1,5 +1,17 @@
 # Changelog
 
+## 8.2.10 (2026-10-26)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.2-stable -->
+
+## What's Changed
+### Bug Fixes
+* [8.2-stable] fix(Resource::Table): Build a fresh cell/action per row by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4244
+* [8.2-stable] fix(Publishable): Only return records whose publication window has started by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/4405
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.2.9...v8.2.10
+
 ## 8.2.9 (2026-07-22)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.2-stable -->
