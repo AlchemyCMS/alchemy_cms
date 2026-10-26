@@ -1,5 +1,21 @@
 # Changelog
 
+## 8.3.11 (2026-10-26)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.3-stable -->
+
+## What's Changed
+### Bug Fixes
+* [8.3-stable] fix(Publishable): Only return records whose publication window has started by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/4404
+### Other Changes
+* [8.3-stable] Pluralize the English name of the user model by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4306
+* [8.3-stable] fix(tinymce): Only check the current color swatch by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/4361
+* [8.3-stable] ci: Pin remaining jobs to ubuntu-24.04 runners by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/4377
+* [8.3-stable] ci: Only start the database service a test job needs by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/4378
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.3.10...v8.3.11
+
 ## 8.3.10 (2026-09-22)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.3-stable -->
