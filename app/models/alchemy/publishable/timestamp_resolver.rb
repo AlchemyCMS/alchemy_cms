@@ -24,11 +24,10 @@ module Alchemy
 
         # Returns records that are public at the given time.
         def published(publishables, at:)
+          table_name = publishables.table_name
           scheduled(publishables)
-            .where("#{publishables.table_name}.public_on <= :at", at:)
-            .where(public_until: nil).or(
-              publishables.where("#{publishables.table_name}.public_until > :at", at:)
-            )
+            .where("#{table_name}.public_on <= :at", at:)
+            .where("#{table_name}.public_until IS NULL OR #{table_name}.public_until > :at", at:)
         end
       end
 
