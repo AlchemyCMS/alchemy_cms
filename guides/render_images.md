@@ -108,6 +108,37 @@ Use the `srcset` and `sizes` ingredient settings to generate responsive `<img>` 
 
 This renders an `<img>` tag with a `srcset` attribute containing URLs for each size and a `sizes` attribute telling the browser which source to use at each viewport width.
 
+### Formats <Badge type="tip" text="8.4+" />
+
+Since Alchemy 8.4, the `format` setting converts the image into another format, and `srcset` entries can be a hash with a `size` and their own `format`.
+
+~~~ yaml
+- role: photo
+  type: Picture
+  settings:
+    format: webp
+    srcset:
+      - 400x267
+      - size: 800x533
+        format: png
+      - size: 1200x800
+        format: webp
+~~~
+
+The main image and the `400x267` entry are rendered as WebP because of the `format` setting, the `800x533` entry as PNG. A format is only applied if the picture can be converted, so SVG files are rendered as they are.
+
+All entries end up in the `srcset` of a single `<img>` tag, where the browser chooses by width only. Entries with the same size in different formats do not act as fallbacks for each other. To offer a format with a fallback, render a `<picture>` element with one `<source>` per format yourself, using `ingredient.picture_srcset_options`, which returns the `url`, `desc`, `width`, `height` and mime `type` of each entry.
+
+::: tip
+New formats create new image variants. Generate them upfront instead of on the first request with:
+
+~~~ bash
+bin/rake alchemy:generate:ingredient_picture_thumbnails
+~~~
+
+Set `ELEMENTS=element1,element2` to only generate thumbnails for some elements and `ASYNC=true` to enqueue them as background jobs (ActiveStorage only).
+:::
+
 ## Remote Storage
 
 In production you typically want to store images on a remote service like Amazon S3, Google Cloud Storage, or Azure Storage instead of the local filesystem.

@@ -88,6 +88,18 @@ RSpec.describe Alchemy::Upgrader::EightFour do
     end
   end
 
+  describe "#notify_picture_format_setting" do
+    subject { upgrader.notify_picture_format_setting }
+
+    it "adds a todo about the format setting and the thumbnail task" do
+      expect(upgrader).to receive(:todo).with(
+        a_string_including("bin/rake alchemy:generate:ingredient_picture_thumbnails"),
+        a_string_including("`format` setting")
+      )
+      subject
+    end
+  end
+
   describe "#upgrade_menu_config" do
     subject { upgrader.upgrade_menu_config }
 
