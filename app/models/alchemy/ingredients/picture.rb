@@ -31,6 +31,7 @@ module Alchemy
         crop
         css_classes
         fixed_ratio
+        format
         linkable
         size
         sizes

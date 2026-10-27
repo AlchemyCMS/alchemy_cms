@@ -59,6 +59,20 @@ module Alchemy
         TODO
       end
 
+      def notify_picture_format_setting
+        todo(<<~TODO.strip, "Picture ingredients now respects the `format` setting")
+          New formats create new image variants. To generate them upfront instead
+          of on the first request, run the thumbnail task:
+
+            bin/rake alchemy:generate:ingredient_picture_thumbnails
+
+          Set `ELEMENTS=element1,element2` to only generate thumbnails for some
+          elements, and `ASYNC=true` to enqueue them as background jobs
+          (active_storage only). `bin/rake alchemy:generate:thumbnails`
+          generates the thumbnails of the picture library as well.
+        TODO
+      end
+
       # Element partials that render nested elements through the
       # +nested_elements+ association issue one database query per parent
       # element. Rendering through the block helper's +nested_elements+

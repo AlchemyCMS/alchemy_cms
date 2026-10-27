@@ -56,8 +56,8 @@ module Alchemy
 
         preprocess(picture, ingredient.picture_url_options, async: async)
         preprocess(picture, ingredient.thumbnail_url_options, async: async)
-        ingredient.settings.fetch(:srcset, []).each do |size|
-          preprocess(picture, ingredient.picture_url_options.merge(size: size), async: async)
+        ingredient.picture_srcset_variant_options.each do |options|
+          preprocess(picture, options, async: async)
         end
       end
 

@@ -63,6 +63,7 @@ namespace :alchemy do
         "alchemy:upgrade:8.4:upgrade_nested_elements_rendering",
         "alchemy:upgrade:8.4:notify_attachment_filetypes_default",
         "alchemy:upgrade:8.4:notify_admin_content_security_policy",
+        "alchemy:upgrade:8.4:notify_picture_format_setting",
         "alchemy:upgrade:8.4:upgrade_menu_config"
       ]
 
@@ -84,6 +85,11 @@ namespace :alchemy do
       desc "Notify about the opt-in admin Content Security Policy"
       task notify_admin_content_security_policy: [:environment] do
         Alchemy::Upgrader["8.4"].notify_admin_content_security_policy
+      end
+
+      desc "Notify about the new format setting of picture ingredients"
+      task notify_picture_format_setting: [:environment] do
+        Alchemy::Upgrader["8.4"].notify_picture_format_setting
       end
 
       desc "Rewrite register_module calls to the new menu configuration"
