@@ -84,9 +84,46 @@ describe Alchemy::Permissions do
 
   context "An admin" do
     let(:user) { build_stubbed(:alchemy_admin_user) }
+    let(:member) { build_stubbed(:alchemy_member_user) }
 
     it "can manage users" do
       is_expected.to be_able_to(:manage, Alchemy.config.user_class)
+    end
+
+    it "cannot impersonate users by default" do
+      is_expected.not_to be_able_to(:impersonate, member)
+    end
+
+    context "with user impersonation enabled" do
+      before { stub_config(Alchemy::Devise.config, user_impersonation: true) }
+
+      it "can impersonate an active non-admin user" do
+        is_expected.to be_able_to(:impersonate, member)
+      end
+
+      it "cannot impersonate itself" do
+        is_expected.not_to be_able_to(:impersonate, user)
+      end
+
+      it "cannot impersonate another administrator" do
+        is_expected.not_to be_able_to(:impersonate, build_stubbed(:alchemy_admin_user))
+      end
+
+      it "cannot impersonate an inactive user" do
+        allow(member).to receive(:active_for_authentication?).and_return(false)
+
+        is_expected.not_to be_able_to(:impersonate, member)
+      end
+    end
+  end
+
+  context "A non-admin with user impersonation enabled" do
+    let(:user) { build_stubbed(:alchemy_member_user) }
+
+    before { stub_config(Alchemy::Devise.config, user_impersonation: true) }
+
+    it "cannot impersonate another user" do
+      is_expected.not_to be_able_to(:impersonate, build_stubbed(:alchemy_member_user))
     end
   end
 end
