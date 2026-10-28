@@ -87,7 +87,8 @@ export default [
   {
     input: "app/javascript/preview.js",
     output: {
-      file: "app/assets/builds/alchemy/preview.min.js"
+      file: "app/assets/builds/alchemy/preview.min.js",
+      format: "iife"
     },
     context: "window",
     plugins: [terser()]
