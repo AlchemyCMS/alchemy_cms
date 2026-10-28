@@ -112,3 +112,8 @@ This tells CDNs to serve stale content while fetching a fresh version in the bac
 
 See the [Configuration](configuration#caching) guide for more cache settings.
 
+## Asset Host
+
+Alchemy loads the script of the admin's page preview as a JavaScript module. Browsers fetch module scripts with CORS, so if you serve assets from a different origin, for example a CDN configured as `config.asset_host`, it must send an `Access-Control-Allow-Origin` header that allows your application's origin.
+
+Without that header the browser blocks the script, and elements can no longer be selected in the preview.
