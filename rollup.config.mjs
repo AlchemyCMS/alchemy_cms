@@ -88,7 +88,7 @@ export default [
     input: "app/javascript/preview.js",
     output: {
       file: "app/assets/builds/alchemy/preview.min.js",
-      format: "iife"
+      format: "es"
     },
     context: "window",
     plugins: [terser()]

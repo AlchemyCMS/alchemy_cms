@@ -8,9 +8,9 @@ describe "alchemy/_preview_mode_code.html.erb" do
   context "in preview mode" do
     before { Alchemy::Current.preview_page = page }
 
-    it "includes the preview javascript" do
+    it "includes the preview javascript as module" do
       render partial: "alchemy/preview_mode_code"
-      expect(rendered).to have_selector("script[src*='alchemy/preview']", visible: :all)
+      expect(rendered).to have_selector("script[type='module'][src*='alchemy/preview']", visible: :all)
     end
 
     it "does not render an inline script" do

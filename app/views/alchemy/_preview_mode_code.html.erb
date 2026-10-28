@@ -1,3 +1,3 @@
 <% if Alchemy::Current.preview_page? %>
-  <%= javascript_include_tag("alchemy/preview.min") %>
+  <%= javascript_include_tag("alchemy/preview.min", type: "module") %>
 <% end %>

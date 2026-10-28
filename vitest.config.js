@@ -38,7 +38,7 @@ export default defineConfig({
           environment: "jsdom",
           globals: true,
           root: "spec/javascript/",
-          include: ["preview*.spec.js"]
+          include: ["preview.spec.js"]
         }
       }
     ]
