@@ -67,6 +67,14 @@ module Alchemy
       #     Alchemy::Devise.config.privileged_user_roles << "editor"
       #
       option :privileged_user_roles, :collection, item_type: :string, default: %w[admin]
+
+      # Allow administrators to temporarily impersonate active, non-admin users.
+      # Disabled by default because impersonation grants the administrator all of
+      # the selected user's application capabilities.
+      option :user_impersonation, :boolean, default: false
+
+      # Relative path to visit after impersonation starts.
+      option :user_impersonation_redirect_path, :string, default: "/"
     end
   end
 end
