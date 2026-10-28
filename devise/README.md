@@ -84,6 +84,40 @@ Set this to `false` to grant roles with a valid session alone:
 Alchemy::Devise.config.require_password_for_role_change = false
 ```
 
+## User impersonation
+
+Administrator user impersonation is provided by `alchemy-devise` and is disabled
+by default. Enable it in an initializer:
+
+```ruby
+Alchemy::Devise.configure do |config|
+  config.user_impersonation = true
+end
+```
+
+An administrator can then start impersonating an active non-administrator from
+the Alchemy users table. The original administrator ID is kept in the encrypted
+Rails session, Devise switches to the selected user, and the browser is sent to
+the frontend root path. Customize that relative path when necessary:
+
+```ruby
+Alchemy::Devise.config.user_impersonation_redirect_path = "/account"
+```
+
+Add the persistent notice to the host application's frontend layout, preferably
+directly after the opening `body` tag:
+
+```erb
+<%= alchemy_user_impersonation_notice %>
+```
+
+The notice identifies the selected user and provides a CSRF-protected action to
+restore the administrator. Administrators cannot impersonate themselves, other
+administrators, inactive users, or start a nested impersonation. Impersonation
+is not read-only: it has exactly the selected user's application capabilities.
+Audit logging is not included in this MVP and is recommended as a follow-up for
+applications that require a record of this sensitive operation.
+
 ## Testing
 
 If you want to contribute (and you should ^_^), you need to run the tests locally on your machine.
