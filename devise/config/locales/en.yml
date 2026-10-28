@@ -11,6 +11,8 @@ en:
               blank: "is required to change roles"
               invalid: "is not correct"
   alchemy:
+    impersonate_user: Impersonate user
+    confirm_impersonate_user: Are you sure you want to impersonate %{user}?
     admin:
       login:
         remember_me: "Remember me for %{days} days"
@@ -19,3 +21,8 @@ en:
           create: In order to create a user with the %{roles} role you have to confirm with your own password.
           update: In order to change the %{roles} role of %{user} you have to confirm with your own password.
         preferred_timezone: Pick the users preferred timezone if it is different from %{server_timezone}
+    devise:
+      user_impersonation:
+        notice: You are impersonating %{user}.
+        stop: Stop impersonating
+        stop_confirmation: Return to your administrator account?

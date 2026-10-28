@@ -168,6 +168,38 @@ RSpec.describe "Admin users feature." do
           expect(page).to_not have_content users.last.email
         end
       end
+
+      describe "user impersonation" do
+        let!(:member) { create(:alchemy_member_user, firstname: "Target", lastname: "User") }
+        let!(:other_admin) { create(:alchemy_admin_user) }
+
+        it "is absent by default" do
+          visit admin_users_path
+
+          expect(page).to have_no_selector('form[action*="/impersonation"]', visible: :all)
+        end
+
+        context "when enabled" do
+          before { stub_config(Alchemy::Devise.config, user_impersonation: true) }
+
+          it "renders a POST action with confirmation only for eligible users" do
+            visit admin_users_path
+
+            form = find(%(form[action="#{admin_user_impersonation_path(member)}"]), visible: :all)
+            expect(form["method"]).to eq("post")
+            expect(form["data-turbo-confirm"]).to include(member.alchemy_display_name)
+            expect(page).to have_no_selector(%(form[action="#{admin_user_impersonation_path(other_admin)}"]), visible: :all)
+          end
+
+          it "does not render the action for an inactive user" do
+            allow_any_instance_of(Alchemy::User).to receive(:active_for_authentication?).and_return(false)
+
+            visit admin_users_path
+
+            expect(page).to have_no_selector(%(form[action="#{admin_user_impersonation_path(member)}"]), visible: :all)
+          end
+        end
+      end
     end
 
     describe "edit existing user" do
