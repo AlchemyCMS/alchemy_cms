@@ -3,8 +3,6 @@
 module Alchemy
   module Admin
     class ElementsController < Alchemy::Admin::BaseController
-      helper Alchemy::Admin::IngredientsHelper
-
       before_action :load_page_and_version, only: [:index, :new]
       include Alchemy::Admin::Clipboard
       include Alchemy::Admin::PreviewTime
