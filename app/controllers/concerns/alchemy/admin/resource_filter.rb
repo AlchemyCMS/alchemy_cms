@@ -8,7 +8,6 @@ module Alchemy
       COMMON_SEARCH_FILTER_EXCLUDES = %i[id utf8 _method _ format].freeze
 
       included do
-        prepend_before_action :initialize_alchemy_filters
         helper_method :alchemy_filters, :search_form_name, :applied_filters, :search_filter_params, :resource_has_filters
       end
 
@@ -38,25 +37,6 @@ module Alchemy
       delegate :alchemy_filters, to: :class
 
       private
-
-      def initialize_alchemy_filters
-        return if alchemy_filters.any?
-        return unless resource_model.respond_to?(:alchemy_resource_filters)
-        Alchemy::Deprecation.warn(
-          "The `alchemy_resource_filters` method is deprecated and will be removed in Alchemy 8.1. " \
-          "Please use `add_alchemy_filter` in your controller instead. Make sure to safelist the scopes " \
-          "you want to use in the `ransackable_scopes` method of your model."
-        )
-        resource_model.alchemy_resource_filters.each do |filter_config|
-          if resource_model.respond_to?(filter_config[:name])
-            self.class.add_alchemy_filter filter_config[:name], type: :select, options: filter_config[:values]
-          else
-            filter_config[:values].each do |scope|
-              self.class.add_alchemy_filter scope, type: :checkbox
-            end
-          end
-        end
-      end
 
       def search_filter_params
         @_search_filter_params ||= params.except(*COMMON_SEARCH_FILTER_EXCLUDES).permit(*common_search_filter_includes).to_h
