@@ -10,12 +10,6 @@ module Alchemy
       def index
       end
 
-      def info
-        Alchemy::Deprecation.warn <<~WARN
-          Requesting `admin/dashboard/info` is deprecated. Please render Alchemy::Admin::Dashboard::Widgets::SystemInfo instead.
-        WARN
-      end
-
       def license
         @license = Alchemy::Engine.root.join("LICENSE").read
       end
