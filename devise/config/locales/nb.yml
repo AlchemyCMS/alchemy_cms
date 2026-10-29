@@ -11,8 +11,15 @@ nb:
               blank: "kreves for å endre roller"
               invalid: "er ikke riktig"
   alchemy:
+    impersonate_user: Utgi deg for å være bruker
+    confirm_impersonate_user: Er du sikker på at du vil utgi deg for å være %{user}?
     admin:
       users:
         confirm_password_for_role_change:
           create: "For å opprette en bruker med rollen %{roles} må du bekrefte med ditt eget passord."
           update: "For å endre rollen %{roles} til %{user} må du bekrefte med ditt eget passord."
+    devise:
+      user_impersonation:
+        notice: Du utgir deg nå for å være %{user}.
+        stop: Avslutt etterligning
+        stop_confirmation: Gå tilbake til administratorkontoen din?

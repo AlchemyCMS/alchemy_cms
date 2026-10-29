@@ -11,8 +11,15 @@ es:
               blank: "es necesaria para cambiar los roles"
               invalid: "no es correcta"
   alchemy:
+    impersonate_user: Suplantar usuario
+    confirm_impersonate_user: ¿Seguro que quieres suplantar a %{user}?
     admin:
       users:
         confirm_password_for_role_change:
           create: "Para crear un usuario con el rol %{roles} debes confirmar con tu propia contraseña."
           update: "Para cambiar el rol %{roles} de %{user} debes confirmar con tu propia contraseña."
+    devise:
+      user_impersonation:
+        notice: Estás suplantando a %{user}.
+        stop: Dejar de suplantar
+        stop_confirmation: ¿Volver a tu cuenta de administrador?
