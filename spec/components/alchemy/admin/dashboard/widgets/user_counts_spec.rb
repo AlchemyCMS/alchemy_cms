@@ -26,7 +26,7 @@ RSpec.describe Alchemy::Admin::Dashboard::Widgets::UserCounts, type: :component 
   end
 
   it "renders the title" do
-    expect(rendered).to have_text(Alchemy.user_class.model_name.human(count: :many))
+    expect(rendered).to have_text(Alchemy.config.user_class.model_name.human(count: :many))
   end
 
   it "renders the icon" do

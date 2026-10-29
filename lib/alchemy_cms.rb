@@ -20,7 +20,6 @@ require "userstamp"
 require "view_component"
 
 # Require globally used Alchemy mixins
-require_relative "alchemy/auth_accessors"
 require_relative "alchemy/cache_digests/template_tracker"
 require_relative "alchemy/deprecation"
 require_relative "alchemy/error_tracking"
