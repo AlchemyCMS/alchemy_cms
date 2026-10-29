@@ -72,19 +72,6 @@ module Alchemy
       render_page if render_fresh_page?
     end
 
-    # Renders a search engine compatible xml sitemap.
-    #
-    # @deprecated Point the +/sitemap.xml+ route at {Alchemy::SitemapController} instead.
-    #
-    def sitemap
-      Alchemy::Deprecation.warn(
-        "Alchemy::PagesController#sitemap is deprecated and will be removed in Alchemy 9.0. " \
-        "Route /sitemap.xml to Alchemy::SitemapController#show instead."
-      )
-      @pages = Page.sitemap
-      render layout: "alchemy/sitemap"
-    end
-
     private
 
     # Redirects to requested action without locale prefixed
@@ -221,12 +208,6 @@ module Alchemy
     def signup_required?
       if Alchemy.config.user_class.respond_to?(:alchemy_admins)
         Alchemy.config.user_class.alchemy_admins.empty?
-      elsif Alchemy.config.user_class.respond_to?(:admins)
-        Alchemy::Deprecation.warn(
-          "Using `#{Alchemy.config.user_class}.admins` is deprecated. " \
-          "Include `Alchemy::UserMethods` into your user class to provide `alchemy_admins` instead."
-        )
-        Alchemy.config.user_class.admins.empty?
       end
     end
 

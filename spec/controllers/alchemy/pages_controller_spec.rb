@@ -36,33 +36,12 @@ module Alchemy
           end
 
           context "user class does not respond to alchemy_admins" do
-            context "user class respond to admins" do
-              before do
-                allow(Alchemy.config.user_class).to receive(:respond_to?).with(:alchemy_admins).and_return(false)
-                allow(Alchemy.config.user_class).to receive(:respond_to?).with(:admins).and_return(true)
-                allow(Alchemy.config.user_class).to receive(:admins).and_return(double(empty?: true))
-                allow(Alchemy::Deprecation).to receive(:warn)
-              end
-
-              it "returns a welcome page" do
-                expect(get(:index)).to render_template("alchemy/welcome")
-              end
-
-              it "warns that the admins method is deprecated" do
-                expect(Alchemy::Deprecation).to receive(:warn).with(/admins` is deprecated/)
-                get(:index)
-              end
+            before do
+              allow(Alchemy.config.user_class).to receive(:respond_to?).with(:alchemy_admins).and_return(false)
             end
 
-            context "user class does not respond to admins" do
-              before do
-                allow(Alchemy.config.user_class).to receive(:respond_to?).with(:alchemy_admins).and_return(false)
-                allow(Alchemy.config.user_class).to receive(:respond_to?).with(:admins).and_return(false)
-              end
-
-              it "returns no_index page" do
-                expect(get(:index)).to render_template("alchemy/no_index")
-              end
+            it "returns no_index page" do
+              expect(get(:index)).to render_template("alchemy/no_index")
             end
           end
         end
@@ -454,37 +433,6 @@ module Alchemy
           expect(assigns(:page)).to eq(comments_page)
           expect(controller.params[:slug]).to eq("42")
         end
-      end
-    end
-
-    # TODO: Remove in Alchemy 9.0 together with Alchemy::PagesController#sitemap
-    describe "#sitemap" do
-      render_views
-
-      # Alchemy routes /sitemap.xml to Alchemy::SitemapController now, so this
-      # stands in for an app that kept pointing its own route at this action.
-      routes do
-        ActionDispatch::Routing::RouteSet.new.tap do |set|
-          set.draw do
-            get "/sitemap.xml", to: "alchemy/pages#sitemap", format: "xml"
-          end
-        end
-      end
-
-      let!(:sitemap_page) { create(:alchemy_page, :public, sitemap: true) }
-
-      it "is deprecated" do
-        expect(Alchemy::Deprecation).to receive(:warn)
-        get :sitemap, format: :xml
-      end
-
-      it "still renders the sitemap" do
-        allow(Alchemy::Deprecation).to receive(:warn)
-        get :sitemap, format: :xml
-
-        xml_doc = Nokogiri::XML(response.body)
-        expect(xml_doc.namespaces["xmlns"]).to eq("http://www.sitemaps.org/schemas/sitemap/0.9")
-        expect(xml_doc.css("urlset url loc").length).to eq(2)
       end
     end
   end
