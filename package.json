@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "test": "vitest --run",
-    "lint": "prettier --check 'app/javascript/**/*.js'",
+    "lint": "prettier --check 'app/javascript/**/*.js' 'packages/preview/{src,spec}/**/*.js'",
     "eslint": "eslint app/javascript/**/*.js",
     "build:js": "rollup -c",
     "build:admin": "rollup -c rollup.admin.config.mjs",
@@ -46,6 +46,7 @@
     "sass": "^1.106.1",
     "svg-sprite": "^2.0.4",
     "vite": "^8.3.5",
-    "vitest": "^5.0.5"
+    "vitest": "^5.0.5",
+    "vue": "^3.5.44"
   }
 }

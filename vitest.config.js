@@ -32,13 +32,23 @@ export default defineConfig({
       {
         // The preview bundle runs in the frontend, where none of the globals
         // the admin setup file defines exist.
-        resolve,
+        resolve: {
+          alias: {
+            "#app": path.resolve(
+              __dirname,
+              "packages/preview/spec/stubs/nuxt_app.js"
+            ),
+            "nuxt/kit": path.resolve(
+              __dirname,
+              "packages/preview/spec/stubs/nuxt_kit.js"
+            )
+          }
+        },
         test: {
           name: "preview",
           environment: "jsdom",
           globals: true,
-          root: "spec/javascript/",
-          include: ["preview*.spec.js"]
+          root: "packages/preview/spec/"
         }
       }
     ]

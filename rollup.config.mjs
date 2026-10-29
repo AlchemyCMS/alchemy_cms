@@ -85,7 +85,7 @@ export default [
     plugins: [resolve(), terser()]
   },
   {
-    input: "app/javascript/preview.js",
+    input: "packages/preview/src/standalone.js",
     output: {
       file: "app/assets/builds/alchemy/preview.min.js",
       format: "iife"
