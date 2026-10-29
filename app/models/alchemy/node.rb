@@ -74,14 +74,6 @@ module Alchemy
         .or(from_current_public_site.where(page: Alchemy::Page.published.not_restricted))
     }
 
-    # Like #available_to_guests but including nodes attached to restricted pages,
-    # which logged in members are allowed to see.
-    scope :available_to_members, -> {
-      Alchemy::Deprecation.warn("Node.available_to_members is deprecated and will be removed in Alchemy 9.0. Use Node.available_to(user) instead.")
-      from_current_public_site.where(page: nil)
-        .or(from_current_public_site.where(page: Alchemy::Page.published))
-    }
-
     # Nodes the given user may see: external links or nodes attached to a
     # published page the user is allowed to read. Mirrors +Page#readable_by?+
     # so a node never reveals a page the user cannot open. Passing +nil+ yields

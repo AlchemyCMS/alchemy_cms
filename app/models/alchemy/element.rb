@@ -142,9 +142,6 @@ module Alchemy
 
     # class methods
     class << self
-      alias_method :hidden, :draft
-      deprecate hidden: :draft, deprecator: Alchemy::Deprecation
-
       # Builds a new element as described in +/config/alchemy/elements.yml+
       #
       # - Returns a new Alchemy::Element object if no name is given in attributes,

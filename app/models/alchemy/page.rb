@@ -570,24 +570,6 @@ module Alchemy
       public_version&.meta_keywords || draft_version&.meta_keywords
     end
 
-    # @deprecated Use draft_version.title= instead
-    def title=(value)
-      draft_version&.title = value
-    end
-    deprecate "title=": :"page.draft_version.title=", deprecator: Alchemy::Deprecation
-
-    # @deprecated Use draft_version.meta_description= instead
-    def meta_description=(value)
-      draft_version&.meta_description = value
-    end
-    deprecate "meta_description=": :"page.draft_version.meta_description=", deprecator: Alchemy::Deprecation
-
-    # @deprecated Use draft_version.meta_keywords= instead
-    def meta_keywords=(value)
-      draft_version&.meta_keywords = value
-    end
-    deprecate "meta_keywords=": :"page.draft_version.meta_keywords=", deprecator: Alchemy::Deprecation
-
     # Returns the name of the creator of this page.
     #
     # If no creator could be found or associated user model

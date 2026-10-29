@@ -2716,37 +2716,6 @@ module Alchemy
       end
     end
 
-    describe "metadata setters", :silence_deprecations do
-      let(:page) { create(:alchemy_page) }
-
-      before do
-        allow(page.draft_version).to receive(:title=)
-        allow(page.draft_version).to receive(:meta_description=)
-        allow(page.draft_version).to receive(:meta_keywords=)
-      end
-
-      describe "#title=" do
-        it "sets title on draft version" do
-          page.title = "New Title"
-          expect(page.draft_version).to have_received(:title=).with("New Title")
-        end
-      end
-
-      describe "#meta_description=" do
-        it "sets meta_descriptionon draft version" do
-          page.meta_description = "New Description"
-          expect(page.draft_version).to have_received(:meta_description=).with("New Description")
-        end
-      end
-
-      describe "#meta_keywords=" do
-        it "sets meta_keywords on draft version" do
-          page.meta_keywords = "draft, keywords"
-          expect(page.draft_version).to have_received(:meta_keywords=).with("draft, keywords")
-        end
-      end
-    end
-
     describe "metadata getters" do
       context "with fixed attributes" do
         let(:page) { create(:alchemy_page, page_layout: "readonly") }
