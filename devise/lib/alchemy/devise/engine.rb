@@ -17,7 +17,8 @@ module Alchemy
 
       initializer "alchemy_devise.assets" do |app|
         app.config.assets.precompile += [
-          "alchemy-devise.css"
+          "alchemy-devise.css",
+          "alchemy-user-impersonation.css"
         ]
       end
 

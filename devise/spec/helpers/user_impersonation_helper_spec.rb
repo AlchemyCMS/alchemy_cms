@@ -17,6 +17,8 @@ RSpec.describe Alchemy::Devise::UserImpersonationHelper, type: :helper do
     expect(notice).to include("You are impersonating Target User")
     expect(notice).to include("Stop impersonating")
     expect(notice).to include('name="_method" value="delete"')
+    expect(notice).to include('class="alchemy-user-impersonation-notice"')
+    expect(notice).not_to include("style=")
   end
 
   it "renders nothing during an ordinary session" do
