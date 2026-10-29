@@ -1,0 +1,29 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "bootstrap-sha": "38e923a5ee4dfe26bd2b520d0d1d8afecc23b7a1",
+  "include-component-in-tag": true,
+  "changelog-sections": [
+    { "type": "feat", "section": "Features" },
+    { "type": "fix", "section": "Bug Fixes" },
+    { "type": "perf", "section": "Performance Improvements" },
+    { "type": "refactor", "section": "Code Refactoring" },
+    { "type": "deps", "section": "Dependencies" },
+    { "type": "revert", "section": "Reverts" },
+    { "type": "docs", "section": "Documentation", "hidden": true },
+    { "type": "style", "section": "Styles", "hidden": true },
+    { "type": "chore", "section": "Miscellaneous Chores", "hidden": true },
+    { "type": "test", "section": "Tests", "hidden": true },
+    { "type": "build", "section": "Build System", "hidden": true },
+    { "type": "ci", "section": "Continuous Integration", "hidden": true }
+  ],
+  "packages": {
+    "packages/preview": {
+      "release-type": "node",
+      "package-name": "@alchemy_cms/preview",
+      "component": "preview",
+      "changelog-path": "CHANGELOG.md",
+      "bump-minor-pre-major": true,
+      "initial-version": "0.1.0"
+    }
+  }
+}
