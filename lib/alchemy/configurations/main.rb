@@ -14,7 +14,6 @@ require "alchemy/configurations/page_cache"
 require "alchemy/configurations/preview"
 require "alchemy/configurations/sitemap"
 require "alchemy/configurations/uploader"
-require "alchemy/deprecation"
 
 module Alchemy
   module Configurations
@@ -118,10 +117,6 @@ module Alchemy
       # NOTE: You can always override the output format in the settings of your ingredients in elements.yml, I.E. {format: 'gif'}
       #
       option :output_image_quality, :integer, default: 85
-      alias_method :output_image_jpg_quality, :output_image_quality
-      deprecate output_image_jpg_quality: :output_image_quality, deprecator: Alchemy::Deprecation
-      alias_method :output_image_jpg_quality=, :output_image_quality=
-      deprecate "output_image_jpg_quality=": :output_image_quality=, deprecator: Alchemy::Deprecation
       option :preprocess_image_resize, :string
       option :image_output_format, :string, default: "original"
       option :sharpen_images, :boolean, default: false
@@ -316,7 +311,7 @@ module Alchemy
       #
       #    # lib/alchemy/solidus/engine.rb
       #    initializer "alchemy_solidus.assets", before: "alchemy.importmap" do |app|
-      #      Alchemy.admin_importmaps.add({
+      #      Alchemy.config.admin_importmaps.add({
       #        importmap_path: root.join("config/importmap.rb"),
       #        source_paths: [
       #          root.join("app/javascript")

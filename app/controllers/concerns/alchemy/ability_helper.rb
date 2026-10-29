@@ -9,7 +9,7 @@ module Alchemy::AbilityHelper
   # you need to register it. Or if you have an engine with it's own CanCan abilities you want to
   # add to Alchemy you must register them first.
   #
-  #     Alchemy.register_ability MyCustom::Permisson
+  #     Alchemy.config.abilities.add("MyCustom::Permisson")
   #
   def current_ability
     @current_ability ||= begin
