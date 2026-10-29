@@ -8,9 +8,19 @@ module Alchemy
       end
 
       def alchemy_user_impersonation_notice
-        return unless alchemy_user_impersonating? && current_alchemy_user
+        user = current_impersonated_user
+        return unless alchemy_user_impersonating? && user
 
-        render "alchemy/devise/user_impersonation_notice", user: current_alchemy_user
+        render "alchemy/devise/user_impersonation_notice", user: user
+      end
+
+      private
+
+      def current_impersonated_user
+        current_user_method = Alchemy.config.current_user_method
+        return unless controller.respond_to?(current_user_method, true)
+
+        controller.send(current_user_method)
       end
     end
   end
