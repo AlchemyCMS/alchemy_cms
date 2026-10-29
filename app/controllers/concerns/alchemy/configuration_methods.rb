@@ -5,18 +5,8 @@ module Alchemy
     extend ActiveSupport::Concern
 
     included do
-      helper_method :configuration, :multi_language?, :multi_site?, :prefix_locale?
+      helper_method :multi_language?, :multi_site?, :prefix_locale?
     end
-
-    # Returns the configuration value of given key.
-    #
-    # Config file is in +config/alchemy/config.yml+
-    #
-    # @deprecated - Use Alchemy.config.get instead
-    def configuration(name)
-      Alchemy.config.get(name)
-    end
-    deprecate configuration: "Alchemy.config.get", deprecator: Alchemy::Deprecation
 
     # Returns true if more than one language is published on current site.
     #
