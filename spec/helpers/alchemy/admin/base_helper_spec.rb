@@ -175,22 +175,6 @@ module Alchemy
       end
     end
 
-    describe "#current_alchemy_user_name" do
-      subject { helper.current_alchemy_user_name }
-
-      let(:user) { double("User", alchemy_display_name: "Peter Schroeder") }
-
-      before do
-        expect(helper).to receive(:current_alchemy_user).and_return(user)
-        allow(helper).to receive(:render).with(instance_of(Alchemy::Admin::CurrentUserName))
-      end
-
-      it "renders the Alchemy::Admin::CurrentUserName component", :silence_deprecations do
-        subject
-        expect(helper).to have_received(:render).with(instance_of(Alchemy::Admin::CurrentUserName))
-      end
-    end
-
     describe "#link_url_regexp" do
       subject { helper.link_url_regexp }
 
