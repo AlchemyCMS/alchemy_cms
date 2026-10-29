@@ -5,6 +5,7 @@ class PreviewWindow extends HTMLIFrameElement {
   #afterLoad
   #reloadIcon
   #loadTimeout
+  #previewOrigin = null
 
   handleEvent(evt) {
     if (evt.type === "load") {
@@ -15,7 +16,10 @@ class PreviewWindow extends HTMLIFrameElement {
   }
 
   #onPreviewReady = (event) => {
+    if (event.source !== this.contentWindow) return
+
     if (event.data.message === "Alchemy.previewReady") {
+      this.#previewOrigin = event.origin
       this.#clearLoadTimeout()
       this.#stopSpinner()
       // Deliberately does not resolve #afterLoad: previewReady fires before the
@@ -47,7 +51,9 @@ class PreviewWindow extends HTMLIFrameElement {
   }
 
   postMessage(data) {
-    this.contentWindow.postMessage(data, "*")
+    if (this.#previewOrigin) {
+      this.contentWindow.postMessage(data, this.#previewOrigin)
+    }
   }
 
   resize(width) {
@@ -55,6 +61,7 @@ class PreviewWindow extends HTMLIFrameElement {
   }
 
   refresh(url) {
+    this.#previewOrigin = null
     this.#startSpinner()
 
     if (url) {
