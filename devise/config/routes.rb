@@ -36,8 +36,8 @@ Alchemy::Engine.routes.draw do
     resources :users
 
     post "/users/:user_id/impersonation" => "user_impersonations#create",
-      as: :user_impersonation
+      :as => :user_impersonation
     delete "/impersonation" => "user_impersonations#destroy",
-      as: :user_impersonation_session
+      :as => :user_impersonation_session
   end
 end
