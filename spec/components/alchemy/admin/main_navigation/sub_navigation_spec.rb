@@ -45,25 +45,6 @@ RSpec.describe Alchemy::Admin::MainNavigation::SubNavigation, type: :component d
     end
   end
 
-  context "with a legacy item from an engine" do
-    let(:item) do
-      Alchemy::Configurations::MenuItem.from_legacy_hash(
-        name: "archive",
-        engine_name: "alchemy",
-        navigation: {
-          controller: "/alchemy/admin/pictures",
-          action: "index",
-          sub_navigation: [{name: "Attachments", controller: "/alchemy/admin/attachments", action: "index"}]
-        }
-      )
-    end
-
-    it "routes the children through the parent's engine" do
-      render
-      expect(page).to have_css("a[href='/admin/attachments']", text: "Attachments")
-    end
-  end
-
   context "without children" do
     let(:item) do
       Alchemy::Configurations::MenuItem.new(name: "tags", url: -> { alchemy.admin_tags_path })

@@ -7,7 +7,6 @@ module Alchemy
     include Alchemy::ConfigurationMethods
     include Alchemy::AbilityHelper
     include Alchemy::ControllerActions
-    include Alchemy::Modules
 
     protect_from_forgery
 
