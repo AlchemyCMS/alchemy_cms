@@ -108,8 +108,14 @@ Add the persistent notice to the host application's frontend layout, preferably
 directly after the opening `body` tag:
 
 ```erb
+<%= stylesheet_link_tag "alchemy-user-impersonation" %>
 <%= alchemy_user_impersonation_notice %>
 ```
+
+Override the `--alchemy-user-impersonation-background`,
+`--alchemy-user-impersonation-border`, and
+`--alchemy-user-impersonation-color` CSS properties to match the application's
+theme.
 
 The notice identifies the selected user and provides a CSRF-protected action to
 restore the administrator. Administrators cannot impersonate themselves, other
