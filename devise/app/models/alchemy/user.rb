@@ -29,11 +29,6 @@ module Alchemy
 
     validates :login, uniqueness: {case_sensitive: false}, presence: :login_required?
 
-    scope :admins, -> {
-      Alchemy::Deprecation.warn("#{name}.admins is deprecated. Please use #{name}.alchemy_admins instead.")
-      alchemy_admins
-    }
-
     scope :logged_in, -> { where("last_request_at > ?", logged_in_timeout.seconds.ago) }
     scope :logged_out, -> { where("last_request_at is NULL or last_request_at <= ?", logged_in_timeout.seconds.ago) }
 
@@ -62,37 +57,10 @@ module Alchemy
         ]
       end
 
-      deprecate human_rolename: :human_alchemy_rolename, deprecator: Alchemy::Deprecation
-      alias_method :human_rolename, :human_alchemy_rolename
-
       def logged_in_timeout
         Alchemy.config.get(:auto_logout_time).minutes.to_i
       end
     end
-
-    def role_symbols
-      alchemy_roles.map(&:to_sym)
-    end
-    deprecate :role_symbols, deprecator: Alchemy::Deprecation
-
-    def role
-      alchemy_roles.first
-    end
-    deprecate :role, deprecator: Alchemy::Deprecation
-
-    def add_role(role)
-      self.alchemy_roles = alchemy_roles.push(role.to_s).uniq
-    end
-    deprecate add_role: :"alchemy_roles=", deprecator: Alchemy::Deprecation
-
-    alias_method :is_admin?, :alchemy_admin?
-    deprecate is_admin?: :alchemy_admin?, deprecator: Alchemy::Deprecation
-
-    alias_method :has_role?, :has_alchemy_role?
-    deprecate has_role?: :has_alchemy_role?, deprecator: Alchemy::Deprecation
-
-    alias_method :human_roles_string, :human_alchemy_roles
-    deprecate human_roles_string: :human_alchemy_roles, deprecator: Alchemy::Deprecation
 
     # Returns the firstname and lastname as a string
     #
@@ -132,9 +100,6 @@ module Alchemy
     def logged_out?
       !logged_in?
     end
-
-    alias_method :pages_locked_by_me, :locked_pages
-    deprecate pages_locked_by_me: :locked_pages, deprecator: Alchemy::Deprecation
 
     def store_request_time!
       update_column(:last_request_at, Time.now)
