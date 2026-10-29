@@ -46,6 +46,14 @@ Mark elements with the `v-alchemy-element` directive where they are rendered, e.
 
 The directive takes the element or its id. On components the directive applies to the component's root element. Vue ignores it on components with multiple root elements.
 
+The directive is registered globally, so element components can also mark themselves on their root tag:
+
+```vue
+<template>
+  <article v-alchemy-element="element">...</article>
+</template>
+```
+
 The preview state is available as `useNuxtApp().$alchemyPreview` (`{ enabled, time }`). It is only enabled in the browser, and only if the page is shown in a frame, so visitors adding the query parameter themselves do not get it.
 
 ## Vue
