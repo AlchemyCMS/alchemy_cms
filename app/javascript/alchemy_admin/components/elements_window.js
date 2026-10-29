@@ -32,6 +32,8 @@ class ElementsWindow extends HTMLElement {
   }
 
   #onWindowMessage = (event) => {
+    if (event.source !== this.previewWindow?.contentWindow) return
+
     const data = event.data
     if (data?.message == "Alchemy.focusElementEditor") {
       const element = document.getElementById(`element_${data.element_id}`)

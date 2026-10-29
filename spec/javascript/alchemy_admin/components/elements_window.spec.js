@@ -355,24 +355,32 @@ describe("alchemy-elements-window", () => {
     })
 
     describe("message event from window", () => {
+      function receive(
+        data,
+        source = document.getElementById("alchemy_preview_window").contentWindow
+      ) {
+        window.dispatchEvent(new MessageEvent("message", { data, source }))
+      }
+
       it("shows window and focuses element on Alchemy.focusElementEditor message", () => {
         const showSpy = vi.spyOn(elementsWindow, "show")
         const element = document.querySelector("#element_123")
-        window.dispatchEvent(
-          new MessageEvent("message", {
-            data: { message: "Alchemy.focusElementEditor", element_id: "123" }
-          })
-        )
+        receive({ message: "Alchemy.focusElementEditor", element_id: "123" })
         expect(showSpy).toHaveBeenCalled()
         expect(element.focusElement).toHaveBeenCalled()
       })
 
       it("ignores messages without proper message type", () => {
         const showSpy = vi.spyOn(elementsWindow, "show")
-        window.dispatchEvent(
-          new MessageEvent("message", {
-            data: { message: "SomeOtherMessage", element_id: "123" }
-          })
+        receive({ message: "SomeOtherMessage", element_id: "123" })
+        expect(showSpy).not.toHaveBeenCalled()
+      })
+
+      it("ignores messages from other windows than the preview", () => {
+        const showSpy = vi.spyOn(elementsWindow, "show")
+        receive(
+          { message: "Alchemy.focusElementEditor", element_id: "123" },
+          window
         )
         expect(showSpy).not.toHaveBeenCalled()
       })
