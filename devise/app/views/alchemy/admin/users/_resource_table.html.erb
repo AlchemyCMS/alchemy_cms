@@ -28,10 +28,11 @@
     <%= user.human_alchemy_roles %>
   <% end %>
   <% table.with_action(:impersonate, Alchemy.t(:impersonate_user)) do |user| %>
-    <%= button_to render_icon(:user),
+    <%= button_to render_icon("arrow-left-right"),
       alchemy.admin_user_impersonation_path(user),
       method: :post,
       class: "icon_button",
+      aria: {label: Alchemy.t(:impersonate_user)},
       form: {data: {turbo_confirm: Alchemy.t(:confirm_impersonate_user, user: user.alchemy_display_name)}} %>
   <% end %>
   <% table.delete_button tooltip: Alchemy.t(:delete_user), confirm_message: Alchemy.t(:confirm_to_delete_user) %>

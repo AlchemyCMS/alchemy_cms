@@ -186,8 +186,11 @@ RSpec.describe "Admin users feature." do
             visit admin_users_path
 
             form = find(%(form[action="#{admin_user_impersonation_path(member)}"]), visible: :all)
+            button = form.find("button", visible: :all)
             expect(form["method"]).to eq("post")
             expect(form["data-turbo-confirm"]).to include(member.alchemy_display_name)
+            expect(button["aria-label"]).to eq(Alchemy.t(:impersonate_user))
+            expect(button).to have_css('alchemy-icon[name="arrow-left-right"]', visible: :all)
             expect(page).to have_no_selector(%(form[action="#{admin_user_impersonation_path(other_admin)}"]), visible: :all)
           end
 
