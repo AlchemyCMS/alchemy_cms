@@ -1,0 +1,46 @@
+name: Release Please
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-24.04
+    outputs:
+      release_created: ${{ steps.release.outputs['packages/preview--release_created'] }}
+    steps:
+      - uses: googleapis/release-please-action@v5
+        id: release
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  publish:
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created == 'true' }}
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      id-token: write # OIDC trusted publishing
+    defaults:
+      run:
+        working-directory: packages/preview
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          registry-url: "https://registry.npmjs.org"
+      # pnpm's OIDC trusted-publishing handshake is broken (pnpm/pnpm#11513),
+      # so publish with the npm CLI, which needs >= 11.5.1 for trusted publishing.
+      - name: Update npm for OIDC trusted publishing
+        run: npm install --global npm@latest
+      - name: Publish to npm with provenance
+        run: npm publish --provenance --access public
