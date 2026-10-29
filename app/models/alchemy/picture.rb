@@ -287,8 +287,6 @@ module Alchemy
     def image_file_extension
       Alchemy.storage_adapter.image_file_extension(self)
     end
-    alias_method :suffix, :image_file_extension
-    deprecate suffix: :image_file_extension, deprecator: Alchemy::Deprecation
 
     def svg?
       image_file_format == "image/svg+xml"

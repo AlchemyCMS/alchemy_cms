@@ -42,14 +42,6 @@ module Alchemy
 
     before_create :set_title_from_page
 
-    class << self
-      alias_method :drafts, :draft
-      deprecate drafts: :draft, deprecator: Alchemy::Deprecation
-
-      alias_method :public_on, :published
-      deprecate public_on: :published, deprecator: Alchemy::Deprecation
-    end
-
     before_destroy :delete_elements
 
     def element_repository
