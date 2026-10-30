@@ -47,4 +47,42 @@ RSpec.describe Alchemy::Tidy do
       expect(Alchemy::LegacyPageUrl.where(id: [original.id, other_original.id]).count).to eq(2)
     end
   end
+
+  describe ".remove_deprecated_columns" do
+    subject { described_class.remove_deprecated_columns }
+
+    let(:connection) { ActiveRecord::Base.connection }
+
+    before do
+      allow(connection).to receive(:column_exists?).and_return(false)
+      allow(connection).to receive(:remove_column)
+    end
+
+    context "with deprecated columns left" do
+      before do
+        allow(connection).to receive(:column_exists?).with(:alchemy_pages, "title").and_return(true)
+        allow(connection).to receive(:column_exists?).with(:alchemy_elements, "public").and_return(true)
+      end
+
+      it "removes only the existing ones" do
+        subject
+        expect(connection).to have_received(:remove_column).with(:alchemy_pages, "title")
+        expect(connection).to have_received(:remove_column).with(:alchemy_elements, "public")
+        expect(connection).to have_received(:remove_column).twice
+      end
+
+      it "logs how many columns it removed" do
+        expect(described_class).to receive(:log).with("Deleted 2 deprecated columns")
+        subject
+      end
+    end
+
+    context "without deprecated columns left" do
+      it "removes nothing" do
+        expect(described_class).to receive(:log).with("No deprecated columns found", :skip)
+        subject
+        expect(connection).not_to have_received(:remove_column)
+      end
+    end
+  end
 end
