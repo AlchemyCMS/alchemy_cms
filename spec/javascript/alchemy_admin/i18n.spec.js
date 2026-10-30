@@ -3,13 +3,8 @@ import {
   translate,
   currentLocale
 } from "../../../app/javascript/alchemy_admin/i18n.js"
-import { setupTranslations } from "./translations.helper.js"
 
 describe("i18n", () => {
-  beforeEach(() => {
-    setupTranslations()
-  })
-
   describe("currentLocale", () => {
     afterEach(() => {
       document.documentElement.lang = ""
@@ -75,16 +70,21 @@ describe("i18n", () => {
       })
     })
 
-    describe("if Alchemy.translations is not set", () => {
+    describe("without a translations script tag", () => {
+      let script
+
       beforeEach(() => {
-        Alchemy.translations = undefined
+        script = document.getElementById("alchemy_translations")
+        script.remove()
+        vi.resetModules()
       })
 
       afterEach(() => {
-        setupTranslations()
+        document.head.appendChild(script)
       })
 
-      it("Returns passed string and logs a warning", () => {
+      it("Returns passed string and logs a warning", async () => {
+        const { translate } = await import("alchemy_admin/i18n")
         const spy = vi.spyOn(console, "warn").mockImplementation(() => {})
         expect(translate("help")).toEqual("help")
         expect(spy.mock.calls).toEqual([
@@ -106,13 +106,8 @@ describe("i18n", () => {
         globalThis.Alchemy = alchemy
       })
 
-      it("Returns passed string and logs a warning", () => {
-        const spy = vi.spyOn(console, "warn").mockImplementation(() => {})
-        expect(translate("help")).toEqual("help")
-        expect(spy.mock.calls).toEqual([
-          ["Translations for locale en not found!"]
-        ])
-        spy.mockRestore()
+      it("translates the given key", () => {
+        expect(translate("help")).toEqual("Help")
       })
     })
   })
