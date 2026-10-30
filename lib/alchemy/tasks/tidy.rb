@@ -6,6 +6,12 @@ module Alchemy
   class Tidy
     extend Shell
 
+    # Replaced by page versions in 8.1 and publication timestamps in 8.4
+    DEPRECATED_COLUMNS = {
+      alchemy_pages: %w[title meta_description meta_keywords],
+      alchemy_elements: %w[public]
+    }
+
     class << self
       def update_element_positions
         Alchemy::Page.all.each do |page|
@@ -87,6 +93,24 @@ module Alchemy
           end
           puts "\n"
           log "Deleted #{matching_tables.length} legacy essence tables"
+        end
+      end
+
+      def remove_deprecated_columns
+        puts "\n## Removing deprecated columns"
+        connection = ActiveRecord::Base.connection
+        existing_columns = DEPRECATED_COLUMNS.flat_map do |table, columns|
+          columns.select { |column| connection.column_exists?(table, column) }.map { [table, _1] }
+        end
+        if existing_columns.empty?
+          log "No deprecated columns found", :skip
+        else
+          existing_columns.each do |table, column|
+            connection.remove_column(table, column)
+            print "."
+          end
+          puts "\n"
+          log "Deleted #{existing_columns.length} deprecated columns"
         end
       end
 
