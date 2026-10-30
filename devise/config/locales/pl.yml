@@ -11,8 +11,15 @@ pl:
               blank: "jest wymagane do zmiany ról"
               invalid: "jest nieprawidłowe"
   alchemy:
+    impersonate_user: Podszyj się pod użytkownika
+    confirm_impersonate_user: Czy na pewno chcesz podszyć się pod użytkownika %{user}?
     admin:
       users:
         confirm_password_for_role_change:
           create: "Aby utworzyć użytkownika z rolą %{roles}, musisz potwierdzić własnym hasłem."
           update: "Aby zmienić rolę %{roles} użytkownika %{user}, musisz potwierdzić własnym hasłem."
+    devise:
+      user_impersonation:
+        notice: Obecnie podszywasz się pod użytkownika %{user}.
+        stop: Zakończ podszywanie się
+        stop_confirmation: Wrócić do konta administratora?

@@ -1,6 +1,25 @@
 require "rails_helper"
 
 RSpec.describe Alchemy::Devise do
+  describe "frontend assets" do
+    it "precompiles the user impersonation stylesheet" do
+      expect(Rails.application.config.assets.precompile).to include("alchemy-user-impersonation.css")
+    end
+  end
+
+  describe ".config" do
+    it "disables user impersonation by default" do
+      expect(described_class::Configuration.new.user_impersonation).to be(false)
+    end
+
+    it "allows user impersonation to be enabled" do
+      config = described_class::Configuration.new
+      config.user_impersonation = true
+
+      expect(config.user_impersonation).to be(true)
+    end
+  end
+
   describe ".layout" do
     it "delegates to Alchemy::Devise.config.layout" do
       Alchemy::Devise.deprecator.silenced do

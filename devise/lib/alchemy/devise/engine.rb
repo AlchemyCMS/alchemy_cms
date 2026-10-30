@@ -1,6 +1,7 @@
 require "alchemy_cms"
 require "devise"
 require "flickwerk"
+require_relative "../../../app/helpers/alchemy/devise/user_impersonation_helper"
 
 module Alchemy
   module Devise
@@ -16,8 +17,15 @@ module Alchemy
 
       initializer "alchemy_devise.assets" do |app|
         app.config.assets.precompile += [
-          "alchemy-devise.css"
+          "alchemy-devise.css",
+          "alchemy-user-impersonation.css"
         ]
+      end
+
+      initializer "alchemy_devise.user_impersonation_helper" do
+        ActiveSupport.on_load(:action_controller_base) do
+          helper Alchemy::Devise::UserImpersonationHelper
+        end
       end
     end
   end

@@ -11,6 +11,8 @@ de:
               blank: "wird zum Ändern der Rollen benötigt"
               invalid: "ist nicht korrekt"
   alchemy:
+    impersonate_user: Benutzer imitieren
+    confirm_impersonate_user: Möchten Sie %{user} wirklich imitieren?
     admin:
       login:
         remember_me: "Für %{days} Tage angemeldet bleiben"
@@ -19,3 +21,8 @@ de:
           create: Um einen Benutzer mit der Rolle %{roles} anzulegen, ist Ihr eigenes Passwort erforderlich.
           update: Um die Rolle %{roles} von %{user} zu ändern, ist Ihr eigenes Passwort erforderlich.
         preferred_timezone: Wählen Sie eine bevorzugte Zeitzone, wenn sie sich von %{server_timezone} unterscheidet
+    devise:
+      user_impersonation:
+        notice: Sie imitieren derzeit %{user}.
+        stop: Imitation beenden
+        stop_confirmation: Zu Ihrem Administratorkonto zurückkehren?
