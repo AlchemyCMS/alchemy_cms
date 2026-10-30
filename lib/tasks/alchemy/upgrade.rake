@@ -32,12 +32,18 @@ namespace :alchemy do
 
     namespace "9.0" do
       task "run" => [
-        "alchemy:upgrade:9.0:upgrade_menu_positions"
+        "alchemy:upgrade:9.0:upgrade_menu_positions",
+        "alchemy:upgrade:9.0:remove_deprecated_columns"
       ]
 
       desc "Replace the position of menu entries with their order in the menu"
       task upgrade_menu_positions: [:environment] do
         Alchemy::Upgrader["9.0"].upgrade_menu_positions
+      end
+
+      desc "Remove deprecated columns from pages and elements"
+      task remove_deprecated_columns: [:environment] do
+        Alchemy::Upgrader["9.0"].remove_deprecated_columns
       end
     end
   end
