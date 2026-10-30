@@ -6,7 +6,8 @@ require "alchemy/version"
 namespace :alchemy do
   desc "Upgrades your app to AlchemyCMS v#{Alchemy::VERSION}."
   task upgrade: [
-    "alchemy:upgrade:prepare"
+    "alchemy:upgrade:prepare",
+    "alchemy:upgrade:9.0:run"
   ] do
     Alchemy::Upgrader["9.0"].run_migrations
     Alchemy::Upgrader["9.0"].display_todos
@@ -27,6 +28,17 @@ namespace :alchemy do
     desc "Alchemy Upgrader: Update configuration file."
     task config: [:environment] do
       Alchemy::Upgrader["9.0"].update_config
+    end
+
+    namespace "9.0" do
+      task "run" => [
+        "alchemy:upgrade:9.0:remove_deprecated_columns"
+      ]
+
+      desc "Remove deprecated columns from pages and elements"
+      task remove_deprecated_columns: [:environment] do
+        Alchemy::Upgrader["9.0"].remove_deprecated_columns
+      end
     end
   end
 end

@@ -11,7 +11,9 @@ module Alchemy
 
     Dir["#{File.dirname(__FILE__)}/upgrader/*.rb"].sort.each { require(_1) }
 
-    VERSION_MODULE_MAP = {}
+    VERSION_MODULE_MAP = {
+      "9.0" => "Alchemy::Upgrader::NineZero"
+    }
 
     source_root Alchemy::Engine.root.join("lib/generators/alchemy/install")
 
@@ -24,8 +26,7 @@ module Alchemy
 
     def initialize(version)
       super()
-      version_module = VERSION_MODULE_MAP[version.to_s]
-      self.class.include version_module.constantize if version_module
+      self.class.include VERSION_MODULE_MAP[version.to_s].constantize
     end
 
     def update_config
