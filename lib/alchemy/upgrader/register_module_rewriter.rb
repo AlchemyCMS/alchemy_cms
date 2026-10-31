@@ -3,7 +3,8 @@
 module Alchemy
   class Upgrader
     # Rewrites +Alchemy::Modules.register_module+ calls with a static literal
-    # argument into +Alchemy.config.menu.add+ calls.
+    # argument into +Alchemy.config.menu.add+ calls, or +Alchemy.config.menu.insert+
+    # calls if they have a position within the default menu.
     #
     # Calls inside a +to_prepare+ block are guarded by the entry's name, because
     # +Alchemy.config.menu.add+ does not skip entries that are already present.
@@ -15,7 +16,7 @@ module Alchemy
       RECEIVERS = ["Alchemy::Modules", "::Alchemy::Modules"].freeze
 
       KEYS = %w[
-        name title engine_name position icon icon_style image inline_image turbo
+        name title engine_name icon icon_style image inline_image turbo
         controller action nested_controllers nested_actions children nested
       ].freeze
 
@@ -70,24 +71,36 @@ module Alchemy
         return unless arguments.first.is_a?(Prism::HashNode) || arguments.first.is_a?(Prism::KeywordHashNode)
         return unless heredocs_inside?(arguments.first, call, source)
 
-        item = Alchemy::Configurations::MenuItem.from_legacy_hash(literal(arguments.first))
+        definition = literal(arguments.first)
+        item = Alchemy::Configurations::MenuItem.from_legacy_hash(definition)
         return if in_to_prepare && item.name.blank?
+
+        index = menu_index(definition["position"])
 
         indent = " " * call.location.start_column
         if in_to_prepare
           <<~RUBY.chomp
             unless Alchemy.config.menu.any? { |item| item.name == #{item.name.inspect} }
-            #{indent}  #{menu_add(item, "#{indent}  ")}
+            #{indent}  #{menu_add(item, "#{indent}  ", index)}
             #{indent}end
           RUBY
         else
-          menu_add(item, indent)
+          menu_add(item, indent, index)
         end
       rescue NonLiteralError, Alchemy::Configuration::ConfigurationError
         nil
       end
 
-      def menu_add(item, indent)
+      # @return [Integer, nil] The index to insert the entry at or +nil+ to append it
+      def menu_index(position)
+        return if position.nil?
+        raise NonLiteralError unless position.is_a?(Numeric)
+
+        index = Alchemy::Configurations::MenuItem.index_for_legacy_position(position)
+        index if index < Alchemy::Configurations::Menu::DEFAULT.size
+      end
+
+      def menu_add(item, indent, index)
         pairs = attributes(item).map do |key, value|
           if key == "children" || key == "nested"
             entries = value.map { |entry| "#{indent}    #{inline_hash(entry)}" }
@@ -96,7 +109,11 @@ module Alchemy
             "#{indent}  #{key}: #{value.inspect}"
           end
         end
-        "Alchemy.config.menu.add(\n#{pairs.join(",\n")}\n#{indent})"
+        if index
+          "Alchemy.config.menu.insert(\n#{indent}  #{index},\n#{pairs.join(",\n")}\n#{indent})"
+        else
+          "Alchemy.config.menu.add(\n#{pairs.join(",\n")}\n#{indent})"
+        end
       end
 
       def inline_hash(item)

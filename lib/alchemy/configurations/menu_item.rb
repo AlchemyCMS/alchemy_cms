@@ -34,6 +34,12 @@ module Alchemy
         )
       end
 
+      # Legacy positions sorted entries around the default menu's entries, which
+      # used the positions 1 to 7, so +4.1+ maps to the index before Sites.
+      def self.index_for_legacy_position(position)
+        [position.ceil - 1, 0].max
+      end
+
       def self.from_legacy_navigation(navigation, engine_name:)
         {
           "title" => navigation["name"],
