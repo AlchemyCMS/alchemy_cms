@@ -14,7 +14,8 @@ module Alchemy
     VERSION_MODULE_MAP = {
       "8.0" => "Alchemy::Upgrader::EightZero",
       "8.1" => "Alchemy::Upgrader::EightOne",
-      "8.4" => "Alchemy::Upgrader::EightFour"
+      "8.4" => "Alchemy::Upgrader::EightFour",
+      "9.0" => "Alchemy::Upgrader::NineZero"
     }
 
     source_root Alchemy::Engine.root.join("lib/generators/alchemy/install")

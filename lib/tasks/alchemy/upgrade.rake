@@ -9,10 +9,11 @@ namespace :alchemy do
     "alchemy:upgrade:prepare",
     "alchemy:upgrade:8.0:run",
     "alchemy:upgrade:8.1:run",
-    "alchemy:upgrade:8.4:run"
+    "alchemy:upgrade:8.4:run",
+    "alchemy:upgrade:9.0:run"
   ] do
-    Alchemy::Upgrader["8.4"].run_migrations
-    Alchemy::Upgrader["8.4"].display_todos
+    Alchemy::Upgrader["9.0"].run_migrations
+    Alchemy::Upgrader["9.0"].display_todos
   end
 
   namespace :upgrade do
@@ -95,6 +96,17 @@ namespace :alchemy do
       desc "Rewrite register_module calls to the new menu configuration"
       task upgrade_menu_config: [:environment] do
         Alchemy::Upgrader["8.4"].upgrade_menu_config
+      end
+    end
+
+    namespace "9.0" do
+      task "run" => [
+        "alchemy:upgrade:9.0:upgrade_menu_positions"
+      ]
+
+      desc "Replace the position of menu entries with their order in the menu"
+      task upgrade_menu_positions: [:environment] do
+        Alchemy::Upgrader["9.0"].upgrade_menu_positions
       end
     end
   end
