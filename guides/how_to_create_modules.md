@@ -76,6 +76,16 @@ end
 
 `url` and `condition` are evaluated in the view context, so they can use route helpers like `main_app` or your engine's routing proxy, and the `can?` permission check.
 
+Entries are listed in the order of the menu, so `config.menu.add` appends yours at the end. Use `config.menu.insert` to place it elsewhere, e.g. between Languages and Sites:
+
+~~~ ruby
+config.menu.insert(4, name: "events", title: "Events", url: -> { main_app.admin_events_path })
+~~~
+
+::: warning
+Before Alchemy 9.0, menu entries were sorted by a `position` option. It is deprecated since Alchemy 8.4.2 and has been removed in Alchemy 9.0. See [Migrating from `position`](#migrating-from-position).
+:::
+
 ::: warning
 Add menu entries once, at boot. Unlike the old `register_module`, `config.menu.add` does not skip entries that are already present, so calling it inside a `to_prepare` block would add the entry again on every code reload in development.
 :::
@@ -88,7 +98,6 @@ Add menu entries once, at boot. Unlike the old `register_module`, `config.menu.a
 | `title` | `String` | Display name or I18n key (e.g. `"modules.events"`) |
 | `url` | `Proc` | Returns the link target. Evaluated in the view context |
 | `condition` | `Proc` | Returns whether the entry is shown. Evaluated in the view context. Entries without a condition are shown to every admin user |
-| `position` | `Numeric` | Sort order in the navigation sidebar (lower numbers appear higher). The core entries use `1` to `7`, so `4.5` places an entry between Languages and Sites. Entries without a position are listed last |
 | `icon` | `String` | A [Remix icon](https://remixicon.com) name (e.g. `"calendar"`, `"shopping-bag"`) |
 | `icon_style` | `String` | Remix icon style: `"line"` (default), `"fill"`, or `"none"` |
 | `inline_image` | `String` | Raw HTML or inline SVG for a custom icon (used instead of `icon`) |
@@ -427,5 +436,28 @@ To migrate a call by hand, move the keys of the `navigation` hash to the entry i
 | `navigation: {"icon-style": ...}` | `icon_style: ...` |
 | `navigation: {data: {turbo: false}}` | `turbo: false` |
 | `navigation: {params: {...}}` | No longer supported, add the parameters to the `url` instead |
+| `position: ...` | `config.menu.insert(index, ...)`, see [Migrating from `position`](#migrating-from-position) |
 
 The partials `alchemy/admin/_main_navi`, `alchemy/admin/partials/_main_navigation_entry` and `alchemy/admin/partials/_sub_navigation` have been replaced by the `Alchemy::Admin::MainNavigation` components. If your app overrides one of them, move your changes into a menu entry or into the `:alchemy_main_navigation` content block, which is still rendered at the end of the navigation.
+
+## Migrating from `position` <Badge type="tip" text="9.0+" />
+
+Up to Alchemy 8.4, menu entries were sorted by their `position`. Alchemy's own entries used the positions `1` to `7`, and entries without a position were listed last. Since Alchemy 9.0 the entries are listed in the order of `config.menu` instead.
+
+Remove the `position` and insert the entry at the index it was sorted to. A position of `4.5`, for example, placed the entry between Languages (`4`) and Sites (`5`), so it now goes to index `4`:
+
+~~~ ruby
+# Before
+config.menu.add(name: "events", title: "Events", position: 4.5)
+
+# After
+config.menu.insert(4, name: "events", title: "Events")
+~~~
+
+Entries positioned after Alchemy's own entries are appended with `config.menu.add` in the order you want them to appear.
+
+The upgrade task rewrites `config.menu.add` calls with a plain number as position and lists everything it could not rewrite:
+
+~~~ bash
+bin/rails alchemy:upgrade
+~~~
