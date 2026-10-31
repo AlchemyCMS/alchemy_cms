@@ -161,7 +161,8 @@ describe("alchemy-preview-window", () => {
       // Simulate postMessage from iframe
       window.dispatchEvent(
         new MessageEvent("message", {
-          data: { message: "Alchemy.previewReady" }
+          data: { message: "Alchemy.previewReady" },
+          source: previewWindow.contentWindow
         })
       )
 
@@ -183,7 +184,8 @@ describe("alchemy-preview-window", () => {
       // Simulate postMessage from iframe before timeout
       window.dispatchEvent(
         new MessageEvent("message", {
-          data: { message: "Alchemy.previewReady" }
+          data: { message: "Alchemy.previewReady" },
+          source: previewWindow.contentWindow
         })
       )
 
@@ -238,13 +240,76 @@ describe("alchemy-preview-window", () => {
 
       window.dispatchEvent(
         new MessageEvent("message", {
-          data: { message: "Alchemy.previewReady" }
+          data: { message: "Alchemy.previewReady" },
+          source: previewWindow.contentWindow
         })
       )
       await Promise.resolve()
       await Promise.resolve()
 
       expect(resolved).toBe(false)
+    })
+  })
+
+  describe("messages", () => {
+    const previewOrigin = "https://www.example.com"
+    let postMessageSpy
+
+    beforeEach(() => {
+      // Keeps the load timeout of refresh from growling after the example.
+      vi.useFakeTimers()
+      postMessageSpy = vi
+        .spyOn(previewWindow.contentWindow, "postMessage")
+        .mockImplementation(() => {})
+    })
+
+    afterEach(() => {
+      vi.useRealTimers()
+      vi.restoreAllMocks()
+    })
+
+    function previewReady(source = previewWindow.contentWindow) {
+      window.dispatchEvent(
+        new MessageEvent("message", {
+          data: { message: "Alchemy.previewReady" },
+          origin: previewOrigin,
+          source
+        })
+      )
+    }
+
+    it("are sent to the origin the preview reported as ready from", () => {
+      previewReady()
+
+      previewWindow.postMessage({ message: "Alchemy.blurElements" })
+
+      expect(postMessageSpy).toHaveBeenCalledWith(
+        { message: "Alchemy.blurElements" },
+        previewOrigin
+      )
+    })
+
+    it("are not sent before the preview is ready", () => {
+      previewWindow.postMessage({ message: "Alchemy.blurElements" })
+
+      expect(postMessageSpy).not.toHaveBeenCalled()
+    })
+
+    it("are not sent to a preview that was reloaded", () => {
+      previewReady()
+
+      previewWindow.refresh()
+      previewWindow.postMessage({ message: "Alchemy.blurElements" })
+
+      expect(postMessageSpy).not.toHaveBeenCalled()
+    })
+
+    it("are not sent to other windows reporting as ready", () => {
+      previewReady(window)
+
+      previewWindow.postMessage({ message: "Alchemy.blurElements" })
+
+      expect(postMessageSpy).not.toHaveBeenCalled()
     })
   })
 })
