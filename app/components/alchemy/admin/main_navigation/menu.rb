@@ -12,8 +12,7 @@ module Alchemy
         ERB
 
         def items
-          positioned, unpositioned = Alchemy.config.menu.partition(&:position)
-          positioned.sort_by(&:position) + unpositioned
+          Alchemy.config.menu.to_a
         end
       end
     end
