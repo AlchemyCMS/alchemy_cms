@@ -269,6 +269,35 @@ RSpec.describe Alchemy::Configurations::MenuItem do
     end
   end
 
+  describe ".index_for_legacy_position" do
+    it "returns the index the position had in the default menu" do
+      expect(described_class.index_for_legacy_position(1)).to eq(0)
+      expect(described_class.index_for_legacy_position(4.1)).to eq(4)
+      expect(described_class.index_for_legacy_position(8)).to eq(7)
+    end
+
+    it "does not return a negative index" do
+      expect(described_class.index_for_legacy_position(0)).to eq(0)
+    end
+  end
+
+  describe "#position=" do
+    it "is deprecated" do
+      expect(Alchemy::Deprecation).to receive(:warn).with(/`position` of menu entries is deprecated.*"events"/)
+      described_class.new(name: "events", position: 4.1)
+    end
+
+    it "is not deprecated for Alchemy's own entries" do
+      expect(Alchemy::Deprecation).not_to receive(:warn)
+      described_class.new(name: "pages", position: 2)
+    end
+
+    it "is not deprecated without a position" do
+      expect(Alchemy::Deprecation).not_to receive(:warn)
+      described_class.new(name: "events").position
+    end
+  end
+
   describe ".from_legacy_hash" do
     subject(:item) { described_class.from_legacy_hash(legacy_hash) }
 
@@ -313,6 +342,11 @@ RSpec.describe Alchemy::Configurations::MenuItem do
 
     it "round-trips through to_legacy_hash" do
       expect(Alchemy::Modules.to_legacy_hash(item)).to eq(legacy_hash)
+    end
+
+    it "does not deprecate the position, as register_module is deprecated already" do
+      expect(Alchemy::Deprecation).not_to receive(:warn)
+      expect(item.position).to eq(8)
     end
 
     context "with a float position" do
