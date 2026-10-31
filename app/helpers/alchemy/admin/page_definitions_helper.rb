@@ -3,17 +3,18 @@
 module Alchemy
   module Admin
     module PageDefinitionsHelper
-      # Returns true if the technical or translated name of the page definition
-      # or of any of its elements, including nested ones, contains the query.
+      # Returns the path to the page definitions, filtered by page type
+      # and with the search query to highlight.
       #
-      # @param [Alchemy::PageDefinition]
-      # @param [String, nil]
-      # @return [Boolean]
-      def page_definition_matches?(page_definition, query)
-        return true if query.blank?
-
-        names_match?(query, page_definition.name, page_definition.human_name) ||
-          page_definition.elements.any? { element_definition_matches?(_1, query) }
+      # @param [String, nil] page type name
+      # @param [String, nil] search query
+      # @param [String, nil] anchor to scroll to
+      # @return [String]
+      def page_definitions_filter_path(page_type: nil, query: nil, anchor: nil)
+        alchemy.admin_page_definitions_path(
+          q: {name_eq: page_type, name_or_elements_cont: query}.compact_blank.presence,
+          anchor: anchor
+        )
       end
 
       # Returns true if the technical or translated name of the element

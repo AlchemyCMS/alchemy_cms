@@ -3,46 +3,27 @@
 require "rails_helper"
 
 describe Alchemy::Admin::PageDefinitionsHelper do
-  describe "#page_definition_matches?" do
-    subject { helper.page_definition_matches?(page_definition, query) }
-
-    let(:page_definition) { Alchemy::PageDefinition.new(name: "standard", elements: ["gallery"]) }
-
-    context "without query" do
-      let(:query) { nil }
-
-      it { is_expected.to be(true) }
+  describe "#page_definitions_filter_path" do
+    it "returns the unfiltered path without arguments" do
+      expect(helper.page_definitions_filter_path).to eq("/admin/page_definitions")
     end
 
-    context "with query matching the technical name" do
-      let(:query) { "stand" }
-
-      it { is_expected.to be(true) }
+    it "filters by page type and keeps the query" do
+      expect(helper.page_definitions_filter_path(page_type: "news", query: "head")).to eq(
+        "/admin/page_definitions?q%5Bname_eq%5D=news&q%5Bname_or_elements_cont%5D=head"
+      )
     end
 
-    context "with query matching the translated name" do
-      let(:page_definition) { Alchemy::PageDefinition.new(name: "everything", elements: []) }
-      let(:query) { "Everything" }
-
-      it { is_expected.to be(true) }
+    it "adds an anchor" do
+      expect(helper.page_definitions_filter_path(query: "head", anchor: "news")).to eq(
+        "/admin/page_definitions?q%5Bname_or_elements_cont%5D=head#news"
+      )
     end
 
-    context "with query matching an element name" do
-      let(:query) { "gallery" }
-
-      it { is_expected.to be(true) }
-    end
-
-    context "with query matching a translated nested element name" do
-      let(:query) { "gallery pic" }
-
-      it { is_expected.to be(true) }
-    end
-
-    context "with query matching nothing" do
-      let(:query) { "slider" }
-
-      it { is_expected.to be(false) }
+    it "omits blank values" do
+      expect(helper.page_definitions_filter_path(page_type: "news", query: "")).to eq(
+        "/admin/page_definitions?q%5Bname_eq%5D=news"
+      )
     end
   end
 
