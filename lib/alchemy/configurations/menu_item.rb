@@ -82,8 +82,8 @@ module Alchemy
         current_path = view_context.request.path
         path_matches = if match_path
           match_path.match?(current_path)
-        elsif (own_path = local_path(view_context))
-          current_path == own_path || current_path.start_with?("#{own_path.chomp("/")}/")
+        elsif (own_path = local_path(view_context)&.chomp("/"))
+          current_path.chomp("/") == own_path || current_path.start_with?("#{own_path}/")
         end
 
         path_matches || [self, *nested].any? do |entry|
