@@ -269,6 +269,18 @@ RSpec.describe Alchemy::Configurations::MenuItem do
     end
   end
 
+  describe ".index_for_legacy_position" do
+    it "returns the index the position had in the default menu" do
+      expect(described_class.index_for_legacy_position(1)).to eq(0)
+      expect(described_class.index_for_legacy_position(4.1)).to eq(4)
+      expect(described_class.index_for_legacy_position(8)).to eq(7)
+    end
+
+    it "does not return a negative index" do
+      expect(described_class.index_for_legacy_position(0)).to eq(0)
+    end
+  end
+
   describe ".from_legacy_hash" do
     subject(:item) { described_class.from_legacy_hash(legacy_hash) }
 
