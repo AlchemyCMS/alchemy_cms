@@ -115,6 +115,28 @@ RSpec.describe Alchemy::Configurations::MenuItem do
       it { expect(item.current?(view_context)).to be(true) }
     end
 
+    context "with a url that has a trailing slash" do
+      let(:item) { described_class.new(url: -> { alchemy.admin_pages_path(trailing_slash: true) }) }
+
+      context "on the item's url" do
+        let(:current_path) { "/admin/pages" }
+
+        it { expect(item.current?(view_context)).to be(true) }
+      end
+
+      context "below the item's url" do
+        let(:current_path) { "/admin/pages/1/edit" }
+
+        it { expect(item.current?(view_context)).to be(true) }
+      end
+
+      context "on a path that only shares the item's url as prefix" do
+        let(:current_path) { "/admin/pagesfoo" }
+
+        it { expect(item.current?(view_context)).to be(false) }
+      end
+    end
+
     context "on a path that only shares the item's url as prefix" do
       let(:current_path) { "/admin/pagesfoo" }
 
