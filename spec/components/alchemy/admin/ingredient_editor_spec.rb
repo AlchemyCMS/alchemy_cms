@@ -6,10 +6,6 @@ RSpec.describe Alchemy::Admin::IngredientEditor, type: :component do
   let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat") }
   let(:ingredient) { Alchemy::Ingredients::Text.new(id: 1, role: "headline", value: "Hello", element: element) }
 
-  let(:element_form) do
-    ActionView::Helpers::FormBuilder.new(:element, element, vc_test_view_context, {})
-  end
-
   before do
     vc_test_view_context.class.include Alchemy::Admin::BaseHelper
     allow(ingredient).to receive(:settings) { {} }
@@ -19,45 +15,11 @@ RSpec.describe Alchemy::Admin::IngredientEditor, type: :component do
   end
 
   describe "#call" do
-    context "when ingredient has no editor partial" do
-      it "renders the ingredient's editor component" do
-        render_inline(described_class.new(ingredient: ingredient))
+    it "renders the ingredient's editor component" do
+      render_inline(described_class.new(ingredient: ingredient))
 
-        expect(page).to have_css(".ingredient-editor.text")
-        expect(page).to have_css("input[type='text']")
-      end
-    end
-
-    context "when ingredient has a deprecated editor partial", :silence_deprecations do
-      let(:partial_dir) { Rails.root.join("app/views/alchemy/ingredients") }
-      let(:partial_path) { partial_dir.join("_text_editor.html.erb") }
-
-      before do
-        # Clear Rails template cache before creating the partial
-        ActionView::LookupContext::DetailsKey.clear
-        # Create a temporary partial for the test
-        FileUtils.mkdir_p(partial_dir)
-        File.write(partial_path, "<div class='deprecated-editor'>deprecated</div>")
-      end
-
-      after do
-        FileUtils.rm_rf(partial_dir)
-        # Clear Rails template cache to avoid interference with other tests
-        ActionView::LookupContext::DetailsKey.clear
-      end
-
-      it "logs a deprecation warning and passes element_form to partial" do
-        expect(Alchemy::Deprecation).to receive(:warn).with(/Ingredient editor partials are deprecated!/)
-
-        render_inline(described_class.new(ingredient: ingredient, element_form: element_form))
-
-        expect(page).to have_css(".deprecated-editor")
-      end
-
-      it "renders the deprecated partial with an IngredientEditor decorator" do
-        expect(Alchemy::IngredientEditor).to receive(:new).with(ingredient).and_call_original
-        render_inline(described_class.new(ingredient: ingredient, element_form: element_form))
-      end
+      expect(page).to have_css(".ingredient-editor.text")
+      expect(page).to have_css("input[type='text']")
     end
   end
 

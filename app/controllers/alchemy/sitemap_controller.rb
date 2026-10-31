@@ -9,11 +9,9 @@ module Alchemy
   class SitemapController < Alchemy::BaseController
     include SiteRedirects
 
-    # Still the pages template, because apps override it at that path.
-    #
-    # TODO: Move to alchemy/sitemap/show in Alchemy 9.0, together with the
-    # deprecated PagesController#sitemap.
-    TEMPLATE = "alchemy/pages/sitemap"
+    # Alchemy no longer ships this template, so finding it means the app
+    # overrides the sitemap at its old path.
+    LEGACY_TEMPLATE = "alchemy/pages/sitemap"
 
     def show
       if sitemap_caching_enabled?
@@ -31,10 +29,20 @@ module Alchemy
       # cache, so a cache hit never runs this query.
       @pages = Page.sitemap
 
-      render template: TEMPLATE, layout: "alchemy/sitemap"
+      render template: sitemap_template, layout: "alchemy/sitemap"
     end
 
     private
+
+    def sitemap_template
+      return "alchemy/sitemap/show" unless template_exists?(LEGACY_TEMPLATE)
+
+      Alchemy::Deprecation.warn(
+        "Overriding the sitemap at `#{LEGACY_TEMPLATE}` is deprecated. " \
+        "Move your template to `app/views/alchemy/sitemap/show.xml.erb` instead."
+      )
+      LEGACY_TEMPLATE
+    end
 
     def sitemap_cache_key
       @_sitemap_cache_key ||= Page::SitemapCacheKey.new(

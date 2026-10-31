@@ -41,8 +41,7 @@
       <% if has_ingredients_defined? %>
         <div class="element-ingredient-editors">
           <%= render Alchemy::Admin::IngredientEditor.with_collection(
-            ungrouped_ingredients,
-            element_form: f
+            ungrouped_ingredients
           ) %>
         </div>
 
@@ -53,8 +52,7 @@
               <%= translated_group group %>
             </summary>
             <%= render Alchemy::Admin::IngredientEditor.with_collection(
-              ingredients,
-              element_form: f
+              ingredients
             ) %>
           <% end %>
         <% end %>

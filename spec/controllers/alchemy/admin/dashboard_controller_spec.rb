@@ -17,13 +17,6 @@ module Alchemy
       end
     end
 
-    describe "#info" do
-      it "is deprecated" do
-        expect(Alchemy::Deprecation).to receive(:warn)
-        get :info
-      end
-    end
-
     describe "#license" do
       it "reads the LICENSE file" do
         get :license

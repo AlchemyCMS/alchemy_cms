@@ -17,43 +17,12 @@ module Alchemy
       option :match_path, :regexp
       option :children, :collection, item_type: :configuration, config_class: MenuItem
 
-      # Legacy options of entries registered with +Alchemy::Modules.register_module+
+      # Legacy controller based options
       option :controller, :string
       option :action, :string
       option :nested_controllers, :collection, item_type: :string
       option :nested_actions, :collection, item_type: :string
       option :nested, :collection, item_type: :configuration, config_class: MenuItem
-
-      def self.from_legacy_hash(hash)
-        hash = hash.to_h.deep_stringify_keys
-        new(
-          from_legacy_navigation(hash["navigation"] || {}, engine_name: hash["engine_name"]).merge(
-            "name" => hash["name"],
-            "position" => hash["position"]
-          ).compact
-        )
-      end
-
-      def self.from_legacy_navigation(navigation, engine_name:)
-        {
-          "title" => navigation["name"],
-          "engine_name" => engine_name,
-          "controller" => navigation["controller"],
-          "action" => navigation["action"],
-          "url" => navigation["url"],
-          "condition" => navigation["condition"],
-          "icon" => navigation["icon"],
-          "icon_style" => navigation["icon-style"],
-          "image" => navigation["image"],
-          "inline_image" => navigation["inline_image"],
-          "turbo" => navigation.dig("data", "turbo").to_s != "false",
-          "nested_controllers" => navigation["nested_controllers"],
-          "nested_actions" => navigation["nested_actions"],
-          "children" => navigation["sub_navigation"]&.map { |entry| new(from_legacy_navigation(entry, engine_name:)) },
-          "nested" => navigation["nested"]&.map { |entry| new(from_legacy_navigation(entry, engine_name:)) }
-        }.compact
-      end
-      private_class_method :from_legacy_navigation
 
       def path(view_context)
         if url

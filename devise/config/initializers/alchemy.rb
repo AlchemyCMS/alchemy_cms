@@ -3,17 +3,17 @@
 Rails.application.config.to_prepare do
   Alchemy.config.abilities.add("Alchemy::Devise::Ability")
 
-  Alchemy::Modules.register_module({
-    name: "users",
-    engine_name: "alchemy",
-    position: 4.1,
-    navigation: {
-      name: "modules.users",
-      controller: "/alchemy/admin/users",
-      action: "index",
-      icon: "group"
-    }
-  })
+  # to_prepare runs again on every code reload
+  unless Alchemy.config.menu.any? { |item| item.name == "users" }
+    Alchemy.config.menu.add(
+      name: "users",
+      title: "modules.users",
+      position: 4.1,
+      icon: "group",
+      url: -> { alchemy.admin_users_path },
+      condition: -> { can?(:index, :alchemy_admin_users) }
+    )
+  end
 
   Alchemy.config.signup_path = "/admin/signup"
   Alchemy.config.login_path = "/admin/login"

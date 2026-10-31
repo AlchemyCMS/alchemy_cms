@@ -11,6 +11,7 @@ namespace :alchemy do
       Rake::Task["alchemy:tidy:remove_trashed_elements"].invoke
       Rake::Task["alchemy:tidy:remove_duplicate_legacy_urls"].invoke
       Rake::Task["alchemy:tidy:remove_legacy_essence_tables"].invoke
+      Rake::Task["alchemy:tidy:remove_deprecated_columns"].invoke
     end
 
     desc "Fixes element positions."
@@ -41,6 +42,11 @@ namespace :alchemy do
     desc "Remove all legacy essence tables"
     task remove_legacy_essence_tables: [:environment] do
       Alchemy::Tidy.remove_legacy_essence_tables
+    end
+
+    desc "Remove deprecated columns from pages and elements"
+    task remove_deprecated_columns: [:environment] do
+      Alchemy::Tidy.remove_deprecated_columns
     end
 
     desc "List Alchemy elements usage"

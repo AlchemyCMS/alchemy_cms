@@ -12,9 +12,7 @@ module Alchemy
     Dir["#{File.dirname(__FILE__)}/upgrader/*.rb"].sort.each { require(_1) }
 
     VERSION_MODULE_MAP = {
-      "8.0" => "Alchemy::Upgrader::EightZero",
-      "8.1" => "Alchemy::Upgrader::EightOne",
-      "8.4" => "Alchemy::Upgrader::EightFour"
+      "9.0" => "Alchemy::Upgrader::NineZero"
     }
 
     source_root Alchemy::Engine.root.join("lib/generators/alchemy/install")
