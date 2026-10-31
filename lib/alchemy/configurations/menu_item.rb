@@ -24,14 +24,32 @@ module Alchemy
       option :nested_actions, :collection, item_type: :string
       option :nested, :collection, item_type: :configuration, config_class: MenuItem
 
+      alias_method :set_position, :position=
+      private :set_position
+
+      # Alchemy's own entries still need their positions for sorting,
+      # so only positions of other entries are deprecated.
+      def position=(value)
+        if value && Menu::DEFAULT.none? { |entry| entry[:name] == name }
+          Alchemy::Deprecation.warn(
+            "The `position` of menu entries is deprecated and will be removed in Alchemy 9.0, " \
+            "which lists the entries in the order of `Alchemy.config.menu`. " \
+            "Use `Alchemy.config.menu.insert` to place the #{name.inspect} entry instead."
+          )
+        end
+        set_position(value)
+      end
+
       def self.from_legacy_hash(hash)
         hash = hash.to_h.deep_stringify_keys
-        new(
+        item = new(
           from_legacy_navigation(hash["navigation"] || {}, engine_name: hash["engine_name"]).merge(
-            "name" => hash["name"],
-            "position" => hash["position"]
+            "name" => hash["name"]
           ).compact
         )
+        # +register_module+ is deprecated already
+        item.send(:set_position, hash["position"]) if hash["position"]
+        item
       end
 
       # Positions sort entries around the default menu's entries, which use

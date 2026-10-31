@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Alchemy::Admin::MainNavigation::Menu, type: :component do
+RSpec.describe Alchemy::Admin::MainNavigation::Menu, type: :component, silence_deprecations: true do
   let(:first) do
     Alchemy::Configurations::MenuItem.new(name: "first", title: "First", position: 1, url: -> { alchemy.admin_pages_path })
   end
