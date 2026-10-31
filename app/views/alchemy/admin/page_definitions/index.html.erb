@@ -21,13 +21,18 @@
       <h2>
         <%= Alchemy::PageDefinition.model_name.human(count: :many) %>
       </h2>
-      <ol>
-        <% @page_definitions.each do |page_layout| %>
-          <li>
-            <%= link_to highlight(page_layout.human_name, @query), "##{page_layout.name}", data: {turbo: false} %>
-          </li>
-        <% end %>
-      </ol>
+      <% @page_definitions.group_by(&:layoutpage).each do |layoutpage, page_layouts| %>
+        <h3>
+          <%= layoutpage ? Alchemy.t(:layoutpages, scope: "modules") : Alchemy.t(:content_pages, scope: "admin.page_definitions") %>
+        </h3>
+        <ol>
+          <% page_layouts.each do |page_layout| %>
+            <li>
+              <%= link_to highlight(page_layout.human_name, @query), "##{page_layout.name}", data: {turbo: false} %>
+            </li>
+          <% end %>
+        </ol>
+      <% end %>
     </aside>
     <div>
       <%= render collection: @page_definitions, partial: "page_definition" %>
