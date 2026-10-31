@@ -34,7 +34,7 @@ RSpec.describe "Show page info feature", type: :system do
       visit alchemy.info_admin_page_path(alchemy_page)
 
       within ".resource_info" do
-        expect(page).to have_link("Standard", href: alchemy.admin_page_definitions_path(q: "Standard", anchor: "standard"))
+        expect(page).to have_link("Standard", href: alchemy.admin_page_definitions_path(q: {name_eq: "standard"}))
       end
     end
 
