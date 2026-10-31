@@ -128,15 +128,15 @@ RSpec.describe Alchemy::Configurations::Main do
       expect(menu.map(&:name)).to eq(%w[dashboard pages menus languages sites tags archive])
     end
 
-    it "keeps positions, titles and icons" do
-      expect(menu.map { |item| [item.position, item.title, item.icon, item.icon_style] }).to eq([
-        [1, "Home", "home-2", nil],
-        [2, "modules.pages", "pages", nil],
-        [3, "modules.menus", "menu-2", nil],
-        [4, "modules.languages", "translate-2", "none"],
-        [5, "modules.sites", "global", nil],
-        [6, "modules.tags", "price-tag-3", nil],
-        [7, "modules.library", "archive-drawer", nil]
+    it "keeps titles and icons" do
+      expect(menu.map { |item| [item.title, item.icon, item.icon_style] }).to eq([
+        ["Home", "home-2", nil],
+        ["modules.pages", "pages", nil],
+        ["modules.menus", "menu-2", nil],
+        ["modules.languages", "translate-2", "none"],
+        ["modules.sites", "global", nil],
+        ["modules.tags", "price-tag-3", nil],
+        ["modules.library", "archive-drawer", nil]
       ])
     end
 

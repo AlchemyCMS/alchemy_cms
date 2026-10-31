@@ -6,7 +6,6 @@ module Alchemy
       option :name, :string
       option :title, :string
       option :engine_name, :string
-      option :position, :number
       option :icon, :string
       option :icon_style, :string
       option :image, :string
@@ -28,8 +27,7 @@ module Alchemy
         hash = hash.to_h.deep_stringify_keys
         new(
           from_legacy_navigation(hash["navigation"] || {}, engine_name: hash["engine_name"]).merge(
-            "name" => hash["name"],
-            "position" => hash["position"]
+            "name" => hash["name"]
           ).compact
         )
       end

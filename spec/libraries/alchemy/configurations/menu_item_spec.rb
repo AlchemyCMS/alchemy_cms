@@ -22,7 +22,6 @@ RSpec.describe Alchemy::Configurations::MenuItem do
         name: "pages",
         title: "modules.pages",
         engine_name: "alchemy",
-        position: 4.1,
         icon: "pages",
         icon_style: "none",
         url: -> { alchemy.admin_pages_path },
@@ -38,7 +37,6 @@ RSpec.describe Alchemy::Configurations::MenuItem do
       expect(item.name).to eq("pages")
       expect(item.title).to eq("modules.pages")
       expect(item.engine_name).to eq("alchemy")
-      expect(item.position).to eq(4.1)
       expect(item.icon).to eq("pages")
       expect(item.icon_style).to eq("none")
       expect(item.url).to be_a(Proc)
@@ -288,7 +286,6 @@ RSpec.describe Alchemy::Configurations::MenuItem do
       {
         "name" => "events",
         "engine_name" => "my_engine",
-        "position" => 8,
         "navigation" => {
           "name" => "Events",
           "controller" => "/admin/events",
@@ -309,7 +306,6 @@ RSpec.describe Alchemy::Configurations::MenuItem do
     it "flattens the navigation and renames its keys" do
       expect(item.name).to eq("events")
       expect(item.engine_name).to eq("my_engine")
-      expect(item.position).to eq(8)
       expect(item.title).to eq("Events")
       expect(item.controller).to eq("/admin/events")
       expect(item.icon_style).to eq("none")
@@ -325,17 +321,6 @@ RSpec.describe Alchemy::Configurations::MenuItem do
 
     it "round-trips through to_legacy_hash" do
       expect(Alchemy::Modules.to_legacy_hash(item)).to eq(legacy_hash)
-    end
-
-    context "with a float position" do
-      let(:legacy_hash) do
-        {name: "users", engine_name: "alchemy", position: 4.1,
-         navigation: {name: "modules.users", controller: "/alchemy/admin/users", action: "index", icon: "group"}}
-      end
-
-      it "keeps it" do
-        expect(item.position).to eq(4.1)
-      end
     end
 
     context "with symbol keys" do
