@@ -125,7 +125,7 @@ RSpec.describe Alchemy::Configurations::Main do
 
     it "holds the core navigation entries" do
       expect(menu).to all(be_a(Alchemy::Configurations::MenuItem))
-      expect(menu.map(&:name)).to eq(%w[dashboard pages menus languages sites tags archive])
+      expect(menu.map(&:name)).to eq(%w[dashboard pages menus languages sites tags definitions archive])
     end
 
     it "keeps positions, titles and icons" do
@@ -136,13 +136,14 @@ RSpec.describe Alchemy::Configurations::Main do
         [4, "modules.languages", "translate-2", "none"],
         [5, "modules.sites", "global", nil],
         [6, "modules.tags", "price-tag-3", nil],
-        [7, "modules.library", "archive-drawer", nil]
+        [7, "modules.page_definitions", "ruler-2", nil],
+        [8, "modules.library", "archive-drawer", nil]
       ])
     end
 
     it "links the core entries to their index pages" do
       expect(menu.map { |item| item.path(view_context) }).to eq(
-        %w[/admin/dashboard /admin/pages /admin/nodes /admin/languages /admin/sites /admin/tags /admin/pictures]
+        %w[/admin/dashboard /admin/pages /admin/nodes /admin/languages /admin/sites /admin/tags /admin/page_definitions /admin/pictures]
       )
     end
 
@@ -166,6 +167,7 @@ RSpec.describe Alchemy::Configurations::Main do
         [:index, :alchemy_admin_languages],
         [:index, :alchemy_admin_sites],
         [:index, :alchemy_admin_tags],
+        [:index, :alchemy_admin_page_definitions],
         [:index, :alchemy_admin_pictures], [:index, :alchemy_admin_pictures], [:index, :alchemy_admin_attachments]
       ])
     end

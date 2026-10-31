@@ -1,0 +1,71 @@
+<%= content_for :toolbar do %>
+  <%= form_with url: alchemy.admin_page_definitions_path, method: :get, class: "search_form" do %>
+    <div class="search_field">
+      <button type="submit">
+        <%= render_icon(:search) %>
+      </button>
+      <%= search_field_tag "q[name_or_elements_cont]", @query,
+        id: "q_name_or_elements_cont",
+        class: "search_input_field",
+        placeholder: Alchemy.t(:search) %>
+      <% if @page_type %>
+        <%= hidden_field_tag "q[name_eq]", @page_type, id: nil %>
+      <% end %>
+      <%= link_to render_icon(:times, size: "1x"), page_definitions_filter_path(page_type: @page_type),
+        class: "search_field_clear",
+        title: Alchemy.t(:click_to_show_all),
+        style: @query ? "visibility: visible" : "visibility: hidden" %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-definitions">
+  <aside>
+    <h2>
+      <%= @all_page_definitions.size %>
+      <%= Alchemy::PageDefinition.model_name.human(count: @all_page_definitions.size) %>
+      <% if @page_type %>
+        <sl-tooltip content="<%= Alchemy.t(:show_all_page_types, scope: "admin.page_definitions") %>">
+          <%= link_to render_icon("filter-3", size: "1x"), page_definitions_filter_path(query: @query),
+            class: "icon_button active" %>
+        </sl-tooltip>
+      <% end %>
+    </h2>
+    <% @all_page_definitions.group_by(&:layoutpage).each do |layoutpage, page_layouts| %>
+      <h3>
+        <%= layoutpage ? Alchemy.t(:layoutpages, scope: "modules") : Alchemy.t(:content_pages, scope: "admin.page_definitions") %>
+        <small class="label"><%= page_layouts.size %></small>
+      </h3>
+      <ol>
+        <% page_layouts.each do |page_layout| %>
+          <% active = page_layout.name == @page_type %>
+          <li class="<%= "active" if active %>">
+            <% if @page_definitions.include?(page_layout) %>
+              <%= link_to highlight(page_layout.human_name, @query), "##{page_layout.name}", data: {turbo: false} %>
+            <% else %>
+              <%= link_to highlight(page_layout.human_name, @query), page_definitions_filter_path(query: @query, anchor: page_layout.name) %>
+            <% end %>
+            <% if active %>
+              <sl-tooltip content="<%= Alchemy.t(:show_all_page_types, scope: "admin.page_definitions") %>">
+                <%= link_to render_icon("filter-3", size: "1x"), page_definitions_filter_path(query: @query),
+                  class: "icon_button active" %>
+              </sl-tooltip>
+            <% else %>
+              <sl-tooltip content="<%= Alchemy.t(:show_only_this_page_type, scope: "admin.page_definitions") %>">
+                <%= link_to render_icon("filter-3", size: "1x"), page_definitions_filter_path(page_type: page_layout.name, query: @query),
+                  class: "icon_button" %>
+              </sl-tooltip>
+            <% end %>
+          </li>
+        <% end %>
+      </ol>
+    <% end %>
+  </aside>
+  <div>
+    <% if @page_definitions.any? %>
+      <%= render collection: @page_definitions, partial: "page_definition" %>
+    <% else %>
+      <%= render_message { Alchemy.t("Nothing found") } %>
+    <% end %>
+  </div>
+</div>

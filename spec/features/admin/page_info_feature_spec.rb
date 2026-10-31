@@ -29,5 +29,27 @@ RSpec.describe "Show page info feature", type: :system do
         expect(page).to have_content("Was updated from unknown at " + I18n.l(alchemy_page.updated_at, format: :"alchemy.page_status"))
       end
     end
+
+    it "links the page type to its page definition" do
+      visit alchemy.info_admin_page_path(alchemy_page)
+
+      within ".resource_info" do
+        expect(page).to have_link("Standard", href: alchemy.admin_page_definitions_path(q: {name_eq: "standard"}))
+      end
+    end
+
+    context "if the page definition is missing" do
+      before do
+        alchemy_page.update_columns(page_layout: "missing")
+      end
+
+      it "does not link the page type" do
+        visit alchemy.info_admin_page_path(alchemy_page)
+
+        within ".resource_info" do
+          expect(page).not_to have_link(href: /page_definitions/)
+        end
+      end
+    end
   end
 end

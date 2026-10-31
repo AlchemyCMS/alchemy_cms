@@ -256,6 +256,13 @@ en:
           hidden_no_schedule: Change dates to make it visible again.
           hidden_scheduled_html: It will be visible from <b>%{public_on}</b>.
           hidden_window_html: It will be visible from <b>%{public_on}</b> until <b>%{public_until}</b>.
+      page_definitions:
+        content_pages: "Content Pages"
+        element_usage: "On this page type: %{count} · In total: %{total}"
+        show_pages: "Show %{count} %{model_name}"
+        show_all_page_types: "Show all page types"
+        show_only_this_page_type: "Show only this page type"
+        zero_pages: "0 Pages"
       pictures:
         sorting_select:
           label: "Sorting"
@@ -264,6 +271,13 @@ en:
       publish_page_button:
         publish_page: "Publish page"
         publish_changes: "Publish changes"
+      hints:
+        alchemy/element_definition:
+          fixed: "This element has a fixed position on the page."
+          unique: "This element can only be used once per page."
+        alchemy/page_definition:
+          unique: "This page type can only be used once per language."
+          layoutpage: "This page is global and is not available via URL."
     add_nested_element: "Add %{name}"
     anchor: "Anchor"
     anchor_link_headline: You can link to an anchor from the current page.
@@ -546,6 +560,7 @@ en:
     modules:
       attachments: "Files"
       dashboard: "Dashboard"
+      page_definitions: "Definitions"
       pictures: "Images"
       languages: "Languages"
       layoutpages: "Global Pages"
@@ -848,6 +863,9 @@ en:
         one: Message
         other: Messages
       alchemy/admin/preview_url: Internal
+      alchemy/page_definition:
+        one: Page Type
+        other: Page Types
     attributes:
       alchemy/message:
         salutation: "Salutation"
@@ -859,6 +877,9 @@ en:
         phone: "Telephone"
         email: "Email"
         message: "Message"
+      alchemy/page_definition:
+        elements: Available Elements
+        layoutpage: Global
 
   # Translations for Alchemy database models
   activerecord:
@@ -904,9 +925,51 @@ en:
       alchemy/element:
         one: "Element"
         other: "Elements"
+      alchemy/ingredients/audio:
+        one: Audiofile
+        other: Audiofiles
+      alchemy/ingredients/boolean:
+        one: True/False
+        other: True/False
+      alchemy/ingredients/datetime:
+        one: Date/Time
+        other: Dates/Times
+      alchemy/ingredients/file:
+        one: File
+        other: Files
       alchemy/ingredients/headline:
         one: Headline
         other: Headlines
+      alchemy/ingredients/html:
+        one: HTML
+        other: HTMLs
+      alchemy/ingredients/link:
+        one: Link
+        other: Links
+      alchemy/ingredients/node:
+        one: Menu Node
+        other: Menu Nodes
+      alchemy/ingredients/number:
+        one: Number
+        other: Numbers
+      alchemy/ingredients/page:
+        one: Page
+        other: Pages
+      alchemy/ingredients/picture:
+        one: Picture
+        other: Pictures
+      alchemy/ingredients/richtext:
+        one: Rich Text
+        other: Rich Texts
+      alchemy/ingredients/select:
+        one: Selection
+        other: Selections
+      alchemy/ingredients/text:
+        one: Text
+        other: Texts
+      alchemy/ingredients/video:
+        one: Videofile
+        other: Videofiles
       alchemy/legacy_page_url:
         one: "Link"
         other: "Links"
