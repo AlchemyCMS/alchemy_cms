@@ -35,6 +35,10 @@
     max-height: calc(100vh - var(--top-menu-height) - var(--spacing-2) * 2);
     overflow-y: auto;
 
+    h3 {
+      margin: var(--spacing-4) var(--spacing-4) 0;
+    }
+
     ol {
       display: flex;
       flex-direction: column;

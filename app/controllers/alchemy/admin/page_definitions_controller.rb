@@ -3,7 +3,9 @@ module Alchemy
     class PageDefinitionsController < ResourcesController
       def index
         @query = params[:q].presence
-        @page_definitions = PageDefinition.all.select { helpers.page_definition_matches?(_1, @query) }
+        @page_definitions = PageDefinition.all
+          .select { helpers.page_definition_matches?(_1, @query) }
+          .partition { !_1.layoutpage }.flatten
         @page_counts = Page.group(:page_layout).count
         @element_counts_by_page_layout = Element.joins(page_version: :page).merge(PageVersion.draft)
           .group(Page.arel_table[:page_layout], :name).count

@@ -13,6 +13,14 @@ RSpec.describe "Alchemy::Admin::PageDefinitionsController" do
       expect(response.body).to include('id="standard"', 'id="everything"')
     end
 
+    it "lists global page definitions after content page definitions" do
+      get alchemy.admin_page_definitions_path
+      html = Capybara.string(response.body)
+      expect(html.all(".page-definition h2").map { _1[:id] }.last).to eq("footer")
+      expect(html.all("aside h3").map { _1.text.strip }).to eq(["Content Pages", "Global Pages"])
+      expect(html).to have_css("aside h3:last-of-type + ol li", text: "Footer", count: 1)
+    end
+
     it "links content page definitions to the filtered page list" do
       create(:alchemy_page, page_layout: "news")
 
