@@ -16,8 +16,9 @@
     justify-content: space-between;
     align-items: center;
     margin: 0;
+    min-height: calc(var(--icon-button-height) + var(--spacing-2) * 2 + 2px);
     border-bottom: 2px solid var(--body-background-color);
-    padding: var(--spacing-4);
+    padding: var(--spacing-2) var(--spacing-4);
 
     small {
       font-weight: normal;
@@ -26,6 +27,7 @@
   }
 
   aside {
+    --icon-button-hover-bg-color: var(--page-definitions-icon-button-hover-bg-color);
     position: sticky;
     top: 0;
     background-color: var(--dashboard-widget-background-color);
@@ -35,21 +37,49 @@
     max-height: calc(100vh - var(--top-menu-height) - var(--spacing-2) * 2);
     overflow-y: auto;
 
+    h2 .icon_button {
+      margin-right: var(--spacing-1);
+    }
+
     h3 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       margin: var(--spacing-4) var(--spacing-4) 0;
+
+      .label {
+        min-width: var(--icon-button-width);
+        margin-right: var(--spacing-1);
+        font-weight: normal;
+        justify-content: center;
+      }
     }
 
     ol {
       display: flex;
       flex-direction: column;
       gap: var(--spacing-2);
-      list-style-position: outside;
+      list-style: none;
       margin: var(--spacing-4);
+      padding: 0;
     }
 
     li {
-      margin: var(--spacing-1) 0;
-      padding: var(--spacing-1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--spacing-2);
+      margin: var(--spacing-1) calc(-1 * var(--spacing-2));
+      padding: var(--spacing-1) calc(var(--spacing-2) + var(--spacing-1)) var(--spacing-1) var(--spacing-2);
+      border-radius: var(--border-radius_medium);
+
+      &.active {
+        background-color: var(--select-selected-bg-color);
+      }
+
+      .icon_button {
+        flex-shrink: 0;
+      }
     }
   }
 

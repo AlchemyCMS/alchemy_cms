@@ -260,6 +260,8 @@ en:
         content_pages: "Content Pages"
         element_usage: "On this page type: %{count} · In total: %{total}"
         show_pages: "Show %{count} %{model_name}"
+        show_all_page_types: "Show all page types"
+        show_only_this_page_type: "Show only this page type"
         zero_pages: "0 Pages"
       pictures:
         sorting_select:

@@ -93,6 +93,7 @@ const icons = [
   "System/delete-bin-2-line",
   "System/download-2-line",
   "System/external-link-line",
+  "System/filter-3-line",
   "System/information-line",
   "System/lock-line",
   "System/lock-unlock-line",

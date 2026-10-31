@@ -14,7 +14,7 @@
     <p>
       <% if @page.definition.present? && can?(:index, :alchemy_admin_page_definitions) %>
         <%= link_to @page.layout_display_name,
-          alchemy.admin_page_definitions_path(q: @page.layout_display_name, anchor: @page.page_layout) %>
+          alchemy.admin_page_definitions_path(q: {name_eq: @page.page_layout}) %>
       <% else %>
         <%= @page.layout_display_name %>
       <% end %>

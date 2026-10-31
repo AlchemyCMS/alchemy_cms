@@ -17,7 +17,8 @@ RSpec.describe "Alchemy::Admin::PageDefinitionsController" do
       get alchemy.admin_page_definitions_path
       html = Capybara.string(response.body)
       expect(html.all(".page-definition h2").map { _1[:id] }.last).to eq("footer")
-      expect(html.all("aside h3").map { _1.text.strip }).to eq(["Content Pages", "Global Pages"])
+      expect(html.find("aside h2").text.squish).to eq("10 Page Types")
+      expect(html.all("aside h3").map { _1.text.squish }).to eq(["Content Pages 9", "Global Pages 1"])
       expect(html).to have_css("aside h3:last-of-type + ol li", text: "Footer", count: 1)
     end
 
@@ -61,34 +62,68 @@ RSpec.describe "Alchemy::Admin::PageDefinitionsController" do
       expect(count_queries.size).to eq(2)
     end
 
-    context "with query" do
-      it "only lists page definitions with matching nested elements" do
-        get alchemy.admin_page_definitions_path(q: "Gallery picture")
-        expect(response.body).to include('id="everything"')
-        expect(response.body).not_to include('id="standard"')
+    context "with page type filter" do
+      it "only lists the filtered page definition" do
+        get alchemy.admin_page_definitions_path(q: {name_eq: "everything"})
+        html = Capybara.string(response.body)
+        expect(html.all(".page-definition h2").map { _1[:id] }).to eq(["everything"])
+      end
+
+      it "still lists and highlights all page types in the sidebar" do
+        get alchemy.admin_page_definitions_path(q: {name_eq: "everything"})
+        html = Capybara.string(response.body)
+        expect(html).to have_css("aside li", text: "Standard")
+        expect(html).to have_css("aside li.active", text: "Everything", count: 1)
+        expect(html).to have_css("aside li.active sl-tooltip[content='Show all page types'] a.icon_button.active")
+        expect(html).to have_link("Everything", href: "#everything")
+        expect(html).to have_link("Standard", href: alchemy.admin_page_definitions_path(anchor: "standard"))
+      end
+
+      it "shows a button to remove the filter in the panel heading" do
+        get alchemy.admin_page_definitions_path(q: {name_eq: "everything", name_or_elements_cont: "picture"})
+        html = Capybara.string(response.body)
+        expect(html).to have_css("aside h2 sl-tooltip[content='Show all page types'] a.icon_button.active[href='#{alchemy.admin_page_definitions_path(q: {name_or_elements_cont: "picture"})}']")
+
+        get alchemy.admin_page_definitions_path
+        expect(Capybara.string(response.body)).not_to have_css("aside h2 .icon_button")
+      end
+
+      it "shows a message for an unknown page type" do
+        get alchemy.admin_page_definitions_path(q: {name_eq: "unknown"})
+        expect(response.body).to include("Nothing found")
+      end
+    end
+
+    context "with search query" do
+      it "does not hide page definitions" do
+        get alchemy.admin_page_definitions_path(q: {name_or_elements_cont: "Gallery picture"})
+        expect(response.body).to include('id="everything"', 'id="standard"')
       end
 
       it "unfolds elements with matching nested elements" do
-        get alchemy.admin_page_definitions_path(q: "Gallery picture")
+        get alchemy.admin_page_definitions_path(q: {name_or_elements_cont: "Gallery picture"})
         page = Capybara.string(response.body)
         expect(page).to have_css("details[open] > summary", text: "Gallery", count: 1)
         expect(page).to have_css("details[open]", count: 1)
       end
 
       it "highlights matches in page definition and element names" do
-        get alchemy.admin_page_definitions_path(q: "every")
+        get alchemy.admin_page_definitions_path(q: {name_or_elements_cont: "every"})
         page = Capybara.string(response.body)
         expect(page).to have_css("aside a mark", text: "Every")
         expect(page).to have_css("h2#everything mark", text: "Every")
 
-        get alchemy.admin_page_definitions_path(q: "picture")
+        get alchemy.admin_page_definitions_path(q: {name_or_elements_cont: "picture"})
         page = Capybara.string(response.body)
         expect(page).to have_css("details summary mark", text: "picture")
       end
 
-      it "shows a message if nothing matches" do
-        get alchemy.admin_page_definitions_path(q: "nothing matches this")
-        expect(response.body).to include("Nothing found")
+      it "highlights within the filtered page type and keeps the filter when searching" do
+        get alchemy.admin_page_definitions_path(q: {name_eq: "everything", name_or_elements_cont: "picture"})
+        page = Capybara.string(response.body)
+        expect(page.all(".page-definition h2").map { _1[:id] }).to eq(["everything"])
+        expect(page).to have_css("details summary mark", text: "picture")
+        expect(page).to have_field("q[name_eq]", type: :hidden, with: "everything")
       end
     end
   end
