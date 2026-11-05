@@ -37,15 +37,15 @@ RSpec.describe Alchemy::Upgrader::RegisterModuleRewriter do
       RUBY
     end
 
-    it "rewrites it to a guarded Alchemy.config.menu.add" do
+    it "rewrites it to a guarded Alchemy.config.menu.insert at the position's index" do
       expect(new_source).to eq(<<~RUBY)
         Rails.application.config.to_prepare do
           unless Alchemy.config.menu.any? { |item| item.name == "users" }
-            Alchemy.config.menu.add(
+            Alchemy.config.menu.insert(
+              4,
               name: "users",
               title: "modules.users",
               engine_name: "alchemy",
-              position: 4.1,
               icon: "group",
               controller: "/alchemy/admin/users",
               action: "index"
@@ -69,7 +69,7 @@ RSpec.describe Alchemy::Upgrader::RegisterModuleRewriter do
       <<~RUBY
         ::Alchemy::Modules.register_module(
           name: "events",
-          position: 5,
+          position: 8,
           navigation: {
             name: "Events",
             controller: "/admin/events",
@@ -80,12 +80,11 @@ RSpec.describe Alchemy::Upgrader::RegisterModuleRewriter do
       RUBY
     end
 
-    it "rewrites it to an unguarded Alchemy.config.menu.add" do
+    it "rewrites a position beyond the default menu to an unguarded Alchemy.config.menu.add" do
       expect(new_source).to eq(<<~RUBY)
         Alchemy.config.menu.add(
           name: "events",
           title: "Events",
-          position: 5,
           image: "events.png",
           controller: "/admin/events",
           action: "index"
@@ -179,6 +178,19 @@ RSpec.describe Alchemy::Upgrader::RegisterModuleRewriter do
     let(:source) do
       <<~'RUBY'
         Alchemy::Modules.register_module(name: "events", navigation: {name: "#{prefix}.events"})
+      RUBY
+    end
+
+    it "leaves it untouched" do
+      expect(new_source).to eq(source)
+      expect(manual_count).to eq(1)
+    end
+  end
+
+  context "with a position that is not a number" do
+    let(:source) do
+      <<~RUBY
+        Alchemy::Modules.register_module(name: "events", position: "5", navigation: {name: "Events"})
       RUBY
     end
 

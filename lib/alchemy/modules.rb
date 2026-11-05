@@ -24,7 +24,13 @@ module Alchemy
         menu_item = Alchemy::Configurations::MenuItem.from_legacy_hash(module_definition)
         return if menu_item.name.present? && Alchemy.config.menu.any? { |item| item.name == menu_item.name }
 
-        Alchemy.config.menu.add(menu_item)
+        position = module_definition.to_h.deep_stringify_keys["position"]
+        if position
+          index = [Alchemy::Configurations::MenuItem.index_for_legacy_position(position), Alchemy.config.menu.count].min
+          Alchemy.config.menu.insert(index, menu_item)
+        else
+          Alchemy.config.menu.add(menu_item)
+        end
       end
       deprecate register_module: "Use `Alchemy.config.menu.add` instead", deprecator: Alchemy::Deprecation
 
@@ -37,7 +43,6 @@ module Alchemy
         {
           "name" => menu_item.name,
           "engine_name" => menu_item.engine_name,
-          "position" => menu_item.position,
           "navigation" => to_legacy_navigation(menu_item)
         }.compact
       end

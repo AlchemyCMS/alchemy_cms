@@ -165,10 +165,11 @@ module Alchemy
         list = ->(files) { files.map { |file| "  - #{Pathname.new(file).relative_path_from(Rails.root)}" }.join("\n") }
 
         if rewritten.any?
-          todo(<<~TODO.strip, "`register_module` calls were rewritten to `Alchemy.config.menu.add`")
+          todo(<<~TODO.strip, "`register_module` calls were rewritten to `Alchemy.config.menu`")
             `Alchemy::Modules.register_module` is deprecated and will be removed in
             Alchemy 9.0. We rewrote its calls in the following initializers to
-            `Alchemy.config.menu.add`:
+            `Alchemy.config.menu.add`, or to `Alchemy.config.menu.insert` if they
+            had a position between Alchemy's own entries:
 
             #{list.call(rewritten)}
 
@@ -208,7 +209,9 @@ module Alchemy
             the former `navigation` hash now live on the entry itself, its `name`
             is now `title`, `sub_navigation` is now `children`, `icon-style` is now
             `icon_style`, `data: {turbo: false}` is now `turbo: false`, and `params`
-            is no longer supported.
+            is no longer supported. Instead of a `position`, use
+            `config.menu.insert(index, ...)` to place an entry between Alchemy's
+            own entries, e.g. `4` to place it between Languages and Sites.
 
             Call `config.menu.add` once at boot and not inside `to_prepare`, as it
             does not skip entries that are already present like `register_module`
