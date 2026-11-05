@@ -337,6 +337,20 @@ it:
       publish_page_button:
         publish_page: "Pubblica pagina"
         publish_changes: "Pubblica modifiche"
+      page_definitions:
+        content_pages: "Pagine di contenuto"
+        element_usage: "Su questo tipo di pagina: %{count} · In totale: %{total}"
+        show_pages: "Mostra %{count} %{model_name}"
+        show_all_page_types: "Mostra tutti i tipi di pagina"
+        show_only_this_page_type: "Mostra solo questo tipo di pagina"
+        zero_pages: "0 pagine"
+      hints:
+        alchemy/element_definition:
+          fixed: "Questo elemento ha una posizione fissa nella pagina."
+          unique: "Questo elemento può essere usato una sola volta per pagina."
+        alchemy/page_definition:
+          unique: "Questo tipo di pagina può essere usato una sola volta per lingua."
+          layoutpage: "Questa pagina è globale e non è raggiungibile tramite URL."
     anchor: "Collegamento"
     anchor_link_headline: "È possibile creare un collegamento a un ancora dalla pagina corrente."
     automatic_anchor_notice: "L'ancora viene generata automaticamente."
@@ -706,6 +720,7 @@ it:
       sites: "Siti"
       user_sessions: "Accesso"
       users: "Utenti"
+      page_definitions: "Definizioni"
     name: "Nome"
     names: "Nomi"
     navigation_name: "Nome di navigazione"
@@ -1038,6 +1053,9 @@ it:
         one: Messaggio
         other: Messaggi
       alchemy/admin/preview_url: Interno
+      alchemy/page_definition:
+        one: "Tipo di pagina"
+        other: "Tipi di pagina"
     attributes:
       alchemy/message:
         salutation: "Salve"
@@ -1049,6 +1067,10 @@ it:
         phone: "Telefono"
         email: "Email"
         message: "Messaggio"
+      alchemy/page_definition:
+        elements: "Elementi disponibili"
+        layoutpage: "Globale"
+        unique: "Unico"
 
   # Translations for Alchemy database models
   activerecord:
@@ -1094,9 +1116,54 @@ it:
       alchemy/element:
         one: "Elemento"
         other: "Elementi"
+      alchemy/ingredients/audio:
+        one: "File audio"
+        other: "File audio"
+      alchemy/ingredients/boolean:
+        one: "Vero/Falso"
+        other: "Vero/Falso"
+      alchemy/ingredients/color:
+        one: "Colore"
+        other: "Colori"
+      alchemy/ingredients/datetime:
+        one: "Data/Ora"
+        other: "Date/Ore"
+      alchemy/ingredients/file:
+        one: "File"
+        other: "File"
       alchemy/ingredients/headline:
         one: Titolo
         other: Titoli
+      alchemy/ingredients/html:
+        one: "HTML"
+        other: "HTML"
+      alchemy/ingredients/link:
+        one: "Link"
+        other: "Link"
+      alchemy/ingredients/node:
+        one: "Nodo Menu"
+        other: "Nodi Menu"
+      alchemy/ingredients/number:
+        one: "Numero"
+        other: "Numeri"
+      alchemy/ingredients/page:
+        one: "Pagina"
+        other: "Pagine"
+      alchemy/ingredients/picture:
+        one: "Immagine"
+        other: "Immagini"
+      alchemy/ingredients/richtext:
+        one: "Testo formattato"
+        other: "Testi formattati"
+      alchemy/ingredients/select:
+        one: "Selezione"
+        other: "Selezioni"
+      alchemy/ingredients/text:
+        one: "Testo"
+        other: "Testi"
+      alchemy/ingredients/video:
+        one: "File video"
+        other: "File video"
       alchemy/legacy_page_url:
         one: "Collegamento"
         other: "Collegamenti"
@@ -1141,6 +1208,8 @@ it:
         public_on: "Visibile dal"
         public_until: "Visibile fino al"
         tag_list: Tag
+        unique: "Unico"
+        fixed: "Fisso"
       alchemy/ingredient:
         dom_id: Ancora
       alchemy/ingredients/file:

@@ -110,6 +110,7 @@
   --icon-button-linked-border-color: hsl(42deg, 100%, 50%);
   --icon-button-linked-hover-border-color: hsl(42deg, 100%, 60%);
   --icon-button-hover-bg-color: var(--a-darkest-grey);
+  --page-definitions-icon-button-hover-bg-color: var(--a-light-grey);
 
   /* Icons */
   --icon-color: var(--a-lighter-grey);
@@ -390,6 +391,7 @@
   --icon-button-linked-border-color: hsl(42deg, 100%, 64%);
   --icon-button-linked-hover-border-color: hsl(42deg, 100%, 54%);
   --icon-button-hover-bg-color: hsla(0deg, 0%, 69%, 0.5);
+  --page-definitions-icon-button-hover-bg-color: var(--icon-button-hover-bg-color);
 
   /* Icons */
   --icon-color: hsla(224deg, 23%, 26%, 0.75);

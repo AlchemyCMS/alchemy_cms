@@ -362,6 +362,10 @@ fr:
       page_definitions:
         show_pages: Afficher %{count} %{model_name}
         zero_pages: 0 pages
+        content_pages: "Pages de contenu"
+        element_usage: "Sur ce type de page : %{count} · Au total : %{total}"
+        show_all_page_types: "Afficher tous les types de page"
+        show_only_this_page_type: "Afficher uniquement ce type de page"
       pictures:
         sorting_select:
           label: "Tri"
@@ -370,6 +374,13 @@ fr:
       publish_page_button:
         publish_page: "Publier la page"
         publish_changes: "Publier les modifications"
+      hints:
+        alchemy/element_definition:
+          fixed: "Cet élément a une position fixe sur la page."
+          unique: "Cet élément ne peut être utilisé qu'une seule fois par page."
+        alchemy/page_definition:
+          unique: "Ce type de page ne peut être utilisé qu'une seule fois par langue."
+          layoutpage: "Cette page est globale et n'est pas accessible via une URL."
     anchor: "ancre"
     anchor_link_headline: Sélectionnez une ancre dans cette page.
     automatic_anchor_notice: L'ancre a été créée automatiquement.
@@ -755,6 +766,7 @@ fr:
       sites: "Websites"
       user_sessions: "Enregistrement"
       users: "Utilisateur"
+      page_definitions: "Définitions"
     name: "Nom"
     names: "Prénom"
     navigation_name: "Nom de navigation"
@@ -1099,6 +1111,9 @@ fr:
         one: "message"
         other: "messages"
       alchemy/admin/preview_url: "Interne"
+      alchemy/page_definition:
+        one: "Type de page"
+        other: "Types de page"
     attributes:
       alchemy/message:
         salutation: Titre
@@ -1110,6 +1125,10 @@ fr:
         phone: téléphone
         email: E-Mail
         message: message
+      alchemy/page_definition:
+        elements: "Éléments disponibles"
+        layoutpage: "Globale"
+        unique: "Unique"
 
   # Translations for Alchemy database models
   activerecord:
@@ -1123,9 +1142,54 @@ fr:
       alchemy/element:
         one: "Élément"
         other: "Éléments"
+      alchemy/ingredients/audio:
+        one: "Fichier audio"
+        other: "Fichiers audio"
+      alchemy/ingredients/boolean:
+        one: "Vrai/Faux"
+        other: "Vrai/Faux"
+      alchemy/ingredients/color:
+        one: "Couleur"
+        other: "Couleurs"
+      alchemy/ingredients/datetime:
+        one: "Date/Heure"
+        other: "Dates/Heures"
+      alchemy/ingredients/file:
+        one: "Fichier"
+        other: "Fichiers"
       alchemy/ingredients/headline:
         one: "Titre"
         other: "Titres"
+      alchemy/ingredients/html:
+        one: "HTML"
+        other: "HTML"
+      alchemy/ingredients/link:
+        one: "Lien"
+        other: "Liens"
+      alchemy/ingredients/node:
+        one: "Entrée de menu"
+        other: "Entrées de menu"
+      alchemy/ingredients/number:
+        one: "Nombre"
+        other: "Nombres"
+      alchemy/ingredients/page:
+        one: "Page"
+        other: "Pages"
+      alchemy/ingredients/picture:
+        one: "Image"
+        other: "Images"
+      alchemy/ingredients/richtext:
+        one: "Texte enrichi"
+        other: "Textes enrichis"
+      alchemy/ingredients/select:
+        one: "Sélection"
+        other: "Sélections"
+      alchemy/ingredients/text:
+        one: "Texte"
+        other: "Textes"
+      alchemy/ingredients/video:
+        one: "Fichier vidéo"
+        other: "Fichiers vidéo"
       alchemy/legacy_page_url:
         one: "Lien"
         other: "Liens"
@@ -1170,6 +1234,8 @@ fr:
         public_on: "visible à partir du"
         public_until: "visible jusqu'au"
         tag_list: Tags
+        unique: "Unique"
+        fixed: "Fixe"
       alchemy/ingredient:
         dom_id: "Ancre"
       alchemy/ingredients/file:

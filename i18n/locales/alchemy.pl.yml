@@ -294,6 +294,20 @@ pl:
       publish_page_button:
         publish_page: "Opublikuj stronę"
         publish_changes: "Opublikuj zmiany"
+      page_definitions:
+        content_pages: "Strony z treścią"
+        element_usage: "Na tym typie strony: %{count} · Łącznie: %{total}"
+        show_pages: "Pokaż %{count} %{model_name}"
+        show_all_page_types: "Pokaż wszystkie typy stron"
+        show_only_this_page_type: "Pokaż tylko ten typ strony"
+        zero_pages: "0 stron"
+      hints:
+        alchemy/element_definition:
+          fixed: "Ten element ma stałą pozycję na stronie."
+          unique: "Ten element może być użyty tylko raz na stronie."
+        alchemy/page_definition:
+          unique: "Ten typ strony może być użyty tylko raz w danym języku."
+          layoutpage: "Ta strona jest globalna i nie jest dostępna pod adresem URL."
     add_nested_element: "Dodaj %{name}"
     anchor: "Kotwica"
     anchor_link_headline: Możesz utworzyć link do kotwicy na bieżącej stronie.
@@ -659,6 +673,7 @@ pl:
       sites: "Witryny"
       user_sessions: "Logowanie"
       users: "Użytkownicy"
+      page_definitions: "Definicje"
     name: "Nazwa"
     names: "Nazwy"
     navigation_name: "Nazwa nawigacji"
@@ -988,6 +1003,11 @@ pl:
         one: Wiadomość
         other: Wiadomości
       alchemy/admin/preview_url: Wewnętrzny
+      alchemy/page_definition:
+        one: "Typ strony"
+        few: "Typy stron"
+        many: "Typów stron"
+        other: "Typu strony"
     attributes:
       alchemy/message:
         salutation: "Zwrot grzecznościowy"
@@ -999,6 +1019,10 @@ pl:
         phone: "Telefon"
         email: "E-mail"
         message: "Wiadomość"
+      alchemy/page_definition:
+        elements: "Dostępne elementy"
+        layoutpage: "Globalna"
+        unique: "Unikalny"
 
   # Translations for Alchemy database models
   activerecord:
@@ -1044,9 +1068,54 @@ pl:
       alchemy/element:
         one: "Element"
         other: "Elementy"
+      alchemy/ingredients/audio:
+        one: "Plik audio"
+        other: "Pliki audio"
+      alchemy/ingredients/boolean:
+        one: "Prawda/Fałsz"
+        other: "Prawda/Fałsz"
+      alchemy/ingredients/color:
+        one: "Kolor"
+        other: "Kolory"
+      alchemy/ingredients/datetime:
+        one: "Data/Godzina"
+        other: "Daty/Godziny"
+      alchemy/ingredients/file:
+        one: "Plik"
+        other: "Pliki"
       alchemy/ingredients/headline:
         one: Nagłówek
         other: Nagłówki
+      alchemy/ingredients/html:
+        one: "HTML"
+        other: "HTML"
+      alchemy/ingredients/link:
+        one: "Link"
+        other: "Linki"
+      alchemy/ingredients/node:
+        one: "Element menu"
+        other: "Elementy menu"
+      alchemy/ingredients/number:
+        one: "Liczba"
+        other: "Liczby"
+      alchemy/ingredients/page:
+        one: "Strona"
+        other: "Strony"
+      alchemy/ingredients/picture:
+        one: "Obraz"
+        other: "Obrazy"
+      alchemy/ingredients/richtext:
+        one: "Tekst sformatowany"
+        other: "Teksty sformatowane"
+      alchemy/ingredients/select:
+        one: "Wybór"
+        other: "Wybory"
+      alchemy/ingredients/text:
+        one: "Tekst"
+        other: "Teksty"
+      alchemy/ingredients/video:
+        one: "Plik wideo"
+        other: "Pliki wideo"
       alchemy/legacy_page_url:
         one: "Link"
         other: "Linki"
@@ -1091,6 +1160,8 @@ pl:
         public_on: "Widoczny od"
         public_until: "Widoczny do"
         tag_list: Tagi
+        unique: "Unikalny"
+        fixed: "Stały"
       alchemy/essence_file:
         css_class: Styl
       alchemy/essence_picture:
