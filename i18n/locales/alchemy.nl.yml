@@ -338,6 +338,20 @@ nl:
       publish_page_button:
         publish_page: "Pagina publiceren"
         publish_changes: "Wijzigingen publiceren"
+      page_definitions:
+        content_pages: "Contentpagina's"
+        element_usage: "Op dit paginatype: %{count} · In totaal: %{total}"
+        show_pages: "Toon %{count} %{model_name}"
+        show_all_page_types: "Alle paginatypes tonen"
+        show_only_this_page_type: "Alleen dit paginatype tonen"
+        zero_pages: "0 pagina's"
+      hints:
+        alchemy/element_definition:
+          fixed: "Dit element heeft een vaste positie op de pagina."
+          unique: "Dit element kan maar één keer per pagina worden gebruikt."
+        alchemy/page_definition:
+          unique: "Dit paginatype kan maar één keer per taal worden gebruikt."
+          layoutpage: "Deze pagina is globaal en niet bereikbaar via een URL."
     add_nested_element: "Add %{name}"
     anchor: "Anchor"
     anchor_link_headline: U kunt naar een anchor op de huidige pagina linken.
@@ -703,6 +717,7 @@ nl:
       sites: "Sites"
       user_sessions: "Aanmelden"
       users: "Gebruikers"
+      page_definitions: "Definities"
     name: "Naam"
     names: "Namen"
     navigation_name: "Navigatienaam"
@@ -1032,6 +1047,9 @@ nl:
         one: Bericht
         other: Berichten
       alchemy/admin/preview_url: Intern
+      alchemy/page_definition:
+        one: "Paginatype"
+        other: "Paginatypes"
     attributes:
       alchemy/message:
         salutation: "Aanhef"
@@ -1043,6 +1061,10 @@ nl:
         phone: "Telefoonnummer"
         email: "Email"
         message: "Bericht"
+      alchemy/page_definition:
+        elements: "Beschikbare elementen"
+        layoutpage: "Globaal"
+        unique: "Uniek"
 
   # Translations for Alchemy database models
   activerecord:
@@ -1088,9 +1110,54 @@ nl:
       alchemy/element:
         one: "Element"
         other: "Elementen"
+      alchemy/ingredients/audio:
+        one: "Audiobestand"
+        other: "Audiobestanden"
+      alchemy/ingredients/boolean:
+        one: "Waar/Onwaar"
+        other: "Waar/Onwaar"
+      alchemy/ingredients/color:
+        one: "Kleur"
+        other: "Kleuren"
+      alchemy/ingredients/datetime:
+        one: "Datum/Tijd"
+        other: "Datums/Tijden"
+      alchemy/ingredients/file:
+        one: "Bestand"
+        other: "Bestanden"
       alchemy/ingredients/headline:
         one: Koptekst
         other: Kopteksten
+      alchemy/ingredients/html:
+        one: "HTML"
+        other: "HTML"
+      alchemy/ingredients/link:
+        one: "Link"
+        other: "Links"
+      alchemy/ingredients/node:
+        one: "Menu-item"
+        other: "Menu-items"
+      alchemy/ingredients/number:
+        one: "Getal"
+        other: "Getallen"
+      alchemy/ingredients/page:
+        one: "Pagina"
+        other: "Pagina's"
+      alchemy/ingredients/picture:
+        one: "Afbeelding"
+        other: "Afbeeldingen"
+      alchemy/ingredients/richtext:
+        one: "Opgemaakte tekst"
+        other: "Opgemaakte teksten"
+      alchemy/ingredients/select:
+        one: "Selectie"
+        other: "Selecties"
+      alchemy/ingredients/text:
+        one: "Tekst"
+        other: "Teksten"
+      alchemy/ingredients/video:
+        one: "Videobestand"
+        other: "Videobestanden"
       alchemy/legacy_page_url:
         one: "Link"
         other: "Links"
@@ -1135,6 +1202,8 @@ nl:
         public_on: "Zichtbaar vanaf"
         public_until: "Zichtbaar tot"
         tag_list: Tags
+        unique: "Uniek"
+        fixed: "Vast"
       alchemy/essence_file:
         css_class: Stijl
       alchemy/essence_picture:
