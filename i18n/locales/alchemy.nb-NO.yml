@@ -294,6 +294,20 @@ nb-NO:
       publish_page_button:
         publish_page: "Publiser side"
         publish_changes: "Publiser endringer"
+      page_definitions:
+        content_pages: "Innholdssider"
+        element_usage: "På denne sidetypen: %{count} · Totalt: %{total}"
+        show_pages: "Vis %{count} %{model_name}"
+        show_all_page_types: "Vis alle sidetyper"
+        show_only_this_page_type: "Vis kun denne sidetypen"
+        zero_pages: "0 sider"
+      hints:
+        alchemy/element_definition:
+          fixed: "Dette elementet har en fast posisjon på siden."
+          unique: "Dette elementet kan bare brukes én gang per side."
+        alchemy/page_definition:
+          unique: "Denne sidetypen kan bare brukes én gang per språk."
+          layoutpage: "Denne siden er global og er ikke tilgjengelig via URL."
     add_nested_element: "Legg til %{name}"
     anchor: "Anker"
     anchor_link_headline: Du kan lenke til et anker på den aktuelle siden.
@@ -659,6 +673,7 @@ nb-NO:
       sites: "Nettsteder"
       user_sessions: "Logg inn"
       users: "Brukere"
+      page_definitions: "Definisjoner"
     name: "Navn"
     names: "Navn"
     navigation_name: "Navigasjonsnavn"
@@ -988,6 +1003,9 @@ nb-NO:
         one: Beskjed
         other: Beskjeder
       alchemy/admin/preview_url: Intern
+      alchemy/page_definition:
+        one: "Sidetype"
+        other: "Sidetyper"
     attributes:
       alchemy/message:
         salutation: "Hilsen"
@@ -999,6 +1017,10 @@ nb-NO:
         phone: "Telefon"
         email: "E-post"
         message: "Beskjed"
+      alchemy/page_definition:
+        elements: "Tilgjengelige elementer"
+        layoutpage: "Global"
+        unique: "Unik"
 
   # Translations for Alchemy database models
   activerecord:
@@ -1044,9 +1066,54 @@ nb-NO:
       alchemy/element:
         one: Element
         other: Elementer
+      alchemy/ingredients/audio:
+        one: "Lydfil"
+        other: "Lydfiler"
+      alchemy/ingredients/boolean:
+        one: "Sant/Usant"
+        other: "Sant/Usant"
+      alchemy/ingredients/color:
+        one: "Farge"
+        other: "Farger"
+      alchemy/ingredients/datetime:
+        one: "Dato/Tid"
+        other: "Datoer/Tider"
+      alchemy/ingredients/file:
+        one: "Fil"
+        other: "Filer"
       alchemy/ingredients/headline:
         one: Overskrift
         other: Overskrifter
+      alchemy/ingredients/html:
+        one: "HTML"
+        other: "HTML"
+      alchemy/ingredients/link:
+        one: "Lenke"
+        other: "Lenker"
+      alchemy/ingredients/node:
+        one: "Menyelement"
+        other: "Menyelementer"
+      alchemy/ingredients/number:
+        one: "Tall"
+        other: "Tall"
+      alchemy/ingredients/page:
+        one: "Side"
+        other: "Sider"
+      alchemy/ingredients/picture:
+        one: "Bilde"
+        other: "Bilder"
+      alchemy/ingredients/richtext:
+        one: "Formatert tekst"
+        other: "Formaterte tekster"
+      alchemy/ingredients/select:
+        one: "Valg"
+        other: "Valg"
+      alchemy/ingredients/text:
+        one: "Tekst"
+        other: "Tekster"
+      alchemy/ingredients/video:
+        one: "Videofil"
+        other: "Videofiler"
       alchemy/legacy_page_url:
         one: Kobling
         other: Koblinger
@@ -1091,6 +1158,8 @@ nb-NO:
         public_on: "Synlig fra"
         public_until: "Synlig til"
         tag_list: Tags
+        unique: "Unikt"
+        fixed: "Fast"
       alchemy/essence_file:
         css_class: Stil
       alchemy/essence_picture:
