@@ -345,6 +345,20 @@ zh-CN:
       publish_page_button:
         publish_page: "发布页面"
         publish_changes: "发布更改"
+      page_definitions:
+        content_pages: "内容页面"
+        element_usage: "此页面类型：%{count} · 总计：%{total}"
+        show_pages: "显示 %{count} 个%{model_name}"
+        show_all_page_types: "显示所有页面类型"
+        show_only_this_page_type: "仅显示此页面类型"
+        zero_pages: "0 个页面"
+      hints:
+        alchemy/element_definition:
+          fixed: "此元素在页面上的位置是固定的。"
+          unique: "此元素在每个页面上只能使用一次。"
+        alchemy/page_definition:
+          unique: "此页面类型在每种语言中只能使用一次。"
+          layoutpage: "此页面为全局页面，无法通过 URL 访问。"
 
     add_nested_element: "Add %{name}"
     anchor: "锚点"
@@ -633,6 +647,7 @@ zh-CN:
       sites: "站点"
       user_sessions: "登录"
       users: "用户"
+      page_definitions: "定义"
     name: "名字"
     names: "名字"
     navigation_name: "导航名"
@@ -1058,6 +1073,9 @@ zh-CN:
         one: 消息
         other: 消息
       alchemy/admin/preview_url: 内部
+      alchemy/page_definition:
+        one: "页面类型"
+        other: "页面类型"
     attributes:
       alchemy/message:
         salutation: "联系方式"
@@ -1069,6 +1087,10 @@ zh-CN:
         phone: "电话"
         email: "电子邮件"
         message: "消息"
+      alchemy/page_definition:
+        elements: "可用元素"
+        layoutpage: "全局"
+        unique: "唯一"
 
   # Translations for Alchemy database models
   activerecord:
@@ -1114,9 +1136,54 @@ zh-CN:
       alchemy/element:
         one: "元素"
         other: "元素"
+      alchemy/ingredients/audio:
+        one: "音频文件"
+        other: "音频文件"
+      alchemy/ingredients/boolean:
+        one: "是/否"
+        other: "是/否"
+      alchemy/ingredients/color:
+        one: "颜色"
+        other: "颜色"
+      alchemy/ingredients/datetime:
+        one: "日期/时间"
+        other: "日期/时间"
+      alchemy/ingredients/file:
+        one: "文件"
+        other: "文件"
       alchemy/ingredients/headline:
         one: 标题
         other: 标题
+      alchemy/ingredients/html:
+        one: "HTML"
+        other: "HTML"
+      alchemy/ingredients/link:
+        one: "链接"
+        other: "链接"
+      alchemy/ingredients/node:
+        one: "菜单节点"
+        other: "菜单节点"
+      alchemy/ingredients/number:
+        one: "数字"
+        other: "数字"
+      alchemy/ingredients/page:
+        one: "页面"
+        other: "页面"
+      alchemy/ingredients/picture:
+        one: "图片"
+        other: "图片"
+      alchemy/ingredients/richtext:
+        one: "富文本"
+        other: "富文本"
+      alchemy/ingredients/select:
+        one: "选择"
+        other: "选择"
+      alchemy/ingredients/text:
+        one: "文本"
+        other: "文本"
+      alchemy/ingredients/video:
+        one: "视频文件"
+        other: "视频文件"
       alchemy/legacy_page_url:
         one: "链接"
         other: "链接"
@@ -1164,6 +1231,8 @@ zh-CN:
         tag_list: 标签
         public_on: 可见起始
         public_until: 可见截止
+        unique: "唯一"
+        fixed: "固定"
       alchemy/ingredient:
         dom_id: 锚点
       alchemy/ingredients/file:
