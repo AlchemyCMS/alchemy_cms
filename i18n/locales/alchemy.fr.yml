@@ -277,6 +277,50 @@ fr:
       blank: "nouvelle fenêtre/Tab"
       overlay: "un revêtement"
 
+    # == Translations used by the admin JavaScript
+    # Note: "Yes" and "No" have to stay quoted. YAML reads them as booleans otherwise.
+    javascript:
+      Add: "Créer"
+      allowed_chars: "de %{count} caractères"
+      cancel: "abandonner"
+      cancelled: "annulé"
+      click_to_edit: "Cliquez pour modifier"
+      complete: "terminé"
+      element_dirty_notice: "Cet élément a des modifications non enregistrées. Souhaitez-vous vraiment le plier ?"
+      help: "Aide"
+      ok: "Ok"
+      page_dirty_notice: "Vous avez des modifications non enregistrées sur la page. Elle seront perdues si vous continuez."
+      page_found: "page trouvée"
+      pages_found: "pages trouvées"
+      url_validation_failed: "L’URL n’est pas correctement formatée."
+      warning: "Attention!"
+      "Abort upload": "Interrompre l’envoi"
+      "Cancel all uploads": "Annuler tous les envois"
+      "Clear selection": "Effacer la sélection"
+      "Close": "Fermer"
+      "File is too large": "Le fichier est trop grand."
+      "File is too small": "Le fichier est trop petit."
+      "File type not allowed": "Type de document non autorisé."
+      "Loading more results": "Chargement de résultats supplémentaires"
+      "Maximum number of files exceeded": "Le nombre maximum de fichiers est atteint."
+      "No": "Non"
+      "No anchors found": "Aucune ancre trouvée."
+      "No more results": "Aucun autre résultat"
+      "No results found": "Aucun résultat trouvé."
+      "None": "Aucun"
+      "Please confirm": "Veuillez confirmer"
+      "Please wait, loading": "Veuillez patienter, chargement en cours"
+      "Preview failed to load": "Échec du chargement de l’aperçu. Veuillez réessayer."
+      "Remove": "Supprimer"
+      "Select a page first": "Sélectionnez d’abord une page."
+      "Uploaded bytes exceed file size": "Taille de fichier maximale autorisée atteint."
+      "Yes": "Oui"
+      formats:
+        datetime: "d.m.Y H:i"
+        date: "d.m.Y"
+        time: "H:i"
+        time_24hr: true
+
     resource_help_texts:
       site:
         host: Veuillez entrer un <a href="https://fr.wikipedia.org/wiki/Fully_qualified_domain_name" target="_blank">nom de domaine complet (FQDN)</a> ou utilisez un astérisque (*) pour autoriser l'accès de tous les domaines à ce site.

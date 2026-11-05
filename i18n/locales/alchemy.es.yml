@@ -303,6 +303,50 @@ es:
       blank: Nueva ventana / pestaña
       overlay: Capa superpuesta
 
+    # == Translations used by the admin JavaScript
+    # Note: "Yes" and "No" have to stay quoted. YAML reads them as booleans otherwise.
+    javascript:
+      Add: "Crear"
+      allowed_chars: "de %{count} caracteres"
+      cancel: "Cancelar"
+      cancelled: "Cancelado"
+      click_to_edit: "Pulsar para editar"
+      complete: "Completado"
+      element_dirty_notice: "Este elemento tiene cambios sin guardar. ¿Realmente quieres plegarlo?"
+      help: "Ayuda"
+      ok: "Aceptar"
+      page_dirty_notice: "Tienes cambios sin guardar en esta página. Si continúas se perderán."
+      page_found: "Página encontrada"
+      pages_found: "Páginas encontradas"
+      url_validation_failed: "La url no tiene un formato válido."
+      warning: "¡Atención!"
+      "Abort upload": "Interrumpir subida"
+      "Cancel all uploads": "Cancelar todas las subidas"
+      "Clear selection": "Borrar selección"
+      "Close": "Cerrar"
+      "File is too large": "El archivo es demasiado grande"
+      "File is too small": "El archivo es demasiado pequeño"
+      "File type not allowed": "El tipo de archivo no está permitido"
+      "Loading more results": "Cargando más resultados"
+      "Maximum number of files exceeded": "Número máximo de archivos excedido."
+      "No": "No"
+      "No anchors found": "No se encontraron anclas."
+      "No more results": "No hay más resultados"
+      "No results found": "No se encontraron resultados."
+      "None": "Ninguno"
+      "Please confirm": "Por favor confirma"
+      "Please wait, loading": "Por favor espere, cargando"
+      "Preview failed to load": "No se pudo cargar la vista previa. Inténtalo de nuevo."
+      "Remove": "Eliminar"
+      "Select a page first": "Selecciona primero una página."
+      "Uploaded bytes exceed file size": "Los bytes subidos exceden el tamaño del archivo"
+      "Yes": "Sí"
+      formats:
+        datetime: "d/m/Y H:i"
+        date: "d/m/Y"
+        time: "H:i"
+        time_24hr: true
+
     resource_help_texts:
       site:
         host: Introduzca un <a href="https://es.wikipedia.org/wiki/FQDN" target="_blank">nombre de dominio completo</a> o utilice un asterisco (*) para permitir el acceso de todos los dominios a este sitio web.

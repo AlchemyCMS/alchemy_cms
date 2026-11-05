@@ -165,6 +165,50 @@ ru:
       blank: новом окне
       overlay: Оверлей
 
+    # == Translations used by the admin JavaScript
+    # Note: "Yes" and "No" have to stay quoted. YAML reads them as booleans otherwise.
+    javascript:
+      Add: "Создать"
+      allowed_chars: "%{count} знаков"
+      cancel: "Отмена"
+      cancelled: "Отменено"
+      click_to_edit: "нажмите, чтобы редактировать"
+      complete: "Завершено"
+      element_dirty_notice: "Для этого элемента есть несохраненные изменения. Вы действительно хотите их сбросить?"
+      help: "Помощь"
+      ok: "Ок"
+      page_dirty_notice: "На странице есть несохраненные изменения. Если вы продолжите, то они пропадут."
+      page_found: "Страница найдена"
+      pages_found: "Страницы найдены"
+      url_validation_failed: "Адрес (URL) имеет неверный формат."
+      warning: "Внимание!"
+      "Abort upload": "Прервать загрузку"
+      "Cancel all uploads": "Отменить все загрузки"
+      "Clear selection": "Очистить выбор"
+      "Close": "Закрыть"
+      "File is too large": "Файл слишком большой"
+      "File is too small": "Файл слишком маленький"
+      "File type not allowed": "Этот тип файла не разрешен"
+      "Loading more results": "Загрузка данных"
+      "Maximum number of files exceeded": "Исчерпано максимальное количество файлов."
+      "No": "Нет"
+      "No anchors found": "Якоря не найдены."
+      "No more results": "Больше результатов нет"
+      "No results found": "Ничего не найдено."
+      "None": "Не выбрано"
+      "Please confirm": "Пожалуйста, подтвердите"
+      "Please wait, loading": "Подождите, загрузка"
+      "Preview failed to load": "Не удалось загрузить предпросмотр. Попробуйте ещё раз."
+      "Remove": "Удалить"
+      "Select a page first": "Сначала выберите страницу."
+      "Uploaded bytes exceed file size": "Превышен максимальный размер файла"
+      "Yes": "Да"
+      formats:
+        datetime: "d.m.Y H:i"
+        date: "d.m.Y"
+        time: "H:i"
+        time_24hr: true
+
     resource_help_texts:
       site:
         aliases: Разделяйте дополнительные домены с помощью пробелов или переходом на новую строку.

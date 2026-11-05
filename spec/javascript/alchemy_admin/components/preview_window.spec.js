@@ -35,8 +35,6 @@ describe("alchemy-preview-window", () => {
 
     beforeEach(() => {
       setupLanguage()
-      Alchemy.translations["Preview failed to load"] =
-        "Preview failed to load. Please try again."
       vi.useFakeTimers()
       growlSpy = vi.spyOn(growler, "growl")
     })

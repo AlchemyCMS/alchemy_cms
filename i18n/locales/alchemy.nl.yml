@@ -254,6 +254,50 @@ nl:
       blank: Nieuw venster/tab
       overlay: Overlay
 
+    # == Translations used by the admin JavaScript
+    # Note: "Yes" and "No" have to stay quoted. YAML reads them as booleans otherwise.
+    javascript:
+      Add: "Aanmaken"
+      allowed_chars: "van %{count} tekens"
+      cancel: "Annuleren"
+      cancelled: "Afgebroken"
+      click_to_edit: "klik om aan te passen"
+      complete: "Klaar"
+      element_dirty_notice: "Dit element bevat niet opgeslagen wijzigingen. Wilt u dit echt inklappen?"
+      help: "Hulp"
+      ok: "Ok"
+      page_dirty_notice: "Er zijn wijzigingen op deze pagina aangebracht. Deze gaan verloren als u doorgaat."
+      page_found: "Pagina gevonden"
+      pages_found: "Pagina's gevonden"
+      url_validation_failed: "De url heeft geen geldig formaat."
+      warning: "Waarschuwing!"
+      "Abort upload": "Upload afbreken"
+      "Cancel all uploads": "Alle uploads annuleren"
+      "Clear selection": "Selectie wissen"
+      "Close": "Sluiten"
+      "File is too large": "Bestand is te groot."
+      "File is too small": "Bestand is te klein."
+      "File type not allowed": "Bestandstype niet toegestaan."
+      "Loading more results": "Meer resultaten laden"
+      "Maximum number of files exceeded": "Uploadlimiet bereikt."
+      "No": "Nee"
+      "No anchors found": "Geen ankers gevonden."
+      "No more results": "Geen resultaten meer"
+      "No results found": "Geen resultaten gevonden."
+      "None": "Geen"
+      "Please confirm": "Bevestig alstublieft"
+      "Please wait, loading": "Even geduld, bezig met laden"
+      "Preview failed to load": "Voorbeeld kon niet worden geladen. Probeer het opnieuw."
+      "Remove": "Verwijderen"
+      "Select a page first": "Selecteer eerst een pagina."
+      "Uploaded bytes exceed file size": "Geüploade bytes overschrijden de bestandsgrootte."
+      "Yes": "Ja"
+      formats:
+        datetime: "d-m-Y H:i"
+        date: "d-m-Y"
+        time: "H:i"
+        time_24hr: true
+
     resource_help_texts:
       site:
         host: Geef een <a href="https://nl.wikipedia.org/wiki/Fully_qualified_domain_name" target="_blank">FQDN</a> in of gebruik een asterisk (*) om alle domeinen toegang te geven tot deze website.

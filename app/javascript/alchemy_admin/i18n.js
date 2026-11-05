@@ -1,4 +1,8 @@
+import { readJSONScript } from "alchemy_admin/utils/json_script"
+
 const KEY_SEPARATOR = /\./
+
+const translations = readJSONScript("alchemy_translations")
 
 function nestedTranslation(translations, key) {
   const keys = key.split(KEY_SEPARATOR)
@@ -11,9 +15,6 @@ function nestedTranslation(translations, key) {
 
 function getTranslation(key) {
   const locale = currentLocale()
-  // Host engines import components standalone, outside of the admin layout
-  // that defines the global.
-  const translations = window.Alchemy?.translations
 
   if (!translations) {
     console.warn(`Translations for locale ${locale} not found!`)

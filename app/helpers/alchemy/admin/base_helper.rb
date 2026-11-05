@@ -69,11 +69,17 @@ module Alchemy
         end
       end
 
+      # The translations the admin JavaScript uses, for the given locale.
+      #
+      # Merged over the English ones, so a locale that only translates some of
+      # the keys falls back to English for the rest.
+      #
+      # @return [Hash]
       def alchemy_admin_js_translations(locale = ::I18n.locale)
-        render partial: "alchemy/admin/translations/#{locale}", formats: [:js]
-      rescue ActionView::MissingTemplate
-        # Fallback to default translations
-        render partial: "alchemy/admin/translations/en", formats: [:js]
+        warn_about_legacy_js_translations(locale)
+
+        defaults = js_translations_for(:en)
+        (locale.to_s == "en") ? defaults : defaults.deep_merge(js_translations_for(locale))
       end
 
       # Used for site selector in Alchemy cockpit.
@@ -301,6 +307,22 @@ module Alchemy
         hint_with_tooltip(
           Alchemy.t(:page_definition_missing)
         )
+      end
+
+      private
+
+      def js_translations_for(locale)
+        ::I18n.t(:javascript, scope: :alchemy, locale: locale, default: {})
+      end
+
+      def warn_about_legacy_js_translations(locale)
+        return unless lookup_context.exists?(locale.to_s, ["alchemy/admin/translations"], true, [], formats: [:js])
+
+        Alchemy::Deprecation.warn <<~WARNING
+          Admin JavaScript translations are not rendered from
+          app/views/alchemy/admin/translations/_#{locale}.js anymore.
+          Move them into the alchemy.javascript namespace of your locale file instead.
+        WARNING
       end
     end
   end

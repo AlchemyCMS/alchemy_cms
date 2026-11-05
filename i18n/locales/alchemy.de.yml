@@ -303,6 +303,51 @@ de:
       blank: neuem Fenster/Tab
       overlay: einem Overlay
 
+    # == Translations used by the admin JavaScript
+    # Note: "Yes" and "No" have to stay quoted. YAML reads them as booleans otherwise.
+    javascript:
+      Add: "Erstelle"
+      allowed_chars: "von %{count} Zeichen"
+      cancel: "Abbrechen"
+      cancelled: "Abgebrochen"
+      click_to_edit: "Klicken zum Bearbeiten"
+      complete: "Abgeschlossen"
+      element_dirty_notice: "Dieses Element hat nicht gespeicherte Änderungen. Möchten Sie es wirklich einklappen?"
+      help: "Hilfe"
+      ok: "Ok"
+      page_dirty_notice: "Sie haben ungesicherte Änderungen auf der Seite. Diese gehen verloren, wenn Sie fortfahren."
+      page_found: "Seite gefunden"
+      pages_found: "Seiten gefunden"
+      url_validation_failed: "Die URL hat kein gültiges Format."
+      warning: "Achtung!"
+      "Abort upload": "Upload abbrechen"
+      "Cancel all uploads": "Alle Uploads abbrechen"
+      "Clear selection": "Auswahl aufheben"
+      "Close": "Schließen"
+      "File is too large": "Datei ist zu groß."
+      "File is too small": "Datei ist zu klein."
+      "File type not allowed": "Dateityp nicht erlaubt."
+      "Loading more results": "Lade mehr Ergebnisse"
+      "Maximum number of files exceeded": "Maximale Anzahl gleichzeitig erlaubter Datei-Uploads erreicht."
+      "No": "Nein"
+      "No anchors found": "Keine Sprungmarken gefunden."
+      "No more results": "Keine weiteren Ergebnisse"
+      "No results found": "Keine Ergebnisse."
+      "None": "Keine"
+      "Please confirm": "Bitte bestätigen"
+      "Please wait, loading": "Bitte warten, wird geladen"
+      "Preview failed to load": "Die Vorschau konnte nicht geladen werden. Bitte versuchen Sie es erneut."
+      "Remove": "Entfernen"
+      "Select a page first": "Zuerst eine Seite wählen."
+      "Successfully moved menu item": "Menü-Eintrag wurde erfolgreich bewegt."
+      "Uploaded bytes exceed file size": "Maximale Größe der erlaubten Dateigröße erreicht."
+      "Yes": "Ja"
+      formats:
+        datetime: "d.m.Y H:i"
+        date: "d.m.Y"
+        time: "H:i"
+        time_24hr: true
+
     resource_help_texts:
       site:
         host: Geben Sie entweder einen <a href="https://de.wikipedia.org/wiki/Domain_(Internet)#Fully_Qualified_Domain_Name_(FQDN)" target="_blank">vollständigen Domain Namen</a> ein oder verwenden Sie ein Sternchen (*), um allen Domains den Zugang zu dieser Website zu ermöglichen.

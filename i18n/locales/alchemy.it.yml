@@ -252,6 +252,50 @@ it:
         deletable:
           name: Non utilizzato
 
+    # == Translations used by the admin JavaScript
+    # Note: "Yes" and "No" have to stay quoted. YAML reads them as booleans otherwise.
+    javascript:
+      Add: "Crea"
+      allowed_chars: "di %{count} caratteri"
+      cancel: "Annulla"
+      cancelled: "Annullato"
+      click_to_edit: "clicca per modificare"
+      complete: "Completato"
+      element_dirty_notice: "Questo elemento contiene delle modifiche non salvate. Vuoi veramenter chiuderlo?"
+      help: "Aiuto"
+      ok: "Ok"
+      page_dirty_notice: "Su questa pagina hai delle modifiche non salvate. Verranno perse se decidi di continuare."
+      page_found: "Pagina trovata"
+      pages_found: "Pagine trovate"
+      url_validation_failed: "Formato URL non valido."
+      warning: "Attenzione!"
+      "Abort upload": "Interrompi caricamento"
+      "Cancel all uploads": "Annulla tutti i caricamenti"
+      "Clear selection": "Cancella selezione"
+      "Close": "Chiudi"
+      "File is too large": "Il file è troppo grande"
+      "File is too small": "Il file è troppo piccolo"
+      "File type not allowed": "Tipo di file non consentito"
+      "Loading more results": "Caricamento in corso"
+      "Maximum number of files exceeded": "Numero massimo di file raggiunto."
+      "No": "No"
+      "No anchors found": "Nessuna ancora trovata."
+      "No more results": "Nessun altro risultato"
+      "No results found": "Nessun risultato trovato."
+      "None": "Nessuno"
+      "Please confirm": "Per favore conferma"
+      "Please wait, loading": "Attendi prego, caricamento"
+      "Preview failed to load": "Impossibile caricare l'anteprima. Riprova."
+      "Remove": "Rimuovi"
+      "Select a page first": "Seleziona prima una pagina."
+      "Uploaded bytes exceed file size": "Il numero di byte caricati eccede la dimensione del file"
+      "Yes": "Sì"
+      formats:
+        datetime: "d/m/Y H:i"
+        date: "d/m/Y"
+        time: "H:i"
+        time_24hr: true
+
     resource_help_texts:
       site:
         host: Inserisca un <a href="https://it.wikipedia.org/wiki/FQDN" target="_blank">FQDN</a> oppure utilizzi un asterisco (*) per consentire a tutti i domini di accedere a questo sito.

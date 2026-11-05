@@ -84,9 +84,22 @@ Object.defineProperty(window, "matchMedia", {
 globalThis.key = vi.fn()
 globalThis.key.unbind = vi.fn()
 
+// Translations are read from the DOM at import time, so the script tag has to be
+// in place before any test module loads.
+document.head.insertAdjacentHTML(
+  "beforeend",
+  `<script type="application/json" id="alchemy_translations">
+    {
+      "allowed_chars": "of %{count} chars",
+      "help": "Help",
+      "Preview failed to load": "Preview failed to load. Please try again.",
+      "formats": {"date": "Y-m-d"}
+    }
+  <\/script>`
+)
+
 // Set up global Alchemy object that many tests expect
 globalThis.Alchemy = {
-  translations: {},
   locale: "en",
   growl: vi.fn(),
   LinkDialog: vi.fn(function () {
