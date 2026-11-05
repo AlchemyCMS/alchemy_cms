@@ -384,6 +384,10 @@ de:
       page_definitions:
         show_pages: Zeige %{count} %{model_name}
         zero_pages: 0 Seiten
+        content_pages: "Inhaltsseiten"
+        element_usage: "Auf diesem Seitentyp: %{count} · Insgesamt: %{total}"
+        show_all_page_types: "Alle Seitentypen anzeigen"
+        show_only_this_page_type: "Nur diesen Seitentyp anzeigen"
       pictures:
         sorting_select:
           label: "Sortierung"
@@ -392,6 +396,13 @@ de:
       publish_page_button:
         publish_page: "Seite veröffentlichen"
         publish_changes: "Änderungen veröffentlichen"
+      hints:
+        alchemy/element_definition:
+          fixed: "Dieses Element hat eine feste Position auf der Seite."
+          unique: "Dieses Element kann nur einmal pro Seite verwendet werden."
+        alchemy/page_definition:
+          unique: "Dieser Seitentyp kann nur einmal pro Sprache verwendet werden."
+          layoutpage: "Diese Seite ist global und nicht über eine URL erreichbar."
     anchor: "Sprungmarke"
     automatic_anchor_notice: Die Sprungmarke wurde automatisch erstellt.
     attribute_fixed: Dieser Wert ist für diesen Seitentyp nicht veränderbar
@@ -1128,6 +1139,10 @@ de:
         phone: Telefon
         email: E-Mail
         message: Nachricht
+      alchemy/page_definition:
+        elements: "Verfügbare Elemente"
+        layoutpage: "Global"
+        unique: "Einmalig"
 
   # Translations for Alchemy database models
   activerecord:
@@ -1179,9 +1194,54 @@ de:
       alchemy/element:
         one: "Element"
         other: "Elemente"
+      alchemy/ingredients/audio:
+        one: "Audiodatei"
+        other: "Audiodateien"
+      alchemy/ingredients/boolean:
+        one: "Wahr/Falsch"
+        other: "Wahr/Falsch"
+      alchemy/ingredients/color:
+        one: "Farbe"
+        other: "Farben"
+      alchemy/ingredients/datetime:
+        one: "Datum/Uhrzeit"
+        other: "Datum/Uhrzeit"
+      alchemy/ingredients/file:
+        one: "Datei"
+        other: "Dateien"
       alchemy/ingredients/headline:
         one: Überschrift
         other: Überschriften
+      alchemy/ingredients/html:
+        one: "HTML"
+        other: "HTML"
+      alchemy/ingredients/link:
+        one: "Link"
+        other: "Links"
+      alchemy/ingredients/node:
+        one: "Menü-Eintrag"
+        other: "Menü-Einträge"
+      alchemy/ingredients/number:
+        one: "Zahl"
+        other: "Zahlen"
+      alchemy/ingredients/page:
+        one: "Seite"
+        other: "Seiten"
+      alchemy/ingredients/picture:
+        one: "Bild"
+        other: "Bilder"
+      alchemy/ingredients/richtext:
+        one: "Richtext"
+        other: "Richtexte"
+      alchemy/ingredients/select:
+        one: "Auswahl"
+        other: "Auswahlen"
+      alchemy/ingredients/text:
+        one: "Text"
+        other: "Texte"
+      alchemy/ingredients/video:
+        one: "Videodatei"
+        other: "Videodateien"
       alchemy/legacy_page_url:
         one: "Verweis"
         other: "Verweise"
@@ -1226,6 +1286,8 @@ de:
         public_on: "sichtbar ab"
         public_until: "sichtbar bis"
         tag_list: Tags
+        unique: "Einmalig"
+        fixed: "Fixiert"
       alchemy/ingredient:
         autoplay: Direkt abspielen
         controls: Bedienelemente anzeigen
