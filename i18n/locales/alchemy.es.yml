@@ -383,6 +383,10 @@ es:
       page_definitions:
         show_pages: Mostrar %{count} %{model_name}
         zero_pages: 0 páginas
+        content_pages: "Páginas de contenido"
+        element_usage: "En este tipo de página: %{count} · En total: %{total}"
+        show_all_page_types: "Mostrar todos los tipos de página"
+        show_only_this_page_type: "Mostrar solo este tipo de página"
       pictures:
         sorting_select:
           label: "Ordenar"
@@ -391,6 +395,13 @@ es:
       publish_page_button:
         publish_page: "Publicar página"
         publish_changes: "Publicar cambios"
+      hints:
+        alchemy/element_definition:
+          fixed: "Este elemento tiene una posición fija en la página."
+          unique: "Este elemento solo se puede usar una vez por página."
+        alchemy/page_definition:
+          unique: "Este tipo de página solo se puede usar una vez por idioma."
+          layoutpage: "Esta página es global y no está disponible a través de una URL."
     anchor: "Ancla"
     anchor_link_headline: "Puede enlazar a un ancla de la página actual."
     automatic_anchor_notice: "El ancla se genera automáticamente."
@@ -755,6 +766,7 @@ es:
       sites: "Sitios"
       user_sessions: "Login"
       users: "Usuarios"
+      page_definitions: "Definiciones"
     name: "Nombre"
     names: "Nombres"
     navigation_name: "Nombre de navegación"
@@ -1092,6 +1104,9 @@ es:
         one: Mensaje
         other: Mensajes
       alchemy/admin/preview_url: "Interno"
+      alchemy/page_definition:
+        one: "Tipo de página"
+        other: "Tipos de página"
     attributes:
       alchemy/message:
         salutation: "Saludo"
@@ -1103,6 +1118,10 @@ es:
         phone: "Teléfono"
         email: "Correo"
         message: "Mensaje"
+      alchemy/page_definition:
+        elements: "Elementos disponibles"
+        layoutpage: "Global"
+        unique: "Único"
 
   # Translations for Alchemy database models
   activerecord:
@@ -1116,9 +1135,54 @@ es:
       alchemy/element:
         one: "Elemento"
         other: "Elementos"
+      alchemy/ingredients/audio:
+        one: "Archivo de audio"
+        other: "Archivos de audio"
+      alchemy/ingredients/boolean:
+        one: "Verdadero/Falso"
+        other: "Verdadero/Falso"
+      alchemy/ingredients/color:
+        one: "Color"
+        other: "Colores"
+      alchemy/ingredients/datetime:
+        one: "Fecha/Hora"
+        other: "Fechas/Horas"
+      alchemy/ingredients/file:
+        one: "Archivo"
+        other: "Archivos"
       alchemy/ingredients/headline:
         one: Encabezado
         other: Encabezados
+      alchemy/ingredients/html:
+        one: "HTML"
+        other: "HTML"
+      alchemy/ingredients/link:
+        one: "Enlace"
+        other: "Enlaces"
+      alchemy/ingredients/node:
+        one: "Entrada de menú"
+        other: "Entradas de menú"
+      alchemy/ingredients/number:
+        one: "Número"
+        other: "Números"
+      alchemy/ingredients/page:
+        one: "Página"
+        other: "Páginas"
+      alchemy/ingredients/picture:
+        one: "Imagen"
+        other: "Imágenes"
+      alchemy/ingredients/richtext:
+        one: "Texto enriquecido"
+        other: "Textos enriquecidos"
+      alchemy/ingredients/select:
+        one: "Selección"
+        other: "Selecciones"
+      alchemy/ingredients/text:
+        one: "Texto"
+        other: "Textos"
+      alchemy/ingredients/video:
+        one: "Archivo de vídeo"
+        other: "Archivos de vídeo"
       alchemy/legacy_page_url:
         one: "Enlace"
         other: "Enlaces"
@@ -1164,6 +1228,8 @@ es:
         public_on: "visible desde"
         public_until: "visible hasta"
         tag_list: Etiquetas
+        unique: "Único"
+        fixed: "Fijo"
       alchemy/ingredient:
         dom_id: "Ancla"
       alchemy/ingredients/file:
