@@ -65,8 +65,8 @@ alchemy-sitemap {
 }
 
 #alchemy_pages_tree {
-  display: block;
-  height: calc(100vh - var(--top-menu-height) - var(--spacing-3));
+  display: flow-root;
+  height: 100%;
   position: relative;
 }
 
