@@ -11,8 +11,15 @@ ru:
               blank: "необходим для изменения ролей"
               invalid: "неверен"
   alchemy:
+    impersonate_user: Войти от имени пользователя
+    confirm_impersonate_user: Вы уверены, что хотите войти от имени пользователя %{user}?
     admin:
       users:
         confirm_password_for_role_change:
           create: "Чтобы создать пользователя с ролью %{roles}, подтвердите действие своим паролем."
           update: "Чтобы изменить роль %{roles} у пользователя %{user}, подтвердите действие своим паролем."
+    devise:
+      user_impersonation:
+        notice: Вы работаете от имени пользователя %{user}.
+        stop: Завершить работу от имени пользователя
+        stop_confirmation: Вернуться к учетной записи администратора?

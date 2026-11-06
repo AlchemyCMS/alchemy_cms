@@ -20,6 +20,12 @@ module Alchemy
 
         if admin?
           can :manage, Alchemy::User
+          cannot :impersonate, Alchemy::User
+          if Alchemy::Devise.config.user_impersonation
+            can :impersonate, Alchemy::User do |target|
+              target != @user && !target.alchemy_admin? && target.active_for_authentication?
+            end
+          end
         end
       end
 

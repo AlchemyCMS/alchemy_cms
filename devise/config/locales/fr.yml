@@ -11,8 +11,15 @@ fr:
               blank: "est requis pour modifier les rôles"
               invalid: "n'est pas correct"
   alchemy:
+    impersonate_user: Prendre l’identité de l’utilisateur
+    confirm_impersonate_user: Voulez-vous vraiment prendre l’identité de %{user} ?
     admin:
       users:
         confirm_password_for_role_change:
           create: "Pour créer un utilisateur avec le rôle %{roles}, vous devez confirmer avec votre propre mot de passe."
           update: "Pour modifier le rôle %{roles} de %{user}, vous devez confirmer avec votre propre mot de passe."
+    devise:
+      user_impersonation:
+        notice: Vous agissez actuellement en tant que %{user}.
+        stop: Arrêter l’usurpation d’identité
+        stop_confirmation: Revenir à votre compte administrateur ?

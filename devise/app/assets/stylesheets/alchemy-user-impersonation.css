@@ -1,0 +1,44 @@
+.alchemy-user-impersonation-notice {
+  --alchemy-user-impersonation-background: #214166cc;
+  --alchemy-user-impersonation-border: #ffffff80;
+  --alchemy-user-impersonation-color: #fff;
+
+  align-items: center;
+  background: var(--alchemy-user-impersonation-background);
+  backdrop-filter: blur(3px);
+  border-bottom: 1px solid var(--alchemy-user-impersonation-border);
+  color: var(--alchemy-user-impersonation-color);
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 10000;
+}
+
+.alchemy-user-impersonation-notice form {
+  margin: 0;
+}
+
+.alchemy-user-impersonation-notice button {
+  appearance: none;
+  background: transparent;
+  border: 1px solid #ffffff80;
+  border-radius: 3px;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  padding: 0.75em 1.5em;
+}
+
+.alchemy-user-impersonation-notice button:hover {
+  background: #00000040;
+  border-color: #ffffffbf;
+}
+
+.alchemy-user-impersonation-notice button:focus-visible {
+  outline: 2px solid #eca96e;
+  outline-offset: 2px;
+}

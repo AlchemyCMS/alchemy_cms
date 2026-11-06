@@ -25,4 +25,23 @@ RSpec.describe "Alchemy::Devise locales" do
       expect(update_message).to include("Jane Doe"), "#{locale} update drops the user"
     end
   end
+
+  it "translates and interpolates user impersonation in every shipped locale", :aggregate_failures do
+    locales.each do |locale|
+      impersonate = I18n.t("alchemy.impersonate_user", locale: locale, fallback: false, raise: true)
+      confirmation = I18n.t("alchemy.confirm_impersonate_user",
+        locale: locale, user: "Jane Doe", fallback: false, raise: true)
+      notice = I18n.t("alchemy.devise.user_impersonation.notice",
+        locale: locale, user: "Jane Doe", fallback: false, raise: true)
+      stop = I18n.t("alchemy.devise.user_impersonation.stop", locale: locale, fallback: false, raise: true)
+      stop_confirmation = I18n.t("alchemy.devise.user_impersonation.stop_confirmation",
+        locale: locale, fallback: false, raise: true)
+
+      expect(impersonate).to be_present, "#{locale} has no impersonate action"
+      expect(confirmation).to include("Jane Doe"), "#{locale} confirmation drops the user"
+      expect(notice).to include("Jane Doe"), "#{locale} notice drops the user"
+      expect(stop).to be_present, "#{locale} has no stop action"
+      expect(stop_confirmation).to be_present, "#{locale} has no stop confirmation"
+    end
+  end
 end

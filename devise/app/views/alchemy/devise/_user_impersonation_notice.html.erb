@@ -1,0 +1,7 @@
+<aside class="alchemy-user-impersonation-notice" role="status">
+  <span><%= t("alchemy.devise.user_impersonation.notice", user: user.alchemy_display_name) %></span>
+  <%= button_to t("alchemy.devise.user_impersonation.stop"),
+    alchemy.admin_user_impersonation_session_path,
+    method: :delete,
+    form: {data: {turbo_confirm: t("alchemy.devise.user_impersonation.stop_confirmation")}} %>
+</aside>

@@ -11,8 +11,15 @@ it:
               blank: "è necessaria per modificare i ruoli"
               invalid: "non è corretta"
   alchemy:
+    impersonate_user: Impersona utente
+    confirm_impersonate_user: Vuoi davvero impersonare %{user}?
     admin:
       users:
         confirm_password_for_role_change:
           create: "Per creare un utente con il ruolo %{roles} devi confermare con la tua password."
           update: "Per modificare il ruolo %{roles} di %{user} devi confermare con la tua password."
+    devise:
+      user_impersonation:
+        notice: Stai impersonando %{user}.
+        stop: Termina impersonificazione
+        stop_confirmation: Tornare al tuo account amministratore?
