@@ -15,6 +15,55 @@ RSpec.describe Alchemy::Element do
 
   describe "#ingredients_attributes=" do
     let(:element) { create(:alchemy_element, :with_ingredients) }
+    let(:headline) { element.ingredient_by_role(:headline) }
+    let(:image) { element.ingredient_by_role(:image) }
+    let(:picture) { create(:alchemy_picture) }
+
+    it "updates the value, data store keys and related object of existing ingredients" do
+      element.update!(ingredients_attributes: {
+        "0" => {id: headline.id, value: "Hello", level: "3"},
+        "1" => {id: image.id, picture_id: picture.id, crop_from: "0x0"}
+      })
+
+      expect(headline.reload).to have_attributes(value: "Hello", level: "3")
+      expect(image.reload).to have_attributes(picture: picture, crop_from: "0x0")
+    end
+
+    it "ignores ingredient columns other than value" do
+      other_element = create(:alchemy_element)
+      user = create(:alchemy_dummy_user)
+
+      element.update!(ingredients_attributes: [{
+        id: headline.id,
+        value: "<script>alert(1)</script>",
+        type: "Alchemy::Ingredients::Html",
+        role: "hijacked",
+        element_id: other_element.id,
+        related_object_type: "DummyUser",
+        related_object_id: user.id,
+        data: {hijacked: true}
+      }])
+
+      ingredient = Alchemy::Ingredient.find(headline.id)
+      expect(ingredient).to have_attributes(
+        class: Alchemy::Ingredients::Headline,
+        value: "<script>alert(1)</script>",
+        role: "headline",
+        element_id: element.id,
+        related_object_type: nil,
+        related_object_id: nil
+      )
+      expect(ingredient.data).not_to have_key("hijacked")
+    end
+
+    it "ignores attributes the ingredient's class does not allow" do
+      element.update!(ingredients_attributes: [{id: headline.id, value: "Hello", picture_id: picture.id}])
+
+      expect(Alchemy::Ingredient.find(headline.id)).to have_attributes(
+        value: "Hello",
+        related_object_id: nil
+      )
+    end
 
     it "does not create new ingredients" do
       expect {
