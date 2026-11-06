@@ -27,19 +27,11 @@ module Alchemy
     end
 
     # Logs a warning message to the Rails standard logger
-    def self.warn(message, caller_string = nil)
-      if caller_string
-        Alchemy::Deprecation.warn("Alchemy::Logger.warn second argument is deprecated and will be removed in Alchemy 9.0")
-      end
+    def self.warn(message)
       Rails.logger.tagged("alchemy") do
         Rails.logger.warn("WARNING: #{message}")
       end
       nil
     end
-
-    def log_warning(message)
-      Alchemy::Logger.warn(message)
-    end
-    deprecate log_warning: "Alchemy::Logger.warn", deprecator: Alchemy::Deprecation
   end
 end

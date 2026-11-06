@@ -46,15 +46,6 @@ module Alchemy
       expect(picture).to be_valid
     end
 
-    describe "#suffix" do
-      it "should return the suffix of original filename" do
-        Alchemy::Deprecation.silenced do
-          pic = build(:alchemy_picture)
-          expect(pic.suffix).to eq("png")
-        end
-      end
-    end
-
     describe "after create" do
       let(:image_file) { fixture_file_upload("image with spaces.png") }
       let(:picture) { create(:alchemy_picture, name: nil, image_file: image_file) }

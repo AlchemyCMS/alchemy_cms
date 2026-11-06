@@ -3,14 +3,6 @@
 module Alchemy
   module TestSupport
     module CapybaraHelpers
-      # @deprecated Use {#tom_select} instead.
-      def select2(value, options)
-        Alchemy::Deprecation.warn(
-          "Alchemy::TestSupport::CapybaraHelpers#select2 is deprecated. Use #tom_select instead."
-        )
-        tom_select(value, options)
-      end
-
       # Tom Select capybara helper
       def tom_select(value, options)
         label = find_label_by_text(options[:from])
@@ -67,14 +59,6 @@ module Alchemy
             ).click
           end
         end
-      end
-
-      # @deprecated Use {#tom_select_search} instead.
-      def select2_search(value, options)
-        Alchemy::Deprecation.warn(
-          "Alchemy::TestSupport::CapybaraHelpers#select2_search is deprecated. Use #tom_select_search instead."
-        )
-        tom_select_search(value, options)
       end
 
       def click_button_with_tooltip(content)
