@@ -11,7 +11,6 @@ module Alchemy
     #
     module BaseHelper
       include Alchemy::BaseHelper
-      include Alchemy::Admin::NavigationHelper
 
       # Returns a string showing the name of the currently logged in user.
       #
