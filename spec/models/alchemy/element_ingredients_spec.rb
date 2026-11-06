@@ -13,6 +13,18 @@ RSpec.describe Alchemy::Element do
     }.to change { element.ingredients.count }.by(4)
   end
 
+  describe "#ingredients_attributes=" do
+    let(:element) { create(:alchemy_element, :with_ingredients) }
+
+    it "does not create new ingredients" do
+      expect {
+        element.update!(ingredients_attributes: {
+          "0" => {type: "Alchemy::Ingredients::Html", role: "injected", value: "<script>alert(1)</script>"}
+        })
+      }.not_to change { element.ingredients.count }
+    end
+  end
+
   describe "#ingredients_by_type" do
     let(:element) { create(:alchemy_element, :with_ingredients) }
     let(:expected_ingredients) { element.ingredients.texts }

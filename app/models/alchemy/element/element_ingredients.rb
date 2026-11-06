@@ -18,7 +18,7 @@ module Alchemy
         before_create :build_ingredients,
           unless: -> { autogenerate_ingredients == false }
 
-        accepts_nested_attributes_for :ingredients
+        accepts_nested_attributes_for :ingredients, reject_if: ->(attributes) { attributes[:id].blank? }
         validates_associated :ingredients, on: :update
       end
 
