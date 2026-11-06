@@ -5,6 +5,8 @@
 <!-- Release notes generated using configuration in .github/release.yml at 8.4-stable -->
 
 ## What's Changed
+### Security
+* fix(security): Verify CSRF token before loading the current user. https://github.com/AlchemyCMS/alchemy_cms/security/advisories/GHSA-cqh4-xxr9-qc73
 ### Bug Fixes
 * [8.4-stable] fix(admin): Prevent needless scrollbar on resource and pages index by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/4446
 
