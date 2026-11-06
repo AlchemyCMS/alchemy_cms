@@ -1,5 +1,13 @@
 # Changelog
 
+## 8.4.3 (2026-11-06)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.4-stable -->
+
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.4.2...v8.4.3
+
 ## 8.4.2 (2026-11-05)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.4-stable -->
