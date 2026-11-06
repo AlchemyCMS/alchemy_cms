@@ -98,5 +98,24 @@ RSpec.describe Alchemy::Admin::ElementsController do
         end
       end
     end
+
+    context "as an author" do
+      let(:element) { create(:alchemy_element, :with_ingredients) }
+
+      before { authorize_user(:as_author) }
+
+      it "cannot create ingredients" do
+        patch admin_element_path(id: element.id, format: :turbo_stream), params: {
+          element: {
+            ingredients_attributes: {
+              "0" => {type: "Alchemy::Ingredients::Html", role: "injected", value: "<script>alert(1)</script>"}
+            }
+          }
+        }
+
+        expect(response).to have_http_status(:ok)
+        expect(element.ingredients.pluck(:role)).not_to include("injected")
+      end
+    end
   end
 end
