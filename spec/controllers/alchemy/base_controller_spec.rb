@@ -4,6 +4,11 @@ require "rails_helper"
 
 module Alchemy
   describe BaseController do
+    it "verifies the authenticity token before any other callback reads the session" do
+      before_callbacks = described_class._process_action_callbacks.select { _1.kind == :before }
+      expect(before_callbacks.first.filter).to eq(:verify_authenticity_token)
+    end
+
     describe "#set_locale" do
       context "with Current.language set" do
         let(:language) { create(:alchemy_language, :klingon) }
