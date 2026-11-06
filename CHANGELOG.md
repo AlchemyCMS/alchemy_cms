@@ -1,5 +1,19 @@
 # Changelog
 
+## 8.4.2 (2026-11-05)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.4-stable -->
+
+## What's Changed
+### Bug Fixes
+* [8.4-stable] fix(preview): Only exchange messages with the preview frame by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/4432
+* [8.4-stable] fix(admin): Highlight main navigation entries with trailing slash urls by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4441
+### Deprecations
+* [8.4] feat(menu): Deprecate the position of menu entries by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4435
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.4.1...v8.4.2
+
 ## 8.4.1 (2026-10-28)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.4-stable -->
