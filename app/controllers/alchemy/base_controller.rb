@@ -9,7 +9,7 @@ module Alchemy
     include Alchemy::ControllerActions
     include Alchemy::Modules
 
-    protect_from_forgery
+    protect_from_forgery prepend: true
 
     before_action :mailer_set_url_options
     before_action :set_locale
