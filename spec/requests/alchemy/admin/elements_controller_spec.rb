@@ -98,5 +98,50 @@ RSpec.describe Alchemy::Admin::ElementsController do
         end
       end
     end
+
+    context "as an author" do
+      let(:element) { create(:alchemy_element, :with_ingredients) }
+
+      before { authorize_user(:as_author) }
+
+      it "cannot create ingredients" do
+        patch admin_element_path(id: element.id, format: :turbo_stream), params: {
+          element: {
+            ingredients_attributes: {
+              "0" => {type: "Alchemy::Ingredients::Html", role: "injected", value: "<script>alert(1)</script>"}
+            }
+          }
+        }
+
+        expect(response).to have_http_status(:ok)
+        expect(element.ingredients.pluck(:role)).not_to include("injected")
+      end
+
+      it "cannot change the type or related object of an ingredient" do
+        ingredient = element.ingredient_by_role(:headline)
+
+        patch admin_element_path(id: element.id, format: :turbo_stream), params: {
+          element: {
+            ingredients_attributes: {
+              "0" => {
+                id: ingredient.id,
+                value: "<script>alert(1)</script>",
+                type: "Alchemy::Ingredients::Html",
+                related_object_type: "DummyUser",
+                related_object_id: create(:alchemy_dummy_user).id
+              }
+            }
+          }
+        }
+
+        expect(response).to have_http_status(:ok)
+        expect(Alchemy::Ingredient.find(ingredient.id)).to have_attributes(
+          class: Alchemy::Ingredients::Headline,
+          value: "<script>alert(1)</script>",
+          related_object_type: nil,
+          related_object_id: nil
+        )
+      end
+    end
   end
 end
