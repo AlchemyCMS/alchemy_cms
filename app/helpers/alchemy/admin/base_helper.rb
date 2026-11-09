@@ -264,6 +264,12 @@ module Alchemy
         ].compact
       end
 
+      # Restores the elements window width the user dragged it to.
+      def alchemy_body_style
+        width = cookies["alchemy-elements-window-width"]
+        "--elements-window-width: #{width}px" if width&.match?(/\A\d+(\.\d+)?\z/)
+      end
+
       # (internal) Returns options for the clipboard select tag
       def clipboard_select_tag_options(items)
         options = items.map do |item|
