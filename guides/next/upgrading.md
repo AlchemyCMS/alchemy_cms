@@ -80,6 +80,16 @@ Major versions follow the same upgrade process, but include breaking changes. Th
 Before upgrading to the next major version, make sure you have addressed all deprecation warnings and run all upgrade tasks in the current version first.
 :::
 
+### Upgrading to Alchemy 9.0 <Badge type="tip" text="9.0+" />
+
+Upgrade to Alchemy 8.4 and run its upgrade task before you upgrade to 9.0. Alchemy 9.0 removes the 8.x upgrade tasks and combines all previous migrations into one, so apps coming from an older version would miss them.
+
+Alchemy 9.0 does not drop any columns from existing databases. The page metadata columns, moved to page versions in 8.1, and the `public` column of elements, replaced by publication timestamps in 8.4, are ignored. The 9.0 upgrade task asks whether to remove them. You can also remove them later with:
+
+~~~ bash
+bin/rails alchemy:tidy:remove_deprecated_columns
+~~~
+
 ## Upgrading in Production
 
 After deploying a new version of the `alchemy_cms` gem, database migrations run automatically via `db:prepare`.

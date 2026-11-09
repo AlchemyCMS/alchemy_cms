@@ -195,7 +195,7 @@ class EventsAbility
   include CanCan::Ability
 
   def initialize(user)
-    if user.present? && user.is_admin?
+    if user.present? && user.alchemy_admin?
       can :manage, Event
       can :manage, :admin_events
     end
@@ -217,11 +217,11 @@ end
 ~~~
 
 :::warning
-`Alchemy.register_ability` is deprecated since Alchemy 8.1 and will be removed in a future version.
+`Alchemy.register_ability` is deprecated since Alchemy 8.1 and has been removed in Alchemy 9.0.
 :::
 
 ::: tip
-You can define more granular permissions by checking for specific roles instead of `is_admin?`. See the [CanCanCan documentation](https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities) for details.
+You can define more granular permissions by checking for specific roles with `has_alchemy_role?` instead of `alchemy_admin?`. See the [CanCanCan documentation](https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities) for details.
 :::
 
 ## Resource Form
@@ -418,9 +418,9 @@ The [alchemy-devise](extensions#alchemy-devise) and [alchemy-solidus](extensions
 
 ## Migrating from `register_module`
 
-Before Alchemy 8.4, modules were added to the navigation with `Alchemy::Modules.register_module`. It still works, but is deprecated and will be removed in Alchemy 9.0.
+Before Alchemy 8.4, modules were added to the navigation with `Alchemy::Modules.register_module`. It is deprecated since Alchemy 8.4 and has been removed in Alchemy 9.0.
 
-The upgrade task rewrites `register_module` calls that use a plain hash into `config.menu.add` and lists everything it could not rewrite:
+The 8.4 upgrade task rewrites `register_module` calls that use a plain hash into `config.menu.add` and lists everything it could not rewrite. Run it on Alchemy 8.4, before you upgrade to 9.0:
 
 ~~~ bash
 bin/rails alchemy:upgrade
