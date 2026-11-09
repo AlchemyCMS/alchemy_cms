@@ -5,9 +5,12 @@
 <!-- Release notes generated using configuration in .github/release.yml at 8.4-stable -->
 
 ## What's Changed
+### Security
+* fix(security): Verify CSRF token before loading the current user. https://github.com/AlchemyCMS/alchemy_cms/security/advisories/GHSA-cqh4-xxr9-qc73
+* fix(security): Restrict writable ingredient attributes on elements. https://github.com/AlchemyCMS/alchemy_cms/security/advisories/GHSA-3v87-v27q-vf34
+* fix(admin): Only accept a number as elements window width. https://github.com/AlchemyCMS/alchemy_cms/security/advisories/GHSA-pfx8-f77c-5gp5
 ### Bug Fixes
 * [8.4-stable] fix(admin): Prevent needless scrollbar on resource and pages index by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/4446
-### Other Changes
 * [8.4-stable] fix(admin): Only resolve dashboard widgets from the widgets namespace by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4452
 
 
