@@ -55,6 +55,26 @@ module Alchemy
       end
     end
 
+    describe "#alchemy_body_style" do
+      subject { helper.alchemy_body_style }
+
+      context "without elements window width cookie" do
+        it { is_expected.to be_nil }
+      end
+
+      context "with a numeric elements window width cookie" do
+        before { helper.request.cookies["alchemy-elements-window-width"] = "412.5" }
+
+        it { is_expected.to eq("--elements-window-width: 412.5px") }
+      end
+
+      context "with an elements window width cookie containing CSS" do
+        before { helper.request.cookies["alchemy-elements-window-width"] = "1; background: url(//example.com)" }
+
+        it { is_expected.to be_nil }
+      end
+    end
+
     describe "#clipboard_select_tag_options" do
       let(:page) { build_stubbed(:alchemy_page) }
 
