@@ -18,8 +18,22 @@ module Alchemy
         before_create :build_ingredients,
           unless: -> { autogenerate_ingredients == false }
 
-        accepts_nested_attributes_for :ingredients
+        accepts_nested_attributes_for :ingredients, reject_if: ->(attributes) { attributes[:id].blank? }
         validates_associated :ingredients, on: :update
+      end
+
+      # Only the editable attributes of each ingredient's own class are
+      # assigned, so +type+, +role+ or +related_object_type+ can never be.
+      def ingredients_attributes=(attributes)
+        attributes = attributes.to_h if attributes.respond_to?(:permitted?)
+        if attributes.is_a?(Hash) && !attributes.key?("id") && !attributes.key?(:id)
+          attributes = attributes.values
+        end
+        super(Array.wrap(attributes).map { |ingredient_attributes|
+          ingredient_attributes = ingredient_attributes.to_h.with_indifferent_access
+          ingredient = ingredients.detect { _1.id.to_s == ingredient_attributes[:id].to_s }
+          ingredient_attributes.slice(:id, *ingredient&.class&.editable_attributes)
+        })
       end
 
       # The value of an ingredient of the element by role

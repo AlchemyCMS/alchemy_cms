@@ -34,6 +34,8 @@ module Alchemy
 
     attribute :data, :json
 
+    class_attribute :related_object_id_alias, instance_accessor: false
+
     belongs_to :element, touch: true, class_name: "Alchemy::Element", inverse_of: :ingredients
     belongs_to :related_object, polymorphic: true, optional: true
 
@@ -72,6 +74,7 @@ module Alchemy
       # @param [String|Symbol] The name of the alias
       # @param [String] The class name of the related object
       def related_object_alias(name, class_name:)
+        self.related_object_id_alias = :"#{name}_id"
         alias_method name, :related_object
         alias_method :"#{name}=", :related_object=
 
@@ -115,6 +118,11 @@ module Alchemy
       # Allowed settings on the ingredient
       def allowed_settings
         @allowed_settings ||= []
+      end
+
+      # Attributes editors may assign through the element form
+      def editable_attributes
+        [:value, *stored_attributes[:data], related_object_id_alias].compact
       end
     end
 

@@ -71,6 +71,20 @@ RSpec.describe Alchemy::Ingredient do
     end
   end
 
+  describe ".editable_attributes" do
+    it "contains the value, data store keys and related object id of the class" do
+      expect(Alchemy::Ingredients::Picture.editable_attributes).to include(:value, :crop_from, :picture_id)
+      expect(Alchemy::Ingredients::Headline.editable_attributes).to include(:value, :level)
+      expect(Alchemy::Ingredients::Headline.editable_attributes).not_to include(:picture_id)
+    end
+
+    it "never contains other columns" do
+      expect(Alchemy::Ingredients::Picture.editable_attributes.map(&:to_s)).not_to include(
+        *(described_class.column_names - %w[value])
+      )
+    end
+  end
+
   describe "#settings" do
     let(:ingredient) { Alchemy::Ingredients::Text.new(role: "headline", element: element) }
 
