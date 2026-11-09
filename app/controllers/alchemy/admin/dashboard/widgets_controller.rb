@@ -11,10 +11,13 @@ module Alchemy
       private
 
       def get_widget(id)
-        "#{MODULE_NAMESPACE}::#{id.camelcase}".constantize
-      rescue NameError => e
+        widget = "#{MODULE_NAMESPACE}::#{id.camelcase}".safe_constantize
+        # Constant lookup also finds classes in the ancestors of a widget,
+        # e.g. "system_info/template" resolves to a ViewComponent internal.
+        return widget if widget.is_a?(Class) && widget.module_parent_name == MODULE_NAMESPACE
+
         Alchemy::Logger.error "No dashboard widget found for id: #{id}"
-        raise ActionController::RoutingError, e.message
+        raise ActionController::RoutingError, "No dashboard widget found for id: #{id}"
       end
     end
   end
