@@ -27,6 +27,22 @@ module Alchemy
             .to raise_error(ActionController::RoutingError)
         end
       end
+
+      context "with an id resolving to a class outside the widgets namespace" do
+        it "logs the error and raises a routing error" do
+          expect(Alchemy::Logger).to receive(:error).with(%r{system_info/template})
+          expect { get :show, params: {id: "system_info/template"} }
+            .to raise_error(ActionController::RoutingError)
+        end
+      end
+
+      context "with an id that is not a valid constant name" do
+        it "logs the error and raises a routing error" do
+          expect(Alchemy::Logger).to receive(:error).with(%r{\.\./file})
+          expect { get :show, params: {id: "../file"} }
+            .to raise_error(ActionController::RoutingError)
+        end
+      end
     end
   end
 end
