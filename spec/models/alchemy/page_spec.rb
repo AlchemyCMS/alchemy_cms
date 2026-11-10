@@ -1456,8 +1456,8 @@ module Alchemy
             expect(page.folded_pages).to receive(:loaded?).and_return(true)
           end
 
-          it "queries the database" do
-            expect(page.folded_pages).to receive(:any?)
+          it "does not query the database" do
+            expect(page.folded_pages).to receive(:find)
             subject
           end
         end
@@ -1468,7 +1468,7 @@ module Alchemy
           end
 
           it "queries the database" do
-            expect(page.folded_pages).to receive(:where).with(user_id: user.id, folded: true).and_return([])
+            expect(page.folded_pages).to receive(:find_by).with(user_id: user.id)
             subject
           end
         end
@@ -1486,6 +1486,30 @@ module Alchemy
         context "if page is not folded" do
           it "should return false" do
             is_expected.to eq(false)
+          end
+        end
+
+        context "if page has children" do
+          let!(:child) { create(:alchemy_page, parent: page) }
+
+          before { page.reload }
+
+          it "is folded by default" do
+            is_expected.to eq(true)
+          end
+
+          context "and the user unfolded it" do
+            let!(:folded_page) do
+              Alchemy::FoldedPage.create!(page: page, user: user, folded: false)
+            end
+
+            it { is_expected.to eq(false) }
+          end
+
+          context "and it is a root page" do
+            let(:page) { create(:alchemy_page, :language_root) }
+
+            it { is_expected.to eq(false) }
           end
         end
       end
