@@ -33,11 +33,13 @@ module Alchemy
     # @option options crop [Boolean]
     #   If set to true the picture will be cropped to fit the size value.
     #
-    # @return [String]
+    # @return [String, nil] +nil+ if no picture is assigned or the url could not be generated
     def picture_url(options = {})
       return if picture.nil?
 
-      picture.url(picture_url_options(options)) || "missing-image.png"
+      url = picture.url(picture_url_options(options))
+      Logger.warn("Could not generate url for picture #{picture.id}") if url.nil?
+      url
     end
 
     # Picture rendering options
