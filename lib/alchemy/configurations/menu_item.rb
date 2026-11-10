@@ -25,8 +25,11 @@ module Alchemy
 
       # Legacy positions sorted entries around the default menu's entries, which
       # used the positions 1 to 7, so +4.1+ maps to the index before Sites.
+      # Definitions came later without a position and sits between Tags (6) and
+      # Library (7), so positions after Tags map one index further.
       def self.index_for_legacy_position(position)
-        [position.ceil - 1, 0].max
+        index = [position.ceil - 1, 0].max
+        (index >= 6) ? index + 1 : index
       end
 
       def path(view_context)

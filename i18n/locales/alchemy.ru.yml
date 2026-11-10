@@ -492,6 +492,7 @@ ru:
       sites: "Сайты"
       user_sessions: "Войти"
       users: "Пользователи"
+      page_definitions: "Определения"
     name: "Название"
     names: "Названия"
     navigation_name: "Название для навигации"
@@ -691,6 +692,21 @@ ru:
           email: Email
           login: войти
           password: Пароль
+    admin:
+      page_definitions:
+        content_pages: "Страницы контента"
+        element_usage: "На этом типе страниц: %{count} · Всего: %{total}"
+        show_pages: "Показать %{count} %{model_name}"
+        show_all_page_types: "Показать все типы страниц"
+        show_only_this_page_type: "Показать только этот тип страниц"
+        zero_pages: "0 страниц"
+      hints:
+        alchemy/element_definition:
+          fixed: "Этот элемент имеет фиксированную позицию на странице."
+          unique: "Этот элемент можно использовать только один раз на странице."
+        alchemy/page_definition:
+          unique: "Этот тип страниц можно использовать только один раз для каждого языка."
+          layoutpage: "Эта страница является частью макета и недоступна по URL."
 
   ### Add Russian rails translations(and better i18n support) using 'russian' gem
   # You should put this to your Gemfile
@@ -764,6 +780,11 @@ ru:
         one: "Сообщение"
         other: "Сообщения"
         zero: "Нет сообщений"
+      alchemy/page_definition:
+        one: "Тип страниц"
+        few: "Типа страниц"
+        many: "Типов страниц"
+        other: "Типа страниц"
     attributes:
       alchemy/message:
         salutation: "Приветствие"
@@ -775,6 +796,10 @@ ru:
         phone: "Телефон"
         email: "Email"
         message: "Сообщение"
+      alchemy/page_definition:
+        elements: "Доступные элементы"
+        layoutpage: "Часть макета"
+        unique: "Уникальный"
 
   # Translations for Alchemy database models
   activerecord:
@@ -794,6 +819,81 @@ ru:
         few: "Элемента"
         many: "Элементов"
         zero: "Элементов"
+      alchemy/ingredients/audio:
+        one: "Аудиофайл"
+        few: "Аудиофайла"
+        many: "Аудиофайлов"
+        other: "Аудиофайла"
+      alchemy/ingredients/boolean:
+        one: "Да/Нет"
+        few: "Да/Нет"
+        many: "Да/Нет"
+        other: "Да/Нет"
+      alchemy/ingredients/color:
+        one: "Цвет"
+        few: "Цвета"
+        many: "Цветов"
+        other: "Цвета"
+      alchemy/ingredients/datetime:
+        one: "Дата/время"
+        few: "Дата/время"
+        many: "Дата/время"
+        other: "Дата/время"
+      alchemy/ingredients/file:
+        one: "Файл"
+        few: "Файла"
+        many: "Файлов"
+        other: "Файла"
+      alchemy/ingredients/html:
+        one: "HTML"
+        few: "HTML"
+        many: "HTML"
+        other: "HTML"
+      alchemy/ingredients/link:
+        one: "Ссылка"
+        few: "Ссылки"
+        many: "Ссылок"
+        other: "Ссылки"
+      alchemy/ingredients/node:
+        one: "Пункт меню"
+        few: "Пункта меню"
+        many: "Пунктов меню"
+        other: "Пункта меню"
+      alchemy/ingredients/number:
+        one: "Число"
+        few: "Числа"
+        many: "Чисел"
+        other: "Числа"
+      alchemy/ingredients/page:
+        one: "Страница"
+        few: "Страницы"
+        many: "Страниц"
+        other: "Страницы"
+      alchemy/ingredients/picture:
+        one: "Изображение"
+        few: "Изображения"
+        many: "Изображений"
+        other: "Изображения"
+      alchemy/ingredients/richtext:
+        one: "Форматированный текст"
+        few: "Форматированных текста"
+        many: "Форматированных текстов"
+        other: "Форматированного текста"
+      alchemy/ingredients/select:
+        one: "Выбор"
+        few: "Выбора"
+        many: "Выборов"
+        other: "Выбора"
+      alchemy/ingredients/text:
+        one: "Текст"
+        few: "Текста"
+        many: "Текстов"
+        other: "Текста"
+      alchemy/ingredients/video:
+        one: "Видеофайл"
+        few: "Видеофайла"
+        many: "Видеофайлов"
+        other: "Видеофайла"
       alchemy/legacy_page_url:
         one: "Ссылка"
         few: "Ссылки"
@@ -842,6 +942,8 @@ ru:
         name: "Название"
         public: "видимый"
         tag_list: "Метки"
+        unique: "Уникальный"
+        fixed: "Фиксированный"
       alchemy/essence_file:
         css_class: Style
       alchemy/essence_picture:

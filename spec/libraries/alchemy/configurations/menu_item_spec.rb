@@ -293,7 +293,12 @@ RSpec.describe Alchemy::Configurations::MenuItem do
     it "returns the index the position had in the default menu" do
       expect(described_class.index_for_legacy_position(1)).to eq(0)
       expect(described_class.index_for_legacy_position(4.1)).to eq(4)
-      expect(described_class.index_for_legacy_position(8)).to eq(7)
+      expect(described_class.index_for_legacy_position(6)).to eq(5)
+    end
+
+    it "places positions after Tags behind the Definitions entry" do
+      expect(described_class.index_for_legacy_position(7)).to eq(7)
+      expect(described_class.index_for_legacy_position(8)).to eq(8)
     end
 
     it "does not return a negative index" do

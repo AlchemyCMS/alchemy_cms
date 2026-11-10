@@ -11,7 +11,14 @@
       <% end %>
       <%= Alchemy::Page.human_attribute_name(:page_layout) %>
     </label>
-    <p><%= @page.layout_display_name %></p>
+    <p>
+      <% if @page.definition.present? && can?(:index, :alchemy_admin_page_definitions) %>
+        <%= link_to @page.layout_display_name,
+          alchemy.admin_page_definitions_path(q: {name_eq: @page.page_layout}) %>
+      <% else %>
+        <%= @page.layout_display_name %>
+      <% end %>
+    </p>
   </div>
   <div class="value">
     <label><%= Alchemy::Page.human_attribute_name(:urlname) %></label>

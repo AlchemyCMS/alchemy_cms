@@ -60,6 +60,13 @@ module Alchemy
           condition: -> { can?(:index, :alchemy_admin_tags) }
         },
         {
+          name: "definitions",
+          title: "modules.page_definitions",
+          icon: "ruler-2",
+          url: -> { alchemy.admin_page_definitions_path },
+          condition: -> { can?(:index, :alchemy_admin_page_definitions) }
+        },
+        {
           name: "archive",
           title: "modules.library",
           icon: "archive-drawer",

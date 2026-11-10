@@ -19,6 +19,7 @@ Alchemy::Engine.routes.draw do
 
   namespace :admin, path: Alchemy.admin_path, constraints: Alchemy.admin_constraints do
     resources :nodes
+    resources :page_definitions, only: :index
 
     resources :pages do
       resources :elements
