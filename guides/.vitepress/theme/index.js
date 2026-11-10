@@ -5,6 +5,7 @@ import SideBarAd from "./SideBarAd.vue"
 import BottomAd from "./BottomAd.vue"
 import ServiceAd from "./ServiceAd.vue"
 import ExtensionLinks from "./ExtensionLinks.vue"
+import NextVersionNotice from "./NextVersionNotice.vue"
 import "./style.css"
 
 export default {
@@ -13,6 +14,8 @@ export default {
     return h(DefaultTheme.Layout, null, {
       // https://vitepress.dev/guide/extending-default-theme#layout-slots
       "sidebar-nav-after": () => h(SideBarAd),
+      "doc-before": () => h(NextVersionNotice),
+      "home-hero-after": () => h(NextVersionNotice, { class: "home" }),
       "doc-after": () => h(BottomAd),
     })
   },
