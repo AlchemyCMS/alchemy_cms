@@ -103,8 +103,9 @@ RSpec.shared_examples_for "having picture thumbnails" do
         expect(picture).to receive(:url) { nil }
       end
 
-      it "returns missing image url" do
-        is_expected.to eq "missing-image.png"
+      it "returns nil and logs a warning" do
+        expect(Alchemy::Logger).to receive(:warn).with(/Could not generate url for picture/)
+        is_expected.to be_nil
       end
     end
   end
