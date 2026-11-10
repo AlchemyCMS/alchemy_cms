@@ -11,8 +11,15 @@ nl:
               blank: "is vereist om rollen te wijzigen"
               invalid: "is niet juist"
   alchemy:
+    impersonate_user: Gebruiker imiteren
+    confirm_impersonate_user: Weet je zeker dat je %{user} wilt imiteren?
     admin:
       users:
         confirm_password_for_role_change:
           create: "Om een gebruiker met de rol %{roles} aan te maken moet je met je eigen wachtwoord bevestigen."
           update: "Om de rol %{roles} van %{user} te wijzigen moet je met je eigen wachtwoord bevestigen."
+    devise:
+      user_impersonation:
+        notice: Je imiteert momenteel %{user}.
+        stop: Stoppen met imiteren
+        stop_confirmation: Terugkeren naar je beheerdersaccount?
