@@ -1,6 +1,6 @@
 import { defineConfig } from "vitepress"
 import llmstxtPlugin from "vitepress-plugin-llmstxt"
-import { VERSIONS, CURRENT_VERSION } from "./versions.js"
+import { VERSIONS, CURRENT_VERSION, NEXT_VERSION, folderOf } from "./versions.js"
 const VERSION_NAVITEMS = {
   6: [
     {
@@ -284,22 +284,154 @@ const VERSION_NAVITEMS = {
       ],
     },
   ],
+  9: [
+    {
+      text: "Introduction",
+      collapsed: false,
+      items: [
+        {
+          text: "About AlchemyCMS",
+          link: "/next/about",
+        },
+        {
+          text: "Getting Started",
+          link: "/next/getting_started",
+        },
+      ],
+    },
+    {
+      text: "Basics",
+      collapsed: false,
+      items: [
+        {
+          text: "Elements",
+          link: "/next/elements",
+        },
+        {
+          text: "Ingredients",
+          link: "/next/ingredients",
+        },
+        {
+          text: "Pages",
+          link: "/next/pages",
+        },
+        {
+          text: "Menus",
+          link: "/next/menus",
+        },
+        {
+          text: "Rendering Images",
+          link: "/next/render_images",
+        },
+        {
+          text: "Configuration",
+          link: "/next/configuration",
+        },
+        {
+          text: "I18n",
+          link: "/next/i18n",
+        },
+        {
+          text: "Seeder",
+          link: "/next/seeder",
+        },
+        {
+          text: "Deployment",
+          link: "/next/deployment",
+        },
+        {
+          text: "Updating",
+          link: "/next/upgrading",
+        },
+      ],
+    },
+    {
+      text: "Admin Modules",
+      collapsed: true,
+      items: [
+        {
+          text: "Library",
+          link: "/next/library",
+        },
+        {
+          text: "Tags",
+          link: "/next/tags",
+        },
+        {
+          text: "Languages",
+          link: "/next/languages",
+        },
+        {
+          text: "Sites",
+          link: "/next/sites",
+        },
+        {
+          text: "Custom Modules",
+          link: "/next/how_to_create_modules",
+        },
+      ],
+    },
+    {
+      text: "How To",
+      collapsed: true,
+      items: [
+        {
+          text: "Create a Blog",
+          link: "/next/how_to_create_a_blog",
+        },
+        {
+          text: "Create a Contact Form",
+          link: "/next/how_to_create_a_contact_form",
+        },
+        {
+          text: "Customize the Richtext Editor",
+          link: "/next/how_to_customize_tinymce",
+        },
+        {
+          text: "Create Custom Ingredients",
+          link: "/next/how_to_create_custom_ingredients",
+        },
+        {
+          text: "Deploy with Kamal",
+          link: "/next/how_to_deploy_with_kamal",
+        },
+        {
+          text: "Add Custom Authentication",
+          link: "/next/how_to_add_custom_authentication",
+        },
+        {
+          text: "Integrate Into Existing Rails App",
+          link: "/next/how_to_integrate_into_existing_rails_app",
+        },
+        {
+          text: "Extend Alchemy",
+          link: "/next/how_to_extend_alchemy",
+        },
+      ],
+    },
+  ],
+}
+
+const VERSION_LABELS = {
+  [CURRENT_VERSION]: "latest",
+  [NEXT_VERSION]: "next",
 }
 
 const navItems = VERSIONS.map((version) => {
-  const currentVersion = version === CURRENT_VERSION
+  const folder = folderOf(version)
+  const label = VERSION_LABELS[version]
   return {
-    text: currentVersion ? `v${version} (latest)` : `v${version}`,
-    link: currentVersion ? "/" : `/v${version}`,
-    activeMatch: currentVersion ? `^\/(?!(v\d+))` : `/v${version}/`,
+    text: label ? `v${version} (${label})` : `v${version}`,
+    link: folder ? `/${folder}` : "/",
+    activeMatch: folder ? `/${folder}/` : `^\/(?!(v\d+|next))`,
   }
 })
 
 const sidebar = VERSIONS.reduce((obj, version) => {
-  const folder = version === CURRENT_VERSION ? "" : `v${version}/`
+  const folder = folderOf(version)
   return {
     ...obj,
-    [`/${folder}`]: VERSION_NAVITEMS[version],
+    [folder ? `/${folder}/` : "/"]: VERSION_NAVITEMS[version],
   }
 }, {})
 
@@ -364,7 +496,7 @@ export default defineConfig({
       options: {
         _render(src, env, md) {
           const html = md.render(src, env)
-          if (/^v\d+\//.test(env.relativePath)) return ""
+          if (/^(v\d+|next)\//.test(env.relativePath)) return ""
           return html
         },
       },
