@@ -29,8 +29,19 @@ RSpec.describe Alchemy::PageTreePreloader do
       expect(subject.children).to eq([child_page_1, child_page_2])
     end
 
-    it "preloads grandchildren" do
-      expect(subject.children.first.children).to eq([grandchild_page])
+    it "folds pages below the first level by default" do
+      expect(subject.children.first).to be_folded
+      expect(subject.children.first.children).to eq([])
+    end
+
+    it "does not fold pages without children by default" do
+      expect(subject.children.last).not_to be_folded
+    end
+
+    it "does not load pages below folded pages" do
+      allow(Alchemy::PageTreePage).to receive(:new).and_call_original
+      subject
+      expect(Alchemy::PageTreePage).not_to have_received(:new).with(grandchild_page)
     end
 
     it "preloads public_version association" do
@@ -46,17 +57,25 @@ RSpec.describe Alchemy::PageTreePreloader do
       expect(subject.association(:locker)).to be_loaded
     end
 
+    context "with unfolded pages" do
+      before do
+        child_page_1.fold!(user.id, false)
+      end
+
+      it "preloads their children" do
+        expect(subject.children.first).not_to be_folded
+        expect(subject.children.first.children).to eq([grandchild_page])
+      end
+    end
+
     context "with folded pages" do
       before do
-        child_page_1.fold!(user.id, true)
+        root_page.fold!(user.id, true)
       end
 
       it "does not include children of folded pages" do
-        expect(subject.children.first.children).to eq([])
-      end
-
-      it "still returns the folded page itself" do
-        expect(subject.children).to include(child_page_1)
+        expect(subject).to be_folded
+        expect(subject.children).to eq([])
       end
     end
 

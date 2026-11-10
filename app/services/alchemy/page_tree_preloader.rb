@@ -25,17 +25,21 @@ module Alchemy
     # @return [Array<Page>] Pages with preloaded children, or array with single page when using from:
     def call
       pages = page.self_and_descendants.accessible_by(ability, :read)
-      folded_page_ids = load_folded_page_ids
-      if folded_page_ids.any?
+      fold_states = load_fold_states
+      if fold_states
+        folded_page_ids = fold_states.select { |_id, folded| folded }.keys
+        unfolded_page_ids = fold_states.reject { |_id, folded| folded }.keys
+        table = Page.arel_table
         pages = pages.where(
-          "parent_id IS NULL OR parent_id NOT IN (?)",
-          folded_page_ids
+          table[:id].eq(page.id)
+            .or(table[:depth].lteq(1).and(table[:parent_id].not_in(folded_page_ids)))
+            .or(table[:parent_id].in(unfolded_page_ids))
         )
       end
       pages = pages.preload(*preload_associations)
       pages = pages.map { PageTreePage.new(_1) }
 
-      preload_children_associations(pages, folded_page_ids:)
+      preload_children_associations(pages, fold_states:)
 
       # Return the starting page, which now has preloaded descendants
       # We need to return the actual instance from the pages array, not the @page instance
@@ -47,12 +51,11 @@ module Alchemy
 
     attr_reader :page, :user, :ability
 
-    # Load folded page IDs for the user
-    def load_folded_page_ids
+    # Load the user's persisted fold states as page_id => folded,
+    # or nil if folding is not supported for the user
+    def load_fold_states
       if user && Alchemy.config.user_class < ActiveRecord::Base
-        FoldedPage.folded_for_user(user).pluck(:page_id).to_set
-      else
-        Set.new
+        FoldedPage.where(user: user).pluck(:page_id, :folded).to_h
       end
     end
 
@@ -60,9 +63,10 @@ module Alchemy
     # This manually populates the children association to prevent N+1 queries
     #
     # @param pages [Array<Page>] The pages to preload children for
-    # @param folded_page_ids [Set] Optional set of page IDs that should have empty children
+    # @param fold_states [Hash, nil] Persisted fold states by page id. Pages without a
+    #   state are folded below the first level. Without fold states nothing is folded.
     # @return [void]
-    def preload_children_associations(pages, folded_page_ids: Set.new)
+    def preload_children_associations(pages, fold_states: nil)
       # Group pages by parent_id for efficient lookup
       pages_by_parent = pages.group_by(&:parent_id)
 
@@ -71,7 +75,8 @@ module Alchemy
         children_records = pages_by_parent[page.id] || []
 
         # If page is folded, set children to empty array
-        collection = if folded_page_ids.include?(page.id)
+        folded = fold_states&.fetch(page.id) { page.depth.to_i >= 1 && !page.leaf? }
+        collection = if folded
           page.folded = true
           []
         else

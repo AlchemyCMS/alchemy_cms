@@ -446,6 +446,8 @@ RSpec.describe "Page editing feature", type: :system do
     describe "changing parent" do
       let!(:new_parent) { create(:alchemy_page) }
 
+      before { authorize_user(create(:alchemy_dummy_user, :as_admin)) }
+
       it "can change page parent" do
         within(".alchemy-dialog.modal") do
           expect(page).to have_css(".ts-wrapper")
@@ -453,6 +455,7 @@ RSpec.describe "Page editing feature", type: :system do
           find(".edit_page .submit button").click
         end
         expect(page).to_not have_selector(".alchemy-dialog-container.open")
+        find("alchemy-page-node[page-id='#{new_parent.id}'] .page_folder").click
         expect(page).to have_selector("#sitemap .sitemap_url", text: "/#{new_parent.urlname}/#{a_page.urlname}")
       end
     end

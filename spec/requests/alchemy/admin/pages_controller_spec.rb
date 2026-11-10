@@ -600,6 +600,17 @@ module Alchemy
             expect { subject }.to change { page.folded?(user.id) }.from(true).to(false)
           end
         end
+
+        context "if page is folded by default" do
+          before do
+            create(:alchemy_page, parent: page)
+            page.reload
+          end
+
+          it "should unfold the page" do
+            expect { subject }.to change { page.folded?(user.id) }.from(true).to(false)
+          end
+        end
       end
 
       describe "#unlock" do
