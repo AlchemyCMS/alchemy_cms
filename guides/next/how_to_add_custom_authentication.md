@@ -42,7 +42,7 @@ Alchemy.logout_path = "/auth/logout"
 ~~~
 
 :::warning
-This syntax is deprecated since Alchemy 8.1 and will be removed in a future version.
+This syntax is deprecated since Alchemy 8.1 and has been removed in Alchemy 9.0.
 :::
 
 ## Required

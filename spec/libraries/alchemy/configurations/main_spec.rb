@@ -23,22 +23,6 @@ RSpec.describe Alchemy::Configurations::Main do
     end
   end
 
-  describe "deprecated: #output_image_jpg_quality getter" do
-    it "warns and tells us about the right method" do
-      expect(Alchemy::Deprecation).to receive(:warn).at_least(:once)
-      expect(subject.output_image_jpg_quality).to eq(85)
-    end
-  end
-
-  describe "deprecated: #output_image_jpg_quality setter" do
-    it "warns and tells us about the right method" do
-      expect(Alchemy::Deprecation).to receive(:warn).at_least(:once)
-      expect do
-        subject.output_image_jpg_quality = 90
-      end.to change { subject.output_image_quality }.from(85).to(90)
-    end
-  end
-
   describe "default values" do
     describe "#page_searchable_checkbox" do
       subject { configuration.show_page_searchable_checkbox }

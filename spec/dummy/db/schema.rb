@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_20_153412) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_29_145224) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -66,7 +66,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_20_153412) do
     t.integer "page_version_id", null: false
     t.integer "parent_element_id"
     t.integer "position"
-    t.boolean "public", default: true, null: false
     t.datetime "public_on"
     t.datetime "public_until"
     t.boolean "unique", default: false, null: false
@@ -199,8 +198,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_20_153412) do
     t.integer "lft"
     t.datetime "locked_at", precision: nil
     t.integer "locked_by"
-    t.text "meta_description"
-    t.text "meta_keywords"
     t.string "name"
     t.string "page_layout"
     t.integer "parent_id"
@@ -212,7 +209,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_20_153412) do
     t.boolean "robot_index", default: true, null: false
     t.boolean "searchable", default: true, null: false
     t.boolean "sitemap", default: true, null: false
-    t.string "title"
     t.datetime "updated_at", null: false
     t.integer "updater_id"
     t.string "urlname"
