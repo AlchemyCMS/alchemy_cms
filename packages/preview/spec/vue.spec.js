@@ -1,7 +1,11 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 import { createApp, createSSRApp, h, nextTick, ref, withDirectives } from "vue"
 import { renderToString } from "vue/server-renderer"
-import { createAlchemyElementDirective, useAlchemyPreview } from "../src/vue.js"
+import {
+  AlchemyElement,
+  createAlchemyElementDirective,
+  useAlchemyPreview
+} from "../src/vue.js"
 
 function mount(component) {
   const root = document.createElement("div")
@@ -98,6 +102,133 @@ describe("createAlchemyElementDirective", () => {
 
       expect(root.firstChild.hasAttribute("data-alchemy-element")).toBe(false)
     })
+  })
+})
+
+describe("AlchemyElement", () => {
+  const TextElement = {
+    props: ["element", "index"],
+    render() {
+      return h("article", { class: "text" }, [
+        `${this.element.name} ${this.index}`,
+        this.$slots.default?.()
+      ])
+    }
+  }
+
+  function render(element = ref({ id: 1, name: "text" })) {
+    return {
+      setup() {
+        return () =>
+          h(
+            AlchemyElement,
+            { is: TextElement, element: element.value, index: 3 },
+            { default: () => "slot" }
+          )
+      }
+    }
+  }
+
+  function mountElement(state, element) {
+    const root = document.createElement("div")
+    document.body.append(root)
+    const app = createApp(render(element))
+    app.directive("alchemy-element", createAlchemyElementDirective(state))
+    app.mount(root)
+    return root
+  }
+
+  afterEach(() => {
+    document.body.innerHTML = ""
+  })
+
+  it("renders the given component with the element, attributes and slots", () => {
+    const root = mountElement({ enabled: false })
+
+    expect(root.innerHTML).toEqual('<article class="text">text 3slot</article>')
+  })
+
+  it("resolves globally registered components by name", () => {
+    const root = document.createElement("div")
+    document.body.append(root)
+    const app = createApp({
+      render: () =>
+        h(AlchemyElement, {
+          is: "TextElement",
+          element: { id: 1, name: "text" }
+        })
+    })
+    app.component("TextElement", TextElement)
+    app.directive(
+      "alchemy-element",
+      createAlchemyElementDirective({ enabled: true })
+    )
+    app.mount(root)
+
+    expect(root.querySelector("article").dataset.alchemyElement).toEqual("1")
+  })
+
+  describe("in preview mode", () => {
+    it("marks the component's root element", () => {
+      const root = mountElement({ enabled: true })
+
+      expect(root.querySelector("article").dataset.alchemyElement).toEqual("1")
+    })
+
+    it("follows changes of the element", async () => {
+      const element = ref({ id: 1, name: "text" })
+      const root = mountElement({ enabled: true }, element)
+
+      element.value = { id: 2, name: "text" }
+      await nextTick()
+
+      expect(root.querySelector("article").dataset.alchemyElement).toEqual("2")
+    })
+
+    it("marks the element after hydrating server rendered markup", async () => {
+      const server = createSSRApp(render())
+      server.directive(
+        "alchemy-element",
+        createAlchemyElementDirective({ enabled: false })
+      )
+      const html = await renderToString(server)
+      const root = document.createElement("div")
+      root.innerHTML = html
+      document.body.append(root)
+      const warn = vi.spyOn(console, "warn").mockImplementation(() => {})
+
+      const client = createSSRApp(render())
+      client.directive(
+        "alchemy-element",
+        createAlchemyElementDirective({ enabled: true })
+      )
+      client.mount(root)
+
+      expect(html).not.toContain("data-alchemy-element")
+      expect(root.querySelector("article").dataset.alchemyElement).toEqual("1")
+      expect(warn).not.toHaveBeenCalled()
+      warn.mockRestore()
+    })
+  })
+
+  describe("outside of preview mode", () => {
+    it("does not mark the component's root element", () => {
+      const root = mountElement({ enabled: false })
+
+      expect(
+        root.querySelector("article").hasAttribute("data-alchemy-element")
+      ).toBe(false)
+    })
+  })
+
+  it("renders no element id on the server, even in preview mode", async () => {
+    const app = createSSRApp(render())
+    app.directive(
+      "alchemy-element",
+      createAlchemyElementDirective({ enabled: true })
+    )
+
+    expect(await renderToString(app)).not.toContain("data-alchemy-element")
   })
 })
 

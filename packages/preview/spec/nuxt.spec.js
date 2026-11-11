@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 import nuxtModule from "../src/nuxt.js"
 import nuxtPlugin from "../src/nuxt-plugin.js"
 import { destroy } from "../src/index.js"
+import { AlchemyElement } from "../src/vue.js"
 import { addedPlugins } from "./stubs/nuxt_kit.js"
 import { runtimeConfig } from "./stubs/nuxt_app.js"
 
@@ -78,14 +79,16 @@ describe("Nuxt plugin", () => {
   function run() {
     const hooks = {}
     const directives = {}
+    const components = {}
     const nuxtApp = {
       vueApp: {
-        directive: (name, directive) => (directives[name] = directive)
+        directive: (name, directive) => (directives[name] = directive),
+        component: (name, component) => (components[name] = component)
       },
       hook: (name, callback) => (hooks[name] = callback)
     }
     const result = nuxtPlugin(nuxtApp)
-    return { hooks, directives, provided: result.provide }
+    return { hooks, directives, components, provided: result.provide }
   }
 
   beforeEach(() => {
@@ -120,6 +123,12 @@ describe("Nuxt plugin", () => {
         enabled: true,
         time: "2026-10-28T10:00"
       })
+    })
+
+    it("registers the AlchemyElement component", () => {
+      const { components } = run()
+
+      expect(components.AlchemyElement).toBe(AlchemyElement)
     })
 
     it("registers the element directive", () => {

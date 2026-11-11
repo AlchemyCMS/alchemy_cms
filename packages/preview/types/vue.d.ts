@@ -1,4 +1,4 @@
-import type { Directive } from "vue"
+import type { Component, DefineComponent, Directive } from "vue"
 import type { PreviewOptions, PreviewState } from "./index"
 
 export declare function createAlchemyElementDirective(
@@ -9,3 +9,10 @@ export declare function createAlchemyElementDirective(
 >
 
 export declare function useAlchemyPreview(options?: PreviewOptions): void
+
+export declare const AlchemyElement: DefineComponent<{
+  /** The component to render, like the `is` prop of Vue's `<component>`. */
+  is: string | Component
+  /** The element, passed on to the component as `element` prop. */
+  element: { id: string | number }
+}>
