@@ -32,27 +32,30 @@ export default defineNuxtConfig({
 
 The admin origin can be overridden at runtime with `NUXT_PUBLIC_ALCHEMY_PREVIEW_ADMIN_ORIGIN`. If TypeScript does not know the `alchemyPreview` key yet, run `npx nuxi prepare` to regenerate Nuxt's types.
 
-Mark elements with the `v-alchemy-element` directive where they are rendered, e.g. in the loops of your page layouts and of elements with nested elements:
+Render elements with the `AlchemyElement` component, e.g. in the loops of your page layouts and of elements with nested elements. It works like Vue's `<component :is>`, passes the element on as `element` prop and marks the rendered component's root element:
 
 ```vue
-<component
+<AlchemyElement
   v-for="element in page.elements"
   :key="element.id"
-  :is="componentName(element)"
+  :is="components[element.name]"
   :element="element"
-  v-alchemy-element="element"
 />
 ```
 
-The directive takes the element or its id. On components the directive applies to the component's root element. Vue ignores it on components with multiple root elements.
+Other attributes and slots are passed on to the component as well. Like `<component :is>`, `is` takes a component or the name of a globally registered component. Components registered locally in the parent cannot be resolved by name, so pass the component itself.
 
-The directive is registered globally, so element components can also mark themselves on their root tag:
+For elements rendered without `AlchemyElement`, use the globally registered `v-alchemy-element` directive. It takes the element or its id:
 
 ```vue
 <template>
   <article v-alchemy-element="element">...</article>
 </template>
 ```
+
+On components both apply to the component's root element. Vue ignores them on components with multiple root elements.
+
+Both only set the attribute in the browser after the page is rendered, so the server rendered HTML never contains element ids and hydration is unaffected.
 
 The preview state is available as `useNuxtApp().$alchemyPreview` (`{ enabled, time }`). It is only enabled in the browser, and only if the page is shown in a frame, so visitors adding the query parameter themselves do not get it.
 
@@ -61,12 +64,16 @@ The preview state is available as `useNuxtApp().$alchemyPreview` (`{ enabled, ti
 ```js
 import { createApp } from "vue"
 import { previewState } from "@alchemy_cms/preview"
-import { createAlchemyElementDirective } from "@alchemy_cms/preview/vue"
+import {
+  AlchemyElement,
+  createAlchemyElementDirective
+} from "@alchemy_cms/preview/vue"
 
 const state = previewState()
 const app = createApp(App)
 
 app.directive("alchemy-element", createAlchemyElementDirective(state))
+app.component("AlchemyElement", AlchemyElement)
 ```
 
 Start the preview in your root component:

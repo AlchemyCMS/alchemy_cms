@@ -1,5 +1,6 @@
 import type { NuxtModule } from "nuxt/schema"
 import type { PreviewState } from "./index"
+import type { AlchemyElement } from "./vue"
 
 export interface ModuleOptions {
   /**
@@ -29,5 +30,9 @@ declare module "#app" {
 declare module "vue" {
   interface ComponentCustomProperties {
     $alchemyPreview: PreviewState
+  }
+
+  interface GlobalComponents {
+    AlchemyElement: typeof AlchemyElement
   }
 }

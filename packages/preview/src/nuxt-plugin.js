@@ -1,6 +1,6 @@
 import { defineNuxtPlugin, useRuntimeConfig } from "#app"
 import { init, previewState } from "./index.js"
-import { createAlchemyElementDirective } from "./vue.js"
+import { AlchemyElement, createAlchemyElementDirective } from "./vue.js"
 
 export default defineNuxtPlugin((nuxtApp) => {
   const state = previewState()
@@ -9,6 +9,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     "alchemy-element",
     createAlchemyElementDirective(state)
   )
+  nuxtApp.vueApp.component("AlchemyElement", AlchemyElement)
 
   if (state.enabled) {
     const { adminOrigin } = useRuntimeConfig().public.alchemyPreview

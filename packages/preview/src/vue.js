@@ -1,4 +1,11 @@
-import { onMounted, onUnmounted } from "vue"
+import {
+  h,
+  onMounted,
+  onUnmounted,
+  resolveDirective,
+  resolveDynamicComponent,
+  withDirectives
+} from "vue"
 import { init, destroy } from "./index.js"
 
 function setElementId(el, { value }) {
@@ -23,6 +30,43 @@ function setElementId(el, { value }) {
  */
 export function createAlchemyElementDirective(state) {
   return state.enabled ? { mounted: setElementId, updated: setElementId } : {}
+}
+
+/**
+ * Renders the component given as `is` for an Alchemy element, like Vue's
+ * `<component :is>`, and marks its root element with the
+ * `v-alchemy-element` directive, so it only does so in preview mode.
+ *
+ * The element is passed on to the component as `element` prop, together with
+ * all other attributes and slots.
+ */
+export const AlchemyElement = {
+  name: "AlchemyElement",
+  inheritAttrs: false,
+  props: {
+    is: {
+      type: [String, Object, Function],
+      required: true
+    },
+    element: {
+      type: Object,
+      required: true
+    }
+  },
+  setup(props, { attrs, slots }) {
+    return () => {
+      const component = h(
+        resolveDynamicComponent(props.is),
+        { ...attrs, element: props.element },
+        slots
+      )
+      const directive = resolveDirective("alchemy-element")
+
+      return directive
+        ? withDirectives(component, [[directive, props.element]])
+        : component
+    }
+  }
 }
 
 /**
