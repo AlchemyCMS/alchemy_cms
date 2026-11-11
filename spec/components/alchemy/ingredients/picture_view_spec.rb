@@ -320,6 +320,15 @@ RSpec.describe Alchemy::Ingredients::PictureView, type: :component do
     end
   end
 
+  context "if picture url could not be generated" do
+    let(:picture_url) { nil }
+
+    it "renders nothing" do
+      render_inline described_class.new(ingredient)
+      expect(rendered_content).to be_blank
+    end
+  end
+
   describe "alt text" do
     subject!(:render_view) do
       render_inline described_class.new(ingredient, html_options: html_options)
