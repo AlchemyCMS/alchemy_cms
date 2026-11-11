@@ -224,6 +224,66 @@ describe("preview", () => {
     })
   })
 
+  describe("clicking outside of elements", () => {
+    it("keeps links from navigating", async () => {
+      document.body.insertAdjacentHTML(
+        "beforeend",
+        `<a href="/other-page">Link</a>`
+      )
+      let navigated = false
+      document.querySelector("a").addEventListener("click", (event) => {
+        if (!event.defaultPrevented) navigated = true
+      })
+      await loadPreview()
+
+      document.querySelector("a").click()
+
+      expect(navigated).toBe(false)
+    })
+
+    it("keeps forms from being submitted", async () => {
+      document.body.insertAdjacentHTML(
+        "beforeend",
+        `<form><button>Send</button></form>`
+      )
+      const onSubmit = vi.fn((event) => event.preventDefault())
+      document.querySelector("form").addEventListener("submit", onSubmit)
+      await loadPreview()
+
+      document.querySelector("button").click()
+
+      expect(onSubmit).not.toHaveBeenCalled()
+    })
+
+    it("lets other clicks reach the page", async () => {
+      document.body.insertAdjacentHTML("beforeend", `<button>Menu</button>`)
+      const onButtonClick = vi.fn()
+      document.querySelector("button").addEventListener("click", onButtonClick)
+      await loadPreview()
+
+      document.querySelector("button").click()
+
+      expect(onButtonClick).toHaveBeenCalled()
+    })
+
+    it("does not select any element", async () => {
+      document.body.insertAdjacentHTML(
+        "beforeend",
+        `<a href="/other-page">Link</a>`
+      )
+      await loadPreview()
+
+      document.querySelector("a").click()
+
+      expect(element(1).style.outline).toEqual("")
+      expect(element(2).style.outline).toEqual("")
+      expect(postMessageSpy).not.toHaveBeenCalledWith(
+        expect.objectContaining({ message: "Alchemy.focusElementEditor" }),
+        expect.anything()
+      )
+    })
+  })
+
   describe("Alchemy.focusElement message", () => {
     it("selects the element with the given id", async () => {
       await loadPreview()
