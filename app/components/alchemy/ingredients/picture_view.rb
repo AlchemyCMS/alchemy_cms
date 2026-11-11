@@ -43,7 +43,7 @@ module Alchemy
       end
 
       def call
-        return if picture.blank?
+        return if picture.blank? || src.nil?
 
         output = caption ? img_tag + caption : img_tag
 
@@ -72,7 +72,9 @@ module Alchemy
       end
 
       def src
-        ingredient.picture_url(picture_options)
+        return @_src if defined?(@_src)
+
+        @_src = ingredient.picture_url(picture_options)
       end
 
       def img_tag
