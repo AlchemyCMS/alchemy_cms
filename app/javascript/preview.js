@@ -101,7 +101,8 @@ function navigates(target) {
 // Client side routers navigate from click handlers on the link itself, so
 // navigating clicks have to be taken before the event reaches the page.
 function onNavigatingClick(event) {
-  if (navigates(event.target) && selectClickedElement(event)) {
+  if (navigates(event.target)) {
+    selectClickedElement(event)
     event.stopPropagation()
     event.preventDefault()
   }
