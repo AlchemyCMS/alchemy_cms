@@ -124,6 +124,10 @@ function init() {
 
   window.addEventListener("click", onNavigatingClick, { capture: true })
   window.addEventListener("click", selectClickedElement)
+  // Turbo.visit can be called from any click handler, not only from links.
+  window.addEventListener("turbo:before-visit", (event) =>
+    event.preventDefault()
+  )
 
   elements = Array.from(document.querySelectorAll("[data-alchemy-element]"))
   elements.forEach(observeElement)

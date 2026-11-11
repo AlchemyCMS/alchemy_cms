@@ -284,6 +284,19 @@ describe("preview", () => {
     })
   })
 
+  it("cancels Turbo visits", async () => {
+    await loadPreview()
+
+    // Turbo dispatches its events on the document element
+    const event = new CustomEvent("turbo:before-visit", {
+      bubbles: true,
+      cancelable: true
+    })
+    document.documentElement.dispatchEvent(event)
+
+    expect(event.defaultPrevented).toBe(true)
+  })
+
   describe("Alchemy.focusElement message", () => {
     it("selects the element with the given id", async () => {
       await loadPreview()
