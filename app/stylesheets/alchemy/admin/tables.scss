@@ -44,7 +44,7 @@ table {
 .table .col {
   padding: var(--spacing-2) var(--spacing-3);
   vertical-align: top;
-  line-height: 22px;
+  line-height: var(--table-cell-line-height);
   border-right: 1px solid var(--table-border-color);
   transition: background-color var(--transition-duration);
 
