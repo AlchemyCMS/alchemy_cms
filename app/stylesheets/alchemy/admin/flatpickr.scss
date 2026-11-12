@@ -298,7 +298,7 @@
   opacity: 1;
 }
 .flatpickr-current-month {
-  font-size: 135%;
+  font-size: var(--datepicker-font-size);
   line-height: inherit;
   font-weight: var(--font-weight_normal);
   color: inherit;
@@ -354,7 +354,7 @@
 }
 .flatpickr-current-month input.cur-year[disabled],
 .flatpickr-current-month input.cur-year[disabled]:hover {
-  font-size: 100%;
+  font-size: inherit;
   color: rgba(0, 0, 0, 0.5);
   background: transparent;
   pointer-events: none;
@@ -423,7 +423,7 @@
 }
 span.flatpickr-weekday {
   cursor: default;
-  font-size: 90%;
+  font-size: var(--font-size_small);
   background: transparent;
   color: var(--datepicker-weekday-text-color);
   line-height: 1;
