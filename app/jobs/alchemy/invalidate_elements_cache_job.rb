@@ -11,6 +11,7 @@ module Alchemy
 
       all_element_ids = get_all_element_ids(elements, element_ids)
       Element.where(id: all_element_ids).touch_all
+      PageVersion.where(id: elements.select(:page_version_id)).touch_all
 
       page_ids = elements.joins(page_version: :page).distinct.pluck("alchemy_pages.id")
       Page.where(id: page_ids).touch_all
