@@ -134,7 +134,7 @@ button.icon_button {
   background: transparent;
   border: 0 none;
   box-shadow: none;
-  font-weight: normal;
+  font-weight: var(--font-weight_normal);
 
   &:disabled,
   &.disabled {

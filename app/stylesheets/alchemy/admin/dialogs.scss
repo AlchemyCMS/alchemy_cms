@@ -122,14 +122,14 @@ dialog.alchemy-dialog-container {
   padding: var(--dialog-header-padding);
   background: var(--dialog-header-color);
   color: var(--dialog-header-text-color);
-  font-weight: normal;
+  font-weight: var(--font-weight_normal);
   font-size: var(--dialog-header-font-size);
   @include mixins.border-top-radius(var(--border-radius_medium));
 }
 
 .alchemy-dialog-title {
   flex-grow: 1;
-  font-weight: bold;
+  font-weight: var(--font-weight_semibold);
   padding: 0 var(--spacing-1);
   white-space: nowrap;
   overflow: hidden;

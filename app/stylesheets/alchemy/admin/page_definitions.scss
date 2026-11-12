@@ -22,7 +22,7 @@
     font-size: var(--font-size_medium);
 
     small {
-      font-weight: normal;
+      font-weight: var(--font-weight_normal);
       font-size: var(--font-size_medium);
     }
   }
@@ -52,7 +52,7 @@
       .label {
         min-width: var(--icon-button-width);
         margin-right: var(--spacing-1);
-        font-weight: normal;
+        font-weight: var(--font-weight_normal);
         justify-content: center;
       }
     }
@@ -118,7 +118,7 @@
 
         .label {
           margin-left: auto;
-          font-weight: normal;
+          font-weight: var(--font-weight_normal);
         }
       }
 
