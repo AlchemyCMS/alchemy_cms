@@ -19,9 +19,10 @@
     min-height: calc(var(--icon-button-height) + var(--spacing-2) * 2 + 2px);
     border-bottom: 2px solid var(--body-background-color);
     padding: var(--spacing-2) var(--spacing-4);
+    font-size: var(--font-size_medium);
 
     small {
-      font-weight: normal;
+      font-weight: var(--font-weight_normal);
       font-size: var(--font-size_medium);
     }
   }
@@ -46,11 +47,12 @@
       align-items: center;
       justify-content: space-between;
       margin: var(--spacing-4) var(--spacing-4) 0;
+      font-size: var(--font-size_medium);
 
       .label {
         min-width: var(--icon-button-width);
         margin-right: var(--spacing-1);
-        font-weight: normal;
+        font-weight: var(--font-weight_normal);
         justify-content: center;
       }
     }
@@ -116,7 +118,7 @@
 
         .label {
           margin-left: auto;
-          font-weight: normal;
+          font-weight: var(--font-weight_normal);
         }
       }
 
@@ -204,6 +206,7 @@
       margin-top: var(--spacing-2);
       margin-bottom: var(--spacing-4);
       padding-left: var(--spacing-1);
+      font-size: var(--font-size_medium);
       font-weight: var(--font-weight_normal);
     }
 

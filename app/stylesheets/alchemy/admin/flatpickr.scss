@@ -11,7 +11,7 @@
   border: 1px solid var(--datepicker-border-color);
   font-size: var(--datepicker-font-size);
   line-height: 24px;
-  border-radius: 5px;
+  border-radius: var(--border-radius_medium);
   position: absolute;
   width: 307.875px;
   -webkit-box-sizing: border-box;
@@ -298,9 +298,9 @@
   opacity: 1;
 }
 .flatpickr-current-month {
-  font-size: 135%;
+  font-size: var(--datepicker-font-size);
   line-height: inherit;
-  font-weight: 300;
+  font-weight: var(--font-weight_normal);
   color: inherit;
   position: absolute;
   width: 75%;
@@ -315,7 +315,7 @@
 }
 .flatpickr-current-month span.cur-month {
   font-family: inherit;
-  font-weight: 700;
+  font-weight: var(--font-weight_semibold);
   color: inherit;
   display: inline-block;
   margin-left: 0.5ch;
@@ -339,7 +339,7 @@
   display: inline-block;
   font-size: inherit;
   font-family: inherit;
-  font-weight: 300;
+  font-weight: var(--font-weight_normal);
   line-height: inherit;
   height: auto;
   border: 0;
@@ -354,7 +354,7 @@
 }
 .flatpickr-current-month input.cur-year[disabled],
 .flatpickr-current-month input.cur-year[disabled]:hover {
-  font-size: 100%;
+  font-size: inherit;
   color: rgba(0, 0, 0, 0.5);
   background: transparent;
   pointer-events: none;
@@ -369,7 +369,7 @@
   cursor: pointer;
   font-size: inherit;
   font-family: inherit;
-  font-weight: 300;
+  font-weight: var(--font-weight_normal);
   height: auto;
   line-height: inherit;
   margin: -1px 0 0 0;
@@ -423,7 +423,7 @@
 }
 span.flatpickr-weekday {
   cursor: default;
-  font-size: 90%;
+  font-size: var(--font-size_small);
   background: transparent;
   color: var(--datepicker-weekday-text-color);
   line-height: 1;
@@ -434,7 +434,7 @@ span.flatpickr-weekday {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  font-weight: bolder;
+  font-weight: var(--font-weight_semibold);
 }
 .dayContainer,
 .flatpickr-weeks {
@@ -492,7 +492,7 @@ span.flatpickr-weekday {
   box-sizing: border-box;
   color: var(--datepicker-text-color);
   cursor: pointer;
-  font-weight: 400;
+  font-weight: var(--font-weight_normal);
   width: 14.2857143%;
   -webkit-flex-basis: 14.2857143%;
   -ms-flex-preferred-size: 14.2857143%;
@@ -717,11 +717,11 @@ span.flatpickr-weekday {
   top: -1px;
 }
 .flatpickr-time input.flatpickr-hour {
-  font-weight: bold;
+  font-weight: var(--font-weight_semibold);
 }
 .flatpickr-time input.flatpickr-minute,
 .flatpickr-time input.flatpickr-second {
-  font-weight: 400;
+  font-weight: var(--font-weight_normal);
 }
 .flatpickr-time input:focus {
   outline: 0;
@@ -733,7 +733,7 @@ span.flatpickr-weekday {
   float: left;
   line-height: inherit;
   color: #393939;
-  font-weight: bold;
+  font-weight: var(--font-weight_semibold);
   width: 2%;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -748,7 +748,7 @@ span.flatpickr-weekday {
   width: 18%;
   cursor: pointer;
   text-align: center;
-  font-weight: 400;
+  font-weight: var(--font-weight_normal);
 }
 .flatpickr-time input:hover,
 .flatpickr-time .flatpickr-am-pm:hover,

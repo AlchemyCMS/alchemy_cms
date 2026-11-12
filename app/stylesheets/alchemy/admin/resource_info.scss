@@ -128,7 +128,7 @@
     display: flex;
     align-items: center;
     gap: var(--spacing-2);
-    font-size: 1rem;
+    font-size: var(--font-size_medium);
   }
 
   h2.resource-info-headline {
@@ -183,7 +183,7 @@
 
   a {
     color: var(--text-color);
-    font-weight: var(--font-weight_bold);
+    font-weight: var(--font-weight_semibold);
     text-decoration-color: transparent;
 
     &:hover {

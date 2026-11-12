@@ -152,7 +152,7 @@
         padding: var(--spacing-4);
 
         .count {
-          font-weight: bold;
+          font-weight: var(--font-weight_bold);
           font-size: var(--font-size_xlarge);
         }
       }
@@ -224,12 +224,12 @@
       align-items: center;
       justify-content: space-between;
       padding: var(--spacing-3) var(--spacing-4);
-      font-weight: var(--font-weight_bold);
+      font-weight: var(--font-weight_semibold);
       line-height: 1.6;
       border-bottom: 2px solid var(--table-border-color);
 
       aside {
-        font-weight: normal;
+        font-weight: var(--font-weight_normal);
       }
     }
 
@@ -330,7 +330,7 @@
 
     .news-reader--title {
       color: inherit;
-      font-weight: var(--font-weight_bold);
+      font-weight: var(--font-weight_semibold);
     }
 
     .news-reader--meta {
@@ -497,11 +497,15 @@
         }
 
         .label-with-icon {
+          --icon-height: var(--icon-size, var(--icon-size-md));
+          --icon-offset: calc(
+            (var(--table-cell-line-height) - var(--icon-height)) / 2
+          );
           align-items: start;
 
           > alchemy-icon,
           > svg {
-            margin-block-start: 0.3em;
+            margin-block-start: var(--icon-offset);
           }
         }
 
@@ -523,7 +527,7 @@
     align-items: center;
 
     .version {
-      font-weight: var(--font-weight_bold);
+      font-weight: var(--font-weight_semibold);
     }
 
     .ruby-rails-version {

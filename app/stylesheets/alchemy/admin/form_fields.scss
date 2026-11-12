@@ -60,7 +60,7 @@ fieldset {
   margin: 1em 0;
 
   legend {
-    font-weight: bold;
+    font-weight: var(--font-weight_semibold);
     text-decoration: none;
     margin-bottom: 0.5em;
   }
