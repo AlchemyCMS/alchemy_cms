@@ -20,7 +20,7 @@ h3,
 .h3,
 h4,
 .h4 {
-  font-weight: bold;
+  font-weight: var(--font-weight_semibold);
 }
 
 h1,
@@ -47,7 +47,7 @@ h5,
 
 h5,
 .h5 {
-  font-weight: normal;
+  font-weight: var(--font-weight_normal);
 }
 
 p {

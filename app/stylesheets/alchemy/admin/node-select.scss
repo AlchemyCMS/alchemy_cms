@@ -3,7 +3,7 @@
  * primary cell is specific to it.
  */
 .node-select--ancestors {
-  font-weight: normal;
+  font-weight: var(--font-weight_normal);
 }
 
 .node-select--separator {
