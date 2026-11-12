@@ -25,24 +25,24 @@ h4,
 
 h1,
 .h1 {
-  font-size: 1.5rem;
+  font-size: var(--font-size_large);
 }
 
 h2,
 .h2 {
-  font-size: 1.25rem;
+  font-size: var(--font-size_large);
 }
 
 h3,
 .h3 {
-  font-size: 1.125rem;
+  font-size: var(--font-size_medium);
 }
 
 h4,
 .h4,
 h5,
 .h5 {
-  font-size: 1rem;
+  font-size: var(--font-size_medium);
 }
 
 h5,
