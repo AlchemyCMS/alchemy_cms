@@ -46,5 +46,10 @@ RSpec.describe Alchemy::InvalidateElementsCacheJob, type: :job do
     it "touches the page" do
       expect { subject }.to change { page.reload.updated_at }
     end
+
+    it "touches the page version" do
+      page.draft_version.update_column(:updated_at, 1.day.ago)
+      expect { subject }.to change { page.draft_version.reload.updated_at }
+    end
   end
 end
