@@ -497,11 +497,15 @@
         }
 
         .label-with-icon {
+          --icon-height: var(--icon-size, var(--icon-size-md));
+          --icon-offset: calc(
+            (var(--table-cell-line-height) - var(--icon-height)) / 2
+          );
           align-items: start;
 
           > alchemy-icon,
           > svg {
-            margin-block-start: 0.3em;
+            margin-block-start: var(--icon-offset);
           }
         }
 

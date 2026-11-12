@@ -41,6 +41,16 @@
   <% end %>
 </div>
 
+<h3>Font sizes</h3>
+<% %w[--font-size_small --font-size_medium --font-size_large --font-size_xlarge].each do |token| %>
+  <p style="font-size: var(<%= token %>)">The quick brown fox <code><%= token %></code></p>
+<% end %>
+
+<h3>Font weights</h3>
+<% %w[--font-weight_normal --font-weight_semibold --font-weight_bold].each do |token| %>
+  <p style="font-weight: var(<%= token %>)">The quick brown fox <code><%= token %></code></p>
+<% end %>
+
 <h2>Forms</h2>
 
 <div class="panel">
