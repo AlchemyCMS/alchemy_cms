@@ -154,4 +154,26 @@ RSpec.describe Alchemy::StorageAdapter::ActiveStorage, if: Alchemy.storage_adapt
       it { is_expected.to eq(false) }
     end
   end
+
+  describe ".can_convert_to?" do
+    subject { Alchemy.storage_adapter.can_convert_to?(format) }
+
+    context "for a raster format" do
+      let(:format) { "webp" }
+
+      it { is_expected.to eq(true) }
+    end
+
+    context "for jpg" do
+      let(:format) { "jpg" }
+
+      it { is_expected.to eq(true) }
+    end
+
+    context "for svg" do
+      let(:format) { "svg" }
+
+      it { is_expected.to eq(false) }
+    end
+  end
 end

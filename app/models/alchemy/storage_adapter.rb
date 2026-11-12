@@ -15,6 +15,7 @@ module Alchemy
       :file_mime_type,
       :file_name,
       :file_size,
+      :can_convert_to?,
       :has_convertible_format?,
       :image_file_basename,
       :image_file_extension,
