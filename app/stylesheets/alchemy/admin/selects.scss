@@ -18,7 +18,7 @@ select {
     height: var(--form-field-height);
     max-width: 100%;
     width: auto;
-    font-weight: normal;
+    font-weight: var(--font-weight_normal);
     vertical-align: middle;
     background-image: var(--select-background-image);
     background-position: right 0.75em center;

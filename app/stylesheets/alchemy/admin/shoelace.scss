@@ -116,7 +116,7 @@
   /* Font weights */
   --sl-font-weight-light: 300;
   --sl-font-weight-normal: var(--font-weight_normal);
-  --sl-font-weight-semibold: var(--font-weight_normal);
+  --sl-font-weight-semibold: var(--font-weight_semibold);
   --sl-font-weight-bold: var(--font-weight_bold);
 
   /* Letter spacings */
@@ -370,7 +370,7 @@ sl-dialog {
 
   &::part(title) {
     color: var(--dialog-header-text-color);
-    font-weight: var(--font-weight_bold);
+    font-weight: var(--font-weight_semibold);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
