@@ -205,7 +205,7 @@ Crop the image to the given size. This also enables the built-in cropper tool.
 #### format
 `String`
 
-The format to render the image in: `jpg`, `png`, `gif` or `webp`. Only applied if the picture can be converted, so SVG files are rendered as they are. Defaults to the global `image_output_format` [configuration](render_images#configuration).
+The format to render the image in: `jpg`, `png`, `gif` or `webp`. Only applied if the picture can be converted into it, so SVG files are rendered as they are and other formats (like `svg`) fall back to the default. Defaults to the global `image_output_format` [configuration](render_images#configuration).
 
 ~~~ yaml
 - role: hero_image
