@@ -11,7 +11,7 @@
   border: 1px solid var(--datepicker-border-color);
   font-size: var(--datepicker-font-size);
   line-height: 24px;
-  border-radius: 5px;
+  border-radius: var(--border-radius_medium);
   position: absolute;
   width: 307.875px;
   -webkit-box-sizing: border-box;
