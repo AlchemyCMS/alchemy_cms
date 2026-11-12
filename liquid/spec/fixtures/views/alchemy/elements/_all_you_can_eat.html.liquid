@@ -1,0 +1,8 @@
+{% cache element %}
+  {% element_view element, class: "liquid-element" %}
+    <p class="liquid-name">{{ element.name }} #{{ counter }}</p>
+    <div class="headline">{% ingredient "headline" %}</div>
+    <div class="text">{% ingredient "text" %}</div>
+    <div class="raw-text">{{ element.ingredients.text.value }}</div>
+  {% endelement_view %}
+{% endcache %}

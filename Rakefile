@@ -41,11 +41,17 @@ namespace :alchemy_devise do
   Bundler::GemHelper.new(File.expand_path("devise", __dir__), "alchemy-devise").install
 end
 
+namespace :alchemy_liquid do
+  Bundler::GemHelper.new(File.expand_path("liquid", __dir__), "alchemy-liquid").install
+end
+
 Bundler::GemHelper.install_tasks
 task build: "alchemy_i18n:build"
 task release: "alchemy_i18n:release:rubygem_push"
 task build: "alchemy_devise:build"
 task release: "alchemy_devise:release:rubygem_push"
+task build: "alchemy_liquid:build"
+task release: "alchemy_liquid:release:rubygem_push"
 
 namespace :alchemy do
   namespace :test do
@@ -75,8 +81,13 @@ namespace :alchemy do
       sh "bin/rspec", "devise/spec"
     end
 
+    desc "Prepares the database and runs the alchemy-liquid specs"
+    task liquid: :prepare do
+      sh "bin/rspec", "liquid/spec"
+    end
+
     desc "Prepares the database and runs all specs"
-    task all: [:core, :devise]
+    task all: [:core, :devise, :liquid]
   end
 
   namespace :changelog do

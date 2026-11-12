@@ -227,6 +227,10 @@ jobs:
         working-directory: devise
         run: |
           bundle exec rspec
+      - name: Run liquid tests
+        working-directory: liquid
+        run: |
+          bundle exec rspec
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v7
         if: matrix.rails == '8.0' && matrix.ruby == '3.4'

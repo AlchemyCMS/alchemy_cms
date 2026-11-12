@@ -23,6 +23,10 @@ gem "alchemy_i18n", path: "i18n"
 # DummyUser stub instead.
 gem "alchemy-devise", path: "devise", require: false
 
+# Liquid templates for element views and page layouts. The dummy app only
+# requires it for the liquid specs, so core specs run without the handler.
+gem "alchemy-liquid", path: "liquid", require: false
+
 if ENV.fetch("ALCHEMY_STORAGE_ADAPTER", "active_storage") == "active_storage"
   gem "ruby-vips"
 else

@@ -19,6 +19,7 @@ require "active_storage/engine"
 Bundler.require(*Rails.groups)
 require "alchemy_cms"
 require "alchemy/devise" if Rails.env.development? || ENV["ALCHEMY_DEVISE"]
+require "alchemy/liquid" if ENV["ALCHEMY_LIQUID"]
 
 module Dummy
   class Application < Rails::Application

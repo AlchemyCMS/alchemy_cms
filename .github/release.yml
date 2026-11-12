@@ -27,6 +27,10 @@ changelog:
       labels:
         - devise
 
+    - title: "alchemy-liquid"
+      labels:
+        - liquid
+
     - title: "New Features"
       labels:
         - enhancement

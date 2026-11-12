@@ -379,6 +379,7 @@ This runs automated upgrade tasks. Read the output carefully for manual steps.
 - **Generators**: `lib/generators/alchemy/`
 - **Translations**: `i18n/` (the `alchemy_i18n` gem, released together with `alchemy_cms` under the same version; see `i18n/CLAUDE.md`)
 - **Authentication**: `devise/` (the `alchemy-devise` gem, released together with `alchemy_cms` under the same version; it shares the root bundle and `spec/dummy`, which only loads it for the devise specs, so `bin/rspec` runs them separately from inside `devise/`)
+- **Liquid templates**: `liquid/` (the `alchemy-liquid` gem, released together with `alchemy_cms` under the same version; like devise it shares the root bundle and `spec/dummy`, which only loads it when `ALCHEMY_LIQUID` is set, so `bin/rspec` runs its specs separately from inside `liquid/`)
 
 ## Resources
 

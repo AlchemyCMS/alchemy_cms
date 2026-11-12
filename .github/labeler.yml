@@ -11,3 +11,7 @@ i18n:
 devise:
   - changed-files:
       - all-globs-to-all-files: "devise/**"
+
+liquid:
+  - changed-files:
+      - all-globs-to-all-files: "liquid/**"

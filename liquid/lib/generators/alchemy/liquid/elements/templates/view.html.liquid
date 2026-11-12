@@ -1,0 +1,16 @@
+{% cache element %}
+  {% element_view element %}
+  <%- @ingredients.each do |ingredient| -%>
+    <%- if @ingredients.length > 1 -%>
+    <div class="<%= ingredient["role"] %>">
+      {% ingredient "<%= ingredient["role"] %>" %}
+    </div>
+    <%- else -%>
+    {% ingredient "<%= ingredient["role"] %>" %}
+    <%- end -%>
+  <%- end -%>
+  <%- if @element["nestable_elements"].present? -%>
+    {% elements element.nested_elements %}
+  <%- end -%>
+  {% endelement_view %}
+{% endcache %}

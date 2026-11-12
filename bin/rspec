@@ -2,9 +2,9 @@
 
 ROOT = File.expand_path("..", __dir__)
 
-# The devise specs boot the dummy app with alchemy-devise loaded, the core specs
-# without it, so each one runs in its own RSpec process from its own directory.
-LIBS = %w[. devise]
+# The devise and liquid specs boot the dummy app with their gem loaded, the core
+# specs without it, so each one runs in its own RSpec process from its own directory.
+LIBS = %w[. devise liquid]
 
 # Ignore line info, e.g. foo/bar.rb:123 would become foo/bar.rb
 without_line = ->(path) { path.split(":", 2).first }
