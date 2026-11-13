@@ -41,7 +41,7 @@
   --datepicker-box-shadow: var(--select-dropdown-box-shadow);
   --datepicker-text-color: var(--text-color);
   --datepicker-weekday-text-color: var(--a-lighter-grey);
-  --datepicker-text-hover-color: var(--color-orange_medium);
+  --datepicker-text-hover-color: var(--text-link-color);
   --datepicker-day-hover-bg: var(--a-grey);
   --datepicker-today-border-color: var(--a-light-grey);
   --datepicker-today-hover-bg-color: var(--a-light-grey);
@@ -61,7 +61,7 @@
   --element-editor-background-color: var(--a-dark-grey);
   --element-editor-border-color: var(--a-darkest-grey);
   --element-editor-dragged-background-color: var(--color-blue_medium);
-  --element-editor-dragged-border-color: var(--color-orange_dark);
+  --element-editor-dragged-border-color: var(--accent-color);
   --element-editor-hover-box-shadow-color: var(--a-darkest-grey);
   --element-header-bg-color: transparent;
   --element-header-active-bg-color: var(--color-blue_medium);
@@ -73,12 +73,20 @@
   --element-dirty-border-color: hsl(55deg, 67%, 45%);
   --element-dirty-header-color: hsl(55deg, 45%, 15%);
 
-  --elements-window-handle-dragged-background-color: var(--color-orange_dark);
+  --elements-window-handle-dragged-background-color: var(--accent-color);
 
   --droppable-elements-background-color: var(--color-blue_dark);
 
   --nestable-elements-background-color: var(--a-dark-grey);
   --nestable-elements-box-shadow-color: var(--a-darkest-grey);
+
+  /* Accent */
+  --accent-color: hsl(212deg, 60%, 45%);
+  --accent-tint-color: hsl(213deg, 49%, 24.7%);
+  --accent-tint-text-color: var(--color-white);
+
+  /* Hover */
+  --hover-background-color: hsl(215deg, 14%, 20%);
 
   /* Focus Status */
   --focus-color: var(--color-orange_dark);
@@ -204,15 +212,15 @@
   /* Tags */
   --tag-background-color: var(--a-grey);
   --tag-hover-background-color: var(--a-dark-grey);
-  --tag-active-background-color: var(--color-orange_dark);
-  --tag-active-text-color: var(--a-grey);
+  --tag-active-background-color: var(--accent-tint-color);
+  --tag-active-text-color: var(--accent-tint-text-color);
   --tag-background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="hsl(200deg, 5%, 70%)"><path d="M10.9042 2.10025L20.8037 3.51446L22.2179 13.414L13.0255 22.6063C12.635 22.9969 12.0019 22.9969 11.6113 22.6063L1.71184 12.7069C1.32131 12.3163 1.32131 11.6832 1.71184 11.2926L10.9042 2.10025ZM11.6113 4.22157L3.83316 11.9997L12.3184 20.485L20.0966 12.7069L19.036 5.28223L11.6113 4.22157ZM13.7327 10.5855C12.9516 9.80448 12.9516 8.53815 13.7327 7.7571C14.5137 6.97606 15.78 6.97606 16.5611 7.7571C17.3421 8.53815 17.3421 9.80448 16.5611 10.5855C15.78 11.3666 14.5137 11.3666 13.7327 10.5855Z"></path></svg>');
-  --tag-active-background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="hsl(200deg, 5%, 22.5%)"><path d="M10.9042 2.10025L20.8037 3.51446L22.2179 13.414L13.0255 22.6063C12.635 22.9969 12.0019 22.9969 11.6113 22.6063L1.71184 12.7069C1.32131 12.3163 1.32131 11.6832 1.71184 11.2926L10.9042 2.10025ZM11.6113 4.22157L3.83316 11.9997L12.3184 20.485L20.0966 12.7069L19.036 5.28223L11.6113 4.22157ZM13.7327 10.5855C12.9516 9.80448 12.9516 8.53815 13.7327 7.7571C14.5137 6.97606 15.78 6.97606 16.5611 7.7571C17.3421 8.53815 17.3421 9.80448 16.5611 10.5855C15.78 11.3666 14.5137 11.3666 13.7327 10.5855Z"></path></svg>');
+  --tag-active-background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="hsl(0deg, 0%, 100%)"><path d="M10.9042 2.10025L20.8037 3.51446L22.2179 13.414L13.0255 22.6063C12.635 22.9969 12.0019 22.9969 11.6113 22.6063L1.71184 12.7069C1.32131 12.3163 1.32131 11.6832 1.71184 11.2926L10.9042 2.10025ZM11.6113 4.22157L3.83316 11.9997L12.3184 20.485L20.0966 12.7069L19.036 5.28223L11.6113 4.22157ZM13.7327 10.5855C12.9516 9.80448 12.9516 8.53815 13.7327 7.7571C14.5137 6.97606 15.78 6.97606 16.5611 7.7571C17.3421 8.53815 17.3421 9.80448 16.5611 10.5855C15.78 11.3666 14.5137 11.3666 13.7327 10.5855Z"></path></svg>');
 
   /* Text */
   --text-color: var(--a-lightest-grey);
   --text-color-muted: var(--a-lighter-grey);
-  --text-link-color: var(--color-orange_medium);
+  --text-link-color: hsl(212deg, 75%, 70%);
   --text-shadow-light: 0 0 var(--spacing-1) hsla(0deg, 0%, 20%, 0.5);
 
   /* Thumbnails */
@@ -234,7 +242,7 @@
   --tooltip-box-shadow: 0 0 var(--spacing-1) hsla(0deg, 0%, 0%, 0.5);
 
   /* Shoelace */
-  --tabs_indicator-color: var(--color-orange_dark);
+  --tabs_indicator-color: var(--accent-color);
   --tabs_track-color: var(--border-color);
   --sl-input-label-color: var(--text-color);
 
@@ -264,17 +272,17 @@
   */
 
   /* Primary */
-  --sl-color-primary-50: var(--color-orange_medium);
-  --sl-color-primary-100: var(--color-orange_medium);
-  --sl-color-primary-200: var(--color-orange_medium);
-  --sl-color-primary-300: var(--color-orange_dark);
-  --sl-color-primary-400: var(--color-orange_dark);
-  --sl-color-primary-500: var(--color-orange_dark);
-  --sl-color-primary-600: var(--color-orange_dark);
-  --sl-color-primary-700: var(--color-orange_very_dark);
-  --sl-color-primary-800: var(--color-orange_very_dark);
-  --sl-color-primary-900: var(--color-orange_very_dark);
-  --sl-color-primary-950: var(--color-orange_very_dark);
+  --sl-color-primary-50: var(--color-blue_dark);
+  --sl-color-primary-100: var(--color-blue_dark);
+  --sl-color-primary-200: var(--color-blue_medium);
+  --sl-color-primary-300: var(--color-blue_medium);
+  --sl-color-primary-400: var(--color-blue_medium);
+  --sl-color-primary-500: var(--color-blue_medium);
+  --sl-color-primary-600: var(--accent-color);
+  --sl-color-primary-700: var(--accent-color);
+  --sl-color-primary-800: var(--accent-color);
+  --sl-color-primary-900: var(--accent-color);
+  --sl-color-primary-950: var(--accent-color);
 
   /* Neutral */
   --sl-color-neutral-50: var(--a-grey);
@@ -331,7 +339,7 @@
   --datepicker-box-shadow: var(--select-dropdown-box-shadow);
   --datepicker-text-color: var(--text-color);
   --datepicker-weekday-text-color: var(--text-color-muted);
-  --datepicker-text-hover-color: var(--color-orange_dark);
+  --datepicker-text-hover-color: var(--text-link-color);
   --datepicker-day-hover-bg: var(--color-grey_light);
   --datepicker-today-border-color: var(--color-grey_dark);
   --datepicker-today-hover-bg-color: var(--color-grey_dark);
@@ -349,6 +357,7 @@
 
   /* Elements */
   --element-editor-background-color: var(--color-grey_very_light);
+  --element-editor-dragged-border-color: var(--accent-color);
   --element-header-bg-color: transparent;
   --element-header-active-bg-color: var(--color-blue_dark);
   --element-header-active-color: var(--color-white);
@@ -358,6 +367,16 @@
   --element-toolbar-border-color: var(--color-grey_light);
   --element-dirty-border-color: hsl(56deg, 67%, 52%);
   --element-dirty-header-color: hsl(56deg, 100%, 93%);
+
+  --elements-window-handle-dragged-background-color: var(--accent-color);
+
+  /* Accent */
+  --accent-color: hsl(212deg, 60%, 40%);
+  --accent-tint-color: hsl(214deg, 40%, 87.6%);
+  --accent-tint-text-color: hsl(212deg, 60%, 28%);
+
+  /* Hover */
+  --hover-background-color: var(--color-grey_light);
 
   /* Focus Status */
   --focus-color: hsla(28deg, 77%, 68%, 0.75);
@@ -483,14 +502,14 @@
   --tag-background-color: var(--color-grey_light);
   --tag-background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="hsla(224deg, 23%, 26%, 0.75)"><path d="M10.9042 2.10025L20.8037 3.51446L22.2179 13.414L13.0255 22.6063C12.635 22.9969 12.0019 22.9969 11.6113 22.6063L1.71184 12.7069C1.32131 12.3163 1.32131 11.6832 1.71184 11.2926L10.9042 2.10025ZM11.6113 4.22157L3.83316 11.9997L12.3184 20.485L20.0966 12.7069L19.036 5.28223L11.6113 4.22157ZM13.7327 10.5855C12.9516 9.80448 12.9516 8.53815 13.7327 7.7571C14.5137 6.97606 15.78 6.97606 16.5611 7.7571C17.3421 8.53815 17.3421 9.80448 16.5611 10.5855C15.78 11.3666 14.5137 11.3666 13.7327 10.5855Z"></path></svg>');
   --tag-hover-background-color: var(--color-grey_medium);
-  --tag-active-background-color: var(--color-blue_medium);
-  --tag-active-text-color: var(--color-grey_very_light);
-  --tag-active-background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(255, 255, 255, 0.95)"><path d="M10.9042 2.10025L20.8037 3.51446L22.2179 13.414L13.0255 22.6063C12.635 22.9969 12.0019 22.9969 11.6113 22.6063L1.71184 12.7069C1.32131 12.3163 1.32131 11.6832 1.71184 11.2926L10.9042 2.10025ZM11.6113 4.22157L3.83316 11.9997L12.3184 20.485L20.0966 12.7069L19.036 5.28223L11.6113 4.22157ZM13.7327 10.5855C12.9516 9.80448 12.9516 8.53815 13.7327 7.7571C14.5137 6.97606 15.78 6.97606 16.5611 7.7571C17.3421 8.53815 17.3421 9.80448 16.5611 10.5855C15.78 11.3666 14.5137 11.3666 13.7327 10.5855Z"></path></svg>');
+  --tag-active-background-color: var(--accent-tint-color);
+  --tag-active-text-color: var(--accent-tint-text-color);
+  --tag-active-background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="hsl(212deg, 60%, 28%)"><path d="M10.9042 2.10025L20.8037 3.51446L22.2179 13.414L13.0255 22.6063C12.635 22.9969 12.0019 22.9969 11.6113 22.6063L1.71184 12.7069C1.32131 12.3163 1.32131 11.6832 1.71184 11.2926L10.9042 2.10025ZM11.6113 4.22157L3.83316 11.9997L12.3184 20.485L20.0966 12.7069L19.036 5.28223L11.6113 4.22157ZM13.7327 10.5855C12.9516 9.80448 12.9516 8.53815 13.7327 7.7571C14.5137 6.97606 15.78 6.97606 16.5611 7.7571C17.3421 8.53815 17.3421 9.80448 16.5611 10.5855C15.78 11.3666 14.5137 11.3666 13.7327 10.5855Z"></path></svg>');
 
   /* Text */
   --text-color: hsl(215deg, 20%, 30%);
   --text-color-muted: var(--color-grey_dark);
-  --text-link-color: var(--color-orange_very_dark);
+  --text-link-color: hsl(212deg, 60%, 38%);
   --text-shadow-light: 0 0 var(--spacing-1) hsla(0deg, 0%, 100%, 0.5);
 
   /* Thumbnails */
@@ -514,7 +533,7 @@
   --tooltip-box-shadow: 0 0 var(--spacing-1) var(--color-grey_light);
 
   /* Shoelace */
-  --tabs_indicator-color: var(--color-orange_dark);
+  --tabs_indicator-color: var(--accent-color);
   --tabs_track-color: var(--color-grey_light);
   --sl-input-label-color: var(--text-color);
 
@@ -544,11 +563,11 @@
   --sl-color-primary-300: var(--color-blue_light);
   --sl-color-primary-400: var(--color-blue_medium);
   --sl-color-primary-500: var(--color-blue_medium);
-  --sl-color-primary-600: var(--color-blue_dark);
-  --sl-color-primary-700: var(--color-blue_dark);
-  --sl-color-primary-800: var(--color-blue_dark);
-  --sl-color-primary-900: var(--color-blue_dark);
-  --sl-color-primary-950: var(--color-blue_dark);
+  --sl-color-primary-600: var(--accent-color);
+  --sl-color-primary-700: var(--accent-color);
+  --sl-color-primary-800: var(--accent-color);
+  --sl-color-primary-900: var(--accent-color);
+  --sl-color-primary-950: var(--accent-color);
 
   /* Neutral */
   --sl-color-neutral-50: var(--color-grey_very_light);
