@@ -115,6 +115,31 @@ RSpec.describe Alchemy::Admin::UploaderButton, type: :component do
     end
   end
 
+  describe "keyboard operation" do
+    it "makes the file input inside the label the only tab stop" do
+      render
+      expect(page).to have_selector("label input[type='file'].fileupload:not([tabindex])")
+      expect(page).to_not have_selector("label span[tabindex]")
+    end
+
+    it "wraps the label in the tooltip so it opens on focus" do
+      render
+      expect(page).to have_selector("sl-tooltip > label")
+    end
+
+    context "when inline_label is true" do
+      subject(:render) do
+        render_inline(described_class.new(object:, file_attribute:, redirect_url:, inline_label: true))
+      end
+
+      it "makes the file input inside the label the only tab stop" do
+        render
+        expect(page).to have_selector("label input[type='file'].fileupload:not([tabindex])")
+        expect(page).to_not have_selector("label span[tabindex]")
+      end
+    end
+  end
+
   describe "upload_hash field" do
     context "when the object responds to upload_hash" do
       it "renders a hidden upload_hash field" do
