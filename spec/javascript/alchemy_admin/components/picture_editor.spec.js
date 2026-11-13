@@ -89,6 +89,15 @@ describe("PictureEditor", () => {
       expect(cropLink.classList.contains("disabled")).toBe(true)
     })
 
+    it("removes the crop link from the tab order", () => {
+      const editor = renderComponent()
+      editor.removeImage()
+
+      const cropLink = editor.querySelector(".crop_link")
+      expect(cropLink.getAttribute("tabindex")).toBe("-1")
+      expect(cropLink.getAttribute("aria-disabled")).toBe("true")
+    })
+
     it("is triggered by clicking the delete button", () => {
       const editor = renderComponent()
       const deleteButton = editor.querySelector(".picture_tool.delete")
@@ -168,6 +177,19 @@ describe("PictureEditor", () => {
       editor.updateCropLink()
 
       expect(cropLink.classList.contains("disabled")).toBe(false)
+    })
+
+    it("puts the crop link back into the tab order", () => {
+      const editor = renderComponent()
+      const cropLink = editor.querySelector(".crop_link")
+      cropLink.classList.add("disabled")
+      cropLink.setAttribute("tabindex", "-1")
+      cropLink.setAttribute("aria-disabled", "true")
+
+      editor.updateCropLink()
+
+      expect(cropLink.hasAttribute("tabindex")).toBe(false)
+      expect(cropLink.hasAttribute("aria-disabled")).toBe(false)
     })
 
     it("updates picture_id in existing href", () => {
