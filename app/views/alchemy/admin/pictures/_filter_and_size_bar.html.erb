@@ -26,7 +26,7 @@
             form_field_id: @form_field_id
           ).to_h
         ),
-        class: "icon_button"
+        class: ["icon_button", @size == "small" && "active"].compact
       ) %>
     </sl-tooltip>
     <sl-tooltip content="<%= Alchemy.t(:medium_thumbnails) %>">
@@ -38,7 +38,7 @@
             form_field_id: @form_field_id
           ).to_h
         ),
-        class: "icon_button"
+        class: ["icon_button", @size == "medium" && "active"].compact
       ) %>
     </sl-tooltip>
     <sl-tooltip content="<%= Alchemy.t(:big_thumbnails) %>">
@@ -50,7 +50,7 @@
             form_field_id: @form_field_id
           ).to_h
         ),
-        class: "icon_button"
+        class: ["icon_button", @size == "large" && "active"].compact
       ) %>
     </sl-tooltip>
   </div>

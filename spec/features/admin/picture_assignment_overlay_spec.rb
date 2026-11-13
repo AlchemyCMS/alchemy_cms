@@ -18,6 +18,16 @@ RSpec.describe "Picture assignment overlay", type: :system do
       expect(page).to have_css %(form[action*="/admin/pictures/#{picture.id}/assign"] input[name="_method"][value="put"]), visible: :hidden
     end
 
+    scenario "marks the selected thumbnail size as active" do
+      visit alchemy.admin_pictures_path(
+        form_field_id: "ingredients_#{ingredient.id}_picture_id",
+        size: "small"
+      )
+
+      expect(page).to have_css(".button_group .icon_button.active", count: 1)
+      expect(page).to have_css(".button_group .icon_button.active[href*='size=small']")
+    end
+
     scenario "thumbnail renders at the selected size" do
       expect(Alchemy::Admin::PictureThumbnail).to receive(:new)
         .with(picture, size: "large").and_call_original
