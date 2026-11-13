@@ -42,7 +42,7 @@ RSpec.describe Alchemy::Admin::PublishPageButton, type: :component do
         let(:alchemy_page) { create(:alchemy_page, :public) }
 
         before do
-          alchemy_page.public_version.update_column(:updated_at, 1.minute.from_now)
+          alchemy_page.update_column(:published_at, 1.minute.from_now)
         end
 
         it "renders disabled button" do

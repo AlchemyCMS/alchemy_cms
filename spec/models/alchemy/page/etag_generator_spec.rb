@@ -60,5 +60,23 @@ RSpec.describe Alchemy::Page::EtagGenerator do
         end
       end
     end
+
+    context "when the related object of an element's ingredient changes" do
+      let(:related_object) { create(:alchemy_page) }
+
+      before do
+        create(:alchemy_element,
+          page_version: page.public_version,
+          ingredients: [Alchemy::Ingredients::Page.create(related_object:, role: "page")])
+        page.public_version.update_column(:updated_at, 1.day.ago)
+      end
+
+      it "changes the etag" do
+        etag_before = ActiveSupport::Cache.expand_cache_key(generator.call)
+        Alchemy::InvalidateElementsCacheJob.perform_now(related_object.class.name, related_object.id)
+        etag_after = ActiveSupport::Cache.expand_cache_key(described_class.new(page.reload).call)
+        expect(etag_after).not_to eq(etag_before)
+      end
+    end
   end
 end

@@ -2124,11 +2124,33 @@ module Alchemy
 
         context "when public version is current" do
           before do
-            page.public_version.update_column(:updated_at, 1.minute.from_now)
+            page.update_column(:published_at, 1.minute.from_now)
           end
 
           it "returns false" do
             expect(page.has_unpublished_changes?).to be false
+          end
+        end
+
+        context "when the public version got touched after the draft was edited" do
+          before do
+            page.draft_version.update_column(:updated_at, 1.minute.from_now)
+            page.public_version.update_column(:updated_at, 2.minutes.from_now)
+          end
+
+          it "returns true" do
+            expect(page.has_unpublished_changes?).to be true
+          end
+        end
+
+        context "when page has no published_at" do
+          before do
+            page.update_column(:published_at, nil)
+            page.draft_version.update_column(:updated_at, 1.minute.from_now)
+          end
+
+          it "compares against the public version" do
+            expect(page.has_unpublished_changes?).to be true
           end
         end
       end
