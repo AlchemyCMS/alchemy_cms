@@ -1542,7 +1542,7 @@ button::-moz-focus-inner {
   height: var(--dialog-header-height);
   align-items: center;
   background-color: var(--dialog-header-color);
-  border-bottom: none;
+  border-bottom: var(--border-default);
   color: var(--dialog-header-text-color);
   display: flex;
   font-size: var(--dialog-header-font-size);
@@ -1553,15 +1553,23 @@ button::-moz-focus-inner {
 
 .tox .tox-dialog__header .tox-button {
   z-index: 1;
-  color: var(--color-white);
+  color: var(--dialog-header-text-color);
   height: var(--spacing-6);
   background-image: none; // If used in Solidus we need to override the background image
   border-color: transparent; // If used in Solidus we need to override the border
+  border-width: 0;
+  box-shadow: none;
+
+  &:focus:not(:disabled) {
+    background-color: transparent;
+    color: var(--dialog-header-text-color);
+  }
 
   &:active:not(:disabled),
   &:hover:not(:disabled) {
-    background-color: var(--color-blue_medium);
-    color: var(--color-white);
+    background-color: var(--icon-button-hover-bg-color);
+    box-shadow: none;
+    color: var(--dialog-header-text-color);
   }
 }
 

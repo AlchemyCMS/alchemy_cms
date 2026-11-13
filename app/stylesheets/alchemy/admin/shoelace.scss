@@ -360,6 +360,7 @@ sl-dialog {
   &::part(header) {
     --header-spacing: 9.5px var(--spacing-3);
     background-color: var(--dialog-header-color);
+    border-bottom: var(--border-default);
     border-top-left-radius: var(--border-radius_medium);
     border-top-right-radius: var(--border-radius_medium);
   }
