@@ -77,6 +77,7 @@
 
       &.active {
         background-color: var(--select-selected-bg-color);
+        color: var(--select-selected-text-color);
       }
 
       .icon_button {

@@ -20,6 +20,11 @@ input[type="checkbox"] {
   transition: var(--transition-duration);
 }
 
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--accent-color);
+}
+
 input[type="search"] {
   -webkit-appearance: textfield;
 }
@@ -59,7 +64,7 @@ fieldset {
 
 ::-webkit-input-placeholder {
   line-height: 1.5;
-  color: var(--border-color);
+  color: var(--text-color-muted);
 }
 
 form .input .page-publication-date-fields.input-row {

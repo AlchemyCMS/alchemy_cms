@@ -26,4 +26,8 @@
   .ts-dropdown .option.active & {
     color: var(--select-hover-text-color);
   }
+
+  .ts-dropdown .option.selected & {
+    color: var(--select-selected-text-color);
+  }
 }
