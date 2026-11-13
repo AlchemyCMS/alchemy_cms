@@ -1,5 +1,20 @@
 # Changelog
 
+## 8.4.4 (2026-11-13)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.4-stable -->
+
+## What's Changed
+### Bug Fixes
+* [8.4-stable] fix: Return nil instead of missing-image.png from picture_url by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4463
+* [8.4-stable] fix(preview): Block navigation outside of elements and via Turbo by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4470
+* [8.4-stable] fix: Touch page versions when a related object changes by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4471
+* [8.4-stable] fix(pictures): Only apply format setting the picture can be converted to by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/4472
+* [8.4-stable] fix(admin): Only flag invalid fields after user interaction by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/4476
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.4.3...v8.4.4
+
 ## 8.4.3 (2026-11-09)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.4-stable -->
