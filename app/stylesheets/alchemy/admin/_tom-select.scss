@@ -308,7 +308,7 @@
     }
 
     &.selected.active {
-      --select-selected-marker-color: var(--color-orange_dark);
+      --select-selected-marker-color: currentColor;
     }
   }
 
