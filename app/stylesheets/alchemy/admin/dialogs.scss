@@ -121,6 +121,7 @@ dialog.alchemy-dialog-container {
   height: var(--dialog-header-height);
   padding: var(--dialog-header-padding);
   background: var(--dialog-header-color);
+  border-bottom: var(--border-default);
   color: var(--dialog-header-text-color);
   font-weight: var(--font-weight_normal);
   font-size: var(--dialog-header-font-size);
@@ -154,13 +155,16 @@ dialog.alchemy-dialog-container {
   justify-content: center;
   align-items: center;
   background-color: transparent;
-  border-color: transparent;
+  border: 0 none;
   border-radius: var(--border-radius_medium);
-  color: var(--color-white);
+  box-shadow: none;
+  color: var(--dialog-header-text-color);
   padding: 0;
 
-  &:hover {
-    background-color: var(--color-blue_medium);
+  &:hover,
+  &:active {
+    background-color: var(--icon-button-hover-bg-color);
+    box-shadow: none;
   }
 }
 

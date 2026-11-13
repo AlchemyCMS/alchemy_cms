@@ -50,11 +50,10 @@
   --datepicker-selected-text-color: var(--color-white);
 
   /* Dialogs */
-  --dialog-header-color: var(--color-blue_dark);
-  --dialog-header-text-color: var(--color-white);
-  --dialog-box-shadow: 0 var(--spacing-2) var(--spacing-4)
-    hsla(0deg, 0%, 0%, 0.5);
-  --dialog-overlay-color: hsla(0deg, 0%, 10%, 0.8);
+  --dialog-header-color: var(--surface-tint-color);
+  --dialog-header-text-color: var(--text-color);
+  --dialog-box-shadow: 0 20px 50px hsla(0deg, 0%, 0%, 0.5);
+  --dialog-overlay-color: hsla(215deg, 30%, 5%, 0.6);
   --dialog-background-color: var(--a-dark-grey);
 
   /* Elements */
@@ -87,6 +86,9 @@
 
   /* Hover */
   --hover-background-color: hsl(215deg, 14%, 20%);
+
+  /* Surfaces */
+  --surface-tint-color: hsl(215deg, 14%, 20%);
 
   /* Focus Status */
   --focus-color: hsl(28deg, 80%, 62%);
@@ -349,12 +351,11 @@
   --datepicker-selected-text-color: var(--color-white);
 
   /* Dialogs */
-  --dialog-header-color: var(--color-blue_dark);
-  --dialog-header-text-color: var(--color-white);
-  --dialog-box-shadow: 0 var(--spacing-2) var(--spacing-4)
-    hsla(0deg, 0%, 14%, 0.15);
-  --dialog-overlay-color: hsla(0deg, 0%, 39%, 0.4);
-  --dialog-background-color: var(--color-grey_very_light);
+  --dialog-header-color: var(--surface-tint-color);
+  --dialog-header-text-color: var(--text-color);
+  --dialog-box-shadow: 0 20px 50px hsla(215deg, 40%, 15%, 0.25);
+  --dialog-overlay-color: hsla(215deg, 30%, 15%, 0.45);
+  --dialog-background-color: var(--color-white);
 
   /* Elements */
   --element-editor-background-color: var(--color-grey_very_light);
@@ -378,6 +379,9 @@
 
   /* Hover */
   --hover-background-color: var(--color-grey_light);
+
+  /* Surfaces */
+  --surface-tint-color: hsl(215deg, 25%, 95.5%);
 
   /* Focus Status */
   --focus-color: hsl(28deg, 85%, 64%);
