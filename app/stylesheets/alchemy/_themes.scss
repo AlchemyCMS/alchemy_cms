@@ -8,23 +8,23 @@
   --border-inset-color: hsl(215deg, 12%, 28%);
 
   /* Buttons */
-  --button-bg-color: var(--color-blue_dark);
-  --button-border-color: var(--color-blue_medium);
-  --button-box-shadow: 0 1px 1px -1px hsl(0deg, 0%, 10%);
+  --button-bg-color: var(--accent-color);
+  --button-border-color: hsl(212deg, 60%, 50%);
+  --button-box-shadow: none;
   --button-focus-border-color: var(--focus-color);
   --button-focus-box-shadow: 0 0 0 1px var(--button-focus-border-color);
-  --button-hover-bg-color: var(--color-blue_medium);
-  --button-hover-border-color: var(--color-blue_medium);
+  --button-hover-bg-color: hsl(212deg, 60%, 40%);
+  --button-hover-border-color: var(--button-border-color);
   --button-text-color: var(--color-white);
   --button-text-shadow: none;
   --button-disabled-bg-color: var(--a-dark-grey);
   --button-disabled-border-color: var(--a-grey);
-  --button-secondary-bg-color: var(--a-darker-grey);
-  --button-secondary-border-color: var(--a-grey);
-  --button-secondary-hover-bg-color: var(--a-dark-grey);
-  --button-secondary-hover-border-color: var(--a-grey);
-  --button-secondary-text-color: var(--color-white);
-  --button-primary-text-color: var(--a-darker-grey);
+  --button-secondary-bg-color: var(--a-dark-grey);
+  --button-secondary-border-color: var(--border-inset-color);
+  --button-secondary-hover-bg-color: var(--surface-tint-color);
+  --button-secondary-hover-border-color: var(--border-inset-color);
+  --button-secondary-text-color: var(--text-color);
+  --button-primary-text-color: var(--color-white);
 
   --code-background-color: var(--a-darkest-grey);
   --code-border-color: var(--a-grey);
@@ -118,11 +118,14 @@
   --hint-text-link-color: hsla(0deg, 0%, 100%, 0.85);
 
   /* Icon Buttons */
-  --icon-button-linked-color: hsla(42deg, 100%, 40%, 0.75);
-  --icon-button-linked-hover-color: hsla(42deg, 100%, 50%, 0.75);
-  --icon-button-linked-border-color: hsl(42deg, 100%, 50%);
-  --icon-button-linked-hover-border-color: hsl(42deg, 100%, 60%);
-  --icon-button-hover-bg-color: var(--a-darkest-grey);
+  --icon-button-linked-color: var(--accent-tint-color);
+  --icon-button-linked-hover-color: var(--accent-tint-color);
+  --icon-button-linked-border-color: var(--accent-color);
+  --icon-button-linked-hover-border-color: var(--accent-color);
+  --icon-button-linked-text-color: var(--accent-tint-text-color);
+  --icon-button-hover-bg-color: var(--border-color);
+  --icon-button-active-bg-color: var(--border-inset-color);
+  --icon-button-active-color: var(--text-color);
   --page-definitions-icon-button-hover-bg-color: var(--a-light-grey);
 
   /* Icons */
@@ -313,21 +316,21 @@
   --border-inset-color: var(--color-grey_medium);
 
   /* Buttons */
-  --button-bg-color: var(--color-white);
-  --button-border-color: var(--border-color);
-  --button-box-shadow: 0 1px 1px -1px hsl(0deg, 0%, 20%);
+  --button-bg-color: var(--accent-color);
+  --button-border-color: hsl(212deg, 60%, 36%);
+  --button-box-shadow: none;
   --button-focus-border-color: var(--focus-color);
   --button-focus-box-shadow: 0 0 0 1px var(--button-focus-border-color);
-  --button-hover-bg-color: var(--color-grey_very_light);
-  --button-hover-border-color: hsla(0deg, 0%, 59%, 0.5);
-  --button-text-color: var(--text-color);
+  --button-hover-bg-color: hsl(212deg, 60%, 35%);
+  --button-hover-border-color: var(--button-border-color);
+  --button-text-color: var(--color-white);
   --button-text-shadow: none;
   --button-disabled-bg-color: hsla(0deg, 0%, 100%, 0.5);
-  --button-disabled-border-color: var(--button-border-color);
-  --button-secondary-bg-color: var(--color-grey_light);
-  --button-secondary-border-color: var(--border-color);
-  --button-secondary-hover-bg-color: var(--color-white);
-  --button-secondary-hover-border-color: var(--color-grey_medium);
+  --button-disabled-border-color: var(--border-color);
+  --button-secondary-bg-color: var(--color-white);
+  --button-secondary-border-color: var(--border-inset-color);
+  --button-secondary-hover-bg-color: var(--surface-tint-color);
+  --button-secondary-hover-border-color: var(--border-inset-color);
   --button-secondary-text-color: var(--text-color);
   --button-primary-text-color: var(--color-white);
 
@@ -423,11 +426,14 @@
   --hint-text-link-color: var(--color-grey_very_dark);
 
   /* Icon Buttons */
-  --icon-button-linked-color: hsla(42deg, 100%, 74%, 0.75);
-  --icon-button-linked-hover-color: hsla(42deg, 100%, 64%, 0.75);
-  --icon-button-linked-border-color: hsl(42deg, 100%, 64%);
-  --icon-button-linked-hover-border-color: hsl(42deg, 100%, 54%);
-  --icon-button-hover-bg-color: hsla(0deg, 0%, 69%, 0.5);
+  --icon-button-linked-color: var(--accent-tint-color);
+  --icon-button-linked-hover-color: var(--accent-tint-color);
+  --icon-button-linked-border-color: var(--accent-color);
+  --icon-button-linked-hover-border-color: var(--accent-color);
+  --icon-button-linked-text-color: var(--accent-tint-text-color);
+  --icon-button-hover-bg-color: var(--border-color);
+  --icon-button-active-bg-color: var(--accent-tint-color);
+  --icon-button-active-color: var(--accent-tint-text-color);
   --page-definitions-icon-button-hover-bg-color: var(--icon-button-hover-bg-color);
 
   /* Icons */
