@@ -205,6 +205,17 @@ RSpec.shared_examples_for "having picture thumbnails" do
             expect(picture_url_options[:format]).to eq "png"
           end
         end
+
+        context "with format the picture can not be converted to" do
+          before do
+            allow(record).to receive(:settings) { {format: "svg"} }
+            allow(picture).to receive(:default_render_format) { "webp" }
+          end
+
+          it "includes the pictures default render format" do
+            expect(picture_url_options[:format]).to eq "webp"
+          end
+        end
       end
 
       context "with picture not having a convertible format" do

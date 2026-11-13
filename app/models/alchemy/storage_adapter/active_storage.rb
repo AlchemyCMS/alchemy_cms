@@ -158,6 +158,12 @@ module Alchemy
         picture.image_file&.variable?
       end
 
+      # @param [String, Symbol] format file extension
+      # @return [TrueClass, FalseClass]
+      def can_convert_to?(format)
+        Marcel::MimeType.for(extension: format.to_s).in?(::ActiveStorage.variable_content_types)
+      end
+
       # @param [Alchemy::Picture]
       # @return [String]
       def image_file_basename(picture)
