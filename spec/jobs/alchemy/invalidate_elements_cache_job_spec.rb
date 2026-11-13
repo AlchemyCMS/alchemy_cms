@@ -46,5 +46,21 @@ RSpec.describe Alchemy::InvalidateElementsCacheJob, type: :job do
     it "touches the page" do
       expect { subject }.to change { page.reload.updated_at }
     end
+
+    it "does not touch the draft version" do
+      page.draft_version.update_column(:updated_at, 1.day.ago)
+      expect { subject }.not_to change { page.draft_version.reload.updated_at }
+    end
+
+    context "when the element is on the public version" do
+      let!(:element) do
+        create(:alchemy_element, page_version: page.public_version, ingredients: [ingredient], updated_at: 1.day.ago)
+      end
+
+      it "touches the public version" do
+        page.public_version.update_column(:updated_at, 1.day.ago)
+        expect { subject }.to change { page.public_version.reload.updated_at }
+      end
+    end
   end
 end

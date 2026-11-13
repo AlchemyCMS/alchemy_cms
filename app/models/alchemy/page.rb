@@ -453,14 +453,17 @@ module Alchemy
     # Returns true if the draft version has changes not yet published.
     #
     # Compares the updated_at timestamp of the draft_version against the
-    # updated_at timestamp of the public_version. If there's no public_version,
-    # the page has never been published and always has unpublished changes.
+    # page's published_at timestamp. The public_version's updated_at is not
+    # used, because it gets touched to invalidate caches. It only serves as
+    # fallback for public versions created without publishing (via +public_on=+).
+    # If there's no public_version, the page has never been published and
+    # always has unpublished changes.
     #
     # @return [Boolean]
     def has_unpublished_changes?
       return true unless public_version
 
-      draft_version.updated_at > public_version.updated_at
+      draft_version.updated_at > (published_at || public_version.updated_at)
     end
 
     # Sets the public_on date on the published version
