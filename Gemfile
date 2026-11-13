@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-gemspec
+gemspec name: "alchemy_cms"
 
 rails_version = ENV.fetch("RAILS_VERSION", "8.1")
 gem "rails", "~> #{rails_version}.0"
