@@ -58,26 +58,28 @@
 
   /* Elements */
   --element-editor-background-color: var(--a-dark-grey);
-  --element-editor-border-color: var(--a-darkest-grey);
-  --element-editor-dragged-background-color: var(--color-blue_medium);
+  --element-editor-border-color: var(--border-color);
+  --element-editor-dragged-background-color: var(--accent-tint-color);
   --element-editor-dragged-border-color: var(--accent-color);
-  --element-editor-hover-box-shadow-color: var(--a-darkest-grey);
+  --element-editor-hover-box-shadow-color: hsla(0deg, 0%, 0%, 0.4);
+  --element-editor-selected-border-color: var(--accent-color);
   --element-header-bg-color: transparent;
-  --element-header-active-bg-color: var(--color-blue_medium);
-  --element-header-active-color: var(--color-white);
+  --element-header-active-bg-color: var(--accent-tint-color);
+  --element-header-active-color: var(--accent-tint-text-color);
   --element-header-deprecated-bg-color: hsla(29deg, 95%, 20%, 0.25);
   --element-deprecated-border-color: hsl(29deg, 95%, 30%);
   --element-toolbar-background-color: var(--a-dark-grey);
-  --element-toolbar-border-color: var(--a-darker-grey);
-  --element-dirty-border-color: hsl(55deg, 67%, 45%);
-  --element-dirty-header-color: hsl(55deg, 45%, 15%);
+  --element-toolbar-border-color: var(--divider-color);
+  --element-dirty-border-color: hsl(38deg, 90%, 55%);
+  --element-dirty-header-color: hsla(38deg, 90%, 55%, 0.12);
 
+  --elements-window-background-color: hsl(215deg, 14%, 13%);
   --elements-window-handle-dragged-background-color: var(--accent-color);
 
-  --droppable-elements-background-color: var(--color-blue_dark);
+  --droppable-elements-background-color: var(--accent-tint-color);
 
-  --nestable-elements-background-color: var(--a-dark-grey);
-  --nestable-elements-box-shadow-color: var(--a-darkest-grey);
+  --nestable-elements-background-color: var(--a-darker-grey);
+  --nestable-elements-box-shadow-color: transparent;
 
   /* Accent */
   --accent-color: hsl(212deg, 60%, 45%);
@@ -89,6 +91,7 @@
 
   /* Surfaces */
   --surface-tint-color: hsl(215deg, 14%, 20%);
+  --divider-color: hsl(215deg, 12%, 19%);
 
   /* Focus Status */
   --focus-color: hsl(28deg, 80%, 62%);
@@ -358,19 +361,29 @@
   --dialog-background-color: var(--color-white);
 
   /* Elements */
-  --element-editor-background-color: var(--color-grey_very_light);
+  --element-editor-background-color: var(--color-white);
+  --element-editor-border-color: var(--border-color);
+  --element-editor-dragged-background-color: var(--accent-tint-color);
   --element-editor-dragged-border-color: var(--accent-color);
+  --element-editor-hover-box-shadow-color: hsla(215deg, 30%, 20%, 0.12);
+  --element-editor-selected-border-color: var(--accent-color);
   --element-header-bg-color: transparent;
-  --element-header-active-bg-color: var(--color-blue_dark);
-  --element-header-active-color: var(--color-white);
+  --element-header-active-bg-color: var(--accent-tint-color);
+  --element-header-active-color: var(--accent-tint-text-color);
   --element-header-deprecated-bg-color: hsla(29deg, 95%, 84%, 0.25);
   --element-deprecated-border-color: hsl(29deg, 95%, 84%);
-  --element-toolbar-background-color: var(--color-grey_very_light);
-  --element-toolbar-border-color: var(--color-grey_light);
-  --element-dirty-border-color: hsl(56deg, 67%, 52%);
-  --element-dirty-header-color: hsl(56deg, 100%, 93%);
+  --element-toolbar-background-color: var(--color-white);
+  --element-toolbar-border-color: var(--divider-color);
+  --element-dirty-border-color: hsl(38deg, 90%, 50%);
+  --element-dirty-header-color: hsla(38deg, 90%, 50%, 0.1);
 
+  --elements-window-background-color: var(--color-grey_very_light);
   --elements-window-handle-dragged-background-color: var(--accent-color);
+
+  --droppable-elements-background-color: var(--accent-tint-color);
+
+  --nestable-elements-background-color: var(--color-grey_very_light);
+  --nestable-elements-box-shadow-color: transparent;
 
   /* Accent */
   --accent-color: hsl(212deg, 60%, 40%);
@@ -382,6 +395,7 @@
 
   /* Surfaces */
   --surface-tint-color: hsl(215deg, 25%, 95.5%);
+  --divider-color: hsl(215deg, 18%, 92%);
 
   /* Focus Status */
   --focus-color: hsl(28deg, 85%, 64%);
