@@ -136,6 +136,14 @@ module Alchemy
         end
       end
 
+      def deprecation_label(text)
+        content_tag("sl-tooltip", class: "like-hint-tooltip", content: warnings, placement: "bottom") do
+          tag.span(class: "label warning") do
+            render_icon(:alert, size: "1x") + text
+          end
+        end
+      end
+
       def validations
         definition.validate
       end
@@ -177,14 +185,18 @@ module Alchemy
       #
       # Displays a warning icon if ingredient is missing its definition.
       #
+      # Displays the role in a warning label if ingredient is deprecated.
+      #
       # Displays a mandatory field indicator, if the ingredient has validations.
       #
       def ingredient_role
         content = translated_role
 
-        if has_warnings?
+        if definition.blank?
           icon = hint_with_tooltip(warnings)
           content = "#{icon} #{content}".html_safe
+        elsif ingredient.deprecated?
+          content = deprecation_label(content)
         end
 
         if presence_validation?
