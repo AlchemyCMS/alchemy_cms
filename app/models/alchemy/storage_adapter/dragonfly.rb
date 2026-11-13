@@ -164,6 +164,12 @@ module Alchemy
         image_file_extension(picture).in?(CONVERTIBLE_FILE_FORMATS)
       end
 
+      # @param [String, Symbol] format file extension
+      # @return [TrueClass, FalseClass]
+      def can_convert_to?(format)
+        format.to_s.in?(CONVERTIBLE_FILE_FORMATS)
+      end
+
       # @param [Alchemy::Picture]
       # @return [String]
       def image_file_basename(picture)

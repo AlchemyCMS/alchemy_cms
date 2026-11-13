@@ -49,7 +49,7 @@ module Alchemy
     #
     # The render format is taken from the +format+ option, the +format+ setting
     # of the ingredient definition or the +default_render_format+ of the picture.
-    # A format is only applied if the picture can be converted.
+    # A format is only applied if the picture can be converted into it.
     #
     # @param options [Hash] Options that override the defaults (i.e. +size+ or +format+ of a srcset entry)
     #
@@ -159,7 +159,8 @@ module Alchemy
     private
 
     def picture_render_format(format)
-      if format.present? && picture.has_convertible_format?
+      if format.present? && picture.has_convertible_format? &&
+          Alchemy.storage_adapter.can_convert_to?(format)
         format.to_s
       else
         picture.default_render_format
