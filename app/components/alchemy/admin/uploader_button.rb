@@ -19,7 +19,7 @@ module Alchemy
       def call
         content_tag "alchemy-uploader", "redirect-url": redirect_url, dropzone:, layout: do
           form_for [alchemy, :admin, object], html: {multipart: true, class: "upload-button"} do |f|
-            safe_join([upload_hash_field(f), file_input(f), upload_label(f)].compact)
+            safe_join([upload_hash_field(f), upload_label(f)].compact)
           end
         end
       end
@@ -35,21 +35,30 @@ module Alchemy
       def file_input(f)
         f.file_field file_attribute,
           class: "fileupload fileupload--field", multiple: true, accept: accept,
-          name: "#{f.object_name}[#{file_attribute}]", tabindex: "-1"
+          name: "#{f.object_name}[#{file_attribute}]"
       end
 
+      # The visually hidden file input is what the button is operated with, so it
+      # has to sit inside the label and the label inside the tooltip: the tooltip
+      # only opens for focus moving into itself.
       def upload_label(f)
-        f.label file_attribute, data: {alchemy_hotkey: "alt+n"} do
-          if inline_label
-            tag.span class: "button with_icon", tabindex: "0" do
-              render(Alchemy::Admin::Icon.new("upload-2")) + tooltip
-            end
-          else
-            content_tag "sl-tooltip", content: tooltip, placement: "top-start" do
-              tag.span class: "icon_button", tabindex: "0" do
-                render Alchemy::Admin::Icon.new("upload-2")
-              end
-            end
+        label = f.label file_attribute, data: {alchemy_hotkey: "alt+n"} do
+          safe_join([button_content, file_input(f)])
+        end
+
+        return label if inline_label
+
+        content_tag "sl-tooltip", label, content: tooltip, placement: "top-start"
+      end
+
+      def button_content
+        if inline_label
+          tag.span class: "button with_icon" do
+            render(Alchemy::Admin::Icon.new("upload-2")) + tooltip
+          end
+        else
+          tag.span class: "icon_button" do
+            render Alchemy::Admin::Icon.new("upload-2")
           end
         end
       end

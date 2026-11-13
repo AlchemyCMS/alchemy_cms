@@ -3,12 +3,12 @@
 
 <alchemy-uploader redirect-url="<%= redirect_url %>">
   <%= form_for [:admin, object], html: {multipart: true, class: 'upload-button'} do |f| %>
-    <%= f.file_field file_attribute,
-      class: 'fileupload--field', accept: accept,
-      name: "#{f.object_name}[#{file_attribute}]",
-      id: "replace_#{dom_id(object)}" %>
     <%= label_tag "replace_#{dom_id(object)}", class: "icon_button" do %>
       <%= render_icon "file-upload" %>
+      <%= f.file_field file_attribute,
+        class: 'fileupload--field', accept: accept,
+        name: "#{f.object_name}[#{file_attribute}]",
+        id: "replace_#{dom_id(object)}" %>
     <% end %>
   <% end %>
 </alchemy-uploader>

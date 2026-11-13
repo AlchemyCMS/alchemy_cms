@@ -18,6 +18,13 @@ describe "alchemy/admin/attachments/_replace_button.html.erb" do
     expect(rendered).to have_selector("alchemy-uploader[redirect-url='/admin/attachments']")
   end
 
+  it "renders the file input inside the label" do
+    render partial: "alchemy/admin/attachments/replace_button",
+      locals: {object: object, file_attribute: file_attribute, redirect_url: redirect_url}
+
+    expect(rendered).to have_selector("label.icon_button input[type='file']")
+  end
+
   context "with allowed_filetypes configured as wildcard" do
     before do
       allow(Alchemy.config.uploader.allowed_filetypes).to receive(:alchemy_attachments) do
