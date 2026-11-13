@@ -66,8 +66,8 @@
   --element-header-bg-color: transparent;
   --element-header-active-bg-color: var(--accent-tint-color);
   --element-header-active-color: var(--accent-tint-text-color);
-  --element-header-deprecated-bg-color: hsla(29deg, 95%, 20%, 0.25);
-  --element-deprecated-border-color: hsl(29deg, 95%, 30%);
+  --element-header-deprecated-bg-color: var(--notice-warning-background-color);
+  --element-deprecated-border-color: var(--notice-warning-border-color);
   --element-toolbar-background-color: var(--a-dark-grey);
   --element-toolbar-border-color: var(--divider-color);
   --element-dirty-border-color: hsl(38deg, 90%, 55%);
@@ -370,8 +370,8 @@
   --element-header-bg-color: transparent;
   --element-header-active-bg-color: var(--accent-tint-color);
   --element-header-active-color: var(--accent-tint-text-color);
-  --element-header-deprecated-bg-color: hsla(29deg, 95%, 84%, 0.25);
-  --element-deprecated-border-color: hsl(29deg, 95%, 84%);
+  --element-header-deprecated-bg-color: var(--notice-warning-background-color);
+  --element-deprecated-border-color: var(--notice-warning-border-color);
   --element-toolbar-background-color: var(--color-white);
   --element-toolbar-border-color: var(--divider-color);
   --element-dirty-border-color: hsl(38deg, 90%, 50%);
