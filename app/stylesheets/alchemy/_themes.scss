@@ -163,10 +163,10 @@
   --notice-error-text-color: hsl(0, 50%, 75%);
 
   /* Pagination */
-  --pagination-background-color: var(--a-darker-grey);
-  --pagination-border-color: var(--a-dark-grey);
-  --pagination-active-bg-color: var(--color-blue_dark);
-  --pagination-active-text-color: var(--color-white);
+  --pagination-background-color: var(--table-header-background-color);
+  --pagination-border-color: var(--border-color);
+  --pagination-active-bg-color: var(--accent-tint-color);
+  --pagination-active-text-color: var(--accent-tint-text-color);
   --pagination-disabled-text-color: var(--a-light-grey);
 
   /* Panels */
@@ -209,15 +209,16 @@
 
   /* Sitemap */
   --sitemap-page-background-color: var(--a-dark-grey);
-  --sitemap-page-hover-color: var(--a-grey);
+  --sitemap-page-hover-color: var(--hover-background-color);
   --sitemap-info-background-color: var(--a-dark-grey);
   --sitemap-highlight-color: var(--a-grey);
 
   /* Tables */
-  --table-border-color: var(--border-color);
-  --table-row-even-background-color: var(--a-darker-grey);
-  --table-row-odd-background-color: var(--a-darkest-grey);
-  --table-row-hover-color: var(--a-grey);
+  --table-border-color: var(--divider-color);
+  --table-header-background-color: var(--surface-tint-color);
+  --table-row-even-background-color: var(--a-dark-grey);
+  --table-row-odd-background-color: var(--a-dark-grey);
+  --table-row-hover-color: var(--hover-background-color);
 
   /* Tags */
   --tag-background-color: var(--a-grey);
@@ -471,10 +472,10 @@
   --notice-error-text-color: hsl(0deg, 51%, 42%);
 
   /* Pagination */
-  --pagination-background-color: var(--color-grey_very_light);
+  --pagination-background-color: var(--table-header-background-color);
   --pagination-border-color: var(--border-color);
-  --pagination-active-bg-color: var(--color-blue_dark);
-  --pagination-active-text-color: var(--color-white);
+  --pagination-active-bg-color: var(--accent-tint-color);
+  --pagination-active-text-color: var(--accent-tint-text-color);
   --pagination-disabled-text-color: var(--color-grey_medium);
 
   /* Panels */
@@ -515,15 +516,16 @@
 
   /* Sitemap */
   --sitemap-page-background-color: hsla(0deg, 0%, 100%, 0.75);
-  --sitemap-page-hover-color: hsla(60deg, 81%, 92%, 0.5);
+  --sitemap-page-hover-color: var(--hover-background-color);
   --sitemap-info-background-color: hsla(0deg, 0%, 100%, 0.5);
   --sitemap-highlight-color: hsla(57deg, 100%, 82%, 0.5);
 
   /* Tables */
-  --table-border-color: var(--color-grey_light);
+  --table-border-color: var(--divider-color);
+  --table-header-background-color: var(--surface-tint-color);
   --table-row-even-background-color: var(--color-white);
-  --table-row-odd-background-color: hsla(0deg, 0%, 100%, 0.5);
-  --table-row-hover-color: hsla(60deg, 81%, 92%, 0.5);
+  --table-row-odd-background-color: var(--color-white);
+  --table-row-hover-color: var(--hover-background-color);
 
   /* Tags */
   --tag-background-color: var(--color-grey_light);
