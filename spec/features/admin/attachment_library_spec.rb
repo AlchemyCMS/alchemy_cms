@@ -9,6 +9,21 @@ RSpec.describe "Attachment Library", type: :system do
 
   let!(:language) { create(:alchemy_language) }
 
+  describe "Attachment in use" do
+    let!(:attachment) { create(:alchemy_attachment) }
+    let!(:element) { create(:alchemy_element) }
+
+    before do
+      create(:alchemy_ingredient_file, element: element, related_object: attachment)
+    end
+
+    scenario "its disabled delete button is not in the tab order" do
+      visit alchemy.admin_attachments_path
+
+      expect(page).to have_css("button.icon_button.disabled[tabindex='-1'][aria-disabled='true']")
+    end
+  end
+
   describe "Filter by format" do
     let!(:attachment1) do
       create(:alchemy_attachment, name: "Pee Dee Eff", file: fixture_file_upload("file.pdf"))
