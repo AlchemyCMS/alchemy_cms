@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-# Instantiate the global Alchemy namespace
-require "alchemy"
-
 # Require globally used external libraries
 require "acts_as_list"
 require "action_view/dependency_tracker"
@@ -18,6 +15,25 @@ require "simple_form"
 require "turbo-rails"
 require "userstamp"
 require "view_component"
+
+# Instantiate the global Alchemy namespace
+module Alchemy
+  YAML_PERMITTED_CLASSES = %w[Symbol Date Regexp]
+
+  # JS Importmap instance
+  singleton_class.attr_accessor :importmap
+  self.importmap = ::Importmap::Map.new
+
+  mattr_accessor :storage_adapter
+
+  class << self
+    def config
+      require "alchemy/configurations/main"
+      @_config ||= Alchemy::Configurations::Main.new
+    end
+    delegate :configure, to: :config
+  end
+end
 
 # Require globally used Alchemy mixins
 require_relative "alchemy/cache_digests/template_tracker"

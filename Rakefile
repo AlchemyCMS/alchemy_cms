@@ -41,7 +41,7 @@ namespace :alchemy_devise do
   Bundler::GemHelper.new(File.expand_path("devise", __dir__), "alchemy-devise").install
 end
 
-Bundler::GemHelper.install_tasks
+Bundler::GemHelper.install_tasks(name: "alchemy_cms")
 task build: "alchemy_i18n:build"
 task release: "alchemy_i18n:release:rubygem_push"
 task build: "alchemy_devise:build"
