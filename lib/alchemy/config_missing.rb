@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "alchemy/deprecation"
+
 module Alchemy
   module ConfigMissing
     def const_missing(missing_const_name)
