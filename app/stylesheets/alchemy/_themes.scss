@@ -1,11 +1,11 @@
 @use "custom-properties";
 
 @mixin dark-theme {
-  --body-background-color: var(--a-dark-grey);
+  --body-background-color: var(--a-darker-grey);
 
   /* Borders */
-  --border-color: var(--a-darker-grey);
-  --border-inset-color: var(--a-grey);
+  --border-color: var(--a-grey);
+  --border-inset-color: hsl(215deg, 12%, 28%);
 
   /* Buttons */
   --button-bg-color: var(--color-blue_dark);
@@ -30,8 +30,8 @@
   --code-border-color: var(--a-grey);
 
   /* Dashboard */
-  --dashboard-widget-background-color: var(--a-darkest-grey);
-  --dashboard-widget-box-shadow: none;
+  --dashboard-widget-background-color: var(--a-dark-grey);
+  --dashboard-widget-box-shadow: 0 1px 2px hsla(0deg, 0%, 0%, 0.3);
   --table-scroll-fade-color: rgba(0, 0, 0, 0);
   --table-scroll-shadow-color: rgba(0, 0, 0, 0.6);
 
@@ -113,7 +113,7 @@
   --page-definitions-icon-button-hover-bg-color: var(--a-light-grey);
 
   /* Icons */
-  --icon-color: var(--a-lighter-grey);
+  --icon-color: hsl(215deg, 15%, 72%);
 
   --image-overlay-box-shadow: -4px 0 4px 0px hsla(0deg, 0%, 0%, 0.5);
   --image-overlay-hover-bg-color: var(--a-darker-grey);
@@ -153,10 +153,9 @@
   --pagination-disabled-text-color: var(--a-light-grey);
 
   /* Panels */
-  --panel-background-color: var(--body-background-color);
+  --panel-background-color: var(--a-dark-grey);
   --panel-border-color: var(--a-grey);
-  --panel-box-shadow: 0 var(--spacing-0) var(--spacing-2)
-    hsla(0deg, 0%, 0%, 0.5);
+  --panel-box-shadow: var(--dashboard-widget-box-shadow);
 
   --picture-thumbnail-background-color: var(--a-dark-grey);
   --picture-thumbnail-toolbar-bg-color: var(--a-darker-grey);
@@ -188,12 +187,12 @@
   --select-dropdown-border-color: var(--a-grey);
 
   /* Sidebar */
-  --sidebar-background-color: var(--a-darker-grey);
+  --sidebar-background-color: var(--a-dark-grey);
 
   /* Sitemap */
-  --sitemap-page-background-color: var(--a-darker-grey);
+  --sitemap-page-background-color: var(--a-dark-grey);
   --sitemap-page-hover-color: var(--a-grey);
-  --sitemap-info-background-color: var(--a-darker-grey);
+  --sitemap-info-background-color: var(--a-dark-grey);
   --sitemap-highlight-color: var(--a-grey);
 
   /* Tables */
@@ -295,8 +294,8 @@
   --body-background-color: var(--color-grey_very_light);
 
   /* Borders */
-  --border-color: hsla(0deg, 0%, 69%, 0.5);
-  --border-inset-color: hsla(0deg, 0%, 79%, 0.5);
+  --border-color: hsl(215deg, 18%, 87%);
+  --border-inset-color: var(--color-grey_medium);
 
   /* Buttons */
   --button-bg-color: var(--color-white);
@@ -322,7 +321,7 @@
 
   /* Dashboard */
   --dashboard-widget-background-color: var(--color-white);
-  --dashboard-widget-box-shadow: 0px 1px 2px 0px rgba(10, 10, 10, 0.1);
+  --dashboard-widget-box-shadow: 0 1px 2px hsla(215deg, 30%, 20%, 0.06);
   --table-scroll-fade-color: rgba(255, 255, 255, 0);
   --table-scroll-shadow-color: rgba(0, 0, 0, 0.15);
 
@@ -331,7 +330,7 @@
   --datepicker-border-color: var(--border-color);
   --datepicker-box-shadow: var(--select-dropdown-box-shadow);
   --datepicker-text-color: var(--text-color);
-  --datepicker-weekday-text-color: rgba(0, 0, 0, 0.54);
+  --datepicker-weekday-text-color: var(--text-color-muted);
   --datepicker-text-hover-color: var(--color-orange_dark);
   --datepicker-day-hover-bg: var(--color-grey_light);
   --datepicker-today-border-color: var(--color-grey_dark);
@@ -377,7 +376,7 @@
   --form-field-error-box-shadow: inset 0 0 1px hsla(0deg, 25%, 69%, 0.5);
 
   /* Header */
-  --header-background: hsl(0deg, 0%, 85%);
+  --header-background: var(--color-grey_light);
 
   /* Hints */
   --hint-background-color: var(--color-yellow_light);
@@ -394,7 +393,7 @@
   --page-definitions-icon-button-hover-bg-color: var(--icon-button-hover-bg-color);
 
   /* Icons */
-  --icon-color: hsla(224deg, 23%, 26%, 0.75);
+  --icon-color: hsl(215deg, 15%, 40%);
 
   --image-overlay-box-shadow: -4px 0 4px 0px var(--text-color);
   --image-overlay-hover-bg-color: var(--color-grey_light);
@@ -431,10 +430,10 @@
   --pagination-border-color: var(--border-color);
   --pagination-active-bg-color: var(--color-blue_dark);
   --pagination-active-text-color: var(--color-white);
-  --pagination-disabled-text-color: #c0c0c0;
+  --pagination-disabled-text-color: var(--color-grey_medium);
 
   /* Panels */
-  --panel-background-color: var(--body-background-color);
+  --panel-background-color: var(--color-white);
   --panel-border-color: var(--color-grey_light);
   --panel-box-shadow: var(--dashboard-widget-box-shadow);
 
@@ -466,7 +465,7 @@
   --select-dropdown-border-color: var(--color-grey_very_light);
 
   /* Sidebar */
-  --sidebar-background-color: var(--color-grey_very_light);
+  --sidebar-background-color: var(--color-white);
 
   /* Sitemap */
   --sitemap-page-background-color: hsla(0deg, 0%, 100%, 0.75);
@@ -489,8 +488,8 @@
   --tag-active-background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(255, 255, 255, 0.95)"><path d="M10.9042 2.10025L20.8037 3.51446L22.2179 13.414L13.0255 22.6063C12.635 22.9969 12.0019 22.9969 11.6113 22.6063L1.71184 12.7069C1.32131 12.3163 1.32131 11.6832 1.71184 11.2926L10.9042 2.10025ZM11.6113 4.22157L3.83316 11.9997L12.3184 20.485L20.0966 12.7069L19.036 5.28223L11.6113 4.22157ZM13.7327 10.5855C12.9516 9.80448 12.9516 8.53815 13.7327 7.7571C14.5137 6.97606 15.78 6.97606 16.5611 7.7571C17.3421 8.53815 17.3421 9.80448 16.5611 10.5855C15.78 11.3666 14.5137 11.3666 13.7327 10.5855Z"></path></svg>');
 
   /* Text */
-  --text-color: hsla(224deg, 23%, 26%, 0.8);
-  --text-color-muted: hsla(224deg, 23%, 26%, 0.6);
+  --text-color: hsl(215deg, 20%, 30%);
+  --text-color-muted: var(--color-grey_dark);
   --text-link-color: var(--color-orange_very_dark);
   --text-shadow-light: 0 0 var(--spacing-1) hsla(0deg, 0%, 100%, 0.5);
 
