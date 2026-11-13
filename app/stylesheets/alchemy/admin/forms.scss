@@ -138,7 +138,7 @@ form {
     }
   }
 
-  input:invalid:focus {
+  input:user-invalid:focus {
     @extend %field-with-error;
   }
 
