@@ -75,9 +75,15 @@ a {
   }
 }
 
-a:focus:not(.disabled),
-[tabindex]:focus:not(.disabled) {
-  @include mixins.default-focus-style;
+:where(*) {
+  outline-color: var(--focus-color);
+  outline-width: var(--focus-outline-width);
+  outline-offset: var(--focus-outline-offset);
+}
+
+:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-outline-offset);
 }
 
 form {

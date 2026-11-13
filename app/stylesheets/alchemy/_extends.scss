@@ -34,13 +34,6 @@
   line-height: var(--form-field-line-height);
   transition: var(--transition-duration);
 
-  &:focus:not(.readonly),
-  &:focus:not([readonly]) {
-    @include mixins.default-focus-style(
-      $box-shadow: 0 0 0 1px var(--focus-color)
-    );
-  }
-
   &[disabled],
   &.disabled {
     color: var(--form-field-disabled-text-color);

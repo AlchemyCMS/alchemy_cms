@@ -116,6 +116,7 @@
       &:focus {
         box-shadow: none;
         border: none;
+        outline: 0;
       }
     }
 
@@ -162,10 +163,9 @@
     }
   }
 
-  &.focus .ts-control {
-    @include mixins.default-focus-style(
-      $box-shadow: 0 0 0 1px var(--focus-color)
-    );
+  &:has(:focus-visible) .ts-control {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
   }
 
   // Not `&.invalid`: Tom Select sets that on first render, before any user

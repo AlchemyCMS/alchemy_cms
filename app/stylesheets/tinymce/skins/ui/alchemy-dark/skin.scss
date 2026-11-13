@@ -372,10 +372,10 @@ button::-moz-focus-inner {
   cursor: not-allowed;
 }
 
-.tox .tox-button:focus:not(:disabled) {
+.tox .tox-button:focus-visible:not(:disabled) {
   background-color: var(--button-bg-color);
-  border-color: var(--button-focus-border-color);
-  box-shadow: var(--button-focus-box-shadow);
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-outline-offset);
 }
 
 .tox .tox-button:hover:not(:disabled):not(:focus),
@@ -416,10 +416,10 @@ button::-moz-focus-inner {
   color: var(--button-disabled-color);
 }
 
-.tox .tox-button--secondary:focus:not(:disabled) {
+.tox .tox-button--secondary:focus-visible:not(:disabled) {
   background-color: var(--button-secondary-bg-color);
-  border-color: var(--button-focus-border-color);
-  box-shadow: var(--button-focus-box-shadow);
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-outline-offset);
 }
 
 .tox .tox-button--secondary:hover:not(:disabled):not(:focus),
@@ -613,7 +613,8 @@ button::-moz-focus-inner {
 
 .tox input.tox-checkbox__input:focus + .tox-checkbox__icons {
   border-radius: var(--border-radius_medium);
-  box-shadow: inset 0 0 0 1px #2d5a8d;
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-outline-offset);
   padding: calc(3.25px - 1px);
 }
 
@@ -2303,9 +2304,9 @@ body.tox-dialog__disable-scroll {
 .tox .tox-listboxfield .tox-listbox--select:focus,
 .tox .tox-textarea:focus,
 .tox .tox-textfield:focus {
-  border-color: transparent;
   box-shadow: none;
-  outline: 1px solid var(--focus-color) !important; // Need to force the outline if used in Solidus
+  outline: var(--focus-outline) !important; // Need to force the outline if used in Solidus
+  outline-offset: var(--focus-outline-offset);
 }
 
 .tox .tox-toolbar-textfield {
@@ -2421,9 +2422,9 @@ body.tox-dialog__disable-scroll {
 
 .tox .tox-selectfield select:focus {
   background-color: #fff;
-  border-color: #2d5a8d;
   box-shadow: none;
-  outline: 0;
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-outline-offset);
 }
 
 .tox .tox-selectfield svg {
@@ -3321,7 +3322,8 @@ body.tox-dialog__disable-scroll {
 .tox .tox-statusbar__resize-handle:focus svg {
   background-color: #d9d9d9;
   border-radius: 1px;
-  box-shadow: 0 0 0 2px #d9d9d9;
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-outline-offset);
 }
 
 .tox:not([dir="rtl"]) .tox-statusbar__path > * {
@@ -3452,9 +3454,6 @@ body.tox-dialog__disable-scroll {
   fill: currentColor;
 }
 
-.tox .tox-tbtn:focus:not(.tox-tbtn--disabled) {
-  outline: 1px solid var(--button-focus-border-color);
-}
 
 .tox .tox-tbtn:focus:not(.tox-tbtn--disabled) svg {
   fill: currentColor;
@@ -3796,4 +3795,12 @@ body.tox-dialog__disable-scroll {
 
 .tox .tox-image-tools__sidebar {
   height: 60px;
+}
+
+.tox .tox-tbtn:focus-visible:not(.tox-tbtn--disabled),
+.tox .tox-mbtn:focus-visible:not(:disabled),
+.tox .tox-split-button:focus-visible,
+.tox .tox-button--naked:focus-visible:not(:disabled) {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-outline-offset);
 }
