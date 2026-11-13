@@ -130,11 +130,12 @@
   --list-filter-focus-background-color: var(--form-field-background-color);
 
   /* Main Menu */
-  --main-menu-bg-color: var(--color-blue_dark);
-  --main-menu-active-bg-color: var(--color-orange_dark);
-  --main-menu-active-text-color: var(--color-blue_dark);
-  --main-menu-text-color: var(--color-white);
-  --main-menu-icon-color: var(--color-white);
+  --main-menu-bg-color: hsl(215deg, 35%, 12%);
+  --main-menu-hover-bg-color: hsl(215deg, 30%, 17%);
+  --main-menu-active-bg-color: var(--accent-tint-color);
+  --main-menu-active-text-color: var(--accent-tint-text-color);
+  --main-menu-text-color: hsl(215deg, 25%, 82%);
+  --main-menu-icon-color: var(--main-menu-text-color);
 
   /* Notices */
   --notice-success-background-color: hsl(88deg, 47%, 20%);
@@ -421,11 +422,12 @@
   --list-filter-focus-background-color: var(--color-white);
 
   /* Main Menu */
-  --main-menu-bg-color: var(--color-blue_dark);
-  --main-menu-active-bg-color: var(--color-orange_dark);
-  --main-menu-active-text-color: var(--color-blue_dark);
-  --main-menu-text-color: var(--color-white);
-  --main-menu-icon-color: var(--color-white);
+  --main-menu-bg-color: hsl(215deg, 25%, 94%);
+  --main-menu-hover-bg-color: hsl(215deg, 25%, 89%);
+  --main-menu-active-bg-color: var(--accent-tint-color);
+  --main-menu-active-text-color: var(--accent-tint-text-color);
+  --main-menu-text-color: hsl(215deg, 20%, 28%);
+  --main-menu-icon-color: var(--main-menu-text-color);
 
   /* Notices */
   --notice-success-background-color: hsl(88deg, 47%, 88%);

@@ -37,7 +37,7 @@
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  scrollbar-color: var(--color-white) var(--main-menu-bg-color);
+  scrollbar-color: var(--main-menu-icon-color) var(--main-menu-bg-color);
 }
 
 .main_navi_entry {
@@ -50,17 +50,16 @@
     var(--transition-easing);
 
   &:hover {
-    background-color: var(--main-menu-active-bg-color);
+    background-color: var(--main-menu-hover-bg-color);
+    cursor: default;
 
     .sub_navigation {
       visibility: visible;
       opacity: 1;
-      background-color: var(--main-menu-active-bg-color);
     }
   }
 
-  &.active,
-  &:hover {
+  &.active {
     background-color: var(--main-menu-active-bg-color);
     cursor: default;
 
@@ -81,7 +80,7 @@
     padding-right: var(--spacing-4);
     visibility: hidden;
     opacity: 0;
-    background-color: var(--main-menu-active-bg-color);
+    background-color: var(--main-menu-hover-bg-color);
     transition: opacity var(--transition-duration) var(--transition-easing);
     vertical-align: middle;
     cursor: pointer;
@@ -126,6 +125,7 @@
     height: var(--icon-size-xxl);
     align-items: center;
     justify-content: center;
+    color: var(--main-menu-icon-color);
   }
 
   img {
@@ -138,6 +138,7 @@
     align-items: center;
     height: 46px;
     padding-left: 14px;
+    text-decoration: none;
     font-weight: var(--font-weight_semibold);
     color: var(--main-menu-text-color);
     transition: color var(--transition-duration) var(--transition-easing);
@@ -156,6 +157,7 @@
   top: 0;
   visibility: hidden;
   opacity: 0;
+  background-color: var(--main-menu-bg-color);
   transition: opacity var(--transition-duration) var(--transition-easing);
 }
 
@@ -168,9 +170,13 @@
       var(--transition-easing);
   }
 
-  &.active a,
   a:hover {
-    background-color: hsl(28deg, 77%, 63%);
+    background-color: var(--main-menu-hover-bg-color);
+  }
+
+  &.active a {
+    background-color: var(--main-menu-active-bg-color);
+    color: var(--main-menu-active-text-color);
   }
 }
 
@@ -196,6 +202,7 @@
         visibility: visible;
         opacity: 1;
         width: auto;
+        background-color: transparent;
       }
 
       .subnavi_tab {
@@ -203,6 +210,14 @@
 
         a {
           padding: var(--spacing-2) var(--spacing-1) var(--spacing-2) 42px;
+          color: var(--main-menu-text-color);
+          font-weight: var(--font-weight_normal);
+        }
+
+        &.active a {
+          background-color: transparent;
+          color: var(--main-menu-active-text-color);
+          font-weight: var(--font-weight_semibold);
         }
       }
     }
