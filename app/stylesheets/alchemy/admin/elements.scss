@@ -698,11 +698,6 @@ alchemy-publish-element-button {
         border-color: var(--button-hover-border-color);
       }
 
-      &:focus {
-        box-shadow: 0 0 0 2px var(--focus-color);
-        border-color: var(--focus-color);
-      }
-
       &[is="alchemy-unlink-button"] {
         border-left-width: 0;
         @extend .right-rounded-border;

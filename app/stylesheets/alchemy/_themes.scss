@@ -11,7 +11,7 @@
   --button-bg-color: var(--color-blue_dark);
   --button-border-color: var(--color-blue_medium);
   --button-box-shadow: 0 1px 1px -1px hsl(0deg, 0%, 10%);
-  --button-focus-border-color: var(--color-orange_dark);
+  --button-focus-border-color: var(--focus-color);
   --button-focus-box-shadow: 0 0 0 1px var(--button-focus-border-color);
   --button-hover-bg-color: var(--color-blue_medium);
   --button-hover-border-color: var(--color-blue_medium);
@@ -89,7 +89,7 @@
   --hover-background-color: hsl(215deg, 14%, 20%);
 
   /* Focus Status */
-  --focus-color: var(--color-orange_dark);
+  --focus-color: hsl(28deg, 80%, 62%);
 
   /* Form Fields */
   --form-field-addon-background-color: transparent;
@@ -309,7 +309,7 @@
   --button-bg-color: var(--color-white);
   --button-border-color: var(--border-color);
   --button-box-shadow: 0 1px 1px -1px hsl(0deg, 0%, 20%);
-  --button-focus-border-color: var(--color-orange_dark);
+  --button-focus-border-color: var(--focus-color);
   --button-focus-box-shadow: 0 0 0 1px var(--button-focus-border-color);
   --button-hover-bg-color: var(--color-grey_very_light);
   --button-hover-border-color: hsla(0deg, 0%, 59%, 0.5);
@@ -379,7 +379,7 @@
   --hover-background-color: var(--color-grey_light);
 
   /* Focus Status */
-  --focus-color: hsla(28deg, 77%, 68%, 0.75);
+  --focus-color: hsl(28deg, 85%, 64%);
 
   /* Form Fields */
   --form-field-addon-background-color: transparent;

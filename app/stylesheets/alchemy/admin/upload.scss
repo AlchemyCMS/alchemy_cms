@@ -1,5 +1,4 @@
 @use "../extends";
-@use "../mixins";
 
 .upload-button {
   display: inline-block;
@@ -10,11 +9,12 @@
 
   // The focus rests on the visually hidden file input, so the button standing in
   // for it has to draw the focus ring.
-  label:focus-within {
+  label:has(:focus-visible) {
     &.icon_button,
     .button,
     .icon_button {
-      @include mixins.default-focus-style;
+      outline: var(--focus-outline);
+      outline-offset: var(--focus-outline-offset);
     }
   }
 }

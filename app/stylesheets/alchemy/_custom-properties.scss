@@ -81,6 +81,12 @@
   --border-default: var(--border-width_small) var(--border-style)
     var(--border-color);
 
+  /* Focus */
+  --focus-outline-width: 2px;
+  --focus-outline-offset: 2px;
+  --focus-outline: var(--focus-outline-width) var(--border-style)
+    var(--focus-color);
+
   /* Transitions */
   --transition-duration: 250ms;
   --transition-easing: linear;

@@ -13,13 +13,6 @@ alchemy-uploader .button {
     color: var(--button-secondary-text-color);
     border-color: var(--button-secondary-border-color);
 
-    &:focus:not([disabled]):not(.disabled) {
-      @include mixins.default-focus-style(
-        $border-color: var(--button-focus-border-color),
-        $box-shadow: var(--button-focus-box-shadow)
-      );
-    }
-
     &:hover:not([disabled]):not(.disabled) {
       background-color: var(--button-secondary-hover-bg-color);
       border-color: var(--button-secondary-hover-border-color);
@@ -118,10 +111,6 @@ alchemy-uploader .button {
       $padding: 3px,
       $margin: 0
     );
-  }
-
-  &:focus:not(.disabled):not([disabled]) {
-    @include mixins.default-focus-style;
   }
 
   .spinner {
