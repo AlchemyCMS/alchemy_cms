@@ -23,7 +23,7 @@
   --small-font-size: var(--font-size_small, 10px);
   --color: var(--text-color, hsla(224deg, 23%, 26%, 0.8));
   --muted-color: var(--text-color-muted, hsla(224deg, 23%, 26%, 0.5));
-  --highlight-color: var(--color-grey_light, hsl(0deg, 0%, 94%));
+  --highlight-color: var(--select-hover-text-color, hsl(0deg, 0%, 100%));
   --badge-bg-color: var(--color-grey_light, hsl(0deg, 0%, 94%));
   --badge-highlight-bg-color: var(--color-white, hsl(0deg, 0%, 100%));
   --border-radius: var(--border-radius_medium, 3px);
@@ -91,6 +91,10 @@
 
   .ts-dropdown .option.active & {
     color: var(--highlight-color);
+  }
+
+  .ts-dropdown .option.selected & {
+    color: var(--select-selected-text-color, inherit);
   }
 }
 
