@@ -30,7 +30,7 @@
   <% end %>
   <%= render "alchemy/admin/clipboard/button", remarkable_type: "pages" %>
   <div class="toolbar_spacer"></div>
-  <div class="toolbar_button">
+  <div class="button_group">
     <sl-tooltip content="<%= Alchemy.t("Hierarchical") %>">
       <%= link_to(
         render_icon(:"menu-2"),
@@ -38,8 +38,6 @@
         class: ["icon_button", @view != "list" && "active"].compact
       ) %>
     </sl-tooltip>
-  </div>
-  <div class="toolbar_button">
     <sl-tooltip content="<%= Alchemy.t("Sortable List") %>">
       <%= link_to(
         render_icon("sort-desc", style: false),
