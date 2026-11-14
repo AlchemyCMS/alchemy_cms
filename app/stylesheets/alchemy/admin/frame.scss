@@ -24,12 +24,12 @@ alchemy-overlay {
     visibility: visible;
     transition-delay: 300ms;
     transition-property: background-color;
-    background-color: rgba(229, 229, 229, 0.2);
+    background-color: var(--loading-overlay-color);
   }
 }
 
 div#overlay_text_box {
-  color: #333333;
+  color: var(--text-color);
   font-size: 1.5em;
   left: 50%;
   line-height: 120px;

@@ -718,7 +718,7 @@ alchemy-publish-element-button {
       height: 31px;
       padding: 0;
       border-radius: 0;
-      border-color: rgba(187, 162, 102, 0.5);
+      border-color: var(--icon-button-linked-border-color);
 
       &[is="alchemy-unlink-button"] {
         border-radius: 0 var(--border-radius_medium) var(--border-radius_medium)

@@ -347,6 +347,11 @@ sl-button {
   &[variant="default"]::part(base) {
     --sl-color-neutral-0: var(--button-primary-text-color);
   }
+  &[variant="default"][outline]:not([disabled])::part(base):hover {
+    background-color: var(--icon-button-hover-bg-color);
+    border-color: var(--form-field-border-color);
+    color: var(--text-color);
+  }
 }
 
 sl-dialog {
