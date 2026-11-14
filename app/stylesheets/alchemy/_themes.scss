@@ -211,7 +211,7 @@
   --sitemap-page-background-color: var(--a-dark-grey);
   --sitemap-page-hover-color: var(--hover-background-color);
   --sitemap-info-background-color: var(--a-dark-grey);
-  --sitemap-highlight-color: var(--a-grey);
+  --sitemap-highlight-color: var(--hover-background-color);
 
   /* Tables */
   --table-border-color: var(--divider-color);
@@ -518,7 +518,7 @@
   --sitemap-page-background-color: hsla(0deg, 0%, 100%, 0.75);
   --sitemap-page-hover-color: var(--hover-background-color);
   --sitemap-info-background-color: hsla(0deg, 0%, 100%, 0.5);
-  --sitemap-highlight-color: hsla(57deg, 100%, 82%, 0.5);
+  --sitemap-highlight-color: var(--hover-background-color);
 
   /* Tables */
   --table-border-color: var(--divider-color);
