@@ -46,7 +46,7 @@
   --datepicker-today-border-color: var(--a-light-grey);
   --datepicker-today-hover-bg-color: var(--a-light-grey);
   --datepicker-today-hover-text-color: var(--color-white);
-  --datepicker-selected-bg-color: var(--color-blue_medium);
+  --datepicker-selected-bg-color: var(--accent-color);
   --datepicker-selected-text-color: var(--color-white);
 
   /* Dialogs */
@@ -267,7 +267,7 @@
   --file-upload_background-color: var(--a-grey);
   --file-upload_single-upload-background-color: var(--a-dark-grey);
   --file-upload_progress-track-color: var(--a-darker-grey);
-  --file-upload_progress-indicator-color: var(--color-blue_medium);
+  --file-upload_progress-indicator-color: var(--accent-color);
   --file-upload_progress-indicator-color-canceled: var(--a-grey);
   --file-upload_progress-indicator-color-failed: var(
     --notice-error-border-color
@@ -279,7 +279,7 @@
     --notice-success-border-color
   );
   --file-upload_progress-indicator-color-upload-finished: var(
-    --color-blue_medium
+    --accent-color
   );
 
   /*
@@ -287,12 +287,12 @@
   */
 
   /* Primary */
-  --sl-color-primary-50: var(--color-blue_dark);
-  --sl-color-primary-100: var(--color-blue_dark);
-  --sl-color-primary-200: var(--color-blue_medium);
-  --sl-color-primary-300: var(--color-blue_medium);
-  --sl-color-primary-400: var(--color-blue_medium);
-  --sl-color-primary-500: var(--color-blue_medium);
+  --sl-color-primary-50: var(--hover-background-color);
+  --sl-color-primary-100: var(--hover-background-color);
+  --sl-color-primary-200: var(--form-field-border-color);
+  --sl-color-primary-300: var(--form-field-border-color);
+  --sl-color-primary-400: var(--form-field-border-color);
+  --sl-color-primary-500: var(--button-hover-bg-color);
   --sl-color-primary-600: var(--accent-color);
   --sl-color-primary-700: var(--accent-color);
   --sl-color-primary-800: var(--accent-color);
@@ -359,7 +359,7 @@
   --datepicker-today-border-color: var(--color-grey_dark);
   --datepicker-today-hover-bg-color: var(--color-grey_dark);
   --datepicker-today-hover-text-color: var(--color-white);
-  --datepicker-selected-bg-color: var(--color-blue_medium);
+  --datepicker-selected-bg-color: var(--accent-color);
   --datepicker-selected-text-color: var(--color-white);
 
   /* Dialogs */
@@ -579,14 +579,14 @@
   --file-upload-text-color: var(--text-color);
   --file-upload_background-color: hsla(0deg, 0%, 80%, 0.8);
   --file-upload_single-upload-background-color: var(--color-grey_light);
-  --file-upload_progress-track-color: var(--color-blue_very_light);
-  --file-upload_progress-indicator-color: var(--color-blue_dark);
+  --file-upload_progress-track-color: var(--border-color);
+  --file-upload_progress-indicator-color: var(--accent-color);
   --file-upload_progress-indicator-color-canceled: hsla(0deg, 0%, 60%, 0.8);
   --file-upload_progress-indicator-color-failed: var(--color-red_medium);
   --file-upload_progress-indicator-color-invalid: var(--color-red_medium);
   --file-upload_progress-indicator-color-successful: var(--color-green_medium);
   --file-upload_progress-indicator-color-upload-finished: var(
-    --color-blue_dark
+    --accent-color
   );
 
   /*
@@ -594,12 +594,12 @@
   */
 
   /* Primary */
-  --sl-color-primary-50: var(--color-blue_very_light);
-  --sl-color-primary-100: var(--color-blue_very_light);
-  --sl-color-primary-200: var(--color-blue_light);
-  --sl-color-primary-300: var(--color-blue_light);
-  --sl-color-primary-400: var(--color-blue_medium);
-  --sl-color-primary-500: var(--color-blue_medium);
+  --sl-color-primary-50: var(--hover-background-color);
+  --sl-color-primary-100: var(--hover-background-color);
+  --sl-color-primary-200: var(--form-field-border-color);
+  --sl-color-primary-300: var(--form-field-border-color);
+  --sl-color-primary-400: var(--form-field-border-color);
+  --sl-color-primary-500: var(--button-hover-bg-color);
   --sl-color-primary-600: var(--accent-color);
   --sl-color-primary-700: var(--accent-color);
   --sl-color-primary-800: var(--accent-color);
