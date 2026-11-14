@@ -3690,10 +3690,10 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox .tox-tooltip__body {
-  background-color: #000;
+  background-color: var(--tooltip-background-color);
   border-radius: var(--border-radius_medium);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  color: rgba(255, 255, 255, 0.75);
+  box-shadow: var(--tooltip-box-shadow);
+  color: var(--sl-tooltip-color);
   font-size: var(--font-size_medium);
   font-style: normal;
   font-weight: 400;
@@ -3708,7 +3708,7 @@ body.tox-dialog__disable-scroll {
 .tox .tox-tooltip--down .tox-tooltip__arrow {
   border-left: 6.5px solid transparent;
   border-right: 6.5px solid transparent;
-  border-top: 6.5px solid #000;
+  border-top: 6.5px solid var(--tooltip-background-color);
   bottom: 0;
   left: 50%;
   position: absolute;
@@ -3716,7 +3716,7 @@ body.tox-dialog__disable-scroll {
 }
 
 .tox .tox-tooltip--up .tox-tooltip__arrow {
-  border-bottom: 6.5px solid #000;
+  border-bottom: 6.5px solid var(--tooltip-background-color);
   border-left: 6.5px solid transparent;
   border-right: 6.5px solid transparent;
   left: 50%;
@@ -3727,7 +3727,7 @@ body.tox-dialog__disable-scroll {
 
 .tox .tox-tooltip--right .tox-tooltip__arrow {
   border-bottom: 6.5px solid transparent;
-  border-left: 6.5px solid #000;
+  border-left: 6.5px solid var(--tooltip-background-color);
   border-top: 6.5px solid transparent;
   position: absolute;
   right: 0;
@@ -3737,7 +3737,7 @@ body.tox-dialog__disable-scroll {
 
 .tox .tox-tooltip--left .tox-tooltip__arrow {
   border-bottom: 6.5px solid transparent;
-  border-right: 6.5px solid #000;
+  border-right: 6.5px solid var(--tooltip-background-color);
   border-top: 6.5px solid transparent;
   left: 0;
   position: absolute;
