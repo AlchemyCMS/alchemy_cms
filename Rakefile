@@ -33,7 +33,7 @@ RSpec::Core::RakeTask.new(:spec)
 
 task default: ["alchemy:spec:prepare", :spec]
 
-Bundler::GemHelper.install_tasks
+Bundler::GemHelper.install_tasks(name: "alchemy_cms")
 
 namespace :alchemy do
   namespace :spec do
