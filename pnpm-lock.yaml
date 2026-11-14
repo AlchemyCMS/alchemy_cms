@@ -73,17 +73,17 @@ importers:
         specifier: ^4.68.0
         version: 4.68.0
       sass:
-        specifier: ^1.107.1
-        version: 1.107.1
+        specifier: ^1.108.1
+        version: 1.108.1
       svg-sprite:
         specifier: ^2.0.4
         version: 2.0.4
       vite:
         specifier: ^8.3.6
-        version: 8.3.6(jiti@2.7.0)(sass@1.107.1)(terser@5.51.2)(yaml@2.9.0)
+        version: 8.3.6(jiti@2.7.0)(sass@1.108.1)(terser@5.51.2)(yaml@2.9.0)
       vitest:
         specifier: ^5.1.0
-        version: 5.1.0(jsdom@29.1.1)(vite@8.3.6(jiti@2.7.0)(sass@1.107.1)(terser@5.51.2)(yaml@2.9.0))
+        version: 5.1.0(jsdom@29.1.1)(vite@8.3.6(jiti@2.7.0)(sass@1.108.1)(terser@5.51.2)(yaml@2.9.0))
 
 packages:
 
@@ -1603,8 +1603,8 @@ packages:
     resolution: {integrity: sha512-b3rppTKm9T+PsVCBEOUR46GWI7fdOs00VKZ1+9c1EWDaDMvjQc6tUwuFyIprgGgTcWoVHSKrU8H31ZHA2e0RHA==}
     engines: {node: '>=10'}
 
-  sass@1.107.1:
-    resolution: {integrity: sha512-aJ1/LvxOOb04YhmiBjzZn3jVwdHKol+OVhoMV6fFl02fF9T3i+5Mg9l/CnzqtM+NX5Jn5o3lAbs/ZJivTCLHfQ==}
+  sass@1.108.1:
+    resolution: {integrity: sha512-sIYgSvOPeD9wABwDS/ofNjHASSck+7h3jLkk7wG1NPFL3XeS6vOQjBlAFSmRV09kZr1yt/Tuayt6kKtBbLjHNQ==}
     engines: {node: '>=20.19.0'}
     hasBin: true
 
@@ -2482,14 +2482,14 @@ snapshots:
 
   '@ungap/custom-elements@1.3.0': {}
 
-  '@vitest/mocker@5.1.0(vite@8.3.6(jiti@2.7.0)(sass@1.107.1)(terser@5.51.2)(yaml@2.9.0))':
+  '@vitest/mocker@5.1.0(vite@8.3.6(jiti@2.7.0)(sass@1.108.1)(terser@5.51.2)(yaml@2.9.0))':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       '@vitest/spy': 5.1.0
       estree-walker: 3.0.3
       magic-string: 1.4.5
     optionalDependencies:
-      vite: 8.3.6(jiti@2.7.0)(sass@1.107.1)(terser@5.51.2)(yaml@2.9.0)
+      vite: 8.3.6(jiti@2.7.0)(sass@1.108.1)(terser@5.51.2)(yaml@2.9.0)
 
   '@vitest/spy@5.1.0': {}
 
@@ -3275,7 +3275,7 @@ snapshots:
 
   safe-stable-stringify@2.5.0: {}
 
-  sass@1.107.1:
+  sass@1.108.1:
     dependencies:
       chokidar: 5.0.0
       immutable: 5.1.9
@@ -3441,7 +3441,7 @@ snapshots:
       remove-trailing-separator: 1.1.0
       replace-ext: 1.0.1
 
-  vite@8.3.6(jiti@2.7.0)(sass@1.107.1)(terser@5.51.2)(yaml@2.9.0):
+  vite@8.3.6(jiti@2.7.0)(sass@1.108.1)(terser@5.51.2)(yaml@2.9.0):
     dependencies:
       lightningcss: 1.33.0
       picomatch: 4.0.7
@@ -3451,14 +3451,14 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
       jiti: 2.7.0
-      sass: 1.107.1
+      sass: 1.108.1
       terser: 5.51.2
       yaml: 2.9.0
 
-  vitest@5.1.0(jsdom@29.1.1)(vite@8.3.6(jiti@2.7.0)(sass@1.107.1)(terser@5.51.2)(yaml@2.9.0)):
+  vitest@5.1.0(jsdom@29.1.1)(vite@8.3.6(jiti@2.7.0)(sass@1.108.1)(terser@5.51.2)(yaml@2.9.0)):
     dependencies:
       '@types/chai': 5.2.3
-      '@vitest/mocker': 5.1.0(vite@8.3.6(jiti@2.7.0)(sass@1.107.1)(terser@5.51.2)(yaml@2.9.0))
+      '@vitest/mocker': 5.1.0(vite@8.3.6(jiti@2.7.0)(sass@1.108.1)(terser@5.51.2)(yaml@2.9.0))
       chai: 6.3.0
       es-module-lexer: 2.3.2
       expect-type: 1.4.0
@@ -3469,7 +3469,7 @@ snapshots:
       tinybench: 6.2.3
       tinyexec: 1.3.1
       tinyglobby: 0.2.17
-      vite: 8.3.6(jiti@2.7.0)(sass@1.107.1)(terser@5.51.2)(yaml@2.9.0)
+      vite: 8.3.6(jiti@2.7.0)(sass@1.108.1)(terser@5.51.2)(yaml@2.9.0)
       why-is-node-running: 3.2.1
     optionalDependencies:
       jsdom: 29.1.1
