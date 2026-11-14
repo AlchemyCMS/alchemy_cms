@@ -15,6 +15,8 @@ module Alchemy
       alchemy_link
     ]
 
+    SKINS = %w[alchemy alchemy-dark]
+
     @@plugins = DEFAULT_PLUGINS
     @@init = {
       skin: "alchemy",
@@ -48,6 +50,29 @@ module Alchemy
 
       def preloadable_plugins
         @@plugins - DEFAULT_PLUGINS
+      end
+
+      # Query string TinyMCE appends to every asset it loads at runtime.
+      #
+      # TinyMCE loads these from undigested asset paths that are served with a
+      # one year immutable cache, so they need a content dependent query string
+      # to ever be fetched again. The asset pipeline digests all of them
+      # individually, but TinyMCE only takes a single suffix for all of them.
+      def cache_suffix(view_context)
+        digested_paths = undigested_assets.map { |path| view_context.asset_path(path) }
+        ActiveSupport::Digest.hexdigest(digested_paths.join).first(8)
+      end
+
+      private
+
+      def undigested_assets
+        SKINS.flat_map do |skin|
+          [
+            "tinymce/skins/ui/#{skin}/skin.min.css",
+            "tinymce/skins/ui/#{skin}/content.min.css",
+            "tinymce/skins/content/#{skin}/content.min.css"
+          ]
+        end + preloadable_plugins.map { |plugin| "tinymce/plugins/#{plugin}/plugin.min.js" }
       end
     end
   end
