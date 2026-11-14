@@ -148,7 +148,7 @@
     }
 
     &.inactive {
-      color: #656565;
+      color: var(--text-color-muted);
     }
   }
 }

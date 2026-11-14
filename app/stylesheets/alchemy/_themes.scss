@@ -89,6 +89,9 @@
   /* Hover */
   --hover-background-color: hsl(215deg, 14%, 20%);
 
+  /* Loading overlay */
+  --loading-overlay-color: hsla(215deg, 14%, 14%, 0.6);
+
   /* Highlight */
   --highlight-color: hsl(48deg, 95%, 65%);
   --highlight-text-color: hsl(215deg, 25%, 12%);
@@ -402,6 +405,9 @@
   /* Hover */
   --hover-background-color: var(--color-grey_light);
 
+  /* Loading overlay */
+  --loading-overlay-color: hsla(215deg, 25%, 97%, 0.6);
+
   /* Highlight */
   --highlight-color: hsl(48deg, 100%, 80%);
   --highlight-text-color: var(--text-color);
@@ -451,7 +457,7 @@
   --image-overlay-box-shadow: -4px 0 4px 0px var(--text-color);
   --image-overlay-hover-bg-color: var(--color-grey_light);
 
-  --list-filter-background-color: hsla(0deg, 0%, 100%, 0.25);
+  --list-filter-background-color: var(--form-field-background-color);
   --list-filter-focus-background-color: var(--color-white);
 
   /* Main Menu */
@@ -523,9 +529,9 @@
   --sidebar-background-color: var(--color-white);
 
   /* Sitemap */
-  --sitemap-page-background-color: hsla(0deg, 0%, 100%, 0.75);
+  --sitemap-page-background-color: var(--color-white);
   --sitemap-page-hover-color: var(--hover-background-color);
-  --sitemap-info-background-color: hsla(0deg, 0%, 100%, 0.5);
+  --sitemap-info-background-color: var(--color-white);
   --sitemap-highlight-color: var(--hover-background-color);
 
   /* Tables */

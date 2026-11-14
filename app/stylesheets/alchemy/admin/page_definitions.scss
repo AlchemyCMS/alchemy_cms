@@ -86,7 +86,7 @@
     margin: var(--spacing-2) 0;
     background-color: var(--element-header-bg-color);
     border-radius: var(--border-radius_medium);
-    border: 1px solid hsla(0, 0%, 45%, 0.15);
+    border: 1px solid var(--border-color);
 
     &:last-child {
       margin-bottom: var(--spacing-4);
@@ -170,7 +170,7 @@
 
     details {
       padding-left: var(--spacing-1);
-      background-color: hsla(0, 0%, 45%, 0.05);
+      background-color: var(--surface-tint-color);
     }
   }
 
@@ -225,13 +225,13 @@
 
     p {
       padding: var(--spacing-4);
-      background-color: hsla(0, 0%, 45%, 0.05);
+      background-color: var(--surface-tint-color);
       border-radius: var(--border-radius_medium);
     }
 
     .label {
       padding: var(--spacing-0) var(--spacing-2);
-      background-color: hsla(0, 0%, 45%, 0.15);
+      background-color: var(--tag-background-color);
     }
   }
 }
