@@ -76,3 +76,9 @@ code {
   padding: 0.25em 0.5em;
   vertical-align: baseline;
 }
+
+mark {
+  background-color: var(--highlight-color);
+  border-radius: var(--border-radius_small);
+  color: var(--highlight-text-color);
+}

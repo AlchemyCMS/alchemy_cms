@@ -89,6 +89,10 @@
   /* Hover */
   --hover-background-color: hsl(215deg, 14%, 20%);
 
+  /* Highlight */
+  --highlight-color: hsl(48deg, 95%, 65%);
+  --highlight-text-color: hsl(215deg, 25%, 12%);
+
   /* Surfaces */
   --surface-tint-color: hsl(215deg, 14%, 20%);
   --divider-color: hsl(215deg, 12%, 19%);
@@ -397,6 +401,10 @@
 
   /* Hover */
   --hover-background-color: var(--color-grey_light);
+
+  /* Highlight */
+  --highlight-color: hsl(48deg, 100%, 80%);
+  --highlight-text-color: var(--text-color);
 
   /* Surfaces */
   --surface-tint-color: hsl(215deg, 25%, 95.5%);

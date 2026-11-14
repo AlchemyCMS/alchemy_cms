@@ -6,11 +6,6 @@
   gap: var(--spacing-2);
   grid-template-rows: auto;
 
-  mark {
-    color: var(--hint-text-color);
-    background-color: var(--hint-background-color);
-  }
-
   h2 {
     display: flex;
     justify-content: space-between;
