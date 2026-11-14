@@ -295,10 +295,19 @@
 
 <h3>Growl Messages</h3>
 
-<%= link_to render_icon(:check), 'javascript:Alchemy.growl("Success message")', class: "icon_button" %>
-<%= link_to render_icon(:info), 'javascript:Alchemy.growl("Info message", "info")', class: "icon_button" %>
-<%= link_to render_icon(:alert), 'javascript:Alchemy.growl("Warning message", "warn")', class: "icon_button" %>
-<%= link_to render_icon(:bug), 'javascript:Alchemy.growl("Error message", "error")', class: "icon_button" %>
+<%= button_tag render_icon(:check), type: "button", class: "icon_button", data: {growl_message: "Success message"} %>
+<%= button_tag render_icon(:info), type: "button", class: "icon_button", data: {growl_message: "Info message", growl_type: "info"} %>
+<%= button_tag render_icon(:alert), type: "button", class: "icon_button", data: {growl_message: "Warning message", growl_type: "warn"} %>
+<%= button_tag render_icon(:bug), type: "button", class: "icon_button", data: {growl_message: "Error message", growl_type: "error"} %>
+<%= tag.script(type: "module", nonce: content_security_policy_nonce) do %>
+  import "alchemy_admin"
+
+  document.querySelectorAll("[data-growl-message]").forEach((button) => {
+    button.addEventListener("click", () => {
+      Alchemy.growl(button.dataset.growlMessage, button.dataset.growlType)
+    })
+  })
+<% end %>
 
 <h2>Dialog Links</h2>
 
