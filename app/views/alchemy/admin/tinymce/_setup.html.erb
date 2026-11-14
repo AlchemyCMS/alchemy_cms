@@ -1,11 +1,12 @@
 <% tinymce_base_path = "#{Rails.application.config.assets.prefix}/tinymce" %>
+<% cache_suffix = Alchemy::Tinymce.cache_suffix(self) %>
 
-<link rel="preload" href="<%= asset_path("#{tinymce_base_path}/skins/ui/alchemy/skin.min.css") %>" as="style">
+<link rel="preload" href="<%= asset_path("#{tinymce_base_path}/skins/ui/alchemy/skin.min.css") %>?<%= cache_suffix %>" as="style">
 <% if Alchemy::Tinymce.init[:content_css] %>
-  <link rel="preload" href="<%= asset_path(Alchemy::Tinymce.init[:content_css]) %>" as="style">
+  <link rel="preload" href="<%= asset_path(Alchemy::Tinymce.init[:content_css]) %>?<%= cache_suffix %>" as="style">
 <% end %>
 <% Alchemy::Tinymce.preloadable_plugins.each do |plugin| %>
-  <link rel="preload" href="<%= asset_path("#{tinymce_base_path}/plugins/#{plugin}/plugin.min.js") %>" as="script">
+  <link rel="preload" href="<%= asset_path("#{tinymce_base_path}/plugins/#{plugin}/plugin.min.js") %>?<%= cache_suffix %>" as="script">
 <% end %>
 
 <%= tag.script(type: "application/json", id: "alchemy_tinymce_defaults") do %>
@@ -14,6 +15,7 @@
       asset_url(tinymce_base_path, host: ActionController::Base.config.asset_host) :
       tinymce_base_path,
     suffix: ".min",
+    cache_suffix: cache_suffix,
     plugins: Alchemy::Tinymce.plugins.join(",")
   ).to_json %>
 <% end %>
