@@ -117,27 +117,9 @@
   overflow: auto;
 
   form {
-    .control-label {
-      display: block;
-      text-align: left;
-      line-height: var(--form-field-height);
-    }
-
     .input {
-      display: block;
-
       alchemy-picture-description-select select {
         margin: 0;
-      }
-
-      .hint {
-        margin-left: 0;
-      }
-
-      &.tags {
-        .control-label {
-          top: 0;
-        }
       }
     }
   }

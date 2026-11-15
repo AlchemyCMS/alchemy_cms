@@ -10,10 +10,6 @@ body.passwords {
     border-color: transparent;
   }
 
-  #errors {
-    margin-left: 157px;
-  }
-
   #main_content {
     padding-top: var(--spacing-2);
     display: flex;
@@ -55,7 +51,6 @@ body.passwords {
   position: relative;
   max-width: 450px;
   margin: auto;
-  --form-right-column-width: 1.65fr;
 
   .no-js & {
     display: none;
@@ -75,18 +70,6 @@ body.passwords {
     border-color: transparent;
   }
 
-  @media (max-width: 500px) {
-    .input,
-    .submit {
-      grid-template-columns: 1fr;
-
-      label {
-        text-align: start;
-        margin-bottom: var(--spacing-1);
-      }
-    }
-  }
-
   .submit {
     > a {
       display: inline-flex;
@@ -99,28 +82,6 @@ body.passwords {
           transform: translateX(-2px);
           transition: transform var(--transition-duration);
         }
-      }
-    }
-  }
-
-  @media (min-width: 501px) {
-    .submit {
-      grid-template-columns: var(--form-left-column-width) minmax(
-          254px,
-          var(--form-right-column-width)
-        );
-
-      > label {
-        text-align: start;
-
-        input[type="checkbox"] {
-          margin: 0 var(--spacing-0) 0 0;
-        }
-      }
-
-      > a {
-        grid-column: 2;
-        grid-row: 1;
       }
     }
   }

@@ -60,7 +60,6 @@
 
 @mixin form-label {
   word-break: normal;
-  text-align: right;
   font-size: var(--font-size_medium);
   color: var(--form-field-label-color);
 }
@@ -77,7 +76,6 @@
   border: 1px solid $border-color;
   color: $color;
   display: block;
-  grid-column: 2;
   border-radius: var(--border-radius_medium);
 }
 

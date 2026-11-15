@@ -123,6 +123,9 @@
   /* Form */
   --form-left-column-width: 1fr;
   --form-right-column-width: 2.25fr;
+  --form-label-gap: calc(var(--spacing-1) + var(--spacing-0));
+  --form-row-gap: var(--spacing-5);
+  --form-check-gap: calc(var(--spacing-2) + var(--spacing-0));
 
   /* Form Field */
   --form-field-margin: var(--spacing-1) 0;
