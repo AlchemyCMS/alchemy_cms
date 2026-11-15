@@ -1,6 +1,5 @@
 @use "../extends";
 @use "../mixins";
-@use "../variables" as vars;
 
 form {
   #main_content > &.alchemy {
@@ -17,6 +16,7 @@ form {
 
   .control-label {
     @include mixins.form-label;
+    font-weight: var(--font-weight_semibold);
   }
 
   .inline-label {
@@ -26,14 +26,11 @@ form {
   }
 
   .input {
+    --form-field-margin: 0;
     display: grid;
-    grid-template-columns: var(--form-left-column-width) minmax(
-        0,
-        var(--form-right-column-width)
-      );
-    align-items: baseline;
-    gap: 0 var(--spacing-2);
-    padding: var(--spacing-1) 0;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--form-label-gap);
+    padding: calc(var(--form-row-gap) / 2) 0;
 
     textarea {
       padding-top: 7px;
@@ -52,20 +49,10 @@ form {
       margin: var(--form-field-margin);
     }
 
-    // Center the label against a single select control instead of aligning it to
-    // the baseline, which otherwise shifts when the search input gains focus.
-    &:has(.ts-wrapper.single) {
-      .control-label {
-        align-self: center;
-      }
-    }
-
     &.boolean {
-      height: var(--form-field-height);
-
       input[type="checkbox"],
       label {
-        grid-column: 2;
+        grid-column: 1;
         grid-row: 1;
         width: max-content;
         align-self: center;
@@ -79,6 +66,10 @@ form {
       input[type="checkbox"] + label {
         margin-left: var(--spacing-6);
       }
+
+      label {
+        font-weight: var(--font-weight_normal);
+      }
     }
 
     label.checkbox,
@@ -86,7 +77,7 @@ form {
       display: flex;
       align-items: baseline;
       gap: var(--spacing-1);
-      margin: var(--spacing-1) 0;
+      margin: 0;
       width: max-content;
 
       input[type="checkbox"] {
@@ -104,23 +95,16 @@ form {
       text-align: left;
     }
 
-    &.tags {
-      .control-label {
-        align-self: start;
-        position: relative;
-        top: 0.95em;
-      }
+    &.check_boxes {
+      gap: var(--form-check-gap);
+    }
 
-      .control_group {
-        gap: 0;
-      }
+    &.tags .control_group {
+      gap: 0;
     }
 
     &.tinymce_container {
-      label {
-        position: relative;
-        top: calc(-1 * var(--spacing-1));
-      }
+      margin: 0;
     }
   }
 
@@ -146,9 +130,6 @@ form {
     color: var(--notice-error-text-color);
     display: block;
     line-height: 1.5em;
-    grid-column: 2;
-    text-align: right;
-    margin-bottom: 0.25em;
   }
 
   .input-addon {
@@ -224,8 +205,32 @@ form {
   .control_group {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-1);
-    margin: var(--spacing-1) 0;
+    gap: var(--form-check-gap);
+  }
+
+  // Fields that only apply while a checkbox is checked hang under it.
+  .control_group .page-publication-date-fields,
+  .control_group > alchemy-conditional-field {
+    margin: var(--form-label-gap) 0 0 7px;
+    padding: var(--spacing-1) 0 var(--spacing-1) var(--spacing-4);
+    border-left: 2px solid var(--border-color);
+  }
+
+  .control_group .page-publication-date-fields {
+    gap: var(--spacing-3);
+  }
+
+  .control_group > alchemy-conditional-field {
+    display: block;
+    margin-top: calc(var(--form-label-gap) - var(--form-check-gap));
+
+    &[hidden] {
+      display: none;
+    }
+
+    > .input {
+      padding: 0;
+    }
   }
 
   .input .hint {
@@ -245,21 +250,14 @@ form {
   }
 
   .submit {
-    display: grid;
-    grid-template-columns: var(--form-left-column-width) var(
-        --form-right-column-width
-      );
-    margin: var(--spacing-1) 0;
-    gap: 0 var(--spacing-2);
+    --button-margin: 0;
+    display: flex;
+    align-items: center;
+    margin: calc(var(--form-row-gap) / 2) 0;
+    gap: var(--spacing-2);
 
-    > button {
-      grid-column: 2;
-      grid-row: 1;
-      width: max-content;
-
-      &:last-of-type {
-        margin-left: auto;
-      }
+    > button:first-of-type {
+      margin-left: auto;
     }
 
     label.checkbox {
@@ -267,8 +265,6 @@ form {
       align-items: center;
       gap: var(--spacing-1);
       width: max-content;
-      grid-column: 2;
-      grid-row: 1;
 
       input[type="checkbox"] {
         margin-left: var(--spacing-0);
@@ -277,6 +273,7 @@ form {
   }
 
   &.full_width .submit {
+    display: grid;
     grid-template-columns: 1fr 1fr;
 
     button {
@@ -291,18 +288,18 @@ form {
   &.simple_form {
     .buttons {
       margin-top: var(--spacing-1);
-      margin-left: var(--form-left-column-width);
     }
   }
 
   .input-column {
     display: flex;
     flex-direction: column;
+    gap: var(--form-label-gap);
     min-width: 0;
 
     > label {
       display: inline-block;
-      margin-bottom: var(--spacing-1);
+      font-weight: var(--font-weight_semibold);
       text-align: left;
     }
 
@@ -320,58 +317,9 @@ form {
     gap: var(--spacing-2);
     justify-content: space-between;
     margin: var(--spacing-2) 0;
-  }
 
-  @media screen and (max-width: vars.$small-screen-break-point) {
-    .input,
-    .submit {
-      grid-template-columns: 1fr;
-    }
-
-    .input {
-      row-gap: var(--spacing-1);
-
-      .control-label {
-        text-align: left;
-      }
-
-      // Children pinned to the second column would otherwise spawn an implicit
-      // column and pull the field back up next to the label.
-      .hint,
-      small.error,
-      .alchemy-char-counter {
-        grid-column: 1;
-      }
-
-      small.error,
-      .alchemy-char-counter {
-        text-align: left;
-      }
-
-      &.boolean {
-        input[type="checkbox"],
-        label {
-          grid-column: 1;
-        }
-      }
-
-      // Labels nudged to align with the field on the baseline grid overlap it
-      // once stacked.
-      &.tags .control-label,
-      &.tinymce_container label {
-        top: 0;
-      }
-    }
-
-    .submit {
-      > button,
-      label.checkbox {
-        grid-column: 1;
-      }
-    }
-
-    &.simple_form .buttons {
-      margin-left: 0;
+    > .input-column {
+      flex: 1;
     }
   }
 }
