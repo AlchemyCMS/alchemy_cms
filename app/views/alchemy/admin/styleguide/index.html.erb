@@ -26,6 +26,20 @@
       if_permitted_to: [:index, :alchemy_admin_styleguide]
     ) %>
   </div>
+  <%= form_with url: alchemy.admin_styleguide_path, method: :get, class: "search_form" do %>
+    <div class="search_field">
+      <button type="submit">
+        <%= render_icon(:search) %>
+      </button>
+      <%= search_field_tag :q, params[:q],
+        class: "search_input_field",
+        placeholder: Alchemy.t(:search) %>
+      <%= link_to render_icon(:times, size: "1x"), alchemy.admin_styleguide_path,
+        class: "search_field_clear",
+        title: Alchemy.t(:click_to_show_all),
+        style: params[:q].present? ? "visibility: visible" : "visibility: hidden" %>
+    </div>
+  <% end %>
 <% end %>
 
 <h1>AlchemyCMS Styleguide</h1>

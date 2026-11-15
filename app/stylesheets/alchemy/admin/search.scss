@@ -46,9 +46,10 @@
 .toolbar {
   .search_form {
     position: absolute;
-    top: 0;
-    right: 0;
-    height: 45px;
+    top: 50%;
+    right: var(--spacing-2);
+    transform: translateY(-50%);
+    height: var(--form-field-height);
   }
 
   .search_field {
@@ -58,13 +59,11 @@
   input.search_input_field {
     width: 0;
     height: 100%;
-    border: none;
     background-color: var(--search-field-background-color);
     transition:
       width var(--transition-duration) ease-in-out,
       background-color var(--transition-duration) linear;
-    border-radius: 0;
-    padding: var(--spacing-2) var(--spacing-4) var(--spacing-2) var(--spacing-8);
+    padding: var(--spacing-1) var(--spacing-7) var(--spacing-1) var(--spacing-8);
     margin: 0;
     text-align: left;
     box-shadow: none;
@@ -85,6 +84,7 @@
   }
 
   .search_field_clear {
-    top: var(--spacing-4);
+    top: 50%;
+    transform: translateY(-50%);
   }
 }
