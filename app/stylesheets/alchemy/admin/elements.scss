@@ -715,7 +715,8 @@ alchemy-publish-element-button {
     }
 
     &.linked {
-      height: 31px;
+      width: var(--form-field-addon-width);
+      height: var(--form-field-height);
       padding: 0;
       border-radius: 0;
       border-color: var(--icon-button-linked-border-color);
