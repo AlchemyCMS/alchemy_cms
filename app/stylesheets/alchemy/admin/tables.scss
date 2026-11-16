@@ -2,13 +2,12 @@
 
 table {
   border-style: none;
-  border-spacing: 0 var(--spacing-1);
+  border-spacing: 0;
   padding: 0;
   font-size: inherit;
   width: 100%;
 
   &.list .tools {
-    background-color: transparent;
     padding: var(--spacing-2);
 
     .button_to {
@@ -22,7 +21,6 @@ table {
 .table {
   display: flex;
   flex-direction: column;
-  row-gap: var(--spacing-1);
 
   .row,
   header {
@@ -42,15 +40,11 @@ table {
 .list td,
 .list th,
 .table .col {
-  padding: var(--spacing-2) var(--spacing-3);
-  vertical-align: top;
+  padding: calc(var(--spacing-2) + var(--spacing-0)) var(--spacing-3);
+  vertical-align: middle;
   line-height: var(--table-cell-line-height);
-  border-right: 1px solid var(--table-border-color);
+  border-bottom: 1px solid var(--table-border-color);
   transition: background-color var(--transition-duration);
-
-  &:last-child {
-    border-right: 0 none;
-  }
 
   &.wrap-text {
     white-space: normal !important;
@@ -59,26 +53,27 @@ table {
   &.icon {
     width: var(--spacing-6);
     text-align: center;
-    background-color: transparent;
   }
 }
 
 .list th {
   position: relative;
-
-  &.icon {
-    border-bottom: 1px solid var(--table-border-color);
-  }
 }
 
 th,
 .table header .col {
   white-space: nowrap;
   text-align: left;
-  vertical-align: top;
-  border-bottom: 1px solid var(--table-border-color);
+  vertical-align: middle;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-color);
   font-weight: var(--font-weight_semibold);
   background-color: var(--table-header-background-color);
+}
+
+.list tr:last-child td,
+.table .row:last-child .col {
+  border-bottom: 0 none;
 }
 
 tr.even td,
@@ -96,7 +91,6 @@ tr.odd td,
   padding: var(--spacing-1) var(--spacing-2);
   white-space: nowrap;
   @extend .disable-user-select;
-  background-color: transparent;
 }
 
 .list tr .tools {
@@ -117,6 +111,14 @@ td.heading {
 .list td.icon alchemy-icon {
   @extend .disable-user-select;
   margin: var(--spacing-0) 0;
+}
+
+.list td.icon > *,
+.list td.tools > *,
+.list td > alchemy-icon,
+.list td > .label-with-icon,
+.list td > .button_to {
+  vertical-align: middle;
 }
 
 .list tr:hover td,
