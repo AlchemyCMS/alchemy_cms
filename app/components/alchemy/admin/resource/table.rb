@@ -110,7 +110,7 @@ module Alchemy
 
         def icon_column(icon = nil, style: nil)
           column(:icon, header: "") do |resource|
-            render_icon(icon || yield(resource), size: "xl", style: style)
+            render_icon(icon || yield(resource), style: style)
           end
         end
 

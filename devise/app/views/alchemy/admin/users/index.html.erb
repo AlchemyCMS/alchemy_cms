@@ -21,10 +21,11 @@
   <%= render "alchemy/admin/partials/search_form" %>
 <% end %>
 
-<div id="archive_all" class="resources-table-wrapper">
 <% if @users.any? %>
   <%= render "alchemy/admin/resources/table_header" %>
-  <%= render "resource_table", users: @users, query: @query %>
+  <div id="archive_all" class="resources-table-wrapper">
+    <%= render "resource_table", users: @users, query: @query %>
+  </div>
   <%= render "alchemy/admin/resources/pagination", resources: @users %>
 <% elsif params[:query] %>
 
@@ -34,4 +35,3 @@
   </div>
 
 <% end %>
-</div>

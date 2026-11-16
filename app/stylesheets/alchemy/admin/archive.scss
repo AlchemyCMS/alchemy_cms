@@ -17,12 +17,19 @@ alchemy-uploader {
   }
 }
 
+.resources-table-wrapper,
+.table-card {
+  overflow: auto;
+  background: var(--panel-background-color);
+  border: var(--border-default);
+  border-radius: var(--border-radius_large);
+  box-shadow: var(--panel-box-shadow);
+}
+
 .resources-table-wrapper {
-  width: 100%;
-  flex: 1;
+  flex: 0 1 auto;
   min-height: 0;
-  overflow-x: auto;
-  padding: var(--spacing-2);
+  margin: 0 var(--spacing-5) var(--spacing-5);
 }
 
 .selected_item_tools {
