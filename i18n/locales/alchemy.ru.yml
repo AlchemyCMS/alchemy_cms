@@ -693,6 +693,9 @@ ru:
           login: войти
           password: Пароль
     admin:
+      resources:
+        pagination:
+          showing_entries_html: "Показаны <b>%{from}–%{to}</b> из <b>%{total}</b>"
       page_definitions:
         content_pages: "Страницы контента"
         element_usage: "На этом типе страниц: %{count} · Всего: %{total}"

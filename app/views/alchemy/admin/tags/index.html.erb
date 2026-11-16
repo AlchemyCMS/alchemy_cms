@@ -37,9 +37,8 @@
         <% table.delete_button tooltip: Alchemy.t(:delete_tag), confirm_message: Alchemy.t(:do_you_really_want_to_delete_this_tag?) %>
         <% table.edit_button tooltip: Alchemy.t(:edit_tag), dialog_size: "360x410" %>
       <% end %>
+      <%= render "alchemy/admin/resources/pagination", resources: @tags %>
     </div>
-
-    <%= render "alchemy/admin/resources/pagination", resources: @tags %>
   <% elsif search_filter_params.present? %>
     <%= render_message do %>
       <%= Alchemy.t('No Tags found') %>

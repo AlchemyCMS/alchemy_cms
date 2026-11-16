@@ -285,10 +285,6 @@ div#library_sidebar {
   height: calc(100% - var(--top-menu-height));
   background-color: var(--sidebar-background-color);
 
-  #main_content:has(.pagination-wrapper) & {
-    height: calc(100% - var(--top-menu-height) - var(--pagination-height));
-  }
-
   h2 {
     margin-top: var(--spacing-4);
   }

@@ -294,6 +294,9 @@ pl:
       publish_page_button:
         publish_page: "Opublikuj stronę"
         publish_changes: "Opublikuj zmiany"
+      resources:
+        pagination:
+          showing_entries_html: "Wyświetlanie <b>%{from}–%{to}</b> z <b>%{total}</b>"
       page_definitions:
         content_pages: "Strony z treścią"
         element_usage: "Na tym typie strony: %{count} · Łącznie: %{total}"

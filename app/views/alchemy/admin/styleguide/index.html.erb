@@ -415,6 +415,27 @@
   </table>
 </div>
 
+<h3>Table with pagination</h3>
+
+<% entries = Kaminari.paginate_array((1..42).to_a).page(params[:page]).per(5) %>
+<div class="table-card">
+  <table class="list">
+    <tr>
+      <th>Entry</th>
+      <th>Table Heading 2</th>
+      <th>Table Heading 3</th>
+    </tr>
+    <% entries.each do |number| %>
+      <tr class="<%= cycle("even", "odd") %>">
+        <td>Entry <%= number %></td>
+        <td>Table cell 2</td>
+        <td>Table cell 3</td>
+      </tr>
+    <% end %>
+  </table>
+  <%= render "alchemy/admin/resources/pagination", resources: entries, hide_per_page_select: true %>
+</div>
+
 <h2>Lists</h2>
 
 <h3>Unordered List</h3>

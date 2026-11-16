@@ -338,6 +338,9 @@ nl:
       publish_page_button:
         publish_page: "Pagina publiceren"
         publish_changes: "Wijzigingen publiceren"
+      resources:
+        pagination:
+          showing_entries_html: "<b>%{from}–%{to}</b> van <b>%{total}</b> weergegeven"
       page_definitions:
         content_pages: "Contentpagina's"
         element_usage: "Op dit paginatype: %{count} · In totaal: %{total}"

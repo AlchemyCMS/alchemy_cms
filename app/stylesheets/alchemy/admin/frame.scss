@@ -133,14 +133,6 @@ div#overlay_text_box {
       padding-right: var(--sidebar-width);
     }
   }
-
-  &:has(.pagination-wrapper) {
-    padding-bottom: calc(var(--pagination-height) + var(--spacing-2));
-
-    &:has(.resources-table-wrapper) {
-      padding-bottom: var(--pagination-height);
-    }
-  }
 }
 
 #user_info {
