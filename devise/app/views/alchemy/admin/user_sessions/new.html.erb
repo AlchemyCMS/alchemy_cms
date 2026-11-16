@@ -16,8 +16,6 @@
       <%= f.input :password, required: true, input_html: {autocomplete: "current-password"} %>
       <% if devise_mapping.rememberable? %>
         <div class="input">
-          <span class="control-label">&nbsp;</span>
-
           <%= f.label :remember_me, class: "checkbox" do %>
             <%= f.check_box :remember_me, checked: true %>
             <%= Alchemy.t(:remember_me, scope: 'admin.login', days: Devise.remember_for.in_days.to_i) %>

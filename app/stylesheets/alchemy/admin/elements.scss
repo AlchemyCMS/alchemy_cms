@@ -154,15 +154,13 @@ alchemy-elements-window {
   .preview_text_quote {
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: var(--font-size_small);
+    color: var(--text-color-muted);
     margin-left: var(--spacing-0);
   }
 }
 
 .preview_text_element_name {
-  font-size: var(--font-size_small);
   font-weight: var(--font-weight_semibold);
-  line-height: 15px;
   margin-right: var(--spacing-0);
 }
 
@@ -310,6 +308,10 @@ button.element-toggle {
     > .element-header {
       background-color: var(--element-header-active-bg-color);
       color: var(--element-header-active-color);
+
+      .preview_text_quote {
+        color: inherit;
+      }
     }
   }
 
@@ -393,7 +395,7 @@ button.element-toggle {
     }
 
     .element-ingredient-editors {
-      margin: var(--spacing-1) var(--spacing-2);
+      margin: var(--spacing-3) var(--spacing-2);
     }
 
     .ingredient-editor,
@@ -443,7 +445,7 @@ button.element-toggle {
   }
 
   .element-ingredient-editors {
-    margin: var(--spacing-2);
+    margin: var(--spacing-4) var(--spacing-2);
   }
 
   .validation_notice {
@@ -463,14 +465,18 @@ button.element-toggle {
   }
 
   .autocomplete_tag_list {
+    --form-field-margin: 0;
     display: block;
-    padding: var(--spacing-2) var(--spacing-2) var(--spacing-3);
+    padding: var(--spacing-4) var(--spacing-2);
     border-top: 1px solid var(--element-toolbar-border-color);
 
     label {
       display: block;
-      font-size: var(--font-size_small);
+      margin-bottom: var(--form-label-gap);
+      font-size: var(--font-size_medium);
+      font-weight: var(--font-weight_semibold);
       text-indent: 1px;
+      color: var(--form-field-label-color);
     }
   }
 
@@ -614,6 +620,11 @@ alchemy-publish-element-button {
 .element-ingredient-editors {
   display: flex;
   flex-wrap: wrap;
+  row-gap: var(--form-row-gap);
+}
+
+.ingredient-group .ingredient-editor + .ingredient-editor {
+  margin-top: var(--form-row-gap);
 }
 
 #fixed-elements {
@@ -683,7 +694,7 @@ alchemy-publish-element-button {
 .ingredient_link_buttons {
   display: flex;
   position: absolute;
-  bottom: var(--spacing-1);
+  bottom: 0;
   right: 0;
 
   .icon_button {
@@ -715,7 +726,8 @@ alchemy-publish-element-button {
     }
 
     &.linked {
-      height: 31px;
+      width: var(--form-field-addon-width);
+      height: var(--form-field-height);
       padding: 0;
       border-radius: 0;
       border-color: var(--icon-button-linked-border-color);
@@ -764,6 +776,8 @@ alchemy-publish-element-button {
     display: inline-flex;
     align-items: center;
     gap: var(--spacing-0);
+    margin: 0;
+    font-weight: var(--font-weight_normal);
   }
 }
 
@@ -782,7 +796,7 @@ alchemy-publish-element-button {
     --picture-height: 120px;
     display: inline-block;
     width: 160px;
-    margin: var(--spacing-1) 0;
+    margin: 0;
     padding: 0;
     padding-bottom: 34px;
     box-shadow: 0 0 1px 1px var(--border-color);
@@ -841,12 +855,6 @@ alchemy-publish-element-button {
       fill: currentColor;
       filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.25));
     }
-  }
-}
-
-.ingredient-editor.richtext {
-  alchemy-tinymce {
-    margin: var(--spacing-2) 0;
   }
 }
 
@@ -989,7 +997,7 @@ alchemy-publish-element-button {
 
 div.tinymce_container {
   position: relative;
-  margin: var(--spacing-1) 0;
+  margin: var(--form-field-margin);
 
   .spinner {
     top: 70px;
@@ -1008,8 +1016,8 @@ select.long {
 }
 
 .ingredient-editor {
+  --form-field-margin: 0;
   width: 100%;
-  padding: var(--spacing-1) 0;
   position: relative;
 
   .thin_border,
@@ -1097,9 +1105,9 @@ select.long {
 
   label {
     display: flex;
-    margin: var(--spacing-1) 0;
-    font-size: var(--font-size_small);
-    line-height: 15px;
+    margin: 0 0 var(--form-label-gap);
+    font-size: var(--font-size_medium);
+    font-weight: var(--font-weight_semibold);
     text-indent: 1px;
     color: var(--form-field-label-color);
 
@@ -1131,10 +1139,6 @@ select.long {
   }
 
   &.select {
-    label {
-      margin-bottom: var(--spacing-2);
-    }
-
     select {
       width: 100%;
     }
@@ -1150,7 +1154,7 @@ select.long {
     position: relative;
 
     .input-addon {
-      bottom: var(--spacing-1);
+      bottom: 0;
     }
   }
 
@@ -1261,7 +1265,8 @@ label.ingredient-date--label,
   display: inline-flex;
   align-items: center;
   position: absolute;
-  bottom: var(--spacing-2);
+  top: 0;
+  bottom: 0;
   margin: 0 !important;
 }
 

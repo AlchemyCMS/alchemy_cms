@@ -52,6 +52,7 @@
 
     > label {
       @include mixins.form-label;
+      text-align: right;
 
       alchemy-icon {
         vertical-align: middle;

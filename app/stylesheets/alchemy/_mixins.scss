@@ -60,25 +60,15 @@
 
 @mixin form-label {
   word-break: normal;
-  text-align: right;
   font-size: var(--font-size_medium);
   color: var(--form-field-label-color);
 }
 
-@mixin form-hint(
-  $background-color: var(--hint-background-color),
-  $border-color: var(--hint-border-color),
-  $color: var(--hint-text-color)
-) {
+@mixin form-hint($color: var(--text-color-muted)) {
   font-size: var(--font-size_small);
   line-height: 1.5em;
-  padding: var(--spacing-1);
-  background-color: $background-color;
-  border: 1px solid $border-color;
   color: $color;
   display: block;
-  grid-column: 2;
-  border-radius: var(--border-radius_medium);
 }
 
 @mixin animate-left {
