@@ -294,6 +294,9 @@ nb-NO:
       publish_page_button:
         publish_page: "Publiser side"
         publish_changes: "Publiser endringer"
+      resources:
+        pagination:
+          showing_entries_html: "Viser <b>%{from}–%{to}</b> av <b>%{total}</b>"
       page_definitions:
         content_pages: "Innholdssider"
         element_usage: "På denne sidetypen: %{count} · Totalt: %{total}"

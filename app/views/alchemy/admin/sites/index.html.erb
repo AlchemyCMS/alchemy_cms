@@ -23,14 +23,13 @@
   <% if @sites.any? %>
     <div class="resources-table-wrapper">
       <%= render 'alchemy/admin/resources/resource_table', icon: "global", query: @query %>
+      <%= render "alchemy/admin/resources/pagination", resources: resources_instance_variable %>
     </div>
   <% elsif search_filter_params.present? %>
     <%= render_message do %>
       <%= Alchemy.t(:no_search_results) %>
     <% end %>
   <% end %>
-
-  <%= render "alchemy/admin/resources/pagination", resources: resources_instance_variable %>
 <% else %>
   <%= render "alchemy/admin/resources/empty_state" do %>
     <%= render "form", site: Alchemy::Site.new(

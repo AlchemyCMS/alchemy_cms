@@ -345,6 +345,9 @@ zh-CN:
       publish_page_button:
         publish_page: "发布页面"
         publish_changes: "发布更改"
+      resources:
+        pagination:
+          showing_entries_html: "显示第 <b>%{from}–%{to}</b> 条，共 <b>%{total}</b> 条"
       page_definitions:
         content_pages: "内容页面"
         element_usage: "此页面类型：%{count} · 总计：%{total}"

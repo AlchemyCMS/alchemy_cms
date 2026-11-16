@@ -374,6 +374,9 @@ fr:
       publish_page_button:
         publish_page: "Publier la page"
         publish_changes: "Publier les modifications"
+      resources:
+        pagination:
+          showing_entries_html: "Affichage de <b>%{from}–%{to}</b> sur <b>%{total}</b>"
       hints:
         alchemy/element_definition:
           fixed: "Cet élément a une position fixe sur la page."
