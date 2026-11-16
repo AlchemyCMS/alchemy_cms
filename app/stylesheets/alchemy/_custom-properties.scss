@@ -103,7 +103,7 @@
   --button-height: 34px;
   --button-line-height: var(--form-field-line-height);
   --button-margin: var(--form-field-margin);
-  --button-padding: var(--spacing-1) var(--spacing-5);
+  --button-padding: 0 var(--spacing-4);
   --button-small-padding: 0.4em 0.8em;
 
   /* Date Picker */
@@ -142,10 +142,10 @@
   --header-border-bottom: var(--border-default);
 
   /* Icon Button */
-  --icon-button-height: 30px;
-  --icon-button-width: 30px;
-  --icon-button-medium-height: 26px;
-  --icon-button-medium-width: 26px;
+  --icon-button-height: 32px;
+  --icon-button-width: 32px;
+  --icon-button-medium-height: 28px;
+  --icon-button-medium-width: 28px;
   --icon-button-small-height: 15px;
   --icon-button-small-width: 15px;
 
