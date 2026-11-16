@@ -15,7 +15,9 @@
       image_loader: false,
       padding: false
     }, {
-      class: ["crop_link icon_button", ("disabled" unless croppable)].compact.join(" ")
+      class: ["crop_link icon_button", ("disabled" unless croppable)].compact.join(" "),
+      tabindex: ("-1" unless croppable),
+      "aria-disabled": ("true" unless croppable)
     } %>
 <% end %>
 

@@ -182,6 +182,11 @@ RSpec.describe Alchemy::Ingredients::BaseEditor, type: :component do
       it "shows deprecation notice in tooltip" do
         is_expected.to have_selector('sl-tooltip[content="Deprecated"]')
       end
+
+      it "shows the role with a warning icon in a warning label" do
+        is_expected.to have_selector("label sl-tooltip .label.warning alchemy-icon[name='alert']")
+        is_expected.to have_selector("label .label.warning", text: "Text")
+      end
     end
   end
 

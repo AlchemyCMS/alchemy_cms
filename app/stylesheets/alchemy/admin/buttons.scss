@@ -13,13 +13,6 @@ alchemy-uploader .button {
     color: var(--button-secondary-text-color);
     border-color: var(--button-secondary-border-color);
 
-    &:focus:not([disabled]):not(.disabled) {
-      @include mixins.default-focus-style(
-        $border-color: var(--button-focus-border-color),
-        $box-shadow: var(--button-focus-box-shadow)
-      );
-    }
-
     &:hover:not([disabled]):not(.disabled) {
       background-color: var(--button-secondary-hover-bg-color);
       border-color: var(--button-secondary-hover-border-color);
@@ -28,6 +21,13 @@ alchemy-uploader .button {
     &:active:not([disabled]):not(.disabled) {
       border-color: var(--button-hover-border-color);
       box-shadow: none;
+    }
+
+    &.disabled,
+    &[disabled] {
+      background-color: var(--button-disabled-bg-color);
+      border-color: var(--button-disabled-border-color);
+      color: var(--text-color-muted);
     }
   }
 
@@ -82,12 +82,17 @@ alchemy-uploader .button {
     padding: 0; // button.small has padding
   }
 
-  &.active,
   &:active,
-  &:hover:not([disabled]):not(.disabled):not(.linked) {
+  &:hover:not([disabled]):not(.disabled):not(.linked):not(.active) {
     text-decoration: none;
     background-color: var(--icon-button-hover-bg-color);
     cursor: pointer;
+  }
+
+  &.active {
+    --icon-color: var(--icon-button-active-color);
+    text-decoration: none;
+    background-color: var(--icon-button-active-bg-color);
   }
 
   .icon {
@@ -108,6 +113,7 @@ alchemy-uploader .button {
   }
 
   &.linked {
+    --icon-color: var(--icon-button-linked-text-color);
     @include mixins.button-defaults(
       $background-color: var(--icon-button-linked-color),
       $disabled-background-color: var(--icon-button-linked-color),
@@ -116,12 +122,9 @@ alchemy-uploader .button {
       $hover-border-color: var(--icon-button-linked-hover-border-color),
       $box-shadow: none,
       $padding: 3px,
-      $margin: 0
+      $margin: 0,
+      $color: var(--icon-button-linked-text-color)
     );
-  }
-
-  &:focus:not(.disabled):not([disabled]) {
-    @include mixins.default-focus-style;
   }
 
   .spinner {

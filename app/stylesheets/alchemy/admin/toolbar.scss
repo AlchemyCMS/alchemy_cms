@@ -95,10 +95,16 @@
 }
 
 .button_group {
+  --icon-button-width: var(--icon-button-medium-width);
+  --icon-button-height: var(--icon-button-medium-height);
   position: relative;
-  display: inline-block;
-  vertical-align: top;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-0);
+  padding: var(--spacing-0);
   margin: 0 var(--spacing-2);
+  border: 1px solid var(--form-field-border-color);
+  border-radius: var(--border-radius_medium);
 
   &:hover label {
     display: block;
@@ -106,5 +112,9 @@
 
   .toolbar_button {
     margin: 0;
+  }
+
+  .icon_button {
+    border-radius: calc(var(--border-radius_medium) - var(--spacing-0));
   }
 }

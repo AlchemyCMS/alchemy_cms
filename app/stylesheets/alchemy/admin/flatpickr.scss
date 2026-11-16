@@ -255,10 +255,10 @@
   box-sizing: border-box;
 }
 .numInputWrapper span:hover {
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--hover-background-color);
 }
 .numInputWrapper span:active {
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--border-color);
 }
 .numInputWrapper span:after {
   display: block;
@@ -289,10 +289,10 @@
   height: auto;
 }
 .numInputWrapper span svg path {
-  fill: rgba(0, 0, 0, 0.5);
+  fill: var(--icon-color);
 }
 .numInputWrapper:hover {
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--hover-background-color);
 }
 .numInputWrapper:hover span {
   opacity: 1;
@@ -322,7 +322,7 @@
   padding: 0;
 }
 .flatpickr-current-month span.cur-month:hover {
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--hover-background-color);
 }
 .flatpickr-current-month .numInputWrapper {
   width: 6ch;
@@ -355,7 +355,7 @@
 .flatpickr-current-month input.cur-year[disabled],
 .flatpickr-current-month input.cur-year[disabled]:hover {
   font-size: inherit;
-  color: rgba(0, 0, 0, 0.5);
+  color: var(--text-color-muted);
   background: transparent;
   pointer-events: none;
 }
@@ -387,7 +387,7 @@
   outline: none;
 }
 .flatpickr-current-month .flatpickr-monthDropdown-months:hover {
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--hover-background-color);
 }
 .flatpickr-current-month
   .flatpickr-monthDropdown-months
@@ -604,7 +604,7 @@ span.flatpickr-weekday {
 .flatpickr-day.flatpickr-disabled,
 .flatpickr-day.flatpickr-disabled:hover {
   cursor: not-allowed;
-  color: rgba(57, 57, 57, 0.1);
+  color: var(--text-color-muted);
 }
 .flatpickr-day.week.selected {
   border-radius: 0;
@@ -639,7 +639,7 @@ span.flatpickr-weekday {
   display: block;
   width: 100%;
   max-width: none;
-  color: rgba(57, 57, 57, 0.3);
+  color: var(--text-color-muted);
   background: transparent;
   cursor: default;
   border: none;
@@ -724,7 +724,6 @@ span.flatpickr-weekday {
   font-weight: var(--font-weight_normal);
 }
 .flatpickr-time input:focus {
-  outline: 0;
   border: 0;
 }
 .flatpickr-time .flatpickr-time-separator,
@@ -732,7 +731,7 @@ span.flatpickr-weekday {
   height: inherit;
   float: left;
   line-height: inherit;
-  color: #393939;
+  color: var(--datepicker-text-color);
   font-weight: var(--font-weight_semibold);
   width: 2%;
   -webkit-user-select: none;
@@ -755,7 +754,10 @@ span.flatpickr-weekday {
 .flatpickr-time input:focus,
 .flatpickr-time .flatpickr-am-pm:focus {
   background: var(--form-field-background-color);
-  box-shadow: inset 0 0 1px 2px var(--focus-color) !important;
+}
+.flatpickr-time input:focus-visible,
+.flatpickr-time .flatpickr-am-pm:focus-visible {
+  outline-offset: calc(-1 * var(--focus-outline-width));
 }
 .flatpickr-input[readonly] {
   cursor: pointer;

@@ -112,6 +112,10 @@ RSpec.describe Alchemy::Ingredients::PictureEditor, type: :component do
     it "renders crop link as disabled" do
       is_expected.to have_selector("a.crop_link.disabled")
     end
+
+    it "removes the disabled crop link from the tab order" do
+      is_expected.to have_selector("a.crop_link.disabled[tabindex='-1'][aria-disabled='true']")
+    end
   end
 
   context "with image cropping disabled" do

@@ -1,5 +1,7 @@
 .like-hint-tooltip {
   cursor: help;
-  --sl-tooltip-background-color: var(--hint-background-color);
-  --sl-tooltip-color: var(--hint-text-color);
+
+  a {
+    color: inherit;
+  }
 }

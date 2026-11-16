@@ -124,6 +124,33 @@ alchemy-sitemap {
 
   &.highlight {
     background-color: var(--sitemap-highlight-color);
+    border-radius: var(--border-radius_medium);
+  }
+
+  .sitemap_sitename,
+  .sitemap_url,
+  .page_infos {
+    transition:
+      background-color var(--transition-duration),
+      border-color var(--transition-duration);
+  }
+
+  &.highlight {
+    .sitemap_sitename,
+    .sitemap_url,
+    .page_infos {
+      background-color: var(--sitemap-highlight-color);
+      border-color: var(--sitemap-highlight-color);
+    }
+  }
+
+  &:hover {
+    .sitemap_sitename,
+    .sitemap_url,
+    .page_infos {
+      background-color: var(--sitemap-page-hover-color);
+      border-color: var(--sitemap-page-hover-color);
+    }
   }
 
   &.no-match {
@@ -174,7 +201,7 @@ alchemy-sitemap {
     overflow: hidden;
 
     &.inactive {
-      color: #656565;
+      color: var(--text-color-muted);
     }
   }
 }

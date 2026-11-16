@@ -95,6 +95,26 @@
 
   &.highlight {
     background-color: var(--sitemap-highlight-color);
+    border-radius: var(--border-radius_medium);
+  }
+
+  .node_name,
+  .node_url {
+    transition: background-color var(--transition-duration);
+  }
+
+  &.highlight {
+    .node_name,
+    .node_url {
+      background-color: var(--sitemap-highlight-color);
+    }
+  }
+
+  &:hover {
+    .node_name,
+    .node_url {
+      background-color: var(--sitemap-page-hover-color);
+    }
   }
 
   &.no-match {
@@ -128,7 +148,7 @@
     }
 
     &.inactive {
-      color: #656565;
+      color: var(--text-color-muted);
     }
   }
 }
