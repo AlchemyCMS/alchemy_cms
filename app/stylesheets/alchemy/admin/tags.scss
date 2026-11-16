@@ -8,7 +8,7 @@
 
   > label {
     display: block;
-    font-weight: bold;
+    font-weight: var(--font-weight_semibold);
     font-size: var(--font-size_medium);
     margin-bottom: var(--spacing-2);
   }
