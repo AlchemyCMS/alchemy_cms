@@ -7,6 +7,10 @@ module Alchemy
             dragonfly_accessor :image_file, app: :alchemy_pictures do
               # Preprocess after uploading the picture
               after_assign do |image|
+                if Alchemy::StorageAdapter::Dragonfly.svg?(image)
+                  write_attribute(:image_file_format, "svg")
+                end
+
                 if has_convertible_format?
                   Alchemy.storage_adapter.preprocessor_class.new(image).call
                 end
@@ -45,6 +49,23 @@ module Alchemy
       extend self
 
       CONVERTIBLE_FILE_FORMATS = %w[gif jpg jpeg png webp].freeze
+
+      SVG_MIME_TYPE = "image/svg+xml"
+
+      # Whether the attached file is an SVG
+      #
+      # ImageMagick renders SVGs through the rsvg delegate before reading them,
+      # so +identify+ reports the format of the rendered raster instead of the
+      # source file. The file itself has to be inspected to detect SVGs.
+      #
+      # @param [Dragonfly::Model::Attachment]
+      # @return [TrueClass, FalseClass]
+      def svg?(image_file)
+        mime_type = image_file.file do |file|
+          Marcel::MimeType.for(file, name: image_file.name)
+        end
+        mime_type == SVG_MIME_TYPE
+      end
 
       # Allows to set a custom Attachment Url class
       def attachment_url_class=(klass)

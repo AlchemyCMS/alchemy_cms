@@ -37,6 +37,50 @@ RSpec.describe Alchemy::StorageAdapter::Dragonfly, if: Alchemy.storage_adapter.d
     end
   end
 
+  describe "SVG format detection" do
+    subject(:picture) { Alchemy::Picture.new(image_file: fixture_file_upload("icon.svg")) }
+
+    # With librsvg installed ImageMagick renders SVGs through the rsvg delegate
+    # and reports the format of the rendered raster instead of the source file.
+    before do
+      allow_any_instance_of(::Dragonfly::ImageMagick::Analysers::ImageProperties).to receive(:call) do
+        {"format" => "png", "width" => 32, "height" => 32}
+      end
+    end
+
+    it "stores svg as image file format" do
+      expect(picture.read_attribute(:image_file_format)).to eq("svg")
+    end
+
+    it "is a svg" do
+      expect(picture.svg?).to be(true)
+    end
+
+    it "has no convertible format" do
+      expect(picture.has_convertible_format?).to be(false)
+    end
+
+    it "does not rasterize the uploaded file" do
+      expect(picture.image_file.data).to start_with("<svg")
+    end
+
+    context "with a non svg file named like one" do
+      subject(:picture) do
+        Alchemy::Picture.new(image_file: Rack::Test::UploadedFile.new(
+          file_fixture("80x60.png"), "image/svg+xml", true, original_filename: "evil.svg"
+        ))
+      end
+
+      before do
+        allow_any_instance_of(described_class::Preprocessor).to receive(:call)
+      end
+
+      it "stores the format of the actual file content" do
+        expect(picture.read_attribute(:image_file_format)).to eq("png")
+      end
+    end
+  end
+
   describe "Picture preprocessing" do
     context "with enabled preprocess_image_resize config option" do
       let(:image_file) do
