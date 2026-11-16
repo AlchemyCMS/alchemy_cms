@@ -25,8 +25,8 @@
   <%= render "alchemy/admin/resources/table_header" %>
   <div id="archive_all" class="resources-table-wrapper">
     <%= render "resource_table", users: @users, query: @query %>
+    <%= render "alchemy/admin/resources/pagination", resources: @users %>
   </div>
-  <%= render "alchemy/admin/resources/pagination", resources: @users %>
 <% elsif params[:query] %>
 
   <div class="info">

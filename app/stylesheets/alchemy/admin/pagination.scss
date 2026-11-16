@@ -2,25 +2,46 @@
 
 .pagination-wrapper {
   display: flex;
-  position: fixed;
+  align-items: center;
+  gap: var(--spacing-2);
+  // As tall as the table header row (cell padding, line height and its 1px border)
+  min-height: calc(
+    2 * (var(--spacing-2) + var(--spacing-0)) + var(--table-cell-line-height) +
+      1px
+  );
+  padding: 0 var(--spacing-3);
   background: var(--pagination-background-color);
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  left: 0px;
-  height: var(--pagination-height);
-  padding-left: var(--main-menu-width);
-  text-align: left;
-  border-top: 1px solid var(--pagination-border-color, --border-color);
-  z-index: 10;
+  border-top: 1px solid var(--pagination-border-color);
+
+  .resources-table-wrapper &,
+  .table-card & {
+    position: sticky;
+    left: 0;
+    bottom: 0;
+  }
+}
+
+.pagination-entries {
+  margin-right: auto;
+  color: var(--text-color-muted);
+  white-space: nowrap;
+
+  b {
+    color: var(--text-color);
+    font-weight: var(--font-weight_semibold);
+  }
+}
+
+.pagination-divider {
+  flex-shrink: 0;
+  width: 1px;
+  height: var(--spacing-5);
+  background-color: var(--border-color);
 }
 
 .pagination {
   display: flex;
-  flex-grow: 1;
   align-items: center;
-  justify-content: space-between;
-  padding: var(--spacing-2);
 
   a,
   span,
@@ -28,7 +49,6 @@
     font-size: var(--font-size_medium);
     font-weight: var(--font-weight_normal);
     color: var(--icon-color);
-    padding: var(--spacing-1);
     margin: var(--spacing-0);
     border-radius: var(--border-radius_medium);
   }
@@ -61,9 +81,21 @@
     }
   }
 
+  .page,
+  .next_page,
+  .previous_page,
+  .first-page,
+  .last-page,
+  .gap {
+    min-width: var(--icon-button-medium-width);
+    height: var(--icon-button-medium-height);
+    padding: 0 var(--spacing-1);
+  }
+
   .page {
-    padding: var(--spacing-1) var(--spacing-2);
-    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .current {
@@ -112,9 +144,7 @@
   align-items: center;
   flex-shrink: 0;
   justify-content: end;
-  width: var(--sidebar-width);
   margin-left: auto;
-  padding: var(--spacing-2);
 
   label {
     display: flex;
@@ -123,8 +153,6 @@
   }
 
   @media screen and (max-width: vars.$large-screen-break-point) {
-    --sidebar-width: auto;
-
     label span {
       display: none;
     }
@@ -138,6 +166,8 @@
 #assign_image_list .pagination-wrapper,
 #assign_file_list .pagination-wrapper {
   position: absolute;
-  padding-left: 0;
-  padding-right: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--pagination-height);
 }

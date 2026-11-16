@@ -38,10 +38,9 @@
   <% else %>
     <div class="resources-table-wrapper">
       <%= render "files_list" %>
+      <%= render "alchemy/admin/resources/pagination", resources: @attachments %>
     </div>
   <% end %>
-
-  <%= render "alchemy/admin/resources/pagination", resources: @attachments %>
 <% end %>
 
 <%= render "library_sidebar" %>

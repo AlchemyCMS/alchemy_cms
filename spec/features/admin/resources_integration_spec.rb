@@ -42,6 +42,22 @@ RSpec.describe "Resources", type: :system do
         expect(page).to have_selector("div#main_content .pagination .page", count: 3)
       end
 
+      it "shows which entries of all entries are displayed" do
+        visit "/admin/events?per_page=5&page=2"
+        expect(page).to have_selector(".pagination-entries", text: "Showing 6–10 of 15")
+      end
+
+      it "shows the pagination inside the table card" do
+        visit "/admin/events?per_page=5"
+        expect(page).to have_selector(".resources-table-wrapper .pagination-wrapper .pagination")
+      end
+
+      it "hides the pagination if all entries fit on one page" do
+        visit "/admin/events?per_page=20"
+        expect(page).to have_selector("div#main_content table.list tbody tr", count: 15)
+        expect(page).to_not have_selector(".pagination-wrapper")
+      end
+
       context "params containing per_page" do
         it "should limit the items per page based on the given value" do
           visit "/admin/events?per_page=3"
