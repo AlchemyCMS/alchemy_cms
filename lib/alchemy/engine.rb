@@ -54,8 +54,12 @@ module Alchemy
       )
     end
 
+    # Runs after initialization, so that importmaps added from an application
+    # initializer (those run after the engine's initializers) are picked up.
+    # It must not run again on reload: every entry it adds below lands in a
+    # registry that is never pruned.
     initializer "alchemy.importmap" do |app|
-      app.config.to_prepare do
+      app.config.after_initialize do
         watch_paths = []
 
         Alchemy.config.admin_importmaps.each do |admin_import|
@@ -81,9 +85,10 @@ module Alchemy
       end
     end
 
-    # All the initialization that needs to be re-triggered during reloads
-    config.to_prepare do
-      # Definition files
+    # Registered from a `to_prepare` block these watchers would pile up in the
+    # never pruned reloader registries on every reload, and with them the file
+    # system handles they hold open.
+    config.after_initialize do
       elements_reloader = Rails.application.config.file_watcher.new([ElementDefinition.definitions_file_path]) do
         Logger.info "Reloading Element Definitions."
         ElementDefinition.reset!
@@ -98,7 +103,10 @@ module Alchemy
           reloader.execute_if_updated
         end
       end
+    end
 
+    # All the initialization that needs to be re-triggered during reloads
+    config.to_prepare do
       # The storage adapter for Pictures and Attachments
       #
       # Chose between 'active_storage' (default) or 'dragonfly' (legacy)

@@ -50,8 +50,23 @@ RSpec.describe Alchemy::Engine do
     it "adds additional importmap to admin imports" do
       initializer = Alchemy::Engine.initializers.find { _1.name == "alchemy.importmap" }
       expect(Alchemy.config.admin_js_imports).to receive(:add).with("additional_importmap")
-      prepare_blocks = initializer.run(Rails.application)
-      prepare_blocks.last.call
+      initializer.run(Rails.application)
+    end
+  end
+
+  describe "reloading" do
+    subject { 2.times { Rails.application.reloader.prepare! } }
+
+    it "does not register another application reloader" do
+      expect { subject }.to_not change { Rails.application.reloaders.size }
+    end
+
+    it "does not append the importmap source paths again" do
+      expect { subject }.to_not change { Rails.application.config.assets.paths.size }
+    end
+
+    it "does not add another importmap cache sweeper callback" do
+      expect { subject }.to_not change { ActionController::Base._process_action_callbacks.to_a.size }
     end
   end
 end
