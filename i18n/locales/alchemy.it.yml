@@ -337,6 +337,9 @@ it:
       publish_page_button:
         publish_page: "Pubblica pagina"
         publish_changes: "Pubblica modifiche"
+      resources:
+        pagination:
+          showing_entries_html: "Visualizzati <b>%{from}–%{to}</b> di <b>%{total}</b>"
       page_definitions:
         content_pages: "Pagine di contenuto"
         element_usage: "Su questo tipo di pagina: %{count} · In totale: %{total}"
@@ -402,6 +405,11 @@ it:
     "File preview": "Anteprima file"
     "File deleted successfully": "%{name} è stato eliminato"
     "Filter by tag": "Filtra per tag"
+    "Filters": "Filtri"
+    "Hide filters": "Nascondi filtri"
+    "Show filters": "Mostra filtri"
+    "Tag": "Tag"
+    "Clear all": "Rimuovi tutto"
     "Filter elements": "Filtra elementi"
     "Filter tags": "Filtra tag"
     "Flush page cache": "Svuota la cache delle pagine"
@@ -471,7 +479,6 @@ it:
     "Redirects to": "Effettua un redirect a"
     "Reload Preview": "Ricarica anteprima"
     "Remove item from clipboard": "Rimuovi elemento dagli appunti"
-    "Remove tag filter": "Rimuovi filtro tag"
     "Remove this content": "Rimuovi questo contenuto"
     "Reset Imagemask": "Ripristina"
     "Reset password instructions": "Ripristina le istruzioni per la password"
@@ -602,7 +609,7 @@ it:
     delete_user: "Elimina questo utente"
     document: "File"
     download_csv: "Scarica CSV"
-    download_file: "Scarica file '%{filename}'"
+    download_file: "Scarica file"
     do_you_really_want_to_delete_this_tag?: "Vuole veramente eliminare questo tag?"
     draft: "Bozza"
     drag_to_sort: "Clicca e trascina per riordinare le immagini"

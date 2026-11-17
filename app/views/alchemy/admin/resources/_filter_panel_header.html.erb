@@ -1,0 +1,22 @@
+<% active_filters_count = applied_filters.size + search_filter_params[:tagged_with].to_s.split(",").size %>
+<alchemy-filter-panel-toggle class="filter-panel-rail">
+  <sl-tooltip content="<%= Alchemy.t("Show filters") %>" placement="left" hoist>
+    <button type="button" class="icon_button" aria-label="<%= Alchemy.t("Show filters") %>">
+      <%= render_icon("filter-3") %>
+      <% if active_filters_count > 0 %>
+        <span class="filter-panel-badge"><%= active_filters_count %></span>
+      <% end %>
+    </button>
+  </sl-tooltip>
+</alchemy-filter-panel-toggle>
+<div class="filter-panel-header">
+  <%= render_icon("filter-3") %>
+  <h2><%= Alchemy.t("Filters") %></h2>
+  <alchemy-filter-panel-toggle>
+    <sl-tooltip content="<%= Alchemy.t("Hide filters") %>" placement="left" hoist>
+      <button type="button" class="icon_button" aria-label="<%= Alchemy.t("Hide filters") %>">
+        <%= render_icon("arrow-right-s") %>
+      </button>
+    </sl-tooltip>
+  </alchemy-filter-panel-toggle>
+</div>

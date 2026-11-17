@@ -396,6 +396,9 @@ de:
       publish_page_button:
         publish_page: "Seite veröffentlichen"
         publish_changes: "Änderungen veröffentlichen"
+      resources:
+        pagination:
+          showing_entries_html: "Zeige <b>%{from}–%{to}</b> von <b>%{total}</b>"
       hints:
         alchemy/element_definition:
           fixed: "Dieses Element hat eine feste Position auf der Seite."
@@ -449,6 +452,11 @@ de:
     "File deleted successfully": "%{name} wurde gelöscht"
     "File preview": "Dateivorschau"
     "Filter by tag": "Nach Tag filtern"
+    "Filters": "Filter"
+    "Hide filters": "Filter ausblenden"
+    "Show filters": "Filter einblenden"
+    "Tag": "Tag"
+    "Clear all": "Alle entfernen"
     "Filter elements": "Elemente filtern"
     "Filter tags": "Tags filtern"
     "Flush page cache": "Seitencache löschen"
@@ -517,7 +525,6 @@ de:
     "Redirects to": "Leitet weiter auf"
     "Reload Preview": "Vorschau neuladen"
     "Remove item from clipboard": "Inhalt aus der Zwischenablage entfernen"
-    "Remove tag filter": "Filter entfernen"
     "Remove this content": "Diesen Inhalt entfernen"
     "Reset Imagemask": "zurücksetzen"
     "Reset password instructions": "Anweisungen um Ihr Passwort zurückzusetzen"
@@ -649,7 +656,7 @@ de:
     delete_tag: "Tag löschen"
     document: "Dokument"
     download_csv: "CSV runterladen"
-    download_file: "%{filename} runterladen"
+    download_file: "Datei herunterladen"
     do_you_really_want_to_delete_this_tag?: "Wollen Sie dieses Tag wirklich löschen?"
     draft: "Entwurf"
     drag_to_sort: "Mit der Maus halten und verschieben"

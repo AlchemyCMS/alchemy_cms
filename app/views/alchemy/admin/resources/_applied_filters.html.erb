@@ -1,8 +1,21 @@
-<% if applied_filters.present? %>
+<% if applied_filters.present? || applied_tags.present? %>
   <div class="applied-filters">
     <b><%= Alchemy.t("filtered_by") %></b>
     <% applied_filters.each do |filter| %>
       <%= render filter.applied_filter_component(search_filter_params:, resource_url_proxy:, query: @query) %>
     <% end %>
+    <% applied_tags.each do |tag| %>
+      <%= render Alchemy::Admin::Resource::AppliedFilter.new(
+        applied_filter_label: Alchemy.t("Tag"),
+        applied_filter_value: tag,
+        link: resource_url_proxy.url_for(
+          search_filter_params.to_h.except("page", "tagged_with").merge(
+            action: "index",
+            tagged_with: (applied_tags - [tag]).join(",").presence
+          )
+        )
+      ) %>
+    <% end %>
+    <%= link_to Alchemy.t("Clear all"), reset_filters_url, class: "clear-filters" %>
   </div>
 <% end %>

@@ -8,6 +8,7 @@
   <% if @pages.any? %>
     <div class="resources-table-wrapper">
       <%= render "table" %>
+      <%= render "alchemy/admin/resources/pagination", resources: @pages %>
     </div>
   <% else %>
     <%= render_message do %>
@@ -15,9 +16,8 @@
     <% end %>
   <% end %>
 
-  <%= render "alchemy/admin/resources/pagination", resources: @pages %>
-
   <div id="library_sidebar">
+    <%= render "alchemy/admin/resources/filter_panel_header" %>
     <%= render "filter_bar" if resource_has_filters %>
     <%= render "tag_list" if resource_has_tags %>
   </div>

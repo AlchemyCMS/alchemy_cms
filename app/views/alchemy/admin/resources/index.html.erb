@@ -31,12 +31,11 @@
   <% if resources_instance_variable.any? %>
     <div class="resources-table-wrapper">
       <%= render "resource_table", query: @query %>
+      <%= render "alchemy/admin/resources/pagination", resources: resources_instance_variable %>
     </div>
   <% elsif search_filter_params.present? %>
     <%= render_message { Alchemy.t("Nothing found") } %>
   <% end %>
-
-  <%= render "alchemy/admin/resources/pagination", resources: resources_instance_variable %>
 <% else %>
   <%= render "alchemy/admin/resources/empty_state" do %>
     <%= link_to_dialog(
@@ -53,6 +52,7 @@
 
 <% if resource_has_tags || resource_has_filters %>
   <div id="library_sidebar">
+    <%= render "alchemy/admin/resources/filter_panel_header" %>
     <%= render "filter_bar" if resource_has_filters %>
     <%= render "tag_list" if resource_has_tags %>
   </div>

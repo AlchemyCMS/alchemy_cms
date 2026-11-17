@@ -4,11 +4,4 @@
   <ul>
     <%= render Alchemy::Admin::TagsList.new('Alchemy::Attachment') %>
   </ul>
-  <% if search_filter_params[:tagged_with].present? %>
-    <%= link_to(
-      render_icon(:times, size: '1x') + Alchemy.t('Remove tag filter'),
-      url_for(search_filter_params.except(:tagged_with)),
-      class: 'secondary button small with_icon'
-    ) %>
-  <% end %>
 <% end %>

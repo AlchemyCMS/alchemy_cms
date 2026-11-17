@@ -294,6 +294,9 @@ nb-NO:
       publish_page_button:
         publish_page: "Publiser side"
         publish_changes: "Publiser endringer"
+      resources:
+        pagination:
+          showing_entries_html: "Viser <b>%{from}–%{to}</b> av <b>%{total}</b>"
       page_definitions:
         content_pages: "Innholdssider"
         element_usage: "På denne sidetypen: %{count} · Totalt: %{total}"
@@ -362,6 +365,11 @@ nb-NO:
     "File deleted successfully": "%{name} har blitt slettet"
     "File preview": "Filforhåndsvisning"
     "Filter by tag": "Filtrer med tag"
+    "Filters": "Filtre"
+    "Hide filters": "Skjul filtre"
+    "Show filters": "Vis filtre"
+    "Tag": "Tag"
+    "Clear all": "Fjern alle"
     "Filter elements": "Filtrer elementer"
     "Filter tags": "Filtrer tagger"
     "Flush page cache": "Tøm sidehurtiglager"
@@ -433,7 +441,6 @@ nb-NO:
     "Redirects to": "Videresendes til"
     "Reload Preview": "Last forhåndsvisning på nytt"
     "Remove item from clipboard": "Fjern elementer fra utklippstavle"
-    "Remove tag filter": "Fjern tag-filter"
     "Remove this content": "Fjern dette innholdet"
     "Reset Imagemask": "Nullstill maske"
     "Reset password instructions": "Instruksjoner for nullstilling av passord"
@@ -559,7 +566,7 @@ nb-NO:
     delete_node: "Slett dette menyelementet"
     document: "Fil"
     download_csv: "Last ned CSV"
-    download_file: "Last ned fil '%{filename}'"
+    download_file: "Last ned fil"
     do_you_really_want_to_delete_this_tag?: "Vil du virkelig slette denne taggen?"
     drag_to_sort: "Trekk-og-slipp for å sortere bilder"
     edit: "rediger"
