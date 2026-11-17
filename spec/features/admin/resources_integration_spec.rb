@@ -266,6 +266,49 @@ RSpec.describe "Resources", type: :system do
             end
           end
         end
+
+        context "with tags applied" do
+          let(:search_field) { "description_or_hidden_name_or_location_name_or_name_i_cont" }
+
+          it "shows each tag as a removable filter chip" do
+            visit "/admin/events?tagged_with=onsite"
+
+            expect(page).to have_selector(".applied-filters .applied-filter", text: "Tag: onsite")
+          end
+
+          it "removes a tag by its chip and keeps the other filters" do
+            visit "/admin/events?tagged_with=onsite&q[by_timeframe]=future"
+
+            within ".applied-filter", text: "Tag: onsite" do
+              find(".dismiss-filter").click
+            end
+
+            within "div#main_content table.list tbody" do
+              expect(page).to have_selector("tr", count: 3)
+            end
+            expect(page).to have_selector(".applied-filter", text: "By Timeframe: Future")
+          end
+
+          it "keeps the other tags when removing one" do
+            visit "/admin/events?tagged_with=onsite,remote"
+
+            within ".applied-filter", text: "Tag: onsite" do
+              find(".dismiss-filter").click
+            end
+
+            expect(page).to have_selector(".applied-filter", text: "Tag: remote")
+            expect(page).to_not have_selector(".applied-filter", text: "Tag: onsite")
+          end
+
+          it "clears all filters and tags but keeps the search term" do
+            visit "/admin/events?tagged_with=onsite&q[by_timeframe]=future&q[#{search_field}]=event"
+
+            click_link "Clear all"
+
+            query = Rack::Utils.parse_nested_query(URI.parse(page.current_url).query)
+            expect(query).to eq("q" => {search_field => "event"})
+          end
+        end
       end
     end
 
