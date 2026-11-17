@@ -455,6 +455,7 @@ es:
     "File deleted successfully": "%{name} se ha eliminado"
     "Filter": Filtrar
     "Filter by tag": "Filtrar por etiqueta"
+    "Filters": "Filtros"
     "Filter elements": "Filtrar elementos"
     "Filter tags": "Filtrar etiquetas"
     "Flush page cache": "Vaciar caché de páginas"

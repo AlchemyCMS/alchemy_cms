@@ -3,14 +3,14 @@
 .tag-list {
   display: flex;
   flex-direction: column;
-  margin-top: var(--spacing-3);
-  margin-bottom: var(--spacing-2);
+  gap: var(--form-label-gap);
 
-  > label {
+  > label,
+  > h3 {
     display: block;
+    margin: 0;
     font-weight: var(--font-weight_semibold);
     font-size: var(--font-size_medium);
-    margin-bottom: var(--spacing-2);
   }
 
   alchemy-list-filter {
@@ -26,23 +26,36 @@
   }
 
   ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(var(--spacing-1) + var(--spacing-0));
     list-style-type: none;
     padding: 0;
-    margin: 0;
+    margin: var(--spacing-1) 0 0;
 
     li {
-      display: block;
-
-      &:first-child {
-        margin-top: 0;
-      }
+      display: flex;
+      margin: 0;
 
       a {
-        @include mixins.tag-base;
+        @include mixins.tag-base(
+          $margin: 0,
+          $padding: 0 var(--spacing-1) 0 var(--spacing-2)
+        );
 
         & {
-          display: flex;
+          align-items: center;
+          height: var(--icon-button-medium-height);
+          border: 1px solid var(--form-field-border-color);
+          border-radius: var(--sl-border-radius-pill);
+          background-color: var(--form-field-background-color);
+          font-size: var(--font-size_small);
           text-decoration: none;
+        }
+
+        &:before {
+          align-self: center;
+          margin-top: 0;
         }
       }
 
@@ -52,15 +65,35 @@
 
       &.active {
         a {
+          border-color: var(--button-bg-color);
           background-color: var(--tag-active-background-color);
           color: var(--tag-active-text-color);
+          font-weight: var(--font-weight_semibold);
 
           &:before {
             background-image: var(--tag-active-background-image);
           }
         }
+
+        .tag-count {
+          background-color: var(--button-bg-color);
+          color: var(--button-text-color);
+        }
       }
     }
+  }
+
+  .tag-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 var(--spacing-1);
+    border-radius: var(--sl-border-radius-pill);
+    background-color: var(--table-header-background-color);
+    color: var(--text-color-muted);
+    font-weight: var(--font-weight_semibold);
   }
 }
 

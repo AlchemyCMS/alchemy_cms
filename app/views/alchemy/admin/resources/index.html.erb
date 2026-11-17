@@ -52,6 +52,7 @@
 
 <% if resource_has_tags || resource_has_filters %>
   <div id="library_sidebar">
+    <%= render "alchemy/admin/resources/filter_panel_header" %>
     <%= render "filter_bar" if resource_has_filters %>
     <%= render "tag_list" if resource_has_tags %>
   </div>

@@ -272,8 +272,10 @@ div.assign_image_list_image {
 }
 
 div#library_sidebar {
+  --form-field-margin: 0;
   display: flex;
   flex-direction: column;
+  gap: var(--form-row-gap);
   position: fixed;
   border-left: 1px solid var(--border-color);
   top: var(--top-menu-height);
@@ -281,17 +283,29 @@ div#library_sidebar {
   width: var(--sidebar-width);
   overflow-y: auto;
 
-  padding: var(--spacing-2) var(--spacing-4) var(--spacing-2) var(--spacing-4);
+  padding: 0 var(--spacing-4) var(--spacing-4);
   height: calc(100% - var(--top-menu-height));
   background-color: var(--sidebar-background-color);
 
-  h2 {
-    margin-top: var(--spacing-4);
-  }
-
   h3 {
-    margin: var(--spacing-4) 0 var(--spacing-3) 0;
+    margin: 0;
     font-size: var(--font-size_medium);
+  }
+}
+
+.filter-panel-header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--spacing-2);
+  height: var(--toolbar-height);
+  margin: 0 calc(-1 * var(--spacing-4));
+  padding: 0 var(--spacing-4);
+
+  h2 {
+    margin: 0;
+    font-size: var(--font-size_medium);
+    font-weight: var(--font-weight_semibold);
   }
 }
 

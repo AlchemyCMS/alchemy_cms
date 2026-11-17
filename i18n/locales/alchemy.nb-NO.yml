@@ -365,6 +365,7 @@ nb-NO:
     "File deleted successfully": "%{name} har blitt slettet"
     "File preview": "Filforhåndsvisning"
     "Filter by tag": "Filtrer med tag"
+    "Filters": "Filtre"
     "Filter elements": "Filtrer elementer"
     "Filter tags": "Filtrer tagger"
     "Flush page cache": "Tøm sidehurtiglager"

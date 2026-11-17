@@ -371,6 +371,7 @@ en:
     "File successfully updated": "File successfully updated"
     "File deleted successfully": "%{name} has been deleted"
     "Filter by tag": "Filter by tag"
+    "Filters": "Filters"
     "Flush page cache": "Flush page cache"
     "Flush picture cache": "Flush picture cache"
     "Global shortcuts": "Global shortcuts"
