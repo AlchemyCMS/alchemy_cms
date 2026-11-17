@@ -656,7 +656,7 @@ de:
     delete_tag: "Tag löschen"
     document: "Dokument"
     download_csv: "CSV runterladen"
-    download_file: "%{filename} runterladen"
+    download_file: "Datei herunterladen"
     do_you_really_want_to_delete_this_tag?: "Wollen Sie dieses Tag wirklich löschen?"
     draft: "Entwurf"
     drag_to_sort: "Mit der Maus halten und verschieben"

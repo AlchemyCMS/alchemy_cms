@@ -408,7 +408,7 @@ ru:
     delete_tag: "Удалить метку"
     document: "Файл"
     download_csv: "Скачать CSV"
-    download_file: "Скачать файл '%{filename}'"
+    download_file: "Скачать файл"
     do_you_really_want_to_delete_this_tag?: "Вы действительно хотите удалть эту метку?"
     drag_to_sort: "Используйте Drag'n'Drop для сортировки изображений"
     edit_file_properties: "Редактировать свойства файла"

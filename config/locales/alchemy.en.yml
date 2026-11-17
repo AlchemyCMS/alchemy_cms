@@ -529,7 +529,7 @@ en:
     search_tag: "Search tag"
     document: "File"
     download_csv: "Download CSV"
-    download_file: "Download file '%{filename}'"
+    download_file: "Download file"
     do_you_really_want_to_delete_this_tag?: "Do you really want to delete this tag?"
     drag_to_sort: "Drag'n'Drop to sort images"
     edit_file_properties: "Edit file properties."
