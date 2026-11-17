@@ -453,6 +453,8 @@ de:
     "File preview": "Dateivorschau"
     "Filter by tag": "Nach Tag filtern"
     "Filters": "Filter"
+    "Hide filters": "Filter ausblenden"
+    "Show filters": "Filter einblenden"
     "Filter elements": "Elemente filtern"
     "Filter tags": "Tags filtern"
     "Flush page cache": "Seitencache löschen"

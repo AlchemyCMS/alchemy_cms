@@ -438,6 +438,8 @@ fr:
     "File: '%{name}' deleted successfully": "%{name} effacé"
     "Filter by tag": "Filtrer par tag"
     "Filters": "Filtres"
+    "Hide filters": "Masquer les filtres"
+    "Show filters": "Afficher les filtres"
     "Filter elements": "Filtrer les éléments"
     "Filter tags": "Filtrer les tags"
     "Flush page cache": "Effacer la page cache"

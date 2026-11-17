@@ -55,6 +55,18 @@ module Alchemy
       end
     end
 
+    describe "#alchemy_body_class" do
+      subject { helper.alchemy_body_class }
+
+      it { is_expected.not_to include("filter-panel-collapsed") }
+
+      context "with the filter panel collapsed" do
+        before { helper.request.cookies["alchemy-filter-panel-collapsed"] = "true" }
+
+        it { is_expected.to include("filter-panel-collapsed") }
+      end
+    end
+
     describe "#alchemy_body_style" do
       subject { helper.alchemy_body_style }
 
