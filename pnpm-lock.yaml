@@ -36,8 +36,8 @@ importers:
         specifier: ^8.10.1
         version: 8.10.1
       tom-select:
-        specifier: ^2.6.2
-        version: 2.6.2
+        specifier: ^2.7.0
+        version: 2.7.0
     devDependencies:
       '@herb-tools/linter':
         specifier: ^0.8.10
@@ -292,8 +292,8 @@ packages:
   '@orchidjs/sifter@1.1.0':
     resolution: {integrity: sha512-mYwHCfr736cIWWdhhSZvDbf90AKt2xyrJspKFC3qyIJG1LtrJeJunYEqCGG4Aq2ijENbc4WkOjszcvNaIAS/pQ==}
 
-  '@orchidjs/unicode-variants@1.1.2':
-    resolution: {integrity: sha512-5DobW1CHgnBROOEpFlEXytED5OosEWESFvg/VYmH0143oXcijYTprRYJTs+55HzGM4IqxiLFSuqEzu9mPNwVsA==}
+  '@orchidjs/unicode-variants@1.2.2':
+    resolution: {integrity: sha512-Tfdm/fa2NN+75KwtkjpdOvUeaBOgZlyo08Ngb3m6UXe4ACPcKlgnX32vAI5lp39tlLdv2tXiRW0PPdbWyM5ieA==}
 
   '@oxc-project/types@0.156.0':
     resolution: {integrity: sha512-1Duyg48TdJNdyhEB8Xn1L36bT9Pv6GUtlKjHxOys8xkaF/rQq3XJE+bAurSK/AgIz5mGFsb77cn9Pb20+WCScw==}
@@ -1720,8 +1720,8 @@ packages:
     resolution: {integrity: sha512-48dH6aSpQnpbzDUc4vIQZ1VjB8tkK+e8c1yx05/SZK+rkssgjEOlxDd/yU8/a4vGYQ9vRgJr9dwMq9TJ0b3X2Q==}
     hasBin: true
 
-  tom-select@2.6.2:
-    resolution: {integrity: sha512-eiXIkk82XzzUTOVQDFpy+ZGejuqdTvMukyUyeZBQaKnqW42UoTiTZnrod/eX0rkqJEc4rZY9DZ3zdjV07i29wQ==}
+  tom-select@2.7.0:
+    resolution: {integrity: sha512-i/iuTfrzYfGPAILfgPdU9/CCSm8XcnomjO2bHjAcFQPV7od0ghVngjaMfB5x5Agkrpe+49/tK6soegrwWyi6Lg==}
 
   tough-cookie@6.1.0:
     resolution: {integrity: sha512-FTxc8u8Kl2tz0Lat1u8ksvcy8bwHRyEMawwTWybo51JqaC6O7SvfuhAKg+Ld6VqyIe2QRJBzY9HA7y2WyFRT2w==}
@@ -2134,9 +2134,9 @@ snapshots:
 
   '@orchidjs/sifter@1.1.0':
     dependencies:
-      '@orchidjs/unicode-variants': 1.1.2
+      '@orchidjs/unicode-variants': 1.2.2
 
-  '@orchidjs/unicode-variants@1.1.2': {}
+  '@orchidjs/unicode-variants@1.2.2': {}
 
   '@oxc-project/types@0.156.0': {}
 
@@ -3387,10 +3387,10 @@ snapshots:
     dependencies:
       tldts-core: 7.4.19
 
-  tom-select@2.6.2:
+  tom-select@2.7.0:
     dependencies:
       '@orchidjs/sifter': 1.1.0
-      '@orchidjs/unicode-variants': 1.1.2
+      '@orchidjs/unicode-variants': 1.2.2
 
   tough-cookie@6.1.0:
     dependencies:

@@ -1,4 +1,5 @@
 // Theme for the Tom Select powered `<select is="alchemy-select">`.
+@use "../extends";
 @use "../mixins";
 @use "icons";
 
@@ -165,6 +166,16 @@
     @include mixins.default-focus-style(
       $box-shadow: 0 0 0 1px var(--focus-color)
     );
+  }
+
+  // Not `&.invalid`: Tom Select sets that on first render, before any user
+  // interaction.
+  select:user-invalid + & .ts-control {
+    @extend %field-with-error;
+
+    > input {
+      background-color: transparent;
+    }
   }
 
   &.disabled .ts-control {
