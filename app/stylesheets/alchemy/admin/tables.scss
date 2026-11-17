@@ -265,3 +265,54 @@ td#user_roles {
   display: inline-flex;
   align-items: center;
 }
+
+.resources-table-wrapper,
+.table-card {
+  .list td {
+    max-width: 300px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .list td.tools,
+  .list th.tools {
+    position: sticky;
+    right: 0;
+    z-index: 1;
+    max-width: none;
+    overflow: visible;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .list td.tools::before,
+    .list th.tools::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -10px;
+      width: 10px;
+      pointer-events: none;
+      background: linear-gradient(
+        to left,
+        var(--table-scroll-shadow-color),
+        transparent
+      );
+      opacity: 0;
+      animation: table-hidden-columns-shadow linear both;
+      animation-timeline: scroll(nearest inline);
+    }
+  }
+}
+
+@keyframes table-hidden-columns-shadow {
+  0%,
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
