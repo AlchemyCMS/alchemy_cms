@@ -655,7 +655,7 @@ fr:
     delete_tag: "Supprimer le tag"
     document: "Document"
     download_csv: "CSV télécharger"
-    download_file: "%{filename} télécharger"
+    download_file: "Télécharger le fichier"
     do_you_really_want_to_delete_this_tag?: "Voulez-vous vraiment supprimer ce tag ?"
     draft: "Brouillon"
     drag_to_sort: "Garder le contact avec la souris et déplacer"

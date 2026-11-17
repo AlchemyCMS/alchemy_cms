@@ -610,7 +610,7 @@ nl:
     delete_node: "Menu-item verwijderen"
     document: "Bestand"
     download_csv: "CSV downloaden"
-    download_file: "Bestand '%{filename}' downloaden"
+    download_file: "Bestand downloaden"
     do_you_really_want_to_delete_this_tag?: "Wilt u deze tag echt verwijderen?"
     drag_to_sort: "slepen om afbeeldingen te sorteren"
     edit: "bewerken"

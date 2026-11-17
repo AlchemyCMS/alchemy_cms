@@ -655,7 +655,7 @@ es:
     delete_tag: "Eliminar etiqueta"
     document: "Archivo"
     download_csv: "Descargar CSV"
-    download_file: "Descargar archivo '%{filename}'"
+    download_file: "Descargar archivo"
     do_you_really_want_to_delete_this_tag?: "¿Desea realmente eliminar esta etiqueta?"
     draft: "Borrador"
     drag_to_sort: "Arrastre para ordenar las imágenes"
