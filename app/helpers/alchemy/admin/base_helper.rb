@@ -248,7 +248,8 @@ module Alchemy
           action_name,
           content_for(:main_menu_style),
           content_for(:alchemy_body_class),
-          "elements-window-visible"
+          "elements-window-visible",
+          (cookies["alchemy-filter-panel-collapsed"] == "true") ? "filter-panel-collapsed" : nil
         ].compact
       end
 

@@ -293,6 +293,52 @@ div#library_sidebar {
   }
 }
 
+.filter-panel-rail {
+  display: none;
+}
+
+.filter-panel-collapsed #main_content {
+  --sidebar-width: calc(var(--icon-button-width) + 2 * var(--spacing-2));
+
+  #library_sidebar {
+    padding: 0;
+
+    > :not(.filter-panel-rail) {
+      display: none;
+    }
+  }
+
+  .filter-panel-rail {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    height: var(--toolbar-height);
+  }
+}
+
+.alchemy-dialog alchemy-filter-panel-toggle {
+  display: none;
+}
+
+.filter-panel-badge {
+  position: absolute;
+  top: calc(-1 * var(--spacing-1));
+  right: calc(-1 * var(--spacing-1));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--spacing-4);
+  height: var(--spacing-4);
+  padding: 0 var(--spacing-1);
+  border-radius: var(--sl-border-radius-pill);
+  background-color: var(--button-bg-color);
+  color: var(--button-text-color);
+  font-size: var(--font-size_small);
+  font-weight: var(--font-weight_semibold);
+  line-height: 1;
+}
+
 .filter-panel-header {
   display: flex;
   flex-shrink: 0;
@@ -306,6 +352,10 @@ div#library_sidebar {
     margin: 0;
     font-size: var(--font-size_medium);
     font-weight: var(--font-weight_semibold);
+  }
+
+  alchemy-filter-panel-toggle {
+    margin-left: auto;
   }
 }
 

@@ -406,6 +406,8 @@ it:
     "File deleted successfully": "%{name} è stato eliminato"
     "Filter by tag": "Filtra per tag"
     "Filters": "Filtri"
+    "Hide filters": "Nascondi filtri"
+    "Show filters": "Mostra filtri"
     "Filter elements": "Filtra elementi"
     "Filter tags": "Filtra tag"
     "Flush page cache": "Svuota la cache delle pagine"
