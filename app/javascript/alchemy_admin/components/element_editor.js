@@ -438,7 +438,7 @@ export class ElementEditor extends HTMLElement {
    * Returns the immediate body container of this element if present
    *
    * Makes sure it does not return a nested elements body
-   * by scoping the selector to this elements id.
+   * by scoping the selector to this element.
    *
    * @returns {HTMLElement|undefined}
    */
@@ -447,19 +447,19 @@ export class ElementEditor extends HTMLElement {
   }
 
   get bodySelector() {
-    return `#${this.id} > .element-body`
+    return ":scope > .element-body"
   }
 
   /**
    * Returns the immediate footer container of this element if present
    *
    * Makes sure it does not return a nested elements footer
-   * by scoping the selector to this elements id.
+   * by scoping the selector to this element.
    *
    * @returns {HTMLElement|undefined}
    */
   get footer() {
-    return this.querySelector(`#${this.id} > .element-footer`)
+    return this.querySelector(":scope > .element-footer")
   }
 
   /**
@@ -543,7 +543,7 @@ export class ElementEditor extends HTMLElement {
    * @returns {HTMLFormElement|undefined}
    */
   get form() {
-    return this.querySelector(`#${this.id} > form.element-body`)
+    return this.querySelector(":scope > form.element-body")
   }
 
   /**

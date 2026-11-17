@@ -26,6 +26,11 @@ describe("Dialog", () => {
   })
 
   describe("init", () => {
+    // Elements inside a closed (display: none) dialog can not take focus.
+    beforeEach(() => {
+      dialog.dialog_container.open = true
+    })
+
     it("focuses the element with an autofocus attribute", () => {
       dialog.dialog_body.innerHTML =
         '<input id="without-focus"><input id="with-focus" autofocus>'
