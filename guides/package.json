@@ -13,7 +13,7 @@
     "vue": "^3.5.45"
   },
   "dependencies": {
-    "vitepress-plugin-llmstxt": "^0.5.1"
+    "vitepress-plugin-llmstxt": "^0.5.4"
   },
   "license": "MIT"
 }
