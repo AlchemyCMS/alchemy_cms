@@ -2,9 +2,7 @@
   <aside>
     <div class="resource_info">
       <div class="value">
-        <label>
-          <%= render_icon @attachment.icon_css_class %>
-        </label>
+        <label><%= Alchemy::Attachment.human_attribute_name(:file_name) %></label>
         <p><%= @attachment.file_name %></p>
       </div>
       <div class="value with-icon">
@@ -26,8 +24,6 @@
         ></alchemy-clipboard-button>
       </div>
     </div>
-
-    <hr>
 
     <%= render "alchemy/admin/resources/resource_usage_info",
       assignments: @assignments,
