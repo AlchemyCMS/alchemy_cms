@@ -33,8 +33,8 @@ RSpec.describe Alchemy::Admin::TagsList, type: :component do
     end
 
     context "with tagged objects" do
-      let(:tag) { mock_model(Gutentag::Tag, name: "foo", count: 1) }
-      let(:tag2) { mock_model(Gutentag::Tag, name: "abc", count: 1) }
+      let(:tag) { mock_model(Gutentag::Tag, name: "foo", taggings_count: 1) }
+      let(:tag2) { mock_model(Gutentag::Tag, name: "abc", taggings_count: 1) }
 
       before do
         expect(Alchemy::Attachment).to receive(:tag_counts).and_return([tag, tag2])
@@ -49,12 +49,17 @@ RSpec.describe Alchemy::Admin::TagsList, type: :component do
         expect(page).to have_selector("li[name='#{tag.name}']")
       end
 
+      it "renders the number of tagged items in its own element" do
+        expect(page).to have_selector("li[name='#{tag.name}'] a", text: tag.name)
+        expect(page).to have_selector("li[name='#{tag.name}'] a .tag-count", text: tag.taggings_count)
+      end
+
       it "tags are sorted alphabetically" do
         expect(page).to have_selector("li[name='#{tag2.name}'] + li[name='#{tag.name}']")
       end
 
       context "with lowercase and uppercase tag names mixed" do
-        let(:tag) { mock_model(Gutentag::Tag, name: "Foo", count: 1) }
+        let(:tag) { mock_model(Gutentag::Tag, name: "Foo", taggings_count: 1) }
 
         it "tags are sorted alphabetically correctly" do
           expect(page).to have_selector("li[name='#{tag2.name}'] + li[name='#{tag.name}']")

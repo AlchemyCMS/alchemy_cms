@@ -24,7 +24,7 @@ module Alchemy
         sorted_tags.map do |tag|
           content_tag("li", name: tag.name, class: filtered_by_tag?(tag) ? "active" : nil) do
             link_to(
-              "#{tag.name} (#{tag.taggings_count})",
+              safe_join([tag.name, " ", content_tag(:span, tag.taggings_count, class: "tag-count")]),
               helpers.url_for(
                 search_filter_params.except(:page, :tagged_with).merge(
                   tagged_with: tags_for_filter(current: tag).presence

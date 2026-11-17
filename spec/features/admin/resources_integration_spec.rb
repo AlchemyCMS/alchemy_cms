@@ -226,8 +226,8 @@ RSpec.describe "Resources", type: :system do
           visit "/admin/events"
 
           within "#library_sidebar" do
-            expect(page).to have_selector(".tag-list a", text: "remote (2)")
-            expect(page).to have_selector(".tag-list a", text: "onsite (1)")
+            expect(page).to have_selector(".tag-list a", text: "remote 2")
+            expect(page).to have_selector(".tag-list a", text: "onsite 1")
           end
         end
 
@@ -239,7 +239,7 @@ RSpec.describe "Resources", type: :system do
               expect(page).to have_selector("tr", count: 3)
             end
 
-            find("#library_sidebar .tag-list a", text: "onsite (1)").click
+            find("#library_sidebar .tag-list a", text: "onsite 1").click
 
             within "div#main_content table.list tbody" do
               expect(page).to have_selector("tr", count: 1)

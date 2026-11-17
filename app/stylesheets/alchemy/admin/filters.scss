@@ -1,18 +1,24 @@
-div#filter_bar,
-div#sorting_select {
-  margin-top: var(--spacing-2);
+div#filter_bar alchemy-auto-submit {
+  display: flex;
+  flex-direction: column;
+  gap: var(--form-row-gap);
 }
 
 .filter-input {
   display: flex;
   flex-direction: column;
-  margin: var(--spacing-2) 0;
+  gap: var(--form-label-gap);
+
+  > alchemy-auto-submit {
+    display: flex;
+    flex-direction: column;
+    gap: var(--form-label-gap);
+  }
 
   label:not(:has(input[type="checkbox"])) {
     display: block;
     font-weight: var(--font-weight_semibold);
     font-size: var(--font-size_medium);
-    margin-bottom: var(--spacing-1);
   }
 
   label:has(input[type="checkbox"]) {
@@ -22,8 +28,8 @@ div#sorting_select {
     cursor: pointer;
   }
 
-  &:has(select):not(:last-child) {
-    margin-bottom: var(--spacing-4);
+  &:has(input[type="checkbox"]) + &:has(input[type="checkbox"]) {
+    margin-top: calc(var(--form-check-gap) - var(--form-row-gap));
   }
 }
 
@@ -39,8 +45,7 @@ div#sorting_select {
   justify-content: space-between;
   gap: var(--spacing-1);
   padding: var(--spacing-1) var(--spacing-1) var(--spacing-1) var(--spacing-2);
-  border-radius: var(--border-radius_medium);
-  border: 1px solid var(--border-color);
+  border-radius: var(--sl-border-radius-pill);
   background-color: var(--tag-active-background-color);
   color: var(--tag-active-text-color);
   white-space: nowrap;
