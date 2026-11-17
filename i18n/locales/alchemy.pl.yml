@@ -566,7 +566,7 @@ pl:
     delete_node: "Usuń ten element menu"
     document: "Plik"
     download_csv: "Pobierz CSV"
-    download_file: "Pobierz plik '%{filename}'"
+    download_file: "Pobierz plik"
     do_you_really_want_to_delete_this_tag?: "Czy naprawdę chcesz usunąć ten tag?"
     drag_to_sort: "Przeciągnij i upuść, aby posortować obrazy"
     edit: "edytuj"

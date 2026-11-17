@@ -560,7 +560,7 @@ zh-CN:
     delete_tag: "删除标签"
     document: "文件"
     download_csv: "下载 CSV"
-    download_file: "下载文件 '%{filename}'"
+    download_file: "下载文件"
     do_you_really_want_to_delete_this_tag?: "你确认要删除这个标签？"
     drag_to_sort: "拖动来排序图片"
     edit_file_properties: "编辑文件属性。"

@@ -566,7 +566,7 @@ nb-NO:
     delete_node: "Slett dette menyelementet"
     document: "Fil"
     download_csv: "Last ned CSV"
-    download_file: "Last ned fil '%{filename}'"
+    download_file: "Last ned fil"
     do_you_really_want_to_delete_this_tag?: "Vil du virkelig slette denne taggen?"
     drag_to_sort: "Trekk-og-slipp for å sortere bilder"
     edit: "rediger"

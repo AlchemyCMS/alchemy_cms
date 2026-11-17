@@ -609,7 +609,7 @@ it:
     delete_user: "Elimina questo utente"
     document: "File"
     download_csv: "Scarica CSV"
-    download_file: "Scarica file '%{filename}'"
+    download_file: "Scarica file"
     do_you_really_want_to_delete_this_tag?: "Vuole veramente eliminare questo tag?"
     draft: "Bozza"
     drag_to_sort: "Clicca e trascina per riordinare le immagini"
