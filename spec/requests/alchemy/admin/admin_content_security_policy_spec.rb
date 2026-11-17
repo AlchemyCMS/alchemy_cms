@@ -52,6 +52,23 @@ RSpec.describe "Admin Content Security Policy" do
     expect(response.body).to include(%(<meta name="csp-nonce" content="#{nonce}"))
   end
 
+  it "generates a new nonce for every request" do
+    get alchemy.admin_dashboard_path
+    nonce = policy[/'nonce-([^']+)'/, 1]
+    get alchemy.admin_pages_path
+    expect(policy[/'nonce-([^']+)'/, 1]).to_not eq(nonce)
+  end
+
+  # Turbo re-runs the scripts of every body it renders under the nonce that
+  # body carries, which the policy of the first page load does not accept.
+  # Inline admin JavaScript has to be a custom element or a module instead.
+  it "renders no executable inline script outside the head" do
+    get alchemy.admin_dashboard_path
+    body = response.body.split("</head>", 2).last
+    inline_scripts = body.scan(/<script(?![^>]*\ssrc=)[^>]*>/)
+    expect(inline_scripts).to all(include(%(type="application/json")))
+  end
+
   it "allows modules that are pinned to a CDN" do
     Alchemy.importmap.pin "flatpickr/de", to: "https://ga.jspm.io/npm:flatpickr/de.js"
     get alchemy.admin_dashboard_path

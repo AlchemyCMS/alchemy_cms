@@ -52,6 +52,16 @@ module Alchemy
 
       # Authorizes the inline scripts Alchemy renders. It has to be
       # unguessable, otherwise injected markup could carry a valid nonce.
+      #
+      # Per request on purpose, so a captured nonce dies with the response.
+      # The cost is that an inline script in an admin body cannot survive a
+      # Turbo visit: Turbo keeps the document of the first page load, and the
+      # policy the browser enforces with it, but re-runs that body's scripts
+      # under the nonce the newly fetched body carries. Only a session wide
+      # nonce would match there, and admin JavaScript belongs in a custom
+      # element or an importmap module instead. The inline scripts we do
+      # render sit in the head and are identical on every admin page, which
+      # is why Turbo leaves them alone.
       def nonce_generator = ->(_request) { SecureRandom.base64(16) }
 
       def call
