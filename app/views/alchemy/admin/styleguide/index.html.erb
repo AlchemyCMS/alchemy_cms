@@ -274,10 +274,10 @@
 
 <h3>Growl Messages</h3>
 
-<%= link_to render_icon(:check), 'javascript:Alchemy.growl("Success message")', class: "icon_button" %>
-<%= link_to render_icon(:info), 'javascript:Alchemy.growl("Info message", "info")', class: "icon_button" %>
-<%= link_to render_icon(:alert), 'javascript:Alchemy.growl("Warning message", "warn")', class: "icon_button" %>
-<%= link_to render_icon(:bug), 'javascript:Alchemy.growl("Error message", "error")', class: "icon_button" %>
+<%= link_to render_icon(:check), alchemy.admin_styleguide_path(growl: "notice"), class: "icon_button" %>
+<%= link_to render_icon(:info), alchemy.admin_styleguide_path(growl: "info"), class: "icon_button" %>
+<%= link_to render_icon(:alert), alchemy.admin_styleguide_path(growl: "warn"), class: "icon_button" %>
+<%= link_to render_icon(:bug), alchemy.admin_styleguide_path(growl: "error"), class: "icon_button" %>
 
 <h2>Dialog Links</h2>
 
