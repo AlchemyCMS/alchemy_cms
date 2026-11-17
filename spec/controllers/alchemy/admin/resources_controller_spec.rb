@@ -212,6 +212,38 @@ RSpec.describe Alchemy::Admin::ResourcesController do
     end
   end
 
+  describe "#applied_tags" do
+    it "returns the tag names from the tagged_with param" do
+      get :index, params: {tagged_with: "workshop, ruby"}
+      expect(controller.send(:applied_tags)).to eq(["workshop", "ruby"])
+    end
+
+    it "returns an empty array without tags" do
+      get :index
+      expect(controller.send(:applied_tags)).to eq([])
+    end
+  end
+
+  describe "#reset_filters_url" do
+    let(:search_field) { controller.send(:resource_handler).search_field_name }
+
+    it "keeps the search term, sort order and per page setting, but drops filters, tags and page" do
+      get :index, params: {
+        q: {"by_location_id" => "1", search_field => "rails", "s" => "name asc"},
+        tagged_with: "ruby",
+        page: 2,
+        per_page: 30
+      }
+      url = URI.parse(controller.send(:reset_filters_url))
+
+      expect(url.path).to eq("/admin/events")
+      expect(Rack::Utils.parse_nested_query(url.query)).to eq(
+        "per_page" => "30",
+        "q" => {search_field => "rails", "s" => "name asc"}
+      )
+    end
+  end
+
   describe "#common_search_filter_includes" do
     before do
       allow(controller).to receive(:alchemy_module) { {name: "events"} }

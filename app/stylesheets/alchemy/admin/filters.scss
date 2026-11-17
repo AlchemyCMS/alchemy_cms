@@ -38,6 +38,10 @@ div#filter_bar alchemy-auto-submit {
   align-items: center;
   gap: var(--spacing-2);
   margin: var(--spacing-2) 0 var(--spacing-4) 0;
+
+  .clear-filters {
+    color: var(--text-link-color);
+  }
 }
 
 .applied-filter {
