@@ -8,7 +8,8 @@ module Alchemy
       COMMON_SEARCH_FILTER_EXCLUDES = %i[id utf8 _method _ format].freeze
 
       included do
-        helper_method :alchemy_filters, :search_form_name, :applied_filters, :search_filter_params, :resource_has_filters
+        helper_method :alchemy_filters, :search_form_name, :applied_filters, :search_filter_params, :resource_has_filters,
+          :applied_tags, :reset_filters_url
       end
 
       class_methods do
@@ -69,6 +70,19 @@ module Alchemy
         alchemy_filters.select do |alchemy_filter|
           search_filter_params[:q][alchemy_filter.name].present?
         end
+      end
+
+      def applied_tags
+        search_filter_params[:tagged_with].to_s.split(/,\s*/).compact_blank
+      end
+
+      def reset_filters_url
+        filter_names = alchemy_filters.map { |filter| filter.name.to_s }
+        query = search_filter_params[:q].to_h.except(*filter_names).presence
+
+        resource_url_proxy.url_for(
+          search_filter_params.to_h.except("tagged_with", "page", "q").merge(action: "index", q: query, only_path: true)
+        )
       end
     end
   end

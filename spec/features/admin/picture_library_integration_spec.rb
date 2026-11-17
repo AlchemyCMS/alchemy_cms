@@ -174,6 +174,12 @@ RSpec.describe "Picture Library", type: :system do
       expect(page).to have_content("bla")
     end
 
+    scenario "shows the selected tag as a removable filter chip" do
+      visit alchemy.admin_pictures_path(tagged_with: "bla")
+
+      expect(page).to have_selector(".applied-filters .applied-filter", text: "Tag: bla")
+    end
+
     scenario "it's possible to filter pictures by tag." do
       visit alchemy.admin_pictures_path
 
