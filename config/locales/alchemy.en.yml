@@ -372,6 +372,8 @@ en:
     "File deleted successfully": "%{name} has been deleted"
     "Filter by tag": "Filter by tag"
     "Filters": "Filters"
+    "Hide filters": "Hide filters"
+    "Show filters": "Show filters"
     "Flush page cache": "Flush page cache"
     "Flush picture cache": "Flush picture cache"
     "Global shortcuts": "Global shortcuts"

@@ -79,6 +79,25 @@ RSpec.describe "Resources", type: :system do
       end
     end
 
+    describe "collapsing the filter panel", :js do
+      it "collapses the panel to a rail and remembers it" do
+        visit "/admin/events"
+        find("#library_sidebar button[aria-label='Hide filters']").click
+
+        expect(page).to have_css("body.filter-panel-collapsed")
+        expect(page).to have_css("#library_sidebar button[aria-label='Show filters']", visible: true)
+        expect(page).to_not have_css("#library_sidebar .filter-panel-header", visible: true)
+
+        visit "/admin/events"
+        expect(page).to have_css("body.filter-panel-collapsed")
+
+        find("#library_sidebar button[aria-label='Show filters']").click
+
+        expect(page).to_not have_css("body.filter-panel-collapsed")
+        expect(page).to have_css("#library_sidebar .filter-panel-header", visible: true)
+      end
+    end
+
     describe "filters" do
       let(:filter_count) { 2 }
 

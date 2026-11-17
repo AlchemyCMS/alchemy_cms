@@ -410,6 +410,8 @@ nl:
     "File preview": "Bestandsvoorvertoning"
     "Filter by tag": "Op tag filteren"
     "Filters": "Filters"
+    "Hide filters": "Filters verbergen"
+    "Show filters": "Filters tonen"
     "Filter elements": "Elementen filteren"
     "Filter tags": "Tags filteren"
     "Flush page cache": "Paginacache leegmaken"
