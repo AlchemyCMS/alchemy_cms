@@ -365,6 +365,7 @@ pl:
     "File deleted successfully": "%{name} został usunięty"
     "File preview": "Podgląd pliku"
     "Filter by tag": "Filtruj po tagu"
+    "Filters": "Filtry"
     "Filter elements": "Filtruj elementy"
     "Filter tags": "Filtruj tagi"
     "Flush page cache": "Wyczyść pamięć podręczną stron"

@@ -405,6 +405,7 @@ it:
     "File preview": "Anteprima file"
     "File deleted successfully": "%{name} è stato eliminato"
     "Filter by tag": "Filtra per tag"
+    "Filters": "Filtri"
     "Filter elements": "Filtra elementi"
     "Filter tags": "Filtra tag"
     "Flush page cache": "Svuota la cache delle pagine"

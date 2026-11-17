@@ -400,6 +400,7 @@ zh-CN:
     "File successfully updated": "文件已成功更新"
     "File deleted successfully": "%{name} 已经被删除"
     "Filter by tag": "按标签过滤"
+    "Filters": "筛选"
     "Flush page cache": "清空页面缓存"
     "Flush picture cache": "清空图片缓存"
     "Global shortcuts": "全局快捷键"

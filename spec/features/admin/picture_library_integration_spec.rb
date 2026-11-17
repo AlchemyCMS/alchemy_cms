@@ -135,7 +135,7 @@ RSpec.describe "Picture Library", type: :system do
     scenario "it's possible to filter tags by clicking on its name in the tag list." do
       visit alchemy.admin_pictures_path
 
-      click_on "tag1 (1)"
+      click_on "tag1 1"
 
       expect(page).to have_content("TaggedWith1")
       expect(page).not_to have_content("TaggedWith2")
@@ -144,12 +144,12 @@ RSpec.describe "Picture Library", type: :system do
     scenario "it's possible to undo tag filtering by clicking on an active tag name" do
       visit alchemy.admin_pictures_path
 
-      click_on "tag1 (1)"
+      click_on "tag1 1"
 
       expect(page).to have_content("TaggedWith1")
       expect(page).not_to have_content("TaggedWith2")
 
-      click_on "tag1 (1)"
+      click_on "tag1 1"
 
       expect(page).to have_content("TaggedWith1")
       expect(page).to have_content("TaggedWith2")
@@ -158,8 +158,8 @@ RSpec.describe "Picture Library", type: :system do
     scenario "it's possible to tighten the tag scope by clicking on another tag name." do
       visit alchemy.admin_pictures_path
 
-      click_on "tag1 (1)"
-      click_on "tag2 (1)"
+      click_on "tag1 1"
+      click_on "tag2 1"
 
       expect(page).to have_content("Your search did not return any results")
     end
@@ -177,7 +177,7 @@ RSpec.describe "Picture Library", type: :system do
     scenario "it's possible to filter pictures by tag." do
       visit alchemy.admin_pictures_path
 
-      click_on "bla (1)"
+      click_on "bla 1"
 
       expect(page).to have_content("bla")
     end
