@@ -149,8 +149,9 @@
   --main-menu-hover-bg-color: hsl(215deg, 30%, 17%);
   --main-menu-active-bg-color: var(--accent-tint-color);
   --main-menu-active-text-color: var(--accent-tint-text-color);
-  --main-menu-text-color: hsl(215deg, 25%, 82%);
-  --main-menu-icon-color: var(--main-menu-text-color);
+  --main-menu-text-color: var(--text-color);
+  --main-menu-icon-color: var(--icon-color);
+  --main-menu-border-color: hsl(215deg, 25%, 18%);
 
   /* Notices */
   --notice-success-background-color: hsl(88deg, 47%, 20%);
@@ -465,8 +466,9 @@
   --main-menu-hover-bg-color: hsl(215deg, 25%, 89%);
   --main-menu-active-bg-color: var(--accent-tint-color);
   --main-menu-active-text-color: var(--accent-tint-text-color);
-  --main-menu-text-color: hsl(215deg, 20%, 28%);
-  --main-menu-icon-color: var(--main-menu-text-color);
+  --main-menu-text-color: var(--text-color);
+  --main-menu-icon-color: var(--icon-color);
+  --main-menu-border-color: var(--border-color);
 
   /* Notices */
   --notice-success-background-color: hsl(88deg, 47%, 88%);

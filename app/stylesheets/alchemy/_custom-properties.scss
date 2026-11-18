@@ -158,7 +158,13 @@
   --icon-size-xxl: 1.6rem;
 
   /* Navigation */
-  --main-menu-width: 170px;
+  --main-menu-width: 190px;
+  --main-menu-inset: calc(var(--spacing-2) + var(--spacing-0));
+  // Exactly the icon column of the expanded menu, so the icons do not move
+  // when the menu collapses.
+  --main-menu-collapsed-width: calc(
+    4 * var(--main-menu-inset) + var(--icon-size-md) + var(--border-width_small)
+  );
   --top-menu-height: 75px;
   --main-menu-entry-max-width: 110px;
 

@@ -49,15 +49,11 @@ div#overlay_text_box {
 #logout {
   z-index: 1;
   flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0);
   width: 100%;
-
-  .main_navi_entry {
-    margin-bottom: 0;
-  }
-
-  &:not(:hover) {
-    background-color: var(--main-menu-bg-color);
-  }
+  padding-bottom: var(--main-menu-inset);
 }
 
 #header {
