@@ -901,6 +901,7 @@ nl:
       attachment: "Dit bestand is nog niet in gebruik."
       picture: "Deze afbeelding is nog niet in gebruik."
     timezone: "Tijdzone"
+    language: "Taal"
     title: "Titel"
     to_alchemy: "Naar Alchemy"
     "trash element": "Element naar de prullenbak verplaatsen"

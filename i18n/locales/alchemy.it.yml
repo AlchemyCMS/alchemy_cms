@@ -909,6 +909,7 @@ it:
     tags: "Tag"
     tags_get_created_if_used_the_first_time: "I tag vengono creati se usati per la prima volta."
     timezone: "Fuso orario"
+    language: "Lingua"
     title: "Titolo"
     to_alchemy: "Torna ad Alchemy"
     "trash element": "Metti l'elemento nel cestino"

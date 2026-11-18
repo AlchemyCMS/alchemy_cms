@@ -857,6 +857,7 @@ pl:
       attachment: "Ten plik nie jest jeszcze w użyciu."
       picture: "Ten obraz nie jest jeszcze w użyciu."
     timezone: "Strefa czasowa"
+    language: "Język"
     title: "Tytuł"
     to_alchemy: "Do Alchemy"
     "trash element": "Przenieś element do kosza"

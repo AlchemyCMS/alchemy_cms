@@ -622,6 +622,7 @@ ru:
     insert_image: "Вставить изображение"
     tag_list: Метки
     tags_get_created_if_used_the_first_time: "Метки создаются автоматически, если используются в первый раз."
+    language: "Язык"
     title: "Название"
     to_alchemy: "В панель управления"
     "trash element": "Переместить элемент в корзину"
