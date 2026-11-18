@@ -37,7 +37,7 @@ module Alchemy
       private
 
       def alchemy_user_scope
-        Devise::Mapping.find_scope!(Alchemy::User)
+        ::Devise::Mapping.find_scope!(Alchemy::User)
       end
 
       def require_user

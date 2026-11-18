@@ -17,7 +17,7 @@ RSpec.describe Alchemy::Admin::UserImpersonationsController do
 
   describe "#alchemy_user_scope" do
     it "derives the scope from the Alchemy user Devise mapping" do
-      expect(Devise::Mapping).to receive(:find_scope!).with(Alchemy::User).and_return(:alchemy_user)
+      expect(::Devise::Mapping).to receive(:find_scope!).with(Alchemy::User).and_return(:alchemy_user)
 
       expect(controller.send(:alchemy_user_scope)).to eq(:alchemy_user)
     end
