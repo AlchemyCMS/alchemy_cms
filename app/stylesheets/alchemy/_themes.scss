@@ -136,7 +136,7 @@
   --page-definitions-icon-button-hover-bg-color: var(--a-light-grey);
 
   /* Icons */
-  --icon-color: hsl(215deg, 15%, 72%);
+  --icon-color: var(--text-color);
 
   --image-overlay-box-shadow: -4px 0 4px 0px hsla(0deg, 0%, 0%, 0.5);
   --image-overlay-hover-bg-color: var(--a-darker-grey);
@@ -454,7 +454,7 @@
   --page-definitions-icon-button-hover-bg-color: var(--icon-button-hover-bg-color);
 
   /* Icons */
-  --icon-color: hsl(215deg, 15%, 40%);
+  --icon-color: var(--text-color);
 
   --image-overlay-box-shadow: -4px 0 4px 0px var(--text-color);
   --image-overlay-hover-bg-color: var(--color-grey_light);
