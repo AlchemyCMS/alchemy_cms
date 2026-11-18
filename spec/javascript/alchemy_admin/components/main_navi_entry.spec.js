@@ -16,7 +16,8 @@ const { computePositionMock, autoUpdateMock, stopMock } = vi.hoisted(() => {
 vi.mock("@floating-ui/dom", () => ({
   computePosition: computePositionMock,
   autoUpdate: autoUpdateMock,
-  flip: vi.fn(() => ({}))
+  flip: vi.fn(() => ({})),
+  offset: vi.fn(() => ({}))
 }))
 
 import { renderComponent } from "./component.helper"
