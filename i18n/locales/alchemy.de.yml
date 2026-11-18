@@ -965,6 +965,7 @@ de:
       attachment: "Diese Datei wird bisher nicht verwendet."
       picture: "Dieses Bild wird bisher nicht verwendet."
     timezone: "Zeitzone"
+    language: "Sprache"
     title: "Titel"
     to_alchemy: "Zu Alchemy"
     "trash element": "Element in den Papierkorb legen"

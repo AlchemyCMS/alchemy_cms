@@ -1,4 +1,5 @@
 @use "base";
+@use "../mixins";
 @use "../variables" as vars;
 
 #top_menu {
@@ -393,6 +394,119 @@
 
   .page_language {
     text-transform: uppercase;
+  }
+}
+
+.user-menu {
+  display: block;
+  margin: var(--spacing-2) var(--main-menu-inset) 0;
+  padding-top: var(--spacing-2);
+  border-top: var(--border-width_small) var(--border-style)
+    var(--main-menu-border-color);
+
+  sl-dropdown {
+    display: block;
+  }
+}
+
+.user-menu-trigger {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing-2) + var(--spacing-0));
+  width: 100%;
+  min-height: calc(var(--button-height) + var(--spacing-2));
+  padding: 0 var(--spacing-2) 0 var(--spacing-1);
+  border-radius: var(--border-radius_medium);
+  color: var(--main-menu-text-color);
+  cursor: pointer;
+  transition: background-color var(--transition-duration)
+    var(--transition-easing);
+
+  &:hover,
+  &:focus-visible,
+  sl-dropdown[open] & {
+    background-color: var(--main-menu-hover-bg-color);
+  }
+
+  @include collapsed-menu {
+    justify-content: center;
+    padding: 0;
+
+    .user-menu-label,
+    > alchemy-icon {
+      display: none;
+    }
+  }
+}
+
+.user-menu-label {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+  line-height: var(--form-field-line-height);
+}
+
+.user-menu-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: var(--font-weight_semibold);
+}
+
+.user-menu-meta {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-color-muted);
+  font-size: var(--font-size_small);
+}
+
+.user-avatar {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--icon-button-medium-width);
+  height: var(--icon-button-medium-height);
+  border-radius: var(--sl-border-radius-circle);
+  background-color: var(--main-menu-active-bg-color);
+  color: var(--main-menu-active-text-color);
+  font-size: var(--font-size_medium);
+  font-weight: var(--font-weight_semibold);
+}
+
+.alchemy-popover.user-menu-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--form-row-gap);
+  min-width: var(--select-x-large-width);
+  padding: var(--spacing-4);
+
+  .current-user-name {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    font-weight: var(--font-weight_semibold);
+  }
+
+  .timezone-select,
+  .user-menu-locale {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--form-label-gap);
+
+    select {
+      width: 100%;
+    }
+  }
+
+  label {
+    @include mixins.form-label;
+    font-weight: var(--font-weight_semibold);
   }
 }
 

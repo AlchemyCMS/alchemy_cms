@@ -955,6 +955,7 @@ es:
     tags_get_created_if_used_the_first_time: "Se crearán las etiquetas usadas por primera vez."
     this_picture_is_used_on_these_pages: "Esta imagen se usa en las siguientes páginas"
     timezone: "Zona horaria"
+    language: "Idioma"
     title: "Título"
     to_alchemy: "Ir a Alchemy"
     "trash element": "Poner el elemento en la papelera"

@@ -857,6 +857,7 @@ nb-NO:
       attachment: "Denne filen er ikke i bruk ennå."
       picture: "Dette bildet er ikke i bruk ennå."
     timezone: "Tidssone"
+    language: "Språk"
     title: "Tittel"
     to_alchemy: "Til Alchemy"
     "trash element": "Legg element i papirkurv"
