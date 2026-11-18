@@ -15,7 +15,7 @@ module Alchemy
         raise CanCan::AccessDenied if impersonating?
 
         session[ORIGINAL_USER_ID_SESSION_KEY] = current_alchemy_user.id
-        warden.set_user(target, scope: :user)
+        warden.set_user(target, scope: alchemy_user_scope)
         redirect_to impersonation_redirect_path, allow_other_host: false
       end
 
@@ -26,15 +26,19 @@ module Alchemy
         clear_impersonation
 
         if original_user
-          warden.set_user(original_user, scope: :user)
+          warden.set_user(original_user, scope: alchemy_user_scope)
           redirect_to admin_users_path, allow_other_host: false
         else
-          warden.logout(:user)
+          warden.logout(alchemy_user_scope)
           redirect_to Alchemy.config.login_path, allow_other_host: false
         end
       end
 
       private
+
+      def alchemy_user_scope
+        Devise::Mapping.find_scope!(Alchemy::User)
+      end
 
       def require_user
         return if current_alchemy_user
