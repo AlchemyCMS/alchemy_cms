@@ -15,15 +15,21 @@ class MainNaviEntry extends HTMLElement {
   connectedCallback() {
     this.addEventListener("mouseenter", this.#open)
     this.addEventListener("mouseleave", this.#close)
+    this.addEventListener("focusin", this.#open)
+    this.addEventListener("focusout", this.#closeOnFocusLeave)
   }
 
   disconnectedCallback() {
     this.removeEventListener("mouseenter", this.#open)
     this.removeEventListener("mouseleave", this.#close)
+    this.removeEventListener("focusin", this.#open)
+    this.removeEventListener("focusout", this.#closeOnFocusLeave)
     this.#close()
   }
 
   #open = () => {
+    if (this.#flyout) return
+
     const flyout = this.#flyoutElement()
     if (!flyout) return
 
@@ -55,6 +61,11 @@ class MainNaviEntry extends HTMLElement {
         })
       })
     })
+  }
+
+  #closeOnFocusLeave = (event) => {
+    if (this.contains(event.relatedTarget)) return
+    this.#close()
   }
 
   #close = () => {
