@@ -5,10 +5,10 @@
       <%= page_layout_missing_warning %>
     <% elsif layoutpage.locked? %>
       <sl-tooltip class="like-hint-tooltip" content="<%= Alchemy.t("This page is locked", name: layoutpage.locker_name) %>">
-        <%= render_icon "file-edit", size: "xl" %>
+        <%= render_icon "file-edit" %>
       </sl-tooltip>
     <% else %>
-      <%= render_icon "file", size: "xl" %>
+      <%= render_icon "file" %>
     <% end %>
     </div>
     <div class="sitemap_sitename without-status">
