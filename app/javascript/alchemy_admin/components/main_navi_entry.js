@@ -1,4 +1,4 @@
-import { autoUpdate, computePosition, flip } from "@floating-ui/dom"
+import { autoUpdate, computePosition, flip, offset } from "@floating-ui/dom"
 
 const SCREEN_PADDING = 8
 
@@ -15,17 +15,32 @@ class MainNaviEntry extends HTMLElement {
   connectedCallback() {
     this.addEventListener("mouseenter", this.#open)
     this.addEventListener("mouseleave", this.#close)
+    this.addEventListener("focusin", this.#open)
+    this.addEventListener("focusout", this.#closeOnFocusLeave)
   }
 
   disconnectedCallback() {
     this.removeEventListener("mouseenter", this.#open)
     this.removeEventListener("mouseleave", this.#close)
+    this.removeEventListener("focusin", this.#open)
+    this.removeEventListener("focusout", this.#closeOnFocusLeave)
     this.#close()
   }
 
   #open = () => {
+    if (this.#flyout) return
+
     const flyout = this.#flyoutElement()
     if (!flyout) return
+
+    const style = getComputedStyle(flyout)
+    const gap =
+      parseFloat(style.getPropertyValue("--main-menu-flyout-offset")) || 0
+    // Shift the flyout up by its own padding and border, so its first row
+    // lines up with the entry.
+    const inset =
+      (parseFloat(style.paddingTop) || 0) +
+      (parseFloat(style.borderTopWidth) || 0)
 
     this.#flyout = flyout
     this.#stopAutoUpdate = autoUpdate(this, flyout, () => {
@@ -35,6 +50,7 @@ class MainNaviEntry extends HTMLElement {
         // Keep the flyout anchored to the entry: when there is no room below,
         // flip to bottom alignment instead of drifting away from the entry.
         middleware: [
+          offset({ mainAxis: gap, crossAxis: -inset }),
           flip({ fallbackPlacements: ["right-end"], padding: SCREEN_PADDING })
         ]
       }).then(({ x, y }) => {
@@ -45,6 +61,11 @@ class MainNaviEntry extends HTMLElement {
         })
       })
     })
+  }
+
+  #closeOnFocusLeave = (event) => {
+    if (this.contains(event.relatedTarget)) return
+    this.#close()
   }
 
   #close = () => {

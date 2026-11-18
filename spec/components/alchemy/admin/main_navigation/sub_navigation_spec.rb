@@ -8,6 +8,7 @@ RSpec.describe Alchemy::Admin::MainNavigation::SubNavigation, type: :component d
   let(:item) do
     Alchemy::Configurations::MenuItem.new(
       name: "archive",
+      title: "Library",
       url: -> { alchemy.admin_pictures_path },
       children: [
         {title: "Pictures", url: -> { alchemy.admin_pictures_path }, condition: -> { can?(:index, :alchemy_admin_pictures) }},
@@ -24,6 +25,11 @@ RSpec.describe Alchemy::Admin::MainNavigation::SubNavigation, type: :component d
     render
     expect(page).to have_css(".sub_navigation .subnavi_tab a[href='/admin/pictures']", text: "Pictures")
     expect(page).to have_css(".sub_navigation .subnavi_tab a[href='/admin/attachments']", text: "Attachments")
+  end
+
+  it "renders the module title for the flyout" do
+    render
+    expect(page).to have_css(".sub_navigation .sub_navigation_title", text: "Library")
   end
 
   it "marks the child of the current path as active" do

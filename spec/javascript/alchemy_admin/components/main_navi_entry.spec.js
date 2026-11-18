@@ -16,7 +16,8 @@ const { computePositionMock, autoUpdateMock, stopMock } = vi.hoisted(() => {
 vi.mock("@floating-ui/dom", () => ({
   computePosition: computePositionMock,
   autoUpdate: autoUpdateMock,
-  flip: vi.fn(() => ({}))
+  flip: vi.fn(() => ({})),
+  offset: vi.fn(() => ({}))
 }))
 
 import { renderComponent } from "./component.helper"
@@ -104,5 +105,56 @@ describe("alchemy-main-navi-entry", () => {
     expect(flyout.style.position).toEqual("")
     expect(flyout.style.left).toEqual("")
     expect(flyout.style.top).toEqual("")
+  })
+
+  it("opens the flyout when the entry receives keyboard focus", async () => {
+    const entry = renderComponent("alchemy-main-navi-entry", withSubNavigation)
+    entry
+      .querySelector("a")
+      .dispatchEvent(new FocusEvent("focusin", { bubbles: true }))
+    await flushPromises()
+
+    const flyout = entry.querySelector(".sub_navigation")
+    expect(computePositionMock).toHaveBeenCalledWith(
+      entry,
+      flyout,
+      expect.objectContaining({ strategy: "fixed", placement: "right-start" })
+    )
+    expect(flyout.style.position).toEqual("fixed")
+  })
+
+  it("keeps the flyout open while focus moves into it", async () => {
+    const entry = renderComponent("alchemy-main-navi-entry", withSubNavigation)
+    const link = entry.querySelector("a")
+    const flyoutLink = entry.querySelector(".sub_navigation a")
+    link.dispatchEvent(new FocusEvent("focusin", { bubbles: true }))
+    await flushPromises()
+
+    stopMock.mockClear()
+    link.dispatchEvent(
+      new FocusEvent("focusout", { bubbles: true, relatedTarget: flyoutLink })
+    )
+
+    expect(stopMock).not.toHaveBeenCalled()
+    expect(entry.querySelector(".sub_navigation").style.position).toEqual(
+      "fixed"
+    )
+  })
+
+  it("closes the flyout when focus leaves the entry", async () => {
+    const entry = renderComponent("alchemy-main-navi-entry", withSubNavigation)
+    const link = entry.querySelector("a")
+    link.dispatchEvent(new FocusEvent("focusin", { bubbles: true }))
+    await flushPromises()
+
+    link.dispatchEvent(
+      new FocusEvent("focusout", {
+        bubbles: true,
+        relatedTarget: document.body
+      })
+    )
+
+    expect(stopMock).toHaveBeenCalled()
+    expect(entry.querySelector(".sub_navigation").style.position).toEqual("")
   })
 })

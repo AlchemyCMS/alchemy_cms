@@ -6,6 +6,7 @@ module Alchemy
       class SubNavigation < ViewComponent::Base
         erb_template <<~ERB
           <div class="sub_navigation">
+            <div class="sub_navigation_title"><%= Alchemy.t(item.title) %></div>
             <% item.children.each do |child| %>
               <% if child.visible?(helpers) %>
                 <div class="subnavi_tab<%= " active" if child.active?(helpers) %>">
