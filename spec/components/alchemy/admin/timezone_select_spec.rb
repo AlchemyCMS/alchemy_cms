@@ -30,3 +30,19 @@ RSpec.describe Alchemy::Admin::TimezoneSelect, type: :component do
     expect(page).to have_selector("form.timezone-select[action='/admin/dashboard']")
   end
 end
+
+RSpec.describe Alchemy::Admin::TimezoneSelect, "with inline: true", type: :component do
+  subject! do
+    allow(vc_test_request).to receive(:path) { "/admin/dashboard" }
+    render_inline described_class.new(inline: true)
+  end
+
+  it "renders only the timezone form" do
+    expect(page).to have_selector("form.timezone-select[action='/admin/dashboard'] select[name='admin_timezone']")
+  end
+
+  it "does not render a dropdown" do
+    expect(page).not_to have_selector("sl-dropdown")
+    expect(page).not_to have_selector("sl-tooltip")
+  end
+end

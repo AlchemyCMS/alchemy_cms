@@ -2,7 +2,13 @@ module Alchemy
   module Admin
     # Renders a timezone select dropdown triggered by an icon button.
     class TimezoneSelect < ViewComponent::Base
+      def initialize(inline: false)
+        @inline = inline
+      end
+
       def call
+        return timezone_form if @inline
+
         tag.div(class: "alchemy-timezone-select") do
           content_tag("sl-tooltip", content: current_timezone, placement: "left") do
             content_tag("sl-dropdown", distance: 5) do
@@ -21,17 +27,19 @@ module Alchemy
       end
 
       def popover_content
-        content_tag(:div, class: "alchemy-popover") do
-          form_tag(request.path, method: :get, class: "timezone-select") do
-            label_tag(:admin_timezone, Alchemy.t(:timezone)) +
-              content_tag("alchemy-auto-submit") do
-                select_tag(
-                  :admin_timezone,
-                  options_for_select(timezones_for_select, current_timezone),
-                  is: "alchemy-select"
-                )
-              end
-          end
+        content_tag(:div, class: "alchemy-popover") { timezone_form }
+      end
+
+      def timezone_form
+        form_tag(request.path, method: :get, class: "timezone-select") do
+          label_tag(:admin_timezone, Alchemy.t(:timezone)) +
+            content_tag("alchemy-auto-submit") do
+              select_tag(
+                :admin_timezone,
+                options_for_select(timezones_for_select, current_timezone),
+                is: "alchemy-select"
+              )
+            end
         end
       end
 
