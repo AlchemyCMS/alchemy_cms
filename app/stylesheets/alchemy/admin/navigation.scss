@@ -72,6 +72,36 @@
   @extend .disable-user-select;
 }
 
+.main-navi-logo {
+  --main-menu-logo-size: 24px;
+  --main-menu-logo-font-size: 1.2rem;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: calc(var(--spacing-1) + var(--spacing-0));
+  height: var(--top-menu-height);
+  padding-left: calc(var(--spacing-4) + var(--spacing-0));
+  color: var(--main-menu-logo-color);
+  font-size: var(--main-menu-logo-font-size);
+  font-weight: var(--font-weight_bold);
+
+  svg {
+    flex: none;
+    width: var(--main-menu-logo-size);
+    height: var(--main-menu-logo-size);
+  }
+
+  span {
+    display: none;
+  }
+
+  @include expanded-menu {
+    span {
+      display: inline;
+    }
+  }
+}
+
 #main_navi {
   // Consume the space left over by the logout entry and scroll within it.
   // min-height: 0 lets this flex item shrink below its content so the
