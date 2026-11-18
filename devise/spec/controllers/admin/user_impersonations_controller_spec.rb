@@ -15,6 +15,14 @@ RSpec.describe Alchemy::Admin::UserImpersonationsController do
     stub_config(Alchemy::Devise.config, user_impersonation: true)
   end
 
+  describe "#alchemy_user_scope" do
+    it "derives the scope from the Alchemy user Devise mapping" do
+      expect(Devise::Mapping).to receive(:find_scope!).with(Alchemy::User).and_return(:alchemy_user)
+
+      expect(controller.send(:alchemy_user_scope)).to eq(:alchemy_user)
+    end
+  end
+
   describe "POST #create" do
     it "stores the administrator, switches the Warden user, and redirects to the frontend" do
       post :create, params: {user_id: member.id}
