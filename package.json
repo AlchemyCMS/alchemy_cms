@@ -40,7 +40,7 @@
     "eslint": "^10.14.0",
     "jsdom": "^30.1.3",
     "jsdom-testing-mocks": "^1.16.0",
-    "prettier": "^3.9.10",
+    "prettier": "^3.10.0",
     "remixicon": "^4.9.1",
     "rollup": "^4.68.2",
     "sass": "^1.108.1",
