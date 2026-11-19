@@ -22,9 +22,20 @@ RSpec.describe "Locked pages feature", type: :system do
     end
   end
 
+  it "marks the tab of the page being edited as current" do
+    visit alchemy.edit_admin_page_path(a_page)
+    expect(page).to have_css("#locked_page_#{a_page.id}.current")
+  end
+
+  it "marks the tab as current when the editor is opened with an anchor or parameters" do
+    visit alchemy.edit_admin_page_path(a_page, foo: "bar", anchor: "element_1")
+    expect(page).to have_css("#locked_page_#{a_page.id}.current")
+  end
+
   it "unlocks the page and removes its tab when clicking unlock", :js do
     visit alchemy.admin_pages_path
 
+    find("#locked_page_#{a_page.id}").hover
     within "#locked_page_#{a_page.id}" do
       find("button[title='#{Alchemy.t(:explain_unlocking)}']").click
     end

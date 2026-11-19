@@ -405,6 +405,7 @@ it:
     "File preview": "Anteprima file"
     "File deleted successfully": "%{name} è stato eliminato"
     "Filter by tag": "Filtra per tag"
+    "All locked pages": "Tutte le pagine bloccate"
     "Filters": "Filtri"
     "Hide filters": "Nascondi filtri"
     "Show filters": "Mostra filtri"

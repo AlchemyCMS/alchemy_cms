@@ -409,6 +409,7 @@ nl:
     "File deleted successfully": "%{name} verwijderd"
     "File preview": "Bestandsvoorvertoning"
     "Filter by tag": "Op tag filteren"
+    "All locked pages": "Alle vergrendelde pagina's"
     "Filters": "Filters"
     "Hide filters": "Filters verbergen"
     "Show filters": "Filters tonen"

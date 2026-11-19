@@ -165,7 +165,8 @@
   --main-menu-collapsed-width: calc(
     4 * var(--main-menu-inset) + var(--icon-size-md) + var(--border-width_small)
   );
-  --top-menu-height: calc(var(--header-height) + var(--toolbar-height));
+  --top-menu-height: var(--toolbar-height);
+  --locked-pages-height: 36px;
   --main-menu-entry-max-width: 110px;
 
   /* Pagination */
