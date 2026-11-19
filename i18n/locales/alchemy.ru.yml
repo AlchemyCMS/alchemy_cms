@@ -252,6 +252,7 @@ ru:
     "File deleted successfully": "%{name} файл удален"
     "Filter": "Фильтровать"
     "Filter by tag": "Фильтровать по меткам"
+    "All locked pages": "Все заблокированные страницы"
     "Filters": "Фильтры"
     "Hide filters": "Скрыть фильтры"
     "Show filters": "Показать фильтры"
@@ -622,6 +623,7 @@ ru:
     insert_image: "Вставить изображение"
     tag_list: Метки
     tags_get_created_if_used_the_first_time: "Метки создаются автоматически, если используются в первый раз."
+    language: "Язык"
     title: "Название"
     to_alchemy: "В панель управления"
     "trash element": "Переместить элемент в корзину"

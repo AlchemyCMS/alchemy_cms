@@ -400,6 +400,7 @@ zh-CN:
     "File successfully updated": "文件已成功更新"
     "File deleted successfully": "%{name} 已经被删除"
     "Filter by tag": "按标签过滤"
+    "All locked pages": "所有已锁定的页面"
     "Filters": "筛选"
     "Hide filters": "隐藏筛选"
     "Show filters": "显示筛选"
@@ -976,6 +977,7 @@ zh-CN:
     tags: "标签"
     this_picture_is_used_on_these_pages: "这张图片被用于以下页面"
     timezone: "时区"
+    language: "语言"
     updated_ingredient: "成功更新 %{ingredient}"
     used_on_these_pages:
       attachment: "这个文件的使用情况如下"

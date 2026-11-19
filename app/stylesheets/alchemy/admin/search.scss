@@ -45,11 +45,8 @@
 
 .toolbar {
   .search_form {
-    position: absolute;
-    top: 50%;
-    right: var(--spacing-2);
-    transform: translateY(-50%);
     height: var(--form-field-height);
+    margin-left: auto;
   }
 
   .search_field {

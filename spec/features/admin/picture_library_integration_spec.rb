@@ -253,17 +253,17 @@ RSpec.describe "Picture Library", type: :system do
         expect(page).to have_content("Picture updated successfully")
       end
 
-      select(german.name, from: "Language")
+      within("alchemy-picture-description-select") { select(german.name, from: "Language") }
       fill_in "Description", with: "Tolles Bild."
       click_button "Save"
       within "#flash_notices" do
         expect(page).to have_content("Picture updated successfully")
       end
 
-      select(language.name, from: "Language")
+      within("alchemy-picture-description-select") { select(language.name, from: "Language") }
       expect(page).to have_no_css("turbo-frame#picture_descriptions[busy]")
       expect(page).to have_field("Description", with: "This is an amazing image.")
-      select(german.name, from: "Language")
+      within("alchemy-picture-description-select") { select(german.name, from: "Language") }
       expect(page).to have_no_css("turbo-frame#picture_descriptions[busy]")
       expect(page).to have_field("Description", with: "Tolles Bild.")
     end

@@ -32,6 +32,7 @@
 
 .toolbar_buttons {
   display: flex;
+  align-items: center;
   flex-grow: 1;
   white-space: nowrap;
   overflow-x: auto;
@@ -55,8 +56,8 @@
 
   .icon_button {
     .icon {
-      width: var(--icon-size-xl);
-      height: var(--icon-size-xl);
+      width: var(--icon-size-md);
+      height: var(--icon-size-md);
     }
   }
 
@@ -64,7 +65,7 @@
     margin: 0 var(--spacing-2);
 
     &:first-child {
-      margin-left: var(--spacing-1);
+      margin-left: 0;
 
       select,
       .alchemy_selectbox {
@@ -78,7 +79,7 @@
   display: inline-block;
   vertical-align: middle;
   width: 0px;
-  height: 29px;
+  height: var(--spacing-5);
   border-right-style: solid;
   border-right-width: 1px;
   border-right-color: var(--toolbar-spacer-color);
@@ -88,6 +89,7 @@
 
 #preview_time_select {
   display: inline-flex;
+  align-items: center;
 
   select {
     width: var(--select-x-large-width);
