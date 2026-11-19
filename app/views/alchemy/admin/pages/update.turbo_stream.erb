@@ -3,7 +3,7 @@
 
 <% if @while_page_edit -%>
   <%= turbo_stream.replace "locked_page_#{@page.id}" do %>
-    <%= render("alchemy/admin/pages/current_page", current_page: @page) %>
+    <%= render("alchemy/admin/pages/locked_page", locked_page: @page, current: true) %>
   <% end %>
   <%= turbo_stream.replace "publish_page_button" do %>
     <%= render Alchemy::Admin::PublishPageButton.new(page: @page) %>
