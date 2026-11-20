@@ -9,7 +9,7 @@ module Alchemy
           def link = alchemy.admin_attachments_path
           def icon = "file-copy-2"
           def count = Alchemy::Attachment.count
-          def infos = number_to_human_size(Alchemy::Attachment.sum(&:file_size))
+          def infos = number_to_human_size(Alchemy.storage_adapter.total_file_size)
         end
       end
     end

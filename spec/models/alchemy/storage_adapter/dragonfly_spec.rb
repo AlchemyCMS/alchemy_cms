@@ -115,6 +115,48 @@ RSpec.describe Alchemy::StorageAdapter::Dragonfly, if: Alchemy.storage_adapter.d
     end
   end
 
+  describe ".total_image_file_size" do
+    subject { described_class.total_image_file_size }
+
+    context "without pictures" do
+      it { is_expected.to eq(0) }
+    end
+
+    context "with pictures" do
+      let!(:picture1) { create(:alchemy_picture) }
+      let!(:picture2) { create(:alchemy_picture, image_file: fixture_file_upload("image3.jpeg")) }
+
+      before do
+        create(:alchemy_picture).update_columns(image_file_size: nil)
+      end
+
+      it "sums the image file size of all pictures" do
+        is_expected.to eq(picture1.image_file_size + picture2.image_file_size)
+      end
+    end
+  end
+
+  describe ".total_file_size" do
+    subject { described_class.total_file_size }
+
+    context "without attachments" do
+      it { is_expected.to eq(0) }
+    end
+
+    context "with attachments" do
+      let!(:attachment1) { create(:alchemy_attachment) }
+      let!(:attachment2) { create(:alchemy_attachment, file: fixture_file_upload("image3.jpeg")) }
+
+      before do
+        create(:alchemy_attachment).update_columns(file_size: nil)
+      end
+
+      it "sums the file size of all attachments" do
+        is_expected.to eq(attachment1.file_size + attachment2.file_size)
+      end
+    end
+  end
+
   describe ".attachment_url_class" do
     subject { described_class.attachment_url_class }
 
