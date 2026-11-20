@@ -140,6 +140,11 @@ module Alchemy
         attachment.file&.byte_size
       end
 
+      # @return [Integer]
+      def total_file_size
+        Attachment.joins(:file_blob).sum("active_storage_blobs.byte_size")
+      end
+
       # @param [Alchemy::Attachment]
       # @return [String]
       def file_mime_type(attachment)
@@ -187,6 +192,11 @@ module Alchemy
       # @return [Integer]
       def image_file_size(picture)
         picture.image_file&.byte_size
+      end
+
+      # @return [Integer]
+      def total_image_file_size
+        Picture.joins(:image_file_blob).sum("active_storage_blobs.byte_size")
       end
 
       # @param [Alchemy::Picture]
