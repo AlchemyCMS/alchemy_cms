@@ -346,3 +346,17 @@
     cursor: default;
   }
 }
+
+.alchemy-select-option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+
+  img {
+    flex-shrink: 0;
+    width: var(--select-image-size, var(--icon-size-md));
+    height: var(--select-image-size, var(--icon-size-md));
+    border-radius: var(--border-radius_medium);
+    object-fit: cover;
+  }
+}
