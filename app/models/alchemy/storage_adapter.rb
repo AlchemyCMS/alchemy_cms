@@ -34,6 +34,7 @@ module Alchemy
       :rescuable_errors,
       :searchable_alchemy_resource_attributes,
       :set_attachment_name?,
+      :total_image_file_size,
       to: :adapter
     )
 

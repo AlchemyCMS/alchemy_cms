@@ -216,6 +216,11 @@ module Alchemy
         picture.read_attribute(:image_file_size)
       end
 
+      # @return [Integer]
+      def total_image_file_size
+        Picture.sum(:image_file_size)
+      end
+
       # @param [Alchemy::Picture]
       # @return [Integer]
       def image_file_width(picture)

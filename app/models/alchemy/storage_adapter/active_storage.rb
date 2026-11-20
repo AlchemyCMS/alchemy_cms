@@ -189,6 +189,11 @@ module Alchemy
         picture.image_file&.byte_size
       end
 
+      # @return [Integer]
+      def total_image_file_size
+        Picture.joins(:image_file_blob).sum("active_storage_blobs.byte_size")
+      end
+
       # @param [Alchemy::Picture]
       # @return [Integer]
       def image_file_width(picture)
