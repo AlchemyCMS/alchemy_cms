@@ -160,6 +160,11 @@ module Alchemy
         attachment.read_attribute(:file_size)
       end
 
+      # @return [Integer]
+      def total_file_size
+        Attachment.sum(:file_size)
+      end
+
       # @param [Alchemy::Attachment]
       # @return [String]
       def file_mime_type(attachment)

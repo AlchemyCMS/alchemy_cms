@@ -138,6 +138,27 @@ RSpec.describe Alchemy::StorageAdapter::ActiveStorage, if: Alchemy.storage_adapt
     end
   end
 
+  describe ".total_file_size" do
+    subject { described_class.total_file_size }
+
+    context "without attachments" do
+      it { is_expected.to eq(0) }
+    end
+
+    context "with attachments" do
+      let!(:attachment1) { create(:alchemy_attachment) }
+      let!(:attachment2) { create(:alchemy_attachment, file: fixture_file_upload("image3.jpeg")) }
+
+      before do
+        create(:alchemy_attachment).file.attachment.delete
+      end
+
+      it "sums the byte size of all attached files" do
+        is_expected.to eq(attachment1.file_size + attachment2.file_size)
+      end
+    end
+  end
+
   describe ".set_attachment_name?" do
     subject { described_class.set_attachment_name?(attachment) }
 
