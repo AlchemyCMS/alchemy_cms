@@ -9,6 +9,15 @@ import {
   teardownTomSelect
 } from "alchemy_admin/utils/tom_select"
 
+const renderOption = (data, escape) => {
+  if (!data.image) return `<div>${escape(data.text)}</div>`
+
+  return `<div class="alchemy-select-option">
+    <img src="${escape(data.image)}" alt="">
+    <span>${escape(data.text)}</span>
+  </div>`
+}
+
 export class Select extends HTMLSelectElement {
   #tomSelect = null
 
@@ -125,6 +134,8 @@ export class Select extends HTMLSelectElement {
       // Customize the "create" and "no results" dropdown messages with i18n.
       render: {
         ...dropdownMessages,
+        option: renderOption,
+        item: renderOption,
         ...this.renderers
       }
     }

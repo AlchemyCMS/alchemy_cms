@@ -209,6 +209,52 @@ describe("alchemy-select", () => {
     })
   })
 
+  describe("with data-image on an option", () => {
+    beforeEach(() => {
+      const html = `<select is="alchemy-select">
+        <option value="1" data-image="/first.jpg" selected>First</option>
+        <option value="2">Second</option>
+      </select>`
+
+      component = renderComponent("alchemy-select", html)
+    })
+
+    it("renders the dropdown option with the image", () => {
+      const option = component.tomselect.getOption("1", true)
+
+      expect(option.querySelector("img").getAttribute("src")).toEqual(
+        "/first.jpg"
+      )
+      expect(option.textContent).toContain("First")
+    })
+
+    it("renders the selected item with the image", () => {
+      const item = component.tomselect.getItem("1")
+
+      expect(item.querySelector("img").getAttribute("src")).toEqual(
+        "/first.jpg"
+      )
+      expect(item.textContent).toContain("First")
+    })
+
+    it("renders options without data-image as text only", () => {
+      const option = component.tomselect.getOption("2", true)
+
+      expect(option.querySelector("img")).toBeNull()
+      expect(option.textContent).toEqual("Second")
+    })
+
+    it("escapes the image url", () => {
+      const option = component.tomselect.render("option", {
+        value: "3",
+        text: "Third",
+        image: '"><script>alert(1)</script>'
+      })
+
+      expect(option.querySelector("script")).toBeNull()
+    })
+  })
+
   describe("without a placeholder", () => {
     it("keeps the first option selected when none is selected", () => {
       const html = `<select is="alchemy-select">
