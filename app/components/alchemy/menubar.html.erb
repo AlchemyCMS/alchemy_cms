@@ -3,8 +3,9 @@
     <style>
       .menubar {
         --icon-size: 24px;
+        --font-size: 14px;
         --panel-width: 525px;
-        --border-radius: 3px;
+        --border-radius: 6px;
         --left-offset: 0px;
         display: flex;
         position: fixed;
@@ -23,9 +24,10 @@
         align-items: center;
         flex-wrap: nowrap;
         overflow: hidden;
-        font-family: "Open Sans", "Lucida Grande", "Lucida Sans Unicode",
-          "Lucida Sans", Verdana, Tahoma, sans-serif;
-        font-size: 13px;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+          "Segoe UI Emoji";
+        font-size: var(--font-size);
         line-height: normal;
 
         &:hover {

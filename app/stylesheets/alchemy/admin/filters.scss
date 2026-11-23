@@ -10,7 +10,7 @@ div#sorting_select {
 
   label:not(:has(input[type="checkbox"])) {
     display: block;
-    font-weight: bold;
+    font-weight: var(--font-weight_semibold);
     font-size: var(--font-size_medium);
     margin-bottom: var(--spacing-1);
   }
@@ -44,10 +44,10 @@ div#sorting_select {
   background-color: var(--tag-active-background-color);
   color: var(--tag-active-text-color);
   white-space: nowrap;
-  font-weight: normal;
+  font-weight: var(--font-weight_normal);
 
   .applied-filter-label {
-    font-weight: var(--font-weight_bold);
+    font-weight: var(--font-weight_semibold);
   }
 
   .dismiss-filter {
