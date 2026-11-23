@@ -4,7 +4,7 @@ module Alchemy
   module Ingredients
     class NumberEditor < BaseEditor
       def input_field
-        tag.div(class: "input-field") do
+        content_tag((settings[:input_type] == "range") ? "alchemy-range-input" : "div", class: "input-field") do
           concat text_field_tag(form_field_name,
             value,
             type: settings[:input_type] || "number",
@@ -13,8 +13,7 @@ module Alchemy
             min: settings[:min],
             max: settings[:max],
             id: form_field_id,
-            readonly: !editable?,
-            oninput: (settings[:input_type] == "range") ? "this.nextElementSibling.value = this.value" : nil)
+            readonly: !editable?)
           if settings[:input_type] == "range"
             concat tag.output(value)
           end

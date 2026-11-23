@@ -163,7 +163,7 @@ RSpec.describe "Admin Content Security Policy" do
   end
 
   it "is not applied to a host application controller inheriting from our base controller" do
-    get "/admin/events"
+    get "/admin/bookings"
     expect(policy).to be_nil
   end
 

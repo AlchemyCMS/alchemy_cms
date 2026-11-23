@@ -12,11 +12,12 @@
     <span>
       <%= Alchemy.t(:items_per_page, model_name: resource_model.model_name.human(count: 2)) %>
     </span>
-    <%= select_tag :per_page,
-      options_for_select(
-        items_per_page_options,
-        items_per_page
-      ),
-      onchange: 'this.form.submit()' %>
+    <alchemy-auto-submit>
+      <%= select_tag :per_page,
+        options_for_select(
+          items_per_page_options,
+          items_per_page
+        ) %>
+    </alchemy-auto-submit>
   </label>
 <% end %>

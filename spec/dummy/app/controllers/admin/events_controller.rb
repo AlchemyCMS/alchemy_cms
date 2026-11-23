@@ -11,6 +11,9 @@ class Admin::EventsController < Alchemy::Admin::ResourcesController
 
   private
 
+  # Opted in, so the system specs render Alchemy's resource views under the admin CSP.
+  def apply_content_security_policy? = true
+
   def set_default_filter
     search_filter_params[:q] ||= {by_timeframe: "future"}
   end
