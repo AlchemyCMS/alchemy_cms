@@ -35,6 +35,31 @@ RSpec.describe "Page creation", type: :system do
         expect(page).to have_css("div.alchemy-dialog-body form small.error", text: "has already been taken")
       end
     end
+
+    context "without choosing a page type" do
+      it "flags the page type select as invalid" do
+        visit admin_pages_path
+
+        find(%(a.icon_button[href="/admin/pages/new?parent_id=#{homepage.id}"]), visible: true, match: :first).click
+        fill_in "Name", with: "New Page"
+        click_button "create"
+
+        error_border_color = page.evaluate_script(<<~JS)
+          (() => {
+            const probe = document.createElement("div")
+            probe.style.borderTopColor = "var(--notice-error-border-color)"
+            document.querySelector(".alchemy-dialog").append(probe)
+            const color = getComputedStyle(probe).borderTopColor
+            probe.remove()
+            return color
+          })()
+        JS
+        expect(page).to have_css(
+          "select#page_page_layout:user-invalid + .ts-wrapper .ts-control",
+          style: {"border-top-color" => error_border_color}
+        )
+      end
+    end
   end
 
   describe "overlay GUI" do
