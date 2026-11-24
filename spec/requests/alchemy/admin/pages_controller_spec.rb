@@ -369,6 +369,32 @@ module Alchemy
             end
           end
 
+          context "if new page has errors on attributes not in the form" do
+            subject do
+              post admin_pages_path(page: page_params), headers: {
+                "Turbo-Frame" => Alchemy::Admin::DIALOG_FRAME_ID
+              }
+            end
+
+            let(:page_params) do
+              {
+                parent_id: parent.id,
+                name: "new Page",
+                page_layout: "standard",
+                restricted: true,
+                permitted_roles: %w[unknown_role]
+              }
+            end
+
+            it "shows them in the dialog" do
+              subject
+              expect(Capybara.string(response.body)).to have_css(
+                "turbo-frame##{Alchemy::Admin::DIALOG_FRAME_ID} form alchemy-message[type='error']",
+                text: "contains roles that are not configured: unknown_role"
+              )
+            end
+          end
+
           context "with redirect_to in params" do
             subject do
               post admin_pages_path(page: page_params, redirect_to: admin_pictures_path)

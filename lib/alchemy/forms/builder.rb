@@ -21,8 +21,17 @@ module Alchemy
               end
           end
         else
+          track_displayed_errors(attribute_name, options)
           super
         end
+      end
+
+      # Full messages of all errors that no input of this form displays.
+      #
+      def undisplayed_error_messages
+        return [] unless object.respond_to?(:errors)
+
+        object.errors.objects.reject { |error| displayed_error?(error) }.map(&:full_message)
       end
 
       # Renders a simple_form input that displays a datepicker
@@ -59,6 +68,38 @@ module Alchemy
         }.update(options)
         template.content_tag("div", options.delete(:wrapper_html)) do
           template.button_tag(label, options.delete(:input_html))
+        end
+      end
+
+      protected
+
+      def displayed_errors
+        @_displayed_errors ||= []
+      end
+
+      private
+
+      # Nested +fields_for+ builders record on the root builder, because nested
+      # record errors end up on the root object.
+      def root_builder
+        builder = self
+        builder = builder.options[:parent_builder] while builder.options[:parent_builder]
+        builder
+      end
+
+      def track_displayed_errors(attribute_name, options)
+        return if options[:error] == false
+
+        root_builder.displayed_errors << [object, attribute_name.to_sym]
+        if options[:reflection]
+          root_builder.displayed_errors << [object, options[:reflection].name]
+        end
+      end
+
+      def displayed_error?(error)
+        error = error.inner_error while error.respond_to?(:inner_error)
+        displayed_errors.any? do |record, attribute|
+          record.equal?(error.base) && attribute == error.attribute
         end
       end
     end
