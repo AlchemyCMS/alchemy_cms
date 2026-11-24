@@ -1789,6 +1789,11 @@ module Alchemy
           page.permitted_roles = []
           expect(page).to be_valid
         end
+
+        it "is valid with the default role if it is not configured" do
+          stub_alchemy_config(user_roles: %w[editor admin])
+          expect(page).to be_valid
+        end
       end
 
       context "with a role that is not configured" do

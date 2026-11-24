@@ -165,7 +165,7 @@ module Alchemy
     validates_format_of :page_layout, with: /\A[a-z0-9_-]+\z/, unless: -> { page_layout.blank? }
     validates_presence_of :parent, unless: -> { layoutpage? || language_root? }
     validates_presence_of :permitted_roles, if: :restricted?
-    validate :permitted_roles_are_configured
+    validate :permitted_roles_are_configured, if: :restricted?
 
     after_initialize :ensure_draft_version, if: :new_record?
 
