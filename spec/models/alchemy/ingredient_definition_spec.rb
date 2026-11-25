@@ -107,6 +107,43 @@ module Alchemy
       end
     end
 
+    describe "#default_value" do
+      subject { described_class.new(role: "text", default: default).default_value }
+
+      context "without default" do
+        let(:default) { nil }
+
+        it { is_expected.to be_nil }
+      end
+
+      context "with String default" do
+        let(:default) { "Hello" }
+
+        it { is_expected.to eq("Hello") }
+      end
+
+      context "with Symbol default" do
+        let(:default) { :hello }
+
+        it "returns the translation" do
+          expect(Alchemy).to receive(:t).with(:hello, scope: :default_ingredient_texts) { "Hallo" }
+          is_expected.to eq("Hallo")
+        end
+      end
+
+      context "with Integer default" do
+        let(:default) { 12 }
+
+        it { is_expected.to eq("12") }
+      end
+
+      context "with Float default" do
+        let(:default) { 1.5 }
+
+        it { is_expected.to eq("1.5") }
+      end
+    end
+
     describe "#settings" do
       subject(:settings) { described_class.new.settings }
 
