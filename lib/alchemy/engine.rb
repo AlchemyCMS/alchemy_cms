@@ -54,12 +54,17 @@ module Alchemy
       )
     end
 
-    # Runs after initialization, so that importmaps added from an application
-    # initializer (those run after the engine's initializers) are picked up.
+    # Runs as a prepare block, so that importmaps added from an application
+    # initializer are picked up, but the source paths still reach the asset
+    # paths before Sprockets copies them in its `after_initialize`.
     # It must not run again on reload: every entry it adds below lands in a
     # registry that is never pruned.
     initializer "alchemy.importmap" do |app|
-      app.config.after_initialize do
+      importmap_loaded = false
+      app.config.to_prepare do
+        next if importmap_loaded
+        importmap_loaded = true
+
         watch_paths = []
 
         Alchemy.config.admin_importmaps.each do |admin_import|

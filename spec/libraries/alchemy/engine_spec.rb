@@ -47,10 +47,23 @@ RSpec.describe Alchemy::Engine do
       stub_alchemy_config(admin_importmaps: [additional_importmap])
     end
 
+    let(:initializer) { Alchemy::Engine.initializers.find { _1.name == "alchemy.importmap" } }
+
     it "adds additional importmap to admin imports" do
-      initializer = Alchemy::Engine.initializers.find { _1.name == "alchemy.importmap" }
       expect(Alchemy.config.admin_js_imports).to receive(:add).with("additional_importmap")
-      initializer.run(Rails.application)
+      prepare_blocks = initializer.run(Rails.application)
+      prepare_blocks.last.call
+    end
+
+    it "sets up the importmap in a prepare block instead of after initialization" do
+      expect(Rails.application.config).to_not receive(:after_initialize)
+      expect { initializer.run(Rails.application) }.to change { Rails.application.config.to_prepare_blocks.size }.by(1)
+    end
+
+    it "sets up the importmap only once" do
+      expect(Alchemy.importmap).to receive(:draw).once
+      prepare_blocks = initializer.run(Rails.application)
+      2.times { prepare_blocks.last.call }
     end
   end
 
