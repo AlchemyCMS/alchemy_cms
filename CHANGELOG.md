@@ -1,5 +1,25 @@
 # Changelog
 
+## 8.4.5 (2026-11-25)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.4-stable -->
+
+## What's Changed
+### New Features
+* [8.4] feat: Add alchemy meta gem by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4483
+### Bug Fixes
+* [8.4-stable] fix(admin): Make the upload buttons keyboard operable by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/4482
+* [8.4-stable] fix(admin): Bust browser caches for TinyMCE skins by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4488
+* [8.4-stable] fix(engine): Register file watchers once instead of on each reload by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4489
+* [8.4-stable] fix(Dragonfly): Detect SVG format from the file itself by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4491
+* [8.4-stable] fix(Dashboard): Sum file sizes in the storage adapter by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4509
+* [8.4-stable] fix(admin): Register the Shoelace spinner for remote selects by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4513
+* [8.4] fix(admin): show the error state on invalid Tom Select fields by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4516
+* [8.4-stable] fix(page): only check permitted roles of restricted pages by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4519
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.4.4...v8.4.5
+
 ## 8.4.4 (2026-11-13)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.4-stable -->
