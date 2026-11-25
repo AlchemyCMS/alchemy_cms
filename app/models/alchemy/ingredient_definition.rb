@@ -61,11 +61,10 @@ module Alchemy
     # If the value is a symbol it gets passed through i18n
     # inside the +alchemy.default_ingredient_texts+ scope
     def default_value
-      case default
-      when Symbol
+      if default.is_a?(Symbol)
         Alchemy.t(default, scope: :default_ingredient_texts)
-      when String
-        default
+      else
+        default&.to_s
       end
     end
 
