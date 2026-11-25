@@ -30,10 +30,10 @@ module Alchemy
           next fields if messages.empty?
 
           safe_join([
-            render(Alchemy::Admin::Message.new(
+            content_tag("alchemy-message",
               safe_join(messages.map { |message| tag.p(message) }),
-              type: :error
-            )),
+              type: "error",
+              icon: "warn"),
             fields
           ])
         end

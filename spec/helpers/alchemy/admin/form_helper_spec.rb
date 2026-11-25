@@ -30,7 +30,7 @@ RSpec.describe Alchemy::Admin::FormHelper do
         subject { helper.alchemy_form_for(resource) { |f| f.input(:name) } }
 
         it "lists them above the form fields" do
-          expect(subject).to have_css("form > alchemy-message[type='error'] + .input")
+          expect(subject).to have_css("form > alchemy-message[type='error'][icon='warn'] + .input")
           expect(subject).to have_css("alchemy-message[type='error']", text: page.errors.full_messages_for(:permitted_roles).first)
           expect(subject).to have_css("alchemy-message[type='error']", text: "Something went wrong")
         end
