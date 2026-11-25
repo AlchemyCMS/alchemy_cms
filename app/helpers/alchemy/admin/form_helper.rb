@@ -11,7 +11,7 @@ module Alchemy
       #
       # * It uses Alchemy::Forms::Builder as builder
       # * It adds the alchemy class to form
-      # * It lists errors that no input displays above the form fields.
+      # * It lists the errors of the object above the form fields.
       #   Pass +error_summary: false+ if the form displays them itself.
       #
       def alchemy_form_for(object, *args, &block)
@@ -24,18 +24,14 @@ module Alchemy
           novalidate: false
         }
         simple_form_for(object, *(args << options)) do |form|
-          # Captured first, so the builder knows which errors the inputs display.
-          fields = capture(form, &block)
-          messages = error_summary ? form.undisplayed_error_messages : []
-          next fields if messages.empty?
-
-          safe_join([
+          record = form.object
+          summary = if error_summary && record.respond_to?(:errors) && record.errors.any?
             content_tag("alchemy-message",
-              safe_join(messages.map { |message| tag.p(message) }),
+              safe_join(record.errors.full_messages.map { |message| tag.p(message) }),
               type: "error",
-              icon: "warn"),
-            fields
-          ])
+              icon: "warn")
+          end
+          safe_join([summary, capture(form, &block)])
         end
       end
     end
