@@ -1,5 +1,16 @@
 # Changelog
 
+## 8.4.6 (2026-11-25)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.4-stable -->
+
+## What's Changed
+### Bug Fixes
+* [8.4-stable] fix(engine): Set up admin importmaps before after_initialize hooks by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4527
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.4.5...v8.4.6
+
 ## 8.4.5 (2026-11-25)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.4-stable -->
