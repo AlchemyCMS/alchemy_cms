@@ -23,7 +23,7 @@
   --small-font-size: var(--font-size_small, 10px);
   --color: var(--text-color, hsla(224deg, 23%, 26%, 0.8));
   --muted-color: var(--text-color-muted, hsla(224deg, 23%, 26%, 0.5));
-  --highlight-color: var(--color-grey_light, hsl(0deg, 0%, 94%));
+  --hover-text-color: var(--select-hover-text-color, hsl(0deg, 0%, 100%));
   --badge-bg-color: var(--color-grey_light, hsl(0deg, 0%, 94%));
   --badge-highlight-bg-color: var(--color-white, hsl(0deg, 0%, 100%));
   --border-radius: var(--border-radius_medium, 3px);
@@ -31,7 +31,7 @@
   color: var(--color);
 
   .ts-dropdown .option.active & {
-    color: var(--highlight-color);
+    color: var(--hover-text-color);
   }
 }
 
@@ -90,7 +90,11 @@
   font-size: var(--small-font-size);
 
   .ts-dropdown .option.active & {
-    color: var(--highlight-color);
+    color: var(--hover-text-color);
+  }
+
+  .ts-dropdown .option.selected & {
+    color: var(--select-selected-text-color, inherit);
   }
 }
 
@@ -131,7 +135,7 @@
   font-size: var(--small-font-size);
 
   .ts-dropdown .option.active & {
-    color: var(--highlight-color);
+    color: var(--hover-text-color);
   }
 }
 
@@ -163,7 +167,7 @@
   .remote-select--selection {
     --color: var(--select-text-color, hsl(200deg, 5%, 70%));
     --muted-color: var(--a-lighter-grey, hsl(200deg, 5%, 70%));
-    --highlight-color: var(--select-hover-text-color, hsl(0deg, 0%, 100%));
+    --hover-text-color: var(--select-hover-text-color, hsl(0deg, 0%, 100%));
     --badge-bg-color: var(--a-dark-grey, hsl(200deg, 5%, 17.5%));
     --badge-highlight-bg-color: var(--badge-bg-color);
   }

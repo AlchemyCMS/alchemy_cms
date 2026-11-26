@@ -116,6 +116,7 @@
       &:focus {
         box-shadow: none;
         border: none;
+        outline: 0;
       }
     }
 
@@ -162,10 +163,9 @@
     }
   }
 
-  &.focus .ts-control {
-    @include mixins.default-focus-style(
-      $box-shadow: 0 0 0 1px var(--focus-color)
-    );
+  &:has(:focus-visible) .ts-control {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
   }
 
   // Not `&.invalid`: Tom Select sets that on first render, before any user
@@ -304,22 +304,17 @@
       text-decoration: underline;
     }
 
-    // Tom Select marks the current selection as .active when the dropdown
-    // opens, but that highlight follows the mouse away from it. Declared
-    // before .active so hovering the selection still shows the hover color.
-    &.selected {
-      background: var(--select-selected-bg-color);
-      box-shadow: inset 3px 0 0 var(--select-selected-marker-color);
-      font-weight: var(--font-weight_semibold);
-    }
-
     &.active {
       background: var(--select-hover-bg-color, var(--color-blue_dark));
       color: var(--select-hover-text-color, var(--color-white));
     }
 
-    &.selected.active {
-      --select-selected-marker-color: var(--color-orange_dark);
+    // Tom Select also marks the current selection as .active, so the
+    // selection must come after .active to keep its accent while hovered.
+    &.selected {
+      background: var(--select-selected-bg-color);
+      color: var(--select-selected-text-color);
+      box-shadow: inset 3px 0 0 var(--select-selected-marker-color);
     }
   }
 

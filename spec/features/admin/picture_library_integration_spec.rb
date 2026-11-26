@@ -9,6 +9,22 @@ RSpec.describe "Picture Library", type: :system do
 
   let!(:language) { create(:alchemy_language) }
 
+  describe "Thumbnail size switch" do
+    scenario "marks the medium size as active by default" do
+      visit alchemy.admin_pictures_path
+
+      expect(page).to have_css(".button_group .icon_button.active", count: 1)
+      expect(page).to have_css(".button_group .icon_button.active[href*='size=medium']")
+    end
+
+    scenario "marks the selected size as active" do
+      visit alchemy.admin_pictures_path(size: "large")
+
+      expect(page).to have_css(".button_group .icon_button.active", count: 1)
+      expect(page).to have_css(".button_group .icon_button.active[href*='size=large']")
+    end
+  end
+
   describe "Editing multiple pictures" do
     let!(:picture_1) { create(:alchemy_picture, name: "Picture 1") }
     let!(:picture_2) { create(:alchemy_picture, name: "Picture 2") }

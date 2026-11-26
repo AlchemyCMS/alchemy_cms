@@ -1,12 +1,12 @@
 :root {
   /* Dark Colors */
-  --a-lightest-grey: hsl(200deg, 5%, 90%);
-  --a-lighter-grey: hsl(200deg, 5%, 70%);
-  --a-light-grey: hsl(200deg, 5%, 35%);
-  --a-grey: hsl(200deg, 5%, 22.5%);
-  --a-dark-grey: hsl(200deg, 5%, 17.5%);
-  --a-darker-grey: hsl(200deg, 5%, 15%);
-  --a-darkest-grey: hsl(200deg, 5%, 12.5%);
+  --a-lightest-grey: hsl(215deg, 15%, 90%);
+  --a-lighter-grey: hsl(215deg, 10%, 62%);
+  --a-light-grey: hsl(215deg, 12%, 35%);
+  --a-grey: hsl(215deg, 12%, 23%);
+  --a-dark-grey: hsl(215deg, 14%, 16.5%);
+  --a-darker-grey: hsl(215deg, 14%, 14%);
+  --a-darkest-grey: hsl(215deg, 16%, 11.5%);
 
   /* Light Colors */
   --color-blue_very_light: hsl(203deg, 32%, 97%);
@@ -32,11 +32,11 @@
   --color-red_medium: hsl(0deg, 51%, 42%);
   --color-red_dark: hsl(0deg, 51%, 25%);
 
-  --color-grey_very_light: hsl(0deg, 0%, 97%);
-  --color-grey_light: hsl(0deg, 0%, 94%);
-  --color-grey_medium: hsl(0deg, 0%, 78%);
-  --color-grey_dark: hsl(0deg, 0%, 40%);
-  --color-grey_very_dark: hsl(0deg, 0%, 20%);
+  --color-grey_very_light: hsl(215deg, 25%, 97%);
+  --color-grey_light: hsl(215deg, 25%, 94%);
+  --color-grey_medium: hsl(215deg, 14%, 78%);
+  --color-grey_dark: hsl(215deg, 12%, 46%);
+  --color-grey_very_dark: hsl(215deg, 25%, 20%);
 
   --color-white: hsl(0deg, 0%, 100%);
 
@@ -74,12 +74,19 @@
   --font-default: var(--font-size_medium) var(--font-sans);
 
   /* Borders */
+  --border-radius_small: 2px;
   --border-radius_medium: 6px;
   --border-radius_large: 10px;
   --border-width_small: 1px;
   --border-style: solid;
   --border-default: var(--border-width_small) var(--border-style)
     var(--border-color);
+
+  /* Focus */
+  --focus-outline-width: 2px;
+  --focus-outline-offset: 2px;
+  --focus-outline: var(--focus-outline-width) var(--border-style)
+    var(--focus-color);
 
   /* Transitions */
   --transition-duration: 250ms;

@@ -6,11 +6,6 @@
   gap: var(--spacing-2);
   grid-template-rows: auto;
 
-  mark {
-    color: var(--hint-text-color);
-    background-color: var(--hint-background-color);
-  }
-
   h2 {
     display: flex;
     justify-content: space-between;
@@ -77,6 +72,7 @@
 
       &.active {
         background-color: var(--select-selected-bg-color);
+        color: var(--select-selected-text-color);
       }
 
       .icon_button {
@@ -90,7 +86,7 @@
     margin: var(--spacing-2) 0;
     background-color: var(--element-header-bg-color);
     border-radius: var(--border-radius_medium);
-    border: 1px solid hsla(0, 0%, 45%, 0.15);
+    border: 1px solid var(--border-color);
 
     &:last-child {
       margin-bottom: var(--spacing-4);
@@ -174,7 +170,7 @@
 
     details {
       padding-left: var(--spacing-1);
-      background-color: hsla(0, 0%, 45%, 0.05);
+      background-color: var(--surface-tint-color);
     }
   }
 
@@ -229,13 +225,13 @@
 
     p {
       padding: var(--spacing-4);
-      background-color: hsla(0, 0%, 45%, 0.05);
+      background-color: var(--surface-tint-color);
       border-radius: var(--border-radius_medium);
     }
 
     .label {
       padding: var(--spacing-0) var(--spacing-2);
-      background-color: hsla(0, 0%, 45%, 0.15);
+      background-color: var(--tag-background-color);
     }
   }
 }

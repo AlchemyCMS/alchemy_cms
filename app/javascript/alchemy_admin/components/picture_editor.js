@@ -81,6 +81,8 @@ export class PictureEditor extends HTMLElement {
     this.pictureIdField.value = ""
     this.image = null
     this.cropLink.classList.add("disabled")
+    this.cropLink.setAttribute("tabindex", "-1")
+    this.cropLink.setAttribute("aria-disabled", "true")
     this.setElementDirty()
   }
 
@@ -92,6 +94,8 @@ export class PictureEditor extends HTMLElement {
     if (!this.pictureId || !this.imageCropperEnabled) return
 
     this.cropLink.classList.remove("disabled")
+    this.cropLink.removeAttribute("tabindex")
+    this.cropLink.removeAttribute("aria-disabled")
 
     if (this.cropLink.href.match(/(picture_id=)\d+/)) {
       this.cropLink.href = this.cropLink.href.replace(
