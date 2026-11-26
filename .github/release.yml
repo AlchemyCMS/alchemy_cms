@@ -12,6 +12,7 @@ changelog:
       - backport-to-8.3-stable
       - chore
       - guides
+      - preview-package
 
   categories:
     - title: "Breaking Changes"

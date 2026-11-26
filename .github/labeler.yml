@@ -1,5 +1,6 @@
 # Only label pull requests that change nothing but the sub-project, because
-# .github/release.yml drops `guides` pull requests from the release notes.
+# .github/release.yml drops `guides` and `preview-package` pull requests from
+# the release notes.
 guides:
   - changed-files:
       - all-globs-to-all-files: "guides/**"
@@ -11,3 +12,9 @@ i18n:
 devise:
   - changed-files:
       - all-globs-to-all-files: "devise/**"
+
+preview-package:
+  - changed-files:
+      - any-glob-to-all-files:
+          - "packages/preview/**"
+          - ".release-please-manifest.json"

@@ -1,0 +1,51 @@
+{
+  "name": "@alchemy_cms/preview",
+  "version": "0.0.0",
+  "description": "Selects AlchemyCMS elements in the admin's preview frame of headless frontends",
+  "keywords": [
+    "AlchemyCMS",
+    "cms",
+    "headless",
+    "preview",
+    "vue",
+    "nuxt"
+  ],
+  "author": "Thomas von Deyen",
+  "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlchemyCMS/alchemy_cms.git",
+    "directory": "packages/preview"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "default": "./src/index.js"
+    },
+    "./vue": {
+      "types": "./types/vue.d.ts",
+      "default": "./src/vue.js"
+    },
+    "./nuxt": {
+      "types": "./types/nuxt.d.ts",
+      "default": "./src/nuxt.js"
+    }
+  },
+  "files": [
+    "src",
+    "types"
+  ],
+  "peerDependencies": {
+    "nuxt": ">=3.3.0",
+    "vue": "^3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "nuxt": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    }
+  }
+}
