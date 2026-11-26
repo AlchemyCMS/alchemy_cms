@@ -165,7 +165,8 @@
   --main-menu-collapsed-width: calc(
     4 * var(--main-menu-inset) + var(--icon-size-md) + var(--border-width_small)
   );
-  --top-menu-height: 75px;
+  --top-menu-height: var(--toolbar-height);
+  --locked-pages-height: 36px;
   --main-menu-entry-max-width: 110px;
 
   /* Pagination */
@@ -183,6 +184,6 @@
   --table-cell-line-height: 22px;
 
   /* Toolbar */
-  --toolbar-height: 46px;
-  --toolbar-padding: var(--spacing-2) var(--spacing-1);
+  --toolbar-height: 52px;
+  --toolbar-padding: 0 var(--spacing-5);
 }

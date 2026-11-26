@@ -34,5 +34,6 @@
         <% end %>
       <% end %>
     </div>
+    <%= render Alchemy::Admin::UserMenu.new(user: current_alchemy_user) %>
   </div>
 </div>
