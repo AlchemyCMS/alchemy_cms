@@ -30,7 +30,7 @@ describe("alchemy-update-check", () => {
   it("fetches with credentials included", async () => {
     global.fetch.mockResolvedValueOnce({
       ok: true,
-      json: () => Promise.resolve({ status: true })
+      json: () => Promise.resolve({ update_available: false })
     })
 
     component = renderComponent("alchemy-update-check", html)
@@ -41,10 +41,10 @@ describe("alchemy-update-check", () => {
     })
   })
 
-  it("shows update available when status is false", async () => {
+  it("shows update available when an update is available", async () => {
     global.fetch.mockResolvedValueOnce({
       ok: true,
-      json: () => Promise.resolve({ status: false })
+      json: () => Promise.resolve({ update_available: true })
     })
 
     component = renderComponent("alchemy-update-check", html)
@@ -61,10 +61,10 @@ describe("alchemy-update-check", () => {
     )
   })
 
-  it("shows up to date when status is true", async () => {
+  it("shows up to date when no update is available", async () => {
     global.fetch.mockResolvedValueOnce({
       ok: true,
-      json: () => Promise.resolve({ status: true })
+      json: () => Promise.resolve({ update_available: false })
     })
 
     component = renderComponent("alchemy-update-check", html)
