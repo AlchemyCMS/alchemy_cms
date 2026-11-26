@@ -7,12 +7,14 @@ module Alchemy
         if update_check_result[:update_available]
           render json: {
             status: false,
+            update_available: true,
             latest_version: update_check_result[:latest_version],
             message: Alchemy.t("Update available")
           }
         else
           render json: {
             status: true,
+            update_available: false,
             latest_version: update_check_result[:latest_version],
             message: Alchemy.t("Alchemy is up to date")
           }
