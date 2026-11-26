@@ -153,9 +153,10 @@ export const dropdownMessages = {
     </div>`
   },
   // Tom Select prepends this above the results it already has, which would
-  // shift them.
+  // shift them. Without results it must render, though, or Tom Select closes
+  // the dropdown and the typed text is lost.
   loading() {
-    if (Object.keys(this.options).length > 0) return
+    if (this.dropdown_content.querySelector(".option")) return
     return `<div class="loading-results">${translate("Please wait, loading")}&hellip;</div>`
   },
   no_results() {
