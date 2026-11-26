@@ -26,7 +26,7 @@ class UpdateCheck extends HTMLElement {
   }
 
   showStatus(responseJSON) {
-    if (responseJSON["status"] == "true") {
+    if (responseJSON["status"] === false) {
       this.querySelector(".update_available").classList.remove("hidden")
     } else {
       this.querySelector(".up_to_date").classList.remove("hidden")
