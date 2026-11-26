@@ -210,6 +210,21 @@ describe("alchemy-uploader", () => {
       expect(progress.getAttribute("layout")).toBe("card")
     })
 
+    it("uploads only the dropped files, ignoring string items", () => {
+      component.uploadFiles = vi.fn()
+      const imageFile = new File(["a"], "image.png", { type: "image/png" })
+      const drop = new Event("drop")
+      drop.dataTransfer = {
+        files: [imageFile],
+        items: [
+          { kind: "string", getAsFile: () => null },
+          { kind: "file", getAsFile: () => imageFile }
+        ]
+      }
+      document.querySelector("#archive").dispatchEvent(drop)
+      expect(component.uploadFiles).toHaveBeenCalledWith([imageFile])
+    })
+
     it("defaults the layout to row", () => {
       component.removeAttribute("layout")
       component.uploadFiles([firstFile])
