@@ -37,6 +37,7 @@ RSpec.describe Alchemy::Admin::UpdateChecksController do
           parsed_body = JSON.parse(response.body)
           expect(parsed_body).to eq({
             "status" => true,
+            "update_available" => false,
             "latest_version" => "2.6.2",
             "message" => "Alchemy is up to date"
           })
@@ -61,6 +62,7 @@ RSpec.describe Alchemy::Admin::UpdateChecksController do
           parsed_body = JSON.parse(response.body)
           expect(parsed_body).to eq({
             "status" => false,
+            "update_available" => true,
             "latest_version" => "2.6.0",
             "message" => "Update available"
           })
