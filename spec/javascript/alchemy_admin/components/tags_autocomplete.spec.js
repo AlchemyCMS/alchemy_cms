@@ -57,6 +57,20 @@ describe("alchemy-tags-autocomplete", () => {
     expect(tomSelect.control_input.value).toBe("")
   })
 
+  it("keeps the dropdown and typed text while new suggestions load", () => {
+    const tomSelect = input.tomselect
+    tomSelect.focus()
+    tomSelect.setTextboxValue("awesome")
+    tomSelect.refreshOptions(true)
+    expect(tomSelect.isOpen).toBe(true)
+
+    tomSelect.loading = 1
+    tomSelect.refreshOptions(true)
+
+    expect(tomSelect.isOpen).toBe(true)
+    expect(tomSelect.control_input.value).toBe("awesome")
+  })
+
   describe("create option gating", () => {
     let createFilter = undefined
 
