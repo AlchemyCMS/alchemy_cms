@@ -478,5 +478,16 @@ module Alchemy
         expect(assigns(:picture).id).to eq(picture.id)
       end
     end
+
+    describe "#reset_filters_url" do
+      it "drops filters and tags but keeps the sort order" do
+        get :index, params: {q: {by_file_format: "image/png", recent: "1", s: "name asc"}, tagged_with: "red, blue"}
+        url = URI.parse(controller.send(:reset_filters_url))
+
+        expect(url.path).to eq("/admin/pictures")
+        expect(Rack::Utils.parse_nested_query(url.query)).to eq("q" => {"s" => "name asc"})
+        expect(controller.send(:applied_tags)).to eq(["red", "blue"])
+      end
+    end
   end
 end

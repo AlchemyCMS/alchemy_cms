@@ -17,12 +17,19 @@ alchemy-uploader {
   }
 }
 
+.resources-table-wrapper,
+.table-card {
+  overflow: auto;
+  background: var(--panel-background-color);
+  border: var(--border-default);
+  border-radius: var(--border-radius_large);
+  box-shadow: var(--panel-box-shadow);
+}
+
 .resources-table-wrapper {
-  width: 100%;
-  flex: 1;
+  flex: 0 1 auto;
   min-height: 0;
-  overflow-x: auto;
-  padding: var(--spacing-2);
+  margin: 0 var(--spacing-5) var(--spacing-5);
 }
 
 .selected_item_tools {
@@ -265,8 +272,10 @@ div.assign_image_list_image {
 }
 
 div#library_sidebar {
+  --form-field-margin: 0;
   display: flex;
   flex-direction: column;
+  gap: var(--form-row-gap);
   position: fixed;
   border-left: 1px solid var(--border-color);
   top: var(--top-menu-height);
@@ -274,21 +283,79 @@ div#library_sidebar {
   width: var(--sidebar-width);
   overflow-y: auto;
 
-  padding: var(--spacing-2) var(--spacing-4) var(--spacing-2) var(--spacing-4);
+  padding: 0 var(--spacing-4) var(--spacing-4);
   height: calc(100% - var(--top-menu-height));
   background-color: var(--sidebar-background-color);
 
-  #main_content:has(.pagination-wrapper) & {
-    height: calc(100% - var(--top-menu-height) - var(--pagination-height));
+  h3 {
+    margin: 0;
+    font-size: var(--font-size_medium);
   }
+}
+
+.filter-panel-rail {
+  display: none;
+}
+
+.filter-panel-collapsed #main_content {
+  --sidebar-width: calc(var(--icon-button-width) + 2 * var(--spacing-2));
+
+  #library_sidebar {
+    padding: 0;
+
+    > :not(.filter-panel-rail) {
+      display: none;
+    }
+  }
+
+  .filter-panel-rail {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    height: var(--toolbar-height);
+  }
+}
+
+.alchemy-dialog alchemy-filter-panel-toggle {
+  display: none;
+}
+
+.filter-panel-badge {
+  position: absolute;
+  top: calc(-1 * var(--spacing-1));
+  right: calc(-1 * var(--spacing-1));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--spacing-4);
+  height: var(--spacing-4);
+  padding: 0 var(--spacing-1);
+  border-radius: var(--sl-border-radius-pill);
+  background-color: var(--button-bg-color);
+  color: var(--button-text-color);
+  font-size: var(--font-size_small);
+  font-weight: var(--font-weight_semibold);
+  line-height: 1;
+}
+
+.filter-panel-header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--spacing-2);
+  height: var(--toolbar-height);
+  margin: 0 calc(-1 * var(--spacing-4));
+  padding: 0 var(--spacing-4);
 
   h2 {
-    margin-top: var(--spacing-4);
+    margin: 0;
+    font-size: var(--font-size_medium);
+    font-weight: var(--font-weight_semibold);
   }
 
-  h3 {
-    margin: var(--spacing-4) 0 var(--spacing-3) 0;
-    font-size: var(--font-size_medium);
+  alchemy-filter-panel-toggle {
+    margin-left: auto;
   }
 }
 

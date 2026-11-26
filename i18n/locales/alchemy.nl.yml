@@ -338,6 +338,9 @@ nl:
       publish_page_button:
         publish_page: "Pagina publiceren"
         publish_changes: "Wijzigingen publiceren"
+      resources:
+        pagination:
+          showing_entries_html: "<b>%{from}–%{to}</b> van <b>%{total}</b> weergegeven"
       page_definitions:
         content_pages: "Contentpagina's"
         element_usage: "Op dit paginatype: %{count} · In totaal: %{total}"
@@ -406,6 +409,11 @@ nl:
     "File deleted successfully": "%{name} verwijderd"
     "File preview": "Bestandsvoorvertoning"
     "Filter by tag": "Op tag filteren"
+    "Filters": "Filters"
+    "Hide filters": "Filters verbergen"
+    "Show filters": "Filters tonen"
+    "Tag": "Tag"
+    "Clear all": "Alles wissen"
     "Filter elements": "Elementen filteren"
     "Filter tags": "Tags filteren"
     "Flush page cache": "Paginacache leegmaken"
@@ -477,7 +485,6 @@ nl:
     "Redirects to": "Stuurt door naar"
     "Reload Preview": "Preview herladen"
     "Remove item from clipboard": "Item van klembord verwijderen"
-    "Remove tag filter": "Filter verwijderen"
     "Remove this content": "Inhoud verwijderen"
     "Reset Imagemask": "resetten"
     "Reset password instructions": "Instructies om het wachtwoord te resetten."
@@ -603,7 +610,7 @@ nl:
     delete_node: "Menu-item verwijderen"
     document: "Bestand"
     download_csv: "CSV downloaden"
-    download_file: "Bestand '%{filename}' downloaden"
+    download_file: "Bestand downloaden"
     do_you_really_want_to_delete_this_tag?: "Wilt u deze tag echt verwijderen?"
     drag_to_sort: "slepen om afbeeldingen te sorteren"
     edit: "bewerken"

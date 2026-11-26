@@ -294,6 +294,9 @@ pl:
       publish_page_button:
         publish_page: "Opublikuj stronę"
         publish_changes: "Opublikuj zmiany"
+      resources:
+        pagination:
+          showing_entries_html: "Wyświetlanie <b>%{from}–%{to}</b> z <b>%{total}</b>"
       page_definitions:
         content_pages: "Strony z treścią"
         element_usage: "Na tym typie strony: %{count} · Łącznie: %{total}"
@@ -362,6 +365,11 @@ pl:
     "File deleted successfully": "%{name} został usunięty"
     "File preview": "Podgląd pliku"
     "Filter by tag": "Filtruj po tagu"
+    "Filters": "Filtry"
+    "Hide filters": "Ukryj filtry"
+    "Show filters": "Pokaż filtry"
+    "Tag": "Tag"
+    "Clear all": "Wyczyść wszystko"
     "Filter elements": "Filtruj elementy"
     "Filter tags": "Filtruj tagi"
     "Flush page cache": "Wyczyść pamięć podręczną stron"
@@ -433,7 +441,6 @@ pl:
     "Redirects to": "Przekierowuje do"
     "Reload Preview": "Odśwież podgląd"
     "Remove item from clipboard": "Usuń element ze schowka"
-    "Remove tag filter": "Usuń filtr tagów"
     "Remove this content": "Usuń tę treść"
     "Reset Imagemask": "Resetuj maskę"
     "Reset password instructions": "Instrukcje resetowania hasła"
@@ -559,7 +566,7 @@ pl:
     delete_node: "Usuń ten element menu"
     document: "Plik"
     download_csv: "Pobierz CSV"
-    download_file: "Pobierz plik '%{filename}'"
+    download_file: "Pobierz plik"
     do_you_really_want_to_delete_this_tag?: "Czy naprawdę chcesz usunąć ten tag?"
     drag_to_sort: "Przeciągnij i upuść, aby posortować obrazy"
     edit: "edytuj"

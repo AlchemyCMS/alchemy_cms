@@ -42,6 +42,22 @@ RSpec.describe "Resources", type: :system do
         expect(page).to have_selector("div#main_content .pagination .page", count: 3)
       end
 
+      it "shows which entries of all entries are displayed" do
+        visit "/admin/events?per_page=5&page=2"
+        expect(page).to have_selector(".pagination-entries", text: "Showing 6–10 of 15")
+      end
+
+      it "shows the pagination inside the table card" do
+        visit "/admin/events?per_page=5"
+        expect(page).to have_selector(".resources-table-wrapper .pagination-wrapper .pagination")
+      end
+
+      it "hides the pagination if all entries fit on one page" do
+        visit "/admin/events?per_page=20"
+        expect(page).to have_selector("div#main_content table.list tbody tr", count: 15)
+        expect(page).to_not have_selector(".pagination-wrapper")
+      end
+
       context "params containing per_page" do
         it "should limit the items per page based on the given value" do
           visit "/admin/events?per_page=3"
@@ -60,6 +76,25 @@ RSpec.describe "Resources", type: :system do
 
         expect(page).to have_selector("div#main_content table.list tbody tr", count: 10)
         expect(page).to have_select("per_page", selected: "10")
+      end
+    end
+
+    describe "collapsing the filter panel", :js do
+      it "collapses the panel to a rail and remembers it" do
+        visit "/admin/events"
+        find("#library_sidebar button[aria-label='Hide filters']").click
+
+        expect(page).to have_css("body.filter-panel-collapsed")
+        expect(page).to have_css("#library_sidebar button[aria-label='Show filters']", visible: true)
+        expect(page).to_not have_css("#library_sidebar .filter-panel-header", visible: true)
+
+        visit "/admin/events"
+        expect(page).to have_css("body.filter-panel-collapsed")
+
+        find("#library_sidebar button[aria-label='Show filters']").click
+
+        expect(page).to_not have_css("body.filter-panel-collapsed")
+        expect(page).to have_css("#library_sidebar .filter-panel-header", visible: true)
       end
     end
 
@@ -210,8 +245,8 @@ RSpec.describe "Resources", type: :system do
           visit "/admin/events"
 
           within "#library_sidebar" do
-            expect(page).to have_selector(".tag-list a", text: "remote (2)")
-            expect(page).to have_selector(".tag-list a", text: "onsite (1)")
+            expect(page).to have_selector(".tag-list a", text: "remote 2")
+            expect(page).to have_selector(".tag-list a", text: "onsite 1")
           end
         end
 
@@ -223,12 +258,55 @@ RSpec.describe "Resources", type: :system do
               expect(page).to have_selector("tr", count: 3)
             end
 
-            find("#library_sidebar .tag-list a", text: "onsite (1)").click
+            find("#library_sidebar .tag-list a", text: "onsite 1").click
 
             within "div#main_content table.list tbody" do
               expect(page).to have_selector("tr", count: 1)
               expect(page).to have_selector("td", text: "onsite event")
             end
+          end
+        end
+
+        context "with tags applied" do
+          let(:search_field) { "description_or_hidden_name_or_location_name_or_name_i_cont" }
+
+          it "shows each tag as a removable filter chip" do
+            visit "/admin/events?tagged_with=onsite"
+
+            expect(page).to have_selector(".applied-filters .applied-filter", text: "Tag: onsite")
+          end
+
+          it "removes a tag by its chip and keeps the other filters" do
+            visit "/admin/events?tagged_with=onsite&q[by_timeframe]=future"
+
+            within ".applied-filter", text: "Tag: onsite" do
+              find(".dismiss-filter").click
+            end
+
+            within "div#main_content table.list tbody" do
+              expect(page).to have_selector("tr", count: 3)
+            end
+            expect(page).to have_selector(".applied-filter", text: "By Timeframe: Future")
+          end
+
+          it "keeps the other tags when removing one" do
+            visit "/admin/events?tagged_with=onsite,remote"
+
+            within ".applied-filter", text: "Tag: onsite" do
+              find(".dismiss-filter").click
+            end
+
+            expect(page).to have_selector(".applied-filter", text: "Tag: remote")
+            expect(page).to_not have_selector(".applied-filter", text: "Tag: onsite")
+          end
+
+          it "clears all filters and tags but keeps the search term" do
+            visit "/admin/events?tagged_with=onsite&q[by_timeframe]=future&q[#{search_field}]=event"
+
+            click_link "Clear all"
+
+            query = Rack::Utils.parse_nested_query(URI.parse(page.current_url).query)
+            expect(query).to eq("q" => {search_field => "event"})
           end
         end
       end

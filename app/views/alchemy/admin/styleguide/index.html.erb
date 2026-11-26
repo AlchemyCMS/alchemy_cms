@@ -349,67 +349,92 @@
 
 <h3>Normal Table</h3>
 
-<table class="list">
-  <tr>
-    <th>Table Heading 1</th>
-    <th>Table Heading 2</th>
-    <th>Table Heading 3</th>
-  </tr>
-  <tr class="even">
-    <td>Even table cell 1</td>
-    <td>Even table cell 2</td>
-    <td>Even table cell 3</td>
-  </tr>
-  <tr class="odd">
-    <td>Odd table cell 1</td>
-    <td>Odd table cell 2</td>
-    <td>Odd table cell 3</td>
-  </tr>
-</table>
+<div class="table-card">
+  <table class="list">
+    <tr>
+      <th>Table Heading 1</th>
+      <th>Table Heading 2</th>
+      <th>Table Heading 3</th>
+    </tr>
+    <tr class="even">
+      <td>Even table cell 1</td>
+      <td>Even table cell 2</td>
+      <td>Even table cell 3</td>
+    </tr>
+    <tr class="odd">
+      <td>Odd table cell 1</td>
+      <td>Odd table cell 2</td>
+      <td>Odd table cell 3</td>
+    </tr>
+  </table>
+</div>
 
 <h3>Table with icons</h3>
 
-<table class="list">
-  <tr>
-    <th class="icon"></th>
-    <th>Table Heading 1</th>
-    <th>Table Heading 2</th>
-    <th>Table Heading 3</th>
-    <th class="tools"></th>
-  </tr>
-  <tr class="even">
-    <td class="icon">
-      <%= render_icon "user" %>
-    </td>
-    <td>Even table cell 1</td>
-    <td>Even table cell 2</td>
-    <td>Even table cell 3</td>
-    <td class="tools">
-      <a href="#" class="icon_button">
-        <%= render_icon "delete-bin-2" %>
-      </a>
-      <a href="#" class="icon_button">
-        <%= render_icon "edit" %>
-      </a>
-    </td>
-  </tr>
-  <tr class="odd">
-    <td class="icon">
-      <%= render_icon "user", style: "fill" %>
-    </td>
-    <td>Odd table cell 1</td>
-    <td>Odd table cell 2</td>
-    <td>Odd table cell 3</td>
-    <td class="tools">
-      <a href="#" class="icon_button">
-        <%= render_icon "delete-bin-2" %>
-      </a>
-      <a href="#" class="icon_button">
-        <%= render_icon "edit" %>
-      </a>
-    </td>
-  </tr>
-</table>
+<div class="table-card">
+  <table class="list">
+    <tr>
+      <th class="icon"></th>
+      <th>Table Heading 1</th>
+      <th>Table Heading 2</th>
+      <th>Table Heading 3</th>
+      <th class="tools"></th>
+    </tr>
+    <tr class="even">
+      <td class="icon">
+        <%= render_icon "user" %>
+      </td>
+      <td>Even table cell 1</td>
+      <td>Even table cell 2</td>
+      <td>Even table cell 3</td>
+      <td class="tools">
+        <a href="#" class="icon_button">
+          <%= render_icon "delete-bin-2" %>
+        </a>
+        <a href="#" class="icon_button">
+          <%= render_icon "edit" %>
+        </a>
+      </td>
+    </tr>
+    <tr class="odd">
+      <td class="icon">
+        <%= render_icon "user", style: "fill" %>
+      </td>
+      <td>Odd table cell 1</td>
+      <td>Odd table cell 2</td>
+      <td>Odd table cell 3</td>
+      <td class="tools">
+        <a href="#" class="icon_button">
+          <%= render_icon "delete-bin-2" %>
+        </a>
+        <a href="#" class="icon_button">
+          <%= render_icon "edit" %>
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<h3>Table with pagination</h3>
+
+<% entries = Kaminari.paginate_array((1..42).to_a).page(params[:page]).per(5) %>
+<div class="table-card">
+  <table class="list">
+    <tr>
+      <th>Entry</th>
+      <th>Table Heading 2</th>
+      <th>Table Heading 3</th>
+    </tr>
+    <% entries.each do |number| %>
+      <tr class="<%= cycle("even", "odd") %>">
+        <td>Entry <%= number %></td>
+        <td>Table cell 2</td>
+        <td>Table cell 3</td>
+      </tr>
+    <% end %>
+  </table>
+  <%= render "alchemy/admin/resources/pagination", resources: entries, hide_per_page_select: true %>
+</div>
 
 <h2>Lists</h2>
 

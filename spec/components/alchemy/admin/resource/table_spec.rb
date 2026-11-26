@@ -45,6 +45,24 @@ RSpec.describe Alchemy::Admin::Resource::Table, type: :component do
         expect(page).to have_selector("table td.name", text: "Foo")
         expect(page).to have_selector("table td.description", text: "Awesome description")
       end
+
+      context "with a long value" do
+        let(:long_description) { "A full day of hands-on Alchemy CMS with lunch and plenty of time for questions." }
+
+        let(:collection) { [custom_resource.new("Foo", long_description)] }
+
+        it "renders the full value with the full value as title" do
+          expect(page).to have_selector("table td.description span[title='#{long_description}']", text: long_description)
+        end
+      end
+
+      context "with a value that is not a string" do
+        let(:collection) { [custom_resource.new("Foo", BigDecimal("12.32"))] }
+
+        it "renders it as text" do
+          expect(page).to have_selector("table td.description", text: "12.32")
+        end
+      end
     end
 
     context "columns with custom header" do

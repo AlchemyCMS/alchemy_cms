@@ -252,6 +252,11 @@ ru:
     "File deleted successfully": "%{name} файл удален"
     "Filter": "Фильтровать"
     "Filter by tag": "Фильтровать по меткам"
+    "Filters": "Фильтры"
+    "Hide filters": "Скрыть фильтры"
+    "Show filters": "Показать фильтры"
+    "Tag": "Метка"
+    "Clear all": "Сбросить всё"
     "Flush page cache": "Очистить кэш страниц"
     "Flush picture cache": "Очистить кэш изображений"
     "Global shortcuts": "Глобальные ярлыки"
@@ -306,7 +311,6 @@ ru:
     "Redirects to": "Перенаправлять на"
     "Reload Preview": "Обновить предпросмотр"
     "Remove item from clipboard": "Удалить элемент из буфера обмена"
-    "Remove tag filter": "Удалить фильтр меток"
     "Remove this content": "Удалить этот контент"
     "Reset Imagemask": "Сбросить"
     "Reset password instructions": "Инструкция по сбросу пароля"
@@ -404,7 +408,7 @@ ru:
     delete_tag: "Удалить метку"
     document: "Файл"
     download_csv: "Скачать CSV"
-    download_file: "Скачать файл '%{filename}'"
+    download_file: "Скачать файл"
     do_you_really_want_to_delete_this_tag?: "Вы действительно хотите удалть эту метку?"
     drag_to_sort: "Используйте Drag'n'Drop для сортировки изображений"
     edit_file_properties: "Редактировать свойства файла"
@@ -693,6 +697,9 @@ ru:
           login: войти
           password: Пароль
     admin:
+      resources:
+        pagination:
+          showing_entries_html: "Показаны <b>%{from}–%{to}</b> из <b>%{total}</b>"
       page_definitions:
         content_pages: "Страницы контента"
         element_usage: "На этом типе страниц: %{count} · Всего: %{total}"

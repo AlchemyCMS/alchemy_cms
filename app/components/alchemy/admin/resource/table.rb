@@ -101,7 +101,10 @@ module Alchemy
           header ||= resource_handler.model.human_attribute_name(name)
           type ||= resource_handler.model.columns_hash[name.to_s]&.type
           attribute = resource_handler.attributes.find { |item| item[:name] == name.to_s } || {name: name, type: type}
-          block ||= lambda { |item| render_attribute(item, attribute) }
+          block ||= lambda do |item|
+            text = render_attribute(item, attribute, truncate: false).to_s
+            content_tag(:span, text, title: strip_tags(text).presence)
+          end
 
           css_classes = [name, type, class_name].compact.join(" ")
           with_header(name, @query, css_classes: css_classes, text: header, type: type, sortable: sortable)
@@ -110,7 +113,7 @@ module Alchemy
 
         def icon_column(icon = nil, style: nil)
           column(:icon, header: "") do |resource|
-            render_icon(icon || yield(resource), size: "xl", style: style)
+            render_icon(icon || yield(resource), style: style)
           end
         end
 

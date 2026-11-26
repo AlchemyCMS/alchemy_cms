@@ -395,6 +395,9 @@ es:
       publish_page_button:
         publish_page: "Publicar página"
         publish_changes: "Publicar cambios"
+      resources:
+        pagination:
+          showing_entries_html: "Mostrando <b>%{from}–%{to}</b> de <b>%{total}</b>"
       hints:
         alchemy/element_definition:
           fixed: "Este elemento tiene una posición fija en la página."
@@ -452,6 +455,11 @@ es:
     "File deleted successfully": "%{name} se ha eliminado"
     "Filter": Filtrar
     "Filter by tag": "Filtrar por etiqueta"
+    "Filters": "Filtros"
+    "Hide filters": "Ocultar filtros"
+    "Show filters": "Mostrar filtros"
+    "Tag": "Etiqueta"
+    "Clear all": "Borrar todo"
     "Filter elements": "Filtrar elementos"
     "Filter tags": "Filtrar etiquetas"
     "Flush page cache": "Vaciar caché de páginas"
@@ -520,7 +528,6 @@ es:
     "Redirects to": "Redirige a"
     "Reload Preview": "Recargar vista previa"
     "Remove item from clipboard": "Quitar elemento del portapapeles"
-    "Remove tag filter": "Quitar filtro de etiquetas"
     "Remove this content": "Quitar este contenido"
     "Reset Imagemask": "Reiniciar"
     "Reset password instructions": "Instrucciones para restablecer la contraseña"
@@ -648,7 +655,7 @@ es:
     delete_tag: "Eliminar etiqueta"
     document: "Archivo"
     download_csv: "Descargar CSV"
-    download_file: "Descargar archivo '%{filename}'"
+    download_file: "Descargar archivo"
     do_you_really_want_to_delete_this_tag?: "¿Desea realmente eliminar esta etiqueta?"
     draft: "Borrador"
     drag_to_sort: "Arrastre para ordenar las imágenes"

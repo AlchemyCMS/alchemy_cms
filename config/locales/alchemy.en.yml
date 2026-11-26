@@ -324,6 +324,9 @@ en:
       publish_page_button:
         publish_page: "Publish page"
         publish_changes: "Publish changes"
+      resources:
+        pagination:
+          showing_entries_html: "Showing <b>%{from}–%{to}</b> of <b>%{total}</b>"
       hints:
         alchemy/element_definition:
           fixed: "This element has a fixed position on the page."
@@ -368,6 +371,11 @@ en:
     "File successfully updated": "File successfully updated"
     "File deleted successfully": "%{name} has been deleted"
     "Filter by tag": "Filter by tag"
+    "Filters": "Filters"
+    "Hide filters": "Hide filters"
+    "Show filters": "Show filters"
+    "Tag": "Tag"
+    "Clear all": "Clear all"
     "Flush page cache": "Flush page cache"
     "Flush picture cache": "Flush picture cache"
     "Global shortcuts": "Global shortcuts"
@@ -422,7 +430,6 @@ en:
     "Redirects to": "Redirects to"
     "Reload Preview": "Reload Preview"
     "Remove item from clipboard": "Remove item from clipboard"
-    "Remove tag filter": "Remove tag filter"
     "Reset Imagemask": "Reset mask"
     "Reset password instructions": "Reset password instructions"
     "Select all": "Select all"
@@ -522,7 +529,7 @@ en:
     search_tag: "Search tag"
     document: "File"
     download_csv: "Download CSV"
-    download_file: "Download file '%{filename}'"
+    download_file: "Download file"
     do_you_really_want_to_delete_this_tag?: "Do you really want to delete this tag?"
     drag_to_sort: "Drag'n'Drop to sort images"
     edit_file_properties: "Edit file properties."

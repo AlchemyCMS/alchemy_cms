@@ -345,6 +345,9 @@ zh-CN:
       publish_page_button:
         publish_page: "发布页面"
         publish_changes: "发布更改"
+      resources:
+        pagination:
+          showing_entries_html: "显示第 <b>%{from}–%{to}</b> 条，共 <b>%{total}</b> 条"
       page_definitions:
         content_pages: "内容页面"
         element_usage: "此页面类型：%{count} · 总计：%{total}"
@@ -397,6 +400,11 @@ zh-CN:
     "File successfully updated": "文件已成功更新"
     "File deleted successfully": "%{name} 已经被删除"
     "Filter by tag": "按标签过滤"
+    "Filters": "筛选"
+    "Hide filters": "隐藏筛选"
+    "Show filters": "显示筛选"
+    "Tag": "标签"
+    "Clear all": "全部清除"
     "Flush page cache": "清空页面缓存"
     "Flush picture cache": "清空图片缓存"
     "Global shortcuts": "全局快捷键"
@@ -451,7 +459,6 @@ zh-CN:
     "Redirects to": "跳转到"
     "Reload Preview": "重新加载预览"
     "Remove item from clipboard": "从剪贴板中删除元素"
-    "Remove tag filter": "删除标签过滤器"
     "Remove this content": "删除这个内容"
     "Reset Imagemask": "重置掩码"
     "Reset password instructions": "重置密码指南"
@@ -553,7 +560,7 @@ zh-CN:
     delete_tag: "删除标签"
     document: "文件"
     download_csv: "下载 CSV"
-    download_file: "下载文件 '%{filename}'"
+    download_file: "下载文件"
     do_you_really_want_to_delete_this_tag?: "你确认要删除这个标签？"
     drag_to_sort: "拖动来排序图片"
     edit_file_properties: "编辑文件属性。"
