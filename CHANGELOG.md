@@ -1,5 +1,15 @@
 # Changelog
 
+## 8.0.17 (2026-11-27)
+
+## What's Changed
+* [8.0-stable] CI: Use ubuntu-24 to run specs by @alchemycms-ci-bot in https://github.com/AlchemyCMS/alchemy_cms/pull/4245
+* [8.0-stable] fix(Resource::Table): Build a fresh cell/action per row by @alchemycms-bot[bot] in https://github.com/AlchemyCMS/alchemy_cms/pull/4242
+* [8.0-stable] fix(admin): Show available updates in update check by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4532
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.0.16...v8.0.17
+
 ## 8.0.16 (2026-07-22)
 
 ## What's Changed
