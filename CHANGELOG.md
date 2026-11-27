@@ -1,5 +1,16 @@
 # Changelog
 
+## 8.3.12 (2026-11-27)
+
+<!-- Release notes generated using configuration in .github/release.yml at 8.3-stable -->
+
+## What's Changed
+### Bug Fixes
+* [8.3-stable] fix(admin): Show available updates in update check by @tvdeyen in https://github.com/AlchemyCMS/alchemy_cms/pull/4535
+
+
+**Full Changelog**: https://github.com/AlchemyCMS/alchemy_cms/compare/v8.3.11...v8.3.12
+
 ## 8.3.11 (2026-10-26)
 
 <!-- Release notes generated using configuration in .github/release.yml at 8.3-stable -->
