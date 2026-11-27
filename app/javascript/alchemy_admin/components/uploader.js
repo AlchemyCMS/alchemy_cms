@@ -62,9 +62,7 @@ export class Uploader extends HTMLElement {
     event.preventDefault()
     this.#toggleDropzoneClass(false)
 
-    const files = [...event.dataTransfer.items].map((item) => item.getAsFile())
-
-    this.uploadFiles(files)
+    this.uploadFiles([...event.dataTransfer.files])
   }
 
   #onDropzoneDragover = (event) => {
