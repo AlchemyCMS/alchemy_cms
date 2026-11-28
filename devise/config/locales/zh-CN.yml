@@ -11,8 +11,15 @@ zh-CN:
               blank: "是更改角色所必需的"
               invalid: "不正确"
   alchemy:
+    impersonate_user: 以用户身份登录
+    confirm_impersonate_user: 确定要以 %{user} 的身份登录吗？
     admin:
       users:
         confirm_password_for_role_change:
           create: "要创建具有 %{roles} 角色的用户，您必须使用自己的密码进行确认。"
           update: "要更改 %{user} 的 %{roles} 角色，您必须使用自己的密码进行确认。"
+    devise:
+      user_impersonation:
+        notice: 您当前正以 %{user} 的身份操作。
+        stop: 停止模拟用户
+        stop_confirmation: 返回您的管理员账户吗？

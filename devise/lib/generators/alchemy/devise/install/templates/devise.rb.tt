@@ -8,6 +8,15 @@
 #
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
+Alchemy::Devise.configure do |config|
+  # Allow administrators to impersonate active users who are not administrators.
+  # This is disabled by default. Impersonation has the selected user's full access.
+  # config.user_impersonation = true
+
+  # Relative frontend path used after impersonation starts.
+  # config.user_impersonation_redirect_path = "/"
+end
+
 Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
